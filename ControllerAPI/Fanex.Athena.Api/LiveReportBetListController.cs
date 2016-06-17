@@ -23,15 +23,12 @@ namespace Fanex.Athena.Api.BetList
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
+    [ApiFunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportBetListController : ApiBetListBaseController
     {
         #region Local Paging
 
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Match(LiveReportBetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
@@ -51,7 +48,6 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Outright(LiveReportBetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
@@ -74,7 +70,6 @@ namespace Fanex.Athena.Api.BetList
         #region Server Paging
 
         [HttpGet]
-        [ApiFunctionAuthorization]
         public dynamic NumberGame(
             int page,
             int rows,
@@ -122,7 +117,6 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
-        [ApiFunctionAuthorization]
         public dynamic MixParlay(
             int page,
             int rows,
@@ -190,7 +184,6 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
-        [ApiFunctionAuthorization]
         public dynamic Racing(
             int page,
             int rows,

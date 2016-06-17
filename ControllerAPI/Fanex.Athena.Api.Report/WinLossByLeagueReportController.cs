@@ -18,12 +18,14 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
+    using Model.Core.DataDomain;
     using Resources;
     using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
     public class WinLossByLeagueReportController : ApiReportBaseController
     {
         private readonly IWinLossByLeagueService _winlossByLeagueService;
@@ -37,14 +39,12 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index([FromBody] WinLossByLeagueMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
 
         [HttpPost]
-        [ApiFunctionAuthorization]
         public HttpResponseMessage Excel(WinLossByLeagueMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel))

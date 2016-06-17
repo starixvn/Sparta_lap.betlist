@@ -14,13 +14,17 @@ namespace Fanex.Athena.Web.ActionFilter
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    [CLSCompliant(true)]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class FunctionAuthorizationAttribute : ActionFilterAttribute
     {
-        public FunctionAuthorizationAttribute(params string[] permissionKeys)
+        public FunctionAuthorizationAttribute(string permissionKey)
         {
-            PermissionKeys = permissionKeys;
+            PermissionKeys = new string[] { permissionKey };
+        }
+
+        public FunctionAuthorizationAttribute(string permissionKey1, string permissionKey2)
+        {
+            PermissionKeys = new string[] { permissionKey1, permissionKey2 };
         }
 
         public string[] PermissionKeys { get; set; }
@@ -49,11 +53,11 @@ namespace Fanex.Athena.Web.ActionFilter
             if (!authorized)
             {
                 var routeValue = new
-                 {
-                     controller = "Utility",
-                     action = "AccessDenied",
-                     message = "AccessDenied"
-                 };
+                {
+                    controller = "Utility",
+                    action = "AccessDenied",
+                    message = "AccessDenied"
+                };
 
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(routeValue));
             }

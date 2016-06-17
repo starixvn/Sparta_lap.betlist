@@ -14,13 +14,14 @@ namespace Fanex.Athena.Api.BetList
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Model.Core.DataDomain;
 
     #endregion Using
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportDailyRacingWinLoss)]
     public class DailyRacingWinLossBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index(BetListMetaModel metaModel)
         {
             metaModel.UserId = SessionService.UserSession.UserId;

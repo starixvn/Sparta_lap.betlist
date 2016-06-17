@@ -15,20 +15,18 @@ namespace Fanex.Athena.Api.CustomerLog
     using System.Web.Hosting;
     using System.Xml;
     using Base;
+    using Base.Attributes;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
     using Fanex.Athena.Service.Customer;
+    using Model.Core.DataDomain;
     using RazorEngine;
     using RazorEngine.Templating;
     using Resources;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
+    [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
     public partial class LogController : BaseApiController
     {
-        private const string CustomerLogUrl = "CustomerLog/LogInLog";
-
         #region Field
 
         /// <summary>

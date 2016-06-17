@@ -7,7 +7,6 @@
     public class VoidbridgeBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Detail(BetListMetaModel metaModel)
         {
             metaModel.UserId = SessionService.UserSession.UserId;

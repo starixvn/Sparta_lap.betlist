@@ -6,13 +6,14 @@
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Model.Core.DataDomain;
 
     #endregion Using
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportWinLossByBetType)]
     public class WinlossByBetTypeBetListController : ApiBetListBaseController
     {
         [HttpGet]
-        [ApiFunctionAuthorization]
         public dynamic Index(
             int page,
             int rows,

@@ -11,10 +11,10 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct)]
     public class LicenseeWinLossBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;

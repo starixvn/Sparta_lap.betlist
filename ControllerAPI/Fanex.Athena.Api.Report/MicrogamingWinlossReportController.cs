@@ -18,9 +18,11 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
+    using Model.Core.DataDomain;
     using Service.Report;
     using Service.Report.Interfaces;
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportMicrogamingWinloss)]
     public class MicrogamingWinlossReportController : ApiReportBaseController
     {
         private readonly IMicroGamingWinLossService _microGamingWinLossService;
@@ -31,7 +33,6 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index(
             MicroGamingWinLossMetaModel metaModel)
         {

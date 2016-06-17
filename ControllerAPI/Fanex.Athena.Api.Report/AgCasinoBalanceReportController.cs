@@ -18,9 +18,11 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
+    using Model.Core.DataDomain;
     using Service.Report;
     using Service.Report.Interfaces;
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportAGCasinoBalance)]
     public class AgCasinoBalanceReportController : ApiReportBaseController
     {
         private readonly IAgCasinoBalanceService _agcasinoBalanceService;
@@ -31,7 +33,6 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index(AgCasinoBalanceMetaModel metaModel)
         {
             return ProcessRequest(metaModel);

@@ -12,12 +12,22 @@
     using System.Web.Http.Filters;
     using Fanex.Athena.Service.Core.Users;
 
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class ApiFunctionAuthorizationAttribute : FilterAttribute, IAuthorizationFilter
     {
-        private const string AntiForgeryHeaderName = "__RequestVerificationToken";
+        private const string KeyName = "__RequestVerificationToken";
 
-        public string ParentUrl { get; set; }
+        public ApiFunctionAuthorizationAttribute(string permissionKey)
+        {
+            PermissionKeys = new string[] { permissionKey };
+        }
+
+        public ApiFunctionAuthorizationAttribute(string permissionKey1, string permissionKey2)
+        {
+            PermissionKeys = new string[] { permissionKey1, permissionKey2 };
+        }
+
+        public string[] PermissionKeys { get; set; }
 
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
@@ -30,7 +40,7 @@
 
                 if (IsAjaxRequest(headers))
                 {
-                    if (!headers.Contains(AntiForgeryHeaderName))
+                    if (!headers.Contains(KeyName))
                     {
                         return UnauthorizeAccessHandler(actionContext);
                     }
@@ -40,7 +50,7 @@
                         .Select(c => c[AntiForgeryConfig.CookieName])
                         .FirstOrDefault();
 
-                    var crfsKey = headers.GetValues(AntiForgeryHeaderName).FirstOrDefault();
+                    var crfsKey = headers.GetValues(KeyName).FirstOrDefault();
                     AntiForgery.Validate(cookie != null ? cookie.Value : null, crfsKey);
                 }
                 else
@@ -88,7 +98,7 @@
             var authorized = true;
             if (userSession != null && licenseeSession != null)
             {
-                authorized = authorization.HasPermissions(licenseeSession.LicenseeId, userSession.FunctionIdList, new string[] { });
+                authorized = authorization.HasPermissions(licenseeSession.LicenseeId, userSession.FunctionIdList, PermissionKeys);
             }
 
             return authorized;

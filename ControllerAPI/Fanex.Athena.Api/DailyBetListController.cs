@@ -15,13 +15,14 @@ namespace Fanex.Athena.Api.BetList
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Model.Core.DataDomain;
 
     #endregion Using
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportDailyBetList)]
     public class DailyBetListController : ApiBetListBaseController
     {
         [HttpGet]
-        [ApiFunctionAuthorization]
         public dynamic Index(
             int page,
             int rows,

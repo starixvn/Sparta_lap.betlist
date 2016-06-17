@@ -23,12 +23,12 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
+    [FunctionAuthorization(PermissionKeys.ReportDailyBetList)]
     public class DailyBetListController : BetListBaseController
     {
         private const string BetListDailyBetListName = "BetList_DailyBetList";
 
         [HttpGet]
-        [FunctionAuthorization(PermissionKeys.ReportDailyBetList)]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;

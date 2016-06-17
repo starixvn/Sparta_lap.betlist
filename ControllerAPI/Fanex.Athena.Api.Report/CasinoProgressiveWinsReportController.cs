@@ -21,10 +21,9 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Report;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Core.DataDomain;
 
-    /// <summary>
-    /// ReportController class.
-    /// </summary>
+    [ApiFunctionAuthorization(PermissionKeys.ReportCasinoProgressiveWins)]
     public class CasinoProgressiveWinsReportController : ApiReportBaseController
     {
         private readonly ICasinoProgressiveWinsService _casinoProgressiveWinsService;
@@ -35,7 +34,6 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index(CasinoProgressiveWinsMetaModel metaModel)
         {
             return ProcessRequest(metaModel);

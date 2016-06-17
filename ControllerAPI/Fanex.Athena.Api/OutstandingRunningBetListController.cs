@@ -14,16 +14,14 @@ namespace Fanex.Athena.Api.BetList
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Model.Core.DataDomain;
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
+    [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class OutstandingRunningBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;

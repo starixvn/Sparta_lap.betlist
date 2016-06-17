@@ -26,6 +26,7 @@ namespace Fanex.Athena.Api.Report
     using Service.Report;
     using Service.Report.Interfaces;
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportPlatformWinLoss)]
     public class PlatformWinLossReportController : ApiReportBaseController
     {
         private readonly IPlatformWinLossService _platformWinLossService;
@@ -36,7 +37,6 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index(PlatformWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel);

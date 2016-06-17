@@ -30,9 +30,7 @@ namespace Fanex.Athena.Api.BetList
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
+    [ApiFunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
     public class LastBetMonitoringBetListController : ApiBetListBaseController
     {
         private static readonly IList<int> ConvertingDecimalOddsBetType = new List<int> { 1, 2, 3, 7, 8, 12, 20 };
@@ -50,7 +48,6 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="sportId">Sport Id value.</param>
         /// <returns>Return match list and league list.</returns>
         [HttpGet]
-        [ApiFunctionAuthorization]
         public dynamic GetRunningMatchList(int sportId)
         {
             var matchList = _matchService.GetAllRunningMatch(sportId);
@@ -86,7 +83,6 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index(LastBetsMonitoringMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;

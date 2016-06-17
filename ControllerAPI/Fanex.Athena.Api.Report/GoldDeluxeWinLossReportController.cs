@@ -19,9 +19,11 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
+    using Model.Core.DataDomain;
     using Service.Report;
     using Service.Report.Interfaces;
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportGoldDeluxeWinloss)]
     public class GoldDeluxeWinLossReportController : ApiReportBaseController
     {
         private readonly IGoldDeluxeWinLossService _golddeluxeWinLossService;
@@ -32,7 +34,6 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index(
             GoldDeluxeWinLossMetaModel metaModel,
             DateTime? fdate,
@@ -45,7 +46,6 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index([FromBody] GoldDeluxeWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);

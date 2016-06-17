@@ -14,9 +14,11 @@ namespace Fanex.Athena.Api.BetList
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Model.Core.DataDomain;
 
     #endregion Using
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportCustomerWinLoss)]
     public class CustomerWinLossBetListController : ApiBetListBaseController
     {
         /// <summary>
@@ -25,7 +27,6 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">MetaModel object.</param>
         /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;

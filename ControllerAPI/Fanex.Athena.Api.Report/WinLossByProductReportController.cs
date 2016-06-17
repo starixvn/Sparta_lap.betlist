@@ -27,6 +27,7 @@ namespace Fanex.Athena.Api.Report
     using Service.Report;
     using Service.Report.Interfaces;
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportWinLossByProduct)]
     public class WinLossByProductReportController : ApiReportBaseController
     {
         private const string ParrentUrl = "Report/WinLossByProduct";
@@ -38,7 +39,6 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index(
            WinLossByProductMetaModel metaModel,
             DateTime? fdate,
@@ -54,7 +54,6 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index([FromBody] WinLossByProductMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);

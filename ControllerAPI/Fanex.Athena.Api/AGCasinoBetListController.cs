@@ -9,18 +9,13 @@ namespace Fanex.Athena.Api.BetList
     #region Using
 
     using System.Web.Http;
-    using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class AGCasinoBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Detail(BetListMetaModel metaModel)
         {
             metaModel.UserId = SessionService.UserSession.UserId;

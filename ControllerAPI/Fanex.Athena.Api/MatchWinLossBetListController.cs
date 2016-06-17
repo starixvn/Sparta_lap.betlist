@@ -17,13 +17,13 @@ namespace Fanex.Athena.Api.BetList
     using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.MetaModel.Product;
-
+    using Model.Core.DataDomain;
     #endregion Using
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossBetListController : ApiBetListBaseController
     {
         [HttpGet]
-        [ApiFunctionAuthorization]
         public dynamic MatchBetType(
             int page,
             int rows,
@@ -54,7 +54,6 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">Meta model object.</param>
         /// <returns>Bet list data for match win loss outright.</returns>
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Outright(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
@@ -74,7 +73,6 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
-        [ApiFunctionAuthorization]
         public dynamic MixParlay(
             int page,
             int rows,

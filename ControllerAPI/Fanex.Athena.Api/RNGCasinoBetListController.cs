@@ -13,7 +13,6 @@ namespace Fanex.Athena.Api.BetList
     public class RNGCasinoBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Detail(BetListMetaModel metaModel)
         {
             metaModel.UserId = SessionService.UserSession.UserId;

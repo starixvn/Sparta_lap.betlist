@@ -15,13 +15,10 @@ namespace Fanex.Athena.Api.BetList
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
+    [ApiFunctionAuthorization(PermissionKeys.ReportPlatformWinLoss)]
     public class PlatformWinLossBetListController : ApiBetListBaseController
     {
         [HttpPost]
-        [ApiFunctionAuthorization]
         public dynamic Index(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
