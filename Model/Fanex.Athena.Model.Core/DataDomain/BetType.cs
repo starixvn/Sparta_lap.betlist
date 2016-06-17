@@ -138,6 +138,10 @@ namespace Fanex.Athena.Model.Core.DataDomain
         /// </summary>
         NextCorner = 23,
 
+        ToWinToNil = 27,
+
+        ThreeWayHandicap = 28,
+
         /// <summary>
         /// Win bet type, value = 31.
         /// </summary>

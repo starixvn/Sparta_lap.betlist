@@ -256,7 +256,7 @@ var Site = (function ($) {
                 currencyName = $("#CurrencyName").val();
             }
 
-            return setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency);
+            return setLicenseeOption(urlOrParams || {}, licenseeType, currencyId, currencyName, baseCurrency);
         },
 
         setLicenseeOptionOriginalParam: function (urlOrParams) {

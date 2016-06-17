@@ -14,6 +14,7 @@ namespace Fanex.Athena.Api.BetList
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Model.Core.DataDomain;
 
     #endregion Using
 
@@ -28,14 +29,31 @@ namespace Fanex.Athena.Api.BetList
     /// </summary>
     public class RunningBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for running bet list.
-        /// [Used in TOTAL BETS].
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        [ApiFunctionAuthorization(PermissionKeys.TotalBetCleanSheet)]
+        public dynamic CleanSheet(BetListMetaModel metaModel)
+        {
+            metaModel.BetType = (int)BetType.CleanSheet;
+            return ProcessRequest(metaModel);
+        }
+
+        [HttpPost]
+        [ApiFunctionAuthorization(PermissionKeys.TotalBetToWinToNil)]
+        public dynamic ToWinToNil(BetListMetaModel metaModel)
+        {
+            metaModel.BetType = (int)BetType.ToWinToNil;
+            return ProcessRequest(metaModel);
+        }
+
+        [HttpPost]
+        [ApiFunctionAuthorization(PermissionKeys.TotalBet3WayHandicap)]
+        public dynamic ThreeWayHandicap(BetListMetaModel metaModel)
+        {
+            metaModel.BetType = (int)BetType.ThreeWayHandicap;
+            return ProcessRequest(metaModel);
+        }
+
+        private dynamic ProcessRequest(BetListMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;

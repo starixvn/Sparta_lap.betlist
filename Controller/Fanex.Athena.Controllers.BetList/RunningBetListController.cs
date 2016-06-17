@@ -16,10 +16,9 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.Helper;
-    using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
-
+    using Web.ActionFilter;
     #endregion Using
 
     /// <summary>
@@ -33,14 +32,37 @@ namespace Fanex.Athena.Controllers.BetList
     /// </summary>
     public class RunningBetListController : BetListBaseController
     {
-        /// <summary>
-        /// Action Get for running bet list.
-        /// [Used in TOTAL BETS].
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
-        public ActionResult Index(BetListMetaModel metaModel)
+        [FunctionAuthorization(PermissionKeys.TotalBetCleanSheet)]
+        public ActionResult CleanSheet(BetListMetaModel metaModel)
+        {
+            metaModel.BetType = (int)BetType.CleanSheet;
+            ViewBag.ReportTitle = ViewResources.CleanSheet;
+            ViewBag.UserGuideName = "TotalBetsCleanSheet";
+            return ProcessRequest(metaModel);
+        }
+
+        [HttpGet]
+        [FunctionAuthorization(PermissionKeys.TotalBetToWinToNil)]
+        public ActionResult ToWinToNil(BetListMetaModel metaModel)
+        {
+            metaModel.BetType = (int)BetType.ToWinToNil;
+            ViewBag.ReportTitle = ViewResources.ToWinToNil;
+            ViewBag.UserGuideName = "TotalBetsToWinToNil";
+            return ProcessRequest(metaModel);
+        }
+
+        [HttpGet]
+        [FunctionAuthorization(PermissionKeys.TotalBet3WayHandicap)]
+        public ActionResult ThreeWayHandicap(BetListMetaModel metaModel)
+        {
+            metaModel.BetType = (int)BetType.ThreeWayHandicap;
+            ViewBag.ReportTitle = ViewResources.lbl3WayHandicap;
+            ViewBag.UserGuideName = "TotalBets3WayHandicap";
+            return ProcessRequest(metaModel);
+        }
+
+        private ActionResult ProcessRequest(BetListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
