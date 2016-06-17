@@ -8,9 +8,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
 {
     using System;
 
-    /// <summary>
-    /// ThirdPartyWinLossMetaModel class.
-    /// </summary>
     public class ThirdPartyWinLossMetaModel : BaseReportMetaModel
     {
         private DateTime? _fromDate;

@@ -23,9 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class ThirdPartyWinLossDataAccess : BaseDataAccess, IThirdPartyWinLossDataAccess
     {
         public ThirdPartyWinLossDataAccess(BalanceUp balanceUp)
@@ -35,12 +32,6 @@ namespace Fanex.Athena.DataAccess.Report
 
         #region IGoldDeluxeWinLossDataAccess Members
 
-        /// <summary>
-        /// Get summary win loss.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
         public SortableList<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
         {
             var uspName = "Lrf_Rpt_ThirdPartyWinloss";
@@ -64,12 +55,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get customer win loss detail.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
         public SortableList<ThirdPartyWinLoss> GetCustomerWinlossDetail(
             ThirdPartyWinLossMetaModel metaModel,
             out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
@@ -94,12 +79,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get agent win loss detail.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
         public SortableList<ThirdPartyWinLoss> GetAgentWinlossDetail(
             ThirdPartyWinLossMetaModel metaModel,
             out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
@@ -127,13 +106,6 @@ namespace Fanex.Athena.DataAccess.Report
 
         #region Private
 
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static SortableList<ThirdPartyWinLoss> GetData(
@@ -177,7 +149,6 @@ namespace Fanex.Athena.DataAccess.Report
 
                 result.Add(item);
 
-                // Read Summary
                 foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
                     summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
@@ -190,12 +161,6 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        /// <summary>
-        /// Update USP parameter.
-        /// </summary>
-        /// <param name="db">Database value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="drilldown">Drill down value.</param>
         private void UpdateUspParams(ObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
             var currencyId = drilldown ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;

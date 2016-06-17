@@ -11,9 +11,6 @@ namespace Fanex.Athena.Model.Report.ViewModel
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ViewModel;
 
-    /// <summary>
-    /// ThirdPartyWinLossViewModel class.
-    /// </summary>
     public class ThirdPartyWinLossViewModel : BaseViewModel
     {
         public IList<ThirdPartyWinLoss> MainResult { get; set; }

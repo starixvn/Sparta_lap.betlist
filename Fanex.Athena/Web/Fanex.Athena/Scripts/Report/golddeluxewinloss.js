@@ -67,7 +67,7 @@ var GoldDeluxeWinLoss = (function ($) {
 
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
-            var temp = 'api/GoldDeluxeWinLossReport/Index';
+            var temp = 'api/ThirdPartyWinLossReport/Index';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")
@@ -136,6 +136,7 @@ var GoldDeluxeWinLoss = (function ($) {
                         ToDate: $("#ToDate").val(),
                         CurrencyName: $("#CurrencyId option:selected").text(),
                         BaseCurrency: $("#BaseCurrency").val(),
+                        ProductId: $("#ProductId").val(),
                         ReportBy: reportBy
                     };
 
@@ -195,6 +196,7 @@ var GoldDeluxeWinLoss = (function ($) {
                 FromDate: _submitData.FromDate,
                 ToDate: _submitData.ToDate,
                 BaseCurrency: _submitData.BaseCurrency,
+                ProductId: _submitData.ProductId,
                 ReportBy: _submitData.ReportBy
             };
             var fdate = new Date(Date.parse(datetime));

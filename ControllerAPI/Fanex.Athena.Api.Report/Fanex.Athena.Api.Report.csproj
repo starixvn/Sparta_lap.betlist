@@ -159,7 +159,6 @@
     <Compile Include="ApiReportBaseController.cs" />
     <Compile Include="CasinoProgressiveWinsReportController.cs" />
     <Compile Include="MicrogamingWinlossReportController.cs" />
-    <Compile Include="GoldDeluxeWinLossReportController.cs" />
     <Compile Include="ActiveCustomerSummaryReportController.cs" />
     <Compile Include="AgCasinoBalanceReportController.cs" />
     <Compile Include="AgCasinoWinLossReportController.cs" />

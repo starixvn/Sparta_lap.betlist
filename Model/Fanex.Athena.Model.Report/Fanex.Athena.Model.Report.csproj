@@ -114,7 +114,6 @@
     <Compile Include="DTO\Keno\KenoExtendedToken.cs" />
     <Compile Include="DTO\AgCasinoWinLoss.cs" />
     <Compile Include="DTO\ActiveCustomer.cs" />
-    <Compile Include="DTO\GoldDeluxeWinLoss.cs" />
     <Compile Include="DTO\AgCasinoBalance.cs" />
     <Compile Include="DTO\PlatformWinLossSummary.cs" />
     <Compile Include="DTO\PlaytechCasino.cs" />
@@ -149,7 +148,6 @@
     <Compile Include="MetaModel\ActiveCustomerMetaModel.cs" />
     <Compile Include="MetaModel\CasinoProgressiveWinsMetaModel.cs" />
     <Compile Include="MetaModel\MicroGamingWinLossMetaModel.cs" />
-    <Compile Include="MetaModel\GoldDeluxeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\AgCasinoBalanceMetaModel.cs" />
     <Compile Include="MetaModel\PlaytechCasinoMetaModel.cs" />
     <Compile Include="MetaModel\ThirdPartyWinLossMetaModel.cs" />
@@ -180,7 +178,6 @@
     <Compile Include="ViewModel\CasinoProgressiveWinsViewModel.cs" />
     <Compile Include="ViewModel\CasinoProgressiveWinsGridViewModel.cs" />
     <Compile Include="ViewModel\MicroGamingWinLossViewModel.cs" />
-    <Compile Include="ViewModel\GoldDeluxeWinLossViewModel.cs" />
     <Compile Include="ViewModel\PlaytechCasinoViewModel.cs" />
     <Compile Include="ViewModel\ThirdPartyWinLossViewModel.cs" />
     <Compile Include="ViewModel\WinLossByLeagueViewModel.cs" />

@@ -108,7 +108,6 @@
     <Compile Include="ActiveCustomerSummaryExcel.cs" />
     <Compile Include="CasinoProgressiveWinsExcel.cs" />
     <Compile Include="MicroGamingWinLossExcel.cs" />
-    <Compile Include="GoldDeluxeWinLossExcel.cs" />
     <Compile Include="AgCasinoBalanceExcel.cs" />
     <Compile Include="PlatformWinLossSummaryExcel.cs" />
     <Compile Include="PlaytechCasinoExcel.cs" />

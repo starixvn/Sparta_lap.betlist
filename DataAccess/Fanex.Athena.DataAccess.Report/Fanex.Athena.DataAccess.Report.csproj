@@ -135,7 +135,6 @@
     <Compile Include="ActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="CasinoProgressiveWinsDataAccess.cs" />
     <Compile Include="MicroGamingWinLossDataAccess.cs" />
-    <Compile Include="GoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="AgCasinoBalanceDataAccess.cs" />
     <Compile Include="PlaytechCasinoDataAccess.cs" />
     <Compile Include="ThirdPartyWinLossDataAccess.cs" />
@@ -143,7 +142,6 @@
     <Compile Include="ResultDataAccess.cs" />
     <Compile Include="Interfaces\ICasinoProgressiveWinsDataAccess.cs" />
     <Compile Include="Interfaces\IMicroGamingWinLossDataAccess.cs" />
-    <Compile Include="Interfaces\IGoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="Interfaces\IAgCasinoBalanceDataAccess.cs" />
     <Compile Include="Interfaces\IAgCasinoWinLossDataAccess.cs" />
