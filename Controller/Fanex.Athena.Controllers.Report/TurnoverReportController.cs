@@ -59,7 +59,7 @@ namespace Fanex.Athena.Controllers.Report
                 ProductAccess = productAccess,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                CurrencyList = GetCurrenciesForTurnoverReport(),
+                CurrencyList = GetCurrenciesForTurnoverReport(licenseeSession.LicenseeId),
                 IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
             };
 
@@ -89,7 +89,7 @@ namespace Fanex.Athena.Controllers.Report
                 ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.Turnover),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                CurrencyList = GetCurrenciesForTurnoverReport(),
+                CurrencyList = GetCurrenciesForTurnoverReport(licenseeSession.LicenseeId),
                 IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
             };
 
@@ -128,10 +128,10 @@ namespace Fanex.Athena.Controllers.Report
             return new ExcelResult(turnoverExcel.Workbook, FileName);
         }
 
-        private IDictionary<string, int> GetCurrenciesForTurnoverReport()
+        private IDictionary<string, int> GetCurrenciesForTurnoverReport(int licenseeId)
         {
-            var currencies = GetUserCurrencies();
-            if (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencies.Keys.Contains("CNY") == false)
+            var currencies = GetUserCurrencies(licenseeId);
+            if (licenseeId == Licensees.KeenOcean && currencies.Keys.Contains("CNY") == false)
             {
                 currencies.Add("CNY", CurrencyType.Hkd);
             }

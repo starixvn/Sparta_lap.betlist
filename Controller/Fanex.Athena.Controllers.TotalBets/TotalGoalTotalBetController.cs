@@ -59,7 +59,8 @@ namespace Fanex.Athena.Controllers.TotalBets
         private ActionResult GetView(TotalGoalMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            var currencies = GetUserCurrencies();
+            var licenseeSession = SessionService.LicenseeSession;
+            var currencies = GetUserCurrencies(licenseeSession.LicenseeId);
             metaModel.UserId = userSession.UserId;
 
             if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
@@ -70,7 +71,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                 {
                     Param = metaModel,
                     MainData = dataList,
-                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
+                    LicenseeTypeList = licenseeSession.LicenseeType,
                     CurrencyList = currencies,
                     TotalData = totalData
                 };

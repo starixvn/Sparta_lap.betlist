@@ -49,9 +49,10 @@ namespace Fanex.Athena.Controllers.TotalBets
 
         private ActionResult GetView(HomeDrawAwayNoBetMetaModel metaModel)
         {
+            var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.UserId = userSession.UserId;
-            var currencies = GetUserCurrencies();
+            var currencies = GetUserCurrencies(licenseeSession.LicenseeId);
 
             if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
             {
@@ -60,7 +61,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                 {
                     Param = metaModel,
                     MainData = dataList,
-                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
+                    LicenseeTypeList = licenseeSession.LicenseeType,
                     CurrencyList = currencies
                 };
 

@@ -70,11 +70,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
             catch (System.Exception e)
             {
-                if (IsDebuggingEnabled)
-                {
-                    throw;
-                }
-
                 return Json(new ResultInfo { Code = 1, Message = e.Message });
             }
         }

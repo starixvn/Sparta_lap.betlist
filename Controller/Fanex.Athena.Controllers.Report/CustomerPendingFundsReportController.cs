@@ -59,7 +59,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
-                CurrencyList = GetUserCurrencies(),
+                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
                 Param = metaModel,
                 TotalRows = 0,
             };
@@ -86,7 +86,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language, FunctionNames.CustomerPendingFunds),
-                CurrencyList = GetUserCurrencies(),
+                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
                 Param = metaModel,
                 TotalRows = totalRows,
             };

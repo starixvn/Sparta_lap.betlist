@@ -48,7 +48,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = GetUserCurrencies(),
+                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
                 ProductAccess = productAccess,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };

@@ -27,7 +27,6 @@ namespace Fanex.Athena.Controllers
 
         private readonly ILanguageService _langService = new LanguageService();
         private readonly ISessionService _sessionService = new SessionService();
-        private readonly ICurrencyService _currencyService = new CurrencyService();
 
         public ILanguageService LangService
         {
@@ -37,19 +36,6 @@ namespace Fanex.Athena.Controllers
         public ISessionService SessionService
         {
             get { return _sessionService; }
-        }
-
-        public ICurrencyService CurrencyService
-        {
-            get { return _currencyService; }
-        }
-
-        public bool IsDebuggingEnabled
-        {
-            get
-            {
-                return HttpContext.IsDebuggingEnabled;
-            }
         }
 
         protected static void SetConvetedUSDCurrencyId(BaseMetaModel metaModel)
@@ -75,18 +61,6 @@ namespace Fanex.Athena.Controllers
             return new List<string>();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
-        protected static IList<string> GetLicenseesOfferOddsGroup()
-        {
-            var licenseeIds = AppSettings.GetValue("LicenseesOfferOddsGroup");
-            if (!string.IsNullOrEmpty(licenseeIds))
-            {
-                return licenseeIds.Split(',');
-            }
-
-            return new List<string>();
-        }
-
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
@@ -94,7 +68,7 @@ namespace Fanex.Athena.Controllers
             LangService.SetPageCulture(currentLanguage);
         }
 
-        protected IDictionary<string, int> GetUserCurrencies()
+        protected IDictionary<string, int> GetUserCurrencies(int licenseeId)
         {
             return SessionService.UserSession.CurrencyList;
         }

@@ -34,6 +34,7 @@ namespace Fanex.Athena.Controllers.Account
     {
         private readonly IFunctionService _functionService;
         private readonly IUserService _userService;
+        private readonly ICurrencyService _currencyService;
 
         private IList<Function> _allMasterFunctionList;
 
@@ -45,6 +46,7 @@ namespace Fanex.Athena.Controllers.Account
         {
             this._functionService = new FunctionService();
             this._userService = new UserService();
+            _currencyService = new CurrencyService();
         }
 
         #region Actions
@@ -372,7 +374,7 @@ namespace Fanex.Athena.Controllers.Account
 
             if (userId > 0)
             {
-                var currencies = CurrencyService.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId);
+                var currencies = _currencyService.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId);
                 if (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean)
                 {
                     var currency = currencies.Where(x => x.CurrencyId == CurrencyType.Hkd).FirstOrDefault();
@@ -429,7 +431,7 @@ namespace Fanex.Athena.Controllers.Account
             model.ModifyBy = userSession.UserId;
 
             // convert currencies into xml
-            var currencyDict = CurrencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
+            var currencyDict = _currencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
             var xmlPattern = "<currencies>{0}</currencies>";
             var xmlElement = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
             var xmlElementBuilder = new StringBuilder();
@@ -445,7 +447,7 @@ namespace Fanex.Athena.Controllers.Account
 
             model.CurrencyList = string.Format(xmlPattern, xmlElementBuilder);
 
-            var result = CurrencyService.AssignCurrenciesByUser(model);
+            var result = _currencyService.AssignCurrenciesByUser(model);
 
             if (result.IsSuccessful)
             {

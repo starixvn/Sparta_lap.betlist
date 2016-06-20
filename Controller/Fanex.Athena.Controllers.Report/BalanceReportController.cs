@@ -52,7 +52,7 @@ namespace Fanex.Athena.Controllers.Report
                 MainData = reportData,
                 Param = metaModel,
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                CurrencyList = GetUserCurrencies(),
+                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
             };

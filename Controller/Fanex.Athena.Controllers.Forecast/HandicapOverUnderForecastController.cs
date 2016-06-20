@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.Forecast
         private ForecastHdpOuViewModel GetViewModel(ForecastHandicapOverUnderMetaModel metaModel)
         {
             var leagueList = ForecastService.GetForecastRunningLeague(metaModel);
-
+            var licenseeSession = SessionService.LicenseeSession;
             var currentLeagueId = metaModel.LeagueId;
             metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
 
@@ -67,8 +67,8 @@ namespace Fanex.Athena.Controllers.Forecast
                 Param = metaModel,
                 MainData = forecastHdpOuByLeague,
                 LeagueList = leagueList,
-                LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
-                CurrencyList = GetUserCurrencies()
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId)
             };
         }
     }

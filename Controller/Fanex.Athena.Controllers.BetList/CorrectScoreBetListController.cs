@@ -37,7 +37,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = GetUserCurrencies(),
+                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this.ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
@@ -51,7 +51,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult Index(BetListMetaModel metaModel)
         {
             var licenseeSession = this.SessionService.LicenseeSession;
-            var currencies = GetUserCurrencies();
+            var currencies = GetUserCurrencies(licenseeSession.LicenseeId);
             if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_CorrectScore";

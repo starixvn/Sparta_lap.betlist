@@ -58,8 +58,9 @@ namespace Fanex.Athena.Controllers.TotalBets
         private ActionResult GetView(OddEvenDrawNoDrawMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
+            var licenseeSession = SessionService.LicenseeSession;
             metaModel.UserId = userSession.UserId;
-            var currencies = GetUserCurrencies();
+            var currencies = GetUserCurrencies(licenseeSession.LicenseeId);
 
             if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
             {
@@ -69,7 +70,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                 {
                     Param = metaModel,
                     MainData = dataList,
-                    LicenseeTypeList = SessionService.LicenseeSession.LicenseeType,
+                    LicenseeTypeList = licenseeSession.LicenseeType,
                     CurrencyList = currencies,
                     TotalData = totalData
                 };

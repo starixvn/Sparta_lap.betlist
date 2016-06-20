@@ -49,7 +49,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = GetUserCurrencies(),
+                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this.ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -88,7 +88,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = GetUserCurrencies(),
+                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this.ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -100,7 +100,8 @@ namespace Fanex.Athena.Controllers.BetList
 
         private ActionResult Excel(BetListMetaModel metaModel)
         {
-            var currencies = GetUserCurrencies();
+            var licenseeSession = SessionService.LicenseeSession;
+            var currencies = GetUserCurrencies(licenseeSession.LicenseeId);
 
             if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
             {
@@ -112,7 +113,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 var showingOption = new ShowingOption
                 {
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                    CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
                 };
                 var currencyTitle = string.Format(
                     ViewResources.Viewin,

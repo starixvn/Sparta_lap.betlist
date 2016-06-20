@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = GetUserCurrencies(),
+                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
@@ -82,7 +82,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
-            var currencies = GetUserCurrencies();
+            var currencies = GetUserCurrencies(licenseeSession.LicenseeId);
 
             if (metaModel.IsExportExcel)
             {

@@ -34,15 +34,16 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index()
         {
-            this._sportTypeService = new SportTypeService();
-            var metaModel = new BetListMetaModel { LicenseeId = SessionService.LicenseeSession.LicenseeId };
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var metaModel = new BetListMetaModel { LicenseeId = licenseeId };
 
             SetConvetedUSDCurrencyName(metaModel);
 
             var model = new LastBetsMonitoringViewModel
             {
-                CurrencyList = GetUserCurrencies(),
+                CurrencyList = GetUserCurrencies(licenseeId),
                 SportsList = GetSports(),
+                IsOnlyShowAllCurrencies = licenseeId == Licensees.KeenOcean,
                 Param = metaModel
             };
 
