@@ -105,7 +105,6 @@
     <Compile Include="Common\CacheService.cs" />
     <Compile Include="Common\CurrencyService.cs" />
     <Compile Include="Common\ExChangeRateService.cs" />
-    <Compile Include="Common\FunctionAccessService.cs" />
     <Compile Include="Common\FunctionService.cs" />
     <Compile Include="Common\LanguageService.cs" />
     <Compile Include="Common\LeagueService.cs" />
@@ -119,7 +118,6 @@
     <Compile Include="Common\Interfaces\IBetTypeService.cs" />
     <Compile Include="Common\Interfaces\ICurrencyService.cs" />
     <Compile Include="Common\Interfaces\IExChangeRateService.cs" />
-    <Compile Include="Common\Interfaces\IFunctionAccessService.cs" />
     <Compile Include="Common\Interfaces\IFunctionService.cs" />
     <Compile Include="Common\Interfaces\ILanguageService.cs" />
     <Compile Include="Common\Interfaces\ILeagueService.cs" />

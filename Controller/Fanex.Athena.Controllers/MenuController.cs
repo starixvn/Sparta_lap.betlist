@@ -12,19 +12,17 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Model.Core.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Model.Core.DataDomain;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class MenuController : ReadonlyBaseController
     {
-        private readonly IFunctionService _functionManager = new FunctionService();
-        private readonly IFunctionAccessService _functionAccess = new FunctionAccessService();
+        private readonly IFunctionService _functionService;
 
-        /// <summary>
-        /// The menu page.
-        /// </summary>
-        /// <returns>The menu list.</returns>
+        public MenuController()
+        {
+            _functionService = new FunctionService();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -32,17 +30,18 @@ namespace Fanex.Athena.Controllers
             var licenseeSession = SessionService.LicenseeSession;
             var systemFunctions = userSession.FunctionIdList;
             var excludeFunctions = AppSettings.ExcludeFunctionIdList;
+            var canManageMember = userSession.FunctionIdList.Contains((int)FunctionType.CustomerList);
             var viewModel = new MenuViewModel
             {
-                UserFunctions = _functionManager.Functions.Where(i => systemFunctions.Contains(i.FunctionId)
+                UserFunctions = _functionService.Functions.Where(i => systemFunctions.Contains(i.FunctionId)
               && !excludeFunctions.Contains(i.FunctionId)).ToList(),
                 IsAllowedCustonmerCommission = licenseeSession.IsAllowedCustomerComm,
                 IsInternalLogin = userSession.IsInternal,
-                IsAllowedManagementMember = _functionAccess.CanManageMember
+                IsAllowedManagementMember = canManageMember
             };
 
-            viewModel.MasterFunctions = _functionManager.GetMasterFunctions(viewModel.UserFunctions);
-            viewModel.UserDetailFunctions = _functionManager.GetSubFunctions(viewModel.UserFunctions);
+            viewModel.MasterFunctions = _functionService.GetMasterFunctions(viewModel.UserFunctions);
+            viewModel.UserDetailFunctions = _functionService.GetSubFunctions(viewModel.UserFunctions);
 
             return View("~/Views/Menu/Index.cshtml", viewModel);
         }
