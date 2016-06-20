@@ -26,7 +26,6 @@ namespace Fanex.Athena.Controllers
         /// </summary>
         /// <returns>The menu list.</returns>
         [HttpGet]
-        [Authorize]
         public ActionResult Index()
         {
             var userSession = SessionService.UserSession;

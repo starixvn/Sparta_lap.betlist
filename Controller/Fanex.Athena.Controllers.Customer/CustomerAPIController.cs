@@ -40,7 +40,6 @@ namespace Fanex.Athena.Controllers.Customer
     public class CustomerApiController : ReadonlyBaseController
     {
         private const string CustomerAPIRemoveFromGroupComName = "CustomerAPI_RemoveFromGroupCom";
-        private const string CustomerListUrl = "Customer/CustomerList";
 
         #region Fields
 

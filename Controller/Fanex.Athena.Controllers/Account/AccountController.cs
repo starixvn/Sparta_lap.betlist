@@ -32,11 +32,6 @@ namespace Fanex.Athena.Controllers.Account
     [FunctionAuthorization(PermissionKeys.AccountManageAccount)]
     public class AccountController : BaseController
     {
-        private const string ParentUrl = "Account/Manage";
-
-        #region Fields
-
-        private readonly ILicenseeService _licenseeService;
         private readonly IFunctionService _functionService;
         private readonly IUserService _userService;
 
@@ -46,51 +41,13 @@ namespace Fanex.Athena.Controllers.Account
 
         private IList<Function> _allUserFunctionList;
 
-        #endregion Fields
-
-        #region Constructor
-
         public AccountController()
         {
-            this._licenseeService = new LicenseeService();
             this._functionService = new FunctionService();
             this._userService = new UserService();
         }
 
-        #endregion Constructor
-
         #region Actions
-
-        /// <summary>
-        /// Change licensee.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <returns>The action result.</returns>
-        public ActionResult ChangeLicensee(int? licenseeId)
-        {
-            var newLicenseeId = licenseeId.HasValue ? licenseeId.Value : 0;
-            var originalLicenseeId = SessionService.LicenseeSession.LicenseeId;
-            var originalUserId = SessionService.UserSession.UserId;
-
-            if (newLicenseeId > 0)
-            {
-                newLicenseeId = _licenseeService.IsLicenseeBelongToUser(originalLicenseeId, originalUserId)
-                                    ? newLicenseeId
-                                    : originalLicenseeId;
-            }
-            else
-            {
-                newLicenseeId = originalLicenseeId;
-            }
-
-            if (newLicenseeId != originalLicenseeId)
-            {
-                SessionService.UpdateLiceseeSession(newLicenseeId);
-            }
-
-            ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
-            return View("~/Views/Account/ChangeLicensee.cshtml");
-        }
 
         public ActionResult Manage()
         {

@@ -54,6 +54,32 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Header/Index.cshtml", viewModel);
         }
 
+        public ActionResult ChangeLicensee(int? licenseeId)
+        {
+            var newLicenseeId = licenseeId.HasValue ? licenseeId.Value : 0;
+            var originalLicenseeId = SessionService.LicenseeSession.LicenseeId;
+            var originalUserId = SessionService.UserSession.UserId;
+
+            if (newLicenseeId > 0)
+            {
+                newLicenseeId = _licenseeService.IsLicenseeBelongToUser(originalLicenseeId, originalUserId)
+                                    ? newLicenseeId
+                                    : originalLicenseeId;
+            }
+            else
+            {
+                newLicenseeId = originalLicenseeId;
+            }
+
+            if (newLicenseeId != originalLicenseeId)
+            {
+                SessionService.UpdateLiceseeSession(newLicenseeId);
+            }
+
+            ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
+            return View("~/Views/Account/ChangeLicensee.cshtml");
+        }
+
         /// <summary>
         /// Change language.
         /// </summary>

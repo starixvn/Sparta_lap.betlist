@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Web.ActionFilter
 {
     using System;
+    using System.Net;
     using System.Web.Mvc;
     using System.Web.Routing;
     using Fanex.Athena.Service.Core.Users;
@@ -52,14 +53,26 @@ namespace Fanex.Athena.Web.ActionFilter
 
             if (!authorized)
             {
-                var routeValue = new
+                if (context.Request.IsAjaxRequest())
                 {
-                    controller = "Utility",
-                    action = "AccessDenied",
-                    message = "AccessDenied"
-                };
+                    filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                    filterContext.HttpContext.Response.ContentType = "application/json";
+                    filterContext.Result = new JsonResult
+                    {
+                        Data = new { ErrCode = 403, ErrMsg = "Access Denied." }
+                    };
+                }
+                else
+                {
+                    var routeValue = new
+                    {
+                        controller = "Utility",
+                        action = "AccessDenied",
+                        message = "AccessDenied"
+                    };
 
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(routeValue));
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(routeValue));
+                }
             }
 
             base.OnActionExecuting(filterContext);

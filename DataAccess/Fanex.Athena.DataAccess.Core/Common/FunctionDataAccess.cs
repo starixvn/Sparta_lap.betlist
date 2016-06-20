@@ -12,6 +12,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
     using System.Data;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -37,8 +38,15 @@ namespace Fanex.Athena.DataAccess.Core.Common
             {
                 using (var reader = db.ExecuteReader())
                 {
+                    var isProduction = AppSettings.Enviroment.Equals("PRO", System.StringComparison.OrdinalIgnoreCase);
                     while (reader.Read())
                     {
+                        var environment = reader.ToString("Environment");
+                        if (isProduction && environment.Equals("LIVE", System.StringComparison.OrdinalIgnoreCase) == false)
+                        {
+                            continue;
+                        }
+
                         var function = new Function
                         {
                             FunctionId = reader.ToInt("functionid"),
@@ -49,8 +57,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                             IsActive = reader.ToBool("IsActive"),
                             IsMenu = reader.ToBool("IsMenu"),
                             IsNew = reader.ToBool("IsNew"),
-                            FunctionKey = reader.ToString("FunctionKey"),
-                            Environment = reader.ToString("Environment")
+                            FunctionKey = reader.ToString("FunctionKey")
                         };
 
                         functionList.Add(function);

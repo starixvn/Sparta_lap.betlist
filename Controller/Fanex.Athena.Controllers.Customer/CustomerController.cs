@@ -34,8 +34,6 @@ namespace Fanex.Athena.Controllers.Customer
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class CustomerController : BaseController
     {
-        private const string CustomerListUrl = "Customer/CustomerList";
-
         private const string GROUP = "Group";
         private const string BASTATUS = "BAStatus";
         private const string CUSTOMERCOMM = "Commission";
