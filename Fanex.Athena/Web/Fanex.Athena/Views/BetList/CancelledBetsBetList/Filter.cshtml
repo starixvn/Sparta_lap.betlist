@@ -3,7 +3,7 @@
 @model Fanex.Athena.Model.BetList.ViewModel.CancelledBetsBetListViewModel
 @using (Html.BeginForm("Index", "CancelledBetsBetList", FormMethod.Post, new { @id = "CancellerBetsBetListForm" }))
 {
-
+    @Html.AntiForgeryToken()
     //-----------------------------Type of licensee---------------------------//
     if (Model.LicenseeTypeList.Count > 0)
     {

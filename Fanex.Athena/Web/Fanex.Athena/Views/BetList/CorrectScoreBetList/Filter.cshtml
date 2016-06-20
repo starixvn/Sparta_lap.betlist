@@ -3,6 +3,7 @@
 @model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 @using (Html.BeginForm("Index", "CorrectScoreBetList", FormMethod.Post, new { @id = "CorrectScoreBetListForm" }))
 {
+    @Html.AntiForgeryToken()
     //-----------------------------Type of licensee---------------------------//
     if (Model.LicenseeTypeList.Count > 0)
     {
