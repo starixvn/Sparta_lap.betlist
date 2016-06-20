@@ -13,12 +13,23 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
+    using Fanex.BetList.Core.TicketHelper;
     using Web.ActionFilter;
 
     #endregion Using
 
     public class SystemParlayBetListController : BetListBaseController
     {
+        private readonly ITicketHelper _ticketHelper;
+        private readonly BetListHTMLBuilder _betListBuilder;
+
+        public SystemParlayBetListController()
+        {
+            this._ticketHelper = new TicketHelper();
+            _betListBuilder = new BetListHTMLBuilder();
+        }
+
         [HttpGet]
         public ActionResult Detail(SystemParlayDetailMetaModel metaModel)
         {
@@ -30,8 +41,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var systemParlayData = this.BetListService.GetSystemParlayDetail(metaModel);
 
-            var builder = new BetListHTMLBuilder();
-            var systemParlayText = builder.BuildSystemParlayDetail(this.TicketHelper, systemParlayData);
+            var systemParlayText = _betListBuilder.BuildSystemParlayDetail(this._ticketHelper, systemParlayData);
             var viewModel = new SystemParlayDetailViewModel
             {
                 DetailText = systemParlayText,

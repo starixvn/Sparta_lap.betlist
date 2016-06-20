@@ -21,8 +21,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
-    using Fanex.BetList.Core.Entities;
-    using Fanex.BetList.Core.TicketHelper;
     using Resources;
 
     #endregion Using
@@ -63,15 +61,12 @@ namespace Fanex.Athena.Controllers.BetList
 
         private readonly IBetListService _betListService;
 
-        private readonly ITicketHelper _ticketHelper;
-
         #endregion Fields
 
         public BetListBaseController()
         {
             this._productService = new ProductService();
             this._betListService = new BetListService();
-            this._ticketHelper = new TicketHelper();
             this._balanceUpService = new BalanceUpService();
         }
 
@@ -88,11 +83,6 @@ namespace Fanex.Athena.Controllers.BetList
         protected IBetListService BetListService
         {
             get { return _betListService; }
-        }
-
-        protected ITicketHelper TicketHelper
-        {
-            get { return _ticketHelper; }
         }
 
         /// <summary>

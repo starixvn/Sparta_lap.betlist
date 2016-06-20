@@ -10,49 +10,24 @@
 namespace Fanex.Athena.Service.Core.Configuration
 {
     using System;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Configuration;
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Caching;
 
-    /// <summary>
-    ///     The balance up service.
-    /// </summary>
     public class BalanceUpService : IBalanceUpService
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///     The cache timeout minute.
-        /// </summary>
         private const int CacheTimeoutMinute = 1;
 
-        /// <summary>
-        ///     The _balance up data access.
-        /// </summary>
-        private readonly BalanceUpDataAccess _balanceUpDataAccess;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        #endregion Constants and Fields
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="BalanceUpService" /> class.
-        /// </summary>
         public BalanceUpService()
         {
             this._balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        #endregion Constructors and Destructors
-
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets GetBalanceUp.
-        /// </summary>
-        /// <value>The balance up day.</value>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
         public BalanceUp BalanceUpInfo
@@ -83,7 +58,5 @@ namespace Fanex.Athena.Service.Core.Configuration
                 return balanceup;
             }
         }
-
-        #endregion Public Properties
     }
 }

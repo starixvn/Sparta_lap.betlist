@@ -2,8 +2,6 @@
 {
     using System;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
-    using Model.Core.DataDomain;
-    using Model.Core.DTO.Users;
     using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
@@ -35,14 +33,9 @@
             get { return _productService; }
         }
 
-        protected IMoveBetService MoveBetService
-        {
-            get { return _moveBetService; }
-        }
-
         protected void AddNotificationMessageToViewBag()
         {
-            var moveBet = MoveBetService.GetMoveBet();
+            var moveBet = _moveBetService.GetMoveBet();
 
             if (!moveBet.EstimatedTime.HasValue || DateTime.Now > moveBet.EstimatedTime)
             {
