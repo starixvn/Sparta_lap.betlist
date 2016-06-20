@@ -21,8 +21,6 @@ namespace Fanex.Athena.Service.Core.Users
 
     public class SessionService : ISessionService
     {
-        #region Constants and Fields
-
         private const int ReportBalanceId = 42;
         private const string ReportBalanceUrl = "BalanceReport";
 
@@ -37,7 +35,12 @@ namespace Fanex.Athena.Service.Core.Users
         private ILicenseeService _licenseeService;
         private ICurrencyService _currencyService;
 
-        #endregion Constants and Fields
+        public SessionService()
+        {
+            _functionService = new FunctionService();
+            _licenseeService = new LicenseeService();
+            _currencyService = new CurrencyService();
+        }
 
         #region Public Properties
 
@@ -83,10 +86,6 @@ namespace Fanex.Athena.Service.Core.Users
             int licenseeId = 0,
             string language = "en-US")
         {
-            _currencyService = new CurrencyService();
-            _licenseeService = new LicenseeService();
-            _functionService = new FunctionService();
-
             var licenseeList = _licenseeService.GetByUser(userId);
             var isAdmin = licenseeList != null & licenseeList.Count > 0;
             var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
@@ -134,9 +133,6 @@ namespace Fanex.Athena.Service.Core.Users
 
         public void UpdateLiceseeSession(int licenseeId)
         {
-            _licenseeService = new LicenseeService();
-            _functionService = new FunctionService();
-            _currencyService = new CurrencyService();
             var currentUserSession = this.UserSession;
             var licenseeList = _licenseeService.GetByUser(currentUserSession.UserId);
 

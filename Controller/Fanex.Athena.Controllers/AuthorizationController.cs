@@ -266,6 +266,22 @@ namespace Fanex.Athena.Controllers
             return string.Empty;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult SignOut()
+        {
+            var userSession = SessionService.UserSession;
+            if (userSession != null)
+            {
+                _userService.Logout(userSession.OnUserId);
+            }
+
+            Session.Clear();
+            ClearCookies();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("LocationRestriction", "Utility");
+        }
+
         private static dynamic RecheckInResult(ErrorType type, string msg)
         {
             return new
@@ -295,6 +311,15 @@ namespace Fanex.Athena.Controllers
         {
             ViewBag.errCode = errorCode;
             ViewBag.errMsg = errorMsg;
+        }
+
+        private void ClearCookies()
+        {
+            var cookies = Request.Cookies.AllKeys;
+            foreach (string cookie in cookies)
+            {
+                Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
+            }
         }
     }
 }

@@ -674,7 +674,7 @@ var Site = (function ($) {
             {
                 index = index.parent;
             }
-            index.location = Site.resolveClientUrl('Header/SignOut');
+            index.location = Site.resolveClientUrl('Authorization/SignOut');
         },
 
         setMultiSelectForDropDownList: function (dropDownListId, dataSource, valueField, textField, checkField) {

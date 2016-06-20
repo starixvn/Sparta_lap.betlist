@@ -25,8 +25,14 @@ namespace Fanex.Athena.Controllers
     {
         protected const string DefaultLanguage = "en-US";
 
-        private readonly ILanguageService _langService = new LanguageService();
-        private readonly ISessionService _sessionService = new SessionService();
+        private readonly ILanguageService _langService;
+        private readonly ISessionService _sessionService;
+
+        public BaseController()
+        {
+            _langService = new LanguageService();
+            _sessionService = new SessionService();
+        }
 
         public ILanguageService LangService
         {

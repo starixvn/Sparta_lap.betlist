@@ -38,7 +38,7 @@ function ReCheckin() {
                 clearInterval(handle);
                 alert(result.ErrMsg, true);
                 if (isInternal || SessionOverride === errCode) {
-                    var signOutUrl = Site.resolveClientUrl('Header/SignOut');
+                    var signOutUrl = Site.resolveClientUrl('Authorization/SignOut');
                     $.ajax({
                         url: signOutUrl,
                         complete: function () {
