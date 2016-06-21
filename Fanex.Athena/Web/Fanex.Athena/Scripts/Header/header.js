@@ -36,7 +36,7 @@ $(document).ready(function () {
         top.frames["main"].location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
     });
     $("#change-pass-btn").click(function () {
-        window.parent.main.document.location.href = Site.resolveClientUrl("Utility/ChangePass/");
+        window.parent.main.document.location.href = Site.resolveClientUrl("Authorization/ChangePassword");
     });
     $("#lougout-btn").click(function () {
         Site.signOut();

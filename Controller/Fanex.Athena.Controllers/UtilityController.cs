@@ -6,16 +6,12 @@
 
 namespace Fanex.Athena.Controllers
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Users;
     using ONEbook.UM.Services.Impl;
     using Resources;
-    using Web.ActionFilter;
 
     /// <summary>
     /// Utility controller.
@@ -221,69 +217,6 @@ namespace Fanex.Athena.Controllers
             }
 
             return View("~/Views/Utility/SelectLicensee.cshtml");
-        }
-
-        /// <summary>
-        /// The changing password page.
-        /// </summary>
-        /// <returns>The changing password form.</returns>
-        [HttpGet]
-        public ActionResult ChangePass()
-        {
-            ViewBag.PageData = new Dictionary<string, string>()
-            {
-            { "alertInputOldPwd", ViewResources.AlertInputOldPwdMsg },
-            { "alertPasswordEmpty", ViewResources.AlertPasswordEmptyMsg },
-            { "alertErrorConfirm", ViewResources.PasswordConfirmErrorMsg },
-            { "alertPasswordRequire", ViewResources.PasswordNoteMsg },
-            { "alertPasswordSucc", ViewResources.PasswordChangedMsg }
-            };
-            return View("~/Views/Utility/ChangePass.cshtml");
-        }
-
-        /// <summary>
-        /// Change password.
-        /// </summary>
-        /// <param name="txtOldPwd">The old password.</param>
-        /// <param name="txtNewPwd">The new password.</param>
-        /// <returns>The result of changing password.</returns>
-        [HttpPost]
-        [CustomValidateAntiForgery]
-        public ActionResult ChangePass(string txtOldPwd, string txtNewPwd)
-        {
-            var userSession = SessionService.UserSession;
-            if (!Util.CheckValidPassword(txtNewPwd) || string.IsNullOrEmpty(txtOldPwd))
-            {
-                return Json(new
-                {
-                    errCode = ErrorType.Unknown,
-                    errMsg = ViewResources.PasswordNoteMsg
-                });
-            }
-
-            var userService = new UserService();
-
-            if (userSession.IsInternal)
-            {
-                return Json(new
-                {
-                    errCode = ErrorType.AccessDenied,
-                    errMsg = ViewResources.AccessDeniedMsg
-                });
-            }
-            else
-            {
-                IResultInfo resultInfo = userService.ChangePassword(
-                    userSession.UserName,
-                    txtOldPwd,
-                    txtNewPwd,
-                    Request.UserHostAddress);
-                return Json(new
-                {
-                    errCode = resultInfo.Code,
-                    errMsg = resultInfo.Message
-                });
-            }
         }
 
         private ActionResult RedirectFromLoginPage(int licenseeId)

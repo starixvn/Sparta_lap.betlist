@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Drawing.Imaging;
@@ -280,6 +281,61 @@ namespace Fanex.Athena.Controllers
             ClearCookies();
             FormsAuthentication.SignOut();
             return RedirectToAction("LocationRestriction", "Utility");
+        }
+
+        /// <summary>
+        /// The changing password page.
+        /// </summary>
+        /// <returns>The changing password form.</returns>
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            ViewBag.PageData = new Dictionary<string, string>()
+            {
+            { "alertInputOldPwd", ViewResources.AlertInputOldPwdMsg },
+            { "alertPasswordEmpty", ViewResources.AlertPasswordEmptyMsg },
+            { "alertErrorConfirm", ViewResources.PasswordConfirmErrorMsg },
+            { "alertPasswordRequire", ViewResources.PasswordNoteMsg },
+            { "alertPasswordSucc", ViewResources.PasswordChangedMsg }
+            };
+            return View("~/Views/Utility/ChangePass.cshtml");
+        }
+
+        [HttpPost]
+        [CustomValidateAntiForgery]
+        public ActionResult ChangePassword(string oldPassword, string newPassword)
+        {
+            if (string.IsNullOrEmpty(oldPassword) || !Util.CheckValidPassword(newPassword))
+            {
+                return Json(new
+                {
+                    errCode = ErrorType.Unknown,
+                    errMsg = ViewResources.PasswordNoteMsg
+                });
+            }
+
+            var userSession = SessionService.UserSession;
+            if (userSession.IsInternal)
+            {
+                return Json(new
+                {
+                    errCode = ErrorType.AccessDenied,
+                    errMsg = ViewResources.AccessDeniedMsg
+                });
+            }
+            else
+            {
+                var result = _userService.ChangePassword(
+                    userSession.UserName,
+                    oldPassword,
+                    newPassword,
+                    Request.UserHostAddress);
+                return Json(new
+                {
+                    errCode = result.Code,
+                    errMsg = result.Message
+                });
+            }
         }
 
         private static dynamic RecheckInResult(ErrorType type, string msg)
