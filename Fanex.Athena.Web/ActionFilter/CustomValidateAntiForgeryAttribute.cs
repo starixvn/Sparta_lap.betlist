@@ -13,6 +13,7 @@
         {
             var request = filterContext.RequestContext.HttpContext.Request;
             string clientToken = null;
+
             if (request.IsAjaxRequest())
             {
                 clientToken = request.Headers.Get(KEYNAME);
@@ -27,13 +28,13 @@
                 throw new HttpAntiForgeryException(string.Format("Header/Form does not contain {0}", KEYNAME));
             }
 
-            string serverToken = filterContext.HttpContext.Request.Cookies.Get(KEYNAME).Value;
-            if (serverToken == null)
+            var serverTokenCookie = request.Cookies.Get(AntiForgeryConfig.CookieName);
+            if (serverTokenCookie == null || serverTokenCookie.Value == null)
             {
-                throw new HttpAntiForgeryException(string.Format("Cookies does not contain {0}" + KEYNAME));
+                throw new HttpAntiForgeryException(string.Format("Cookies does not contain {0}", KEYNAME));
             }
 
-            AntiForgery.Validate(serverToken, clientToken);
+            AntiForgery.Validate(serverTokenCookie.Value, clientToken);
         }
     }
 }
