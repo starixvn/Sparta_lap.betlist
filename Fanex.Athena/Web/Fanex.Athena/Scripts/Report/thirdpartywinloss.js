@@ -41,6 +41,10 @@ var ThirdPartyWinLoss = (function ($) {
     }
 
     return {
+        custom: {
+            // initialize()
+            // getDrillDownDates(param, datetime) 
+        },
         resizeGrid: function () {
             setTimeout(function () {
                 if ($(".ui-jqgrid-bdiv").length === 0) {
@@ -68,6 +72,9 @@ var ThirdPartyWinLoss = (function ($) {
             ThirdPartyWinLoss.initEvent();
             initMonthPicker();
             _canDrilldown = $("#CanDrilldown").val() !== "0";
+            if (ThirdPartyWinLoss.custom.initialize) {
+                ThirdPartyWinLoss.custom.initialize();
+            }
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {
@@ -230,11 +237,20 @@ var ThirdPartyWinLoss = (function ($) {
                 ProductId: _submitData.ProductId,
                 ReportBy: _submitData.ReportBy
             };
-            var fdate = new Date(Date.parse(datetime)).toString("MM/dd/yyyy");
-            var tdate = new Date(Date.parse(datetime)).toString("MM/dd/yyyy");
-            if (Number(param.ReportBy) === 2) {
-                fdate = _submitData.FromDate;
-                tdate = _submitData.ToDate;
+
+            var fdate, tdate;
+            if (ThirdPartyWinLoss.custom.getDrillDownDates) {
+                var dates = ThirdPartyWinLoss.custom.getDrillDownDates(param, datetime);
+                fdate = dates.FromDate;
+                tdate = dates.ToDate;
+            } else {
+                fdate = Date.parse(datetime);
+                tdate = Date.parse(datetime);
+                if (Number(param.ReportBy) === 2) {
+                    fdate = _submitData.FromDate;
+                    tdate = _submitData.ToDate;
+                }
+                
             }
             var option = {
                 type: "POST",
@@ -244,7 +260,7 @@ var ThirdPartyWinLoss = (function ($) {
                 cache: false,
                 url: Site.resolveClientUrl(ThirdPartyWinLossOption.urlData +
                     "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
-                    "&fdate=" + fdate + "&tdate=" + tdate),
+                    "&fdate=" + fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
                 success: function (response) {
                     ThirdPartyWinLoss.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {

@@ -157,7 +157,7 @@
 
             ThirdPartyWinLoss.ajaxComplete(0, {});
 
-            expect(ThirdPartyWinLoss.setReportTitle).toHaveBeenCalledWith("1", "04/1/2016", "04/12/2016");
+            expect(ThirdPartyWinLoss.setReportTitle).toHaveBeenCalledWith("1", '04/1/2016', '04/12/2016');
         });
 
         it("ThirdPartyWinLoss.renderBreadCrumb(level) should be called with correct parameter", function () {
@@ -225,7 +225,7 @@
             spyOn(ThirdPartyWinLoss, "ajaxComplete");
             spyOn(ThirdPartyWinLoss, "setReportTitle");
 
-            ThirdPartyWinLoss.drillDown(1, 1, 2, "04/15/2016");
+            ThirdPartyWinLoss.drillDown(1, 1, 2, '04/15/2016');
             request = jasmine.Ajax.requests.mostRecent();
 
             setTimeout(done, 10);
@@ -235,14 +235,14 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("Request url should be 'api/ThirdPartyWinLossReport/Index?level=0&currencyId=1&custId=2&fdate=04/15/2016&tdate=04/15/2016'", function () {
+        it("Request url should be correct", function () {
             expect(request.url).toBe("api/ThirdPartyWinLossReport/Index?level=1&currencyId=1&custId=2&fdate=04/15/2016&tdate=04/15/2016");
         });
         it("ThirdPartyWinLoss.ajaxComplete(level, response) should be called with correct parameter", function () {
             expect(ThirdPartyWinLoss.ajaxComplete).toHaveBeenCalledWith(1, { Data: [1, 2, 3] });
         });
         it("ThirdPartyWinLoss.setReportTitle(currencyId, fromdate, todate) should be called with correct parameter", function () {
-            expect(ThirdPartyWinLoss.setReportTitle).toHaveBeenCalledWith("1", "04/15/2016", "04/15/2016");
+            expect(ThirdPartyWinLoss.setReportTitle).toHaveBeenCalledWith("1", new Date(2016, 3, 15), new Date(2016, 3, 15));
         });
     });
 

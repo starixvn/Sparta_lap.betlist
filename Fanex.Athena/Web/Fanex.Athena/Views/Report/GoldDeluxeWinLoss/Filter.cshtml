@@ -3,7 +3,7 @@
 @model Fanex.Athena.Model.Report.ViewModel.ThirdPartyWinLossViewModel
 <div class="grid_26 content-filter new-line">
     <!--grid_26-->
-    <form id="GoldDeluxeWinLossForm" name="GoldDeluxeWinLossForm" method="post" action="">
+    <form id="ThirdPartyWinLossForm" name="ThirdPartyWinLossForm" method="post" action="">
         @Html.AntiForgeryToken()
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
         Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
@@ -70,4 +70,5 @@
     @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
     </form>
     @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
+    @Html.Hidden("ReportTitle", ViewResources.GoldDeluxeWinLoss)
 </div>

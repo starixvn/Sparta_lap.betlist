@@ -726,8 +726,6 @@
     <Content Include="jasmine-specs\Report\customerturnover.option-test.js" />
     <Content Include="jasmine-specs\Report\customerwinloss-test.js" />
     <Content Include="jasmine-specs\Report\dailyracingwinloss-test.js" />
-    <Content Include="jasmine-specs\Report\golddeluxewinloss-test.js" />
-    <Content Include="jasmine-specs\Report\golddeluxewinloss.option-test.js" />
     <Content Include="jasmine-specs\Report\licenseewinloss-test.js" />
     <Content Include="jasmine-specs\Report\licenseewinloss.option-test.js" />
     <Content Include="jasmine-specs\Report\livereport-test.js" />
@@ -793,6 +791,7 @@
     <Content Include="Scripts\Report\CasinoProgressiveWins.option.js" />
     <Content Include="Scripts\Report\weeklylivematch.js" />
     <Content Include="Scripts\Report\weeklylivematch.option.js" />
+    <Content Include="Scripts\Report\thirdpartywinloss.golddeluxe.js" />
     <Content Include="Scripts\Report\microgamingwinloss.js" />
     <Content Include="Scripts\Report\microgamingwinloss.option.js" />
     <Content Include="SiteConfig\Web.LOCAL.config">
@@ -3548,8 +3547,6 @@
     <Content Include="Scripts\Report\agcasinowinloss.option.js" />
     <Content Include="Scripts\Report\activecustomersummary.js" />
     <Content Include="Scripts\Report\activecustomersummary.option.js" />
-    <Content Include="Scripts\Report\golddeluxewinloss.js" />
-    <Content Include="Scripts\Report\golddeluxewinloss.option.js" />
     <Content Include="Scripts\Report\thirdpartywinloss.js" />
     <Content Include="Scripts\Report\thirdpartywinloss.option.js" />
     <Content Include="SiteConfig\Web.config.txt">

@@ -135,8 +135,6 @@ module.exports = function(config) {
 		'Scripts/Report/dailyracingwinloss*.js',
 		'jasmine-specs/Report/dailyracingwinloss*-test.js',
 		
-		'Scripts/Report/golddeluxewinloss*.js',
-		'jasmine-specs/Report/golddeluxewinloss*-test.js',
 		
 		'Scripts/Report/licenseewinloss*.js',
 		'jasmine-specs/Report/licenseewinloss*-test.js',
@@ -166,7 +164,8 @@ module.exports = function(config) {
 		//'Scripts/Report/Result*.js',
 		//'jasmine-specs/Report/Result*-test.js',
 		
-		'Scripts/Report/thirdpartywinloss*.js',
+		'Scripts/Report/thirdpartywinloss.js',
+		'Scripts/Report/thirdpartywinloss.option.js',
 		'jasmine-specs/Report/thirdpartywinloss*-test.js',
 		 
 		'Scripts/Report/turnover*.js',
