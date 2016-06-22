@@ -43,10 +43,28 @@ namespace Fanex.Athena.Controllers.Report
     {
         private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
 
+        private readonly IResultService _resultService;
+        private readonly IRNGCasinoSingleWalletService _rngCasinoSingleWalletService;
+        private readonly IKenoApi _kenoApi;
+      
         private string _htmlResult;
         private MemoryStream _excelStream;
 
         #region Result-Page
+
+        public ResultReportController() : this(null, null, null)
+        {
+        }
+
+        public ResultReportController(
+            IResultService resultService,
+            IRNGCasinoSingleWalletService rngCasinoSingleWalletService,
+            IKenoApi kenoApi)
+        {
+            _resultService = resultService ?? new ResultService();
+            _rngCasinoSingleWalletService = rngCasinoSingleWalletService ?? new RngCasinoSingleWalletService();
+            _kenoApi = kenoApi ?? new KenoApi();
+        }
 
         /// <summary>
         /// The result page.
@@ -101,8 +119,6 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         public ActionResult ResultExcel(ResultMetalModel metalModel)
         {
-            IResultService resultService = new ResultService();
-
             const string FileName = "LRF-Result.xls";
             if (ModelState.IsValid)
             {
@@ -110,7 +126,7 @@ namespace Fanex.Athena.Controllers.Report
                 if (metalModel.SportId == 0)
                 {
                     /*Get firstSport*/
-                    var sports = resultService.GetSports(metalModel.FromDate, SessionService.LicenseeSession.LicenseeId);
+                    var sports = _resultService.GetSports(metalModel.FromDate, SessionService.LicenseeSession.LicenseeId);
                     if (sports == null || sports.Count == 0)
                     {
                         return null;
@@ -145,8 +161,6 @@ namespace Fanex.Athena.Controllers.Report
         {
             if (ModelState.IsValid)
             {
-                IResultService resultService = new ResultService();
-
                 IList<Sport> sports;
                 IList<League> leagues;
                 if (metalModel.IsOutRight)
@@ -160,7 +174,7 @@ namespace Fanex.Athena.Controllers.Report
                 }
                 else
                 {
-                    leagues = resultService.GetLeagues(metalModel.FromDate, metalModel.SportId);
+                    leagues = _resultService.GetLeagues(metalModel.FromDate, metalModel.SportId);
                     return Json(new { Leagues = leagues });
                 }
             }
@@ -211,9 +225,7 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult ShowRngCasinoSingleWalletResult(string refNo)
         {
-            IRNGCasinoSingleWalletService casinoAPI = new RngCasinoSingleWalletService();
-
-            var resultInfo = casinoAPI.GetReultInfo(refNo);
+            var resultInfo = _rngCasinoSingleWalletService.GetReultInfo(refNo);
 
             return Json(resultInfo);
         }
@@ -235,8 +247,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         public ActionResult ResultDetail(int matchId, int sportType)
         {
-            var resultService = new ResultService();
-            var detailedData = resultService.GetSportsbookGameDetail(matchId);
+            var detailedData = _resultService.GetSportsbookGameDetail(matchId);
             if (detailedData != null && detailedData.MatchId > 0)
             {
                 ViewBag.Data = ResultEngine.HtmlGameDetailParser(
@@ -265,12 +276,11 @@ namespace Fanex.Athena.Controllers.Report
         [AjaxRequest]
         public ActionResult KenoResult()
         {
-            IKenoApi api = new KenoApi();
             var userId = SessionService.UserSession.UserId;
             return Json(
                 new
                 {
-                    Url = api.CreateKenoResultUrl(GetKenoSetting(), userId.ToString(), DateTime.Now),
+                    Url = _kenoApi.CreateKenoResultUrl(GetKenoSetting(), userId.ToString(), DateTime.Now),
                     UserId = userId
                 },
             JsonRequestBehavior.AllowGet);
@@ -286,8 +296,6 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public string KenoResult(string userId)
         {
-            IKenoApi api = new KenoApi();
-
             if (string.IsNullOrEmpty(userId) || !SessionService.UserSession.UserId.ToString().Equals(userId))
             {
                 Fanex.Logging.LogService.Error("Keno Result page just submited invalid userId");
@@ -295,7 +303,7 @@ namespace Fanex.Athena.Controllers.Report
                 return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
             }
 
-            var result = api.ExtendToken(GetKenoSetting(), userId);
+            var result = _kenoApi.ExtendToken(GetKenoSetting(), userId);
 
             if (result.ErrorCode > 0)
             {
@@ -317,7 +325,6 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metalModel">The metal model.</param>
         private void GetPopUpData(ResultPopupMetalModel metalModel)
         {
-            IResultService resultService = new ResultService();
             var sportType = (SportType)metalModel.SportType;
             var setting = new ResultSetting
             {
@@ -331,7 +338,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 if (metalModel.RefNo != null)
                 {
-                    var parlayData = resultService.GetPopUpParlayMatch(metalModel.RefNo.Value);
+                    var parlayData = _resultService.GetPopUpParlayMatch(metalModel.RefNo.Value);
                     _htmlResult = ResultEngine.HtmlParser(parlayData, setting);
                 }
             }
@@ -353,7 +360,6 @@ namespace Fanex.Athena.Controllers.Report
            Justification = "Reviewed. Suppression is OK here.")]
         private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, ResultSetting setting)
         {
-            IResultService resultService = new ResultService();
             var userId = SessionService.UserSession.UserId;
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
@@ -369,7 +375,7 @@ namespace Fanex.Athena.Controllers.Report
                 case SportType.VirtualCycling:
                     if (metalModel.RaceNo != null)
                     {
-                        var dataRc = resultService.GetPopUpRacingMatch(
+                        var dataRc = _resultService.GetPopUpRacingMatch(
                             metalModel.MatchId,
                             metalModel.RaceNo.Value,
                             licenseeId,
@@ -386,7 +392,7 @@ namespace Fanex.Athena.Controllers.Report
 
                 case SportType.LiveCasino:
 
-                    var dataLc = resultService.GetPopUpLiveCasinoMatch(
+                    var dataLc = _resultService.GetPopUpLiveCasinoMatch(
                         metalModel.MatchId,
                         licenseeId,
                         userId,
@@ -400,7 +406,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 case SportType.NumberGame:
-                    var dataNg = resultService.GetPopUpNumberGameMatchs(metalModel.MatchId);
+                    var dataNg = _resultService.GetPopUpNumberGameMatchs(metalModel.MatchId);
                     if (dataNg != null)
                     {
                         _htmlResult = ResultEngine.HtmlParser(dataNg, setting);
@@ -409,7 +415,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 default:
-                    var data = resultService.GetPopUpMatch(metalModel.MatchId, licenseeId, userId, metalModel.Bettype, metalModel.BetId);
+                    var data = _resultService.GetPopUpMatch(metalModel.MatchId, licenseeId, userId, metalModel.Bettype, metalModel.BetId);
                     if (data != null)
                     {
                         _htmlResult = ResultEngine.HtmlParser(data, setting);
@@ -436,10 +442,9 @@ namespace Fanex.Athena.Controllers.Report
           Justification = "Reviewed. Suppression is OK here.")]
         private ActionResult GetNormalSports(ResultMetalModel metalModel, out IList<Sport> sports, out IList<League> leagues)
         {
-            IResultService resultService = new ResultService();
             var licenseeSession = SessionService.LicenseeSession;
             leagues = null;
-            sports = resultService.GetSports(metalModel.FromDate, licenseeSession.LicenseeId);
+            sports = _resultService.GetSports(metalModel.FromDate, licenseeSession.LicenseeId);
             if (sports.Count > 0)
             {
                 IEnumerable<Sport> limitedSports;
@@ -491,7 +496,7 @@ namespace Fanex.Athena.Controllers.Report
 
                 if (limitedSports.Count() > 0)
                 {
-                    leagues = resultService.GetLeagues(
+                    leagues = _resultService.GetLeagues(
                        metalModel.FromDate,
                        int.Parse(limitedSports.First().SportId));
                     return Json(new { Sports = limitedSports, Leagues = leagues });
@@ -510,12 +515,10 @@ namespace Fanex.Athena.Controllers.Report
         /// <returns>The JSON result.</returns>
         private ActionResult GetOutRightSports(ResultMetalModel metalModel, out IList<Sport> sports, out IList<League> leagues)
         {
-            IResultService resultService = new ResultService();
-
             sports = null;
             leagues = null;
             var cacheKey = GenerateOutRightCacheKey(metalModel);
-            var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? resultService.GetOutRight(metalModel);
+            var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? _resultService.GetOutRight(metalModel);
             if (outRightData != null && outRightData.Count > 0)
             {
                 sports =
@@ -550,8 +553,6 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metalModel">The metal model.</param>
         private void GetOutRightData(ResultMetalModel metalModel)
         {
-            IResultService resultService = new ResultService();
-
             var setting = new ResultSetting
             {
                 IsOutright = true,
@@ -560,7 +561,7 @@ namespace Fanex.Athena.Controllers.Report
                 LanguageCode = SessionService.UserSession.Language
             };
             var cacheKey = GenerateOutRightCacheKey(metalModel);
-            var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? resultService.GetOutRight(metalModel);
+            var outRightData = (IList<Outright>)HttpRuntime.Cache.Get(cacheKey) ?? _resultService.GetOutRight(metalModel);
             if (outRightData != null)
             {
                 var data =
@@ -589,8 +590,6 @@ namespace Fanex.Athena.Controllers.Report
            Justification = "Reviewed. Suppression is OK here.")]
         private void GetNormalData(ResultMetalModel metalModel)
         {
-            IResultService resultService = new ResultService();
-
             var sportType = (SportType)metalModel.SportId;
             var setting = new ResultSetting
             {
@@ -611,7 +610,7 @@ namespace Fanex.Athena.Controllers.Report
                 case SportType.VirtualMotorRacing:
                 case SportType.VirtualCycling:
                 case SportType.VirtualSpeedway:
-                    var dataRc = resultService.GetRacingMatches(metalModel);
+                    var dataRc = _resultService.GetRacingMatches(metalModel);
                     if (dataRc != null)
                     {
                         if (metalModel.IsExportExcel)
@@ -627,7 +626,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 case SportType.LiveCasino:
-                    var dataLc = resultService.GetLiveCasinoMatches(metalModel);
+                    var dataLc = _resultService.GetLiveCasinoMatches(metalModel);
 
                     if (dataLc != null)
                     {
@@ -644,7 +643,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 case SportType.NumberGame:
-                    var dataNg = resultService.GetNumberGameMatches(
+                    var dataNg = _resultService.GetNumberGameMatches(
                         metalModel);
                     if (dataNg != null)
                     {
@@ -661,7 +660,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 default:
-                    var data = resultService.GetMatches(metalModel);
+                    var data = _resultService.GetMatches(metalModel);
                     if (data != null)
                     {
                         if (metalModel.IsExportExcel)

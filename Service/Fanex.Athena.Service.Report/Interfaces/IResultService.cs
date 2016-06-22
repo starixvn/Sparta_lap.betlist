@@ -79,6 +79,8 @@ namespace Fanex.Athena.Service.Report.Interfaces
 
         #region Popup
 
+        Sportsbook GetSportsbookGameDetail(int matchId);
+
         /// <summary>
         /// Get match for pop up pages.
         /// Only used for sport-book and racing.
