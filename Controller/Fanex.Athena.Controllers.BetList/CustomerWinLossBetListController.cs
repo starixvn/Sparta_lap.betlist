@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CustomerWinLossBetListController.cs" company="Nexcel">
+// <copyright file="CustomerWinLossBetListController.cs" company="">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------

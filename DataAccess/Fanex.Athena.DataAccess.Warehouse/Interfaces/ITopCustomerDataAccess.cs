@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ITopCustomerDataAccess.cs" company="Nexcel">
+// <copyright file="ITopCustomerDataAccess.cs" company="">
 // a
 // </copyright>
 // <summary>

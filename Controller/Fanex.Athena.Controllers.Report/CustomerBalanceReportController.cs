@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.CustomerBalance.cs" company="Nexcel">
+// <copyright file="ReportController.CustomerBalance.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IActiveCustomerService.cs" company="Nexcel">
+// <copyright file="IActiveCustomerService.cs" company="">
 // The active customer service.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------

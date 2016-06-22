@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IAgCasinoWinLossService.cs" company="Nexcel">
+// <copyright file="IAgCasinoWinLossService.cs" company="">
 // The i licensee win loss service.
 // </copyright>
 // <summary>

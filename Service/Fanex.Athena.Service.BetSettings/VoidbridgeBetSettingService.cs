@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="VoidbridgeBetSettingService.cs" company="Nexcel">
+// <copyright file="VoidbridgeBetSettingService.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

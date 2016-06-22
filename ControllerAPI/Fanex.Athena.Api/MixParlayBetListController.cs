@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="MixParlayBetListController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="MixParlayBetListController.cs" company="">
+// Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>

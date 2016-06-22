@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="KenoAuthorizedData.cs" company="NEXCEL">
+// <copyright file="KenoAuthorizedData.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

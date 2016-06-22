@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CustomerPendingFundsViewModel.cs" company="Nexcel">
+// <copyright file="CustomerPendingFundsViewModel.cs" company="">
 // warehouse winloss form parameters
 // </copyright>
 // -----------------------------------------------------------------------

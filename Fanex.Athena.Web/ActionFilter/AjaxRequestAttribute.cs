@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AjaxRequestAttribute.cs" company="Nexcel">
+// <copyright file="AjaxRequestAttribute.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CustomerWinLossMetaModel.cs" company="Nexcel">
+// <copyright file="CustomerWinLossMetaModel.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

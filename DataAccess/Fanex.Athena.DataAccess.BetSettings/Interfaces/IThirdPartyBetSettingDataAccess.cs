@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IThirdPartyBetSettingDataAccess.cs" company="Nexcel Solution">
+// <copyright file="IThirdPartyBetSettingDataAccess.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

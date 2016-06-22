@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="LiveCasinoBetSetting.cs" company="Nexcel">
+// <copyright file="LiveCasinoBetSetting.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

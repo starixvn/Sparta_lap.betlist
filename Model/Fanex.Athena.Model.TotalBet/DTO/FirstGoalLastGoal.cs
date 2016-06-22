@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="FirstGoalLastGoal.cs" company="Nexcel">
+// <copyright file="FirstGoalLastGoal.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

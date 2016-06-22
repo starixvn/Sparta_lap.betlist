@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="WinLossService.cs" company="Nexcel">
+// <copyright file="WinLossService.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // <summary>

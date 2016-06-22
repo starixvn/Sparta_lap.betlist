@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CustomApiAuthorizeAttribute.cs" company="Nexcel">
+// <copyright file="CustomApiAuthorizeAttribute.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

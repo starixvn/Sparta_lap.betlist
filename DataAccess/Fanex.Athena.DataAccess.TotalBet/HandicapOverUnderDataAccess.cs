@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="HandicapOverUnderDataAccess.cs" company="Nexcel Solution">
+// <copyright file="HandicapOverUnderDataAccess.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

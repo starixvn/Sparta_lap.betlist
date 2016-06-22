@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AgCasinoWinLossService.cs" company="Nexcel">
+// <copyright file="AgCasinoWinLossService.cs" company="">
 // The ag casino win loss service.
 // </copyright>
 // <summary>

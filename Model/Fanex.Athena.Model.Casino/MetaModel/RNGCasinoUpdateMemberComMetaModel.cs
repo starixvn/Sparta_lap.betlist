@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="RNGCasinoUpdateMemberComMetaModel.cs" company="Nexcel Solution">
+// <copyright file="RNGCasinoUpdateMemberComMetaModel.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

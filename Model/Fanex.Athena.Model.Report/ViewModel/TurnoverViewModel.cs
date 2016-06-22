@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="TurnoverViewModel.cs" company="Nexcel">
+// <copyright file="TurnoverViewModel.cs" company="">
 // warehouse winloss form parameters
 // </copyright>
 // -----------------------------------------------------------------------

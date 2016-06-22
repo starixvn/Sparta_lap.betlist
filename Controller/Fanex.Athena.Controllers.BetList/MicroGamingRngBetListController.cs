@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MicroGamingRngBetListController.cs" company="Nexcel">
+// <copyright file="MicroGamingRngBetListController.cs" company="">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="GoldDeluxeBetSettingViewModel.cs" company="Nexcel">
+// <copyright file="GoldDeluxeBetSettingViewModel.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

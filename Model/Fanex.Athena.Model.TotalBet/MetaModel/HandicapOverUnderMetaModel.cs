@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="HandicapOverUnderMetaModel.cs" company="Nexcel">
+// <copyright file="HandicapOverUnderMetaModel.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

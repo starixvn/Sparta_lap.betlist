@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ICurrencyService.cs" company="Nexcel">
+// <copyright file="ICurrencyService.cs" company="">
 // The i currency service.
 // </copyright>
 // <summary>

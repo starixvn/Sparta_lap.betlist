@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="WinLossMetaModel.cs" company="Nexcel">
+// <copyright file="WinLossMetaModel.cs" company="">
 // warehouse winloss form parameters
 // </copyright>
 // -----------------------------------------------------------------------

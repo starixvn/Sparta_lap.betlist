@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="DailyRacingWinLoss.cs" company="Nexcel">
+// <copyright file="DailyRacingWinLoss.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ProductService.cs" company="Nexcel">
+// <copyright file="ProductService.cs" company="">
 //  The product service.
 // </copyright>
 // <summary>

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="OddEvenDrawNoDrawDataAccess.cs" company="Nexcel Solution">
+// <copyright file="OddEvenDrawNoDrawDataAccess.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

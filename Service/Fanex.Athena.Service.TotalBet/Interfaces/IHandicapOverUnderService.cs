@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IHandicapOverUnderService.cs" company="Nexcel">
+// <copyright file="IHandicapOverUnderService.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ISessionService.cs" company="Nexcel">
+// <copyright file="ISessionService.cs" company="">
 // The  session service.
 // </copyright>
 // <summary>

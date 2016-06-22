@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TopCustomerService.cs" company="Nexcel">
+// <copyright file="TopCustomerService.cs" company="">
 // The top customer service.
 // </copyright>
 // <summary>

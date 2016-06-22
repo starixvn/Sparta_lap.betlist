@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="LiveReportMatchListViewModel.cs" company="Nexcel">
+// <copyright file="LiveReportMatchListViewModel.cs" company="">
 // warehouse winloss form parameters
 // </copyright>
 // -----------------------------------------------------------------------

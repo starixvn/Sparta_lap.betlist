@@ -22,5 +22,5 @@
     "test": "karma start --reporters kjhtml,junit,dots,coverage,progress"
   },
   "author": "Sparta",
-  "license": "Nexcel.vn"
+  "license": "vn"
 }

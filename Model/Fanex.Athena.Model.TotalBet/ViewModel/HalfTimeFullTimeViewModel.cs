@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="HalfTimeFullTimeViewModel.cs" company="Nexcel">
+// <copyright file="HalfTimeFullTimeViewModel.cs" company="">
 // warehouse winloss form parameters
 // </copyright>
 // -----------------------------------------------------------------------

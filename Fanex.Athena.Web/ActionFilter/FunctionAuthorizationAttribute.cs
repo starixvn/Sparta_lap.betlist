@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="FunctionAuthorizationAttribute.cs" company="Nexcel">
+// <copyright file="FunctionAuthorizationAttribute.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

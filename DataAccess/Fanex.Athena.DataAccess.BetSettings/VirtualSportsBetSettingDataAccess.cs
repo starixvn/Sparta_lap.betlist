@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="VirtualSportsBetSettingDataAccess.cs" company="Nexcel Solution">
+// <copyright file="VirtualSportsBetSettingDataAccess.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

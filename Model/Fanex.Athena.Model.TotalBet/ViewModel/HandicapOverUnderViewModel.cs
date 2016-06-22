@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="HandicapOverUnderViewModel.cs" company="Nexcel">
+// <copyright file="HandicapOverUnderViewModel.cs" company="">
 // warehouse winloss form parameters
 // </copyright>
 // -----------------------------------------------------------------------

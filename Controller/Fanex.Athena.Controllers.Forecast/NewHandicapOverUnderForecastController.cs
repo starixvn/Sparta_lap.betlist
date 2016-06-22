@@ -1,6 +1,6 @@
 ﻿// ForecastController.NewHandicapOverUnder.cs--------------------------------
-// <copyright file="NewHandicapOverUnderForecastController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="NewHandicapOverUnderForecastController.cs" company="">
+// Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.MatchWinLoss.cs" company="Nexcel">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="ReportController.MatchWinLoss.cs" company="">
+// Copyright (c) . All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 

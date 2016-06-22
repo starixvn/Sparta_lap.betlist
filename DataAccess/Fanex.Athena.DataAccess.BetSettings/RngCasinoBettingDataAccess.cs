@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="RngCasinoBetSettingDataAccess.cs" company="Nexcel Solution">
+// <copyright file="RngCasinoBetSettingDataAccess.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

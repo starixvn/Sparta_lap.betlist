@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="LicenseeWinLossGridViewModel.cs" company="Nexcel">
+// <copyright file="LicenseeWinLossGridViewModel.cs" company="">
 // LicenseeWinLossGridViewModel copyright.
 // </copyright>
 // -----------------------------------------------------------------------

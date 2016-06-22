@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerListExcel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (coffee) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="CustomerListExcel.cs" company="">
+// Copyright (coffee) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>

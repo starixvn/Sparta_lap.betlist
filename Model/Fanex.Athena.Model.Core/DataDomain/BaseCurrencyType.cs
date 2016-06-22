@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="BaseCurrencyType.cs" company="Nexcel">
+// <copyright file="BaseCurrencyType.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

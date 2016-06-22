@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="NewForecastHdpOuTotalItem.cs" company="Nexcel">
+// <copyright file="NewForecastHdpOuTotalItem.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

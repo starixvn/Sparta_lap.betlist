@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IRacingCommissionDataAccess.cs" company="Nexcel Solution">
+// <copyright file="IRacingCommissionDataAccess.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

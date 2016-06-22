@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="SportProductItem.cs" company="Nexcel Solutions Vietnam">
-// Copyright (coffee) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="SportProductItem.cs" company="">
+// Copyright (coffee) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>

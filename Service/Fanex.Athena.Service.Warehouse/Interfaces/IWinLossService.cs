@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IWinLossService.cs" company="Nexcel">
+// <copyright file="IWinLossService.cs" company="">
 // The  win loss service.
 // </copyright>
 // <summary>

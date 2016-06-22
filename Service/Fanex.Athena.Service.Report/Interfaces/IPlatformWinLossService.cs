@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IPlatformWinLossService.cs" company="Nexcel">
+// <copyright file="IPlatformWinLossService.cs" company="">
 // The  mobile win loss service.
 // </copyright>
 // <summary>

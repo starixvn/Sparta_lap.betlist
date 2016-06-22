@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IVoidbridgeBetSettingDataAccess.cs" company="Nexcel Solution">
+// <copyright file="IVoidbridgeBetSettingDataAccess.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

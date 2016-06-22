@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ActiveCustomerGridViewModel.cs" company="Nexcel">
+// <copyright file="ActiveCustomerGridViewModel.cs" company="">
 // ActiveCustomerGridViewModel copyright.
 // </copyright>
 // -----------------------------------------------------------------------

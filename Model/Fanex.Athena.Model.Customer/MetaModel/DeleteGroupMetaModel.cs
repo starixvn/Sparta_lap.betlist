@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="DeleteGroupMetaModel.cs" company="Nexcel Solution">
+// <copyright file="DeleteGroupMetaModel.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

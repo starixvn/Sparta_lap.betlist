@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.PlaytechCasino.cs" company="Nexcel">
+// <copyright file="ReportController.PlaytechCasino.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

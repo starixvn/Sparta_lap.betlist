@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="RunningBettypesOfMatchBetListController.cs" company="Nexcel">
+// <copyright file="RunningBettypesOfMatchBetListController.cs" company="">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------

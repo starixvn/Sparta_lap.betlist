@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.MicrogamingWinLoss.cs" company="Nexcel Solution">
+// <copyright file="ReportController.MicrogamingWinLoss.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

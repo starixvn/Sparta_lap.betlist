@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="LiveReportBetListController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="LiveReportBetListController.cs" company="">
+// Copyright (c) . All rights reserved.
 // </copyright>
 
 // --------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="HalfTimeFullTime.cs" company="Nexcel">
+// <copyright file="HalfTimeFullTime.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

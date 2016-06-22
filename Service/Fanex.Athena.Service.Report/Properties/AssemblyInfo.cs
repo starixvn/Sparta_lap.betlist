@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AssemblyInfo.cs" company="Nexcel">
+// <copyright file="AssemblyInfo.cs" company="">
 //  AssemblyInfo.cs
 // </copyright>
 // <summary>

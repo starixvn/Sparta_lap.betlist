@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CustomerLogController.cs" company="Nexcel">
+// <copyright file="CustomerLogController.cs" company="">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------

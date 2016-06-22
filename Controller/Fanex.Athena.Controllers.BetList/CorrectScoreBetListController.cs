@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CorrectScoreBetListController.cs" company="Nexcel">
+// <copyright file="CorrectScoreBetListController.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

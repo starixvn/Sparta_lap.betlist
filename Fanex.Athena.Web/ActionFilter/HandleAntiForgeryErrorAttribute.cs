@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="HandleAntiForgeryErrorAttribute.cs" company="Nexcel">
+// <copyright file="HandleAntiForgeryErrorAttribute.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

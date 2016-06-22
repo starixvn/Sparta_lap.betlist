@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SettledMatchCountDataAccess.cs" company="Nexcel Solution">
+// <copyright file="SettledMatchCountDataAccess.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
