@@ -25,7 +25,7 @@ var OddEvenDND = (function ($) {
             });
         },
         viewForecast1X2: function (matchId, betType) {
-            var url = Site.resolveClientUrl("Forecast/ForecastOneXTwoPopup?matchid=" + matchId + '&bettype=' + betType + '&ispopup=true');
+            var url = Site.resolveClientUrl("OneXTwoForecast/Popup?matchid=" + matchId + '&bettype=' + betType + '&ispopup=true');
             url = Site.setLicenseeOptionOriginalParam(url);
 
             var popH = Math.min(window.innerHeight - 100, 600), popW = 700;

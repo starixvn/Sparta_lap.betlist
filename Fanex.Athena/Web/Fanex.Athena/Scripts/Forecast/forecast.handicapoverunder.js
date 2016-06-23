@@ -48,7 +48,7 @@ var ForecastHDPOU = (function ($) {
             });
         },
         openForecast: function (matchId, betType) {
-            var url = Site.resolveClientUrl("Forecast/ForeCastAh?matchid=" + matchId + '&bettype=' + betType);
+            var url = Site.resolveClientUrl("AhForecast/Index?matchid=" + matchId + '&bettype=' + betType);
             url = Site.setLicenseeOptionOriginalParam(url);
 
             var popH = 250, popW = 700;
