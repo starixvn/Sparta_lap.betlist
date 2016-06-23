@@ -82,7 +82,7 @@
             {
                 StatusCode = HttpStatusCode.Forbidden,
                 RequestMessage = actionContext.ControllerContext.Request,
-                Content = new StringContent("Your request was refused!!FUCKYOU:)")
+                Content = new StringContent("Cheating is not good for kids.")
             };
 
             return FromResult(actionContext.Response);
