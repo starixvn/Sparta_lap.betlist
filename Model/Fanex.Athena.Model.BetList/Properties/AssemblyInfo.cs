@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Fanex.Athena.Model.BetList")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Nexcel")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Fanex.Athena.Model.BetList")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2012")]
 [assembly: AssemblyTrademark("")]
