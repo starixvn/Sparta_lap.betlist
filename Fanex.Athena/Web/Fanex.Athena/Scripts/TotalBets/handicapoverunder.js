@@ -25,7 +25,7 @@ var HandicapOU = (function ($) {
             });
         },
         viewNewForecast: function (leagueId, matchId, currencyId, baseCurrency) {
-            var url = Site.resolveClientUrl("Forecast/NewForecastHdpOu");
+            var url = Site.resolveClientUrl("NewHandicapOverUnderForecast/Index");
             url = QueryString.setParam(url, "leagueId", leagueId);
             url = QueryString.setParam(url, "matchId", matchId);
             url = QueryString.setParam(url, "currencyId", currencyId);
