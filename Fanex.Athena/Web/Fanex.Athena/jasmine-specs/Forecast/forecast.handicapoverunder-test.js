@@ -75,7 +75,7 @@
             $("#CurrencyId").attr('data-original', 2);
             $("#BaseCurrency").attr('data-original', 3);
 
-            var url = "Forecast/ForeCastAh?matchid=1&bettype=2&licenseetype=1&currencyid=2&currencyname=uus&basecurrency=3";
+            var url = "AhForecast/Index?matchid=1&bettype=2&licenseetype=1&currencyid=2&currencyname=uus&basecurrency=3";
             spyOn(ForecastPopup, "showPopup");
 
             ForecastHDPOU.openForecast(1, 2);
