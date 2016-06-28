@@ -26,7 +26,6 @@ namespace Fanex.Athena.Api.Base
     /// Base API Controller.
     /// </summary>
     [CustomApiAuthorize]
-    [CustomAPIExceptionHandling]
     [CheckUMFilter]
     public class BaseApiController : ApiController
     {

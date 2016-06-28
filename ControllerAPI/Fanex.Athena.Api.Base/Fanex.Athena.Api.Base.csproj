@@ -153,8 +153,8 @@
   <ItemGroup>
     <Compile Include="Attributes\ApiFunctionAuthorizationAttribute.cs" />
     <Compile Include="Attributes\CustomApiAuthorizeAttribute.cs" />
-    <Compile Include="Attributes\CustomAPIExceptionHandlingAttribute.cs" />
     <Compile Include="BaseApiController.cs" />
+    <Compile Include="Logger\ApiExceptionLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
