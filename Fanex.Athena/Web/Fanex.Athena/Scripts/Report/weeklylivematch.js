@@ -1,12 +1,41 @@
-﻿/*global jqGridAdditional, WeeklyLiveMatchOption, Site */
+﻿/*global jqGridAdditional, WeeklyLiveMatchOption, Site, JSLINQ */
 /// <reference path="/@JSense.js" />
 ///
 var WeeklyLiveMatch = (function ($) {
     "use strict";
     var VALID_MONTH_RANGE = 2;
-
+    var SPORT_COLUMN_INDEX = 1;
+    var START_WEEK_COLUMN_INDEX = 2;
+    
     var ajaxRequest = null;
     var _resizeTimer = null;
+    var _cacheData = null;
+    var _sortColumn = null;
+    var _sortDirection = null;
+    var _submitData = {};
+
+    function sortData(arrayData) {
+        var columnIndex = SPORT_COLUMN_INDEX;
+        if (_sortColumn.indexOf('Week') === 0) {
+            columnIndex = Number(_sortColumn.replace('Week', '')) + START_WEEK_COLUMN_INDEX;
+            arrayData = JSLINQ(arrayData).OrderBy(function (x) { return x.Cell[SPORT_COLUMN_INDEX]; }).items;
+        }
+
+        for (var i = 0; i < arrayData.length; i++) {
+            arrayData[i].SortingValue = arrayData[i].Cell[columnIndex];
+        }
+
+        var data = _sortDirection === "asc" ?
+     JSLINQ(arrayData).OrderBy(function (x) { return x.SortingValue; }).items
+     : JSLINQ(arrayData).OrderByDescending(function (x) { return x.SortingValue; }).items;
+
+        // Re-assign Index column.
+        for (var j = 0; j < data.length; j++) {
+            data[j].Cell[0] = j + 1;
+        }
+
+        return data;
+    }
 
     return {
         resizeGrid: function () {
@@ -42,6 +71,23 @@ var WeeklyLiveMatch = (function ($) {
                 title: Site.getSingleResource("WeeklyLiveMatches"),
                 height: 380
             });
+            WeeklyLiveMatchOption.gridOption.onSortCol = function (index/*, columnIndex, sortOrder*/) {
+                Site.blockUI();
+                window.setTimeout(function () {
+                    if (_sortColumn === index) {
+                        _sortDirection = _sortDirection === "asc" ? "desc" : "asc";
+                    } else {
+                        _sortDirection = "asc";
+                        _sortColumn = index;
+                    }
+                    _cacheData.Data = sortData(_cacheData.Data);
+
+                    WeeklyLiveMatch.bindData(_submitData.FromDate, _submitData.ToDate, _cacheData);
+
+                    Site.unBlockUI();
+                }, 100);
+                return 'stop';
+            };
         },
 
         initEvent: function () {
@@ -53,12 +99,12 @@ var WeeklyLiveMatch = (function ($) {
             });
 
             $('#ExportToExcel').click(function () {
-                $('#IsExportExcel').val(true);
-                var $mainForm = $("#mainform");
-                var url = Site.resolveClientUrl(WeeklyLiveMatchOption.urlExcelData);
-                $mainForm.attr("action", url);
-                $mainForm.submit();
-                $('#IsExportExcel').val(false);
+                var mainForm = $("#mainform");
+                var data = mainForm.serializeObject();
+                data.IsExportExcel = true;
+                data.SortColumn = _sortColumn;
+                data.SortDirection = _sortDirection;
+                Site.exportExcel(data, WeeklyLiveMatchOption.urlExcelData);
                 return false;
             });
         },
@@ -66,7 +112,8 @@ var WeeklyLiveMatch = (function ($) {
         submit: function () {
             var mainForm = $("#mainform");
             var data = mainForm.serializeObject();
-
+            data.SortColumn = _sortColumn;
+            data.SortDirection = _sortDirection;
             var option = {
                 type: "POST",
                 data: data,
@@ -75,6 +122,11 @@ var WeeklyLiveMatch = (function ($) {
                 cache: false,
                 url: Site.resolveClientUrl(WeeklyLiveMatchOption.urlData),
                 success: function (response) {
+                    _cacheData = response;
+                    _submitData = {
+                        FromDate: data.FromDate,
+                        ToDate: data.ToDate
+                    };
                     WeeklyLiveMatch.bindData(data.FromDate, data.ToDate, response);
                 },
                 beforeSend: Site.blockUI,
@@ -125,7 +177,7 @@ var WeeklyLiveMatch = (function ($) {
             jqGridAdditional.resetLayout(reportGrid);
 
             var gridWidth = reportGrid.width() + 18;
-            
+
             gridWidth = Math.min($(window).width() - 20, gridWidth);
             $(".content-filter").width(gridWidth);
             reportGrid.jqGrid("setGridWidth", gridWidth);
@@ -141,6 +193,21 @@ var WeeklyLiveMatch = (function ($) {
                     .html(totalText);
                 $secondCell.hide();
             }
+
+            reportGrid.closest(".ui-jqgrid-view")
+                .find(".ui-jqgrid-hdiv .ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column > .ui-jqgrid-sortable")
+                .each(function (index, element) {
+                    var $this = $(element);
+                    $this.find(".s-ico").remove();
+
+                    if (element.id.indexOf(_sortColumn) > -1) {
+                        var sortClass = "sort-" + _sortDirection;
+                        var sortSpan = $("<span style='display: inline; margin: 2px 0px 0px 2px'></span");
+                        sortSpan.addClass(sortClass);
+                        $this.append(sortSpan);
+                        $this.addClass("sorted-heading");
+                    }
+                });
         }
 
         //#end

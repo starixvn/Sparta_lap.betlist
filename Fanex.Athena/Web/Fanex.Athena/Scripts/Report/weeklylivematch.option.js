@@ -22,14 +22,14 @@ var WeeklyLiveMatchOption = (function () {
         index: 'SportName',
         width: 150,
         align: 'left',
-        sortable: false,
+        sortable: true,
         resizable: false
     };
 
     var numOfMatchColumn =
     {
         width: 90,
-        sortable: false,
+        sortable: true,
         resizable: false,
         align: "right",
         title: true,

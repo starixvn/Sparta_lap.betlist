@@ -11,6 +11,8 @@ namespace Fanex.Athena.Models.DTO.Report
 {
     public class WeeklyLiveMatch
     {
+        public int SortingWeekValue { get; set; }
+
         public string SportName { get; set; }
 
         public int Index { get; set; }

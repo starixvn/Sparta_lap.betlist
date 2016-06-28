@@ -16,7 +16,11 @@ namespace Fanex.Athena.Models.MetaModel.Report
             FromDate = DateTimeHelper.GetFirstDateOfWeek(DateTime.Now);
             ToDate = DateTime.Now.AddDays(-1);
         }
-        
+
+        public string SortDirection { get; set; }
+
+        public string SortColumn { get; set; }
+
         public int NumberOfWeeks
         {
             get

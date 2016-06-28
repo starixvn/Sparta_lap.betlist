@@ -6,8 +6,10 @@
 
 namespace Fanex.Athena.DataAccess.Implement.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Core;
     using Core.Exception;
     using Data;
@@ -24,6 +26,8 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     {
         private const int StartWeekColumnIndex = 2;
 
+        private const string CustomSortingWeekColumn = "SortingWeekValue";
+
         public IEnumerable<WeeklyLiveMatch> GetDataList(WeeklyLiveMatchMetaModel metaModel, out int[] totalData)
         {
             string uspName = "Lrf_Rpt_LiveMatchWeekly";
@@ -39,7 +43,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return ReadData(metaModel.NumberOfWeeks, reader, out totalData);
+                        return ReadData(metaModel.NumberOfWeeks, reader, metaModel.SortColumn, metaModel.SortDirection, out totalData);
                     }
                 }
             }
@@ -50,16 +54,26 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             }
         }
 
-        public IEnumerable<WeeklyLiveMatch> ReadData(int numberOfWeeks, IDataReader reader, out int[] totalData)
+        private static IEnumerable<WeeklyLiveMatch> ReadData(
+            int numberOfWeeks,
+            IDataReader reader,
+            string sortColumn,
+            string sortDirection,
+            out int[] totalData)
         {
             var data = new List<WeeklyLiveMatch>();
             totalData = new int[numberOfWeeks];
-            var index = 1;
+            var sortingWeekIndex = -1;
+            if (!string.IsNullOrEmpty(sortColumn) && sortColumn.StartsWith("Week", System.StringComparison.OrdinalIgnoreCase))
+            {
+                sortingWeekIndex = int.Parse(sortColumn.Replace("Week", string.Empty));
+                sortColumn = CustomSortingWeekColumn;
+            }
+
             while (reader.Read())
             {
                 var item = new WeeklyLiveMatch()
                 {
-                    Index = index++,
                     SportName = CacheRef.GetSportName(reader["sporttype"]),
                     NumbersOfMatches = new List<int>()
                 };
@@ -72,11 +86,48 @@ namespace Fanex.Athena.DataAccess.Implement.Report
                 }
 
                 item.NumbersOfMatches = numbersOfMatches;
+                if (sortingWeekIndex >= 0)
+                {
+                    item.SortingWeekValue = numbersOfMatches[sortingWeekIndex];
+                }
 
                 data.Add(item);
             }
 
+            if (string.IsNullOrEmpty(sortColumn) == false && string.IsNullOrEmpty(sortDirection) == false)
+            {
+                data = SortData(data, sortColumn, sortDirection).ToList();
+            }
+
+            AssignPropertyIndex(data);
             return data;
+        }
+
+        private static IEnumerable<WeeklyLiveMatch> SortData(IEnumerable<WeeklyLiveMatch> data, string sortColumn, string sortDirection)
+        {
+            var isAscending = sortDirection.Equals("asc", System.StringComparison.OrdinalIgnoreCase);
+            if (sortColumn.Equals(CustomSortingWeekColumn))
+            {
+                return Sort(data, x => x.SortingWeekValue, isAscending).ThenBy(x => x.SportName);
+            }
+            else
+            {
+                return Sort(data, x => x.SportName, isAscending);
+            }
+        }
+
+        private static IOrderedEnumerable<T> Sort<T, TKey>(IEnumerable<T> data, Func<T, TKey> keySelector, bool isAscending = true)
+        {
+            return isAscending ? data.OrderBy(keySelector) : data.OrderByDescending(keySelector);
+        }
+
+        private static void AssignPropertyIndex(IEnumerable<WeeklyLiveMatch> data)
+        {
+            int index = 1;
+            foreach (var item in data)
+            {
+                item.Index = index++;
+            }
         }
     }
 }

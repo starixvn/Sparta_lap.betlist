@@ -40,7 +40,7 @@ namespace Fanex.Athena.Service.Implement.Report
             else
             {
                 total = new int[0];
-                return new SortableList<WeeklyLiveMatch>();
+                return new List<WeeklyLiveMatch>();
             }
         }
 
