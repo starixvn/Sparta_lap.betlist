@@ -104,7 +104,7 @@ var WeeklyLiveMatch = (function ($) {
                 data.IsExportExcel = true;
                 data.SortColumn = _sortColumn;
                 data.SortDirection = _sortDirection;
-                Site.exportExcel(data, WeeklyLiveMatchOption.urlExcelData);
+                Site.exportExcel(data, Site.resolveClientUrl(WeeklyLiveMatchOption.urlExcelData));
                 return false;
             });
         },
