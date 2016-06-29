@@ -1,7 +1,6 @@
 ﻿describe("WeeklyLiveMatchOption", function () {
     describe("Default Option", function () {
         it("Initial values should be correct", function () {
-            expect(WeeklyLiveMatchOption.urlData).toBe("api/WeeklyLiveMatchReport/index");
             expect(WeeklyLiveMatchOption.urlExcelData).toBe("api/WeeklyLiveMatchReport/index");
             expect(WeeklyLiveMatchOption.gridOption.rowNum).toBe(500);
             expect(WeeklyLiveMatchOption.gridOption.autowidth).toBe(false);

@@ -180,6 +180,9 @@ module.exports = function(config) {
 		
 		'Scripts/Report/winlossbyproduct*.js',
 		'jasmine-specs/Report/winlossbyproduct*-test.js',
+
+        'Scripts/Report/weeklylivematch*.js',
+		'jasmine-specs/Report/weeklylivematch*-test.js',
 		
 		 // --------- TotalBets --------- //
 		'Scripts/TotalBets/*.js',
