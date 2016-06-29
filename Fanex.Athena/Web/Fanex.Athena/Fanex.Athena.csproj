@@ -742,6 +742,7 @@
     <Content Include="jasmine-specs\Report\thirdpartywinloss.option-test.js" />
     <Content Include="jasmine-specs\Report\turnover-test.js" />
     <Content Include="jasmine-specs\Report\turnover.option-test.js" />
+    <Content Include="jasmine-specs\Report\weeklylivematch.option-test.js" />
     <Content Include="jasmine-specs\Report\winlossbybettype-test.js" />
     <Content Include="jasmine-specs\Report\winlossbyleague-test.js" />
     <Content Include="jasmine-specs\Report\winlossbyleague.option-test.js" />
