@@ -762,17 +762,28 @@
     <Content Include="jasmine-specs\WareHouse\topcustomer-test.js" />
     <Content Include="jasmine-specs\WareHouse\winloss-test.js" />
     <Content Include="package.json" />
-    <None Include="Scripts\Languages\ViewResources.zh-Hans.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewResources.zh-Hans.js</LastGenOutput>
-    </None>
     <Content Include="Jasmine\SpecRunnerReport.html" />
     <Content Include="Jasmine\SpecRunnerSingleTesting.html" />
     <Content Include="karma.conf.js" />
-    <Content Include="Scripts\Languages\ViewResources.zh-Hans.js">
+    <Content Include="Scripts\Languages\ViewResources.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.ko-KR.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.zh-Hans.tt</DependentUpon>
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.zh-CN.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.zh-Hans.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.zh-TW.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
@@ -3532,11 +3543,6 @@
     <Content Include="img\Wheel\C50.jpg" />
     <Content Include="img\Wheel\RJ.jpg" />
     <Content Include="Scripts\Customer\BetSetting\golddeluxe.js" />
-    <Content Include="Scripts\Languages\ViewResources.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.tt</DependentUpon>
-    </Content>
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
@@ -3747,11 +3753,6 @@
     <Content Include="Scripts\Header\header.js" />
     <Content Include="Scripts\Library\jquery.jclock.js" />
     <Content Include="Scripts\Header\ReCheckIn.js" />
-    <Content Include="Scripts\Languages\ViewResources.ko-KR.js">
-      <DependentUpon>ViewResources.ko-KR.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Content>
     <Content Include="Scripts\Menu\Menu.js" />
     <Content Include="Scripts\Plugin\MultiSelect\jquery.multiselect.nlevel.js" />
     <Content Include="Scripts\Library\BigDecimal-all-last.min.js" />
@@ -3986,21 +3987,6 @@
     <Content Include="Scripts\Global\lrf.layout.js" />
     <Content Include="Scripts\Global\Paging.js" />
     <Content Include="Scripts\Global\site.js" />
-    <Content Include="Scripts\Languages\ViewResources.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.tt</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Languages\ViewResources.zh-CN.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.zh-CN.tt</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Languages\ViewResources.zh-TW.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.zh-TW.tt</DependentUpon>
-    </Content>
     <Content Include="Scripts\Library\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\Library\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\Library\jquery-1.9.1-vsdoc.js" />
@@ -4425,21 +4411,9 @@
     <Content Include="Views\BetList\MatchWl\MixParlay.cshtml" />
     <Content Include="Views\Shared\_BetListLayoutNoStandard.cshtml" />
     <Content Include="Views\Note\DailyBetList.cshtml" />
-    <None Include="Scripts\Languages\ViewResources.ko-KR.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewResources.ko-KR.js</LastGenOutput>
-    </None>
     <None Include="Scripts\Languages\ViewResources.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewResources.js</LastGenOutput>
-    </None>
-    <None Include="Scripts\Languages\ViewResources.zh-CN.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewResources.zh-CN.js</LastGenOutput>
-    </None>
-    <None Include="Scripts\Languages\ViewResources.zh-TW.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewResources.zh-TW.js</LastGenOutput>
+      <LastGenOutput>ViewResources.txt</LastGenOutput>
     </None>
     <Content Include="Views\BetList\LastBetsMonitoringNew\Filter.cshtml" />
     <Content Include="Views\BetList\LastBetsMonitoringNew\Main.cshtml" />
