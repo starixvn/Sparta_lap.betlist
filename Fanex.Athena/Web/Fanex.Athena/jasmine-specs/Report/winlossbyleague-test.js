@@ -225,7 +225,7 @@
             spyOn($.fn, "jqGrid");
             spyOn(jqGridAdditional, "showRecommendedBrowser");
             spyOn(jqGridAdditional, "resetLayout");
-            spyOn(WinLossByLeague, "resizeGrid");
+            spyOn(jqGridAdditional, "resizeGrid");
 
             WinLossByLeague.bindData(2, { Data: [1, 2, 3], Total: [4, 5, 6] });
         });
@@ -245,8 +245,8 @@
         it("jqGridAdditional.resetLayout(reportGrid) should be called with correct parameter", function () {
             expect(jqGridAdditional.resetLayout).toHaveBeenCalledWith($reportGrid);
         });
-        it("WinLossByLeague.resizeGrid() should be called", function () {
-            expect(WinLossByLeague.resizeGrid).toHaveBeenCalled();
+        it("jqGridAdditional.resizeGrid() should be called", function () {
+            expect(jqGridAdditional.resizeGrid).toHaveBeenCalled();
         });
     });
 });

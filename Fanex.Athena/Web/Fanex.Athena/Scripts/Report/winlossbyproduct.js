@@ -41,17 +41,6 @@ var WinLossByProduct = (function ($) {
     }
 
     return {
-        resizeGrid: function () {
-            setTimeout(function () {
-                if ($(".ui-jqgrid-bdiv").length === 0) {
-                    return;
-                }
-                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 30;
-                gridHeight = Math.max(130, gridHeight);
-                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
-            }, 100);
-        },
         //#region Init
         initialize: function () {
             WinLossByProduct.initEvent();
@@ -434,7 +423,7 @@ var WinLossByProduct = (function ($) {
                     }
                     onPaging = true;
                     setTimeout(function () {
-                        WinLossByProduct.resizeGrid();
+                        jqGridAdditional.resizeGrid();
                     }, 1000);
                 }
                 else {
@@ -498,7 +487,7 @@ var WinLossByProduct = (function ($) {
                 $("#ReportGrid").show();
                 ///reset layout
                 jqGridAdditional.resetLayout(reportGrid);
-                WinLossByProduct.resizeGrid();
+                jqGridAdditional.resizeGrid();
             }, 50);
         },
 
@@ -577,7 +566,7 @@ $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    WinLossByProduct.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {

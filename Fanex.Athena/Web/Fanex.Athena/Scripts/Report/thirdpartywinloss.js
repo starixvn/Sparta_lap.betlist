@@ -45,28 +45,7 @@ var ThirdPartyWinLoss = (function ($) {
             // initialize()
             // getDrillDownDates(param, datetime) 
         },
-        resizeGrid: function () {
-            setTimeout(function () {
-                if ($(".ui-jqgrid-bdiv").length === 0) {
-                    return;
-                }
-
-                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                                - $(".ui-jqgrid-pager:visible").height() - 30;
-                gridHeight = Math.max(120, gridHeight);
-
-                var gridContainer = $("#gview_ReportGrid");
-                var bodyHeight = window.innerHeight - gridContainer.offset().top;
-                var actualHeight = $("#ReportGrid").height();
-                var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
-                var tableWidth = $("#ReportGrid").width();
-                var contentWidth = $(".ui-jqgrid-bdiv").width();
-                var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-                $(".ui-jqgrid-bdiv").height(Math.min(newHeight, gridHeight))
-                                    .css("max-height", gridHeight);
-            }, 100);
-        },
+        
         initialize: function () {
             ThirdPartyWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
             ThirdPartyWinLoss.initEvent();
@@ -344,7 +323,7 @@ var ThirdPartyWinLoss = (function ($) {
                     ThirdPartyWinLoss.bindTotal(level, response.Total, response.SummaryTotal);
                     $("#footer").html($(".ui-jqgrid-ftable").html());
 
-                    ThirdPartyWinLoss.resizeGrid();
+                    jqGridAdditional.resizeGrid();
                 }
 
                 Site.unBlockUI();
@@ -375,7 +354,7 @@ $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    ThirdPartyWinLoss.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {

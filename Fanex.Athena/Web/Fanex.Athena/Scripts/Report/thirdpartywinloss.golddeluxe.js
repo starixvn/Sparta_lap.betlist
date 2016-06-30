@@ -1,7 +1,7 @@
-﻿/*global jqGridAdditional, GoldDeluxeWinLossOption, Report, Site */
+﻿/*global ThirdPartyWinLoss, ThirdPartyWinLossOption, Site */
 /// <reference path="/@JSense.js" />
 ///
-(function ($) {
+(function () {
     "use strict";
     var VALID_MONTH_RANGE = 3;
     function lastDateOfMonth(year, month) {
@@ -44,4 +44,4 @@
             ToDate: tdate
         };
     };
-})(jQuery);
+})();

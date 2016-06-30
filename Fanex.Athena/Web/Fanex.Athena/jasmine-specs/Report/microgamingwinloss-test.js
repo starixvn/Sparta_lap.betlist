@@ -16,15 +16,15 @@
             expect(Site.setConstraintMonthRange).toHaveBeenCalledWith(3, "api/MicrogamingWinlossReport/Index");
         });
 
-        it("MicroGamingWinLoss.resizeGrid() should be called when '.tree-wrap-ltr' fired click event", function () {
+        it("jqGridAdditional.resizeGrid() should be called when '.tree-wrap-ltr' fired click event", function () {
             var $treeWrap = affix(".tree-wrap-ltr");
             affix(".report-content").append($treeWrap);
-            spyOn(MicroGamingWinLoss, "resizeGrid");
+            spyOn(jqGridAdditional, "resizeGrid");
             MicroGamingWinLoss.initialize();
 
             $treeWrap.click();
 
-            expect(MicroGamingWinLoss.resizeGrid).toHaveBeenCalled();
+            expect(jqGridAdditional.resizeGrid).toHaveBeenCalled();
         });
     });
 

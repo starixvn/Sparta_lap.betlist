@@ -12,7 +12,6 @@ var ActiveCustomer = (function ($) {
     var _sortColumnName = null;
     var _sortOrder = "desc";
     var _removeSorting = false;
-    var _resizeTimer = null;
 
     function sortData(arrayData) {
         var data = _sortOrder === "asc" ?
@@ -26,31 +25,6 @@ var ActiveCustomer = (function ($) {
     }
 
     return {
-        resizeGrid: function () {
-            if ($(".ui-jqgrid-bdiv").length === 0) {
-                return;
-            }
-            clearTimeout(_resizeTimer);
-            _resizeTimer = setTimeout(function () {
-                var $bdiv = $(".ui-jqgrid-bdiv");
-
-                var gridTop = $bdiv.offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                            - $(".ui-jqgrid-pager:visible").height() - 30;
-                gridHeight = Math.max(120, gridHeight);
-
-                var gridContainer = $("#gview_ReportGrid");
-                var bodyHeight = window.innerHeight - gridContainer.offset().top;
-                var actualHeight = $("#ReportGrid").height();
-                var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
-                var tableWidth = $("#ReportGrid").width();
-                var contentWidth = $bdiv.width();
-                var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-                $bdiv.height(Math.min(newHeight, gridHeight))
-                                    .css("max-height", gridHeight);
-            }, 200);
-        },
-
         initialize: function () {
             ActiveCustomer.initEvent();
 
@@ -212,7 +186,7 @@ var ActiveCustomer = (function ($) {
                 else {
 
                     ActiveCustomer.bindTotal(response.GrantTotalCustomer);
-                    ActiveCustomer.resizeGrid();
+                    jqGridAdditional.resizeGrid();
                 }
 
                 Site.unBlockUI();
@@ -269,7 +243,7 @@ $(window).load(function () {
 
 $(window).resize(function () {
     "use strict";
-    ActiveCustomer.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {

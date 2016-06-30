@@ -289,7 +289,7 @@ var CustomerList = (function ($) {
             $("div.paging").hide();
         }
 
-        CustomerList.resizeGrid();
+        jqGridAdditional.resizeGrid();
         if (keepScrollPosition === true) {
             $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
         }
@@ -354,16 +354,6 @@ var CustomerList = (function ($) {
     }
 
     return {
-        resizeGrid: function () {
-            if ($(".ui-jqgrid-bdiv").length === 0) {
-                return;
-            }
-
-            var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-            var gridHeight = window.innerHeight - gridTop - $(".paging:visible").height() - 35;
-            gridHeight = Math.max(130, gridHeight);
-            $(".ui-jqgrid-bdiv").css("max-height", gridHeight).find(">div").height("auto");
-        },
         updateGridGroup: function (groupid, groupName, groupColor) {
             var count = 0;
             var length = _checkedCustomerArray.length;
@@ -1115,7 +1105,7 @@ if (!window._IsInJsTestingMode) {
 
     $(window).resize(function () {
         "use strict";
-        CustomerList.resizeGrid();
+        jqGridAdditional.resizeGrid();
     });
 
     $(window).unload(function () {

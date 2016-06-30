@@ -5,7 +5,6 @@ var CasinoProgressiveWins = (function ($) {
     "use strict";
 
     var ajaxRequest = null;
-    var _resizeTimer = null;
 
     function getMicrogamingResultUrl(gameid, custid) {
         var url = Site.resolveClientUrl('ResultReport/MicrogamingResultPopup');
@@ -27,31 +26,6 @@ var CasinoProgressiveWins = (function ($) {
     }
 
     return {
-        resizeGrid: function () {
-            if ($(".ui-jqgrid-bdiv").length === 0) {
-                return;
-            }
-            clearTimeout(_resizeTimer);
-            _resizeTimer = setTimeout(function () {
-                var $bdiv = $(".ui-jqgrid-bdiv");
-
-                var gridTop = $bdiv.offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                            - $(".ui-jqgrid-pager:visible").height() - 30;
-                gridHeight = Math.max(120, gridHeight);
-
-                var gridContainer = $("#gview_ReportGrid");
-                var bodyHeight = window.innerHeight - gridContainer.offset().top;
-                var actualHeight = $("#ReportGrid").height();
-                var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
-                var tableWidth = $("#ReportGrid").width();
-                var contentWidth = $bdiv.width();
-                var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-                $bdiv.height(Math.min(newHeight, gridHeight))
-                                    .css("max-height", gridHeight);
-            }, 200);
-        },
-
         initialize: function () {
             CasinoProgressiveWins.initEvent();
 
@@ -153,7 +127,7 @@ var CasinoProgressiveWins = (function ($) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
                 else {
-                    CasinoProgressiveWins.resizeGrid();
+                    jqGridAdditional.resizeGrid();
                 }
 
                 Site.unBlockUI();
@@ -183,7 +157,7 @@ $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    CasinoProgressiveWins.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {

@@ -73,22 +73,6 @@ var CustTurnover = (function ($) {
                 title: Site.getSingleResource("CustomerTurnover")
             });
         },
-        resizeGrid: function () {
-            setTimeout(function () {
-                if ($(".ui-jqgrid-bdiv").length === 0) {
-                    return;
-                }
-                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var pagingHeight = $("#paging:visible").height();
-                if (pagingHeight > 0) {
-                    pagingHeight += 15;
-                }
-
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - pagingHeight - 20;
-                gridHeight = Math.max(120, gridHeight);
-                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
-            }, 100);
-        },
         initEvent: function () {
             /*product list*/
 
@@ -498,7 +482,7 @@ var CustTurnover = (function ($) {
                 PagingHeper.render(CustTurnover.pagingOption);
             }
 
-            CustTurnover.resizeGrid();
+            jqGridAdditional.resizeGrid();
         },
         ajaxPaging: function () {
             CustTurnover.clearExcelExport();
@@ -549,7 +533,7 @@ $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    CustTurnover.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {

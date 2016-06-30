@@ -14,7 +14,6 @@ var WinLossByLeague = (function ($) {
     var _postdata = {};
     var _currencyName = null;
     var _productCount = 0;
-    var _resizeTimer;
     var _pagingOption =
         {
             pageindex: 1,
@@ -143,18 +142,6 @@ var WinLossByLeague = (function ($) {
     }
 
     var me = {
-        resizeGrid: function () {
-            clearTimeout(_resizeTimer);
-            _resizeTimer = setTimeout(function () {
-                var gridTop = $(".ui-jqgrid-hdiv").offset().top;
-                
-                var pagerHeight = $(".pagingContainer:visible").height() || 0;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height()
-                - (pagerHeight > 0 ? pagerHeight + 25 : 5) - 50;
-                gridHeight = Math.max(130, gridHeight);
-                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
-            }, 100);
-        },
         ajaxPaging: function () {
             _pagingOption = PagingHeper.getSetting();
 
@@ -530,7 +517,7 @@ var WinLossByLeague = (function ($) {
             }
             ///reset layout
             jqGridAdditional.resetLayout(reportGrid);
-            WinLossByLeague.resizeGrid();
+            jqGridAdditional.resizeGrid();
         }
 
         //#endregion
@@ -548,7 +535,7 @@ if (!window._IsInJsTestingMode) {
     $(window).resize(function () {
         var reportGrid = $("#ReportGrid");
         jqGridAdditional.resetLayout(reportGrid);
-        WinLossByLeague.resizeGrid();
+        jqGridAdditional.resizeGrid();
     });
 
     $(window).unload(function () {

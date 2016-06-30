@@ -7,34 +7,12 @@ var MicroGamingWinLoss = (function ($) {
     var ajaxRequest = null;
 
     return {
-        resizeGrid: function () {
-            setTimeout(function () {
-                if ($(".ui-jqgrid-bdiv").length === 0) {
-                    return;
-                }
-
-                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                                - $(".ui-jqgrid-pager:visible").height() - 30;
-                gridHeight = Math.max(120, gridHeight);
-
-                var gridContainer = $("#gview_ReportGrid");
-                var bodyHeight = window.innerHeight - gridContainer.offset().top;
-                var actualHeight = $("#ReportGrid").height();
-                var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
-                var tableWidth = $("#ReportGrid").width();
-                var contentWidth = $(".ui-jqgrid-bdiv").width();
-                var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-                $(".ui-jqgrid-bdiv").height(Math.min(newHeight, gridHeight))
-                                    .css("max-height", gridHeight);
-            }, 100);
-        },
         initialize: function () {
             MicroGamingWinLoss.initEvent();
             Site.setConstraintMonthRange(VALID_MONTH_RANGE, MicroGamingWinLossOption.urlData);
             
             // Resize grid when pressing collapse/expand group
-            $(".report-content").on("click", ".tree-wrap-ltr", MicroGamingWinLoss.resizeGrid);
+            $(".report-content").on("click", ".tree-wrap-ltr", jqGridAdditional.resizeGrid);
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {
@@ -155,7 +133,7 @@ var MicroGamingWinLoss = (function ($) {
                     MicroGamingWinLoss.bindTotal(response.Total, response.SummaryTotal);
                     $("#footer").html($(".ui-jqgrid-ftable").html());
 
-                    MicroGamingWinLoss.resizeGrid();
+                    jqGridAdditional.resizeGrid();
                 }
 
                 Site.unBlockUI();
@@ -184,7 +162,7 @@ $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    MicroGamingWinLoss.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {
