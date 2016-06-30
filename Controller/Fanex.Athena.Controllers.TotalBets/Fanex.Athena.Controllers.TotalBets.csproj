@@ -85,10 +85,8 @@
     <Compile Include="HandicapOverUnderTotalBetController.cs" />
     <Compile Include="HomeDrawAwayNoBetTotalBetController.cs" />
     <Compile Include="MoneyLineTotalBetController.cs" />
-    <Compile Include="NumberGameTotalBetController.cs" />
     <Compile Include="OddEvenDrawNoDrawTotalBetController.cs" />
     <Compile Include="OutrightTotalBetController.cs" />
-    <Compile Include="HorseRacingTotalBetController.cs" />
     <Compile Include="TotalGoalTotalBetController.cs" />
   </ItemGroup>
   <ItemGroup>

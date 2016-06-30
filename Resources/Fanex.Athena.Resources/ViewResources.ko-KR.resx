@@ -762,9 +762,6 @@
   <data name="FullTime" xml:space="preserve">
     <value>이름</value>
   </data>
-  <data name="FullTimeOE" xml:space="preserve">
-    <value>FT.O/E</value>
-  </data>
   <data name="Function" xml:space="preserve">
     <value>기능</value>
   </data>
@@ -873,12 +870,6 @@
   <data name="Name" xml:space="preserve">
     <value>이름</value>
   </data>
-  <data name="NextCombo_O_E" xml:space="preserve">
-    <value>O/E</value>
-  </data>
-  <data name="NextCombo_U_E" xml:space="preserve">
-    <value>U/E</value>
-  </data>
   <data name="NoneCurrency" xml:space="preserve">
     <value>통화 없음</value>
   </data>
@@ -908,15 +899,6 @@
   </data>
   <data name="Over" xml:space="preserve">
     <value>상위</value>
-  </data>
-  <data name="O_E" xml:space="preserve">
-    <value>O/E</value>
-  </data>
-  <data name="O_O" xml:space="preserve">
-    <value>O/O</value>
-  </data>
-  <data name="O_U" xml:space="preserve">
-    <value>O/U</value>
   </data>
   <data name="PerLineWin" xml:space="preserve">
     <value>라인 당 승리</value>
@@ -1008,9 +990,6 @@
   <data name="UpdateUnSuccess" xml:space="preserve">
     <value>업데이트에 성공하지 못했습니다!</value>
   </data>
-  <data name="U_O" xml:space="preserve">
-    <value>U/O</value>
-  </data>
   <data name="VirtualHorseRacing" xml:space="preserve">
     <value>가상의 경마</value>
   </data>
@@ -1073,9 +1052,6 @@
   </data>
   <data name="HH" xml:space="preserve">
     <value>HH</value>
-  </data>
-  <data name="HighLow" xml:space="preserve">
-    <value>하이/로</value>
   </data>
   <data name="HistoricalReportDateRangeNote" xml:space="preserve">
     <value>데이터는 {0:MM/dd/yyyy}부터 존재합니다. 데이터 이력의 상세 내용은 다음을 수행하십시오. </value>
@@ -1173,9 +1149,6 @@
   <data name="LastActivityDate" xml:space="preserve">
     <value>마지막 수행일</value>
   </data>
-  <data name="LastBall" xml:space="preserve">
-    <value>마지막 공</value>
-  </data>
   <data name="LastBetsMonitoring" xml:space="preserve">
     <value>마지막 배팅 모니터링</value>
   </data>
@@ -1218,9 +1191,6 @@
   <data name="lbl1st" xml:space="preserve">
     <value>첫번째</value>
   </data>
-  <data name="lbl1stBall" xml:space="preserve">
-    <value>첫번째 공</value>
-  </data>
   <data name="lbl1stHalf" xml:space="preserve">
     <value>전반전</value>
   </data>
@@ -1232,9 +1202,6 @@
   </data>
   <data name="lbl2nd" xml:space="preserve">
     <value>두번째</value>
-  </data>
-  <data name="lbl2ndballwin" xml:space="preserve">
-    <value>두번째 볼 승리</value>
   </data>
   <data name="lbl2p" xml:space="preserve">
     <value>2P</value>
@@ -1256,9 +1223,6 @@
   </data>
   <data name="lbl3rd" xml:space="preserve">
     <value>세번째</value>
-  </data>
-  <data name="lbl3rdballwin" xml:space="preserve">
-    <value>세번째 공 승리</value>
   </data>
   <data name="lbl3s" xml:space="preserve">
     <value>3S</value>
@@ -1542,12 +1506,6 @@
   <data name="Next" xml:space="preserve">
     <value>다음</value>
   </data>
-  <data name="NextBall" xml:space="preserve">
-    <value>다음볼</value>
-  </data>
-  <data name="NextCombo" xml:space="preserve">
-    <value>다음 콤보</value>
-  </data>
   <data name="NG" xml:space="preserve">
     <value>NG</value>
   </data>
@@ -1610,9 +1568,6 @@
   </data>
   <data name="NumberGameNo" xml:space="preserve">
     <value>숫자게임 번호</value>
-  </data>
-  <data name="NumberWheel" xml:space="preserve">
-    <value>숫자 바퀴</value>
   </data>
   <data name="OANDANote" xml:space="preserve">
     <value>기본 통화(유로, 미화)에 대한 전환은 참조의 목적임을 주지하시기 바랍니다.</value>
@@ -1856,12 +1811,6 @@
   </data>
   <data name="RngCasinoAndBingoExcludedNote" xml:space="preserve">
     <value>RNG 카지노와 빙고는 이 보고서에 포함되지 않습니다</value>
-  </data>
-  <data name="Runner" xml:space="preserve">
-    <value>주자</value>
-  </data>
-  <data name="RunnerNo" xml:space="preserve">
-    <value>주자 번호</value>
   </data>
   <data name="Running" xml:space="preserve">
     <value>달리기</value>
@@ -2225,9 +2174,6 @@
   </data>
   <data name="Wap" xml:space="preserve">
     <value>WAP</value>
-  </data>
-  <data name="Warrior" xml:space="preserve">
-    <value>와리어</value>
   </data>
   <data name="We" xml:space="preserve">
     <value>저희 </value>

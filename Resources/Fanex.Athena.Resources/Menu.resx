@@ -159,12 +159,6 @@
   <data name="Menu_21" xml:space="preserve">
     <value>3-Way Handicap</value>
   </data>
-  <data name="Menu_22" xml:space="preserve">
-    <value>Racing</value>
-  </data>
-  <data name="Menu_23" xml:space="preserve">
-    <value>Number Game</value>
-  </data>
   <data name="Menu_24" xml:space="preserve">
     <value>Handicap/Over Under/Live</value>
   </data>

@@ -187,24 +187,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Racing.
-        /// </summary>
-        public static string Menu_22 {
-            get {
-                return ResourceManager.GetString("Menu_22", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Number Game.
-        /// </summary>
-        public static string Menu_23 {
-            get {
-                return ResourceManager.GetString("Menu_23", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Handicap/Over Under/Live.
         /// </summary>
         public static string Menu_24 {

@@ -86,20 +86,16 @@
     <Compile Include="HandicapOverUnderDataAccess.cs" />
     <Compile Include="HomeDrawAwayNoBetDataAccess.cs" />
     <Compile Include="MoneyLineDataAccess.cs" />
-    <Compile Include="NumberGameDataAccess.cs" />
     <Compile Include="OddEvenDrawNoDrawDataAccess.cs" />
     <Compile Include="OutrightDataAccess.cs" />
-    <Compile Include="RacingDataAccess.cs" />
     <Compile Include="TotalGoalDataAccess.cs" />
     <Compile Include="Interfaces\IFirstGoalLastGoalDataAccess.cs" />
     <Compile Include="Interfaces\IHalfTimeFullTimeDataAccess.cs" />
     <Compile Include="Interfaces\IHandicapOverUnderDataAccess.cs" />
     <Compile Include="Interfaces\IHomeDrawAwayNoBetDataAccess.cs" />
     <Compile Include="Interfaces\IMoneyLineDataAccess.cs" />
-    <Compile Include="Interfaces\INumberGameDataAccess.cs" />
     <Compile Include="Interfaces\IOddEvenDrawNoDrawDataAccess.cs" />
     <Compile Include="Interfaces\IOutrightDataAccess.cs" />
-    <Compile Include="Interfaces\IRacingDataAccess.cs" />
     <Compile Include="Interfaces\ITotalGoalDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

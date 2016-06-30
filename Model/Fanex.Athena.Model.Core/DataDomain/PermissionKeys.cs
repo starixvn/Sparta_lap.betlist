@@ -27,8 +27,6 @@
         public const string TotalBetBONTeamToScore = "BONteamtoscore19";
         public const string TotalBetToWinToNil = "Towintonil20";
         public const string TotalBet3WayHandicap = "3-WayHandicap21";
-        public const string TotalBetRacing = "Racing22";
-        public const string TotalBetNumberGame = "NumberGame23";
 
         /* Forecast */
 

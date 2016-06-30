@@ -62,13 +62,8 @@
     <Compile Include="DTO\HandicapOverUnder.cs" />
     <Compile Include="DTO\HomeDrawAwayNoBet.cs" />
     <Compile Include="DTO\MoneyLine.cs" />
-    <Compile Include="DTO\NumberGame.cs" />
     <Compile Include="DTO\OddEvenDrawNoDraw.cs" />
     <Compile Include="DTO\Outright.cs" />
-    <Compile Include="DTO\Racing.cs" />
-    <Compile Include="DTO\RacingBase.cs" />
-    <Compile Include="DTO\RacingLeague.cs" />
-    <Compile Include="DTO\RacingRace.cs" />
     <Compile Include="DTO\TotalBetsBase.cs" />
     <Compile Include="DTO\TotalGoal.cs" />
     <Compile Include="MetaModel\FirstGoalLastGoalMetaModel.cs" />
@@ -76,10 +71,8 @@
     <Compile Include="MetaModel\HandicapOverUnderMetaModel.cs" />
     <Compile Include="MetaModel\HomeDrawAwayNoBetMetaModel.cs" />
     <Compile Include="MetaModel\MoneyLineMetaModel.cs" />
-    <Compile Include="MetaModel\NumberGameMetaModel.cs" />
     <Compile Include="MetaModel\OddEvenDrawNoDrawMetaModel.cs" />
     <Compile Include="MetaModel\OutrightMetaModel.cs" />
-    <Compile Include="MetaModel\RacingMetaModel.cs" />
     <Compile Include="MetaModel\TotalBetsBaseMetaModel.cs" />
     <Compile Include="MetaModel\TotalGoalMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,10 +81,8 @@
     <Compile Include="ViewModel\HandicapOverUnderViewModel.cs" />
     <Compile Include="ViewModel\HomeDrawAwayNoBetViewModel.cs" />
     <Compile Include="ViewModel\MoneyLineViewModel.cs" />
-    <Compile Include="ViewModel\NumberGameViewModel.cs" />
     <Compile Include="ViewModel\OddEvenDrawNoDrawViewModel.cs" />
     <Compile Include="ViewModel\OutrightViewModel.cs" />
-    <Compile Include="ViewModel\RacingViewModel.cs" />
     <Compile Include="ViewModel\TotalBetsBaseViewModel.cs" />
     <Compile Include="ViewModel\TotalGoalViewModel.cs" />
   </ItemGroup>

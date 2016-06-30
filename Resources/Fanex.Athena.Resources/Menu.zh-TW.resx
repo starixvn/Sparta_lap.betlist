@@ -173,14 +173,6 @@
     <value>三項讓分投注</value>
     <comment>3-Way Handicap</comment>
   </data>
-  <data name="Menu_22" xml:space="preserve">
-    <value>賽事</value>
-    <comment>Racing</comment>
-  </data>
-  <data name="Menu_23" xml:space="preserve">
-    <value>百練賽</value>
-    <comment>Number Game</comment>
-  </data>
   <data name="Menu_24" xml:space="preserve">
     <value>讓球/大小/滾球</value>
     <comment>Handicap/Over Under/Live</comment>

@@ -723,9 +723,6 @@
   <data name="FullTime" xml:space="preserve">
     <value>全場</value>
   </data>
-  <data name="FullTimeOE" xml:space="preserve">
-    <value>全場單/雙盤</value>
-  </data>
   <data name="GameKind" xml:space="preserve">
     <value>遊戲種類</value>
   </data>
@@ -817,9 +814,6 @@
   </data>
   <data name="HH" xml:space="preserve">
     <value>主主</value>
-  </data>
-  <data name="HighLow" xml:space="preserve">
-    <value>高/低</value>
   </data>
   <data name="HistoricalReportDateRangeNote" xml:space="preserve">
     <value>只提供 {0:MM/dd/yyyy} 之後的資料。如果需要更多的歷史數據</value>
@@ -917,9 +911,6 @@
   <data name="LastActivityDate" xml:space="preserve">
     <value>最後活躍日期</value>
   </data>
-  <data name="LastBall" xml:space="preserve">
-    <value>最後一球</value>
-  </data>
   <data name="LastBetsMonitoring" xml:space="preserve">
     <value>最後投注監測</value>
   </data>
@@ -962,9 +953,6 @@
   <data name="lbl1st" xml:space="preserve">
     <value>第一名</value>
   </data>
-  <data name="lbl1stBall" xml:space="preserve">
-    <value>第一球</value>
-  </data>
   <data name="lbl1stHalf" xml:space="preserve">
     <value>上半場</value>
   </data>
@@ -976,9 +964,6 @@
   </data>
   <data name="lbl2nd" xml:space="preserve">
     <value>第二名</value>
-  </data>
-  <data name="lbl2ndballwin" xml:space="preserve">
-    <value>第二顆球贏</value>
   </data>
   <data name="lbl2p" xml:space="preserve">
     <value>第二節</value>
@@ -1000,9 +985,6 @@
   </data>
   <data name="lbl3rd" xml:space="preserve">
     <value>第三名</value>
-  </data>
-  <data name="lbl3rdballwin" xml:space="preserve">
-    <value>第三顆球贏</value>
   </data>
   <data name="lbl3s" xml:space="preserve">
     <value>第三盤</value>
@@ -1293,18 +1275,6 @@
   <data name="Next" xml:space="preserve">
     <value>下個</value>
   </data>
-  <data name="NextBall" xml:space="preserve">
-    <value>下一球</value>
-  </data>
-  <data name="NextCombo" xml:space="preserve">
-    <value>下一球組合</value>
-  </data>
-  <data name="NextCombo_O_E" xml:space="preserve">
-    <value>單/雙</value>
-  </data>
-  <data name="NextCombo_U_E" xml:space="preserve">
-    <value>小/雙</value>
-  </data>
   <data name="NG" xml:space="preserve">
     <value>百練賽</value>
   </data>
@@ -1380,9 +1350,6 @@
   <data name="NumberGameNo" xml:space="preserve">
     <value>百練賽編號</value>
   </data>
-  <data name="NumberWheel" xml:space="preserve">
-    <value>數盤</value>
-  </data>
   <data name="OANDANote" xml:space="preserve">
     <value>請注意所有的換算的基礎貨幣（歐元，美金）僅供參考。</value>
   </data>
@@ -1457,15 +1424,6 @@
   </data>
   <data name="OverUnder" xml:space="preserve">
     <value>大小</value>
-  </data>
-  <data name="O_E" xml:space="preserve">
-    <value>單/雙</value>
-  </data>
-  <data name="O_O" xml:space="preserve">
-    <value>大/單</value>
-  </data>
-  <data name="O_U" xml:space="preserve">
-    <value>大/小</value>
   </data>
   <data name="P1" xml:space="preserve">
     <value>1P</value>
@@ -1644,12 +1602,6 @@
   </data>
   <data name="RngCasinoAndBingoExcludedNote" xml:space="preserve">
     <value>此報告不包含娛樂城及賓果</value>
-  </data>
-  <data name="Runner" xml:space="preserve">
-    <value>跑者</value>
-  </data>
-  <data name="RunnerNo" xml:space="preserve">
-    <value>跑者編號</value>
   </data>
   <data name="Running" xml:space="preserve">
     <value>進行中</value>
@@ -2007,9 +1959,6 @@
   <data name="Username" xml:space="preserve">
     <value>用戶名</value>
   </data>
-  <data name="U_O" xml:space="preserve">
-    <value>小/單</value>
-  </data>
   <data name="View" xml:space="preserve">
     <value>檢視</value>
   </data>
@@ -2030,9 +1979,6 @@
   </data>
   <data name="Wap" xml:space="preserve">
     <value>WAP</value>
-  </data>
-  <data name="Warrior" xml:space="preserve">
-    <value>鬥士</value>
   </data>
   <data name="We" xml:space="preserve">
     <value>We</value>

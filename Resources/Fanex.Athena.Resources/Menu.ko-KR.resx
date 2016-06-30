@@ -173,14 +173,6 @@
     <value>3웨이 핸디캡 </value>
     <comment>3-Way Handicap</comment>
   </data>
-  <data name="Menu_22" xml:space="preserve">
-    <value>경주</value>
-    <comment>Racing</comment>
-  </data>
-  <data name="Menu_23" xml:space="preserve">
-    <value>숫자게임</value>
-    <comment>Number Game</comment>
-  </data>
   <data name="Menu_24" xml:space="preserve">
     <value>핸디캡/상위 하위/실시간</value>
     <comment>Handicap/Over Under/Live</comment>

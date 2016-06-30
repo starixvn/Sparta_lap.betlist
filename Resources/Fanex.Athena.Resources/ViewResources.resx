@@ -544,9 +544,6 @@
   <data name="FullTime" xml:space="preserve">
     <value>FullTime</value>
   </data>
-  <data name="FullTimeOE" xml:space="preserve">
-    <value>FT.O/E</value>
-  </data>
   <data name="GameKind" xml:space="preserve">
     <value>Game Kind</value>
   </data>
@@ -591,9 +588,6 @@
   </data>
   <data name="HandicapOverUnderLive" xml:space="preserve">
     <value>Handicap/Over Under/Live</value>
-  </data>
-  <data name="HighLow" xml:space="preserve">
-    <value>High/Low</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -667,9 +661,6 @@
   <data name="LastActivityDate" xml:space="preserve">
     <value>Last Activity Date</value>
   </data>
-  <data name="LastBall" xml:space="preserve">
-    <value>Last Ball</value>
-  </data>
   <data name="LastBetsMonitoring" xml:space="preserve">
     <value>Last Bets Monitoring</value>
   </data>
@@ -697,20 +688,11 @@
   <data name="lbl1st" xml:space="preserve">
     <value>1st</value>
   </data>
-  <data name="lbl1stBall" xml:space="preserve">
-    <value>1st Ball</value>
-  </data>
   <data name="lbl2nd" xml:space="preserve">
     <value>2nd</value>
   </data>
-  <data name="lbl2ndballwin" xml:space="preserve">
-    <value>2nd ball win</value>
-  </data>
   <data name="lbl3rd" xml:space="preserve">
     <value>3rd</value>
-  </data>
-  <data name="lbl3rdballwin" xml:space="preserve">
-    <value>3rd ball win</value>
   </data>
   <data name="lbl4th" xml:space="preserve">
     <value>4th</value>
@@ -899,12 +881,6 @@
   <data name="Next" xml:space="preserve">
     <value>Next</value>
   </data>
-  <data name="NextBall" xml:space="preserve">
-    <value>Next Ball</value>
-  </data>
-  <data name="NextCombo" xml:space="preserve">
-    <value>Next Combo</value>
-  </data>
   <data name="NG" xml:space="preserve">
     <value>NG</value>
   </data>
@@ -965,9 +941,6 @@
   </data>
   <data name="NumberGameNo" xml:space="preserve">
     <value>Number Game No</value>
-  </data>
-  <data name="NumberWheel" xml:space="preserve">
-    <value>Number Wheel</value>
   </data>
   <data name="OANDANote" xml:space="preserve">
     <value>Please note that all conversions to base currency (EURO,USD) are for reference only.</value>
@@ -1183,12 +1156,6 @@
   <data name="ProductCS" xml:space="preserve">
     <value>RNG Casino</value>
     <comment>#49196</comment>
-  </data>
-  <data name="Runner" xml:space="preserve">
-    <value>Runner</value>
-  </data>
-  <data name="RunnerNo" xml:space="preserve">
-    <value>Runner No</value>
   </data>
   <data name="Running" xml:space="preserve">
     <value>Running</value>
@@ -1473,9 +1440,6 @@
   </data>
   <data name="Wap" xml:space="preserve">
     <value>WAP</value>
-  </data>
-  <data name="Warrior" xml:space="preserve">
-    <value>Warrior</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
@@ -1819,24 +1783,6 @@
   </data>
   <data name="lbl7Over" xml:space="preserve">
     <value>7Over</value>
-  </data>
-  <data name="NextCombo_O_E" xml:space="preserve">
-    <value>O/E</value>
-  </data>
-  <data name="NextCombo_U_E" xml:space="preserve">
-    <value>U/E</value>
-  </data>
-  <data name="O_E" xml:space="preserve">
-    <value>O/E</value>
-  </data>
-  <data name="O_O" xml:space="preserve">
-    <value>O/O</value>
-  </data>
-  <data name="O_U" xml:space="preserve">
-    <value>O/U</value>
-  </data>
-  <data name="U_O" xml:space="preserve">
-    <value>U/O</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Loading</value>

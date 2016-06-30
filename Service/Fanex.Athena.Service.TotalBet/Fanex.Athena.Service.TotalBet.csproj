@@ -75,20 +75,16 @@
     <Compile Include="HandicapOverUnderService.cs" />
     <Compile Include="HomeDrawAwayNoBetService.cs" />
     <Compile Include="MoneyLineService.cs" />
-    <Compile Include="NumberGameService.cs" />
     <Compile Include="OddEvenDrawNoDrawService.cs" />
     <Compile Include="OutrightService.cs" />
-    <Compile Include="RacingService.cs" />
     <Compile Include="TotalGoalService.cs" />
     <Compile Include="Interfaces\IFirstGoalLastGoalService.cs" />
     <Compile Include="Interfaces\IHalfTimeFullTimeService.cs" />
     <Compile Include="Interfaces\IHandicapOverUnderService.cs" />
     <Compile Include="Interfaces\IHomeDrawAwayNoBetService.cs" />
     <Compile Include="Interfaces\IMoneyLineService.cs" />
-    <Compile Include="Interfaces\INumberGameService.cs" />
     <Compile Include="Interfaces\IOddEvenDrawNoDrawService.cs" />
     <Compile Include="Interfaces\IOutrightService.cs" />
-    <Compile Include="Interfaces\IRacingService.cs" />
     <Compile Include="Interfaces\ITotalGoalService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
