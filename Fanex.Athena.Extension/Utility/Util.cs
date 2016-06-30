@@ -15,11 +15,7 @@ namespace Fanex.Athena.Extension.Utility
     /// </summary>
     public static class Util
     {
-        /// <summary>
-        /// Gets languages.
-        /// </summary>
-        /// <value>A dictionary contains language codes and language names.</value>
-        public static Dictionary<string, string> SupportedLanguages
+        public static IDictionary<string, string> SupportedLanguages
         {
             get
             {

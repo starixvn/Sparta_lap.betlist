@@ -147,7 +147,7 @@ namespace Fanex.Athena.Controllers
 
                     if (user.IsInRole(UserRole.Admin.ToString()))
                     {
-                        return RedirectToAction("SelectLicensee", "Utility");
+                        return RedirectToAction("Index", "LicenseeList");
                     }
                     else
                     {

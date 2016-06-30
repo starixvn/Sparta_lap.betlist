@@ -174,56 +174,5 @@ namespace Fanex.Athena.Controllers
             ViewBag.UmTimeTo = underMaintenanceTimeTo;
             return View("~/Views/Utility/UnderMaintenance.cshtml");
         }
-
-        /// <summary>
-        /// The licensee list page.
-        /// </summary>
-        /// <param name="licenseeId">The licensee ID.</param>
-        /// <returns>The licensee list.</returns>
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult SelectLicensee(int? licenseeId)
-        {
-            var userSession = SessionService.UserSession;
-            var isSessionValid = userSession != null && userSession.UserId > 0;
-            if (!isSessionValid)
-            {
-                return RedirectToAction("SignIn", "Authorization");
-            }
-
-            if (licenseeId.HasValue && licenseeId.Value > 0)
-            {
-                return RedirectFromLoginPage(licenseeId.Value);
-            }
-            else
-            {
-                var licenseeService = new LicenseeService();
-
-                var licenseeList = licenseeService.GetByUser(userSession.UserId);
-                //// Admin, but not assinged to handle any licensees
-                if (licenseeList.Count <= 0)
-                {
-                    return RedirectToAction("SignIn", "Authorization");
-                }
-
-                //// Admin user handle only one licensee
-                if (licenseeList.Count == 1)
-                {
-                    return RedirectFromLoginPage(licenseeList[0].Id);
-                }
-
-                ViewBag.CurrentUsername = userSession.UserName;
-                ViewBag.LicenseeList = licenseeList;
-            }
-
-            return View("~/Views/Utility/SelectLicensee.cshtml");
-        }
-
-        private ActionResult RedirectFromLoginPage(int licenseeId)
-        {
-            SessionService.UpdateLiceseeSession(licenseeId);
-
-            return RedirectToAction("Index", "Home");
-        }
     }
 }
