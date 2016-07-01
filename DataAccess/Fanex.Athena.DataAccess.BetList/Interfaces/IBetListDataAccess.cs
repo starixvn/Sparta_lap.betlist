@@ -30,9 +30,5 @@ namespace Fanex.Athena.DataAccess.BetList.Interfaces
         IList<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel, bool allowCustComm);
 
         IList<CustomerCancelBetItem> GetCancelBetCustList(BetListMetaModel metaModel);
-
-        List<BetListMatch> GetMatchList(string uspKey);
-
-        TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel);
     }
 }

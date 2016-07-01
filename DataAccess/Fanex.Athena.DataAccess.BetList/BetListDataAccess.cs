@@ -16,13 +16,10 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using DataAccess.Core.Utilities;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
-    using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.Extension;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -35,7 +32,7 @@ namespace Fanex.Athena.DataAccess.BetList
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class BetListDataAccess : BaseDataAccess, IBetListDataAccess
+    public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
         private const string UspExceptionName = "\n UspName=";
 
@@ -285,53 +282,6 @@ namespace Fanex.Athena.DataAccess.BetList
         }
 
         /// <summary>
-        /// Get last bets monitoring data.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
-        public TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel)
-        {
-            const string UspKey = "Lrf_Monitor_BetlistSel_New";
-
-            var ticketResult = new TicketResult();
-            try
-            {
-                using (var db = new ObjectDb(UspKey))
-                {
-                    db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
-                    db.AddInParameter("BetType", DbType.String, metaModel.BetType);
-                    db.AddInParameter("Currency", DbType.String, metaModel.Currency);
-                    db.AddInParameter("SpecialLevel", DbType.String, metaModel.Level);
-                    db.AddInParameter("TransId", DbType.Int64, metaModel.TransId);
-                    db.AddInParameter("LimitRowCount", DbType.Int32, metaModel.PageSize);
-                    db.AddInParameter("SportId", DbType.Int32, metaModel.SportId);
-                    db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
-                    db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-                    db.AddInParameter("MinStake", DbType.Decimal, metaModel.StakeFrom);
-                    db.AddInParameter("MaxStake", DbType.Decimal, metaModel.StakeTo);
-                    db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveStatus);
-                    db.AddInParameter("BaseCurrency", DbType.String, metaModel.BasedCurrency);
-                    db.AddInParameter("BetFrom", DbType.Byte, metaModel.BetFrom);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        var mainTicket = ReadLrfTicket(reader, metaModel.BasedCurrency);
-                        mainTicket.Sort("TransId", false);
-                        ticketResult.MainTicketList.AddRange(mainTicket);
-                    }
-
-                    return ticketResult;
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message + UspExceptionName + UspKey, sqlException);
-                throw new DataAccessException(sqlException.Message, UspKey, metaModel);
-            }
-        }
-
-        /// <summary>
         /// Get Daily Statement Data of Customer.
         /// </summary>
         /// <param name="metaModel">Meta model value.</param>
@@ -435,27 +385,6 @@ namespace Fanex.Athena.DataAccess.BetList
             {
                 LogService.Error(sqlException.Message + UspExceptionName + UspKey, sqlException);
                 throw new DataAccessException(sqlException.Message, UspKey);
-            }
-        }
-
-        /// <summary>
-        /// Get Match List of system.
-        /// </summary>
-        /// <param name="uspKey">USP key value.</param>
-        /// <returns>The result value.</returns>
-        public List<BetListMatch> GetMatchList(string uspKey)
-        {
-            try
-            {
-                using (var db = new ObjectDb(uspKey))
-                {
-                    return db.Query<BetListMatch>().ToList();
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message + UspExceptionName + uspKey, sqlException);
-                throw new DataAccessException(sqlException.Message, uspKey, "No params");
             }
         }
 
@@ -1056,140 +985,6 @@ namespace Fanex.Athena.DataAccess.BetList
         #endregion CommonParam
 
         #endregion CreateComonBetlistParameter
-
-        /// <summary>
-        /// Numbers the report.
-        /// </summary>
-        /// <param name="value">The decimal number. value.</param>
-        /// <returns>The result value.</returns>
-        private static string NumberReport(object value)
-        {
-            decimal number = Convert.ToDecimal(value);
-            return (number >= 0)
-                       ? "<span class='bl-underdog'>" + string.Format("{0:#,##0.00}", number) + "</span>"
-                       : "<span class='bl-favorite'>" + string.Format("{0:#,##0.00}", number) + "</span>";
-        }
-
-        /// <summary>
-        /// Read boolean value.
-        /// </summary>
-        /// <param name="value">Convert value.</param>
-        /// <returns>The result value.</returns>
-        private static bool ReadBoolean(object value)
-        {
-            if (value == null || value == Convert.DBNull)
-            {
-                return false;
-            }
-
-            if (value.GetType() == typeof(bool))
-            {
-                return Convert.ToBoolean(value);
-            }
-
-            if (value.GetType() == typeof(int))
-            {
-                return Convert.ToInt32(value) > 0;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Do not use reflection because of bad performance.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <param name="custId">The customer ID.</param>
-        /// <returns>The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableList<LrfTicket> ReadLrfTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
-        {
-            var playerCommCol = "playercomm" + baseCurrency;
-            var commCol = "comm" + baseCurrency;
-            var licenseeWlCol = "licenseewl" + baseCurrency;
-            var winlostCol = "winlost" + baseCurrency;
-            var beteffectiveCol = "beteffective" + baseCurrency;
-            var stakeCol = "stake" + baseCurrency;
-            var actualStakeCol = "actual_stake" + baseCurrency;
-
-            var tickets = new SortableList<LrfTicket>();
-            var columns = new string[]
-            {
-                "username", "refno", "matchcode", "status", "betteam", "betstatus", "showtime", "oddstype",
-                "nickname", "race", "betfrom", "betcheck", "liveindicator", "isneutral", "sporttype", "bettype",
-                "leagueid", "awayid", "homeid", "matchid", "custid", "currencyid", "livehomescore", "liveawayscore",
-                "SpecialLevel", "StatusId", "transid", "betid", "winlostdate", "transdate",
-                playerCommCol, commCol, licenseeWlCol, winlostCol, beteffectiveCol, stakeCol, actualStakeCol,
-                "odds", "modds", "hdp1", "hdp2", "transdesc"
-            };
-
-            var reader = new SafeDataReader(dataReader, columns);
-
-            while (reader.Read())
-            {
-                var ticket = new LrfTicket();
-
-                // string
-                ticket.UserName = reader.GetString("username");
-                ticket.RefNo = reader.GetString("refno");
-                ticket.MatchCode = reader.GetString("matchcode");
-                ticket.Status = reader.GetString("status");
-                ticket.BetTeam = reader.GetString("betteam");
-                ticket.EventStatus = reader.GetString("betstatus");
-                ticket.ShowTime = reader.GetString("showtime");
-                ticket.OddsType = reader.GetString("oddstype", "0");
-                ticket.ExternalId = reader.GetString("nickname");
-                ticket.Race = reader.GetString("race");
-                ticket.BetFrom = reader.GetString("betfrom");
-                ticket.BetCheck = reader.GetString("betcheck");
-
-                // Boolean
-                ticket.IsLive = reader.GetValue("liveindicator", x => ReadBoolean(x), false);
-                ticket.IsNeutral = reader.GetValue("isneutral", x => ReadBoolean(x), false);
-
-                // Int
-                ticket.SportTypeId = reader.GetInt("sporttype");
-                ticket.BetTypeId = reader.GetInt("bettype");
-                ticket.LeagueId = reader.GetInt("leagueid");
-                ticket.HomeId = reader.GetInt("homeid");
-                ticket.AwayId = reader.GetInt("awayid");
-                ticket.MatchId = reader.GetInt("matchid");
-                ticket.CustId = reader.GetLong("custid", custId);
-                ticket.CurrencyId = reader.GetInt("currencyid");
-                ticket.LiveHomeScore = reader.GetInt("livehomescore");
-                ticket.LiveAwayScore = reader.GetInt("liveawayscore");
-                ticket.SpecialLevel = reader.GetInt("SpecialLevel");
-                ticket.StatusId = reader.GetInt("StatusId");
-
-                // Long
-                ticket.TransId = reader.GetLong("transid");
-                var betid = reader.GetValue("betid");
-                ticket.BetId = betid == DBNull.Value ? null : (long?)betid;
-
-                // DateTime
-                ticket.WinlostDate = reader.GetDateTime("winlostdate", DateTime.Now);
-                ticket.TransDate = reader.GetDateTime("transdate", DateTime.Now);
-
-                // Money
-                ticket.PlayerComm = reader.GetDecimal(playerCommCol);
-                ticket.Comm = reader.GetDecimal(commCol);
-                ticket.LicenseeWL = reader.GetDecimal(licenseeWlCol);
-                ticket.Winlost = reader.GetDecimal(winlostCol);
-                ticket.BetEffective = reader.GetDecimal(beteffectiveCol);
-                ticket.Stake = reader.GetDecimal(stakeCol);
-                ticket.ActualStake = reader.GetDecimal(actualStakeCol);
-                ticket.Odds = reader.GetDecimal("odds");
-                ticket.MasterOdds = reader.GetDecimal("modds");
-                ticket.Handicap1 = reader.GetDecimal("hdp1");
-                ticket.Handicap2 = reader.GetDecimal("hdp2");
-                ticket.TransDesc = reader.GetString("transdesc");
-                tickets.Add(ticket);
-            }
-
-            return tickets;
-        }
 
         /// <summary>
         /// Do not use reflection because of bad performance.

@@ -54,12 +54,6 @@ namespace Fanex.Athena.Api.BetList
             get { return _balanceUpService; }
         }
 
-        [CLSCompliant(false)]
-        protected ITicketHelper TicketHelper
-        {
-            get { return _ticketHelper; }
-        }
-
         protected static bool IsRacing(int betType)
         {
             return RacingBetType.Contains(betType);

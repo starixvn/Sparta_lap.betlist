@@ -16,30 +16,40 @@ namespace Fanex.Athena.Api.BetList
     using System.Globalization;
     using System.Linq;
     using System.Web.Http;
+    using Base;
     using Base.Attributes;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
+    using Fanex.BetList.Core.TicketHelper;
     using Resources;
-    using CacheRefHelper = Fanex.BetList.Core.TicketHelper.CacheRef;
+    using Service.BetList;
+    using Service.BetList.Interfaces;
+    using BetListCacheRef = Fanex.BetList.Core.TicketHelper.CacheRef;
 
     #endregion Using
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
-    public class LastBetMonitoringBetListController : ApiBetListBaseController
+    public class LastBetMonitoringBetListController : BaseApiController
     {
         private static readonly IList<int> ConvertingDecimalOddsBetType = new List<int> { 1, 2, 3, 7, 8, 12, 20 };
 
         private readonly IMatchService _matchService;
 
+        private readonly ILastBetsMonitoringBetListService _lastBetsMonitoringBetListService;
+
+        private readonly ITicketHelper _ticketHelper;
+
         public LastBetMonitoringBetListController()
         {
             _matchService = new MatchService();
+            _lastBetsMonitoringBetListService = new LastBetsMonitoringBetListService();
+            _ticketHelper = new TicketHelper();
         }
 
         /// <summary>
@@ -57,7 +67,7 @@ namespace Fanex.Athena.Api.BetList
                                       {
                                           IsOutRight = false,
                                           LeagueId = l,
-                                          LeagueName = CacheRef.GetLeagueName(l)
+                                          LeagueName = Model.Core.Helper.CacheRef.GetLeagueName(l)
                                       }).ToList();
             var leagueListOutRight = matchList.Where(i => i.IsOutRight).Select(m => m.LeagueId).Distinct()
 
@@ -65,7 +75,7 @@ namespace Fanex.Athena.Api.BetList
                                       {
                                           IsOutRight = true,
                                           LeagueId = l,
-                                          LeagueName = CacheRef.GetLeagueName(l)
+                                          LeagueName = Model.Core.Helper.CacheRef.GetLeagueName(l)
                                       }).ToList();
 
             var leagueList = leagueListNormal.Union(leagueListOutRight);
@@ -88,7 +98,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            var ticketResult = BetListService.GetLastBetsMonitoringData(metaModel);
+            var ticketResult = _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel);
 
             // Show empty content if data is empty
             return ticketResult == null || ticketResult.MainTicketList.Count == 0
@@ -127,7 +137,7 @@ namespace Fanex.Athena.Api.BetList
                     ticketResult.TicketDataList,
                     "<td data-name=\"Odds\" class='bl-odds'>",
                     "</td>",
-                    CacheRefHelper.GetOddsTypeName);
+                    BetListCacheRef.GetOddsTypeName);
             }
             else
             {
@@ -212,7 +222,7 @@ namespace Fanex.Athena.Api.BetList
             var builder = new BetListHTMLBuilder();
             foreach (var ticket in ticketResult.MainTicketList)
             {
-                TicketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);
+                _ticketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);
 
                 // Begin of row
                 var row = string.Format("<tr class='content-row monitor-hightlight' id='trans-{0}' data-transid='{0}'>", ticket.TransId);
@@ -243,7 +253,7 @@ namespace Fanex.Athena.Api.BetList
                 // Choice
                 builder.AddChoice(
                     ticket,
-                    TicketHelper,
+                    _ticketHelper,
                     ticketResult.TicketDataList,
                     "<td data-name=\"Choice\" class='bl-event'>",
                     "</td>",
@@ -283,7 +293,7 @@ namespace Fanex.Athena.Api.BetList
                 }
 
                 const string FormatDetail = @"showCombMPDetail({0},{1},&quot;{2}&quot;,{3},&quot;{4}&quot;,&quot;{5}&quot;)";
-                var betTeam = TicketHelper.GetBetTypeNameById(ticket.BetTypeId) + " - " + TicketHelper.GetCombinationMPOfferName(ticket.BetTeam);
+                var betTeam = _ticketHelper.GetBetTypeNameById(ticket.BetTypeId) + " - " + _ticketHelper.GetCombinationMPOfferName(ticket.BetTeam);
                 return string.Format(
                                 FormatDetail,
                                 ticket.TransId,

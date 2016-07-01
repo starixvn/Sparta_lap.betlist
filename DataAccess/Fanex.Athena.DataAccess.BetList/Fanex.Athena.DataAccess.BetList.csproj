@@ -115,6 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BetListDataAccess.cs" />
+    <Compile Include="Interfaces\ILastBetsMonitoringBetListDataAccess.cs" />
+    <Compile Include="LastBetsMonitoringBetListDataAccess.cs" />
+    <Compile Include="BaseBetListDataAccess.cs" />
     <Compile Include="Interfaces\IBetListDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -27,12 +27,5 @@ namespace Fanex.Athena.Service.BetList.Interfaces
         IList<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel, bool isAllowCustComm);
 
         IList<CustomerCancelBetItem> GetCancelBetCustList(BetListMetaModel metaModel);
-
-        /// <summary>
-        /// Get last bets monitoring data.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The ticket result.</returns>
-        TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel);
     }
 }
