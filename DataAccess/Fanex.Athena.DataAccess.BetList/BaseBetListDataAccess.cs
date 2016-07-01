@@ -17,15 +17,12 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
-    using Logging;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class BaseBetListDataAccess : BaseDataAccess
     {
-        private const string UspExceptionName = "\n UspName=";
-
         /// <summary>
         /// Do not use reflection because of bad performance.
         /// </summary>
@@ -35,6 +32,7 @@ namespace Fanex.Athena.DataAccess.BetList
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
+        [CLSCompliant(false)]
         protected static SortableList<LrfTicket> ReadLrfTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
         {
             var playerCommCol = "playercomm" + baseCurrency;
@@ -120,11 +118,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
 
             return tickets;
-        }
-
-        protected static void LogException(Exception exception, string uspName)
-        {
-            LogService.Error(exception.Message + UspExceptionName + uspName, exception);
         }
 
         /// <summary>

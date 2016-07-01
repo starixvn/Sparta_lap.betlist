@@ -19,12 +19,21 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Service.BetList;
+    using Service.BetList.Interfaces;
 
     #endregion Using
 
     [FunctionAuthorization(PermissionKeys.ReportCancelledBets)]
     public class CancelledBetsBetListController : BetListBaseController
     {
+        private readonly ICancelledBetListService _cancelledBetListService;
+
+        public CancelledBetsBetListController()
+        {
+            _cancelledBetListService = new CancelledBetListService();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -34,7 +43,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = this.SessionService.UserSession;
-            var customers = this.BetListService.GetCancelBetCustList(metaModel);
+            var customers = _cancelledBetListService.GetCancelBetCustList(metaModel);
 
             if (customers.Any())
             {
@@ -73,7 +82,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             metaModel = CreateDefaultMetaModel(metaModel);
 
-            var custList = this.BetListService.GetCancelBetCustList(metaModel);
+            var custList = _cancelledBetListService.GetCancelBetCustList(metaModel);
 
             if (custList.Any())
             {

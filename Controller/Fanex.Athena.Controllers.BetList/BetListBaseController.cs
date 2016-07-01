@@ -85,28 +85,6 @@ namespace Fanex.Athena.Controllers.BetList
             get { return _betListService; }
         }
 
-        /// <summary>
-        /// Set the Licensee Id, Balance Up Date.
-        /// Remove the UTC part of DateTime value.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The bet list metal model.</returns>
-        public BetListMetaModel CreateDefaultMetaModel(BetListMetaModel metaModel = null)
-        {
-            metaModel = metaModel ?? new BetListMetaModel();
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
-
-            var balanceUpInfo = this.BalanceUpService.BalanceUpInfo;
-            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
-            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
-            metaModel.FromDate = DateTime.SpecifyKind(metaModel.FromDate.Date, DateTimeKind.Utc);
-            metaModel.ToDate = DateTime.SpecifyKind(metaModel.ToDate.Date, DateTimeKind.Utc);
-            metaModel.Date = DateTime.SpecifyKind(metaModel.Date.Date, DateTimeKind.Utc);
-
-            return metaModel;
-        }
-
         protected static bool IsRacing(int betType)
         {
             return RacingBetType.Contains(betType);
@@ -139,6 +117,28 @@ namespace Fanex.Athena.Controllers.BetList
             }
 
             return viewinCurrency;
+        }
+
+        /// <summary>
+        /// Set the Licensee Id, Balance Up Date.
+        /// Remove the UTC part of DateTime value.
+        /// </summary>
+        /// <param name="metaModel">The metal model.</param>
+        /// <returns>The bet list metal model.</returns>
+        protected BetListMetaModel CreateDefaultMetaModel(BetListMetaModel metaModel = null)
+        {
+            metaModel = metaModel ?? new BetListMetaModel();
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            metaModel.UserId = SessionService.UserSession.UserId;
+
+            var balanceUpInfo = this.BalanceUpService.BalanceUpInfo;
+            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
+            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
+            metaModel.FromDate = DateTime.SpecifyKind(metaModel.FromDate.Date, DateTimeKind.Utc);
+            metaModel.ToDate = DateTime.SpecifyKind(metaModel.ToDate.Date, DateTimeKind.Utc);
+            metaModel.Date = DateTime.SpecifyKind(metaModel.Date.Date, DateTimeKind.Utc);
+
+            return metaModel;
         }
 
         /// <summary>

@@ -6,15 +6,11 @@
 
 namespace Fanex.Athena.Service.BetList
 {
-    #region
-
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Athena.DataAccess.BetList;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
@@ -22,11 +18,6 @@ namespace Fanex.Athena.Service.BetList
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.BetList.Core.Entities;
 
-    #endregion
-
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class BetListService : IBetListService
     {
         #region Fields
@@ -35,7 +26,7 @@ namespace Fanex.Athena.Service.BetList
         private readonly IBetListDataAccess _betlistDataAccess;
         private readonly IAuthorizationService _authorizationService;
 
-        #endregion
+        #endregion Fields
 
         #region Constructor
 
@@ -46,7 +37,7 @@ namespace Fanex.Athena.Service.BetList
             _authorizationService = new AuthorizationService();
         }
 
-        #endregion
+        #endregion Constructor
 
         #region IBetListService Members
 
@@ -107,19 +98,7 @@ namespace Fanex.Athena.Service.BetList
                          : new List<DailyStatement>();
         }
 
-        /// <summary>
-        /// Get Cancelled Bets of Customer.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The canceled bet list.</returns>
-        public IList<CustomerCancelBetItem> GetCancelBetCustList(BetListMetaModel metaModel)
-        {
-            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)
-                        ? _betlistDataAccess.GetCancelBetCustList(metaModel)
-                         : new List<CustomerCancelBetItem>();
-        }
-
-        #endregion
+        #endregion IBetListService Members
 
         #region Update Match
 
@@ -130,6 +109,6 @@ namespace Fanex.Athena.Service.BetList
             metaModel.BalanceUpDay = balanceUpInfo.BalanceUpDay;
         }
 
-        #endregion
+        #endregion Update Match
     }
 }

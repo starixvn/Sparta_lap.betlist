@@ -23,19 +23,19 @@ namespace Fanex.Athena.Service.BetList
         private static IList<BetListMatch> outrightMatchList = new List<BetListMatch>();
         private static IList<int> convertingDecimalOddsBetType = new List<int> { 1, 2, 3, 7, 8, 12, 20 };
 
-        private readonly ILastBetsMonitoringBetListDataAccess _betlistDataAccess;
+        private readonly ILastBetsMonitoringBetListDataAccess _lastBetsMonitoringBetListDataAccess;
 
         private bool _reloadedMatch = false;
         private bool _reloadedOutrightMatch = false;
 
         public LastBetsMonitoringBetListService()
         {
-            _betlistDataAccess = new LastBetsMonitoringBetListDataAccess();
+            _lastBetsMonitoringBetListDataAccess = new LastBetsMonitoringBetListDataAccess();
         }
 
         public TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel)
         {
-            var ticketResult = this._betlistDataAccess.GetLastBetsMonitoringData(metaModel);
+            var ticketResult = this._lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(metaModel);
 
             UpdateMatchInfo(metaModel, ticketResult);
 
@@ -175,7 +175,7 @@ namespace Fanex.Athena.Service.BetList
             if (!_reloadedMatch)
             {
                 matchList.Clear();
-                matchList = this._betlistDataAccess.GetMatchList(MatchListSpKey);
+                matchList = this._lastBetsMonitoringBetListDataAccess.GetMatchList(MatchListSpKey);
                 _reloadedMatch = true;
             }
         }
@@ -188,7 +188,7 @@ namespace Fanex.Athena.Service.BetList
             if (!_reloadedOutrightMatch)
             {
                 outrightMatchList.Clear();
-                outrightMatchList = this._betlistDataAccess.GetMatchList(OutrightMatchListSpKey);
+                outrightMatchList = this._lastBetsMonitoringBetListDataAccess.GetMatchList(OutrightMatchListSpKey);
                 _reloadedOutrightMatch = true;
             }
         }

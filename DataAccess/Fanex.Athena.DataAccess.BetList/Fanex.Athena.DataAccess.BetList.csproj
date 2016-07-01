@@ -114,7 +114,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CancelledBetListDataAccess.cs" />
     <Compile Include="BetListDataAccess.cs" />
+    <Compile Include="Interfaces\ICancelledBetListDataAccess.cs" />
     <Compile Include="Interfaces\ILastBetsMonitoringBetListDataAccess.cs" />
     <Compile Include="LastBetsMonitoringBetListDataAccess.cs" />
     <Compile Include="BaseBetListDataAccess.cs" />

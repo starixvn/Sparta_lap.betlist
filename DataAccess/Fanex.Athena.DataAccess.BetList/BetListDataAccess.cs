@@ -362,32 +362,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        /// <summary>
-        /// Get Cancelled Bets of Customer.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
-        public IList<CustomerCancelBetItem> GetCancelBetCustList(BetListMetaModel metaModel)
-        {
-            const string UspKey = "Lrf_BetList_SelDeleted_UserList";
-            try
-            {
-                using (var db = new ObjectDb(UspKey))
-                {
-                    db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrWhiteSpace(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
-                    db.AddInParameter("CurrencyId", DbType.String, metaModel.CurrencyId.ToString());
-                    return db.Query<CustomerCancelBetItem>().ToList();
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message + UspExceptionName + UspKey, sqlException);
-                throw new DataAccessException(sqlException.Message, UspKey);
-            }
-        }
-
         #region Utility
 
         #region CreateComonBetlistParameter
