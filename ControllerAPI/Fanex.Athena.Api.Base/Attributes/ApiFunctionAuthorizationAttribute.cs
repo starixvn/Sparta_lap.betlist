@@ -10,6 +10,7 @@
     using System.Web.Helpers;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
+    using Resources;
     using Fanex.Athena.Service.Core.Users;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
@@ -82,7 +83,7 @@
             {
                 StatusCode = HttpStatusCode.Forbidden,
                 RequestMessage = actionContext.ControllerContext.Request,
-                Content = new StringContent("Cheating is not good for kids.")
+                Content = new StringContent(ViewResources.AccessDeniedMsg)
             };
 
             return FromResult(actionContext.Response);
