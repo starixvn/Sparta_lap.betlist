@@ -15,7 +15,5 @@ namespace Fanex.Athena.Model.BetList.ViewModel
     public class LastBetsMonitoringViewModel : BetListBaseViewModel
     {
         public IEnumerable<SelectListItem> SportsList { get; set; }
-
-        public bool IsOnlyShowAllCurrencies { get; set; }
     }
 }
