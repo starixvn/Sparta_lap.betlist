@@ -68,7 +68,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// <param name="isConvert">Is Convert value.</param>
         /// <param name="baseCurrency">Base currency value.</param>
         /// <returns>A list of Number game.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
                     Justification = "Reviewed. Suppression is OK here.")]
         private static IList<NumberGame> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
@@ -175,7 +175,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// <param name="isConvert">Is Convert value.</param>
         /// <param name="baseCurrency">Base currency value.</param>
         /// <returns>A Number game.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         private NumberGame ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
             if (!reader.Read())

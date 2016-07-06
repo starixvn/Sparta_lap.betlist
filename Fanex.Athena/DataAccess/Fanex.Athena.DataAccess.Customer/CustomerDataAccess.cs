@@ -63,7 +63,7 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <param name="metaModel">Meta model contains the filter such as: BA type, special level type, ... value.</param>
         /// <param name="totalRows">Total rows value.</param>
         /// <returns>The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
                     Justification = "Reviewed. Suppression is OK here.")]
         public IList<CustomerDTO> Search(CustomerListMetaModel metaModel, ref int totalRows)
         {

@@ -5,7 +5,7 @@
 
     public static class ProductHelper
     {
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         public static string GetProductName(string productCode, string defaultValue = null)
         {
             switch (productCode.ToUpper())

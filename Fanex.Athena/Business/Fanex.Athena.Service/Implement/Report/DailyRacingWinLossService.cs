@@ -84,7 +84,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// <param name="currencyName">The currency name.</param>
         /// <returns>The daily racing win-loss.</returns>
         [SuppressMessage(
-           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+           "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         private static DailyRacingWinLoss GetSumDailyRacingWinLoss(IList<DailyRacingWinLoss> rawData, string currencyName)

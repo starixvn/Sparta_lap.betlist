@@ -205,7 +205,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="ticketResult">Ticket result.</param>
         /// <returns>Bet list in html, using in last bet monitoring.</returns>
         [SuppressMessage(
-            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private string GetLastMonitorBetListContent(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult)

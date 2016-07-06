@@ -88,7 +88,7 @@ namespace Fanex.Athena.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SuppressMessage(
-          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult SignIn(LoginMetalModel model)

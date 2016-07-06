@@ -117,7 +117,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         [SuppressMessage(
-               "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+               "StyleCop.CSharp.StylecopPlus.Rules",
                "SP2101:MethodMustNotContainMoreLinesThan",
                Justification = "Reviewed. Suppression is OK here.")]
         public override void AssignSheetData(ISheet sheet)

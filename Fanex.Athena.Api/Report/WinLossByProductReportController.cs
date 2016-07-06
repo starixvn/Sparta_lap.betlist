@@ -305,7 +305,7 @@ namespace Fanex.Athena.Api.Report
         /// <param name="systemId">System Id.</param>
         /// <returns>Dynamic type.</returns>
         [SuppressMessage(
-           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+           "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         private dynamic ProcessRequest(

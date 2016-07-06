@@ -75,7 +75,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
 
         #region Private
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static IList<PlatformWinLossSummary> ReadSummaryData(IDataReader reader, PlatformWinLossMetaModel metaModel, out PlatformWinLossSummary totalData)
         {
@@ -151,7 +151,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
             return dataList;
         }
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static IList<PlatformWinLossMember> ReadMemberData(
             IDataReader reader,

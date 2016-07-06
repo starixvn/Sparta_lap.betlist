@@ -144,7 +144,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="pageIndex">Start index.</param>
         /// <returns>Row index.</returns>
         [SuppressMessage(
-          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         public override int AssignSheetData(ISheet sheet, int pageIndex)

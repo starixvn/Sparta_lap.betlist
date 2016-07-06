@@ -164,7 +164,7 @@ namespace Fanex.Athena.Service.Customer
         /// <param name="result">Out put parameter:Result view model.</param>
         /// <returns>Return group id.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
-            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public int DeleteGroup(DeleteGroupMetaModel model, out ResultViewModel result)

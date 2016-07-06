@@ -186,7 +186,7 @@ namespace Fanex.Athena.Excel.Customer
         /// </summary>
         /// <param name="sheet">The current sheet.</param>
         [SuppressMessage(
-            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private void AssignSheetData(ISheet sheet)
@@ -302,7 +302,7 @@ namespace Fanex.Athena.Excel.Customer
         /// </summary>
         /// <param name="sheet">The current sheet.</param>
         [SuppressMessage(
-            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private void ProcessUi(ISheet sheet)

@@ -30,7 +30,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// </summary>
         /// <param name="metaModel">Meta model.</param>
         /// <returns>Result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public IList<TurnoverDTO> GetDataList(TurnoverMetaModel metaModel)
         {

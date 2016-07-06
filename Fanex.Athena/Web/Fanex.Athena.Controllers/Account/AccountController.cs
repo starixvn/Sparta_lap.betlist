@@ -224,7 +224,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <param name="model">The account metal model.</param>
         /// <returns>The JSON result.</returns>
         [SuppressMessage(
-          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
@@ -442,7 +442,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <param name="model">The currency metal model.</param>
         /// <returns>The action result.</returns>
         [SuppressMessage(
-           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+           "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
@@ -514,7 +514,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <param name="password">The password.</param>
         /// <returns>True or false.</returns>
         [SuppressMessage(
-          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         private static bool ValidatePassword(string password)

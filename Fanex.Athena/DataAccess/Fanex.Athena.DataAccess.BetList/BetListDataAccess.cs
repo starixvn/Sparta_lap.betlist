@@ -108,7 +108,7 @@ namespace Fanex.Athena.DataAccess.BetList
         /// </summary>
         /// <param name="metaModel">Meta model value.</param>
         /// <returns>The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         [System.CLSCompliant(false)]
         public SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
@@ -183,7 +183,7 @@ namespace Fanex.Athena.DataAccess.BetList
         /// <param name="metaModel">Meta model value.</param>
         /// <param name="uspKey">USP key value.</param>
         /// <returns>The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public TicketResult GetBetListData(BetListMetaModel metaModel, string uspKey)
         {
@@ -337,7 +337,7 @@ namespace Fanex.Athena.DataAccess.BetList
         /// <param name="metaModel">Meta model value.</param>
         /// <param name="allowCustComm">Allow customer commission value.</param>
         /// <returns>The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public IList<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel, bool allowCustComm)
         {
@@ -1102,7 +1102,7 @@ namespace Fanex.Athena.DataAccess.BetList
         /// <param name="baseCurrency">Base currency value.</param>
         /// <param name="custId">The customer ID.</param>
         /// <returns>The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static SortableList<LrfTicket> ReadLrfTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
         {
@@ -1223,7 +1223,7 @@ namespace Fanex.Athena.DataAccess.BetList
         /// <param name="db">The Data Object.</param>
         /// <param name="uspKey">Store procedure name.</param>
         /// <param name="metaModel">Meta model value.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static void CreateBetListParameters(IObjectDb db, string uspKey, BetListMetaModel metaModel)
         {

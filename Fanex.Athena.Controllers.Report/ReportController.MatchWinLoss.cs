@@ -86,7 +86,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [SuppressMessage(
-          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
@@ -306,7 +306,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="mainTable">The main table data.</param>
         /// <returns>The data table.</returns>
         [SuppressMessage(
-              "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+              "StyleCop.CSharp.StylecopPlus.Rules",
               "SP2101:MethodMustNotContainMoreLinesThan",
               Justification = "Reviewed. Suppression is OK here.")]
         private static DataTable SortMatchWinlossTable(DataTable mainTable)

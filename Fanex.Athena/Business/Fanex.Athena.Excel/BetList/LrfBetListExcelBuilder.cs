@@ -163,7 +163,7 @@ namespace Fanex.Athena.Excel.BetList
         /// <param name="custWLHeader">The customer win-loss header.</param>
         /// <returns>Return the current builder.</returns>
         [SuppressMessage(
-            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public static BetListExcelBuilder AddHeader(this BetListExcelBuilder builder, string custWLHeader)
