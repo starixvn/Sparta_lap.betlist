@@ -84,6 +84,5 @@
         public const string AccountEditAccount = "EditNewAccount48";
         public const string AccountAssignPermission = "AssignPermission49";
         public const string AccountResetPassword = "ResetPassword50";
-        public const string AccountAssignCurrency = "AssignCurrency57";
     }
 }

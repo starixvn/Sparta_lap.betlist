@@ -364,7 +364,7 @@ namespace Fanex.Athena.Controllers.Account
         /// <param name="userId">The user id.</param>
         /// <returns>Action result.</returns>
         [HttpGet]
-        [FunctionAuthorization(PermissionKeys.AccountAssignCurrency)]
+        [FunctionAuthorization(PermissionKeys.AccountAssignPermission)]
         public ActionResult AssignCurrency(int userId = 0)
         {
             if (!AppSettings.EnableAssignCurrency)
@@ -401,7 +401,7 @@ namespace Fanex.Athena.Controllers.Account
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
-        [FunctionAuthorization(PermissionKeys.AccountAssignCurrency)]
+        [FunctionAuthorization(PermissionKeys.AccountAssignPermission)]
         [CustomValidateAntiForgery]
         public ActionResult AssignCurrency(AssignCurrencyMetaModel model)
         {
