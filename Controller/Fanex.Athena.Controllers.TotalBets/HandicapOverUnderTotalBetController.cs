@@ -19,7 +19,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Service.TotalBet;
     using Service.TotalBet.Interfaces;
 
-    [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
+    [FunctionAuthorization(PermissionKeys.TotalBetHandicapOverUnderLive)]
     public class HandicapOverUnderTotalBetController : TotalBetBaseController
     {
         private readonly IHandicapOverUnderService _handicapOverUnderService;

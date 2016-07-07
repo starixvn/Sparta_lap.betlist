@@ -19,7 +19,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using Resources;
     using Web.ActionFilter;
 
-    [FunctionAuthorization(PermissionKeys.TotalBetHandicapOverUnderLive)]
+    [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class AhForecastController : ForecastBaseController
     {        
         public ActionResult Index(ForecastAHMetaModel metaModel)

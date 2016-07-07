@@ -10,8 +10,8 @@
     using System.Web.Helpers;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
-    using Resources;
     using Fanex.Athena.Service.Core.Users;
+    using Resources;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class ApiFunctionAuthorizationAttribute : FilterAttribute, IAuthorizationFilter
