@@ -80,7 +80,6 @@
         /* Account. */
 
         public const string AccountManageAccount = "ManageAccount46";
-        public const string AccountAddNewAccount = "AddNewAccount47";
         public const string AccountEditAccount = "EditNewAccount48";
         public const string AccountAssignPermission = "AssignPermission49";
         public const string AccountResetPassword = "ResetPassword50";
