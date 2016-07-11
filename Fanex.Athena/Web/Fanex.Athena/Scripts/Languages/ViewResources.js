@@ -5,7 +5,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 5/13/2016 9:45:59 AM
+// Lasted generated date: 7/11/2016 2:10:32 PM
 // </history>
 
 var _language_en_US={
@@ -880,6 +880,7 @@ var _language_en_US={
     We:"We",
     WEB:"WEB",
     Wednesday:"Wednesday",
+    WeeklyLiveMatches:"Weekly Live Matches",
     Welcome:"Welcome",
     Win:"Win",
     WinLoss:"Win Loss",
