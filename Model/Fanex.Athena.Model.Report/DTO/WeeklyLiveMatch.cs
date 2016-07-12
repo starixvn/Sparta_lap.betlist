@@ -4,11 +4,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Collections;
-using System.Collections.Generic;
-
-namespace Fanex.Athena.Models.DTO.Report
+namespace Fanex.Athena.Model.Report.DTO
 {
+    using System.Collections.Generic;
+
     public class WeeklyLiveMatch
     {
         public int SortingWeekValue { get; set; }

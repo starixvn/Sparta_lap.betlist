@@ -1,4 +1,4 @@
-﻿// Generated at: 6/30/2016 4:59:45 PM
+﻿// Generated at: 7/12/2016 2:44:14 PM
 var _language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -853,6 +853,7 @@ Wap:"WAP",
 We:"We",
 WEB:"WEB",
 Wednesday:"Wednesday",
+WeeklyLiveMatches:"Weekly Live Matches",
 Welcome:"Welcome",
 Win:"Win",
 WinLoss:"Win Loss",

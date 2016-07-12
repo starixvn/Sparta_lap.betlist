@@ -1,15 +1,15 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IWeeklyLiveMatchService.cs" company="Nexcel">
-// The active customer service.
+// <copyright file="IWeeklyLiveMatchService.cs" company="">
+//
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Interface.Report
+namespace Fanex.Athena.Service.Report.Interfaces
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.Athena.Models.DTO.Report;
-    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Model.Report.DTO;
+    using Fanex.Athena.Model.Report.MetaModel;
 
     public interface IWeeklyLiveMatchService
     {

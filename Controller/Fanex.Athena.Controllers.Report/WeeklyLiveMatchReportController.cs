@@ -7,13 +7,14 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Mvc;
-    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.DataDomain;
 
+    [FunctionAuthorization(PermissionKeys.ReportWeeklyLiveMatches)]
     public class WeeklyLiveMatchReportController : ReportBaseController
     {
         [HttpGet]
-        [FunctionAuthorization]
         public ActionResult Index()
         {
             var metaModel = new WeeklyLiveMatchMetaModel();

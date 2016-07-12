@@ -1,21 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="WeeklyLiveMatchService.cs" company="Nexcel">
+// <copyright file="WeeklyLiveMatchService.cs" company="">
 // The licensee win loss service.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Implement.Report
+namespace Fanex.Athena.Service.Report
 {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using Extension.Helper;
-    using Fanex.Athena.DataAccess.Implement.Report;
-    using Fanex.Athena.DataAccess.Interface.Report;
+    using Fanex.Athena.DataAccess.Report;
+    using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Models.DTO.Report;
-    using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Service.Interface.Report;
+    using Fanex.Athena.Model.Report.DTO;
+    using Fanex.Athena.Model.Report.MetaModel;
+    using Fanex.Athena.Service.Report.Interfaces;
 
     /// <summary>
     ///     The active customer service.

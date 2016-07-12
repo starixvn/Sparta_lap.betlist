@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ApiWeeklyLiveMatchReportController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="ApiWeeklyLiveMatchReportController.cs" company="">
+// Copyright (c). All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 
@@ -12,10 +12,10 @@ namespace Fanex.Athena.Api.Report
     using System.Web;
     using System.Web.Http;
     using Excel.Report;
-    using Fanex.Athena.Models.DTO.Report;
-    using Fanex.Athena.Models.MetaModel.Report;
-    using Fanex.Athena.Service.Implement.Report;
-    using Fanex.Athena.Service.Interface.Report;
+    using Fanex.Athena.Model.Report.DTO;
+    using Fanex.Athena.Model.Report.MetaModel;
+    using Fanex.Athena.Service.Report;
+    using Fanex.Athena.Service.Report.Interfaces;
 
     public class WeeklyLiveMatchReportController : ApiReportBaseController
     {

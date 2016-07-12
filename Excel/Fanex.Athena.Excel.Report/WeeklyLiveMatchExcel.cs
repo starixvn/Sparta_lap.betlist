@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="WeeklyLiveMatchExcel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="WeeklyLiveMatchExcel.cs" company="">
+// Copyright (c). All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 
@@ -9,9 +9,9 @@ namespace Fanex.Athena.Excel.Report
     using System.Collections.Generic;
     using System.Linq;
     using Base;
-    using Fanex.Athena.Excel.Extension;
-    using Models.DTO.Report;
-    using Models.MetaModel.Report;
+    using Base.Extension;
+    using Model.Report.DTO;
+    using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
     using Resources;
 

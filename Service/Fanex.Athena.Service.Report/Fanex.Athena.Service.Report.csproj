@@ -190,6 +190,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IWeeklyLiveMatchService.cs" />
     <Compile Include="Keno\KenoApi.cs" />
     <Compile Include="AgCasinoWinLossService.cs" />
     <Compile Include="ActiveCustomerService.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="AgCasinoBalanceService.cs" />
     <Compile Include="PlaytechCasinoService.cs" />
     <Compile Include="ThirdPartyWinLossService.cs" />
+    <Compile Include="WeeklyLiveMatchService.cs" />
     <Compile Include="WinLossByLeagueService.cs" />
     <Compile Include="ResultService.cs" />
     <Compile Include="BaseReportService.cs" />

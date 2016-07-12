@@ -121,6 +121,7 @@
     <Compile Include="DTO\PlatformWinLossSummary.cs" />
     <Compile Include="DTO\PlaytechCasino.cs" />
     <Compile Include="DTO\ThirdPartyWinLoss.cs" />
+    <Compile Include="DTO\WeeklyLiveMatch.cs" />
     <Compile Include="DTO\WinLossByLeague.cs" />
     <Compile Include="DTO\Balance.cs" />
     <Compile Include="DTO\BalanceDetails.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="MetaModel\AgCasinoBalanceMetaModel.cs" />
     <Compile Include="MetaModel\PlaytechCasinoMetaModel.cs" />
     <Compile Include="MetaModel\ThirdPartyWinLossMetaModel.cs" />
+    <Compile Include="MetaModel\WeeklyLiveMatchMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueMetaModel.cs" />
     <Compile Include="MetaModel\CustomerWinlossHistoryMetaModel.cs" />
     <Compile Include="MetaModel\LiveReportMatchListMetalModel.cs" />

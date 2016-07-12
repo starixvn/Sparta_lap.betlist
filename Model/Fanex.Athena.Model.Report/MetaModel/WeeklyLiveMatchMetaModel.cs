@@ -1,10 +1,10 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="WeeklyLiveMatchMetaModel.cs" company="Nexcel">
+// <copyright file="WeeklyLiveMatchMetaModel.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.MetaModel.Report
+namespace Fanex.Athena.Model.Report.MetaModel
 {
     using System;
     using Extension.Helper;

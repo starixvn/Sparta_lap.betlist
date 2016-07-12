@@ -1,10 +1,10 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="WeeklyLiveMatchDataAccess.cs" company="Nexcel Solution">
+// <copyright file="WeeklyLiveMatchDataAccess.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.DataAccess.Implement.Report
+namespace Fanex.Athena.DataAccess.Report
 {
     using System;
     using System.Collections.Generic;
@@ -13,9 +13,9 @@ namespace Fanex.Athena.DataAccess.Implement.Report
     using Core;
     using Core.Exception;
     using Data;
-    using Fanex.Athena.DataAccess.Interface.Report;
-    using Fanex.Athena.Models.DTO.Report;
-    using Fanex.Athena.Models.MetaModel.Report;
+    using Fanex.Athena.DataAccess.Report.Interfaces;
+    using Fanex.Athena.Model.Report.DTO;
+    using Fanex.Athena.Model.Report.MetaModel;
     using Logging;
     using Model.Core.Helper;
 

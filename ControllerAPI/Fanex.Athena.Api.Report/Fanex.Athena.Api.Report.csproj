@@ -176,6 +176,7 @@
     <Compile Include="AgCasinoBalanceReportController.cs" />
     <Compile Include="AgCasinoWinLossReportController.cs" />
     <Compile Include="ThirdPartyWinLossReportController.cs" />
+    <Compile Include="WeeklyLiveMatchReportController.cs" />
     <Compile Include="WinLossByLeagueReportController.cs" />
     <Compile Include="LicenseeWinLossReportController.cs" />
     <Compile Include="PlatformWinLossReportController.cs" />
