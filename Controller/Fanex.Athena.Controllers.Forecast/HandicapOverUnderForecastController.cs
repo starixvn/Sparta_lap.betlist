@@ -68,7 +68,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 MainData = forecastHdpOuByLeague,
                 LeagueList = leagueList,
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId)
+                CurrencyList = SessionService.UserSession.CurrencyList
             };
         }
     }

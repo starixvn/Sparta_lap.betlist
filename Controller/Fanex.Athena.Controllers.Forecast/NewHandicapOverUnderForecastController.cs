@@ -104,7 +104,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 MatchList = matchList,
                 HeaderInfo = headerInfo,
                 MainData = new NewForecastHdpOuData(),
-                CurrencyList = GetUserCurrencies(SessionService.LicenseeSession.LicenseeId)
+                CurrencyList = SessionService.UserSession.CurrencyList
             };
             try
             {

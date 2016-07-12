@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
+                CurrencyList = userSession.CurrencyList,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this.ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -97,7 +97,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
+                CurrencyList = userSession.CurrencyList,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this.ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -109,10 +109,8 @@ namespace Fanex.Athena.Controllers.BetList
 
         private ActionResult Excel(BetListMetaModel metaModel)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var currencies = GetUserCurrencies(licenseeSession.LicenseeId);
-
-            if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == BaseCurrencyType.All ||
+                SessionService.UserSession.CurrencyList.Values.Contains(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_SelDeleted";
 
@@ -122,7 +120,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 var showingOption = new ShowingOption
                 {
-                    CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
+                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
                 };
                 var currencyTitle = string.Format(
                     ViewResources.Viewin,

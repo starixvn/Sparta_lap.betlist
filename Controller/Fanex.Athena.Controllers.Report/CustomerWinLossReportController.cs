@@ -55,7 +55,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
-                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
+                CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
                 IsHistory = false,
             };
@@ -94,7 +94,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
-                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
+                CurrencyList = userSession.CurrencyList,
                 HistoryParam = historyParam,
                 IsHistory = true,
             };
@@ -123,7 +123,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
-                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
+                CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
                 IsHistory = false,
             };
@@ -161,7 +161,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
-                CurrencyList = GetUserCurrencies(licenseeSession.LicenseeId),
+                CurrencyList = userSession.CurrencyList,
                 HistoryParam = metaModel,
                 TotalRows = totalRows,
                 IsHistory = true,

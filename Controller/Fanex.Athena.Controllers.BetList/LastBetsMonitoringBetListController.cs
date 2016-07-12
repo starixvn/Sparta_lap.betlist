@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var model = new LastBetsMonitoringViewModel
             {
-                CurrencyList = GetUserCurrencies(licenseeId),
+                CurrencyList = SessionService.UserSession.CurrencyList,
                 SportsList = GetSports(),
                 Param = metaModel
             };

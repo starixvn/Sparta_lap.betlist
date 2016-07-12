@@ -74,11 +74,6 @@ namespace Fanex.Athena.Controllers
             LangService.SetPageCulture(currentLanguage);
         }
 
-        protected IDictionary<string, int> GetUserCurrencies(int licenseeId)
-        {
-            return SessionService.UserSession.CurrencyList;
-        }
-
         private static IEnumerable<string> GetBaseUsdLicensees()
         {
             var items = AppSettings.GetValue("BaseUsdLicensees");

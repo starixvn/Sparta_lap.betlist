@@ -85,7 +85,7 @@ namespace Fanex.Athena.Controllers.BetList
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel = CreateDefaultMetaModel(metaModel);
-            var currencies = GetUserCurrencies(licenseeSession.LicenseeId);
+            var currencies = userSession.CurrencyList;
 
             if (metaModel.IsExportExcel)
             {

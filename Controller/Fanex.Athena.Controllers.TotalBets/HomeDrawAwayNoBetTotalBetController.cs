@@ -52,7 +52,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.UserId = userSession.UserId;
-            var currencies = GetUserCurrencies(licenseeSession.LicenseeId);
+            var currencies = userSession.CurrencyList;
 
             if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
             {

@@ -130,7 +130,7 @@ namespace Fanex.Athena.Controllers.Report
 
         private IDictionary<string, int> GetCurrenciesForTurnoverReport(int licenseeId)
         {
-            var currencies = GetUserCurrencies(licenseeId);
+            var currencies = SessionService.UserSession.CurrencyList;
             if (licenseeId == Licensees.KeenOcean && currencies.Keys.Contains("CNY") == false)
             {
                 currencies.Add("CNY", CurrencyType.Hkd);
