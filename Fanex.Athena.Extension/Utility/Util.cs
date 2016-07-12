@@ -63,7 +63,7 @@ namespace Fanex.Athena.Extension.Utility
         /// <param name="password">The password.</param>
         /// <returns>The valid password or invalid password.</returns>
         [SuppressMessage(
-        "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+        "StyleCop.CSharp.StylecopPlus.Rules",
         "SP2101:MethodMustNotContainMoreLinesThan",
         Justification = "Reviewed. Suppression is OK here.")]
         public static bool CheckValidPassword(string password)

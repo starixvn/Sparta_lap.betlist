@@ -69,7 +69,7 @@ namespace Fanex.Athena.Controllers.Report
         [FunctionAuthorization]
         [ValidateInput(false)]
         [SuppressMessage(
-          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult PlaytechCasinoWinloss(PlaytechCasinoMetaModel metaModel)

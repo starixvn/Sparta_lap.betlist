@@ -226,7 +226,7 @@ namespace Fanex.Athena.Controllers.Customer
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The action result.</returns>
         [SuppressMessage(
-                  "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+                  "StyleCop.CSharp.StylecopPlus.Rules",
                   "SP2101:MethodMustNotContainMoreLinesThan",
                   Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]

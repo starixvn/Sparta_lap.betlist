@@ -324,4 +324,8 @@
     <value>Casino Progressive Wins</value>
     <comment>#47601</comment>
   </data>
+  <data name="Menu_69" xml:space="preserve">
+    <value>Weekly Live Matches</value>
+    <comment>#52886</comment>
+  </data>
 </root>

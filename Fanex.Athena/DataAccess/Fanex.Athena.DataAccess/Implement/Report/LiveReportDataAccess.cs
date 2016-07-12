@@ -92,7 +92,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="resultBySport">Result by sport value.</param>
         /// <param name="resultByByCurrency">Result by currency value.</param>
         /// <param name="resultByBettype">Result by bet type value.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public void GetLiveReportSummaryDetail(
             LiveReportMetalModel metaModel,
@@ -268,7 +268,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="metaModel">Meta model value.</param>
         /// <param name="moveBetsDate">Move bet date value.</param>
         /// <returns>The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
                     Justification = "Reviewed. Suppression is OK here.")]
         public IList<LiveReportWinLossByMatch> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel, DateTime moveBetsDate)
         {

@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -217,8 +217,8 @@
       <HintPath>..\..\..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ONEbook.UM, Version=2.0.2.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\ONEbook.UM.2.0.2.6\lib\net40\ONEbook.UM.dll</HintPath>
+    <Reference Include="ONEbook.UM, Version=2.0.2.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\ONEbook.UM.2.0.2.7\lib\net40\ONEbook.UM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RazorEngine, Version=3.7.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
@@ -557,6 +557,7 @@
     <Content Include="App_Data\UserGuide\WinLossByBetType\en-US.htm" />
     <Content Include="App_Data\UserGuide\WinLossByBetType\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\WinLossByBetType\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\WeeklyLiveMatches\en-US.htm" />
     <Content Include="App_Data\UserGuide\WinLossByProduct\en-US.htm" />
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-CN.htm" />
@@ -624,6 +625,7 @@
     <Content Include="App_Data\Template\Reports\PlatformWinLossSummary.xls" />
     <Content Include="bower.json" />
     <Content Include="GruntFilters.json" />
+    <Content Include="App_Data\Template\Reports\WeeklyLiveMatch.xls" />
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
@@ -741,6 +743,8 @@
     <Content Include="jasmine-specs\Report\thirdpartywinloss.option-test.js" />
     <Content Include="jasmine-specs\Report\turnover-test.js" />
     <Content Include="jasmine-specs\Report\turnover.option-test.js" />
+    <Content Include="jasmine-specs\Report\weeklylivematch-test.js" />
+    <Content Include="jasmine-specs\Report\weeklylivematch.option-test.js" />
     <Content Include="jasmine-specs\Report\winlossbybettype-test.js" />
     <Content Include="jasmine-specs\Report\winlossbyleague-test.js" />
     <Content Include="jasmine-specs\Report\winlossbyleague.option-test.js" />
@@ -787,6 +791,8 @@
     <Content Include="Scripts\Report\agcasinobalance.option.js" />
     <Content Include="Scripts\Report\CasinoProgressiveWins.js" />
     <Content Include="Scripts\Report\CasinoProgressiveWins.option.js" />
+    <Content Include="Scripts\Report\weeklylivematch.js" />
+    <Content Include="Scripts\Report\weeklylivematch.option.js" />
     <Content Include="Scripts\Report\microgamingwinloss.js" />
     <Content Include="Scripts\Report\microgamingwinloss.option.js" />
     <Content Include="SiteConfig\Web.LOCAL.config">
@@ -835,6 +841,9 @@
     <Content Include="Views\BetList\WinlossByBetType\Main.cshtml" />
     <Content Include="Views\BetList\VoidbridgeDetail\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\Voidbridge.cshtml" />
+    <Content Include="Views\Report\WeeklyLiveMatch\Content.cshtml" />
+    <Content Include="Views\Report\WeeklyLiveMatch\Filter.cshtml" />
+    <Content Include="Views\Report\WeeklyLiveMatch\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />

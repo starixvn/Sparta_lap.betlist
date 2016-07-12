@@ -280,7 +280,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="refNo">Reference Number value.</param>
         /// <returns>The result value.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
-           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+           "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         public IList<Parlay> GetPopUpParalayMatch(long refNo)

@@ -32,7 +32,7 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel);
         }
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         private HttpResponseMessage ExportExcel(
             PlatformWinLossMetaModel metaModel,
             IList<PlatformWinLossMember> dataList,

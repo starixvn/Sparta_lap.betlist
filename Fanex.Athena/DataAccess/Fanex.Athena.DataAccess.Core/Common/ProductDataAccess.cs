@@ -35,7 +35,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
         /// </summary>
         /// <param name="licenseeId"> The licensee id. </param>
         /// <returns> The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public IList<Product> GetProductAccessList(int licenseeId, bool isActiveCustomerSummaryReport = false)
         {

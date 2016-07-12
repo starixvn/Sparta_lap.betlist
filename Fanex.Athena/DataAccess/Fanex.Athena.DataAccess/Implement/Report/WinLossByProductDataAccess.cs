@@ -156,7 +156,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="drilldown">Drill down value.</param>
         /// <param name="summaryTotal">Summary total value.</param>
         /// <returns>The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static IList<WinLossByProduct> GetData(
             IDataReader reader,

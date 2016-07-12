@@ -345,7 +345,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="sportType">The sport type.</param>
         /// <param name="setting">The setting result.</param>
         [SuppressMessage(
-           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+           "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, ResultSetting setting)
@@ -428,7 +428,7 @@ namespace Fanex.Athena.Controllers.Report
         /// <param name="leagues">The league list.</param>
         /// <returns>The JSON result.</returns>
         [SuppressMessage(
-          "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         private ActionResult GetNormalSports(ResultMetalModel metalModel, out IList<Sport> sports, out IList<League> leagues)
@@ -581,7 +581,7 @@ namespace Fanex.Athena.Controllers.Report
         /// </summary>
         /// <param name="metalModel">The metal model.</param>
         [SuppressMessage(
-           "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+           "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         private void GetNormalData(ResultMetalModel metalModel)

@@ -45,7 +45,6 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 CurrencyList = GetUserCurrencies(),
                 SportsList = GetSports(),
-                IsOnlyShowAllCurrencies = SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean,
                 Param = metaModel
             };
 

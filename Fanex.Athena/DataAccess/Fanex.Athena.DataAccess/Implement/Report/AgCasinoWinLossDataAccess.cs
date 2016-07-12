@@ -135,7 +135,7 @@ namespace Fanex.Athena.DataAccess.Implement.Report
         /// <param name="metaModel">Meta model value.</param>
         /// <param name="summaryTotal">Summary value.</param>
         /// <returns>The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static SortableList<AgCasinoWinLoss> GetData(
             IDataReader reader,

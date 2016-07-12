@@ -37,7 +37,7 @@ namespace Fanex.Athena.DataAccess.Warehouse
 
         #region ITopCustomerDataAccess Members
 
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
 
         /// <summary>

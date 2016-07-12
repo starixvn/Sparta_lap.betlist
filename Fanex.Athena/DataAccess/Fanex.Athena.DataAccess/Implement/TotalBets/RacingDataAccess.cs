@@ -69,7 +69,7 @@ namespace Fanex.Athena.DataAccess.Implement.TotalBets
         /// <param name="isConvert">Convert value.</param>
         /// <param name="baseCurrency">Base currency value.</param>
         /// <returns>The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static Racing GetRacingData(DataSet ds, bool isConvert, string baseCurrency)
         {

@@ -5,7 +5,7 @@
 @using Fanex.Athena.Extension.Helper;
 @helper RenderDateRangePicker(DateTime fromDate, DateTime toDate, DateTime minDate, DateTime maxDate,
     string fromClass = "", string toClass = "",
-    int fromGrid = 2, int fromInputGrid = 3, int toGrid = 2, int toInputGrid = 3, bool simpleMode = false)
+    int fromGrid = 2, int fromInputGrid = 3, int toGrid = 2, int toInputGrid = 3, bool simpleMode = false, bool isFirstDayOfWeekMonday = false)
     {
         var today = DateTime.Today;// < maxDate ? DateTime.Today : maxDate;
         var url = new System.Web.Mvc.UrlHelper(Context.Request.RequestContext);
@@ -25,7 +25,7 @@
         <script type="text/ecmascript">
             var dateRangePicker = null;
             $(window).load(function () {
-                            var monthShort = ['@ViewResources.Jan', '@ViewResources.Feb', '@ViewResources.Mar', '@ViewResources.Apr', '@ViewResources.May', '@ViewResources.Jun', '@ViewResources.Jul', '@ViewResources.Aug', '@ViewResources.Sep', '@ViewResources.Oct', '@ViewResources.Nov', '@ViewResources.Dec']
+                var monthShort = ['@ViewResources.Jan', '@ViewResources.Feb', '@ViewResources.Mar', '@ViewResources.Apr', '@ViewResources.May', '@ViewResources.Jun', '@ViewResources.Jul', '@ViewResources.Aug', '@ViewResources.Sep', '@ViewResources.Oct', '@ViewResources.Nov', '@ViewResources.Dec'];
                 var dayMin = ['@ViewResources.Su', '@ViewResources.Mo', '@ViewResources.Tu', '@ViewResources.We', '@ViewResources.Th', '@ViewResources.Fr', '@ViewResources.Sa'];
 
                 var disabledPreset = @(simpleMode ? 1 : 0) ? ['Lastweek', 'Currentmonth', 'Lastmonth', 'Sincelastmonth'] : [];
@@ -45,11 +45,12 @@
                         minDate: '@(minDate.ToString("MM/dd/yyyy"))',
                         maxDate: '@(maxDate.ToString("MM/dd/yyyy"))',
                         monthNamesShort: monthShort,
-                        dayNamesMin: dayMin
+                        dayNamesMin: dayMin,
+                        firstDay: @(isFirstDayOfWeekMonday ? 1 : 0)
                     },
                     dateFormat: 'mm/dd/yy',
                     disabledPreset: disabledPreset,
-                     monthNamesShort: monthShort
+                    monthNamesShort: monthShort
                     
                 });
             });

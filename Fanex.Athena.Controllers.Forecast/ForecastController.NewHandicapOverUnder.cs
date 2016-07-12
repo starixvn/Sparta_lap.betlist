@@ -124,7 +124,7 @@ namespace Fanex.Athena.Controllers.Forecast
         /// <param name="metaModel">The metal model.</param>
         /// <returns>The view model.</returns>
         [SuppressMessage(
-                  "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+                  "StyleCop.CSharp.StylecopPlus.Rules",
                   "SP2101:MethodMustNotContainMoreLinesThan",
                   Justification = "Reviewed. Suppression is OK here.")]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]

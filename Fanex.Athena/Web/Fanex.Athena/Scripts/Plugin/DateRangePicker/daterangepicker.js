@@ -35,6 +35,13 @@ var _defaultPresetRanges = [
 */
 
 (function ($) {
+    function getFirstDayOfWeek(dateString) {
+        var isFirstDayMonday = _options.datepickerOptions.firstDay === 1;
+        
+        var date = Date.parse(dateString).previous();
+        return isFirstDayMonday ? date.monday() : date.sunday();
+    }
+
     var _defaultPresetRanges = [{
         text: 'Today',
         dateStart: function () {
@@ -56,7 +63,7 @@ var _defaultPresetRanges = [
     {
         text: 'Currentweek',
         dateStart: function () {
-            return Date.parse(ServerDate).previous().sunday();
+            return getFirstDayOfWeek(ServerDate);
         },
         dateEnd: function () {
             return Date.parse(ServerDate).day();
@@ -65,10 +72,10 @@ var _defaultPresetRanges = [
     {
         text: 'Lastweek',
         dateStart: function () {
-            return Date.parse(ServerDate).previous().sunday().add(-7).day();
+            return getFirstDayOfWeek(ServerDate).add(-7).day();
         },
         dateEnd: function () {
-            return Date.parse(ServerDate).previous().sunday().add(-1).day();
+            return getFirstDayOfWeek(ServerDate).add(-1).day();
         }
     },
     {

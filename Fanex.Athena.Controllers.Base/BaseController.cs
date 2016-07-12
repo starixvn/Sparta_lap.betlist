@@ -96,11 +96,6 @@ namespace Fanex.Athena.Controllers
 
         protected IDictionary<string, int> GetUserCurrencies()
         {
-            if (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean)
-            {
-                return new Dictionary<string, int>();
-            }
-
             return SessionService.UserSession.CurrencyList;
         }
 

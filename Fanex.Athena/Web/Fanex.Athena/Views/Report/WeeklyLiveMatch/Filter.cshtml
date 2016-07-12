@@ -1,0 +1,21 @@
+﻿@model Fanex.Athena.Models.MetaModel.Report.WeeklyLiveMatchMetaModel
+<div class="grid_20 content-filter new-line">
+    <form id="mainform" name="mainform" method="post" action="">
+        @DatePickerHelper.RenderDateRangePicker(Model.FromDate, Model.ToDate,
+        AppSettings.HistoryDate.AddDays(-1), AppSettings.MaxDate.AddDays(-1), isFirstDayOfWeekMonday: true )
+        <div class="grid_5 userguide-group">
+            <div>
+                <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
+                </div>
+            </div>
+            <div>
+                <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+                       type="image" id="ExportToExcel" name="exporttoexcel"
+                       title="@ViewResources.ExportToExcel" class="hand" />
+            </div>
+        </div>
+        <div class="grid_2 filter-input" id="control-container">
+            <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+        </div>
+    </form>
+</div>

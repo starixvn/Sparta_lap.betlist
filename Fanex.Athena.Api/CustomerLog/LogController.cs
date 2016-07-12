@@ -103,7 +103,7 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <param name="trackingValueOld">Tracking value old.</param>
         /// <returns>XML attributes.</returns>
         [SuppressMessage(
-            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static Dictionary<string, string> GetXmlAttr(string trackingValue, string trackingValueOld)

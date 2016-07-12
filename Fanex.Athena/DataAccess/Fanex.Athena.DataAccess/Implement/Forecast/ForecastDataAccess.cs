@@ -226,7 +226,7 @@ namespace Fanex.Athena.DataAccess.Implement.Forecast
         /// <param name="metaModel">Meta model.</param>
         /// <param name="matchInfo">Match information.</param>
         /// <returns>New forecast result.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan",
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public NewForecastHdpOuData GetNewForecastData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo)
         {

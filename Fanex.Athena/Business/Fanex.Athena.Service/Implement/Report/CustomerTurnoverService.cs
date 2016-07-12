@@ -63,7 +63,7 @@ namespace Fanex.Athena.Service.Implement.Report
         /// <param name="startRowIndex">The start row index.</param>
         /// <returns>The customer turnover data list.</returns>
         [SuppressMessage(
-            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static IList<CustTurnover> RestructureData(IList<CustTurnover> datalist, int startRowIndex)

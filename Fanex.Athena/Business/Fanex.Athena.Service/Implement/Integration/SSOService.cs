@@ -86,7 +86,7 @@ namespace Fanex.Athena.Service.Implement.Integration
         /// Single sign on from internal site.
         /// </summary>
         [SuppressMessage(
-            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         [SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults",
