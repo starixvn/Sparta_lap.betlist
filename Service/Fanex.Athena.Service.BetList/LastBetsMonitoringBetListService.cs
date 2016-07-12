@@ -62,17 +62,17 @@ namespace Fanex.Athena.Service.BetList
         {
             switch (ticket.OddsType)
             {
-                case "1":
-                case "2":
+                case OddsType.Decimal:
+                case OddsType.Hongkong:
                     ticket.Odds++;
                     break;
 
-                case "3":
-                case "4":
+                case OddsType.Malay:
+                case OddsType.Indo:
                     ticket.Odds = ticket.Odds < 0 ? 1 - (1 / ticket.Odds) : ticket.Odds + 1;
                     break;
 
-                case "5":
+                case OddsType.American:
                     {
                         var odds = ticket.Odds * 100;
                         if (odds < 0)
@@ -101,8 +101,8 @@ namespace Fanex.Athena.Service.BetList
         {
             switch (ticket.OddsType)
             {
-                case "1":
-                case "2":
+                case OddsType.Decimal:
+                case OddsType.Hongkong:
                     if (ticket.Odds > 1)
                     {
                         ticket.Odds = -1 / ticket.Odds;
@@ -110,8 +110,8 @@ namespace Fanex.Athena.Service.BetList
 
                     break;
 
-                case "3":
-                case "5": // AMERICAN To DEC
+                case OddsType.Malay:
+                case OddsType.American: // AMERICAN To DEC
                     if (ticket.Odds < -1 || ticket.Odds > 1)
                     {
                         ticket.Odds = -1 / ticket.Odds;
