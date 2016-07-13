@@ -73,7 +73,8 @@ namespace Fanex.Athena.Api.BetList
             {
                 if (ticket.BetTypeId == (int)BetType.CombinationMixParlay && metaModel != null)
                 {
-                    BuildSystemParlayDetailFunction(metaModel, baseCurrency, ticket);
+                    var custid = ticket.CustId != 0 ? ticket.CustId : metaModel.CustId;
+                    _ticketHelper.ClientDetailSystemParlayFunction = GenerateClientDetailSystemParlayFunction(_ticketHelper, baseCurrency, ticket, custid);
                 }
 
                 _ticketHelper.IsShowOddsWithChoice = showOdds;
@@ -99,18 +100,18 @@ namespace Fanex.Athena.Api.BetList
             return ticketTextList;
         }
 
-        private void BuildSystemParlayDetailFunction(BetListMetaModel metaModel, string baseCurrency, LrfTicket ticket)
+        [CLSCompliant(false)]
+        protected string GenerateClientDetailSystemParlayFunction(ITicketHelper tickerHelper, string baseCurrency, LrfTicket ticket, long custid)
         {
-            var custid = ticket.CustId != 0 ? ticket.CustId : metaModel.CustId;
             const string FormatDetail = @"showCombMPDetail({0},{1},{2},{3},&quot;{4}&quot;,&quot;{5}&quot;)";
-            var comboName = _ticketHelper.GetCombinationMPOfferName(ticket.BetTeam);
-            var betTeam = _ticketHelper.GetBetTypeNameById(ticket.BetTypeId);
+            var comboName = tickerHelper.GetCombinationMPOfferName(ticket.BetTeam);
+            var betTeam = tickerHelper.GetBetTypeNameById(ticket.BetTypeId);
             if (!string.IsNullOrEmpty(comboName))
             {
                 betTeam += " - " + comboName;
             }
 
-            _ticketHelper.ClientDetailSystemParlayFunction = string.Format(
+            return string.Format(
                 FormatDetail,
                 ticket.TransId,
                 ticket.RefNo,
