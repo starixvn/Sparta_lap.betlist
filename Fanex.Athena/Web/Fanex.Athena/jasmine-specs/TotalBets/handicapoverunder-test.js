@@ -59,7 +59,7 @@
             $("#BaseCurrency").attr('data-original', 3);
 
             var queryString = "matchid=1&bettype=2&licenseetype=1&currencyid=2&currencyname=uus&basecurrency=3";
-            var url = "Forecast/ForeCastAh?" + queryString;
+            var url = "AhForecast/Index?" + queryString;
             spyOn(ForecastPopup, "showPopup");
 
             HandicapOU.viewForecast(1, 2);

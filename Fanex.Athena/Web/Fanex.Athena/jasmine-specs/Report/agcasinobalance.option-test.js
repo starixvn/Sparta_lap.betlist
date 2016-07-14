@@ -10,7 +10,7 @@
         });
 
         it("urlData should be a correct url.", function () {
-            expect(AgCasinoBalanceOption.urlData).toBe('api/report/AgCasinoBalance');
+            expect(AgCasinoBalanceOption.urlData).toBe('api/AgCasinoBalanceReport/Index');
         });
 
         it("gridOption.pager should be #ppdata.", function () {

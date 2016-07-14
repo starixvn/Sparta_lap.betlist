@@ -53,15 +53,17 @@ var Site = (function ($) {
 
             $.ajaxSetup({
                 cache: false,
-                data: {
-                    __RequestVerificationToken: REQUEST_VERIFICATION_TOKEN
-                },
+                headers: { '__RequestVerificationToken': REQUEST_VERIFICATION_TOKEN },
                 statusCode: {
                     0: function () {
                         Site.unBlockUI();
                     },
                     401: function (/*jqXHR, textStatus, errorThrown*/) {
                         window.location.href = Site.resolveClientUrl("Utility/LocationRestriction");
+                    },
+                    403: function () {
+                        Site.unBlockUI();
+                        alert(Site.getSingleResource("HttpError_403"));
                     },
                     500: function () {
                         Site.unBlockUI();
@@ -90,6 +92,7 @@ var Site = (function ($) {
                 }
             }
 
+            $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: REQUEST_VERIFICATION_TOKEN }).appendTo($form);
             $form.submit();
             $form.remove();
         },
@@ -253,7 +256,7 @@ var Site = (function ($) {
                 currencyName = $("#CurrencyName").val();
             }
 
-            return setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency);
+            return setLicenseeOption(urlOrParams || {}, licenseeType, currencyId, currencyName, baseCurrency);
         },
 
         setLicenseeOptionOriginalParam: function (urlOrParams) {
@@ -671,7 +674,7 @@ var Site = (function ($) {
             {
                 index = index.parent;
             }
-            index.location = Site.resolveClientUrl('Header/SignOut');
+            index.location = Site.resolveClientUrl('Authorization/SignOut');
         },
 
         setMultiSelectForDropDownList: function (dropDownListId, dataSource, valueField, textField, checkField) {

@@ -2,9 +2,9 @@
     ViewBag.Title = string.Format("LRF - {0} - {1} {2}", ViewResources.Report, ViewResources.ProductPTCS, ViewResources.WinLoss);
     Layout = "~/Views/Shared/_ReportTableLayout.cshtml";
 }
-@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Model.Report.ViewModel
 @using Fanex.Athena.Model.Core.DTO.Common
-@model Fanex.Athena.Models.ViewModel.Report.PlaytechCasinoViewModel
+@model Fanex.Athena.Model.Report.ViewModel.PlaytechCasinoViewModel
 @section pagecss {
     <link href="@Url.ContentLink("/Content/Plugin/DateRangePicker/daterangepicker.css")" rel="stylesheet" type="text/css" />
 

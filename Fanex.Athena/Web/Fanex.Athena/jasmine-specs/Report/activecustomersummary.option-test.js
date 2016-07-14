@@ -14,7 +14,7 @@
         });
 
         it("ActiveCustomerOption.urlData should be a correct url.", function () {
-            expect(ActiveCustomerOption.urlData).toBe('api/report/ActiveCustomerSummary');
+            expect(ActiveCustomerOption.urlData).toBe('api/ActiveCustomerSummaryReport/Index');
         });
     });
 

@@ -67,8 +67,8 @@ var ActiveCustomerOption = (function () {
         rowNum: 50,
         rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
         totalColspan: [2, 2, 3],
-        urlData: 'api/report/ActiveCustomerSummary',
-        urlExcelData: 'api/report/ActiveCustomerSummary',
+        urlData: 'api/ActiveCustomerSummaryReport/Index',
+        urlExcelData: 'api/ActiveCustomerSummaryReport/Index',
         gridOption:
         {
             datatype: 'local',

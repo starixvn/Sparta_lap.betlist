@@ -10,11 +10,11 @@
     <Setting Key="Lrf_LicenseeSel" SpName="Lrf_LicenseeSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeCustSel" SpName="Lrf_LicenseeCustSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CheckHRAllowedCurrency" SpName="Lrf_CheckHRAllowedCurrency" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_FunctionsSel" SpName="Lrf_FunctionsSel_xpre" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_LicenseeFunctionsSel" SpName="LRF_LicenseeFunctionsSel_xpre" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_LicenseeUserFunctionsSel" SpName="LRF_LicenseeUserFunctionsSel_xpre" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_LicenseeUserFunctionsDel" SpName="Lrf_LicenseeUserFunctionsDel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_LicenseeUserFunctionsIns" SpName="Lrf_LicenseeUserFunctionsIns" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_FunctionsSel" SpName="LRF_FunctionsSel_xtest" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeFunctionsSel" SpName="LRF_LicenseeFunctionsSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeUserFunctionsSel" SpName="LRF_LicenseeUserFunctionsSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeUserFunctionsDel" SpName="Lrf_LicenseeUserFunctionsDel_xtest" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeUserFunctionsIns" SpName="Lrf_LicenseeUserFunctionsIns_xtest" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelCheckBelonging" SpName="Lrf_CustomerSelCheckBelonging" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_GetNumberOfOnlineUsers" SpName="Lrf_GetNumberOfOnlineUsers" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeProductSel" SpName="Lrf_LicenseeProductSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
@@ -171,8 +171,6 @@
     <Setting Key="Lrf_TotalBets_Sel16" SpName="Lrf_TotalBets_Sel16" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_TotalBets_Sel14" SpName="Lrf_TotalBets_Sel14" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_TotalBets_Sel121" SpName="Lrf_TotalBets_Sel121" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_TotalBets_SelHR" SpName="Lrf_TotalBets_SelHR" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_TotalBets_Sel161" SpName="Lrf_TotalBets_Sel161" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
   </Function>
 
   <Function Name="Forecast">

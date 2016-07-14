@@ -1,0 +1,60 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="CustomerLogService.cs" company="">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.Service.Customer
+{
+    using System.Collections.Generic;
+    using System.Linq;
+    using Fanex.Athena.DataAccess.Customer;
+    using Fanex.Athena.Model.Customer.DTO.CustomerLog;
+    using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
+    using Fanex.Athena.Service.Customer.Interfaces;
+
+    /// <summary>
+    /// TODO: Update summary.
+    /// </summary>
+    public class CustomerLogService : ICustomerLogService
+    {
+        #region Field
+
+        private readonly CustomerLogDataAccess _customerLogDataAccess;
+
+        #endregion Field
+
+        #region Constructor
+
+        public CustomerLogService()
+        {
+            this._customerLogDataAccess = new CustomerLogDataAccess();
+        }
+
+        #endregion Constructor
+
+        /// <summary>
+        /// Get customer setting data list.
+        /// </summary>
+        /// <param name="metaModel">Customer log parameter.</param>
+        /// <returns>The customer log list.</returns>
+        public IList<CustomerLog> GetCustomerSettingList(CustomerLogMetaModel metaModel)
+        {
+            var dataList = this._customerLogDataAccess.GetCustomerSettingList(metaModel).OrderByDescending(x => x.LogId).ToList();
+
+            return dataList;
+        }
+
+        /// <summary>
+        /// Get group commission data list.
+        /// </summary>
+        /// <param name="metaModel">Customer log parameter.</param>
+        /// <returns>The customer-log list.</returns>
+        public IList<CustomerLog> GetGroupCommList(CustomerLogMetaModel metaModel)
+        {
+            var dataList = this._customerLogDataAccess.GetGroupCommList(metaModel);
+
+            return dataList;
+        }
+    }
+}

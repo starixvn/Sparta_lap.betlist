@@ -1,4 +1,4 @@
-﻿describe("Paging.js > pagingHeper", function () {
+﻿describe("Paging.js > PagingHeper", function () {
 
     beforeEach(function () {
         spyOn(Site, "getSingleResource").and.callFake(function (text) {
@@ -10,7 +10,7 @@
         it("does not render the pager if totalrow less than page size", function () {
             var $pager = affix("#page");
 
-            pagingHeper.render({ totalrow: 10, pagesize: 50 });
+            PagingHeper.render({ totalrow: 10, pagesize: 50 });
 
             expect($pager.find(".pagingContainer").length > 0).toBe(false);
         });
@@ -18,7 +18,7 @@
         it("render a pager if totalrow larger than page size", function () {            
             var $pager = affix("#page");
 
-            pagingHeper.render({ totalrow: 100 });
+            PagingHeper.render({ totalrow: 100 });
 
             expect($pager.find(".pagingContainer").length > 0).toBe(true);
         });
@@ -28,7 +28,7 @@
         it("return setting object", function () {
             affix('div.pagingContainer input[name="PageIndex"][value="1"]');
             affix('div.pagingContainer input[name="PageSize"][value="2"]');
-            var result = pagingHeper.getSetting({ totalrow: 100 });
+            var result = PagingHeper.getSetting({ totalrow: 100 });
 
             expect(result).toEqual({
                 pageindex: 1,

@@ -1,6 +1,6 @@
-﻿@using Fanex.Athena.Models.ViewModel
+﻿@using Fanex.Athena.Model.Report.ViewModel
 @using Fanex.Athena.Extension.Helper
-@model Fanex.Athena.Models.ViewModel.Report.LiveReports.LiveReportMatchListViewModel
+@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportMatchListViewModel
 <div class="data-content" style="width:@(ViewBag.WrapperWidth)px; max-height:650px; overflow-x:auto" >
     @if (Model.MainResult == null || Model.MainResult.Count == 0)
     {
@@ -42,7 +42,7 @@
                     </a>
                 </div>
             </div>
-            @SplitingProductHelper.CustomerWLContent(item as Fanex.Athena.Models.DTO.Report.ICustomerWinLoss,
+            @SplitingProductHelper.CustomerWLContent(item as Fanex.Athena.Model.Report.DTO.ICustomerWinLoss,
                                                  Model.IsAllowedCustomerCommission,
                                                 (int)ViewBag.CustomerWLLargeWidth,
                                                 (int)ViewBag.CustomerWLWidth, (int)ViewBag.CustomerCommWidth,

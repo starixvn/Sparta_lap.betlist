@@ -41,7 +41,7 @@ var DailyRacingWinLoss = (function ($) {
             });
         },
         viewRacingWinlossBetList: function (leagueid, raceNo, currency) {
-            var url = Site.resolveClientUrl("BetList/DailyRacingWl");
+            var url = Site.resolveClientUrl("DailyRacingWinLossBetList/Index");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "date", $("#Date").val());
             url = QueryString.setParam(url, "leagueid", leagueid);

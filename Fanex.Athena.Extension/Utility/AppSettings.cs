@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AppSettings.cs" company="Nexcel Solution">
+// <copyright file="AppSettings.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -20,6 +20,11 @@ namespace Fanex.Athena.Extension.Utility
         internal const char UrlSlash = '/';
 
         #region Configurations
+
+        public static string Enviroment
+        {
+            get { return GetValue("Enviroment"); }
+        }
 
         public static bool IsEnableCasinoService
         {
@@ -87,14 +92,6 @@ namespace Fanex.Athena.Extension.Utility
         public static bool IsTesting
         {
             get { return int.Parse(GetValue("IsTesting")) != 0; }
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
-            "CA1056:UriPropertiesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public static string LBUrl
-        {
-            get { return GetValue("LBUrl"); }
         }
 
         public static bool IsShowMixedSport

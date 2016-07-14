@@ -1,38 +1,11 @@
 ﻿@{
-    var title = string.Empty;
-    var userGuideName = string.Empty;
-    int bettype = 0;
-
-    if (Request.QueryString["multiplebettype"] != null)
-    {
-        bettype = Convert.ToInt32(Request.QueryString["multiplebettype"].Split(',')[0]);
-        switch (bettype)
-        {
-            case 9:
-                title = ViewResources.MixParlay;
-                userGuideName = "TotalBetsMixParlay";
-                break;
-            case 24:
-                title = ViewResources.DoubleChance;
-                userGuideName = "TotalBetsDoubleChance";
-                break;
-            case 26:
-                title = ViewResources.BONTeamToScore;
-                userGuideName = "TotalBetsBON";
-                break;
-            case 29:
-                title = ViewResources.SystemParlay;
-                userGuideName = "TotalBetsMixParlay";
-                break;
-            default:
-                break;
-        }
-        var formatTitle = "{0} {1} {2} - {3}";
-        ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets, title);
-    }
+    
+    var formatTitle = "{0} {1} {2} - {3}";
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets, ViewBag.ReportTitle);
+    
     Layout = "~/Views/Shared/_BetListLayout.cshtml";
 }
-@using Fanex.Athena.Models.ViewModel
+
 @model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 @section pagecss {
     <link href="@Url.ContentLink("/Content/UserGuide/user-guide.css")" rel="stylesheet" type="text/css" />
@@ -43,16 +16,15 @@
 @section ContentTitle
 {
     @{
-        if (bettype == 9 || bettype == 29)
+        if (ViewBag.IsMixParlay == true || ViewBag.IsSystemParlay == true)
         {
-
-            <span id="mixparlay_9" class="inactive-switch-link" onclick="RunningBetListMultipleBettype.switchMixParlayTotalBet(9)">@ViewResources.MixParlay</span>
+            <span id="mixparlay_link" class="@(ViewBag.IsMixParlay == true ? "inactive-switch-link" : "active-switch-link")">@ViewResources.MixParlay</span>
             <span>|</span>
-            <span id="mixparlay_29" class="active-switch-link" onclick="RunningBetListMultipleBettype.switchMixParlayTotalBet(29)">@ViewResources.SystemParlay</span>
+            <span id="systemparlay_link" class="@(ViewBag.IsSystemParlay == true ? "inactive-switch-link" : "active-switch-link")">@ViewResources.SystemParlay</span>
         }
         else
         {
-            @title
+            @ViewBag.ReportTitle
         }
     }
 }
@@ -66,5 +38,5 @@
 <div id="popupSystemParlay"></div>
 <input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
 <input type="hidden" id="IsShowSumStake" value="1" />
-<input type="hidden" id="title" value="@title" />
-<input type="hidden" id="userGuideName" value="@userGuideName" />
+<input type="hidden" id="title" value="@ViewBag.ReportTitle" />
+<input type="hidden" id="userGuideName" value="@ViewBag.UserGuideName" />

@@ -41,17 +41,6 @@ var WinLossByProduct = (function ($) {
     }
 
     return {
-        resizeGrid: function () {
-            setTimeout(function () {
-                if ($(".ui-jqgrid-bdiv").length === 0) {
-                    return;
-                }
-                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 30;
-                gridHeight = Math.max(130, gridHeight);
-                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
-            }, 100);
-        },
         //#region Init
         initialize: function () {
             WinLossByProduct.initEvent();
@@ -111,7 +100,7 @@ var WinLossByProduct = (function ($) {
         //#region Utilities
 
         setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
-            var temp = "api/WinLossByProductReport/WinLossByProduct";
+            var temp = "api/WinLossByProductReport/Index";
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId=" + currencyId + "&custId=" + custId + "&fdate=" +
                 fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy") +
@@ -279,6 +268,7 @@ var WinLossByProduct = (function ($) {
                     tdate = WinLossByProduct.lastDateOfMonth(year, month);
                 }
             }
+
             var option =
             {
                 type: "POST",
@@ -433,7 +423,7 @@ var WinLossByProduct = (function ($) {
                     }
                     onPaging = true;
                     setTimeout(function () {
-                        WinLossByProduct.resizeGrid();
+                        jqGridAdditional.resizeGrid();
                     }, 1000);
                 }
                 else {
@@ -497,7 +487,7 @@ var WinLossByProduct = (function ($) {
                 $("#ReportGrid").show();
                 ///reset layout
                 jqGridAdditional.resetLayout(reportGrid);
-                WinLossByProduct.resizeGrid();
+                jqGridAdditional.resizeGrid();
             }, 50);
         },
 
@@ -537,7 +527,7 @@ var WinLossByProduct = (function ($) {
                 }
             }
 
-            var url = Site.resolveClientUrl("LicenseeWinLossBetList/LicenseeWl");
+            var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
             url = Site.setProductOptionOriginalParamList(url);
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", dataDrillDown.DrillDownFromDate.toString("MM/dd/yyyy"));
@@ -576,7 +566,7 @@ $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    WinLossByProduct.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {

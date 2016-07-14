@@ -41,33 +41,19 @@ var ThirdPartyWinLoss = (function ($) {
     }
 
     return {
-        resizeGrid: function () {
-            setTimeout(function () {
-                if ($(".ui-jqgrid-bdiv").length === 0) {
-                    return;
-                }
-
-                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                                - $(".ui-jqgrid-pager:visible").height() - 30;
-                gridHeight = Math.max(120, gridHeight);
-
-                var gridContainer = $("#gview_ReportGrid");
-                var bodyHeight = window.innerHeight - gridContainer.offset().top;
-                var actualHeight = $("#ReportGrid").height();
-                var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
-                var tableWidth = $("#ReportGrid").width();
-                var contentWidth = $(".ui-jqgrid-bdiv").width();
-                var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-                $(".ui-jqgrid-bdiv").height(Math.min(newHeight, gridHeight))
-                                    .css("max-height", gridHeight);
-            }, 100);
+        custom: {
+            // initialize()
+            // getDrillDownDates(param, datetime) 
         },
+        
         initialize: function () {
             ThirdPartyWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
             ThirdPartyWinLoss.initEvent();
             initMonthPicker();
             _canDrilldown = $("#CanDrilldown").val() !== "0";
+            if (ThirdPartyWinLoss.custom.initialize) {
+                ThirdPartyWinLoss.custom.initialize();
+            }
         },
         initEvent: function () {
             $('#SubmitButton').click(function () {
@@ -96,7 +82,7 @@ var ThirdPartyWinLoss = (function ($) {
 
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
-            var temp = 'api/report/ThirdPartyWinLoss';
+            var temp = 'api/ThirdPartyWinLossReport/Index';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")
@@ -230,11 +216,20 @@ var ThirdPartyWinLoss = (function ($) {
                 ProductId: _submitData.ProductId,
                 ReportBy: _submitData.ReportBy
             };
-            var fdate = new Date(Date.parse(datetime)).toString("MM/dd/yyyy");
-            var tdate = new Date(Date.parse(datetime)).toString("MM/dd/yyyy");
-            if (Number(param.ReportBy) === 2) {
-                fdate = _submitData.FromDate;
-                tdate = _submitData.ToDate;
+
+            var fdate, tdate;
+            if (ThirdPartyWinLoss.custom.getDrillDownDates) {
+                var dates = ThirdPartyWinLoss.custom.getDrillDownDates(param, datetime);
+                fdate = dates.FromDate;
+                tdate = dates.ToDate;
+            } else {
+                fdate = Date.parse(datetime);
+                tdate = Date.parse(datetime);
+                if (Number(param.ReportBy) === 2) {
+                    fdate = _submitData.FromDate;
+                    tdate = _submitData.ToDate;
+                }
+                
             }
             var option = {
                 type: "POST",
@@ -244,7 +239,7 @@ var ThirdPartyWinLoss = (function ($) {
                 cache: false,
                 url: Site.resolveClientUrl(ThirdPartyWinLossOption.urlData +
                     "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
-                    "&fdate=" + fdate + "&tdate=" + tdate),
+                    "&fdate=" + fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
                 success: function (response) {
                     ThirdPartyWinLoss.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {
@@ -328,7 +323,7 @@ var ThirdPartyWinLoss = (function ($) {
                     ThirdPartyWinLoss.bindTotal(level, response.Total, response.SummaryTotal);
                     $("#footer").html($(".ui-jqgrid-ftable").html());
 
-                    ThirdPartyWinLoss.resizeGrid();
+                    jqGridAdditional.resizeGrid();
                 }
 
                 Site.unBlockUI();
@@ -359,7 +354,7 @@ $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    ThirdPartyWinLoss.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {

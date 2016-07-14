@@ -1,16 +1,16 @@
 ﻿@{
     Layout = null;
 }
-@using Fanex.Athena.Models.ViewModel
-@using Fanex.Athena.Model.Core.DTO.Common
+
 @model Fanex.Athena.Model.Warehouse.ViewModel.WinLossViewModel
 @{    
     var maxDate = (DateTime)ViewBag.MaxDate;
     var minDate = maxDate.AddMonths(-3);
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px">
-    @using (Html.BeginForm("WinLoss", "WareHouse", FormMethod.Post, new { @id = "WarehouseWinLossForm" }))
+    @using (Html.BeginForm("Index", "WinLossWareHouse", FormMethod.Post, new { @id = "WarehouseWinLossForm" }))
     {
+        @Html.AntiForgeryToken()
         <div class="grid_2 filter-label">
             <label>@ViewResources.Currency</label>
         </div>

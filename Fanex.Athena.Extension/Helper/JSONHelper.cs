@@ -1,4 +1,4 @@
-﻿// <copyright file="JsonHelper.cs" company="Nexcel Solution">
+﻿// <copyright file="JsonHelper.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

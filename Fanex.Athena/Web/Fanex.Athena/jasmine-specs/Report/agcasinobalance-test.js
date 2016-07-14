@@ -144,7 +144,7 @@
             jasmine.Ajax.install();
 
             jasmine.Ajax
-                .stubRequest('api/report/AgCasinoBalance')
+                .stubRequest('api/AgCasinoBalanceReport/Index')
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -164,8 +164,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("request.url should be 'api/report/AgCasinoBalance'", function () {
-            expect(request.url).toBe('api/report/AgCasinoBalance');
+        it("request.url should be 'api/AgCasinoBalanceReport/Index'", function () {
+            expect(request.url).toBe('api/AgCasinoBalanceReport/Index');
         });
 
         it("#DrillDownLevel should have value 0.", function () {

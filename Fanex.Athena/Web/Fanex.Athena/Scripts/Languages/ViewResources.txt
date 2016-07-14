@@ -1,0 +1,9 @@
+﻿
+// Generated helper templates
+// Generated items
+// Fanex.Athena\Web\Fanex.Athena\Scripts\Languages\ViewResources.zh-TW.js
+// Fanex.Athena\Web\Fanex.Athena\Scripts\Languages\ViewResources.zh-Hans.js
+// Fanex.Athena\Web\Fanex.Athena\Scripts\Languages\ViewResources.zh-CN.js
+// Fanex.Athena\Web\Fanex.Athena\Scripts\Languages\ViewResources.js
+// Fanex.Athena\Web\Fanex.Athena\Scripts\Languages\ViewResources.ko-KR.js
+

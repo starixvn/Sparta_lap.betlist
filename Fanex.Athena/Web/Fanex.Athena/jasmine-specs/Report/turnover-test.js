@@ -184,7 +184,7 @@
             spyOn(jqGridAdditional, "clearGrid");
             spyOn($.fn, "jqGrid");
             spyOn(jqGridAdditional, "resetLayout");
-            spyOn(Turnover, "resizeGrid");
+            spyOn(jqGridAdditional, "resizeGrid");
 
             Turnover.bindData(response);
         });
@@ -200,8 +200,8 @@
             expect(jqGridAdditional.resetLayout).toHaveBeenCalledWith($reportGrid);
         });
 
-        it("Turnover.resizeGrid() should be called", function () {
-            expect(Turnover.resizeGrid).toHaveBeenCalled();
+        it("jqGridAdditional.resizeGrid() should be called", function () {
+            expect(jqGridAdditional.resizeGrid).toHaveBeenCalled();
         });
     });
 

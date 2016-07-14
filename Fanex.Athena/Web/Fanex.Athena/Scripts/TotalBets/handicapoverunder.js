@@ -25,7 +25,7 @@ var HandicapOU = (function ($) {
             });
         },
         viewNewForecast: function (leagueId, matchId, currencyId, baseCurrency) {
-            var url = Site.resolveClientUrl("Forecast/NewForecastHdpOu");
+            var url = Site.resolveClientUrl("NewHandicapOverUnderForecast/Index");
             url = QueryString.setParam(url, "leagueId", leagueId);
             url = QueryString.setParam(url, "matchId", matchId);
             url = QueryString.setParam(url, "currencyId", currencyId);
@@ -34,7 +34,7 @@ var HandicapOU = (function ($) {
             window.location.href = url;
         },
         viewForecast: function (matchId, betType) {
-            var url = Site.resolveClientUrl("Forecast/ForeCastAh?matchid=" + matchId + '&bettype=' + betType);
+            var url = Site.resolveClientUrl("AhForecast/Index?matchid=" + matchId + '&bettype=' + betType);
             url = Site.setLicenseeOptionOriginalParam(url);
 
             var popH = 250, popW = 700;

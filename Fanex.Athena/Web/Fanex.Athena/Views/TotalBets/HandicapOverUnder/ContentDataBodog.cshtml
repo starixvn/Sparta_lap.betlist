@@ -1,6 +1,6 @@
 ﻿@using System.Linq
-@using Fanex.Athena.Models.DTO.TotalBets
-@model Fanex.Athena.Models.ViewModel.TotalBets.HandicapOverUnderViewModel
+@using Fanex.Athena.Model.TotalBet.DTO
+@model Fanex.Athena.Model.TotalBet.ViewModel.HandicapOverUnderViewModel
 @{  
     var leagueList = Model.MainData.GroupBy(x => new { x.LeagueId, x.LeagueName, x.LiveIndicator })
                             .Select(x => x.Key)

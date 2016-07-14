@@ -63,7 +63,7 @@
 
     describe("openForecast(matchId, betType, isPopup)", function () {
         var queryString = "licenseetype=1&currencyid=2&currencyname=uus&basecurrency=3&matchid=1&bettype=2";
-        var url = "BetList/RunningBetListOfMatch?" + queryString;
+        var url = "RunningMatchBetList/Index?" + queryString;
 
         beforeEach(function () {
             affix("#LicenseeType");

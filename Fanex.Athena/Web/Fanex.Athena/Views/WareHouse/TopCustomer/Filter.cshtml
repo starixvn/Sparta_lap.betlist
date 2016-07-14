@@ -1,8 +1,7 @@
 ﻿@{
     Layout = null;
 }
-@using Fanex.Athena.Models.ViewModel
-@using Fanex.Athena.Model.Core.DTO.Common
+
 @using Fanex.Athena.Web.HtmlExtension
 @using System.Globalization
 @model Fanex.Athena.Model.Warehouse.ViewModel.TopCustomerViewModel
@@ -11,8 +10,9 @@
     var minDate = maxDate.AddMonths(-3);
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px">
-    @using (Html.BeginForm("TopCustomer", "WareHouse", FormMethod.Post, new { @id = "TopCustomerForm" }))
+    @using (Html.BeginForm("Index", "TopCustomerWareHouse", FormMethod.Post, new { @id = "TopCustomerForm" }))
     {
+        @Html.AntiForgeryToken()
         <div>            
             @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
             @Html.Hidden("ActiveMin", Model.Param.ActiveMin)

@@ -3,15 +3,9 @@
 var RunningBetListMultipleBettype = (function ($) {
     "use strict";
 
-    function getBettypesParam() {
-        var bettypesString = (RunningBetListMultipleBettype.getUrlParams("multiplebettype") || "");
-        return bettypesString;
-    }
-
     return {
         initialize: function () {
             RunningBetListMultipleBettype.initEvent();
-            RunningBetListMultipleBettype.switchItemSelectedMixParlay();
             RunningBetListMultipleBettype.submit();
             Site.addUserGuide({
                 resourceName: $('#userGuideName').val(),
@@ -20,28 +14,22 @@ var RunningBetListMultipleBettype = (function ($) {
         },
 
         initEvent: function () {
-            //Submit button
             $('#SubmitButton').click(RunningBetListMultipleBettype.submit);
+            $('#mixparlay_link').click(function () {
+                Site.redirect(Site.resolveClientUrl('RunningBettypesBetList/MixParlay'));
+            });
+            $('#systemparlay_link').click(function () {
+                Site.redirect(Site.resolveClientUrl('RunningBettypesBetList/SystemParlay'));
+            });
         },
 
         submit: function () {
-            // Site.blockUI();
             BetList.initialize();
-            // Load Data
-            var params = { multiplebettype: getBettypesParam() };
-            params = Site.setLicenseeOptionParam(params);
-            var url = Site.resolveClientUrl('api/betlist/RunningBetListMultipleBettypes');
+            var actionName = window.location.pathname.split('/').pop();
+            var params = Site.setLicenseeOptionParam();
+            var url = Site.resolveClientUrl('api/RunningBettypesBetList/' + actionName);
 
             BetList.loadData(params, url);
-        },
-
-        switchMixParlayTotalBet: function (bettype) {
-            if (bettype.length === 0) {
-                return;
-            }
-            var url = document.location.href;
-            url = QueryString.setParam(url, "multiplebettype", bettype);
-            Site.redirect(url);
         },
 
         showCombMPDetail: function (transId, refNo, betId, custId, betTeam, baseCurrency) {
@@ -58,38 +46,6 @@ var RunningBetListMultipleBettype = (function ($) {
 
             Site.blockUI();
             $("#popupSystemParlay").load(url).dialog();
-            //window.location.href = url;
-        },
-
-        switchItemSelectedMixParlay: function () {
-            var betType = (RunningBetListMultipleBettype.getUrlParams("multiplebettype") || "").split(",")[0];
-            var mixParlay = $("#mixparlay_9");
-            var systemParlay = $("#mixparlay_29");
-            if (Number(betType) === 9) {
-                mixParlay.removeClass("active-switch-link");
-                mixParlay.addClass("inactive-switch-link");
-
-                systemParlay.removeClass("inactive-switch-link");
-                systemParlay.addClass("active-switch-link");
-            }
-            else {
-                mixParlay.removeClass("inactive-switch-link");
-                mixParlay.addClass("active-switch-link");
-
-                systemParlay.removeClass("active-switch-link");
-                systemParlay.addClass("inactive-switch-link");
-            }
-        },
-
-        getUrlParams: function (sParam) {
-            var sPageURL = window.location.search.substring(1);
-            var sURLVariables = sPageURL.split('&');
-            for (var i = 0; i < sURLVariables.length; i++) {
-                var sParameterName = sURLVariables[i].split('=');
-                if (sParameterName[0] === sParam) {
-                    return sParameterName[1];
-                }
-            }
         },
 
         exportToExcel: function () {
@@ -102,7 +58,7 @@ var RunningBetListMultipleBettype = (function ($) {
                     url = QueryString.setParam(url, "SortBy", sortParams.SortBy);
                     url = QueryString.setParam(url, "SortOrder", sortParams.SortOrder);
                 }
-                window.location.href = url;
+                Site.redirect(url);
             });
         }
     };

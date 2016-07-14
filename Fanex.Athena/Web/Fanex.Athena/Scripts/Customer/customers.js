@@ -1,4 +1,4 @@
-﻿/*global Site,JSLINQ, QueryString, pagingHeper, jqGridAdditional, CustomersOption */
+﻿/*global Site,JSLINQ, QueryString, PagingHeper, jqGridAdditional, CustomersOption */
 /// <reference path="/@JSense.js" />
 var CustomerList = (function ($) {
     "use strict";
@@ -242,7 +242,7 @@ var CustomerList = (function ($) {
         _pagingOption.totalrow = parseInt(response.TotalRows);
         if (_pagingOption.totalrow > 0) {
             $(".paging").show();
-            pagingHeper.render(_pagingOption);
+            PagingHeper.render(_pagingOption);
         }
 
         var hasData = response !== null && response.TotalRows > 0;
@@ -289,7 +289,7 @@ var CustomerList = (function ($) {
             $("div.paging").hide();
         }
 
-        CustomerList.resizeGrid();
+        jqGridAdditional.resizeGrid();
         if (keepScrollPosition === true) {
             $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
         }
@@ -354,16 +354,6 @@ var CustomerList = (function ($) {
     }
 
     return {
-        resizeGrid: function () {
-            if ($(".ui-jqgrid-bdiv").length === 0) {
-                return;
-            }
-
-            var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-            var gridHeight = window.innerHeight - gridTop - $(".paging:visible").height() - 35;
-            gridHeight = Math.max(130, gridHeight);
-            $(".ui-jqgrid-bdiv").css("max-height", gridHeight).find(">div").height("auto");
-        },
         updateGridGroup: function (groupid, groupName, groupColor) {
             var count = 0;
             var length = _checkedCustomerArray.length;
@@ -412,7 +402,7 @@ var CustomerList = (function ($) {
             return _checkedCustomerArray;
         },
         ajaxPaging: function () {
-            _pagingOption = pagingHeper.getSetting();
+            _pagingOption = PagingHeper.getSetting();
             CustomerList.submit();
         },
         initialize: function () {
@@ -685,9 +675,9 @@ var CustomerList = (function ($) {
 
             var option = {
                 type: "POST",
-                data: JSON.stringify(data),
+                data: data,
                 dataType: "json",
-                contentType: "application/json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
                 url: Site.resolveClientUrl(CustomersOption.urlData),
                 success: function (response) {
@@ -935,7 +925,7 @@ var CustomerList = (function ($) {
                                 alert(data.Message);
                             }
                         },
-                        error: function (jqXHR, textStatus) {
+                        error: function () {
                             $context.html(currentBAStatus);
                         },
                         statusCode:
@@ -1029,7 +1019,7 @@ var CustomerList = (function ($) {
             var externalId = popup.attr("externalid");
 
             CustomerList.closeCustOption(custId);
-            var url = Site.resolveClientUrl("BetList/CustomerOutstanding");
+            var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
             url = QueryString.setParam(url, "custid", custId);
             url = QueryString.setParam(url, "externalid", externalId);
             url = QueryString.setParam(url, "systemid", systemId);
@@ -1056,7 +1046,7 @@ var CustomerList = (function ($) {
             var externalId = popup.attr("externalid");
 
             CustomerList.closeCustOption(custId);
-            var url = Site.resolveClientUrl("BetList/CustomerOutstanding");
+            var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
             url = QueryString.setParam(url, "custid", custId);
             url = QueryString.setParam(url, "externalid", externalId);
             url = QueryString.setParam(url, "systemid", systemId);
@@ -1076,7 +1066,7 @@ var CustomerList = (function ($) {
         // ------------------------------------------------------------------------
         // ---------------View Running Betlist-------------------------------------
         viewRunningBetlist: function (custId, systemId, externalId) {
-            var url = Site.resolveClientUrl("BetList/CustomerOutstanding");
+            var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
             url = QueryString.setParam(url, "custid", custId);
             url = QueryString.setParam(url, "externalid", externalId);
             url = QueryString.setParam(url, "systemid", systemId);
@@ -1107,7 +1097,7 @@ if (!window._IsInJsTestingMode) {
 
         if (QueryString.getParam(window.location.href, "userName") ||
             QueryString.getParam(window.location.href, "groupId")) {
-            CustomerList.submit();
+            setTimeout(CustomerList.submit, 100);
         } else {
             Site.unBlockUI();
         }
@@ -1115,7 +1105,7 @@ if (!window._IsInJsTestingMode) {
 
     $(window).resize(function () {
         "use strict";
-        CustomerList.resizeGrid();
+        jqGridAdditional.resizeGrid();
     });
 
     $(window).unload(function () {

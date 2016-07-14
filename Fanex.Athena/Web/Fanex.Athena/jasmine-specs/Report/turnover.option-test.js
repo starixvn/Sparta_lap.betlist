@@ -10,7 +10,7 @@
             expect(TurnoverOption.sites).toEqual(sites);
             expect(TurnoverOption.totalColspan).toEqual([3]);
             expect(TurnoverOption.urlData).toBe("reportapi/Turnover");
-            expect(TurnoverOption.urlExcelData).toBe("report/TurnoverExcel");
+            expect(TurnoverOption.urlExcelData).toBe("TurnoverReport/Excel");
         });
     });
 

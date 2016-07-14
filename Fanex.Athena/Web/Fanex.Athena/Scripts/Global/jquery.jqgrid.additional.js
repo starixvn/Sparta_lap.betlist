@@ -3,11 +3,36 @@
 ///
 "use strict";
 var jqGridAdditional = (function () {
+    var _resizeTimer;
     return {
         DECIMAL_FORMAT_OPTIONS: {
             decimalSeparator: ".",
             thousandsSeparator: ",",
             decimalPlaces: 2
+        },
+        resizeGrid: function () {
+            if ($(".ui-jqgrid-bdiv").length === 0) {
+                return;
+            }
+            clearTimeout(_resizeTimer);
+            _resizeTimer = setTimeout(function () {
+                var $bdiv = $(".ui-jqgrid-bdiv");
+
+                var gridTop = $bdiv.offset().top;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
+                            - $(".ui-jqgrid-pager:visible").height() - $(".paging:visible").height() - 30;
+                gridHeight = Math.max(120, gridHeight);
+
+                var gridContainer = $("#gview_ReportGrid");
+                var bodyHeight = window.innerHeight - gridContainer.offset().top;
+                var actualHeight = $("#ReportGrid").height();
+                var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
+                var tableWidth = $("#ReportGrid").width();
+                var contentWidth = $bdiv.width();
+                var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
+                $bdiv.height(Math.min(newHeight, gridHeight))
+                                    .css("height", "auto").css("max-height", gridHeight);
+            }, 200);
         },
         resetLayout: function (grid, maxWidth) {
             /// <summary>

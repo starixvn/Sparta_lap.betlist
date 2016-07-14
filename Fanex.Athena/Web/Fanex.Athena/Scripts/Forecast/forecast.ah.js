@@ -39,7 +39,7 @@ var Forecast = (function ($) {
         },
 
         loadForecast: function (selectedScore, bettype) {
-            var url = Site.resolveClientUrl("Forecast/ForeCastAh?matchid=" + matchid + '&bettype=' + bettype);
+            var url = Site.resolveClientUrl("AhForecast/Index?matchid=" + matchid + '&bettype=' + bettype);
             url = QueryString.setParam(url, "basecurrency", baseCurrency);
             url = QueryString.setParam(url, "LicenseeType", licenseetype);
             url = QueryString.setParam(url, "CurrencyId", currencyid);
@@ -70,7 +70,7 @@ var Forecast = (function ($) {
         viewBetlist: function (bettype) {
             //var currencyName = $("#CurrencyId option:selected").text();
 
-            var url = Site.resolveClientUrl("BetList/RunningBetListOfMatch");
+            var url = Site.resolveClientUrl("RunningMatchBetList/Index");
             url = QueryString.setParam(url, "matchid", matchid);
             url = QueryString.setParam(url, "bettype", bettype);
             url = QueryString.setParam(url, "basecurrency", baseCurrency);

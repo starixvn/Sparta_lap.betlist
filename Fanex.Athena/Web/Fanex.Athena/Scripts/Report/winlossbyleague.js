@@ -1,4 +1,4 @@
-﻿/*global Site, jqGridAdditional, pagingHeper, WinLossByLeagueOption*/
+﻿/*global Site, jqGridAdditional, PagingHeper, WinLossByLeagueOption*/
 /// <reference path="/@JSense.js" />
 "use strict";
 var WinLossByLeague = (function ($) {
@@ -14,7 +14,6 @@ var WinLossByLeague = (function ($) {
     var _postdata = {};
     var _currencyName = null;
     var _productCount = 0;
-    var _resizeTimer;
     var _pagingOption =
         {
             pageindex: 1,
@@ -76,7 +75,7 @@ var WinLossByLeague = (function ($) {
 
         ajaxLeagues = $.ajax({
             type: "POST",
-            url: Site.resolveClientUrl("report/GetLeaguesBySport"),
+            url: Site.resolveClientUrl("WinLossByLeagueReport/GetLeaguesBySport"),
             data: {
                 currencyId: $("#CurrencyId").val(),
                 sportid: $("#Sport").val(),
@@ -114,7 +113,7 @@ var WinLossByLeague = (function ($) {
         ajaxMatches = $.ajax({
             type: "POST",
             datatype: "json",
-            url: Site.resolveClientUrl("report/GetMatchesByLeague"),
+            url: Site.resolveClientUrl("WinLossByLeagueReport/GetMatchesByLeague"),
             data: {
                 leagueid: leagueid,
                 fromDate: getFromDateString(),
@@ -143,20 +142,8 @@ var WinLossByLeague = (function ($) {
     }
 
     var me = {
-        resizeGrid: function () {
-            clearTimeout(_resizeTimer);
-            _resizeTimer = setTimeout(function () {
-                var gridTop = $(".ui-jqgrid-hdiv").offset().top;
-                
-                var pagerHeight = $(".pagingContainer:visible").height() || 0;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height()
-                - (pagerHeight > 0 ? pagerHeight + 25 : 5) - 50;
-                gridHeight = Math.max(130, gridHeight);
-                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
-            }, 100);
-        },
         ajaxPaging: function () {
-            _pagingOption = pagingHeper.getSetting();
+            _pagingOption = PagingHeper.getSetting();
 
             me.drillDown(_leagueid, _leaguename);
         },
@@ -200,7 +187,9 @@ var WinLossByLeague = (function ($) {
             $("#ExportToExcel").click(function (e) {
                 _postdata.LeagueName = _leaguename;
                 _postdata.Level = _level;
-                window.location.href = (Site.resolveClientUrl("api/Report/WinLossByLeagueExcel?") + $.param(_postdata));
+                
+                Site.exportExcel(_postdata, Site.resolveClientUrl("api/WinLossByLeagueReport/Excel"));
+              //  window.location.href = (Site.resolveClientUrl("api/WinLossByLeagueReport/Excel?") + $.param(_postdata));
                 e.preventDefault();
             });
 
@@ -394,7 +383,7 @@ var WinLossByLeague = (function ($) {
 
             buildProductsParams(param);
 
-            var url = Site.resolveClientUrl("BetList/WinlossByLeague?") + $.param(param);
+            var url = Site.resolveClientUrl("WinlossByLeagueBetList/Index?") + $.param(param);
             window.open(url, "", "modal=no");
         },
 
@@ -437,7 +426,7 @@ var WinLossByLeague = (function ($) {
                         _pagingOption.totalrow = parseInt(response.TotalRows);
                         if (_pagingOption.totalrow > 0) {
                             $("#paging").show();
-                            pagingHeper.render(_pagingOption);
+                            PagingHeper.render(_pagingOption);
                         }
                     }
                 },
@@ -528,7 +517,7 @@ var WinLossByLeague = (function ($) {
             }
             ///reset layout
             jqGridAdditional.resetLayout(reportGrid);
-            WinLossByLeague.resizeGrid();
+            jqGridAdditional.resizeGrid();
         }
 
         //#endregion
@@ -546,7 +535,7 @@ if (!window._IsInJsTestingMode) {
     $(window).resize(function () {
         var reportGrid = $("#ReportGrid");
         jqGridAdditional.resetLayout(reportGrid);
-        WinLossByLeague.resizeGrid();
+        jqGridAdditional.resizeGrid();
     });
 
     $(window).unload(function () {

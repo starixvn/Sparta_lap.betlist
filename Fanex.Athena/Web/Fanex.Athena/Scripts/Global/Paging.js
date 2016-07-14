@@ -2,39 +2,7 @@
 /// <reference path="/@JSense.js" />
 "use strict";
 
-var paging = function () {
-    this.pageGo = function (method, index) {
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="method">POST or GET or AJAX</param>
-        /// <param name="index"></param>
-        if (method === "POST") {
-            $("#IsExportExcel").val(false);
-            var form = $("#" + $("div.pagingContainer input[name='FormName']").val());
-            var size = parseInt($("div.pagingContainer input[name='PageSize']").val(), 10);
-            var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
-            var pageSize = '<input type="hidden" value="' + size + '" name="PageSize" />';
-            form.append(pageIndex);
-            form.append(pageSize);
-            Site.blockUI();
-            form.submit();
-        }
-        else if (method === "AJAX") {
-            $("div.pagingContainer input[name='PageIndex']").val(index);
-            var fc = $("div.pagingContainer input[name='AjaxPagingFunction']").val();
-            eval(fc); // jshint ignore:line
-        } else {
-            var pagesize = $("div.pagingContainer input[name='PageSize']").val();
-            var url = location.href;
-            url = QueryString.setParam(url, "PageSize", pagesize);
-            url = QueryString.setParam(url, "PageIndex", index);
-
-            location.href = url;
-        }
-    };
-};
-var pagingHeper = (function () {
+var PagingHeper = (function () {
     var me = {};
     var setting =
         {
@@ -48,6 +16,33 @@ var pagingHeper = (function () {
             ajaxfunction: "",
             alwayshow: false
         };
+
+    function goToPage(method, index) {
+        if (method === "POST") {
+            $("#IsExportExcel").val(false);
+            var form = $("#" + $(".pagingContainer input[name='FormName']").val());
+            var size = parseInt($(".pagingContainer input[name='PageSize']").val(), 10);
+            var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
+            var pageSize = '<input type="hidden" value="' + size + '" name="PageSize" />';
+            form.append(pageIndex);
+            form.append(pageSize);
+            Site.blockUI();
+            form.submit();
+        }
+        else if (method === "AJAX") {
+            $(".pagingContainer input[name='PageIndex']").val(index);
+            var fc = $(".pagingContainer input[name='AjaxPagingFunction']").val();
+            eval(fc); // jshint ignore:line
+        } else {
+            var pagesize = $(".pagingContainer input[name='PageSize']").val();
+            var url = location.href;
+            url = QueryString.setParam(url, "PageSize", pagesize);
+            url = QueryString.setParam(url, "PageIndex", index);
+
+            location.href = url;
+        }
+    }
+
     me.render = function (option) {
         /// <summary>
         ///
@@ -109,33 +104,31 @@ var pagingHeper = (function () {
         return setting;
     };
     me.bindEvent = function () {
-        var pagingControl = new paging();
-
         $("div.pagingContainer input.pagingFirst").on("click", function () {
             var method = $('div.pagingContainer input[name="Method"]').val();
-            pagingControl.pageGo(method, 1);
+            goToPage(method, 1);
         });
         $("div.pagingContainer input.pagingPrev").on("click", function () {
             var method = $('div.pagingContainer input[name="Method"]').val();
             var currentPage = parseInt($("div.pagingContainer input.pagingCurrent").val(), 10);
             if (currentPage > 1) {
-                pagingControl.pageGo(method, currentPage - 1);
+                goToPage(method, currentPage - 1);
             }
         });
         $("div.pagingContainer input.pagingLast").on("click", function () {
             var method = $('div.pagingContainer input[name="Method"]').val();
-            pagingControl.pageGo(method, parseInt($('div.pagingContainer input[name="NoOfPage"]').val(), 10));
+            goToPage(method, parseInt($('div.pagingContainer input[name="NoOfPage"]').val(), 10));
         });
         $("div.pagingContainer input.pagingNext").on("click", function () {
             var method = $('div.pagingContainer input[name="Method"]').val();
             var currentPage = parseInt($("div.pagingContainer input.pagingCurrent").val(), 10);
-            pagingControl.pageGo(method, currentPage + 1);
+            goToPage(method, currentPage + 1);
         });
 
         $("div.pagingContainer select.pageSizeSelected").on("change", function () {
             var method = $('div.pagingContainer input[name="Method"]').val();
             $("div.pagingContainer input[name='PageSize']").val($(this).val());
-            pagingControl.pageGo(method, 1);
+            goToPage(method, 1);
         });
         $("div.pagingContainer input.pagingCurrent").on("keyup", function (e) {
             var method = $('div.pagingContainer input[name="Method"]').val();
@@ -145,7 +138,7 @@ var pagingHeper = (function () {
                 var limit = parseInt($('div.pagingContainer input[name="NoOfPage"]').val(), 10);
                 if (value > 0 && value <= limit) {
                     $(this).val(value);
-                    pagingControl.pageGo(method, value);
+                    goToPage(method, value);
                 }
             }
         });
@@ -155,5 +148,5 @@ var pagingHeper = (function () {
 })();
 
 $(document).ready(function () {
-    pagingHeper.bindEvent();
+    PagingHeper.bindEvent();
 });

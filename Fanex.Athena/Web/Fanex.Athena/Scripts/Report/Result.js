@@ -3,10 +3,10 @@
 var result = (function () {
     "use strict";
 
-    var api = "Result/Result";
-    var apiExcel = "Result/ResultExcel?";
-    var apiSport = "Result/GetSports";
-    var kenoResultApi = "Result/KenoResult";
+    var api = "ResultReport/Index";
+    var apiExcel = "ResultReport/ResultExcel?";
+    var apiSport = "ResultReport/GetSports";
+    var kenoResultApi = "ResultReport/KenoResult";
     var ajaxRequest = null;
     var ajaxFilterRequest = null;
     var kenoAjaxRequest = null;
@@ -124,8 +124,7 @@ var result = (function () {
         var option = {
             type: "POST",
             dataType: "json",
-            data: JSON.stringify(param),
-            contentType: "application/json",
+            data: param,
             cache: false,
             url: url,
             success: function (response) {
@@ -168,16 +167,10 @@ var result = (function () {
     };
     var getReportData = function () {
         var url = Site.resolveClientUrl(api);
-        var data = "FromDate=" + param.FromDate;
-        data += "&ToDate=" + param.ToDate;
-        data += "&IsOutRight=" + param.IsOutRight;
-        data += "&SportId=" + param.SportId;
-        data += "&LeagueId=" + param.LeagueId;
-        data += "&IsExportExcel=" + param.IsExportExcel;
         var option = {
             type: "POST",
             cache: false,
-            data: data,
+            data: param,
             url: url,
             success: function (response) {
                 if (response != null && response.length > 0) {
@@ -222,7 +215,7 @@ var result = (function () {
             showOutRight(isShowedRight);
             showKeno();
             $("#result-page").on("click", ".detail-link", function () {
-                var url = Site.resolveClientUrl("Result/ResultDetail")
+                var url = Site.resolveClientUrl("ResultReport/ResultDetail")
                  + "?matchid=" + $(this).attr("data-match-id") + "&SportType="+param.SportId;
 
                 var title = Site.getSingleResource("Result");

@@ -14,7 +14,6 @@ var PlatformWinLoss = (function ($) {
     var _sortOrder = "desc";
     var _removeSorting = false;
     var _pageSize = 0;
-    var _resizeTimer = null;
     var _submitData = {};
     var _drilldownData = {};
 
@@ -44,21 +43,6 @@ var PlatformWinLoss = (function ($) {
     }
 
     return {
-        resizeGrid: function () {
-            clearTimeout(_resizeTimer);
-            _resizeTimer = setTimeout(function () {
-                if ($(".ui-jqgrid-bdiv").length === 0) {
-                    return;
-                }
-                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - $(".ui-jqgrid-pager:visible").height() - 30;
-                gridHeight = Math.max(130, gridHeight);
-                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
-            }, 100);
-        },
-        hasHorizontalScrollBar: function (element) {
-            return element.get(0) ? element.get(0).scrollWidth > (element.innerWidth() - 30) : false;
-        },
         //#region Init
         initialize: function () {
             PlatformWinLoss.initSetting();
@@ -265,7 +249,7 @@ var PlatformWinLoss = (function ($) {
                     onPaging = false;
                 }
 
-                PlatformWinLoss.resizeGrid();
+                jqGridAdditional.resizeGrid();
                 $(".cell-wrapperleaf", "#ReportGrid").closest("tr").find("td").addClass("highlight");
                 Site.unBlockUI();
             };
@@ -418,7 +402,7 @@ var PlatformWinLoss = (function ($) {
         },
 
         openBetlistPopUp: function (dataDrillDown) {
-            var url = Site.resolveClientUrl("BetList/PlatformWinLoss");
+            var url = Site.resolveClientUrl("PlatformWinLossBetList/Index");
 
             url = QueryString.setParam(url, "fromdate", _submitData.FromDate.toString("M/d/yyyy"));
             url = QueryString.setParam(url, "todate", _submitData.ToDate.toString("M/d/yyyy"));
@@ -458,7 +442,7 @@ $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    PlatformWinLoss.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {

@@ -1,7 +1,8 @@
-﻿@using Fanex.Athena.Models.ViewModel
-@model Fanex.Athena.Models.ViewModel.TotalBets.MoneyLineViewModel
-@using (Html.BeginForm("MoneyLine", "TotalBets", FormMethod.Post, new { @id = "MoneyLineForm" }))
+﻿@using Fanex.Athena.Model.Report.ViewModel
+@model Fanex.Athena.Model.TotalBet.ViewModel.MoneyLineViewModel
+@using (Html.BeginForm("Index", "MoneyLineTotalBet", FormMethod.Post, new { @id = "MoneyLineForm" }))
 {
+    @Html.AntiForgeryToken()
     // -----------------------------Refresh countdown------------------------ //
     <div class="grid_3">
         @RazorHelper.TimerCountDown("moneyline", 60)

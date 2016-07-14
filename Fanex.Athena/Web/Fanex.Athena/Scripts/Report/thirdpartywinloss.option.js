@@ -172,8 +172,8 @@ var ThirdPartyWinLossOption = (function () {
         LICENSEE_12BET: 1,
         licenseeId: 0,
         totalColspan: [2, 2, 3],
-        urlData: 'api/report/ThirdPartyWinLoss',
-        urlExcelData: 'api/report/ThirdPartyWinLoss',
+        urlData: 'api/ThirdPartyWinLossReport/Index',
+        urlExcelData: 'api/ThirdPartyWinLossReport/Index',
         gridOption:
         {
             datatype: 'local',

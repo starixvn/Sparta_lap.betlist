@@ -3,8 +3,8 @@
     " - " + ViewResources.Outright;
     Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_TotalBetsLayout.cshtml";
 }
-@using Fanex.Athena.Models.ViewModel
-@model Fanex.Athena.Models.ViewModel.TotalBets.OutrightViewModel
+@using Fanex.Athena.Model.Report.ViewModel
+@model Fanex.Athena.Model.TotalBet.ViewModel.OutrightViewModel
 @section page {
     <link href="@Url.ContentLink("/Content/TotalBets/outright.css")" rel="stylesheet" type="text/css" />
     <script src="@Url.ContentLink("/Scripts/TotalBets/outright.js")" type="text/javascript"></script>

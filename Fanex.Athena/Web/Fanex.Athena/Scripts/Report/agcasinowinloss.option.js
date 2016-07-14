@@ -172,8 +172,8 @@ var AgCasinoWinLossOption = (function () {
     var me =
     {
         totalColspan: [2, 2, 3],
-        urlData: 'api/report/AgCasinoWl',
-        urlExcelData: 'api/report/AgCasinoWl',
+        urlData: 'api/AgCasinoWinLossReport/Index',
+        urlExcelData: 'api/AgCasinoWinLossReport/Index',
         gridOption:
         {
             datatype: 'local',

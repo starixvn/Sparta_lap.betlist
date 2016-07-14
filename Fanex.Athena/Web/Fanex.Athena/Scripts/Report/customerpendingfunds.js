@@ -52,7 +52,7 @@ var CustPendingFunds = (function ($) {
 
         viewPendingFundsBetList: function (custid, systemId, externalId) {
             Site.blockUI();
-            var url = Site.resolveClientUrl("BetList/PendingFunds");
+            var url = Site.resolveClientUrl("PendingFundsBetList/Index");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = Site.setProductOptionOriginalParamList(url);
             url = QueryString.setParam(url, "custid", custid);

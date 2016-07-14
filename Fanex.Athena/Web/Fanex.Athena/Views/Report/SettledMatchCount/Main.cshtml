@@ -2,8 +2,8 @@
     ViewBag.Title = "LRF - " + ViewResources.SettledMatchCount;
     Layout = "~/Views/Shared/_ReportLayout.SettledMatchCount.cshtml";
 }
-@using Fanex.Athena.Models.ViewModel
-@model IList<Fanex.Athena.Models.ViewModel.Report.SettledMatchCountViewModel>
+@using Fanex.Athena.Model.Report.ViewModel
+@model IList<Fanex.Athena.Model.Report.ViewModel.SettledMatchCountViewModel>
 @section pagecss {
     <link href="@Url.ContentLink("/Content/FlatPopup/jquery.custom-scrollbar.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.ContentLink("/Content/FlatPopup/jquery.flatpopup.css")" rel="stylesheet" type="text/css" />

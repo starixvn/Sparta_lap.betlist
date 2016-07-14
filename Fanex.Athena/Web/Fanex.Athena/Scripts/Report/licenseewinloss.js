@@ -13,7 +13,6 @@ var LicenseeWinLoss = (function ($) {
     var _level = 0;
     var _removeSorting = false;
     var _reportBy = null;
-    var _resizeTimer = null;
     var _submitData; // cache submit data of level 0.
 
     function sortData(arrayData) {
@@ -28,30 +27,6 @@ var LicenseeWinLoss = (function ($) {
     }
 
     return {
-        resizeGrid: function () {
-            if ($(".ui-jqgrid-bdiv").length === 0) {
-                return;
-            }
-            clearTimeout(_resizeTimer);
-            _resizeTimer = setTimeout(function () {
-                var $bdiv = $(".ui-jqgrid-bdiv");
-
-                var gridTop = $bdiv.offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                            - $(".ui-jqgrid-pager:visible").height() - 30;
-                gridHeight = Math.max(120, gridHeight);
-
-                var gridContainer = $("#gview_ReportGrid");
-                var bodyHeight = window.innerHeight - gridContainer.offset().top;
-                var actualHeight = $("#ReportGrid").height();
-                var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
-                var tableWidth = $("#ReportGrid").width();
-                var contentWidth = $bdiv.width();
-                var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-                $bdiv.height(Math.min(newHeight, gridHeight))
-                                    .css("max-height", gridHeight);
-            }, 200);
-        },
         getTotalRowCount: function () {
             return totalRowCount;
         },
@@ -123,7 +98,7 @@ var LicenseeWinLoss = (function ($) {
 
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
-            var temp = 'api/LicenseeWinLossReport/LicenseeWL';
+            var temp = 'api/LicenseeWinLossReport/Index';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")
@@ -422,7 +397,7 @@ var LicenseeWinLoss = (function ($) {
                     }
 
                     onPaging = false;
-                    LicenseeWinLoss.resizeGrid();
+                    jqGridAdditional.resizeGrid();
                 }
                 /*group header*/
                 LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
@@ -503,7 +478,7 @@ var LicenseeWinLoss = (function ($) {
                 }
             }
 
-            var url = Site.resolveClientUrl("LicenseeWinLossBetList/LicenseeWl");
+            var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
             url = QueryString.setParam(url, "fromdate", dataDrillDown.DrillDownFromDate.toString("MM/dd/yyyy"));
             url = QueryString.setParam(url, "todate", dataDrillDown.DrillDownToDate.toString("MM/dd/yyyy"));
             url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
@@ -541,7 +516,7 @@ $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    LicenseeWinLoss.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {

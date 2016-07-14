@@ -1,9 +1,10 @@
-﻿@using Fanex.Athena.Models.ViewModel
+﻿@using Fanex.Athena.Model.Report.ViewModel
 @using Fanex.Athena.Model.Core.DataDomain
-@model Fanex.Athena.Models.ViewModel.Report.GoldDeluxeWinLossViewModel
+@model Fanex.Athena.Model.Report.ViewModel.ThirdPartyWinLossViewModel
 <div class="grid_26 content-filter new-line">
     <!--grid_26-->
-    <form id="GoldDeluxeWinLossForm" name="GoldDeluxeWinLossForm" method="post" action="">
+    <form id="ThirdPartyWinLossForm" name="ThirdPartyWinLossForm" method="post" action="">
+        @Html.AntiForgeryToken()
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
         Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
     <div>
@@ -11,6 +12,9 @@
         <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDate.Day" />
         <input type="hidden" id="Month" name="Month" value="@Model.Param.FromDate.Month" />
         <input type="hidden" id="Year" name="Year" value="@Model.Param.FromDate.Year" />
+        @Html.Hidden("ProductId", Model.Param.ProductId)
+        @Html.Hidden("ProductCode", Model.Param.ProductCode)
+        @Html.Hidden("ProductName", Model.Param.ProductName)
         @{
             var minDate = Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
         }
@@ -66,4 +70,5 @@
     @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
     </form>
     @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
+    @Html.Hidden("ReportTitle", ViewResources.GoldDeluxeWinLoss)
 </div>

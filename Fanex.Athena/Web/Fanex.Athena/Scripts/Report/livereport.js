@@ -87,8 +87,7 @@ var LiveReport = (function ($) {
             /* make request*/
             $.ajax({
                 type: "POST",
-                data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
+                data: data,
                 dataType: "json",
                 url: Site.resolveClientUrl("LiveReport/Detail"),
                 success: function () {
@@ -173,18 +172,18 @@ var LiveReport = (function ($) {
             var productCode = $("#ProductCode").val();
             var productOptions = LiveReport.getMatchListProductOption(jsonData.SportId, productCode);
             var urlMap = {
-                Key101: "BetList/LiveReportMixParlay?bettype=9",
-                Key102: "BetList/LiveReportMixParlay?bettype=29",
-                Key103: "BetList/LiveReportOutright",
-                Key161: "BetList/LiveReportNumberGame",
-                Key151: "BetList/LiveReportRacing?SportType=151",
-                Key152: "BetList/LiveReportRacing?SportType=152",
-                Key153: "BetList/LiveReportRacing?SportType=153",
-                Key181: "BetList/LiveReportRacing?SportType=181",
-                Key182: "BetList/LiveReportRacing?SportType=182",
-                Key183: "BetList/LiveReportRacing?SportType=183",
-                Key184: "BetList/LiveReportRacing?SportType=184",
-                Key185: "BetList/LiveReportRacing?SportType=185"
+                Key101: "LiveReportBetList/MixParlay?bettype=9",
+                Key102: "LiveReportBetList/MixParlay?bettype=29",
+                Key103: "LiveReportBetList/Outright",
+                Key161: "LiveReportBetList/NumberGame",
+                Key151: "LiveReportBetList/Racing?SportType=151",
+                Key152: "LiveReportBetList/Racing?SportType=152",
+                Key153: "LiveReportBetList/Racing?SportType=153",
+                Key181: "LiveReportBetList/Racing?SportType=181",
+                Key182: "LiveReportBetList/Racing?SportType=182",
+                Key183: "LiveReportBetList/Racing?SportType=183",
+                Key184: "LiveReportBetList/Racing?SportType=184",
+                Key185: "LiveReportBetList/Racing?SportType=185"
             };
 
             var url = urlMap["Key" + jsonData.SportId];

@@ -1,9 +1,9 @@
-﻿@using Fanex.Athena.Models.ViewModel
+﻿@using Fanex.Athena.Model.Report.ViewModel
 @using Fanex.Athena.Model.Core.MetaModel.Product
 @model Fanex.Athena.Model.BetList.ViewModel.CancelledBetsBetListViewModel
-@using (Html.BeginForm("CancelledBetsBetList", "BetList", FormMethod.Post, new { @id = "CancellerBetsBetListForm" }))
+@using (Html.BeginForm("Index", "CancelledBetsBetList", FormMethod.Post, new { @id = "CancellerBetsBetListForm" }))
 {
-
+    @Html.AntiForgeryToken()
     //-----------------------------Type of licensee---------------------------//
     if (Model.LicenseeTypeList.Count > 0)
     {

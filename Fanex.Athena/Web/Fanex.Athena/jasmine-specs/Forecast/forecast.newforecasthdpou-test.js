@@ -140,7 +140,7 @@
 
     describe("openBetlist(betChoice, param, betType, handicap)", function () {
         var queryString = "betchoice=1&matchid=11&leagueid=12&currencyid=13&currencyname=14&basecurrency=15&bettype=2&handicap=3";
-        var url = "BetList/RunningBetListOfMatchChoice?" + queryString;
+        var url = "RunningMatchChoiceBetList/Index?" + queryString;
 
         it("window.open should be called with correct url", function () {
             var param = {

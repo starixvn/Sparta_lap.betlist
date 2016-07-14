@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,12 +8,12 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{CE8FBEBC-3312-4881-8486-42C9F70DDADF}</ProjectGuid>
-    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fanex.Athena</RootNamespace>
     <AssemblyName>Fanex.Athena</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <SccProjectName>
     </SccProjectName>
@@ -38,6 +38,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,6 +48,7 @@
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -56,6 +58,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">
@@ -222,7 +225,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="RazorEngine, Version=3.7.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\RazorEngine.3.7.0\lib\net40\RazorEngine.dll</HintPath>
+      <HintPath>..\..\..\packages\RazorEngine.3.7.0\lib\net45\RazorEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -245,29 +248,27 @@
       <HintPath>..\..\..\packages\Sunplus.Libraries.AOP.1.0.4218.28561\lib\net40\Sunplus.Libraries.AOP.dll</HintPath>
     </Reference>
     <Reference Include="sysglobl" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web">
       <Private>True</Private>
     </Reference>
@@ -275,40 +276,44 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.4.0.40804.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml">
       <Private>False</Private>
@@ -523,18 +528,12 @@
     <Content Include="App_Data\UserGuide\TotalBetsMoneyLine\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsMoneyLine\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsMoneyLine\zh-TW.htm" />
-    <Content Include="App_Data\UserGuide\TotalBetsNumberGame\en-US.htm" />
-    <Content Include="App_Data\UserGuide\TotalBetsNumberGame\zh-CN.htm" />
-    <Content Include="App_Data\UserGuide\TotalBetsNumberGame\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsOddEven\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsOddEven\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsOddEven\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsOutright\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsOutright\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsOutright\zh-TW.htm" />
-    <Content Include="App_Data\UserGuide\TotalBetsRacing\en-US.htm" />
-    <Content Include="App_Data\UserGuide\TotalBetsRacing\zh-CN.htm" />
-    <Content Include="App_Data\UserGuide\TotalBetsRacing\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsTotalGoal\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsTotalGoal\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsTotalGoal\zh-TW.htm" />
@@ -726,8 +725,6 @@
     <Content Include="jasmine-specs\Report\customerturnover.option-test.js" />
     <Content Include="jasmine-specs\Report\customerwinloss-test.js" />
     <Content Include="jasmine-specs\Report\dailyracingwinloss-test.js" />
-    <Content Include="jasmine-specs\Report\golddeluxewinloss-test.js" />
-    <Content Include="jasmine-specs\Report\golddeluxewinloss.option-test.js" />
     <Content Include="jasmine-specs\Report\licenseewinloss-test.js" />
     <Content Include="jasmine-specs\Report\licenseewinloss.option-test.js" />
     <Content Include="jasmine-specs\Report\livereport-test.js" />
@@ -758,26 +755,35 @@
     <Content Include="jasmine-specs\TotalBets\handicapoverunder-test.js" />
     <Content Include="jasmine-specs\TotalBets\homedrawawaynobet-test.js" />
     <Content Include="jasmine-specs\TotalBets\moneyline-test.js" />
-    <Content Include="jasmine-specs\TotalBets\numbergame-test.js" />
     <Content Include="jasmine-specs\TotalBets\oddevendrawnodraw-test.js" />
     <Content Include="jasmine-specs\TotalBets\outright-test.js" />
-    <Content Include="jasmine-specs\TotalBets\racing-test.js" />
     <Content Include="jasmine-specs\TotalBets\totalbetsbase-test.js" />
     <Content Include="jasmine-specs\TotalBets\totalgoal-test.js" />
     <Content Include="jasmine-specs\WareHouse\topcustomer-test.js" />
     <Content Include="jasmine-specs\WareHouse\winloss-test.js" />
     <Content Include="package.json" />
-    <None Include="Scripts\Languages\ViewResources.zh-Hans.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewResources.zh-Hans.js</LastGenOutput>
-    </None>
     <Content Include="Jasmine\SpecRunnerReport.html" />
     <Content Include="Jasmine\SpecRunnerSingleTesting.html" />
     <Content Include="karma.conf.js" />
-    <Content Include="Scripts\Languages\ViewResources.zh-Hans.js">
+    <Content Include="Scripts\Languages\ViewResources.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.ko-KR.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.zh-Hans.tt</DependentUpon>
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.zh-CN.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.zh-Hans.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Languages\ViewResources.zh-TW.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
@@ -793,6 +799,7 @@
     <Content Include="Scripts\Report\CasinoProgressiveWins.option.js" />
     <Content Include="Scripts\Report\weeklylivematch.js" />
     <Content Include="Scripts\Report\weeklylivematch.option.js" />
+    <Content Include="Scripts\Report\thirdpartywinloss.golddeluxe.js" />
     <Content Include="Scripts\Report\microgamingwinloss.js" />
     <Content Include="Scripts\Report\microgamingwinloss.option.js" />
     <Content Include="SiteConfig\Web.LOCAL.config">
@@ -3536,11 +3543,6 @@
     <Content Include="img\Wheel\C50.jpg" />
     <Content Include="img\Wheel\RJ.jpg" />
     <Content Include="Scripts\Customer\BetSetting\golddeluxe.js" />
-    <Content Include="Scripts\Languages\ViewResources.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.tt</DependentUpon>
-    </Content>
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
@@ -3548,8 +3550,6 @@
     <Content Include="Scripts\Report\agcasinowinloss.option.js" />
     <Content Include="Scripts\Report\activecustomersummary.js" />
     <Content Include="Scripts\Report\activecustomersummary.option.js" />
-    <Content Include="Scripts\Report\golddeluxewinloss.js" />
-    <Content Include="Scripts\Report\golddeluxewinloss.option.js" />
     <Content Include="Scripts\Report\thirdpartywinloss.js" />
     <Content Include="Scripts\Report\thirdpartywinloss.option.js" />
     <Content Include="SiteConfig\Web.config.txt">
@@ -3578,7 +3578,6 @@
     </Content>
     <Content Include="Views\Customer\BetSetting\MicroGamingLiveCasino.cshtml" />
     <Content Include="Views\Customer\BetSetting\BetTrade.cshtml" />
-    <Content Include="Views\BetList\LiveReport\MicroGaming.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Account\AccountManagement.css" />
@@ -3754,11 +3753,6 @@
     <Content Include="Scripts\Header\header.js" />
     <Content Include="Scripts\Library\jquery.jclock.js" />
     <Content Include="Scripts\Header\ReCheckIn.js" />
-    <Content Include="Scripts\Languages\ViewResources.ko-KR.js">
-      <DependentUpon>ViewResources.ko-KR.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Content>
     <Content Include="Scripts\Menu\Menu.js" />
     <Content Include="Scripts\Plugin\MultiSelect\jquery.multiselect.nlevel.js" />
     <Content Include="Scripts\Library\BigDecimal-all-last.min.js" />
@@ -3993,21 +3987,6 @@
     <Content Include="Scripts\Global\lrf.layout.js" />
     <Content Include="Scripts\Global\Paging.js" />
     <Content Include="Scripts\Global\site.js" />
-    <Content Include="Scripts\Languages\ViewResources.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.tt</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Languages\ViewResources.zh-CN.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.zh-CN.tt</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Languages\ViewResources.zh-TW.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.zh-TW.tt</DependentUpon>
-    </Content>
     <Content Include="Scripts\Library\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\Library\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\Library\jquery-1.9.1-vsdoc.js" />
@@ -4097,10 +4076,8 @@
     <Content Include="Scripts\TotalBets\handicapoverunder.js" />
     <Content Include="Scripts\TotalBets\homedrawawaynobet.js" />
     <Content Include="Scripts\TotalBets\moneyline.js" />
-    <Content Include="Scripts\TotalBets\numbergame.js" />
     <Content Include="Scripts\TotalBets\oddevendrawnodraw.js" />
     <Content Include="Scripts\TotalBets\outright.js" />
-    <Content Include="Scripts\TotalBets\racing.js" />
     <Content Include="Scripts\TotalBets\totalbetsbase.js" />
     <Content Include="Scripts\TotalBets\totalgoal.js" />
     <Content Include="Scripts\WareHouse\topcustomer.js" />
@@ -4338,12 +4315,6 @@
     <Content Include="Views\TotalBets\MoneyLine\ContentNoInfo.cshtml" />
     <Content Include="Views\TotalBets\MoneyLine\Filter.cshtml" />
     <Content Include="Views\TotalBets\MoneyLine\Main.cshtml" />
-    <Content Include="Views\TotalBets\NumberGame\Content.cshtml" />
-    <Content Include="Views\TotalBets\NumberGame\ContentData.cshtml" />
-    <Content Include="Views\TotalBets\NumberGame\ContentHeader.cshtml" />
-    <Content Include="Views\TotalBets\NumberGame\ContentNoInfo.cshtml" />
-    <Content Include="Views\TotalBets\NumberGame\Filter.cshtml" />
-    <Content Include="Views\TotalBets\NumberGame\Main.cshtml" />
     <Content Include="Views\TotalBets\OddEvenDrawNoDraw\Content.cshtml" />
     <Content Include="Views\TotalBets\OddEvenDrawNoDraw\ContentData.cshtml" />
     <Content Include="Views\TotalBets\OddEvenDrawNoDraw\ContentHeader.cshtml" />
@@ -4356,12 +4327,6 @@
     <Content Include="Views\TotalBets\Outright\ContentNoInfo.cshtml" />
     <Content Include="Views\TotalBets\Outright\Filter.cshtml" />
     <Content Include="Views\TotalBets\Outright\Main.cshtml" />
-    <Content Include="Views\TotalBets\Racing\Content.cshtml" />
-    <Content Include="Views\TotalBets\Racing\ContentData.cshtml" />
-    <Content Include="Views\TotalBets\Racing\ContentHeader.cshtml" />
-    <Content Include="Views\TotalBets\Racing\ContentNoInfo.cshtml" />
-    <Content Include="Views\TotalBets\Racing\Filter.cshtml" />
-    <Content Include="Views\TotalBets\Racing\Main.cshtml" />
     <Content Include="Views\TotalBets\TotalGoal\Content.cshtml" />
     <Content Include="Views\TotalBets\TotalGoal\ContentData.cshtml" />
     <Content Include="Views\TotalBets\TotalGoal\ContentHeader.cshtml" />
@@ -4434,7 +4399,6 @@
     <Content Include="Views\BetList\LicenseeWl\Main.cshtml" />
     <Content Include="Views\BetList\DailyRacingWl\Main.cshtml" />
     <Content Include="Views\BetList\CustomerWl\Main.cshtml" />
-    <Content Include="Views\BetList\NumberGameWl\Main.cshtml" />
     <Content Include="Views\Shared\_BetListSimpleLayout.cshtml" />
     <Content Include="Views\BetList\LiveReport\Match.cshtml" />
     <Content Include="Views\BetList\LiveReport\NumberGame.cshtml" />
@@ -4447,21 +4411,9 @@
     <Content Include="Views\BetList\MatchWl\MixParlay.cshtml" />
     <Content Include="Views\Shared\_BetListLayoutNoStandard.cshtml" />
     <Content Include="Views\Note\DailyBetList.cshtml" />
-    <None Include="Scripts\Languages\ViewResources.ko-KR.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewResources.ko-KR.js</LastGenOutput>
-    </None>
     <None Include="Scripts\Languages\ViewResources.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewResources.js</LastGenOutput>
-    </None>
-    <None Include="Scripts\Languages\ViewResources.zh-CN.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewResources.zh-CN.js</LastGenOutput>
-    </None>
-    <None Include="Scripts\Languages\ViewResources.zh-TW.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewResources.zh-TW.js</LastGenOutput>
+      <LastGenOutput>ViewResources.txt</LastGenOutput>
     </None>
     <Content Include="Views\BetList\LastBetsMonitoringNew\Filter.cshtml" />
     <Content Include="Views\BetList\LastBetsMonitoringNew\Main.cshtml" />
@@ -4610,35 +4562,47 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Api\Fanex.Athena.Api.csproj">
-      <Project>{0C22899B-6CE0-4187-9BCF-7F503213F207}</Project>
-      <Name>Fanex.Athena.Api</Name>
+    <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api.Base\Fanex.Athena.Api.Base.csproj">
+      <Project>{16d39d7b-00c0-4cc3-82f5-44bbdee7ae51}</Project>
+      <Name>Fanex.Athena.Api.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.BetList\Fanex.Athena.Controllers.BetList.csproj">
+    <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api.CustomerLog\Fanex.Athena.Api.CustomerLog.csproj">
+      <Project>{a765275a-f566-4122-8e8e-47defab7b56b}</Project>
+      <Name>Fanex.Athena.Api.CustomerLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api.Report\Fanex.Athena.Api.Report.csproj">
+      <Project>{8efb14a8-0a10-4095-a857-c6496e830458}</Project>
+      <Name>Fanex.Athena.Api.Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api\Fanex.Athena.Api.BetList.csproj">
+      <Project>{0C22899B-6CE0-4187-9BCF-7F503213F207}</Project>
+      <Name>Fanex.Athena.Api.BetList</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.BetList\Fanex.Athena.Controllers.BetList.csproj">
       <Project>{83f7dc5c-e81c-45e5-bc83-b58e45198a2e}</Project>
       <Name>Fanex.Athena.Controllers.BetList</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.BetSettings\Fanex.Athena.Controllers.BetSettings.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.BetSettings\Fanex.Athena.Controllers.BetSettings.csproj">
       <Project>{bd14328f-0bca-43e4-a3df-ce166ac95135}</Project>
       <Name>Fanex.Athena.Controllers.BetSettings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Customer\Fanex.Athena.Controllers.Customer.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.Customer\Fanex.Athena.Controllers.Customer.csproj">
       <Project>{11985254-411e-45dc-9b50-8dcb8bd145ef}</Project>
       <Name>Fanex.Athena.Controllers.Customer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Forecast\Fanex.Athena.Controllers.Forecast.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.Forecast\Fanex.Athena.Controllers.Forecast.csproj">
       <Project>{392b39f4-3f95-40d2-a3e1-f08ad10ce6f7}</Project>
       <Name>Fanex.Athena.Controllers.Forecast</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.Report\Fanex.Athena.Controllers.Report.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.Report\Fanex.Athena.Controllers.Report.csproj">
       <Project>{bc358f4a-b85d-43a2-a669-d2d2c9f2eedb}</Project>
       <Name>Fanex.Athena.Controllers.Report</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.TotalBets\Fanex.Athena.Controllers.TotalBets.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.TotalBets\Fanex.Athena.Controllers.TotalBets.csproj">
       <Project>{9d448f82-18c4-47f0-ab07-85da01fe2edc}</Project>
       <Name>Fanex.Athena.Controllers.TotalBets</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.Controllers.WareHouse\Fanex.Athena.Controllers.WareHouse.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.WareHouse\Fanex.Athena.Controllers.WareHouse.csproj">
       <Project>{f266d127-f96b-4bcc-8138-88954fffd5a9}</Project>
       <Name>Fanex.Athena.Controllers.WareHouse</Name>
     </ProjectReference>
@@ -4646,37 +4610,33 @@
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Business\Fanex.Athena.Excel\Fanex.Athena.Excel.csproj">
-      <Project>{0FC566E3-C900-4FF7-BC30-922FA73969F7}</Project>
-      <Name>Fanex.Athena.Excel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Business\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Business\Fanex.Athena.Models\Fanex.Athena.Models.csproj">
+    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Report\Fanex.Athena.Model.Report.csproj">
       <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>
-      <Name>Fanex.Athena.Models</Name>
+      <Name>Fanex.Athena.Model.Report</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\Business\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+    <ProjectReference Include="..\..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
       <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
       <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Business\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
+    <ProjectReference Include="..\..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{fcfd7434-085b-4c93-848f-e1cbcedcc5a0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Business\Fanex.Athena.Service\Fanex.Athena.Service.csproj">
+    <ProjectReference Include="..\..\..\Service\Fanex.Athena.Service.Report\Fanex.Athena.Service.Report.csproj">
       <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
-      <Name>Fanex.Athena.Service</Name>
+      <Name>Fanex.Athena.Service.Report</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Controllers\Fanex.Athena.Controllers.csproj">
+    <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers\Fanex.Athena.Controllers.csproj">
       <Project>{BEC66A01-FA27-4418-8F8A-C2B4388A7905}</Project>
       <Name>Fanex.Athena.Controllers</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
+    <ProjectReference Include="..\..\..\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
       <Project>{DD931ADB-A994-49C0-95A3-72BCB6E22679}</Project>
       <Name>Fanex.Athena.Web</Name>
     </ProjectReference>
@@ -4736,4 +4696,9 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
 </Project>

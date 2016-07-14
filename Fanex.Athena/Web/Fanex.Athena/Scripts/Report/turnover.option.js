@@ -220,7 +220,7 @@ var TurnoverOption = (function () {
         },
         totalColspan: [3],
         urlData: 'reportapi/Turnover',
-        urlExcelData: 'report/TurnoverExcel',
+        urlExcelData: 'TurnoverReport/Excel',
         gridOption: {
             rowNum: 1000,
             datatype: 'local',

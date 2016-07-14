@@ -68,7 +68,7 @@
             
             AgCasinoWinLoss.setExcelUrl(1, 2, 3, new Date(), new Date());
 
-            expect(AgCasinoWinLossOption.urlExcelData).toBe('api/report/AgCasinoWL?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016');
+            expect(AgCasinoWinLossOption.urlExcelData).toBe('api/AgCasinoWinLossReport/Index?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016');
         });
     });
 
@@ -144,7 +144,7 @@
         });
 
         it("AgCasinoWinLossOption.urlExcelData should be updated to correct value.", function () {
-            expect(AgCasinoWinLossOption.urlExcelData).toBe('api/report/AgCasinoWL?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016');
+            expect(AgCasinoWinLossOption.urlExcelData).toBe('api/AgCasinoWinLossReport/Index?level=1&currencyId=2&custId=3&fdate=1/1/2016&tdate=1/1/2016');
         });
     });
 

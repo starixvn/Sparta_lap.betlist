@@ -1,0 +1,25 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IBalanceUpService.cs" company="">
+// The i balance up service.
+// </copyright>
+// <summary>
+//   The i balance up service.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Fanex.Athena.Service.Core.Configuration.Interfaces
+{
+    using Fanex.Athena.Model.Core.DTO.Configuration;
+
+    /// <summary>
+    ///     The i balance up service.
+    /// </summary>
+    public interface IBalanceUpService
+    {
+        #region Public Properties
+
+        BalanceUp BalanceUpInfo { get; }
+
+        #endregion Public Properties
+    }
+}

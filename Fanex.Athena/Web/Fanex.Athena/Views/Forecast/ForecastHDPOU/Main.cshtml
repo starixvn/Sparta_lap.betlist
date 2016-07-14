@@ -3,8 +3,8 @@
     " - " + ViewResources.HandicapOverUnderLive;
     Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_ForecastLayout.cshtml";
 }
-@using Fanex.Athena.Models.ViewModel
-@model Fanex.Athena.Models.ViewModel.Forecast.ForecastHdpOuViewModel
+@using Fanex.Athena.Model.Report.ViewModel
+@model Fanex.Athena.Model.Forecast.ViewModel.ForecastHdpOuViewModel
 @section page {
     <script src="@Url.ContentLink("/Scripts/Forecast/forecast.handicapoverunder.js")" type="text/javascript"></script>
     <link href="@Url.ContentLink("/Content/Forecast/forecasthandicapoverunder.css")" rel="stylesheet" type="text/css" />

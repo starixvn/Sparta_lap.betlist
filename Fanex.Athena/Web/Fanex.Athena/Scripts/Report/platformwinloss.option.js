@@ -247,8 +247,8 @@ var PlatformWinLossOption = (function () {
             "5": Site.getSingleResource("SmartSite")
         },
         totalColspan: [0, 4],
-        urlData: 'api/report/PlatformWinLoss',
-        urlExcelData: 'api/report/PlatformWinLoss',
+        urlData: 'api/PlatformWinLossReport/Index',
+        urlExcelData: 'api/PlatformWinLossReport/Index',
         gridOption: {
             datatype: 'jsonstring',
             colNames: [],
@@ -272,9 +272,9 @@ var PlatformWinLossOption = (function () {
             treedatatype: "local",
             ExpandColumn: 'Name',
             treeReader: {
-                level_field: "Level",
-                parent_id_field: "Parent", 
-                leaf_field: "IsLeaf"
+                level_field: "Level",       // jshint ignore:line
+                parent_id_field: "Parent",  // jshint ignore:line
+                leaf_field: "IsLeaf"        // jshint ignore:line
             },
             userData: [],
             pager: '#ppdata',

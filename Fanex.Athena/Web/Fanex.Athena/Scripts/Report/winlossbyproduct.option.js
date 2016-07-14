@@ -240,8 +240,8 @@ var WinLossByProductOption = (function () {
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             totalColspan: [1, 2, 3],
             //level 0,1,2
-            urlData: 'api/WinLossByProductReport/WinLossByProduct',
-            urlExcelData: 'api/WinLossByProductReport/WinLossByProduct',
+            urlData: 'api/WinLossByProductReport/Index',
+            urlExcelData: 'api/WinLossByProductReport/Index',
             gridOption:
             {
                 datatype: 'local',

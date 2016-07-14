@@ -1,8 +1,8 @@
 ﻿@{
     Layout = null;
 }
-@using Fanex.Athena.Models.ViewModel
-@model Fanex.Athena.Models.ViewModel.Report.CustomerTurnoverViewModel
+
+@model Fanex.Athena.Model.Report.ViewModel.CustomerTurnoverViewModel
 @{var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);}
 <div class="grid_26 content-filter new-line">
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, AppSettings.MaxDate, "from-date", "to-date", 3, 4, 2, 7)
@@ -91,8 +91,9 @@
         @Html.Hidden("LicenseeId", Model.Param.LicenseeId)
     </div>
 </div>
-@using (Html.BeginForm("CustomerTurnoverExcel", "Report",
-          FormMethod.Post, new { @id = "CustomerTurnoverForm", accept_charset = "utf-8" }))
+@using (Html.BeginForm("Excel", "CustomerTurnoverReport",
+                      FormMethod.Post, new { @id = "CustomerTurnoverForm", accept_charset = "utf-8" }))
 {
+    @Html.AntiForgeryToken()
     <input type="hidden" name="excelparam" id="excelparam" />
 }

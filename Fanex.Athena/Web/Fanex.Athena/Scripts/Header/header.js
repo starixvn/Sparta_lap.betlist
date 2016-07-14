@@ -33,10 +33,10 @@ $(document).ready(function () {
     });
     $("#ddlLicensee").change(function () {
         var licenseeId = $(this).val();
-        top.frames["main"].location.href = Site.resolveClientUrl("Account/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
+        top.frames["main"].location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
     });
     $("#change-pass-btn").click(function () {
-        window.parent.main.document.location.href = Site.resolveClientUrl("Utility/ChangePass/");
+        window.parent.main.document.location.href = Site.resolveClientUrl("Authorization/ChangePassword");
     });
     $("#lougout-btn").click(function () {
         Site.signOut();

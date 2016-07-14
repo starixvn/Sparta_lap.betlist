@@ -1,4 +1,4 @@
-﻿// <copyright file="GroupCommSetting.cs" company="Nexcel Solution">
+﻿// <copyright file="GroupCommSetting.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

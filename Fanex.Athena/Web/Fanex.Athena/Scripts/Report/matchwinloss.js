@@ -113,7 +113,7 @@ var MatchWinLoss = (function ($) {
 
             $.ajax({
                 type: 'POST',
-                url: "MatchWinLossDetail",
+                url: "MatchWinLossReport/Detail",
                 data: JSON.stringify(submitData),
                 contentType: "application/json; charset=utf-8",
                 dataType: 'html',
@@ -147,7 +147,7 @@ var MatchWinLoss = (function ($) {
                 data.IsLive = '';
             }
 
-            var url = Site.resolveClientUrl("BetList/MatchWlMatchBetType");
+            var url = Site.resolveClientUrl("MatchWinlossBetList/MatchBetType");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", date);
             url = QueryString.setParam(url, "date", date);
@@ -180,8 +180,8 @@ var MatchWinLoss = (function ($) {
         viewOutrightMixParlay: function (betType) {
             var date = $("#Date").attr("data-original");
             var url = betType === 10
-                        ? Site.resolveClientUrl("BetList/MatchWlOutright")
-                        : Site.resolveClientUrl("BetList/MatchWlMixParlay");
+                        ? Site.resolveClientUrl("MatchWinlossBetList/Outright")
+                        : Site.resolveClientUrl("MatchWinlossBetList/MixParlay");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", date);
             url = QueryString.setParam(url, "todate", date);

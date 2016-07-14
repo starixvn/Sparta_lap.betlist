@@ -47,7 +47,7 @@ var DailyBetList = (function ($) {
         submit: function () {
             // Site.blockUI();
             BetList.initialize();
-            var url = Site.resolveClientUrl('api/betlist/DailyBetList');
+            var url = Site.resolveClientUrl('api/DailyBetList/index');
             url = Site.setLicenseeOptionParam(url);
             url = QueryString.setParam(url, "productCode", $("#ProductCode").val());
             url = QueryString.setParam(url, "status", $("#DailyBetListStatus").val());

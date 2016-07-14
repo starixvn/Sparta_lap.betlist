@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B269F027-9AE1-4969-89D6-56C401B96051}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.Athena.DataAccess.BetList</RootNamespace>
+    <AssemblyName>Fanex.Athena.DataAccess.BetList</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fanex.BetList.BetTrade, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.Core.2.12.0.6\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core, Version=2.12.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.Core.2.12.0.6\lib\net40\Fanex.BetList.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.GoldDeluxe, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.Core.2.12.0.6\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Data">
+      <HintPath>..\..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Logging">
+      <HintPath>..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
+      <HintPath>..\..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\..\packages\EnterpriseLibrary.Data.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging">
+      <HintPath>..\..\packages\EnterpriseLibrary.Logging.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RemotingRef.1.0.0.5\lib\net40\RemotingRef.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
+    </Reference>
+    <Reference Include="Sunplus.Core.Common, Version=1.1.4505.19054, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Core.Common.1.1.4505.19054\lib\net40\Sunplus.Core.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TplCore, Version=1.0.4694.29951, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TplCore.1.0.4694.29951\lib\net40\TplCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CancelledBetListDataAccess.cs" />
+    <Compile Include="BetListDataAccess.cs" />
+    <Compile Include="Interfaces\ICancelledBetListDataAccess.cs" />
+    <Compile Include="Interfaces\ILastBetsMonitoringBetListDataAccess.cs" />
+    <Compile Include="LastBetsMonitoringBetListDataAccess.cs" />
+    <Compile Include="BaseBetListDataAccess.cs" />
+    <Compile Include="Interfaces\IBetListDataAccess.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
+      <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
+      <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
+      <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>
+      <Name>Fanex.Athena.Model.BetList</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+      <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
+      <Name>Fanex.Athena.Model.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Report\Fanex.Athena.Model.Report.csproj">
+      <Project>{3AA658FF-B635-4990-A49C-AE886841A1CA}</Project>
+      <Name>Fanex.Athena.Model.Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+      <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
+      <Name>Fanex.Athena.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+      <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
+      <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

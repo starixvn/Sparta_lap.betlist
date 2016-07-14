@@ -75,7 +75,7 @@
             $("#CurrencyId").attr('data-original', 2);
             $("#BaseCurrency").attr('data-original', 3);
 
-            var url = "Forecast/ForeCastAh?matchid=1&bettype=2&licenseetype=1&currencyid=2&currencyname=uus&basecurrency=3";
+            var url = "AhForecast/Index?matchid=1&bettype=2&licenseetype=1&currencyid=2&currencyname=uus&basecurrency=3";
             spyOn(ForecastPopup, "showPopup");
 
             ForecastHDPOU.openForecast(1, 2);
@@ -85,7 +85,7 @@
     });
 
     describe("loadSelectedLeague(leagueId)", function () {
-        var url = "Forecast/ForecastHandicapOverUnder?licenseetype=1&currencyid=2&currencyname=uus&basecurrency=3&leagueid=12";
+        var url = "HandicapOverUnderForecast/Index?licenseetype=1&currencyid=2&currencyname=uus&basecurrency=3&leagueid=12";
         var request;
         beforeEach(function (done) {
             affix("#Refresh-Content");
@@ -134,7 +134,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("Forecast/ForecastHandicapOverUnder")
+                .stubRequest("HandicapOverUnderForecast/Index")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -152,7 +152,7 @@
         });
 
         it("ajax request should be called with correct url", function () {
-            expect(request.url).toBe("Forecast/ForecastHandicapOverUnder");
+            expect(request.url).toBe("HandicapOverUnderForecast/Index");
         });
     });
 });

@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, AgCasinoBalanceOption, Report, Site, pagingHeper */
+﻿/*global jqGridAdditional, AgCasinoBalanceOption, Report, Site, PagingHeper */
 /// <reference path="/@JSense.js" />
 ///
 var AgCasinoBalance = (function ($) {
@@ -62,29 +62,6 @@ var AgCasinoBalance = (function ($) {
     }
 
     return {
-        resizeGrid: function () {
-            setTimeout(function () {
-                var $gridContent = $(".ui-jqgrid-bdiv");
-                if ($gridContent.length === 0) {
-                    return;
-                }
-
-                var gridTop = $gridContent.offset().top;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                                - $(".ui-jqgrid-pager:visible").height() - $(".paging:visible").height() - 30;
-                gridHeight = Math.max(120, gridHeight);
-
-                var gridContainer = $("#gview_ReportGrid");
-                var bodyHeight = window.innerHeight - gridContainer.offset().top;
-                var actualHeight = $("#ReportGrid").height();
-                var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
-                var tableWidth = $("#ReportGrid").width();
-                var contentWidth = $gridContent.width();
-                var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-                $gridContent.height(Math.min(newHeight, gridHeight))
-                                    .css("max-height", gridHeight);
-            }, 100);
-        },
         initialize: function () {
             AgCasinoBalance.initEvent();
             initMonthPicker();
@@ -311,7 +288,7 @@ var AgCasinoBalance = (function ($) {
             resetPagingOption();
         },
         ajaxPaging: function () {
-            _pagingOption = pagingHeper.getSetting();
+            _pagingOption = PagingHeper.getSetting();
             AgCasinoBalance.drillDown(2);
         },
         //#BindReport
@@ -337,7 +314,7 @@ var AgCasinoBalance = (function ($) {
             if (level === 2 && response.TotalRows > MIN_PAGE_SIZE) {
                 _pagingOption.totalrow = parseInt(response.TotalRows);
                 $(".paging").show();
-                pagingHeper.render(_pagingOption);
+                PagingHeper.render(_pagingOption);
 
             } else {
                 $(".paging").hide();
@@ -358,7 +335,7 @@ var AgCasinoBalance = (function ($) {
                     AgCasinoBalance.bindTotal(level, response.Total, response.SummaryTotal);
                     $("#footer").html($(".ui-jqgrid-ftable").html());
 
-                    AgCasinoBalance.resizeGrid();
+                    jqGridAdditional.resizeGrid();
                 }
 
                 Site.unBlockUI();
@@ -385,7 +362,7 @@ $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    AgCasinoBalance.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {

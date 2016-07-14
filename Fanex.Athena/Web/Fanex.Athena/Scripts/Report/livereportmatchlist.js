@@ -14,7 +14,7 @@ var LiveReportMatchList = (function ($) {
         },
 
         viewMatchBetList: function (target) {
-            var url = "BetList/LiveReportMatch";
+            var url = "LiveReportBetList/Match";
             var currencyName = $('#CurrencyName').attr('data-original');
             url = Site.resolveClientUrl(url);
 

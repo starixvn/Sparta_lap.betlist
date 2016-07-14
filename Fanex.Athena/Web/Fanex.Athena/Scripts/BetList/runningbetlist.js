@@ -5,8 +5,7 @@ var RunningBetList = (function ($) {
     return {
         initialize: function () {
             RunningBetList.initEvent();
-            var bettype = RunningBetList.getUrlParams("bettype");
-            RunningBetList.submit(bettype);
+            RunningBetList.submit();
             Site.addUserGuide({
                 resourceName: $('#userGuideName').val(),
                 title: Site.getSingleResource("TotalBets") + " - " + $('#title').val()
@@ -14,32 +13,18 @@ var RunningBetList = (function ($) {
         },
 
         initEvent: function () {
-            //Submit button
             $('#SubmitButton').click(function () {
-                var bettype = RunningBetList.getUrlParams("bettype");
-                RunningBetList.submit(bettype);
+                RunningBetList.submit();
             });
         },
 
-        submit: function (bettype) {
-            // Site.blockUI();
+        submit: function () {
             BetList.initialize();
-            // Load Data
-            var params = { bettype: bettype };
-            params = Site.setLicenseeOptionParam(params);
-            var url = Site.resolveClientUrl('api/betlist/runningbetlist');
+            var actionName = window.location.pathname.split('/').pop();
+            var url = Site.resolveClientUrl('api/RunningBetList/' + actionName);
+            var params = Site.setLicenseeOptionParam();
+            
             BetList.loadData(params, url);
-        },
-
-        getUrlParams: function (sParam) {
-            var sPageURL = window.location.search.substring(1);
-            var sURLVariables = sPageURL.split('&');
-            for (var i = 0; i < sURLVariables.length; i++) {
-                var sParameterName = sURLVariables[i].split('=');
-                if (sParameterName[0] === sParam) {
-                    return sParameterName[1];
-                }
-            }
         },
 
         exportToExcel: function () {

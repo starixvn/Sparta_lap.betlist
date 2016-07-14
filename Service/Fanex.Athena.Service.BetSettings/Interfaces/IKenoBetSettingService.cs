@@ -1,0 +1,19 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="IKenoBetSettingService.cs" company="">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.Service.BetSettings
+{
+    using Fanex.Athena.Model.BetSettings.DTO;
+    using Fanex.Athena.Model.BetSettings.ViewModel;
+    using Fanex.Athena.Model.Core.DTO.Common;
+
+    public interface IKenoBetSettingService
+    {
+        BetSettingViewModel GetViewModel(int licenseeId, int custId);
+
+        IResultInfo UpdateBetSetting(int licenseeId, int custId, int userId, string language, string ip, KenoBetSetting setting);
+    }
+}

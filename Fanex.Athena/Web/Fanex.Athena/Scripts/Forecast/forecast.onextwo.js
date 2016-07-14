@@ -57,7 +57,7 @@ var ForecastOneXTwo = (function ($) {
             });
         },
         openForecast: function (matchId, betType, isPopup) {
-            var url = Site.resolveClientUrl("BetList/RunningBetListOfMatch");
+            var url = Site.resolveClientUrl("RunningMatchBetList/Index");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "matchid", matchId);
             url = QueryString.setParam(url, "bettype", betType);
@@ -70,7 +70,7 @@ var ForecastOneXTwo = (function ($) {
             }
         },
         loadSelectedLeague: function (leagueId) {
-            var url = Site.resolveClientUrl("Forecast/ForecastOneXTwo");
+            var url = Site.resolveClientUrl("OneXTwoForecast/Index");
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "LeagueId", leagueId);
             ForecastOneXTwo.submit();

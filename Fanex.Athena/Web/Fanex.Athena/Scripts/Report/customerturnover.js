@@ -1,4 +1,4 @@
-﻿/*global Site, JSLINQ, jqGridAdditional, pagingHeper, CustTurnoverOption */
+﻿/*global Site, JSLINQ, jqGridAdditional, PagingHeper, CustTurnoverOption */
 /// <reference path="/@JSense.js" />
 var CustTurnover = (function ($) {
     "use strict";
@@ -58,7 +58,7 @@ var CustTurnover = (function ($) {
             ajaxfunction: "CustTurnover.ajaxPaging()",
             alwayshow: true
         },
-        sportUrl: Site.resolveClientUrl("report/GetSportsAndProducts"),
+        sportUrl: Site.resolveClientUrl("CustomerTurnoverReport/GetSportsAndProducts"),
         bettypeUrl: Site.resolveClientUrl("ReportAPI/GetBettypesBySport"),
         urlData: Site.resolveClientUrl("reportapi/CustomerTurnover"),
         urlExcelData: Site.resolveClientUrl("report/CustomerTurnoverExcel"),
@@ -72,22 +72,6 @@ var CustTurnover = (function ($) {
                 resourceName: "CustomerTurnover",
                 title: Site.getSingleResource("CustomerTurnover")
             });
-        },
-        resizeGrid: function () {
-            setTimeout(function () {
-                if ($(".ui-jqgrid-bdiv").length === 0) {
-                    return;
-                }
-                var gridTop = $(".ui-jqgrid-bdiv").offset().top;
-                var pagingHeight = $("#paging:visible").height();
-                if (pagingHeight > 0) {
-                    pagingHeight += 15;
-                }
-
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv").height() - pagingHeight - 20;
-                gridHeight = Math.max(120, gridHeight);
-                $(".ui-jqgrid-bdiv").css("height", "auto").css("max-height", gridHeight);
-            }, 100);
         },
         initEvent: function () {
             /*product list*/
@@ -495,14 +479,14 @@ var CustTurnover = (function ($) {
             jqGridAdditional.resetLayout(reportGrid);
             CustTurnover.pagingOption.totalrow = parseInt(response.TotalRow);
             if (CustTurnover.pagingOption.totalrow > 0) {
-                pagingHeper.render(CustTurnover.pagingOption);
+                PagingHeper.render(CustTurnover.pagingOption);
             }
 
-            CustTurnover.resizeGrid();
+            jqGridAdditional.resizeGrid();
         },
         ajaxPaging: function () {
             CustTurnover.clearExcelExport();
-            CustTurnover.pagingOption = pagingHeper.getSetting();
+            CustTurnover.pagingOption = PagingHeper.getSetting();
             CustTurnover.loadData();
         },
         setReportTitle: function () {
@@ -549,7 +533,7 @@ $(window).resize(function () {
     "use strict";
     var reportGrid = $("#ReportGrid");
     jqGridAdditional.resetLayout(reportGrid);
-    CustTurnover.resizeGrid();
+    jqGridAdditional.resizeGrid();
 });
 
 $(window).unload(function () {

@@ -1,7 +1,4 @@
 ﻿describe("RunningBetList", function () {
-    beforeEach(function () {
-        spyOn(RunningBetList, "getUrlParams").and.returnValue("1");
-    });
     describe("initialize", function () {
         beforeEach(function () {
             spyOn(RunningBetList, "submit");
@@ -9,12 +6,8 @@
             RunningBetList.initialize();
         });
 
-        it("RunningBetList.getUrlParams(sParam) should be called with correct parameters", function () {
-            expect(RunningBetList.getUrlParams).toHaveBeenCalledWith("bettype");
-        });
-
-        it("RunningBetList.submit(bettype) should be called with correct parameters", function () {
-            expect(RunningBetList.submit).toHaveBeenCalledWith("1");
+        it("RunningBetList.submit() should be called", function () {
+            expect(RunningBetList.submit).toHaveBeenCalled();
         });
 
         it("Site.addUserGuide(options) should be called", function () {
@@ -31,12 +24,8 @@
             $("#SubmitButton").click();
         });
 
-        it("RunningBetList.getUrlParams(bettype) should be called when $('#SubmitButton') fired click event", function () {
-            expect(RunningBetList.getUrlParams).toHaveBeenCalledWith("bettype");
-        });
-
-        it("RunningBetList.submit(bettype) should be called when $('#SubmitButton') fired click event", function () {
-            expect(RunningBetList.submit).toHaveBeenCalledWith("1");
+        it("RunningBetList.submit() should be called when $('#SubmitButton') fired click event", function () {
+            expect(RunningBetList.submit).toHaveBeenCalled();
         });
     });
 
@@ -53,12 +42,12 @@
             expect(BetList.initialize).toHaveBeenCalled();
         });
 
-        it("Site.setLicenseeOptionParam(params) should be called with correct parameter", function () {
-            expect(Site.setLicenseeOptionParam).toHaveBeenCalledWith({ bettype: 1 });
+        it("Site.setLicenseeOptionParam() should be called.", function () {
+            expect(Site.setLicenseeOptionParam).toHaveBeenCalled();
         });
 
         it("BetList.loadData(params, url) should be called with correct parameters", function () {
-            expect(BetList.loadData).toHaveBeenCalledWith({ bettype: 1 }, 'api/betlist/runningbetlist');
+            expect(BetList.loadData).toHaveBeenCalledWith({ bettype: 1 }, jasmine.any(String));
         });
     });
 
@@ -74,7 +63,7 @@
             $("#ExportToExcel").click();
         });
 
-        it("Site.setLicenseeOptionParam(url) should be called", function () {
+        it("Site.setLicenseeOptionParam() should be called.", function () {
             expect(Site.setLicenseeOptionParam).toHaveBeenCalled();
         });
 

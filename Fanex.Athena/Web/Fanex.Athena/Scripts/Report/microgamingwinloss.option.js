@@ -195,8 +195,8 @@ var MicroGamingWinLossOption = (function () {
     var me =
     {
         totalColspan: 2,
-        urlData: 'api/report/MicrogamingWinloss',
-        urlExcelData: 'api/report/MicrogamingWinloss',
+        urlData: 'api/MicrogamingWinlossReport/Index',
+        urlExcelData: 'api/MicrogamingWinlossReport/Index',
         gridOption:
         {
             datatype: 'local',

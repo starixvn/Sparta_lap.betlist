@@ -1,9 +1,10 @@
-﻿@using Fanex.Athena.Models.ViewModel
+﻿@using Fanex.Athena.Model.Report.ViewModel
 @using Fanex.Athena.Model.Core.DataDomain
-@model Fanex.Athena.Models.ViewModel.Report.ThirdPartyWinLossViewModel
+@model Fanex.Athena.Model.Report.ViewModel.ThirdPartyWinLossViewModel
 <div class="grid_26 content-filter new-line">
     <!--grid_26-->
     <form id="ThirdPartyWinLossForm" name="ThirdPartyWinLossForm" method="post" action="">
+        @Html.AntiForgeryToken()
     <div class="grid_3 filter-label">
         <label>@ViewResources.ViewDataInMonth</label>
     </div>

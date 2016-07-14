@@ -1,7 +1,8 @@
-﻿@using Fanex.Athena.Models.ViewModel.Forecast
-@model Fanex.Athena.Models.ViewModel.Forecast.NewForecastHdpOuViewModel
-@using (Html.BeginForm("NewForecastHdpOu", "Forecast", FormMethod.Post, new { @id = "NewForecastHdpOuForm" }))
+﻿@using Fanex.Athena.Model.Forecast.ViewModel
+@model Fanex.Athena.Model.Forecast.ViewModel.NewForecastHdpOuViewModel
+@using (Html.BeginForm("Index", "NewHandicapOverUnderForecast", FormMethod.Post, new { @id = "NewForecastHdpOuForm" }))
 {
+    @Html.AntiForgeryToken()
     // ----------------------------- Hidden field -----------------------------//
     <div>
         @Html.Hidden("CurrencyId-Hidden", Model.Param.CurrencyId)

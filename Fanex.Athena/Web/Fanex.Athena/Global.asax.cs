@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="Global.asax.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// <copyright file="Global.asax.cs" company="">
+// Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 
@@ -9,9 +9,12 @@ namespace Fanex.Athena
     using System;
     using System.Web;
     using System.Web.Http;
+    using System.Web.Http.ExceptionHandling;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using Api.Base.Attributes;
+    using Api.Base.Logger;
     using CasinoSetting;
     using Data.Configuration;
     using Fanex.Athena.Extension.Utility;
@@ -19,19 +22,8 @@ namespace Fanex.Athena
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
 
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode,
-    // visit http://go.microsoft.com/?LinkId=9394801
-
-    /// <summary>
-    /// Global class.
-    /// </summary>
     public class MvcApplication : HttpApplication
     {
-        /// <summary>
-        /// Application start.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event ARGS.</param>
         public void Application_Start(object sender, EventArgs e)
         {
             ViewEngines.Engines.Clear();
@@ -49,7 +41,7 @@ namespace Fanex.Athena
             GlobalConfiguration.Configuration.MessageHandlers.Add(new CompressHandler());
             GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
-            GlobalConfiguration.Configuration.Filters.Add(new CustomAPIExceptionHandlingAttribute());
+            GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
             /*End Web API*/
             DbSettingProviderManager.Current.Start();
             log4net.Config.XmlConfigurator.Configure();

@@ -2,9 +2,9 @@
     ViewBag.Title = string.Format("LRF - {0} - {1}", ViewResources.Report, ViewResources.CustomerWinLoss);
     Layout = "~/Views/Shared/_ReportLayout.cshtml";
 }
-@using Fanex.Athena.Models.ViewModel
+@using Fanex.Athena.Model.Report.ViewModel
 @using Fanex.Athena.Model.Core.DTO.Common
-@model Fanex.Athena.Models.ViewModel.Report.CustomerWinLossViewModel
+@model Fanex.Athena.Model.Report.ViewModel.CustomerWinLossViewModel
 @section pagecss {
     <link href="@Url.ContentLink("/Content/Report/customerwinloss.css")" rel="stylesheet" type="text/css" />
 }

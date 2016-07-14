@@ -1,4 +1,4 @@
-﻿// <copyright file="NumberHelper.cs" company="Nexcel Solution">
+﻿// <copyright file="NumberHelper.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

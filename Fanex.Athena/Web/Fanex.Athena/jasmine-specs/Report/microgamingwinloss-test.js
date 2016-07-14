@@ -13,18 +13,18 @@
         it("Site.setConstraintMonthRange(monthRange, url) should be called with correct parameter", function () {
             MicroGamingWinLoss.initialize();
 
-            expect(Site.setConstraintMonthRange).toHaveBeenCalledWith(3, "api/report/MicrogamingWinloss");
+            expect(Site.setConstraintMonthRange).toHaveBeenCalledWith(3, "api/MicrogamingWinlossReport/Index");
         });
 
-        it("MicroGamingWinLoss.resizeGrid() should be called when '.tree-wrap-ltr' fired click event", function () {
+        it("jqGridAdditional.resizeGrid() should be called when '.tree-wrap-ltr' fired click event", function () {
             var $treeWrap = affix(".tree-wrap-ltr");
             affix(".report-content").append($treeWrap);
-            spyOn(MicroGamingWinLoss, "resizeGrid");
+            spyOn(jqGridAdditional, "resizeGrid");
             MicroGamingWinLoss.initialize();
 
             $treeWrap.click();
 
-            expect(MicroGamingWinLoss.resizeGrid).toHaveBeenCalled();
+            expect(jqGridAdditional.resizeGrid).toHaveBeenCalled();
         });
     });
 
@@ -113,7 +113,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest('api/report/MicrogamingWinloss')
+                .stubRequest('api/MicrogamingWinlossReport/Index')
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -133,8 +133,8 @@
             jasmine.Ajax.uninstall();
         });
 
-        it("Request url should be 'api/report/MicrogamingWinloss'", function () {
-            expect(request.url).toBe("api/report/MicrogamingWinloss");
+        it("Request url should be 'api/MicrogamingWinlossReport/Index'", function () {
+            expect(request.url).toBe("api/MicrogamingWinlossReport/Index");
         });
         it("MicroGamingWinLoss.ajaxComplete(response) should be called with correct parameters", function () {
             expect(MicroGamingWinLoss.ajaxComplete).toHaveBeenCalled();

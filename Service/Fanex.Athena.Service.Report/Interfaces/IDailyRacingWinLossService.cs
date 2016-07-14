@@ -1,0 +1,26 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="IDailyRacingWinLossService.cs" company="Microsoft">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.Service.Report.Interfaces
+{
+    using System.Collections.Generic;
+    using Fanex.Athena.Model.Report.DTO;
+    using Fanex.Athena.Model.Report.MetaModel;
+
+    /// <summary>
+    ///     TODO: Update summary.
+    /// </summary>
+    public interface IDailyRacingWinLossService
+    {
+        #region Public Methods and Operators
+
+        IList<DailyRacingWinLoss> GetDataList(DailyRacingWinLossMetaModel metaModel);
+
+        DailyRacingWinLossData GetDailyRacingWinLossData(DailyRacingWinLossMetaModel metaModel);
+
+        #endregion Public Methods and Operators
+    }
+}

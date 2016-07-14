@@ -1,9 +1,10 @@
-﻿@using Fanex.Athena.Models.ViewModel
+﻿@using Fanex.Athena.Model.Report.ViewModel
 @using Fanex.Athena.Model.Core.DataDomain
-@model Fanex.Athena.Models.ViewModel.Report.AgCasinoWinLossViewModel
+@model Fanex.Athena.Model.Report.ViewModel.AgCasinoWinLossViewModel
 <div class="grid_26 content-filter new-line">
     <!--grid_26-->
     <form id="AgCasinoWinLossForm" name="AgCasinoWinLossForm" method="post" action="">
+        @Html.AntiForgeryToken()
         @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
         Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
     <div>

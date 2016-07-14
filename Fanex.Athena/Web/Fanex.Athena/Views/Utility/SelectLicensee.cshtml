@@ -34,7 +34,7 @@
        
         @foreach (Fanex.Athena.Model.Core.DTO.Common.Licensee item in ViewBag.LicenseeList)
         {
-             <p onclick="document.location.href='@Url.Content("~/Utility/SelectLicensee?licenseeid=")@item.Id'" style="cursor:pointer">
+             <p onclick="document.location.href='@Url.Content("~/LicenseeList/Index?licenseeid=")@item.Id'" style="cursor:pointer">
                     <a>
                         @item.Name
                     </a>

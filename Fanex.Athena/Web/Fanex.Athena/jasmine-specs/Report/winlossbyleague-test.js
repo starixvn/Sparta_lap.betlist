@@ -1,14 +1,14 @@
 ﻿describe("WinLossByLeague", function () {
     describe("ajaxPaging()", function () {
         beforeEach(function () {
-            spyOn(pagingHeper, "getSetting");
+            spyOn(PagingHeper, "getSetting");
             spyOn(WinLossByLeague, "drillDown");
 
             WinLossByLeague.ajaxPaging();
         });
 
-        it("pagingHeper.getSetting() should be called", function () {
-            expect(pagingHeper.getSetting).toHaveBeenCalled();
+        it("PagingHeper.getSetting() should be called", function () {
+            expect(PagingHeper.getSetting).toHaveBeenCalled();
         });
 
         it("WinLossByLeague.drillDown(leagueid, leaguename) should be called with correct parameters", function () {
@@ -65,7 +65,7 @@
 
                 jasmine.Ajax.install();
                 jasmine.Ajax
-                    .stubRequest("report/GetMatchesByLeague")
+                    .stubRequest("WinLossByLeagueReport/GetMatchesByLeague")
                     .andReturn({
                         'status': 200,
                         'contentType': 'application/json',
@@ -83,7 +83,7 @@
             });
 
             it("ajax request should be called with correct url", function () {
-                expect(request.url).toBe("report/GetMatchesByLeague");
+                expect(request.url).toBe("WinLossByLeagueReport/GetMatchesByLeague");
             });
         });
 
@@ -92,7 +92,7 @@
             beforeEach(function (done) {              
                 jasmine.Ajax.install();
                 jasmine.Ajax
-                    .stubRequest("report/GetLeaguesBySport")
+                    .stubRequest("WinLossByLeagueReport/GetLeaguesBySport")
                     .andReturn({
                         'status': 200,
                         'contentType': 'application/json',
@@ -110,7 +110,7 @@
             });
 
             it("ajax request should be called with correct url", function () {
-                expect(request.url).toBe("report/GetLeaguesBySport");
+                expect(request.url).toBe("WinLossByLeagueReport/GetLeaguesBySport");
             });
         });
 
@@ -225,7 +225,7 @@
             spyOn($.fn, "jqGrid");
             spyOn(jqGridAdditional, "showRecommendedBrowser");
             spyOn(jqGridAdditional, "resetLayout");
-            spyOn(WinLossByLeague, "resizeGrid");
+            spyOn(jqGridAdditional, "resizeGrid");
 
             WinLossByLeague.bindData(2, { Data: [1, 2, 3], Total: [4, 5, 6] });
         });
@@ -245,8 +245,8 @@
         it("jqGridAdditional.resetLayout(reportGrid) should be called with correct parameter", function () {
             expect(jqGridAdditional.resetLayout).toHaveBeenCalledWith($reportGrid);
         });
-        it("WinLossByLeague.resizeGrid() should be called", function () {
-            expect(WinLossByLeague.resizeGrid).toHaveBeenCalled();
+        it("jqGridAdditional.resizeGrid() should be called", function () {
+            expect(jqGridAdditional.resizeGrid).toHaveBeenCalled();
         });
     });
 });
