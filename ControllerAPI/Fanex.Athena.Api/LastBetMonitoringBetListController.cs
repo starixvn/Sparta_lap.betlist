@@ -27,6 +27,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
+    using Helpers;
     using Resources;
     using Service.BetList;
     using Service.BetList.Interfaces;
@@ -292,7 +293,7 @@ namespace Fanex.Athena.Api.BetList
                     baseCurrency = string.Empty;
                 }
 
-                return GenerateClientDetailSystemParlayFunction(TicketHelper, baseCurrency, ticket, 0);
+                return BetListHelper.GenerateClientDetailSystemParlayFunction(_ticketHelper, baseCurrency, ticket, 0);
             }
 
             return string.Empty;

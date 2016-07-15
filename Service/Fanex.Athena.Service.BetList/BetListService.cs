@@ -61,13 +61,7 @@ namespace Fanex.Athena.Service.BetList
         [System.CLSCompliant(false)]
         public SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
         {
-            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)
-                        ? _betlistDataAccess.GetSystemParlayDetail(metaModel)
-                        : new SystemParlayData
-                        {
-                            TicketList = new List<ISystemParlayTicket>(),
-                            SerialList = new List<ISystemParlaySerial>()
-                        };
+            return _betlistDataAccess.GetSystemParlayDetail(metaModel);
         }
 
         /// <summary>

@@ -51,7 +51,7 @@ namespace Fanex.Athena.DataAccess.BetList
                 "leagueid", "awayid", "homeid", "matchid", "custid", "currencyid", "livehomescore", "liveawayscore",
                 "SpecialLevel", "StatusId", "transid", "betid", "winlostdate", "transdate",
                 playerCommCol, commCol, licenseeWlCol, winlostCol, beteffectiveCol, stakeCol, actualStakeCol,
-                "odds", "modds", "hdp1", "hdp2", "transdesc"
+                "odds", "modds", "hdp1", "hdp2", "transdesc", "currency"
             };
 
             var reader = new SafeDataReader(dataReader, columns);
@@ -114,6 +114,8 @@ namespace Fanex.Athena.DataAccess.BetList
                 ticket.Handicap1 = reader.GetDecimal("hdp1");
                 ticket.Handicap2 = reader.GetDecimal("hdp2");
                 ticket.TransDesc = reader.GetString("transdesc");
+                ticket.Currency = reader.GetString("currency");
+
                 tickets.Add(ticket);
             }
 
