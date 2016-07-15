@@ -482,7 +482,7 @@ var BetList = (function ($) {
             $divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
 
             if ($divEvent.is(":hidden")) {
-                var url = Site.resolveClientUrl('api/betlist/NewParlayDetail');
+                var url = Site.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
                 url = QueryString.setParam(url, "transId", transId);
                 url = QueryString.setParam(url, "refNo", refNo);
                 url = QueryString.setParam(url, "handicap1", handicap1);
