@@ -482,14 +482,17 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 while (reader.Read())
                 {
+                    var resultStatusId = reader["ResultStatusID"];
+                    var settlementStatusId = reader["SettlementStatusID"];
+
                     gameDetails.Add(new GameDetail
                     {
                         MatchId = int.Parse(reader["matchid"].ToString()),
                         ResourceId = reader["ResourceId"].ToString(),
                         HomeValue = reader["HomeValue"].ToString(),
                         AwayValue = reader["AwayValue"].ToString(),
-                        ResultStatusID = int.Parse(reader["ResultStatusID"].ToString()),
-                        SettlementStatusID = int.Parse(reader["SettlementStatusID"].ToString()),
+                        ResultStatusID = resultStatusId == DBNull.Value ? 0 : int.Parse(resultStatusId.ToString()),
+                        SettlementStatusID = settlementStatusId == DBNull.Value ? 0 : int.Parse(settlementStatusId.ToString()),
                         OtherInfo = reader["OtherInfo"].ToString()
                     });
                 }

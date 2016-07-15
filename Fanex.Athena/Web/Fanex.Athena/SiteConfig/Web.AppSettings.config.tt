@@ -1,0 +1,771 @@
+﻿<#@ template debug="true" hostSpecific="true" #>
+<#@ output extension=".txt" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ Assembly Name="System.Data" #>
+<#@ Import Namespace="System.Data" #>
+<#@ Import Namespace="System.Data.SqlClient" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Security" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Windows.Forms" #>
+<#@ include file="$(SolutionDir)\Packages\T4.TemplateFileManager.2.1.2\tools\ttinc\TemplateFilemanager.CS.ttinclude" #>
+<#
+    var manager = TemplateFileManager.Create(this);
+	List<string> sites = new List<string>() {"DEV","LOCAL","UAT", "SIT","PRO","SANDBOX","BACKUPMNL"};
+    foreach(var site in sites)
+    {
+        var x = site.ToString();
+        var fileName = string.Format("Web.AppSettings.{0}.config", site);
+        manager.StartNewFile(fileName);
+		switch(site)
+		{
+			case "DEV":
+				#>
+<appSettings>
+	<clear />	
+	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
+	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
+	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
+	<add key="Environment" value="DEV"/>
+	<add key="EnableCasinoService" value="0" />
+	<add key="IsEnablePiwik" value="0" />
+	<add key="MoveBetDayStart" value="" />
+	<add key="MoveBetDayEnd" value="" />
+	<add key="PreserveLoginUrl" value="true" />
+	<add key="ClientValidationEnabled" value="true" />
+	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
+	<add key="AllowAutomationCaptchaCode" value="1" />
+	<add key="JsVersion" value="v=56607" />
+	<add key="LocalTest" value="1" />
+	<add key="IsTesting" value="0" />
+	<add key="RemoteRefURL" value="tcp://10.70.70.242:8888/CallGetRefFunction" />  
+	<add key="RemoteCacheUrl" value="tcp://10.70.70.242:8888/CallGetOddsFunction" />
+	<add key="IsShowMixedSport" value="1" />
+	<add key="EnableUpdateBetSetting" value="1" />
+	<add key="EnableBundle" value="1"/>
+	<add key="HistoryDate" value="6/1/2012" />
+	<add key="MaxDate" value="" />
+	<add key="BasedCurrency" value="EUR" />
+	<add key="SecretCaptcha" value="1710" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>	
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210,212"/>
+	<add key="EnableRacing" value="1" />
+	<add key="EnableRacingHRUK" value="1" />
+	<add key="EnableRacingHRSA" value="1" />
+	<add key="EnableRacingHRAust" value="1" />
+	<add key="EnableRacingGreyhoundUK" value="1" />
+	<add key="EnableRacingGreyhoundAust" value="1" />
+	<add key="EnableRacingHarnessAust" value="1" />
+	<add key="EnableNumberGame" value="1" />    
+	<add key="ColumnWidth" value="120" />
+	<add key="SSOKeyPath" value="Integrate/RSAPrivateKey/" />
+	<add key="SSOUnAuthorizePath" value="Utility/SSODenyAccess?Code={0}" />
+	<add key="internaldomain" value="" />
+	<add key="restrictuserprefix" value="pgm;dba;tester;" />
+	<add key="superadminlist" value="pgmson;" />
+	<add key="ExcludeFunctionIdList" value="" />
+	<add key="AcceptIp" value="*" />
+	<add key="IsDisableRngCasino" value="false" />
+	<add key="CasinoNo" value="01" />
+	<add key="LoggingServiceUrl" value="tcp://10.40.40.127:9099/LoggingService" />
+	<add key="EnableAssignCurrency" value="true" />
+	<add key="LicenseeOfferNewForecast" value="14" />
+	<add key="BaseUsdLicensees" value="14"/>
+	<add key="LicenseesEditableBetSettings" value="1,5,86,98,161,162" />
+	<add key="LicenseeOfferStatusFunction" value="12" />
+	<add key="LegendEnvironment" value="UAT" />
+	<add key="LegendAdminSite" value="http://10.18.200.209:7980/V1" />
+	<add key="KenoResultUrl" value="http://keno.garcade.net/keno" />
+	<add key="KenoSiteID" value="5100100" />
+	<add key="KenoVendor" value="LRF" />
+	<add key="KenoVenderKey" value="htdhssdudm" />
+	<add key="KenoAuthorizedUrl" value="http://10.40.40.76:8866/authorizeCode?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	 <!-- AG Casino API -->
+	<add key="AGCasinoApiUrl" value="http://thirdparty.net2cast.com/3rd/GetGroupBettingLimit" />
+	<!-- /AG Casino API  -->
+	<!-- Gold Deluxe API -->
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
+	<!-- /Gold Deluxe API  -->
+	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://thirdparty.net2cast.com/test/3rd/GetMGResultPage"/>
+	<add key="Glimpse:DisableAsyncSupport" value="true" />
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://220.130.26.188:30051/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://cb.garcade.net/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+</appSettings>
+<#
+				break;
+			case "LOCAL":
+				#>
+<appSettings>
+	<clear />
+	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
+	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
+	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
+	<add key="Environment" value="LOCAL"/>
+	<add key="EnableCasinoService" value="0" />
+	<add key="IsEnablePiwik" value="0" />
+	<add key="MoveBetDayStart" value="" />
+	<add key="MoveBetDayEnd" value="" />
+	<add key="PreserveLoginUrl" value="true" />
+	<add key="ClientValidationEnabled" value="true" />
+	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
+	<add key="AllowAutomationCaptchaCode" value="1" />
+	<add key="JsVersion" value="v=56607" />
+	<add key="LocalTest" value="1" />
+	<add key="IsTesting" value="0" />
+	<add key="RemoteRefURL" value="tcp://10.70.70.242:8888/CallGetRefFunction" />  
+	<add key="RemoteCacheUrl" value="tcp://10.70.70.242:8888/CallGetOddsFunction" />
+	<add key="IsShowMixedSport" value="1" />
+	<add key="EnableUpdateBetSetting" value="1" />
+	<add key="EnableBundle" value="1"/>
+	<add key="HistoryDate" value="6/1/2012" />
+	<add key="MaxDate" value="" />
+	<add key="BasedCurrency" value="EUR" />
+	<add key="SecretCaptcha" value="1710" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210,212"/>
+	<add key="EnableRacing" value="1" />
+	<add key="EnableRacingHRUK" value="1" />
+	<add key="EnableRacingHRSA" value="1" />
+	<add key="EnableRacingHRAust" value="1" />
+	<add key="EnableRacingGreyhoundUK" value="1" />
+	<add key="EnableRacingGreyhoundAust" value="1" />
+	<add key="EnableRacingHarnessAust" value="1" />
+	<add key="EnableNumberGame" value="1" />    
+	<add key="ColumnWidth" value="120" />
+	<add key="SSOKeyPath" value="Integrate/RSAPrivateKey/" />
+	<add key="SSOUnAuthorizePath" value="Utility/SSODenyAccess?Code={0}" />
+	<add key="internaldomain" value="" />
+	<add key="restrictuserprefix" value="pgm;dba;tester;" />
+	<add key="superadminlist" value="pgmson;" />
+	<add key="ExcludeFunctionIdList" value="" />
+	<add key="AcceptIp" value="*" />
+	<add key="IsDisableRngCasino" value="false" />
+	<add key="CasinoNo" value="01" />
+	<add key="LoggingServiceUrl" value="tcp://10.40.40.127:9099/LoggingService" />
+	<add key="EnableAssignCurrency" value="true" />
+	<add key="LicenseeOfferNewForecast" value="14" />
+	<add key="BaseUsdLicensees" value="14"/>
+	<add key="LicenseesEditableBetSettings" value="1,5,86,98,161,162" />
+	<add key="LicenseeOfferStatusFunction" value="12" />
+	<add key="KenoResultUrl" value="http://keno.garcade.net/keno" />
+	<add key="KenoSiteID" value="5100100" />
+	<add key="KenoVendor" value="LRF" />
+	<add key="KenoVenderKey" value="htdhssdudm" />
+	<add key="KenoAuthorizedUrl" value="http://10.40.40.76:8866/authorizeCode?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	 <!-- AG Casino API -->
+	<add key="AGCasinoApiUrl" value="http://thirdparty.net2cast.com/3rd/GetGroupBettingLimit" />
+	<!-- /AG Casino API  -->
+	<!-- Gold Deluxe API -->
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
+	<!-- /Gold Deluxe API  -->
+	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://thirdparty.net2cast.com/test/3rd/GetMGResultPage"/>
+	<add key="Glimpse:DisableAsyncSupport" value="true" />
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://220.130.26.188:30051/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://cb.garcade.net/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+</appSettings>
+				<#
+				break;
+			case "UAT":
+				#>
+<appSettings>
+	<clear />	
+	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
+	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
+	<add key="SessionState_Impersonate" value="1"/>
+	<add key="SessionState_CounterCachedDuration" value="30"/>
+	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
+	<add key="Environment" value="UAT"/>
+	<add key="EnableCasinoService" value="1" />
+	<add key="IsEnablePiwik" value="0" />
+	<add key="MoveBetDayStart" value="" />
+	<add key="MoveBetDayEnd" value="" />
+	<add key="ClientValidationEnabled" value="true"/>
+	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+	<add key="AllowAutomationCaptchaCode" value="1"/>
+	<add key="JsVersion" value="v=56607" />
+	<add key="LocalTest" value="0" />
+	<add key="IsTesting" value="0"/>
+	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
+	<add key="RemoteCacheUrl" value="tcp://10.3.21.14:8090/CallGetOddsFunction" />
+	<add key="IsShowMixedSport" value="1" />
+	<add key="EnableUpdateBetSetting" value="1" />
+	<add key="EnableBundle" value="1"/>
+	<add key="HistoryDate" value="6/1/2012"/>
+	<add key="MaxDate" value="" />
+	<add key="BasedCurrency" value="EUR"/>	
+	<add key="SecretCaptcha" value="1710" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210,212"/>
+	<add key="EnableRacing" value="1"/>
+	<add key="EnableRacingHRUK" value="1"/>
+	<add key="EnableRacingHRSA" value="1"/>
+	<add key="EnableRacingHRAust" value="1"/>
+	<add key="EnableRacingGreyhoundUK" value="1"/>
+	<add key="EnableRacingGreyhoundAust" value="1"/>
+	<add key="EnableRacingHarnessAust" value="1"/>
+	<add key="EnableNumberGame" value="1"/>
+	<add key="ColumnWidth" value="120"/>
+	<add key="SSOKeyPath" value="Integrate/RSAPrivateKey/"/>
+	<add key="SSOUnAuthorizePath" value="Utility/SSODenyAccess?Code={0}" />
+	<add key="internaldomain" value=""/>
+	<add key="ExcludeFunctionIdList" value="47"/>
+	<add key="AcceptIp" value="*"/>	
+	<add key="IsDisableRngCasino" value="false"/>
+	<add key="CasinoNo" value="01" />
+	<add key="LoggingServiceUrl" value="tcp://10.40.40.127:9099/LoggingService" />
+	<add key="EnableAssignCurrency" value="true"/>
+	<add key="BaseUsdLicensees" value="14"/>
+	<add key="LicenseesEditableBetSettings" value="1,5,86,98,161,162" />
+	<add key="LicenseeOfferNewForecast" value="14"/>
+	<add key="LicenseeOfferStatusFunction" value="12,5"/>
+	<add key="KenoResultUrl" value="http://keno.garcade.net/keno" />
+	<add key="KenoSiteID" value="5100100" />
+	<add key="KenoVendor" value="LRF" />
+	<add key="KenoVenderKey" value="htdhssdudm" />
+	<add key="KenoAuthorizedUrl" value="http://10.40.40.76:8866/authorizeCode?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="AGCasinoApiUrl" value="http://10.40.40.109:8090/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://10.40.40.109:8090/test/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://10.40.40.109:8090/test/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://10.40.40.109:8090/test/3rd/SetUserGroupBettingLimit" />
+	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/3rd/GetMGResultPage"/>
+	<add key="Glimpse:DisableAsyncSupport" value="true" />
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8066/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="https://cahhd.155551.com/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com:8068/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;CustomerId={0}&amp;vendorProduct=4&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://maxbet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+</appSettings>
+				<#
+				break;
+			case "SIT":
+				#>
+<appSettings>
+	<clear />	
+	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
+	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
+	<add key="SessionState_Impersonate" value="1"/>
+	<add key="SessionState_CounterCachedDuration" value="30"/>
+	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
+	<add key="Environment" value="SIT"/>
+	<add key="EnableCasinoService" value="0" />
+	<add key="IsEnablePiwik" value="0" />
+	<add key="MoveBetDayStart" value="" />
+	<add key="MoveBetDayEnd" value="" />
+	<add key="ClientValidationEnabled" value="true"/>
+	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+	<add key="AllowAutomationCaptchaCode" value="1"/>
+	<add key="JsVersion" value="v=56607" />
+	<add key="LocalTest" value="0" />
+	<add key="IsTesting" value="0"/>
+	<add key="RemoteRefURL" value="tcp://172.16.4.118:8098/CallGetRefFunction" />
+	<add key="RemoteCacheUrl" value="tcp://10.3.21.14:8090/CallGetOddsFunction" />
+	<add key="IsShowMixedSport" value="1" />
+	<add key="EnableUpdateBetSetting" value="1" />
+	<add key="EnableBundle" value="1"/>
+	<add key="HistoryDate" value="6/1/2012"/>
+	<add key="MaxDate" value="" />
+	<add key="BasedCurrency" value="EUR"/>	
+	<add key="SecretCaptcha" value="1710" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210,212"/>
+	<add key="EnableRacing" value="1"/>
+	<add key="EnableRacingHRUK" value="1"/>
+	<add key="EnableRacingHRSA" value="1"/>
+	<add key="EnableRacingHRAust" value="1"/>
+	<add key="EnableRacingGreyhoundUK" value="1"/>
+	<add key="EnableRacingGreyhoundAust" value="1"/>
+	<add key="EnableRacingHarnessAust" value="1"/>
+	<add key="EnableNumberGame" value="1"/>
+	<add key="ColumnWidth" value="120"/>
+	<add key="SSOKeyPath" value="Integrate/RSAPrivateKey/"/>
+	<add key="SSOUnAuthorizePath" value="Utility/SSODenyAccess?Code={0}" />
+	<add key="internaldomain" value=""/>
+	<add key="ExcludeFunctionIdList" value="47"/>
+	<add key="AcceptIp" value="*"/>	
+	<add key="IsDisableRngCasino" value="false"/>
+	<add key="CasinoNo" value="01" />
+	<add key="LoggingServiceUrl" value="tcp://172.16.4.106:9099/LoggingService" />
+	<add key="EnableAssignCurrency" value="true"/>
+	<add key="BaseUsdLicensees" value="14"/>
+	<add key="LicenseesEditableBetSettings" value="1,5,86,98,161,162" />
+	<add key="LicenseeOfferNewForecast" value="14"/>
+	<add key="LicenseeOfferStatusFunction" value="12,5"/>
+	<add key="KenoResultUrl" value="http://keno.garcade.net/keno" />
+	<add key="KenoSiteID" value="5100100" />
+	<add key="KenoVendor" value="LRF" />
+	<add key="KenoVenderKey" value="htdhssdudm" />
+	<add key="KenoAuthorizedUrl" value="http://10.40.40.76:8866/authorizeCode?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="AGCasinoApiUrl" value="http://10.40.40.109:8090/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://10.40.40.109:8090/test/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://10.40.40.109:8090/test/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://10.40.40.109:8090/test/3rd/SetUserGroupBettingLimit" />
+	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/3rd/GetMGResultPage"/>
+	<add key="Glimpse:DisableAsyncSupport" value="true" />
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://172.16.4.132:8072/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://oq36ksfe.playthefun.com/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="L2FDRUxCNm1LYkkzWUUvTG9FWTFVZz09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://172.16.4.132:9075/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;CustomerId={0}&amp;vendorProduct=4&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://cb.garcade.net/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+</appSettings>
+				<#
+				break;
+			case "PRO":
+				#>
+<appSettings>
+	<clear />
+	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
+	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
+	<add key="SessionState_Impersonate" value="1"/>
+	<add key="SessionState_CounterCachedDuration" value="30"/>
+	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
+	<add key="Environment" value="PRO"/>
+	<add key="EnableCasinoService" value="1" />
+	<add key="IsEnablePiwik" value="1" />
+	<add key="MoveBetDayStart" value="" />
+	<add key="MoveBetDayEnd" value="" />
+	<add key="ClientValidationEnabled" value="true"/>
+	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+	<add key="AllowAutomationCaptchaCode" value="0"/>
+	<add key="JsVersion" value="v=56607" />
+	<add key="LocalTest" value="0" />
+	<add key="IsTesting" value="0"/>
+	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
+	<add key="RemoteCacheUrl" value="tcp://10.3.21.14:8090/CallGetOddsFunction" />
+	<add key="IsShowMixedSport" value="1" />
+	<add key="EnableUpdateBetSetting" value="1" />
+	<add key="EnableBundle" value="1"/>
+	<add key="HistoryDate" value="6/1/2012"/>
+	<add key="MaxDate" value="" />
+	<add key="BasedCurrency" value="EUR"/>	
+	<add key="SecretCaptcha" value="1710" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210,212"/>
+	<add key="EnableRacing" value="1"/>
+	<add key="EnableRacingHRUK" value="1"/>
+	<add key="EnableRacingHRSA" value="1"/>
+	<add key="EnableRacingHRAust" value="1"/>
+	<add key="EnableRacingGreyhoundUK" value="1"/>
+	<add key="EnableRacingGreyhoundAust" value="1"/>
+	<add key="EnableRacingHarnessAust" value="1"/>
+	<add key="EnableNumberGame" value="1"/>
+	<add key="ColumnWidth" value="120"/>
+	<add key="SSOKeyPath" value="Integrate/RSAPrivateKey/"/>
+	<add key="SSOUnAuthorizePath" value="Utility/SSODenyAccess?Code={0}" />
+	<add key="internaldomain" value="internal."/>
+	<add key="ExcludeFunctionIdList" value="47"/>
+	<add key="AcceptIp" value="*"/>	
+	<add key="IsDisableRngCasino" value="false"/>
+	<add key="CasinoNo" value="01" />
+	<add key="LoggingServiceUrl" value="tcp://10.40.40.127:9099/LoggingService" />
+	<add key="EnableAssignCurrency" value="true"/>
+	<add key="BaseUsdLicensees" value="14"/>
+	<add key="LicenseesEditableBetSettings" value="1,5,86,98,161,162" />
+	<add key="LicenseeOfferNewForecast" value="14"/>
+	<add key="LicenseeOfferStatusFunction" value="12,5"/>
+	<add key="KenoResultUrl" value="http://keno.garcade.net/keno" />
+	<add key="KenoSiteID" value="5100100" />
+	<add key="KenoVendor" value="LRF" />
+	<add key="KenoVenderKey" value="htdhssdudm" />
+	<add key="KenoAuthorizedUrl" value="http://10.40.40.76:8866/authorizeCode?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="AGCasinoApiUrl" value="http://10.40.40.109:8090/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://10.40.40.109:8090/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://10.40.40.109:8090/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://10.40.40.109:8090/3rd/SetUserGroupBettingLimit" />
+	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/3rd/GetMGResultPage"/>
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8066/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="https://cahhd.155551.com/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://10.40.40.248:8066/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://cb.garcade.net/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+</appSettings>
+
+				<#
+				break;
+			case "SANDBOX":
+				#>
+<appSettings>
+	<clear />
+	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
+	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
+	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
+	<add key="Environment" value="SANDBOX"/>
+	<add key="EnableCasinoService" value="0" />
+	<add key="IsEnablePiwik" value="0" />
+	<add key="MoveBetDayStart" value="" />
+	<add key="MoveBetDayEnd" value="" />
+	<add key="PreserveLoginUrl" value="true" />
+	<add key="ClientValidationEnabled" value="true" />
+	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
+	<add key="AllowAutomationCaptchaCode" value="1" />
+	<add key="JsVersion" value="v=56607" />
+	<add key="LocalTest" value="1" />
+	<add key="IsTesting" value="0" />
+	<add key="RemoteRefURL" value="tcp://10.70.70.242:8888/CallGetRefFunction" />
+	<add key="RemoteCacheUrl" value="tcp://10.70.70.242:8888/CallGetOddsFunction" />
+	<add key="IsShowMixedSport" value="1" />
+	<add key="EnableUpdateBetSetting" value="1" />
+	<add key="EnableBundle" value="1"/>
+	<add key="HistoryDate" value="6/1/2012" />
+	<add key="MaxDate" value="" />
+	<add key="BasedCurrency" value="EUR" />
+	<add key="SecretCaptcha" value="1710" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210,212"/>
+	<add key="EnableRacing" value="1" />
+	<add key="EnableRacingHRUK" value="1" />
+	<add key="EnableRacingHRSA" value="1" />
+	<add key="EnableRacingHRAust" value="1" />
+	<add key="EnableRacingGreyhoundUK" value="1" />
+	<add key="EnableRacingGreyhoundAust" value="1" />
+	<add key="EnableRacingHarnessAust" value="1" />
+	<add key="EnableNumberGame" value="1" />
+	<add key="ColumnWidth" value="120" />
+	<add key="SSOKeyPath" value="Integrate/RSAPrivateKey/" />
+	<add key="SSOUnAuthorizePath" value="Utility/SSODenyAccess?Code={0}" />
+	<add key="internaldomain" value="" />
+	<add key="restrictuserprefix" value="pgm;dba;tester;" />
+	<add key="superadminlist" value="pgmson;" />
+	<add key="ExcludeFunctionIdList" value="" />
+	<add key="AcceptIp" value="*" />
+	<add key="IsDisableRngCasino" value="false" />
+	<add key="CasinoNo" value="01" />
+	<add key="LoggingServiceUrl" value="tcp://10.40.40.127:9099/LoggingService" />
+	<add key="EnableAssignCurrency" value="true" />
+	<add key="LicenseeOfferNewForecast" value="14" />
+	<add key="BaseUsdLicensees" value="14"/>
+	<add key="LicenseesEditableBetSettings" value="1,5,86,98,161,162" />
+	<add key="LicenseeOfferStatusFunction" value="12" />
+	<add key="Las_Environment" value="UAT" />
+	<add key="KenoResultUrl" value="http://keno.garcade.net/keno" />
+	<add key="KenoSiteID" value="5100100" />
+	<add key="KenoVendor" value="LRF" />
+	<add key="KenoVenderKey" value="htdhssdudm" />
+	<add key="KenoAuthorizedUrl" value="http://10.40.40.76:8866/authorizeCode?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />   
+	<add key="AGCasinoApiUrl" value="http://10.40.40.109:8090/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
+	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/test/3rd/GetMGResultPage"/>
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.40.40.41:8068/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://casinoqavm1.maxbet.com:8889/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://cb.garcade.net/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+</appSettings>
+				<#
+				break;
+            case "BACKUPMNL":
+            #>
+<appSettings>
+	<clear />
+	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
+	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
+	<add key="SessionState_Impersonate" value="1"/>
+	<add key="SessionState_CounterCachedDuration" value="30"/>
+	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
+	<add key="Environment" value="BACKUPMNL"/>
+	<add key="EnableCasinoService" value="0" />
+	<add key="IsEnablePiwik" value="0" />
+	<add key="MoveBetDayStart" value="" />
+	<add key="MoveBetDayEnd" value="" />
+	<add key="ClientValidationEnabled" value="true"/>
+	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+	<add key="AllowAutomationCaptchaCode" value="0"/>
+	<add key="JsVersion" value="v=56607" />
+	<add key="LocalTest" value="0" />
+	<add key="IsTesting" value="0"/>
+	<add key="RemoteRefURL" value="tcp://10.40.40.130:8098/CallGetRefFunction" />
+	<add key="RemoteCacheUrl" value="tcp://10.40.40.130:8099/CallGetOddsFunction" />
+	<add key="IsShowMixedSport" value="1" />
+	<add key="EnableUpdateBetSetting" value="1" />
+	<add key="EnableBundle" value="1"/>
+	<add key="HistoryDate" value="6/1/2012"/>
+	<add key="MaxDate" value="" />
+	<add key="BasedCurrency" value="EUR"/>	
+	<add key="SecretCaptcha" value="1710" />
+	<add key="CompanyIP" value="^(202\.78\.231\.(3[3-9]|[4-5][0-9]|6[0-2])|125\.227\.140\.97)$" />
+	<add key="FunctionAllowedProductFile" value="~/App_Data/FunctionAllowedProduct.xml"/>
+	<add key="LiveReportNoDetailLinkSports" value="162,251,252,253,202,203,208,209,210,212"/>
+	<add key="EnableRacing" value="1"/>
+	<add key="EnableRacingHRUK" value="1"/>
+	<add key="EnableRacingHRSA" value="1"/>
+	<add key="EnableRacingHRAust" value="1"/>
+	<add key="EnableRacingGreyhoundUK" value="1"/>
+	<add key="EnableRacingGreyhoundAust" value="1"/>
+	<add key="EnableRacingHarnessAust" value="1"/>
+	<add key="EnableNumberGame" value="1"/>
+	<add key="ColumnWidth" value="120"/>
+	<add key="SSOKeyPath" value="Integrate/RSAPrivateKey/"/>
+	<add key="SSOUnAuthorizePath" value="Utility/SSODenyAccess?Code={0}" />
+	<add key="internaldomain" value="internal-lrf."/>
+	<add key="ExcludeFunctionIdList" value="47"/>
+	<add key="AcceptIp" value="*"/>	
+	<add key="IsDisableRngCasino" value="false"/>
+	<add key="CasinoNo" value="01" />
+	<add key="LoggingServiceUrl" value="tcp://10.2.98.3:9099/LoggingService" />
+	<add key="EnableAssignCurrency" value="true"/>
+	<add key="BaseUsdLicensees" value="14"/>
+	<add key="LicenseesEditableBetSettings" value="1,5,86,98,161,162" />
+	<add key="LicenseeOfferNewForecast" value="14"/>
+	<add key="LicenseeOfferStatusFunction" value="12,5"/>
+	<add key="KenoResultUrl" value="http://keno.garcade.net/keno" />
+	<add key="KenoSiteID" value="5100100" />
+	<add key="KenoVendor" value="LRF" />
+	<add key="KenoVenderKey" value="htdhssdudm" />
+	<add key="KenoAuthorizedUrl" value="http://10.40.40.76:8866/authorizeCode?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExpireTokenUrl" value="http://10.40.40.76:8866/expireToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="KenoExtendTokenUrl" value="http://10.40.40.76:8866/extendToken?vendor={0}&amp;vendorKey={1}&amp;customerid={2}" />
+	<add key="AGCasinoApiUrl" value="http://10.40.40.109:8090/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGroupBettingLimitApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetGroupBettingLimit" />
+	<add key="GoldDeluxeGetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/GetUserGroupBettingLimit" />
+	<add key="GoldDeluxeSetUserGroupApiUrl" value="http://thirdparty.net2cast.com/test/3rd/SetUserGroupBettingLimit" />
+	<add key="EnableEsportSettingStatus" value="false" />
+	<add key="MicroGamingResultAPI" value="http://10.40.40.109:8090/test/3rd/GetMGResultPage"/>
+	<!-- RNG Casino API -->
+	<add key="RNGCasinoGetServerTokenAPIUrl" value="http://10.2.206.7:8066/api/CustomizedAuthorization/ServerToken" />
+	<add key="RNGCasinoResultPopupUrl" value="http://cahhd.ibcbk.com/HandHistoryPortal/HandHistoryLogin.aspx" />
+	<add key="RNGCasinoLogin" value="login" />
+	<add key="RNGCasinoPassword" value="U1YwYm1IbGpSeVdMeWhTaE1Ia1I3QT09" />
+	<add key="RNGCasinoSiteId" value="3000" />
+	<add key="RNGCasinoVendorId" value="10" />
+	<add key="RNGCasinoSeq" value="633b0a18-3cd8-4e59-8c1b-16fc301a5f86" />
+	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
+	<add key="RNGCasinoRole" value="S" />
+	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://cb.garcade.net/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+</appSettings>
+                <#break;
+			default:
+				break;
+		}
+    }
+    manager.Process();
+#>

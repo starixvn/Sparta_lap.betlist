@@ -347,3 +347,7 @@ table .row-noinfo
     text-align: center;
     padding: 4px;
 }
+/* Fast Markets */
+.fn-rs.popup .cl-league.sub {
+    text-align: center;
+}
