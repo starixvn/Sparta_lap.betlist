@@ -22,6 +22,15 @@
                 title: Site.getSingleResource("CasinoProgressiveWins")
             });
         });
+
+        it("Site.setConstraintMonthRange() should be called with the first param = 12.", function () {
+            var VALID_MONTH_RANGE = 12;
+            spyOn(Site, 'setConstraintMonthRange');
+
+            CasinoProgressiveWins.initialize();
+
+            expect(Site.setConstraintMonthRange).toHaveBeenCalledWith(VALID_MONTH_RANGE, CasinoProgressiveWinsOption.urlExcelData);
+        });
     });
 
     describe("initEvent()", function () {

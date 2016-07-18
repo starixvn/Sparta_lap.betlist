@@ -3,7 +3,7 @@
 ///
 var CasinoProgressiveWins = (function ($) {
     "use strict";
-
+    var VALID_MONTH_RANGE = 12;
     var ajaxRequest = null;
 
     function getMicrogamingResultUrl(gameid, custid) {
@@ -33,6 +33,8 @@ var CasinoProgressiveWins = (function ($) {
                 resourceName: "CasinoProgressiveWins",
                 title: Site.getSingleResource("CasinoProgressiveWins")
             });
+
+            Site.setConstraintMonthRange(VALID_MONTH_RANGE, CasinoProgressiveWinsOption.urlExcelData);
         },
 
         initEvent: function () {
