@@ -21,9 +21,9 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
-        public static string Enviroment
+        public static string Environment
         {
-            get { return GetValue("Enviroment"); }
+            get { return GetValue("Environment"); }
         }
 
         public static bool IsEnableCasinoService
