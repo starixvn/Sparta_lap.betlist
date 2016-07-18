@@ -261,7 +261,7 @@
 
         it("the dialog container should contain an iframe with correct src attribute", function () {
             var $iframe = $dialogContainer.find('iframe');
-            expect($iframe.attr('src')).toBe('SystemParlayBetList/Detail?transid=1&refno=0&betid=0&custid=0&betteam=Test BetTeam&basecurrency=0');
+            expect($iframe.attr('src')).toBe('SystemParlayBetList/Detail?refno=0&betteam=Test BetTeam&basecurrency=0');
         });
     });
 
