@@ -38,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             {
                 using (var reader = db.ExecuteReader())
                 {
-                    var isProduction = AppSettings.Enviroment.Equals("PRO", System.StringComparison.OrdinalIgnoreCase);
+                    var isProduction = AppSettings.Environment.Equals("PRO", System.StringComparison.OrdinalIgnoreCase);
                     while (reader.Read())
                     {
                         var environment = reader.ToString("Environment");

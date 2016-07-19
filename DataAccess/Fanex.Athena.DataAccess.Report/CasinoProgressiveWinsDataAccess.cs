@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using Fanex.Athena.DataAccess.Core;
@@ -89,7 +90,7 @@ namespace Fanex.Athena.DataAccess.Report
         {
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-            db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
+            db.AddInParameter("currencyid", DbType.Int32, Math.Max(metaModel.CurrencyId, 0));
             db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
             db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
