@@ -187,14 +187,6 @@ namespace Fanex.Athena.Controllers
                 return Json(RecheckInResult(ErrorType.SessionOverride, ViewResources.SessionLoggedMsg), JsonRequestBehavior.AllowGet);
             }
 
-            var maintenanceInfo = _maintenanceService.GetUnderMaintenanceTime();
-
-            if (maintenanceInfo.IsUnderMaintenanceTime)
-            {
-                var message = string.Format(ViewResources.UndermaintenanceMsg, maintenanceInfo.From, maintenanceInfo.To);
-                return Json(RecheckInResult(ErrorType.AccessDenied, message), JsonRequestBehavior.AllowGet);
-            }
-
             bool isKickout = _userService.RecheckIn(userSession.OnUserId);
 
             var errorCode = ErrorType.Success;
