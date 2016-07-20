@@ -300,6 +300,12 @@ span.active-switch-link
 {
     color: #2673CE;
 }
+
+.theme_jqGrid .ui-jqgrid-btable tr.jqgrow td .detail > .detail-link{
+    color: #755200;
+    font-weight: bold;
+}
+
 /*to make line-through for void-parlay-ticket*/
 div.mx-parlay div.void span, div.mx-parlay div.void div
 {
@@ -312,4 +318,17 @@ div.mx-parlay div.void > div.match, div.mx-parlay div.void div.firstGoal, div.mx
 
 .ui-jqgrid .jqgrow .transtime{
     white-space: normal;
+}
+div.mx-parlay .system-parlay-ticket-infor{
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 15px;
+    color: #000000;
+    font-weight: bold;
+}
+.offer-name-list{
+    font-weight: bold;
+}
+div.mx-parlay .system-parlay-ticket-infor .system-parlay-unit-stake{
+    color: #003399;
 }

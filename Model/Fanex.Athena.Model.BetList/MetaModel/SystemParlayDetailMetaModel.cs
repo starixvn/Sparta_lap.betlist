@@ -14,13 +14,7 @@ namespace Fanex.Athena.Model.BetList.MetaModel
     /// </summary>
     public class SystemParlayDetailMetaModel : BaseMetaModel
     {
-        public long TransId { get; set; }
-
         public long RefNo { get; set; }
-
-        public long BetId { get; set; }
-
-        public int CustId { get; set; }
 
         public DateTime MoveBetsDay { get; set; }
 

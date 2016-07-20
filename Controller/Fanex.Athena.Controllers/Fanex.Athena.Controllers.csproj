@@ -95,7 +95,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\RemotingRef.1.0.0.5\lib\net40\RemotingRef.dll</HintPath>
+      <HintPath>..\..\packages\RemotingRef.1.0.0.9\lib\net40\RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -149,10 +149,6 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="TplCore">
       <HintPath>..\..\packages\TplCore.1.0.4694.29951\lib\net40\TplCore.dll</HintPath>
-    </Reference>
-    <Reference Include="UMControllerLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\UMControllerLibrary.1.0.0.1\lib\net40\UMControllerLibrary.dll</HintPath>
-      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

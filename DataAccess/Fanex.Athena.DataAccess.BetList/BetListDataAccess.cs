@@ -115,10 +115,7 @@ namespace Fanex.Athena.DataAccess.BetList
             {
                 using (var db = new ObjectDb(UspName))
                 {
-                    db.AddInParameter("transid", DbType.Int64, metaModel.TransId);
                     db.AddInParameter("refno", DbType.Int64, metaModel.RefNo);
-                    db.AddInParameter("betid", DbType.Int64, metaModel.BetId);
-                    db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);

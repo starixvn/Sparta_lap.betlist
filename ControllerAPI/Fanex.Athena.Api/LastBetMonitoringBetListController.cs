@@ -27,6 +27,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
+    using Helpers;
     using Resources;
     using Service.BetList;
     using Service.BetList.Interfaces;
@@ -292,16 +293,7 @@ namespace Fanex.Athena.Api.BetList
                     baseCurrency = string.Empty;
                 }
 
-                const string FormatDetail = @"showCombMPDetail({0},{1},&quot;{2}&quot;,{3},&quot;{4}&quot;,&quot;{5}&quot;)";
-                var betTeam = _ticketHelper.GetBetTypeNameById(ticket.BetTypeId) + " - " + _ticketHelper.GetCombinationMPOfferName(ticket.BetTeam);
-                return string.Format(
-                                FormatDetail,
-                                ticket.TransId,
-                                ticket.RefNo,
-                                ticket.BetId,
-                                0,
-                                betTeam,
-                                baseCurrency);
+                return BetListHelper.GenerateClientDetailSystemParlayFunction(_ticketHelper, baseCurrency, ticket, 0);
             }
 
             return string.Empty;
