@@ -5551,6 +5551,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AllBet.
+        /// </summary>
+        public static string ProductAB {
+            get {
+                return ResourceManager.GetString("ProductAB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AG Casino.
         /// </summary>
         public static string ProductAGC {

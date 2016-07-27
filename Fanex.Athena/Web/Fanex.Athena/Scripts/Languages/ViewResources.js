@@ -1,4 +1,4 @@
-﻿// Generated at: 7/12/2016 2:44:14 PM
+﻿// Generated at: 7/27/2016 3:50:21 PM
 var _language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -609,6 +609,7 @@ Prev:"Prev",
 Previous:"Previous",
 ProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 Product:"Product",
+ProductAB:"AllBet",
 ProductAGC:"AG Casino",
 ProductBA:"BA",
 ProductBG:"Bingo",

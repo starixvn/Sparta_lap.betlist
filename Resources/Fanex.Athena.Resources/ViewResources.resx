@@ -2843,4 +2843,8 @@
     <value>Parlay Comm</value>
     <comment>#61897</comment>
   </data>
+  <data name="ProductAB" xml:space="preserve">
+    <value>AllBet</value>
+    <comment>#61066</comment>
+  </data>
 </root>
