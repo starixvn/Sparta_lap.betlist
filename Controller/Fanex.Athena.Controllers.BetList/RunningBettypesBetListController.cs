@@ -34,9 +34,9 @@ namespace Fanex.Athena.Controllers.BetList
     /// </summary>
     public class RunningBettypesBetListController : BetListBaseController
     {
-        private const string DoubleChangeBettypes = "24,151,186,410";
+        private const string DoubleChangeBettypes = "24,151,186,431,410";
 
-        private const string BONTeamToScoreBettypes = "26,145,146,170,188";
+        private const string BONTeamToScoreBettypes = "26,145,146,433,170,188,427";
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
