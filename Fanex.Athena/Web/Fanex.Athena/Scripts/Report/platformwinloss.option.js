@@ -229,7 +229,7 @@ var PlatformWinLossOption = (function () {
     var colModelList = [idColumn, platformNameColumn, indexColumn, externalIdColumn, systemIdColumn, currencyColumn, turnoverColumn,
                 turnoverPercentColumn, totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn, licenseeWlColumn,
                 baCommissionColumn, racingRevenueColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
-    var customerWlTotalIndex = 9;
+    var customerWlTotalIndex = 11;
 
     var me = {
         hasCustomerComm: true,
