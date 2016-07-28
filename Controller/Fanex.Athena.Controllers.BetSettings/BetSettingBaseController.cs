@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.BetSettings
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Extension.Utility;
@@ -33,7 +34,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         private readonly ILicenseeService _licenseeService;
         private readonly ICustomerService _customerService;
         private readonly IProductService _productService;
-        private readonly ProductAccess _productAccess;
+        private readonly Lazy<ProductAccess> _productAccess;
 
         public BetSettingBaseController()
         {
@@ -42,9 +43,10 @@ namespace Fanex.Athena.Controllers.BetSettings
             this._customerService = new CustomerService();
             this._productService = new ProductService();
 
-            _productAccess = _productService.GetProductAccess(
+            _productAccess = new Lazy<ProductAccess>(() =>
+                _productService.GetProductAccess(
                     SessionService.LicenseeSession.LicenseeId,
-                    SessionService.UserSession.Language);
+                    SessionService.UserSession.Language));
         }
 
         protected ICustomerService CustomerService
@@ -59,7 +61,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         protected ProductAccess ProductAccess
         {
-            get { return _productAccess; }
+            get { return _productAccess.Value; }
         }
 
         protected void AssignRequiredProperties(BetSettingBaseViewModel viewModel, BetSettingMetaModel metaModel)
