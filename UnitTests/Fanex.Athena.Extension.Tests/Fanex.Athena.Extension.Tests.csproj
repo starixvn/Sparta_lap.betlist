@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Helper\DateTimeHelperTests.cs" />
     <Compile Include="Helper\ConvertHelperTests.cs" />
+    <Compile Include="Helper\JsonHelperTest.cs" />
     <Compile Include="Helper\NumberHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
