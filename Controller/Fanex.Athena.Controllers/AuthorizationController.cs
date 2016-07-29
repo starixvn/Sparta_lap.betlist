@@ -168,7 +168,6 @@ namespace Fanex.Athena.Controllers
         /// Check current user login and clear current authentication if another session using this user id to login.
         /// </summary>
         /// <returns>The JSON data with error code and error message.</returns>
-        [CheckUMFilter]
         [HttpGet]
         [AllowAnonymous]
         [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
@@ -185,6 +184,13 @@ namespace Fanex.Athena.Controllers
             if (currentLoginId != userSession.OnUserId)
             {
                 return Json(RecheckInResult(ErrorType.SessionOverride, ViewResources.SessionLoggedMsg), JsonRequestBehavior.AllowGet);
+            }
+
+            if (_maintenanceService.IsUnderMaintenance())
+            {
+                var time = _maintenanceService.GetUnderMaintenanceTime();
+                var message = string.Format(ViewResources.UndermaintenanceMsg, time.From, time.To);
+                return Json(RecheckInResult(ErrorType.UnderMaintenance, message), JsonRequestBehavior.AllowGet);
             }
 
             bool isKickout = _userService.RecheckIn(userSession.OnUserId);
