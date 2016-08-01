@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings
 {
+    using System.Collections.Generic;
     using System.Data;
     using Data;
     using Fanex.Athena.DataAccess.BetSettings.Interfaces;
@@ -7,23 +8,33 @@
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
 
-    public class VoidbridgeBetSettingDataAccess : IVoidbridgeBetSettingDataAccess
+    public class DcsBetSettingDataAccess : IDcsBetSettingDataAccess
     {
         private const int MemberRoleId = 1;
 
         private const int ProductStatusSettingType = 4;
 
-        private const int VoidbridgeBettype = 4001;
-
         private const string UpdateStatusXmlFormat = "<ROOT><ProductStatus SportType=\"{0}\" BetType=\"{1}\" IsDisabled=\"{2}\" IsDisabledDownline=\"0\" /></ROOT>";
 
-        public bool? GetStatus(int custId)
+        private static readonly IDictionary<int, int> ProductSporttypeMap = new Dictionary<int, int>()
+        {
+            { ProductTypes.AllBet, (int)SportType.AllBet },
+            { ProductTypes.Voidbridge, (int)SportType.Voidbridge }
+        };
+
+        private static readonly IDictionary<int, int> ProductBettypeMap = new Dictionary<int, int>()
+        {
+            { ProductTypes.AllBet, 2401 },
+            { ProductTypes.Voidbridge, 4001 }
+        };
+
+        public bool? GetStatus(int custId, int productId)
         {
             var uspName = "Acc_Dep_CustSetting_StatusSettingSelect";
             using (var db = new ObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("ProductId", DbType.Int32, ProductTypes.Voidbridge);
+                db.AddInParameter("ProductId", DbType.Int32, productId);
                 db.AddInParameter("SettingType", DbType.Int32, ProductStatusSettingType);
                 db.AddInParameter("RoleID", DbType.Int32, MemberRoleId);
 
@@ -39,7 +50,7 @@
             return null;
         }
 
-        public IResultInfo UpdateStatus(int userId, int custId, string ip, bool status)
+        public IResultInfo UpdateStatus(int userId, int custId, string ip, bool status, int productId)
         {
             var uspName = "Acc_Dep_CustSetting_DisableStatUpd";
 
@@ -47,7 +58,7 @@
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
                 db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("IsDisabled", DbType.String, BuildProductStatusXml(status));
+                db.AddInParameter("IsDisabled", DbType.String, BuildProductStatusXml(productId, status));
                 db.AddInParameter("ip", DbType.String, ip);
 
                 db.AddOutParameter("ErrCode", DbType.Int32, 8);
@@ -63,9 +74,9 @@
             }
         }
 
-        private static string BuildProductStatusXml(bool status)
+        private static string BuildProductStatusXml(int productId, bool status)
         {
-            return string.Format(UpdateStatusXmlFormat, (int)SportType.Voidbridge, VoidbridgeBettype, status ? 0 : 1);
+            return string.Format(UpdateStatusXmlFormat, ProductSporttypeMap[productId], ProductBettypeMap[productId], status ? 0 : 1);
         }
     }
 }

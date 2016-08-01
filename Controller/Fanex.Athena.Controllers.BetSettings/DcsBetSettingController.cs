@@ -1,27 +1,29 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="VoidbridgeController.cs" company="">
+// <copyright file="DcsController.cs" company="">
 // Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 
 namespace Fanex.Athena.Controllers.BetSettings
 {
+    using System;
     using System.Web.Mvc;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
+    using Model.Core.DataDomain;
     using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
 
-    public class VoidbridgeBetSettingController : BetSettingBaseController
+    public class DcsBetSettingController : BetSettingBaseController
     {
-        private readonly IVoidbridgeBetSettingService _betSettingService;
+        private readonly IDcsBetSettingService _betSettingService;
 
-        public VoidbridgeBetSettingController()
+        public DcsBetSettingController()
         {
-            _betSettingService = new VoidbridgeBetSettingService();
+            _betSettingService = new DcsBetSettingService();
         }
 
         [HttpGet]
@@ -30,18 +32,28 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             var viewModel = new BetSettingBaseViewModel()
             {
-                IsEnabled = _betSettingService.GetStatus(SessionService.LicenseeSession.LicenseeId, metaModel.CustId),
+                IsEnabled = _betSettingService.GetStatus(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId),
             };
             AssignRequiredProperties(viewModel, metaModel);
 
-            return View("~/Views/Customer/BetSetting/Voidbridge.cshtml", viewModel);
+            switch (metaModel.ProductId)
+            {
+                case ProductTypes.AllBet:
+                    return View("~/Views/Customer/BetSetting/AllBet.cshtml", viewModel);
+
+                case ProductTypes.Voidbridge:
+                    return View("~/Views/Customer/BetSetting/Voidbridge.cshtml", viewModel);
+
+                default:
+                    throw new ArgumentException("Invalid product id.");
+            }
         }
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public JsonResult UpdateStatus(int custId, string nickName, int status)
+        public JsonResult UpdateStatus(int custId, string nickName, int status, int productId)
         {
-            if (ProductAccess.IsAllowVB == false || !IsBetSettingEditable())
+            if (ProductAccess.IsAllow(productId) == false || !IsBetSettingEditable())
             {
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
@@ -49,10 +61,11 @@ namespace Fanex.Athena.Controllers.BetSettings
             var userSession = SessionService.UserSession;
             var result = _betSettingService.UpdateStatus(
                 SessionService.LicenseeSession.LicenseeId,
-                userSession.UserId, 
-                custId, 
-                Request.UserHostAddress, 
-                status == 1);
+                userSession.UserId,
+                custId,
+                Request.UserHostAddress,
+                status == 1,
+                productId);
 
             if (result.Code == 0)
             {

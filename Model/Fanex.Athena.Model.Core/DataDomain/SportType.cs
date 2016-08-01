@@ -303,6 +303,8 @@ namespace Fanex.Athena.Model.Core.DataDomain
         /// </summary>
         MicroGaming = 203,
 
+        AllBet = 211,
+
         Voidbridge = 212
     }
 }

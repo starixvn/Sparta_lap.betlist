@@ -16,6 +16,7 @@ var BetSetting = (function ($) {
     var TAB_BETTRADE = 13;
     var TAB_MICROGAMINGLIVECASINO = 14;
     var TAB_MICROGAMINGRNGCASINO = 17;
+    var TAB_ALLBET = 21;
     var TAB_VOIDBRIDGE = 22;
 
     var _sportIds = null;
@@ -107,8 +108,9 @@ var BetSetting = (function ($) {
                     url = "ThirdPartyBetSetting/UpdateBetTradeStatus";
                     status = $("#enable-product").is(":checked") ? 1 : 0;
                     break;
+                case TAB_ALLBET:
                 case TAB_VOIDBRIDGE:
-                    url = "VoidbridgeBetSetting/UpdateStatus";
+                    url = "DcsBetSetting/UpdateStatus";
                     break;
             }
 
@@ -117,6 +119,7 @@ var BetSetting = (function ($) {
                 url: Site.resolveClientUrl(url),
                 cache: false,
                 data: {
+                    productId: productId,
                     nickname: nickName,
                     status: status,
                     custid: custId

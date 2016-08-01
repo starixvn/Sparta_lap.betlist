@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="VoidbridgeBetSettingService.cs" company="">
+// <copyright file="DcsBetSettingService.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -12,26 +12,26 @@ namespace Fanex.Athena.Service.BetSettings
     using Model.Core.DTO.Common;
     using Resources;
 
-    public class VoidbridgeBetSettingService : BetSettingBaseService, IVoidbridgeBetSettingService
+    public class DcsBetSettingService : BetSettingBaseService, IDcsBetSettingService
     {
-        private readonly IVoidbridgeBetSettingDataAccess _betSettingDataAccess;
+        private readonly IDcsBetSettingDataAccess _betSettingDataAccess;
 
-        public VoidbridgeBetSettingService()
+        public DcsBetSettingService()
         {
-            _betSettingDataAccess = new VoidbridgeBetSettingDataAccess();
+            _betSettingDataAccess = new DcsBetSettingDataAccess();
         }
 
-        public bool? GetStatus(int licenseeId, int custId)
+        public bool? GetStatus(int licenseeId, int custId, int productId)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
                 return null;
             }
 
-            return _betSettingDataAccess.GetStatus(custId);
+            return _betSettingDataAccess.GetStatus(custId, productId);
         }
 
-        public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, string ip, bool status)
+        public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, string ip, bool status, int productId)
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
@@ -42,7 +42,7 @@ namespace Fanex.Athena.Service.BetSettings
                 };
             }
 
-            return _betSettingDataAccess.UpdateStatus(userId, custId, ip, status);
+            return _betSettingDataAccess.UpdateStatus(userId, custId, ip, status, productId);
         }
     }
 }
