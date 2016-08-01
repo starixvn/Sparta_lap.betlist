@@ -10,33 +10,33 @@
         [Test]
         public void GetCookies_CookieNameExist_ReturnCorrectData()
         {
-            //Arrange
-            const string cookieName = "myCookie";
-            const string cookieValue = "myValue";
+            // Arrange
+            const string CookieName = "myCookie";
+            const string CookieValue = "myValue";
 
             HttpContext.Current = GetHttpContext();
-            HttpContext.Current.Request.Cookies.Add(new HttpCookie(cookieName, cookieValue));
+            HttpContext.Current.Request.Cookies.Add(new HttpCookie(CookieName, CookieValue));
 
-            //Action
-            var result = CookiesHelper.GetCookies(cookieName);
+            // Action
+            var result = CookiesHelper.GetCookies(CookieName);
 
-            //Assert
-            Assert.AreEqual(cookieValue, result);
+            // Assert
+            Assert.AreEqual(CookieValue, result);
         }
 
         [Test]
         public void GetCookies_CookieNameNotExist_ReturnEmptyString()
         {
-            //Arrange
-            const string cookieName = "myCookie";
+            // Arrange
+            const string CookieName = "myCookie";
             var expected = string.Empty;
 
             HttpContext.Current = GetHttpContext();
 
-            //Action
-            var result = CookiesHelper.GetCookies(cookieName);
+            // Action
+            var result = CookiesHelper.GetCookies(CookieName);
 
-            //Assert
+            // Assert
             Assert.AreEqual(expected, result);
         }
 
