@@ -52,7 +52,6 @@ namespace Fanex.Athena.Service.Core.Common
             _appSettings = new AppSettings();
         }
 
-
         #region Public Methods and Operators
 
         /// <summary>

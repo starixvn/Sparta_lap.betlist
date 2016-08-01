@@ -1,8 +1,11 @@
 ﻿@model Fanex.Athena.Model.Report.MetaModel.WeeklyLiveMatchMetaModel
+@{ 
+    var appSettings = new AppSettings();
+}
 <div class="grid_20 content-filter new-line">
     <form id="mainform" name="mainform" method="post" action="">
         @DatePickerHelper.RenderDateRangePicker(Model.FromDate, Model.ToDate,
-        AppSettings.HistoryDate.AddDays(-1), AppSettings.MaxDate.AddDays(-1), isFirstDayOfWeekMonday: true )
+        appSettings.HistoryDate.AddDays(-1), appSettings.MaxDate.AddDays(-1), isFirstDayOfWeekMonday: true )
         <div class="grid_5 userguide-group">
             <div>
                 <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">

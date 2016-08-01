@@ -4,7 +4,8 @@
 <div class="grid_26 content-filter new-line">
     <!--grid_26-->
     @{
-        var historyDate = Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
+        var appSettings = new AppSettings();
+        var historyDate = appSettings.HistoryDate;
      }
      <form id="MicroGamingWinLossForm" name="MicroGamingWinLossForm" method="post" action="">
          @Html.AntiForgeryToken()

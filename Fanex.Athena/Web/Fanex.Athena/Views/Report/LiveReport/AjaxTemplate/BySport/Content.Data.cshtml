@@ -2,7 +2,8 @@
 @model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
 <div class="data-content">
     @{
-        var liveReportNoDetailLinkSports = AppSettings.LiveReportNoDetailLinkSports;
+        var appSettings = new AppSettings();
+        var liveReportNoDetailLinkSports = appSettings.LiveReportNoDetailLinkSports;
     }
     @foreach (var item in Model.BySports)
     {

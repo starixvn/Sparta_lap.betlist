@@ -1,12 +1,15 @@
 ﻿@using Fanex.Athena.Model.Report.ViewModel
 @using Fanex.Athena.Model.Core.DataDomain
 @model Fanex.Athena.Model.Report.ViewModel.ThirdPartyWinLossViewModel
+ @{ 
+     var appSettings = new AppSettings();
+ }
 <div class="grid_26 content-filter new-line">
     <!--grid_26-->
     <form id="ThirdPartyWinLossForm" name="ThirdPartyWinLossForm" method="post" action="">
         @Html.AntiForgeryToken()
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
-        Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
+        appSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
     <div>
         <input type="hidden" id="FromDay" name="FromDay" value="@Model.Param.FromDate.Day" />
         <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDate.Day" />
@@ -16,7 +19,7 @@
         @Html.Hidden("ProductCode", Model.Param.ProductCode)
         @Html.Hidden("ProductName", Model.Param.ProductName)
         @{
-            var minDate = Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
+            var minDate = appSettings.HistoryDate;
         }
         <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
     </div>

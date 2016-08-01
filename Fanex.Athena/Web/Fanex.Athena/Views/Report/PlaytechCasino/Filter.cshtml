@@ -3,9 +3,10 @@
 @model Fanex.Athena.Model.Report.ViewModel.PlaytechCasinoViewModel
 @using (Html.BeginForm("Index", "PlaytechCasinoWinlossReport", FormMethod.Post, new { @id = "PlaytechCasinoForm" }))
 {
+    var appSettings = new AppSettings();
     @Html.AntiForgeryToken()
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
-        Fanex.Athena.Extension.Utility.AppSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
+        appSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
     <div class="grid_2 filter-label" style="width: 45px;">
         <label>
             @ViewResources.Currency

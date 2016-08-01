@@ -2,11 +2,12 @@
 @using Fanex.Athena.Model.Core.MetaModel.Product
 @model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 @{
+    var appSettings = new AppSettings();
     //-----------------------------Date---------------------------------------//
     <div class="grid_2 filter-label">
         <label>@ViewResources.Date</label>
     </div>     
-    @DatePickerHelper.RenderDatePicker(Model.Param.Date, Convert.ToDateTime(Model.Param.BalanceUpDay), AppSettings.MaxDate,
+    @DatePickerHelper.RenderDatePicker(Model.Param.Date, Convert.ToDateTime(Model.Param.BalanceUpDay), appSettings.MaxDate,
         "Date", "", 3)
     //-----------------------------Currency-----------------------------------//
     <div class="grid_2 filter-label">

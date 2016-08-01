@@ -111,7 +111,7 @@
         id="btnSubmitBetSetting" />
         <input type="button" class="button" value="@ViewResources.Reset"
         id="btnReset" />
-        @if (Fanex.Athena.Extension.Utility.AppSettings.GetValue("EnableEsportSettingStatus") == "true" && Model.EsportSetting != EsportSettingType.NoneOffering)
+        @if (ConfigurationManager.AppSettings["EnableEsportSettingStatus"] == "true" && Model.EsportSetting != EsportSettingType.NoneOffering)
         {
             var buttonText = (Model.EsportSetting == EsportSettingType.NoneMemberOffering ? ViewResources.Enable : ViewResources.Disable) + " " + Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(43);
             var esportStatus=Model.EsportSetting==EsportSettingType.NoneMemberOffering;
