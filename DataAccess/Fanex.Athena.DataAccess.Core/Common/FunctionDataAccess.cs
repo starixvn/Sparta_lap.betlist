@@ -27,6 +27,13 @@ namespace Fanex.Athena.DataAccess.Core.Common
     /// </summary>
     public class FunctionDataAccess : BaseDataAccess, IFunctionDataAccess
     {
+        private readonly IAppSettings _appSettings;
+
+        public FunctionDataAccess()
+        {
+            _appSettings = new AppSettings();
+        }
+
         /// <summary>
         /// Get function list.
         /// </summary>
@@ -38,7 +45,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             {
                 using (var reader = db.ExecuteReader())
                 {
-                    var isProduction = AppSettings.Environment.Equals("PRO", System.StringComparison.OrdinalIgnoreCase);
+                    var isProduction = _appSettings.Environment.Equals("PRO", System.StringComparison.OrdinalIgnoreCase);
                     while (reader.Read())
                     {
                         var environment = reader.ToString("Environment");

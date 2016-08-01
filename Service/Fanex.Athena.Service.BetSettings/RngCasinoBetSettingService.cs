@@ -27,11 +27,14 @@ namespace Fanex.Athena.Service.BetSettings
 
         private readonly Customer _customerApi;
 
+        private readonly IAppSettings _appSettings;
+
         public RngCasinoBetSettingService()
         {
             _betSettingDataAccess = new RngCasinoBetSettingDataAccess();
             _casinoSetting = new CasinoSetting();
             _customerApi = new Customer();
+            _appSettings = new AppSettings();
         }
 
         public RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customer, string language, string licenseeName)
@@ -60,7 +63,7 @@ namespace Fanex.Athena.Service.BetSettings
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
-            if (isSyncCasino && !AppSettings.IsDisableRngCasino)
+            if (isSyncCasino && !_appSettings.IsDisableRngCasino)
             {
                 if (!_customerApi.UpdateCustEnableCasino(custId, status == 0, false, ip, userId, username, 4))
                 {
@@ -84,7 +87,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             if (isSyncCasino)
             {
-                if (!AppSettings.IsDisableRngCasino)
+                if (!_appSettings.IsDisableRngCasino)
                 {
                     result = _casinoSetting.UpdateSetting(metaModel.TableParam, metaModel.LicenseeName);
 

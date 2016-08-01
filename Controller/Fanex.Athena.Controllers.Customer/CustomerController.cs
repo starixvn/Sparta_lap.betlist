@@ -212,7 +212,7 @@ namespace Fanex.Athena.Controllers.Customer
         #region Ultilities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
-        private static IList<string> GetLicenseesOfferOddsGroup()
+        private IList<string> GetLicenseesOfferOddsGroup()
         {
             var licenseeIds = AppSettings.GetValue("LicenseesOfferOddsGroup");
             if (!string.IsNullOrEmpty(licenseeIds))

@@ -31,6 +31,13 @@ namespace Fanex.Athena.Service.Casino
                 { "zh-Hans", "zhcn" }
             };
 
+        private readonly IAppSettings _appSettings;
+
+        public RngCasinoSingleWalletService()
+        {
+            _appSettings = new AppSettings();
+        }
+
         public dynamic GetReultInfo(string refNo)
         {
             var authenticatedToken = GetRngCasinoServerToken();
@@ -65,9 +72,9 @@ namespace Fanex.Athena.Service.Casino
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-        private static string GetRngCasinoServerToken()
+        private string GetRngCasinoServerToken()
         {
-            var uri = new Uri(AppSettings.GetValue("RNGCasinoGetServerTokenAPIUrl"));
+            var uri = new Uri(_appSettings.GetValue("RNGCasinoGetServerTokenAPIUrl"));
             var paramString = CreateServerTokenParameters();
             var serverResponse = string.Empty;
 
@@ -88,14 +95,14 @@ namespace Fanex.Athena.Service.Casino
             return serverResponse;
         }
 
-        private static string CreateServerTokenParameters()
+        private string CreateServerTokenParameters()
         {
             var timeStamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff");
-            var login = AppSettings.GetValue("RNGCasinoLogin");
-            var password = AppSettings.GetValue("RNGCasinoPassword");
-            var siteId = int.Parse(AppSettings.GetValue("RNGCasinoSiteId"));
-            var seq = AppSettings.GetValue("RNGCasinoSeq");
-            var vendorId = int.Parse(AppSettings.GetValue("RNGCasinoVendorId"));
+            var login = _appSettings.GetValue("RNGCasinoLogin");
+            var password = _appSettings.GetValue("RNGCasinoPassword");
+            var siteId = int.Parse(_appSettings.GetValue("RNGCasinoSiteId"));
+            var seq = _appSettings.GetValue("RNGCasinoSeq");
+            var vendorId = int.Parse(_appSettings.GetValue("RNGCasinoVendorId"));
 
             var auth = new { Login = login, Password = password, SiteId = siteId };
             var call = new { Seq = seq, VendorId = vendorId };
@@ -108,22 +115,22 @@ namespace Fanex.Athena.Service.Casino
             }.ToJson();
         }
 
-        private static string GetRngCasinoPopupUrl(string token, string refNo)
+        private string GetRngCasinoPopupUrl(string token, string refNo)
         {
             var queryString = GetQueryString(token, refNo);
-            var encryptedKey = AppSettings.GetValue("RNGCasinoEncryptedKey");
+            var encryptedKey = _appSettings.GetValue("RNGCasinoEncryptedKey");
             var encryptParam = EncryptQueryString(queryString, encryptedKey);
             var paramEncode = HttpUtility.UrlEncode(encryptParam);
-            var popupUrl = AppSettings.GetValue("RNGCasinoResultPopupUrl");
+            var popupUrl = _appSettings.GetValue("RNGCasinoResultPopupUrl");
 
             return popupUrl + "?o=" + paramEncode;
         }
 
-        private static string GetQueryString(string token, string refNo)
+        private string GetQueryString(string token, string refNo)
         {
             var languageCode = GetLanguageCode();
-            var template = AppSettings.GetValue("RNGCasinoTemplate");
-            var role = AppSettings.GetValue("RNGCasinoRole");
+            var template = _appSettings.GetValue("RNGCasinoTemplate");
+            var role = _appSettings.GetValue("RNGCasinoRole");
 
             var queryString = string.Format(
                 "Token={0}&RefID={1}&Lang={2}&Template={3}&Role={4}", token, refNo, languageCode, template, role);

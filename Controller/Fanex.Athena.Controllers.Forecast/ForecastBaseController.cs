@@ -30,7 +30,7 @@ namespace Fanex.Athena.Controllers.Forecast
             get { return _forecastService; }
         }
 
-        protected static IList<string> GetLicenseeOfferNewForecastList()
+        protected IList<string> GetLicenseeOfferNewForecastList()
         {
             var items = AppSettings.GetValue("LicenseeOfferNewForecast");
             if (!string.IsNullOrEmpty(items))

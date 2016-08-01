@@ -43,7 +43,15 @@ namespace Fanex.Athena.Service.Core.Common
         /// </summary>
         private readonly IProductDataAccess _productDataAccess = new ProductDataAccess();
 
+        private readonly IAppSettings _appSettings;
+
         #endregion
+
+        public ProductService()
+        {
+            _appSettings = new AppSettings();
+        }
+
 
         #region Public Methods and Operators
 
@@ -134,7 +142,7 @@ namespace Fanex.Athena.Service.Core.Common
         /// </summary>
         /// <param name="functionName">Function name.</param>
         /// <returns>Product code array.</returns>
-        private static string[] GetAllowedProducts(string functionName = null)
+        private string[] GetAllowedProducts(string functionName = null)
         {
             const string FunctionAllowedProductsKey = "FunctionAllowedProducts";
 
@@ -146,7 +154,7 @@ namespace Fanex.Athena.Service.Core.Common
             var functions = CacheService.Get<IEnumerable<XElement>>(FunctionAllowedProductsKey);
             if (functions == null)
             {
-                var filePath = HttpContext.Current.Server.MapPath(AppSettings.GetValue("FunctionAllowedProductFile"));
+                var filePath = HttpContext.Current.Server.MapPath(_appSettings.GetValue("FunctionAllowedProductFile"));
                 functions = XDocument.Load(filePath).Descendants("Function");
                 if (functions != null && functions.Count() > 0)
                 {

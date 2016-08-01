@@ -27,9 +27,12 @@ namespace Fanex.Athena.Service.BetSettings
     {
         private readonly IAgCasinoBetSettingDataAccess _betSettingDataAccess;
 
+        private readonly IAppSettings _appSettings;
+
         public AgCasinoBetSettingService()
         {
             _betSettingDataAccess = new AgCasinoBetSettingDataAccess();
+            _appSettings = new AppSettings();
         }
 
         public AgCasinoBetSettingViewModel GetViewModel(int licenseeId, int custId, string licenseeName)
@@ -84,9 +87,9 @@ namespace Fanex.Athena.Service.BetSettings
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static IList<AgCasinoGame> GetGroupBettings(int custId, string siteName, int currency)
+        private IList<AgCasinoGame> GetGroupBettings(int custId, string siteName, int currency)
         {
-            var uri = new Uri(AppSettings.GetValue("AGCasinoApiUrl"));
+            var uri = new Uri(_appSettings.GetValue("AGCasinoApiUrl"));
             var parameters = string.Format("SiteName={0}&Currency={1}", siteName, currency);
             var apiResult = string.Empty;
             var games = new List<AgCasinoGame>();

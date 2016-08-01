@@ -31,9 +31,12 @@ namespace Fanex.Athena.Service.BetSettings
 
         private readonly IThirdPartyBetSettingDataAccess _betSettingDataAccess;
 
+        private readonly IAppSettings _appSettings;
+
         public GoldDeluxeBetSettingService()
         {
             _betSettingDataAccess = new ThirdPartyBetSettingDataAccess();
+            _appSettings = new AppSettings();
         }
 
         public GoldDeluxeBetSettingViewModel GetViewModel(int licenseeId, int custId, string siteName)
@@ -88,7 +91,7 @@ namespace Fanex.Athena.Service.BetSettings
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
-            var uri = new Uri(AppSettings.GetValue("GoldDeluxeSetUserGroupApiUrl"));
+            var uri = new Uri(_appSettings.GetValue("GoldDeluxeSetUserGroupApiUrl"));
             var parameters = string.Format("SiteName={0}&IBCCustID={1}&ThirdPartyId={2}&GroupType={3}", siteName, custId, GoldDeluxeThirdPartyId, group);
             var apiResult = string.Empty;
 
@@ -140,7 +143,7 @@ namespace Fanex.Athena.Service.BetSettings
                 return new List<GoldDeluxeGame>();
             }
 
-            var uri = new Uri(AppSettings.GetValue("GoldDeluxeGroupBettingLimitApiUrl"));
+            var uri = new Uri(_appSettings.GetValue("GoldDeluxeGroupBettingLimitApiUrl"));
             var parameters = string.Format("SiteName={0}&Currency={1}&ThirdPartyId={2}", siteName, currency, GoldDeluxeThirdPartyId);
             var apiResult = string.Empty;
             var games = new List<GoldDeluxeGame>();
@@ -188,7 +191,7 @@ namespace Fanex.Athena.Service.BetSettings
             Justification = "Reviewed. Suppression is OK here.")]
         private string GetGoldDeluxeUserGroup(string siteName, int custId, int currencyId)
         {
-            var uri = new Uri(AppSettings.GetValue("GoldDeluxeGetUserGroupApiUrl"));
+            var uri = new Uri(_appSettings.GetValue("GoldDeluxeGetUserGroupApiUrl"));
             var parameters = string.Format("SiteName={0}&IBCCustID={1}&ThirdPartyId={2}&Currency={3}", siteName, custId, GoldDeluxeThirdPartyId, currencyId);
             var apiResult = string.Empty;
 
