@@ -18,13 +18,13 @@
         [TestCase(-2.5, "-2.50")]
         public void ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(object value, string expected)
         {
-            //Arrange
+            // Arrange
             var decimalNumber = Convert.ToDecimal(value);
 
-            //Action
+            // Action
             var result = NumberHelper.ToStringExt(decimalNumber);
 
-            //Assert
+            // Assert
             Assert.AreEqual(expected, result);
         }
 
@@ -37,10 +37,10 @@
         [TestCase(-25000, "-25,000")]
         public void ToStringExt_OneArgumentWithIntType_ReturnFormattedNumberWithThousandSeparator(object value, string expected)
         {
-            //Action
+            // Action
             var result = value.ToStringExt();
 
-            //Assert
+            // Assert
             Assert.AreEqual(expected, result);
         }
 
@@ -52,10 +52,10 @@
         [TestCase(-2.57384, "-2.57384")]
         public void ToStringExt_OneArgumentWithOtherType_ReturnOriginalNumber(object value, string expected)
         {
-            //Action
+            // Action
             var result = value.ToStringExt();
 
-            //Assert
+            // Assert
             Assert.AreEqual(expected, result);
         }
 
@@ -70,14 +70,14 @@
         [TestCase(-2.5, "-2.500")]
         public void ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(object value, string expected)
         {
-            //Arrange
+            // Arrange
             var decimalNumber = Convert.ToDecimal(value);
             byte digit = 3;
 
-            //Action
+            // Action
             var result = NumberHelper.ToStringExt(decimalNumber, digit);
 
-            //Assert
+            // Assert
             Assert.AreEqual(expected, result);
         }
 
@@ -92,13 +92,13 @@
         [TestCase(-2.5, "-2.50")]
         public void DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(object value, string expected)
         {
-            //Arrange
+            // Arrange
             var decimalNumber = Convert.ToDecimal(value);
 
-            //Action
+            // Action
             var result = NumberHelper.DecFormat(decimalNumber);
 
-            //Assert
+            // Assert
             Assert.AreEqual(expected, result);
         }
 
@@ -113,14 +113,14 @@
         [TestCase(-2.5, "-2.500")]
         public void DecFormat_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(object value, string expected)
         {
-            //Arrange
+            // Arrange
             var decimalNumber = Convert.ToDecimal(value);
             byte digit = 3;
 
-            //Action
+            // Action
             var result = NumberHelper.DecFormat(decimalNumber, digit);
 
-            //Assert
+            // Assert
             Assert.AreEqual(expected, result);
         }
     }
