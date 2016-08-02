@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Extension.Tests.Utility
 {
+    using ClassTest;
     using Extension.Utility;
     using NUnit.Framework;
 
@@ -12,9 +13,9 @@
         public void Compare_AscendingDirection_ReturnCorrectValue(string propertyName, int expected)
         {
             // Arrange
-            var comparer = new PropertyComparer<MyClass>(propertyName, System.ComponentModel.ListSortDirection.Ascending);
-            var firstObject = new MyClass { Id = 1, Name = "Walter", NickName = "xxx" };
-            var secondObject = new MyClass { Id = 2, Name = "Ralph", NickName = "xxx" };
+            var comparer = new PropertyComparer<Person>(propertyName, System.ComponentModel.ListSortDirection.Ascending);
+            var firstObject = new Person { Id = 1, Name = "Walter", NickName = "xxx" };
+            var secondObject = new Person { Id = 2, Name = "Ralph", NickName = "xxx" };
 
             // Action
             var result = comparer.Compare(firstObject, secondObject);
@@ -29,9 +30,9 @@
         public void Compare_DescendingDirection_ReturnCorrectValue(string propertyName, int expected)
         {
             // Arrange
-            var comparer = new PropertyComparer<MyClass>(propertyName, System.ComponentModel.ListSortDirection.Descending);
-            var firstObject = new MyClass { Id = 1, Name = "Walter", NickName = "xxx" };
-            var secondObject = new MyClass { Id = 2, Name = "Ralph", NickName = "xxx" };
+            var comparer = new PropertyComparer<Person>(propertyName, System.ComponentModel.ListSortDirection.Descending);
+            var firstObject = new Person { Id = 1, Name = "Walter", NickName = "xxx" };
+            var secondObject = new Person { Id = 2, Name = "Ralph", NickName = "xxx" };
 
             // Action
             var result = comparer.Compare(firstObject, secondObject);
@@ -44,9 +45,9 @@
         public void Compare_PropertyNotExistInFirstObject_ReturnCorrectValue()
         {
             // Arrange
-            var comparer = new PropertyComparer<MyClass>("NickName", System.ComponentModel.ListSortDirection.Ascending);
-            var firstObject = new MyClass { Id = 1, Name = "Walter" };
-            var secondObject = new MyClass { Id = 2, Name = "Ralph", NickName = "xxx" };
+            var comparer = new PropertyComparer<Person>("NickName", System.ComponentModel.ListSortDirection.Ascending);
+            var firstObject = new Person { Id = 1, Name = "Walter" };
+            var secondObject = new Person { Id = 2, Name = "Ralph", NickName = "xxx" };
             const int Expected = -1;
 
             // Action
@@ -60,9 +61,9 @@
         public void Compare_PropertyNotExistInSecondObject_ReturnCorrectValue()
         {
             // Arrange
-            var comparer = new PropertyComparer<MyClass>("NickName", System.ComponentModel.ListSortDirection.Ascending);
-            var firstObject = new MyClass { Id = 1, Name = "Walter", NickName = "xxx" };
-            var secondObject = new MyClass { Id = 2, Name = "Ralph" };
+            var comparer = new PropertyComparer<Person>("NickName", System.ComponentModel.ListSortDirection.Ascending);
+            var firstObject = new Person { Id = 1, Name = "Walter", NickName = "xxx" };
+            var secondObject = new Person { Id = 2, Name = "Ralph" };
             const int Expected = 0;
 
             // Action
@@ -70,15 +71,6 @@
 
             // Assert
             Assert.AreEqual(Expected, result);
-        }
-
-        internal class MyClass
-        {
-            public int Id { get; set; }
-
-            public string Name { get; set; }
-
-            public string NickName { get; set; }
         }
     }   
 }

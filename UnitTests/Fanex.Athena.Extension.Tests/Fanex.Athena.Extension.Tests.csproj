@@ -50,14 +50,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helper\DateTimeHelperTest.cs" />
-    <Compile Include="Helper\ConvertHelperTest.cs" />
+    <Compile Include="ClassTest\Person.cs" />
+    <Compile Include="Helper\DateTimeHelperTests.cs" />
+    <Compile Include="Helper\ConvertHelperTests.cs" />
     <Compile Include="Helper\JsonHelperTest.cs" />
     <Compile Include="Helper\NumberHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\CookiesHelperTest.cs" />
     <Compile Include="Utility\UtilTest.cs" />
+    <Compile Include="Utility\DictionaryPropertyComparerTest.cs" />
     <Compile Include="Utility\PropertyComparerTest.cs" />
+    <Compile Include="Utility\SortableListTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -71,6 +74,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
