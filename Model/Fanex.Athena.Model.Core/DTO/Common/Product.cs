@@ -50,6 +50,8 @@ namespace Fanex.Athena.Model.Core.DTO.Common
 
         public const string VB = "VB";
 
+        public const string AB = "AB";
+
         #endregion Field
 
         #region Constructor
