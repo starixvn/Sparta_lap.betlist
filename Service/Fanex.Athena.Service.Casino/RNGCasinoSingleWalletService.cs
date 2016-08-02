@@ -71,6 +71,18 @@ namespace Fanex.Athena.Service.Casino
             return IBCCrypt.IBCCrypt.Encrypt(parameters, encryptedKey);
         }
 
+        private static string GetLanguageCode()
+        {
+            var languageCode = CultureInfo.CurrentUICulture.IetfLanguageTag;
+            string result;
+            if (!_mapLanguages.TryGetValue(languageCode, out result))
+            {
+                return "en";
+            }
+
+            return result;
+        }
+
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         private string GetRngCasinoServerToken()
         {
@@ -136,18 +148,6 @@ namespace Fanex.Athena.Service.Casino
                 "Token={0}&RefID={1}&Lang={2}&Template={3}&Role={4}", token, refNo, languageCode, template, role);
 
             return queryString;
-        }
-
-        private static string GetLanguageCode()
-        {
-            var languageCode = CultureInfo.CurrentUICulture.IetfLanguageTag;
-            string result;
-            if (!_mapLanguages.TryGetValue(languageCode, out result))
-            {
-                return "en";
-            }
-
-            return result;
         }
     }
 }
