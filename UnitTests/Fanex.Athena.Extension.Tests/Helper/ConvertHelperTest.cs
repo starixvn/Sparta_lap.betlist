@@ -5,7 +5,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class ConvertHelperTests
+    public class ConvertHelperTest
     {
         [TestCase(null, typeof(NullReferenceException))]
         [TestCase("", typeof(ArgumentOutOfRangeException))]

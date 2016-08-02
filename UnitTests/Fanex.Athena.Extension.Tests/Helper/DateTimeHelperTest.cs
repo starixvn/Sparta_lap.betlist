@@ -5,7 +5,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class DateTimeHelperTests
+    public class DateTimeHelperTest
     {
         [TestCase("1/1/2016", "12/28/2015")]
         [TestCase("7/25/2016", "7/25/2016")]
