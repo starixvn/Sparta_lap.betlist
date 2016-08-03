@@ -58,6 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\CookiesHelperTest.cs" />
     <Compile Include="Utility\DictionayExtensionTest.cs" />
+    <Compile Include="Utility\GroupCommSettingTest.cs" />
     <Compile Include="Utility\UtilTest.cs" />
     <Compile Include="Utility\DictionaryPropertyComparerTest.cs" />
     <Compile Include="Utility\PropertyComparerTest.cs" />
