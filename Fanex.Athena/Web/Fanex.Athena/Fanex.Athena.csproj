@@ -412,6 +412,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="App_Data\SpNameConfig\FanexSpName.xml1.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
+    </Content>
     <Content Include="Content\BetList\Allbet.css" />
     <Content Include="App_Data\Notification\zh-CN.htm" />
     <Content Include="App_Data\Notification\zh-TW.htm" />
@@ -436,11 +441,6 @@
     <Content Include="App_Data\SpNameConfig\FanexSpName.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpName.xml1.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
     <Content Include="App_Data\UserGuide\ActiveCustomerSummary\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\ActiveCustomerSummary\zh-TW.htm" />

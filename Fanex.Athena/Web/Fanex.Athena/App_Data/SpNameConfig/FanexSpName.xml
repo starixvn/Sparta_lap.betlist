@@ -148,7 +148,7 @@
     <Setting Key="TP_User_CustGameType_UpdStakeLevel" SpName="TP_User_CustGameType_UpdStakeLevel" DbName="live_casino" />
     <Setting Key="WriteLog_UserLog_RunSP" SpName="WriteLog_UserLog_RunSP" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
     <Setting Key="Acc_Dep_CustSetting_StatusSettingSelect" SpName="Acc_Dep_CustSetting_StatusSettingSelect_xtest" DbName="DBCUST.CustDB.bodbLicenseeNet" />
-    <Setting Key="Acc_Dep_CustSetting_DisableStatUpd" SpName="Acc_Dep_CustSetting_DisableStatUpd_xtest" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Acc_Dep_CustSetting_DisableStatUpd" SpName="Acc_Dep_CustSetting_DisableStatUpd" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CheckEditBetSetting" SpName="Lrf_CheckEditBetSetting" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 

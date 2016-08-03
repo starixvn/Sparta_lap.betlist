@@ -33,6 +33,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Result.Core.Sportsbook.DTO;
     using Model.Core.Helper;
     using Resources;
+    using Result.Core.AllBetCasino;
     using Result.Core.Voidbridge;
 
     /// <summary>
@@ -238,6 +239,14 @@ namespace Fanex.Athena.Controllers.Report
             return voidbridgeApi.GetBetHistoryUrl(custId, gamePlayId, languageCode);
         }
 
+        [HttpGet]
+        public string AllBetResult(string refNo)
+        {
+            var allbetResultService = new BuilderService();
+
+            return allbetResultService.Render(refNo);
+        }
+
         /// <summary>
         /// Generate tennis detailed result.
         /// </summary>
@@ -334,6 +343,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsPopUp = true,
                 LanguageCode = SessionService.UserSession.Language
             };
+
             if (setting.IsParlayPopUp)
             {
                 if (metalModel.RefNo != null)

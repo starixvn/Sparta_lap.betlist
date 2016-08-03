@@ -11,7 +11,9 @@ var BetList = (function ($) {
     var SPORT_RNG_GAME = 208;
     var SPORT_RNG_MINIGAME = 209;
     var SPORT_RNG_MOBILE = 210;
+    var SPORT_ALLBET = 211;
     var SPORT_VOIDBRIDGE = 212;
+
 
     var _sortColumnName, _sortOrder;
     var _params, _url;
@@ -379,6 +381,20 @@ var BetList = (function ($) {
             });
         },
 
+        viewAllBetResult: function (refno) {
+            var url = Site.resolveClientUrl('ResultReport/AllBetResult?refno=' + refno);
+            Site.blockUI();
+
+            var dialogForm = '<div title="' + Site.getSingleResource("Result") +
+                        '"><iframe frameborder="0" style="width:100%; height:100%;" src="' + url + '" ></iframe></div></div>';
+            $(dialogForm).dialog({
+                modal: true,
+                width: 800,
+                height: 380
+            });
+            Site.unBlockUI();
+        },
+
         showRngCasinoResultPopup: function (title, url) {
             if (url === "") {
                 return;
@@ -417,6 +433,9 @@ var BetList = (function ($) {
             }
             else if (sporttype === SPORT_VOIDBRIDGE) {
                 BetList.viewVoidbridgeResult(custid, betcheck);
+            }
+            else if (sporttype === SPORT_ALLBET) {
+                BetList.viewAllBetResult(refno);
             }
             else {
                 bettype = Number(bettype);
