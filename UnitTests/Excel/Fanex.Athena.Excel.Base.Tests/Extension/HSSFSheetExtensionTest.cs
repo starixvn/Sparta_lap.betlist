@@ -2,7 +2,6 @@
 {
     using Excel.Base.Extension;
     using NPOI.SS.UserModel;
-    using NPOI.SS.Util;
     using NSubstitute;
     using NUnit.Framework;
 

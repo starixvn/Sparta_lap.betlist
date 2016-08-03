@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extension\HSSFCellExtensionTest.cs" />
     <Compile Include="Extension\HSSFSheetExtensionTest.cs" />
     <Compile Include="Extension\HSSFWorkbookExtensionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
