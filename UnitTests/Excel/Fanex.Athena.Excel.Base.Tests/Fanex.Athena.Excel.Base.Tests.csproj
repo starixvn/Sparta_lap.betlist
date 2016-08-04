@@ -72,6 +72,7 @@
     <Compile Include="Extension\HSSFSheetExtensionTest.cs" />
     <Compile Include="Extension\HSSFWorkbookExtensionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\DataHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
