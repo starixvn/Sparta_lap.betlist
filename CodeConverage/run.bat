@@ -37,5 +37,3 @@ echo Failure.
 
 :end
 popd
-
-pause
