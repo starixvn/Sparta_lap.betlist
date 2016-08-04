@@ -68,6 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassTest\FakeExcelBase.cs" />
+    <Compile Include="ExcelBaseTest.cs" />
     <Compile Include="Extension\HSSFCellExtensionTest.cs" />
     <Compile Include="Extension\HSSFSheetExtensionTest.cs" />
     <Compile Include="Extension\HSSFWorkbookExtensionTest.cs" />
