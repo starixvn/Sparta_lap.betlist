@@ -130,11 +130,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Extension.Test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controller", "Controller", "{62FD2471-9E6A-4BD1-9AB3-8C4C6FF658A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.Tests", "UnitTests\Controller\Fanex.Athena.Controllers.Tests\Fanex.Athena.Controllers.Tests.csproj", "{627D9838-F61E-4DBA-8952-E618C12F8F04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.Tests", "UnitTests\Fanex.Athena.Controllers.Tests\Fanex.Athena.Controllers.Tests.csproj", "{627D9838-F61E-4DBA-8952-E618C12F8F04}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Excel", "Excel", "{88CBF37F-6900-45AF-911A-D297E7604FEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Excel.Base.Tests", "UnitTests\Excel\Fanex.Athena.Excel.Base.Tests\Fanex.Athena.Excel.Base.Tests.csproj", "{8E0B810D-5D74-468D-8BCD-92FAB479DE80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Excel.Base.Tests", "UnitTests\Fanex.Athena.Excel.Base.Tests\Fanex.Athena.Excel.Base.Tests.csproj", "{8E0B810D-5D74-468D-8BCD-92FAB479DE80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
