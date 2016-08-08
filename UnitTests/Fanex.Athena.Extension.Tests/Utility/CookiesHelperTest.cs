@@ -21,7 +21,7 @@
             var result = CookiesHelper.GetCookies(CookieName);
 
             // Assert
-            Assert.AreEqual(CookieValue, result);
+            Assert.That(result, Is.EqualTo(CookieValue));
         }
 
         [Test]
@@ -37,7 +37,7 @@
             var result = CookiesHelper.GetCookies(CookieName);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         private HttpContext GetHttpContext()

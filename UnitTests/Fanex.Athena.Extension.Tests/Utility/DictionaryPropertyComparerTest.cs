@@ -22,7 +22,7 @@
             var result = comparer.Compare(firstObject, secondObject);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [TestCase(10, 1)]
@@ -39,7 +39,7 @@
             var result = comparer.Compare(firstObject, secondObject);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         private IDictionary<int, string> CreateData(params string[] names)

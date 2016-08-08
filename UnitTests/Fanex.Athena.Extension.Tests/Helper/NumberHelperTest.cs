@@ -25,7 +25,7 @@
             var result = NumberHelper.ToStringExt(decimalNumber);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [TestCase(0, "")]
@@ -41,7 +41,7 @@
             var result = value.ToStringExt();
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [TestCase(0.2, "0.2")]
@@ -56,7 +56,7 @@
             var result = value.ToStringExt();
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [TestCase(0, "0.000")]
@@ -78,7 +78,7 @@
             var result = NumberHelper.ToStringExt(decimalNumber, digit);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [TestCase(0, "0.00")]
@@ -99,7 +99,7 @@
             var result = NumberHelper.DecFormat(decimalNumber);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [TestCase(0, "0.000")]
@@ -121,7 +121,7 @@
             var result = NumberHelper.DecFormat(decimalNumber, digit);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
     }
 }

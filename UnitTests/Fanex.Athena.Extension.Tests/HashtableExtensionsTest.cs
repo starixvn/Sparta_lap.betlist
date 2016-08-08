@@ -22,9 +22,9 @@
             firstHashable.UpdateWith(secondHashable);
 
             // Assert
-            Assert.AreEqual(firstHashable[1], "A");
-            Assert.AreEqual(firstHashable[2], "B");
-            Assert.AreEqual(firstHashable[3], "D");
+            Assert.That(firstHashable[1], Is.EqualTo("A"));
+            Assert.That(firstHashable[2], Is.EqualTo("B"));
+            Assert.That(firstHashable[3], Is.EqualTo("D"));
         }
 
         private Hashtable CreateData(int[] keys, string[] values)

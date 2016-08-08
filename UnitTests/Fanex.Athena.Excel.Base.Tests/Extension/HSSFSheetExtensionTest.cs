@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Excel.Base.Tests.Extension
 {
+    using System;
     using Excel.Base.Extension;
     using NPOI.SS.UserModel;
     using NSubstitute;
@@ -23,27 +24,74 @@
             Assert.That(row, Is.Not.Null);
         }
 
-        [TestCase(CellType.Blank)]
-        [TestCase(CellType.Boolean)]
-        [TestCase(CellType.Error)]
-        [TestCase(CellType.Formula)]
-        [TestCase(CellType.Numeric)]
-        [TestCase(CellType.String)]
-        [TestCase(CellType.Unknown)]
-        public void CopyCell_SourceCellIsNotNull_CellCopied(CellType cellType)
+        [Test]
+        public void CopyCell_SourceCellIsNotNull_SetCellTypeMethodIsCalled()
         {
             // Arrange
             var sheet = Substitute.For<ISheet>();
             var source = Substitute.For<ICell>();
-            source.SetCellType(cellType);
             var destination = Substitute.For<ICell>();
 
             // Action
             var cell = sheet.CopyCell(source, destination);
 
             // Assert
-            Assert.That(cell, Is.Not.Null);
-            Assert.That(cell.CellType, Is.EqualTo(source.CellType));
+            destination.Received().SetCellType(source.CellType);
+        }
+
+        [TestCase(CellType.Blank)]
+        [TestCase(CellType.Unknown)]
+        public void CopyCell_SourceCellTypeIsBlankOrUnknown_SetCellValueMethodIsCalledWithCorrectParameter(CellType cellType)
+        {
+            // Arrange
+            var sheet = Substitute.For<ISheet>();
+            var source = Substitute.For<ICell>();
+            source.CellType.Returns(cellType);
+            var cellValue = "StringValue";
+            source.StringCellValue.Returns(cellValue);
+            var destination = Substitute.For<ICell>();
+
+            // Action
+            var cell = sheet.CopyCell(source, destination);
+
+            // Assert
+            cell.Received().SetCellValue(cellValue);
+        }
+
+        [Test]
+        public void CopyCell_SourceCellTypeIsBoolean_SetCellValueMethodIsCalledWithCorrectParameter()
+        {
+            // Arrange
+            var sheet = Substitute.For<ISheet>();
+            var source = Substitute.For<ICell>();
+            source.CellType.Returns(CellType.Boolean);
+            var cellValue = true;
+            source.BooleanCellValue.Returns(cellValue);
+            var destination = Substitute.For<ICell>();
+
+            // Action
+            var cell = sheet.CopyCell(source, destination);
+
+            // Assert
+            cell.Received().SetCellValue(cellValue);
+        }
+
+        [Test]
+        public void CopyCell_SourceCellTypeIsError_SetCellValueMethodIsCalledWithCorrectParameter()
+        {
+            // Arrange
+            var sheet = Substitute.For<ISheet>();
+            var source = Substitute.For<ICell>();
+            source.CellType.Returns(CellType.Error);
+            byte cellValue = 4;
+            source.ErrorCellValue.Returns(cellValue);
+            var destination = Substitute.For<ICell>();
+
+            // Action
+            var cell = sheet.CopyCell(source, destination);
+
+            // Assert
+            cell.Received().SetCellErrorValue(cellValue);
         }
 
         [Test]
@@ -76,11 +124,11 @@
             var result = sheet.GetCell(rowIndex, cellIndex);
 
             // Assert
-            Assert.AreEqual(cell, result);
+            Assert.That(result, Is.EqualTo(cell));
         }
 
         [Test]
-        public void MergeCells_WhenCall_ReturnCorrectValue()
+        public void MergeCells_WhenCall_AddMergedRegionMethodIsCalled()
         {
             // Arrange
             int firstRow = 0, firstCol = 0, lastRow = 1, lastCol = 4;

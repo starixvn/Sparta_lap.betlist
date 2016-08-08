@@ -19,9 +19,9 @@
             var commissions = GroupCommSetting.Commissions;
 
             // Assert
-            Assert.AreEqual(dataList[0], commissions[0]);
-            Assert.AreEqual(dataList[0.05m], commissions[0.05m]);
-            Assert.AreEqual(dataList[15], commissions[15]);
+            Assert.That(commissions[0], Is.EqualTo(dataList[0]));
+            Assert.That(commissions[0.05m], Is.EqualTo(dataList[0.05m]));
+            Assert.That(commissions[15], Is.EqualTo(dataList[15]));
         }
 
         [Test]
@@ -36,9 +36,9 @@
             var validCommissions = GroupCommSetting.ValidCommissions;
 
             // Assert
-            Assert.AreEqual(dataList[0], validCommissions[0]);
-            Assert.AreEqual(dataList[0.05m], validCommissions[0.05m]);
-            Assert.AreEqual(dataList[15], validCommissions[15]);
+            Assert.That(validCommissions[0], Is.EqualTo(dataList[0]));
+            Assert.That(validCommissions[0.05m], Is.EqualTo(dataList[0.05m]));
+            Assert.That(validCommissions[15], Is.EqualTo(dataList[15]));
         }
 
         [TestCase(2)]
@@ -55,7 +55,7 @@
             var result = GroupCommSetting.GetCommValue(max, increase);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         private IDictionary<TKey, TValue> CreateData<TKey, TValue>(TKey[] keys, TValue[] values)

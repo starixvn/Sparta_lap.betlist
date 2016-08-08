@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using Base;
     using ClassTest;
     using Entities;
     using Model.Core.MetaModel.Product;
@@ -13,50 +12,50 @@
     [TestFixture]
     public class ReportBaseTest
     {
-        private IWorkbook _workbook;
-        private ISheet _sheet;
-        private ReportBase _report;
-
-        public void Setup()
-        {
-            _workbook = Substitute.For<IWorkbook>();
-            _sheet = Substitute.For<ISheet>();
-
-            string sourceSheetName = "Template";
-            var sourceSheetIndex = 0;
-            _workbook.GetSheetIndex(sourceSheetName).Returns(sourceSheetIndex);
-            _workbook.CloneSheet(sourceSheetIndex).Returns(_sheet);
-
-            _report = GetInitialReport();
-            _report.Workbook = _workbook;
-        }
-
         [Test]
         public void AssignData_ReportDoesNotHaveData_AssignNoInfoRowMethodIsCalled()
         {
+            // Arrange
+            var workbook = Substitute.For<IWorkbook>();
+            var sheet = Substitute.For<ISheet>();
+
+            string sourceSheetName = "Template";
+            var sourceSheetIndex = 0;
+            workbook.GetSheetIndex(sourceSheetName).Returns(sourceSheetIndex);
+            workbook.CloneSheet(sourceSheetIndex).Returns(sheet);
+
+            var report = Substitute.ForPartsOf<FakeReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
+            report.Workbook = workbook;
+
             // Action
-            Setup();
-            _report.AssignData();
+            report.AssignData();
 
             // Assert
-            _report.Received().AssignNoInfoRow(_sheet);
+            report.Received().AssignNoInfoRow(sheet);
         }
 
         [Test]
         public void AssignData_ReportHasData_AssignSheetDataMethodIsCalled()
         {
             // Arrange
-            Setup();
-            var exportData = new DataTable();
-            DataRow dr = exportData.NewRow();
-            exportData.Rows.Add(dr);
-            _report.ExportData = exportData;
+            var workbook = Substitute.For<IWorkbook>();
+            var sheet = Substitute.For<ISheet>();
+
+            string sourceSheetName = "Template";
+            var sourceSheetIndex = 0;
+            workbook.GetSheetIndex(sourceSheetName).Returns(sourceSheetIndex);
+            workbook.CloneSheet(sourceSheetIndex).Returns(sheet);
+
+            var report = Substitute.ForPartsOf<FakeReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
+            report.Workbook = workbook;
+
+            report.ExportData = GetDataTable(new string[] { "Col1", "Col2" });
 
             // Action
-            _report.AssignData();
+            report.AssignData();
 
             // Assert
-            _report.Received().AssignSheetData(_sheet);
+            report.Received().AssignSheetData(sheet);
         }
 
         [Test]
@@ -198,11 +197,6 @@
 
             // Assert
             cell.Received().SetCellValue("Test");
-        }
-
-        private ReportBase GetInitialReport()
-        {
-            return Substitute.ForPartsOf<FakeReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
         }
 
         private DataTable GetDataTable(string[] columnName)

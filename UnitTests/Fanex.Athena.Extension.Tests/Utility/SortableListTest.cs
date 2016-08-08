@@ -20,8 +20,8 @@
             dataList.SortByDictionary<int, string>(10, "Children", true);
 
             // Assert
-            Assert.AreEqual(firstObject, dataList[0]);
-            Assert.AreEqual(secondObject, dataList[1]);
+            Assert.That(firstObject, Is.EqualTo(dataList[0]));
+            Assert.That(secondObject, Is.EqualTo(dataList[1]));
         }
 
         [Test]
@@ -36,8 +36,8 @@
             dataList.SortByDictionary<int, string>(10, "Children", false);
 
             // Assert
-            Assert.AreEqual(secondObject, dataList[0]);
-            Assert.AreEqual(firstObject, dataList[1]);
+            Assert.That(firstObject, Is.EqualTo(dataList[1]));
+            Assert.That(secondObject, Is.EqualTo(dataList[0]));
         }
 
         [Test]
@@ -52,8 +52,8 @@
             dataList.Sort("Name", true);
 
             // Assert
-            Assert.AreEqual(secondObject, dataList[0]);
-            Assert.AreEqual(firstObject, dataList[1]);
+            Assert.That(firstObject, Is.EqualTo(dataList[1]));
+            Assert.That(secondObject, Is.EqualTo(dataList[0]));
         }
 
         [Test]
@@ -68,8 +68,8 @@
             dataList.Sort("Name", false);
 
             // Assert
-            Assert.AreEqual(firstObject, dataList[0]);
-            Assert.AreEqual(secondObject, dataList[1]);
+            Assert.That(firstObject, Is.EqualTo(dataList[0]));
+            Assert.That(secondObject, Is.EqualTo(dataList[1]));
         }
 
         private IDictionary<int, string> CreateData(params string[] names)

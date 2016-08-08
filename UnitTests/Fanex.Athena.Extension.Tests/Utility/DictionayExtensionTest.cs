@@ -21,7 +21,7 @@
             var result = dataList.GetValueOrDefault(keyValue, Convert.ToDecimal(defaultValue));
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [TestCase("SB", 0, 1000)]
@@ -37,7 +37,7 @@
             var result = dataList.GetValueOrDefault(keyValue, () => Convert.ToDecimal(defaultValue));
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         private IDictionary<string, decimal> CreateData()

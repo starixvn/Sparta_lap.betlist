@@ -21,7 +21,7 @@
             var result = comparer.Compare(firstObject, secondObject);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [TestCase("Id", 1)]
@@ -38,7 +38,7 @@
             var result = comparer.Compare(firstObject, secondObject);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -48,13 +48,13 @@
             var comparer = new PropertyComparer<Person>("NickName", System.ComponentModel.ListSortDirection.Ascending);
             var firstObject = new Person { Id = 1, Name = "Walter" };
             var secondObject = new Person { Id = 2, Name = "Ralph", NickName = "xxx" };
-            const int Expected = -1;
+            var expected = -1;
 
             // Action
             var result = comparer.Compare(firstObject, secondObject);
 
             // Assert
-            Assert.AreEqual(Expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -64,13 +64,13 @@
             var comparer = new PropertyComparer<Person>("NickName", System.ComponentModel.ListSortDirection.Ascending);
             var firstObject = new Person { Id = 1, Name = "Walter", NickName = "xxx" };
             var secondObject = new Person { Id = 2, Name = "Ralph" };
-            const int Expected = 0;
+            var expected = 0;
 
             // Action
             var result = comparer.Compare(firstObject, secondObject);
 
             // Assert
-            Assert.AreEqual(Expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
     }   
 }
