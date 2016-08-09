@@ -5299,6 +5299,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parlay Comm.
+        /// </summary>
+        public static string ParlayComm {
+            get {
+                return ResourceManager.GetString("ParlayComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {

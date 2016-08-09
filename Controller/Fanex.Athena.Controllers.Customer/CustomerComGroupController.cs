@@ -114,6 +114,7 @@ namespace Fanex.Athena.Controllers.Customer
 
                 var validComms = GroupCommSetting.ValidCommissions;
                 var valid = validComms.Any(i => i.Value == metaModel.SBComm) &&
+                            validComms.Any(i => i.Value == metaModel.ParlayComm) &&
                             validComms.Any(i => i.Value == metaModel.RCComm) &&
                             validComms.Any(i => i.Value == metaModel.NGComm) &&
                             validComms.Any(i => i.Value == metaModel.LCComm) &&
@@ -207,6 +208,7 @@ namespace Fanex.Athena.Controllers.Customer
 
                 var validComms = GroupCommSetting.ValidCommissions;
                 var valid = validComms.Any(i => i.Value == metaModel.SBComm) &&
+                            validComms.Any(i => i.Value == metaModel.ParlayComm) &&
                             validComms.Any(i => i.Value == metaModel.RCComm) &&
                             validComms.Any(i => i.Value == metaModel.NGComm) &&
                             validComms.Any(i => i.Value == metaModel.LCComm) &&
@@ -436,13 +438,19 @@ namespace Fanex.Athena.Controllers.Customer
         private static void SetDropDownListComm(GroupCommMetaModel model)
         {
             var decSbComm = model.SBComm;
+            var decParlayComm = model.ParlayComm;
             var decRcComm = model.RCComm;
             var decNgComm = model.NGComm;
             var decLcComm = model.LCComm;
             var decCsComm = model.CSComm;
+
             model.SBComm1 = SetComm(decSbComm, 1);
             model.SBComm2 = SetComm(decSbComm, 2);
             model.SBComm3 = SetComm(decSbComm, 3);
+
+            model.ParlayComm1 = SetComm(decParlayComm, 1);
+            model.ParlayComm2 = SetComm(decParlayComm, 2);
+            model.ParlayComm3 = SetComm(decParlayComm, 3);
 
             model.RCComm1 = SetComm(decRcComm, 1);
             model.RCComm2 = SetComm(decRcComm, 2);

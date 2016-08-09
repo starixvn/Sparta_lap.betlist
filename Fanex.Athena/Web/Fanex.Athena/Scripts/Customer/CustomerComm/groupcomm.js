@@ -251,6 +251,9 @@ var GroupComm = (function ($) {
             var sbComm1 = parseInt($('#DdlSBComm1').val());
             var sbComm2 = parseInt($('#DdlSBComm2').val());
             var sbComm3 = parseInt($('#DdlSBComm3').val());
+            var parlayComm1 = parseInt($('#DdlParlayComm1').val());
+            var parlayComm2 = parseInt($('#DdlParlayComm2').val());
+            var parlayComm3 = parseInt($('#DdlParlayComm3').val());
             var rcComm1 = parseInt($('#DdlRCComm1').val());
             var rcComm2 = parseInt($('#DdlRCComm2').val());
             var rcComm3 = parseInt($('#DdlRCComm3').val());
@@ -264,18 +267,21 @@ var GroupComm = (function ($) {
             var csComm2 = parseInt($('#DdlCSComm2').val());
             var csComm3 = parseInt($('#DdlCSComm3').val());
             var sbComm = parseFloat((sbComm1 + sbComm2 / 10 + sbComm3 / 100) / 100).toFixed(4);
+            var parlayComm = parseFloat((parlayComm1 + parlayComm2 / 10 + parlayComm3 / 100) / 100).toFixed(4);
             var rcComm = parseFloat((rcComm1 + rcComm2 / 10 + rcComm3 / 100) / 100).toFixed(4);
             var ngComm = parseFloat((ngComm1 + ngComm2 / 10 + ngComm3 / 100) / 100).toFixed(4);
             var lcComm = parseFloat((lcComm1 + lcComm2 / 10 + lcComm3 / 100) / 100).toFixed(4);
             var csComm = parseFloat((csComm1 + csComm2 / 10 + csComm3 / 100) / 100).toFixed(4);
 
             sbComm = isNaN(sbComm) ? 0 : sbComm;
+            parlayComm = isNaN(parlayComm) ? 0 : parlayComm;
             rcComm = isNaN(rcComm) ? 0 : rcComm;
             ngComm = isNaN(ngComm) ? 0 : ngComm;
             lcComm = isNaN(lcComm) ? 0 : lcComm;
             csComm = isNaN(csComm) ? 0 : csComm;
 
             $('#SBComm').val(sbComm);
+            $('#ParlayComm').val(parlayComm);
             $('#RCComm').val(rcComm);
             $('#NGComm').val(ngComm);
             $('#LCComm').val(lcComm);
@@ -285,6 +291,10 @@ var GroupComm = (function ($) {
             $('#SBComm1').val(sbComm1);
             $('#SBComm2').val(sbComm2);
             $('#SBComm3').val(sbComm3);
+
+            $('#ParlayComm1').val(parlayComm1);
+            $('#ParlayComm2').val(parlayComm2);
+            $('#ParlayComm3').val(parlayComm3);
 
             $('#RCComm1').val(rcComm1);
             $('#RCComm2').val(rcComm2);

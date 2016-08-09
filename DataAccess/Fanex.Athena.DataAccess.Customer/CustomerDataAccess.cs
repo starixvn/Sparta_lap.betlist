@@ -437,6 +437,7 @@ namespace Fanex.Athena.DataAccess.Customer
                     db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("SBComm", DbType.Decimal, metaModel.SBComm);
+                    db.AddInParameter("ParlayComm", DbType.Decimal, metaModel.ParlayComm);
                     db.AddInParameter("NGComm", DbType.Decimal, metaModel.NGComm);
                     db.AddInParameter("RacingComm", DbType.Decimal, metaModel.RCComm);
                     db.AddInParameter("LCComm", DbType.Decimal, metaModel.LCComm);

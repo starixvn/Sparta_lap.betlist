@@ -44,6 +44,15 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public int SBComm3 { get; set; }
 
         [Required]
+        public decimal ParlayComm { get; set; }
+
+        public int ParlayComm1 { get; set; }
+
+        public int ParlayComm2 { get; set; }
+
+        public int ParlayComm3 { get; set; }
+
+        [Required]
         public decimal RCComm { get; set; }
 
         public int RCComm1 { get; set; }

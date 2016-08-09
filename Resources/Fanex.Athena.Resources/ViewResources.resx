@@ -2839,4 +2839,8 @@
     <value>Weekly Live Matches</value>
     <comment>#52886</comment>
   </data>
+  <data name="ParlayComm" xml:space="preserve">
+    <value>Parlay Comm</value>
+    <comment>#61897</comment>
+  </data>
 </root>

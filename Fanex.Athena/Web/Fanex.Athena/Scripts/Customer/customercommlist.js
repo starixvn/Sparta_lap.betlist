@@ -213,6 +213,7 @@ var CustomerComm = (function ($) {
             }
 
             var sbcom = CustomerComm.initCommissionParam('#CustSBComm');
+            var parlayCom = CustomerComm.initCommissionParam('#CustParlayComm');
             var rbcom = CustomerComm.initCommissionParam('#CustRBComm');
             var ngcom = CustomerComm.initCommissionParam('#CustNGComm');
             var lccom = CustomerComm.initCommissionParam('#CustLCComm');
@@ -222,6 +223,7 @@ var CustomerComm = (function ($) {
                 GroupId: groupCommId,
                 CustomerIds: custList.toString(),
                 SBComm: sbcom,
+                ParlayComm: parlayCom,
                 RCComm: rbcom,
                 NGComm: ngcom,
                 LCComm: lccom,

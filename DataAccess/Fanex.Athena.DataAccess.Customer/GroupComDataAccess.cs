@@ -50,6 +50,7 @@ namespace Fanex.Athena.DataAccess.Customer
                                 GroupCommId = reader.ToInt("GroupCommId"),
                                 GroupName = reader.ToString("GroupName"),
                                 SBComm = reader.ToDecimal("SBComm"),
+                                ParlayComm = reader.ToDecimal("Parlaycomm"),
                                 RCComm = reader.ToDecimal("RacingComm"),
                                 NGComm = reader.ToDecimal("NGComm"),
                                 LCComm = reader.ToDecimal("LCComm"),
@@ -121,6 +122,7 @@ namespace Fanex.Athena.DataAccess.Customer
                                 GroupCommId = groupCommId,
                                 GroupName = reader.ToString("GroupName"),
                                 SBComm = reader.ToDecimal("SBComm"),
+                                ParlayComm = reader.ToDecimal("Parlaycomm"),
                                 RCComm = reader.ToDecimal("RacingComm"),
                                 NGComm = reader.ToDecimal("NGComm"),
                                 LCComm = reader.ToDecimal("LCComm"),
@@ -159,6 +161,7 @@ namespace Fanex.Athena.DataAccess.Customer
                     db.AddInParameter("LicenseeID", DbType.Int32, item.LicenseeId);
                     db.AddInParameter("GroupName", DbType.String, item.GroupName);
                     db.AddInParameter("SBComm", DbType.Decimal, item.SBComm);
+                    db.AddInParameter("ParlayComm", DbType.Decimal, item.ParlayComm);
                     db.AddInParameter("RacingComm", DbType.Decimal, item.RCComm);
                     db.AddInParameter("NGComm", DbType.Decimal, item.NGComm);
                     db.AddInParameter("LCComm", DbType.Decimal, item.LCComm);
@@ -208,6 +211,7 @@ namespace Fanex.Athena.DataAccess.Customer
                     db.AddInParameter("GroupCommId", DbType.Int32, newItem.GroupCommId);
                     db.AddInParameter("GroupName", DbType.String, newItem.GroupName);
                     db.AddInParameter("SbComm", DbType.Decimal, newItem.SBComm);
+                    db.AddInParameter("ParlayComm", DbType.Decimal, newItem.ParlayComm);
                     db.AddInParameter("NGComm", DbType.Decimal, newItem.NGComm);
                     db.AddInParameter("RacingComm", DbType.Decimal, newItem.RCComm);
                     db.AddInParameter("LCComm", DbType.Decimal, newItem.LCComm);

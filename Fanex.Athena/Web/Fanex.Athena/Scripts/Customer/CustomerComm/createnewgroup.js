@@ -77,6 +77,10 @@ var CreateGroup = (function ($) {
                 GroupComm.commissionOnChange($(this).val(), '#DdlSBComm');
             });
 
+            $('#DdlParlayComm1').on('change', function () {
+                GroupComm.commissionOnChange($(this).val(), '#DdlParlayComm');
+            });
+
             $('#DdlRCComm1').on('change', function () {
                 GroupComm.commissionOnChange($(this).val(), '#DdlRCComm');
             });

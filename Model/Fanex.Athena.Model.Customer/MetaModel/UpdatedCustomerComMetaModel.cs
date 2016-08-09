@@ -23,6 +23,8 @@ namespace Fanex.Athena.Model.Customer.MetaModel
 
         public decimal SBComm { get; set; }
 
+        public decimal ParlayComm { get; set; }
+
         public decimal NGComm { get; set; }
 
         public decimal RCComm { get; set; }

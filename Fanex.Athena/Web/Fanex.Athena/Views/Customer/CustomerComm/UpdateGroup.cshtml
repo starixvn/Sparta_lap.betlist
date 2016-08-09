@@ -74,6 +74,26 @@
                         </div>
                     </td>
                 </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="grid_3 product-label">
+                            @ViewResources.Parlay
+                        </div>
+                        <div class="grid_5">
+                            @RazorHelper.GroupComSettingDropDownList("DdlParlayComm1", GroupCommSetting.GetCommValue(15, 1), Model.ParlayComm1)
+                            &#8226
+                            @RazorHelper.GroupComSettingDropDownList("DdlParlayComm2", GroupCommSetting.GetCommValue(9, 1), Model.ParlayComm2)
+                            @RazorHelper.GroupComSettingDropDownList("DdlParlayComm3", GroupCommSetting.GetCommValue(1, 5), Model.ParlayComm3)
+                            @Html.HiddenFor(model => model.ParlayComm)
+                            @Html.HiddenFor(model => model.ParlayComm1)
+                            @Html.HiddenFor(model => model.ParlayComm2)
+                            @Html.HiddenFor(model => model.ParlayComm3)
+                        </div>
+                    </td>
+                </tr>
+
                 @if (Model.IsUpdateRacing)
                 {
                     <tr>
