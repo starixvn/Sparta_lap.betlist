@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Common\BetTypeDataAccessTest.cs" />
     <Compile Include="Common\CurrencyDataAccessTest.cs" />
+    <Compile Include="Common\ExChangeRateDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

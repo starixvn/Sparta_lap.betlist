@@ -22,7 +22,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
     /// <summary>
     /// Exchange rate data access.
     /// </summary>
-    public class ExChangeRateDataAccess : IExChangeRateDataAccess
+    public class ExChangeRateDataAccess : BaseDataAccess, IExChangeRateDataAccess
     {
         /// <summary>
         /// Get exchange rate.
@@ -35,7 +35,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             const string UspName = "Lrf_GetExchangeRateByDate";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("CurrencyCode", DbType.String, currenyCode);
                     db.AddInParameter("Date", DbType.DateTime, datetime);
