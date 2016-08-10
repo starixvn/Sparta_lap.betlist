@@ -27,6 +27,10 @@ var CustomerComm = (function ($) {
                 CustomerComm.commissionOnChange($(this).val(), '#CustSBComm');
             });
 
+            $('#CustParlayComm1').on('change', function () {
+                CustomerComm.commissionOnChange($(this).val(), '#CustParlayComm');
+            });
+
             $('#CustRBComm1').on('change', function () {
                 CustomerComm.commissionOnChange($(this).val(), '#CustRBComm');
             });
@@ -398,6 +402,7 @@ var CustomerComm = (function ($) {
         newGroupChanged: function (obj) {
             var groupId = obj.options[obj.selectedIndex].value;
             $('#NewSbComm').val($("#SBComm" + groupId).val());
+            $('#NewParlayComm').val($("#ParlayComm" + groupId).val());
             $('#NewRbComm').val($("#RBComm" + groupId).val());
             $('#NewNgComm').val($("#NGComm" + groupId).val());
             $('#NewLcComm').val($("#LCComm" + groupId).val());

@@ -21,6 +21,7 @@ var UpdateGroup = (function ($) {
         },
         checkCommFirstLoad: function () {
             GroupComm.commissionOnChange($('#DdlSBComm1').val(), '#DdlSBComm');
+            GroupComm.commissionOnChange($('#DdlParlayComm1').val(), '#DdlParlayComm');
             GroupComm.commissionOnChange($('#DdlRCComm1').val(), '#DdlRCComm');
             GroupComm.commissionOnChange($('#DdlNGComm1').val(), '#DdlNGComm');
             GroupComm.commissionOnChange($('#DdlLCComm1').val(), '#DdlLCComm');
@@ -99,6 +100,10 @@ var UpdateGroup = (function ($) {
             // Commission dropdownlist change
             $('#DdlSBComm1').on('change', function () {
                 GroupComm.commissionOnChange($(this).val(), '#DdlSBComm');
+            });
+
+            $('#DdlParlayComm1').on('change', function () {
+                GroupComm.commissionOnChange($(this).val(), '#DdlParlayComm');
             });
 
             $('#DdlRCComm1').on('change', function () {
