@@ -38,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("UserID", DbType.Int32, request.UserId);
                     db.AddInParameter("LicenseeID", DbType.Int32, request.LicenseeId);
@@ -73,7 +73,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("UserID", DbType.Int32, userId);
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);

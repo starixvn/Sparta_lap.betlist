@@ -27,14 +27,14 @@ namespace Fanex.Athena.DataAccess.Core
         public BalanceUp BalanceUp { get; set; }
 
         [CLSCompliant(false)]
-        protected static void AddResultParam(ObjectDb db)
+        protected static void AddResultParam(IObjectDb db)
         {
             db.AddOutParameter("ErrCode", DbType.Int32, 4);
             db.AddOutParameter("ErrMsg", DbType.String, 4000);
         }
 
         [CLSCompliant(false)]
-        protected static IResultInfo GetResult(ObjectDb db)
+        protected static IResultInfo GetResult(IObjectDb db)
         {
             var errorCode = db.GetParameterValue("ErrCode");
             var errorMessage = db.GetParameterValue("ErrMsg");
