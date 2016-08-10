@@ -79,7 +79,7 @@ var CustomerComm = (function ($) {
 
             $("#MoveToGroupPopUp").dialog({
                 resizable: false,
-                height: 300,
+                height: 330,
                 width: 320,
                 modal: true,
                 buttons: [
@@ -180,7 +180,7 @@ var CustomerComm = (function ($) {
 
             $("#UpdateCustCommPopUp").dialog({
                 resizable: false,
-                height: 300,
+                height: 350,
                 width: 500,
                 modal: true,
                 buttons:
