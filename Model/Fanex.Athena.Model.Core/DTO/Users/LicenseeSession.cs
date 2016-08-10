@@ -28,5 +28,7 @@ namespace Fanex.Athena.Model.Core.DTO.Users
         public IList<string> CurrencyName { get; set; }
 
         public bool IsAllowedCustomerComm { get; set; }
+
+        public bool IsEnableBA { get; set; }
     }
 }

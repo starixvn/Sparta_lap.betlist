@@ -200,7 +200,6 @@
     <Compile Include="WinLossByBetTypeReportController.cs" />
     <Compile Include="WinLossByLeagueReportController.cs" />
     <Compile Include="WinLossByProductReportController.cs" />
-    <Compile Include="UserGuideController.cs" />
     <Compile Include="WeeklyLiveMatchReportController.cs" />
   </ItemGroup>
   <ItemGroup>
