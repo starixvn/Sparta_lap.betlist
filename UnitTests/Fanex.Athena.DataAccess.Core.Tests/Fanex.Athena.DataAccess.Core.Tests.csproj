@@ -80,6 +80,7 @@
     <Compile Include="Common\LeagueDataAccessTest.cs" />
     <Compile Include="Common\MatchDataAccessTest.cs" />
     <Compile Include="Common\ProductDataAccessTest.cs" />
+    <Compile Include="Common\SportTypeDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
