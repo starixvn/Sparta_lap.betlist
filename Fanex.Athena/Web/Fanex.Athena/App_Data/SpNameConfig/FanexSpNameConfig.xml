@@ -7,6 +7,7 @@
   <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_WinLossByBettype" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_WinlostByLeague" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="UAT" SpName="Lrf_SelBetTypeBySport" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="UAT" SpName="Lrf_Rpt_LiveReportSummaryDetail" EnvironmentText="_xtest"></SpNameConfig>
 
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_TotalBets_Sel430" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xtest"></SpNameConfig>
