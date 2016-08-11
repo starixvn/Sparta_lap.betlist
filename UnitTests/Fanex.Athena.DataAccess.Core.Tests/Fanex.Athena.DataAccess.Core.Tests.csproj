@@ -79,6 +79,7 @@
     <Compile Include="Common\FunctionDataAccessTest.cs" />
     <Compile Include="Common\LeagueDataAccessTest.cs" />
     <Compile Include="Common\MatchDataAccessTest.cs" />
+    <Compile Include="Common\ProductDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
