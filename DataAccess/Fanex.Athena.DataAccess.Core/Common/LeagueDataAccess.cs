@@ -16,7 +16,7 @@ namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
-    public class LeagueDataAccess : ILeagueDataAccess
+    public class LeagueDataAccess : BaseDataAccess, ILeagueDataAccess
     {
         /// <summary>
         /// Get leagues by sport Id.
@@ -28,7 +28,7 @@ namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
             var uspName = "Lrf_SelLeagueBySport";
             var leagues = new List<League>();
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
                 db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
