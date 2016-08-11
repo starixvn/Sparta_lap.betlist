@@ -30,7 +30,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
             const string UspName = "Lrf_ShowNotificationWhenProcessingData";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     var moveBet = new MoveBet();
                     db.AddOutParameter("AvailableWinlostDate", DbType.DateTime, 10);
