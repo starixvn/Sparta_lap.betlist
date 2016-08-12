@@ -88,6 +88,7 @@
     <Compile Include="Users\AuthorizationDataAccessTest.cs" />
     <Compile Include="Users\LicenseeDataAccessTest.cs" />
     <Compile Include="Users\UserDataAccessTest.cs" />
+    <Compile Include="Utilities\SafeDataReaderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
