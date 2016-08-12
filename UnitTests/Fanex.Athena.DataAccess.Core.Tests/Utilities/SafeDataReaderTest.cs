@@ -10,13 +10,12 @@
     public class SafeDataReaderTest
     {
         private IDataReader _dataReader;
-        private IEnumerable<string> _columns;
+        private IEnumerable<string> _columns = new string[] { "Column1", "Column2" };
 
         [SetUp]
         public void Setup()
         {
             _dataReader = Substitute.For<IDataReader>();
-            _columns = new string[] { "Column1", "Column2" };
             _dataReader.FieldCount.Returns(1);
             _dataReader.GetName(0).Returns("Column1");
             _dataReader.GetName(1).Returns("Column2");
