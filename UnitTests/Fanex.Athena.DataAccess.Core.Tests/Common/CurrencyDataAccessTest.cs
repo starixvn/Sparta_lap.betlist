@@ -3,10 +3,11 @@
     using System.Data;
     using Core.Common;
     using Data;
+    using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Account;
     using NSubstitute;
     using NUnit.Framework;
-
+    using TestHelpers;
     [TestFixture]
     public class CurrencyDataAccessTest
     {
@@ -47,6 +48,21 @@
             _objectDb.Received().AddInParameter("IP", DbType.String, dataModel.IP);
             _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
             _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+        }
+
+        [Test]
+        public void AssignCurrenciesByUser_WhenCall_ResultInfoReturnCorrectly()
+        {
+            // Arrange           
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CurrencyCustIns")).Returns(_objectDb);
+            var expected = ResultInfoHelper.GetFakeResultInfo(_objectDb);
+
+            // Action
+            var result = _dataAccess.AssignCurrenciesByUser(new AssignCurrencyMetaModel());
+
+            // Assert
+            Assert.That(result.Code, Is.EqualTo(expected.Code));
+            Assert.That(result.Message, Is.EqualTo(expected.Message));
         }
 
         [Test]
