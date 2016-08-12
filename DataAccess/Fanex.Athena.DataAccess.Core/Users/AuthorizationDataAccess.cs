@@ -30,7 +30,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
         /// <returns>Boolean value.</returns>
         public bool IsCustomerBelonging(int licenseeId, int custId, long transid)
         {
-            using (var db = new ObjectDb("Lrf_CustomerSelCheckBelonging"))
+            using (var db = this.GetObjectDb("Lrf_CustomerSelCheckBelonging"))
             {
                 db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
                 db.AddInParameter("transid", DbType.Int64, transid);
