@@ -21,7 +21,7 @@ namespace Fanex.Athena.DataAccess.BetList
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class BaseBetListDataAccess : BaseDataAccess
+    public abstract class BaseBetListDataAccess : BaseDataAccess
     {
         /// <summary>
         /// Do not use reflection because of bad performance.
@@ -33,7 +33,7 @@ namespace Fanex.Athena.DataAccess.BetList
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         [CLSCompliant(false)]
-        protected static SortableList<LrfTicket> ReadLrfTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
+        protected internal static SortableList<LrfTicket> ReadLrfTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
         {
             var playerCommCol = "playercomm" + baseCurrency;
             var commCol = "comm" + baseCurrency;
