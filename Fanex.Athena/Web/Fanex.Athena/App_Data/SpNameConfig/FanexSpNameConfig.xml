@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <SpNameConfig Environment="UAT" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
+
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="LRF_FunctionsSel" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CheckEditBetSetting" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

@@ -173,6 +173,24 @@ namespace Fanex.Athena.Service.Core.Common
         /// </summary>
         /// <param name="functionList">The functions.</param>
         /// <returns>The sub functions.</returns>
+        public IDictionary<int, IList<Function>> GetSubMenus(IList<Function> functionList)
+        {
+            var detailFunctions = new Dictionary<int, IList<Function>>();
+
+            foreach (var function in MasterFunctions)
+            {
+                var subFuntions = functionList.Where(f => f.ParentId == function.FunctionId && f.IsMenu && f.IsHidden == false)
+                                              .OrderBy(f => f.DisplayOrder)
+                                              .ToList();
+                if (subFuntions.Count > 0)
+                {
+                    detailFunctions.Add(function.FunctionId, subFuntions);
+                }
+            }
+
+            return detailFunctions;
+        }
+
         public IDictionary<int, IList<Function>> GetSubFunctions(IList<Function> functionList)
         {
             var detailFunctions = new Dictionary<int, IList<Function>>();

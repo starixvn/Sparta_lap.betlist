@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers
             };
 
             viewModel.MasterFunctions = _functionService.GetMasterFunctions(viewModel.UserFunctions);
-            viewModel.UserDetailFunctions = _functionService.GetSubFunctions(viewModel.UserFunctions);
+            viewModel.UserDetailFunctions = _functionService.GetSubMenus(viewModel.UserFunctions);
 
             return View("~/Views/Menu/Index.cshtml", viewModel);
         }
