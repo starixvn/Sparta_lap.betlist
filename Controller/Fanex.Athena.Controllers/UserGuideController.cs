@@ -30,9 +30,9 @@ namespace Fanex.Athena.Controllers
         [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
         public FilePathResult DownloadCustomerListPdf()
         {
-            var fileName = SessionService.LicenseeSession.IsEnableBA ? "BA.xls" : "nonBA.xls";
+            var fileName = SessionService.LicenseeSession.IsEnableBA ? "Odds Group Feature_Licensee.pdf" : "Odds Group Feature_Licensee_NoBA.pdf";
             var filePath = Server.MapPath(string.Format(@"~/App_Data/UserGuide/{0}/pdf/{1}", CustomerListResourceName, fileName));
-            return File(filePath, System.Net.Mime.MediaTypeNames.Application.Octet, Path.GetFileName(filePath));
+            return File(filePath, System.Net.Mime.MediaTypeNames.Application.Pdf, Path.GetFileName(filePath));
         }
 
         private string GetFileContent(string resourceName)
