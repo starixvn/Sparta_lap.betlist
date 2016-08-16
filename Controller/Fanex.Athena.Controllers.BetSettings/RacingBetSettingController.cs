@@ -40,7 +40,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(string nickName)
         {
-            if (ProductAccess.IsAllowRB == false)
+            if (ProductAccess.IsAllowRB == false || !IsBetSettingEditable())
             {
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }

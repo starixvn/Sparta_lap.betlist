@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
-            if (ProductAccess.IsAllowVB == false)
+            if (ProductAccess.IsAllowVB == false || !IsBetSettingEditable())
             {
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }

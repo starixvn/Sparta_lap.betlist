@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
+    using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
@@ -41,13 +42,18 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
+            if (ProductAccess.IsAllowGD == false || !IsBetSettingEditable())
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var userSession = SessionService.UserSession;
             var result = _betSettingService.UpdateStatus(
                 SessionService.LicenseeSession.LicenseeId,
-                userSession.UserId, 
-                custId, 
-                userSession.Language, 
-                Request.UserHostAddress, 
+                userSession.UserId,
+                custId,
+                userSession.Language,
+                Request.UserHostAddress,
                 status == 1);
 
             if (result.Code == 0 && string.IsNullOrWhiteSpace(result.Message))
@@ -62,6 +68,11 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(int custId, string nickName, string group)
         {
+            if (ProductAccess.IsAllowGD == false || !IsBetSettingEditable())
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var licenseeSession = SessionService.LicenseeSession;
             var result = _betSettingService.UpdateBetSetting(licenseeSession.LicenseeId, licenseeSession.LicenseeName, custId, group);
 

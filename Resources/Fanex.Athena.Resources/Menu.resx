@@ -322,4 +322,8 @@
     <value>Weekly Live Matches</value>
     <comment>#52886</comment>
   </data>
+  <data name="Menu_70" xml:space="preserve">
+    <value>Edit Bet Setting</value>
+    <comment>#61999</comment>
+  </data>
 </root>
