@@ -42,7 +42,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             this._licenseeService = new LicenseeService();
             this._customerService = new CustomerService();
             this._productService = new ProductService();
-
             _productAccess = new Lazy<ProductAccess>(() =>
                 _productService.GetProductAccess(
                     SessionService.LicenseeSession.LicenseeId,
@@ -61,7 +60,10 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         protected ProductAccess ProductAccess
         {
-            get { return _productAccess.Value; }
+            get
+            {
+                return _productAccess.Value;
+            }
         }
 
         protected void AssignRequiredProperties(BetSettingBaseViewModel viewModel, BetSettingMetaModel metaModel)
