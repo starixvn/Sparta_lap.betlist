@@ -14,7 +14,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
-    using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
 
@@ -225,35 +224,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName, uspParams);
-            }
-        }
-
-        /// <summary>
-        ///     Get list of licenseeId base on resellerId.
-        /// </summary>
-        /// <param name="userId">User ID value.</param>
-        /// <param name="resellerId">Reseller ID.</param>
-        /// <returns>List integer.</returns>
-        public IEnumerable<int> GetByResellerId(int userId, int resellerId)
-        {
-            const string UspName = "Lrf_LicenseeSel";
-
-            using (var db = new ObjectDb(UspName))
-            {
-                using (var reader = db.ExecuteReader(new { UserId = userId }))
-                {
-                    var resultList = new List<int>();
-
-                    while (reader.Read())
-                    {
-                        if (reader.ToInt("ResellerID") == resellerId)
-                        {
-                            resultList.Add(reader.ToInt("LicenseeID"));
-                        }
-                    }
-
-                    return resultList;
-                }
             }
         }
 

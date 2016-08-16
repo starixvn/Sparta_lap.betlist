@@ -68,8 +68,11 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         protected void AssignRequiredProperties(BetSettingBaseViewModel viewModel, BetSettingMetaModel metaModel)
         {
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var userId = SessionService.UserSession.UserId;
+
             viewModel.Param = metaModel;
-            viewModel.Editable = IsBetSettingEditable();
+            viewModel.Editable = _coreBetSettingService.IsBetSettingEditable(licenseeId, userId);
             viewModel.BetSettingProducts = GetBetSettingProducts(metaModel.CustId);
         }
 
@@ -128,21 +131,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             return betSettingProducts.Where(x => x.IsEnable).ToList();
-        }
-
-        private bool IsBetSettingEditable()
-        {
-            var setting = AppSettings.GetValue("LicenseesEditableBetSettings");
-            var licenseeIds = string.IsNullOrEmpty(setting) ? new string[] { } : setting.Split(',');
-            if (licenseeIds.Contains(SessionService.LicenseeSession.LicenseeId.ToString()))
-            {
-                return true;
-            }
-            else
-            {
-                var licensees = _licenseeService.GetByResellerId(SessionService.UserSession.UserId, BopingResellerId);
-                return licensees.Contains(SessionService.LicenseeSession.LicenseeId);
-            }
         }
     }
 }

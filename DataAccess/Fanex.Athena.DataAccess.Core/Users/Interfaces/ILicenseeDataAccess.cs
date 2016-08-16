@@ -32,8 +32,6 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 
         IList<LicenseeCustomer> GetCustByLicensee(int licenseeId);
 
-        IEnumerable<int> GetByResellerId(int userId, int resellerId);
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]
         string GetNumberOfOnlineUser();

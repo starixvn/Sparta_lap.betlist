@@ -105,18 +105,7 @@ namespace Fanex.Athena.Service.Core.Users
 
             return licenseeCustList;
         }
-
-        /// <summary>
-        ///     Get list of licenseeId base on resellerId.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="resellerId">The reseller id.</param>
-        /// <returns>The reseller identity list.</returns>
-        public IEnumerable<int> GetByResellerId(int userId, int resellerId)
-        {
-            return _licenseeDataAccess.GetByResellerId(userId, resellerId);
-        }
-
+        
         #endregion Public Methods and Operators
 
         public string GetNumberOfOnlineUser()
