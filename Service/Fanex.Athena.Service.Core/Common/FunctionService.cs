@@ -19,44 +19,65 @@ namespace Fanex.Athena.Service.Core.Common
     /// </summary>
     public class FunctionService : IFunctionService
     {
-        private static readonly IList<Function> FunctionList;
-        private static readonly IList<Function> MasterFunctions;
-        private static readonly IDictionary<int, IList<Function>> SubFunctions;
+        private static IList<Function> _functionList;
+        private static IList<Function> _masterFunctions;
+        private static IDictionary<int, IList<Function>> _subFunctions;
         private readonly IFunctionDataAccess _functionDataAccess;
-
-        #region Constructor
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline",
-            Justification = "Reviewed. Suppression is OK here.")]
-        static FunctionService()
-        {
-            var functionDataAccess = new FunctionDataAccess();
-            FunctionList = functionDataAccess.GetFunctionList();
-            SubFunctions = new Dictionary<int, IList<Function>>();
-            MasterFunctions = FunctionList.Where(f => f.ParentId == 0)
-                                         .OrderBy(f => f.DisplayOrder)
-                                         .ToList();
-            foreach (var function in MasterFunctions)
-            {
-                var subFunctions = FunctionList.Where(f => f.ParentId == function.FunctionId)
-                                             .OrderBy(f => f.DisplayOrder)
-                                             .ToList();
-                SubFunctions.Add(function.FunctionId, subFunctions);
-            }
-        }
 
         public FunctionService()
         {
             this._functionDataAccess = new FunctionDataAccess();
         }
 
-        #endregion Constructor
-
         #region Property
 
         public IList<Function> Functions
         {
-            get { return FunctionList; }
+            get
+            {
+                if (_functionList == null)
+                {
+                    _functionList = _functionDataAccess.GetFunctionList();
+                }
+
+                return _functionList;
+            }
+        }
+
+        private IList<Function> MasterFunctions
+        {
+            get
+            {
+                if (_masterFunctions == null)
+                {
+                    _masterFunctions = Functions.Where(f => f.ParentId == 0)
+                                         .OrderBy(f => f.DisplayOrder)
+                                         .ToList();
+                }
+
+                return _masterFunctions;
+            }
+        }
+
+        private IDictionary<int, IList<Function>> SubFunctions
+        {
+            get
+            {
+                if (_subFunctions == null)
+                {
+                    _subFunctions = new Dictionary<int, IList<Function>>();
+
+                    foreach (var function in MasterFunctions)
+                    {
+                        var subFunctions = Functions.Where(f => f.ParentId == function.FunctionId)
+                                                     .OrderBy(f => f.DisplayOrder)
+                                                     .ToList();
+                        _subFunctions.Add(function.FunctionId, subFunctions);
+                    }
+                }
+
+                return _subFunctions;
+            }
         }
 
         #endregion Property
@@ -73,7 +94,7 @@ namespace Fanex.Athena.Service.Core.Common
             var functionIdList = _functionDataAccess.GetLicenseeFunctionList(licenseeId)
                                                     .Select(i => i.FunctionId);
 
-            return FunctionList.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
+            return Functions.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
         }
 
         /// <summary>
@@ -91,7 +112,7 @@ namespace Fanex.Athena.Service.Core.Common
             var licenseeFunctionIdList = licenseeFunctionData.AsEnumerable().Select(f => f.FunctionId);
 
             var functionIdList = licenseeFunctionIdList.Where(l => userFunctionIdList.Any(u => u == l)).ToList();
-            var functionList = FunctionList.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
+            var functionList = Functions.Where(f => functionIdList.Contains(f.FunctionId)).ToList();
 
             foreach (var masterFunction in MasterFunctions)
             {
@@ -125,7 +146,7 @@ namespace Fanex.Athena.Service.Core.Common
         /// <returns>The result.</returns>
         public IResultInfo AssignUserFunctions(int licenseeId, int custId, IList<int> functionIdList, int userId, string ip, string langKey)
         {
-            var correctFunctionIdList = functionIdList.Where(f => FunctionList.Any(l => l.FunctionId == f)).ToList();
+            var correctFunctionIdList = functionIdList.Where(f => Functions.Any(l => l.FunctionId == f)).ToList();
             var userFunctionList = GetUserFunctionList(licenseeId, custId).Select(f => f.FunctionId);
             var addingIdList = correctFunctionIdList.Where(f => userFunctionList.All(u => u != f));
             var removingIdList = userFunctionList.Where(f => correctFunctionIdList.All(c => c != f));
@@ -161,8 +182,7 @@ namespace Fanex.Athena.Service.Core.Common
         /// <returns>The master function.</returns>
         public IList<Function> GetMasterFunctions(IList<Function> functionList)
         {
-            return
-                MasterFunctions.Where(
+            return MasterFunctions.Where(
                     f => functionList.Any(l => l.ParentId == f.FunctionId || l.FunctionId == f.FunctionId))
                                 .OrderBy(f => f.DisplayOrder)
                                 .ToList();
