@@ -24,6 +24,11 @@ namespace Fanex.Athena.Service.Core.Common
             this._exchangeRateDataAccess = new ExChangeRateDataAccess();
         }
 
+        public ExChangeRateService(IExChangeRateDataAccess exchangeRateDataAccess)
+        {
+            this._exchangeRateDataAccess = exchangeRateDataAccess;
+        }
+
         public ExChangeRate GetExChangeRate(string currency, DateTime datetime)
         {
             return _exchangeRateDataAccess.GetExChangeRate(currency, datetime);

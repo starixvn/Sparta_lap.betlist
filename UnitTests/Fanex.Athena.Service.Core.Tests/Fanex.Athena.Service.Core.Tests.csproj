@@ -84,6 +84,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Common\LanguageServiceTest.cs" />
+    <Compile Include="Common\ExChangeRateServiceTest.cs" />
+    <Compile Include="Common\CurrencyServiceTest.cs" />
     <Compile Include="Common\BetTypeServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
