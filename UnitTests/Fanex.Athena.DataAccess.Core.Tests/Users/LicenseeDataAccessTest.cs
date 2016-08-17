@@ -9,7 +9,7 @@
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
-
+    using TestHelpers;
     [TestFixture]
     public class LicenseeDataAccessTest
     {
@@ -52,15 +52,15 @@
             var request = new Request { Language = "en-US" };
             var licenseeId = 1;
             var isAllow = true;
-            var expected = TestHelpers.ResultInfoHelper.GetFakeResultInfo(_objectDb);
+            ResultInfoHelper.MockResultInfo(_objectDb);
 
             // Action
             var result = _dataAccess.IsAllowUpdateMemberBAStatus(request, licenseeId, out isAllow);
 
             // Assert
             Assert.That(isAllow, Is.False);
-            Assert.That(result.Code, Is.EqualTo(expected.Code));
-            Assert.That(result.Message, Is.EqualTo(expected.Message));
+            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
         }
 
         [Test]

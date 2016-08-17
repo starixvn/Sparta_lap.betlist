@@ -56,14 +56,14 @@
             var oldPassword = "123456";
             var newPassword = "1234aa";
             var salt = "abcxyz";
-            var expected = ResultInfoHelper.GetFakeResultInfo(_objectDb);
+            ResultInfoHelper.MockResultInfo(_objectDb);
 
             // Action
             var result = _dataAccess.ChangePassword(requestUser, oldPassword, newPassword, salt);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(expected.Code));
-            Assert.That(result.Message, Is.EqualTo(expected.Message));
+            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
         }
 
         [Test]
@@ -333,14 +333,14 @@
             };
             var resetPwdBy = 2;
             var salt = "abcxyz";
-            var expected = ResultInfoHelper.GetFakeResultInfo(_objectDb);
+            ResultInfoHelper.MockResultInfo(_objectDb);
 
             // Action
             var result = _dataAccess.ResetPassword(user, salt, resetPwdBy);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(expected.Code));
-            Assert.That(result.Message, Is.EqualTo(expected.Message));
+            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
         }
 
         [Test]
@@ -392,14 +392,14 @@
                 Request = new Request { Ip = "::1", Language = "en-US" }
             };
             var updatedBy = 2;
-            var expected = ResultInfoHelper.GetFakeResultInfo(_objectDb);
+            ResultInfoHelper.MockResultInfo(_objectDb);
 
             // Action
             var result = _dataAccess.UpdateInfo(user, updatedBy);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(expected.Code));
-            Assert.That(result.Message, Is.EqualTo(expected.Message));
+            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
         }
 
         [Test]

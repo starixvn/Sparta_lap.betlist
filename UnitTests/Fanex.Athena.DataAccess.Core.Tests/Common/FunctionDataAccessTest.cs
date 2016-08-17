@@ -131,14 +131,14 @@
             var langKey = "en-US";
 
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeUserFunctionsIns")).Returns(_objectDb);
-            var expected = ResultInfoHelper.GetFakeResultInfo(_objectDb);
+            ResultInfoHelper.MockResultInfo(_objectDb);
 
             // Action
             var result = _dataAccess.AssignUserFunction(licenseeId, custId, functionId, userId, ip, langKey);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(expected.Code));
-            Assert.That(result.Message, Is.EqualTo(expected.Message));
+            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
         }
 
         [Test]
@@ -180,14 +180,14 @@
             var langKey = "en-US";
 
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeUserFunctionsDel")).Returns(_objectDb);
-            var expected = ResultInfoHelper.GetFakeResultInfo(_objectDb);
+            ResultInfoHelper.MockResultInfo(_objectDb);
 
             // Action
             var result = _dataAccess.RemoveUserFunction(licenseeId, userId, custId, ip, functionId, langKey);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(expected.Code));
-            Assert.That(result.Message, Is.EqualTo(expected.Message));
+            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
         }
     }
 }

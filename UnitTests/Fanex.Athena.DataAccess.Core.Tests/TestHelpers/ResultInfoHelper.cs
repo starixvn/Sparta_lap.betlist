@@ -6,13 +6,13 @@
 
     public static class ResultInfoHelper
     {
-        public static IResultInfo GetFakeResultInfo(IObjectDb objectDb)
+        public const int ResultCode = 100;
+        public const string ResultMessage = "Success";
+
+        public static void MockResultInfo(IObjectDb objectDb)
         {
-            var code = 100;
-            var message = "Success";
-            objectDb.GetParameterValue("ErrCode").Returns(code);
-            objectDb.GetParameterValue("ErrMsg").Returns(message);
-            return new ResultInfo { Code = code, Message = message };
+            objectDb.GetParameterValue("ErrCode").Returns(ResultCode);
+            objectDb.GetParameterValue("ErrMsg").Returns(ResultMessage);
         }
     }
 }

@@ -55,14 +55,14 @@
         {
             // Arrange           
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CurrencyCustIns")).Returns(_objectDb);
-            var expected = ResultInfoHelper.GetFakeResultInfo(_objectDb);
+            ResultInfoHelper.MockResultInfo(_objectDb);
 
             // Action
             var result = _dataAccess.AssignCurrenciesByUser(new AssignCurrencyMetaModel());
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(expected.Code));
-            Assert.That(result.Message, Is.EqualTo(expected.Message));
+            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
         }
 
         [Test]
