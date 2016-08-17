@@ -20,7 +20,17 @@ namespace Fanex.Athena.Service.Core.Common
     /// </summary>
     public class BetTypeService : IBetTypeService
     {
-        private readonly IBetTypeDataAccess _betTypeDataAccess = new BetTypeDataAccess();
+        private readonly IBetTypeDataAccess _betTypeDataAccess;
+
+        public BetTypeService()
+        {
+            _betTypeDataAccess = new BetTypeDataAccess();
+        }
+
+        public BetTypeService(IBetTypeDataAccess betTypeDataAccess)
+        {
+            _betTypeDataAccess = betTypeDataAccess;
+        }
 
         public IDictionary<string, int> GetAllBettypes(IList<ProductOption> productOptions)
         {
