@@ -19,4 +19,5 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_GroupCommGetById" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerSetDefaultComm" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerMoveGroupComm" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
