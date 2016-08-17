@@ -44,6 +44,6 @@ namespace Fanex.Athena.Model.Core.DTO.Common
 
         public string FunctionKey { get; set; }
 
-        public bool IsHidden { get; set; }
+        public bool IsFunction { get; set; }
     }
 }

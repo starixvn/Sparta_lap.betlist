@@ -58,7 +58,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                             IsMenu = reader.ToBool("IsMenu"),
                             IsNew = reader.ToBool("IsNew"),
                             FunctionKey = reader.ToString("FunctionKey"),
-                            IsHidden = reader.ToBool("IsHidden")
+                            IsFunction = reader.ToBool("IsFunction")
                         };
 
                         functionList.Add(function);

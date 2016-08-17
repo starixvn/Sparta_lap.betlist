@@ -179,7 +179,7 @@ namespace Fanex.Athena.Service.Core.Common
 
             foreach (var function in MasterFunctions)
             {
-                var subFuntions = functionList.Where(f => f.ParentId == function.FunctionId && f.IsMenu && f.IsHidden == false)
+                var subFuntions = functionList.Where(f => f.ParentId == function.FunctionId && f.IsMenu)
                                               .OrderBy(f => f.DisplayOrder)
                                               .ToList();
                 if (subFuntions.Count > 0)
@@ -197,7 +197,7 @@ namespace Fanex.Athena.Service.Core.Common
 
             foreach (var function in MasterFunctions)
             {
-                var subFuntions = functionList.Where(f => f.ParentId == function.FunctionId && f.IsMenu)
+                var subFuntions = functionList.Where(f => f.ParentId == function.FunctionId && f.IsFunction)
                                               .OrderBy(f => f.DisplayOrder)
                                               .ToList();
                 if (subFuntions.Count > 0)
