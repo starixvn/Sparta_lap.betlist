@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Core.Tests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.BetList.Tests")]
 [assembly: System.CLSCompliant(true)]
 
 // General Information about an assembly is controlled through the following 
