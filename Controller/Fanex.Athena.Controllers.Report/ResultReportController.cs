@@ -240,10 +240,10 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpGet]
-        public ActionResult AllBetResult(string refNo)
+        public ActionResult AllBetResult(string transDesc, string betCheck, string betType)
         {
             var allbetResultService = new BuilderService();
-            ViewBag.Data = allbetResultService.Render(refNo);
+            ViewBag.Data = allbetResultService.Render(transDesc, betCheck, betType, SessionService.UserSession.Language);
             return View("~/Views/Report/Result/Popup/AllBet.cshtml");
         }
 

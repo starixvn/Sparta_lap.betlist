@@ -381,8 +381,9 @@ var BetList = (function ($) {
             });
         },
 
-        viewAllBetResult: function (refno) {
-            var url = Site.resolveClientUrl('ResultReport/AllBetResult?refno=' + refno);
+        viewAllBetResult: function (trasdesc, betcheck, bettype) {
+            var url = Site.resolveClientUrl('ResultReport/AllBetResult?transdesc=' +
+                encodeURIComponent(trasdesc) +'&betcheck=' + betcheck + '&bettype=' + bettype);
             Site.blockUI();
 
             var dialogForm = '<div title="' + Site.getSingleResource("Result") +
@@ -423,7 +424,7 @@ var BetList = (function ($) {
             });
         },
         showResult: function (matchid, raceNo, bettype, sporttype, refno,
-            username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) {
+            username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid, transdecs) {
             var title = Site.getSingleResource("Result");
             if (sporttype === SPORT_MICROGAMMING_RNG || sporttype === SPORT_MICROGAMMING_LC) {
                 BetList.showMicrogamingResultPopup(title, betcheck, custid);
@@ -435,7 +436,7 @@ var BetList = (function ($) {
                 BetList.viewVoidbridgeResult(custid, betcheck);
             }
             else if (sporttype === SPORT_ALLBET) {
-                BetList.viewAllBetResult(refno);
+                BetList.viewAllBetResult(transdecs, betcheck, bettype);
             }
             else {
                 bettype = Number(bettype);
