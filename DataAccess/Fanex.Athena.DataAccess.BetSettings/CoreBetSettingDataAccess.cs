@@ -42,7 +42,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 {
                     if (reader.Read())
                     {
-                        return (bool)reader["IsGrant"];
+                        return System.Convert.ToBoolean(reader["IsGrant"]);
                     }
                 }
             }
