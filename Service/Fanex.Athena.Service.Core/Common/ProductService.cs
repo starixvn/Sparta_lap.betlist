@@ -31,25 +31,22 @@ namespace Fanex.Athena.Service.Core.Common
     /// </summary>
     public class ProductService : IProductService
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///     The cache timeout minute.
-        /// </summary>
         private const int CacheTimeoutMinute = 15;
 
-        /// <summary>
-        ///     The _product data access.
-        /// </summary>
-        private readonly IProductDataAccess _productDataAccess = new ProductDataAccess();
+        private readonly IProductDataAccess _productDataAccess;
 
         private readonly IAppSettings _appSettings;
-
-        #endregion
 
         public ProductService()
         {
             _appSettings = new AppSettings();
+            _productDataAccess = new ProductDataAccess();
+        }
+
+        public ProductService(IAppSettings appSettings, IProductDataAccess productDataAccess)
+        {
+            _appSettings = appSettings;
+            _productDataAccess = productDataAccess;
         }
 
         #region Public Methods and Operators

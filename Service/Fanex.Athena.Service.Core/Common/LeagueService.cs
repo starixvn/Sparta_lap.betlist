@@ -16,14 +16,24 @@ namespace Fanex.Athena.Service.Core.Common
     /// TODO: Update summary.
     /// </summary>
     public class LeagueService : ILeagueService
-    {        
-        private ILeagueDataAccess _dataAccess = new LeagueDataAccess();
+    {
+        private readonly ILeagueDataAccess _dataAccess;
+
+        public LeagueService()
+        {
+            _dataAccess = new LeagueDataAccess();
+        }
+
+        public LeagueService(ILeagueDataAccess dataAccess)
+        {
+            _dataAccess = dataAccess;
+        }
 
         #region ILeagueService Members
 
         public IList<League> GetLeaguesBySport(LeagueMetaModel metaModel)
-        {            
-            return _dataAccess.GetLeaguesBySport(metaModel);            
+        {
+            return _dataAccess.GetLeaguesBySport(metaModel);
         }
 
         #endregion ILeagueService Members

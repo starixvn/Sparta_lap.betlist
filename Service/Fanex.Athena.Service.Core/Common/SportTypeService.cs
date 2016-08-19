@@ -24,6 +24,11 @@ namespace Fanex.Athena.Service.Core.Common
             _sportTypeDataAcess = new SportTypeDataAccess();
         }
 
+        public SportTypeService(ISportTypeDataAccess sportTypeDataAcess)
+        {
+            _sportTypeDataAcess = sportTypeDataAcess;
+        }
+
         public IDictionary<int, string> GetAllSports()
         {
             return this._sportTypeDataAcess.GetAllSports();
