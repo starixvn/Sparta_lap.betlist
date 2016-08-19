@@ -24,12 +24,9 @@ namespace Fanex.Athena.Service.BetList
         private const string MatchListSpKey = "Lrf_Monitor_MatchSel";
         private const string OutrightMatchListSpKey = "Lrf_Monitor_OutrightSel";
 
-        private static readonly IList<int> convertingDecimalOddsBetType = new List<int> { 1, 2, 3, 7, 8, 12, 20 };
+        private static readonly IList<int> ConvertingDecimalOddsBetType = new List<int> { 1, 2, 3, 7, 8, 12, 20 };
 
         private readonly ILastBetsMonitoringBetListDataAccess _lastBetsMonitoringBetListDataAccess;
-
-        private IList<BetListMatch> matchList = new List<BetListMatch>();
-        private IList<BetListMatch> outrightMatchList = new List<BetListMatch>();
 
         public LastBetsMonitoringBetListService()
         {
@@ -49,7 +46,7 @@ namespace Fanex.Athena.Service.BetList
 
         private static bool IsConvertToOdd(int betTypeId)
         {
-            return convertingDecimalOddsBetType.Contains(betTypeId);
+            return ConvertingDecimalOddsBetType.Contains(betTypeId);
         }
 
         /// <summary>
@@ -128,49 +125,18 @@ namespace Fanex.Athena.Service.BetList
 
         #region Reload Match Info Cache
 
-        /// <summary>
-        /// Get match data by match id.
-        /// </summary>
-        /// <param name="matchId">The match identity.</param>
-        /// <param name="betType">The bet type.</param>
-        /// <returns>The information of match. </returns>
-        private BetListMatch GetMatchInfo(int matchId, int betType)
+        private static bool IsOutright(int betType)
         {
-            var outright = betType == (int)BetType.Outright
+            return betType == (int)BetType.Outright
                         || betType == (int)BetType.Win
                         || betType == (int)BetType.Place
                         || betType == (int)BetType.WinPlace;
-
-            if (outright)
-            {
-                var match = outrightMatchList.Where(x => x.MatchId == matchId).FirstOrDefault();
-
-                if (match == null)
-                {
-                    outrightMatchList = ReloadOutrightMatchList();
-                    match = outrightMatchList.Where(x => x.MatchId == matchId).FirstOrDefault();
-                }
-
-                return match;
-            }
-            else
-            {
-                var match = matchList.Where(x => x.MatchId == matchId).FirstOrDefault();
-
-                if (match == null)
-                {
-                    matchList = ReloadMatchList();
-                    match = matchList.Where(x => x.MatchId == matchId).FirstOrDefault();
-                }
-
-                return match;
-            }
         }
 
         /// <summary>
         /// Reload match list once if the match is not found.
         /// </summary>
-        private IList<BetListMatch> ReloadMatchList()
+        private IList<BetListMatch> GetMatchList()
         {
             var data = CacheService.Get<IList<BetListMatch>>(MatchListCacheKey);
             if (data == null)
@@ -185,7 +151,7 @@ namespace Fanex.Athena.Service.BetList
         /// <summary>
         /// Reload outright match list once if the match is not found.
         /// </summary>
-        private IList<BetListMatch> ReloadOutrightMatchList()
+        private IList<BetListMatch> GetOutrightMatchList()
         {
             var data = CacheService.Get<IList<BetListMatch>>(MatchListCacheKey);
             if (data == null)
@@ -210,9 +176,13 @@ namespace Fanex.Athena.Service.BetList
         {
             var mainTicketList = ticketResult.MainTicketList;
             var timeZoneDelta = metaModel.TimeZone - (-4);
+            var matchList = GetMatchList();
+            var outrightMatchList = GetOutrightMatchList();
             foreach (LrfTicket ticket in mainTicketList)
             {
-                var match = GetMatchInfo(ticket.MatchId, ticket.BetTypeId);
+                var isOutright = IsOutright(ticket.BetTypeId);
+                var match = (isOutright ? outrightMatchList : matchList).Where(x => x.MatchId == ticket.MatchId).FirstOrDefault();
+
                 if (match != null)
                 {
                     ticket.SportTypeId = match.SportType;
