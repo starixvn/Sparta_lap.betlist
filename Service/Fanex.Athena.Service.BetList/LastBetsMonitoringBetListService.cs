@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.BetList
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Core.Common;
     using Fanex.Athena.DataAccess.BetList;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.DTO;
@@ -17,16 +18,18 @@ namespace Fanex.Athena.Service.BetList
 
     public class LastBetsMonitoringBetListService : ILastBetsMonitoringBetListService
     {
+        private const int CacheTimeout = 300;
+        private const string MatchListCacheKey = "LastBetsMatchList";
+        private const string OutrightMatchListCacheKey = "LastBetsOutrightMatchList";
         private const string MatchListSpKey = "Lrf_Monitor_MatchSel";
         private const string OutrightMatchListSpKey = "Lrf_Monitor_OutrightSel";
-        private static IList<BetListMatch> matchList = new List<BetListMatch>();
-        private static IList<BetListMatch> outrightMatchList = new List<BetListMatch>();
-        private static IList<int> convertingDecimalOddsBetType = new List<int> { 1, 2, 3, 7, 8, 12, 20 };
+
+        private static readonly IList<int> convertingDecimalOddsBetType = new List<int> { 1, 2, 3, 7, 8, 12, 20 };
 
         private readonly ILastBetsMonitoringBetListDataAccess _lastBetsMonitoringBetListDataAccess;
 
-        private bool _reloadedMatch = false;
-        private bool _reloadedOutrightMatch = false;
+        private IList<BetListMatch> matchList = new List<BetListMatch>();
+        private IList<BetListMatch> outrightMatchList = new List<BetListMatch>();
 
         public LastBetsMonitoringBetListService()
         {
@@ -144,11 +147,8 @@ namespace Fanex.Athena.Service.BetList
 
                 if (match == null)
                 {
-                    ReloadOutrightMatchList();
-                    if (outrightMatchList != null)
-                    {
-                        match = outrightMatchList.Where(x => x.MatchId == matchId).FirstOrDefault();
-                    }
+                    outrightMatchList = ReloadOutrightMatchList();
+                    match = outrightMatchList.Where(x => x.MatchId == matchId).FirstOrDefault();
                 }
 
                 return match;
@@ -159,7 +159,7 @@ namespace Fanex.Athena.Service.BetList
 
                 if (match == null)
                 {
-                    ReloadMatchList();
+                    matchList = ReloadMatchList();
                     match = matchList.Where(x => x.MatchId == matchId).FirstOrDefault();
                 }
 
@@ -170,27 +170,31 @@ namespace Fanex.Athena.Service.BetList
         /// <summary>
         /// Reload match list once if the match is not found.
         /// </summary>
-        private void ReloadMatchList()
+        private IList<BetListMatch> ReloadMatchList()
         {
-            if (!_reloadedMatch)
+            var data = CacheService.Get<IList<BetListMatch>>(MatchListCacheKey);
+            if (data == null)
             {
-                matchList.Clear();
-                matchList = this._lastBetsMonitoringBetListDataAccess.GetMatchList(MatchListSpKey);
-                _reloadedMatch = true;
+                data = this._lastBetsMonitoringBetListDataAccess.GetMatchList(MatchListSpKey);
+                CacheService.Set(MatchListCacheKey, data, CacheTimeout);
             }
+
+            return data;
         }
 
         /// <summary>
         /// Reload outright match list once if the match is not found.
         /// </summary>
-        private void ReloadOutrightMatchList()
+        private IList<BetListMatch> ReloadOutrightMatchList()
         {
-            if (!_reloadedOutrightMatch)
+            var data = CacheService.Get<IList<BetListMatch>>(MatchListCacheKey);
+            if (data == null)
             {
-                outrightMatchList.Clear();
-                outrightMatchList = this._lastBetsMonitoringBetListDataAccess.GetMatchList(OutrightMatchListSpKey);
-                _reloadedOutrightMatch = true;
+                data = this._lastBetsMonitoringBetListDataAccess.GetMatchList(OutrightMatchListSpKey);
+                CacheService.Set(OutrightMatchListCacheKey, data, CacheTimeout);
             }
+
+            return data;
         }
 
         #endregion Reload Match Info Cache
