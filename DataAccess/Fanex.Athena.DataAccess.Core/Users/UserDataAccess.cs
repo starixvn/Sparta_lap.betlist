@@ -190,7 +190,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
         /// </summary>
         /// <param name="userName"> The user name. </param>
         /// <returns> Boolean result. </returns>
-        public bool IsUsernameExited(string userName)
+        public bool IsUsernameExisted(string userName)
         {
             const string UspName = "Lrf_IsUserExisted";
             try

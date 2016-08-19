@@ -28,6 +28,11 @@ namespace Fanex.Athena.Service.Core.Configuration
             this._balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
+        public BalanceUpService(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            this._balanceUpDataAccess = balanceUpDataAccess;
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
         public BalanceUp BalanceUpInfo

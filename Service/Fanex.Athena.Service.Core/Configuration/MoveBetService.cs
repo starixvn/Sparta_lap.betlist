@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.Core.Configuration
 {
     using System;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Configuration;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Configuration;
@@ -18,7 +19,7 @@ namespace Fanex.Athena.Service.Core.Configuration
     {
         private const int CacheTimeoutSeconds = 60; // 1 minutes.
 
-        private readonly MoveBetDataAccess _moveBetDataAccess;
+        private readonly IMoveBetDataAccess _moveBetDataAccess;
 
         private readonly IAppSettings _appSettings;
 
@@ -26,6 +27,12 @@ namespace Fanex.Athena.Service.Core.Configuration
         {
             this._moveBetDataAccess = new MoveBetDataAccess();
             this._appSettings = new AppSettings();
+        }
+
+        public MoveBetService(IAppSettings appSettings, IMoveBetDataAccess moveBetDataAccess)
+        {
+            this._moveBetDataAccess = moveBetDataAccess;
+            this._appSettings = appSettings;
         }
 
         /// <summary>

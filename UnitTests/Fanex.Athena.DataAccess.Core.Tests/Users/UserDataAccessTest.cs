@@ -215,7 +215,7 @@
             var userName = "test";
 
             // Action
-            _dataAccess.IsUsernameExited(userName);
+            _dataAccess.IsUsernameExisted(userName);
 
             // Assert
             _objectDb.Received().AddInParameter("Username", DbType.String, userName);
@@ -232,7 +232,7 @@
             _objectDb.GetParameterValue("IsUserExisted").Returns(expected);
 
             // Action
-            var result = _dataAccess.IsUsernameExited(userName);
+            var result = _dataAccess.IsUsernameExisted(userName);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

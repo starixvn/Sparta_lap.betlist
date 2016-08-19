@@ -31,7 +31,7 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 
         object GetUserSalt(string userName);
 
-        bool IsUsernameExited(string userName);
+        bool IsUsernameExisted(string userName);
 
         int LoginOnUser(User requestUser, string netSessionId, int serverId);
 
