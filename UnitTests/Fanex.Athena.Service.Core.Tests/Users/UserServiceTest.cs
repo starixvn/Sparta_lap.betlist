@@ -14,13 +14,13 @@
     public class UserServiceTest
     {
         private IUserDataAccess _userDataAccess;
-        private IUserService _moveBetService;
+        private IUserService _userService;
 
         [SetUp]
         public void SetUp()
         {
             _userDataAccess = Substitute.For<IUserDataAccess>();
-            _moveBetService = new UserService(_userDataAccess);
+            _userService = new UserService(_userDataAccess);
         }
 
         [Test]
@@ -35,7 +35,7 @@
             _userDataAccess.GetUserSalt(userName).Returns(oldSalt);
 
             // Action
-            var result = _moveBetService.ChangePassword(userName, oldPassword, newPassword, Arg.Any<string>());
+            var result = _userService.ChangePassword(userName, oldPassword, newPassword, Arg.Any<string>());
 
             // Assert
             _userDataAccess.Received().ChangePassword(Arg.Any<User>(), oldEncryptedPassword, Arg.Any<string>(), Arg.Any<string>());
@@ -53,7 +53,7 @@
             _userDataAccess.GetByLicensee(licenseeId, isInternal).Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetByLicensee(licenseeId, isInternal);
+            var result = _userService.GetByLicensee(licenseeId, isInternal);
 
             // Assert
             Assert.That(result[0].Id, Is.EqualTo(expectedResult[0].Id));
@@ -67,7 +67,7 @@
             _userDataAccess.GetByUsername(userName).Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetByUsername(userName);
+            var result = _userService.GetByUsername(userName);
 
             // Assert
             Assert.That(result.Id, Is.EqualTo(expectedResult.Id));
@@ -82,7 +82,7 @@
             _userDataAccess.GetUserInfo(licenseeId, userId).Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetUserInfo(licenseeId, userId);
+            var result = _userService.GetUserInfo(licenseeId, userId);
 
             // Assert
             Assert.That(result.Id, Is.EqualTo(expectedResult.Id));
@@ -96,7 +96,7 @@
             _userDataAccess.IsUsernameExisted(userName).Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.IsUserNameExisted(userName);
+            var result = _userService.IsUserNameExisted(userName);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -115,7 +115,7 @@
             _userDataAccess.LoginOnUser(Arg.Any<User>(), netSessionId, serverId).Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.LoginOnUser(user, netSessionId, serverId, string.Empty);
+            var result = _userService.LoginOnUser(user, netSessionId, serverId, string.Empty);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));

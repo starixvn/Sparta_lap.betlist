@@ -100,6 +100,7 @@
     <Compile Include="Configuration\BalanceUpServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\AuthorizationServiceTest.cs" />
+    <Compile Include="Users\LicenseeServiceTest.cs" />
     <Compile Include="Users\UserServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
