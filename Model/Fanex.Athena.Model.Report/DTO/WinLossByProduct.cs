@@ -7,21 +7,13 @@
 namespace Fanex.Athena.Model.Report.DTO
 {
     using System;
-    using Model.Core.Helper;
 
     /// <summary>
     /// WinLossByProduct class.
     /// </summary>
     public class WinLossByProduct : ICustomerWinLoss
     {
-        private string _productCode;
-        private string _productName;
-
-        public string ProductCode
-        {
-            get { return _productCode; }
-            set { _productCode = value; }
-        }
+        public string ProductCode { get; set; }
 
         public DateTime Date { get; set; }
 
@@ -39,18 +31,7 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public int CurrencyId { get; set; }
 
-        public string ProductName
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_productName))
-                {
-                    _productName = ProductHelper.GetProductName(_productCode);
-                }
-
-                return _productName;
-            }
-        }
+        public string ProductName { get; set; }
 
         public decimal TurnOver { get; set; }
 

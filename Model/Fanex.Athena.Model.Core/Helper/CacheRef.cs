@@ -47,7 +47,7 @@ namespace Fanex.Athena.Model.Core.Helper
             return RefData.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
-        public static string GetSportName(object sportId, string languageCode = "en-US")
+        public static string GetSportName(object sportId, string languageCode = null)
         {
             return RefData.GetSportName(sportId.ToString(), GetCurrentIBCLanguageCode(languageCode), string.Empty);
         }
