@@ -47,9 +47,10 @@ namespace Fanex.Athena.Model.Core.Helper
             return RefData.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
-        public static string GetSportName(object sportId)
+        public static string GetSportName(object sportId, bool autoDetectLanguage = true, string langCode = "en-Us")
         {
-            return RefData.GetSportName(sportId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
+            var langKey = autoDetectLanguage ? GetCurrentIBCLanguageCode() : GetIBCLangCodeByCultureInfo(langCode);
+            return RefData.GetSportName(sportId.ToString(), langKey, string.Empty);
         }
 
         public static string GetTeamName(object teamId)
@@ -87,11 +88,6 @@ namespace Fanex.Athena.Model.Core.Helper
         {
             var betTeamString = betTeam == null ? string.Empty : betTeam.ToString();
             return RefData.GetRouletteBetItem(betTeamString, GetCurrentIBCLanguageCode());
-        }
-
-        public static string GetCurrentLanguageCode()
-        {
-            return GetCurrentIBCLanguageCode();
         }
 
         /// <summary>
@@ -135,15 +131,18 @@ namespace Fanex.Athena.Model.Core.Helper
             return RefData.GetCombinationTypeCombo(betTeam, betCheck, Convert.ToInt32(handicap1), Convert.ToInt32(handicap2), GetCurrentIBCLanguageCode());
         }
 
-        private static string GetCurrentIBCLanguageCode()
+        public static string GetCurrentIBCLanguageCode()
         {
             var languageCode = Thread.CurrentThread.CurrentUICulture.IetfLanguageTag;
+            return GetIBCLangCodeByCultureInfo(languageCode);
+        }
+        private static string GetIBCLangCodeByCultureInfo(string culture)
+        {
             string result;
-            if (!_mapLanguages.TryGetValue(languageCode, out result))
+            if (!_mapLanguages.TryGetValue(culture, out result))
             {
                 return "en";
             }
-
             return result;
         }
     }

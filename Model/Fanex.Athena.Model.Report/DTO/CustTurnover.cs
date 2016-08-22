@@ -15,7 +15,6 @@ namespace Fanex.Athena.Model.Report.DTO
     public class CustTurnover : ICustomerWinLoss
     {
         private int _sportId;
-        private string _sportType;
 
         public int Index { get; set; }
 
@@ -37,15 +36,7 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public string SportType
         {
-            get
-            {
-                if (string.IsNullOrEmpty(this._sportType))
-                {
-                    this._sportType = CacheRef.GetSportName(this._sportId);
-                }
-
-                return this._sportType;
-            }
+            get; set;
         }
 
         public int TotalTransactions { get; set; }
