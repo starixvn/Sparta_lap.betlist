@@ -61,12 +61,11 @@ namespace Fanex.Athena.DataAccess.Report
                         var sportId = reader.ToInt("sporttype");
                         result.Add(new CustTurnover
                         {
-                            // Get turnover row to list item
                             ReportBy = ConvertHelper.ToDateTime(reader.ToString("ReportBy"), metaModel.ReportBy == ReportByType.Monthly),
                             UserName = reader.ToString("username"),
                             Currency = reader.ToString("currency"),
                             SportId = sportId,
-                            SportType = CacheRef.GetSportName(sportId, false, languageCode),
+                            SportType = CacheRef.GetSportName(sportId, languageCode),
                             TotalTransactions = reader.ToInt("BetCount"),
                             Bettype = reader.ToString("Bettype"),
                             Turnover = turnover,

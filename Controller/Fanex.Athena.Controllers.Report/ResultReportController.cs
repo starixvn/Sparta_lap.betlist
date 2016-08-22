@@ -234,8 +234,8 @@ namespace Fanex.Athena.Controllers.Report
         public string VoidbridgeResult(string custId, string gamePlayId)
         {
             var voidbridgeApi = new VoidbridgeApiImp();
-
-            return voidbridgeApi.GetBetHistoryUrl(custId, gamePlayId, CacheRef.GetCurrentIBCLanguageCode());
+            var languageCode = SessionService.UserSession.Language;
+            return voidbridgeApi.GetBetHistoryUrl(custId, gamePlayId, languageCode);
         }
 
         /// <summary>

@@ -61,7 +61,6 @@ namespace Fanex.Athena.Web.ActionFilter
                     {
                         Data = new { ErrCode = 403, ErrMsg = "Access Denied." },
                         JsonRequestBehavior = JsonRequestBehavior.AllowGet
-
                     };
                 }
                 else
