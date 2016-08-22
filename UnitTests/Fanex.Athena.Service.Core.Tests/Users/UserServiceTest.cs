@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using DataAccess.Core.Users.Interfaces;
+    using Fanex.Common;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
@@ -29,13 +30,15 @@
             var userName = "user";
             var oldPassword = "oldpwd";
             var newPassword = "newpwd";
+            var oldSalt = "anything";
+            var oldEncryptedPassword = Cryptography.CreateHash(oldPassword, oldSalt);
+            _userDataAccess.GetUserSalt(userName).Returns(oldSalt);
 
             // Action
             var result = _moveBetService.ChangePassword(userName, oldPassword, newPassword, Arg.Any<string>());
 
             // Assert
-            _userDataAccess.Received().GetUserSalt(userName);
-            _userDataAccess.Received().ChangePassword(Arg.Any<User>(), oldPassword, newPassword, Arg.Any<string>());
+            _userDataAccess.Received().ChangePassword(Arg.Any<User>(), oldEncryptedPassword, Arg.Any<string>(), Arg.Any<string>());
         }
 
         [Test]

@@ -27,7 +27,13 @@ namespace Fanex.Athena.Service.Core.Users
             _functionService = new FunctionService();
         }
 
-        public bool HasPermissions(IEnumerable<int> userFunctionIds, string[] permissionKeys)
+        public AuthorizationService(IAthorizationDataAccess authorizationDataAccess, IFunctionService functionService)
+        {
+            _authorizationDataAccess = authorizationDataAccess;
+            _functionService = functionService;
+        }
+
+        public bool HasPermissions(int licenseeId, IEnumerable<int> userFunctionIds, string[] permissionKeys)
         {
             var allFunctions = _functionService.Functions;
             var functions = allFunctions.Where(x => permissionKeys.Contains(x.FunctionKey, StringComparer.InvariantCultureIgnoreCase));
