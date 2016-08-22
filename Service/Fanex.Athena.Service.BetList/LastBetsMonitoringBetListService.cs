@@ -153,7 +153,7 @@ namespace Fanex.Athena.Service.BetList
         /// </summary>
         private IList<BetListMatch> GetOutrightMatchList()
         {
-            var data = CacheService.Get<IList<BetListMatch>>(MatchListCacheKey);
+            var data = CacheService.Get<IList<BetListMatch>>(OutrightMatchListCacheKey);
             if (data == null)
             {
                 data = this._lastBetsMonitoringBetListDataAccess.GetMatchList(OutrightMatchListSpKey);
