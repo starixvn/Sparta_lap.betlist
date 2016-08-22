@@ -99,7 +99,7 @@
             var authorized = true;
             if (userSession != null && licenseeSession != null)
             {
-                authorized = authorization.HasPermissions(licenseeSession.LicenseeId, userSession.FunctionIdList, PermissionKeys);
+                authorized = authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
             }
 
             return authorized;
