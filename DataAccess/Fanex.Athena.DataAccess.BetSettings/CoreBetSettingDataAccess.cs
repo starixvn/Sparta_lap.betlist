@@ -18,7 +18,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         public IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId)
         {
             var uspName = "Lrf_LicenseeProductSel";
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 var param = new Hashtable
                 {

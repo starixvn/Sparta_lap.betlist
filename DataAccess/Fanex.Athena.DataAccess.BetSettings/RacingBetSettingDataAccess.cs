@@ -23,7 +23,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             var uspName = "Lrf_CustomerSelEditRB";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
                 using (var reader = db.ExecuteReader())

@@ -74,7 +74,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgCasinoBetSettingDataAccessTest.cs" />
+    <Compile Include="CasinoBettingBaseDataAccessTest.cs" />
+    <Compile Include="ClassTest\FakeCasinoBettingBaseDataAccess.cs" />
+    <Compile Include="CoreBetSettingDataAccessTest.cs" />
+    <Compile Include="KenoBetSettingDataAccessTest.cs" />
+    <Compile Include="LiveCasinoBetSettingDataAccessTest.cs" />
+    <Compile Include="NumberGameBetSettingDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RacingBetSettingDataAccessTest.cs" />
+    <Compile Include="SportsbookBetSettingDataAccessTest.cs" />
+    <Compile Include="ThirdPartyBetSettingDataAccessTest.cs" />
+    <Compile Include="VirtualSportsBetSettingDataAccessTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

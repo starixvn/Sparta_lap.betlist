@@ -19,7 +19,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         public ThirdPartyBetSetting GetBetSetting(int custId, int productid)
         {
             var uspName = "Lrf_3rdProductSelCustStatus";
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
                 db.AddInParameter("ProductId", DbType.Int32, productid);
@@ -48,7 +48,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             var uspName = "Lrf_3rdProductUpdCustStatus";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
                 db.AddInParameter("userid", DbType.Int32, userId);

@@ -30,7 +30,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         public IList<BetSetting> GetBetSetting(int custId, ref EsportSettingType esportSetting)
         {
             var uspName = "Lrf_CustomerSelEditCustomer";
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
                 using (var reader = db.ExecuteReader())
@@ -52,7 +52,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             var uspName = "Lrf_CustomerUpdMember_All";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("licenseeid", DbType.Int32, data.LicenseeId);
                 db.AddInParameter("ip", DbType.String, data.Ip);
@@ -84,7 +84,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             var uspName = "Lrf_CustomerUpdEsportStatus";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("ip", DbType.String, setting.Ip);
                 db.AddInParameter("Langkey", DbType.String, setting.Language);

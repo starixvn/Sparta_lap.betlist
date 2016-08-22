@@ -28,7 +28,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             var gameTypeName = GetGameTypeColumn(language);
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
 

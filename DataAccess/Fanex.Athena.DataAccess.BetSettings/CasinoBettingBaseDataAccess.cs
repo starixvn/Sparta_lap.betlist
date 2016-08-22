@@ -24,7 +24,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             var trackingValue1 = GetTrackingValueForUpdateStatus(uspName, userId, custId, sportid, status == 1 ? 0 : 1, ip, language);
             var trackingValue2 = GetTrackingValueForUpdateStatus(uspName, userId, custId, sportid, status, ip, language);
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("userid", DbType.Int32, userId);
                 db.AddInParameter("custid", DbType.Int32, custId);
@@ -53,7 +53,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             const string UspName = "WriteLog_UserLog_RunSP";
 
-            using (var db = new ObjectDb(UspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.AddInParameter("UserID", DbType.Int32, userId);
                 db.AddInParameter("CustID", DbType.Int32, custId);
