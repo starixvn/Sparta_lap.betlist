@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using DataAccess.Core.Users.Interfaces;
-    using Fanex.Common;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;

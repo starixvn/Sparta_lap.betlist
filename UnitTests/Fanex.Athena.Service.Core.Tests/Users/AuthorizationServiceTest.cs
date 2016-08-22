@@ -5,7 +5,6 @@
     using Core.Common.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Users;

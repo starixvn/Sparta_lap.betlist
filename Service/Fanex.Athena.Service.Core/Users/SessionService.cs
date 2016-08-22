@@ -42,6 +42,16 @@ namespace Fanex.Athena.Service.Core.Users
             _currencyService = new CurrencyService();
         }
 
+        public SessionService(
+            IFunctionService functionService, 
+            ILicenseeService licenseeService, 
+            ICurrencyService currencyService)
+        {
+            _functionService = functionService;
+            _licenseeService = licenseeService;
+            _currencyService = currencyService;
+        }
+
         #region Public Properties
 
         public LicenseeSession LicenseeSession
