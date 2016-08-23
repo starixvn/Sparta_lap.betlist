@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{195AD258-DE51-497C-BA3B-1645AE32CAB6}"
 EndProject
@@ -149,6 +149,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Core.Tests", "UnitTests\Fanex.Athena.Service.Core.Tests\Fanex.Athena.Service.Core.Tests.csproj", "{0E34FC65-8934-46D6-A8B6-27BABDC86A09}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.BetSettings.Tests", "UnitTests\Fanex.Athena.DataAccess.BetSettings.Tests\Fanex.Athena.DataAccess.BetSettings.Tests.csproj", "{864E41DD-4B16-45AD-963F-9D79E4FDD0FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.BetList.Tests", "UnitTests\Fanex.Athena.Service.BetList.Tests\Fanex.Athena.Service.BetList.Tests.csproj", "{630EE6C4-5432-4708-BABA-0F4551823308}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -832,6 +834,18 @@ Global
 		{864E41DD-4B16-45AD-963F-9D79E4FDD0FD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{864E41DD-4B16-45AD-963F-9D79E4FDD0FD}.Release|x86.ActiveCfg = Release|Any CPU
 		{864E41DD-4B16-45AD-963F-9D79E4FDD0FD}.Release|x86.Build.0 = Release|Any CPU
+		{630EE6C4-5432-4708-BABA-0F4551823308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{630EE6C4-5432-4708-BABA-0F4551823308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{630EE6C4-5432-4708-BABA-0F4551823308}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{630EE6C4-5432-4708-BABA-0F4551823308}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{630EE6C4-5432-4708-BABA-0F4551823308}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{630EE6C4-5432-4708-BABA-0F4551823308}.Debug|x86.Build.0 = Debug|Any CPU
+		{630EE6C4-5432-4708-BABA-0F4551823308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{630EE6C4-5432-4708-BABA-0F4551823308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{630EE6C4-5432-4708-BABA-0F4551823308}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{630EE6C4-5432-4708-BABA-0F4551823308}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{630EE6C4-5432-4708-BABA-0F4551823308}.Release|x86.ActiveCfg = Release|Any CPU
+		{630EE6C4-5432-4708-BABA-0F4551823308}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -897,6 +911,7 @@ Global
 		{8A922757-8C4B-44C0-9D3E-9B68E6AE956B} = {6AD8D3FB-0047-432F-ACAC-D67093176088}
 		{0E34FC65-8934-46D6-A8B6-27BABDC86A09} = {8A922757-8C4B-44C0-9D3E-9B68E6AE956B}
 		{864E41DD-4B16-45AD-963F-9D79E4FDD0FD} = {4D5CED10-CCDF-4520-8FE1-E599D3DB18D6}
+		{630EE6C4-5432-4708-BABA-0F4551823308} = {8A922757-8C4B-44C0-9D3E-9B68E6AE956B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
