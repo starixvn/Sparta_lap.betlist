@@ -13,6 +13,7 @@ namespace Fanex.Athena.DataAccess.Customer
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
@@ -21,7 +22,7 @@ namespace Fanex.Athena.DataAccess.Customer
     /// <summary>
     /// Customer log.
     /// </summary>
-    public class CustomerLogDataAccess : ICustomerLogDataAccess
+    public class CustomerLogDataAccess : BaseDataAccess, ICustomerLogDataAccess
     {
         /// <summary>
         /// Get Customer Setting Log Data List.
@@ -31,7 +32,7 @@ namespace Fanex.Athena.DataAccess.Customer
         public IList<CustomerLog> GetCustomerSettingList(CustomerLogMetaModel metaModel)
         {
             const string SpName = "Lrf_CustomerSettingLog_Sel";
-            using (var db = new ObjectDb(SpName))
+            using (var db = this.GetObjectDb(SpName))
             {
                 db.AddInParameter("UserName", DbType.String, metaModel.UserName);
                 db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
@@ -52,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Customer
         {
             const string SpName = "Lrf_GroupCommLog_Sel";
            
-            using (var db = new ObjectDb(SpName))
+            using (var db = this.GetObjectDb(SpName))
             {
                 db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);

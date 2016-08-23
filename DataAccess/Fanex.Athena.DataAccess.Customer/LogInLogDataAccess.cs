@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Customer
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Common.Extensions;
@@ -19,7 +20,7 @@ namespace Fanex.Athena.DataAccess.Customer
     /// <summary>
     /// Login log data access.
     /// </summary>
-    public class LogInLogDataAccess : ILogInLogDataAccess
+    public class LogInLogDataAccess : BaseDataAccess, ILogInLogDataAccess
     {
         /// <summary>
         /// Get data list.
@@ -33,7 +34,7 @@ namespace Fanex.Athena.DataAccess.Customer
 
             var dataList = new List<LogInLog>();
 
-            using (var db = new ObjectDb(SpName))
+            using (var db = this.GetObjectDb(SpName))
             {
                 db.AddInParameter("UserName", DbType.String, string.IsNullOrEmpty(username) ? string.Empty : username.Trim());
                 db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);

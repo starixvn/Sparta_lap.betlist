@@ -39,7 +39,7 @@ namespace Fanex.Athena.DataAccess.Customer
         {
             try
             {
-                using (var db = new ObjectDb("Lrf_CustomerSelUserSearch"))
+                using (var db = this.GetObjectDb("Lrf_CustomerSelUserSearch"))
                 {
                     db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
                     db.AddInParameter("userid", DbType.Int32, userId);
@@ -71,7 +71,7 @@ namespace Fanex.Athena.DataAccess.Customer
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserID", DbType.Int32, metaModel.UserId);
@@ -139,7 +139,7 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        private void AddOddsGroupParam(ObjectDb objectDb, CustomerListMetaModel metaModel)
+        private void AddOddsGroupParam(IObjectDb objectDb, CustomerListMetaModel metaModel)
         {
             var oddsGroups = metaModel.OddsGroups;
             if (oddsGroups != null)
@@ -160,7 +160,7 @@ namespace Fanex.Athena.DataAccess.Customer
             const string UspName = "Lrf_CustomerSelStatus";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, custId);
 
@@ -191,7 +191,7 @@ namespace Fanex.Athena.DataAccess.Customer
             const string UspName = "Lrf_CustomerLoginInfo";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, custId);
                     db.AddInParameter("licenseeId", DbType.Int32, licenseeId);
@@ -223,7 +223,7 @@ namespace Fanex.Athena.DataAccess.Customer
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
@@ -263,7 +263,7 @@ namespace Fanex.Athena.DataAccess.Customer
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
@@ -301,7 +301,7 @@ namespace Fanex.Athena.DataAccess.Customer
         {
             try
             {
-                using (var db = new ObjectDb("Lrf_CustomerUpdUgroup"))
+                using (var db = this.GetObjectDb("Lrf_CustomerUpdUgroup"))
                 {
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("CustId", DbType.Int32, metaModel.CustId);
@@ -331,7 +331,7 @@ namespace Fanex.Athena.DataAccess.Customer
         {
             try
             {
-                using (var db = new ObjectDb("Lrf_CustomerUpdClosed"))
+                using (var db = this.GetObjectDb("Lrf_CustomerUpdClosed"))
                 {
                     db.AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.String, metaModel.ModifyById);
@@ -361,7 +361,7 @@ namespace Fanex.Athena.DataAccess.Customer
         {
             try
             {
-                using (var db = new ObjectDb("Lrf_CustomerUpdSuspended"))
+                using (var db = this.GetObjectDb("Lrf_CustomerUpdSuspended"))
                 {
                     db.AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.String, metaModel.ModifyById);
@@ -396,7 +396,7 @@ namespace Fanex.Athena.DataAccess.Customer
             const string UspName = "Lrf_CustomerUpdMemberBAStatus";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
                     db.AddInParameter("CustID", DbType.String, custId);
@@ -432,7 +432,7 @@ namespace Fanex.Athena.DataAccess.Customer
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
@@ -481,7 +481,7 @@ namespace Fanex.Athena.DataAccess.Customer
             const string UspName = "Lrf_CustomerUpdSpecialLevel";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, custId);
                     db.AddInParameter("userid", DbType.Int32, userId);
@@ -515,7 +515,7 @@ namespace Fanex.Athena.DataAccess.Customer
             const string UspName = "Lrf_CustomerUpdOddsGroup";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, custId);
                     db.AddInParameter("userid", DbType.Int32, userId);

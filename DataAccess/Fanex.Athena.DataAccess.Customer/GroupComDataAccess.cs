@@ -38,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Customer
             try
             {
                 var entityList = new List<GroupCommMetaModel>();
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
                     using (var reader = db.ExecuteReader())
@@ -84,7 +84,7 @@ namespace Fanex.Athena.DataAccess.Customer
             var uspName = "Lrf_LicenseeGroupCommSel";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
 
@@ -109,7 +109,7 @@ namespace Fanex.Athena.DataAccess.Customer
             var uspName = "Lrf_GroupCommGetById";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("GroupCommID", DbType.Int32, groupCommId);
 
@@ -156,7 +156,7 @@ namespace Fanex.Athena.DataAccess.Customer
             var uspName = "Lrf_LicenseeGroupCommIns";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, item.LicenseeId);
                     db.AddInParameter("GroupName", DbType.String, item.GroupName);
@@ -205,7 +205,7 @@ namespace Fanex.Athena.DataAccess.Customer
             var uspName = "Lrf_LicenseeGroupCommUpd";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, newItem.LicenseeId);
                     db.AddInParameter("GroupCommId", DbType.Int32, newItem.GroupCommId);
@@ -268,7 +268,7 @@ namespace Fanex.Athena.DataAccess.Customer
             var uspName = "Lrf_LicenseeGroupCommDel";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
                     db.AddInParameter("GroupCommId", DbType.Int32, groupId);
@@ -304,7 +304,7 @@ namespace Fanex.Athena.DataAccess.Customer
             var uspName = "Lrf_GroupCommCheckByName";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
                     db.AddInParameter("GroupName", DbType.String, groupName);
