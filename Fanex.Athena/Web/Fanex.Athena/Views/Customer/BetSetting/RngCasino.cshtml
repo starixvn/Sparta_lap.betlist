@@ -74,7 +74,7 @@
 
     @Html.Hidden("isenabled", Model.IsEnabled.Value)
 </div>
-@if (Model.GameKinds.Count > 0)
+@if (Model.Editable && Model.GameKinds.Count > 0)
 {
     <div style="width: 855px">
         <input type="button" class="button" data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" data-nick-name="@Model.Param.NickName" value="@ViewResources.Submit"
