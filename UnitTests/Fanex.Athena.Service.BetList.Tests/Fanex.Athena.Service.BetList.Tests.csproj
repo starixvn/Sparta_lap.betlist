@@ -141,6 +141,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CancelledBetListServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BetListServiceTest.cs" />
   </ItemGroup>
