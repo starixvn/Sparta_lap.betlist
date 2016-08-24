@@ -27,6 +27,9 @@
         </tr>
     </thead>
 </table>
+@{
+    var disabledAttribute = Model.Editable ? null : "disabled";
+}
 <div class="data-content">
     <table class="report-table" style="width: 885px;">
         <tbody>
@@ -61,7 +64,7 @@
                     <td style="width: 50%" class="text-data" data-gametypeid="@gameType.GameTypeId">
                         @foreach (var stakeLevel in gameType.StakeLevelList)
                         {
-                            <input class="input-@(gameType.GameTypeId)"  type="checkbox" data-stakeid="@stakeLevel.StakeLevelId" data-ischeck="@(stakeLevel.IsCheck ? "true" : "false")"  @(stakeLevel.IsCheck ? "checked='checked'" : string.Empty)/><span
+                            <input class="input-@(gameType.GameTypeId)" @disabledAttribute  type="checkbox" data-stakeid="@stakeLevel.StakeLevelId" data-ischeck="@(stakeLevel.IsCheck ? "true" : "false")"  @(stakeLevel.IsCheck ? "checked='checked'" : string.Empty)/><span
                                 class="stake-level-name">@stakeLevel.StakeLevelNameFormated</span>
                         }
                     </td>
