@@ -89,6 +89,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="KenoBetSettingServiceTest.cs" />
     <Compile Include="GoldDeluxeBetSettingServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AgCasinoBetSettingServiceTest.cs" />

@@ -6,7 +6,6 @@
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Model.BetSettings.DTO;
-    using Model.BetSettings.DTO.AgCasino;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using NSubstitute;
@@ -20,7 +19,7 @@
         private const int LicenseeId = 1;
         private const string SiteName = "spondemo";
         private const int CustId = 1;
-        
+
         private IAuthorizationService _authorizationService;
         private IThirdPartyBetSettingDataAccess _dataAccess;
         private IAppSettings _appSettings;
@@ -70,7 +69,7 @@
             // Arrange
             var group = "A";
             _appSettings.GetValue("GoldDeluxeSetUserGroupApiUrl").Returns("http://api3.com");
-            
+
             _webClientService.SendRequest(new Uri("http://api3.com"), "SiteName=spondemo&IBCCustID=1&ThirdPartyId=5&GroupType=" + group)
                 .Returns("<SetUserGroupBettingLimit><ReturnCode>0</ReturnCode></SetUserGroupBettingLimit>");
 
