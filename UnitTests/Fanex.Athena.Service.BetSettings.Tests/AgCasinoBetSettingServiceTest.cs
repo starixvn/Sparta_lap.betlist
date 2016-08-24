@@ -40,7 +40,7 @@
             // Arrange
             var licenseeId = 1;
             var licenseeName = "spondemo";
-            var custId = 1;
+            var custId = 2;
             _appSettings.GetValue("AGCasinoApiUrl").Returns("http://api.com");
             _dataAccess.GetBetSetting(custId).Returns(new AgCasinoBetSetting()
             {
@@ -69,7 +69,7 @@
             var group = "A";
             var setting = new CommonBetSetting()
             {
-                CustId = 1
+                CustId = 2
             };
             _dataAccess.GetBetSetting(setting.CustId).Returns(new AgCasinoBetSetting()
             {
@@ -93,8 +93,8 @@
                 Code = 999
             };
             var licenseeId = 1;
-            var userId = 1;
-            var custId = 1;
+            var userId = 2;
+            var custId = 3;
             var language = "en-US";
             var ip = "ip";
             _dataAccess.UpdateStatus(userId, custId, language, ip, true).Returns(expectedResult);

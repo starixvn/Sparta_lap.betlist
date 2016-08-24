@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Core.Tests.Common
 {
+    using System.Collections.Generic;
     using BetSettings;
     using DataAccess.BetSettings;
     using Model.BetSettings.DTO;
@@ -10,6 +11,9 @@
     [TestFixture]
     public class KenoBetSettingServiceTest
     {
+        private const int LicenseeId = 1;
+        private const int CustId = 2;
+
         private IAuthorizationService _authorizationService;
         private IKenoBetSettingDataAccess _dataAccess;
         private IKenoBetSettingService _service;
@@ -25,12 +29,29 @@
         }
 
         [Test]
-        public void UpdateStatus_WhenCall_DataAccessExecuteWithCorrectParams()
+        public void GetViewModel_WhenCall_BetSettingListReturnedFromDataAccess()
+        {
+            // Arrange
+            var betSetting = new List<BetSetting>()
+            {
+                new BetSetting()
+            };
+            _dataAccess.GetBetSettings(CustId).Returns(betSetting);
+
+            // Action
+            var result = _service.GetViewModel(LicenseeId, CustId);
+
+            // Assert
+            Assert.That(result.MainData.Count, Is.EqualTo(betSetting.Count));
+        }
+
+        [Test]
+        public void UpdateBetSetting_WhenCall_DataAccessExecuteWithCorrectParams()
         {
             // Arrange
             var licenseeId = 1;
-            var userId = 1;
-            var custId = 1;
+            var userId = 2;
+            var custId = 3;
             var language = "en-US";
             var ip = "ip";
             var setting = new KenoBetSetting()
