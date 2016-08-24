@@ -47,7 +47,7 @@
                 AgGroup = "A",
                 CheckedGroups = new string[] { "B" }
             });
-            _webClientService.UploadString(new Uri("http://api.com"), "SiteName=spondemo&Currency=0")
+            _webClientService.SendRequest(new Uri("http://api.com"), "SiteName=spondemo&Currency=0")
                 .Returns("<Game GameType='1' Name='A'><Group GroupType='AA'><Min>1</Min><Max>100</Max></Group></Game>");
 
             // Action

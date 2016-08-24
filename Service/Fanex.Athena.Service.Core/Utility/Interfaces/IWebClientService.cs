@@ -4,6 +4,6 @@
 
     public interface IWebClientService
     {
-        string UploadString(Uri address, string parameters);
+        string SendRequest(Uri address, string parameters);
     }
 }

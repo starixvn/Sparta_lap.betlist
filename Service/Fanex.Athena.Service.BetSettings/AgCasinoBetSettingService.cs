@@ -111,7 +111,7 @@ namespace Fanex.Athena.Service.BetSettings
             var games = new List<AgCasinoGame>();
             try
             {
-                var apiResult = _webClientService.UploadString(uri, parameters);
+                var apiResult = _webClientService.SendRequest(uri, parameters);
 
                 var xml = XDocument.Parse(apiResult);
 

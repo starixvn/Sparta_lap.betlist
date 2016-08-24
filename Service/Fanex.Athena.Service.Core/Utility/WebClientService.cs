@@ -6,7 +6,7 @@
 
     public class WebClientService : IWebClientService
     {
-        public string UploadString(Uri address, string parameters)
+        public string SendRequest(Uri address, string parameters)
         {
             using (WebClient webClient = new WebClient())
             {
