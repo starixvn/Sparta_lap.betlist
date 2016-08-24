@@ -1,13 +1,13 @@
 ﻿namespace Fanex.Athena.DataAccess.Customer.Tests
 {
-    using System.Collections.Generic;
     using System.Data;
-    using Model.Customer.MetaModel;
     using Customer;
     using Data;
+    using Model.Core.DTO.Common;
+    using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Model.Core.DTO.Common;
+
     [TestFixture]
     public class CustomerDataAccessTest
     {
@@ -91,7 +91,6 @@
             var custId = 0;
             var licenseeId = 0;
 
-
             // Action
             _dataAccess.GetCustomerLoginInfo(custId, licenseeId);
 
@@ -106,7 +105,6 @@
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerMoveGroupComm")).Returns(_objectDb);
             var metaModel = new MoveToGroupComMetaModel();
-
 
             // Action
             _dataAccess.MoveCustomersToGroup(metaModel);
@@ -134,7 +132,6 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerRemoveGroupComm")).Returns(_objectDb);
             var metaModel = new RemoveFromGroupComMetaModel();
 
-
             // Action
             _dataAccess.RemoveCustomersFromGroup(metaModel);
 
@@ -157,7 +154,6 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdUgroup")).Returns(_objectDb);
             var metaModel = new CustomerOddsGroupMetaModel();
 
-
             // Action
             _dataAccess.UpdateOddsGroup(metaModel);
 
@@ -178,7 +174,6 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdClosed")).Returns(_objectDb);
             var metaModel = new CustomerStatusMetaModel();
 
-
             // Action
             _dataAccess.UpdateCustClosed(metaModel);
 
@@ -198,7 +193,6 @@
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdSuspended")).Returns(_objectDb);
             var metaModel = new CustomerStatusMetaModel();
-
 
             // Action
             _dataAccess.UpdateCustSuspend(metaModel);
@@ -246,7 +240,6 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeCustCommUpd")).Returns(_objectDb);
             var metaModel = new UpdatedCustomerComMetaModel();
 
-
             // Action
             _dataAccess.UpdateCustomersCommission(metaModel);
 
@@ -281,7 +274,6 @@
             var ip = string.Empty;
             var language = string.Empty;
 
-
             // Action
             _dataAccess.UpdateSpecialLevel(userId, custId, level, ip, language);
 
@@ -305,7 +297,6 @@
             var group = string.Empty;
             var ip = string.Empty;
             var language = string.Empty;
-
 
             // Action
             _dataAccess.UpdateOddsGroup(userId, custId, group, ip, language);

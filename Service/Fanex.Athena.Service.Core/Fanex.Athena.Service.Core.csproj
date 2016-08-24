@@ -140,6 +140,8 @@
     <Compile Include="Users\LicenseeService.cs" />
     <Compile Include="Users\SessionService.cs" />
     <Compile Include="Users\UserService.cs" />
+    <Compile Include="Utility\Interfaces\IWebClientService.cs" />
+    <Compile Include="Utility\WebClientService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

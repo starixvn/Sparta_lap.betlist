@@ -19,6 +19,11 @@ namespace Fanex.Athena.Service.BetSettings
             _authorizationService = new AuthorizationService();
         }
 
+        public BetSettingBaseService(IAuthorizationService authorizationService)
+        {
+            _authorizationService = authorizationService;
+        }
+
         protected static IResultInfo ErrorResult(string message)
         {
             return new ResultInfo
