@@ -21,6 +21,10 @@ var LogInLog = (function ($) {
                 CustomerLog.setUsernameOnFocus();
             }).blur(function () {
                 CustomerLog.setDefaultUsername();
+            }).keypress(function (e) {
+                if (e.keyCode === 13) {
+                    $('#SubmitButton').click();
+                }
             });
 
             // Submit button click
