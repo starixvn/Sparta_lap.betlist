@@ -205,9 +205,11 @@ namespace Fanex.Athena.DataAccess.Report
                 // Read Summary
                 foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
+                    var code = reader.ToString("productcode");
                     var summaryItem = new WinLossByProduct
                     {
-                        ProductCode = reader.ToString("productcode"),
+                        ProductCode = code,
+                        ProductName = ProductHelper.GetProductName(code),
                         TurnOver = reader.ToDecimal("turnover" + currency.ToLower()),
                         CustomerWinLoss = reader.ToDecimal("winlost" + currency.ToLower()),
                         CustomerComm = reader.ToDecimal("playercomm" + currency.ToLower()),
@@ -227,6 +229,7 @@ namespace Fanex.Athena.DataAccess.Report
                                     .Select(i => new WinLossByProduct
                                     {
                                         ProductCode = i.Key.ProductCode,
+                                        ProductName = i.First().ProductName,
                                         TurnOver = i.Sum(j => j.TurnOver),
                                         CustomerWinLoss = i.Sum(j => j.CustomerWinLoss),
                                         CustomerComm = i.Sum(j => j.CustomerComm),
