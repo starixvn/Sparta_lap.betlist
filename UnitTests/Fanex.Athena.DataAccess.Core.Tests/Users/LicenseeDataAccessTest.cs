@@ -1,8 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.Tests.Users
 {
     using System.Data;
-    using System.Linq;
-    using Core.Configuration;
     using Core.Users;
     using Data;
     using Model.Core.DTO.Common;
@@ -10,6 +8,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
+
     [TestFixture]
     public class LicenseeDataAccessTest
     {
@@ -84,7 +83,7 @@
         public void GetBelongingStatus_WhenCall_ValueReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelCheckBelonging")).Returns(_objectDb);           
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelCheckBelonging")).Returns(_objectDb);
             var licenseeId = 1;
             var custId = 2;
             var expected = 5;
@@ -216,7 +215,7 @@
                 CurrencyName = "CurrencyName Test"
             };
             ConfigureReaderForGetCustByLicensee(expected);
-            
+
             // Action
             var result = _dataAccess.GetCustByLicensee(licenseeId);
 
@@ -228,42 +227,6 @@
             Assert.That(result[0].RoleId, Is.EqualTo(expected.RoleId));
             Assert.That(result[0].Description, Is.EqualTo(expected.Description));
             Assert.That(result[0].CurrencyName, Is.EqualTo(expected.CurrencyName));
-        }
-
-        [Test]
-        public void GetByResellerId_WhenCall_ExecuteReaderMethodIsCalled()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeSel")).Returns(_objectDb);
-            var userId = 1;
-            var resellerId = 2;
-
-            // Action
-            _dataAccess.GetByResellerId(userId, resellerId);
-
-            // Assert
-            _objectDb.ReceivedWithAnyArgs().ExecuteReader(null);
-        }
-
-        [Test]
-        public void GetByResellerId_WhenCall_DataReturnedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeSel")).Returns(_objectDb);
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-            _reader.Read().Returns(true, false);
-
-            var userId = 1;
-            var resellerId = 2;
-
-            _reader["ResellerID"].Returns(2);
-            _reader["LicenseeID"].Returns(21);
-
-            // Action
-            var result = _dataAccess.GetByResellerId(userId, resellerId);
-
-            // Assert
-            Assert.That(result.ElementAt(0), Is.EqualTo(21));
         }
 
         [Test]
