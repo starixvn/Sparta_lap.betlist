@@ -27,5 +27,27 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 return db.Query<BetSettingProduct>(param);
             }
         }
+
+        public bool IsBetSettingEditable(int licenseeId, int userId)
+        {
+            var uspName = "Lrf_CheckEditBetSetting";
+            using (var db = new ObjectDb(uspName))
+            {
+                var param = new Hashtable
+                {
+                    { "licenseeid", licenseeId },
+                    { "userid", userId }
+                };
+                using (var reader = db.ExecuteReader(param))
+                {
+                    if (reader.Read())
+                    {
+                        return System.Convert.ToBoolean(reader["IsGrant"]);
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }

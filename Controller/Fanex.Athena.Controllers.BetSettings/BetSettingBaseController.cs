@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Extension.Utility;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.Core.Users;
@@ -88,6 +87,13 @@ namespace Fanex.Athena.Controllers.BetSettings
             return commonItem;
         }
 
+        protected bool IsBetSettingEditable()
+        {
+            return _coreBetSettingService.IsBetSettingEditable(
+                SessionService.LicenseeSession.LicenseeId,
+                SessionService.UserSession.UserId);
+        }
+
         protected decimal GetDecimalRequest(string name, decimal defaultValue)
         {
             if (string.IsNullOrEmpty(HttpContext.Request[name]))
@@ -128,21 +134,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             return betSettingProducts.Where(x => x.IsEnable).ToList();
-        }
-
-        private bool IsBetSettingEditable()
-        {
-            var setting = AppSettings.GetValue("LicenseesEditableBetSettings");
-            var licenseeIds = string.IsNullOrEmpty(setting) ? new string[] { } : setting.Split(',');
-            if (licenseeIds.Contains(SessionService.LicenseeSession.LicenseeId.ToString()))
-            {
-                return true;
-            }
-            else
-            {
-                var licensees = _licenseeService.GetByResellerId(SessionService.UserSession.UserId, BopingResellerId);
-                return licensees.Contains(SessionService.LicenseeSession.LicenseeId);
-            }
         }
     }
 }

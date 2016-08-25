@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers.Report
         private readonly IResultService _resultService;
         private readonly IRNGCasinoSingleWalletService _rngCasinoSingleWalletService;
         private readonly IKenoApi _kenoApi;
-      
+
         private string _htmlResult;
         private MemoryStream _excelStream;
 
@@ -234,8 +234,8 @@ namespace Fanex.Athena.Controllers.Report
         public string VoidbridgeResult(string custId, string gamePlayId)
         {
             var voidbridgeApi = new VoidbridgeApiImp();
-
-            return voidbridgeApi.GetBetHistoryUrl(custId, gamePlayId, CacheRef.GetCurrentLanguageCode());
+            var languageCode = SessionService.UserSession.Language;
+            return voidbridgeApi.GetBetHistoryUrl(custId, gamePlayId, languageCode);
         }
 
         /// <summary>

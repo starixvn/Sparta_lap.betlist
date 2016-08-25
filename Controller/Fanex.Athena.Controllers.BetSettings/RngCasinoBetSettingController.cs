@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             var licenseeSession = SessionService.LicenseeSession;
             var customer = ProductAccess.IsAllowCS ? CustomerService.GetCustomerInfo(licenseeSession.LicenseeId, custId) : null;
-            if (customer == null || customer.SyncCasino == false)
+            if (customer == null || customer.SyncCasino == false || !IsBetSettingEditable())
             {
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
@@ -79,7 +79,9 @@ namespace Fanex.Athena.Controllers.BetSettings
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            if (ProductAccess.IsAllowCS == false || CustomerService.GetCustomerInfo(licenseeId, custId).SyncCasino == false)
+            if (ProductAccess.IsAllowCS == false || 
+                CustomerService.GetCustomerInfo(licenseeId, custId).SyncCasino == false ||
+                !IsBetSettingEditable())
             {
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }

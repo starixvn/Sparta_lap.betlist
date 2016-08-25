@@ -32,9 +32,7 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
         IList<Currency> GetCurrencies(int licenseeId, int userId);
 
         IList<LicenseeCustomer> GetCustByLicensee(int licenseeId);
-
-        IEnumerable<int> GetByResellerId(int userId, int resellerId);
-
+        
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]
         string GetNumberOfOnlineUser();

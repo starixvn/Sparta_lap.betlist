@@ -21,6 +21,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Model.Core.Helper;
 
     /// <summary>
     /// Customer turnover data access.
@@ -57,13 +58,14 @@ namespace Fanex.Athena.DataAccess.Report
                     while (reader.Read())
                     {
                         var turnover = reader.ToDecimal("Turnover");
+                        var sportId = reader.ToInt("sporttype");
                         result.Add(new CustTurnover
                         {
-                            // Get turnover row to list item
                             ReportBy = ConvertHelper.ToDateTime(reader.ToString("ReportBy"), metaModel.ReportBy == ReportByType.Monthly),
                             UserName = reader.ToString("username"),
                             Currency = reader.ToString("currency"),
-                            SportId = reader.ToInt("sporttype"),
+                            SportId = sportId,
+                            SportType = CacheRef.GetSportName(sportId, languageCode),
                             TotalTransactions = reader.ToInt("BetCount"),
                             Bettype = reader.ToString("Bettype"),
                             Turnover = turnover,

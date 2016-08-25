@@ -27,6 +27,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
+    using Model.Core.Helper;
 
     /// <summary>
     /// Win loss by product data access.
@@ -178,13 +179,14 @@ namespace Fanex.Athena.DataAccess.Report
 
             while (reader.Read())
             {
-                // Read Item
+                var productCode = reader.ToString("productcode");
                 var item = new WinLossByProduct
                 {
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
-                    ProductCode = reader.ToString("productcode"),
+                    ProductCode = productCode,
+                    ProductName = ProductHelper.GetProductName(productCode),
                     CurrencyId = reader.ToInt("currency"),
                     CurrencyName = reader.ToString("currencyname"),
                     TurnOver = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
@@ -203,9 +205,11 @@ namespace Fanex.Athena.DataAccess.Report
                 // Read Summary
                 foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
+                    var code = reader.ToString("productcode");
                     var summaryItem = new WinLossByProduct
                     {
-                        ProductCode = reader.ToString("productcode"),
+                        ProductCode = code,
+                        ProductName = ProductHelper.GetProductName(code),
                         TurnOver = reader.ToDecimal("turnover" + currency.ToLower()),
                         CustomerWinLoss = reader.ToDecimal("winlost" + currency.ToLower()),
                         CustomerComm = reader.ToDecimal("playercomm" + currency.ToLower()),
@@ -225,6 +229,7 @@ namespace Fanex.Athena.DataAccess.Report
                                     .Select(i => new WinLossByProduct
                                     {
                                         ProductCode = i.Key.ProductCode,
+                                        ProductName = i.First().ProductName,
                                         TurnOver = i.Sum(j => j.TurnOver),
                                         CustomerWinLoss = i.Sum(j => j.CustomerWinLoss),
                                         CustomerComm = i.Sum(j => j.CustomerComm),

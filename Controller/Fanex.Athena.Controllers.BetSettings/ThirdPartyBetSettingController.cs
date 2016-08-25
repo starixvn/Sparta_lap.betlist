@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
@@ -84,13 +85,18 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private JsonResult UpdateThirdPartyProductStatus(int productId, int custId, string nickName, int status)
         {
+            if (ProductAccess.IsAllow(productId) == false || !IsBetSettingEditable())
+            {
+                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+            }
+
             var userSession = SessionService.UserSession;
             var isEnabled = status == 1;
             var result = _betSettingService.UpdateStatus(
-                SessionService.LicenseeSession.LicenseeId, 
+                SessionService.LicenseeSession.LicenseeId,
                 productId,
                 userSession.UserId,
-                custId, 
+                custId,
                 userSession.Language,
                 Request.UserHostAddress,
                 isEnabled);

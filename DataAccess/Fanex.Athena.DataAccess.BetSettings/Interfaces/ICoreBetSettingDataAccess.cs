@@ -12,5 +12,7 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
     public interface ICoreBetSettingDataAccess
     {
         IEnumerable<BetSettingProduct> GetBetSettingProducts(int licenseeId);
+
+        bool IsBetSettingEditable(int licenseeId, int userId);
     }
 }

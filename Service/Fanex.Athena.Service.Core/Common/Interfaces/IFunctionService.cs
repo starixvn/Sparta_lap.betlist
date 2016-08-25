@@ -21,6 +21,8 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
             Justification = "Reviewed. Suppression is OK here.")]
+        IDictionary<int, IList<Function>> GetSubMenus(IList<Function> functionList);
+
         IDictionary<int, IList<Function>> GetSubFunctions(IList<Function> functionList);
 
         IResultInfo AssignUserFunctions(int licenseeId, int custId, IList<int> functionIdList, int userId, string ip, string langKey);

@@ -114,6 +114,7 @@ namespace Fanex.Athena.Service.Report
                        select new WinLossByProduct
                        {
                            ProductCode = g.Key.ProductCode,
+                           ProductName = g.First().ProductName,
                            CurrencyName = g.Key.CurrencyName,
                            AmountDue = g.Sum(i => i.AmountDue),
                            CustomerComm = g.Sum(i => i.CustomerComm),
