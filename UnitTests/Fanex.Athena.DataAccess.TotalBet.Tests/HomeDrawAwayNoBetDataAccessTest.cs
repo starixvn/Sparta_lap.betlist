@@ -24,7 +24,7 @@
         }
 
         [Test]
-        public void GetHomeDrawAwayNoBetDataList_WhenCall_ParametersPassedCorrectly()
+        public void GetHomeDrawAwayNoBetDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel121")).Returns(_objectDb);

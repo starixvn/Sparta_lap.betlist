@@ -24,7 +24,7 @@
         }
 
         [Test]
-        public void GetHandicapOverUnderDataList_WhenCall_ParametersPassedCorrectly()
+        public void GetHandicapOverUnderDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel1378")).Returns(_objectDb);

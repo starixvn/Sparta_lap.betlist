@@ -24,7 +24,7 @@
         }
 
         [Test]
-        public void GetTotalGoalDataList_WhenCall_ParametersPassedCorrectly()
+        public void GetTotalGoalDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel6")).Returns(_objectDb);

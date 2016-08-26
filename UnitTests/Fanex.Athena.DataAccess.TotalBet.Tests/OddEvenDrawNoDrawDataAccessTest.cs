@@ -25,7 +25,7 @@
         }
 
         [Test]
-        public void GetOddEventDrawNoDrawDataList_WhenCall_ParametersPassedCorrectly()
+        public void GetOddEventDrawNoDrawDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel25")).Returns(_objectDb);

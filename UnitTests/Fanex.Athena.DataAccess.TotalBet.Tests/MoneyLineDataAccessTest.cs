@@ -25,7 +25,7 @@
         }
 
         [Test]
-        public void GetMoneyLineDataList_WhenCall_ParametersPassedCorrectly()
+        public void GetMoneyLineDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel2021")).Returns(_objectDb);

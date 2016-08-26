@@ -24,7 +24,7 @@
         }
 
         [Test]
-        public void GetHalfTimeFullTimeDataList_WhenCall_ParametersPassedCorrectly()
+        public void GetHalfTimeFullTimeDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel16")).Returns(_objectDb);

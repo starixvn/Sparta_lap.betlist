@@ -25,7 +25,7 @@
         }
 
         [Test]
-        public void GetOutrightDataList_WhenCall_ParametersPassedCorrectly()
+        public void GetOutrightDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel10")).Returns(_objectDb);

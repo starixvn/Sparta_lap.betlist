@@ -25,7 +25,7 @@
         }
 
         [Test]
-        public void GetFirstGoalLastGoalDataList_WhenCall_ParametersPassedCorrectly()
+        public void GetFirstGoalLastGoalDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel14")).Returns(_objectDb);
