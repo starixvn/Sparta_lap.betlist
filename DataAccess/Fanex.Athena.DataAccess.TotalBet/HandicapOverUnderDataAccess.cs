@@ -12,6 +12,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core;
     using Core.Extensions;
     using Data;
     using DataAccess.TotalBet.Interfaces;
@@ -22,7 +23,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
     /// <summary>
     /// Handicap Over Under data access.
     /// </summary>
-    public class HandicapOverUnderDataAccess : IHandicapOverUnderDataAccess
+    public class HandicapOverUnderDataAccess : BaseDataAccess, IHandicapOverUnderDataAccess
     {
         /// <summary>
         /// Get Handicap Over/Under data list.
@@ -45,7 +46,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
             IList<HandicapOverUnder> data;
 
-            using (var db = new ObjectDb(SpName))
+            using (var db = this.GetObjectDb(SpName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {

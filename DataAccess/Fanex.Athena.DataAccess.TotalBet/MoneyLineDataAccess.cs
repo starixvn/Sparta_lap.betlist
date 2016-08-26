@@ -12,6 +12,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core;
     using Core.Extensions;
     using Data;
     using DataAccess.TotalBet.Interfaces;
@@ -22,7 +23,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
     /// <summary>
     /// Money Line data access.
     /// </summary>
-    public class MoneyLineDataAccess : IMoneyLineDataAccess
+    public class MoneyLineDataAccess : BaseDataAccess, IMoneyLineDataAccess
     {
         /// <summary>
         /// Get money line data list.
@@ -46,7 +47,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
             IList<MoneyLine> data;
 
-            using (var db = new ObjectDb(SpName))
+            using (var db = this.GetObjectDb(SpName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
