@@ -89,6 +89,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Common\FunctionServiceTest.cs" />
     <Compile Include="Common\SportTypeServiceTest.cs" />
     <Compile Include="Common\ProductServiceTest.cs" />
     <Compile Include="Common\MatchServiceTest.cs" />

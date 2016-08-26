@@ -4,6 +4,7 @@
     using Core.Common;
     using Core.Common.Interfaces;
     using DataAccess.Core.Common.Interfaces;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Account;
@@ -41,6 +42,27 @@
             // Assert
             Assert.That(result, Contains.Key("USD"));
             Assert.That(result, Does.Not.Contains("UUS"));
+        }
+
+        [Test]
+        public void GetCurrenciesByUser_LicenseeIsKeenOcean_ReturnResultFromDataAccess()
+        {
+            // Arrange
+            var expectedResult = new List<CurrencyUser>
+            {
+                new CurrencyUser() { CurrencyName = "HKD", CurrencyId = CurrencyType.Hkd, IsActive = true },
+                new CurrencyUser() { CurrencyName = "CNY", CurrencyId = CurrencyType.Cny, IsActive = true }
+            };
+            var licenseeId = Licensees.KeenOcean;
+            var userId = 2;
+            _currencyDataAccess.GetCurrenciesByUser(licenseeId, userId).Returns(expectedResult);
+
+            // Action
+            var result = _currencyService.GetCurrencyMapByUser(licenseeId, userId);
+
+            // Assert
+            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result["CNY"], Is.EqualTo(CurrencyType.Hkd));
         }
 
         [Test]

@@ -29,6 +29,11 @@ namespace Fanex.Athena.Service.Core.Common
             this._functionDataAccess = new FunctionDataAccess();
         }
 
+        public FunctionService(IFunctionDataAccess functionDataAccess)
+        {
+            this._functionDataAccess = functionDataAccess;
+        }
+
         #region Property
 
         public IList<Function> Functions
