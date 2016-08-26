@@ -13,6 +13,7 @@ namespace Fanex.Athena.DataAccess.Forecast
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Core;
     using Core.Extensions;
     using Data;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
@@ -31,7 +32,7 @@ namespace Fanex.Athena.DataAccess.Forecast
     /// <summary>
     /// Forecast Data Access.
     /// </summary>
-    public class ForecastDataAccess : IForecastDataAccess
+    public class ForecastDataAccess : BaseDataAccess, IForecastDataAccess
     {
         #region Forecast AH
 
@@ -45,7 +46,7 @@ namespace Fanex.Athena.DataAccess.Forecast
         {
             const string UspName = "Lrf_Forecast_OddsSelTopByMatch";
 
-            using (var db = new ObjectDb(UspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.AddInParameter("matchid", DbType.Int32, matchId);
                 db.AddInParameter("betType", DbType.Int32, betType);
@@ -62,7 +63,7 @@ namespace Fanex.Athena.DataAccess.Forecast
         public DataTable GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
         {
             const string UspName = "Lrf_Forecast_SelHDP";
-            using (var db = new ObjectDb(UspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
@@ -85,7 +86,7 @@ namespace Fanex.Athena.DataAccess.Forecast
         {
             const string UspName = "Lrf_Forecast_SelOU";
 
-            using (var db = new ObjectDb(UspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
@@ -112,7 +113,7 @@ namespace Fanex.Athena.DataAccess.Forecast
             const string UspName = "Lrf_LeagueSelRunning";
             var leagues = new List<League>();
 
-            using (var db = new ObjectDb(UspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, 0);
@@ -141,7 +142,7 @@ namespace Fanex.Athena.DataAccess.Forecast
         {
             const string UspName = "Lrf_Forecast1x2_SelByLeague";
 
-            using (var db = new ObjectDb(UspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
@@ -166,7 +167,7 @@ namespace Fanex.Athena.DataAccess.Forecast
         {
             const string UspName = "Lrf_Forecast_Sel1X2";
 
-            using (var db = new ObjectDb(UspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
@@ -207,7 +208,7 @@ namespace Fanex.Athena.DataAccess.Forecast
                 baseoffseththdp = 0,
                 baseoffsethtou = 0
             };
-            using (var db = new ObjectDb(UspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 using (var reader = db.ExecuteReader(paramValues))
                 {
@@ -231,7 +232,7 @@ namespace Fanex.Athena.DataAccess.Forecast
         public NewForecastHdpOuData GetNewForecastData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo)
         {
             var forecastData = new NewForecastHdpOuData();
-            using (var db = new ObjectDb("Lrf_Forecast_MatchTotalForecast"))
+            using (var db = this.GetObjectDb("Lrf_Forecast_MatchTotalForecast"))
             {
                 db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                 db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
