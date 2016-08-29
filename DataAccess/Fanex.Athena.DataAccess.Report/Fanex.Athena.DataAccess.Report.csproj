@@ -8,8 +8,8 @@
     <ProjectGuid>{5653BC29-0843-4D75-9140-5B370DF2F88C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fanex.Athena.DataAccess</RootNamespace>
-    <AssemblyName>Fanex.Athena.DataAccess</AssemblyName>
+    <RootNamespace>Fanex.Athena.DataAccess.Report</RootNamespace>
+    <AssemblyName>Fanex.Athena.DataAccess.Report</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>

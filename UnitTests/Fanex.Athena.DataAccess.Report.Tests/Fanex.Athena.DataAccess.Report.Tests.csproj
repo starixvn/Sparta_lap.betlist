@@ -88,7 +88,7 @@
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Report\Fanex.Athena.DataAccess.Report.csproj">
-      <Project>{5653BC29-0843-4D75-9140-5B370DF2F88C}</Project>
+      <Project>{5653bc29-0843-4d75-9140-5b370df2f88c}</Project>
       <Name>Fanex.Athena.DataAccess.Report</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
