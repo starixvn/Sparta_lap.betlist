@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -24,7 +25,7 @@ namespace Fanex.Athena.DataAccess.Report
     /// <summary>
     /// Licensee win loss data access.
     /// </summary>
-    public class ActiveCustomerSummaryDataAccess : IActiveCustomerSummaryDataAccess
+    public class ActiveCustomerSummaryDataAccess : BaseDataAccess, IActiveCustomerSummaryDataAccess
     {
         public ActiveCustomerSummaryDataAccess()
         {
@@ -43,7 +44,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "Lrf_Rpt_ActiveMember";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     UpdateUspParams(db, metaModel);
                     db.AddOutParameter("TotalActive", DbType.Int32, 10);
@@ -110,7 +111,7 @@ namespace Fanex.Athena.DataAccess.Report
         /// </summary>
         /// <param name="db">Database value.</param>
         /// <param name="metaModel">Meta model value.</param>
-        private void UpdateUspParams(ObjectDb db, ActiveCustomerMetaModel metaModel)
+        private void UpdateUspParams(IObjectDb db, ActiveCustomerMetaModel metaModel)
         {
             var productCodes = metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code).ToArray();
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
