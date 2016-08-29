@@ -129,6 +129,8 @@
     <Compile Include="Utility\DictionayExtension.cs" />
     <Compile Include="Utility\GroupCommSetting.cs" />
     <Compile Include="Utility\IAppSettings.cs" />
+    <Compile Include="Utility\ServerPathMapper.cs" />
+    <Compile Include="Utility\IServerPathMapper.cs" />
     <Compile Include="Utility\PropertyComparer.cs" />
     <Compile Include="Utility\RandomNumber.cs" />
     <Compile Include="Utility\SortableList.cs" />

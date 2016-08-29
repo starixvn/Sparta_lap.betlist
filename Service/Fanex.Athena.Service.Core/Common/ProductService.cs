@@ -14,7 +14,7 @@ namespace Fanex.Athena.Service.Core.Common
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Xml.Linq;
     using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
@@ -37,16 +37,20 @@ namespace Fanex.Athena.Service.Core.Common
 
         private readonly IAppSettings _appSettings;
 
+        private readonly IServerPathMapper _serverPathMapper;
+
         public ProductService()
         {
             _appSettings = new AppSettings();
             _productDataAccess = new ProductDataAccess();
+            _serverPathMapper = new ServerPathMapper();
         }
 
-        public ProductService(IAppSettings appSettings, IProductDataAccess productDataAccess)
+        public ProductService(IAppSettings appSettings, IProductDataAccess productDataAccess, IServerPathMapper serverPathMapper)
         {
             _appSettings = appSettings;
             _productDataAccess = productDataAccess;
+            _serverPathMapper = serverPathMapper;
         }
 
         #region Public Methods and Operators
@@ -66,7 +70,7 @@ namespace Fanex.Athena.Service.Core.Common
             var cache = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
             var cacheKey = CacheKey.MemorycacheCommonProduct + licenseeId + languageCode;
             var allowedProducts = cache.Get<IList<Product>>(cacheKey);
-
+            
             if (allowedProducts != null)
             {
                 return allowedProducts;
@@ -130,7 +134,7 @@ namespace Fanex.Athena.Service.Core.Common
         {
             return this._productDataAccess.IsAllowedSaToteCurrency(custId);
         }
-
+        
         #endregion
 
         /// <summary>
@@ -150,7 +154,7 @@ namespace Fanex.Athena.Service.Core.Common
             var functions = CacheService.Get<IEnumerable<XElement>>(FunctionAllowedProductsKey);
             if (functions == null)
             {
-                var filePath = HttpContext.Current.Server.MapPath(_appSettings.GetValue("FunctionAllowedProductFile"));
+                var filePath = _serverPathMapper.MapPath(_appSettings.GetValue("FunctionAllowedProductFile"));
                 functions = XDocument.Load(filePath).Descendants("Function");
                 if (functions != null && functions.Count() > 0)
                 {
