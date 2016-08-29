@@ -129,7 +129,6 @@
             var userName = "user1";
             var isInternal = false;
 
-            // Action
             _sessionService.CreateNewSession(userId, onUserId, userName, isInternal, licenseeId);
         }
     }
