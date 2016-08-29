@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="ActiveCustomerSummaryDataAccessTest.cs" />
     <Compile Include="AgCasinoBalanceDataAccessTest.cs" />
+    <Compile Include="AgCasinoWinLossDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
