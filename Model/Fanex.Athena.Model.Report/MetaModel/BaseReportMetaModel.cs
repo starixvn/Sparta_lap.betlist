@@ -30,6 +30,15 @@ namespace Fanex.Athena.Model.Report.MetaModel
             ToDate = DateTime.Today;
         }
 
+        protected BaseReportMetaModel(IAppSettings appSetting)
+            : base()
+        {
+            _appSettings = appSetting;
+            ProductOptions = new List<ProductOption>();
+            FromDate = DateTime.Today;
+            ToDate = DateTime.Today;
+        }
+
         public IList<ProductOption> ProductOptions
         {
             get;

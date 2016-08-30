@@ -89,53 +89,53 @@ namespace Fanex.Athena.DataAccess.BetSettings
             return result;
         }
 
-        private static void Update15131(CommonBetSetting racingBetSetting)
+        private void Update15131(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_31";
 
             RacingUpdatingProcess(uspName, racingBetSetting);
         }
 
-        private static void Update15141(CommonBetSetting racingBetSetting)
+        private void Update15141(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_41";
 
             RacingUpdatingProcess(uspName, racingBetSetting);
         }
 
-        private static void Update15151(CommonBetSetting racingBetSetting)
+        private void Update15151(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_51";
 
             RacingUpdatingProcess(uspName, racingBetSetting);
         }
 
-        private static void Update15241(CommonBetSetting racingBetSetting)
+        private void Update15241(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet152_41";
 
             RacingUpdatingProcess(uspName, racingBetSetting);
         }
 
-        private static void Update15251(CommonBetSetting racingBetSetting)
+        private void Update15251(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet152_51";
 
             RacingUpdatingProcess(uspName, racingBetSetting);
         }
 
-        private static void Update15351(CommonBetSetting racingBetSetting)
+        private void Update15351(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet153_51";
 
             RacingUpdatingProcess(uspName, racingBetSetting);
         }
 
-        private static void RacingUpdatingProcess(string uspName, CommonBetSetting racingBetSetting)
+        private void RacingUpdatingProcess(string uspName, CommonBetSetting racingBetSetting)
         {
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, racingBetSetting.CustId);
                     db.AddInParameter("userid", DbType.Int32, racingBetSetting.UserId);

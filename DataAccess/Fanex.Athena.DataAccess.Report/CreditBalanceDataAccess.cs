@@ -47,7 +47,7 @@ namespace Fanex.Athena.DataAccess.Report
                 metaModel.IsOld
             };
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 using (var reader = db.ExecuteReader(uspParam))
                 {
@@ -84,7 +84,7 @@ namespace Fanex.Athena.DataAccess.Report
             var yesterdayRbCommColumn = "YesterdayCommRB" + baseCurrency;
             var yesterdayRacingRevenueColumn = "YesterdayWinLossRB" + baseCurrency;
             var yesterdayAmtDueToBetTradeColumn = "YesterdayAmtDueToBT" + baseCurrency;
-            var yesterdayAmtDueToBaColumn = "YesterdayAmtDueToBa" + baseCurrency;
+            var yesterdayAmtDueToBaColumn = "YesterdayAmtDuetoBA" + baseCurrency;
             var yesterdayAmtDueToRacingColumn = "YesterdayAmtDuetoRB" + baseCurrency;
             var yesterdayCustomerCommColumn = "YesterdayPlayerComm" + baseCurrency;
 
@@ -94,7 +94,7 @@ namespace Fanex.Athena.DataAccess.Report
             var todayBaCommColumn = "TodayCommBA" + baseCurrency;
             var todayRbCommColumn = "TodayCommRB" + baseCurrency;
             var todayRacingRevenueColumn = "TodayWinLossRB" + baseCurrency;
-            var todayAmtDueToBetTradeColumn = "TodayAmtDuetoBT" + baseCurrency;
+            var todayAmtDueToBetTradeColumn = "TodayAmtDueToBT" + baseCurrency;
             var todayAmtDueToBaColumn = "TodayAmtDuetoBA" + baseCurrency;
             var todayAmtDueToRacingColumn = "TodayAmtDuetoRB" + baseCurrency;
             var todayCustomerCommColumn = "TodayPlayerComm" + baseCurrency;
