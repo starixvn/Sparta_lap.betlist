@@ -38,7 +38,7 @@ namespace Fanex.Athena.Service.Casino
             _appSettings = new AppSettings();
         }
 
-        public dynamic GetReultInfo(string refNo)
+        public dynamic GetResultInfo(string refNo)
         {
             var authenticatedToken = GetRngCasinoServerToken();
 

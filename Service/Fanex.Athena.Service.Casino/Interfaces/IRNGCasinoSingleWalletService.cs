@@ -11,6 +11,6 @@ namespace Fanex.Athena.Service.Casino.Interfaces
     /// </summary>
     public interface IRNGCasinoSingleWalletService
     {
-        dynamic GetReultInfo(string refNo);       
+        dynamic GetResultInfo(string refNo);       
     }
 }

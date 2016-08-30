@@ -226,7 +226,7 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult ShowRngCasinoSingleWalletResult(string refNo)
         {
-            var resultInfo = _rngCasinoSingleWalletService.GetReultInfo(refNo);
+            var resultInfo = _rngCasinoSingleWalletService.GetResultInfo(refNo);
 
             return Json(resultInfo);
         }
