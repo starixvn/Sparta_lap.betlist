@@ -51,7 +51,7 @@
         }
 
         [Test]
-        public void SSO()
+        public void SSO_WhenCall_RelevantMethodCalled()
         {
             // Arrange
             var timeSpan = DateTime.Now.Ticks;

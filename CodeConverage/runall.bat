@@ -1,5 +1,12 @@
 @echo off
+call Fanex.Athena.DataAccess.BetList.Tests.bat
+call Fanex.Athena.DataAccess.BetSettings.Tests.bat
 call Fanex.Athena.DataAccess.Core.Tests.bat
+call Fanex.Athena.DataAccess.Customer.bat
+call Fanex.Athena.DataAccess.Forecast.Tests.bat
+call Fanex.Athena.DataAccess.Report.Tests.bat
+call Fanex.Athena.DataAccess.TotalBet.Tests.bat
+call Fanex.Athena.DataAccess.Warehouse.Tests.bat
 call Fanex.Athena.Excel.Base.Tests.bat
 call Fanex.Athena.Excel.Customer.Tests.bat
 call Fanex.Athena.Extension.Tests.bat

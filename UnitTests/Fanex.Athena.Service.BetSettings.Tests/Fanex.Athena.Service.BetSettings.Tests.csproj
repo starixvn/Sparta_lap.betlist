@@ -89,6 +89,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="VirtualSportsBetSettingServiceTest.cs" />
+    <Compile Include="ThirdPartyBetSettingServiceTest.cs" />
+    <Compile Include="SportsbookBetSettingServiceTest.cs" />
+    <Compile Include="RacingBetSettingServiceTest.cs" />
+    <Compile Include="NumberGameBetSettingServiceTest.cs" />
     <Compile Include="LiveCasinoBetSettingServiceTest.cs" />
     <Compile Include="KenoBetSettingServiceTest.cs" />
     <Compile Include="GoldDeluxeBetSettingServiceTest.cs" />
