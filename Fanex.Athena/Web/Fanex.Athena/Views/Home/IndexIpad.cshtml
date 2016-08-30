@@ -7,20 +7,9 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>LRF • Reports - Balance</title>
-    <link href="@Url.ContentLink("/Content/Global/Global.css")" rel="Stylesheet" />
-    <link href="@Url.ContentLink("/Content/Themes/12Bet/Site.css")" rel="Stylesheet" />
-    <link href="@Url.ContentLink("/Content/Layout/master.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.ContentLink("/Scripts/Library/jquery.min.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Library/jquery-ui.min.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Library/jquery.cookie.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Library/jquery.blockUI.js")" type="text/javascript"></script>
+    @Styles.Render("~/bundles/HomeViewStyles")
+    @Scripts.Render("~/bundles/HomeScripts")
     <script src="@Url.ContentLink("/Scripts/Library/jquery.layout.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Languages/ViewResources.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Languages/ViewResources.zh-CN.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Languages/ViewResources.zh-Hans.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Languages/ViewResources.zh-TW.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Languages/ViewResources.ko-KR.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/Scripts/Global/site.js")" type="text/javascript"></script>
     <script src="@Url.ContentLink("/Scripts/Global/lrf.layout.js")" type="text/javascript"></script>
     <script type="text/javascript">
         Site.resolveClientUrl = function (relativeUrl) {
