@@ -39,6 +39,24 @@
     </style>
 </head>
 <body>
+@if (ViewBag.IsShowDbNotification == true)
+{
+    <div id="NotificationPopupDB" style="display: none" data-endtime="@ViewBag.DbEndTime">
+        <p>
+            Our Casino server is being upgraded. As a result, please avoid:
+        </p>
+        <ul style="list-style-type: none">
+            <li>1. Updating member bet limit for Live Casino and RNG Casino products.</li>
+            <li>2. Updating member commission rate for Live Casino and RNG Casino products.</li>
+        </ul>
+        <p>
+            Please ignore this message if you don't subscribe these products.
+        </p>
+        <p>
+            Estimated completion time: 31-Aug-16, 17:30 (GMT+8)
+        </p>
+    </div>
+}
     <div class="ui-layout-north">
         <iframe src="@(Util.RootPath)Header/Index" id="header" name="header"
             width="100%" scrolling="no" frameborder="0" height="52px"></iframe>

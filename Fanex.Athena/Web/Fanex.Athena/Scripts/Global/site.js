@@ -761,6 +761,16 @@ $(window).unload(function () {
 });
 
 $(function () {
+    var $popupDb = $("#NotificationPopupDB");
+    if ($popupDb.length > 0) {
+        var options = {
+            height: 160,
+            title: Site.getSingleResource("Notification")
+        };
+        var popup = $popupDb.flatPopup(options);
+        popup.show();
+    }
+
     var $marquee = $("#notification-marquee");
     if ("marquee" in $marquee) {
         $marquee.marquee({ speed: 30 });
