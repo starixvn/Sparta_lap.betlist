@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Extension.Utility
+﻿namespace Fanex.Athena.Extension.Utility.Interfaces
 {
     public interface IServerPathMapper
     {

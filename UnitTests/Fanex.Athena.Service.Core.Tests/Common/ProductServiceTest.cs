@@ -7,6 +7,7 @@
     using Core.Common.Interfaces;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;

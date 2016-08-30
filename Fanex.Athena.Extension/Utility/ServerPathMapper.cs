@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Extension.Utility
 {
     using System.Web.Hosting;
+    using Interfaces;
 
     public class ServerPathMapper : IServerPathMapper
     {

@@ -124,6 +124,7 @@
     <Compile Include="Users\AuthorizationServiceTest.cs" />
     <Compile Include="Users\LicenseeServiceTest.cs" />
     <Compile Include="Users\SessionServiceTest.cs" />
+    <Compile Include="Users\SSOServiceTest.cs" />
     <Compile Include="Users\UserServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -127,10 +127,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\DictionaryPropertyComparer.cs" />
     <Compile Include="Utility\DictionayExtension.cs" />
+    <Compile Include="Utility\FileSystem.cs" />
+    <Compile Include="Utility\FormsAuthenticationService.cs" />
     <Compile Include="Utility\GroupCommSetting.cs" />
+    <Compile Include="Utility\HttpContextService.cs" />
     <Compile Include="Utility\IAppSettings.cs" />
+    <Compile Include="Utility\Interfaces\IHttpContextService.cs" />
+    <Compile Include="Utility\Interfaces\IFormsAuthenticationService.cs" />
+    <Compile Include="Utility\Interfaces\IFileSystem.cs" />
     <Compile Include="Utility\ServerPathMapper.cs" />
-    <Compile Include="Utility\IServerPathMapper.cs" />
+    <Compile Include="Utility\Interfaces\IServerPathMapper.cs" />
     <Compile Include="Utility\PropertyComparer.cs" />
     <Compile Include="Utility\RandomNumber.cs" />
     <Compile Include="Utility\SortableList.cs" />

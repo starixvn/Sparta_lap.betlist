@@ -111,13 +111,7 @@
                 HttpCookieMode.AutoDetect,
                 SessionStateMode.InProc, 
                 false);
-            httpContext.Items["AspSession"] = typeof(HttpSessionState).GetConstructor(
-                                         BindingFlags.NonPublic | BindingFlags.Instance,
-                                         null, 
-                                         CallingConventions.Standard,
-                                         new[] { typeof(HttpSessionStateContainer) },
-                                         null)
-                                    .Invoke(new object[] { sessionContainer });
+            SessionStateUtility.AddHttpSessionStateToContext(httpContext, sessionContainer);
             HttpContext.Current = httpContext;
         }
 

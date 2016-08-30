@@ -14,8 +14,8 @@ namespace Fanex.Athena.Service.Core.Common
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Hosting;
     using System.Xml.Linq;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -70,7 +70,7 @@ namespace Fanex.Athena.Service.Core.Common
             var cache = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
             var cacheKey = CacheKey.MemorycacheCommonProduct + licenseeId + languageCode;
             var allowedProducts = cache.Get<IList<Product>>(cacheKey);
-            
+
             if (allowedProducts != null)
             {
                 return allowedProducts;
@@ -134,7 +134,7 @@ namespace Fanex.Athena.Service.Core.Common
         {
             return this._productDataAccess.IsAllowedSaToteCurrency(custId);
         }
-        
+
         #endregion
 
         /// <summary>
