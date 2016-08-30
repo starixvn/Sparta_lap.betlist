@@ -37,7 +37,7 @@ namespace Fanex.Athena.DataAccess.Report
         public IList<CustBalance> GetDataList(CustomerBalanceMetaModel metaModel, ref CustBalance totalData, ref int totalRow)
         {
             IList<CustBalance> result = new List<CustBalance>();
-            using (var db = new ObjectDb("Lrf_Rpt_CustomerBalance"))
+            using (var db = this.GetObjectDb("Lrf_Rpt_CustomerBalance"))
             {
                 db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                 db.AddInParameter("userid", DbType.Int32, metaModel.UserId);

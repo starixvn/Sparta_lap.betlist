@@ -78,6 +78,7 @@
     <Compile Include="AgCasinoWinLossDataAccessTest.cs" />
     <Compile Include="CasinoProgressiveWinsDataAccessTest.cs" />
     <Compile Include="CreditBalanceDataAccessTest.cs" />
+    <Compile Include="CustomerBalanceDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
