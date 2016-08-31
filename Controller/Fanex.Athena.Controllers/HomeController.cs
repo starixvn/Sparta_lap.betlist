@@ -7,10 +7,8 @@
 namespace Fanex.Athena.Controllers
 {
     using System;
-    using System.Globalization;
     using System.IO;
     using System.Web.Mvc;
-    using Extension.Utility;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Core.Users;
@@ -86,28 +84,7 @@ namespace Fanex.Athena.Controllers
             }
 
             ViewBag.NotificationContent = LoadNotificationContent();
-            ViewBag.IsShowDbNotification = IsShowDbNotification();
             return View(defaultView);
-        }
-
-        private bool IsShowDbNotification()
-        {
-            var now = DateTime.Now;
-            DateTime startTime;
-            DateTime endTime;
-            if(!TryParseDate(AppSettings.GetValue("DBNotificationStartTime"), out startTime) ||
-               !TryParseDate(AppSettings.GetValue("DBNotificationEndTime"), out endTime))
-            {
-                return false;
-            }
-
-            ViewBag.DbEndTime = endTime.ToString();
-            return now >= startTime && now <= endTime;
-        }
-
-        private bool TryParseDate(string dateTimeString, out DateTime date)
-        {
-            return DateTime.TryParseExact(dateTimeString, "MM/dd/yyyy HH:mm:ss 'GMT'zzz", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
         }
 
         private string LoadNotificationContent()
