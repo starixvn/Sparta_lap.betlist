@@ -43,7 +43,7 @@ namespace Fanex.Athena.DataAccess.Report
         {
             totalRows = 0;
             totalData = new CustomerWinLoss();
-            using (var db = new ObjectDb("Lrf_Rpt_WinLoss"))
+            using (var db = this.GetObjectDb("Lrf_Rpt_WinLoss"))
             {
                 db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                 db.AddInParameter("userid", DbType.Int32, metaModel.UserId);

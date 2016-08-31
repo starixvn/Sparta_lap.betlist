@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Model.Report.MetaModel
 {
     using System;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
 
     /// <summary>
@@ -15,6 +16,19 @@ namespace Fanex.Athena.Model.Report.MetaModel
     public class CustomerWinLossMetaModel : BaseReportMetaModel
     {
         public CustomerWinLossMetaModel()
+        {
+            LicenseeType = string.Empty;
+            FromDate = DateTime.Today;
+            ToDate = DateTime.Today;
+            PageIndex = 1;
+            PageSize = 1000;
+            SortDirection = "ASC";
+            SortColumn = "ExternalId";
+            DrawFilter = DrawFilterType.Normal;
+        }
+
+        public CustomerWinLossMetaModel(IAppSettings appSetting)
+            : base(appSetting)
         {
             LicenseeType = string.Empty;
             FromDate = DateTime.Today;

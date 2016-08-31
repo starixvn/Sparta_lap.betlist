@@ -81,6 +81,7 @@
     <Compile Include="CustomerBalanceDataAccessTest.cs" />
     <Compile Include="CustomerPendingFundsDataAccessTest.cs" />
     <Compile Include="CustomerTurnoverDataAccessTest.cs" />
+    <Compile Include="CustomerWinlossDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
