@@ -89,6 +89,28 @@ namespace Fanex.Athena.DataAccess.BetSettings
             return result;
         }
 
+        private static IList<BetSetting> RenderRacingBetSetting(IDataReader reader, bool isAllowSaToteCurrency)
+        {
+            if (reader.FieldCount == 0)
+            {
+                return null;
+            }
+
+            var racingList = new List<BetSetting>();
+
+            BetSettingHelper.RenderSport(reader, "151_41", racingList); // Horse racing UK
+
+            if (isAllowSaToteCurrency)
+            {
+                BetSettingHelper.RenderSport(reader, "151_31", racingList); // Horse racing SA
+            }
+
+            BetSettingHelper.RenderSport(reader, "152_51", racingList); // Greyhound Aust
+            BetSettingHelper.RenderSport(reader, "153_51", racingList); // Harness Aust
+
+            return racingList;
+        }
+
         private void Update15131(CommonBetSetting racingBetSetting)
         {
             var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_31";
@@ -157,28 +179,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, uspName, "No params");
             }
-        }
-
-        private static IList<BetSetting> RenderRacingBetSetting(IDataReader reader, bool isAllowSaToteCurrency)
-        {
-            if (reader.FieldCount == 0)
-            {
-                return null;
-            }
-
-            var racingList = new List<BetSetting>();
-
-            BetSettingHelper.RenderSport(reader, "151_41", racingList); // Horse racing UK
-
-            if (isAllowSaToteCurrency)
-            {
-                BetSettingHelper.RenderSport(reader, "151_31", racingList); // Horse racing SA
-            }
-
-            BetSettingHelper.RenderSport(reader, "152_51", racingList); // Greyhound Aust
-            BetSettingHelper.RenderSport(reader, "153_51", racingList); // Harness Aust
-
-            return racingList;
-        }
+        }       
     }
 }

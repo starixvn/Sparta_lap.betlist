@@ -22,12 +22,8 @@ namespace Fanex.Athena.Model.Report.MetaModel
         private readonly IAppSettings _appSettings;
 
         protected BaseReportMetaModel()
-            : base()
+            : this(new AppSettings())
         {
-            _appSettings = new AppSettings();
-            ProductOptions = new List<ProductOption>();
-            FromDate = DateTime.Today;
-            ToDate = DateTime.Today;
         }
 
         protected BaseReportMetaModel(IAppSettings appSetting)

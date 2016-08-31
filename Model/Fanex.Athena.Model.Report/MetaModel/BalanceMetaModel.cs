@@ -15,10 +15,8 @@ namespace Fanex.Athena.Model.Report.MetaModel
     public class BalanceMetaModel : BaseReportMetaModel
     {
         public BalanceMetaModel()
+            : this(new AppSettings())
         {
-            /*From Date = 1st day of current month, To Date = last day of current month.*/
-            FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            ToDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
         }
 
         public BalanceMetaModel(IAppSettings appSetting)
