@@ -15,6 +15,9 @@
         private IObjectDb _objectDb;
         private CustomerBalanceDataAccess _dataAccess;
         private IDataReader _reader;
+        private CustomerBalanceMetaModel _metaModel;
+        private CustBalance _totalData;
+        private int _totalRow = 0;
 
         [SetUp]
         public void Setup()
@@ -26,31 +29,29 @@
 
             _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(_reader);
+
+            _metaModel = new CustomerBalanceMetaModel { ProductOptions = GetProductOptions() };
+            _totalData = new CustBalance();
         }
 
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
-            // Arrange
-            var metaModel = new CustomerBalanceMetaModel { ProductOptions = GetProductOptions() };
-            var totalData = new CustBalance();
-            var totalRow = 0;
-
             // Action
-            _dataAccess.GetDataList(metaModel, ref totalData, ref totalRow);
+            _dataAccess.GetDataList(_metaModel, ref _totalData, ref _totalRow);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
-            _objectDb.Received().AddInParameter("licenseetype", DbType.String, metaModel.LicenseeType);
-            _objectDb.Received().AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            _objectDb.Received().AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            _objectDb.Received().AddInParameter("topcount", DbType.Int32, metaModel.TopCount);
-            _objectDb.Received().AddInParameter("orderitem", DbType.Byte, metaModel.OrderItem);
-            _objectDb.Received().AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);
-            _objectDb.Received().AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
-            _objectDb.Received().AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
+            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
+            _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
+            _objectDb.Received().AddInParameter("licenseetype", DbType.String, _metaModel.LicenseeType);
+            _objectDb.Received().AddInParameter("currencyid", DbType.Int32, _metaModel.CurrencyId);
+            _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
+            _objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
+            _objectDb.Received().AddInParameter("topcount", DbType.Int32, _metaModel.TopCount);
+            _objectDb.Received().AddInParameter("orderitem", DbType.Byte, _metaModel.OrderItem);
+            _objectDb.Received().AddInParameter("excludetest", DbType.Boolean, _metaModel.IsExcludeTest);
+            _objectDb.Received().AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
+            _objectDb.Received().AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
             _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
         }
@@ -59,10 +60,16 @@
         public void GetDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            var metaModel = new CustomerBalanceMetaModel { ProductOptions = GetProductOptions() };
-            var totalData = new CustBalance();
-            var totalRow = 0;
-            var expected = new CustBalance
+            var expectedTotalData = new CustBalance
+            {
+                Turnover = 10m,
+                DrawGame = 5m,
+                NetTurnover = 5m,
+                WinLoss = 15m,
+                PlayerComm = 10m,
+                TotalWL = 25m
+            };
+            var expectedResult = new CustBalance
             {
                 ExternalId = "ExternalIdTest",
                 SystemId = "SystemIdTest",
@@ -73,31 +80,32 @@
                 PlayerComm = 10m,
                 TotalWL = 20m
             };
-            ConfigureReaderForGetDataListMethod(expected);
+
+            _reader.Read().Returns(true, false, true, false);
+            _reader.NextResult().Returns(true);
+            ConfigureReaderForGetDataListMethod(expectedResult);
+            ConfigureReaderForTotalData(expectedTotalData);
 
             // Action
-            var result = _dataAccess.GetDataList(metaModel, ref totalData, ref totalRow)[0];
+            var result = _dataAccess.GetDataList(_metaModel, ref _totalData, ref _totalRow)[0];
 
             // Assert
-            Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
-            Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
-            Assert.That(result.OpeningBalance, Is.EqualTo(expected.OpeningBalance));
-            Assert.That(result.Deposit, Is.EqualTo(expected.Deposit));
-            Assert.That(result.Withdrawal, Is.EqualTo(expected.Withdrawal));
-            Assert.That(result.Bonus, Is.EqualTo(expected.Bonus));
-            Assert.That(result.Adjustment, Is.EqualTo(expected.Adjustment));
-            Assert.That(result.Turnover, Is.EqualTo(expected.Turnover));
-            Assert.That(result.DrawGame, Is.EqualTo(expected.DrawGame));
-            Assert.That(result.NetTurnover, Is.EqualTo(expected.NetTurnover));
-            Assert.That(result.PendingFunds, Is.EqualTo(expected.PendingFunds));
-            Assert.That(result.WinLoss, Is.EqualTo(expected.WinLoss));
-            Assert.That(result.PlayerComm, Is.EqualTo(expected.PlayerComm));
-            Assert.That(result.TotalWL, Is.EqualTo(expected.TotalWL));
-            Assert.That(result.AffiliateTransfer, Is.EqualTo(expected.AffiliateTransfer));
-            Assert.That(result.ClosingBalance, Is.EqualTo(expected.ClosingBalance));
-            Assert.That(result.TurnoverBA, Is.EqualTo(expected.TurnoverBA));
-            Assert.That(result.CommBA, Is.EqualTo(expected.CommBA));
-            Assert.That(result.AmountDueToBA, Is.EqualTo(expected.AmountDueToBA));
+            Assert.That(result.ExternalId, Is.EqualTo(expectedResult.ExternalId));
+            Assert.That(result.SystemId, Is.EqualTo(expectedResult.SystemId));
+            Assert.That(result.Turnover, Is.EqualTo(expectedResult.Turnover));
+            Assert.That(result.DrawGame, Is.EqualTo(expectedResult.DrawGame));
+            Assert.That(result.NetTurnover, Is.EqualTo(expectedResult.NetTurnover));
+            Assert.That(result.WinLoss, Is.EqualTo(expectedResult.WinLoss));
+            Assert.That(result.PlayerComm, Is.EqualTo(expectedResult.PlayerComm));
+            Assert.That(result.TotalWL, Is.EqualTo(expectedResult.TotalWL));
+
+            Assert.That(_totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
+            Assert.That(_totalData.DrawGame, Is.EqualTo(expectedTotalData.DrawGame));
+            Assert.That(_totalData.NetTurnover, Is.EqualTo(expectedTotalData.NetTurnover));
+            Assert.That(_totalData.WinLoss, Is.EqualTo(expectedTotalData.WinLoss));
+            Assert.That(_totalData.PlayerComm, Is.EqualTo(expectedTotalData.PlayerComm));
+            Assert.That(_totalData.TotalWL, Is.EqualTo(expectedTotalData.TotalWL));
+            Assert.That(_totalRow, Is.EqualTo(100));
         }
 
         private IList<ProductOption> GetProductOptions()
@@ -110,9 +118,7 @@
         }
 
         private void ConfigureReaderForGetDataListMethod(CustBalance expected)
-        {
-            _reader.Read().Returns(true, false);
-
+        {           
             _reader["nickname"].Returns(expected.ExternalId);
             _reader["username"].Returns(expected.SystemId);
             _reader["openingbalance"].Returns(expected.OpeningBalance);
@@ -130,6 +136,27 @@
             _reader["TurnOverBA"].Returns(expected.TurnoverBA);
             _reader["CommBA"].Returns(expected.CommBA);
             _reader["AmountDueToBA"].Returns(expected.AmountDueToBA);
+        }
+
+        private void ConfigureReaderForTotalData(CustBalance expected)
+        {
+            _reader["sumopeningbalance"].Returns(expected.OpeningBalance);
+            _reader["sumdeposit"].Returns(expected.Deposit);
+            _reader["sumwithdrawal"].Returns(expected.Withdrawal);
+            _reader["sumbonus"].Returns(expected.Bonus);
+            _reader["sumadjustment"].Returns(expected.Adjustment);
+            _reader["sumturnover"].Returns(expected.Turnover);
+            _reader["sumdrawgame"].Returns(expected.DrawGame);
+            _reader["sumoutstanding"].Returns(expected.PendingFunds);
+            _reader["sumwinloss"].Returns(expected.WinLoss);
+            _reader["sumaffiliatetransfer"].Returns(expected.AffiliateTransfer);
+            _reader["sumclosingbalance"].Returns(expected.ClosingBalance);
+            _reader["sumturnoverba"].Returns(expected.TurnoverBA);
+            _reader["sumcommba"].Returns(expected.CommBA);
+            _reader["sumamountduetoba"].Returns(expected.AmountDueToBA);
+            _reader["sumplayercomm"].Returns(expected.PlayerComm);
+
+            _reader["TotalRows"].Returns(100);
         }
     }
 }
