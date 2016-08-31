@@ -79,6 +79,7 @@
     <Compile Include="CasinoProgressiveWinsDataAccessTest.cs" />
     <Compile Include="CreditBalanceDataAccessTest.cs" />
     <Compile Include="CustomerBalanceDataAccessTest.cs" />
+    <Compile Include="CustomerPendingFundsDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
