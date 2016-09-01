@@ -1,23 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <SpNameConfig Environment="UAT" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
-  
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_ExecRep_Cust_02" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerRemoveGroupComm" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerSel" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMemberComm" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMemberComm_Direct" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMemberComm_Main" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeBACustUpdComm" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeCustCommUpd" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeBACust_Playerdiscount_Upd" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeGroupCommSel" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeCustCommSel" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeGroupCommIns" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeGroupCommUpd" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeGroupCommDel" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_GroupCommGetById" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerSetDefaultComm" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerMoveGroupComm" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
