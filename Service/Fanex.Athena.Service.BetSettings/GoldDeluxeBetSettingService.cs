@@ -13,6 +13,7 @@ namespace Fanex.Athena.Service.BetSettings
     using Common;
     using Core.Helpers;
     using Core.Users.Interfaces;
+    using Core.Utility;
     using Core.Utility.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
@@ -40,6 +41,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             _betSettingDataAccess = new ThirdPartyBetSettingDataAccess();
             _appSettings = new AppSettings();
+            _webClientService = new WebClientService();
         }
 
         public GoldDeluxeBetSettingService(
