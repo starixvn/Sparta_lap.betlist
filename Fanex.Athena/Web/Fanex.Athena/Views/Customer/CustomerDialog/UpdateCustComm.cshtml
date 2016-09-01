@@ -13,6 +13,19 @@
             @RazorHelper.GroupComSettingDropDownList("CustSBComm3", GroupCommSetting.GetCommValue(1, 5))
         </td>
     </tr>
+
+    <tr>
+        <td>
+            @ViewResources.ParlayComm (%)
+        </td>
+        <td>
+            @RazorHelper.GroupComSettingDropDownList("CustParlayComm1", GroupCommSetting.GetCommValue(15, 1))
+            &#8226
+            @RazorHelper.GroupComSettingDropDownList("CustParlayComm2", GroupCommSetting.GetCommValue(9, 1))
+            @RazorHelper.GroupComSettingDropDownList("CustParlayComm3", GroupCommSetting.GetCommValue(1, 5))
+        </td>
+    </tr>
+
     <tr  class="@(!Model.IsAllowRB ? "hide" : "")">
         <td>
             @ViewResources.RBComm (%)

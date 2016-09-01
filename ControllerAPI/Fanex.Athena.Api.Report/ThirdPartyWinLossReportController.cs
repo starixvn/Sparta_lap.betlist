@@ -146,11 +146,10 @@ namespace Fanex.Athena.Api.Report
             int currencyId = 0,
             int custId = 0)
         {
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
             var permissionKey = _productPermissionMap[metaModel.ProductId];
 
-            if (!_authorizationService.HasPermissions(licenseeId, userSession.FunctionIdList, new string[] { permissionKey }))
+            if (!_authorizationService.HasPermissions(userSession.FunctionIdList, new string[] { permissionKey }))
             {
                 return new HttpResponseMessage
                 {
@@ -161,7 +160,7 @@ namespace Fanex.Athena.Api.Report
 
             if (IsValidRequest(metaModel, currencyId))
             {
-                metaModel.LicenseeId = licenseeId;
+                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.UserId = userSession.UserId;
                 metaModel.DrillDownCurrencyId = currencyId;
                 metaModel.DrillDownLevel = level;

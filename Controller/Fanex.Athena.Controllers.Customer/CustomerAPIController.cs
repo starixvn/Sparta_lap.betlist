@@ -339,6 +339,7 @@ namespace Fanex.Athena.Controllers.Customer
             {
                 var commList = GroupCommSetting.Commissions;
                 var isvalid = commList.Any(i => i.Value == metaModel.SBComm) &&
+                              commList.Any(i => i.Value == metaModel.ParlayComm) &&
                               commList.Any(i => i.Value == metaModel.RCComm) &&
                               commList.Any(i => i.Value == metaModel.NGComm) &&
                               commList.Any(i => i.Value == metaModel.LCComm) &&

@@ -15,6 +15,7 @@
             @foreach (var group in Model.GroupCommDataList)
             {
                 @Html.Hidden("SBComm" + @group.GroupCommId, NumberHelper.DecFormat((group.SBComm * 100)))
+                @Html.Hidden("ParlayComm" + @group.GroupCommId, NumberHelper.DecFormat((group.ParlayComm * 100)))
                 @Html.Hidden("RBComm" + @group.GroupCommId, NumberHelper.DecFormat((group.RCComm * 100)))
                 @Html.Hidden("NGComm" + @group.GroupCommId, NumberHelper.DecFormat((group.NGComm * 100)))
                 @Html.Hidden("LCComm" + @group.GroupCommId, NumberHelper.DecFormat((group.LCComm * 100)))
@@ -28,6 +29,14 @@
         </td>
         <td>
             <input id="NewSbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].SBComm * 100), 2) : string.Empty)"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @ViewResources.ParlayComm (%)
+        </td>
+        <td>
+            <input id="NewParlayComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].ParlayComm * 100), 2) : string.Empty)" />
         </td>
     </tr>
     <tr class="@(!Model.ProductAccess.IsAllowRB ? "hide" : "")">

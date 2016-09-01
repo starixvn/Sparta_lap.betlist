@@ -27,6 +27,10 @@ var CustomerComm = (function ($) {
                 CustomerComm.commissionOnChange($(this).val(), '#CustSBComm');
             });
 
+            $('#CustParlayComm1').on('change', function () {
+                CustomerComm.commissionOnChange($(this).val(), '#CustParlayComm');
+            });
+
             $('#CustRBComm1').on('change', function () {
                 CustomerComm.commissionOnChange($(this).val(), '#CustRBComm');
             });
@@ -75,7 +79,7 @@ var CustomerComm = (function ($) {
 
             $("#MoveToGroupPopUp").dialog({
                 resizable: false,
-                height: 300,
+                height: 330,
                 width: 320,
                 modal: true,
                 buttons: [
@@ -176,7 +180,7 @@ var CustomerComm = (function ($) {
 
             $("#UpdateCustCommPopUp").dialog({
                 resizable: false,
-                height: 300,
+                height: 350,
                 width: 500,
                 modal: true,
                 buttons:
@@ -213,6 +217,7 @@ var CustomerComm = (function ($) {
             }
 
             var sbcom = CustomerComm.initCommissionParam('#CustSBComm');
+            var parlayCom = CustomerComm.initCommissionParam('#CustParlayComm');
             var rbcom = CustomerComm.initCommissionParam('#CustRBComm');
             var ngcom = CustomerComm.initCommissionParam('#CustNGComm');
             var lccom = CustomerComm.initCommissionParam('#CustLCComm');
@@ -222,6 +227,7 @@ var CustomerComm = (function ($) {
                 GroupId: groupCommId,
                 CustomerIds: custList.toString(),
                 SBComm: sbcom,
+                ParlayComm: parlayCom,
                 RCComm: rbcom,
                 NGComm: ngcom,
                 LCComm: lccom,
@@ -396,6 +402,7 @@ var CustomerComm = (function ($) {
         newGroupChanged: function (obj) {
             var groupId = obj.options[obj.selectedIndex].value;
             $('#NewSbComm').val($("#SBComm" + groupId).val());
+            $('#NewParlayComm').val($("#ParlayComm" + groupId).val());
             $('#NewRbComm').val($("#RBComm" + groupId).val());
             $('#NewNgComm').val($("#NGComm" + groupId).val());
             $('#NewLcComm').val($("#LCComm" + groupId).val());

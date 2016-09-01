@@ -27,7 +27,7 @@
 
             UpdateGroup.checkCommFirstLoad();
 
-            expect(GroupComm.commissionOnChange.calls.count()).toBe(5);
+            expect(GroupComm.commissionOnChange.calls.count()).toBe(6);
         });
     });
 

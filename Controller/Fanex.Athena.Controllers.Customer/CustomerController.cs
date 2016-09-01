@@ -73,7 +73,7 @@ namespace Fanex.Athena.Controllers.Customer
             _gridColumNames = columnNames.ToArray();
         }
 
-        #region Action
+       #region Action
 
         /// <summary>
         /// The customer list report.
@@ -207,7 +207,7 @@ namespace Fanex.Athena.Controllers.Customer
             return View("~/Views/Customer/CustomerDialog/LogInfo.cshtml", model);
         }
 
-        #endregion Action
+        #endregion Action 
 
         #region Ultilities
 
