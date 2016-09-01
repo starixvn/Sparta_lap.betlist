@@ -41,7 +41,7 @@
             _functionService.Functions.Returns(allFunctions);
 
             // Action
-            var result = _authorizationService.HasPermissions(0, userFunctions, permissionKeys);
+            var result = _authorizationService.HasPermissions(userFunctions, permissionKeys);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
