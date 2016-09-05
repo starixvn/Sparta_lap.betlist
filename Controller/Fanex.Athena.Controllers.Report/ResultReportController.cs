@@ -242,7 +242,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         public ActionResult AllBetResult(string transDesc, string betCheck, string betType)
         {
-            var allbetResultService = new BuilderService();
+            var allbetResultService = new AllbetResultBuilder();
             ViewBag.Data = allbetResultService.Render(transDesc, betCheck, betType, SessionService.UserSession.Language);
             return View("~/Views/Report/Result/Popup/AllBet.cshtml");
         }
