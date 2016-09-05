@@ -4,7 +4,6 @@
 $(document).ready(function () {
     // init clock
     var options = {
-        serverTime: new Date($('#current-time-clock').html()),
         format: '%H:%M:%S %b %d, %Y GMT'
     };
     $('#current-time-clock').jclock(options);

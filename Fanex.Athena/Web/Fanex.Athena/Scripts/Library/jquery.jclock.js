@@ -1,21 +1,21 @@
-/// <reference path="/@JSense.js" />
 /*
-* jQuery jclock - Clock plugin - v 2.3.2
+* jQuery jclock - Clock plugin - v 2.4.3
 * http://plugins.jquery.com/project/jclock
 *
-* Copyright (c) 2007-2011 Doug Sparling <http://www.dougsparling.com>
+* Copyright (c) 2007-2014 Doug Sparling <http://www.dougsparling.com>
 * Licensed under the MIT License:
 * http://www.opensource.org/licenses/mit-license.php
 */
 (function ($) {
+
     $.fn.jclock = function (options) {
-        var version = '2.3.2';
+        var version = '2.4.3';
 
         // options
         var opts = $.extend({}, $.fn.jclock.defaults, options);
 
         return this.each(function () {
-            $this = $(this);
+            var $this = $(this);
             $this.timerID = null;
             $this.running = false;
 
@@ -25,7 +25,6 @@
 
             var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
 
-            $this.serverTime = o.serverTime;
             $this.format = o.format;
             $this.utc = o.utc;
             // deprecate utc_offset (v 2.2.0)
@@ -91,34 +90,44 @@
             $this.monthsFullNames[11] = "December";
 
             $.fn.jclock.startClock($this);
+
         });
     };
 
     $.fn.jclock.startClock = function (el) {
         $.fn.jclock.stopClock(el);
         $.fn.jclock.displayTime(el);
-    }
+    };
 
     $.fn.jclock.stopClock = function (el) {
-        if (el.running) {
+        if (el.running)
             clearTimeout(el.timerID);
-        }
         el.running = false;
+    };
+
+    /* if the frequency is "once every minute" then we have to make sure this happens
+     * when the minute changes. */
+    // got this idea from digiclock http://www.radoslavdimov.com/jquery-plugins/jquery-plugin-digiclock/
+    function getDelay(timeout) {
+        if (timeout == 60000) {
+            var now = new Date();
+            timeout = 60000 - now.getSeconds() * 1000; // number of seconds before the next minute
+        }
+        return timeout;
     }
 
     $.fn.jclock.displayTime = function (el) {
         var time = $.fn.jclock.currentTime(el);
         var formatted_time = $.fn.jclock.formatTime(time, el);
-        el.attr('currentTime', time.getTime())
+        el.attr('currentTime', time.getTime());
         el.html(formatted_time);
-        el.timerID = setTimeout(function () { $.fn.jclock.displayTime(el) }, el.timeout);
-    }
+        el.timerID = setTimeout(function () { $.fn.jclock.displayTime(el) }, getDelay(el.timeout));
+    };
 
     $.fn.jclock.currentTime = function (el) {
         if (typeof (el.seedTime) == 'undefined') {
             // Seed time not being used, use current time
-            el.serverTime.setSeconds(el.serverTime.getSeconds() + 1);
-            var now = el.serverTime; //new Date();
+            var now = new Date();
         } else {
             // Otherwise, use seed time with increment
             el.increment += new Date().getTime() - el.lastCalled;
@@ -134,10 +143,11 @@
             var now = new Date(utcTime);
         }
 
-        return now
-    }
+        return now;
+    };
 
     $.fn.jclock.formatTime = function (time, el) {
+
         var timeNow = "";
         var i = 0;
         var index = 0;
@@ -145,11 +155,18 @@
             timeNow += el.format.substring(i, index);
             index++;
 
+            // modifier flag
+            //switch (el.format.charAt(index++)) {
+            //}
+
             var property = $.fn.jclock.getProperty(time, el, el.format.charAt(index));
             index++;
 
+            //switch (switchCase) {
+            //}
+
             timeNow += property;
-            i = index
+            i = index;
         }
 
         timeNow += el.format.substring(i);
@@ -157,6 +174,7 @@
     };
 
     $.fn.jclock.getProperty = function (dateObject, el, property) {
+
         switch (property) {
             case "a": // abbrv day names
                 return (el.daysAbbrvNames[dateObject.getDay()]);
@@ -195,11 +213,11 @@
             case "%":
                 return "%";
         }
-    }
+
+    };
 
     // plugin defaults (24-hour)
     $.fn.jclock.defaults = {
-        serverTime: new Date(),
         format: '%H:%M:%S',
         utcOffset: 0,
         utc: false,
@@ -210,4 +228,5 @@
         seedTime: undefined,
         timeout: 1000 // 1000 = one second, 60000 = one minute
     };
+
 })(jQuery);
