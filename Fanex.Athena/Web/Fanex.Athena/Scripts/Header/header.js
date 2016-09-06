@@ -4,7 +4,8 @@
 $(document).ready(function () {
     // init clock
     var options = {
-        serverTime: new Date($('#current-time-clock').html()),
+        utc: true,
+        utcOffset: -4,
         format: '%H:%M:%S %b %d, %Y GMT'
     };
     $('#current-time-clock').jclock(options);
