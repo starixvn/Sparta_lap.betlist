@@ -4,21 +4,16 @@
 
 @helper DisplayCustomerWinLoss(LiveReport data, bool isAllowedCustomerCommission)
 {
-if (isAllowedCustomerCommission)
-{
-        <td>@data.CustomerWinLoss.ToStringExt()</td>
-            <td>@data.CustomerComm.ToStringExt()</td>
-            <td>@data.CustomerTotal.ToStringExt()</td>
-}
-else
-{
-        <td>@data.CustomerWinLoss.ToStringExt()</td>
-}
-}
-
-@helper HighlightNegativeFormat(decimal value)
-{
-    <td class="highlight@(value < 0 ? " negative" : "")">@value</td>
+    if (isAllowedCustomerCommission)
+    {
+            <td>@data.CustomerWinLoss.ToStringExt()</td>
+                <td>@data.CustomerComm.ToStringExt()</td>
+                <td>@data.CustomerTotal.ToStringExt()</td>
+    }
+    else
+    {
+            <td>@data.CustomerWinLoss.ToStringExt()</td>
+    }
 }
 
 @foreach (var item in Model.MainResult)
@@ -34,12 +29,11 @@ else
 
         <td>@item.TurnOver.ToStringExt()</td>
         <td>@item.BetCount.ToStringExt()</td>
-
-        @HighlightNegativeFormat(item.LicenseeWinLoss)
+        <td class="highlight">@RazorHelper.HighlightNegativeFormat(@item.LicenseeWinLoss)</td>
 
         @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
         {
-            <td>@item.LicenseeComm.ToStringExt()</td>
+            <td class="highlight">@item.LicenseeComm.ToStringExt()</td>
         }
 
         <td>@item.AmountDue.ToStringExt()</td>
@@ -67,8 +61,7 @@ else
 
     <td>@Model.MainResult.Sum(i => i.TurnOver).ToStringExt()</td>
     <td>@Model.MainResult.Sum(i => i.BetCount).ToStringExt()</td>
-
-    @HighlightNegativeFormat(Model.MainResult.Sum(i => i.LicenseeWinLoss))
+    <td>@RazorHelper.HighlightNegativeFormat(Model.MainResult.Sum(i => i.LicenseeWinLoss))</td>
 
     @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
     {

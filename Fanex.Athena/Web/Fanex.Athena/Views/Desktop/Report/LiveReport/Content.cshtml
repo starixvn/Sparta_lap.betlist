@@ -2,6 +2,14 @@
 @using Fanex.Athena.Extension.Helper
 @model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
 
+@{
+    var columnCount = Model.IsAllowedCustomerCommission ? 10 : 7;
+
+    if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+    {
+        columnCount -= 1;
+    }
+}
 <div class="col-sm-12">
     <div class="panel-group margin-bottom-0" id="exampleAccordion" aria-multiselectable="true" role="tablist">
         <div class="panel">
@@ -26,7 +34,7 @@
                             @if (Model.MainResult.Count == 0)
                             {
                                 <tr>
-                                    <td colspan="7">@ViewResources.NoInfo</td>
+                                    <td colspan="@columnCount" class="text-center">@ViewResources.NoInfo</td>
                                 </tr>
                             }
                             else
