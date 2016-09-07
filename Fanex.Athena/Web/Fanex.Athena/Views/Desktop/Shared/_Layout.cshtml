@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html class="no-js css-menubar" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+
+    <title>@ViewBag.Title</title>
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,700'>
+    <link href="~/WWW/Assets/font-icon/style.css" rel="stylesheet" />
+
+    <link href="~/WWW/Css/vendors/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="~/WWW/Css/vendors/bootstrap/bootstrap-extend.css" rel="stylesheet" />
+    <link href="~/WWW/Css/site.css" rel="stylesheet" />
+    @RenderSection("css", required: false)
+</head>
+<body class="site-menubar-unfold">
+    <div>
+        @RenderBody()
+    </div>
+
+    <script src="~/WWW/Js/vendors/jquery/jquery.min.js"></script>
+    <script src="~/WWW/Js/vendors/bootstrap/bootstrap.min.js"></script>
+    @RenderSection("js", required: false)
+</body>
+</html>

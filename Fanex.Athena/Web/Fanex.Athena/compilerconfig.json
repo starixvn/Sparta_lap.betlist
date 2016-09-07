@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "WWW/Css/vendors/pickmeup/calendar.css",
+    "inputFile": "WWW/Css/vendors/pickmeup/calendar.scss"
+  },
+  {
+    "outputFile": "WWW/Css/pages/Report/liveReport.css",
+    "inputFile": "WWW/Css/pages/Report/liveReport.scss"
+  },
+  {
+    "outputFile": "WWW/Css/site.css",
+    "inputFile": "WWW/Css/site.scss"
+  }
+]

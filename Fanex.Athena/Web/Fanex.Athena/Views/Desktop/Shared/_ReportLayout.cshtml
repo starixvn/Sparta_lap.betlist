@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+}
+@section css
+{
+    @RenderSection("pagecss", required: false)
+}
+@section js
+{
+    @RenderSection("pagejs", required: false)
+}
+
+<div class="page-content container-fluid">
+    <div class="row">
+        @RenderSection("Filter", required: false)
+    </div>
+
+    <div class="row">
+        @RenderSection("Content", required: false)
+    </div>
+</div>

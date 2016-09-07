@@ -1,0 +1,79 @@
+﻿@using Fanex.Athena.Model.Report.ViewModel
+@using Fanex.Athena.Model.Report.DTO.LiveReports
+@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
+
+@helper DisplayCustomerWinLoss(LiveReport data, bool isAllowedCustomerCommission)
+{
+if (isAllowedCustomerCommission)
+{
+        <td>@data.CustomerWinLoss.ToStringExt()</td>
+            <td>@data.CustomerComm.ToStringExt()</td>
+            <td>@data.CustomerTotal.ToStringExt()</td>
+}
+else
+{
+        <td>@data.CustomerWinLoss.ToStringExt()</td>
+}
+}
+
+@helper HighlightNegativeFormat(decimal value)
+{
+    <td class="highlight@(value < 0 ? " negative" : "")">@value</td>
+}
+
+@foreach (var item in Model.MainResult)
+{
+    <tr class="text-right">
+        <td class="text-left">
+            <a href="javascript:;" class="product-detail-link" data-product-code="@item.ProductCode">
+                @item.ProductName
+            </a>
+        </td>
+
+        @DisplayCustomerWinLoss(item, Model.IsAllowedCustomerCommission)
+
+        <td>@item.TurnOver.ToStringExt()</td>
+        <td>@item.BetCount.ToStringExt()</td>
+
+        @HighlightNegativeFormat(item.LicenseeWinLoss)
+
+        @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+        {
+            <td>@item.LicenseeComm.ToStringExt()</td>
+        }
+
+        <td>@item.AmountDue.ToStringExt()</td>
+    </tr>
+}
+
+<!--total row-->
+<tr class="text-right total font-weight-600">
+    <td class="text-left">
+        <a href="javascript:;" class="product-detail-link" data-product-code="ALL">
+            @ViewResources.Total
+        </a>
+    </td>
+
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <td>@Model.MainResult.Sum(i => i.CustomerWinLoss).ToStringExt()</td>
+        <td>@Model.MainResult.Sum(i => i.CustomerComm).ToStringExt()</td>
+        <td>@Model.MainResult.Sum(i => i.CustomerTotal).ToStringExt()</td>
+    }
+    else
+    {
+        <td>@Model.MainResult.Sum(i => i.CustomerWinLoss).ToStringExt()</td>
+    }
+
+    <td>@Model.MainResult.Sum(i => i.TurnOver).ToStringExt()</td>
+    <td>@Model.MainResult.Sum(i => i.BetCount).ToStringExt()</td>
+
+    @HighlightNegativeFormat(Model.MainResult.Sum(i => i.LicenseeWinLoss))
+
+    @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+    {
+        <td>@Model.MainResult.Sum(i => i.LicenseeComm).ToStringExt()</td>
+    }
+
+    <td>@Model.MainResult.Sum(i => i.AmountDue).ToStringExt()</td>
+</tr>

@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -750,6 +750,10 @@
     <Content Include="App_Data\UserGuide\CustomerList\pdf\zh-TW\Odds Group Feature_Licensee_BA.pdf" />
     <Content Include="App_Data\UserGuide\CustomerList\pdf\en-US\Odds Group Feature_Licensee_BA.pdf" />
     <Content Include="App_Data\Template\Reports\ColossusBetsWinLoss.xls" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
@@ -930,6 +934,37 @@
     <Content Include="Scripts\Report\thirdpartywinloss.golddeluxe.js" />
     <Content Include="Scripts\Report\microgamingwinloss.js" />
     <Content Include="Scripts\Report\microgamingwinloss.option.js" />
+    <Content Include="WWW\Css\pages\Report\liveReport.css">
+      <DependentUpon>liveReport.scss</DependentUpon>
+    </Content>
+    <Content Include="WWW\Css\pages\Report\liveReport.min.css">
+      <DependentUpon>liveReport.css</DependentUpon>
+    </Content>
+    <Content Include="WWW\Css\site.css">
+      <DependentUpon>site.scss</DependentUpon>
+    </Content>
+    <Content Include="WWW\Css\site.min.css">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
+    <Content Include="WWW\Css\vendors\bootstrap\bootstrap-extend.css" />
+    <Content Include="WWW\Css\vendors\bootstrap\bootstrap.css" />
+    <Content Include="WWW\Css\vendors\pickmeup\calendar.css">
+      <DependentUpon>calendar.scss</DependentUpon>
+    </Content>
+    <Content Include="WWW\Css\vendors\pickmeup\calendar.min.css">
+      <DependentUpon>calendar.css</DependentUpon>
+    </Content>
+    <Content Include="WWW\Css\vendors\pickmeup\pickmeup.css" />
+    <Content Include="WWW\Css\vendors\waves\waves.min.css" />
+    <Content Include="WWW\Assets\font-icon\font-awesome\font-awesome.min.css" />
+    <Content Include="WWW\Assets\font-icon\fonts\icomoon.svg" />
+    <Content Include="WWW\Assets\font-icon\material-design\material-design.min.css" />
+    <Content Include="WWW\Assets\font-icon\style.css" />
+    <Content Include="WWW\Js\vendors\bootstrap\bootstrap.min.js" />
+    <Content Include="WWW\Js\vendors\jquery\jquery.min.js" />
+    <Content Include="WWW\Js\vendors\pickmeup\demo.js" />
+    <Content Include="WWW\Js\vendors\pickmeup\jquery.pickmeup.js" />
+    <Content Include="WWW\Js\vendors\waves\waves.min.js" />
     <Content Include="SiteConfig\Web.LOCAL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
@@ -973,6 +1008,15 @@
     <Content Include="Views\Report\ColossusBetsWinLoss\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\ColossusBets.cshtml" />
     <Content Include="Views\BetList\ColossusBetDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\Content.Data.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\Content.Header.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\HistoryFilter.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\Main.cshtml" />
+    <Content Include="Views\Desktop\Shared\_ReportLayout.cshtml" />
+    <Content Include="Views\Desktop\Shared\_Layout.cshtml" />
+    <Content Include="WWW\Css\vendors\pickmeup\calendar.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
@@ -4639,6 +4683,34 @@
       <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="WWW\Css\abstracts\_variables.scss" />
+    <Content Include="WWW\Css\base\_common.scss" />
+    <Content Include="WWW\Css\components\_animation.scss" />
+    <Content Include="WWW\Css\components\_avatar-status.scss" />
+    <Content Include="WWW\Css\components\_blocks.scss" />
+    <Content Include="WWW\Css\components\_button.scss" />
+    <Content Include="WWW\Css\components\_color.scss" />
+    <Content Include="WWW\Css\components\_dropdown.scss" />
+    <Content Include="WWW\Css\components\_forms.scss" />
+    <Content Include="WWW\Css\components\_icons.scss" />
+    <Content Include="WWW\Css\components\_labels-badges.scss" />
+    <Content Include="WWW\Css\components\_pagination.scss" />
+    <Content Include="WWW\Css\components\_panel.scss" />
+    <Content Include="WWW\Css\components\_sizing.scss" />
+    <Content Include="WWW\Css\components\_spacing.scss" />
+    <Content Include="WWW\Css\components\_widget.scss" />
+    <Content Include="WWW\Css\layout\_content.scss" />
+    <Content Include="WWW\Css\layout\_footer.scss" />
+    <Content Include="WWW\Css\layout\_menubar.scss" />
+    <Content Include="WWW\Css\layout\_navbar.scss" />
+    <Content Include="WWW\Css\layout\_sidebar.scss" />
+    <Content Include="WWW\Css\pages\Report\liveReport.scss" />
+    <Content Include="WWW\Css\site.scss" />
+    <Content Include="WWW\Assets\font-icon\font-awesome\fontawesome-webfont.woff2" />
+    <Content Include="WWW\Assets\font-icon\fonts\icomoon.eot" />
+    <Content Include="WWW\Assets\font-icon\fonts\icomoon.ttf" />
+    <Content Include="WWW\Assets\font-icon\fonts\icomoon.woff" />
+    <Content Include="WWW\Assets\font-icon\material-design\Material-Design-Iconic-Font.woff2" />
     <None Include="SiteConfig\Web.AppSettings.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.AppSettings.config.txt</LastGenOutput>

@@ -55,7 +55,7 @@ namespace Fanex.Athena.Controllers.Report
                 ProductAccess = productAccess
             };
 
-            return View("~/Views/Report/LiveReport/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/LiveReport/Main.cshtml", model);
         }
 
         [HttpPost]
@@ -85,7 +85,7 @@ namespace Fanex.Athena.Controllers.Report
 
             return isExportedExcel
                        ? Excel(model)
-                       : View("~/Views/Report/LiveReport/Main.cshtml", model);
+                       : View("~/Views/Desktop/Report/LiveReport/Main.cshtml", model);
         }
 
         [HttpGet]

@@ -1,0 +1,151 @@
+﻿@import '../abstracts/variables';
+$bg-panel-title: $blue-Bayoux;
+
+a {
+    color: #1c5fc3;
+    text-decoration: none;
+
+    &:hover, &:focus, &:active {
+        text-decoration: none;
+    }
+}
+
+.circle {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #f94a4a;
+}
+
+.site-menubar-unfold {
+    .icon-backburger {
+        transform: rotate(0);
+    }
+}
+
+.site-menubar-fold {
+    .icon-backburger {
+        transform: rotate(180deg);
+    }
+}
+
+.panel-heading {
+    background: $bg-panel-title;
+    border-radius: 0;
+
+    .panel-title {
+        color: #fff;
+        padding: 6px 15px;
+        font-size: 13px;
+
+        &:hover, &:active, &:focus {
+            color: #fff;
+        }
+    }
+
+    + .panel-collapse > .panel-body {
+        border-top: none !important;
+    }
+}
+
+.has-icon {
+    position: relative;
+
+    [class^="icon-"], [class*=" icon-"] {
+        position: absolute;
+        right: 15px;
+        bottom: 10px;
+    }
+
+    .icon-calendar {
+        font-size: 17px;
+    }
+
+    .icon-menu-down {
+        bottom: 5px;
+        right: 10px;
+    }
+}
+
+.panel-group .panel-collapse .panel-body {
+    padding: 0;
+
+    @media (max-width: 425px) {
+        max-width: 385px;
+        overflow: auto;
+    }
+}
+
+.table-title {
+    background: #8aa4b8;
+    padding: 6px 15px;
+    color: #fff;
+}
+
+.table {
+    a {
+        color: #1c5fc3;
+        text-decoration: none;
+
+        &:hover, &:focus, &:active {
+            text-decoration: none;
+        }
+    }
+
+    > thead {
+        > tr {
+            > th {
+                vertical-align: middle;
+                text-align: center;
+                background: #d1dae1;
+                border-color: #ffffff;
+                color: #314453;
+                font-weight: 600;
+
+                &:first-child {
+                    border-left-color: #d1dae1 !important;
+                }
+
+                &:last-child {
+                    border-right-color: #d1dae1 !important;
+                }
+            }
+
+            &:nth-child(2) th {
+                &:last-child {
+                    border-right-color: #fff !important;
+                }
+            }
+        }
+
+        &:first-child {
+            > tr:first-child > th {
+                border-color: #ffffff;
+            }
+        }
+    }
+
+    > tbody {
+        tr {
+            td {
+                border-color: #d6d6d6;
+                color: #404040;
+                padding: 6px 8px;
+            }
+
+            &:hover {
+            }
+
+            &.highlight {
+                background: #fcf4de;
+            }
+
+            &.total {
+                background: #ffb391;
+            }
+        }
+    }
+}

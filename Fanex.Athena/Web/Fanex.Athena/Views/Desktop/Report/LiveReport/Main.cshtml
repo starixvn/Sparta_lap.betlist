@@ -1,0 +1,43 @@
+﻿@using Fanex.Athena.Model.Report.ViewModel
+@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
+@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.LiveReport;
+    Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
+}
+@section pagecss {     
+    <link href="~/WWW/Css/vendors/pickmeup/pickmeup.css" rel="stylesheet" />
+    <link href="~/WWW/Css/vendors/pickmeup/calendar.min.css" rel="stylesheet" />
+    <link href="@Url.ContentLink("/WWW/Css/pages/Report/liveReport.min.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="~/WWW/Js/vendors/pickmeup/jquery.pickmeup.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('.range').pickmeup({
+                position: 'bottom',
+                hide_on_select: true,
+                format: 'm/d/Y'
+            });           
+        });
+    </script>
+}
+@section Filter
+{
+    @if (Model.Param.IsViewedHistory)
+    {
+        Html.RenderPartial("~/Views/Desktop/Report/LiveReport/HistoryFilter.cshtml");
+    }
+    else
+    {
+        Html.RenderPartial("~/Views/Desktop/Report/LiveReport/Filter.cshtml");
+    }
+}
+@section Content
+{
+    @if (!Model.ShowEmptyContent)
+    {
+        Html.RenderPartial("~/Views/Desktop/Report/LiveReport/Content.cshtml");
+    }
+}

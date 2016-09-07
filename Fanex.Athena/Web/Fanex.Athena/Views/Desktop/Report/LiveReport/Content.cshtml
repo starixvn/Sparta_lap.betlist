@@ -1,0 +1,42 @@
+﻿@using Fanex.Athena.Model.Report.ViewModel
+@using Fanex.Athena.Extension.Helper
+@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
+
+<div class="col-sm-12">
+    <div class="panel-group margin-bottom-0" id="exampleAccordion" aria-multiselectable="true" role="tablist">
+        <div class="panel">
+            <div class="panel-heading" id="exampleHeadingOne" role="tab">
+                <a class="panel-title" data-parent="#exampleAccordion" data-toggle="collapse" href="#exampleCollapseOne"
+                                   aria-controls="exampleCollapseOne" aria-expanded="true">
+                    @ViewResources.LiveReport - @RazorHelper.ViewLiveStatus(Model.Param.LiveIndicator), @RazorHelper.TitleDateTime(Model.Param.FromDate, Model.Param.ToDate)
+                    - @RazorHelper.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                </a>
+            </div>
+
+            <div class="panel-collapse collapse in" id="exampleCollapseOne" aria-labelledby="exampleHeadingOne" role="tabpanel">
+                <div class="panel-body">
+                    <div class="table-title text-uppercase"><span>@ViewResources.Summary</span></div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            @{ Html.RenderPartial("~/Views/Desktop/Report/LiveReport/Content.Header.cshtml"); }
+                        </thead>
+
+                        <tbody>
+                            @if (Model.MainResult.Count == 0)
+                            {
+                                <tr>
+                                    <td colspan="7">@ViewResources.NoInfo</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                Html.RenderPartial("~/Views/Desktop/Report/LiveReport/Content.Data.cshtml");
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

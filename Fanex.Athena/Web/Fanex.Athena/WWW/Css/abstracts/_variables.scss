@@ -1,0 +1,39 @@
+﻿$blue-Pickled: #314453;
+$blue-Bayoux: #4C6375;
+
+$orange-Flamingo: #f05b1f;      //Primary
+$orange-Jaffa: #F07443;         //Hover
+$orange-Grenadier: #d43d02;    //Active
+
+$orange-Peel: #ff9800;
+$red-Pomegranate: #f44336;
+$green-FruitSalad: #4caf50;
+$blue-RobinEgg: #00bcd4;
+
+$grey-Alto: #dbdbdb;
+$black-opacity10: rgba(0,0,0,0.1);
+
+$color-primary: $orange-Flamingo;
+$color-primary-hover: $orange-Jaffa;
+$color-primary-active: $orange-Grenadier;
+
+
+$height-header: 64px;
+
+$color-warning : $orange-Peel;
+$color-error : $red-Pomegranate;
+$color-success : #4caf50;
+$color-info : $blue-RobinEgg;
+
+$bg-menubar: $blue-Pickled;
+$color-menubar: $grey-Alto;
+$color-menu-item-active: $color-primary;
+$bg-menu-item-open: $black-opacity10;
+$color-submenu-active: #fff;
+$color-submenu-hover: $color-primary;
+$bg-submenu-active: $color-primary;
+
+$bg-navbar-header: $blue-Pickled;
+$bg-navbar-container: $blue-Bayoux;
+
+$color-form-focus: #4f8ab8;

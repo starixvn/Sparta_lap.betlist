@@ -271,7 +271,7 @@ bool addBasedOption = false)
         selectedBasedCurrency = string.IsNullOrEmpty(selectedBasedCurrency) ? string.Empty : selectedBasedCurrency;
         selectedBasedCurrency = selectedBasedCurrency.ToLower();
 
-    <select class="based-currency" name="BaseCurrency" id="BaseCurrency"  data-original="@selectedBasedCurrency">
+    <select class="based-currency form-control" name="BaseCurrency" id="BaseCurrency"  data-original="@selectedBasedCurrency">
         <option value="eur" @(selectedBasedCurrency == "eur" ? new HtmlString("selected=selected") : new HtmlString(""))>
             EUR</option>
         <option value="usd" @(selectedBasedCurrency == "usd" ? new HtmlString("selected=selected") : new HtmlString(""))>
@@ -283,7 +283,7 @@ bool addBasedOption = false)
 }
 @helper LiveStatus(int selectedStatus)
     {
-    <select class="live-status" name="LiveIndicator" id="LiveIndicator"  data-original="@selectedStatus">
+    <select class="live-status form-control" name="LiveIndicator" id="LiveIndicator"  data-original="@selectedStatus">
         <option value="2" @(selectedStatus.Equals(2) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.All</option>
         <option value="1" @(selectedStatus.Equals(1) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.Live</option>
         <option value="0" @(selectedStatus.Equals(0) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.NoneLive</option>
