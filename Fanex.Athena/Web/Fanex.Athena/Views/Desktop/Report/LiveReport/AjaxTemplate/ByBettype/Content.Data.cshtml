@@ -1,0 +1,54 @@
+﻿@using Fanex.Athena.Model.Report.DTO
+@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
+
+@{ 
+    var columnCount = Model.IsAllowedCustomerCommission ? 10 : 7;
+
+    if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+    {
+        columnCount -= 1;
+    }
+}
+
+@helper DisplayCustomerWinLoss(ICustomerWinLoss data, bool isAllowedCustomerCommission)
+{
+    if (isAllowedCustomerCommission)
+    {
+            <td>@data.CustomerWinLoss.ToStringExt()</td>
+            <td>@data.CustomerComm.ToStringExt()</td>
+                <td>@data.CustomerTotal.ToStringExt()</td>
+    }
+    else
+    {
+            <td>@data.CustomerWinLoss.ToStringExt()</td>
+    }
+}
+
+@foreach (var product in Model.ByBetType)
+{
+    <tr class="text-left font-weight-600 highlight">
+        <td colspan="@columnCount">@(product.ProductName == "SB" ? ViewResources.Sportsbook : product.ProductName)</td>
+    </tr>
+
+    foreach (var item in Model.ByCurrencies)
+    {
+        <tr class="text-right">
+            <td class="text-left">
+                @item.ProductName
+            </td>
+
+            @DisplayCustomerWinLoss(item, Model.IsAllowedCustomerCommission)
+
+            <td>@item.TurnOver.ToStringExt()</td>
+            <td>@item.BetCount.ToStringExt()</td>
+            <td class="highlight">@RazorHelper.HighlightNegativeFormat(@item.LicenseeWinLoss)</td>
+
+            @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+            {
+                <td class="highlight">@item.LicenseeComm.ToStringExt()</td>
+            }
+
+            <td>@item.AmountDue.ToStringExt()</td>
+        </tr>
+    }
+}

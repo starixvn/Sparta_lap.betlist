@@ -1,0 +1,28 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
+
+@{
+    var rowspanText = Model.IsAllowedCustomerCommission ? "rowspan=2" : "";
+    var colspanText = Model.IsAllowedCustomerCommission ? "colspan=3" : "";
+}
+
+<tr>
+    <th @rowspanText>@ViewResources.BetType</th>
+    <th @colspanText>@ViewResources.CustomerW_L</th>
+    <th @rowspanText>@ViewResources.Turnover</th>
+    <th @rowspanText>@ViewResources.BetCount</th>
+    <th @rowspanText>@ViewResources.LicenseeW_L</th>
+    @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+    {
+        <th @rowspanText>@ViewResources.Comm</th>
+    }
+    <th @rowspanText>@ViewResources.AmountDueTo</th>
+</tr>
+
+@if (Model.IsAllowedCustomerCommission)
+{
+    <tr>
+        <th>@ViewResources.WinLoss</th>
+        <th>@ViewResources.Comm</th>
+        <th>@ViewResources.Total</th>
+    </tr>
+}

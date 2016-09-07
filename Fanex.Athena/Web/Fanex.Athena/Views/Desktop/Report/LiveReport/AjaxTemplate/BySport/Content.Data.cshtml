@@ -1,0 +1,60 @@
+﻿@using Fanex.Athena.Model.Report.DTO
+@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
+
+@{
+    var liveReportNoDetailLinkSports = AppSettings.LiveReportNoDetailLinkSports;
+}
+
+@helper DisplayCustomerWinLoss(ICustomerWinLoss data, bool isAllowedCustomerCommission)
+{
+    if (isAllowedCustomerCommission)
+    {
+            <td>@data.CustomerWinLoss.ToStringExt()</td>
+                <td>@data.CustomerComm.ToStringExt()</td>
+                    <td>@data.CustomerTotal.ToStringExt()</td>
+    }
+    else
+    {
+            <td>@data.CustomerWinLoss.ToStringExt()</td>
+    }
+}
+
+@foreach (var item in Model.BySports)
+{
+    var sportId = string.IsNullOrEmpty(item.ProductCode) ? 0 : Convert.ToInt32(item.ProductCode);
+
+    <tr class="text-right">
+        <td class="text-left">
+            @{
+                if (Model.IsShowedDetailLink && !liveReportNoDetailLinkSports.Contains(sportId))
+                {
+                    var detailParam = new
+                    {
+                        SportId = sportId,
+                        TotalValue = item
+                    };
+                    <a href="javascript:;" class="sport-detailt-link" data-drill-down="@detailParam.ToJson()">
+                        @item.ProductName
+                    </a>
+                }
+                else
+                {
+                    @item.ProductName
+                }
+            }
+        </td>
+
+        @DisplayCustomerWinLoss(item, Model.IsAllowedCustomerCommission)
+
+        <td>@item.TurnOver.ToStringExt()</td>
+        <td>@item.BetCount.ToStringExt()</td>
+        <td class="highlight">@RazorHelper.HighlightNegativeFormat(@item.LicenseeWinLoss)</td>
+
+        @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+        {
+            <td class="highlight">@item.LicenseeComm.ToStringExt()</td>
+        }
+
+        <td>@item.AmountDue.ToStringExt()</td>
+    </tr>
+}

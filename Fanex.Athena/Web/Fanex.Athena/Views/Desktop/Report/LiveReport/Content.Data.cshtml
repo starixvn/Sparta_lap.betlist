@@ -1,8 +1,7 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Model.Report.DTO.LiveReports
+﻿@using Fanex.Athena.Model.Report.DTO
 @model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
 
-@helper DisplayCustomerWinLoss(LiveReport data, bool isAllowedCustomerCommission)
+@helper DisplayCustomerWinLoss(ICustomerWinLoss data, bool isAllowedCustomerCommission)
 {
     if (isAllowedCustomerCommission)
     {

@@ -1,6 +1,4 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Extension.Helper
-@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
 
 @{
     var columnCount = Model.IsAllowedCustomerCommission ? 10 : 7;
@@ -43,6 +41,9 @@
                             }
                         </tbody>
                     </table>
+                </div>
+
+                <div id="detail-content">
                 </div>
             </div>
         </div>
