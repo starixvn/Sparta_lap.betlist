@@ -955,6 +955,9 @@
     </Content>
     <Content Include="www\css\source\vendors\bootstrap\bootstrap-extend.css" />
     <Content Include="www\css\source\vendors\bootstrap\bootstrap.css" />
+    <Content Include="www\css\source\vendors\jqGrid\ui.jqgrid\images\tab_topbg.gif" />
+    <Content Include="www\css\source\vendors\jqGrid\ui.jqgrid\jqgrid.extension.css" />
+    <Content Include="www\css\source\vendors\jqGrid\ui.jqgrid\ui.jqgrid.css" />
     <Content Include="www\css\source\vendors\pickmeup\calendar.css">
       <DependentUpon>calendar.scss</DependentUpon>
     </Content>
@@ -971,6 +974,8 @@
     <Content Include="www\js\build\jquery.min.js" />
     <Content Include="www\js\build\jquery.pickmeup.js" />
     <Content Include="www\js\source\vendors\bootstrap\bootstrap.min.js" />
+    <Content Include="www\js\source\vendors\jqGrid\jquery.jqGrid.en.js" />
+    <Content Include="www\js\source\vendors\jqGrid\jquery.jqGrid.min.js" />
     <Content Include="www\js\source\vendors\jquery\jquery.min.js" />
     <Content Include="www\js\source\vendors\pickmeup\demo.js" />
     <Content Include="www\js\source\vendors\pickmeup\jquery.pickmeup.js" />
