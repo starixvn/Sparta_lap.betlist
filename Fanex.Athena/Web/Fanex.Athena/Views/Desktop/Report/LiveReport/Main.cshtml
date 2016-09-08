@@ -4,21 +4,45 @@
     " - " + ViewResources.LiveReport;
     Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
 }
-@section pagecss {     
-    <link href="~/www/css/build/pickmeup.css" rel="stylesheet" />
-    <link href="~/www/css/build/calendar.min.css" rel="stylesheet" />
+@section pagecss {
+    <link href="~/www/css/build/daterangepicker.min.css" rel="stylesheet" />
     <link href="~/www/css/build/liveReport.min.css" rel="stylesheet" />
 }
 @section pagejs {
-    <script src="~/www/js/build/jquery.pickmeup.js"></script>
+    <script src="~/www/js/build/moment.min.js"></script>
+    <script src="~/www/js/build/daterangepicker.js"></script>
 
     <script type="text/javascript">
         $(function () {
-            $('.range').pickmeup({
-                position: 'bottom',
-                hide_on_select: true,
-                format: 'm/d/Y'
-            });           
+            var start = moment().subtract(29, 'days');
+            var end = moment();
+
+            function setRangeDate(start, end) {
+                $('#FromDate').val(start.format('MM/DD/YYYY'));
+                $('#ToDate').val(end.format('MM/DD/YYYY'));
+            }
+
+            $('#FromDate, #ToDate').daterangepicker({
+                startDate: start,
+                endDate: end,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                locale: {
+                    format: 'MM/DD/YYYY'
+                }
+            }, setRangeDate);
+
+            $('#FromDate, #ToDate').on('apply.daterangepicker', function (ev, picker) {
+                setRangeDate(picker.startDate, picker.endDate);
+            });
+
+            setRangeDate(start, end);
         });
     </script>
 }

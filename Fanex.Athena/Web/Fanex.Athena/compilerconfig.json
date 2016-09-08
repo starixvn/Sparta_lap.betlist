@@ -10,5 +10,9 @@
   {
     "outputFile": "WWW/Css/site.css",
     "inputFile": "WWW/Css/site.scss"
+  },
+  {
+    "outputFile": "www/css/source/vendors/daterangepicker/daterangepicker.css",
+    "inputFile": "www/css/source/vendors/daterangepicker/daterangepicker.scss"
   }
 ]
