@@ -45,7 +45,7 @@ namespace Fanex.Athena.Controllers
                 UserName = userSession.UserName,
                 CurrentLicenseeId = SessionService.LicenseeSession.LicenseeId
             };
-            return View("~/Views/Header/Index.cshtml", viewModel);
+            return View("~/Views/Desktop/Header/Index.cshtml", viewModel);
         }
 
         public ActionResult ChangeLicensee(int? licenseeId)

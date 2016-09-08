@@ -938,7 +938,10 @@
     <Content Include="www\assets\images\flag_ko-KR.png" />
     <Content Include="www\assets\images\flag_zh-CN.png" />
     <Content Include="www\assets\images\flag_zh-TW.png" />
+    <Content Include="www\assets\images\logo-text.svg" />
+    <Content Include="www\assets\images\logo.svg" />
     <Content Include="www\css\build\plugins\daterangepicker\daterangepicker.min.css" />
+    <Content Include="www\css\build\plugins\flag-icon-css\flag-icon.min.css" />
     <Content Include="www\css\build\vendors\bootstrap-extend.css" />
     <Content Include="www\css\build\vendors\bootstrap.css" />
     <Content Include="www\css\build\pages\reports\liveReport.min.css" />
@@ -963,6 +966,13 @@
     <Content Include="www\css\source\vendors\daterangepicker\daterangepicker.min.css">
       <DependentUpon>daterangepicker.css</DependentUpon>
     </Content>
+    <Content Include="www\css\source\vendors\flag-icon-css\flag-icon.min.css" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flags\cn.svg" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flags\de.svg" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flags\fr.svg" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flags\gb.svg" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flags\nl.svg" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flags\us.svg" />
     <Content Include="www\css\source\vendors\jqGrid\ui.jqgrid\images\tab_topbg.gif" />
     <Content Include="www\css\source\vendors\jqGrid\ui.jqgrid\jqgrid.extension.css" />
     <Content Include="www\css\source\vendors\jqGrid\ui.jqgrid\ui.jqgrid.css" />

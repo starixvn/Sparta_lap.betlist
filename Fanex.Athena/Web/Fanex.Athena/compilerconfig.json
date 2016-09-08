@@ -14,5 +14,9 @@
   {
     "outputFile": "www/css/source/vendors/daterangepicker/daterangepicker.css",
     "inputFile": "www/css/source/vendors/daterangepicker/daterangepicker.scss"
+  },
+  {
+    "outputFile": "www/css/source/site.css",
+    "inputFile": "www/css/source/site.scss"
   }
 ]

@@ -1641,6 +1641,21 @@ body.site-gridmenu-active {
 .site-navbar .waves-effect {
   z-index: auto; }
 
+.site-navbar .flag-icon-en-US {
+  background: url("../../assets/images/flag_en-US.png") no-repeat; }
+
+.site-navbar .flag-icon-zh-TW {
+  background: url("../../assets/images/flag_zh-TW.png") no-repeat; }
+
+.site-navbar .flag-icon-zh-CN {
+  background: url("../../assets/images/flag_zh-CN.png") no-repeat; }
+
+.site-navbar .flag-icon-ko-KR {
+  background: url("../../assets/images/flag_ko-KR.png") no-repeat; }
+
+.site-navbar .flag-icon-zh-Hans {
+  background: url("../../assets/images/flag_zh-Hans.png") no-repeat; }
+
 .nav > li > a:focus, .nav > li > a:hover {
   background: none; }
 

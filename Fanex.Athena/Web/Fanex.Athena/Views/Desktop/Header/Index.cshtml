@@ -11,6 +11,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title>Header</title>
+    <link href="~/www/assets/font-icon/style.css" rel="stylesheet" />
+    <link href="~/www/css/build/plugins/flag-icon-css/flag-icon.min.css" rel="stylesheet" />
     <link href="~/www/css/build/vendors/bootstrap.css" rel="stylesheet" />
     <link href="~/www/css/build/vendors/bootstrap-extend.css" rel="stylesheet" />
     <link href="~/www/css/build/site.min.css" rel="stylesheet" />
@@ -29,9 +31,9 @@
                     <i class="icon md-more" aria-hidden="true"></i>
                 </button>
                 <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-                    <div class="navbar-brand-logo"><img src="assets/images/logo.svg" /> </div>
+                    <div class="navbar-brand-logo"><img src="~/www/assets/images/logo.svg" /> </div>
                     <span class="navbar-brand-text hidden-xs">
-                        <img src="assets/images/logo-text.svg" />
+                        <img src="~/www/assets/images/logo-text.svg" />
                     </span>
                 </div>
                 <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-search"
@@ -83,6 +85,35 @@
                                 }
                             </ul>
                         </li>
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up"
+                               aria-expanded="false" role="button">
+                                @{
+                                    var currentLicensee = Model.LicenseeList.FirstOrDefault(p => p.Id.Equals(Model.CurrentLicenseeId)).Name;
+                                }
+                                <span>@currentLicensee</span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                @foreach (var licensee in Model.LicenseeList)
+                                {
+                                    <li role="presentation">
+                                        <a href="javascript:void(0)" role="menuitem" licenseeId="@licensee.Id">
+                                            @licensee.Name
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <select>
+                                @foreach (var licensee in Model.LicenseeList)
+                                {
+                                    <option value="@licensee.Id">@licensee.Name</option>
+                                }
+                            </select>
+                        </li>
                     </ul>
                     <!-- End Navbar Toolbar Right -->
                 </div>
@@ -90,5 +121,8 @@
             </div>
         </nav>
     </div>
+
+    <script src="~/www/js/build/vendors/jquery.min.js"></script>
+    <script src="~/www/js/build/vendors/bootstrap.min.js"></script>
 </body>
 </html>
