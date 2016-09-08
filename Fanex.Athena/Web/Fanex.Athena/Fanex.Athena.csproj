@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -934,13 +934,10 @@
     <Content Include="Scripts\Report\thirdpartywinloss.golddeluxe.js" />
     <Content Include="Scripts\Report\microgamingwinloss.js" />
     <Content Include="Scripts\Report\microgamingwinloss.option.js" />
-    <Content Include="www\css\build\bootstrap-extend.css" />
-    <Content Include="www\css\build\bootstrap.css" />
-    <Content Include="www\css\build\calendar.min.css" />
-    <Content Include="www\css\build\liveReport.min.css" />
-    <Content Include="www\css\build\pickmeup.css" />
+    <Content Include="www\css\build\vendors\bootstrap-extend.css" />
+    <Content Include="www\css\build\vendors\bootstrap.css" />
+    <Content Include="www\css\build\pages\reports\liveReport.min.css" />
     <Content Include="www\css\build\site.min.css" />
-    <Content Include="www\css\build\waves.min.css" />
     <Content Include="www\css\source\pages\Report\liveReport.css">
       <DependentUpon>liveReport.scss</DependentUpon>
     </Content>
@@ -970,9 +967,8 @@
     <Content Include="www\assets\font-icon\fonts\icomoon.svg" />
     <Content Include="www\assets\font-icon\material-design\material-design.min.css" />
     <Content Include="www\assets\font-icon\style.css" />
-    <Content Include="www\js\build\bootstrap.min.js" />
-    <Content Include="www\js\build\jquery.min.js" />
-    <Content Include="www\js\build\jquery.pickmeup.js" />
+    <Content Include="www\js\build\vendors\bootstrap.min.js" />
+    <Content Include="www\js\build\vendors\jquery.min.js" />
     <Content Include="www\js\source\vendors\bootstrap\bootstrap.min.js" />
     <Content Include="www\js\source\vendors\jqGrid\jquery.jqGrid.en.js" />
     <Content Include="www\js\source\vendors\jqGrid\jquery.jqGrid.min.js" />
@@ -4896,6 +4892,9 @@
   <ItemGroup>
     <Folder Include="Content\Plugin\MultiSelect\images\images\" />
     <Folder Include="Logs\" />
+    <Folder Include="www\js\build\pages\" />
+    <Folder Include="www\js\source\pages\" />
+    <Folder Include="www\js\source\plugins\" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
