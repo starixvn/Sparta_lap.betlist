@@ -4892,8 +4892,10 @@
   <ItemGroup>
     <Folder Include="Content\Plugin\MultiSelect\images\images\" />
     <Folder Include="Logs\" />
+    <Folder Include="www\css\build\plugins\" />
     <Folder Include="www\js\build\pages\" />
-    <Folder Include="www\js\source\pages\" />
+    <Folder Include="www\js\build\plugins\" />
+    <Folder Include="www\js\source\pages\livereport\specs\" />
     <Folder Include="www\js\source\plugins\" />
   </ItemGroup>
   <ItemGroup />
