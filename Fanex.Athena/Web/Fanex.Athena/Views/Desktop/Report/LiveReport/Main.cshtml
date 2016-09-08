@@ -5,12 +5,12 @@
     Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
 }
 @section pagecss {
-    <link href="~/www/css/build/daterangepicker.min.css" rel="stylesheet" />
-    <link href="~/www/css/build/liveReport.min.css" rel="stylesheet" />
+    <link href="~/www/css/build/plugins/daterangepicker/daterangepicker.min.css" rel="stylesheet" />
+    <link href="~/www/css/build/pages/reports/liveReport.min.css" rel="stylesheet" />
 }
 @section pagejs {
-    <script src="~/www/js/build/moment.min.js"></script>
-    <script src="~/www/js/build/daterangepicker.js"></script>
+    <script src="~/www/js/source/plugins/moment/moment.min.js"></script>
+    <script src="~/www/js/source/plugins/daterangepicker/daterangepicker.js"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -35,7 +35,8 @@
                 },
                 locale: {
                     format: 'MM/DD/YYYY'
-                }
+                },
+                showDropdowns: true
             }, setRangeDate);
 
             $('#FromDate, #ToDate').on('apply.daterangepicker', function (ev, picker) {

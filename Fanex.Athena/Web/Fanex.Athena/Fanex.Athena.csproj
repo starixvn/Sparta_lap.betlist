@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -934,6 +934,11 @@
     <Content Include="Scripts\Report\thirdpartywinloss.golddeluxe.js" />
     <Content Include="Scripts\Report\microgamingwinloss.js" />
     <Content Include="Scripts\Report\microgamingwinloss.option.js" />
+    <Content Include="www\assets\images\flag_en-US.png" />
+    <Content Include="www\assets\images\flag_ko-KR.png" />
+    <Content Include="www\assets\images\flag_zh-CN.png" />
+    <Content Include="www\assets\images\flag_zh-TW.png" />
+    <Content Include="www\css\build\plugins\daterangepicker\daterangepicker.min.css" />
     <Content Include="www\css\build\vendors\bootstrap-extend.css" />
     <Content Include="www\css\build\vendors\bootstrap.css" />
     <Content Include="www\css\build\pages\reports\liveReport.min.css" />
@@ -952,30 +957,31 @@
     </Content>
     <Content Include="www\css\source\vendors\bootstrap\bootstrap-extend.css" />
     <Content Include="www\css\source\vendors\bootstrap\bootstrap.css" />
+    <Content Include="www\css\source\vendors\daterangepicker\daterangepicker.css">
+      <DependentUpon>daterangepicker.scss</DependentUpon>
+    </Content>
+    <Content Include="www\css\source\vendors\daterangepicker\daterangepicker.min.css">
+      <DependentUpon>daterangepicker.css</DependentUpon>
+    </Content>
     <Content Include="www\css\source\vendors\jqGrid\ui.jqgrid\images\tab_topbg.gif" />
     <Content Include="www\css\source\vendors\jqGrid\ui.jqgrid\jqgrid.extension.css" />
     <Content Include="www\css\source\vendors\jqGrid\ui.jqgrid\ui.jqgrid.css" />
-    <Content Include="www\css\source\vendors\pickmeup\calendar.css">
-      <DependentUpon>calendar.scss</DependentUpon>
-    </Content>
-    <Content Include="www\css\source\vendors\pickmeup\calendar.min.css">
-      <DependentUpon>calendar.css</DependentUpon>
-    </Content>
-    <Content Include="www\css\source\vendors\pickmeup\pickmeup.css" />
     <Content Include="www\css\source\vendors\waves\waves.min.css" />
     <Content Include="www\assets\font-icon\font-awesome\font-awesome.min.css" />
     <Content Include="www\assets\font-icon\fonts\icomoon.svg" />
     <Content Include="www\assets\font-icon\material-design\material-design.min.css" />
     <Content Include="www\assets\font-icon\style.css" />
+    <Content Include="www\js\build\plugins\daterangepicker\daterangepicker.js" />
+    <Content Include="www\js\build\plugins\moment\moment.min.js" />
     <Content Include="www\js\build\vendors\bootstrap.min.js" />
     <Content Include="www\js\build\vendors\jquery.min.js" />
     <Content Include="www\js\source\vendors\bootstrap\bootstrap.min.js" />
-    <Content Include="www\js\source\vendors\jqGrid\jquery.jqGrid.en.js" />
-    <Content Include="www\js\source\vendors\jqGrid\jquery.jqGrid.min.js" />
+    <Content Include="www\js\source\plugins\daterangepicker\daterangepicker.js" />
+    <Content Include="www\js\source\plugins\jqGrid\jquery.jqGrid.en.js" />
+    <Content Include="www\js\source\plugins\jqGrid\jquery.jqGrid.min.js" />
     <Content Include="www\js\source\vendors\jquery\jquery.min.js" />
-    <Content Include="www\js\source\vendors\pickmeup\demo.js" />
-    <Content Include="www\js\source\vendors\pickmeup\jquery.pickmeup.js" />
-    <Content Include="www\js\source\vendors\waves\waves.min.js" />
+    <Content Include="www\js\source\plugins\moment\moment.min.js" />
+    <Content Include="www\js\source\plugins\waves\waves.min.js" />
     <Content Include="SiteConfig\Web.LOCAL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
@@ -1027,7 +1033,6 @@
     <Content Include="Views\Desktop\Report\LiveReport\Main.cshtml" />
     <Content Include="Views\Desktop\Shared\_ReportLayout.cshtml" />
     <Content Include="Views\Desktop\Shared\_Layout.cshtml" />
-    <Content Include="www\css\source\vendors\pickmeup\calendar.scss" />
     <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\ByBettype\Content.cshtml" />
     <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\ByBettype\Content.Data.cshtml" />
     <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\ByBettype\Content.Header.cshtml" />
@@ -1039,6 +1044,7 @@
     <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\BySport\Content.Header.cshtml" />
     <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\LiveReportDetail.cshtml" />
     <Content Include="Views\Desktop\Header\Index.cshtml" />
+    <Content Include="www\css\source\vendors\daterangepicker\daterangepicker.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
@@ -4892,11 +4898,8 @@
   <ItemGroup>
     <Folder Include="Content\Plugin\MultiSelect\images\images\" />
     <Folder Include="Logs\" />
-    <Folder Include="www\css\build\plugins\" />
     <Folder Include="www\js\build\pages\" />
-    <Folder Include="www\js\build\plugins\" />
     <Folder Include="www\js\source\pages\livereport\specs\" />
-    <Folder Include="www\js\source\plugins\" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

@@ -61,6 +61,26 @@
     .waves-effect {
         z-index: auto;
     }
+
+    .flag-icon-en-US{
+        background: url('../../../assets/images/flag_en-US.png') no-repeat;
+    }
+
+    .flag-icon-zh-TW{
+        background: url('../../../assets/images/flag_zh-TW.png') no-repeat;
+    }
+
+    .flag-icon-zh-CN{
+        background: url('../../../assets/images/flag_zh-CN.png') no-repeat;
+    }
+
+    .flag-icon-ko-KR{
+        background: url('../../../assets/images/flag_ko-KR.png') no-repeat;
+    }
+
+    .flag-icon-zh-Hans{
+        background: url('../../../assets/images/flag_zh-Hans.png') no-repeat;
+    }
 }
 
 .nav > li > a:focus, .nav > li > a:hover {
