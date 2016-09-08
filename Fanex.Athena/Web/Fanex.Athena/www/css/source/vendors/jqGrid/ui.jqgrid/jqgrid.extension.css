@@ -1,0 +1,178 @@
+﻿body
+{
+}
+/* Override jqgrid css */
+.theme_jqGrid .ui-jqgrid .loading
+{
+    display: none !important;
+}
+
+.theme_jqGrid .ui-jqgrid-view
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.theme_jqGrid .ui-th-column-header
+{
+    background-image: url("images/tab_topbg.gif") !important;
+    background-color: #C7E9F5 !important;
+    background-repeat: repeat-x !important;
+    color: #024584 !important;
+    border-right-color: #FFF !important;
+    border-bottom: solid 2px #FFF !important;
+}
+.theme_jqGrid .ui-jqgrid-htable th.ui-th-column
+{
+    font-size: 11px;
+    padding: 2px !important;
+    border-right-color: #FFF !important;
+    background-color: #C7E9F5 !important;
+    background-image: url("images/tab_topbg.gif");
+    background-position: center bottom;
+    background-repeat: repeat-x;
+    color: #024584;
+    font-weight: 400;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle !important;
+}
+.theme_jqGrid .ui-jqgrid-htable th.ui-th-column div
+{
+    word-wrap: break-word; /* IE 5.5+ and CSS3 */
+    white-space: pre-wrap; /* CSS3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    overflow: hidden;
+    height: auto !important;
+    vertical-align: middle;
+}
+
+.theme_jqGrid .ui-jqgrid-htable th.ui-th-column div p
+{
+    line-height: 2px;
+}
+.theme_jqGrid .ui-jqgrid-htable .ui-jqgrid-sortable
+{
+    cursor: default;
+}
+
+.theme_jqGrid .ui-jqgrid .ui-widget-content
+{
+    color: #454545;
+}
+
+.theme_jqGrid .ui-jqgrid-btable tr.jqgrow td
+{
+    border-right-color: #A3D1E1 !important;
+    border-bottom-color: #A3D1E1 !important;
+    vertical-align: middle; /* word-wrap: break-word;     white-space: pre-wrap;     white-space: -moz-pre-wrap;     white-space: -pre-wrap;     white-space: -o-pre-wrap;*/
+    height: auto;
+    min-height: 22px !important;
+    vertical-align: middle;
+    padding: 4px 2px;
+    padding: 2px 2px \0/;
+}
+
+.theme_jqGrid .ui-jqgrid-btable tr.ui-state-highlight
+{
+    background-image: none !important;
+    background-color: white !important;
+}
+
+.theme_jqGrid .ui-jqgrid-btable tr.ui-state-hover
+{
+    background: #f8ff8d !important;
+}
+
+.theme_jqGrid .ui-jqgrid-bdiv, .ui-jqgrid-hdiv .ui-jqgrid-hbox
+{
+    border-left-color: #A3D1E1 !important;
+}
+
+.theme_jqGrid .ui-jqgrid-btable tr.ui-widget-content
+{
+    border-left-color: #A3D1E1 !important;
+}
+
+.theme_jqGrid .ui-jqgrid-sdiv .ui-jqgrid-hbox
+{
+    border-top: 2px solid #FF6600;
+    font-weight: bold;
+}
+
+.theme_jqGrid .ui-jqgrid-ftable tr.total-eur
+{
+    border-top: 2px solid #FF6600;
+}
+.theme_jqGrid .ui-jqgrid-ftable tr.total-eur-none-top-se
+{
+    border-top: 1px solid #A3D1E1 !important;
+}
+.theme_jqGrid .ui-jqgrid-ftable tr.total-eur td
+{
+    background-color: #B2DFEF;
+}
+.theme_jqGrid tr.ui-widget-content td a
+{
+    text-decoration: none !important;
+}
+.theme_jqGrid .ui-pg-input
+{
+    width: 20px !important;
+}
+.theme_jqGrid .ui-pg-selbox
+{
+    width: 60px !important;
+}
+/* Extra css*/
+
+.theme_jqGrid .ui-jqgrid .frozen-bdiv
+{
+    overflow: hidden;
+}
+
+.theme_jqGrid .highlight
+{
+    background-color: #F8F1A0 !important;
+}
+.theme_jqGrid .negative-number
+{
+    color: red;
+}
+.theme_jqGrid .header-one-line
+{
+    height: 12px;
+    line-height: 12px;
+}
+.theme_jqGrid .header-two-line
+{
+    height: 22px;
+}
+.theme_jqGrid .ui-jqgrid-bdiv
+{
+    max-height: 380px;
+}
+.theme_jqGrid .recommend-browser
+{
+    color: #999 !important;
+}
+/*
+SUPER nasty IE8 hack to deal with this bug
+*/
+.theme_jqGrid .ui-jqgrid-bdiv
+{
+    overflow: auto;
+}
+pre
+{
+    max-height: none\9;
+}
+.theme_jqGrid .jqgrid-footer-scroll-hacking
+{
+    max-height: 260px;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+.ui-dialog .ui-dialog-content{
+    overflow: hidden;
+}
