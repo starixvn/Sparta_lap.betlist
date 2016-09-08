@@ -9,20 +9,18 @@
     <title>@ViewBag.Title</title>
 
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,700'>
-    <link href="~/WWW/Assets/font-icon/style.css" rel="stylesheet" />
-
-    <link href="~/WWW/Css/vendors/bootstrap/bootstrap.css" rel="stylesheet" />
-    <link href="~/WWW/Css/vendors/bootstrap/bootstrap-extend.css" rel="stylesheet" />
-    <link href="~/WWW/Css/site.css" rel="stylesheet" />
+    <link href="~/www/assets/font-icon/style.css" rel="stylesheet" />
+    <link href="~/www/css/build/bootstrap.css" rel="stylesheet" />
+    <link href="~/www/css/build/bootstrap-extend.css" rel="stylesheet" />
+    <link href="~/www/css/build/site.min.css" rel="stylesheet" />
     @RenderSection("css", required: false)
 </head>
 <body class="site-menubar-unfold">
     <div>
         @RenderBody()
     </div>
-
-    <script src="~/WWW/Js/vendors/jquery/jquery.min.js"></script>
-    <script src="~/WWW/Js/vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="~/www/js/build/jquery.min.js"></script>
+    <script src="~/www/js/build/bootstrap.min.js"></script>
     @RenderSection("js", required: false)
 </body>
 </html>
