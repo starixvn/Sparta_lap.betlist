@@ -9,6 +9,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
@@ -31,6 +32,8 @@ using System.Runtime.InteropServices;
     Target = "Fanex.Athena.DataAccess.TotalBet.Interfaces", MessageId = "Interface", Justification = "Reviewed.")]
 [assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
     Target = "Fanex.Athena.DataAccess.Warehouse.Interfaces", MessageId = "Interface", Justification = "Reviewed.")]
+
+[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.BetList.Tests")]
 
 [assembly: System.CLSCompliant(true)]
 

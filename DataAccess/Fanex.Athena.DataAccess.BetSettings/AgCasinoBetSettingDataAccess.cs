@@ -21,7 +21,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             var uspName = "Lrf_AGC_SelCustSetting";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
                 db.AddOutParameter("Currency", DbType.Int32, int.MaxValue);
@@ -47,7 +47,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             var uspName = "Lrf_AGC_UpdCustSetting";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("aggroup", DbType.String, group);
                 db.AddInParameter("ip", DbType.String, data.Ip);
@@ -68,7 +68,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             var uspName = "Lrf_AGC_UpdCustStatus";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("isenabled", DbType.Boolean, isEnabled);
                 db.AddInParameter("ip", DbType.String, ip);

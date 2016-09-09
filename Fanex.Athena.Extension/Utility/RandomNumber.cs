@@ -18,7 +18,7 @@ namespace Fanex.Athena.Extension.Utility
         /// Generate a seed to use when creating new "Random" objects. Will produce better random results.
         /// </summary>
         /// <returns>Random number.</returns>
-        public static int GenerateRandomSeed()
+        private static int GenerateRandomSeed()
         {
             // Use a 4-byte array to fill it with random bytes and convert it then
             // to an integer value.
@@ -35,27 +35,6 @@ namespace Fanex.Athena.Extension.Utility
                 randomBytes[3];
 
             return seed;
-        }
-
-        /// <summary>
-        /// Returns a non-negative random integer. 
-        /// </summary>
-        /// <returns>Random number.</returns>
-        public static int GenerateRandomInt32()
-        {
-            Random randomClass = new Random(GenerateRandomSeed());
-            return randomClass.Next();
-        }
-
-        /// <summary>
-        /// Returns a no-negative random integer less than the specified maximum. 
-        /// </summary>
-        /// <param name="maxValue">Maximum value.</param>
-        /// <returns>Random number.</returns>
-        public static int GenerateRandomInt32(int maxValue)
-        {
-            Random randomClass = new Random(GenerateRandomSeed());
-            return randomClass.Next(maxValue);
         }
 
         /// <summary>

@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.Core.Configuration
 {
     using System;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Configuration;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Configuration;
@@ -16,27 +17,23 @@ namespace Fanex.Athena.Service.Core.Configuration
 
     public class MoveBetService : IMoveBetService
     {
-        #region Constants and Fields
-
         private const int CacheTimeoutSeconds = 60; // 1 minutes.
 
-        private readonly MoveBetDataAccess _moveBetDataAccess;
+        private readonly IMoveBetDataAccess _moveBetDataAccess;
 
-        #endregion Constants and Fields
+        private readonly IAppSettings _appSettings;
 
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="BalanceUpService" /> class.
-        /// </summary>
         public MoveBetService()
         {
             this._moveBetDataAccess = new MoveBetDataAccess();
+            this._appSettings = new AppSettings();
         }
 
-        #endregion Constructors and Destructors
-
-        #region Public Properties
+        public MoveBetService(IAppSettings appSettings, IMoveBetDataAccess moveBetDataAccess)
+        {
+            this._moveBetDataAccess = moveBetDataAccess;
+            this._appSettings = appSettings;
+        }
 
         /// <summary>
         ///     Gets GetBalanceUp.
@@ -48,12 +45,12 @@ namespace Fanex.Athena.Service.Core.Configuration
         {
             try
             {
-                var endDate = AppSettings.MoveBetDayEnd;
+                var endDate = _appSettings.MoveBetDayEnd;
                 if (endDate.HasValue)
                 {
                     return new MoveBet()
                     {
-                        AvailableWinlostDate = AppSettings.MoveBetDayStart.Value,
+                        AvailableWinlostDate = _appSettings.MoveBetDayStart.Value,
                         EstimatedTime = endDate
                     };
                 }
@@ -76,7 +73,5 @@ namespace Fanex.Athena.Service.Core.Configuration
 
             return new MoveBet();
         }
-
-        #endregion Public Properties
     }
 }

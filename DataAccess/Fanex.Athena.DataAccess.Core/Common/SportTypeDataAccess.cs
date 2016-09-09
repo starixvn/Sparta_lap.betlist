@@ -38,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             const string UspName = "Lrf_SelSportDetail";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("licenseeId", DbType.Int32, licenseeId);
                     db.AddInParameter("langkey", DbType.String, languageCode);
@@ -81,7 +81,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             const string UspName = "Lrf_SportsGetAll";
             var result = new SortedDictionary<int, string>();
 
-            using (var db = new ObjectDb(UspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 using (var reader = db.ExecuteReader())
                 {
@@ -108,7 +108,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     var result = new List<Sport>();
                     using (var reader = db.ExecuteReader())

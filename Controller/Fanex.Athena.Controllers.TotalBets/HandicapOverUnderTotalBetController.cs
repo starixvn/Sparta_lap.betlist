@@ -73,7 +73,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                 /*set content view follow by licensee*/
                 ViewBag.LicenseeView = "ContentData.cshtml";
 
-                var items = Fanex.Athena.Extension.Utility.AppSettings.GetValue("LicenseeOfferNewForecast");
+                var items = AppSettings.GetValue("LicenseeOfferNewForecast");
 
                 if (!string.IsNullOrEmpty(items))
                 {

@@ -27,6 +27,12 @@ namespace Fanex.Athena.Service.BetList
             _authorizationService = new AuthorizationService();
         }
 
+        public CancelledBetListService(ICancelledBetListDataAccess cancelledBetListDataAccess, IAuthorizationService authorizationService)
+        {
+            _cancelledBetListDataAccess = cancelledBetListDataAccess;
+            _authorizationService = authorizationService;
+        }
+
         public IList<CustomerCancelBetItem> GetCancelBetCustList(BetListMetaModel metaModel)
         {
             return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)

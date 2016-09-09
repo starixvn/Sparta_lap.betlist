@@ -6,6 +6,7 @@
     var userCurrencies = sessionService.UserSession == null || sessionService.UserSession.CurrencyList == null ?
         new Dictionary<string, string>() :
         sessionService.UserSession.CurrencyList.ToDictionary(x => x.Value.ToString(), x => x.Key);
+    var appSettings = new AppSettings();
 }
 <!DOCTYPE html>
 <html>
@@ -36,7 +37,7 @@
     }
     <input type="hidden" id="UserCurrencies" value="" />
     <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
-    <input type="hidden" id="HistoryDate" value="@( Fanex.Athena.Extension.Utility.AppSettings.HistoryDate)" />
+    <input type="hidden" id="HistoryDate" value="@( appSettings.HistoryDate)" />
     @Html.AntiForgeryToken()
     <div id="BodyContent">
         @RenderBody()
@@ -49,7 +50,7 @@
             };
         });
     </script>
-    @if (AppSettings.IsEnablePiwik)
+    @if (appSettings.IsEnablePiwik)
     {
         <script type="text/javascript">
             var _paq = _paq || [];

@@ -94,7 +94,7 @@ namespace Fanex.Athena.Service.Core.Users
             return this._userDataAccess.ChangePassword(user, oldPassword, newPassword, salt);
         }
 
-        public List<User> GetByLicensee(int licenseeId, bool isInternal)
+        public IList<User> GetByLicensee(int licenseeId, bool isInternal)
         {
             return this._userDataAccess.GetByLicensee(licenseeId, isInternal);
         }
@@ -111,7 +111,7 @@ namespace Fanex.Athena.Service.Core.Users
 
         public bool IsUserNameExisted(string userName)
         {
-            return this._userDataAccess.IsUsernameExited(userName);
+            return this._userDataAccess.IsUsernameExisted(userName);
         }
 
         /// <summary>

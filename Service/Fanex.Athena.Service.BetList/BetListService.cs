@@ -37,6 +37,17 @@ namespace Fanex.Athena.Service.BetList
             _authorizationService = new AuthorizationService();
         }
 
+        [System.CLSCompliant(false)]
+        public BetListService(
+            IBalanceUpService balanceUpService, 
+            IBetListDataAccess betlistDataAccess, 
+            IAuthorizationService authorizationService)
+        {
+            _balanceUpService = balanceUpService;
+            _betlistDataAccess = betlistDataAccess;
+            _authorizationService = authorizationService;
+        }
+
         #endregion Constructor
 
         #region IBetListService Members

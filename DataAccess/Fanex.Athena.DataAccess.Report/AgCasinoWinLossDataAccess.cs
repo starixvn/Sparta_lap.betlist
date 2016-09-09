@@ -46,7 +46,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "Lrf_Rpt_AGCasinoWinloss";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     UpdateUspParams(db, metaModel, false);
 
@@ -78,7 +78,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "LRF_Rpt_AGCasinoWinloss_Mem";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
                     UpdateUspParams(db, metaModel, true);
@@ -108,7 +108,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "LRF_Rpt_AGCasinoWinloss_Ag";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
@@ -197,7 +197,7 @@ namespace Fanex.Athena.DataAccess.Report
         /// <param name="db">Database value.</param>
         /// <param name="metaModel">Meta model value.</param>
         /// <param name="drilldown">Drill down value.</param>
-        private void UpdateUspParams(ObjectDb db, AgCasinoWinLossMetaModel metaModel, bool drilldown)
+        private void UpdateUspParams(IObjectDb db, AgCasinoWinLossMetaModel metaModel, bool drilldown)
         {
             var currencyId = drilldown ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
             currencyId = currencyId < 0 ? 0 : currencyId;

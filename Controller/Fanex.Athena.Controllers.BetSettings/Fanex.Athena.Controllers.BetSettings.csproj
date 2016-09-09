@@ -83,7 +83,7 @@
     <Compile Include="ThirdPartyBetSettingController.cs" />
     <Compile Include="NumberGameBetSettingController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VoidbridgeBetSettingController.cs" />
+    <Compile Include="DcsBetSettingController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

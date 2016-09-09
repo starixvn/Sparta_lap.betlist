@@ -3,8 +3,9 @@
 @model Fanex.Athena.Model.BetList.MetaModel.BetListMetaModel
 @using (Html.BeginForm("DailyBetList", "BetList", FormMethod.Post, new { @id = "DailyBetListForm" }))
 {
+    var appSettings = new AppSettings();
     // Only restrict from date for Bet List
-    var minDate = Model.BetListName == "betlist" ? Model.MoveBetsDay.AddDays(1) : Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
+    var minDate = Model.BetListName == "betlist" ? Model.MoveBetsDay.AddDays(1) : appSettings.HistoryDate;
     <div class="grid_3 filter-input" style="padding: 5px">
         @{
     var viewOptionTextList = new Dictionary<string, string>{
@@ -22,7 +23,7 @@
         }
     </div>
 
-    @DatePickerHelper.RenderDateRangePicker(Model.FromDate, Model.ToDate, minDate, AppSettings.MaxDate, "", "", 2, 3, 1, 3)
+    @DatePickerHelper.RenderDateRangePicker(Model.FromDate, Model.ToDate, minDate, appSettings.MaxDate, "", "", 2, 3, 1, 3)
 
     
     @RazorHelper.RenderProductFilter(Model.ProductOptions, 2)

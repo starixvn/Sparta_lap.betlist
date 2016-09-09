@@ -20,9 +20,19 @@ namespace Fanex.Athena.Service.Core.Common
     public class MatchService : IMatchService
     {
         private const string RunningMatchCacheKey = "RunningMatchCacheKey_";
-        private IMatchDataAccess _matchDataAccess = new MatchDataAccess();
+        private readonly IMatchDataAccess _matchDataAccess;
 
         private ICache _cacheInstance = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
+
+        public MatchService()
+        {
+            _matchDataAccess = new MatchDataAccess();
+        }
+
+        public MatchService(IMatchDataAccess matchDataAccess)
+        {
+            _matchDataAccess = matchDataAccess;
+        }
 
         public IList<Match> GetAllRunningMatch(int sportId)
         {

@@ -32,7 +32,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
             const string UspName = "Lrf_SelBalanceUpDay";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     var balanceUp = new BalanceUp();
                     using (var reader = db.ExecuteReader())

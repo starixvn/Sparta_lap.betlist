@@ -27,6 +27,12 @@ namespace Fanex.Athena.Service.Core.Users
             _functionService = new FunctionService();
         }
 
+        public AuthorizationService(IAthorizationDataAccess authorizationDataAccess, IFunctionService functionService)
+        {
+            _authorizationDataAccess = authorizationDataAccess;
+            _functionService = functionService;
+        }
+
         public bool HasPermissions(IEnumerable<int> userFunctionIds, string[] permissionKeys)
         {
             var allFunctions = _functionService.Functions;

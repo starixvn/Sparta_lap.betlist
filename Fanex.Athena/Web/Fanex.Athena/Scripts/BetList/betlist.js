@@ -11,7 +11,9 @@ var BetList = (function ($) {
     var SPORT_RNG_GAME = 208;
     var SPORT_RNG_MINIGAME = 209;
     var SPORT_RNG_MOBILE = 210;
+    var SPORT_ALLBET = 211;
     var SPORT_VOIDBRIDGE = 212;
+
 
     var _sortColumnName, _sortOrder;
     var _params, _url;
@@ -379,6 +381,21 @@ var BetList = (function ($) {
             });
         },
 
+        viewAllBetResult: function (trasdesc, betcheck, bettype) {
+            var url = Site.resolveClientUrl('ResultReport/AllBetResult?transdesc=' +
+                encodeURIComponent(trasdesc) +'&betcheck=' + betcheck + '&bettype=' + bettype);
+            Site.blockUI();
+
+            var dialogForm = '<div title="' + Site.getSingleResource("Result") +
+                        '"><iframe frameborder="0" style="width:100%; height:100%;" src="' + url + '" ></iframe></div></div>';
+            $(dialogForm).dialog({
+                modal: true,
+                width: 800,
+                height: 380
+            });
+            Site.unBlockUI();
+        },
+
         showRngCasinoResultPopup: function (title, url) {
             if (url === "") {
                 return;
@@ -407,7 +424,7 @@ var BetList = (function ($) {
             });
         },
         showResult: function (matchid, raceNo, bettype, sporttype, refno,
-            username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) {
+            username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid, transdecs) {
             var title = Site.getSingleResource("Result");
             if (sporttype === SPORT_MICROGAMMING_RNG || sporttype === SPORT_MICROGAMMING_LC) {
                 BetList.showMicrogamingResultPopup(title, betcheck, custid);
@@ -417,6 +434,9 @@ var BetList = (function ($) {
             }
             else if (sporttype === SPORT_VOIDBRIDGE) {
                 BetList.viewVoidbridgeResult(custid, betcheck);
+            }
+            else if (sporttype === SPORT_ALLBET) {
+                BetList.viewAllBetResult(transdecs, betcheck, bettype);
             }
             else {
                 bettype = Number(bettype);
@@ -627,7 +647,25 @@ var BetList = (function ($) {
                 height: popH + 50
             });
         },
+        showAllBetDetails: function (transId, winlostDate, custId, transType) {
+            var url = Site.resolveClientUrl('AllBetBetList/Detail');
+            url = QueryString.setParam(url, "transid", transId);
+            url = QueryString.setParam(url, "custid", custId);
+            url = QueryString.setParam(url, "transType", transType);
+            url = QueryString.setParam(url, "date", winlostDate);
 
+            var popH = Math.min($(window).height() - 100, 550), popW = 820;
+            var title = Site.getSingleResource("AllBet") + " - " +
+                Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
+        },
         ValidProducts: function () {
             var temp = true;
             if ($("#ProductList input:checked").length === 0) {
@@ -683,3 +721,4 @@ var showAGCasinoDetails = BetList.showAGCasinoDetails;
 var showRnGCasinoDetails = BetList.showRnGCasinoDetails;
 var showVoidBridgeDetails = BetList.showVoidBridgeDetails;
 var showVoidbridgeResult = BetList.viewVoidbridgeResult;
+var showTodayRunningBetsDetails = BetList.showAllBetDetails;

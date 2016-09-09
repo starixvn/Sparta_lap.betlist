@@ -11,7 +11,6 @@ namespace Fanex.Athena.Controllers.Customer
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
-    using Extension.Utility;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Customer;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -211,18 +210,6 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Ultilities
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
-        private static IList<string> GetLicenseesOfferOddsGroup()
-        {
-            var licenseeIds = AppSettings.GetValue("LicenseesOfferOddsGroup");
-            if (!string.IsNullOrEmpty(licenseeIds))
-            {
-                return licenseeIds.Split(',');
-            }
-
-            return new List<string>();
-        }
-
         private static IEnumerable<CheckedItem> GetOddsGroups()
         {
             return new List<CheckedItem>()
@@ -243,6 +230,18 @@ namespace Fanex.Athena.Controllers.Customer
 
             var licenseeIds = GetLicenseesOfferOddsGroup();
             return licenseeIds.Contains(SessionService.LicenseeSession.LicenseeId.ToString());
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
+        private IList<string> GetLicenseesOfferOddsGroup()
+        {
+            var licenseeIds = AppSettings.GetValue("LicenseesOfferOddsGroup");
+            if (!string.IsNullOrEmpty(licenseeIds))
+            {
+                return licenseeIds.Split(',');
+            }
+
+            return new List<string>();
         }
 
         /// <summary>

@@ -44,7 +44,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             const string UspName = "Licensee_UserPasswordUpd";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("UserName", DbType.String, requestUser.Username);
                     db.AddInParameter("OldPwd", DbType.String, oldPassword);
@@ -78,7 +78,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             try
             {
                 var entityList = new List<User>();
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -116,7 +116,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             {
                 Username = userName,
             };
-            using (var objectDb = new ObjectDb("Lrf_UserInfoSelByUserName"))
+            using (var objectDb = this.GetObjectDb("Lrf_UserInfoSelByUserName"))
             {
                 return objectDb.Query<User>(param).FirstOrDefault();
             }
@@ -134,7 +134,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             var uspParams = new { LicenseeId = licenseeId, UserId = userId };
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -172,7 +172,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             var uspParams = new { UserName = userName };
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     var salt = db.ExecuteScalar(uspParams);
                     return salt;
@@ -190,14 +190,14 @@ namespace Fanex.Athena.DataAccess.Core.Users
         /// </summary>
         /// <param name="userName"> The user name. </param>
         /// <returns> Boolean result. </returns>
-        public bool IsUsernameExited(string userName)
+        public bool IsUsernameExisted(string userName)
         {
             const string UspName = "Lrf_IsUserExisted";
             try
             {
                 bool isUserExisted;
 
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("Username", DbType.String, userName);
                     db.AddOutParameter("IsUserExisted", DbType.Boolean, 1);
@@ -226,7 +226,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             const string UspName = "Lrf_CheckIn";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("CustID", DbType.Int32, requestUser.Id);
                     db.AddInParameter("NetSessionID", DbType.String, netSessionId);
@@ -256,7 +256,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             var uspParams = new { On_Userid = userId };
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.ExecuteNonQuery(uspParams);
                 }
@@ -310,7 +310,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             const string UspName = "Lrf_UserPwdReset";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
                     db.AddInParameter("UserId", DbType.Int32, user.Id);
@@ -345,7 +345,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             const string UspName = "Lrf_UserUpdAccount";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
                     db.AddInParameter("UserId", DbType.Int32, user.Id);
@@ -383,7 +383,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             try
             {
                 var user = new User();
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("UserName", DbType.String, requestUser.Username);
                     db.AddInParameter("EncryptedPassword", DbType.String, requestUser.Password);
@@ -441,7 +441,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             try
             {
                 var user = new User();
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("UserName", DbType.String, requestUser.Username);
                     db.AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);

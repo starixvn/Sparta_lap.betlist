@@ -27,6 +27,11 @@ namespace Fanex.Athena.Service.Core.Common
             _sessionService = new SessionService();
         }
 
+        public LanguageService(ISessionService sessionService)
+        {
+            _sessionService = sessionService;
+        }
+
         /// <summary>
         /// Get current language.
         /// </summary>

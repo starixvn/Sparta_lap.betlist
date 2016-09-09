@@ -11,7 +11,6 @@ namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Extension.Utility;
     using Model.Core.DTO.Common;
     using Service.Forecast;
     using Service.Forecast.Interfaces;
@@ -30,17 +29,6 @@ namespace Fanex.Athena.Controllers.Forecast
             get { return _forecastService; }
         }
 
-        protected static IList<string> GetLicenseeOfferNewForecastList()
-        {
-            var items = AppSettings.GetValue("LicenseeOfferNewForecast");
-            if (!string.IsNullOrEmpty(items))
-            {
-                return items.Split(',');
-            }
-
-            return new List<string>();
-        }
-
         protected static int GetLeagueId(int leagueId, IList<League> leagueList)
         {
             if (leagueList.Any(l => l.LeagueId == leagueId))
@@ -52,6 +40,17 @@ namespace Fanex.Athena.Controllers.Forecast
                 var first = leagueList.FirstOrDefault();
                 return first != null ? first.LeagueId : -1;
             }
+        }
+
+        protected IList<string> GetLicenseeOfferNewForecastList()
+        {
+            var items = AppSettings.GetValue("LicenseeOfferNewForecast");
+            if (!string.IsNullOrEmpty(items))
+            {
+                return items.Split(',');
+            }
+
+            return new List<string>();
         }
     }
 }

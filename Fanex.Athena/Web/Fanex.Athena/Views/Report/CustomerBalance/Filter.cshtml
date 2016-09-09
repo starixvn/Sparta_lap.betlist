@@ -1,11 +1,14 @@
 ﻿@using Fanex.Athena.Model.Report.ViewModel
 @model Fanex.Athena.Model.Report.ViewModel.CustomerBalanceViewModel
+@{ 
+    var appSettings = new AppSettings();
+}
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("Index", "CustomerBalanceReport", FormMethod.Post, new { @id = "CustomerBalanceForm" }))
     {
         @Html.AntiForgeryToken()
         var minDate = DateTime.Now.AddMonths(-18).AddDays(1 - DateTime.Now.Day);
-        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, AppSettings.MaxDate, "", "", 3, 3, 2, 3)
+        @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, appSettings.MaxDate, "", "", 3, 3, 2, 3)
           
         <div class="new-line">
         </div>

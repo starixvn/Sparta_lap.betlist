@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.BetSettings
 {
     using BetSettings.Interfaces;
+    using Core.Users.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Model.BetSettings.ViewModel;
@@ -20,6 +21,14 @@ namespace Fanex.Athena.Service.BetSettings
         public ThirdPartyBetSettingService()
         {
             _betSettingDataAccess = new ThirdPartyBetSettingDataAccess();
+        }
+
+        public ThirdPartyBetSettingService(
+            IAuthorizationService authorizationService,
+            IThirdPartyBetSettingDataAccess betSettingDataAccess)
+            : base(authorizationService)
+        {
+            _betSettingDataAccess = betSettingDataAccess;
         }
 
         public ThirdPartyBetSettingViewModel GetViewModel(int licenseeId, int custId, int productid)

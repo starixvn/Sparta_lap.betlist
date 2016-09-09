@@ -8,6 +8,7 @@
 
 var PlatformWinLoss = (function ($) {
     "use strict";
+    var BETLIST_IGNORED_PRODUCTS = ["AB"];
     var cacheData = {};
     var _level = null;
     var _sortColumnName = null;
@@ -418,7 +419,9 @@ var PlatformWinLoss = (function ($) {
 
             for (var i = 0; i < _drilldownData.ProductOptions.length; i++) {
                 var product = _drilldownData.ProductOptions[i];
-                url = Site.setProductOptionParam(url, i, product.Code, product.Status);
+                if ($.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
+                    url = Site.setProductOptionParam(url, i, product.Code, product.Status);
+                }
             }
 
             var popH = Math.min(600, window.innerHeight - 100), popW = 920;

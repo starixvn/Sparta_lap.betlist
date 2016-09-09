@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.BetSettings
     #region
 
     using System.Collections.Generic;
+    using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.DataAccess.BetSettings;
     using Fanex.Athena.Model.BetSettings.DTO;
@@ -27,6 +28,14 @@ namespace Fanex.Athena.Service.BetSettings
         public SportsbookBetSettingService()
         {
             _betSettingDataAccess = new SportsbookBetSettingDataAccess();
+        }
+
+        public SportsbookBetSettingService(
+            IAuthorizationService authorizationService,
+            ISportsbookBetSettingDataAccess betSettingDataAccess)
+            : base(authorizationService)
+        {
+            _betSettingDataAccess = betSettingDataAccess;
         }
 
         public BetSettingViewModel GetViewModel(int licenseeId, int custId)

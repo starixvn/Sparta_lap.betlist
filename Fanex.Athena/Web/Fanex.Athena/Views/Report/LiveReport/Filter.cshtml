@@ -2,13 +2,14 @@
 @model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
 @{
     var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);
+    var appSettings = new AppSettings();
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     <!--grid_26-->
     <form id="livereport" name="livereport" method="post" action="@Url.Content("~/LiveReport?isViewedHistory=false")">
         @Html.AntiForgeryToken()
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate,
-                AppSettings.MaxDate, "date-range", "date-range", 1, 3, 1, 3)
+                appSettings.MaxDate, "date-range", "date-range", 1, 3, 1, 3)
     <div class="grid_2 filter-label">
         <label>
             @ViewResources.Currency

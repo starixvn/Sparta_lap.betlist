@@ -25,7 +25,7 @@ namespace Fanex.Athena.DataAccess.BetList
             var ticketResult = new TicketResult();
             try
             {
-                using (var db = new ObjectDb(UspKey))
+                using (var db = this.GetObjectDb(UspKey))
                 {
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
@@ -69,7 +69,7 @@ namespace Fanex.Athena.DataAccess.BetList
         {
             try
             {
-                using (var db = new ObjectDb(uspKey))
+                using (var db = this.GetObjectDb(uspKey))
                 {
                     return db.Query<BetListMatch>().ToList();
                 }

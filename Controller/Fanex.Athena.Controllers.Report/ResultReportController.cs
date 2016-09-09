@@ -33,6 +33,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Result.Core.Sportsbook.DTO;
     using Model.Core.Helper;
     using Resources;
+    using Result.Core.AllBetCasino;
     using Result.Core.Voidbridge;
 
     /// <summary>
@@ -225,7 +226,7 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult ShowRngCasinoSingleWalletResult(string refNo)
         {
-            var resultInfo = _rngCasinoSingleWalletService.GetReultInfo(refNo);
+            var resultInfo = _rngCasinoSingleWalletService.GetResultInfo(refNo);
 
             return Json(resultInfo);
         }
@@ -236,6 +237,14 @@ namespace Fanex.Athena.Controllers.Report
             var voidbridgeApi = new VoidbridgeApiImp();
             var languageCode = SessionService.UserSession.Language;
             return voidbridgeApi.GetBetHistoryUrl(custId, gamePlayId, languageCode);
+        }
+
+        [HttpGet]
+        public ActionResult AllBetResult(string transDesc, string betCheck, string betType)
+        {
+            var allbetResultService = new AllbetResultBuilder();
+            ViewBag.Data = allbetResultService.Render(transDesc, betCheck, betType, SessionService.UserSession.Language);
+            return View("~/Views/Report/Result/Popup/AllBet.cshtml");
         }
 
         /// <summary>
@@ -334,6 +343,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsPopUp = true,
                 LanguageCode = SessionService.UserSession.Language
             };
+
             if (setting.IsParlayPopUp)
             {
                 if (metalModel.RefNo != null)

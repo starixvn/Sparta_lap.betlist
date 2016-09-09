@@ -7,6 +7,7 @@
 @{
     var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);
     var modelParam = Model.Param;
+    var appSettings = new AppSettings();
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("Index", "CustomerWinLossReport", FormMethod.Post, new { @id = "CustomerWinlossForm" }))
@@ -21,7 +22,7 @@
             @Html.Hidden("RowCount", Model.DataList == null ? 0 : Model.DataList.Count)
             @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
         </div>
-        @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, AppSettings.MaxDate, "", "", 2, 3, 2, 3)
+        @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, appSettings.MaxDate, "", "", 2, 3, 2, 3)
         <div class="new-line">
         </div>
 @*Row 1*@

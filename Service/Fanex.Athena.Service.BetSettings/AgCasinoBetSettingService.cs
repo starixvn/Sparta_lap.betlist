@@ -9,10 +9,12 @@ namespace Fanex.Athena.Service.BetSettings
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
     using System.Xml.Linq;
     using Common;
     using Core.Helpers;
+    using Core.Users.Interfaces;
+    using Core.Utility;
+    using Core.Utility.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
@@ -27,9 +29,27 @@ namespace Fanex.Athena.Service.BetSettings
     {
         private readonly IAgCasinoBetSettingDataAccess _betSettingDataAccess;
 
+        private readonly IAppSettings _appSettings;
+
+        private readonly IWebClientService _webClientService;
+
         public AgCasinoBetSettingService()
         {
             _betSettingDataAccess = new AgCasinoBetSettingDataAccess();
+            _appSettings = new AppSettings();
+            _webClientService = new WebClientService();
+        }
+
+        public AgCasinoBetSettingService(
+            IAuthorizationService authorizationService,
+            IAgCasinoBetSettingDataAccess betSettingDataAccess,
+            IAppSettings appSettings,
+            IWebClientService webClientService)
+            : base(authorizationService)
+        {
+            _betSettingDataAccess = betSettingDataAccess;
+            _appSettings = appSettings;
+            _webClientService = webClientService;
         }
 
         public AgCasinoBetSettingViewModel GetViewModel(int licenseeId, int custId, string licenseeName)
@@ -84,19 +104,14 @@ namespace Fanex.Athena.Service.BetSettings
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
-        private static IList<AgCasinoGame> GetGroupBettings(int custId, string siteName, int currency)
+        private IList<AgCasinoGame> GetGroupBettings(int custId, string siteName, int currency)
         {
-            var uri = new Uri(AppSettings.GetValue("AGCasinoApiUrl"));
+            var uri = new Uri(_appSettings.GetValue("AGCasinoApiUrl"));
             var parameters = string.Format("SiteName={0}&Currency={1}", siteName, currency);
-            var apiResult = string.Empty;
             var games = new List<AgCasinoGame>();
             try
             {
-                using (WebClient webClient = new WebClient())
-                {
-                    webClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                    apiResult = webClient.UploadString(uri, parameters);
-                }
+                var apiResult = _webClientService.SendRequest(uri, parameters);
 
                 var xml = XDocument.Parse(apiResult);
 

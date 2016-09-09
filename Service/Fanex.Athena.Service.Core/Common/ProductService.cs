@@ -14,8 +14,8 @@ namespace Fanex.Athena.Service.Core.Common
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Xml.Linq;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -31,19 +31,27 @@ namespace Fanex.Athena.Service.Core.Common
     /// </summary>
     public class ProductService : IProductService
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///     The cache timeout minute.
-        /// </summary>
         private const int CacheTimeoutMinute = 15;
 
-        /// <summary>
-        ///     The _product data access.
-        /// </summary>
-        private readonly IProductDataAccess _productDataAccess = new ProductDataAccess();
+        private readonly IProductDataAccess _productDataAccess;
 
-        #endregion
+        private readonly IAppSettings _appSettings;
+
+        private readonly IServerPathMapper _serverPathMapper;
+
+        public ProductService()
+        {
+            _appSettings = new AppSettings();
+            _productDataAccess = new ProductDataAccess();
+            _serverPathMapper = new ServerPathMapper();
+        }
+
+        public ProductService(IAppSettings appSettings, IProductDataAccess productDataAccess, IServerPathMapper serverPathMapper)
+        {
+            _appSettings = appSettings;
+            _productDataAccess = productDataAccess;
+            _serverPathMapper = serverPathMapper;
+        }
 
         #region Public Methods and Operators
 
@@ -134,7 +142,7 @@ namespace Fanex.Athena.Service.Core.Common
         /// </summary>
         /// <param name="functionName">Function name.</param>
         /// <returns>Product code array.</returns>
-        private static string[] GetAllowedProducts(string functionName = null)
+        private string[] GetAllowedProducts(string functionName = null)
         {
             const string FunctionAllowedProductsKey = "FunctionAllowedProducts";
 
@@ -146,7 +154,7 @@ namespace Fanex.Athena.Service.Core.Common
             var functions = CacheService.Get<IEnumerable<XElement>>(FunctionAllowedProductsKey);
             if (functions == null)
             {
-                var filePath = HttpContext.Current.Server.MapPath(AppSettings.GetValue("FunctionAllowedProductFile"));
+                var filePath = _serverPathMapper.MapPath(_appSettings.GetValue("FunctionAllowedProductFile"));
                 functions = XDocument.Load(filePath).Descendants("Function");
                 if (functions != null && functions.Count() > 0)
                 {

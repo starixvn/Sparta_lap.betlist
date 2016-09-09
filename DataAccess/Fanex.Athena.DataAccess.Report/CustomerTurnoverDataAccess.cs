@@ -48,7 +48,7 @@ namespace Fanex.Athena.DataAccess.Report
             total = new CustTurnover();
             totalRow = 0;
 
-            using (var db = new ObjectDb("Lrf_Rpt_CustomerTurnOver"))
+            using (var db = this.GetObjectDb("Lrf_Rpt_CustomerTurnOver"))
             {
                 AddParameters(metaModel, languageCode, db);
 
@@ -101,7 +101,7 @@ namespace Fanex.Athena.DataAccess.Report
         /// <param name="metaModel">The metal model.</param>
         /// <param name="languageCode">The language code.</param>
         /// <param name="db">The database object.</param>
-        private void AddParameters(CustomerTurnoverMetaModel metaModel, string languageCode, ObjectDb db)
+        private void AddParameters(CustomerTurnoverMetaModel metaModel, string languageCode, IObjectDb db)
         {
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("userid", DbType.Int32, metaModel.UserId);

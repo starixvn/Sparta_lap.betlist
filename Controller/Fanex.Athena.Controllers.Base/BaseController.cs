@@ -28,10 +28,13 @@ namespace Fanex.Athena.Controllers
         private readonly ILanguageService _langService;
         private readonly ISessionService _sessionService;
 
+        private readonly IAppSettings _appSettings;
+
         public BaseController()
         {
             _langService = new LanguageService();
             _sessionService = new SessionService();
+            _appSettings = new AppSettings();
         }
 
         public ILanguageService LangService
@@ -44,21 +47,26 @@ namespace Fanex.Athena.Controllers
             get { return _sessionService; }
         }
 
-        protected static void SetConvetedUSDCurrencyId(BaseMetaModel metaModel)
+        public IAppSettings AppSettings
+        {
+            get { return _appSettings; }
+        }
+
+        protected void SetConvetedUSDCurrencyId(BaseMetaModel metaModel)
         {
             metaModel.CurrencyId = GetBaseUsdLicensees().Contains(metaModel.LicenseeId.ToString())
                 ? BaseCurrencyType.Usd : BaseCurrencyType.All;
         }
 
-        protected static void SetConvetedUSDCurrencyName(BaseMetaModel metaModel)
+        protected void SetConvetedUSDCurrencyName(BaseMetaModel metaModel)
         {
             metaModel.BaseCurrency = GetBaseUsdLicensees().Contains(metaModel.LicenseeId.ToString()) ? "usd" : "eur";
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
-        protected static IList<string> GetAllowLicenseesForStatusFunction()
+        protected IList<string> GetAllowLicenseesForStatusFunction()
         {
-            var items = AppSettings.GetValue("LicenseeOfferStatusFunction");
+            var items = _appSettings.GetValue("LicenseeOfferStatusFunction");
             if (!string.IsNullOrEmpty(items))
             {
                 return items.Split(',');
@@ -74,9 +82,9 @@ namespace Fanex.Athena.Controllers
             LangService.SetPageCulture(currentLanguage);
         }
 
-        private static IEnumerable<string> GetBaseUsdLicensees()
+        private IEnumerable<string> GetBaseUsdLicensees()
         {
-            var items = AppSettings.GetValue("BaseUsdLicensees");
+            var items = _appSettings.GetValue("BaseUsdLicensees");
             if (!string.IsNullOrEmpty(items))
             {
                 return items.Split(',');

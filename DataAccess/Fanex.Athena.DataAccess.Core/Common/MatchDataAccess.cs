@@ -37,7 +37,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 LeagueId = leagueId
             };
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 using (var reader = db.ExecuteReader(uspParam))
                 {
@@ -73,7 +73,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             var uspName = "Lrf_LeagueMatchSelRunning";
             var result = new List<Match>();
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("sporttype", System.Data.DbType.Int32, sportId);
                 using (var reader = db.ExecuteReader())
@@ -110,7 +110,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             var uspName = "Lrf_SelMatchByLeague";
             var result = new List<Match>();
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 var uspParam = new
                 {                    

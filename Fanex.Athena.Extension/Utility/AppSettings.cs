@@ -14,29 +14,24 @@ namespace Fanex.Athena.Extension.Utility
     /// <summary>
     /// Setting class.
     /// </summary>
-    public static class AppSettings
+    public class AppSettings : IAppSettings
     {
         internal const string HttpSlashSlash = "http://";
         internal const char UrlSlash = '/';
 
         #region Configurations
 
-        public static string Environment
+        public string Environment
         {
             get { return GetValue("Environment"); }
         }
 
-        public static bool IsEnableCasinoService
-        {
-            get { return GetValue("EnableCasinoService") == "1"; }
-        }
-
-        public static bool IsEnablePiwik
+        public bool IsEnablePiwik
         {
             get { return GetValue("IsEnablePiwik") == "1"; }
         }
 
-        public static DateTime? MoveBetDayStart
+        public DateTime? MoveBetDayStart
         {
             get
             {
@@ -51,7 +46,7 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static DateTime? MoveBetDayEnd
+        public DateTime? MoveBetDayEnd
         {
             get
             {
@@ -66,7 +61,7 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static bool EnableSessionValidatingService
+        public bool EnableSessionValidatingService
         {
             get { return int.Parse(GetValue("EnableSessionValidatingService")) != 0; }
         }
@@ -74,37 +69,32 @@ namespace Fanex.Athena.Extension.Utility
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
             "CA1056:UriPropertiesShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
-        public static string RemoteRefUrl
+        public string RemoteRefUrl
         {
             get { return GetValue("RemoteRefURL"); }
         }
 
-        public static string JsVersion
-        {
-            get { return GetValue("JsVersion"); }
-        }
-
-        public static bool LocalTest
+        public bool LocalTest
         {
             get { return int.Parse(GetValue("LocalTest")) != 0; }
         }
 
-        public static bool IsTesting
+        public bool IsTesting
         {
             get { return int.Parse(GetValue("IsTesting")) != 0; }
         }
 
-        public static bool IsShowMixedSport
+        public bool IsShowMixedSport
         {
             get { return int.Parse(GetValue("IsShowMixedSport")) == 1; }
         }
 
-        public static DateTime HistoryDate
+        public DateTime HistoryDate
         {
             get { return DateTime.Parse(GetValue("HistoryDate")); }
         }
 
-        public static DateTime MaxDate
+        public DateTime MaxDate
         {
             get
             {
@@ -113,12 +103,12 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static string[] BasedCurrency
+        public string[] BasedCurrency
         {
             get { return GetValue("BasedCurrency").Split(new[] { ';' }); }
         }
 
-        public static IEnumerable<int> LiveReportNoDetailLinkSports
+        public IEnumerable<int> LiveReportNoDetailLinkSports
         {
             get { return GetValue("LiveReportNoDetailLinkSports").Split(',').Select(n => Convert.ToInt32(n)); }
         }
@@ -127,7 +117,7 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Racing Propertise
 
-        public static bool EnableRacing
+        public bool EnableRacing
         {
             get
             {
@@ -135,7 +125,7 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static bool EnableRacingHRUk
+        public bool EnableRacingHRUk
         {
             get
             {
@@ -143,7 +133,7 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static bool EnableRacingHRSa
+        public bool EnableRacingHRSa
         {
             get
             {
@@ -151,7 +141,7 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static bool EnableRacingHRAust
+        public bool EnableRacingHRAust
         {
             get
             {
@@ -159,7 +149,7 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static bool EnableRacingGreyhoundUk
+        public bool EnableRacingGreyhoundUk
         {
             get
             {
@@ -167,7 +157,7 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static bool EnableRacingGreyhoundAust
+        public bool EnableRacingGreyhoundAust
         {
             get
             {
@@ -175,7 +165,7 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        public static bool EnableRacingHarnessAust
+        public bool EnableRacingHarnessAust
         {
             get
             {
@@ -187,7 +177,7 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Casino
 
-        public static bool IsDisableRngCasino
+        public bool IsDisableRngCasino
         {
             get { return bool.Parse(GetValue("IsDisableRngCasino")); }
         }
@@ -196,7 +186,7 @@ namespace Fanex.Athena.Extension.Utility
 
         #region NumberGame
 
-        public static bool EnableNumberGame
+        public bool EnableNumberGame
         {
             get { return GetValue("EnableNumberGame").Equals("1"); }
         }
@@ -205,7 +195,7 @@ namespace Fanex.Athena.Extension.Utility
 
         #region ExcludeFunctionIdList
 
-        public static IList<int> ExcludeFunctionIdList
+        public IList<int> ExcludeFunctionIdList
         {
             get
             {
@@ -220,7 +210,7 @@ namespace Fanex.Athena.Extension.Utility
 
         #region HTML Fix Header Table
 
-        public static int ColumnWidth
+        public int ColumnWidth
         {
             get
             {
@@ -232,14 +222,14 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Assign Currency
 
-        public static bool EnableAssignCurrency
+        public bool EnableAssignCurrency
         {
             get { return bool.Parse(GetValue("EnableAssignCurrency")); }
         }
 
         #endregion Assign Currency
 
-        public static string GetValue(string key)
+        public string GetValue(string key)
         {
             return ConfigurationManager.AppSettings[key];
         }

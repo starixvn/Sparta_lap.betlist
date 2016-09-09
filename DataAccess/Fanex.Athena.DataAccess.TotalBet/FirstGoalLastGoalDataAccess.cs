@@ -12,6 +12,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core;
     using Core.Extensions;
     using Data;
     using DataAccess.TotalBet.Interfaces;
@@ -22,7 +23,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
     /// <summary>
     /// First goal/last goal data access.
     /// </summary>
-    public class FirstGoalLastGoalDataAccess : IFirstGoalLastGoalDataAccess
+    public class FirstGoalLastGoalDataAccess : BaseDataAccess, IFirstGoalLastGoalDataAccess
     {
         /// <summary>
         /// Get first goal last goal data list.
@@ -45,7 +46,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
             };
 
             IList<FirstGoalLastGoal> data;
-            using (var db = new ObjectDb(SpName))
+            using (var db = this.GetObjectDb(SpName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {

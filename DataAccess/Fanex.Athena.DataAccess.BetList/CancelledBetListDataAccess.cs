@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -16,7 +17,7 @@ namespace Fanex.Athena.DataAccess.BetList
     using Interfaces;
     using Logging;
 
-    public class CancelledBetListDataAccess : ICancelledBetListDataAccess
+    public class CancelledBetListDataAccess : BaseDataAccess, ICancelledBetListDataAccess
     {
         private const string UspKey = "Lrf_BetList_SelDeleted_UserList";
 
@@ -24,7 +25,7 @@ namespace Fanex.Athena.DataAccess.BetList
         {
             try
             {
-                using (var db = new ObjectDb(UspKey))
+                using (var db = this.GetObjectDb(UspKey))
                 {
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);

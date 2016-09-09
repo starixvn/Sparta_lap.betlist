@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.BetSettings
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Core.Users.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Model.BetSettings.DTO;
@@ -22,6 +23,14 @@ namespace Fanex.Athena.Service.BetSettings
         public LiveCasinoBetSettingService()
         {
             _betSettingDataAccess = new LiveCasinoBetSettingDataAccess();
+        }
+
+        public LiveCasinoBetSettingService(
+            IAuthorizationService authorizationService,
+            ILiveCasinoBetSettingDataAccess betSettingDataAccess)
+            : base(authorizationService)
+        {
+            _betSettingDataAccess = betSettingDataAccess;
         }
 
         public IResultInfo UpdateStatus(int licenseeId, int userId, int custId, int status, string language, string ip, bool isSyncLiveCasino)
@@ -76,12 +85,12 @@ namespace Fanex.Athena.Service.BetSettings
         }
 
         public IResultInfo UpdateBetSetting(
-            int licenseeId, 
-            int userId, 
-            int custId, 
-            IList<LiveCasinoBetSetting> metaModel, 
-            string ip, 
-            string language, 
+            int licenseeId,
+            int userId,
+            int custId,
+            IList<LiveCasinoBetSetting> metaModel,
+            string ip,
+            string language,
             bool isDisableLiveCasino)
         {
             if (isDisableLiveCasino || !HasPermissionOnData(licenseeId, custId))

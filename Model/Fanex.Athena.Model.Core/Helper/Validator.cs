@@ -40,6 +40,8 @@ namespace Fanex.Athena.Models.Helper
         private const int MicrogamingMaxBetType = 2009;
         private const int VoidbridgeMinBetType = 4001;
         private const int VoidbridgeMaxBetType = 7999;
+        private const int AllBetMinBetType = 2401;
+        private const int AllBetMaxBetType = 2499;
 
         #endregion BetType Range
 
@@ -84,6 +86,8 @@ namespace Fanex.Athena.Models.Helper
                     return bettype >= MicrogamingMinBetType && bettype <= MicrogamingMaxBetType;
                 case Product.VB:
                     return bettype >= VoidbridgeMinBetType && bettype <= VoidbridgeMaxBetType;
+                case Product.AB:
+                    return bettype >= AllBetMinBetType && bettype <= AllBetMaxBetType;
             }
 
             return false;

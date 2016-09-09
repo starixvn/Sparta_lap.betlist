@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Collections.Generic;
     using System.Linq;
     using Core.Exception;
+    using Core.Users.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Interfaces;
@@ -25,10 +26,18 @@ namespace Fanex.Athena.Service.BetSettings
             _betSettingDataAccess = new RacingBetSettingDataAccess();
         }
 
-        public BetSettingViewModel GetViewModel(int licenseeId, int custId, bool isAllowSaToreCurrency)
+        public RacingBetSettingService(
+            IAuthorizationService authorizationService,
+            IRacingBetSettingDataAccess betSettingDataAccess)
+            : base(authorizationService)
+        {
+            _betSettingDataAccess = betSettingDataAccess;
+        }
+
+        public BetSettingViewModel GetViewModel(int licenseeId, int custId, bool isAllowSaToteCurrency)
         {
             var betSettings = HasPermissionOnData(licenseeId, custId)
-                        ? _betSettingDataAccess.GetBetSetting(custId, isAllowSaToreCurrency)
+                        ? _betSettingDataAccess.GetBetSetting(custId, isAllowSaToteCurrency)
                         : new List<BetSetting>();
             return new BetSettingViewModel
             {

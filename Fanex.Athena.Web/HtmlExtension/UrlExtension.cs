@@ -5,9 +5,9 @@
 // -----------------------------------------------------------------------
 namespace Fanex.Athena.Web.HtmlExtension
 {
+    using System.Configuration;
     using System.Web;
     using System.Web.Mvc;
-    using Fanex.Athena.Extension.Utility;
 
     /// <summary>
     /// Url Extension.
@@ -26,7 +26,7 @@ namespace Fanex.Athena.Web.HtmlExtension
             var appPath = HttpContext.Current.Request.ApplicationPath;
             var baseUrl = appPath != null && appPath.Length > 1 ? appPath : string.Empty;
 
-            return baseUrl + contentPath + "?" + AppSettings.JsVersion;
+            return baseUrl + contentPath + "?" + ConfigurationManager.AppSettings["JsVersion"];
         }
     }
 }

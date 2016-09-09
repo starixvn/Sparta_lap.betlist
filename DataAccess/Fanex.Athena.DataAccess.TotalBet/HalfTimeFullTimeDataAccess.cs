@@ -12,6 +12,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core;
     using Core.Extensions;
     using Data;
     using DataAccess.TotalBet.Interfaces;
@@ -22,7 +23,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
     /// <summary>
     /// Half time/ Full time data access.
     /// </summary>
-    public class HalfTimeFullTimeDataAccess : IHalfTimeFullTimeDataAccess
+    public class HalfTimeFullTimeDataAccess : BaseDataAccess, IHalfTimeFullTimeDataAccess
     {
         /// <summary>
         /// Get HalfTime FullTime data list.
@@ -44,7 +45,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
                 UserId = metaModel.UserId
             };
             IList<HalfTimeFullTime> data;
-            using (var db = new ObjectDb(SpName))
+            using (var db = this.GetObjectDb(SpName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {

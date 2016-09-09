@@ -40,7 +40,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             IList<CheckedItem> results = new List<CheckedItem>();
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
                     db.AddInParameter("sportlist", DbType.String, sports);
@@ -78,7 +78,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             const string UspName = "Lrf_BetTypesGetAll";
             var result = new Dictionary<string, int>();
 
-            using (var db = new ObjectDb(UspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 foreach (var item in productOptions)
                 {

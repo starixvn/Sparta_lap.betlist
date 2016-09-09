@@ -12,6 +12,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core;
     using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Common.Extensions;
@@ -22,7 +23,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
     /// <summary>
     /// Total goals data access.
     /// </summary>
-    public class TotalGoalDataAccess : ITotalGoalDataAccess
+    public class TotalGoalDataAccess : BaseDataAccess, ITotalGoalDataAccess
     {
         /// <summary>
         /// Get total goal data list.
@@ -44,7 +45,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
                 UserId = metaModel.UserId
             };
             IList<TotalGoal> data;
-            using (var db = new ObjectDb(UspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {

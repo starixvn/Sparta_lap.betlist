@@ -47,11 +47,11 @@ using System.Runtime.InteropServices;
  set of attributes. Change these attribute values to modify the information
  associated with an assembly.*/
 
-[assembly: AssemblyTitle("Fanex.Athena.Service")]
+[assembly: AssemblyTitle("Fanex.Athena.Service.Report")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Fanex.Athena.Service")]
+[assembly: AssemblyProduct("Fanex.Athena.Service.Report")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

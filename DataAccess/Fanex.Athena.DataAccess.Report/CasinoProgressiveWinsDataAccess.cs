@@ -33,7 +33,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "Lrf_Rpt_CasinoProgressiveWins";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     AddParams(db, metaModel);
 
@@ -86,7 +86,7 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        private void AddParams(ObjectDb db, CasinoProgressiveWinsMetaModel metaModel)
+        private void AddParams(IObjectDb db, CasinoProgressiveWinsMetaModel metaModel)
         {
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("userid", DbType.Int32, metaModel.UserId);

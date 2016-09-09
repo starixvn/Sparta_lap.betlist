@@ -7,6 +7,7 @@
 namespace Fanex.Athena
 {
     using System;
+    using System.Configuration;
     using System.Web;
     using System.Web.Http;
     using System.Web.Http.ExceptionHandling;
@@ -47,7 +48,7 @@ namespace Fanex.Athena
             log4net.Config.XmlConfigurator.Configure();
             log4net.LogManager.GetLogger("GeneralLog").Info("Start");
 
-            if (AppSettings.IsEnableCasinoService)
+            if (ConfigurationManager.AppSettings["EnableCasinoService"] == "1")
             {
                 SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
             }

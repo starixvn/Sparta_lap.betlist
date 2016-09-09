@@ -23,7 +23,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             var uspName = "Lrf_CustomerSelEditRB";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
                 using (var reader = db.ExecuteReader())
@@ -89,76 +89,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
             return result;
         }
 
-        private static void Update15131(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_31";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private static void Update15141(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_41";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private static void Update15151(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_51";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private static void Update15241(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet152_41";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private static void Update15251(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet152_51";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private static void Update15351(CommonBetSetting racingBetSetting)
-        {
-            var uspName = "Lrf_CustomerUpdMember_MinMaxBet153_51";
-
-            RacingUpdatingProcess(uspName, racingBetSetting);
-        }
-
-        private static void RacingUpdatingProcess(string uspName, CommonBetSetting racingBetSetting)
-        {
-            try
-            {
-                using (var db = new ObjectDb(uspName))
-                {
-                    db.AddInParameter("custid", DbType.Int32, racingBetSetting.CustId);
-                    db.AddInParameter("userid", DbType.Int32, racingBetSetting.UserId);
-                    db.AddInParameter("minbet", DbType.Decimal, racingBetSetting.MinBet);
-                    db.AddInParameter("maxbet", DbType.Decimal, racingBetSetting.MaxBet);
-                    db.AddInParameter("maxpermatch", DbType.Decimal, racingBetSetting.MaxPerMatch);
-                    db.AddInParameter("language", DbType.String, racingBetSetting.Language);
-                    db.AddInParameter("ip", DbType.String, racingBetSetting.Ip);
-                    AddResultParam(db);
-                    db.ExecuteNonQuery();
-
-                    var result = GetResult(db);
-
-                    racingBetSetting.ResultInfo = (ResultInfo)result;
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName, "No params");
-            }
-        }
-
         private static IList<BetSetting> RenderRacingBetSetting(IDataReader reader, bool isAllowSaToteCurrency)
         {
             if (reader.FieldCount == 0)
@@ -180,5 +110,75 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             return racingList;
         }
+
+        private void Update15131(CommonBetSetting racingBetSetting)
+        {
+            var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_31";
+
+            RacingUpdatingProcess(uspName, racingBetSetting);
+        }
+
+        private void Update15141(CommonBetSetting racingBetSetting)
+        {
+            var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_41";
+
+            RacingUpdatingProcess(uspName, racingBetSetting);
+        }
+
+        private void Update15151(CommonBetSetting racingBetSetting)
+        {
+            var uspName = "Lrf_CustomerUpdMember_MinMaxBet151_51";
+
+            RacingUpdatingProcess(uspName, racingBetSetting);
+        }
+
+        private void Update15241(CommonBetSetting racingBetSetting)
+        {
+            var uspName = "Lrf_CustomerUpdMember_MinMaxBet152_41";
+
+            RacingUpdatingProcess(uspName, racingBetSetting);
+        }
+
+        private void Update15251(CommonBetSetting racingBetSetting)
+        {
+            var uspName = "Lrf_CustomerUpdMember_MinMaxBet152_51";
+
+            RacingUpdatingProcess(uspName, racingBetSetting);
+        }
+
+        private void Update15351(CommonBetSetting racingBetSetting)
+        {
+            var uspName = "Lrf_CustomerUpdMember_MinMaxBet153_51";
+
+            RacingUpdatingProcess(uspName, racingBetSetting);
+        }
+
+        private void RacingUpdatingProcess(string uspName, CommonBetSetting racingBetSetting)
+        {
+            try
+            {
+                using (var db = this.GetObjectDb(uspName))
+                {
+                    db.AddInParameter("custid", DbType.Int32, racingBetSetting.CustId);
+                    db.AddInParameter("userid", DbType.Int32, racingBetSetting.UserId);
+                    db.AddInParameter("minbet", DbType.Decimal, racingBetSetting.MinBet);
+                    db.AddInParameter("maxbet", DbType.Decimal, racingBetSetting.MaxBet);
+                    db.AddInParameter("maxpermatch", DbType.Decimal, racingBetSetting.MaxPerMatch);
+                    db.AddInParameter("language", DbType.String, racingBetSetting.Language);
+                    db.AddInParameter("ip", DbType.String, racingBetSetting.Ip);
+                    AddResultParam(db);
+                    db.ExecuteNonQuery();
+
+                    var result = GetResult(db);
+
+                    racingBetSetting.ResultInfo = (ResultInfo)result;
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, uspName, "No params");
+            }
+        }       
     }
 }

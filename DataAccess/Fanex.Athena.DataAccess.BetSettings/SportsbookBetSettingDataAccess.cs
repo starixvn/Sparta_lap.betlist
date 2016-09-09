@@ -20,10 +20,17 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class SportsbookBetSettingDataAccess : BaseDataAccess, ISportsbookBetSettingDataAccess
     {
+        private readonly IAppSettings _appSettings;
+
+        public SportsbookBetSettingDataAccess()
+        {
+            _appSettings = new AppSettings();
+        }
+
         public IList<BetSetting> GetBetSetting(int custId, ref EsportSettingType esportSetting)
         {
             var uspName = "Lrf_CustomerSelEditCustomer";
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
                 using (var reader = db.ExecuteReader())
@@ -45,7 +52,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             var uspName = "Lrf_CustomerUpdMember_All";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("licenseeid", DbType.Int32, data.LicenseeId);
                 db.AddInParameter("ip", DbType.String, data.Ip);
@@ -77,7 +84,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             var uspName = "Lrf_CustomerUpdEsportStatus";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("ip", DbType.String, setting.Ip);
                 db.AddInParameter("Langkey", DbType.String, setting.Language);
@@ -114,7 +121,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             // BetSettingHelper.RenderSport(reader, "44", sportList); // Muay Thai
             BetSettingHelper.RenderSport(reader, "99", sportList); // Other sports
 
-            if (AppSettings.IsShowMixedSport)
+            if (_appSettings.IsShowMixedSport)
             {
                 BetSettingHelper.RenderSport(reader, "99MP", sportList);
             }

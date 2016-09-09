@@ -22,7 +22,7 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
 
         IResultInfo ChangePassword(string userName, string oldPassword, string newPassword, string ip);
 
-        List<User> GetByLicensee(int licenseeId, bool isInternal);
+        IList<User> GetByLicensee(int licenseeId, bool isInternal);
 
         User GetUserInfo(int licenseeId, int userId);
 

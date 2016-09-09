@@ -25,7 +25,8 @@
         @Html.Hidden("ProductCode", Model.Param.ProductCode)
         @Html.Hidden("ProductName", Model.Param.ProductName)
         @{
-            var minDate = Fanex.Athena.Extension.Utility.AppSettings.HistoryDate;
+            var appSettings = new AppSettings();
+            var minDate = appSettings.HistoryDate;
         }
         <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
     </div>

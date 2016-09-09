@@ -27,6 +27,13 @@ namespace Fanex.Athena.DataAccess.Core.Common
     /// </summary>
     public class FunctionDataAccess : BaseDataAccess, IFunctionDataAccess
     {
+        private readonly IAppSettings _appSettings;
+
+        public FunctionDataAccess()
+        {
+            _appSettings = new AppSettings();
+        }
+
         /// <summary>
         /// Get function list.
         /// </summary>
@@ -34,11 +41,11 @@ namespace Fanex.Athena.DataAccess.Core.Common
         public IList<Function> GetFunctionList()
         {
             var functionList = new List<Function>();
-            using (var db = new ObjectDb("Lrf_FunctionsSel"))
+            using (var db = this.GetObjectDb("Lrf_FunctionsSel"))
             {
                 using (var reader = db.ExecuteReader())
                 {
-                    var isProduction = AppSettings.Environment.Equals("PRO", System.StringComparison.OrdinalIgnoreCase);
+                    var isProduction = _appSettings.Environment.Equals("PRO", System.StringComparison.OrdinalIgnoreCase);
                     while (reader.Read())
                     {
                         var environment = reader.ToString("Environment");
@@ -77,7 +84,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
         public IList<Function> GetLicenseeFunctionList(int licenseeId)
         {
             var functionList = new List<Function>();
-            using (var db = new ObjectDb("Lrf_LicenseeFunctionsSel"))
+            using (var db = this.GetObjectDb("Lrf_LicenseeFunctionsSel"))
             {
                 db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
                 using (var reader = db.ExecuteReader())
@@ -106,7 +113,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
         {
             var functionList = new List<Function>();
 
-            using (var db = new ObjectDb("Lrf_LicenseeUserFunctionsSel"))
+            using (var db = this.GetObjectDb("Lrf_LicenseeUserFunctionsSel"))
             {
                 db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
                 db.AddInParameter("UserId", DbType.Int32, userId);
@@ -143,7 +150,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("UserID", DbType.Int32, userId);
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
@@ -181,7 +188,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("UserID", DbType.Int32, userId);
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);

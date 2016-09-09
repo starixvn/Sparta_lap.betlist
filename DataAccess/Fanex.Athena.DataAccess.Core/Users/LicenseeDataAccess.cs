@@ -37,7 +37,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             try
             {
                 isAllow = false;
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("langkey", DbType.String, request.Language);
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
@@ -74,7 +74,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             const string UspName = "Lrf_CustomerSelCheckBelonging";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
                     db.AddInParameter("custid", DbType.Int32, custId);
@@ -110,7 +110,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             try
             {
                 var entityList = new List<Licensee>();
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -155,7 +155,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             try
             {
                 var entityList = new List<Currency>();
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -197,7 +197,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             try
             {
                 var entityList = new List<LicenseeCustomer>();
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -233,7 +233,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
         {
             var uspName = "Lrf_GetNumberOfOnlineUsers";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 var result = db.ExecuteScalar();
                 return result != null ? result.ToString() : string.Empty;

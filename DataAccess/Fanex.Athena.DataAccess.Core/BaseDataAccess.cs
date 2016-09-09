@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.Core
 {
+    using System;
     using System.Data;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Configuration;
@@ -25,15 +26,15 @@ namespace Fanex.Athena.DataAccess.Core
 
         public BalanceUp BalanceUp { get; set; }
 
-        [System.CLSCompliant(false)]
-        protected static void AddResultParam(ObjectDb db)
+        [CLSCompliant(false)]
+        protected static void AddResultParam(IObjectDb db)
         {
             db.AddOutParameter("ErrCode", DbType.Int32, 4);
             db.AddOutParameter("ErrMsg", DbType.String, 4000);
         }
 
-        [System.CLSCompliant(false)]
-        protected static IResultInfo GetResult(ObjectDb db)
+        [CLSCompliant(false)]
+        protected static IResultInfo GetResult(IObjectDb db)
         {
             var errorCode = db.GetParameterValue("ErrCode");
             var errorMessage = db.GetParameterValue("ErrMsg");
@@ -43,6 +44,12 @@ namespace Fanex.Athena.DataAccess.Core
                 Code = Converter.ToInt(errorCode),
                 Message = Converter.ToString2(errorMessage)
             };
+        }
+
+        [CLSCompliant(false)]
+        protected internal virtual IObjectDb GetObjectDb(string spname)
+        {
+            return new ObjectDb(spname);
         }
     }
 }

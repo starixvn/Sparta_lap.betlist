@@ -9,10 +9,12 @@ namespace Fanex.Athena.Service.BetSettings
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
     using System.Xml.Linq;
     using Common;
     using Core.Helpers;
+    using Core.Users.Interfaces;
+    using Core.Utility;
+    using Core.Utility.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
@@ -31,9 +33,27 @@ namespace Fanex.Athena.Service.BetSettings
 
         private readonly IThirdPartyBetSettingDataAccess _betSettingDataAccess;
 
+        private readonly IAppSettings _appSettings;
+
+        private readonly IWebClientService _webClientService;
+
         public GoldDeluxeBetSettingService()
         {
             _betSettingDataAccess = new ThirdPartyBetSettingDataAccess();
+            _appSettings = new AppSettings();
+            _webClientService = new WebClientService();
+        }
+
+        public GoldDeluxeBetSettingService(
+            IAuthorizationService authorizationService,
+            IThirdPartyBetSettingDataAccess betSettingDataAccess,
+            IAppSettings appSettings,
+            IWebClientService webClientService)
+            : base(authorizationService)
+        {
+            _betSettingDataAccess = betSettingDataAccess;
+            _appSettings = appSettings;
+            _webClientService = webClientService;
         }
 
         public GoldDeluxeBetSettingViewModel GetViewModel(int licenseeId, int custId, string siteName)
@@ -88,17 +108,12 @@ namespace Fanex.Athena.Service.BetSettings
                 return ErrorResult(ViewResources.UpdateSpecialLevelMsg);
             }
 
-            var uri = new Uri(AppSettings.GetValue("GoldDeluxeSetUserGroupApiUrl"));
+            var uri = new Uri(_appSettings.GetValue("GoldDeluxeSetUserGroupApiUrl"));
             var parameters = string.Format("SiteName={0}&IBCCustID={1}&ThirdPartyId={2}&GroupType={3}", siteName, custId, GoldDeluxeThirdPartyId, group);
-            var apiResult = string.Empty;
 
             try
             {
-                using (WebClient webClient = new WebClient())
-                {
-                    webClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                    apiResult = webClient.UploadString(uri, parameters);
-                }
+                var apiResult = _webClientService.SendRequest(uri, parameters);
 
                 var xml = XDocument.Parse(apiResult);
                 var rootElement = xml.Element("SetUserGroupBettingLimit");
@@ -140,17 +155,12 @@ namespace Fanex.Athena.Service.BetSettings
                 return new List<GoldDeluxeGame>();
             }
 
-            var uri = new Uri(AppSettings.GetValue("GoldDeluxeGroupBettingLimitApiUrl"));
+            var uri = new Uri(_appSettings.GetValue("GoldDeluxeGroupBettingLimitApiUrl"));
             var parameters = string.Format("SiteName={0}&Currency={1}&ThirdPartyId={2}", siteName, currency, GoldDeluxeThirdPartyId);
-            var apiResult = string.Empty;
             var games = new List<GoldDeluxeGame>();
             try
             {
-                using (WebClient webClient = new WebClient())
-                {
-                    webClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                    apiResult = webClient.UploadString(uri, parameters);
-                }
+                var apiResult = _webClientService.SendRequest(uri, parameters);
 
                 var xml = XDocument.Parse(apiResult);
 
@@ -188,18 +198,12 @@ namespace Fanex.Athena.Service.BetSettings
             Justification = "Reviewed. Suppression is OK here.")]
         private string GetGoldDeluxeUserGroup(string siteName, int custId, int currencyId)
         {
-            var uri = new Uri(AppSettings.GetValue("GoldDeluxeGetUserGroupApiUrl"));
+            var uri = new Uri(_appSettings.GetValue("GoldDeluxeGetUserGroupApiUrl"));
             var parameters = string.Format("SiteName={0}&IBCCustID={1}&ThirdPartyId={2}&Currency={3}", siteName, custId, GoldDeluxeThirdPartyId, currencyId);
-            var apiResult = string.Empty;
 
             try
             {
-                using (WebClient webClient = new WebClient())
-                {
-                    webClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                    apiResult = webClient.UploadString(uri, parameters);
-                }
-
+                var apiResult = _webClientService.SendRequest(uri, parameters);
                 var xml = XDocument.Parse(apiResult);
 
                 var rootElement = xml.Element("GetUserGroupBettingLimit");

@@ -19,9 +19,17 @@ namespace Fanex.Athena.Model.Report.MetaModel
     /// </summary>
     public abstract class BaseReportMetaModel : BaseMetaModel
     {
+        private readonly IAppSettings _appSettings;
+
         protected BaseReportMetaModel()
+            : this(new AppSettings())
+        {
+        }
+
+        protected BaseReportMetaModel(IAppSettings appSetting)
             : base()
         {
+            _appSettings = appSetting;
             ProductOptions = new List<ProductOption>();
             FromDate = DateTime.Today;
             ToDate = DateTime.Today;
@@ -64,7 +72,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
         {
             get
             {
-                return FromDate < AppSettings.HistoryDate;
+                return FromDate < _appSettings.HistoryDate;
             }
         }
     }

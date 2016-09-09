@@ -67,7 +67,7 @@ namespace Fanex.Athena.DataAccess.Warehouse
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -129,7 +129,7 @@ namespace Fanex.Athena.DataAccess.Warehouse
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     var dataset = db.ExecuteDataSet(uspParams);
                     return dataset.Tables.Count > 0 ? dataset.Tables[0] : new DataTable();

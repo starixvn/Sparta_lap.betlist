@@ -4,6 +4,7 @@
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("Index", "WinLossByBetTypeReport", FormMethod.Post, new { @id = "WinLossByBetTypeForm" }))
     {
+        var appSettings = new AppSettings();
         @Html.AntiForgeryToken()
         //-----------------------------Hidden Field-------------------------------//
         @Html.Hidden("BalanceUpDay", Model.Param.BalanceUpDay)
@@ -13,7 +14,7 @@
 
         //-----------------------------Date---------------------------------------//
         @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, Model.Param.BalanceUpDay,
-             AppSettings.MaxDate, "date-range", "date-range", 2, 3, 2, 3, true)
+             appSettings.MaxDate, "date-range", "date-range", 2, 3, 2, 3, true)
         <div class="new-line">
         </div>
         //-----------------------------Type of licensee---------------------------//

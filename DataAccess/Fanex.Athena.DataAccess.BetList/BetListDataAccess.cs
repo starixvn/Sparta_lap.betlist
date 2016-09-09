@@ -82,7 +82,7 @@ namespace Fanex.Athena.DataAccess.BetList
             const string UspName = "Lrf_BetList_SelParlayDetail";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("TransId", DbType.Int64, transId);
                     using (var reader = db.ExecuteReader())
@@ -113,7 +113,7 @@ namespace Fanex.Athena.DataAccess.BetList
             const string UspName = "Lrf_BetList_SelCombinationParlayDetail";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("refno", DbType.Int64, metaModel.RefNo);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
@@ -213,7 +213,7 @@ namespace Fanex.Athena.DataAccess.BetList
             var ticketResult = new TicketResult();
             try
             {
-                using (var db = new ObjectDb(uspKey))
+                using (var db = this.GetObjectDb(uspKey))
                 {
                     CreateBetListParameters(db, uspKey, metaModel);
                     using (var reader = db.ExecuteReader())
@@ -304,7 +304,7 @@ namespace Fanex.Athena.DataAccess.BetList
 
             try
             {
-                using (var db = new ObjectDb(UspKey))
+                using (var db = this.GetObjectDb(UspKey))
                 {
                     db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
                     CreateBetListDateRangeParameters(db, metaModel);

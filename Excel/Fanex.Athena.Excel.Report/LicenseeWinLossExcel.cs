@@ -35,31 +35,31 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnCurrency = 4;
 
         private const int ColumnTurnoverSportBook = 5;
-        private const int ColumnTurnoverTotal = 18;
+        private const int ColumnTurnoverTotal = 19;
 
-        private const int ColumnActualStake = 19;
+        private const int ColumnActualStake = 20;
 
-        private const int ColumnBuyBackAmountSportsbook = 20;
-        private const int ColumnBuyBackAmountBA = 21;
-        private const int ColumnBuyBackAmountTotal = 22;
+        private const int ColumnBuyBackAmountSportsbook = 21;
+        private const int ColumnBuyBackAmountBA = 22;
+        private const int ColumnBuyBackAmountTotal = 23;
 
-        private const int ColumnTotalTransaction = 23;
+        private const int ColumnTotalTransaction = 24;
 
-        private const int ColumnCustomerWl = 24;
-        private const int ColumnCustomerComm = 25;
-        private const int ColumnCustomerTotal = 26;
+        private const int ColumnCustomerWl = 25;
+        private const int ColumnCustomerComm = 26;
+        private const int ColumnCustomerTotal = 27;
 
-        private const int ColumnLicenseeWlSportsBook = 27;
-        private const int ColumnLicenseeWlTotal = 40;
+        private const int ColumnLicenseeWlSportsBook = 28;
+        private const int ColumnLicenseeWlTotal = 42;
 
-        private const int ColumnBetTradeCommission = 41;
-        private const int ColumnBaCommission = 42;
-        private const int ColumnRacingRevenue = 43;
-        private const int ColumnAmtDueToBetTrade = 44;
-        private const int ColumnAmtDueToBa = 45;
-        private const int ColumnAmtDueToRacing = 46;
+        private const int ColumnBetTradeCommission = 43;
+        private const int ColumnBaCommission = 44;
+        private const int ColumnRacingRevenue = 45;
+        private const int ColumnAmtDueToBetTrade = 46;
+        private const int ColumnAmtDueToBa = 47;
+        private const int ColumnAmtDueToRacing = 48;
 
-        private const int ColumnTemplateCount = 47;
+        private const int ColumnTemplateCount = 49;
 
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
@@ -186,6 +186,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.ProductBT,
                 ViewResources.ProductMGCLC,
                 ViewResources.ProductMGCRNG,
+                ViewResources.ProductAB,
                 ViewResources.ProductVB,
                 ViewResources.Total
             };
@@ -555,6 +556,7 @@ namespace Fanex.Athena.Excel.Report
                 new ProductOption { Code = Product.BT, Status = false },
                 new ProductOption { Code = Product.MGCLC, Status = false },
                 new ProductOption { Code = Product.MGCRNG, Status = false },
+                new ProductOption { Code = Product.AB, Status = false },
                 new ProductOption { Code = Product.VB, Status = false }
             };
 

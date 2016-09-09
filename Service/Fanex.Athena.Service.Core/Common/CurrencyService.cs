@@ -31,6 +31,11 @@ namespace Fanex.Athena.Service.Core.Common
             this._currencyDataAccess = new CurrencyDataAccess();
         }
 
+        public CurrencyService(ICurrencyDataAccess currencyDataAccess)
+        {
+            this._currencyDataAccess = currencyDataAccess;
+        }
+
         /// <summary>
         ///  Only get active currency.
         /// Having caching.

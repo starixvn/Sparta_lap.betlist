@@ -34,7 +34,7 @@ namespace Fanex.Athena.DataAccess.Report
         public SortableList<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel, ref CustPendingFunds totalData, ref int totalRows)
         {
             SortableList<CustPendingFunds> result = new SortableList<CustPendingFunds>();
-            using (var db = new ObjectDb("Lrf_Rpt_Outstanding"))
+            using (var db = this.GetObjectDb("Lrf_Rpt_Outstanding"))
             {
                 db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                 db.AddInParameter("userid", DbType.Int32, metaModel.UserId);

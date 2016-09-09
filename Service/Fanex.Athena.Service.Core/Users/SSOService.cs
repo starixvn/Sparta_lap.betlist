@@ -9,16 +9,15 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Collections.Specialized;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
-    using System.IO;
     using System.Web;
-    using System.Web.Security;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Common;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using RSACryptoPad;
+    using Utility;
+    using Utility.Interfaces;
 
     /// <summary>
     /// TODO: Update summary.
@@ -35,16 +34,46 @@ namespace Fanex.Athena.Service.Core.Users
         private const string PrivateKey = "12bet.snk";
         private const string DefaultLanguage = "en-US";
 
-        private readonly HttpContext _context;
+        private readonly IHttpContextService _context;
         private readonly string _keyPath = string.Empty;
         private readonly string _deniedPath = string.Empty;
-        private readonly ISessionService _sessionService = new SessionService();
+
+        private readonly IUserService _userService;
+        private readonly ISessionService _sessionService;
+        private readonly IRSAEncryptor _rsaEncryptor;
+        private readonly IFileSystem _fileSystem;
+        private readonly IFormsAuthenticationService _formsAuthenticationService;
 
         public SSOService()
         {
-            _context = HttpContext.Current;
+            _context = new HttpContextService();
+            _userService = new UserService();
+            _sessionService = new SessionService();
+            _rsaEncryptor = new RSAEncryptor();
+            _fileSystem = new FileSystem();
+            _formsAuthenticationService = new FormsAuthenticationService();
             _deniedPath = ConfigurationManager.AppSettings["SSOUnAuthorizePath"];
             _keyPath = ConfigurationManager.AppSettings["SSOKeyPath"] ?? string.Empty;
+        }
+
+        public SSOService(
+            IHttpContextService httpContextService,
+            IUserService userService,
+            ISessionService sessionService,
+            IRSAEncryptor rsaEncryptor,
+            IFileSystem fileSystem,
+            IFormsAuthenticationService formsAuthenticationService,
+            string deniedPath,
+            string keyPath)
+        {
+            _context = httpContextService;
+            _userService = userService;
+            _sessionService = sessionService;
+            _rsaEncryptor = rsaEncryptor;
+            _fileSystem = fileSystem;
+            _formsAuthenticationService = formsAuthenticationService;
+            _deniedPath = deniedPath;
+            _keyPath = keyPath;
         }
 
         private static string CurrentUserName
@@ -115,8 +144,8 @@ namespace Fanex.Athena.Service.Core.Users
                     // update language code
                     var langService = new LanguageService();
                     langService.ChangeLanguage(languageCode);
-                    FormsAuthentication.SetAuthCookie(userName, false);
-                    _context.Response.Redirect("~/Home/Index");
+                    _formsAuthenticationService.SetAuthCookie(userName, false);
+                    _context.Redirect("~/Home/Index");
                     return;
                 }
             }
@@ -132,8 +161,8 @@ namespace Fanex.Athena.Service.Core.Users
             InternalLogin(licname, userName, passWord, timeSpan, siteOutUrl, languageCode, out resultInfo);
             if (resultInfo.IsSuccessful)
             {
-                FormsAuthentication.SetAuthCookie(userName, false);
-                _context.Response.Redirect("~/Home/Index");
+                _formsAuthenticationService.SetAuthCookie(userName, false);
+                _context.Redirect("~/Home/Index");
             }
             else
             {
@@ -159,15 +188,15 @@ namespace Fanex.Athena.Service.Core.Users
             var privateKeyPath = GetPrivateKeyPath();
 
             parameter = parameter.Replace(" ", "+");
-            var descryptParam = new EncryptionThread().DecryptString(parameter, DecryptKeySize, privateKeyPath);
+            var descryptParam = _rsaEncryptor.DecryptString(parameter, DecryptKeySize, privateKeyPath);
 
             return HttpUtility.ParseQueryString(descryptParam);
         }
 
         private string GetPrivateKeyPath()
         {
-            var privateKeyPath = _context.Server.MapPath("~/" + _keyPath + PrivateKey);
-            if (!File.Exists(privateKeyPath))
+            var privateKeyPath = _context.MapPath("~/" + _keyPath + PrivateKey);
+            if (!_fileSystem.Exists(privateKeyPath))
             {
                 RedirectToErrorPage(DisableSsoErrorCode);
             }
@@ -189,7 +218,7 @@ namespace Fanex.Athena.Service.Core.Users
 
         private void RedirectToErrorPage(int code)
         {
-            _context.Response.Redirect(Util.RootPath + string.Format(_deniedPath, code));
+            _context.Redirect(Util.RootPath + string.Format(_deniedPath, code));
         }
 
         /// <summary>
@@ -211,7 +240,6 @@ namespace Fanex.Athena.Service.Core.Users
           string languageCode,
           out IResultInfo resultInfo)
         {
-            var userService = new UserService();
             var requestUser = new User
             {
                 Username = userName,
@@ -219,19 +247,19 @@ namespace Fanex.Athena.Service.Core.Users
                 Request = new Request
                 {
                     Ip = _context.Request.UserHostAddress,
-                    Browser = _context.Request.Browser.Browser,
-                    Platform = _context.Request.Browser.Platform,
+                    Browser = _context.Request.Browser?.Browser,
+                    Platform = _context.Request.Browser?.Platform,
                     Domain = siteOutUrl,
                 }
             };
             IResultInfo loginResultInfo;
-            User user = userService.ValidateInternalUser(requestUser, licname, timeSpan, out loginResultInfo);
+            User user = _userService.ValidateInternalUser(requestUser, licname, timeSpan, out loginResultInfo);
 
             if (loginResultInfo.IsSuccessful)
             {
                 _sessionService.CreateNewSession(
                     user.Id,
-                    userService.LoginOnUser(user, _context.Session.SessionID, user.ServerId, _context.Request.UserHostAddress),
+                    _userService.LoginOnUser(user, _context.Session.SessionID, user.ServerId, _context.Request.UserHostAddress),
                     user.Username,
                     true,
                     user.Licensee.Id,

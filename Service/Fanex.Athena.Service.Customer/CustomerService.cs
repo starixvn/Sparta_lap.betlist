@@ -45,6 +45,8 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly IRNGCasinoService _rngCasinoService;
 
+        private readonly IAppSettings _appSettings;
+
         #endregion Varialbes
 
         #region Constructors
@@ -57,6 +59,7 @@ namespace Fanex.Athena.Service.Customer
             _productService = new ProductService();
             _sessionService = new SessionService();
             _rngCasinoService = new RNGCasinoService();
+            _appSettings = new AppSettings();
         }
 
         #endregion Constructors
@@ -289,7 +292,7 @@ namespace Fanex.Athena.Service.Customer
 
             if (customerInfo.SyncCasino && casinoSupported)
             {
-                if (!AppSettings.IsDisableRngCasino)
+                if (!_appSettings.IsDisableRngCasino)
                 {
                     var casinoMetaModel = new CasinoStatusMetaModel
                     {
@@ -337,7 +340,7 @@ namespace Fanex.Athena.Service.Customer
 
             if (customerInfo.SyncCasino && casinoSupported)
             {
-                if (!AppSettings.IsDisableRngCasino)
+                if (!_appSettings.IsDisableRngCasino)
                 {
                     var casinoMetaModel = new CasinoStatusMetaModel
                     {
