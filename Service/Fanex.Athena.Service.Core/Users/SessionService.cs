@@ -115,11 +115,9 @@ namespace Fanex.Athena.Service.Core.Users
             };
 
             this.UserSession = userSession;
-
-            if (licenseeId > 0)
+            var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
+            if (licenseeId > 0 && selectedLicensee != null)
             {
-                var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
-
                 var licenseeSession = new LicenseeSession
                 {
                     UserId = userId,
