@@ -57,6 +57,7 @@
                             var currentLanguage = Model.SupportedLanguageList.FirstOrDefault(p => p.Key.Equals(Model.Language)).Value;
                         }
                         <span>@currentLanguage</span>
+                        <i class="icon icon-menu-down" aria-hidden="true"></i>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         @foreach (var language in Model.SupportedLanguageList)
@@ -77,6 +78,7 @@
                             var currentLicensee = Model.LicenseeList.FirstOrDefault(p => p.Id.Equals(Model.CurrentLicenseeId)).Name;
                         }
                         <span>@currentLicensee</span>
+                        <i class="icon icon-menu-down" aria-hidden="true"></i>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         @foreach (var licensee in Model.LicenseeList)

@@ -1,4 +1,4 @@
-﻿@import '../abstracts/variables';
+﻿@import '../../abstracts/variables';
 $bg-panel-title: $blue-Bayoux;
 
 a {
@@ -18,18 +18,6 @@ a {
     height: 7px;
     border-radius: 50%;
     background: #f94a4a;
-}
-
-.site-menubar-unfold {
-    .icon-backburger {
-        transform: rotate(0);
-    }
-}
-
-.site-menubar-fold {
-    .icon-backburger {
-        transform: rotate(180deg);
-    }
 }
 
 .panel-heading {

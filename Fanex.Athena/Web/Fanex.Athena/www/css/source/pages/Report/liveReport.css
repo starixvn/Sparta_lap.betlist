@@ -13,12 +13,6 @@
   border-radius: 50%;
   background: #f94a4a; }
 
-.site-menubar-unfold .icon-backburger {
-  transform: rotate(0); }
-
-.site-menubar-fold .icon-backburger {
-  transform: rotate(180deg); }
-
 .panel-heading {
   background: #4C6375;
   border-radius: 0; }

@@ -18,5 +18,9 @@
   {
     "outputFile": "www/css/source/site.css",
     "inputFile": "www/css/source/site.scss"
+  },
+  {
+    "outputFile": "www/css/source/pages/Report/liveReport.css",
+    "inputFile": "www/css/source/pages/Report/liveReport.scss"
   }
 ]

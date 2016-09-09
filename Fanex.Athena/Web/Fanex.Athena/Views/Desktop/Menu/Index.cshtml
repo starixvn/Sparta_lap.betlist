@@ -23,6 +23,7 @@
                                     <span class="site-menu-arrow"></span>
                                 </a>
 
+                                <ul class="site-menu-sub">
                                 @foreach (var subFunction in subFunctions)
                                 {
                                     if (!Model.IsAllowedCustonmerCommission && subFunction.FunctionId == functionCustCommGroup)
@@ -34,14 +35,14 @@
                                         continue;
                                     }
 
-                                    <ul class="site-menu-sub">
+                                    
                                         <li class="site-menu-item">
                                             <a class="animsition-link" href="@Url.Content("~/" + subFunction.Url)" target="main">
                                                 <span class="site-menu-title">@Html.Raw(subFunction.Name)</span>
                                             </a>
-                                        </li>
-                                    </ul>
+                                        </li>                                    
                                 }
+                                </ul>
 
                             </li>                          
                         }

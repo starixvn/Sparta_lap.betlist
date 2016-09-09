@@ -87,6 +87,18 @@
     background: none;
 }
 
+.site-menubar-unfold {
+    .icon-backburger {
+        transform: rotate(0);
+    }
+}
+
+.site-menubar-fold {
+    .icon-backburger {
+        transform: rotate(180deg);
+    }
+}
+
 @media (min-width: 768px) {
     .site-navbar {
         .navbar-header {

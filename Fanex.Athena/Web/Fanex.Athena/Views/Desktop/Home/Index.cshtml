@@ -5,12 +5,32 @@
 
 @section css
 {
-    <link href="~/www/css/build/plugins/flag-icon-css/flag-icon.min.css" rel="stylesheet" />
-    <link href="~/www/css/build/plugins/waves/waves.min.css" rel="stylesheet" />
+    <link href="~/www/css/build/plugins/asScrollable.min.css" rel="stylesheet" />
+    <link href="~/www/css/build/plugins/flag-icon.min.css" rel="stylesheet" />
+    <link href="~/www/css/build/plugins/waves.min.css" rel="stylesheet" />
 }
 @section js
 {
-    <script src="~/www/js/build/plugins/waves/waves.min.js"></script>
+    <script src="~/www/js/build/plugins/breakpoints.min.js"></script>
+    <script>
+            Breakpoints();
+    </script>
+
+    <script src="~/www/js/build/plugins/jquery-asScroll.min.js"></script>
+    <script src="~/www/js/build/plugins/jquery.asScrollable.all.min.js"></script>
+    <script src="~/www/js/build/plugins/jquery-asHoverScroll.min.js"></script>
+    <script src="~/www/js/build/plugins/waves.min.js"></script>
+    <script src="~/www/js/build/pages/core.min.js"></script>
+    <script src="~/www/js/build/pages/site.min.js"></script>
+    <script src="~/www/js/build/pages/menu.min.js"></script>    
+    <script src="~/www/js/build/pages/menubar.min.js"></script>
+    <script src="~/www/js/build/pages/sidebar.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+            Site.run(), Waves.attach(".page-content .btn-floating", ["waves-light"])
+        });
+    </script>
 }
 
 @{ Html.RenderAction("Index", "Header"); }

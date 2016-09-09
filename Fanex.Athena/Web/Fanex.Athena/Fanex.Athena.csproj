@@ -940,9 +940,10 @@
     <Content Include="www\assets\images\flag_zh-TW.png" />
     <Content Include="www\assets\images\logo-text.svg" />
     <Content Include="www\assets\images\logo.svg" />
-    <Content Include="www\css\build\plugins\daterangepicker\daterangepicker.min.css" />
-    <Content Include="www\css\build\plugins\flag-icon-css\flag-icon.min.css" />
-    <Content Include="www\css\build\plugins\waves\waves.min.css" />
+    <Content Include="www\css\build\plugins\asScrollable.min.css" />
+    <Content Include="www\css\build\plugins\daterangepicker.min.css" />
+    <Content Include="www\css\build\plugins\flag-icon.min.css" />
+    <Content Include="www\css\build\plugins\waves.min.css" />
     <Content Include="www\css\build\vendors\bootstrap-extend.css" />
     <Content Include="www\css\build\vendors\bootstrap.css" />
     <Content Include="www\css\build\pages\reports\liveReport.min.css" />
@@ -982,11 +983,30 @@
     <Content Include="www\assets\font-icon\fonts\icomoon.svg" />
     <Content Include="www\assets\font-icon\material-design\material-design.min.css" />
     <Content Include="www\assets\font-icon\style.css" />
-    <Content Include="www\js\build\plugins\daterangepicker\daterangepicker.js" />
-    <Content Include="www\js\build\plugins\moment\moment.min.js" />
-    <Content Include="www\js\build\plugins\waves\waves.min.js" />
+    <Content Include="www\js\build\pages\core.min.js" />
+    <Content Include="www\js\build\pages\menu.min.js" />
+    <Content Include="www\js\build\pages\menubar.min.js" />
+    <Content Include="www\js\build\pages\sidebar.min.js" />
+    <Content Include="www\js\build\pages\site.min.js" />
+    <Content Include="www\js\build\plugins\breakpoints.min.js" />
+    <Content Include="www\js\build\plugins\daterangepicker.js" />
+    <Content Include="www\js\build\plugins\jquery-asHoverScroll.min.js" />
+    <Content Include="www\js\build\plugins\jquery-asScroll.min.js" />
+    <Content Include="www\js\build\plugins\jquery.asScrollable.all.min.js" />
+    <Content Include="www\js\build\plugins\moment.min.js" />
+    <Content Include="www\js\build\plugins\waves.min.js" />
     <Content Include="www\js\build\vendors\bootstrap.min.js" />
     <Content Include="www\js\build\vendors\jquery.min.js" />
+    <Content Include="www\js\source\pages\menu\core.min.js" />
+    <Content Include="www\js\source\pages\menu\menu.min.js" />
+    <Content Include="www\js\source\pages\menu\menubar.min.js" />
+    <Content Include="www\js\source\pages\menu\sidebar.min.js" />
+    <Content Include="www\js\source\pages\menu\site.min.js" />
+    <Content Include="www\js\source\plugins\ashoverscroll\jquery-asHoverScroll.min.js" />
+    <Content Include="www\css\source\vendors\asscrollable\asScrollable.min.css" />
+    <Content Include="www\js\source\plugins\asscrollable\jquery.asScrollable.all.min.js" />
+    <Content Include="www\js\source\plugins\asscroll\jquery-asScroll.min.js" />
+    <Content Include="www\js\source\plugins\breakpoints\breakpoints.min.js" />
     <Content Include="www\js\source\vendors\bootstrap\bootstrap.min.js" />
     <Content Include="www\js\source\plugins\daterangepicker\daterangepicker.js" />
     <Content Include="www\js\source\plugins\jqGrid\jquery.jqGrid.en.js" />
@@ -4912,7 +4932,6 @@
   <ItemGroup>
     <Folder Include="Content\Plugin\MultiSelect\images\images\" />
     <Folder Include="Logs\" />
-    <Folder Include="www\js\build\pages\" />
     <Folder Include="www\js\source\pages\livereport\specs\" />
   </ItemGroup>
   <ItemGroup />
