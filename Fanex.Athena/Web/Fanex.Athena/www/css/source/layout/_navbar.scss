@@ -4,6 +4,11 @@
     margin-bottom: 0;
 }
 
+.licensee-list{
+    height: 300px;
+    overflow-y: scroll;
+}
+
 .site-navbar {
     //background-color: #383c48;
     .navbar-header {
@@ -35,6 +40,15 @@
                 &.active {
                     color: #fff;
                 }
+            }
+        }
+
+        .welcome{
+            line-height: 60px;
+
+            .user-name-text{
+                font-weight: 900;
+                color: greenyellow;
             }
         }
     }

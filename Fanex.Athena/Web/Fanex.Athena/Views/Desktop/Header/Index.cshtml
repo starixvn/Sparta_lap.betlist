@@ -49,6 +49,24 @@
             <!-- End Navbar Toolbar -->
             <!-- Navbar Toolbar Right -->
             <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+                @if (!Model.IsInternalLogin)
+                {
+                    <li>
+                        <ol class="breadcrumb welcome">
+                            <li class="active"><span>@ViewResources.Welcome,</span>&nbsp; <span class="user-name-text">@Html.Encode(Model.UserName)</span></li>
+                        </ol>                      
+                    </li>
+                    <li>
+                        <a id="change-pass-btn" href="javascript:void(0)" data-animation="scale-up" role="button">
+                            @ViewResources.ChangePassword
+                        </a>
+                    </li>
+                    <li>
+                        <a id="lougout-btn btn btn-primary" href="javascript:void(0)" data-animation="scale-up" role="button">
+                            @ViewResources.Logout
+                        </a>
+                    </li>
+                }
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up"
                        aria-expanded="false" role="button">
@@ -80,7 +98,7 @@
                         <span>@currentLicensee</span>
                         <i class="icon icon-menu-down" aria-hidden="true"></i>
                     </a>
-                    <ul class="dropdown-menu" role="menu">
+                    <ul class="dropdown-menu licensee-list" role="menu">
                         @foreach (var licensee in Model.LicenseeList)
                         {
                             <li role="presentation">

@@ -1014,7 +1014,7 @@ body.site-gridmenu-active {
 .page {
   background: #fff;
   position: relative;
-  height: calc(100% - 70px); }
+  height: calc(100% - 72px); }
 
 .page-dark.layout-full {
   color: #fff; }
@@ -1605,6 +1605,10 @@ body.site-gridmenu-active {
 .navbar {
   margin-bottom: 0; }
 
+.licensee-list {
+  height: 300px;
+  overflow-y: scroll; }
+
 .site-navbar .navbar-header {
   background-color: #314453;
   color: #fff;
@@ -1627,6 +1631,11 @@ body.site-gridmenu-active {
       color: #fff; }
       .site-navbar .navbar-container .breadcrumb a.active, .site-navbar .navbar-container .breadcrumb li.active {
         color: #fff; }
+  .site-navbar .navbar-container .welcome {
+    line-height: 60px; }
+    .site-navbar .navbar-container .welcome .user-name-text {
+      font-weight: 900;
+      color: greenyellow; }
 
 .site-navbar .navbar-header .hamburger .hamburger-bar, .site-navbar .navbar-header .hamburger:after, .site-navbar .navbar-header .hamburger:before {
   background-color: #fff; }
