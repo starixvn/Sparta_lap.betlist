@@ -988,6 +988,7 @@
     <Content Include="www\js\build\pages\menubar.min.js" />
     <Content Include="www\js\build\pages\sidebar.min.js" />
     <Content Include="www\js\build\pages\site.min.js" />
+    <Content Include="www\js\build\plugins\asscrollable.min.js" />
     <Content Include="www\js\build\plugins\breakpoints.min.js" />
     <Content Include="www\js\build\plugins\daterangepicker.js" />
     <Content Include="www\js\build\plugins\jquery-asHoverScroll.min.js" />
@@ -1004,6 +1005,7 @@
     <Content Include="www\js\source\pages\menu\site.min.js" />
     <Content Include="www\js\source\plugins\ashoverscroll\jquery-asHoverScroll.min.js" />
     <Content Include="www\css\source\vendors\asscrollable\asScrollable.min.css" />
+    <Content Include="www\js\source\plugins\asscrollable\asscrollable.min.js" />
     <Content Include="www\js\source\plugins\asscrollable\jquery.asScrollable.all.min.js" />
     <Content Include="www\js\source\plugins\asscroll\jquery-asScroll.min.js" />
     <Content Include="www\js\source\plugins\breakpoints\breakpoints.min.js" />

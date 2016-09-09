@@ -1014,8 +1014,7 @@ body.site-gridmenu-active {
 .page {
   background: #fff;
   position: relative;
-  min-height: -webkit-calc(100% - 44px);
-  min-height: calc(100% - 44px); }
+  height: calc(100% - 70px); }
 
 .page-dark.layout-full {
   color: #fff; }
@@ -1602,6 +1601,9 @@ body.site-gridmenu-active {
 
 .site-print .page {
   margin: 0 !important; }
+
+.navbar {
+  margin-bottom: 0; }
 
 .site-navbar .navbar-header {
   background-color: #314453;

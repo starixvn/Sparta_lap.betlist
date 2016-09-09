@@ -3,8 +3,7 @@
 .page {
     background: #fff;
     position: relative;
-    min-height: -webkit-calc(100% - 44px);
-    min-height: calc(100% - 44px);
+    height: calc(100% - 70px);
 }
 
 .page-dark.layout-full {

@@ -36,3 +36,8 @@
 @{ Html.RenderAction("Index", "Header"); }
 
 @{ Html.RenderAction("Index", "Menu"); }
+
+<div class="page">
+    <iframe src="@(Util.RootPath + ViewBag.DefaultReportUrl)" id="main" name="main" scrolling="auto"
+            width="100%" height="100%" frameborder="0"></iframe>
+</div>
