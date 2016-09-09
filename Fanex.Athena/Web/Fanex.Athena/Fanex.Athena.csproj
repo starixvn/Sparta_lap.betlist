@@ -942,6 +942,7 @@
     <Content Include="www\assets\images\logo.svg" />
     <Content Include="www\css\build\plugins\daterangepicker\daterangepicker.min.css" />
     <Content Include="www\css\build\plugins\flag-icon-css\flag-icon.min.css" />
+    <Content Include="www\css\build\plugins\waves\waves.min.css" />
     <Content Include="www\css\build\vendors\bootstrap-extend.css" />
     <Content Include="www\css\build\vendors\bootstrap.css" />
     <Content Include="www\css\build\pages\reports\liveReport.min.css" />
@@ -983,6 +984,7 @@
     <Content Include="www\assets\font-icon\style.css" />
     <Content Include="www\js\build\plugins\daterangepicker\daterangepicker.js" />
     <Content Include="www\js\build\plugins\moment\moment.min.js" />
+    <Content Include="www\js\build\plugins\waves\waves.min.js" />
     <Content Include="www\js\build\vendors\bootstrap.min.js" />
     <Content Include="www\js\build\vendors\jquery.min.js" />
     <Content Include="www\js\source\vendors\bootstrap\bootstrap.min.js" />
@@ -1055,6 +1057,8 @@
     <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\LiveReportDetail.cshtml" />
     <Content Include="Views\Desktop\Header\Index.cshtml" />
     <Content Include="www\css\source\vendors\daterangepicker\daterangepicker.scss" />
+    <Content Include="Views\Desktop\Home\Index.cshtml" />
+    <Content Include="Views\Desktop\Menu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">

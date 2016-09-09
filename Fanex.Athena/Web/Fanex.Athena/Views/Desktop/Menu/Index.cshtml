@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null;
+    var fucntionAddNewAccount = 47;
+    var functionCustCommGroup = 55;
+}
+@model Fanex.Athena.Model.Core.ViewModel.MenuViewModel
+<div class="site-menubar">
+    <div class="site-menubar-body">
+        <div>
+            <div>
+                <ul class="site-menu">
+                    @foreach (var masterFunction in Model.MasterFunctions)
+                    {
+                        var subFunctions = Model.UserDetailFunctions.ContainsKey(masterFunction.FunctionId)
+                                    ? Model.UserDetailFunctions[masterFunction.FunctionId].Where(f => f.IsMenu).ToList()
+                                    : null;
+                        var subMenuCount = subFunctions != null ? subFunctions.Count : 0;
+                        if (subMenuCount > 0)
+                        {
+                            <li class="site-menu-item has-sub">
+                                <a href="javascript:void(0)">
+                                    <span class="site-menu-title">@masterFunction.Name</span>
+                                    <span class="site-menu-arrow"></span>
+                                </a>
+
+                                @foreach (var subFunction in subFunctions)
+                                {
+                                    if (!Model.IsAllowedCustonmerCommission && subFunction.FunctionId == functionCustCommGroup)
+                                    {
+                                        continue;
+                                    }
+                                    if (Model.IsInternalLogin && subFunction.FunctionId == fucntionAddNewAccount)
+                                    {
+                                        continue;
+                                    }
+
+                                    <ul class="site-menu-sub">
+                                        <li class="site-menu-item">
+                                            <a class="animsition-link" href="@Url.Content("~/" + subFunction.Url)" target="main">
+                                                <span class="site-menu-title">@Html.Raw(subFunction.Name)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                }
+
+                            </li>                          
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

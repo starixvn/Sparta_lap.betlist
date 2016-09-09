@@ -1,0 +1,18 @@
+﻿@using Fanex.Athena.Extension.Utility;
+@{
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+}
+
+@section css
+{
+    <link href="~/www/css/build/plugins/flag-icon-css/flag-icon.min.css" rel="stylesheet" />
+    <link href="~/www/css/build/plugins/waves/waves.min.css" rel="stylesheet" />
+}
+@section js
+{
+    <script src="~/www/js/build/plugins/waves/waves.min.js"></script>
+}
+
+@{ Html.RenderAction("Index", "Header"); }
+
+@{ Html.RenderAction("Index", "Menu"); }

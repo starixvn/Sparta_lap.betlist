@@ -3,126 +3,95 @@
 }
 @model Fanex.Athena.Model.Core.ViewModel.HeaderPageViewModel
 
-<!DOCTYPE html>
-
-<html class="no-js css-menubar" lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>Header</title>
-    <link href="~/www/assets/font-icon/style.css" rel="stylesheet" />
-    <link href="~/www/css/build/plugins/flag-icon-css/flag-icon.min.css" rel="stylesheet" />
-    <link href="~/www/css/build/vendors/bootstrap.css" rel="stylesheet" />
-    <link href="~/www/css/build/vendors/bootstrap-extend.css" rel="stylesheet" />
-    <link href="~/www/css/build/site.min.css" rel="stylesheet" />
-</head>
-<body>
-    <div>
-        <nav class="site-navbar navbar" role="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left hided"
-                        data-toggle="menubar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="hamburger-bar"></span>
-                </button>
-                <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-collapse"
-                        data-toggle="collapse">
-                    <i class="icon md-more" aria-hidden="true"></i>
-                </button>
-                <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-                    <div class="navbar-brand-logo"><img src="~/www/assets/images/logo.svg" /> </div>
-                    <span class="navbar-brand-text hidden-xs">
-                        <img src="~/www/assets/images/logo-text.svg" />
-                    </span>
-                </div>
-                <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-search"
-                        data-toggle="collapse">
-                    <span class="sr-only">Toggle Search</span>
-                    <i class="icon md-search" aria-hidden="true"></i>
-                </button>
-            </div>
-
-            <div class="navbar-container container-fluid">
-                <!-- Navbar Collapse -->
-                <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
-                    <!-- Navbar Toolbar -->
-                    <ul class="nav navbar-toolbar">
-                        <li class="hidden-float" id="toggleMenubar">
-                            <a data-toggle="menubar" href="#" role="button">
-                                <i class="icon icon-backburger">
-                                    <span class="sr-only">Toggle menubar</span>
-                                    <span class="hamburger-bar"></span>
-                                </i>
-                            </a>
-                        </li>
-                        <li class="hidden-float">
-                            <ol class="breadcrumb">
-                                <li class="active">Live Report</li>
-                            </ol>
-                        </li>
-                    </ul>
-                    <!-- End Navbar Toolbar -->
-                    <!-- Navbar Toolbar Right -->
-                    <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up"
-                               aria-expanded="false" role="button">
-                                <span class="flag-icon flag-icon-@Model.Language"></span>
-                                @{
-                                    var currentLanguage = Model.SupportedLanguageList.FirstOrDefault(p => p.Key.Equals(Model.Language)).Value;
-                                }
-                                <span>@currentLanguage</span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                @foreach (var language in Model.SupportedLanguageList)
-                                {
-                                    <li role="presentation">
-                                        <a href="javascript:void(0)" role="menuitem" langkey="@language.Key">
-                                            <span class="flag-icon flag-icon-@language.Key"></span> @language.Value
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up"
-                               aria-expanded="false" role="button">
-                                @{
-                                    var currentLicensee = Model.LicenseeList.FirstOrDefault(p => p.Id.Equals(Model.CurrentLicenseeId)).Name;
-                                }
-                                <span>@currentLicensee</span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                @foreach (var licensee in Model.LicenseeList)
-                                {
-                                    <li role="presentation">
-                                        <a href="javascript:void(0)" role="menuitem" licenseeId="@licensee.Id">
-                                            @licensee.Name
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <select>
-                                @foreach (var licensee in Model.LicenseeList)
-                                {
-                                    <option value="@licensee.Id">@licensee.Name</option>
-                                }
-                            </select>
-                        </li>
-                    </ul>
-                    <!-- End Navbar Toolbar Right -->
-                </div>
-                <!-- End Navbar Collapse -->
-            </div>
-        </nav>
+<nav class="site-navbar navbar" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left hided"
+                data-toggle="menubar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="hamburger-bar"></span>
+        </button>
+        <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-collapse"
+                data-toggle="collapse">
+            <i class="icon md-more" aria-hidden="true"></i>
+        </button>
+        <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
+            <div class="navbar-brand-logo"><img src="~/www/assets/images/logo.svg" /> </div>
+            <span class="navbar-brand-text hidden-xs">
+                <img src="~/www/assets/images/logo-text.svg" />
+            </span>
+        </div>
+        <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-search"
+                data-toggle="collapse">
+            <span class="sr-only">Toggle Search</span>
+            <i class="icon md-search" aria-hidden="true"></i>
+        </button>
     </div>
 
-    <script src="~/www/js/build/vendors/jquery.min.js"></script>
-    <script src="~/www/js/build/vendors/bootstrap.min.js"></script>
-</body>
-</html>
+    <div class="navbar-container container-fluid">
+        <!-- Navbar Collapse -->
+        <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
+            <!-- Navbar Toolbar -->
+            <ul class="nav navbar-toolbar">
+                <li class="hidden-float" id="toggleMenubar">
+                    <a data-toggle="menubar" href="#" role="button">
+                        <i class="icon icon-backburger">
+                            <span class="sr-only">Toggle menubar</span>
+                            <span class="hamburger-bar"></span>
+                        </i>
+                    </a>
+                </li>
+                <li class="hidden-float">
+                    <ol class="breadcrumb">
+                        <li class="active">Live Report</li>
+                    </ol>
+                </li>
+            </ul>
+            <!-- End Navbar Toolbar -->
+            <!-- Navbar Toolbar Right -->
+            <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up"
+                       aria-expanded="false" role="button">
+                        <span class="flag-icon flag-icon-@Model.Language"></span>
+                        @{
+                            var currentLanguage = Model.SupportedLanguageList.FirstOrDefault(p => p.Key.Equals(Model.Language)).Value;
+                        }
+                        <span>@currentLanguage</span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        @foreach (var language in Model.SupportedLanguageList)
+                        {
+                            <li role="presentation">
+                                <a href="javascript:void(0)" role="menuitem" langkey="@language.Key">
+                                    <span class="flag-icon flag-icon-@language.Key"></span> @language.Value
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up"
+                       aria-expanded="false" role="button">
+                        @{
+                            var currentLicensee = Model.LicenseeList.FirstOrDefault(p => p.Id.Equals(Model.CurrentLicenseeId)).Name;
+                        }
+                        <span>@currentLicensee</span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        @foreach (var licensee in Model.LicenseeList)
+                        {
+                            <li role="presentation">
+                                <a href="javascript:void(0)" role="menuitem" licenseeId="@licensee.Id">
+                                    @licensee.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+            <!-- End Navbar Toolbar Right -->
+        </div>
+        <!-- End Navbar Collapse -->
+    </div>
+</nav>
