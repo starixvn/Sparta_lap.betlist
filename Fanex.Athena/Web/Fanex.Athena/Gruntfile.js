@@ -1,3 +1,4 @@
+var webpack = require("webpack");
 module.exports = function(grunt) {
 
 	grunt.file.defaultEncoding = "utf-8";
@@ -25,23 +26,34 @@ module.exports = function(grunt) {
     },
 	webpack: {
 		bundle: {
+			context: __dirname + "/www/js/",
+			resolve: {
+				alias: {
+					jquery: __dirname + "/www/js/source/vendors/jquery/jquery.min.js",
+					bootstrap: __dirname + "/www/js/source/vendors/bootstrap/bootstrap.min.js"
+				}
+			},
 			entry: {
-				livereport: "./www/js/source/pages/livereport/main.js",
+				// "vendors/vendors": [ "bootstrap"],
+				 "vendors/vendors": "./source/vendors/vendors.js",
+				"pages/livereport/livereport": "./source/pages/livereport/livereport.js"
 			},
 			output: {
-				path: "./www/js/build/pages/livereport",
-				filename: "[name].bundle.js"
+				path: __dirname + "/www/js/build/",
+				filename: "[name].chunk.js"
 			},
-			loaders: [
-				{
-					test: /\.js$/,
-					loader: 'babel',
-					query: {
-						presets: ['es2015']
-					}
-				}
+			plugins: [ 
+				/*new webpack.optimize.CommonsChunkPlugin({
+				  name: "commons",
+				  filename: "commons.js",
+				}),*/
+				/*new webpack.ProvidePlugin({ 
+					$: "jquery",
+					jQuery: "jquery"
+				})*/
+			//new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }) 
 			]
-		  }
+		}
 	}
   });
 

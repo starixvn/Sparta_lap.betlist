@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -708,6 +708,8 @@
     <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
     <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
     <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
+    <Content Include="www\js\build\vendors\vendors.chunk.js" />
+    <Content Include="www\js\source\vendors\vendors.js" />
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
@@ -996,8 +998,7 @@
     <Content Include="www\js\build\plugins\jquery.asScrollable.all.min.js" />
     <Content Include="www\js\build\plugins\moment.min.js" />
     <Content Include="www\js\build\plugins\waves.min.js" />
-    <Content Include="www\js\build\vendors\bootstrap.min.js" />
-    <Content Include="www\js\build\vendors\jquery.min.js" />
+    <Content Include="www\js\source\pages\livereport\livereport.js" />
     <Content Include="www\js\source\pages\menu\core.min.js" />
     <Content Include="www\js\source\pages\menu\menu.min.js" />
     <Content Include="www\js\source\pages\menu\menubar.min.js" />
@@ -4934,6 +4935,7 @@
   <ItemGroup>
     <Folder Include="Content\Plugin\MultiSelect\images\images\" />
     <Folder Include="Logs\" />
+    <Folder Include="www\js\build\pages\livereport\" />
     <Folder Include="www\js\source\pages\livereport\specs\" />
   </ItemGroup>
   <ItemGroup />
