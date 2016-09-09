@@ -22,13 +22,33 @@ module.exports = function(grunt) {
 		options: grunt.file.readJSON('jshint.json'),
 		beforeconcat: jsFilters,
 		afterconcat: ['dist/output.js']
-     }
+    },
+	webpack: {
+		bundle: {
+			entry: {
+				livereport: "./www/js/source/pages/livereport/main.js",
+			},
+			output: {
+				path: "./www/js/build/pages/livereport",
+				filename: "[name].bundle.js"
+			},
+			loaders: [
+				{
+					test: /\.js$/,
+					loader: 'babel',
+					query: {
+						presets: ['es2015']
+					}
+				}
+			]
+		  }
+	}
   });
 
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-
+	grunt.loadNpmTasks('grunt-karma');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-webpack');
+	
   // Default task(s).
   // grunt.registerTask('default', ['karma']);
-
 };
