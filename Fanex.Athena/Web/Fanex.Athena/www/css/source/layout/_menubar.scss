@@ -481,6 +481,10 @@ body.site-gridmenu-active {
         }
     }
 
+    .input-search{
+        display: none;
+    }
+
     .site-menu {
         > .site-menu-item {
             font-size: 14px;
@@ -817,6 +821,19 @@ body.site-gridmenu-active {
             .site-menu-sub {
                 display: none;
             }
+        }
+    }
+
+    .input-search{
+        padding: 0 16px;
+        margin-bottom: 10px;
+
+        &-icon{
+            left: initial;
+            right: 15px;
+            height: 100%;
+            line-height: 30px;
+            pointer-events: initial;
         }
     }
 
