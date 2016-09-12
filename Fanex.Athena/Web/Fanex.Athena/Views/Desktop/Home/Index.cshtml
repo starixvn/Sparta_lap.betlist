@@ -1,43 +1,57 @@
 ﻿@using Fanex.Athena.Extension.Utility;
-@{
-    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+@{ 
+    Layout = null;
 }
+<!DOCTYPE html>
 
-@section css
-{
+<html class="no-js css-menubar" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+
+    <title>@ViewBag.Title</title>
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,700'>
+    <link href="~/www/assets/font-icon/style.css" rel="stylesheet" />
+    <link href="~/www/css/build/vendors/bootstrap.css" rel="stylesheet" />
+    <link href="~/www/css/build/vendors/bootstrap-extend.css" rel="stylesheet" />
+    <link href="~/www/css/build/site.min.css" rel="stylesheet" />
     <link href="~/www/css/build/plugins/asScrollable.min.css" rel="stylesheet" />
     <link href="~/www/css/build/plugins/flag-icon.min.css" rel="stylesheet" />
     <link href="~/www/css/build/plugins/waves.min.css" rel="stylesheet" />
-}
-@section js
-{
-    <script src="~/www/js/build/plugins/breakpoints.min.js"></script>
+</head>
+<body class="site-menubar-unfold">
+    @{ Html.RenderAction("Index", "Header"); }
+
+    @{ Html.RenderAction("Index", "Menu"); }
+
+    <div class="page">
+        <iframe src="@(Util.RootPath + ViewBag.DefaultReportUrl)" id="main" name="main" scrolling="auto"
+                width="100%" height="100%" frameborder="0"></iframe>
+    </div>
+
+    <script src="~/www/js/source/vendors/jquery/jquery.min.js"></script>
+    <script src="~/www/js/source/vendors/bootstrap/bootstrap.min.js"></script>
+    
+    <script src="~/www/js/source/plugins/breakpoints/breakpoints.min.js"></script>
     <script>
             Breakpoints();
     </script>
-
-    <script src="~/www/js/build/plugins/jquery-asScroll.min.js"></script>
-    <script src="~/www/js/build/plugins/jquery.asScrollable.all.min.js"></script>
-    <script src="~/www/js/build/plugins/jquery-asHoverScroll.min.js"></script>
-    <script src="~/www/js/build/plugins/waves.min.js"></script>
-    <script src="~/www/js/build/pages/core.min.js"></script>
-    <script src="~/www/js/build/pages/site.min.js"></script>
-    <script src="~/www/js/build/pages/menu.min.js"></script>    
-    <script src="~/www/js/build/pages/menubar.min.js"></script>
-    <script src="~/www/js/build/pages/sidebar.min.js"></script>
+    <script src="~/www/js/source/plugins/asscroll/jquery-asScroll.min.js"></script>
+    <script src="~/www/js/source/plugins/asscrollable/jquery.asScrollable.all.min.js"></script>
+    <script src="~/www/js/source/plugins/ashoverscroll/jquery-asHoverScroll.min.js"></script>
+    <script src="~/www/js/source/plugins/waves/waves.min.js"></script>
+    <script src="~/www/js/source/pages/menu/core.min.js"></script>
+    <script src="~/www/js/source/pages/menu/site.min.js"></script>
+    <script src="~/www/js/source/pages/menu/menu.min.js"></script>
+    <script src="~/www/js/source/pages/menu/menubar.min.js"></script>
+    <script src="~/www/js/source/pages/menu/sidebar.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function ($) {
             Site.run(), Waves.attach(".page-content .btn-floating", ["waves-light"])
         });
     </script>
-}
-
-@{ Html.RenderAction("Index", "Header"); }
-
-@{ Html.RenderAction("Index", "Menu"); }
-
-<div class="page">
-    <iframe src="@(Util.RootPath + ViewBag.DefaultReportUrl)" id="main" name="main" scrolling="auto"
-            width="100%" height="100%" frameborder="0"></iframe>
-</div>
+</body>
+</html>

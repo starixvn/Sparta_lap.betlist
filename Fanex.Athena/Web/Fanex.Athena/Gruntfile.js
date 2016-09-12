@@ -52,6 +52,11 @@ module.exports = function(grunt) {
 				filename: "[name].chunk.js",
 				publicPath: "/www/js/build/"
 			},
+			externals: {
+			    // require("jquery") is external and available
+			    //  on the global var jQuery
+			    "jQuery": "jquery"
+			},
 			plugins: [
                 new webpack.optimize.CommonsChunkPlugin({
                     name: "vendors", 

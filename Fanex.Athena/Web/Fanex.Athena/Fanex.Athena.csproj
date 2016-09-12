@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -708,6 +708,7 @@
     <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
     <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
     <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
+    <Content Include="www\js\build\vendors.chunk.js" />
     <Content Include="www\js\source\common\site.js" />
     <Content Include="www\js\source\common\querystring.js" />
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
@@ -985,19 +986,6 @@
     <Content Include="www\assets\font-icon\fonts\icomoon.svg" />
     <Content Include="www\assets\font-icon\material-design\material-design.min.css" />
     <Content Include="www\assets\font-icon\style.css" />
-    <Content Include="www\js\build\pages\core.min.js" />
-    <Content Include="www\js\build\pages\menu.min.js" />
-    <Content Include="www\js\build\pages\menubar.min.js" />
-    <Content Include="www\js\build\pages\sidebar.min.js" />
-    <Content Include="www\js\build\pages\site.min.js" />
-    <Content Include="www\js\build\plugins\asscrollable.min.js" />
-    <Content Include="www\js\build\plugins\breakpoints.min.js" />
-    <Content Include="www\js\build\plugins\daterangepicker.js" />
-    <Content Include="www\js\build\plugins\jquery-asHoverScroll.min.js" />
-    <Content Include="www\js\build\plugins\jquery-asScroll.min.js" />
-    <Content Include="www\js\build\plugins\jquery.asScrollable.all.min.js" />
-    <Content Include="www\js\build\plugins\moment.min.js" />
-    <Content Include="www\js\build\plugins\waves.min.js" />
     <Content Include="www\js\source\pages\livereport\livereport.js" />
     <Content Include="www\js\source\pages\menu\core.min.js" />
     <Content Include="www\js\source\pages\menu\menu.min.js" />
