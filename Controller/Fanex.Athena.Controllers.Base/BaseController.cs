@@ -82,6 +82,11 @@ namespace Fanex.Athena.Controllers
             LangService.SetPageCulture(currentLanguage);
         }
 
+        protected string GetNewViewPath(string viewPath)
+        {
+            return SessionService.UserSession.IsNewUI ? viewPath.Replace("Views/", "Views/Desktop/") : viewPath;
+        }
+
         private IEnumerable<string> GetBaseUsdLicensees()
         {
             var items = _appSettings.GetValue("BaseUsdLicensees");

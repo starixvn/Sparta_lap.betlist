@@ -33,13 +33,25 @@ namespace Fanex.Athena.Controllers
         public ActionResult Index()
         {
             ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
-            return ReAuthorize("~/Views/Desktop/Home/Index.cshtml");
+            return ReAuthorize(GetNewViewPath("~/Views/Home/Index.cshtml"));
         }
 
         public ActionResult IndexIpad()
         {
             ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
             return ReAuthorize("~/Views/Home/IndexIpad.cshtml");
+        }
+
+        public ActionResult NewUI()
+        {
+            SessionService.UserSession.IsNewUI = true;
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult OldUI()
+        {
+            SessionService.UserSession.IsNewUI = false;
+            return RedirectToAction("Index", "Home");
         }
 
         /// <summary>

@@ -64,5 +64,7 @@ namespace Fanex.Athena.Model.Core.DTO.Users
         public IDictionary<string, int> CurrencyList { get; set; }
 
         public string DefaultReportUrl { get; set; }
+
+        public bool IsNewUI { get; set; }
     }
 }
