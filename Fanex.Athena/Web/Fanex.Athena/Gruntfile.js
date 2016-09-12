@@ -28,29 +28,47 @@ module.exports = function(grunt) {
 		bundle: {
 			context: __dirname + "/www/js/",
 			resolve: {
-				alias: {
-					jquery: __dirname + "/www/js/source/vendors/jquery/jquery.min.js",
-					bootstrap: __dirname + "/www/js/source/vendors/bootstrap/bootstrap.min.js"
-				}
+			    alias: {
+                    // vendors
+			        jquery: __dirname + "/www/js/source/vendors/jquery/jquery.min.js",
+			        bootstrap: __dirname + "/www/js/source/vendors/bootstrap/bootstrap.min.js",
+
+                    // plugins
+			        moment: __dirname + "/www/js/source/plugins/moment/moment.min.js",
+			        daterangepicker: __dirname + "/www/js/source/plugins/daterangepicker/daterangepicker.js",
+
+			        // common
+			        querystring: __dirname + "/www/js/source/common/querystring.js",
+			        site: __dirname + "/www/js/source/common/site.js"
+			    }
 			},
 			entry: {
-				// "vendors/vendors": [ "bootstrap"],
-				 "vendors/vendors": "./source/vendors/vendors.js",
+			    "vendors": ["jquery", "bootstrap"],
+			  //  "common": ["querystring", "site"],
 				"pages/livereport/livereport": "./source/pages/livereport/livereport.js"
 			},
 			output: {
 				path: __dirname + "/www/js/build/",
-				filename: "[name].chunk.js"
+				filename: "[name].chunk.js",
+				publicPath: "/www/js/build/"
 			},
-			plugins: [ 
-				/*new webpack.optimize.CommonsChunkPlugin({
-				  name: "commons",
-				  filename: "commons.js",
-				}),*/
-				/*new webpack.ProvidePlugin({ 
+			plugins: [
+                new webpack.optimize.CommonsChunkPlugin({
+                    name: "vendors", 
+                    filename: "vendors.chunk.js",
+                 //   chunks: ["vendors", "common"],
+                    minChunks: Infinity
+                }),
+				//new webpack.optimize.CommonsChunkPlugin({
+				//    name: "common",
+				//    filename: "common.chunk.js",
+				//    chunks: ["common"],
+				//    minChunks: Infinity
+				//}),
+				new webpack.ProvidePlugin({ 
 					$: "jquery",
 					jQuery: "jquery"
-				})*/
+				})
 			//new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }) 
 			]
 		}

@@ -34,6 +34,7 @@
             @Html.Raw(ViewBag.NotificationContent)
         </div>
     }
+    <input type="hidden" id="rootUrl" value="@Url.Content("~/")" />
     <div class="ui-layout-north">
         <iframe src="@(Util.RootPath)Header/Index" id="header" name="header"
             width="100%" scrolling="no" frameborder="0" height="52px"></iframe>

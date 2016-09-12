@@ -708,8 +708,8 @@
     <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
     <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
     <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
-    <Content Include="www\js\build\vendors\vendors.chunk.js" />
-    <Content Include="www\js\source\vendors\vendors.js" />
+    <Content Include="www\js\source\common\site.js" />
+    <Content Include="www\js\source\common\querystring.js" />
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
