@@ -119,7 +119,11 @@ var ActiveCustomerOption = (function () {
             column.name = "CustomerCount" + value.Code;
             column.index = column.name;
 
-            if (!value.Status) {
+            if (value.Status) {
+                column.formatter = function (cellvalue, options, rowObject) {
+                    return rowObject.CustomerCount[value.Code];
+                };
+            } else {
                 column.formatter = function () {
                     return "-";
                 };

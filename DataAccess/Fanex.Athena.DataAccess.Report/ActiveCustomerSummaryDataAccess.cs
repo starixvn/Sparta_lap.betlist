@@ -9,7 +9,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Core;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -22,23 +21,12 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    /// Licensee win loss data access.
-    /// </summary>
     public class ActiveCustomerSummaryDataAccess : BaseDataAccess, IActiveCustomerSummaryDataAccess
     {
         public ActiveCustomerSummaryDataAccess()
         {
         }
 
-        #region IActiveCustomerDataAccess Members
-
-        /// <summary>
-        /// Get summary win loss.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="totalCustomer">Total customer value.</param>
-        /// <returns>The result value.</returns>
         public SortableList<ActiveCustomer> GetActiveCustomers(ActiveCustomerMetaModel metaModel, out int totalCustomer)
         {
             var uspName = "Lrf_Rpt_ActiveMember";
@@ -51,7 +39,7 @@ namespace Fanex.Athena.DataAccess.Report
                     SortableList<ActiveCustomer> data;
                     using (var reader = db.ExecuteReader())
                     {
-                         data = GetData(reader, metaModel);
+                        data = GetData(reader, metaModel);
                     }
 
                     totalCustomer = Convert.ToInt32(db.GetParameterValue("TotalActive"));
@@ -66,18 +54,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        #endregion IActiveCustomerDataAccess Members
-
-        #region Private
-
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private static SortableList<ActiveCustomer> GetData(IDataReader reader, ActiveCustomerMetaModel metaModel)
         {
             var result = new SortableList<ActiveCustomer>();
@@ -106,11 +82,6 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        /// <summary>
-        /// Update USP parameter.
-        /// </summary>
-        /// <param name="db">Database value.</param>
-        /// <param name="metaModel">Meta model value.</param>
         private void UpdateUspParams(IObjectDb db, ActiveCustomerMetaModel metaModel)
         {
             var productCodes = metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code).ToArray();
@@ -122,7 +93,5 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("products", DbType.String, string.Join(",", productCodes));
             db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);
         }
-
-        #endregion Private
     }
 }

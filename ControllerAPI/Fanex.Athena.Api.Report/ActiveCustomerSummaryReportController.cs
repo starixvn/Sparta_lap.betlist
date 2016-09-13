@@ -45,7 +45,7 @@ namespace Fanex.Athena.Api.Report
         {
             return new
             {
-                Data = new List<ActiveCustomerGridViewModel>(),
+                Data = new List<ActiveCustomer>(),
                 GrantTotalCustomer = 0,
                 ProductOptions = metaModel.ProductOptions.ToJson()
             };
@@ -57,12 +57,6 @@ namespace Fanex.Athena.Api.Report
         {
             if (sortBy != null)
             {
-                // Sort for grouping columns, get the real column name
-                if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
-                {
-                    sortBy = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
-                }
-
                 var property = typeof(ActiveCustomer).GetProperty(sortBy);
 
                 if (property == null)
@@ -86,31 +80,6 @@ namespace Fanex.Athena.Api.Report
         #endregion ProcessRequest
 
         #region Private Utility
-
-        private static ActiveCustomerGridViewModel MapToGridView(ActiveCustomer item)
-        {
-            return new ActiveCustomerGridViewModel
-            {
-                TotalCustomer = item.TotalCustomer,
-                TransactionDate = item.TransactionDate,
-                CustomerCountBA = item.CustomerCount.Keys.Contains(Product.BA) ? item.CustomerCount[Product.BA] : 0,
-                CustomerCountSB = item.CustomerCount.Keys.Contains(Product.SB) ? item.CustomerCount[Product.SB] : 0,
-                CustomerCountRB = item.CustomerCount.Keys.Contains(Product.RB) ? item.CustomerCount[Product.RB] : 0,
-                CustomerCountNG = item.CustomerCount.Keys.Contains(Product.NG) ? item.CustomerCount[Product.NG] : 0,
-                CustomerCountLC = item.CustomerCount.Keys.Contains(Product.LC) ? item.CustomerCount[Product.LC] : 0,
-                CustomerCountVS = item.CustomerCount.Keys.Contains(Product.VS) ? item.CustomerCount[Product.VS] : 0,
-                CustomerCountCS = item.CustomerCount.Keys.Contains(Product.CS) ? item.CustomerCount[Product.CS] : 0,
-                CustomerCountBG = item.CustomerCount.Keys.Contains(Product.BG) ? item.CustomerCount[Product.BG] : 0,
-                CustomerCountKN = item.CustomerCount.Keys.Contains(Product.KN) ? item.CustomerCount[Product.KN] : 0,
-                CustomerCountPTCS = item.CustomerCount.Keys.Contains(Product.PTCS) ? item.CustomerCount[Product.PTCS] : 0,
-                CustomerCountAGC = item.CustomerCount.Keys.Contains(Product.AGC) ? item.CustomerCount[Product.AGC] : 0,
-                CustomerCountMGCLC = item.CustomerCount.Keys.Contains(Product.MGCLC) ? item.CustomerCount[Product.MGCLC] : 0,
-                CustomerCountMGCRNG = item.CustomerCount.Keys.Contains(Product.MGCRNG) ? item.CustomerCount[Product.MGCRNG] : 0,
-                CustomerCountBT = item.CustomerCount.Keys.Contains(Product.BT) ? item.CustomerCount[Product.BT] : 0,
-                CustomerCountVB = item.CustomerCount.Keys.Contains(Product.VB) ? item.CustomerCount[Product.VB] : 0,
-                CustomerCountAB = item.CustomerCount.Keys.Contains(Product.AB) ? item.CustomerCount[Product.AB] : 0
-            };
-        }
 
         private HttpResponseMessage ExportExcel(ActiveCustomerMetaModel metaModel, IList<ActiveCustomer> dataList, int totalCustomer)
         {
@@ -136,23 +105,22 @@ namespace Fanex.Athena.Api.Report
                 CurrencyName = currencyName.Key
             };
 
-            var exccelModel = new ActiveCustomerViewModel
+            var excelModel = new ActiveCustomerViewModel
             {
                 MainResult = dataList,
                 TotalCustomer = totalCustomer,
             };
 
-            var excel = new ActiveCustomerSummaryExcel(templatePath, FileName, convertingOption, showingOption, metaModel, exccelModel);
+            var excel = new ActiveCustomerSummaryExcel(templatePath, FileName, convertingOption, showingOption, metaModel, excelModel);
 
             excel.Export();
 
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        private dynamic ProcessRequest(
-            ActiveCustomerMetaModel metaModel)
+        private dynamic ProcessRequest(ActiveCustomerMetaModel metaModel)
         {
-            if (IsValidRequest(metaModel))
+            if (!IsValidRequest(metaModel))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.UserId = SessionService.UserSession.UserId;
@@ -171,7 +139,7 @@ namespace Fanex.Athena.Api.Report
 
                     return new
                     {
-                        Data = dataList.Select(MapToGridView).ToList(),
+                        Data = dataList,
                         GrantTotalCustomer = totalCustomer,
                         ProductOptions = metaModel.ProductOptions.ToJson()
                     };

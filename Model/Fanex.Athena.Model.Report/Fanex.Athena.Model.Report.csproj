@@ -183,7 +183,6 @@
     <Compile Include="ViewModel\BalanceViewModel.cs" />
     <Compile Include="ViewModel\AgCasinoWinLossViewModel.cs" />
     <Compile Include="ViewModel\ActiveCustomerViewModel.cs" />
-    <Compile Include="ViewModel\ActiveCustomerGridViewModel.cs" />
     <Compile Include="ViewModel\CasinoProgressiveWinsViewModel.cs" />
     <Compile Include="ViewModel\CasinoProgressiveWinsGridViewModel.cs" />
     <Compile Include="ViewModel\MicroGamingWinLossViewModel.cs" />
