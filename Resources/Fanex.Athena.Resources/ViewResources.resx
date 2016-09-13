@@ -2853,4 +2853,8 @@
   <data name="EnableAllBet" xml:space="preserve">
     <value>Enable AllBet</value>
   </data>
+  <data name="ProductCB" xml:space="preserve">
+    <value>Colossus Bets</value>
+    <comment>#63785</comment>
+  </data>
 </root>

@@ -5614,6 +5614,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Colossus Bets.
+        /// </summary>
+        public static string ProductCB {
+            get {
+                return ResourceManager.GetString("ProductCB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RNG Casino.
         /// </summary>
         public static string ProductCS {
