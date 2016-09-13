@@ -172,6 +172,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColossusBetsWinLossReportController.cs" />
     <Compile Include="LicenseeWinLossReportController.cs" />
     <Compile Include="LiveReportController.cs" />
     <Compile Include="NoteController.cs" />
