@@ -2,7 +2,8 @@
 @model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
 
 @{
-    var liveReportNoDetailLinkSports = AppSettings.LiveReportNoDetailLinkSports;
+    var appSettings = new AppSettings();
+    var liveReportNoDetailLinkSports = appSettings.LiveReportNoDetailLinkSports;
 }
 
 @helper DisplayCustomerWinLoss(ICustomerWinLoss data, bool isAllowedCustomerCommission)

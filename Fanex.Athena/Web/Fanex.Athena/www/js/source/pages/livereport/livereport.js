@@ -46,7 +46,14 @@ define(
         $("body").on("click", ".sport-detailt-link", function () {
             viewSportDetail(this);
         });
+
+        $('#exporttoexcel').click(function () {
+            $('#IsExportExcel').val(true);
+            $('#livereport').submit();
+            $('#IsExportExcel').val(false);
+        });
     }
+
     function initDateRangePicker() {
         $(function () {
             var start = moment().subtract(29, 'days');

@@ -65,7 +65,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            var isExportedExcel = Request.Form["exporttoexcel.x"] != null;
+            var isExportedExcel = metaModel.IsExportExcel || Request.Form["exporttoexcel.x"] != null;
             var balance = BalanceUpService.BalanceUpInfo;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
