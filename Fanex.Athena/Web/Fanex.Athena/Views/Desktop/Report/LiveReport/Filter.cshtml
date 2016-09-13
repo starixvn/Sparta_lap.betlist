@@ -11,12 +11,13 @@
 
                 <div class="form-group form-material row margin-bottom-0">
                     <div class="col-sm-4 col-md-2 col-lg-2 has-icon calendar">
-                        <label class="control-label">@ViewResources.From</label>
-                        <input name="FromDate" id="FromDate" class="form-control range" type="text" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")">
-                    </div>
-                    <div class="col-sm-4 col-md-2 col-lg-2 has-icon calendar">
-                        <label class="control-label">@ViewResources.To</label>
-                        <input name="ToDate" id="ToDate" type="text" class="form-control range" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
+                        <label class="control-label">@ViewResources.Date</label>
+                        <input name="DateRange" 
+                               data-original-from="@Model.Param.FromDate.ToString("MM/dd/yyyy")" 
+                               data-original-to="@Model.Param.ToDate.ToString("MM/dd/yyyy")" 
+                               id="DateRange" class="form-control range" type="text" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")">
+                        <input name="FromDate" id="FromDate" type="hidden" />
+                        <input name="ToDate" id="ToDate" type="hidden" />
                     </div>
 
                     <div class="col-sm-4 col-md-2 col-lg-2 has-icon mdl-select">

@@ -1,4 +1,4 @@
-﻿/*global QueryString, _language_en_US, _page*/
+﻿/*global QueryString, _language_en_US*/
 /// <reference path="/@JSense.js" />
 /* Preset */
 // root JSON object
@@ -10,6 +10,7 @@ var Site = (function ($) {
     var REQUEST_VERIFICATION_TOKEN;
     var _historyDate = null;
     var _licenseeId = null;
+    var _pageLanguage = null;
 
     function setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
         licenseeType = licenseeType === undefined ? "" : licenseeType;

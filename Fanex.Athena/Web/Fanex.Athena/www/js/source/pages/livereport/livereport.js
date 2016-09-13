@@ -5,6 +5,8 @@ define(
     function (QueryString, Site, moment, daterangepicker) {
     "use strict";
     
+    initialize();
+
     function initialize() {
         initEvent();
         initDateRangePicker();
@@ -37,12 +39,12 @@ define(
         /*drill down*/
         /* sumary detail*/
         $("body").on("click", ".product-detail-link", function () {
-            LiveReport.viewProductDetail(this);
+            viewProductDetail(this);
         });
         /* sumary detail*/
         /* detail*/
         $("body").on("click", ".sport-detailt-link", function () {
-            LiveReport.viewSportDetail(this);
+            viewSportDetail(this);
         });
     }
     function initDateRangePicker() {
@@ -52,10 +54,11 @@ define(
 
             function setRangeDate(start, end) {
                 $('#FromDate').val(start.format('MM/DD/YYYY'));
-                $('#ToDate').val(end.format('MM/DD/YYYY'));
+                $('#EndDate').val(end.format('MM/DD/YYYY'));
+                $('#DateRange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
             }
 
-            $('#FromDate, #ToDate').daterangepicker({
+            $('#DateRange').daterangepicker({
                 startDate: start,
                 endDate: end,
                 ranges: {
@@ -69,10 +72,11 @@ define(
                 locale: {
                     format: 'MM/DD/YYYY'
                 },
-                showDropdowns: true
+                showDropdowns: true,
+                alwaysShowCalendars: true
             }, setRangeDate);
 
-            $('#FromDate, #ToDate').on('apply.daterangepicker', function (ev, picker) {
+            $('#DateRange').on('apply.daterangepicker', function (ev, picker) {
                 setRangeDate(picker.startDate, picker.endDate);
             });
 
@@ -108,21 +112,18 @@ define(
         var productCode = $(target).attr("data-product-code");
         var data = {
             productCode: productCode,
-            FromDate: $("#FromDate").attr('data-original').toString("MM/dd/yyyy"),
-            ToDate: $("#ToDate").attr('data-original').toString("MM/dd/yyyy"),
+            FromDate: $("#DateRange").attr('data-original-from').toString("MM/dd/yyyy"),
+            ToDate: $("#DateRange").attr('data-original-to').toString("MM/dd/yyyy"),
             BaseCurrency: $("#BaseCurrency").attr('data-original'),
             LiveIndicator: $("#LiveIndicator").attr('data-original')
         };
         data = Site.setLicenseeOptionOriginalParam(data);
-        /*selected*/
         var isSelected = $(target).parent().hasClass("selected");
         if (isSelected) { return; }
-        /* selected*/
 
         $("a.product-detail-link").parent().removeClass("selected");
         $(target).parent().addClass("selected");
 
-        /* make request*/
         $.ajax({
             type: "POST",
             data: data,
@@ -130,15 +131,13 @@ define(
             url: Site.resolveClientUrl("LiveReport/Detail"),
             success: function () {
             },
-            beforeSend: function () {
-                LiveReport.ajaxStart();
-            },
+            beforeSend: Site.blockUI(),
             complete: function (jqXHR) {
                 if (jqXHR.readyState === 4) {
                     $("#ProductCode").val(data.productCode);
                     $("#detail-content").html(jqXHR.responseText);
                 }
-                LiveReport.ajaxComplete();
+                Site.unBlockUI();
             }
         });
     }
@@ -157,10 +156,10 @@ define(
 
     function viewBetList(url, totalValue, productOptions) {
         url = Site.setLicenseeOptionOriginalParam(url);
-        url = QueryString.setParam(url, "fromdate", $("#FromDate").attr('data-original'));
-        url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original'));
+        url = QueryString.setParam(url, "fromdate", $("#FromDate").attr('data-original-from'));
+        url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original-to'));
         url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
-        url = LiveReport.setSumParams(url, totalValue);
+        url = setSumParams(url, totalValue);
         // [Jacob] Cheat for live report mix parlay, must send
         url = QueryString.setParam(url, "showsb", false);
         url = QueryString.setParam(url, "showba", false);
@@ -208,7 +207,7 @@ define(
         var data = $(target).attr("data-drill-down");
         var jsonData = $.parseJSON(data);
         var productCode = $("#ProductCode").val();
-        var productOptions = LiveReport.getMatchListProductOption(jsonData.SportId, productCode);
+        var productOptions = getMatchListProductOption(jsonData.SportId, productCode);
         var urlMap = {
             Key101: "LiveReportBetList/MixParlay?bettype=9",
             Key102: "LiveReportBetList/MixParlay?bettype=29",
@@ -231,15 +230,15 @@ define(
                 : Site.resolveClientUrl(url);
 
         if (showBetList) {
-            LiveReport.viewBetList(url, jsonData.TotalValue, productOptions);
+            viewBetList(url, jsonData.TotalValue, productOptions);
         }
         else {
             // Match List
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "SportId", jsonData.SportId);
             url = QueryString.setParam(url, "ProductCode", productCode);
-            url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original'));
-            url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original'));
+            url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original-from'));
+            url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original-to'));
             url = QueryString.setParam(url, "showsb", true);
             url = QueryString.setParam(url, "showba", false);
             url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
@@ -253,12 +252,4 @@ define(
             location.href = url;
         }
     }
-    function ajaxStart() {
-        Site.blockUI();
-    }
-    function ajaxComplete() {
-        Site.unBlockUI();
-    }
-
-    initialize();
 });

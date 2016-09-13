@@ -1,4 +1,4 @@
-﻿/*global QueryString, _language_en_US, _page*/
+﻿/*global _language_en_US*/
 /// <reference path="/@JSense.js" />
 /* Preset */
 // root JSON object
@@ -11,6 +11,11 @@ define(["querystring"], function (QueryString) {
     var _licenseeId = null;
     var _isLoadedNotificationPopup = false;
     var _rootUrl = null;
+    var _pageLanguage = null;
+
+    $(function () {
+        initialize();
+    });
 
     function addNoticationPopup() {
         var $marquee = $("#notification-marquee");
@@ -71,8 +76,15 @@ define(["querystring"], function (QueryString) {
         currencyConstraint();
         initEvent();
         _historyDate = new Date($("#HistoryDate").val());
+        _rootUrl = $('#RootUrl').val();
+        _pageLanguage = $('#PageLanguage').val();
+        initBlockUI();
+        addNoticationPopup();
+        overrideInnerSize();
     }
     function initEvent() {
+        $(window).resize(overrideInnerSize);
+
         $("#CurrencyId").change(function () {
             currencyConstraint(true);
         });
@@ -595,7 +607,7 @@ define(["querystring"], function (QueryString) {
             return enghlishName;
         }
 
-        var keyName = "_language_" + _page.lang.replace("-", "_");
+        var keyName = "_language_" + _pageLanguage.replace("-", "_");
 
         var resources = window[keyName];
         if (!resources) {
@@ -713,10 +725,8 @@ define(["querystring"], function (QueryString) {
     ////////
 
     return {
-        alert: function(){
-            alert(1);
-        },
         initialize: initialize,
+        resolveClientUrl: resolveClientUrl,
         exportExcel: exportExcel,
         setConstraintMonthRange: setConstraintMonthRange,
         showMessaegBox: showMessaegBox,

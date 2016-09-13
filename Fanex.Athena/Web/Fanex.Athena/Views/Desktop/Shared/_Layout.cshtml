@@ -16,7 +16,14 @@
     @RenderSection("css", required: false)
 </head>
 <body class="site-menubar-unfold">
+    <input type="hidden" id="RootUrl" value="@Url.Content("~/")" />
+    <input type="hidden" id="PageLanguage" value="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag" />
     @RenderBody()
+    <script src="~/Scripts/Languages/ViewResources.js"></script>
+    <script src="~/Scripts/Languages/ViewResources.zh-CN.js"></script>
+    <script src="~/Scripts/Languages/ViewResources.zh-TW.js"></script>
+    <script src="~/Scripts/Languages/ViewResources.zh-Hans.js"></script>
+    <script src="~/Scripts/Languages/ViewResources.ko-KR.js"></script>
     <script src="~/www/js/build/vendors.chunk.js"></script>
     @RenderSection("js", required: false)
 </body>
