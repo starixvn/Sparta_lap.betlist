@@ -2857,4 +2857,7 @@
     <value>Colossus Bets</value>
     <comment>#63785</comment>
   </data>
+  <data name="ColossusBetsWinLoss" xml:space="preserve">
+    <value>Colossus Bets WinLoss</value>
+  </data>
 </root>

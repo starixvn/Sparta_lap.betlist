@@ -957,6 +957,9 @@
     <Content Include="Views\BetList\RunningBettypesOfMatchBetList\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\AllBet.cshtml" />
     <Content Include="Views\Report\Result\Popup\AllBet.cshtml" />
+    <Content Include="Views\Report\ColossusBetsWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\ColossusBetsWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\ColossusBetsWinLoss\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
