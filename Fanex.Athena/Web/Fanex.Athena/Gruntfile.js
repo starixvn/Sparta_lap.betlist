@@ -41,11 +41,25 @@ module.exports = function(grunt) {
 
 			        // common
 			        querystring: __dirname + "/www/js/source/common/querystring.js",
-			        site: __dirname + "/www/js/source/common/site.js"
+			        site: __dirname + "/www/js/source/common/site.js",
+
+			        // home
+			        breakpoints: __dirname + "/www/js/source/plugins/breakpoints/breakpoints.min.js",
+			        asscroll: __dirname + "/www/js/source/plugins/asscroll/jquery-asScroll.min.js",
+			        asscrollable: __dirname + "/www/js/source/plugins/asscrollable/jquery.asScrollable.all.min.js",
+			        ashoverscroll: __dirname + "/www/js/source/plugins/ashoverscroll/jquery-asHoverScroll.min.js",
+			        waves: __dirname + "/www/js/source/plugins/waves/waves.min.js",
+
+			        core: __dirname + "/www/js/source/pages/home/menu/core.min.js",
+			        menu: __dirname + "/www/js/source/pages/home/menu/menu.min.js",
+			        menubar: __dirname + "/www/js/source/pages/home/menu/menubar.min.js",
+			        sidebar: __dirname + "/www/js/source/pages/home/menu/sidebar.min.js",
+			        homesite: __dirname + "/www/js/source/pages/home/site.min.js"
 			    }
 			},
 			entry: {
 			    "vendors": ["jquery", "bootstrap"],
+			    "pages/home/home": "./source/pages/home/home.js",
 			  //  "common": ["querystring", "site"],
 				"pages/livereport/livereport": "./source/pages/livereport/livereport.js"
 			},

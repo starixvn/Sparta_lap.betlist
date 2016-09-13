@@ -30,28 +30,8 @@
         <iframe src="@(Util.RootPath + ViewBag.DefaultReportUrl)" id="main" name="main" scrolling="auto"
                 width="100%" height="100%" frameborder="0"></iframe>
     </div>
-
-    <script src="~/www/js/source/vendors/jquery/jquery.min.js"></script>
-    <script src="~/www/js/source/vendors/bootstrap/bootstrap.min.js"></script>
-    
-    <script src="~/www/js/source/plugins/breakpoints/breakpoints.min.js"></script>
-    <script>
-            Breakpoints();
-    </script>
-    <script src="~/www/js/source/plugins/asscroll/jquery-asScroll.min.js"></script>
-    <script src="~/www/js/source/plugins/asscrollable/jquery.asScrollable.all.min.js"></script>
-    <script src="~/www/js/source/plugins/ashoverscroll/jquery-asHoverScroll.min.js"></script>
-    <script src="~/www/js/source/plugins/waves/waves.min.js"></script>
-    <script src="~/www/js/source/pages/menu/core.min.js"></script>
-    <script src="~/www/js/source/pages/menu/site.min.js"></script>
-    <script src="~/www/js/source/pages/menu/menu.min.js"></script>
-    <script src="~/www/js/source/pages/menu/menubar.min.js"></script>
-    <script src="~/www/js/source/pages/menu/sidebar.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function ($) {
-            Site.run(), Waves.attach(".page-content .btn-floating", ["waves-light"])
-        });
-    </script>
+      
+    <script src="~/www/js/build/vendors.chunk.js"></script>
+    <script src="~/www/js/build/pages/home/home.chunk.js"></script>
 </body>
 </html>

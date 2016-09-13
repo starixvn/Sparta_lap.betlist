@@ -708,6 +708,7 @@
     <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
     <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
     <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
+    <Content Include="www\js\build\pages\home\home.chunk.js" />
     <Content Include="www\js\build\pages\livereport\livereport.chunk.js" />
     <Content Include="www\js\build\vendors.chunk.js" />
     <Content Include="www\js\source\common\site.js" />
@@ -987,12 +988,13 @@
     <Content Include="www\assets\font-icon\fonts\icomoon.svg" />
     <Content Include="www\assets\font-icon\material-design\material-design.min.css" />
     <Content Include="www\assets\font-icon\style.css" />
+    <Content Include="www\js\source\pages\home\home.js" />
     <Content Include="www\js\source\pages\livereport\livereport.js" />
-    <Content Include="www\js\source\pages\menu\core.min.js" />
-    <Content Include="www\js\source\pages\menu\menu.min.js" />
-    <Content Include="www\js\source\pages\menu\menubar.min.js" />
-    <Content Include="www\js\source\pages\menu\sidebar.min.js" />
-    <Content Include="www\js\source\pages\menu\site.min.js" />
+    <Content Include="www\js\source\pages\home\menu\core.min.js" />
+    <Content Include="www\js\source\pages\home\menu\menu.min.js" />
+    <Content Include="www\js\source\pages\home\menu\menubar.min.js" />
+    <Content Include="www\js\source\pages\home\menu\sidebar.min.js" />
+    <Content Include="www\js\source\pages\home\site.min.js" />
     <Content Include="www\js\source\plugins\ashoverscroll\jquery-asHoverScroll.min.js" />
     <Content Include="www\css\source\vendors\asscrollable\asScrollable.min.css" />
     <Content Include="www\js\source\plugins\asscrollable\asscrollable.min.js" />
