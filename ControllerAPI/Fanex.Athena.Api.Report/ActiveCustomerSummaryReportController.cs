@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ReportController.ActiveCustomer.cs" company="">
+// <copyright file="ActiveCustomerSummaryReportController.cs" company="">
 // Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -53,13 +53,6 @@ namespace Fanex.Athena.Api.Report
 
         #region ProcessRequest
 
-        /// <summary>
-        /// Sort data list by property (column name).
-        /// </summary>
-        /// <param name="dataList">Data list to be sorted.</param>
-        /// <param name="sortBy">Sort column name.</param>
-        /// <param name="sortOrder">ASC or DESC.</param>
-        /// <returns>Data list after being sorted.</returns>
         private static SortableList<ActiveCustomer> SortData(SortableList<ActiveCustomer> dataList, string sortBy = null, string sortOrder = "asc")
         {
             if (sortBy != null)
@@ -94,11 +87,6 @@ namespace Fanex.Athena.Api.Report
 
         #region Private Utility
 
-        /// <summary>
-        /// Convert to view model of grid.
-        /// </summary>
-        /// <param name="item">The data object.</param>
-        /// <returns>Licensee WinLoss Grid View Model.</returns>
         private static ActiveCustomerGridViewModel MapToGridView(ActiveCustomer item)
         {
             return new ActiveCustomerGridViewModel
@@ -124,13 +112,6 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        /// <summary>
-        /// Active customer - Export excel.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Data list.</param>
-        /// <param name="totalCustomer">Summary data.</param>
-        /// <returns>Http Response Message.</returns>
         private HttpResponseMessage ExportExcel(ActiveCustomerMetaModel metaModel, IList<ActiveCustomer> dataList, int totalCustomer)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -168,25 +149,6 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        /// <summary>
-        /// Get data for Active Customer report.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Output parameter: Data List.</param>
-        /// <param name="totalCustomer">Output parameter total customer.</param>
-        private void GetData(
-                ActiveCustomerMetaModel metaModel,
-                out SortableList<ActiveCustomer> dataList,
-                out int totalCustomer)
-        {
-            dataList = _activeCustomerService.GetActiveCustomers(metaModel, out totalCustomer);
-        }
-
-        /// <summary>
-        ///  Process request.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <returns>Dynamic object.</returns>
         private dynamic ProcessRequest(
             ActiveCustomerMetaModel metaModel)
         {
@@ -196,15 +158,14 @@ namespace Fanex.Athena.Api.Report
                 metaModel.UserId = SessionService.UserSession.UserId;
 
                 int totalCustomer;
-                SortableList<ActiveCustomer> dataList;
-                GetData(metaModel, out dataList, out totalCustomer);
+                var dataList = _activeCustomerService.GetActiveCustomers(metaModel, out totalCustomer);
 
                 if (metaModel.IsExportExcel)
                 {
                     return ExportExcel(metaModel, dataList, totalCustomer);
                 }
 
-                if (dataList != null && dataList.Count > 0)
+                if (dataList.Any())
                 {
                     dataList = SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
 

@@ -1,28 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByMultipleBettypeMatch" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettypeList" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettype" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_MatchWL_Bettype" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_MatchWL_Racing" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinLossByBetType" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinLossRacingByDate_Mem" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinlostRacing" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelDeleted" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinlossDaily" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_LiveReport_SelWinlossByMatch" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_LiveReport_SelWinlossRacing" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_LiveReport_SelWinlossVHRacing" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_PlatformWinLoss_Mem" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelAllByDate_Mem" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelByDayAll_Mem_Old" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelParlayDetail" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelCombinationParlayDetail" EnvironmentText="_UAT3"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelMatchResultParlay" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_3rdProductCustomerSetDefaultSetting" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_3rdProductSelCustStatus" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_3rdProductUpdCustStatus" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeProduct3rdSel" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
