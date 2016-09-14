@@ -15,6 +15,7 @@ var BetSetting = (function ($) {
     var TAB_MACAU = 12;
     var TAB_BETTRADE = 13;
     var TAB_MICROGAMINGLIVECASINO = 14;
+    var TAB_COLOSSUSBETS = 15;
     var TAB_MICROGAMINGRNGCASINO = 17;
     var TAB_ALLBET = 21;
     var TAB_VOIDBRIDGE = 22;
@@ -99,6 +100,9 @@ var BetSetting = (function ($) {
                 case TAB_MICROGAMINGLIVECASINO:               
                     url = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
                     status = $("#enable-product").is(":checked") ? 1 : 0;
+                    break;
+                case TAB_COLOSSUSBETS:
+                    url = "ThirdPartyBetSetting/UpdateColossusBetsStatus";
                     break;
                 case TAB_MICROGAMINGRNGCASINO:
                     url = "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus";

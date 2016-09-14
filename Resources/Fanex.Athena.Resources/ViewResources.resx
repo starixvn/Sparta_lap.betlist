@@ -2860,4 +2860,12 @@
   <data name="ColossusBetsWinLoss" xml:space="preserve">
     <value>Colossus Bets WinLoss</value>
   </data>
+  <data name="DisableColossusBets" xml:space="preserve">
+    <value>Disable Colossus Bets</value>
+    <comment>#63785</comment>
+  </data>
+  <data name="EnableColossusBets" xml:space="preserve">
+    <value>Enable Colossus Bets</value>
+    <comment>#63785</comment>
+  </data>
 </root>

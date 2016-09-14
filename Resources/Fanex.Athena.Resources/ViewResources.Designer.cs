@@ -1933,6 +1933,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable Colossus Bets.
+        /// </summary>
+        public static string DisableColossusBets {
+            get {
+                return ResourceManager.GetString("DisableColossusBets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable Gold Deluxe.
         /// </summary>
         public static string DisableGoldDeluxe {
@@ -2163,6 +2172,15 @@ namespace Fanex.Athena.Resources {
         public static string EnableBetTrade {
             get {
                 return ResourceManager.GetString("EnableBetTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Colossus Bets.
+        /// </summary>
+        public static string EnableColossusBets {
+            get {
+                return ResourceManager.GetString("EnableColossusBets", resourceCulture);
             }
         }
         
