@@ -914,6 +914,8 @@
     <Content Include="Scripts\Report\agcasinobalance.option.js" />
     <Content Include="Scripts\Report\CasinoProgressiveWins.js" />
     <Content Include="Scripts\Report\CasinoProgressiveWins.option.js" />
+    <Content Include="Scripts\Report\colossusbetwinloss.js" />
+    <Content Include="Scripts\Report\colossusbetwinloss.option.js" />
     <Content Include="Scripts\Report\weeklylivematch.js" />
     <Content Include="Scripts\Report\weeklylivematch.option.js" />
     <Content Include="Scripts\Report\thirdpartywinloss.golddeluxe.js" />

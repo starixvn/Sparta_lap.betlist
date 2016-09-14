@@ -6,14 +6,14 @@
 
   <Group Name="Report">
     <Function Name="LicenseeWinLoss" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,BT,AGC,MGCLC,MGCRNG,VB,AB"></Function>
-    <Function Name="ActiveCustomerSummary" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,AGC,PTCS,MGCLC,MGCRNG,VB,AB"></Function>
-    <Function Name="CustomerBalance" Product="SB,BA,NG,LC,VS,CS,KN,RB,BT,AGC,MGCLC,MGCRNG,VB,AB"></Function>
-    <Function Name="CustomerPendingFunds" Product="SB,BA,NG,LC,VS,CS,KN,RB,AGC,MGCLC,MGCRNG,VB,AB"></Function>
+    <Function Name="ActiveCustomerSummary" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,AGC,PTCS,MGCLC,MGCRNG,VB,AB,CB"></Function>
+    <Function Name="CustomerBalance" Product="SB,BA,NG,LC,VS,CS,KN,RB,BT,AGC,MGCLC,MGCRNG,VB,AB,CB"></Function>
+    <Function Name="CustomerPendingFunds" Product="SB,BA,NG,LC,VS,CS,KN,RB,AGC,MGCLC,MGCRNG,VB,AB,CB"></Function>
     <Function Name="CustomerWinLoss" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,BT,AGC,MGCLC,MGCRNG,VB,AB"></Function>
     <Function Name="CasinoProgressiveWins" Product="MGCRNG"></Function>
     <Function Name="MatchWinLoss" Product="SB,BA,NG,LC,VS,RB"></Function>
     <Function Name="PlatformWinloss" Product="SB,BA,NG,VS,RB,LC,KN,CS,MGCLC,MGCRNG,VB,AB"></Function>
-    <Function Name="Turnover" Product="SB,BA,NG,LC,VS,CS,KN,RB,BT,AGC,MGCLC,MGCRNG,VB,AB"></Function>
+    <Function Name="Turnover" Product="SB,BA,NG,LC,VS,CS,KN,RB,BT,AGC,MGCLC,MGCRNG,VB,AB,CB"></Function>
     <Function Name="WinLossByProduct" Product="SB,BA,NG,LC,VS,CS,KN,RB,BG,MGCLC,MGCRNG,VB"></Function>
     <Function Name="ResultPage_GetNormalSports" Product="SB,BA,NG,LC,VS,KN,RB"></Function>
   </Group>

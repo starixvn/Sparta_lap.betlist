@@ -1,0 +1,355 @@
+/*global jqGridAdditional, ColossusBetOption, Report, Site */
+/// <reference path="/@JSense.js" />
+///
+var ColossusBet = (function ($) {
+    "use strict";
+    var cacheData = {};
+    var ajaxRequest = null;
+    var _canDrilldown = true;
+    var _level = 0;
+    var _submitData;
+
+    function initMonthPicker() {
+        var year = $("#Year").val();
+        var month = $("#Month").val();
+        var fromDay = $("#FromDay").val();
+        var toDay = $("#ToDay").val();
+
+        $('#DateControl').monPickr({
+            minDate: $('#MinDate').val(),
+            maxDate: $('#ToDate').val(),
+            showDateRange: true,
+            fromDayId: 'MonthPickerFromDay',
+            toDayId: 'MonthPickerToDay',
+            month: new Date(year, month - 1, fromDay),
+            fromDay: fromDay,
+            toDay: toDay,
+            afterChangeMonth: function () {
+                var fromDate = $("#DateControl").monPickr("getFromDate");
+                $('#Year').val(fromDate.getFullYear());
+                $('#Month').val(fromDate.getMonth() + 1);
+            },
+            afterChangeDay: function () {
+                var fromDate = $("#DateControl").monPickr("getFromDate");
+                var toDate = $("#DateControl").monPickr("getToDate");
+                $("#FromDate").val(fromDate.toString("MM/dd/yyyy"));
+                $("#ToDate").val(toDate.toString("MM/dd/yyyy"));
+                $('#FromDay').val(fromDate.getDate());
+                $('#ToDay').val(toDate.getDate());
+            }
+        });
+    }
+
+    return {
+        initialize: function () {
+            ColossusBetOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+            ColossusBet.initEvent();
+            initMonthPicker();
+            _canDrilldown = $("#CanDrilldown").val() !== "0";
+        },
+        initEvent: function () {
+            $('#SubmitButton').click(function () {
+                // Site.blockUI();
+                $('#IsExportExcel').val(false);
+                _level = 0;
+                ColossusBet.submit();
+            });
+
+            $('#ExportToExcel').click(function () {
+                $('#IsExportExcel').val(true);
+                var mainForm = $("#ColossusBetForm");
+                var url = Site.resolveClientUrl(ColossusBetOption.urlExcelData);
+                mainForm.attr("action", url);
+                mainForm.submit();
+                $('#IsExportExcel').val(false);
+                return false;
+            });
+
+            $("#level-link-container").on("click", ".level-link", function () {
+                var level = Number($(this).attr("data-level"));
+                _level = level;
+                return ColossusBet.goBack(level);
+            });
+        },
+
+        //#region Layout
+        setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
+            var temp = 'api/ColossusBetReport/Index';
+            if (level > 0) {
+                temp += "?level=" + level + "&currencyId="
+                + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")
+                 + "&tdate=" + tdate.toString("MM/dd/yyyy");
+            }
+
+            ColossusBetOption.urlExcelData = temp;
+        },
+
+        renderBreadCrumb: function (level) {
+            //hide history link
+            level = Number(level);
+            if (level === 0) {
+                $(".breadCrumbHolder").hide();
+            }
+            else {
+                /*show history link*/
+                $(".breadCrumbHolder").show();
+                $("#history-link-container").width($("#ReportGrid").width() + 17);
+                //add more 20px for scrolling
+                $("div#history-link-container li.level0").show();
+
+                /*show history link*/
+                $(".breadCrumbHolder").show();
+                $(".level0").show();
+
+                $(".level2").showHide(level === 2);
+                $(".level1").showHide(ColossusBetOption.licenseeId === ColossusBetOption.LICENSEE_12BET);
+                $(".level1").toggleClass("level-link", level !== 1);
+            }
+        },
+
+        setReportTitle: function (currencyId, fromdate, todate) {
+            var titlePattern = $('#ReportTitle').val() + ', {0} → {1} - {2}';
+            var viewinKey = Site.getSingleResource("Viewin");
+            //get currencyName
+            var currencyTextList =
+            {
+                "-3": viewinKey.replace("{0}", "GBP"),
+                "-2": viewinKey.replace("{0}", "USD"),
+                "-1": viewinKey.replace("{0}", "EUR"),
+                "0": Site.getSingleResource('AllCurrencies')
+            };
+
+            var currencyStr = currencyTextList[currencyId] === undefined
+                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                : currencyTextList[currencyId];
+
+            var title = $.format(titlePattern, fromdate.toString("MM/dd/yyyy"), todate.toString("MM/dd/yyyy"), currencyStr);
+            $("div.report-title").html(title);
+        },
+        //#end
+
+        //#Get Data
+        ajaxComplete: function (level, response) {
+            level = Number(level);
+            if (response != null) {
+                var reportBy = $("input[name='reportby']:checked").val();
+                cacheData[level] = response;
+                //reset layout
+                if (level === 0) {
+                    _submitData = {
+                        IsExcludedTestData: $("#IsExcludedTestData").is(":checked"),
+                        CurrencyId: $("#CurrencyId").val(),
+                        FromDate: $("#FromDate").val(),
+                        ToDate: $("#ToDate").val(),
+                        CurrencyName: $("#CurrencyId option:selected").text(),
+                        BaseCurrency: $("#BaseCurrency").val(),
+                        ProductId: $("#ProductId").val(),
+                        ReportBy: reportBy
+                    };
+                    ColossusBet.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+                }
+
+                ColossusBet.renderBreadCrumb(level);
+                ColossusBet.bindData(level, response);
+            }
+        },
+
+        submit: function () {
+            var mainForm = $("#ColossusBetForm");
+            var postdata = mainForm.serializeObject();
+            if (!postdata.FromDate) {
+                var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
+                var toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
+
+                postdata.FromDate = fromDate.toDateString();
+                postdata.ToDate = toDate.toDateString();
+            }
+
+            var option = {
+                type: "POST",
+                data: postdata,
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                cache: false,
+                url: Site.resolveClientUrl(ColossusBetOption.urlData),
+                success: function (response) {
+                    ColossusBet.setExcelUrl(0, 0, 0, "", "");
+                    ColossusBet.ajaxComplete(0, response);
+                },
+                beforeSend: function () {
+                    Site.blockUI();
+                },
+                complete: function (/*jqXhr, textStatus*/) {
+                    Site.unBlockUI();
+                }
+            };
+            if (ajaxRequest != null) {
+                ajaxRequest.abort();
+            }
+            ajaxRequest = $.ajax(option);
+
+            return true;
+        },
+
+        drillDown: function (level, currencyId, customerId, datetime) {
+            level = Number(level);
+
+            if (_level !== level) {
+                _level = level;
+            }
+
+            var param =
+            {
+                IsExcludedTestData: _submitData.IsExcludedTestData,
+                CurrencyId: _submitData.CurrencyId,
+                FromDate: _submitData.FromDate,
+                ToDate: _submitData.ToDate,
+                BaseCurrency: _submitData.BaseCurrency,
+                ProductId: _submitData.ProductId,
+                ReportBy: _submitData.ReportBy
+            };
+
+            var fdate, tdate;
+            if (ColossusBet.custom.getDrillDownDates) {
+                var dates = ColossusBet.custom.getDrillDownDates(param, datetime);
+                fdate = dates.FromDate;
+                tdate = dates.ToDate;
+            } else {
+                fdate = Date.parse(datetime);
+                tdate = Date.parse(datetime);
+                if (Number(param.ReportBy) === 2) {
+                    fdate = _submitData.FromDate;
+                    tdate = _submitData.ToDate;
+                }
+                
+            }
+            var option = {
+                type: "POST",
+                data: JSON.stringify(param),
+                dataType: "json",
+                contentType: "application/json",
+                cache: false,
+                url: Site.resolveClientUrl(ColossusBetOption.urlData +
+                    "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
+                    "&fdate=" + fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
+                success: function (response) {
+                    ColossusBet.ajaxComplete(level, response);
+                    if (response != null && response.Data.length > 0) {
+                        if (level > 0 && Number(param.CurrencyId) === 0) {
+                            ColossusBet.setReportTitle(currencyId, fdate, tdate);
+                        } else {
+                            ColossusBet.setReportTitle(param.CurrencyId, fdate, tdate);
+                        }
+                    }
+                    //update excel URL
+                    ColossusBet.setExcelUrl(level, currencyId, customerId, fdate, tdate);
+                },
+                beforeSend: function () {
+                    Site.blockUI();
+                },
+                complete: function (/*jqXhr, textStatus*/) {
+                    Site.unBlockUI();
+                }
+            };
+            if (ajaxRequest != null) {
+                ajaxRequest.abort();
+            }
+            ajaxRequest = $.ajax(option);
+        },
+
+        goBack: function (level) {
+            if (level === 0) {
+                ColossusBet.renderBreadCrumb(level);
+                ColossusBet.bindData(0, cacheData[level]);
+                //reset excel Link
+                ColossusBet.setExcelUrl(0, 0, 0, "", "");
+                //re-set title
+                var fromdate = new Date(_submitData.FromDate);
+                var todate = new Date(_submitData.ToDate);
+                var currencyId = _submitData.CurrencyId;
+                ColossusBet.setReportTitle(currencyId, fromdate, todate);
+            }
+            else if (level === 1) {
+                ColossusBet.bindData(1, cacheData[level]);
+                ColossusBetOption.urlExcelData = ColossusBetOption.urlExcelData.replace("level=2", "level=1");
+                ColossusBet.renderBreadCrumb(level);
+            }
+        },
+
+        //#BindReport
+        bindTotal: function (level, totalData, summaryTotal) {
+            var columnModel = ColossusBetOption.getTotalColModel(level);
+            var colspan = ColossusBetOption.totalColspan[level];
+            var summaryColspan = colspan + 1;
+
+            jqGridAdditional.assignTotal(totalData, columnModel);
+            var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
+            jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
+        },
+
+        bindData: function (level, response) {
+            level = Number(level);
+            var $gridBody = $(".ui-jqgrid-bdiv");
+
+            var scrollLeft = $gridBody.length > 0 ? $gridBody[0].scrollLeft : 0;
+
+            jqGridAdditional.clearGrid("ReportGrid");
+
+            var reportGrid = $("#ReportGrid");
+
+            var numOfRow = response.Data.length;
+            var numOfTotalRow = response.Total.length;
+
+            var gridOption = ColossusBetOption.getGridOption(level, _canDrilldown);
+            gridOption.data = response.Data;
+            gridOption.rowTotal = numOfRow;
+
+            gridOption.gridComplete = function () {
+                level = Number(level);
+                jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
+                $("#pg_ppdata").hide();
+                if (response == null || numOfRow === 0) {
+                    jqGridAdditional.setNoInfo(gridOption.colModel);
+                }
+                else {
+                    ColossusBet.bindTotal(level, response.Total, response.SummaryTotal);
+                    $("#footer").html($(".ui-jqgrid-ftable").html());
+
+                    jqGridAdditional.resizeGrid();
+                }
+
+                Site.unBlockUI();
+            };
+
+            // Show the grid
+            reportGrid.jqGrid(gridOption);
+
+            reportGrid.jqGrid('showCol', 'rn');
+
+            jqGridAdditional.resetLayout(reportGrid);
+
+            $gridBody = $(".ui-jqgrid-bdiv");
+            if ($gridBody.length > 0) {
+                $gridBody[0].scrollLeft = scrollLeft;
+            }
+        }
+        //#end
+    };
+})(jQuery);
+
+$(window).load(function () {
+    "use strict";
+    ColossusBet.initialize();
+});
+
+$(window).resize(function () {
+    "use strict";
+    var reportGrid = $("#ReportGrid");
+    jqGridAdditional.resetLayout(reportGrid);
+    jqGridAdditional.resizeGrid();
+});
+
+$(window).unload(function () {
+    "use strict";
+    $(window).unbind("resize");
+});

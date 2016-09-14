@@ -13,7 +13,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
-    using Model.Core.DTO.Common;
 
     [FunctionAuthorization(PermissionKeys.ReportColossusBetsWinLoss)]
     public partial class ColossusBetsWinLossReportController : ReportBaseController
@@ -25,8 +24,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var date = DateTime.Now;
             var productList = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
-
-            var product = productList.SingleOrDefault(p => p.ProductCode == Product.GD);
+            var product = productList.SingleOrDefault(p => p.ProductID == ProductTypes.ColossusBets);
 
             if (product == null)
             {

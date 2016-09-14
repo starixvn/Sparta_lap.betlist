@@ -2736,9 +2736,9 @@ namespace Fanex.Athena.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Grand Prize: the grand winning amount which is excluded from member balance.
         /// </summary>
-        public static string GrandPrize {
+        public static string GrandPrizeNote {
             get {
-                return ResourceManager.GetString("GrandPrize", resourceCulture);
+                return ResourceManager.GetString("GrandPrizeNote", resourceCulture);
             }
         }
         

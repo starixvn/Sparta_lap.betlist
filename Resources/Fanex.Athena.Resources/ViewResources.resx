@@ -2710,7 +2710,7 @@
     <value>Reference No</value>
     <comment>#47601</comment>
   </data>
-  <data name="GrandPrize" xml:space="preserve">
+  <data name="GrandPrizeNote" xml:space="preserve">
     <value>Grand Prize: the grand winning amount which is excluded from member balance</value>
     <comment>#47601</comment>
   </data>
