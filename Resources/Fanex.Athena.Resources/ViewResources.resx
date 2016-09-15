@@ -2868,4 +2868,25 @@
     <value>Enable Colossus Bets</value>
     <comment>#63785</comment>
   </data>
+  <data name="AmountDueToCB" xml:space="preserve">
+    <value>Amount Due To Colossus Bet</value>
+  </data>
+  <data name="CashInShare" xml:space="preserve">
+    <value>Cash-in Share</value>
+  </data>
+  <data name="CashOut" xml:space="preserve">
+    <value>Cash Out</value>
+  </data>
+  <data name="CommissionShare" xml:space="preserve">
+    <value>Commission Share</value>
+  </data>
+  <data name="GrandPrize" xml:space="preserve">
+    <value>Grand Prize</value>
+  </data>
+  <data name="SmallPrize" xml:space="preserve">
+    <value>Small Prize</value>
+  </data>
+  <data name="WinningPrize" xml:space="preserve">
+    <value>Winning Prize</value>
+  </data>
 </root>

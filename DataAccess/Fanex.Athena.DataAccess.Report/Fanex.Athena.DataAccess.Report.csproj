@@ -149,10 +149,12 @@
     <Compile Include="AgCasinoWinLossDataAccess.cs" />
     <Compile Include="ActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="CasinoProgressiveWinsDataAccess.cs" />
+    <Compile Include="Interfaces\IColossusBetsWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchDataAccess.cs" />
     <Compile Include="MicroGamingWinLossDataAccess.cs" />
     <Compile Include="AgCasinoBalanceDataAccess.cs" />
     <Compile Include="PlaytechCasinoDataAccess.cs" />
+    <Compile Include="ColossusBetsWinLossDataAccess.cs" />
     <Compile Include="ThirdPartyWinLossDataAccess.cs" />
     <Compile Include="WeeklyLiveMatchDataAccess.cs" />
     <Compile Include="WinLossByLeagueDataAccess.cs" />

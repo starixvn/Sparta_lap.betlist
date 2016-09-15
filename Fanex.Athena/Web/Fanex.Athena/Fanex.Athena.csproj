@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -914,8 +914,8 @@
     <Content Include="Scripts\Report\agcasinobalance.option.js" />
     <Content Include="Scripts\Report\CasinoProgressiveWins.js" />
     <Content Include="Scripts\Report\CasinoProgressiveWins.option.js" />
-    <Content Include="Scripts\Report\colossusbetwinloss.js" />
-    <Content Include="Scripts\Report\colossusbetwinloss.option.js" />
+    <Content Include="Scripts\Report\colossusbetswinloss.js" />
+    <Content Include="Scripts\Report\colossusbetswinloss.option.js" />
     <Content Include="Scripts\Report\weeklylivematch.js" />
     <Content Include="Scripts\Report\weeklylivematch.option.js" />
     <Content Include="Scripts\Report\thirdpartywinloss.golddeluxe.js" />

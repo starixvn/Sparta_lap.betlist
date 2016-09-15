@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.ThirdPartyWinLoss.cs" company="Microsoft">
+// <copyright file="ThirdPartyWinLossReportController.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------

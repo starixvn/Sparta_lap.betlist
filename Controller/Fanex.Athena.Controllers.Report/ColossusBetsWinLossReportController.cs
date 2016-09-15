@@ -24,7 +24,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var date = DateTime.Now;
             var productList = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
-            var product = productList.SingleOrDefault(p => p.ProductID == ProductTypes.ColossusBets);
+            var product = productList.SingleOrDefault(p => p.ProductID == ProductTypes.GoldDeluxe);
 
             if (product == null)
             {

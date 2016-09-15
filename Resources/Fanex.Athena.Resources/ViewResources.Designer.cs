@@ -385,6 +385,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount Due To Colossus Bet.
+        /// </summary>
+        public static string AmountDueToCB {
+            get {
+                return ResourceManager.GetString("AmountDueToCB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amount Due To Microgaming.
         /// </summary>
         public static string AmountDueToMGC {
@@ -943,6 +952,24 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cash-in Share.
+        /// </summary>
+        public static string CashInShare {
+            get {
+                return ResourceManager.GetString("CashInShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cash Out.
+        /// </summary>
+        public static string CashOut {
+            get {
+                return ResourceManager.GetString("CashOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CASINO HAND HISTORY.
         /// </summary>
         public static string CASINOHANDHISTORY {
@@ -1164,6 +1191,15 @@ namespace Fanex.Athena.Resources {
         public static string CommissionGroupList {
             get {
                 return ResourceManager.GetString("CommissionGroupList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commission Share.
+        /// </summary>
+        public static string CommissionShare {
+            get {
+                return ResourceManager.GetString("CommissionShare", resourceCulture);
             }
         }
         
@@ -2748,6 +2784,15 @@ namespace Fanex.Athena.Resources {
         public static string GotoCustomerList {
             get {
                 return ResourceManager.GetString("GotoCustomerList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grand Prize.
+        /// </summary>
+        public static string GrandPrize {
+            get {
+                return ResourceManager.GetString("GrandPrize", resourceCulture);
             }
         }
         
@@ -6559,6 +6604,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Small Prize.
+        /// </summary>
+        public static string SmallPrize {
+            get {
+                return ResourceManager.GetString("SmallPrize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Smart Site.
         /// </summary>
         public static string SmartSite {
@@ -7896,6 +7950,15 @@ namespace Fanex.Athena.Resources {
         public static string WinLossByProductTitle {
             get {
                 return ResourceManager.GetString("WinLossByProductTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Winning Prize.
+        /// </summary>
+        public static string WinningPrize {
+            get {
+                return ResourceManager.GetString("WinningPrize", resourceCulture);
             }
         }
         

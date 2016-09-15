@@ -1,7 +1,7 @@
-/*global jqGridAdditional, ColossusBetOption, Report, Site */
+/*global jqGridAdditional, ColossusBetsOption, Report, Site */
 /// <reference path="/@JSense.js" />
 ///
-var ColossusBet = (function ($) {
+var ColossusBets = (function ($) {
     "use strict";
     var cacheData = {};
     var ajaxRequest = null;
@@ -9,42 +9,10 @@ var ColossusBet = (function ($) {
     var _level = 0;
     var _submitData;
 
-    function initMonthPicker() {
-        var year = $("#Year").val();
-        var month = $("#Month").val();
-        var fromDay = $("#FromDay").val();
-        var toDay = $("#ToDay").val();
-
-        $('#DateControl').monPickr({
-            minDate: $('#MinDate').val(),
-            maxDate: $('#ToDate').val(),
-            showDateRange: true,
-            fromDayId: 'MonthPickerFromDay',
-            toDayId: 'MonthPickerToDay',
-            month: new Date(year, month - 1, fromDay),
-            fromDay: fromDay,
-            toDay: toDay,
-            afterChangeMonth: function () {
-                var fromDate = $("#DateControl").monPickr("getFromDate");
-                $('#Year').val(fromDate.getFullYear());
-                $('#Month').val(fromDate.getMonth() + 1);
-            },
-            afterChangeDay: function () {
-                var fromDate = $("#DateControl").monPickr("getFromDate");
-                var toDate = $("#DateControl").monPickr("getToDate");
-                $("#FromDate").val(fromDate.toString("MM/dd/yyyy"));
-                $("#ToDate").val(toDate.toString("MM/dd/yyyy"));
-                $('#FromDay').val(fromDate.getDate());
-                $('#ToDay').val(toDate.getDate());
-            }
-        });
-    }
-
     return {
         initialize: function () {
-            ColossusBetOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
-            ColossusBet.initEvent();
-            initMonthPicker();
+            ColossusBetsOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+            ColossusBets.initEvent();
             _canDrilldown = $("#CanDrilldown").val() !== "0";
         },
         initEvent: function () {
@@ -52,13 +20,13 @@ var ColossusBet = (function ($) {
                 // Site.blockUI();
                 $('#IsExportExcel').val(false);
                 _level = 0;
-                ColossusBet.submit();
+                ColossusBets.submit();
             });
 
             $('#ExportToExcel').click(function () {
                 $('#IsExportExcel').val(true);
-                var mainForm = $("#ColossusBetForm");
-                var url = Site.resolveClientUrl(ColossusBetOption.urlExcelData);
+                var mainForm = $("#ColossusBetsForm");
+                var url = Site.resolveClientUrl(ColossusBetsOption.urlExcelData);
                 mainForm.attr("action", url);
                 mainForm.submit();
                 $('#IsExportExcel').val(false);
@@ -68,20 +36,20 @@ var ColossusBet = (function ($) {
             $("#level-link-container").on("click", ".level-link", function () {
                 var level = Number($(this).attr("data-level"));
                 _level = level;
-                return ColossusBet.goBack(level);
+                return ColossusBets.goBack(level);
             });
         },
 
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
-            var temp = 'api/ColossusBetReport/Index';
+            var temp = 'api/ColossusBetsReport/Index';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")
                  + "&tdate=" + tdate.toString("MM/dd/yyyy");
             }
 
-            ColossusBetOption.urlExcelData = temp;
+            ColossusBetsOption.urlExcelData = temp;
         },
 
         renderBreadCrumb: function (level) {
@@ -102,7 +70,7 @@ var ColossusBet = (function ($) {
                 $(".level0").show();
 
                 $(".level2").showHide(level === 2);
-                $(".level1").showHide(ColossusBetOption.licenseeId === ColossusBetOption.LICENSEE_12BET);
+                $(".level1").showHide(ColossusBetsOption.licenseeId === ColossusBetsOption.LICENSEE_12BET);
                 $(".level1").toggleClass("level-link", level !== 1);
             }
         },
@@ -146,16 +114,17 @@ var ColossusBet = (function ($) {
                         ProductId: $("#ProductId").val(),
                         ReportBy: reportBy
                     };
-                    ColossusBet.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+                    ColossusBets.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
 
-                ColossusBet.renderBreadCrumb(level);
-                ColossusBet.bindData(level, response);
+                ColossusBets.renderBreadCrumb(level);
+                ColossusBets.bindData(level, response);
+                ColossusBetsOption.setGroupHeader($('#ReportGrid'));
             }
         },
 
         submit: function () {
-            var mainForm = $("#ColossusBetForm");
+            var mainForm = $("#MainForm");
             var postdata = mainForm.serializeObject();
             if (!postdata.FromDate) {
                 var fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
@@ -171,17 +140,13 @@ var ColossusBet = (function ($) {
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 cache: false,
-                url: Site.resolveClientUrl(ColossusBetOption.urlData),
+                url: Site.resolveClientUrl(ColossusBetsOption.urlData),
                 success: function (response) {
-                    ColossusBet.setExcelUrl(0, 0, 0, "", "");
-                    ColossusBet.ajaxComplete(0, response);
+                    ColossusBets.setExcelUrl(0, 0, 0, "", "");
+                    ColossusBets.ajaxComplete(0, response);
                 },
-                beforeSend: function () {
-                    Site.blockUI();
-                },
-                complete: function (/*jqXhr, textStatus*/) {
-                    Site.unBlockUI();
-                }
+                beforeSend: Site.blockUI,
+                complete: Site.unBlockUI
             };
             if (ajaxRequest != null) {
                 ajaxRequest.abort();
@@ -210,8 +175,8 @@ var ColossusBet = (function ($) {
             };
 
             var fdate, tdate;
-            if (ColossusBet.custom.getDrillDownDates) {
-                var dates = ColossusBet.custom.getDrillDownDates(param, datetime);
+            if (ColossusBets.custom.getDrillDownDates) {
+                var dates = ColossusBets.custom.getDrillDownDates(param, datetime);
                 fdate = dates.FromDate;
                 tdate = dates.ToDate;
             } else {
@@ -229,20 +194,20 @@ var ColossusBet = (function ($) {
                 dataType: "json",
                 contentType: "application/json",
                 cache: false,
-                url: Site.resolveClientUrl(ColossusBetOption.urlData +
+                url: Site.resolveClientUrl(ColossusBetsOption.urlData +
                     "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
                     "&fdate=" + fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
                 success: function (response) {
-                    ColossusBet.ajaxComplete(level, response);
+                    ColossusBets.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {
                         if (level > 0 && Number(param.CurrencyId) === 0) {
-                            ColossusBet.setReportTitle(currencyId, fdate, tdate);
+                            ColossusBets.setReportTitle(currencyId, fdate, tdate);
                         } else {
-                            ColossusBet.setReportTitle(param.CurrencyId, fdate, tdate);
+                            ColossusBets.setReportTitle(param.CurrencyId, fdate, tdate);
                         }
                     }
                     //update excel URL
-                    ColossusBet.setExcelUrl(level, currencyId, customerId, fdate, tdate);
+                    ColossusBets.setExcelUrl(level, currencyId, customerId, fdate, tdate);
                 },
                 beforeSend: function () {
                     Site.blockUI();
@@ -259,27 +224,27 @@ var ColossusBet = (function ($) {
 
         goBack: function (level) {
             if (level === 0) {
-                ColossusBet.renderBreadCrumb(level);
-                ColossusBet.bindData(0, cacheData[level]);
+                ColossusBets.renderBreadCrumb(level);
+                ColossusBets.bindData(0, cacheData[level]);
                 //reset excel Link
-                ColossusBet.setExcelUrl(0, 0, 0, "", "");
+                ColossusBets.setExcelUrl(0, 0, 0, "", "");
                 //re-set title
                 var fromdate = new Date(_submitData.FromDate);
                 var todate = new Date(_submitData.ToDate);
                 var currencyId = _submitData.CurrencyId;
-                ColossusBet.setReportTitle(currencyId, fromdate, todate);
+                ColossusBets.setReportTitle(currencyId, fromdate, todate);
             }
             else if (level === 1) {
-                ColossusBet.bindData(1, cacheData[level]);
-                ColossusBetOption.urlExcelData = ColossusBetOption.urlExcelData.replace("level=2", "level=1");
-                ColossusBet.renderBreadCrumb(level);
+                ColossusBets.bindData(1, cacheData[level]);
+                ColossusBetsOption.urlExcelData = ColossusBetsOption.urlExcelData.replace("level=2", "level=1");
+                ColossusBets.renderBreadCrumb(level);
             }
         },
 
         //#BindReport
         bindTotal: function (level, totalData, summaryTotal) {
-            var columnModel = ColossusBetOption.getTotalColModel(level);
-            var colspan = ColossusBetOption.totalColspan[level];
+            var columnModel = ColossusBetsOption.getTotalColModel(level);
+            var colspan = ColossusBetsOption.totalColspan[level];
             var summaryColspan = colspan + 1;
 
             jqGridAdditional.assignTotal(totalData, columnModel);
@@ -300,7 +265,7 @@ var ColossusBet = (function ($) {
             var numOfRow = response.Data.length;
             var numOfTotalRow = response.Total.length;
 
-            var gridOption = ColossusBetOption.getGridOption(level, _canDrilldown);
+            var gridOption = ColossusBetsOption.getGridOption(level, _canDrilldown);
             gridOption.data = response.Data;
             gridOption.rowTotal = numOfRow;
 
@@ -312,7 +277,7 @@ var ColossusBet = (function ($) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
                 else {
-                    ColossusBet.bindTotal(level, response.Total, response.SummaryTotal);
+                    ColossusBets.bindTotal(level, response.Total, response.SummaryTotal);
                     $("#footer").html($(".ui-jqgrid-ftable").html());
 
                     jqGridAdditional.resizeGrid();
@@ -339,7 +304,7 @@ var ColossusBet = (function ($) {
 
 $(window).load(function () {
     "use strict";
-    ColossusBet.initialize();
+    ColossusBets.initialize();
 });
 
 $(window).resize(function () {

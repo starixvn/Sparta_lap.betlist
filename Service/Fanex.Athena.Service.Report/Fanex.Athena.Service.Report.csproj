@@ -202,6 +202,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IColossusBetsWinLossService.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchService.cs" />
     <Compile Include="Keno\KenoApi.cs" />
     <Compile Include="AgCasinoWinLossService.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="MicroGamingWinLossService.cs" />
     <Compile Include="AgCasinoBalanceService.cs" />
     <Compile Include="PlaytechCasinoService.cs" />
+    <Compile Include="ColossusBetsWinLossService.cs" />
     <Compile Include="ThirdPartyWinLossService.cs" />
     <Compile Include="WeeklyLiveMatchService.cs" />
     <Compile Include="WinLossByLeagueService.cs" />

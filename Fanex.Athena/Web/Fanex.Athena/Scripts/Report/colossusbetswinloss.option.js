@@ -1,17 +1,22 @@
 ﻿/*global Site, jqGridAdditional, JSLINQ*/
-/*exported ColossusBetOption*/
+/*exported ColossusBetsOption*/
 /// <reference path="/@JSense.js" />
 
-var ColossusBetOption = (function () {
+var ColossusBetsOption = (function () {
     "use strict";
 
     var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
-        return '<a class="drilldown" href="javascript:;" onclick="return ColossusBet.drillDown(' + level + ',' +
+        return '<a class="drilldown" href="javascript:;" onclick="return ColossusBets.drillDown(' + level + ',' +
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
 
+    var dateFormatter = function (cellvalue, options, rowObject) {
+        cellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
+        return setDrillDownLink(1, 0, 0, rowObject.Date, cellvalue);
+    };
+
     var currencyFormatter = function (cellvalue, options, rowObject) {
-        var level = ColossusBetOption.licenseeId === ColossusBetOption.LICENSEE_12BET ? 1 : 2;
+        var level = ColossusBetsOption.licenseeId === ColossusBetsOption.LICENSEE_12BET ? 1 : 2;
         return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
@@ -29,7 +34,6 @@ var ColossusBetOption = (function () {
         align: 'center',
         valign: 'middle',
         frozen: true,
-        cellattr: jqGridAdditional.rowSpanSetting,
         sortable: false
     };
 
@@ -44,7 +48,7 @@ var ColossusBetOption = (function () {
         sortable: false,
         frozen: true,
         cellattr: jqGridAdditional.rowSpanSetting,
-        formatter: 'date',
+        formatter: dateFormatter,
         formatoptions:
         {
             newformat: 'm/d/Y'
@@ -217,8 +221,8 @@ var ColossusBetOption = (function () {
         LICENSEE_12BET: 1,
         licenseeId: 0,
         totalColspan: [2, 2, 3],
-        urlData: 'api/ThirdPartyWinlossReport/Index',
-        urlExcelData: 'api/ThirdPartyWinlossReport/Index',
+        urlData: 'api/ColossusBetsWinlossReport/Index',
+        urlExcelData: 'api/ColossusBetsWinlossReport/Index',
         gridOption:
         {
             datatype: 'local',
@@ -242,6 +246,20 @@ var ColossusBetOption = (function () {
             pager: '#ppdata',
             rownumbers: true
         }
+    };
+
+    me.setGroupHeader = function (grid) {
+        var group = {
+            startColumnName: 'WinningPrize',
+            numberOfColumns: 2,
+            titleText: Site.getSingleResource('SmallPrize')
+        };
+        
+        grid.jqGrid('setGroupHeaders',
+        {
+            useColSpanStyle: true,
+            groupHeaders: [group]
+        });
     };
 
     me.getColName = function () {

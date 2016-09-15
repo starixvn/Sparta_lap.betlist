@@ -5,7 +5,7 @@
  }
 <div class="grid_26 content-filter new-line">
     <!--grid_26-->
-    <form id="ThirdPartyWinLossForm" name="ThirdPartyWinLossForm" method="post" action="">
+    <form id="MainForm" name="MainForm" method="post" action="">
         @Html.AntiForgeryToken()
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
         appSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
