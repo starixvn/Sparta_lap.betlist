@@ -50,14 +50,12 @@ namespace Fanex.Athena.Service.Report
             summaryTotal = new Dictionary<string, ThirdPartyWinLoss>();
             var result = this._colossusBetsWinLossDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
             var date = new System.DateTime();
-            var index = 1;
             foreach (var item in result)
             {
                 if (date != item.Date)
                 {
                     date = item.Date ?? new System.DateTime();
                     item.RowSpan = result.Count(x => x.Date == item.Date);
-                    item.Index = index++;
                 }
                 else
                 {

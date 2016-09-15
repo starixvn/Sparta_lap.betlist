@@ -72,7 +72,7 @@ namespace Fanex.Athena.Api.Report
             IDictionary<string, ThirdPartyWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ThirdPartyWinLoss.xls");
+            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ColossusBetsWinLoss.xls");
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
 
             // Use product code of Vegas Games to Macau
@@ -105,7 +105,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new ThirdPartyWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, excelModel)
+            var excel = new ColossusBetsWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, excelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };

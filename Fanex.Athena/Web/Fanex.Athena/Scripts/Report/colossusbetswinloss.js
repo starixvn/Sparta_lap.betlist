@@ -25,7 +25,7 @@ var ColossusBets = (function ($) {
 
             $('#ExportToExcel').click(function () {
                 $('#IsExportExcel').val(true);
-                var mainForm = $("#ColossusBetsForm");
+                var mainForm = $("#MainForm");
                 var url = Site.resolveClientUrl(ColossusBetsOption.urlExcelData);
                 mainForm.attr("action", url);
                 mainForm.submit();
@@ -42,7 +42,7 @@ var ColossusBets = (function ($) {
 
         //#region Layout
         setExcelUrl: function (level, currencyId, custId, fdate, tdate) {
-            var temp = 'api/ColossusBetsReport/Index';
+            var temp = 'api/ColossusBetsWinLossReport/Index';
             if (level > 0) {
                 temp += "?level=" + level + "&currencyId="
                 + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")

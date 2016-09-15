@@ -1,0 +1,261 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="ColossusBetsWinLossExcel.cs" company="">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Athena.Excel.Report
+{
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using Base;
+    using Base.Entities;
+    using Fanex.Athena.Excel.Base.Extension;
+    using Model.Report.DTO;
+    using Model.Report.MetaModel;
+    using Model.Report.ViewModel;
+    using NPOI.SS.UserModel;
+    using Resources;
+
+    public class ColossusBetsWinLossExcel : ReportBase
+    {
+        private const int ColumnTemplateCount = 13;
+
+        private const int ColumnDate = 1;
+        private const int ColumnExternalId = 2;
+        private const int ColumnSystemId = 3;
+        private const int ColumnCurrency = 4;
+        private const int ColumnTurnover = 5;
+        private const int ColumnTotalTransaction = 6;
+        private const int ColumnWinningPrize = 7;
+        private const int ColumnCashOut = 8;
+        private const int ColumnCashInShare = 9;
+        private const int ColumnCommissionShare = 8;
+        private const int ColumnAmountDueToCB = 10;
+        private const int ColumnGrandPrize = 11;
+
+        private const int RowContentTemplate = 3;
+        private const int RowTotalSolidBorder = 4;
+        private const int RowTotalNoSolidBorder = 5;
+        private const int RowGrantTotal = 6;
+        private const int RowNoInfoTemplate = 7;
+
+        // This is drill down of report
+        private readonly IList<ThirdPartyWinLoss> _winLossList;
+
+        private readonly ThirdPartyWinLossMetaModel _metaModel;
+        private readonly IDictionary<string, ThirdPartyWinLoss> _summaryTotal;
+
+        public ColossusBetsWinLossExcel(
+                string templatePath,
+                string exportingFileName,
+                ConvertingOption convertingOption,
+                ThirdPartyWinLossMetaModel metaModel,
+                ThirdPartyWinLossViewModel viewModel)
+            : base(templatePath, exportingFileName, null, convertingOption)
+        {
+            _metaModel = metaModel;
+            _winLossList = viewModel.MainResult;
+            _summaryTotal = viewModel.SummaryTotal;
+        }
+
+        public int Level
+        {
+            get;
+            set;
+        }
+
+        public override void AssignData()
+        {
+            int numOfDataRow = _winLossList.Count;
+
+            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+
+            AssignHeader(sheet);
+            AssignTitle(sheet);
+
+            if (numOfDataRow == 0)
+            {
+                AssignNoInfoRow(sheet);
+            }
+            else
+            {
+                AssignSheetData(sheet);
+            }
+
+            ProcessUI(sheet);
+        }
+
+        public override void AssignHeader(ISheet sheet)
+        {
+            var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            row.Cells[ColumnIndex].SetCellValue("#");
+            row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
+            row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
+            row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
+            row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
+            row.Cells[ColumnTurnover].SetCellValue(ViewResources.Turnover);
+            row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
+            row.Cells[ColumnWinningPrize].SetCellValue(ViewResources.SmallPrize);
+            row.Cells[ColumnCashInShare].SetCellValue(ViewResources.CashInShare);
+            row.Cells[ColumnCommissionShare].SetCellValue(ViewResources.CommissionShare);
+            row.Cells[ColumnAmountDueToCB].SetCellValue(ViewResources.AmountDueToCB);
+            row.Cells[ColumnGrandPrize].SetCellValue(ViewResources.GrandPrize);
+
+            var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+            row2.Cells[ColumnWinningPrize].SetCellValue(ViewResources.WinningPrize);
+            row2.Cells[ColumnCashOut].SetCellValue(ViewResources.CashOut);
+        }
+
+        public override void AssignNoInfoRow(ISheet sheet)
+        {
+            SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
+            ProcessUI(sheet);
+        }
+
+        public override void AssignSheetData(ISheet sheet)
+        {
+            var rowIndex = 1;
+            int index;
+            var rowCount = _winLossList.Count;
+
+            for (index = 0; index < rowCount; index++)
+            {
+                var item = _winLossList[index];
+
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
+
+                var dateStringFormat = _metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
+                var reportDateString = item.Date.Value.ToString(dateStringFormat);
+
+                row.Cells[ColumnIndex].SetCellValue(item.Index);
+                row.Cells[ColumnDate].SetCellValue(reportDateString);
+                row.Cells[ColumnExternalId].SetCellValue(item.ExternalId);
+                row.Cells[ColumnSystemId].SetCellValue(item.SystemId);
+                row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
+                AssignCommonData(row, item);
+                rowIndex++;
+
+                if (item.RowSpan > 1)
+                {
+                    var currentRow = index + RowContentTemplate;
+                    sheet.MergeCells(currentRow, ColumnDate, currentRow + item.RowSpan - 1, ColumnDate);
+                }
+            }
+
+            rowIndex = AssignTotalData(sheet, index + RowContentTemplate);
+            AssignGrandTotal(sheet, rowIndex);
+        }
+
+        public override void AssignTitle(ISheet sheet)
+        {
+            var fromdate = _metaModel.FromDate.ToString(FormatDate);
+            var todate = _metaModel.ToDate.ToString(FormatDate);
+            var title = _metaModel.DrillDownLevel > 0 && _metaModel.CurrencyId == 0
+                ? GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)
+                : GetExactTitleCurrencyName(_metaModel.CurrencyId);
+
+            ReportTitle = GenerateProductReportTitle(fromdate, todate, title);
+            SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
+
+            // Freeze rows title and header
+            sheet.CreateFreezePane(0, 3);
+
+            // Remove content below header before insert new data
+            ClearTemplate(sheet, RowContentTemplate);
+        }
+
+        public override void ProcessUI(ISheet sheet)
+        {
+            switch (Level)
+            {
+                case 0:
+                    HideColumn(sheet, ColumnExternalId, ColumnSystemId);
+                    break;
+
+                case 1:
+                    HideColumn(sheet, ColumnExternalId, ColumnDate);
+                    break;
+
+                default:
+                    HideColumn(sheet, ColumnDate);
+                    break;
+            }
+        }
+
+        protected void AssignCommonData(IRow row, ThirdPartyWinLoss data)
+        {
+            row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
+            row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
+            row.Cells[ColumnWinningPrize].SetCellValue(data.CustomerWinLoss);
+            row.Cells[ColumnCashOut].SetCellValue(data.LicenseeWL);
+        }
+
+        protected int AssignTotalData(ISheet sheet, int rowIndex)
+        {
+            int beginTotalRow = rowIndex;
+            var totalCurrencyList = GetTotalCurrency(_winLossList);
+
+            foreach (ThirdPartyWinLoss totalCurrency in totalCurrencyList)
+            {
+                var row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
+                if (rowIndex == beginTotalRow)
+                {
+                    row = sheet.CopyRow(TemplateSheet, RowTotalSolidBorder, rowIndex);
+                    row.Cells[0].SetCellValue(ViewResources.Total);
+                }
+
+                row.Cells[ColumnCurrency].SetCellValue(totalCurrency.CurrencyName);
+                AssignCommonData(row, totalCurrency);
+                rowIndex++;
+            }
+
+            sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
+
+            return rowIndex;
+        }
+
+        protected int AssignGrandTotal(ISheet sheet, int rowIndex)
+        {
+            var currencyList = _summaryTotal.Keys.ToList();
+            currencyList.Reverse();
+
+            foreach (string currency in currencyList)
+            {
+                var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
+                AssignCommonData(row, _summaryTotal[currency]);
+                row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpper());
+
+                sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
+                rowIndex++;
+            }
+
+            return rowIndex;
+        }
+
+        private static IList<ThirdPartyWinLoss> GetTotalCurrency(IEnumerable<ThirdPartyWinLoss> dataList)
+        {
+            var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
+                    .Select(group => new ThirdPartyWinLoss
+                    {
+                        CurrencyName = group.Key.CurrencyName,
+                        TurnOver = group.Sum(a => a.TurnOver),
+                        TotalTransaction = group.Sum(a => a.TotalTransaction),
+                        CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
+                        LicenseeWL = group.Sum(a => a.LicenseeWL),
+                    }).ToList();
+
+            return listTotalCurrency;
+        }
+
+        private string GenerateProductReportTitle(string fromDate, string toDate, string title)
+        {
+            StringBuilder reportTitle = new StringBuilder(string.Empty);
+            reportTitle.Append(_metaModel.ProductName).Append(" ");
+            reportTitle.Append(ViewResources.WinLoss);
+            reportTitle.Append(string.Format(", {0} --> {1} - {2}", fromDate, toDate, title));
+            return reportTitle.ToString();
+        }
+    }
+}

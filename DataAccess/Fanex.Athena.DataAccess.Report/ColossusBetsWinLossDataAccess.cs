@@ -139,7 +139,7 @@ namespace Fanex.Athena.DataAccess.Report
                 };
 
                 result.Add(item);
-                item = new ThirdPartyWinLoss
+                var item2 = new ThirdPartyWinLoss
                 {
                     Index = index++,
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
@@ -154,7 +154,7 @@ namespace Fanex.Athena.DataAccess.Report
                     Date = hasWinlostDate ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
                 };
 
-                result.Add(item);
+                result.Add(item2);
 
                 foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
