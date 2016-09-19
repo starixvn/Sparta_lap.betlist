@@ -523,7 +523,7 @@ namespace Fanex.Athena.DataAccess.Report
                                     IsPending = reader.ToBool("IsPending"),
                                     KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
                                     MatchCode = reader.ToString("matchcode"),
-                                    GoalRecord = string.Empty,
+                                    GoalRecord = reader.ToString("goalrecord"),
                                     IsHTCal = reader.ToBool("IsHTCal"),
                                     Calculate = reader.ToBool("Calculate"),
                                     RefNo = string.Empty
