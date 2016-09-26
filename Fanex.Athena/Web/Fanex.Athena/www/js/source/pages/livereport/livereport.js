@@ -10,7 +10,7 @@ define(
     function initialize() {
         initEvent();
         initDateRangePicker();
-        initMonthPicker();
+        //initMonthPicker();
         Site.addUserGuide({
             resourceName: "LiveReport",
             title: Site.getSingleResource("LiveReport")

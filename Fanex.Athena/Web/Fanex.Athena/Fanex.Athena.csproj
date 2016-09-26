@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -710,9 +710,15 @@
     <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
     <Content Include="www\js\build\pages\home\home.chunk.js" />
     <Content Include="www\js\build\pages\livereport\livereport.chunk.js" />
+    <Content Include="www\js\build\test\pages\livereport\livereport.chunk.js" />
+    <Content Include="www\js\build\test\vendors.chunk.js" />
     <Content Include="www\js\build\vendors.chunk.js" />
     <Content Include="www\js\source\common\site.js" />
     <Content Include="www\js\source\common\querystring.js" />
+    <Content Include="www\webpackconfig\build\utils.js" />
+    <Content Include="www\webpackconfig\build\webpack.base.conf.js" />
+    <Content Include="www\webpackconfig\build\webpack.dev.conf.js" />
+    <Content Include="www\webpackconfig\build\webpack.pro.conf.js" />
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
