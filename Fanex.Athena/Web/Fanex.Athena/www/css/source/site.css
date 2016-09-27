@@ -1622,66 +1622,65 @@ body.site-gridmenu-active {
   height: 300px;
   overflow-y: scroll; }
 
-.site-navbar .navbar-header {
-  background-color: #314453;
-  color: #fff;
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15); }
+.site-navbar {
+  /*
+    .flag-icon-zh-TW{
+        background: url('../../assets/images/flag_zh-TW.png') no-repeat;
+    }
 
-.site-navbar .navbar-container {
-  background-color: #4C6375;
-  padding-right: 20px; }
-  .site-navbar .navbar-container .breadcrumb {
-    margin: 0;
-    padding: 0;
-    height: 64px;
-    line-height: 64px;
-    font-size: 14px; }
-    .site-navbar .navbar-container .breadcrumb > li + li:before {
-      padding: 0 5px;
-      color: #fff;
-      content: "/\00a0"; }
-    .site-navbar .navbar-container .breadcrumb a, .site-navbar .navbar-container .breadcrumb li {
-      color: #fff; }
-      .site-navbar .navbar-container .breadcrumb a.active, .site-navbar .navbar-container .breadcrumb li.active {
+    .flag-icon-zh-CN{
+        background: url('../../assets/images/flag_zh-CN.png') no-repeat;
+    }
+
+    .flag-icon-ko-KR{
+        background: url('../../assets/images/flag_ko-KR.png') no-repeat;
+    }
+
+    .flag-icon-zh-Hans{
+        background: url('../../assets/images/flag_zh-Hans.png') no-repeat;
+    }
+        */ }
+  .site-navbar .navbar-header {
+    background-color: #314453;
+    color: #fff;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15); }
+  .site-navbar .navbar-container {
+    background-color: #4C6375;
+    padding-right: 20px; }
+    .site-navbar .navbar-container .breadcrumb {
+      margin: 0;
+      padding: 0;
+      height: 64px;
+      line-height: 64px;
+      font-size: 14px; }
+      .site-navbar .navbar-container .breadcrumb > li + li:before {
+        padding: 0 5px;
+        color: #fff;
+        content: "/\00a0"; }
+      .site-navbar .navbar-container .breadcrumb a, .site-navbar .navbar-container .breadcrumb li {
         color: #fff; }
-  .site-navbar .navbar-container .welcome {
-    line-height: 60px; }
-    .site-navbar .navbar-container .welcome .user-name-text {
-      font-weight: 900;
-      color: greenyellow; }
-
-.site-navbar .navbar-header .hamburger .hamburger-bar, .site-navbar .navbar-header .hamburger:after, .site-navbar .navbar-header .hamburger:before {
-  background-color: #fff; }
-
-.site-navbar .navbar-header .navbar-toggle {
-  color: #fff; }
-
-.site-navbar .navbar-header .navbar-brand {
-  color: #fff;
-  font-family: Roboto,sans-serif;
-  cursor: pointer;
-  text-transform: uppercase; }
-
-.site-navbar.navbar-inverse .navbar-container {
-  background-color: transparent; }
-
-.site-navbar .waves-effect {
-  z-index: auto; }
-
-.site-navbar .flag-icon-en-US {
-  background: url("../../assets/images/flag_en-US.png") no-repeat; }
-
-.site-navbar .flag-icon-zh-TW {
-  background: url("../../assets/images/flag_zh-TW.png") no-repeat; }
-
-.site-navbar .flag-icon-zh-CN {
-  background: url("../../assets/images/flag_zh-CN.png") no-repeat; }
-
-.site-navbar .flag-icon-ko-KR {
-  background: url("../../assets/images/flag_ko-KR.png") no-repeat; }
-
-.site-navbar .flag-icon-zh-Hans {
-  background: url("../../assets/images/flag_zh-Hans.png") no-repeat; }
+        .site-navbar .navbar-container .breadcrumb a.active, .site-navbar .navbar-container .breadcrumb li.active {
+          color: #fff; }
+    .site-navbar .navbar-container .welcome {
+      line-height: 60px; }
+      .site-navbar .navbar-container .welcome .user-name-text {
+        font-weight: 900;
+        color: greenyellow; }
+  .site-navbar .navbar-header .hamburger .hamburger-bar, .site-navbar .navbar-header .hamburger:after, .site-navbar .navbar-header .hamburger:before {
+    background-color: #fff; }
+  .site-navbar .navbar-header .navbar-toggle {
+    color: #fff; }
+  .site-navbar .navbar-header .navbar-brand {
+    color: #fff;
+    font-family: Roboto,sans-serif;
+    cursor: pointer;
+    text-transform: uppercase; }
+  .site-navbar.navbar-inverse .navbar-container {
+    background-color: transparent; }
+  .site-navbar .waves-effect {
+    z-index: auto; }
+  .site-navbar .flag-icon-en-US {
+    background: url("../../assets/images/flag_en-US.png") no-repeat; }
 
 .nav > li > a:focus, .nav > li > a:hover {
   background: none; }

@@ -1,4 +1,5 @@
 ﻿const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 
 exports.setDefinePlugin = function (key, value) {
@@ -32,6 +33,26 @@ exports.minify = function () {
                     keep_fnames: true
                 }
             })
+        ]
+    };
+}
+
+exports.extractCSS = function () {
+    return {
+        module: {
+            loaders: [
+                {
+                    test: /\.css$/,
+                    loader: ExtractTextPlugin.extract("style", "css")
+                },
+                {
+                    test: /\.scss$/,
+                    loader: ExtractTextPlugin.extract("style", "css!sass")
+                },
+            ]
+        },
+        plugins: [
+            new ExtractTextPlugin('[name].css')
         ]
     };
 }
