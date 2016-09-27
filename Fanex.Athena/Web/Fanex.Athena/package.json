@@ -6,6 +6,8 @@
   "devDependencies": {
     "babel-core": "^6.14.0",
     "babel-loader": "^6.2.5",
+    "clean-webpack-plugin": "^0.1.10",
+    "extract-text-webpack-plugin": "^1.0.1",
     "grunt": "^1.0.1",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-karma": "^1.0.0",

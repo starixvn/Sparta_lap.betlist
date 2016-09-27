@@ -1,4 +1,5 @@
-﻿var webpack = require('webpack')
+﻿const webpack = require('webpack')
+
 
 exports.setDefinePlugin = function (key, value) {
     const env = {};
