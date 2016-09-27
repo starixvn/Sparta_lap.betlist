@@ -30,10 +30,10 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnTotalTransaction = 6;
         private const int ColumnWinningPrize = 7;
         private const int ColumnCashOut = 8;
-        private const int ColumnCashInShare = 9;
-        private const int ColumnCommissionShare = 8;
-        private const int ColumnAmountDueToCB = 10;
-        private const int ColumnGrandPrize = 11;
+        private const int ColumnCashIn = 9;
+        private const int ColumnCommissionShare = 10;
+        private const int ColumnAmountDueToCB = 11;
+        private const int ColumnGrandPrize = 12;
 
         private const int RowContentTemplate = 3;
         private const int RowTotalSolidBorder = 4;
@@ -42,17 +42,17 @@ namespace Fanex.Athena.Excel.Report
         private const int RowNoInfoTemplate = 7;
 
         // This is drill down of report
-        private readonly IList<ThirdPartyWinLoss> _winLossList;
+        private readonly IList<ColossusBetWinLoss> _winLossList;
 
         private readonly ThirdPartyWinLossMetaModel _metaModel;
-        private readonly IDictionary<string, ThirdPartyWinLoss> _summaryTotal;
+        private readonly IDictionary<string, ColossusBetWinLoss> _summaryTotal;
 
         public ColossusBetsWinLossExcel(
                 string templatePath,
                 string exportingFileName,
                 ConvertingOption convertingOption,
                 ThirdPartyWinLossMetaModel metaModel,
-                ThirdPartyWinLossViewModel viewModel)
+                ColossusBetWinLossViewModel viewModel)
             : base(templatePath, exportingFileName, null, convertingOption)
         {
             _metaModel = metaModel;
@@ -98,7 +98,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnTurnover].SetCellValue(ViewResources.Turnover);
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
             row.Cells[ColumnWinningPrize].SetCellValue(ViewResources.SmallPrize);
-            row.Cells[ColumnCashInShare].SetCellValue(ViewResources.CashInShare);
+            row.Cells[ColumnCashIn].SetCellValue(ViewResources.CashInShare);
             row.Cells[ColumnCommissionShare].SetCellValue(ViewResources.CommissionShare);
             row.Cells[ColumnAmountDueToCB].SetCellValue(ViewResources.AmountDueToCB);
             row.Cells[ColumnGrandPrize].SetCellValue(ViewResources.GrandPrize);
@@ -127,7 +127,7 @@ namespace Fanex.Athena.Excel.Report
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
                 var dateStringFormat = _metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
-                var reportDateString = item.Date.Value.ToString(dateStringFormat);
+                var reportDateString = item.Date.ToString(dateStringFormat);
 
                 row.Cells[ColumnIndex].SetCellValue(item.Index);
                 row.Cells[ColumnDate].SetCellValue(reportDateString);
@@ -184,12 +184,16 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignCommonData(IRow row, ThirdPartyWinLoss data)
+        protected void AssignCommonData(IRow row, ColossusBetWinLoss data)
         {
             row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
-            row.Cells[ColumnWinningPrize].SetCellValue(data.CustomerWinLoss);
-            row.Cells[ColumnCashOut].SetCellValue(data.LicenseeWL);
+            row.Cells[ColumnWinningPrize].SetCellValue(data.WinningPrize);
+            row.Cells[ColumnCashOut].SetCellValue(data.CashOut);
+            row.Cells[ColumnCashIn].SetCellValue(data.CashIn);
+            row.Cells[ColumnCommissionShare].SetCellValue(data.CommissionShare);
+            row.Cells[ColumnAmountDueToCB].SetCellValue(data.AmountDueToCB);
+            row.Cells[ColumnGrandPrize].SetCellValue(data.GrandPrize);
         }
 
         protected int AssignTotalData(ISheet sheet, int rowIndex)
@@ -197,7 +201,7 @@ namespace Fanex.Athena.Excel.Report
             int beginTotalRow = rowIndex;
             var totalCurrencyList = GetTotalCurrency(_winLossList);
 
-            foreach (ThirdPartyWinLoss totalCurrency in totalCurrencyList)
+            foreach (ColossusBetWinLoss totalCurrency in totalCurrencyList)
             {
                 var row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
                 if (rowIndex == beginTotalRow)
@@ -234,16 +238,19 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        private static IList<ThirdPartyWinLoss> GetTotalCurrency(IEnumerable<ThirdPartyWinLoss> dataList)
+        private static IList<ColossusBetWinLoss> GetTotalCurrency(IEnumerable<ColossusBetWinLoss> dataList)
         {
             var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
-                    .Select(group => new ThirdPartyWinLoss
+                    .Select(group => new ColossusBetWinLoss
                     {
                         CurrencyName = group.Key.CurrencyName,
                         TurnOver = group.Sum(a => a.TurnOver),
                         TotalTransaction = group.Sum(a => a.TotalTransaction),
-                        CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
-                        LicenseeWL = group.Sum(a => a.LicenseeWL),
+                        WinningPrize = group.Sum(p => p.WinningPrize),
+                        CashOut = group.Sum(p => p.CashOut),
+                        CashIn = group.Sum(p => p.CashIn),
+                        CommissionShare = group.Sum(p => p.CommissionShare),
+                        GrandPrize = group.Sum(p => p.GrandPrize)
                     }).ToList();
 
             return listTotalCurrency;

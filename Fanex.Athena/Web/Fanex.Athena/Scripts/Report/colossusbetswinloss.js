@@ -99,7 +99,7 @@ var ColossusBets = (function ($) {
         //#Get Data
         ajaxComplete: function (level, response) {
             level = Number(level);
-            if (response != null) {
+            if (response !== null) {
                 var reportBy = $("input[name='reportby']:checked").val();
                 cacheData[level] = response;
                 //reset layout
@@ -148,7 +148,7 @@ var ColossusBets = (function ($) {
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
             };
-            if (ajaxRequest != null) {
+            if (ajaxRequest !== null) {
                 ajaxRequest.abort();
             }
             ajaxRequest = $.ajax(option);
@@ -199,7 +199,7 @@ var ColossusBets = (function ($) {
                     "&fdate=" + fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
                 success: function (response) {
                     ColossusBets.ajaxComplete(level, response);
-                    if (response != null && response.Data.length > 0) {
+                    if (response !== null && response.Data.length > 0) {
                         if (level > 0 && Number(param.CurrencyId) === 0) {
                             ColossusBets.setReportTitle(currencyId, fdate, tdate);
                         } else {
@@ -216,7 +216,7 @@ var ColossusBets = (function ($) {
                     Site.unBlockUI();
                 }
             };
-            if (ajaxRequest != null) {
+            if (ajaxRequest !== null) {
                 ajaxRequest.abort();
             }
             ajaxRequest = $.ajax(option);
@@ -273,7 +273,7 @@ var ColossusBets = (function ($) {
                 level = Number(level);
                 jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
                 $("#pg_ppdata").hide();
-                if (response == null || numOfRow === 0) {
+                if (response === null || numOfRow === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
                 else {

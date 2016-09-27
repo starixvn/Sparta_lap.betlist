@@ -60,25 +60,23 @@ namespace Fanex.Athena.Api.Report
         {
             return new
             {
-                Data = new List<ThirdPartyWinLoss>(),
-                Total = new List<ThirdPartyWinLoss>(),
-                SummaryTotal = new Dictionary<string, ThirdPartyWinLoss>()
+                Data = new List<ColossusBetWinLoss>(),
+                Total = new List<ColossusBetWinLoss>(),
+                SummaryTotal = new Dictionary<string, ColossusBetWinLoss>()
             };
         }
 
         private HttpResponseMessage ExportExcel(
             ThirdPartyWinLossMetaModel metaModel,
-            IList<ThirdPartyWinLoss> dataList,
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+            IList<ColossusBetWinLoss> dataList,
+            IDictionary<string, ColossusBetWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ColossusBetsWinLoss.xls");
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
 
-            // Use product code of Vegas Games to Macau
-            var productCodeExport = metaModel.ProductCode == "VG" ? "MC" : metaModel.ProductCode;
-            var exportedFileName = productCodeExport + string.Format(
-                "WinLoss_{0:ddMMMyyyy}_{1}.xls",
+            var exportedFileName = string.Format(
+                "CBWinLoss_{0:ddMMMyyyy}_{1}.xls",
                 metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate,
                 currency.Value == 0 ? "All" : currency.Key);
             var convertingOption = new ConvertingOption
@@ -99,7 +97,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.ToDate = metaModel.DrillDownToDate;
             }
 
-            var excelModel = new ThirdPartyWinLossViewModel
+            var excelModel = new ColossusBetWinLossViewModel
             {
                 MainResult = dataList,
                 SummaryTotal = summaryTotal,
@@ -117,8 +115,8 @@ namespace Fanex.Athena.Api.Report
 
         private void GetData(
                 ThirdPartyWinLossMetaModel metaModel,
-                out SortableList<ThirdPartyWinLoss> dataList,
-                out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+                out SortableList<ColossusBetWinLoss> dataList,
+                out IDictionary<string, ColossusBetWinLoss> summaryTotal)
         {
             if (metaModel.DrillDownLevel == 0)
             {
@@ -126,9 +124,7 @@ namespace Fanex.Athena.Api.Report
             }
             else
             {
-                dataList = metaModel.DrillDownLevel == 2
-                               ? _colossusBetsWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
-                               : _colossusBetsWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
+                dataList = _colossusBetsWinLossService.GetWinlossDetail(metaModel, out summaryTotal);
             }
         }
 
@@ -151,8 +147,8 @@ namespace Fanex.Athena.Api.Report
                 metaModel.DrillDownCustomerId = custId;
                 metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
-                IDictionary<string, ThirdPartyWinLoss> summaryTotal;
-                SortableList<ThirdPartyWinLoss> dataList;
+                IDictionary<string, ColossusBetWinLoss> summaryTotal;
+                SortableList<ColossusBetWinLoss> dataList;
                 GetData(metaModel, out dataList, out summaryTotal);
 
                 if (metaModel.IsExportExcel)

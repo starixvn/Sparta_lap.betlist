@@ -18,43 +18,36 @@ namespace Fanex.Athena.Service.Report
 
     public class ColossusBetsWinLossService : IColossusBetsWinLossService
     {
+        private readonly IBalanceUpService _balanceUpService;
+
         private readonly IColossusBetsWinLossDataAccess _colossusBetsWinLossDataAccess;
 
         public ColossusBetsWinLossService()
         {
-            this._colossusBetsWinLossDataAccess = new ColossusBetsWinLossDataAccess();
+            _balanceUpService = new BalanceUpService();
+            this._colossusBetsWinLossDataAccess = new ColossusBetsWinLossDataAccess(_balanceUpService.BalanceUpInfo);
         }
-
-        public SortableList<ThirdPartyWinLoss> GetAgentWinlossDetail(
+        
+        public SortableList<ColossusBetWinLoss> GetWinlossDetail(
             ThirdPartyWinLossMetaModel metaModel,
-            out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+            out IDictionary<string, ColossusBetWinLoss> summaryTotal)
         {
-            summaryTotal = new Dictionary<string, ThirdPartyWinLoss>();
+            summaryTotal = new Dictionary<string, ColossusBetWinLoss>();
             return metaModel.IsValid
-                       ? this._colossusBetsWinLossDataAccess.GetAgentWinlossDetail(metaModel, out summaryTotal)
-                       : new SortableList<ThirdPartyWinLoss>();
+                       ? this._colossusBetsWinLossDataAccess.GetWinlossDetail(metaModel, out summaryTotal)
+                       : new SortableList<ColossusBetWinLoss>();
         }
 
-        public SortableList<ThirdPartyWinLoss> GetCustomerWinlossDetail(
-            ThirdPartyWinLossMetaModel metaModel,
-            out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+        public SortableList<ColossusBetWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ColossusBetWinLoss> summaryTotal)
         {
-            summaryTotal = new Dictionary<string, ThirdPartyWinLoss>();
-            return metaModel.IsValid
-                       ? this._colossusBetsWinLossDataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal)
-                       : new SortableList<ThirdPartyWinLoss>();
-        }
-
-        public SortableList<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
-        {
-            summaryTotal = new Dictionary<string, ThirdPartyWinLoss>();
+            summaryTotal = new Dictionary<string, ColossusBetWinLoss>();
             var result = this._colossusBetsWinLossDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
             var date = new System.DateTime();
             foreach (var item in result)
             {
                 if (date != item.Date)
                 {
-                    date = item.Date ?? new System.DateTime();
+                    date = item.Date;
                     item.RowSpan = result.Count(x => x.Date == item.Date);
                 }
                 else
@@ -66,20 +59,23 @@ namespace Fanex.Athena.Service.Report
             return result;
         }
 
-        public IList<ThirdPartyWinLoss> TotalCalc(IList<ThirdPartyWinLoss> dataList)
+        public IList<ColossusBetWinLoss> TotalCalc(IList<ColossusBetWinLoss> dataList)
         {
             if (dataList == null || dataList.Count == 0)
             {
-                return new SortableList<ThirdPartyWinLoss>();
+                return new SortableList<ColossusBetWinLoss>();
             }
 
-            return dataList.GroupBy(d => d.CurrencyName).Select(g => new ThirdPartyWinLoss
+            return dataList.GroupBy(d => d.CurrencyName).Select(g => new ColossusBetWinLoss
             {
                 CurrencyName = g.Key,
                 TurnOver = g.Sum(p => p.TurnOver),
                 TotalTransaction = g.Sum(p => p.TotalTransaction),
-                CustomerWinLoss = g.Sum(p => p.CustomerWinLoss),
-                LicenseeWL = g.Sum(p => p.LicenseeWL)
+                WinningPrize = g.Sum(p => p.WinningPrize),
+                CashOut = g.Sum(p => p.CashOut),
+                CashIn = g.Sum(p => p.CashIn),
+                CommissionShare = g.Sum(p => p.CommissionShare),
+                GrandPrize = g.Sum(p => p.GrandPrize)
             }).ToList();
         }
     }

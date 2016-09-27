@@ -124,6 +124,7 @@
     <Compile Include="DTO\AgCasinoBalance.cs" />
     <Compile Include="DTO\PlatformWinLossSummary.cs" />
     <Compile Include="DTO\PlaytechCasino.cs" />
+    <Compile Include="DTO\ColossusBetWinLoss.cs" />
     <Compile Include="DTO\ThirdPartyWinLoss.cs" />
     <Compile Include="DTO\WeeklyLiveMatch.cs" />
     <Compile Include="DTO\WinLossByLeague.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="ViewModel\CasinoProgressiveWinsGridViewModel.cs" />
     <Compile Include="ViewModel\MicroGamingWinLossViewModel.cs" />
     <Compile Include="ViewModel\PlaytechCasinoViewModel.cs" />
+    <Compile Include="ViewModel\ColossusBetWinLossViewModel.cs" />
     <Compile Include="ViewModel\ThirdPartyWinLossViewModel.cs" />
     <Compile Include="ViewModel\WinLossByLeagueViewModel.cs" />
     <Compile Include="ViewModel\AgCasinoBalanceViewModel.cs" />

@@ -138,8 +138,9 @@ var ColossusBetsOption = (function () {
 
     var cashInShareColumn =
     {
-        name: 'CashInShare',
-        index: 'CashInShare',
+        name: 'CashIn',
+        index: 'CashIn',
+        classes: 'highlight',
         width: 90,
         align: 'right',
         sortable: false,
