@@ -1,4 +1,7 @@
 var webpack = require("webpack");
+var webpackDevelopment = require("./www/webpackconfig/build/webpack.dev.conf.js");
+var webpackProduction = require("./www/webpackconfig/build/webpack.pro.conf.js");
+
 module.exports = function(grunt) {
 
 	grunt.file.defaultEncoding = "utf-8";
@@ -25,6 +28,8 @@ module.exports = function(grunt) {
 		afterconcat: ['dist/output.js']
     },
 	webpack: {
+	    dev: webpackDevelopment,
+	    pro: webpackProduction,
 	    bundle: {
 	        debug: true,
 	        devtool: 'hidden-source-map',
