@@ -6,7 +6,6 @@ var ColossusBets = (function ($) {
     var REPORT_BY_MONTHLY = 2;
     var cacheData = {};
     var ajaxRequest = null;
-    var _canDrilldown = true;
     var _level = 0;
     var _submitData;
 
@@ -73,9 +72,7 @@ var ColossusBets = (function ($) {
 
     return {
         initialize: function () {
-            ColossusBetsOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
             ColossusBets.initEvent();
-            _canDrilldown = $("#CanDrilldown").val() !== "0";
         },
         initEvent: function () {
             $("body").on("click", ".bet-list-link", function () {
@@ -270,12 +267,8 @@ var ColossusBets = (function ($) {
                     //update excel URL
                     ColossusBets.setExcelUrl(level, currencyId, customerId, fdate, tdate);
                 },
-                beforeSend: function () {
-                    Site.blockUI();
-                },
-                complete: function (/*jqXhr, textStatus*/) {
-                    Site.unBlockUI();
-                }
+                beforeSend: Site.blockUI,
+                complete: Site.unBlockUI
             };
             if (ajaxRequest !== null) {
                 ajaxRequest.abort();
@@ -326,7 +319,7 @@ var ColossusBets = (function ($) {
             var numOfRow = response.Data.length;
             var numOfTotalRow = response.Total.length;
 
-            var gridOption = ColossusBetsOption.getGridOption(level, _canDrilldown);
+            var gridOption = ColossusBetsOption.getGridOption(level);
             gridOption.data = response.Data;
             gridOption.rowTotal = numOfRow;
 

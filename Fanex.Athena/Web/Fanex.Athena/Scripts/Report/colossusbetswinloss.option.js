@@ -5,8 +5,8 @@
 var ColossusBetsOption = (function () {
     "use strict";
 
-    var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
-        return '<a class="drilldown" href="javascript:;" onclick="return ColossusBets.drillDown(' + level + ',' +
+    var setDrillDownLink = function (currencyId, custId, datetime, cellvalue) {
+        return '<a class="drilldown" href="javascript:;" onclick="return ColossusBets.drillDown(1,' +
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
 
@@ -27,17 +27,16 @@ var ColossusBetsOption = (function () {
 
     var dateFormatter = function (cellvalue, options, rowObject) {
         cellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
-        return setDrillDownLink(1, 0, 0, rowObject.Date, cellvalue);
+        return setDrillDownLink(0, 0, rowObject.Date, cellvalue);
     };
 
     var currencyFormatter = function (cellvalue, options, rowObject) {
-        var level = ColossusBetsOption.licenseeId === ColossusBetsOption.LICENSEE_12BET ? 1 : 2;
-        return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
+        return setDrillDownLink(rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
     //#region Columns
 
-    var indexColumn = { 
+    var indexColumn = {
         name: 'Index',
         index: 'Index',
         resizable: false,
@@ -229,9 +228,6 @@ var ColossusBetsOption = (function () {
 
     var me =
     {
-        canDrilldown: true,
-        LICENSEE_12BET: 1,
-        licenseeId: 0,
         totalColspan: [2, 3],
         urlData: 'api/ColossusBetsWinlossReport/Index',
         urlExcelData: 'api/ColossusBetsWinlossReport/Index',
@@ -266,7 +262,7 @@ var ColossusBetsOption = (function () {
             numberOfColumns: 2,
             titleText: Site.getSingleResource('SmallPrize')
         };
-        
+
         grid.jqGrid('setGroupHeaders',
         {
             useColSpanStyle: true,
@@ -278,14 +274,12 @@ var ColossusBetsOption = (function () {
         return Site.getResources(colNameList);
     };
 
-    me.getColModel = function (level, canDrilldown) {
+    me.getColModel = function (level) {
         level = Number(level);
 
-        if (canDrilldown) {
-            currencyColumn.formatter = level === 0 ? currencyFormatter : null;
+        currencyColumn.formatter = level === 0 ? currencyFormatter : null;
 
-            dateColumn.hidden = level > 0;
-        }
+        dateColumn.hidden = level > 0;
 
         dateColumn.formatoptions =
         {
@@ -302,9 +296,9 @@ var ColossusBetsOption = (function () {
         return Site.clone(colModelList);
     };
 
-    me.getGridOption = function (level, canDrilldown) {
+    me.getGridOption = function (level) {
         me.gridOption.colNames = me.getColName();
-        me.gridOption.colModel = me.getColModel(level, canDrilldown);
+        me.gridOption.colModel = me.getColModel(level);
         return Site.clone(me.gridOption);
     };
 

@@ -1132,7 +1132,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Colossus Bets WinLoss.
+        ///   Looks up a localized string similar to Colossus Bets Win Loss.
         /// </summary>
         public static string ColossusBetsWinLoss {
             get {

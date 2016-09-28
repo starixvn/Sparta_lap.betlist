@@ -161,7 +161,7 @@ namespace Fanex.Athena.Api.Report
                     return new
                     {
                         Data = dataList,
-                        Total = _colossusBetsWinLossService.TotalCalc(dataList),
+                        Total = _colossusBetsWinLossService.CalculateTotal(dataList),
                         SummaryTotal = summaryTotal
                     };
                 }

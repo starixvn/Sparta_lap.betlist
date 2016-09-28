@@ -59,11 +59,11 @@ namespace Fanex.Athena.Service.Report
             return result;
         }
 
-        public IList<ColossusBetWinLoss> TotalCalc(IList<ColossusBetWinLoss> dataList)
+        public IList<ColossusBetWinLoss> CalculateTotal(IList<ColossusBetWinLoss> dataList)
         {
             if (dataList == null || dataList.Count == 0)
             {
-                return new SortableList<ColossusBetWinLoss>();
+                return new List<ColossusBetWinLoss>();
             }
 
             return dataList.GroupBy(d => d.CurrencyName).Select(g => new ColossusBetWinLoss

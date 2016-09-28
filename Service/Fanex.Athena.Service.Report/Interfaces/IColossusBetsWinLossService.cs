@@ -21,6 +21,6 @@ namespace Fanex.Athena.Service.Report.Interfaces
             Justification = "Reviewed. Suppression is OK here.")]
         SortableList<ColossusBetWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ColossusBetWinLoss> summaryTotal);
 
-        IList<ColossusBetWinLoss> TotalCalc(IList<ColossusBetWinLoss> dataList);
+        IList<ColossusBetWinLoss> CalculateTotal(IList<ColossusBetWinLoss> dataList);
     }
 }

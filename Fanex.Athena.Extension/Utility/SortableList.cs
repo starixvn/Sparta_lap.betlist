@@ -19,16 +19,6 @@ namespace Fanex.Athena.Extension.Utility
         private string _propertyName;
         private bool _ascending;
 
-        public SortableList()
-            : base()
-        {
-        }
-
-        public SortableList(int capacity)
-            : base(capacity)
-        {
-        }
-
         /// <summary>
         /// Sort list by property name.
         /// </summary>

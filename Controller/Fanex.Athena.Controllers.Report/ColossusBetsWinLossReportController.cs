@@ -24,30 +24,24 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var date = DateTime.Now;
             var productList = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
-            var product = productList.SingleOrDefault(p => p.ProductID == ProductTypes.GoldDeluxe);
 
-            if (product == null)
+            if (!productList.Any(x => x.ProductID == ProductTypes.ColossusBets))
             {
                 return this.Redirect("~/Utility/AccessDenied");
             }
 
             var metaModel = new ThirdPartyWinLossMetaModel
             {
-                FromDate = date.AddDays(-1),
-                ToDate = date.AddDays(-1),
-                LicenseeId = licenseeSession.LicenseeId,
+                FromDate = date,
+                ToDate = date,
                 ReportBy = 1,
-                IsExcludedTestData = true,
-                ProductId = product.ProductID,
-                ProductCode = product.ProductCode,
-                ProductName = product.ProductName
+                IsExcludedTestData = true
             };
 
             SetConvetedUSDCurrencyId(metaModel);
 
             var model = new ThirdPartyWinLossViewModel
             {
-                ShowEmptyContent = true,
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList
             };

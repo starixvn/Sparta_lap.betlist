@@ -37,31 +37,9 @@ namespace Fanex.Athena.DataAccess.Report
             return GetData("Lrf_Rpt_ColossusBetsWinloss", metaModel, out summaryTotal);
         }
 
-        public SortableList<ColossusBetWinLoss> GetWinlossDetail(
-            ThirdPartyWinLossMetaModel metaModel,
-            out IDictionary<string, ColossusBetWinLoss> summaryTotal)
+        public SortableList<ColossusBetWinLoss> GetWinlossDetail(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ColossusBetWinLoss> summaryTotal)
         {
             return GetData("Lrf_Rpt_ColossusBetsWinloss_detail", metaModel, out summaryTotal);
-        }
-
-        private SortableList<ColossusBetWinLoss> GetData(string spname, ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ColossusBetWinLoss> summaryTotal)
-        {
-            try
-            {
-                using (var db = this.GetObjectDb(spname))
-                {
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return ReadData(reader, metaModel, out summaryTotal);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, spname, metaModel);
-            }
         }
 
         #region Private
@@ -73,7 +51,7 @@ namespace Fanex.Athena.DataAccess.Report
             ThirdPartyWinLossMetaModel metaModel,
             out IDictionary<string, ColossusBetWinLoss> summaryTotal)
         {
-            var result = new SortableList<ColossusBetWinLoss>(reader.RecordsAffected);
+            var result = new SortableList<ColossusBetWinLoss>();
 
             summaryTotal = new Dictionary<string, ColossusBetWinLoss>();
             foreach (var currency in SystemConstants.BaseCurrencyList)
@@ -129,6 +107,26 @@ namespace Fanex.Athena.DataAccess.Report
             }
 
             return result;
+        }
+
+        private SortableList<ColossusBetWinLoss> GetData(string spname, ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ColossusBetWinLoss> summaryTotal)
+        {
+            try
+            {
+                using (var db = this.GetObjectDb(spname))
+                {
+                    UpdateUspParams(db, metaModel, metaModel.DrillDownLevel > 0);
+                    using (var reader = db.ExecuteReader())
+                    {
+                        return ReadData(reader, metaModel, out summaryTotal);
+                    }
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, spname, metaModel);
+            }
         }
 
         private void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
