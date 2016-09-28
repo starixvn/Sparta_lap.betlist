@@ -1,87 +1,93 @@
-a {
-  color: #1c5fc3;
-  text-decoration: none; }
-  a:hover, a:focus, a:active {
-    text-decoration: none; }
+.page-title .title {
+  font-size: 16px;
+  color: #4060a4;
+  text-transform: uppercase;
+  margin: 0;
+  padding-top: 2rem;
+  padding-bottom: 0.5rem; }
 
-.circle {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 5px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #f94a4a; }
+.page-title .sub-title {
+  font-size: 1.2rem; }
 
-.panel-heading {
-  background: #4C6375;
-  border-radius: 0; }
-  .panel-heading .panel-title {
-    color: #fff;
-    padding: 6px 15px;
-    font-size: 13px; }
-    .panel-heading .panel-title:hover, .panel-heading .panel-title:active, .panel-heading .panel-title:focus {
-      color: #fff; }
-  .panel-heading + .panel-collapse > .panel-body {
-    border-top: none !important; }
+.page-results {
+  margin: 2rem 2rem 0; }
+  .page-results .collapsible {
+    box-shadow: none;
+    border: 0; }
 
-.has-icon {
-  position: relative; }
-  .has-icon [class^="icon-"], .has-icon [class*=" icon-"] {
-    position: absolute;
-    right: 15px;
-    bottom: 10px; }
-  .has-icon .icon-calendar {
-    font-size: 17px; }
-  .has-icon .icon-menu-down {
-    bottom: 5px;
-    right: 10px; }
-
-.panel-group .panel-collapse .panel-body {
-  padding: 0; }
-  @media (max-width: 425px) {
-    .panel-group .panel-collapse .panel-body {
-      max-width: 385px;
-      overflow: auto; } }
+.page-form {
+  margin: 2rem 2rem 0;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
+  .page-form .row {
+    margin-bottom: 12px; }
+    .page-form .row .col {
+      padding: 0 1.5rem; }
+  .page-form .input-field {
+    font-size: 1.3rem; }
+    .page-form .input-field label {
+      left: 1.5rem;
+      font-size: 1.2rem;
+      color: #808080; }
+    .page-form .input-field input[type=text] {
+      height: 3.5rem;
+      line-height: 3.5rem;
+      border-color: #ccc;
+      font-size: 1.3rem;
+      color: #2c2c2c; }
+      .page-form .input-field input[type=text]:focus:not([readonly]) {
+        border-color: #549cba; }
+        .page-form .input-field input[type=text]:focus:not([readonly]) + label {
+          color: #549cba; }
+    .page-form .input-field ::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      color: #2c2c2c; }
+    .page-form .input-field.input label {
+      top: 14px; }
+    .page-form .input-field .icon {
+      position: absolute;
+      right: 15px;
+      top: 8px; }
+  .page-form .dropdown-content {
+    margin-top: 5px; }
+  .page-form .dropdown-content li > a, .page-form .dropdown-content li > span {
+    font-size: 1.3rem;
+    color: #2c2c2c; }
+  .page-form .select-wrapper input.select-dropdown {
+    height: 3.5rem;
+    line-height: 3.5rem;
+    border-color: #ccc;
+    font-size: 1.3rem;
+    color: #2c2c2c; }
+  .page-form .select-wrapper span.caret {
+    color: #549cba; }
 
 .table-title {
   background: #8aa4b8;
   padding: 6px 15px;
-  color: #fff; }
+  color: #fff;
+  text-transform: uppercase; }
 
-.table a {
-  color: #1c5fc3;
-  text-decoration: none; }
-  .table a:hover, .table a:focus, .table a:active {
-    text-decoration: none; }
-
-.table > thead > tr > th {
-  vertical-align: middle;
-  text-align: center;
-  background: #d1dae1;
-  border-color: #ffffff;
-  color: #314453;
-  font-weight: 600; }
-  .table > thead > tr > th:first-child {
-    border-left-color: #d1dae1 !important; }
-  .table > thead > tr > th:last-child {
-    border-right-color: #d1dae1 !important; }
-
-.table > thead > tr:nth-child(2) th:last-child {
-  border-right-color: #fff !important; }
-
-.table > thead:first-child > tr:first-child > th {
-  border-color: #ffffff; }
-
-.table > tbody tr td {
-  border-color: #d6d6d6;
-  color: #404040;
-  padding: 6px 8px; }
-
-.table > tbody tr.highlight {
-  background: #fcf4de; }
-
-.table > tbody tr.total {
-  background: #ffb391; }
+.panel-heading {
+  background: #4C6375;
+  border-radius: 0;
+  padding: 0; }
+  .panel-heading .panel-title {
+    color: #fff;
+    padding: 6px 15px;
+    font-size: 13px; }
+    .panel-heading .panel-title .icon-arrow {
+      margin: 0;
+      font-size: 13px;
+      transform: rotate(-90deg);
+      transition: 0.3s ease all; }
+    .panel-heading .panel-title:hover, .panel-heading .panel-title:active, .panel-heading .panel-title:focus {
+      color: #fff; }
+  .panel-heading + .panel-collapse > .panel-body {
+    border-top: none !important; }
+  .panel-heading.active .panel-title .icon-arrow {
+    transform: rotate(0); }
 
 /*# sourceMappingURL=livereport.css.map*/
