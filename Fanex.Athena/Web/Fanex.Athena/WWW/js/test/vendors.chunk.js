@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"css/test/main","1":"css/test/pages/layout","2":"css/test/pages/reports/livereport","3":"css/test/vendors/materialize","4":"js/test/pages/layout/layout","5":"js/test/pages/livereport/livereport","6":"js/test/vendors/materialize"}[chunkId]||chunkId) + ".chunk.js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"css/test/main","1":"css/test/pages/layout/layout","2":"css/test/pages/reports/livereport","3":"css/test/vendors/materialize","4":"js/test/pages/layout/layout","5":"js/test/pages/livereport/livereport","6":"js/test/vendors/materialize"}[chunkId]||chunkId) + ".chunk.js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -99,12 +99,12 @@
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(16);
+	module.exports = __webpack_require__(17);
 
 
 /***/ },
 
-/***/ 16:
+/***/ 17:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!

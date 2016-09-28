@@ -15,14 +15,14 @@ var commonConfigs = {
     entry: {
         "vendors": ["jquery"],
 
-        "js/test/pages/layout/layout": pathConfig.cssPaths.layout,
+        "js/test/pages/layout/layout": pathConfig.scriptPaths.layout,
         "js/test/pages/livereport/livereport": pathConfig.scriptPaths.livereport,
         "js/test/vendors/materialize": pathConfig.scriptPaths.materialize,
 
         "css/test/pages/reports/livereport": pathConfig.cssPaths.livereport,
         "css/test/main": pathConfig.cssPaths.main,
         "css/test/vendors/materialize": pathConfig.cssPaths.materialize,
-        "css/test/pages/layout": pathConfig.cssPaths.layout,
+        "css/test/pages/layout/layout": pathConfig.cssPaths.layout,
     },
     output: {
         path: path.join(pathConfig.projectRoot, '/www/'),

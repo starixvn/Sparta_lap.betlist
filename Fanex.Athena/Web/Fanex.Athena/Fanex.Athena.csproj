@@ -741,8 +741,8 @@
     <Content Include="www\css\source\vendors\materialize\materialize.min.css" />
     <Content Include="www\css\test\main.chunk.js" />
     <Content Include="www\css\test\main.css" />
-    <Content Include="www\css\test\pages\layout.chunk.js" />
-    <Content Include="www\css\test\pages\layout.css" />
+    <Content Include="www\css\test\pages\layout\layout.chunk.js" />
+    <Content Include="www\css\test\pages\layout\layout.css" />
     <Content Include="www\css\test\pages\reports\livereport.chunk.js" />
     <Content Include="www\css\test\pages\reports\livereport.css" />
     <Content Include="www\css\test\vendors\materialize.chunk.js" />
@@ -755,7 +755,6 @@
     <Content Include="www\js\source\pages\livereport\livereport.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\js\test\pages\layout\layout.chunk.js" />
-    <Content Include="www\js\test\pages\layout\layout.css" />
     <Content Include="www\js\test\pages\livereport\livereport.chunk.js" />
     <Content Include="www\js\test\vendors.chunk.js" />
     <Content Include="www\js\test\vendors\materialize.chunk.js" />
@@ -1162,15 +1161,14 @@
     <Content Include="www\css\source\vendors\materialize\components\_waves.scss" />
     <Content Include="www\css\source\vendors\materialize\materialize.css.map" />
     <Content Include="www\css\source\vendors\materialize\materialize.scss" />
-    <Content Include="www\css\test\pages\layout.chunk.js.map" />
-    <Content Include="www\css\test\pages\layout.css.map" />
     <Content Include="www\css\test\vendors\materialize.chunk.js.map" />
     <Content Include="www\css\test\vendors\materialize.css.map" />
     <Content Include="www\css\test\main.chunk.js.map" />
     <Content Include="www\css\test\main.css.map" />
     <Content Include="www\js\test\pages\layout\layout.chunk.js.map" />
-    <Content Include="www\js\test\pages\layout\layout.css.map" />
     <Content Include="www\js\test\vendors\materialize.chunk.js.map" />
+    <Content Include="www\css\test\pages\layout\layout.chunk.js.map" />
+    <Content Include="www\css\test\pages\layout\layout.css.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
