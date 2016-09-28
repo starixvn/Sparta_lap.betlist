@@ -3,11 +3,73 @@
 ///
 var ColossusBets = (function ($) {
     "use strict";
+    var REPORT_BY_MONTHLY = 2;
     var cacheData = {};
     var ajaxRequest = null;
     var _canDrilldown = true;
     var _level = 0;
     var _submitData;
+
+    function openBetlistPopUp(dataDrillDown) {
+        dataDrillDown = $.parseJSON(dataDrillDown);
+        dataDrillDown.DrawFilter = _submitData.DrawFilter;
+        dataDrillDown.IsExcludedTestData = _submitData.IsExcludedTestData;
+        dataDrillDown.CurrencyId = _submitData.CurrencyId;
+        dataDrillDown.CurrencyName = _submitData.CurrencyName;
+        dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
+
+        if (typeof dataDrillDown.DrillDownFromDate === 'string') {
+            dataDrillDown.DrillDownFromDate = new Date(dataDrillDown.DrillDownFromDate);
+            dataDrillDown.DrillDownToDate = new Date(dataDrillDown.DrillDownToDate);
+        }
+
+        if (_submitData.ReportBy === REPORT_BY_MONTHLY) {
+            var fday = 1;
+            var month = dataDrillDown.DrillDownFromDate.getMonth();
+            var year = dataDrillDown.DrillDownFromDate.getFullYear();
+
+            var orignalFDate = _submitData.FromDate;
+            var originalTDate = _submitData.ToDate;
+
+            if (month === orignalFDate.getMonth()) {
+                fday = orignalFDate.getDate();
+            }
+            dataDrillDown.DrillDownFromDate = new Date(year, month, fday, 0, 0, 0, 0);
+            if (month === originalTDate.getMonth()) {
+                var tday = originalTDate.getDate();
+                dataDrillDown.DrillDownToDate = new Date(year, month, tday, 0, 0, 0, 0);
+            }
+            else {
+                dataDrillDown.DrillDownToDate = LicenseeWinLoss.lastDateOfMonth(year, month);
+            }
+        }
+
+        var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
+        url = QueryString.setParam(url, "fromdate", dataDrillDown.DrillDownFromDate.toString("MM/dd/yyyy"));
+        url = QueryString.setParam(url, "todate", dataDrillDown.DrillDownToDate.toString("MM/dd/yyyy"));
+        url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
+        url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
+        url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
+        url = QueryString.setParam(url, "drawfilter", dataDrillDown.DrawFilter);
+        url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
+        url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
+        url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
+        url = QueryString.setParam(url, "BaseCurrency", dataDrillDown.BaseCurrency);
+        url = QueryString.setParam(url, "OriginalCurrenceId", dataDrillDown.CurrencyId);
+        url = QueryString.setParam(url, "OriginalCurrencyName", dataDrillDown.CurrencyName);
+
+        url = Site.setProductOptionOriginalParamList(url);
+
+        var popH = Math.min($(window).height() - 100, 650), popW = 920;
+        var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' +
+                         popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+        $(dialogForm).dialog({
+            modal: true,
+            width: popW + 50,
+            height: popH + 50
+        });
+    }
 
     return {
         initialize: function () {
@@ -16,6 +78,11 @@ var ColossusBets = (function ($) {
             _canDrilldown = $("#CanDrilldown").val() !== "0";
         },
         initEvent: function () {
+            $("body").on("click", ".bet-list-link", function () {
+                var dataDrillDown = $(this).attr("data-drill-down");
+                openBetlistPopUp(dataDrillDown);
+            });
+
             $('#SubmitButton').click(function () {
                 // Site.blockUI();
                 $('#IsExportExcel').val(false);
@@ -69,8 +136,7 @@ var ColossusBets = (function ($) {
                 $(".breadCrumbHolder").show();
                 $(".level0").show();
 
-                $(".level2").showHide(level === 2);
-                $(".level1").showHide(ColossusBetsOption.licenseeId === ColossusBetsOption.LICENSEE_12BET);
+                $(".level1").show();
                 $(".level1").toggleClass("level-link", level !== 1);
             }
         },
@@ -175,19 +241,14 @@ var ColossusBets = (function ($) {
             };
 
             var fdate, tdate;
-            if (ColossusBets.custom.getDrillDownDates) {
-                var dates = ColossusBets.custom.getDrillDownDates(param, datetime);
-                fdate = dates.FromDate;
-                tdate = dates.ToDate;
-            } else {
-                fdate = Date.parse(datetime);
-                tdate = Date.parse(datetime);
-                if (Number(param.ReportBy) === 2) {
-                    fdate = _submitData.FromDate;
-                    tdate = _submitData.ToDate;
-                }
-                
+
+            fdate = Date.parse(datetime);
+            tdate = Date.parse(datetime);
+            if (Number(param.ReportBy) === 2) {
+                fdate = _submitData.FromDate;
+                tdate = _submitData.ToDate;
             }
+
             var option = {
                 type: "POST",
                 data: JSON.stringify(param),

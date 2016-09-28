@@ -10,7 +10,7 @@ namespace Fanex.Athena.Extension.Utility
     using System.ComponentModel;
     using System.Diagnostics.CodeAnalysis;
 
-    /// <summary>    
+    /// <summary>
     /// TODO: Update summary.
     /// </summary>
     /// <typeparam name="T">Type parameter.</typeparam>
@@ -18,6 +18,16 @@ namespace Fanex.Athena.Extension.Utility
     {
         private string _propertyName;
         private bool _ascending;
+
+        public SortableList()
+            : base()
+        {
+        }
+
+        public SortableList(int capacity)
+            : base(capacity)
+        {
+        }
 
         /// <summary>
         /// Sort list by property name.
@@ -58,14 +68,14 @@ namespace Fanex.Athena.Extension.Utility
             if (_propertyName == propertyName && _ascending == ascending)
             {
                 _ascending = !ascending;
-            }            
+            }
             else
             {
                 // Else, new properties are set with the new values.
                 _propertyName = propertyName;
                 _ascending = ascending;
             }
-            
+
             // Apply and set the sort, if items to sort
             var comparer = new PropertyComparer<T>(propertyName, _ascending ? ListSortDirection.Ascending : ListSortDirection.Descending);
             this.Sort(comparer);

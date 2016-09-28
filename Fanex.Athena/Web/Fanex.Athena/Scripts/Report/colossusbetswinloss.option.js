@@ -10,6 +10,21 @@ var ColossusBetsOption = (function () {
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
 
+    var betlistLink = function (cellvalue, options, rowObject) {
+        var param =
+        {
+            DrillDownFromDate: rowObject.Date,
+            DrillDownToDate: rowObject.Date,
+            DrillDownCurrencyId: rowObject.CurrencyId,
+            DrillDownCurrencyName: rowObject.CurrencyName,
+            CustomerId: rowObject.CustomerId,
+            ExternalId: rowObject.ExternalId,
+            SystemId: rowObject.SystemId
+        };
+
+        return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+    };
+
     var dateFormatter = function (cellvalue, options, rowObject) {
         cellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
         return setDrillDownLink(1, 0, 0, rowObject.Date, cellvalue);
@@ -18,10 +33,6 @@ var ColossusBetsOption = (function () {
     var currencyFormatter = function (cellvalue, options, rowObject) {
         var level = ColossusBetsOption.licenseeId === ColossusBetsOption.LICENSEE_12BET ? 1 : 2;
         return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
-    };
-
-    var systemIdFormatter = function (cellvalue, options, rowObject) {
-        return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
     };
 
     //#region Columns
@@ -221,7 +232,7 @@ var ColossusBetsOption = (function () {
         canDrilldown: true,
         LICENSEE_12BET: 1,
         licenseeId: 0,
-        totalColspan: [2, 2, 3],
+        totalColspan: [2, 3],
         urlData: 'api/ColossusBetsWinlossReport/Index',
         urlExcelData: 'api/ColossusBetsWinlossReport/Index',
         gridOption:
@@ -272,7 +283,6 @@ var ColossusBetsOption = (function () {
 
         if (canDrilldown) {
             currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-            systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
 
             dateColumn.hidden = level > 0;
         }
@@ -281,8 +291,13 @@ var ColossusBetsOption = (function () {
         {
             newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
         };
-        externalIdColumn.hidden = level < 2;
+        externalIdColumn.hidden = level === 0;
         systemIdColumn.hidden = level === 0;
+
+        if (level === 1) {
+            externalIdColumn.formatter = betlistLink;
+            systemIdColumn.formatter = betlistLink;
+        }
 
         return Site.clone(colModelList);
     };
