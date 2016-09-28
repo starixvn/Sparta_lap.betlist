@@ -4,57 +4,42 @@
     var functionCustCommGroup = 55;
 }
 @model Fanex.Athena.Model.Core.ViewModel.MenuViewModel
-<div class="site-menubar">
-    <ul class="search-box">
-        <li>
-            <div class="input-search">
-                <input type="text" class="form-control" placeholder="External ID or System ID">
-                <a href="javascript:void(0)" class="input-search-icon icon-search" aria-hidden="true"></a>
-            </div>
-        </li>
-    </ul>
-    <div class="site-menubar-body">
-        <div>
-            <div>
-                <ul class="site-menu">
-                    @foreach (var masterFunction in Model.MasterFunctions)
-                    {
-                        var subFunctions = Model.UserDetailFunctions.ContainsKey(masterFunction.FunctionId)
-                                    ? Model.UserDetailFunctions[masterFunction.FunctionId].Where(f => f.IsMenu).ToList()
-                                    : null;
-                        var subMenuCount = subFunctions != null ? subFunctions.Count : 0;
-                        if (subMenuCount > 0)
+
+<ul class="collapsible2 collapsible-expandable" data-collapsible="accordion">
+    @foreach (var masterFunction in Model.MasterFunctions)
+    {
+        var subFunctions = Model.UserDetailFunctions.ContainsKey(masterFunction.FunctionId)
+                    ? Model.UserDetailFunctions[masterFunction.FunctionId].Where(f => f.IsMenu).ToList()
+                    : null;
+        var subMenuCount = subFunctions != null ? subFunctions.Count : 0;
+        if (subMenuCount > 0)
+        {
+            <li class="menu-item has-sub">
+                <a class="collapsible-header waves-effect">
+                    <span class="menu-title">@masterFunction.Name</span>
+                    <i class="right icon-arrow"></i>
+                </a>
+
+                <div class="collapsible-body">
+                    <ul>
+                        @foreach (var subFunction in subFunctions)
                         {
-                            <li class="site-menu-item has-sub">
-                                <a href="javascript:void(0)">
-                                    <span class="site-menu-title">@masterFunction.Name</span>
-                                    <span class="site-menu-arrow"></span>
-                                </a>
+                            if (!Model.IsAllowedCustonmerCommission && subFunction.FunctionId == functionCustCommGroup)
+                            {
+                                continue;
+                            }
+                            if (Model.IsInternalLogin && subFunction.FunctionId == fucntionAddNewAccount)
+                            {
+                                continue;
+                            }
 
-                                <ul class="site-menu-sub">
-                                    @foreach (var subFunction in subFunctions)
-                                    {
-                                        if (!Model.IsAllowedCustonmerCommission && subFunction.FunctionId == functionCustCommGroup)
-                                        {
-                                            continue;
-                                        }
-                                        if (Model.IsInternalLogin && subFunction.FunctionId == fucntionAddNewAccount)
-                                        {
-                                            continue;
-                                        }
-
-                                        <li class="site-menu-item">
-                                            <a class="animsition-link" href="@Url.Content("~/" + subFunction.Url)" target="main">
-                                                <span class="site-menu-title">@Html.Raw(subFunction.Name)</span>
-                                            </a>
-                                        </li>
-                                    }
-                                </ul>
+                            <li>
+                                <a href="@Url.Content("~/" + subFunction.Url)" target="main">@Html.Raw(subFunction.Name)</a>
                             </li>
                         }
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+                    </ul>
+                </div>
+            </li>
+        }
+    }
+</ul>

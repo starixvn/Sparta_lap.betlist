@@ -15,7 +15,6 @@ header {
     font-size: 20px;
 }
 
-
 .navbar-fixed {
     height: 64px;
 
@@ -77,7 +76,6 @@ header {
         > * {
             float: right;
         }
-
         //------------ Profile avatar -------------------//
         .avatar {
             position: relative;
@@ -89,6 +87,7 @@ header {
             width: 32px;
             border: 2px solid #708291;
         }
+
         .name {
             padding: 0 0.5rem;
         }
@@ -100,7 +99,7 @@ header {
         .navbar-avatar > .dropdown-button {
             cursor: pointer;
         }
-        
+
         .profile-items {
             width: 15rem !important;
             top: 64px !important;
@@ -111,7 +110,6 @@ header {
                 vertical-align: middle;
             }
         }
-
         //--------------- Notification -------------------//
         .notification {
             display: inline-block;
@@ -140,7 +138,6 @@ header {
                 right: 14px;
             }
         }
-
         //------------ Search block -------------------//
         .search_bar {
             box-sizing: border-box;
@@ -150,7 +147,6 @@ header {
             position: relative;
             transition: all 0.2s ease-out;
             margin-right: 1rem;
-
             // ----------- iPhone 5 and 5S Portrait ----------- //
             @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
                 position: absolute;
@@ -162,7 +158,6 @@ header {
                     right: 60%;
                 }
             }
-
             // ----------- iPhone 6 Portrait ----------- //
             @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
                 position: absolute;
@@ -173,7 +168,7 @@ header {
                 #label-search {
                     right: 50%;
                 }
-            }            
+            }
 
             form {
                 overflow: hidden;
@@ -206,13 +201,11 @@ header {
                 border-bottom: none;
                 opacity: 0.7;
                 font-size: 13px;
-
                 // ----------- iPhone 6 Portrait ----------- //
                 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
                     opacity: 0;
                     transition: none;
                 }
-
                 // ----------- iPhone 5 and 5S Portrait ----------- //
                 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
                     opacity: 0;
@@ -233,8 +226,7 @@ header {
                     &:focus {
                         border-bottom: 1px solid #fff;
                         box-shadow: 0 1px 0 0 #fff;
-                    }                                      
-
+                    }
                     // ----------- iPhone 5 and 5S Portrait ----------- //
                     @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
                         opacity: 1;
@@ -244,7 +236,6 @@ header {
                             box-shadow: none;
                         }
                     }
-
                     // ----------- iPhone 6 Portrait ----------- //
                     @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
                         opacity: 1;
@@ -259,7 +250,6 @@ header {
                 label {
                     color: #fff;
                 }
-
                 // ----------- iPhone 5 and 5S Portrait ----------- //
                 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
                     position: absolute;
@@ -279,7 +269,6 @@ header {
                         left: 10px;
                     }
                 }
-
                 // ----------- iPhone 6 Portrait ----------- //
                 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
                     position: absolute;
@@ -298,10 +287,9 @@ header {
                     #label-search {
                         left: 10px;
                     }
-                }                
+                }
             }
         }
-
         //------------ Languages block -------------------//
         .languages-block {
             padding: 0 1rem;
@@ -320,7 +308,6 @@ header {
                 }
             }
         }
-
         //------------------Notification block --------------//
         .notification-items {
             width: 25rem !important;
@@ -330,6 +317,7 @@ header {
                 padding: 15px;
                 border-bottom: 1px solid #e0e0e0;
             }
+
             .notification-content {
                 padding-left: 10px;
 
@@ -350,7 +338,7 @@ header {
                 font-size: 13px;
                 float: left;
             }
-        }        
+        }
     }
 
     @media only screen and (max-width: 992px) {
@@ -363,7 +351,6 @@ header {
         }
     }
 }
-
 
 /*@media (max-device-width: 1280px) and (orientation: landscape) {
     .nav-wrapper {

@@ -16,16 +16,32 @@
     <link href="~/www/css/test/main.css" rel="stylesheet" />
     <link href="~/www/css/test/pages/layout/layout.css" rel="stylesheet" />
 </head>
-<body class="site-menubar-unfold">
-    @{ Html.RenderAction("Index", "Header"); }
+<body>
+    <header>
+        <div class="navbar-fixed">
+            @{ Html.RenderAction("Index", "Header"); }
+        </div>
+    </header>
 
-    @{ Html.RenderAction("Index", "Menu"); }
+    <ul id="nav-mobile" class="side-nav fixed">
+        <li class="logo-block">
+            <a id="logo-container" href="#" class="logo left">
+                <span class="logo-image"><img src="~/www/assets/images/logo.png" /></span>
+                <span class="logo-text"><img src="~/www/assets/images/logo-text.png" /> </span>
+            </a>
+        </li>
+        <li class="site-menu">
+            @{ Html.RenderAction("Index", "Menu"); }
+        </li>
+    </ul>    
 
-    <div class="page">
-        <iframe src="@(Util.RootPath + ViewBag.DefaultReportUrl)" id="main" name="main" scrolling="auto"
-                width="100%" height="100%" frameborder="0"></iframe>
-    </div>
+    <main class="main">
+        <!--Place your content at here -->
+        <iframe id="mainFrame" name="main" src="@(Util.RootPath + ViewBag.DefaultReportUrl)" frameborder="0" scrolling="auto" width="100"></iframe>
+    </main>
+
     <script src="~/www/js/test/vendors.chunk.js"></script>
+    <script src="~/www/js/test/vendors/materialize.chunk.js"></script>
     <script src="~/www/js/test/pages/layout/layout.chunk.js"></script>
 </body>
 </html>

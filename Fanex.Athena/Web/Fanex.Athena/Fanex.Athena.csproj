@@ -708,6 +708,12 @@
     <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
     <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
     <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
+    <Content Include="www\assets\images\flag_en-US.svg" />
+    <Content Include="www\assets\images\flag_ko-KR.png" />
+    <Content Include="www\assets\images\flag_zh-CN.svg" />
+    <Content Include="www\assets\images\flag_zh-TW.png" />
+    <Content Include="www\assets\images\logo-text.png" />
+    <Content Include="www\assets\images\logo.png" />
     <Content Include="www\css\source\fonts\flags\flags\cn.svg" />
     <Content Include="www\css\source\fonts\flags\flags\de.svg" />
     <Content Include="www\css\source\fonts\flags\flags\fr.svg" />
@@ -729,8 +735,6 @@
     <Content Include="www\css\source\images\logo.svg" />
     <Content Include="www\css\source\images\logo2.png" />
     <Content Include="www\css\source\images\m7_logo.png" />
-    <Content Include="www\css\source\layout\navBar.min.css" />
-    <Content Include="www\css\source\layout\sideBar.min.css" />
     <Content Include="www\css\source\vendors\flag-icon-css\flag-icon.min.css" />
     <Content Include="www\css\source\vendors\flag-icon-css\flags\cn.svg" />
     <Content Include="www\css\source\vendors\flag-icon-css\flags\de.svg" />
@@ -992,12 +996,6 @@
     <Content Include="Scripts\Report\thirdpartywinloss.golddeluxe.js" />
     <Content Include="Scripts\Report\microgamingwinloss.js" />
     <Content Include="Scripts\Report\microgamingwinloss.option.js" />
-    <Content Include="www\assets\images\flag_en-US.png" />
-    <Content Include="www\assets\images\flag_ko-KR.png" />
-    <Content Include="www\assets\images\flag_zh-CN.png" />
-    <Content Include="www\assets\images\flag_zh-TW.png" />
-    <Content Include="www\assets\images\logo-text.svg" />
-    <Content Include="www\assets\images\logo.svg" />
     <Content Include="www\css\build\plugins\asScrollable.min.css" />
     <Content Include="www\css\build\plugins\daterangepicker.min.css" />
     <Content Include="www\css\build\plugins\flag-icon.min.css" />
@@ -1006,10 +1004,6 @@
     <Content Include="www\css\build\vendors\bootstrap.css" />
     <Content Include="www\css\build\pages\reports\liveReport.min.css" />
     <Content Include="www\css\build\site.min.css" />
-    <Content Include="www\assets\font-icon\font-awesome\font-awesome.min.css" />
-    <Content Include="www\assets\font-icon\fonts\icomoon.svg" />
-    <Content Include="www\assets\font-icon\material-design\material-design.min.css" />
-    <Content Include="www\assets\font-icon\style.css" />
     <Content Include="SiteConfig\Web.LOCAL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
@@ -1095,9 +1089,7 @@
     <Content Include="www\css\source\fonts\montserrat\Montserrat-Hairline.woff" />
     <Content Include="www\css\source\fonts\montserrat\Montserrat-Regular.ttf" />
     <Content Include="www\css\source\fonts\montserrat\_style.scss" />
-    <Content Include="www\css\source\layout\navBar.css.map" />
     <Content Include="www\css\source\layout\navBar.scss" />
-    <Content Include="www\css\source\layout\sideBar.css.map" />
     <Content Include="www\css\source\layout\sideBar.scss" />
     <Content Include="www\css\source\pages\liveReport.scss" />
     <Content Include="www\css\source\pages\login.scss" />
@@ -4835,11 +4827,6 @@
       <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="www\assets\font-icon\font-awesome\fontawesome-webfont.woff2" />
-    <Content Include="www\assets\font-icon\fonts\icomoon.eot" />
-    <Content Include="www\assets\font-icon\fonts\icomoon.ttf" />
-    <Content Include="www\assets\font-icon\fonts\icomoon.woff" />
-    <Content Include="www\assets\font-icon\material-design\Material-Design-Iconic-Font.woff2" />
     <None Include="SiteConfig\Web.AppSettings.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.AppSettings.config.txt</LastGenOutput>

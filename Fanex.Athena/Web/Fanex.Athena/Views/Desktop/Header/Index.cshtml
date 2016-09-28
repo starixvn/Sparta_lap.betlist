@@ -3,115 +3,78 @@
 }
 @model Fanex.Athena.Model.Core.ViewModel.HeaderPageViewModel
 
-<nav class="site-navbar navbar" role="navigation">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left hided"
-                data-toggle="menubar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="hamburger-bar"></span>
-        </button>
-        <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-collapse"
-                data-toggle="collapse">
-            <i class="icon md-more" aria-hidden="true"></i>
-        </button>
-        <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-            <div class="navbar-brand-logo"><img src="~/www/assets/images/logo.svg" /> </div>
-            <span class="navbar-brand-text hidden-xs">
-                <img src="~/www/assets/images/logo-text.svg" />
-            </span>
-        </div>
-        <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-search"
-                data-toggle="collapse">
-            <span class="sr-only">Toggle Search</span>
-            <i class="icon md-search" aria-hidden="true"></i>
-        </button>
+<nav class="nav-wrapper">
+    <div class="toggle">
+        <a class="toggleMenubar waves-effect waves-light" id="js-toggleMenubar" data-activates="nav-mobile"><i class="icon icon-backburger"></i></a>
+        <div class="page-title hide-on-small-and-down"><span class="active">Live Report</span></div>
     </div>
 
-    <div class="navbar-container container-fluid">
-        <!-- Navbar Collapse -->
-        <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
-            <!-- Navbar Toolbar -->
-            <ul class="nav navbar-toolbar">
-                <li class="hidden-float" id="toggleMenubar">
-                    <a data-toggle="menubar" href="#" role="button">
-                        <i class="icon icon-backburger">
-                            <span class="sr-only">Toggle menubar</span>
-                            <span class="hamburger-bar"></span>
-                        </i>
-                    </a>
-                </li>
-                <li class="hidden-float">
-                    <ol class="breadcrumb">
-                        <li class="active">Live Report</li>
-                    </ol>
-                </li>
-            </ul>
-            <!-- End Navbar Toolbar -->
-            <!-- Navbar Toolbar Right -->
-            <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
-                @if (!Model.IsInternalLogin)
+    <div class="right">
+        <div class="languages-block">
+            @{
+                var currentLicensee = Model.LicenseeList.FirstOrDefault(p => p.Id.Equals(Model.CurrentLicenseeId)).Name;
+            }
+            <a class='dropdown-button' href='#' data-activates='licensees'>
+                @currentLicensee
+                <i class="icon icon-menu-down" aria-hidden="true"></i>
+            </a>
+
+            <ul id='licensees' class='dropdown-content language-items'>
+                @foreach (var licensee in Model.LicenseeList)
                 {
                     <li>
-                        <ol class="breadcrumb welcome">
-                            <li class="active"><span>@ViewResources.Welcome,</span>&nbsp; <span class="user-name-text">@Html.Encode(Model.UserName)</span></li>
-                        </ol>                      
-                    </li>
-                    <li>
-                        <a id="change-pass-btn" href="javascript:void(0)" data-animation="scale-up" role="button">
-                            @ViewResources.ChangePassword
-                        </a>
-                    </li>
-                    <li>
-                        <a id="lougout-btn btn btn-primary" href="javascript:void(0)" data-animation="scale-up" role="button">
-                            @ViewResources.Logout
+                        <a href="javascript:void(0)" licenseeId="@licensee.Id">
+                            @licensee.Name
                         </a>
                     </li>
                 }
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up"
-                       aria-expanded="false" role="button">
-                        <span class="flag-icon flag-icon-@Model.Language"></span>
-                        @{
-                            var currentLanguage = Model.SupportedLanguageList.FirstOrDefault(p => p.Key.Equals(Model.Language)).Value;
-                        }
-                        <span>@currentLanguage</span>
-                        <i class="icon icon-menu-down" aria-hidden="true"></i>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        @foreach (var language in Model.SupportedLanguageList)
-                        {
-                            <li role="presentation">
-                                <a href="javascript:void(0)" role="menuitem" langkey="@language.Key">
-                                    <span class="flag-icon flag-icon-@language.Key"></span> @language.Value
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up"
-                       aria-expanded="false" role="button">
-                        @{
-                            var currentLicensee = Model.LicenseeList.FirstOrDefault(p => p.Id.Equals(Model.CurrentLicenseeId)).Name;
-                        }
-                        <span>@currentLicensee</span>
-                        <i class="icon icon-menu-down" aria-hidden="true"></i>
-                    </a>
-                    <ul class="dropdown-menu licensee-list" role="menu">
-                        @foreach (var licensee in Model.LicenseeList)
-                        {
-                            <li role="presentation">
-                                <a href="javascript:void(0)" role="menuitem" licenseeId="@licensee.Id">
-                                    @licensee.Name
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </li>
             </ul>
-            <!-- End Navbar Toolbar Right -->
         </div>
-        <!-- End Navbar Collapse -->
+
+        <div class="languages-block">
+            @{
+                var currentLanguage = Model.SupportedLanguageList.FirstOrDefault(p => p.Key.Equals(Model.Language)).Value;
+            }
+            <a class='dropdown-button' href='#' data-activates='languages'>
+                <span class="flag-icon flag-icon-@Model.Language"></span>
+                @currentLanguage
+                <i class="icon icon-menu-down" aria-hidden="true"></i>
+            </a>
+
+            <ul id='languages' class='dropdown-content language-items'>
+                @foreach (var language in Model.SupportedLanguageList)
+                {
+                    <li>
+                        <a href="javascript:void(0)" langkey="@language.Key">
+                            <span class="flag-icon flag-icon-@language.Key"></span> @language.Value
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        @if (!Model.IsInternalLogin)
+        {
+            <div class="languages-block">
+                <span>@ViewResources.Welcome,</span>&nbsp; <span class="user-name-text">@Html.Encode(Model.UserName)</span>
+            </div>
+            <div class="languages-block">
+                <a id="change-pass-btn" href="javascript:void(0)" data-animation="scale-up" role="button">
+                    <i class="icon icon-account"></i> 
+                    @ViewResources.ChangePassword
+                </a>
+            </div>
+            <div class="languages-block">
+                <a id="lougout-btn btn btn-primary" href="javascript:void(0)" data-animation="scale-up" role="button">
+                    <i class="icon icon-logout"></i> 
+                    @ViewResources.Logout
+                </a>
+            </div>
+        }
+
+        <form class="search_bar" id="search">
+            <input type="text" autocomplete="off" name="query" id="searchbox" class="placeholder" placeholder="Search">
+            <label id="label-search" for="search" class="active"><i class="icon icon-search"></i></label>
+        </form>
     </div>
 </nav>
