@@ -708,6 +708,40 @@
     <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
     <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
     <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
+    <Content Include="www\css\source\fonts\flags\flags\cn.svg" />
+    <Content Include="www\css\source\fonts\flags\flags\de.svg" />
+    <Content Include="www\css\source\fonts\flags\flags\fr.svg" />
+    <Content Include="www\css\source\fonts\flags\flags\gb.svg" />
+    <Content Include="www\css\source\fonts\flags\flags\nl.svg" />
+    <Content Include="www\css\source\fonts\flags\flags\us.svg" />
+    <Content Include="www\css\source\fonts\font-icon\fonts\icomoon.svg" />
+    <Content Include="www\css\source\images\15.jpg" />
+    <Content Include="www\css\source\images\bg-login.jpg" />
+    <Content Include="www\css\source\images\ic-calendar.png" />
+    <Content Include="www\css\source\images\ic-logout.png" />
+    <Content Include="www\css\source\images\ic-servers.png" />
+    <Content Include="www\css\source\images\ic-service.png" />
+    <Content Include="www\css\source\images\ic-setting.png" />
+    <Content Include="www\css\source\images\ic-viewlogs.png" />
+    <Content Include="www\css\source\images\logo-text.png" />
+    <Content Include="www\css\source\images\logo-text.svg" />
+    <Content Include="www\css\source\images\logo.png" />
+    <Content Include="www\css\source\images\logo.svg" />
+    <Content Include="www\css\source\images\logo2.png" />
+    <Content Include="www\css\source\images\m7_logo.png" />
+    <Content Include="www\css\source\layout\navBar.min.css" />
+    <Content Include="www\css\source\layout\sideBar.min.css" />
+    <Content Include="www\css\source\main.min.css" />
+    <Content Include="www\css\source\pages\liveReport.min.css" />
+    <Content Include="www\css\source\pages\login.min.css" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flag-icon.min.css" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flags\cn.svg" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flags\de.svg" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flags\fr.svg" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flags\gb.svg" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flags\nl.svg" />
+    <Content Include="www\css\source\vendors\flag-icon-css\flags\us.svg" />
+    <Content Include="www\css\source\vendors\materialize\materialize.min.css" />
     <Content Include="www\css\test\pages\reports\livereport.chunk.js" />
     <Content Include="www\css\test\pages\reports\livereport.css" />
     <Content Include="www\css\test\plugin.chunk.js" />
@@ -717,8 +751,10 @@
     <Content Include="www\js\build\pages\home\home.chunk.js" />
     <Content Include="www\js\build\pages\livereport\livereport.chunk.js" />
     <Content Include="www\js\build\vendors.chunk.js" />
-    <Content Include="www\js\source\common\site.js" />
-    <Content Include="www\js\source\common\querystring.js" />
+    <Content Include="www\js\source\components\navbar\navbar.js" />
+    <Content Include="www\js\source\components\sidebar\sidebar.js" />
+    <Content Include="www\js\source\pages\livereport.js" />
+    <Content Include="www\js\source\vendor\materialize\materialize.js" />
     <Content Include="www\js\test\pages\livereport\livereport.chunk.js" />
     <Content Include="www\js\test\vendors.chunk.js" />
     <Content Include="www\webpackconfig\build\utils.js" />
@@ -969,61 +1005,10 @@
     <Content Include="www\css\build\vendors\bootstrap.css" />
     <Content Include="www\css\build\pages\reports\liveReport.min.css" />
     <Content Include="www\css\build\site.min.css" />
-    <Content Include="www\css\source\pages\Report\liveReport.css">
-      <DependentUpon>liveReport.scss</DependentUpon>
-    </Content>
-    <Content Include="www\css\source\pages\Report\liveReport.min.css">
-      <DependentUpon>liveReport.css</DependentUpon>
-    </Content>
-    <Content Include="www\css\source\site.css">
-      <DependentUpon>site.scss</DependentUpon>
-    </Content>
-    <Content Include="www\css\source\site.min.css">
-      <DependentUpon>site.css</DependentUpon>
-    </Content>
-    <Content Include="www\css\source\vendors\bootstrap\bootstrap-extend.css" />
-    <Content Include="www\css\source\vendors\bootstrap\bootstrap.css" />
-    <Content Include="www\css\source\vendors\daterangepicker\daterangepicker.css">
-      <DependentUpon>daterangepicker.scss</DependentUpon>
-    </Content>
-    <Content Include="www\css\source\vendors\daterangepicker\daterangepicker.min.css">
-      <DependentUpon>daterangepicker.css</DependentUpon>
-    </Content>
-    <Content Include="www\css\source\vendors\flag-icon-css\flag-icon.min.css" />
-    <Content Include="www\css\source\vendors\flag-icon-css\flags\cn.svg" />
-    <Content Include="www\css\source\vendors\flag-icon-css\flags\de.svg" />
-    <Content Include="www\css\source\vendors\flag-icon-css\flags\fr.svg" />
-    <Content Include="www\css\source\vendors\flag-icon-css\flags\gb.svg" />
-    <Content Include="www\css\source\vendors\flag-icon-css\flags\nl.svg" />
-    <Content Include="www\css\source\vendors\flag-icon-css\flags\us.svg" />
-    <Content Include="www\css\source\vendors\jqGrid\ui.jqgrid\images\tab_topbg.gif" />
-    <Content Include="www\css\source\vendors\jqGrid\ui.jqgrid\jqgrid.extension.css" />
-    <Content Include="www\css\source\vendors\jqGrid\ui.jqgrid\ui.jqgrid.css" />
-    <Content Include="www\css\source\vendors\waves\waves.min.css" />
     <Content Include="www\assets\font-icon\font-awesome\font-awesome.min.css" />
     <Content Include="www\assets\font-icon\fonts\icomoon.svg" />
     <Content Include="www\assets\font-icon\material-design\material-design.min.css" />
     <Content Include="www\assets\font-icon\style.css" />
-    <Content Include="www\js\source\pages\home\home.js" />
-    <Content Include="www\js\source\pages\livereport\livereport.js" />
-    <Content Include="www\js\source\pages\home\menu\core.min.js" />
-    <Content Include="www\js\source\pages\home\menu\menu.min.js" />
-    <Content Include="www\js\source\pages\home\menu\menubar.min.js" />
-    <Content Include="www\js\source\pages\home\menu\sidebar.min.js" />
-    <Content Include="www\js\source\pages\home\site.min.js" />
-    <Content Include="www\js\source\plugins\ashoverscroll\jquery-asHoverScroll.min.js" />
-    <Content Include="www\css\source\vendors\asscrollable\asScrollable.min.css" />
-    <Content Include="www\js\source\plugins\asscrollable\asscrollable.min.js" />
-    <Content Include="www\js\source\plugins\asscrollable\jquery.asScrollable.all.min.js" />
-    <Content Include="www\js\source\plugins\asscroll\jquery-asScroll.min.js" />
-    <Content Include="www\js\source\plugins\breakpoints\breakpoints.min.js" />
-    <Content Include="www\js\source\vendors\bootstrap\bootstrap.min.js" />
-    <Content Include="www\js\source\plugins\daterangepicker\daterangepicker.js" />
-    <Content Include="www\js\source\plugins\jqGrid\jquery.jqGrid.en.js" />
-    <Content Include="www\js\source\plugins\jqGrid\jquery.jqGrid.min.js" />
-    <Content Include="www\js\source\vendors\jquery\jquery.min.js" />
-    <Content Include="www\js\source\plugins\moment\moment.min.js" />
-    <Content Include="www\js\source\plugins\waves\waves.min.js" />
     <Content Include="SiteConfig\Web.LOCAL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
@@ -1086,7 +1071,6 @@
     <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\BySport\Content.Header.cshtml" />
     <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\LiveReportDetail.cshtml" />
     <Content Include="Views\Desktop\Header\Index.cshtml" />
-    <Content Include="www\css\source\vendors\daterangepicker\daterangepicker.scss" />
     <Content Include="Views\Desktop\Home\Index.cshtml" />
     <Content Include="Views\Desktop\Menu\Index.cshtml" />
     <Content Include="www\js\build\pages\livereport\livereport.chunk.js.map" />
@@ -1099,6 +1083,90 @@
     <Content Include="www\css\test\plugin.css.map" />
     <Content Include="www\css\test\site.chunk.js.map" />
     <Content Include="www\css\test\site.css.map" />
+    <Content Include="www\css\source\main.css.map" />
+    <Content Include="www\css\source\main.scss" />
+    <Content Include="www\css\source\abstracts\_variables.scss" />
+    <Content Include="www\css\source\base\_common.scss" />
+    <Content Include="www\css\source\components\_button.scss" />
+    <Content Include="www\css\source\components\_calendar.scss" />
+    <Content Include="www\css\source\components\_table.scss" />
+    <Content Include="www\css\source\fonts\flags\_flags-icon.scss" />
+    <Content Include="www\css\source\fonts\font-icon\fonts\icomoon.eot" />
+    <Content Include="www\css\source\fonts\font-icon\fonts\icomoon.ttf" />
+    <Content Include="www\css\source\fonts\font-icon\fonts\icomoon.woff" />
+    <Content Include="www\css\source\fonts\font-icon\_style.scss" />
+    <Content Include="www\css\source\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="www\css\source\fonts\montserrat\Montserrat-Hairline.woff" />
+    <Content Include="www\css\source\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="www\css\source\fonts\montserrat\_style.scss" />
+    <Content Include="www\css\source\layout\navBar.css.map" />
+    <Content Include="www\css\source\layout\navBar.scss" />
+    <Content Include="www\css\source\layout\sideBar.css.map" />
+    <Content Include="www\css\source\layout\sideBar.scss" />
+    <Content Include="www\css\source\pages\liveReport.css.map" />
+    <Content Include="www\css\source\pages\liveReport.scss" />
+    <Content Include="www\css\source\pages\login.css.map" />
+    <Content Include="www\css\source\pages\login.scss" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Bold.eot" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Bold.ttf" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Bold.woff" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Bold.woff2" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Light.eot" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Light.ttf" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Light.woff" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Light.woff2" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Medium.eot" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Medium.ttf" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Medium.woff" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Medium.woff2" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Regular.eot" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Regular.ttf" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Regular.woff2" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Thin.eot" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Thin.ttf" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Thin.woff" />
+    <Content Include="www\css\source\vendors\fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="www\css\source\vendors\materialize\components\date_picker\_default.date.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\date_picker\_default.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\date_picker\_default.time.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\forms\_checkboxes.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\forms\_file-input.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\forms\_forms.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\forms\_input-fields.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\forms\_radio-buttons.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\forms\_range.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\forms\_select.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\forms\_switches.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_buttons.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_cards.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_carousel.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_chips.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_collapsible.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_color.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_dropdown.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_global.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_grid.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_icons-material-design.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_materialbox.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_mixins.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_modal.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_navbar.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_normalize.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_prefixer.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_preloader.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_roboto.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_sideNav.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_slider.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_table_of_contents.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_tabs.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_toast.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_tooltip.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_typography.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_variables.scss" />
+    <Content Include="www\css\source\vendors\materialize\components\_waves.scss" />
+    <Content Include="www\css\source\vendors\materialize\materialize.css.map" />
+    <Content Include="www\css\source\vendors\materialize\materialize.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
@@ -4765,29 +4833,6 @@
       <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="www\css\source\abstracts\_variables.scss" />
-    <Content Include="www\css\source\base\_common.scss" />
-    <Content Include="www\css\source\components\_animation.scss" />
-    <Content Include="www\css\source\components\_avatar-status.scss" />
-    <Content Include="www\css\source\components\_blocks.scss" />
-    <Content Include="www\css\source\components\_button.scss" />
-    <Content Include="www\css\source\components\_color.scss" />
-    <Content Include="www\css\source\components\_dropdown.scss" />
-    <Content Include="www\css\source\components\_forms.scss" />
-    <Content Include="www\css\source\components\_icons.scss" />
-    <Content Include="www\css\source\components\_labels-badges.scss" />
-    <Content Include="www\css\source\components\_pagination.scss" />
-    <Content Include="www\css\source\components\_panel.scss" />
-    <Content Include="www\css\source\components\_sizing.scss" />
-    <Content Include="www\css\source\components\_spacing.scss" />
-    <Content Include="www\css\source\components\_widget.scss" />
-    <Content Include="www\css\source\layout\_content.scss" />
-    <Content Include="www\css\source\layout\_footer.scss" />
-    <Content Include="www\css\source\layout\_menubar.scss" />
-    <Content Include="www\css\source\layout\_navbar.scss" />
-    <Content Include="www\css\source\layout\_sidebar.scss" />
-    <Content Include="www\css\source\pages\Report\liveReport.scss" />
-    <Content Include="www\css\source\site.scss" />
     <Content Include="www\assets\font-icon\font-awesome\fontawesome-webfont.woff2" />
     <Content Include="www\assets\font-icon\fonts\icomoon.eot" />
     <Content Include="www\assets\font-icon\fonts\icomoon.ttf" />
@@ -4952,7 +4997,6 @@
   <ItemGroup>
     <Folder Include="Content\Plugin\MultiSelect\images\images\" />
     <Folder Include="Logs\" />
-    <Folder Include="www\js\source\pages\livereport\specs\" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
