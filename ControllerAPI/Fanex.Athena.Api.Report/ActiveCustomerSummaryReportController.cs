@@ -120,7 +120,7 @@ namespace Fanex.Athena.Api.Report
 
         private dynamic ProcessRequest(ActiveCustomerMetaModel metaModel)
         {
-            if (!IsValidRequest(metaModel))
+            if (IsValidRequest(metaModel))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.UserId = SessionService.UserSession.UserId;
