@@ -43,7 +43,6 @@ var ThirdPartyWinLoss = (function ($) {
     return {
         custom: {
             // initialize()
-            // getDrillDownDates(param, datetime) 
         },
         
         initialize: function () {
@@ -217,20 +216,8 @@ var ThirdPartyWinLoss = (function ($) {
                 ReportBy: _submitData.ReportBy
             };
 
-            var fdate, tdate;
-            if (ThirdPartyWinLoss.custom.getDrillDownDates) {
-                var dates = ThirdPartyWinLoss.custom.getDrillDownDates(param, datetime);
-                fdate = dates.FromDate;
-                tdate = dates.ToDate;
-            } else {
-                fdate = Date.parse(datetime);
-                tdate = Date.parse(datetime);
-                if (Number(param.ReportBy) === 2) {
-                    fdate = _submitData.FromDate;
-                    tdate = _submitData.ToDate;
-                }
-                
-            }
+            var drilldownDateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, datetime);
+
             var option = {
                 type: "POST",
                 data: JSON.stringify(param),
@@ -239,18 +226,18 @@ var ThirdPartyWinLoss = (function ($) {
                 cache: false,
                 url: Site.resolveClientUrl(ThirdPartyWinLossOption.urlData +
                     "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
-                    "&fdate=" + fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
+                    "&fdate=" + drilldownDateRange.FromDate.toString("MM/dd/yyyy") + "&tdate=" + drilldownDateRange.ToDate.toString("MM/dd/yyyy")),
                 success: function (response) {
                     ThirdPartyWinLoss.ajaxComplete(level, response);
                     if (response != null && response.Data.length > 0) {
                         if (level > 0 && Number(param.CurrencyId) === 0) {
-                            ThirdPartyWinLoss.setReportTitle(currencyId, fdate, tdate);
+                            ThirdPartyWinLoss.setReportTitle(currencyId, drilldownDateRange.FromDate, drilldownDateRange.ToDate);
                         } else {
-                            ThirdPartyWinLoss.setReportTitle(param.CurrencyId, fdate, tdate);
+                            ThirdPartyWinLoss.setReportTitle(param.CurrencyId, drilldownDateRange.FromDate, drilldownDateRange.ToDate);
                         }
                     }
                     //update excel URL
-                    ThirdPartyWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate);
+                    ThirdPartyWinLoss.setExcelUrl(level, currencyId, customerId, drilldownDateRange.FromDate, drilldownDateRange.ToDate);
                 },
                 beforeSend: function () {
                     Site.blockUI();

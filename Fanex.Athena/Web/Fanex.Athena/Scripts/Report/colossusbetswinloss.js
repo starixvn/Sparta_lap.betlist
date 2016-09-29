@@ -1,9 +1,8 @@
-/*global jqGridAdditional, ColossusBetsOption, Report, Site */
+/*global jqGridAdditional, ColossusBetsOption, Report, Site, QueryString */
 /// <reference path="/@JSense.js" />
 ///
 var ColossusBets = (function ($) {
     "use strict";
-    var REPORT_BY_MONTHLY = 2;
     var cacheData = {};
     var ajaxRequest = null;
     var _level = 0;
@@ -17,35 +16,11 @@ var ColossusBets = (function ($) {
         dataDrillDown.CurrencyName = _submitData.CurrencyName;
         dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
 
-        if (typeof dataDrillDown.DrillDownFromDate === 'string') {
-            dataDrillDown.DrillDownFromDate = new Date(dataDrillDown.DrillDownFromDate);
-            dataDrillDown.DrillDownToDate = new Date(dataDrillDown.DrillDownToDate);
-        }
-
-        if (_submitData.ReportBy === REPORT_BY_MONTHLY) {
-            var fday = 1;
-            var month = dataDrillDown.DrillDownFromDate.getMonth();
-            var year = dataDrillDown.DrillDownFromDate.getFullYear();
-
-            var orignalFDate = _submitData.FromDate;
-            var originalTDate = _submitData.ToDate;
-
-            if (month === orignalFDate.getMonth()) {
-                fday = orignalFDate.getDate();
-            }
-            dataDrillDown.DrillDownFromDate = new Date(year, month, fday, 0, 0, 0, 0);
-            if (month === originalTDate.getMonth()) {
-                var tday = originalTDate.getDate();
-                dataDrillDown.DrillDownToDate = new Date(year, month, tday, 0, 0, 0, 0);
-            }
-            else {
-                dataDrillDown.DrillDownToDate = LicenseeWinLoss.lastDateOfMonth(year, month);
-            }
-        }
+        var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
 
         var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
-        url = QueryString.setParam(url, "fromdate", dataDrillDown.DrillDownFromDate.toString("MM/dd/yyyy"));
-        url = QueryString.setParam(url, "todate", dataDrillDown.DrillDownToDate.toString("MM/dd/yyyy"));
+        url = QueryString.setParam(url, "fromdate", dateRange.FromDate.toString("MM/dd/yyyy"));
+        url = QueryString.setParam(url, "todate", dateRange.ToDate.toString("MM/dd/yyyy"));
         url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
         url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
         url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
@@ -237,14 +212,7 @@ var ColossusBets = (function ($) {
                 ReportBy: _submitData.ReportBy
             };
 
-            var fdate, tdate;
-
-            fdate = Date.parse(datetime);
-            tdate = Date.parse(datetime);
-            if (Number(param.ReportBy) === 2) {
-                fdate = _submitData.FromDate;
-                tdate = _submitData.ToDate;
-            }
+            var drilldownDateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, datetime);
 
             var option = {
                 type: "POST",
@@ -254,18 +222,18 @@ var ColossusBets = (function ($) {
                 cache: false,
                 url: Site.resolveClientUrl(ColossusBetsOption.urlData +
                     "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
-                    "&fdate=" + fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
+                    "&fdate=" + drilldownDateRange.FromDate.toString("MM/dd/yyyy") + "&tdate=" + drilldownDateRange.ToDate.toString("MM/dd/yyyy")),
                 success: function (response) {
                     ColossusBets.ajaxComplete(level, response);
                     if (response !== null && response.Data.length > 0) {
                         if (level > 0 && Number(param.CurrencyId) === 0) {
-                            ColossusBets.setReportTitle(currencyId, fdate, tdate);
+                            ColossusBets.setReportTitle(currencyId, drilldownDateRange.FromDate, drilldownDateRange.ToDate);
                         } else {
-                            ColossusBets.setReportTitle(param.CurrencyId, fdate, tdate);
+                            ColossusBets.setReportTitle(param.CurrencyId, drilldownDateRange.FromDate, drilldownDateRange.ToDate);
                         }
                     }
-                    //update excel URL
-                    ColossusBets.setExcelUrl(level, currencyId, customerId, fdate, tdate);
+
+                    ColossusBets.setExcelUrl(level, currencyId, customerId, drilldownDateRange.FromDate, drilldownDateRange.ToDate);
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
@@ -280,22 +248,15 @@ var ColossusBets = (function ($) {
             if (level === 0) {
                 ColossusBets.renderBreadCrumb(level);
                 ColossusBets.bindData(0, cacheData[level]);
-                //reset excel Link
                 ColossusBets.setExcelUrl(0, 0, 0, "", "");
-                //re-set title
                 var fromdate = new Date(_submitData.FromDate);
                 var todate = new Date(_submitData.ToDate);
                 var currencyId = _submitData.CurrencyId;
                 ColossusBets.setReportTitle(currencyId, fromdate, todate);
-            }
-            else if (level === 1) {
-                ColossusBets.bindData(1, cacheData[level]);
-                ColossusBetsOption.urlExcelData = ColossusBetsOption.urlExcelData.replace("level=2", "level=1");
-                ColossusBets.renderBreadCrumb(level);
+                ColossusBetsOption.setGroupHeader($('#ReportGrid'));
             }
         },
 
-        //#BindReport
         bindTotal: function (level, totalData, summaryTotal) {
             var columnModel = ColossusBetsOption.getTotalColModel(level);
             var colspan = ColossusBetsOption.totalColspan[level];
@@ -340,7 +301,6 @@ var ColossusBets = (function ($) {
                 Site.unBlockUI();
             };
 
-            // Show the grid
             reportGrid.jqGrid(gridOption);
 
             reportGrid.jqGrid('showCol', 'rn');

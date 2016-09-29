@@ -13,8 +13,7 @@ var ColossusBetsOption = (function () {
     var betlistLink = function (cellvalue, options, rowObject) {
         var param =
         {
-            DrillDownFromDate: rowObject.Date,
-            DrillDownToDate: rowObject.Date,
+            DrillDownDate: rowObject.Date,
             DrillDownCurrencyId: rowObject.CurrencyId,
             DrillDownCurrencyName: rowObject.CurrencyName,
             CustomerId: rowObject.CustomerId,
