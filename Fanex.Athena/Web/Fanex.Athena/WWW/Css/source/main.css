@@ -1,0 +1,1064 @@
+﻿@font-face {
+  font-family: 'icomoon';
+  src: url("fonts/font-icon/fonts/icomoon.eot?74xi81");
+  src: url("fonts/font-icon/fonts/icomoon.eot?74xi81#iefix") format("embedded-opentype"), url("fonts/font-icon/fonts/icomoon.ttf?74xi81") format("truetype"), url("fonts/font-icon/fonts/icomoon.woff?74xi81") format("woff"), url("fonts/font-icon/fonts/icomoon.svg?74xi81#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-account:before {
+  content: "\e917"; }
+
+.icon-lock:before {
+  content: "\e918"; }
+
+.icon-backburger:before {
+  content: "\e907"; }
+
+.icon-menu-down:before {
+  content: "\e916"; }
+
+.icon-account-circle:before {
+  content: "\e900"; }
+
+.icon-chart-bar:before {
+  content: "\e911"; }
+
+.icon-clipboard-text:before {
+  content: "\e912"; }
+
+.icon-credit-card:before {
+  content: "\e913"; }
+
+.icon-logout:before {
+  content: "\e914"; }
+
+.icon-settings:before {
+  content: "\e915"; }
+
+.icon-close:before {
+  content: "\e910"; }
+
+.icon-calendar:before {
+  content: "\e90f"; }
+
+.icon-administration:before {
+  content: "\e901"; }
+
+.icon-affiliate:before {
+  content: "\e902"; }
+
+.icon-arrow:before {
+  content: "\e903"; }
+
+.icon-book:before {
+  content: "\e904"; }
+
+.icon-customer:before {
+  content: "\e905"; }
+
+.icon-excel:before {
+  content: "\e906"; }
+
+.icon-home:before {
+  content: "\e908"; }
+
+.icon-notification:before {
+  content: "\e909"; }
+
+.icon-s-arrow:before {
+  content: "\e90a"; }
+
+.icon-search:before {
+  content: "\e90b"; }
+
+.icon-table:before {
+  content: "\e90c"; }
+
+.icon-totalbet:before {
+  content: "\e90d"; }
+
+.icon-xs-arrow:before {
+  content: "\e90e"; }
+
+.icon-spinner6:before {
+  content: "\e97f"; }
+
+/*@font-face {
+    font-family: 'Montserrat Hairline';
+    font-style: normal;
+    font-weight: normal;
+    src: local('../../www/css/fonts/montserrat/Montserrat-Hairline'), url('fonts/montserrat/Montserrat-Hairline.woff') format('woff');
+}*/
+@font-face {
+  font-family: 'Montserrat Regular';
+  src: url("fonts/montserrat/Montserrat-Bold.tff") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Montserrat Hairline';
+  src: url("fonts/montserrat/Montserrat-Hairline.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+.flag-icon-background {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  -webkit-background-size: contain;
+  background-size: contain; }
+
+.flag-icon {
+  position: relative;
+  display: inline-block;
+  width: 1.33333333em;
+  line-height: 1em;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  -webkit-background-size: contain;
+  background-size: contain; }
+
+.flag-icon:before {
+  content: "\00a0"; }
+
+.dropdown-menu .flag-icon {
+  margin-right: 5px; }
+
+.flag-icon-ad {
+  background-image: url(fonts/flags/flags/ad.svg); }
+
+.flag-icon-ae {
+  background-image: url(../../src/scss/flags/ae.svg); }
+
+.flag-icon-af {
+  background-image: url(../../src/scss/flags/af.svg); }
+
+.flag-icon-ag {
+  background-image: url(../../src/scss/flags/ag.svg); }
+
+.flag-icon-ai {
+  background-image: url(../../src/scss/flags/ai.svg); }
+
+.flag-icon-al {
+  background-image: url(../../src/scss/flags/al.svg); }
+
+.flag-icon-am {
+  background-image: url(../../src/scss/flags/am.svg); }
+
+.flag-icon-ao {
+  background-image: url(../../src/scss/flags/ao.svg); }
+
+.flag-icon-aq {
+  background-image: url(../../src/scss/flags/aq.svg); }
+
+.flag-icon-ar {
+  background-image: url(../../src/scss/flags/ar.svg); }
+
+.flag-icon-as {
+  background-image: url(../../src/scss/flags/as.svg); }
+
+.flag-icon-at {
+  background-image: url(../../src/scss/flags/at.svg); }
+
+.flag-icon-au {
+  background-image: url(../../src/scss/flags/au.svg); }
+
+.flag-icon-aw {
+  background-image: url(../../src/scss/flags/aw.svg); }
+
+.flag-icon-ax {
+  background-image: url(../../src/scss/flags/ax.svg); }
+
+.flag-icon-az {
+  background-image: url(../../src/scss/flags/az.svg); }
+
+.flag-icon-ba {
+  background-image: url(../../src/scss/flags/ba.svg); }
+
+.flag-icon-bb {
+  background-image: url(../../src/scss/flags/bb.svg); }
+
+.flag-icon-bd {
+  background-image: url(fonts/flags/flags/bd.svg); }
+
+.flag-icon-be {
+  background-image: url(fonts/flags/flags/be.svg); }
+
+.flag-icon-bf {
+  background-image: url(fonts/flags/flags/bf.svg); }
+
+.flag-icon-bg {
+  background-image: url(fonts/flags/flags/bg.svg); }
+
+.flag-icon-bh {
+  background-image: url(fonts/flags/flags/bh.svg); }
+
+.flag-icon-bi {
+  background-image: url(fonts/flags/flags/bi.svg); }
+
+.flag-icon-bj {
+  background-image: url(fonts/flags/flags/bj.svg); }
+
+.flag-icon-bl {
+  background-image: url(fonts/flags/flags/bl.svg); }
+
+.flag-icon-bm {
+  background-image: url(fonts/flags/flags/bm.svg); }
+
+.flag-icon-bn {
+  background-image: url(fonts/flags/flags/bn.svg); }
+
+.flag-icon-bo {
+  background-image: url(fonts/flags/flags/bo.svg); }
+
+.flag-icon-bq {
+  background-image: url(fonts/flags/flags/bq.svg); }
+
+.flag-icon-br {
+  background-image: url(fonts/flags/flags/br.svg); }
+
+.flag-icon-bs {
+  background-image: url(fonts/flags/flags/bs.svg); }
+
+.flag-icon-bt {
+  background-image: url(fonts/flags/flags/bt.svg); }
+
+.flag-icon-bv {
+  background-image: url(fonts/flags/flags/bv.svg); }
+
+.flag-icon-bw {
+  background-image: url(fonts/flags/flags/bw.svg); }
+
+.flag-icon-by {
+  background-image: url(fonts/flags/flags/by.svg); }
+
+.flag-icon-bz {
+  background-image: url(fonts/flags/flags/bz.svg); }
+
+.flag-icon-ca {
+  background-image: url(fonts/flags/flags/ca.svg); }
+
+.flag-icon-cc {
+  background-image: url(fonts/flags/flags/cc.svg); }
+
+.flag-icon-cd {
+  background-image: url(fonts/flags/flags/cd.svg); }
+
+.flag-icon-cf {
+  background-image: url(fonts/flags/flags/cf.svg); }
+
+.flag-icon-cg {
+  background-image: url(fonts/flags/flags/cg.svg); }
+
+.flag-icon-ch {
+  background-image: url(fonts/flags/flags/ch.svg); }
+
+.flag-icon-ci {
+  background-image: url(fonts/flags/flags/ci.svg); }
+
+.flag-icon-ck {
+  background-image: url(fonts/flags/flags/ck.svg); }
+
+.flag-icon-cl {
+  background-image: url(fonts/flags/flags/cl.svg); }
+
+.flag-icon-cm {
+  background-image: url(fonts/flags/flags/cm.svg); }
+
+.flag-icon-cn {
+  background-image: url(fonts/flags/flags/cn.svg); }
+
+.flag-icon-co {
+  background-image: url(fonts/flags/flags/co.svg); }
+
+.flag-icon-cr {
+  background-image: url(fonts/flags/flags/cr.svg); }
+
+.flag-icon-cu {
+  background-image: url(fonts/flags/flags/cu.svg); }
+
+.flag-icon-cv {
+  background-image: url(fonts/flags/flags/cv.svg); }
+
+.flag-icon-cw {
+  background-image: url(fonts/flags/flags/cw.svg); }
+
+.flag-icon-cx {
+  background-image: url(fonts/flags/flags/cx.svg); }
+
+.flag-icon-cy {
+  background-image: url(fonts/flags/flags/cy.svg); }
+
+.flag-icon-cz {
+  background-image: url(fonts/flags/flags/cz.svg); }
+
+.flag-icon-de {
+  background-image: url(fonts/flags/flags/de.svg); }
+
+.flag-icon-dj {
+  background-image: url(fonts/flags/flags/dj.svg); }
+
+.flag-icon-dk {
+  background-image: url(fonts/flags/flags/dk.svg); }
+
+.flag-icon-dm {
+  background-image: url(fonts/flags/flags/dm.svg); }
+
+.flag-icon-do {
+  background-image: url(fonts/flags/flags/do.svg); }
+
+.flag-icon-dz {
+  background-image: url(fonts/flags/flags/dz.svg); }
+
+.flag-icon-ec {
+  background-image: url(fonts/flags/flags/ec.svg); }
+
+.flag-icon-ee {
+  background-image: url(fonts/flags/flags/ee.svg); }
+
+.flag-icon-eg {
+  background-image: url(fonts/flags/flags/eg.svg); }
+
+.flag-icon-eh {
+  background-image: url(fonts/flags/flags/eh.svg); }
+
+.flag-icon-er {
+  background-image: url(fonts/flags/flags/er.svg); }
+
+.flag-icon-es {
+  background-image: url(fonts/flags/flags/es.svg); }
+
+.flag-icon-et {
+  background-image: url(fonts/flags/flags/et.svg); }
+
+.flag-icon-fi {
+  background-image: url(fonts/flags/flags/fi.svg); }
+
+.flag-icon-fj {
+  background-image: url(fonts/flags/flags/fj.svg); }
+
+.flag-icon-fk {
+  background-image: url(fonts/flags/flags/fk.svg); }
+
+.flag-icon-fm {
+  background-image: url(fonts/flags/flags/fm.svg); }
+
+.flag-icon-fo {
+  background-image: url(fonts/flags/flags/fo.svg); }
+
+.flag-icon-fr {
+  background-image: url(fonts/flags/flags/fr.svg); }
+
+.flag-icon-ga {
+  background-image: url(fonts/flags/flags/ga.svg); }
+
+.flag-icon-gb {
+  background-image: url(fonts/flags/flags/gb.svg); }
+
+.flag-icon-gd {
+  background-image: url(fonts/flags/flags/gd.svg); }
+
+.flag-icon-ge {
+  background-image: url(fonts/flags/flags/ge.svg); }
+
+.flag-icon-gf {
+  background-image: url(../../src/scss/flags/gf.svg); }
+
+.flag-icon-gg {
+  background-image: url(../../src/scss/flags/gg.svg); }
+
+.flag-icon-gh {
+  background-image: url(../../src/scss/flags/gh.svg); }
+
+.flag-icon-gi {
+  background-image: url(../../src/scss/flags/gi.svg); }
+
+.flag-icon-gl {
+  background-image: url(../../src/scss/flags/gl.svg); }
+
+.flag-icon-gm {
+  background-image: url(../../src/scss/flags/gm.svg); }
+
+.flag-icon-gn {
+  background-image: url(../../src/scss/flags/gn.svg); }
+
+.flag-icon-gp {
+  background-image: url(../../src/scss/flags/gp.svg); }
+
+.flag-icon-gq {
+  background-image: url(../../src/scss/flags/gq.svg); }
+
+.flag-icon-gr {
+  background-image: url(../../src/scss/flags/gr.svg); }
+
+.flag-icon-gs {
+  background-image: url(../../src/scss/flags/gs.svg); }
+
+.flag-icon-gt {
+  background-image: url(../../src/scss/flags/gt.svg); }
+
+.flag-icon-gu {
+  background-image: url(../../src/scss/flags/gu.svg); }
+
+.flag-icon-gw {
+  background-image: url(../../src/scss/flags/gw.svg); }
+
+.flag-icon-gy {
+  background-image: url(../../src/scss/flags/gy.svg); }
+
+.flag-icon-hk {
+  background-image: url(../../src/scss/flags/hk.svg); }
+
+.flag-icon-hm {
+  background-image: url(../../src/scss/flags/hm.svg); }
+
+.flag-icon-hn {
+  background-image: url(../../src/scss/flags/hn.svg); }
+
+.flag-icon-hr {
+  background-image: url(../../src/scss/flags/hr.svg); }
+
+.flag-icon-ht {
+  background-image: url(../../src/scss/flags/ht.svg); }
+
+.flag-icon-hu {
+  background-image: url(../../src/scss/flags/hu.svg); }
+
+.flag-icon-id {
+  background-image: url(../../src/scss/flags/id.svg); }
+
+.flag-icon-ie {
+  background-image: url(../../src/scss/flags/ie.svg); }
+
+.flag-icon-il {
+  background-image: url(../../src/scss/flags/il.svg); }
+
+.flag-icon-im {
+  background-image: url(../../src/scss/flags/im.svg); }
+
+.flag-icon-in {
+  background-image: url(../../src/scss/flags/in.svg); }
+
+.flag-icon-io {
+  background-image: url(../../src/scss/flags/io.svg); }
+
+.flag-icon-iq {
+  background-image: url(../../src/scss/flags/iq.svg); }
+
+.flag-icon-ir {
+  background-image: url(../../src/scss/flags/ir.svg); }
+
+.flag-icon-is {
+  background-image: url(../../src/scss/flags/is.svg); }
+
+.flag-icon-it {
+  background-image: url(../../src/scss/flags/it.svg); }
+
+.flag-icon-je {
+  background-image: url(../../src/scss/flags/je.svg); }
+
+.flag-icon-jm {
+  background-image: url(../../src/scss/flags/jm.svg); }
+
+.flag-icon-jo {
+  background-image: url(../../src/scss/flags/jo.svg); }
+
+.flag-icon-jp {
+  background-image: url(../../src/scss/flags/jp.svg); }
+
+.flag-icon-ke {
+  background-image: url(../../src/scss/flags/ke.svg); }
+
+.flag-icon-kg {
+  background-image: url(../../src/scss/flags/kg.svg); }
+
+.flag-icon-kh {
+  background-image: url(../../src/scss/flags/kh.svg); }
+
+.flag-icon-ki {
+  background-image: url(../../src/scss/flags/ki.svg); }
+
+.flag-icon-km {
+  background-image: url(../../src/scss/flags/km.svg); }
+
+.flag-icon-kn {
+  background-image: url(../../src/scss/flags/kn.svg); }
+
+.flag-icon-kp {
+  background-image: url(../../src/scss/flags/kp.svg); }
+
+.flag-icon-kr {
+  background-image: url(../../src/scss/flags/kr.svg); }
+
+.flag-icon-kw {
+  background-image: url(../../src/scss/flags/kw.svg); }
+
+.flag-icon-ky {
+  background-image: url(../../src/scss/flags/ky.svg); }
+
+.flag-icon-kz {
+  background-image: url(../../src/scss/flags/kz.svg); }
+
+.flag-icon-la {
+  background-image: url(../../src/scss/flags/la.svg); }
+
+.flag-icon-lb {
+  background-image: url(../../src/scss/flags/lb.svg); }
+
+.flag-icon-lc {
+  background-image: url(../../src/scss/flags/lc.svg); }
+
+.flag-icon-li {
+  background-image: url(../../src/scss/flags/li.svg); }
+
+.flag-icon-lk {
+  background-image: url(../../src/scss/flags/lk.svg); }
+
+.flag-icon-lr {
+  background-image: url(../../src/scss/flags/lr.svg); }
+
+.flag-icon-ls {
+  background-image: url(../../src/scss/flags/ls.svg); }
+
+.flag-icon-lt {
+  background-image: url(../../src/scss/flags/lt.svg); }
+
+.flag-icon-lu {
+  background-image: url(../../src/scss/flags/lu.svg); }
+
+.flag-icon-lv {
+  background-image: url(../../src/scss/flags/lv.svg); }
+
+.flag-icon-ly {
+  background-image: url(../../src/scss/flags/ly.svg); }
+
+.flag-icon-ma {
+  background-image: url(../../src/scss/flags/ma.svg); }
+
+.flag-icon-mc {
+  background-image: url(../../src/scss/flags/mc.svg); }
+
+.flag-icon-md {
+  background-image: url(../../src/scss/flags/md.svg); }
+
+.flag-icon-me {
+  background-image: url(../../src/scss/flags/me.svg); }
+
+.flag-icon-mf {
+  background-image: url(../../src/scss/flags/mf.svg); }
+
+.flag-icon-mg {
+  background-image: url(../../src/scss/flags/mg.svg); }
+
+.flag-icon-mh {
+  background-image: url(../../src/scss/flags/mh.svg); }
+
+.flag-icon-mk {
+  background-image: url(../../src/scss/flags/mk.svg); }
+
+.flag-icon-ml {
+  background-image: url(../../src/scss/flags/ml.svg); }
+
+.flag-icon-mm {
+  background-image: url(../../src/scss/flags/mm.svg); }
+
+.flag-icon-mn {
+  background-image: url(../../src/scss/flags/mn.svg); }
+
+.flag-icon-mo {
+  background-image: url(../../src/scss/flags/mo.svg); }
+
+.flag-icon-mp {
+  background-image: url(../../src/scss/flags/mp.svg); }
+
+.flag-icon-mq {
+  background-image: url(../../src/scss/flags/mq.svg); }
+
+.flag-icon-mr {
+  background-image: url(../../src/scss/flags/mr.svg); }
+
+.flag-icon-ms {
+  background-image: url(../../src/scss/flags/ms.svg); }
+
+.flag-icon-mt {
+  background-image: url(../../src/scss/flags/mt.svg); }
+
+.flag-icon-mu {
+  background-image: url(../../src/scss/flags/mu.svg); }
+
+.flag-icon-mv {
+  background-image: url(../../src/scss/flags/mv.svg); }
+
+.flag-icon-mw {
+  background-image: url(../../src/scss/flags/mw.svg); }
+
+.flag-icon-mx {
+  background-image: url(../../src/scss/flags/mx.svg); }
+
+.flag-icon-my {
+  background-image: url(../../src/scss/flags/my.svg); }
+
+.flag-icon-mz {
+  background-image: url(../../src/scss/flags/mz.svg); }
+
+.flag-icon-na {
+  background-image: url(../../src/scss/flags/na.svg); }
+
+.flag-icon-nc {
+  background-image: url(../../src/scss/flags/nc.svg); }
+
+.flag-icon-ne {
+  background-image: url(../../src/scss/flags/ne.svg); }
+
+.flag-icon-nf {
+  background-image: url(../../src/scss/flags/nf.svg); }
+
+.flag-icon-ng {
+  background-image: url(../../src/scss/flags/ng.svg); }
+
+.flag-icon-ni {
+  background-image: url(../../src/scss/flags/ni.svg); }
+
+.flag-icon-nl {
+  background-image: url(../../src/scss/flags/nl.svg); }
+
+.flag-icon-no {
+  background-image: url(../../src/scss/flags/no.svg); }
+
+.flag-icon-np {
+  background-image: url(../../src/scss/flags/np.svg); }
+
+.flag-icon-nr {
+  background-image: url(../../src/scss/flags/nr.svg); }
+
+.flag-icon-nu {
+  background-image: url(../../src/scss/flags/nu.svg); }
+
+.flag-icon-nz {
+  background-image: url(../../src/scss/flags/nz.svg); }
+
+.flag-icon-om {
+  background-image: url(../../src/scss/flags/om.svg); }
+
+.flag-icon-pa {
+  background-image: url(../../src/scss/flags/pa.svg); }
+
+.flag-icon-pe {
+  background-image: url(../../src/scss/flags/pe.svg); }
+
+.flag-icon-pf {
+  background-image: url(../../src/scss/flags/pf.svg); }
+
+.flag-icon-pg {
+  background-image: url(../../src/scss/flags/pg.svg); }
+
+.flag-icon-ph {
+  background-image: url(../../src/scss/flags/ph.svg); }
+
+.flag-icon-pk {
+  background-image: url(../../src/scss/flags/pk.svg); }
+
+.flag-icon-pl {
+  background-image: url(../../src/scss/flags/pl.svg); }
+
+.flag-icon-pm {
+  background-image: url(../../src/scss/flags/pm.svg); }
+
+.flag-icon-pn {
+  background-image: url(../../src/scss/flags/pn.svg); }
+
+.flag-icon-pr {
+  background-image: url(../../src/scss/flags/pr.svg); }
+
+.flag-icon-ps {
+  background-image: url(../../src/scss/flags/ps.svg); }
+
+.flag-icon-pt {
+  background-image: url(../../src/scss/flags/pt.svg); }
+
+.flag-icon-pw {
+  background-image: url(../../src/scss/flags/pw.svg); }
+
+.flag-icon-py {
+  background-image: url(../../src/scss/flags/py.svg); }
+
+.flag-icon-qa {
+  background-image: url(../../src/scss/flags/qa.svg); }
+
+.flag-icon-re {
+  background-image: url(../../src/scss/flags/re.svg); }
+
+.flag-icon-ro {
+  background-image: url(../../src/scss/flags/ro.svg); }
+
+.flag-icon-rs {
+  background-image: url(../../src/scss/flags/rs.svg); }
+
+.flag-icon-ru {
+  background-image: url(../../src/scss/flags/ru.svg); }
+
+.flag-icon-rw {
+  background-image: url(../../src/scss/flags/rw.svg); }
+
+.flag-icon-sa {
+  background-image: url(../../src/scss/flags/sa.svg); }
+
+.flag-icon-sb {
+  background-image: url(../../src/scss/flags/sb.svg); }
+
+.flag-icon-sc {
+  background-image: url(../../src/scss/flags/sc.svg); }
+
+.flag-icon-sd {
+  background-image: url(../../src/scss/flags/sd.svg); }
+
+.flag-icon-se {
+  background-image: url(../../src/scss/flags/se.svg); }
+
+.flag-icon-sg {
+  background-image: url(../../src/scss/flags/sg.svg); }
+
+.flag-icon-sh {
+  background-image: url(../../src/scss/flags/sh.svg); }
+
+.flag-icon-si {
+  background-image: url(../../src/scss/flags/si.svg); }
+
+.flag-icon-sj {
+  background-image: url(../../src/scss/flags/sj.svg); }
+
+.flag-icon-sk {
+  background-image: url(../../src/scss/flags/sk.svg); }
+
+.flag-icon-sl {
+  background-image: url(../../src/scss/flags/sl.svg); }
+
+.flag-icon-sm {
+  background-image: url(../../src/scss/flags/sm.svg); }
+
+.flag-icon-sn {
+  background-image: url(../../src/scss/flags/sn.svg); }
+
+.flag-icon-so {
+  background-image: url(../../src/scss/flags/so.svg); }
+
+.flag-icon-sr {
+  background-image: url(../../src/scss/flags/sr.svg); }
+
+.flag-icon-ss {
+  background-image: url(../../src/scss/flags/ss.svg); }
+
+.flag-icon-st {
+  background-image: url(../../src/scss/flags/st.svg); }
+
+.flag-icon-sv {
+  background-image: url(../../src/scss/flags/sv.svg); }
+
+.flag-icon-sx {
+  background-image: url(../../src/scss/flags/sx.svg); }
+
+.flag-icon-sy {
+  background-image: url(../../src/scss/flags/sy.svg); }
+
+.flag-icon-sz {
+  background-image: url(../../src/scss/flags/sz.svg); }
+
+.flag-icon-tc {
+  background-image: url(../../src/scss/flags/tc.svg); }
+
+.flag-icon-td {
+  background-image: url(../../src/scss/flags/td.svg); }
+
+.flag-icon-tf {
+  background-image: url(../../src/scss/flags/tf.svg); }
+
+.flag-icon-tg {
+  background-image: url(../../src/scss/flags/tg.svg); }
+
+.flag-icon-th {
+  background-image: url(../../src/scss/flags/th.svg); }
+
+.flag-icon-tj {
+  background-image: url(../../src/scss/flags/tj.svg); }
+
+.flag-icon-tk {
+  background-image: url(../../src/scss/flags/tk.svg); }
+
+.flag-icon-tl {
+  background-image: url(../../src/scss/flags/tl.svg); }
+
+.flag-icon-tm {
+  background-image: url(../../src/scss/flags/tm.svg); }
+
+.flag-icon-tn {
+  background-image: url(../../src/scss/flags/tn.svg); }
+
+.flag-icon-to {
+  background-image: url(../../src/scss/flags/to.svg); }
+
+.flag-icon-tr {
+  background-image: url(../../src/scss/flags/tr.svg); }
+
+.flag-icon-tt {
+  background-image: url(../../src/scss/flags/tt.svg); }
+
+.flag-icon-tv {
+  background-image: url(../../src/scss/flags/tv.svg); }
+
+.flag-icon-tw {
+  background-image: url(../../src/scss/flags/tw.svg); }
+
+.flag-icon-tz {
+  background-image: url(../../src/scss/flags/tz.svg); }
+
+.flag-icon-ua {
+  background-image: url(../../src/scss/flags/ua.svg); }
+
+.flag-icon-ug {
+  background-image: url(../../src/scss/flags/ug.svg); }
+
+.flag-icon-um {
+  background-image: url(../../src/scss/flags/um.svg); }
+
+.flag-icon-us {
+  background-image: url(fonts/flags/flags/us.svg); }
+
+.flag-icon-uy {
+  background-image: url(fonts/flags/flags/uy.svg); }
+
+.flag-icon-uz {
+  background-image: url(fonts/flags/flags/uz.svg); }
+
+.flag-icon-va {
+  background-image: url(fonts/flags/flags/va.svg); }
+
+.flag-icon-vc {
+  background-image: url(fonts/flags/flags/vc.svg); }
+
+.flag-icon-ve {
+  background-image: url(../../src/scss/flags/ve.svg); }
+
+.flag-icon-vg {
+  background-image: url(../../src/scss/flags/vg.svg); }
+
+.flag-icon-vi {
+  background-image: url(../../src/scss/flags/vi.svg); }
+
+.flag-icon-vn {
+  background-image: url(../../src/scss/flags/vn.svg); }
+
+.flag-icon-vu {
+  background-image: url(../../src/scss/flags/vu.svg); }
+
+.flag-icon-wf {
+  background-image: url(../../src/scss/flags/wf.svg); }
+
+.flag-icon-ws {
+  background-image: url(../../src/scss/flags/ws.svg); }
+
+.flag-icon-ye {
+  background-image: url(../../src/scss/flags/ye.svg); }
+
+.flag-icon-yt {
+  background-image: url(../../src/scss/flags/yt.svg); }
+
+.flag-icon-za {
+  background-image: url(../../src/scss/flags/za.svg); }
+
+.flag-icon-zm {
+  background-image: url(../../src/scss/flags/zm.svg); }
+
+.flag-icon-zw {
+  background-image: url(../../src/scss/flags/zw.svg); }
+
+html {
+  font-size: 62.5%;
+  height: 100%; }
+
+body {
+  background: #f5f7fa;
+  font-size: 1.3em;
+  color: #8a8a8a;
+  height: 100%; }
+
+iframe {
+  display: block;
+  /* iframes are inline by default */
+  border: none;
+  /* Reset default border */
+  height: 100%;
+  /* Viewport-relative units */
+  width: 100%; }
+
+* {
+  margin: 0;
+  padding: 0; }
+
+a {
+  color: #1c5fc3;
+  text-decoration: none; }
+
+main {
+  padding-left: 260px;
+  width: 100%;
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  transition: 0.3s ease all; }
+
+@media only screen and (max-width: 992px) {
+  header, main, footer {
+    padding-left: 0; } }
+
+.circle {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f94a4a; }
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  height: initial; }
+
+.text-center {
+  text-align: center; }
+
+.text-left {
+  text-align: left; }
+
+.dropdown-content > li > a, .dropdown-content > li > span {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 13px;
+  padding: 10px 12px;
+  display: inline-block; }
+  .dropdown-content > li > a:hover, .dropdown-content > li > span:hover {
+    background-color: transparent; }
+
+::-webkit-scrollbar {
+  width: 5px;
+  position: relative;
+  left: -5px; }
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px; }
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); }
+
+.button-block {
+  margin-top: 1rem; }
+
+.btn {
+  color: #2c2c2c;
+  border-radius: 0;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  height: 32px;
+  line-height: 32px; }
+
+.btn-primary {
+  background: #f05b1f;
+  color: #fff; }
+  .btn-primary:hover {
+    background: #f37e4f; }
+
+.button-collapse .material-icons {
+  color: #fff;
+  line-height: 56px;
+  padding-left: 15px; }
+  @media only screen and (min-width: 601px) {
+    .button-collapse .material-icons {
+      line-height: 64px; } }
+
+.table a {
+  color: #1c5fc3;
+  text-decoration: none; }
+  .table a:hover, .table a:focus, .table a:active {
+    text-decoration: none; }
+
+.table > thead > tr > th {
+  vertical-align: middle;
+  text-align: center;
+  background: #d1dae1;
+  border-color: #ffffff;
+  color: #314453;
+  font-weight: 600; }
+  .table > thead > tr > th:first-child {
+    border-left-color: #d1dae1 !important; }
+  .table > thead > tr > th:last-child {
+    border-right-color: #d1dae1 !important; }
+
+.table > thead > tr:nth-child(2) th:last-child {
+  border-right-color: #fff !important; }
+
+.table > thead:first-child > tr:first-child > th {
+  border: 1px solid #ffffff; }
+
+.table > tbody tr td {
+  border: 1px solid #d6d6d6;
+  color: #404040;
+  padding: 6px 8px; }
+
+.table > tbody tr.highlight {
+  background: #fcf4de; }
+
+.table > tbody tr.total {
+  background: #ffb391; }
+
+.calendar .icon-calendar {
+  position: absolute;
+  top: 17px;
+  right: 31px;
+  font-size: 18px; }
+
+.picker__table {
+  font-size: 13px; }
+
+.picker__date-display {
+  background: #4c6375; }
+
+.picker__day--infocus {
+  padding: 1rem 0; }
+
+.picker__weekday-display {
+  font-size: 14px;
+  background: #4c6375; }
+
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+  border-radius: 50%;
+  transform: scale(0.9);
+  background-color: #4473c5;
+  color: #ffffff; }
+
+.picker__day.picker__day--today {
+  color: #4473c5; }
+
+.picker__close, .picker__today {
+  font-size: 1.1rem;
+  padding: 0 1rem;
+  color: #333; }
+
+button.picker__today:focus, button.picker__clear:focus, button.picker__close:focus {
+  background-color: rgba(68, 115, 197, 0.3); }
+
+@media (min-height: 28.875em) {
+  .picker__box {
+    border: none; } }
+

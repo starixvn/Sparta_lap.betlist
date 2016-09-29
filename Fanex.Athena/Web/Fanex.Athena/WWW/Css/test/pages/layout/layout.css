@@ -258,6 +258,7 @@ header nav {
   @media only screen and (max-width: 992px) {
     .site-menubar-fold .nav-wrapper {
       padding-left: 0; } }
+
 .side-nav {
   width: 260px;
   box-shadow: none;
@@ -411,5 +412,6 @@ header nav {
         padding-left: 0;
     }
 }*/
+
 
 /*# sourceMappingURL=layout.css.map*/

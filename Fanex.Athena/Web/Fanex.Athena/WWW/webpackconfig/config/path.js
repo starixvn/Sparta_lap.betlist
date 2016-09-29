@@ -6,12 +6,12 @@ var cssCommonPath = "./www/css/source/";
 var cssPaths = {
     build: path.join(projectRoot, '/www/css/test'),
 
-    materialize: "./www/css/source/vendors/materialize/materialize.scss",
+    materialize: "./www/css/source/vendors/materialize/materialize.css",
 
-    layout: ["./www/css/source/layout/navBar.scss", "./www/css/source/layout/sideBar.scss"],
-    main: "./www/css/source/main.scss",
+    layout: ["./www/css/source/components/navbar/navBar.css", "./www/css/source/components/sidebar/sideBar.css"],
+    main: "./www/css/source/main.css",
 
-    livereport: "./www/css/source/pages/liveReport.scss",
+    livereport: "./www/css/source/pages/liveReport.css",
 }
 
 var scriptPaths = {
