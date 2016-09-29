@@ -31,6 +31,8 @@ var ColossusBets = (function ($) {
         url = QueryString.setParam(url, "BaseCurrency", dataDrillDown.BaseCurrency);
         url = QueryString.setParam(url, "OriginalCurrenceId", dataDrillDown.CurrencyId);
         url = QueryString.setParam(url, "OriginalCurrencyName", dataDrillDown.CurrencyName);
+        url = QueryString.setParam(url, "productoptions[0].code", "CB");
+        url = QueryString.setParam(url, "productoptions[0].status", "true");
 
         url = Site.setProductOptionOriginalParamList(url);
 

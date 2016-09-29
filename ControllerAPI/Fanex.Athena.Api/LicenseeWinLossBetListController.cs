@@ -11,7 +11,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
 
-    [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct)]
+    [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct, PermissionKeys.ReportColossusBetsWinLoss)]
     public class LicenseeWinLossBetListController : ApiBetListBaseController
     {
         [HttpPost]

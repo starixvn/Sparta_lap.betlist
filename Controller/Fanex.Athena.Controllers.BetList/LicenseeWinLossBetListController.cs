@@ -21,7 +21,7 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct)]
+    [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct, PermissionKeys.ReportColossusBetsWinLoss)]
     public class LicenseeWinLossBetListController : BetListBaseController
     {
         [HttpGet]
