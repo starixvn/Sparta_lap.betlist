@@ -13,11 +13,10 @@ var commonConfigs = {
         alias: alias
     },
     entry: {
-        "vendors": ["jquery"],
+        "vendors": ["jquery", "materialize"],
 
         "js/test/pages/layout/layout": pathConfig.scriptPaths.layout,
         "js/test/pages/livereport/livereport": pathConfig.scriptPaths.livereport,
-        "js/test/vendors/materialize": pathConfig.scriptPaths.materialize,
 
         "css/test/pages/reports/livereport": pathConfig.cssPaths.livereport,
         "css/test/main": pathConfig.cssPaths.main,

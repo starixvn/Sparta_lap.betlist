@@ -17,8 +17,6 @@ var cssPaths = {
 var scriptPaths = {
     build: path.join(projectRoot, '/www/js/test'),
 
-    materialize: "./www/js/source/vendors/materialize/materialize.js",
-
     layout: ["./www/js/source/components/navbar/navbar.js", "./www/js/source/components/sidebar/sidebar.js"],
 
     livereport: "./www/js/source/pages/livereport/livereport.js",

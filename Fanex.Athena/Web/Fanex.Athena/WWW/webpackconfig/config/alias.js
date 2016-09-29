@@ -2,6 +2,7 @@
 
 var alias = {
     // vendors
+    materialize: "./www/js/source/vendors/materialize/materialize.js",
 
     // plugins
     moment: projectRoot + "/www/js/source/plugins/moment/moment.min.js",
