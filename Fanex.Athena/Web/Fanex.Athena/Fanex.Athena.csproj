@@ -727,6 +727,13 @@
     <Content Include="www\css\source\pages\liveReport.css" />
     <Content Include="www\css\source\pages\login.css" />
     <Content Include="www\css\source\vendors\materialize\materialize.css" />
+    <Content Include="www\css\test\fonts\flags\flags\cn.svg" />
+    <Content Include="www\css\test\fonts\flags\flags\de.svg" />
+    <Content Include="www\css\test\fonts\flags\flags\fr.svg" />
+    <Content Include="www\css\test\fonts\flags\flags\gb.svg" />
+    <Content Include="www\css\test\fonts\flags\flags\nl.svg" />
+    <Content Include="www\css\test\fonts\flags\flags\us.svg" />
+    <Content Include="www\css\test\fonts\font-icon\fonts\icomoon.svg" />
     <Content Include="www\css\test\main.chunk.js" />
     <Content Include="www\css\test\main.css" />
     <Content Include="www\css\test\pages\layout\layout.chunk.js" />
@@ -1072,6 +1079,12 @@
     <Content Include="www\css\source\fonts\montserrat\Montserrat-Bold.ttf" />
     <Content Include="www\css\source\fonts\montserrat\Montserrat-Hairline.woff" />
     <Content Include="www\css\source\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="www\css\test\fonts\font-icon\fonts\icomoon.eot" />
+    <Content Include="www\css\test\fonts\font-icon\fonts\icomoon.ttf" />
+    <Content Include="www\css\test\fonts\font-icon\fonts\icomoon.woff" />
+    <Content Include="www\css\test\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="www\css\test\fonts\montserrat\Montserrat-Hairline.woff" />
+    <Content Include="www\css\test\fonts\montserrat\Montserrat-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
