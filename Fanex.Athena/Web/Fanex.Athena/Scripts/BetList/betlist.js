@@ -353,6 +353,8 @@ var BetList = (function ($) {
                     var result = response.Result;
                     if (response.Success) {
                         BetList.showRngCasinoResultPopup(title, result);
+                    } else {
+                        alert(Site.getSingleResource("ErrorProcessingMsg"));
                     }
                 },
                 beforeSend: function () {
