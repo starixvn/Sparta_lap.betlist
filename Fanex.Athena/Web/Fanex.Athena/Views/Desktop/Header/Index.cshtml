@@ -10,6 +10,27 @@
     </div>
 
     <div class="right">
+        @if (!Model.IsInternalLogin)
+        {
+            <div class="navbar-avatar">
+                <div class="dropdown-button" href="javascript:void(0)" data-activates="profile">
+                    <img class="avatar" src="~/www/assets/images/15.jpg" alt="@Html.Encode(Model.UserName)">
+                    <span class="name hide-on-med-and-down">@Html.Encode(Model.UserName)</span>
+                    <i class="icon icon-menu-down" aria-hidden="true"></i>
+                </div>
+                <ul id="profile" class="dropdown-content profile-items">
+                    <li>
+                        <i class="icon icon-account"></i>
+                        <span>@ViewResources.ChangePassword</span>
+                    </li>
+                    <li>
+                        <i class="icon icon-logout"></i>
+                        <span>@ViewResources.Logout</span>
+                    </li>
+                </ul>
+            </div>
+        }
+
         <div class="languages-block">
             @{
                 var currentLicensee = Model.LicenseeList.FirstOrDefault(p => p.Id.Equals(Model.CurrentLicenseeId)).Name;
@@ -52,25 +73,6 @@
                 }
             </ul>
         </div>
-
-        @if (!Model.IsInternalLogin)
-        {
-            <div class="languages-block">
-                <span>@ViewResources.Welcome,</span>&nbsp; <span class="user-name-text">@Html.Encode(Model.UserName)</span>
-            </div>
-            <div class="languages-block">
-                <a id="change-pass-btn" href="javascript:void(0)" data-animation="scale-up" role="button">
-                    <i class="icon icon-account"></i> 
-                    @ViewResources.ChangePassword
-                </a>
-            </div>
-            <div class="languages-block">
-                <a id="lougout-btn btn btn-primary" href="javascript:void(0)" data-animation="scale-up" role="button">
-                    <i class="icon icon-logout"></i> 
-                    @ViewResources.Logout
-                </a>
-            </div>
-        }
 
         <form class="search_bar" id="search">
             <input type="text" autocomplete="off" name="query" id="searchbox" class="placeholder" placeholder="Search">
