@@ -10,12 +10,6 @@
     @RenderSection("pagejs", required: false)
 }
 
-<div class="page-content container-fluid">
-    <div class="row">
-        @RenderSection("Filter", required: false)
-    </div>
+@RenderSection("Filter", required: false)
 
-    <div class="row">
-        @RenderSection("Content", required: false)
-    </div>
-</div>
+@RenderSection("Content", required: false)

@@ -2,11 +2,10 @@
 
 var alias = {
     // vendors
-    materialize: "./www/js/source/vendors/materialize/materialize.js",
+    materialize: projectRoot + "/www/js/source/vendors/materialize/materialize.js",
 
     // plugins
-    moment: projectRoot + "/www/js/source/plugins/moment/moment.min.js",
-    daterangepicker: projectRoot + "/www/js/source/plugins/daterangepicker/daterangepicker.js",
+    daterangepicker: "bootstrap-daterangepicker",
 
     // common
     querystring: projectRoot + "/www/js/source/common/querystring.js",

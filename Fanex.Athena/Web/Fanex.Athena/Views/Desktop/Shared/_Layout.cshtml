@@ -13,7 +13,7 @@
 
     @RenderSection("css", required: false)
 </head>
-<body class="site-menubar-unfold">
+<body>
     <input type="hidden" id="RootUrl" value="@Url.Content("~/")" />
     <input type="hidden" id="PageLanguage" value="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag" />
     @RenderBody()

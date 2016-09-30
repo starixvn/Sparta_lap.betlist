@@ -8,20 +8,21 @@
         columnCount -= 1;
     }
 }
-<div class="col-sm-12">
-    <div class="panel-group margin-bottom-0" id="exampleAccordion" aria-multiselectable="true" role="tablist">
-        <div class="panel">
-            <div class="panel-heading" id="exampleHeadingOne" role="tab">
-                <a class="panel-title" data-parent="#exampleAccordion" data-toggle="collapse" href="#exampleCollapseOne"
-                                   aria-controls="exampleCollapseOne" aria-expanded="true">
+
+<div class="page-results">
+    <ul class="collapsible collapsible-accordion" data-collapsible="expandable">
+        <li>
+            <div class="collapsible-header panel-heading active">
+                <div class="panel-title">
                     @ViewResources.LiveReport - @RazorHelper.ViewLiveStatus(Model.Param.LiveIndicator), @RazorHelper.TitleDateTime(Model.Param.FromDate, Model.Param.ToDate)
                     - @RazorHelper.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
-                </a>
+                    <i class="right icon-arrow"></i>
+                </div>
             </div>
 
-            <div class="panel-collapse collapse in" id="exampleCollapseOne" aria-labelledby="exampleHeadingOne" role="tabpanel">
+            <div class="collapsible-body">
                 <div class="panel-body">
-                    <div class="table-title text-uppercase"><span>@ViewResources.Summary</span></div>
+                    <div class="table-title"><span>@ViewResources.Summary</span></div>
 
                     <table class="table table-bordered">
                         <thead>
@@ -31,9 +32,9 @@
                         <tbody>
                             @if (Model.MainResult.Count == 0)
                             {
-                                <tr>
-                                    <td colspan="@columnCount" class="text-center">@ViewResources.NoInfo</td>
-                                </tr>
+                            <tr>
+                                <td colspan="@columnCount" class="text-center">@ViewResources.NoInfo</td>
+                            </tr>
                             }
                             else
                             {
@@ -46,6 +47,6 @@
                 <div id="detail-content">
                 </div>
             </div>
-        </div>
-    </div>
+        </li>
+    </ul>
 </div>

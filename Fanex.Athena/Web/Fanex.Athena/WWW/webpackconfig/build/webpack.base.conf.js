@@ -22,6 +22,7 @@ var commonConfigs = {
         "css/test/main": pathConfig.cssPaths.main,
         "css/test/vendors/materialize": pathConfig.cssPaths.materialize,
         "css/test/pages/layout/layout": pathConfig.cssPaths.layout,
+        "css/test/vendors/daterangepicker": "bootstrap-daterangepicker/daterangepicker.css",
     },
     output: {
         path: path.join(pathConfig.projectRoot, '/www/'),
