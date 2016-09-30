@@ -130,15 +130,18 @@
     <Compile Include="DTO\DailyStatement.cs" />
     <Compile Include="DTO\LrfTicket.cs" />
     <Compile Include="DTO\BetListMatch.cs" />
+    <Compile Include="DTO\ColossusBetDetail.cs" />
     <Compile Include="DTO\TicketText.cs" />
     <Compile Include="DTO\TicketResult.cs" />
     <Compile Include="MetaModel\BetListMetaModel.cs" />
+    <Compile Include="MetaModel\ColossusBetDetailMetaModel.cs" />
     <Compile Include="MetaModel\SystemParlayDetailMetaModel.cs" />
     <Compile Include="MetaModel\LiveReportBetListMetaModel.cs" />
     <Compile Include="MetaModel\LastBetsMonitoringMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\BetListBaseViewModel.cs" />
     <Compile Include="ViewModel\CancelledBetsBetListViewModel.cs" />
+    <Compile Include="ViewModel\ColossusBetDetailViewModel.cs" />
     <Compile Include="ViewModel\LastBetsMonitoringViewModel.cs" />
     <Compile Include="ViewModel\SystemParlayDetailViewModel.cs" />
   </ItemGroup>

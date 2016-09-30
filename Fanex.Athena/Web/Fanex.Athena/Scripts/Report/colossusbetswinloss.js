@@ -10,27 +10,22 @@ var ColossusBets = (function ($) {
 
     function openBetlistPopUp(dataDrillDown) {
         dataDrillDown = $.parseJSON(dataDrillDown);
-        dataDrillDown.DrawFilter = _submitData.DrawFilter;
-        dataDrillDown.IsExcludedTestData = _submitData.IsExcludedTestData;
-        dataDrillDown.CurrencyId = _submitData.CurrencyId;
-        dataDrillDown.CurrencyName = _submitData.CurrencyName;
-        dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
 
         var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
 
         var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
         url = QueryString.setParam(url, "fromdate", dateRange.FromDate.toString("MM/dd/yyyy"));
         url = QueryString.setParam(url, "todate", dateRange.ToDate.toString("MM/dd/yyyy"));
-        url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
+        url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);
         url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
         url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
-        url = QueryString.setParam(url, "drawfilter", dataDrillDown.DrawFilter);
+        url = QueryString.setParam(url, "drawfilter", _submitData.DrawFilter);
         url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
         url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
         url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
-        url = QueryString.setParam(url, "BaseCurrency", dataDrillDown.BaseCurrency);
-        url = QueryString.setParam(url, "OriginalCurrenceId", dataDrillDown.CurrencyId);
-        url = QueryString.setParam(url, "OriginalCurrencyName", dataDrillDown.CurrencyName);
+        url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
+        url = QueryString.setParam(url, "OriginalCurrenceId", _submitData.CurrencyId);
+        url = QueryString.setParam(url, "OriginalCurrencyName", _submitData.CurrencyName);
         url = QueryString.setParam(url, "productoptions[0].code", "CB");
         url = QueryString.setParam(url, "productoptions[0].status", "true");
 

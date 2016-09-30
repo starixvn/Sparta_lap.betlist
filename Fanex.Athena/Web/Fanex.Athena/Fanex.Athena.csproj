@@ -968,6 +968,7 @@
     <Content Include="Views\Report\ColossusBetsWinLoss\Filter.cshtml" />
     <Content Include="Views\Report\ColossusBetsWinLoss\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\ColossusBets.cshtml" />
+    <Content Include="Views\BetList\ColossusBetDetail\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
@@ -4743,6 +4744,10 @@
     <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
+      <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>
+      <Name>Fanex.Athena.Model.BetList</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>

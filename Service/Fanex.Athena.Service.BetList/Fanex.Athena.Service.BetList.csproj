@@ -194,8 +194,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CancelledBetListService.cs" />
+    <Compile Include="Interfaces\IColossusBetBetListService.cs" />
     <Compile Include="Interfaces\ICancelledBetListService.cs" />
     <Compile Include="Interfaces\ILastBetsMonitoringBetListService.cs" />
+    <Compile Include="ColossusBetBetListService.cs" />
     <Compile Include="LastBetsMonitoringBetListService.cs" />
     <Compile Include="BetListService.cs" />
     <Compile Include="Interfaces\IBetListService.cs" />

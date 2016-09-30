@@ -143,6 +143,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColossusBetBetListController.cs" />
     <Compile Include="AllBetBetListController.cs" />
     <Compile Include="BetListBaseController.cs" />
     <Compile Include="AGCasinoBetListController.cs" />
