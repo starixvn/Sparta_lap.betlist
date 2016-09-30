@@ -49,11 +49,11 @@
 
         <td>@item.TurnOver.ToStringExt()</td>
         <td>@item.BetCount.ToStringExt()</td>
-        <td class="highlight">@RazorHelper.HighlightNegativeFormat(@item.LicenseeWinLoss)</td>
+        <td>@RazorHelper.HighlightNegativeFormat(@item.LicenseeWinLoss)</td>
 
         @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
         {
-            <td class="highlight">@item.LicenseeComm.ToStringExt()</td>
+            <td>@item.LicenseeComm.ToStringExt()</td>
         }
 
         <td>@item.AmountDue.ToStringExt()</td>

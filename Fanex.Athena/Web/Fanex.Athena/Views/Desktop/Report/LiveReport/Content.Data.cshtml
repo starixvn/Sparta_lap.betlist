@@ -15,28 +15,34 @@
     }
 }
 
-@foreach (var item in Model.MainResult)
-{
-    <tr class="text-right">
-        <td class="text-left">
-            <a href="javascript:;" class="product-detail-link" data-product-code="@item.ProductCode">
-                @item.ProductName
-            </a>
-        </td>
+@{
+    var index = 0;
 
-        @DisplayCustomerWinLoss(item, Model.IsAllowedCustomerCommission)
+    foreach (var item in Model.MainResult)
+    {
+        var highlight = (index % 2 == 0) ? string.Empty : "highlight";
+        index++;
+        <tr class="text-right @highlight">
+            <td class="text-left">
+                <a href="javascript:;" class="product-detail-link" data-product-code="@item.ProductCode">
+                    @item.ProductName
+                </a>
+            </td>
 
-        <td>@item.TurnOver.ToStringExt()</td>
-        <td>@item.BetCount.ToStringExt()</td>
-        <td class="highlight">@RazorHelper.HighlightNegativeFormat(@item.LicenseeWinLoss)</td>
+            @DisplayCustomerWinLoss(item, Model.IsAllowedCustomerCommission)
 
-        @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
-        {
-            <td class="highlight">@item.LicenseeComm.ToStringExt()</td>
-        }
+            <td>@item.TurnOver.ToStringExt()</td>
+            <td>@item.BetCount.ToStringExt()</td>
+            <td>@RazorHelper.HighlightNegativeFormat(@item.LicenseeWinLoss)</td>
 
-        <td>@item.AmountDue.ToStringExt()</td>
-    </tr>
+            @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+            {
+                <td>@item.LicenseeComm.ToStringExt()</td>
+            }
+
+            <td>@item.AmountDue.ToStringExt()</td>
+        </tr>
+    }
 }
 
 <!--total row-->

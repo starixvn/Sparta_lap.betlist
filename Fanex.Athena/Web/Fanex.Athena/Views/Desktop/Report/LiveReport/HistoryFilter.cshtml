@@ -3,60 +3,60 @@
     var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);
 }
 
-<div class="col-sm-12">
-    <div class="panel">
-        <div class="panel-body">
-            <form id="livereport" name="livereport" method="post" action="@Url.Content("~/LiveReport?isViewedHistory=true")">
-                @Html.AntiForgeryToken()
+<div class="page-form">
+    <form id="livereport" name="livereport" method="post" action="@Url.Content("~/LiveReport?isViewedHistory=false")">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            @*<div class="input-field input col l2 m3 s12 calendar">
+                    <input name="DateRange"
+                           data-original-from="@Model.Param.FromDate.ToString("MM/dd/yyyy")"
+                           data-original-to="@Model.Param.ToDate.ToString("MM/dd/yyyy")"
+                           id="DateRange" class="datepicker" type="text" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")">
+                    <input name="FromDate" id="FromDate" type="hidden" />
+                    <input name="ToDate" id="ToDate" type="hidden" />
 
-                <div class="form-group form-material row margin-bottom-0">
-                    <div class="col-sm-4 col-md-2 col-lg-2 has-icon calendar">
-                        <label class="control-label">@ViewResources.From</label>
-                        <input name="FromDate" id="FromDate" class="form-control range" type="text" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")">
-                    </div>
-                    <div class="col-sm-4 col-md-2 col-lg-2 has-icon calendar">
-                        <label class="control-label">@ViewResources.To</label>
-                        <input name="ToDate" id="ToDate" type="text" class="form-control range" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
-                    </div>
-
-                    <div class="col-sm-4 col-md-2 col-lg-2 has-icon mdl-select">
-                        <label class="control-label" for="CurrencyId">@ViewResources.Currency</label>
-                        @RazorHelper.CurrencyList(Model.CurrencyList, "form-control", Model.Param.CurrencyId)
-                    </div>
-
-                    <div class="col-sm-4 col-md-2 col-lg-2 has-icon mdl-select">
-                        <label class="control-label" for="BaseCurrency">@ViewResources.Based</label>
-                        @RazorHelper.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
-                    </div>
-
-                    <div class="col-sm-4 col-md-2 col-lg-2 has-icon mdl-select">
-                        <label class="control-label" for="LiveIndicator">@ViewResources.LiveStatus</label>
-                        @RazorHelper.LiveStatus(Model.Param.LiveIndicator)
-                    </div>
-
-                    <div class="col-sm-4 col-md-2 col-lg-2 padding-top-15">
-                        <input type="submit" value="@ViewResources.Submit" class="btn btn-primary waves-effect waves-light text-uppercase" />
-                    </div>
-
-                    <div class="col-sm-8 padding-top-15">
-                        <p class="margin-bottom-5">
-                            <span class="circle"></span>
-                            <span>
-                                @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate),
-                                <a href="javascript:;" data-history-mode="True" id="switchreport">@ViewResources.BackToCurrentReport</a>
-                            </span>
-                        </p>
-
-                    </div>
-
-                    <div class="col-sm-4 col-md-3 col-lg-2 pull-right padding-top-15">
-                        <i class="icon-book pull-right" id="UserGuide" title="@ViewResources.UserGuide"></i>
-                        <i class="icon-excel pull-right margin-right-10" id="exporttoexcel" name="exporttoexcel" title="@ViewResources.ExportToExcel"></i>
-                    </div>
-
-                    <input type="hidden" name="ProductCode" id="ProductCode" />
-                </div>
-            </form>
+                    <label for="DateRange" class="active">@ViewResources.Date</label>
+                    <span class="icon icon-calendar"></span>
+                </div>*@
+            <div class="input-field input col l2 m3 s12 calendar">
+                <input name="FromDate" id="FromDate" type="text" class="datepicker">
+                <label for="FromDate" class="active">From</label>
+                <span class="icon icon-calendar"></span>
+            </div>
+            <div class="input-field input col l2 m3 s12 calendar">
+                <input name="ToDate" id="ToDate" type="text" class="datepicker">
+                <label for="ToDate" class="active">To</label>
+                <span class="icon icon-calendar"></span>
+            </div>
+            <div class="input-field col l2 m3 s12">
+                @RazorHelper.CurrencyList(Model.CurrencyList, string.Empty, Model.Param.CurrencyId)
+                <label>@ViewResources.Currency</label>
+            </div>
+            <div class="input-field col l2 m3 s12">
+                @RazorHelper.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                <label>@ViewResources.Based</label>
+            </div>
+            <div class="input-field col l2 m3 s12">
+                @RazorHelper.LiveStatus(Model.Param.LiveIndicator)
+                <label>@ViewResources.LiveStatus</label>
+            </div>
+            <div class="col button-block">
+                <input type="submit" value="@ViewResources.Submit" class="waves-effect waves-light btn btn-primary" />
+            </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col">
+                <span class="circle"></span>
+                <span>
+                    @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate),
+                    <a data-history-mode="False" id="switchreport" href="javascript:;">
+                        @ViewResources.ToViewHistoryRptMsg
+                    </a>
+                </span>
+            </div>
+        </div>
+
+        <input type="hidden" name="ProductCode" id="ProductCode" />
+        <input type="hidden" name="IsExportExcel" id="IsExportExcel" value="false" />
+    </form>
 </div>
