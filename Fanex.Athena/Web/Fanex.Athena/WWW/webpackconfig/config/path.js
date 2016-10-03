@@ -12,6 +12,7 @@ var cssPaths = {
     layout: ["./www/css/source/components/navbar/navBar.css", "./www/css/source/components/sidebar/sideBar.css"],
     main: "./www/css/source/main.css",
 
+    login: "./www/css/source/pages/login.css",
     livereport: "./www/css/source/pages/liveReport.css",
 }
 

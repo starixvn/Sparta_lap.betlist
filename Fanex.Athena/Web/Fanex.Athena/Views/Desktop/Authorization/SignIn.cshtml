@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Licensee Admin | Live Report</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <!-- Materialize CSS -->
+    <link href="~/www/css/test/vendors/materialize.css" rel="stylesheet" />
+
+    <!-- Style for page -->
+    <link href="~/www/css/test/main.css" rel="stylesheet" />
+    <link href="~/www/css/test/pages/login/login.css" rel="stylesheet" />
+</head>
+<body class="page-login layout-full">
+
+    <div class="page text-center">
+
+        <div class="page-content">
+            <div class="brand">
+                <div class="brand-text text-left">
+                    <div class="text-small">Welcome</div>
+                    <div class="big-text">Licensee Admin</div>
+                </div>
+            </div>
+
+            <form class="form-content">
+
+                <div class="input-field col s12">
+                    <div class="input-icon-group">
+                        <i class="icon icon-account" aria-hidden="true"></i>
+                        <input type="text" class="form-control" placeholder="Username" id="input-reset-1" onkeyup="this.setAttribute('value', this.value);" value="">
+                        <i class="icon icon-close pull-right" id="btn-reset-1"></i>
+                    </div>
+                </div>
+
+                <div class="input-field col s12">
+                    <div class="input-icon-group">
+                        <i class="icon icon-lock" aria-hidden="true"></i>
+                        <input type="password" class="form-control" placeholder="Password" onkeyup="this.setAttribute('value', this.value);" value="">
+                        <i class="icon icon-close pull-right"></i>
+                    </div>
+                </div>
+
+                <div class="input-field col s12">
+                    <div class="languages left">
+                        <a class="dropdown-toggle dropdown-button" href='#' data-activates='languages-login'>
+                            <span class="flag-icon flag-icon-us"></span>
+                            <span>English</span>
+                            <i class="icon icon-menu-down"></i>
+                        </a>
+                        <ul id='languages-login' class='dropdown-content language-items dropdown-menu'>
+                            <li>
+                                <a href="#">
+                                    <span class="flag-icon flag-icon-gb"></span> English
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="flag-icon flag-icon-fr"></span> French
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="flag-icon flag-icon-cn"></span> Chinese
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="flag-icon flag-icon-de"></span> German
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a class="btn pull-right" href="index.html">Login</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="~/www/js/test/vendors.chunk.js"></script>
+</body>
+</html>

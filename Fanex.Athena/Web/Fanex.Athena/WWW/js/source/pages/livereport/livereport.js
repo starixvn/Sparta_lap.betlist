@@ -84,8 +84,7 @@ define(
                     locale: {
                         format: 'MM/DD/YYYY'
                     },
-                    showDropdowns: true,
-                    alwaysShowCalendars: true
+                    showDropdowns: true
                 }, setRangeDate);
 
                 $('#DateRange').on('apply.daterangepicker', function (ev, picker) {
