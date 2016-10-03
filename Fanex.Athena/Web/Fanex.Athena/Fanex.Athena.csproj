@@ -1090,6 +1090,7 @@
     <Content Include="www\css\test\fonts\montserrat\Montserrat-Regular.ttf" />
     <Content Include="www\css\test\vendors\daterangepicker.chunk.js.map" />
     <Content Include="www\css\test\vendors\daterangepicker.css.map" />
+    <Content Include="www\css\source\components\daterangepicker\daterangepicker-ex.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">

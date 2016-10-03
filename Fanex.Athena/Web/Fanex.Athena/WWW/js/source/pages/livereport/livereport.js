@@ -10,20 +10,11 @@ define(
         function initialize() {
             initEvent();
             initMaterialSelect();
-            //initDateRangePicker();
+            initDateRangePicker();
             //initMonthPicker();
-            initDatepicker();
             Site.addUserGuide({
                 resourceName: "LiveReport",
                 title: Site.getSingleResource("LiveReport")
-            });
-        }
-
-        function initDatepicker() {
-            $('.datepicker').pickadate({
-                selectMonths: true, // Creates a dropdown to control month
-                selectYears: 15, // Creates a dropdown of 15 years to control year
-                format: 'mm/dd/yyyy',
             });
         }
 
@@ -75,7 +66,7 @@ define(
 
                 function setRangeDate(start, end) {
                     $('#FromDate').val(start.format('MM/DD/YYYY'));
-                    $('#EndDate').val(end.format('MM/DD/YYYY'));
+                    $('#ToDate').val(end.format('MM/DD/YYYY'));
                     $('#DateRange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
                 }
 
