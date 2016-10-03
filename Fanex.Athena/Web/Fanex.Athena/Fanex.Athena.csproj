@@ -735,6 +735,11 @@
     <Content Include="www\css\test\fonts\flags\flags\nl.svg" />
     <Content Include="www\css\test\fonts\flags\flags\us.svg" />
     <Content Include="www\css\test\fonts\font-icon\fonts\icomoon.svg" />
+    <Content Include="www\css\test\images\15.jpg" />
+    <Content Include="www\css\test\images\bg-login.jpg" />
+    <Content Include="www\css\test\images\ic-calendar.png" />
+    <Content Include="www\css\test\images\logo-text.png" />
+    <Content Include="www\css\test\images\logo.png" />
     <Content Include="www\css\test\main.chunk.js" />
     <Content Include="www\css\test\main.css" />
     <Content Include="www\css\test\pages\layout\layout.chunk.js" />
@@ -1096,6 +1101,7 @@
     <Content Include="Views\Desktop\Authorization\SignIn.cshtml" />
     <Content Include="www\css\test\pages\login\login.chunk.js.map" />
     <Content Include="www\css\test\pages\login\login.css.map" />
+    <Content Include="www\css\source\extensions\login-ex.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">

@@ -78,6 +78,25 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Authorization/SignIn.cshtml");
         }
 
+        [CheckUMFilter]
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult NewSignIn()
+        {
+            var requestHost = Request.Url.AbsoluteUri;
+
+            var isInternalDomain = requestHost.Contains(AppSettings.GetValue("internaldomain"));
+
+            if (!isInternalDomain)
+            {
+                return RedirectToAction("LocationRestriction", "Utility");
+            }
+
+            SetErrorForView(0, string.Empty);
+            ViewBag.LogInToken = CreateToken();
+            return View("~/Views/Desktop/Authorization/SignIn.cshtml");
+        }
+
         /// <summary>
         /// The sign in page.
         /// </summary>

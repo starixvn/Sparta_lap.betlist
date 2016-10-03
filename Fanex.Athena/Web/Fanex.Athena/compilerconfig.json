@@ -22,5 +22,9 @@
   {
     "outputFile": "www/css/source/pages/Report/liveReport.css",
     "inputFile": "www/css/source/pages/Report/liveReport.scss"
+  },
+  {
+    "outputFile": "www/css/source/extensions/login-ex.css",
+    "inputFile": "www/css/source/extensions/login-ex.scss"
   }
 ]

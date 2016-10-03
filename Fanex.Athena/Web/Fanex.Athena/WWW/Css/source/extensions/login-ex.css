@@ -1,0 +1,11 @@
+﻿.input-capcha-group .capcha-img {
+  left: 0;
+  top: 10px;
+  width: 70px;
+  pointer-events: none;
+  position: absolute; }
+
+.input-capcha-group .capcha-input {
+  padding-left: 70px;
+  width: calc(100% - 70px); }
+
