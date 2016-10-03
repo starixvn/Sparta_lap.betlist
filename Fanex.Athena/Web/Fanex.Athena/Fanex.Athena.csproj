@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -573,6 +573,7 @@
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-CN.htm" />
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <Content Include="Content\BetList\AGCasino.css" />
+    <Content Include="Content\BetList\colossusbetdetail.css" />
     <Content Include="Content\BetList\Microgaming.css" />
     <Content Include="Content\Customer\customerlist.css" />
     <Content Include="Content\Fanex.Result\Allbet\css\button.css" />

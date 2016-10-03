@@ -1,0 +1,66 @@
+﻿html, body,
+.content-wrapper,
+#BodyContent,
+.content-wrapper .middle,
+.content-wrapper .left, .content-wrapper .left iframe {
+    height: 100%;
+}
+
+.content-wrapper, .content-wrapper .left iframe {
+    width: 100%;
+}
+
+.content-wrapper .left {
+    width: 35%;
+    float: left;
+}
+
+.content-wrapper .right {
+    width: calc(65% - 21px);
+    float: left;
+}
+
+.content-wrapper .middle {
+    width: 1px;
+    background: #A3D1E1;
+    float: left;
+    margin: 0 10px;
+}
+
+p {
+    font-size: 13px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.table-detail {
+    width: 100% !important;
+    border-collapse: collapse;
+}
+
+    .table-detail td {
+        font-size: 13px !important;
+    }
+
+.col-date {
+    width: 30%;
+    text-align: center !important;
+}
+
+.col-trans {
+    width: 30%;
+    text-align: left !important;
+}
+
+.col-winloss {
+    width: 20%;
+}
+
+.col-comm {
+    width: 20%;
+}
+.total-row{
+    background-color: #FFEFE3;
+    border-top: 2px solid #FF6600;
+    font-weight: bold;
+}
