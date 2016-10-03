@@ -8,5 +8,7 @@
         public IEnumerable<ColossusBetDetail> DataList { get; set; }
 
         public decimal TotalSoldPercent { get; set; }
+
+        public string IframeUrl { get; set; }
     }
 }

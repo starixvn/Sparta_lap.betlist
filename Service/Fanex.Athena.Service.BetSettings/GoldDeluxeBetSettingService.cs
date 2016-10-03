@@ -113,7 +113,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             try
             {
-                var apiResult = _webClientService.SendRequest(uri, parameters);
+                var apiResult = _webClientService.UploadString(uri, parameters);
 
                 var xml = XDocument.Parse(apiResult);
                 var rootElement = xml.Element("SetUserGroupBettingLimit");
@@ -160,7 +160,7 @@ namespace Fanex.Athena.Service.BetSettings
             var games = new List<GoldDeluxeGame>();
             try
             {
-                var apiResult = _webClientService.SendRequest(uri, parameters);
+                var apiResult = _webClientService.UploadString(uri, parameters);
 
                 var xml = XDocument.Parse(apiResult);
 
@@ -203,7 +203,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             try
             {
-                var apiResult = _webClientService.SendRequest(uri, parameters);
+                var apiResult = _webClientService.UploadString(uri, parameters);
                 var xml = XDocument.Parse(apiResult);
 
                 var rootElement = xml.Element("GetUserGroupBettingLimit");

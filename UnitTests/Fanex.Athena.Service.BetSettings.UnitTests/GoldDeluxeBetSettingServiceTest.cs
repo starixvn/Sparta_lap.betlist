@@ -49,9 +49,9 @@
             // Arrange
             _appSettings.GetValue("GoldDeluxeGetUserGroupApiUrl").Returns("http://api1.com");
             _appSettings.GetValue("GoldDeluxeGroupBettingLimitApiUrl").Returns("http://api2.com");
-            _webClientService.SendRequest(new Uri("http://api1.com"), "SiteName=spondemo&IBCCustID=2&ThirdPartyId=5&Currency=0")
+            _webClientService.UploadString(new Uri("http://api1.com"), "SiteName=spondemo&IBCCustID=2&ThirdPartyId=5&Currency=0")
                 .Returns("<GetUserGroupBettingLimit><ReturnCode>0</ReturnCode><ReturnMessage>WTF</ReturnMessage></GetUserGroupBettingLimit>");
-            _webClientService.SendRequest(new Uri("http://api2.com"), "SiteName=spondemo&Currency=0&ThirdPartyId=5")
+            _webClientService.UploadString(new Uri("http://api2.com"), "SiteName=spondemo&Currency=0&ThirdPartyId=5")
                 .Returns("<Game GameType='1' Name='A'><Group GroupType='AA'><Min>1</Min><Max>100</Max></Group></Game>");
 
             // Action
@@ -70,7 +70,7 @@
             var group = "A";
             _appSettings.GetValue("GoldDeluxeSetUserGroupApiUrl").Returns("http://api3.com");
 
-            _webClientService.SendRequest(new Uri("http://api3.com"), "SiteName=spondemo&IBCCustID=2&ThirdPartyId=5&GroupType=" + group)
+            _webClientService.UploadString(new Uri("http://api3.com"), "SiteName=spondemo&IBCCustID=2&ThirdPartyId=5&GroupType=" + group)
                 .Returns("<SetUserGroupBettingLimit><ReturnCode>0</ReturnCode></SetUserGroupBettingLimit>");
 
             // Action
