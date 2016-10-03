@@ -13,12 +13,17 @@
     </div>
     <div class="middle"></div>
     <div class="right">
-        <p>Member owned 80% of ticket</p>
-        <p>Member sold 20% of ticket for 2,000.00</p>
+        @{ 
+            var ownPercent = 100 - Model.TotalSoldPercent;
+            var message = string.Format(ViewResources.ColossusBetBetListDetailMsg, ownPercent, Model.TotalSoldPercent, string.Format("{0:0,0.00}", Model.TotalWinLoss));
+        }
+        <p>
+            @Html.Raw(message)
+        </p>
         <table class="report-table table-detail">
             <tr class="report-header">
                 <th>@ViewResources.Date</th>
-                <th>Transaction Type</th>
+                <th>@ViewResources.TransactionType</th>
                 <th>@ViewResources.WinLoss</th>
                 <th>@ViewResources.Commission</th>
             </tr>

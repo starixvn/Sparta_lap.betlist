@@ -1132,6 +1132,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member owned {0}% of this ticket&lt;br/&gt;Member sold {1}% of this ticket for {2}.
+        /// </summary>
+        public static string ColossusBetBetListDetailMsg {
+            get {
+                return ResourceManager.GetString("ColossusBetBetListDetailMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Colossus Bets Win Loss.
         /// </summary>
         public static string ColossusBetsWinLoss {
@@ -6910,6 +6919,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ticket detail of {0}.
+        /// </summary>
+        public static string TicketDetailOf {
+            get {
+                return ResourceManager.GetString("TicketDetailOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ticket filter.
         /// </summary>
         public static string TicketFilter {
@@ -7185,6 +7203,15 @@ namespace Fanex.Athena.Resources {
         public static string ToWinToNil {
             get {
                 return ResourceManager.GetString("ToWinToNil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TransactionType.
+        /// </summary>
+        public static string TransactionType {
+            get {
+                return ResourceManager.GetString("TransactionType", resourceCulture);
             }
         }
         

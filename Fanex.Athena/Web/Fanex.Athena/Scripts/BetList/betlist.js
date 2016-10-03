@@ -679,8 +679,7 @@ var BetList = (function ($) {
             url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
 
             var popH = Math.min($(window).height() - 100, 550), popW = 820;
-            var title = Site.getSingleResource("ProductCB") + " - " +
-                Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+            var title = Site.getSingleResource("TicketDetailOf").replace("{0}", refNo);
             var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
                              popW + '" height="100%" src="' + url + '" ></iframe></div>';
 

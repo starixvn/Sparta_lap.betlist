@@ -9,6 +9,8 @@
 
         public decimal TotalSoldPercent { get; set; }
 
+        public decimal TotalWinLoss { get; set; }
+
         public string IframeUrl { get; set; }
     }
 }

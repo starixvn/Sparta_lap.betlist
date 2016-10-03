@@ -41,16 +41,19 @@ namespace Fanex.Athena.DataAccess.BetList
 
                         var dataList = new List<ColossusBetDetail>();
                         decimal totalSoldPercent = 0;
+                        decimal totalWinLoss = 0;
                         while (reader.Read())
                         {
                             var bettypeId = reader.ToInt("BetType");
                             var sold = reader.ToInt("Sold");
+                            var winloss = reader.ToDecimal(winlossColumn);
                             totalSoldPercent += sold;
+                            totalWinLoss += winloss;
                             dataList.Add(new ColossusBetDetail()
                             {
                                 TransDate = reader.ToDateTime("TransDate"),
                                 TransactionType = BuilderExtension.BuildColossusBetsTransactionType(bettypeId, sold, ticketHelper),
-                                WinLoss = BuilderExtension.BuildColossusBetsWinLoss(reader.ToDecimal(winlossColumn)),
+                                WinLoss = BuilderExtension.BuildColossusBetsWinLoss(winloss),
                                 Commission = reader.ToDecimal(commColumn)
                             });
                         }
@@ -58,7 +61,8 @@ namespace Fanex.Athena.DataAccess.BetList
                         return new ColossusBetDetailViewModel()
                         {
                             DataList = dataList,
-                            TotalSoldPercent = totalSoldPercent
+                            TotalSoldPercent = totalSoldPercent,
+                            TotalWinLoss = totalWinLoss
                         };
                     }
                 }
