@@ -14,7 +14,6 @@ var BetList = (function ($) {
     var SPORT_ALLBET = 211;
     var SPORT_VOIDBRIDGE = 212;
 
-
     var _sortColumnName, _sortOrder;
     var _params, _url;
     var _isShowSumStake;

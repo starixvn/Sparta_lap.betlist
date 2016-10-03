@@ -76,7 +76,7 @@ namespace Fanex.Athena.Api.Report
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
 
             var exportedFileName = string.Format(
-                "CBWinLoss_{0:ddMMMyyyy}_{1}.xls",
+                "ColossusBetsWinLoss_{0:ddMMMyyyy}_{1}.xls",
                 metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate,
                 currency.Value == 0 ? "All" : currency.Key);
             var convertingOption = new ConvertingOption

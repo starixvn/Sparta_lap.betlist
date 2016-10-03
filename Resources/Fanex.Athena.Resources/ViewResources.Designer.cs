@@ -7207,7 +7207,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TransactionType.
+        ///   Looks up a localized string similar to Transaction Type.
         /// </summary>
         public static string TransactionType {
             get {

@@ -2890,7 +2890,7 @@
     <value>Winning Prize</value>
   </data>
   <data name="TransactionType" xml:space="preserve">
-    <value>TransactionType</value>
+    <value>Transaction Type</value>
   </data>
   <data name="ColossusBetBetListDetailMsg" xml:space="preserve">
     <value>Member owned {0}% of this ticket&lt;br/&gt;Member sold {1}% of this ticket for {2}</value>

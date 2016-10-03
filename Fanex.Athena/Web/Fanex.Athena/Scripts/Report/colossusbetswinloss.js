@@ -28,6 +28,7 @@ var ColossusBets = (function ($) {
         url = QueryString.setParam(url, "OriginalCurrencyName", _submitData.CurrencyName);
         url = QueryString.setParam(url, "productoptions[0].code", "CB");
         url = QueryString.setParam(url, "productoptions[0].status", "true");
+        url = QueryString.setParam(url, "excelfilename", "ColossusBetsWinLossBetList");
 
         url = Site.setProductOptionOriginalParamList(url);
 
