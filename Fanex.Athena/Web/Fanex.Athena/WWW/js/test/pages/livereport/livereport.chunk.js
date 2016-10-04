@@ -59,6 +59,10 @@ webpackJsonp([7],[
 	                $('#livereport').submit();
 	                $('#IsExportExcel').val(false);
 	            });
+	
+	            $('#btnSubmit').click(function () {
+	                $('#livereport').submit();
+	            });
 	        }
 	
 	        function initDateRangePicker() {

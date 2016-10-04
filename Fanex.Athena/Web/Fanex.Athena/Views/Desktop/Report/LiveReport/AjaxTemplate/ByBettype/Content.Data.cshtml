@@ -30,7 +30,7 @@
         <td colspan="@columnCount">@(product.ProductName == "SB" ? ViewResources.Sportsbook : product.ProductName)</td>
     </tr>
 
-    foreach (var item in Model.ByCurrencies)
+    foreach (var item in product.LiveReports)
     {
         <tr class="text-right">
             <td class="text-left">

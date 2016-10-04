@@ -8,7 +8,7 @@
         @Html.AntiForgeryToken()
         <div class="row">
             <div class="input-field input col l2 m3 s12 calendar">
-                <input name="DateRange"
+                <input name="DateRange" autocomplete="off"
                        data-original-from="@Model.Param.FromDate.ToString("MM/dd/yyyy")"
                        data-original-to="@Model.Param.ToDate.ToString("MM/dd/yyyy")"
                        id="DateRange" class="datepicker" type="text" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")">
@@ -30,8 +30,8 @@
                 @RazorHelper.LiveStatus(Model.Param.LiveIndicator)
                 <label>@ViewResources.LiveStatus</label>
             </div>
-            <div class="col button-block">
-                <input type="submit" value="@ViewResources.Submit" class="waves-effect waves-light btn btn-primary" />
+            <div class="col button-block" id="btnSubmit">
+                <a class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
             </div>
         </div>
         <div class="row">

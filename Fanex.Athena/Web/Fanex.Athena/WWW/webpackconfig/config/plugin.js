@@ -5,7 +5,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin')
 var commonPlugins = [
     new CleanWebpackPlugin([pathConfig.scriptPaths.build, pathConfig.cssPaths.build], {
         root: process.cwd(),
-        exclude: ['fonts']
+        exclude: ['fonts', 'images']
     }),
     new webpack.optimize.CommonsChunkPlugin({
         name: "vendors",
