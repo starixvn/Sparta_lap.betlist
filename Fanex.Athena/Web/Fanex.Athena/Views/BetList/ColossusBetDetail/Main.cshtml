@@ -15,7 +15,8 @@
     <div class="right">
         @{ 
             var ownPercent = 100 - Model.TotalSoldPercent;
-            var message = string.Format(ViewResources.ColossusBetBetListDetailMsg, ownPercent, Model.TotalSoldPercent, Model.TotalSoldWinLoss.ToString("#,##0.00"));
+            var message = string.Format(ViewResources.ColossusBetBetListDetailMsg, ownPercent.ToString("#,##0.##"), 
+                Model.TotalSoldPercent.ToString("#,##0.##"), Model.TotalSoldWinLoss.ToString("#,##0.00"));
         }
         <p>
             @Html.Raw(message)

@@ -63,7 +63,7 @@ namespace Fanex.Athena.DataAccess.BetList
             while (reader.Read())
             {
                 var bettypeId = reader.ToInt("BetType");
-                var sold = reader.ToInt("Sold");
+                var sold = reader.ToDecimal("Sold");
                 var winloss = reader.ToDecimal(winlossColumn);
                 var comm = reader.ToDecimal(commColumn);
                 totalSoldPercent += sold;
@@ -82,7 +82,7 @@ namespace Fanex.Athena.DataAccess.BetList
             return new ColossusBetDetailViewModel()
             {
                 DataList = dataList,
-                TotalSoldPercent = totalSoldPercent,
+                TotalSoldPercent = totalSoldPercent * 100,
                 TotalWinLoss = totalWinLoss,
                 TotalComm = totalComm,
                 TotalSoldWinLoss = totalSoldWinLoss
