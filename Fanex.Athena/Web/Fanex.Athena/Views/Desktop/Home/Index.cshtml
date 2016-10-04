@@ -11,10 +11,10 @@
 
     <title>@ViewBag.Title</title>
 
-    <link href="~/www/css/test/vendors/materialize.css" rel="stylesheet" />
+    <link href="~/www/css/build/vendors/materialize.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="~/www/css/test/main.css" rel="stylesheet" />
-    <link href="~/www/css/test/pages/layout/layout.css" rel="stylesheet" />
+    <link href="~/www/css/build/main.css" rel="stylesheet" />
+    <link href="~/www/css/build/pages/layout/layout.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -40,7 +40,7 @@
         <iframe id="mainFrame" name="main" src="@(Util.RootPath + ViewBag.DefaultReportUrl)" frameborder="0" scrolling="auto" width="100"></iframe>
     </main>
 
-    <script src="~/www/js/test/vendors.chunk.js"></script>
-    <script src="~/www/js/test/pages/layout/layout.chunk.js"></script>
+    <script src="~/www/js/build/vendors.chunk.js"></script>
+    <script src="~/www/js/build/pages/layout/layout.chunk.js"></script>
 </body>
 </html>

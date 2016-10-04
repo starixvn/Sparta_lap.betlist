@@ -4,7 +4,7 @@ var projectRoot = path.resolve(__dirname, '../../../');
 
 var cssCommonPath = "./www/css/source/";
 var cssPaths = {
-    build: path.join(projectRoot, '/www/css/test'),
+    build: "www/css/build",
 
     materialize: "./www/css/source/vendors/materialize/materialize.css",
     daterangepicker: ["bootstrap-daterangepicker/daterangepicker.css", "./www/css/source/components/daterangepicker/daterangepicker-ex.scss"],
@@ -17,7 +17,7 @@ var cssPaths = {
 }
 
 var scriptPaths = {
-    build: path.join(projectRoot, '/www/js/test'),
+    build: "www/js/build",
 
     layout: ["./www/js/source/components/navbar/navbar.js", "./www/js/source/components/sidebar/sidebar.js"],
 

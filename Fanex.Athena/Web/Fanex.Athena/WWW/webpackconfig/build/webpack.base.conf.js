@@ -15,18 +15,18 @@ var commonConfigs = {
     entry: {
         "vendors": ["jquery", "materialize"],
 
-        "js/test/pages/layout/layout": pathConfig.scriptPaths.layout,
-        "js/test/pages/livereport/livereport": pathConfig.scriptPaths.livereport,
+        [pathConfig.scriptPaths.build + "/pages/layout/layout"]: pathConfig.scriptPaths.layout,
+        [pathConfig.scriptPaths.build + "/pages/livereport/livereport"]: pathConfig.scriptPaths.livereport,
 
-        "css/test/pages/reports/livereport": pathConfig.cssPaths.livereport,
-        "css/test/main": pathConfig.cssPaths.main,
-        "css/test/vendors/materialize": pathConfig.cssPaths.materialize,
-        "css/test/pages/layout/layout": pathConfig.cssPaths.layout,
-        "css/test/vendors/daterangepicker": pathConfig.cssPaths.daterangepicker,
-        "css/test/pages/login/login": pathConfig.cssPaths.login,
+        [pathConfig.cssPaths.build + "/pages/reports/livereport"]: pathConfig.cssPaths.livereport,
+        [pathConfig.cssPaths.build + "/main"]: pathConfig.cssPaths.main,
+        [pathConfig.cssPaths.build + "/vendors/materialize"]: pathConfig.cssPaths.materialize,
+        [pathConfig.cssPaths.build + "/pages/layout/layout"]: pathConfig.cssPaths.layout,
+        [pathConfig.cssPaths.build + "/vendors/daterangepicker"]: pathConfig.cssPaths.daterangepicker,
+        [pathConfig.cssPaths.build + "/pages/login/login"]: pathConfig.cssPaths.login,
     },
     output: {
-        path: path.join(pathConfig.projectRoot, '/www/'),
+        path: pathConfig.projectRoot,
         filename: "[name].chunk.js"
     },
     module: {

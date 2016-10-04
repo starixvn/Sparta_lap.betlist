@@ -9,7 +9,7 @@ var commonPlugins = [
     }),
     new webpack.optimize.CommonsChunkPlugin({
         name: "vendors",
-        filename: "js/test/vendors.chunk.js",
+        filename: "www/js/build/vendors.chunk.js",
         minChunks: Infinity
     }),
 	new webpack.ProvidePlugin({
