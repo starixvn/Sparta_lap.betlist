@@ -31,7 +31,7 @@ namespace Fanex.Athena.Controllers
         public FilePathResult DownloadCustomerListPdf()
         {
             var language = SessionService.UserSession.Language;
-            var fileName = SessionService.LicenseeSession.IsEnableBA ? "Odds Group Feature_Licensee.pdf" : "Odds Group Feature_Licensee_NoBA.pdf";
+            var fileName = SessionService.LicenseeSession.IsEnableBA ? "Odds Group Feature_Licensee_BA.pdf" : "Odds Group Feature_Licensee.pdf";
             var filePath = Server.MapPath(string.Format(@"~/App_Data/UserGuide/{0}/pdf/{1}/{2}", CustomerListResourceName, language, fileName));
             filePath = GetDefaultFilePathIfNotExist(language, filePath);
             return File(filePath, System.Net.Mime.MediaTypeNames.Application.Pdf, Path.GetFileName(filePath));
