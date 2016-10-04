@@ -10,7 +10,7 @@ var cssPaths = {
     daterangepicker: ["bootstrap-daterangepicker/daterangepicker.css", "./www/css/source/components/daterangepicker/daterangepicker-ex.scss"],
 
     layout: ["./www/css/source/components/navbar/navBar.css", "./www/css/source/components/sidebar/sideBar.css"],
-    main: "./www/css/source/main.css",
+    main: ["./www/css/source/main.css", "./www/css/source/extensions/main-ex.scss"],
 
     login: "./www/css/source/pages/login.css",
     livereport: "./www/css/source/pages/liveReport.css",

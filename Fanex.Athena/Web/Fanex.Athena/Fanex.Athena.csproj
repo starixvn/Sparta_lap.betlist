@@ -1089,6 +1089,7 @@
     <Content Include="www\js\build\pages\layout\layout.chunk.js.map" />
     <Content Include="www\js\build\pages\livereport\livereport.chunk.js.map" />
     <Content Include="www\js\build\vendors.chunk.js.map" />
+    <Content Include="www\css\source\extensions\main-ex.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">

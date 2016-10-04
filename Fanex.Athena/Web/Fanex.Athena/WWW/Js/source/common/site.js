@@ -265,22 +265,10 @@ define(["querystring"], function (QueryString) {
     function unBlockUI() {
         $('div.block-body').hide();
         $('div.loading').hide();
-        try {
-            $.unblockUI();
-        } catch (err) {
-        }
     }
     function blockUI() {
         $('div.block-body').show();
         $('div.loading').show();
-        try {
-            $.blockUI({
-                message: "",
-                timeout: UNBLOCKUI_TIMEOUT
-            });
-        }
-        catch (err) {
-        }
     }
 
     function setLicenseeOptionParam(urlOrParams) {
@@ -437,6 +425,7 @@ define(["querystring"], function (QueryString) {
             basedCurrency = basedCurrency === undefined ? "" : basedCurrency;
             $baseCurrency.val(basedCurrency);
         }
+        $baseCurrency.material_select();
     }
 
     function sortReport(sortColumn) {
