@@ -8,6 +8,7 @@ call Fanex.Athena.DataAccess.Report.Tests.bat
 call Fanex.Athena.DataAccess.TotalBet.Tests.bat
 call Fanex.Athena.DataAccess.Warehouse.Tests.bat
 call Fanex.Athena.Excel.Base.Tests.bat
-call Fanex.Athena.Excel.Customer.Tests.bat
 call Fanex.Athena.Extension.Tests.bat
+call Fanex.Athena.Service.BetList.Tests
+call Fanex.Athena.Service.BetSettings.Tests
 call Fanex.Athena.Service.Core.Tests
