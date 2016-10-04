@@ -1,4 +1,4 @@
-﻿// Generated at: 10/4/2016 9:37:06 AM
+﻿// Generated at: 10/4/2016 10:07:35 AM
 var _language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -45,6 +45,7 @@ AmtDueToBetTrade:"Amt Due To Bet Trade",
 AmtDueToBetTradeBalanceNote:"Amt Due To BetTrade: BetTrade settlement amount Licensee needs to pay or receive for BetTrade.",
 AmtDueToRacing:"Amt Due To Racing",
 AmtDueToRacingBalanceNote:"Amt Due To Racing: Racing settlement amount Licensee needs to pay or receive for Racing products",
+AmtLessThan30kGBP:"Amt &lt; 30K GBP",
 Apr:"Apr",
 April:"April",
 AreYouSure:"Are you sure you want to procceed?",
@@ -873,7 +874,6 @@ Wednesday:"Wednesday",
 WeeklyLiveMatches:"Weekly Live Matches",
 Welcome:"Welcome",
 Win:"Win",
-WinAmtLessThan30kGBP:"Win Amt &lt; 30K GBP",
 WinLoss:"Win Loss",
 WinLossByBetType:"Win Loss By Bet Type",
 WinLossByBetTypeTitle:"Win Loss By Bet Type, {0} --&gt; {1} - {2}",

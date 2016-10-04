@@ -30,11 +30,11 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public decimal TotalTransaction { get; set; }
 
-        public decimal WinningPrize { get; set; }
+        public decimal MemberWinning { get; set; }
 
         public decimal CashOut { get; set; }
 
-        public decimal CashIn { get; set; }
+        public decimal CashOutShare { get; set; }
 
         public decimal CommissionShare { get; set; }
 
@@ -42,7 +42,7 @@ namespace Fanex.Athena.Model.Report.DTO
         {
             get
             {
-                return TurnOver - WinningPrize - CashOut - CashIn - CommissionShare;
+                return TurnOver - MemberWinning - CashOut - CashOutShare - CommissionShare;
             }
         }
 

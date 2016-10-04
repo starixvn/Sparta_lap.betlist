@@ -123,10 +123,10 @@ var ColossusBetsOption = (function () {
         }
     };
 
-    var winningPrizeColumn =
+    var memWinningColumn =
     {
-        name: 'WinningPrize',
-        index: 'WinningPrize',
+        name: 'MemberWinning',
+        index: 'MemberWinning',
         width: 90,
         align: 'right',
         sortable: false,
@@ -145,10 +145,10 @@ var ColossusBetsOption = (function () {
         formatter: jqGridAdditional.formatDecimal
     };
 
-    var cashInShareColumn =
+    var cashOutShareColumn =
     {
-        name: 'CashIn',
-        index: 'CashIn',
+        name: 'CashOutShare',
+        index: 'CashOutShare',
         classes: 'highlight',
         width: 90,
         align: 'right',
@@ -222,7 +222,7 @@ var ColossusBetsOption = (function () {
       'AmountDueToCB', 'GrandPrize', 'CurrencyId', 'CustomerId'];
 
     var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
-        turnoverColumn, totalTransColumn, winningPrizeColumn, cashOutColumn, cashInShareColumn, commissionShareColumn,
+        turnoverColumn, totalTransColumn, memWinningColumn, cashOutColumn, cashOutShareColumn, commissionShareColumn,
         amountDueToCBColumn, grandPrizeColumn, currencyIdColumn, customerIdColumn];
 
     var me =
@@ -257,9 +257,9 @@ var ColossusBetsOption = (function () {
 
     me.setGroupHeader = function (grid) {
         var group = {
-            startColumnName: 'WinningPrize',
+            startColumnName: 'MemberWinning',
             numberOfColumns: 2,
-            titleText: Site.getSingleResource('WinAmtLessThan30kGBP')
+            titleText: Site.getSingleResource('AmtLessThan30kGBP')
         };
 
         grid.jqGrid('setGroupHeaders',

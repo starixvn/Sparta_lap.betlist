@@ -60,9 +60,9 @@ namespace Fanex.Athena.DataAccess.Report
             }
 
             var turnoverColumn = "turnover" + metaModel.BaseCurrency;
-            var winningPrizeColumn = "winningprize" + metaModel.BaseCurrency;
+            var memberWinningColumn = "winningprize" + metaModel.BaseCurrency;
             var cashOutColumn = "cashoutamt" + metaModel.BaseCurrency;
-            var cashInColumn = "cashinamt" + metaModel.BaseCurrency;
+            var cashOutShareColumn = "cashinamt" + metaModel.BaseCurrency;
             var grantPrizeColumn = "grandamt" + metaModel.BaseCurrency;
             var commColumn = "commamt" + metaModel.BaseCurrency;
 
@@ -83,9 +83,9 @@ namespace Fanex.Athena.DataAccess.Report
                     CurrencyName = reader.ToString("currencyname"),
                     TurnOver = reader.ToDecimal(turnoverColumn),
                     TotalTransaction = reader.ToInt("totaltrans"),
-                    WinningPrize = reader.ToDecimal(winningPrizeColumn),
+                    MemberWinning = reader.ToDecimal(memberWinningColumn),
                     CashOut = reader.ToDecimal(cashOutColumn),
-                    CashIn = reader.ToDecimal(cashInColumn),
+                    CashOutShare = reader.ToDecimal(cashOutShareColumn),
                     CommissionShare = reader.ToDecimal(commColumn),
                     GrandPrize = reader.ToDecimal(grantPrizeColumn),
                     Date = metaModel.DrillDownLevel > 0 ?
@@ -98,9 +98,9 @@ namespace Fanex.Athena.DataAccess.Report
                 {
                     summaryTotal[currency].TotalTransaction += item.TotalTransaction;
                     summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
-                    summaryTotal[currency].WinningPrize += reader.ToDecimal("winningprize" + currency);
+                    summaryTotal[currency].MemberWinning += reader.ToDecimal("winningprize" + currency);
                     summaryTotal[currency].CashOut += reader.ToDecimal("cashoutamt" + currency);
-                    summaryTotal[currency].CashIn += reader.ToDecimal("cashinamt" + currency);
+                    summaryTotal[currency].CashOutShare += reader.ToDecimal("cashinamt" + currency);
                     summaryTotal[currency].CommissionShare += reader.ToDecimal("commamt" + currency);
                     summaryTotal[currency].GrandPrize += reader.ToDecimal("grandamt" + currency);
                 }

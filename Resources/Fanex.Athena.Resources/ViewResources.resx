@@ -2885,8 +2885,8 @@
   <data name="GrandPrize" xml:space="preserve">
     <value>Grand Prize</value>
   </data>
-  <data name="WinAmtLessThan30kGBP" xml:space="preserve">
-    <value>Win Amt &lt; 30K GBP</value>
+  <data name="AmtLessThan30kGBP" xml:space="preserve">
+    <value>Amt &lt; 30K GBP</value>
     <comment>#63785</comment>
   </data>
   <data name="MemberWinnings" xml:space="preserve">

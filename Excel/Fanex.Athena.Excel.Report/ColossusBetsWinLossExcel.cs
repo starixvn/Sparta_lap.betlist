@@ -28,9 +28,9 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnCurrency = 4;
         private const int ColumnTurnover = 5;
         private const int ColumnTotalTransaction = 6;
-        private const int ColumnWinningPrize = 7;
-        private const int ColumnCashOut = 8;
-        private const int ColumnCashIn = 9;
+        private const int ColumnMemberWinning = 7;
+        private const int ColumnCashOutAmt = 8;
+        private const int ColumnCashOutShare = 9;
         private const int ColumnCommissionShare = 10;
         private const int ColumnAmountDueToCB = 11;
         private const int ColumnGrandPrize = 12;
@@ -97,15 +97,15 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
             row.Cells[ColumnTurnover].SetCellValue(ViewResources.Turnover);
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
-            row.Cells[ColumnWinningPrize].SetCellValue(ViewResources.SmallPrize);
-            row.Cells[ColumnCashIn].SetCellValue(ViewResources.CashInShare);
+            row.Cells[ColumnMemberWinning].SetCellValue(ViewResources.AmtLessThan30kGBP);
+            row.Cells[ColumnCashOutShare].SetCellValue(ViewResources.CashOutShare);
             row.Cells[ColumnCommissionShare].SetCellValue(ViewResources.CommissionShare);
             row.Cells[ColumnAmountDueToCB].SetCellValue(ViewResources.AmountDueToCB);
             row.Cells[ColumnGrandPrize].SetCellValue(ViewResources.GrandPrize);
 
             var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-            row2.Cells[ColumnWinningPrize].SetCellValue(ViewResources.WinningPrize);
-            row2.Cells[ColumnCashOut].SetCellValue(ViewResources.CashOut);
+            row2.Cells[ColumnMemberWinning].SetCellValue(ViewResources.MemberWinnings);
+            row2.Cells[ColumnCashOutAmt].SetCellValue(ViewResources.CashOutAmt);
         }
 
         public override void AssignNoInfoRow(ISheet sheet)
@@ -188,9 +188,9 @@ namespace Fanex.Athena.Excel.Report
         {
             row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
-            row.Cells[ColumnWinningPrize].SetCellValue(data.WinningPrize);
-            row.Cells[ColumnCashOut].SetCellValue(data.CashOut);
-            row.Cells[ColumnCashIn].SetCellValue(data.CashIn);
+            row.Cells[ColumnMemberWinning].SetCellValue(data.MemberWinning);
+            row.Cells[ColumnCashOutAmt].SetCellValue(data.CashOut);
+            row.Cells[ColumnCashOutShare].SetCellValue(data.CashOutShare);
             row.Cells[ColumnCommissionShare].SetCellValue(data.CommissionShare);
             row.Cells[ColumnAmountDueToCB].SetCellValue(data.AmountDueToCB);
             row.Cells[ColumnGrandPrize].SetCellValue(data.GrandPrize);
@@ -246,9 +246,9 @@ namespace Fanex.Athena.Excel.Report
                         CurrencyName = group.Key.CurrencyName,
                         TurnOver = group.Sum(a => a.TurnOver),
                         TotalTransaction = group.Sum(a => a.TotalTransaction),
-                        WinningPrize = group.Sum(p => p.WinningPrize),
+                        MemberWinning = group.Sum(p => p.MemberWinning),
                         CashOut = group.Sum(p => p.CashOut),
-                        CashIn = group.Sum(p => p.CashIn),
+                        CashOutShare = group.Sum(p => p.CashOutShare),
                         CommissionShare = group.Sum(p => p.CommissionShare),
                         GrandPrize = group.Sum(p => p.GrandPrize)
                     }).ToList();

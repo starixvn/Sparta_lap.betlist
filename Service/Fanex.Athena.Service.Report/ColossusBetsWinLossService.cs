@@ -71,9 +71,9 @@ namespace Fanex.Athena.Service.Report
                 CurrencyName = g.Key,
                 TurnOver = g.Sum(p => p.TurnOver),
                 TotalTransaction = g.Sum(p => p.TotalTransaction),
-                WinningPrize = g.Sum(p => p.WinningPrize),
+                MemberWinning = g.Sum(p => p.MemberWinning),
                 CashOut = g.Sum(p => p.CashOut),
-                CashIn = g.Sum(p => p.CashIn),
+                CashOutShare = g.Sum(p => p.CashOutShare),
                 CommissionShare = g.Sum(p => p.CommissionShare),
                 GrandPrize = g.Sum(p => p.GrandPrize)
             }).ToList();
