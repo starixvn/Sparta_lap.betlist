@@ -11,6 +11,10 @@
 
         public decimal TotalWinLoss { get; set; }
 
+        public decimal TotalComm { get; set; }
+
+        public decimal TotalSoldWinLoss { get; set; }
+
         public string IframeUrl { get; set; }
     }
 }

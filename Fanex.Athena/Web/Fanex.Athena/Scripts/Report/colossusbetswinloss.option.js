@@ -218,7 +218,7 @@ var ColossusBetsOption = (function () {
     //#endregion
 
     var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
-      'Turnover', 'TotalTransaction', 'WinningPrize', 'CashOut', 'CashInShare', 'CommissionShare',
+      'Turnover', 'TotalTransaction', 'MemberWinnings', 'CashOutAmt', 'CashOutShare', 'CommissionShare',
       'AmountDueToCB', 'GrandPrize', 'CurrencyId', 'CustomerId'];
 
     var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
@@ -259,7 +259,7 @@ var ColossusBetsOption = (function () {
         var group = {
             startColumnName: 'WinningPrize',
             numberOfColumns: 2,
-            titleText: Site.getSingleResource('SmallPrize')
+            titleText: Site.getSingleResource('WinAmtLessThan30kGBP')
         };
 
         grid.jqGrid('setGroupHeaders',

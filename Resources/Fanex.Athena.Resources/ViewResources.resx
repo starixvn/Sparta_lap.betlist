@@ -2871,11 +2871,13 @@
   <data name="AmountDueToCB" xml:space="preserve">
     <value>Amount Due To Colossus Bet</value>
   </data>
-  <data name="CashInShare" xml:space="preserve">
-    <value>Cash-in Share</value>
+  <data name="CashOutShare" xml:space="preserve">
+    <value>Cash-out Share</value>
+    <comment>#63785</comment>
   </data>
-  <data name="CashOut" xml:space="preserve">
-    <value>Cash Out</value>
+  <data name="CashOutAmt" xml:space="preserve">
+    <value>Cash-out Amt</value>
+    <comment>#63785</comment>
   </data>
   <data name="CommissionShare" xml:space="preserve">
     <value>Commission Share</value>
@@ -2883,11 +2885,13 @@
   <data name="GrandPrize" xml:space="preserve">
     <value>Grand Prize</value>
   </data>
-  <data name="SmallPrize" xml:space="preserve">
-    <value>Small Prize</value>
+  <data name="WinAmtLessThan30kGBP" xml:space="preserve">
+    <value>Win Amt &lt; 30K GBP</value>
+    <comment>#63785</comment>
   </data>
-  <data name="WinningPrize" xml:space="preserve">
-    <value>Winning Prize</value>
+  <data name="MemberWinnings" xml:space="preserve">
+    <value>Member's Winnings</value>
+    <comment>#63785</comment>
   </data>
   <data name="TransactionType" xml:space="preserve">
     <value>Transaction Type</value>

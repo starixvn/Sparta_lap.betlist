@@ -15,7 +15,7 @@
     <div class="right">
         @{ 
             var ownPercent = 100 - Model.TotalSoldPercent;
-            var message = string.Format(ViewResources.ColossusBetBetListDetailMsg, ownPercent, Model.TotalSoldPercent, string.Format("{0:0,0.00}", Model.TotalWinLoss));
+            var message = string.Format(ViewResources.ColossusBetBetListDetailMsg, ownPercent, Model.TotalSoldPercent, Model.TotalSoldWinLoss.ToString("#,##0.00"));
         }
         <p>
             @Html.Raw(message)
@@ -33,13 +33,13 @@
                     <td class="col-date">@item.TransDate</td>
                     <td class="col-trans">@item.TransactionType</td>
                     <td class="col-winloss">@Html.Raw(item.WinLoss)</td>
-                    <td class="col-comm">@item.Commission</td>
+                    <td class="col-comm">@item.Commission.ToString("#,##0.00")</td>
                 </tr>
             }
             <tr class="total-row">
                 <td colspan="2">@ViewResources.Total</td>
-                <td>100</td>
-                <td>100</td>
+                <td>@Model.TotalWinLoss.ToString("#,##0.00")</td>
+                <td>@Model.TotalComm.ToString("#,##0.00")</td>
             </tr>
         </table>
     </div>

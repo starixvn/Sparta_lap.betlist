@@ -952,20 +952,20 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cash-in Share.
+        ///   Looks up a localized string similar to Cash-out Amt.
         /// </summary>
-        public static string CashInShare {
+        public static string CashOutAmt {
             get {
-                return ResourceManager.GetString("CashInShare", resourceCulture);
+                return ResourceManager.GetString("CashOutAmt", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cash Out.
+        ///   Looks up a localized string similar to Cash-out Share.
         /// </summary>
-        public static string CashOut {
+        public static string CashOutShare {
             get {
-                return ResourceManager.GetString("CashOut", resourceCulture);
+                return ResourceManager.GetString("CashOutShare", resourceCulture);
             }
         }
         
@@ -4417,6 +4417,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member&apos;s Winnings.
+        /// </summary>
+        public static string MemberWinnings {
+            get {
+                return ResourceManager.GetString("MemberWinnings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Commission cannot be greater than 15%.
         /// </summary>
         public static string MessageCommCannotGreaterThan {
@@ -6613,15 +6622,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Small Prize.
-        /// </summary>
-        public static string SmallPrize {
-            get {
-                return ResourceManager.GetString("SmallPrize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Smart Site.
         /// </summary>
         public static string SmartSite {
@@ -7918,6 +7918,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Win Amt &lt; 30K GBP.
+        /// </summary>
+        public static string WinAmtLessThan30kGBP {
+            get {
+                return ResourceManager.GetString("WinAmtLessThan30kGBP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Win Loss.
         /// </summary>
         public static string WinLoss {
@@ -7977,15 +7986,6 @@ namespace Fanex.Athena.Resources {
         public static string WinLossByProductTitle {
             get {
                 return ResourceManager.GetString("WinLossByProductTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Winning Prize.
-        /// </summary>
-        public static string WinningPrize {
-            get {
-                return ResourceManager.GetString("WinningPrize", resourceCulture);
             }
         }
         
