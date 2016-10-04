@@ -2869,7 +2869,7 @@
     <comment>#63785</comment>
   </data>
   <data name="AmountDueToCB" xml:space="preserve">
-    <value>Amount Due To Colossus Bet</value>
+    <value>Amount Due To Colossus Bets</value>
   </data>
   <data name="CashOutShare" xml:space="preserve">
     <value>Cash-out Share</value>

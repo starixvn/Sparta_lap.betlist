@@ -1,4 +1,4 @@
-﻿// Generated at: 10/4/2016 10:07:35 AM
+﻿// Generated at: 10/4/2016 11:18:36 AM
 var _language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -36,7 +36,7 @@ AllSites:"All Sites",
 Amount:"Amount",
 AmountDue:"Amount Due",
 AmountDueTo:"Amount Due To",
-AmountDueToCB:"Amount Due To Colossus Bet",
+AmountDueToCB:"Amount Due To Colossus Bets",
 AmountDueToMGC:"Amount Due To Microgaming",
 AmtDueTo:"Amt Due To",
 AmtDueToBA:"Amt Due To BA",
