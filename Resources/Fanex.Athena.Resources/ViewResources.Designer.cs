@@ -466,6 +466,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amt ≥ 30K GBP.
+        /// </summary>
+        public static string AmtGreaterThan30kGBP {
+            get {
+                return ResourceManager.GetString("AmtGreaterThan30kGBP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amt &lt; 30K GBP.
         /// </summary>
         public static string AmtLessThan30kGBP {
@@ -2802,15 +2811,6 @@ namespace Fanex.Athena.Resources {
         public static string GotoCustomerList {
             get {
                 return ResourceManager.GetString("GotoCustomerList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Grand Prize.
-        /// </summary>
-        public static string GrandPrize {
-            get {
-                return ResourceManager.GetString("GrandPrize", resourceCulture);
             }
         }
         

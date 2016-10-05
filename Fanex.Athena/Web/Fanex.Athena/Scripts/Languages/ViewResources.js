@@ -1,4 +1,4 @@
-﻿// Generated at: 10/4/2016 11:18:36 AM
+﻿// Generated at: 10/5/2016 11:19:30 AM
 var _language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -45,6 +45,7 @@ AmtDueToBetTrade:"Amt Due To Bet Trade",
 AmtDueToBetTradeBalanceNote:"Amt Due To BetTrade: BetTrade settlement amount Licensee needs to pay or receive for BetTrade.",
 AmtDueToRacing:"Amt Due To Racing",
 AmtDueToRacingBalanceNote:"Amt Due To Racing: Racing settlement amount Licensee needs to pay or receive for Racing products",
+AmtGreaterThan30kGBP:"Amt ≥ 30K GBP",
 AmtLessThan30kGBP:"Amt &lt; 30K GBP",
 Apr:"Apr",
 April:"April",
@@ -305,7 +306,6 @@ GoldDeluxeNotOfferCurrency:"Gold Deluxe is not offered for this currency.",
 GoldDeluxeProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 GoldDeluxeWinLoss:"Gold Deluxe Win Loss",
 GotoCustomerList:"Go to Customer List",
-GrandPrize:"Grand Prize",
 GrandPrizeNote:"Grand Prize: the grand winning amount which is excluded from member balance",
 GrandTotal:"Grand Total",
 GrandTotalIn:"Grand Total In",

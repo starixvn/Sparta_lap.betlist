@@ -2882,8 +2882,9 @@
   <data name="CommissionShare" xml:space="preserve">
     <value>Commission Share</value>
   </data>
-  <data name="GrandPrize" xml:space="preserve">
-    <value>Grand Prize</value>
+  <data name="AmtGreaterThan30kGBP" xml:space="preserve">
+    <value>Amt ≥ 30K GBP</value>
+    <comment>#63785</comment>
   </data>
   <data name="AmtLessThan30kGBP" xml:space="preserve">
     <value>Amt &lt; 30K GBP</value>
