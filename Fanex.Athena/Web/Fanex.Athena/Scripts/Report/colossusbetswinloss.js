@@ -195,6 +195,11 @@ var ColossusBets = (function ($) {
         drillDown: function (level, currencyId, customerId, datetime) {
             level = Number(level);
 
+            if (_submitData.CurrencyId > 0)
+            {
+                currencyId = _submitData.CurrencyId;
+            }
+
             if (_level !== level) {
                 _level = level;
             }
