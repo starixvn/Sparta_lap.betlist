@@ -1,6 +1,6 @@
 header nav {
   background: #4C6375;
-  box-shadow: none; }
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15); }
 
 .button-collapse {
   width: 3rem;
@@ -270,7 +270,8 @@ header nav {
   .side-nav .logo-block {
     overflow: hidden;
     background-color: #314453;
-    z-index: 9999; }
+    z-index: 9999;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15); }
   .side-nav .logo {
     padding-left: 1.5rem !important;
     padding-right: 1rem !important;
