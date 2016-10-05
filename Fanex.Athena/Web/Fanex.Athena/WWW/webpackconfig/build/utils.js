@@ -47,7 +47,7 @@ exports.extractCSS = function () {
                 },
                 {
                     test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract("style", "css!sass?-url")
+                    loader: ExtractTextPlugin.extract("style", "css?-url!sass")
                 }
             ]
         },
