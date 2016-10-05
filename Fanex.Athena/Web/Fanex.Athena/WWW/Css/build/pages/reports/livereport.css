@@ -90,5 +90,95 @@
   .panel-heading.active .panel-title .icon-arrow {
     transform: rotate(0); }
 
+/* You can customize to your needs  */
+.wrapContent h1, .wrapContent h2, .wrapContent h3, .wrapContent h4, .wrapContent h5, .wrapContent h6{
+    font-weight: bold;
+}
+
+.wrapContent{
+    overflow-y: scroll;
+}
+
+.userguide-group {
+    margin: 0;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+}
+.userguide-group div {
+    float: right;
+    margin-left: 2px;
+}
+
+.title-bar
+{
+    background-color: #4C6375;
+    padding: 7px 20px;
+    position: relative;
+}
+.title-bar .txt-title
+{
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+}
+a.popup-close
+{
+    color: white;
+    display: block;
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+}
+.flat-popup
+{
+    background: white;
+    box-shadow: 0 0 10px #ccc;
+    float: left;
+    left: 50%;
+    position: fixed;
+    top: 300px;
+    z-index: 99999;
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+}
+
+.flat-popup .rule
+{
+    padding: 8px 10px;
+}
+.rule .newline
+{
+    padding-top: 12px;
+}
+.flat-popup .rule:last-child
+{
+    border-bottom: medium none;
+}
+.flat-popup .rule h4
+{
+    color: #515151;
+    font-size: 12px;
+    margin: 0 0 5px;
+}
+.flat-popup .rule ul, .flat-popup .rule div
+{
+    color: #515151;
+    font-size: 12px;
+    line-height: 20px;
+    margin: 0;
+    padding-left: 15px;
+}
+.flat-popup .line 
+{
+    border: none;
+    overflow: auto;
+	width: auto;
+    background-color: #ebeaea;
+    height: 1px;
+    margin: 0 10px;
+}
 
 /*# sourceMappingURL=livereport.css.map*/

@@ -1,7 +1,7 @@
 ﻿/*global Site, QueryString*/
 /// <reference path="/@JSense.js" />
 define(
-    ["querystring", "site", "moment", "daterangepicker"],
+    ["querystring", "site", "moment", "daterangepicker", "flatpopup"],
     function (QueryString, Site, moment, daterangepicker) {
         "use strict";
 

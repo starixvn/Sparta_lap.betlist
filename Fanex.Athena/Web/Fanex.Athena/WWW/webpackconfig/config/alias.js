@@ -10,6 +10,7 @@ var alias = {
     // common
     querystring: projectRoot + "/www/js/source/common/querystring.js",
     site: projectRoot + "/www/js/source/common/site.js",
+    flatpopup: projectRoot + "/www/js/source/components/flatpopup/jquery.flatpopup.js",
 }
 
 module.exports = alias

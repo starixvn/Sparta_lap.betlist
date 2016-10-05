@@ -737,6 +737,7 @@
     <Content Include="www\css\build\vendors\daterangepicker.css" />
     <Content Include="www\css\build\vendors\materialize.chunk.js" />
     <Content Include="www\css\build\vendors\materialize.css" />
+    <Content Include="www\css\source\components\flatpopup\jquery.flatpopup.css" />
     <Content Include="www\css\source\components\navbar\navBar.css" />
     <Content Include="www\css\source\components\sidebar\sideBar.css" />
     <Content Include="www\css\source\main.css" />
@@ -748,6 +749,7 @@
     <Content Include="www\js\build\vendors.chunk.js" />
     <Content Include="www\js\source\common\querystring.js" />
     <Content Include="www\js\source\common\site.js" />
+    <Content Include="www\js\source\components\flatpopup\jquery.flatpopup.js" />
     <Content Include="www\js\source\components\navbar\navbar.js" />
     <Content Include="www\js\source\components\sidebar\sidebar.js" />
     <Content Include="www\js\source\pages\livereport\livereport.js" />
