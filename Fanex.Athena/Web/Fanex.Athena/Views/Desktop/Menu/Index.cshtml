@@ -2,9 +2,14 @@
     Layout = null;
     var fucntionAddNewAccount = 47;
     var functionCustCommGroup = 55;
-}
-@model Fanex.Athena.Model.Core.ViewModel.MenuViewModel
 
+    var icons = new Dictionary<int, string>
+        {
+            { 1, "totalbet" }, { 2, "chart-bar" }, { 3, "table" }, { 52, "table" }, { 4, "customer" }
+        };
+    }
+    @model Fanex.Athena.Model.Core.ViewModel.MenuViewModel
+    
 <ul class="collapsible2 collapsible-expandable" data-collapsible="accordion">
     @foreach (var masterFunction in Model.MasterFunctions)
     {
@@ -16,6 +21,7 @@
         {
             <li class="menu-item has-sub">
                 <a class="collapsible-header waves-effect">
+                    <i class="menu-icon icon-@(icons.ContainsKey(masterFunction.FunctionId) ? icons[masterFunction.FunctionId] : string.Empty)" aria-hidden="true"></i>
                     <span class="menu-title">@masterFunction.Name</span>
                     <i class="right icon-arrow"></i>
                 </a>

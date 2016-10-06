@@ -72,8 +72,8 @@ webpackJsonp([8],[
 	                var $from = $('#FromDate');
 	                var $to = $('#ToDate');
 	
-	                var start = moment($from.attr('data-original-from'), 'MM/DD/YYYY');
-	                var end = moment($to.attr('data-original-to'), 'MM/DD/YYYY');
+	                var start = moment().subtract(29, 'days');
+	                var end = moment();
 	
 	                function setRangeDate(start, end) {
 	                    $from.val(start.format('MM/DD/YYYY'));
@@ -103,7 +103,7 @@ webpackJsonp([8],[
 	                    setRangeDate(picker.startDate, picker.endDate);
 	                });
 	
-	                //setRangeDate(start, end);
+	                setRangeDate(start, end);
 	            });
 	        }
 	        function initMonthPicker() {
