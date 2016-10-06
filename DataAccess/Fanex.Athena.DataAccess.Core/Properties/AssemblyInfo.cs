@@ -2,14 +2,14 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Core.Tests")]
-[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.BetList.Tests")]
-[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.BetSettings.Tests")]
-[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Customer.Tests")]
-[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Forecast.Tests")]
-[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.TotalBet.Tests")]
-[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Warehouse.Tests")]
-[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Report.Tests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Core.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.BetList.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.BetSettings.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Customer.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Forecast.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.TotalBet.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Warehouse.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Report.UnitTests")]
 [assembly: System.CLSCompliant(true)]
 
 // General Information about an assembly is controlled through the following 

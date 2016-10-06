@@ -33,7 +33,7 @@ using System.Runtime.InteropServices;
 [assembly: SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Scope = "namespace",
     Target = "Fanex.Athena.DataAccess.Warehouse.Interfaces", MessageId = "Interface", Justification = "Reviewed.")]
 
-[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.BetList.Tests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.BetList.UnitTests")]
 
 [assembly: System.CLSCompliant(true)]
 

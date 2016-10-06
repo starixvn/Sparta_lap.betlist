@@ -126,43 +126,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ControllerAPI", "Controller
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{6AD8D3FB-0047-432F-ACAC-D67093176088}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Extension.Tests", "UnitTests\Fanex.Athena.Extension.Tests\Fanex.Athena.Extension.Tests.csproj", "{FB8585DA-A300-49DA-BB09-DD65E1B66D17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Extension.UnitTests", "UnitTests\Fanex.Athena.Extension.UnitTests\Fanex.Athena.Extension.UnitTests.csproj", "{FB8585DA-A300-49DA-BB09-DD65E1B66D17}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controller", "Controller", "{62FD2471-9E6A-4BD1-9AB3-8C4C6FF658A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.Tests", "UnitTests\Fanex.Athena.Controllers.Tests\Fanex.Athena.Controllers.Tests.csproj", "{627D9838-F61E-4DBA-8952-E618C12F8F04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.UnitTests", "UnitTests\Fanex.Athena.Controllers.UnitTests\Fanex.Athena.Controllers.UnitTests.csproj", "{627D9838-F61E-4DBA-8952-E618C12F8F04}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Excel", "Excel", "{88CBF37F-6900-45AF-911A-D297E7604FEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Excel.Base.Tests", "UnitTests\Fanex.Athena.Excel.Base.Tests\Fanex.Athena.Excel.Base.Tests.csproj", "{8E0B810D-5D74-468D-8BCD-92FAB479DE80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Excel.Base.UnitTests", "UnitTests\Fanex.Athena.Excel.Base.UnitTests\Fanex.Athena.Excel.Base.UnitTests.csproj", "{8E0B810D-5D74-468D-8BCD-92FAB479DE80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Excel.Customer.Tests", "UnitTests\Fanex.Athena.Excel.Customer.Tests\Fanex.Athena.Excel.Customer.Tests.csproj", "{D5D50076-F15C-4085-ADA5-6ECF8FAC14C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Excel.Customer.UnitTests", "UnitTests\Fanex.Athena.Excel.Customer.UnitTests\Fanex.Athena.Excel.Customer.UnitTests.csproj", "{D5D50076-F15C-4085-ADA5-6ECF8FAC14C7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{4D5CED10-CCDF-4520-8FE1-E599D3DB18D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Core.Tests", "UnitTests\Fanex.Athena.DataAccess.Core.Tests\Fanex.Athena.DataAccess.Core.Tests.csproj", "{08A991CD-D102-444F-9DAD-8992327306AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Core.UnitTests", "UnitTests\Fanex.Athena.DataAccess.Core.UnitTests\Fanex.Athena.DataAccess.Core.UnitTests.csproj", "{08A991CD-D102-444F-9DAD-8992327306AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.BetList.Tests", "UnitTests\Fanex.Athena.DataAccess.BetList.Tests\Fanex.Athena.DataAccess.BetList.Tests.csproj", "{45B72065-B9DA-43A2-87C0-83B79E5EB08C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.BetList.UnitTests", "UnitTests\Fanex.Athena.DataAccess.BetList.UnitTests\Fanex.Athena.DataAccess.BetList.UnitTests.csproj", "{45B72065-B9DA-43A2-87C0-83B79E5EB08C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{8A922757-8C4B-44C0-9D3E-9B68E6AE956B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Core.Tests", "UnitTests\Fanex.Athena.Service.Core.Tests\Fanex.Athena.Service.Core.Tests.csproj", "{0E34FC65-8934-46D6-A8B6-27BABDC86A09}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Core.UnitTests", "UnitTests\Fanex.Athena.Service.Core.UnitTests\Fanex.Athena.Service.Core.UnitTests.csproj", "{0E34FC65-8934-46D6-A8B6-27BABDC86A09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.BetSettings.Tests", "UnitTests\Fanex.Athena.DataAccess.BetSettings.Tests\Fanex.Athena.DataAccess.BetSettings.Tests.csproj", "{864E41DD-4B16-45AD-963F-9D79E4FDD0FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.BetSettings.UnitTests", "UnitTests\Fanex.Athena.DataAccess.BetSettings.UnitTests\Fanex.Athena.DataAccess.BetSettings.UnitTests.csproj", "{864E41DD-4B16-45AD-963F-9D79E4FDD0FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.BetList.Tests", "UnitTests\Fanex.Athena.Service.BetList.Tests\Fanex.Athena.Service.BetList.Tests.csproj", "{630EE6C4-5432-4708-BABA-0F4551823308}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.BetList.UnitTests", "UnitTests\Fanex.Athena.Service.BetList.UnitTests\Fanex.Athena.Service.BetList.UnitTests.csproj", "{630EE6C4-5432-4708-BABA-0F4551823308}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Customer.Tests", "UnitTests\Fanex.Athena.DataAccess.Customer.Tests\Fanex.Athena.DataAccess.Customer.Tests.csproj", "{4F972F7D-8516-43A7-9AA8-60ACC26E4805}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Customer.UnitTests", "UnitTests\Fanex.Athena.DataAccess.Customer.UnitTests\Fanex.Athena.DataAccess.Customer.UnitTests.csproj", "{4F972F7D-8516-43A7-9AA8-60ACC26E4805}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.BetSettings.Tests", "UnitTests\Fanex.Athena.Service.BetSettings.Tests\Fanex.Athena.Service.BetSettings.Tests.csproj", "{A76531A6-BB36-4913-8F7F-87DD29AA58A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.BetSettings.UnitTests", "UnitTests\Fanex.Athena.Service.BetSettings.UnitTests\Fanex.Athena.Service.BetSettings.UnitTests.csproj", "{A76531A6-BB36-4913-8F7F-87DD29AA58A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Forecast.Tests", "UnitTests\Fanex.Athena.DataAccess.Forecast.Tests\Fanex.Athena.DataAccess.Forecast.Tests.csproj", "{EA3E529F-E35D-4137-B351-5CBEBF70641D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Forecast.UnitTests", "UnitTests\Fanex.Athena.DataAccess.Forecast.UnitTests\Fanex.Athena.DataAccess.Forecast.UnitTests.csproj", "{EA3E529F-E35D-4137-B351-5CBEBF70641D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.TotalBet.Tests", "UnitTests\Fanex.Athena.DataAccess.TotalBet.Tests\Fanex.Athena.DataAccess.TotalBet.Tests.csproj", "{4E3022BE-BFE2-4EC8-A334-C63E99A9CB43}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.TotalBet.UnitTests", "UnitTests\Fanex.Athena.DataAccess.TotalBet.UnitTests\Fanex.Athena.DataAccess.TotalBet.UnitTests.csproj", "{4E3022BE-BFE2-4EC8-A334-C63E99A9CB43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Warehouse.Tests", "UnitTests\Fanex.Athena.DataAccess.Warehouse.Tests\Fanex.Athena.DataAccess.Warehouse.Tests.csproj", "{DA8CE1D3-ED1E-4931-A327-F3F64087BC1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Warehouse.UnitTests", "UnitTests\Fanex.Athena.DataAccess.Warehouse.UnitTests\Fanex.Athena.DataAccess.Warehouse.UnitTests.csproj", "{DA8CE1D3-ED1E-4931-A327-F3F64087BC1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Report.Tests", "UnitTests\Fanex.Athena.DataAccess.Report.Tests\Fanex.Athena.DataAccess.Report.Tests.csproj", "{A30D3AFD-76C0-48E8-87B7-CDB25B490BC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Report.UnitTests", "UnitTests\Fanex.Athena.DataAccess.Report.UnitTests\Fanex.Athena.DataAccess.Report.UnitTests.csproj", "{A30D3AFD-76C0-48E8-87B7-CDB25B490BC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
