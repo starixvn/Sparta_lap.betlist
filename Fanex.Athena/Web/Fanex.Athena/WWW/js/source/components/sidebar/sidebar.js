@@ -1,13 +1,20 @@
 ﻿(function ($) {
-    $.fn.collapsibleMenu = function (options) {
+    function activeMenuItem($target) {
+        $(this).find('.collapsible-body li.active').removeClass('active');
+        $target.closest('li').addClass('active');
+        var $groupHeader = $target.closest('.menu-item').find('.collapsible-header');
+        if ($groupHeader.hasClass('active') === false) {
+            $groupHeader.trigger("click");
+        }
+    }
+
+    function init(options) {
         var defaults = {
             accordion: undefined,
         };
 
         options = $.extend(defaults, options);
-        var touch =
-                   'ontouchstart' in window
-                  || 'onmsgesturechange' in window;
+        var touch = 'ontouchstart' in window || 'onmsgesturechange' in window;
 
         return this.each(function () {
 
@@ -105,8 +112,7 @@
 
                 if ($('#sidenav-overlay').length > 0) {
 
-                    if (!$($this).hasClass('active'))
-                    {
+                    if (!$($this).hasClass('active')) {
                         $('#sidenav-overlay').unbind("click");
                         $('#sidenav-overlay').remove();
                     }
@@ -197,17 +203,14 @@
 
             //click menu event
             $this.on('click.menuevent', '> li > .collapsible-body  a', function (e) {
-                var url = $(this).attr("data-url");
-                $('#mainFrame').prop('src',url);
-
+                var $element = $(e.target);
                 if (touch && $('body').hasClass('site-menubar-fold')) {
-                    var element = $(e.target);
-                    var temp = element.closest('li > .collapsible-body');
+                    var temp = $element.closest('li > .collapsible-body');
 
-                    var element = temp.parent().find('.collapsible-header');
-
-                    element.trigger("click");
+                    temp.parent().find('.collapsible-header').trigger("click");
                 }
+
+                activeMenuItem($element);
             });
 
             // Open first active
@@ -220,14 +223,26 @@
                     expandableOpen($(this));
                 });
             }
-
-
         });
+    }
 
+    var methods = {
+        init: init,
+        activeMenuItem: activeMenuItem
+    };
+
+    $.fn.collapsibleMenu = function (methodOrOptions) {
+        if (methods[methodOrOptions]) {
+            return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
+        } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
+            // Default to "init"
+            return methods.init.apply(this, arguments);
+        } else {
+            $.error('Method ' + methodOrOptions + ' does not exist on jQuery.collapsibleMenu');
+        }
     };
 
     $(document).ready(function () {
         $('.collapsible2').collapsibleMenu();
-
     });
 }(jQuery));

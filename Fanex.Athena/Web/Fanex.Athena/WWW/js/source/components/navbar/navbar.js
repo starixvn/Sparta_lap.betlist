@@ -409,5 +409,7 @@ $(document).ready(function () {
         var url = $("#RootUrl").val() + "Customer/CustomerList?userName=" + userName;
 
         top.main.location.href = url;
+
+        $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem43'));
     });
 });

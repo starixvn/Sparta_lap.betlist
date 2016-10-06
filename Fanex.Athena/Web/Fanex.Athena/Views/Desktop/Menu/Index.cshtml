@@ -34,7 +34,7 @@
                             }
 
                             <li>
-                                <a href="@Url.Content("~/" + subFunction.Url)" target="main">@Html.Raw(subFunction.Name)</a>
+                                <a id="MenuItem@(subFunction.FunctionId)" href="@Url.Content("~/" + subFunction.Url)" target="main">@Html.Raw(subFunction.Name)</a>
                             </li>
                         }
                     </ul>
