@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers
 {
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
@@ -84,7 +85,8 @@ namespace Fanex.Athena.Controllers
 
         protected string GetNewViewPath(string viewPath)
         {
-            return SessionService.UserSession.IsNewUI ? viewPath.Replace("Views/", "Views/Desktop/") : viewPath;
+            var isNewUI = ConfigurationManager.AppSettings["IsNewUI"] == "1" || SessionService.UserSession.IsNewUI;
+            return isNewUI ? viewPath.Replace("Views/", "Views/Desktop/") : viewPath;
         }
 
         private IEnumerable<string> GetBaseUsdLicensees()

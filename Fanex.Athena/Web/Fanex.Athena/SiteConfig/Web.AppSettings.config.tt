@@ -31,6 +31,7 @@
 	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
 	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
 	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="IsNewUI" value="1" />
 	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
 	<add key="Environment" value="DEV"/>
 	<add key="EnableCasinoService" value="0" />
@@ -142,6 +143,7 @@
 	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
 	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
 	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="IsNewUI" value="1" />
 	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
 	<add key="Environment" value="LOCAL"/>
 	<add key="EnableCasinoService" value="0" />
@@ -253,6 +255,7 @@
 	<add key="SessionState_Impersonate" value="1"/>
 	<add key="SessionState_CounterCachedDuration" value="30"/>
 	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="IsNewUI" value="0" />
 	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
 	<add key="Environment" value="UAT"/>
 	<add key="EnableCasinoService" value="1" />
@@ -357,6 +360,7 @@
 	<add key="SessionState_Impersonate" value="1"/>
 	<add key="SessionState_CounterCachedDuration" value="30"/>
 	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="IsNewUI" value="0" />
 	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
 	<add key="Environment" value="SIT"/>
 	<add key="EnableCasinoService" value="0" />
@@ -461,6 +465,7 @@
 	<add key="SessionState_Impersonate" value="1"/>
 	<add key="SessionState_CounterCachedDuration" value="30"/>
 	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="IsNewUI" value="0" />
 	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
 	<add key="Environment" value="PRO"/>
 	<add key="EnableCasinoService" value="1" />
@@ -563,6 +568,7 @@
 	<add key="aspnet:MaxJsonDeserializerMembers" value="2147483644" />
 	<add key="SessionState_Connections" value="10.2.8.3:42424@B14-4;10.2.8.4:42424@K10-20" />
 	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="IsNewUI" value="0" />
 	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
 	<add key="Environment" value="SANDBOX"/>
 	<add key="EnableCasinoService" value="0" />
@@ -670,6 +676,7 @@
 	<add key="SessionState_Impersonate" value="1"/>
 	<add key="SessionState_CounterCachedDuration" value="30"/>
 	<add key="webpages:Version" value="3.0.0.0"/>
+	<add key="IsNewUI" value="0" />
 	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
 	<add key="Environment" value="BACKUPMNL"/>
 	<add key="EnableCasinoService" value="0" />
