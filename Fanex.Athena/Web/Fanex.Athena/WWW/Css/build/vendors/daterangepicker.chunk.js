@@ -3,20 +3,20 @@ webpackJsonp([5],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(20);
-	module.exports = __webpack_require__(22);
+	__webpack_require__(22);
+	module.exports = __webpack_require__(24);
 
 
 /***/ },
 
-/***/ 20:
+/***/ 22:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 22:
+/***/ 24:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

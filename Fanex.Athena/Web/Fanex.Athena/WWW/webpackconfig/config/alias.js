@@ -11,6 +11,7 @@ var alias = {
     querystring: projectRoot + "/www/js/source/common/querystring.js",
     site: projectRoot + "/www/js/source/common/site.js",
     flatpopup: projectRoot + "/www/js/source/components/flatpopup/jquery.flatpopup.js",
+    monthpicker: projectRoot + "/www/js/source/components/monthpicker/monpickr.js",
 }
 
 module.exports = alias

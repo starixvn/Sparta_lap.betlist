@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var sessionService = new Fanex.Athena.Service.Core.Users.SessionService();
+    var userCurrencies = sessionService.UserSession == null || sessionService.UserSession.CurrencyList == null ?
+        new Dictionary<string, string>() :
+        sessionService.UserSession.CurrencyList.ToDictionary(x => x.Value.ToString(), x => x.Key);
+
+    var hasCustComm = sessionService.LicenseeSession != null && sessionService.LicenseeSession.IsAllowedCustomerComm;
+    var appSettings = new AppSettings();
+}
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -16,6 +25,9 @@
 <body class="body">
     <input type="hidden" id="RootUrl" value="@Url.Content("~/")" />
     <input type="hidden" id="PageLanguage" value="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag" />
+    <input type="hidden" id="UserCurrencies" value="@(Html.Raw(JsonHelper.ToJson(userCurrencies)))" />
+    <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
+    <input type="hidden" id="HistoryDate" value="@( appSettings.HistoryDate)" />
     @RenderBody()
     <script src="~/Scripts/Languages/ViewResources.js"></script>
     <script src="~/Scripts/Languages/ViewResources.zh-CN.js"></script>

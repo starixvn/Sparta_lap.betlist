@@ -1,7 +1,7 @@
 ﻿/*global Site, QueryString*/
 /// <reference path="/@JSense.js" />
 define(
-    ["querystring", "site", "moment", "daterangepicker", "flatpopup"],
+    ["querystring", "site", "moment", "daterangepicker", "flatpopup", "monthpicker"],
     function (QueryString, Site, moment, daterangepicker) {
         "use strict";
 
@@ -11,7 +11,7 @@ define(
             initEvent();
             initMaterialSelect();
             initDateRangePicker();
-            //initMonthPicker();
+            initMonthPicker();
             Site.addUserGuide({
                 resourceName: "LiveReport",
                 title: Site.getSingleResource("LiveReport")

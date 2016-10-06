@@ -4,7 +4,7 @@ webpackJsonp([8],[
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {/*global Site, QueryString*/
 	/// <reference path="/@JSense.js" />
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(27), __webpack_require__(28), __webpack_require__(29), __webpack_require__(136), __webpack_require__(137)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, moment, daterangepicker) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(29), __webpack_require__(30), __webpack_require__(31), __webpack_require__(138), __webpack_require__(139), __webpack_require__(140)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, moment, daterangepicker) {
 	        "use strict";
 	
 	        initialize();
@@ -13,7 +13,7 @@ webpackJsonp([8],[
 	            initEvent();
 	            initMaterialSelect();
 	            initDateRangePicker();
-	            //initMonthPicker();
+	            initMonthPicker();
 	            Site.addUserGuide({
 	                resourceName: "LiveReport",
 	                title: Site.getSingleResource("LiveReport")
@@ -305,7 +305,9 @@ webpackJsonp([8],[
 /* 24 */,
 /* 25 */,
 /* 26 */,
-/* 27 */
+/* 27 */,
+/* 28 */,
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {/// <reference path="/@JSense.js" />
@@ -401,14 +403,14 @@ webpackJsonp([8],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {/*global _language_en_US*/
 	/// <reference path="/@JSense.js" />
 	/* Preset */
 	// root JSON object
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(27)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(29)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {
 	    "use strict";
 	    var UNBLOCKUI_TIMEOUT = 30000;
 	    var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
@@ -1161,7 +1163,7 @@ webpackJsonp([8],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
@@ -2960,7 +2962,7 @@ webpackJsonp([8],[
 	                module && module.exports) {
 	            try {
 	                oldLocale = globalLocale._abbr;
-	                __webpack_require__(31)("./" + name);
+	                __webpack_require__(33)("./" + name);
 	                // because defineLocale currently also sets the global locale, we
 	                // want to undo that for lazy loaded locales
 	                locale_locales__getSetGlobalLocale(oldLocale);
@@ -5398,10 +5400,10 @@ webpackJsonp([8],[
 	    return _moment;
 	
 	}));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(30)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(32)(module)))
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -5417,218 +5419,218 @@ webpackJsonp([8],[
 
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./af": 32,
-		"./af.js": 32,
-		"./ar": 33,
-		"./ar-ly": 34,
-		"./ar-ly.js": 34,
-		"./ar-ma": 35,
-		"./ar-ma.js": 35,
-		"./ar-sa": 36,
-		"./ar-sa.js": 36,
-		"./ar-tn": 37,
-		"./ar-tn.js": 37,
-		"./ar.js": 33,
-		"./az": 38,
-		"./az.js": 38,
-		"./be": 39,
-		"./be.js": 39,
-		"./bg": 40,
-		"./bg.js": 40,
-		"./bn": 41,
-		"./bn.js": 41,
-		"./bo": 42,
-		"./bo.js": 42,
-		"./br": 43,
-		"./br.js": 43,
-		"./bs": 44,
-		"./bs.js": 44,
-		"./ca": 45,
-		"./ca.js": 45,
-		"./cs": 46,
-		"./cs.js": 46,
-		"./cv": 47,
-		"./cv.js": 47,
-		"./cy": 48,
-		"./cy.js": 48,
-		"./da": 49,
-		"./da.js": 49,
-		"./de": 50,
-		"./de-at": 51,
-		"./de-at.js": 51,
-		"./de.js": 50,
-		"./dv": 52,
-		"./dv.js": 52,
-		"./el": 53,
-		"./el.js": 53,
-		"./en-au": 54,
-		"./en-au.js": 54,
-		"./en-ca": 55,
-		"./en-ca.js": 55,
-		"./en-gb": 56,
-		"./en-gb.js": 56,
-		"./en-ie": 57,
-		"./en-ie.js": 57,
-		"./en-nz": 58,
-		"./en-nz.js": 58,
-		"./eo": 59,
-		"./eo.js": 59,
-		"./es": 60,
-		"./es-do": 61,
-		"./es-do.js": 61,
-		"./es.js": 60,
-		"./et": 62,
-		"./et.js": 62,
-		"./eu": 63,
-		"./eu.js": 63,
-		"./fa": 64,
-		"./fa.js": 64,
-		"./fi": 65,
-		"./fi.js": 65,
-		"./fo": 66,
-		"./fo.js": 66,
-		"./fr": 67,
-		"./fr-ca": 68,
-		"./fr-ca.js": 68,
-		"./fr-ch": 69,
-		"./fr-ch.js": 69,
-		"./fr.js": 67,
-		"./fy": 70,
-		"./fy.js": 70,
-		"./gd": 71,
-		"./gd.js": 71,
-		"./gl": 72,
-		"./gl.js": 72,
-		"./he": 73,
-		"./he.js": 73,
-		"./hi": 74,
-		"./hi.js": 74,
-		"./hr": 75,
-		"./hr.js": 75,
-		"./hu": 76,
-		"./hu.js": 76,
-		"./hy-am": 77,
-		"./hy-am.js": 77,
-		"./id": 78,
-		"./id.js": 78,
-		"./is": 79,
-		"./is.js": 79,
-		"./it": 80,
-		"./it.js": 80,
-		"./ja": 81,
-		"./ja.js": 81,
-		"./jv": 82,
-		"./jv.js": 82,
-		"./ka": 83,
-		"./ka.js": 83,
-		"./kk": 84,
-		"./kk.js": 84,
-		"./km": 85,
-		"./km.js": 85,
-		"./ko": 86,
-		"./ko.js": 86,
-		"./ky": 87,
-		"./ky.js": 87,
-		"./lb": 88,
-		"./lb.js": 88,
-		"./lo": 89,
-		"./lo.js": 89,
-		"./lt": 90,
-		"./lt.js": 90,
-		"./lv": 91,
-		"./lv.js": 91,
-		"./me": 92,
-		"./me.js": 92,
-		"./mi": 93,
-		"./mi.js": 93,
-		"./mk": 94,
-		"./mk.js": 94,
-		"./ml": 95,
-		"./ml.js": 95,
-		"./mr": 96,
-		"./mr.js": 96,
-		"./ms": 97,
-		"./ms-my": 98,
-		"./ms-my.js": 98,
-		"./ms.js": 97,
-		"./my": 99,
-		"./my.js": 99,
-		"./nb": 100,
-		"./nb.js": 100,
-		"./ne": 101,
-		"./ne.js": 101,
-		"./nl": 102,
-		"./nl.js": 102,
-		"./nn": 103,
-		"./nn.js": 103,
-		"./pa-in": 104,
-		"./pa-in.js": 104,
-		"./pl": 105,
-		"./pl.js": 105,
-		"./pt": 106,
-		"./pt-br": 107,
-		"./pt-br.js": 107,
-		"./pt.js": 106,
-		"./ro": 108,
-		"./ro.js": 108,
-		"./ru": 109,
-		"./ru.js": 109,
-		"./se": 110,
-		"./se.js": 110,
-		"./si": 111,
-		"./si.js": 111,
-		"./sk": 112,
-		"./sk.js": 112,
-		"./sl": 113,
-		"./sl.js": 113,
-		"./sq": 114,
-		"./sq.js": 114,
-		"./sr": 115,
-		"./sr-cyrl": 116,
-		"./sr-cyrl.js": 116,
-		"./sr.js": 115,
-		"./ss": 117,
-		"./ss.js": 117,
-		"./sv": 118,
-		"./sv.js": 118,
-		"./sw": 119,
-		"./sw.js": 119,
-		"./ta": 120,
-		"./ta.js": 120,
-		"./te": 121,
-		"./te.js": 121,
-		"./th": 122,
-		"./th.js": 122,
-		"./tl-ph": 123,
-		"./tl-ph.js": 123,
-		"./tlh": 124,
-		"./tlh.js": 124,
-		"./tr": 125,
-		"./tr.js": 125,
-		"./tzl": 126,
-		"./tzl.js": 126,
-		"./tzm": 127,
-		"./tzm-latn": 128,
-		"./tzm-latn.js": 128,
-		"./tzm.js": 127,
-		"./uk": 129,
-		"./uk.js": 129,
-		"./uz": 130,
-		"./uz.js": 130,
-		"./vi": 131,
-		"./vi.js": 131,
-		"./x-pseudo": 132,
-		"./x-pseudo.js": 132,
-		"./zh-cn": 133,
-		"./zh-cn.js": 133,
-		"./zh-hk": 134,
-		"./zh-hk.js": 134,
-		"./zh-tw": 135,
-		"./zh-tw.js": 135
+		"./af": 34,
+		"./af.js": 34,
+		"./ar": 35,
+		"./ar-ly": 36,
+		"./ar-ly.js": 36,
+		"./ar-ma": 37,
+		"./ar-ma.js": 37,
+		"./ar-sa": 38,
+		"./ar-sa.js": 38,
+		"./ar-tn": 39,
+		"./ar-tn.js": 39,
+		"./ar.js": 35,
+		"./az": 40,
+		"./az.js": 40,
+		"./be": 41,
+		"./be.js": 41,
+		"./bg": 42,
+		"./bg.js": 42,
+		"./bn": 43,
+		"./bn.js": 43,
+		"./bo": 44,
+		"./bo.js": 44,
+		"./br": 45,
+		"./br.js": 45,
+		"./bs": 46,
+		"./bs.js": 46,
+		"./ca": 47,
+		"./ca.js": 47,
+		"./cs": 48,
+		"./cs.js": 48,
+		"./cv": 49,
+		"./cv.js": 49,
+		"./cy": 50,
+		"./cy.js": 50,
+		"./da": 51,
+		"./da.js": 51,
+		"./de": 52,
+		"./de-at": 53,
+		"./de-at.js": 53,
+		"./de.js": 52,
+		"./dv": 54,
+		"./dv.js": 54,
+		"./el": 55,
+		"./el.js": 55,
+		"./en-au": 56,
+		"./en-au.js": 56,
+		"./en-ca": 57,
+		"./en-ca.js": 57,
+		"./en-gb": 58,
+		"./en-gb.js": 58,
+		"./en-ie": 59,
+		"./en-ie.js": 59,
+		"./en-nz": 60,
+		"./en-nz.js": 60,
+		"./eo": 61,
+		"./eo.js": 61,
+		"./es": 62,
+		"./es-do": 63,
+		"./es-do.js": 63,
+		"./es.js": 62,
+		"./et": 64,
+		"./et.js": 64,
+		"./eu": 65,
+		"./eu.js": 65,
+		"./fa": 66,
+		"./fa.js": 66,
+		"./fi": 67,
+		"./fi.js": 67,
+		"./fo": 68,
+		"./fo.js": 68,
+		"./fr": 69,
+		"./fr-ca": 70,
+		"./fr-ca.js": 70,
+		"./fr-ch": 71,
+		"./fr-ch.js": 71,
+		"./fr.js": 69,
+		"./fy": 72,
+		"./fy.js": 72,
+		"./gd": 73,
+		"./gd.js": 73,
+		"./gl": 74,
+		"./gl.js": 74,
+		"./he": 75,
+		"./he.js": 75,
+		"./hi": 76,
+		"./hi.js": 76,
+		"./hr": 77,
+		"./hr.js": 77,
+		"./hu": 78,
+		"./hu.js": 78,
+		"./hy-am": 79,
+		"./hy-am.js": 79,
+		"./id": 80,
+		"./id.js": 80,
+		"./is": 81,
+		"./is.js": 81,
+		"./it": 82,
+		"./it.js": 82,
+		"./ja": 83,
+		"./ja.js": 83,
+		"./jv": 84,
+		"./jv.js": 84,
+		"./ka": 85,
+		"./ka.js": 85,
+		"./kk": 86,
+		"./kk.js": 86,
+		"./km": 87,
+		"./km.js": 87,
+		"./ko": 88,
+		"./ko.js": 88,
+		"./ky": 89,
+		"./ky.js": 89,
+		"./lb": 90,
+		"./lb.js": 90,
+		"./lo": 91,
+		"./lo.js": 91,
+		"./lt": 92,
+		"./lt.js": 92,
+		"./lv": 93,
+		"./lv.js": 93,
+		"./me": 94,
+		"./me.js": 94,
+		"./mi": 95,
+		"./mi.js": 95,
+		"./mk": 96,
+		"./mk.js": 96,
+		"./ml": 97,
+		"./ml.js": 97,
+		"./mr": 98,
+		"./mr.js": 98,
+		"./ms": 99,
+		"./ms-my": 100,
+		"./ms-my.js": 100,
+		"./ms.js": 99,
+		"./my": 101,
+		"./my.js": 101,
+		"./nb": 102,
+		"./nb.js": 102,
+		"./ne": 103,
+		"./ne.js": 103,
+		"./nl": 104,
+		"./nl.js": 104,
+		"./nn": 105,
+		"./nn.js": 105,
+		"./pa-in": 106,
+		"./pa-in.js": 106,
+		"./pl": 107,
+		"./pl.js": 107,
+		"./pt": 108,
+		"./pt-br": 109,
+		"./pt-br.js": 109,
+		"./pt.js": 108,
+		"./ro": 110,
+		"./ro.js": 110,
+		"./ru": 111,
+		"./ru.js": 111,
+		"./se": 112,
+		"./se.js": 112,
+		"./si": 113,
+		"./si.js": 113,
+		"./sk": 114,
+		"./sk.js": 114,
+		"./sl": 115,
+		"./sl.js": 115,
+		"./sq": 116,
+		"./sq.js": 116,
+		"./sr": 117,
+		"./sr-cyrl": 118,
+		"./sr-cyrl.js": 118,
+		"./sr.js": 117,
+		"./ss": 119,
+		"./ss.js": 119,
+		"./sv": 120,
+		"./sv.js": 120,
+		"./sw": 121,
+		"./sw.js": 121,
+		"./ta": 122,
+		"./ta.js": 122,
+		"./te": 123,
+		"./te.js": 123,
+		"./th": 124,
+		"./th.js": 124,
+		"./tl-ph": 125,
+		"./tl-ph.js": 125,
+		"./tlh": 126,
+		"./tlh.js": 126,
+		"./tr": 127,
+		"./tr.js": 127,
+		"./tzl": 128,
+		"./tzl.js": 128,
+		"./tzm": 129,
+		"./tzm-latn": 130,
+		"./tzm-latn.js": 130,
+		"./tzm.js": 129,
+		"./uk": 131,
+		"./uk.js": 131,
+		"./uz": 132,
+		"./uz.js": 132,
+		"./vi": 133,
+		"./vi.js": 133,
+		"./x-pseudo": 134,
+		"./x-pseudo.js": 134,
+		"./zh-cn": 135,
+		"./zh-cn.js": 135,
+		"./zh-hk": 136,
+		"./zh-hk.js": 136,
+		"./zh-tw": 137,
+		"./zh-tw.js": 137
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -5641,11 +5643,11 @@ webpackJsonp([8],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 31;
+	webpackContext.id = 33;
 
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5653,7 +5655,7 @@ webpackJsonp([8],[
 	//! author : Werner Mollentze : https://github.com/wernerm
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5722,7 +5724,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 33 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5732,7 +5734,7 @@ webpackJsonp([8],[
 	//! author : forabi https://github.com/forabi
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5863,7 +5865,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5871,7 +5873,7 @@ webpackJsonp([8],[
 	//! author : Ali Hmer: https://github.com/kikoanis
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5989,7 +5991,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 35 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5998,7 +6000,7 @@ webpackJsonp([8],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6053,7 +6055,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6061,7 +6063,7 @@ webpackJsonp([8],[
 	//! author : Suhail Alkowaileet : https://github.com/xsoh
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6161,7 +6163,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6169,7 +6171,7 @@ webpackJsonp([8],[
 	//! author : Nader Toukabri : https://github.com/naderio
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6224,7 +6226,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6232,7 +6234,7 @@ webpackJsonp([8],[
 	//! author : topchiyev : https://github.com/topchiyev
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6333,7 +6335,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 39 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6343,7 +6345,7 @@ webpackJsonp([8],[
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6471,7 +6473,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6479,7 +6481,7 @@ webpackJsonp([8],[
 	//! author : Krasen Borisov : https://github.com/kraz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6565,7 +6567,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6573,7 +6575,7 @@ webpackJsonp([8],[
 	//! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6688,7 +6690,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6696,7 +6698,7 @@ webpackJsonp([8],[
 	//! author : Thupten N. Chakrishar : https://github.com/vajradog
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6811,7 +6813,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6819,7 +6821,7 @@ webpackJsonp([8],[
 	//! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6923,7 +6925,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6932,7 +6934,7 @@ webpackJsonp([8],[
 	//! based on (hr) translation by Bojan Marković
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7070,7 +7072,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7078,7 +7080,7 @@ webpackJsonp([8],[
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7155,7 +7157,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7163,7 +7165,7 @@ webpackJsonp([8],[
 	//! author : petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7331,7 +7333,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7339,7 +7341,7 @@ webpackJsonp([8],[
 	//! author : Anatoly Mironov : https://github.com/mirontoli
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7398,7 +7400,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7407,7 +7409,7 @@ webpackJsonp([8],[
 	//! author : https://github.com/ryangreaves
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7483,7 +7485,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7491,7 +7493,7 @@ webpackJsonp([8],[
 	//! author : Ulrik Nielsen : https://github.com/mrbase
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7547,7 +7549,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7557,7 +7559,7 @@ webpackJsonp([8],[
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7629,7 +7631,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7640,7 +7642,7 @@ webpackJsonp([8],[
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7712,7 +7714,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7720,7 +7722,7 @@ webpackJsonp([8],[
 	//! author : Jawish Hameed : https://github.com/jawish
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7815,7 +7817,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7823,7 +7825,7 @@ webpackJsonp([8],[
 	//! author : Aggelos Karalias : https://github.com/mehiel
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7917,7 +7919,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7925,7 +7927,7 @@ webpackJsonp([8],[
 	//! author : Jared Morse : https://github.com/jarcoal
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7988,7 +7990,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7996,7 +7998,7 @@ webpackJsonp([8],[
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8055,7 +8057,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8063,7 +8065,7 @@ webpackJsonp([8],[
 	//! author : Chris Gedrim : https://github.com/chrisgedrim
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8126,7 +8128,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8134,7 +8136,7 @@ webpackJsonp([8],[
 	//! author : Chris Cartlidge : https://github.com/chriscartlidge
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8197,7 +8199,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8205,7 +8207,7 @@ webpackJsonp([8],[
 	//! author : Luke McGregor : https://github.com/lukemcgregor
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8268,7 +8270,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8278,7 +8280,7 @@ webpackJsonp([8],[
 	//!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8345,7 +8347,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8353,7 +8355,7 @@ webpackJsonp([8],[
 	//! author : Julio Napurí : https://github.com/julionc
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8430,14 +8432,14 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : Spanish (Dominican Republic) [es-do]
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8514,7 +8516,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8523,7 +8525,7 @@ webpackJsonp([8],[
 	//! improvements : Illimar Tambek : https://github.com/ragulka
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8598,7 +8600,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8606,7 +8608,7 @@ webpackJsonp([8],[
 	//! author : Eneko Illarramendi : https://github.com/eillarra
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8668,7 +8670,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8676,7 +8678,7 @@ webpackJsonp([8],[
 	//! author : Ebrahim Byagowi : https://github.com/ebraminio
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8778,7 +8780,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8786,7 +8788,7 @@ webpackJsonp([8],[
 	//! author : Tarmo Aidantausta : https://github.com/bleadof
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8889,7 +8891,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8897,7 +8899,7 @@ webpackJsonp([8],[
 	//! author : Ragnar Johannesen : https://github.com/ragnar123
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8953,7 +8955,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8961,7 +8963,7 @@ webpackJsonp([8],[
 	//! author : John Fischer : https://github.com/jfroffice
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9021,7 +9023,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9029,7 +9031,7 @@ webpackJsonp([8],[
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9085,7 +9087,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9093,7 +9095,7 @@ webpackJsonp([8],[
 	//! author : Gaspard Bucher : https://github.com/gaspard
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9153,7 +9155,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9161,7 +9163,7 @@ webpackJsonp([8],[
 	//! author : Robin van der Vliet : https://github.com/robin0van0der0v
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9230,7 +9232,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9238,7 +9240,7 @@ webpackJsonp([8],[
 	//! author : Jon Ashdown : https://github.com/jonashdown
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9310,7 +9312,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9318,7 +9320,7 @@ webpackJsonp([8],[
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9391,7 +9393,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9401,7 +9403,7 @@ webpackJsonp([8],[
 	//! author : Tal Ater : https://github.com/TalAter
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9494,7 +9496,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9502,7 +9504,7 @@ webpackJsonp([8],[
 	//! author : Mayank Singhal : https://github.com/mayanksinghal
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9622,7 +9624,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9630,7 +9632,7 @@ webpackJsonp([8],[
 	//! author : Bojan Marković : https://github.com/bmarkovic
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9771,7 +9773,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 76 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9779,7 +9781,7 @@ webpackJsonp([8],[
 	//! author : Adam Brunner : https://github.com/adambrunner
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9884,7 +9886,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 77 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9892,7 +9894,7 @@ webpackJsonp([8],[
 	//! author : Armendarabyan : https://github.com/armendarabyan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9983,7 +9985,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 78 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9992,7 +9994,7 @@ webpackJsonp([8],[
 	//! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10070,7 +10072,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 79 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10078,7 +10080,7 @@ webpackJsonp([8],[
 	//! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10201,7 +10203,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 80 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10210,7 +10212,7 @@ webpackJsonp([8],[
 	//! author: Mattia Larentis: https://github.com/nostalgiaz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10275,7 +10277,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 81 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10283,7 +10285,7 @@ webpackJsonp([8],[
 	//! author : LI Long : https://github.com/baryon
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10355,7 +10357,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 82 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10364,7 +10366,7 @@ webpackJsonp([8],[
 	//! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10442,7 +10444,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 83 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10450,7 +10452,7 @@ webpackJsonp([8],[
 	//! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10535,7 +10537,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 84 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10543,7 +10545,7 @@ webpackJsonp([8],[
 	//! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10626,7 +10628,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 85 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10634,7 +10636,7 @@ webpackJsonp([8],[
 	//! author : Kruy Vanna : https://github.com/kruyvanna
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10688,7 +10690,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 86 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10697,7 +10699,7 @@ webpackJsonp([8],[
 	//! author : Jeeeyul Lee <jeeeyul@gmail.com>
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10757,7 +10759,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 87 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10765,7 +10767,7 @@ webpackJsonp([8],[
 	//! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10849,7 +10851,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 88 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10858,7 +10860,7 @@ webpackJsonp([8],[
 	//! author : David Raison : https://github.com/kwisatz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10990,7 +10992,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 89 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10998,7 +11000,7 @@ webpackJsonp([8],[
 	//! author : Ryan Hart : https://github.com/ryanhart2
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11064,7 +11066,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 90 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11072,7 +11074,7 @@ webpackJsonp([8],[
 	//! author : Mindaugas Mozūras : https://github.com/mmozuras
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11185,7 +11187,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 91 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11194,7 +11196,7 @@ webpackJsonp([8],[
 	//! author : Jānis Elmeris : https://github.com/JanisE
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11286,7 +11288,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 92 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11294,7 +11296,7 @@ webpackJsonp([8],[
 	//! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11401,7 +11403,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 93 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11409,7 +11411,7 @@ webpackJsonp([8],[
 	//! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11469,7 +11471,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 94 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11477,7 +11479,7 @@ webpackJsonp([8],[
 	//! author : Borislav Mickov : https://github.com/B0k0
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11563,7 +11565,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 95 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11571,7 +11573,7 @@ webpackJsonp([8],[
 	//! author : Floyd Pink : https://github.com/floydpink
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11648,7 +11650,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 96 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11657,7 +11659,7 @@ webpackJsonp([8],[
 	//! author : Vivek Athalye : https://github.com/vnathalye
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11811,7 +11813,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 97 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11819,7 +11821,7 @@ webpackJsonp([8],[
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11897,7 +11899,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 98 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11906,7 +11908,7 @@ webpackJsonp([8],[
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11984,7 +11986,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 99 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11994,7 +11996,7 @@ webpackJsonp([8],[
 	//! author : Tin Aung Lin : https://github.com/thanyawzinmin
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12083,7 +12085,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 100 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12092,7 +12094,7 @@ webpackJsonp([8],[
 	//!           Sigurd Gartmann : https://github.com/sigurdga
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12150,7 +12152,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 101 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12158,7 +12160,7 @@ webpackJsonp([8],[
 	//! author : suvash : https://github.com/suvash
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12277,7 +12279,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 102 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12286,7 +12288,7 @@ webpackJsonp([8],[
 	//! author : Jacob Middag : https://github.com/middagj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12367,7 +12369,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 103 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12375,7 +12377,7 @@ webpackJsonp([8],[
 	//! author : https://github.com/mechuwind
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12431,7 +12433,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 104 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12439,7 +12441,7 @@ webpackJsonp([8],[
 	//! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12559,7 +12561,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 105 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12567,7 +12569,7 @@ webpackJsonp([8],[
 	//! author : Rafal Hirsz : https://github.com/evoL
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12668,7 +12670,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 106 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12676,7 +12678,7 @@ webpackJsonp([8],[
 	//! author : Jefferson : https://github.com/jalex79
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12737,7 +12739,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 107 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12745,7 +12747,7 @@ webpackJsonp([8],[
 	//! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12802,7 +12804,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 108 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12811,7 +12813,7 @@ webpackJsonp([8],[
 	//! author : Valentin Agachi : https://github.com/avaly
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12881,7 +12883,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 109 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12891,7 +12893,7 @@ webpackJsonp([8],[
 	//! author : Коренберг Марк : https://github.com/socketpair
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13068,7 +13070,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 110 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13076,7 +13078,7 @@ webpackJsonp([8],[
 	//! authors : Bård Rolstad Henriksen : https://github.com/karamell
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13133,7 +13135,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 111 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13141,7 +13143,7 @@ webpackJsonp([8],[
 	//! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13208,7 +13210,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 112 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13217,7 +13219,7 @@ webpackJsonp([8],[
 	//! based on work of petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13362,7 +13364,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 113 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13370,7 +13372,7 @@ webpackJsonp([8],[
 	//! author : Robert Sedovšek : https://github.com/sedovsek
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13528,7 +13530,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 114 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13538,7 +13540,7 @@ webpackJsonp([8],[
 	//! author : Oerd Cukalla : https://github.com/oerd
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13602,7 +13604,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 115 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13610,7 +13612,7 @@ webpackJsonp([8],[
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13716,7 +13718,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 116 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13724,7 +13726,7 @@ webpackJsonp([8],[
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13830,7 +13832,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 117 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13838,7 +13840,7 @@ webpackJsonp([8],[
 	//! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13923,7 +13925,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 118 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13931,7 +13933,7 @@ webpackJsonp([8],[
 	//! author : Jens Alm : https://github.com/ulmus
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13996,7 +13998,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 119 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14004,7 +14006,7 @@ webpackJsonp([8],[
 	//! author : Fahad Kassim : https://github.com/fadsel
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14059,7 +14061,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 120 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14067,7 +14069,7 @@ webpackJsonp([8],[
 	//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14192,7 +14194,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 121 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14200,7 +14202,7 @@ webpackJsonp([8],[
 	//! author : Krishna Chaitanya Thota : https://github.com/kcthota
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14285,7 +14287,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 122 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14293,7 +14295,7 @@ webpackJsonp([8],[
 	//! author : Kridsada Thanabulpong : https://github.com/sirn
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14356,7 +14358,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 123 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14364,7 +14366,7 @@ webpackJsonp([8],[
 	//! author : Dan Hagman : https://github.com/hagmandan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14422,7 +14424,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 124 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14430,7 +14432,7 @@ webpackJsonp([8],[
 	//! author : Dominika Kruk : https://github.com/amaranthrose
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14546,7 +14548,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 125 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14555,7 +14557,7 @@ webpackJsonp([8],[
 	//!           Burak Yiğit Kaya: https://github.com/BYK
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14640,7 +14642,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 126 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14649,7 +14651,7 @@ webpackJsonp([8],[
 	//! author : Iustì Canun
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14735,7 +14737,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 127 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14743,7 +14745,7 @@ webpackJsonp([8],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14797,7 +14799,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 128 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14805,7 +14807,7 @@ webpackJsonp([8],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14859,7 +14861,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 129 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14868,7 +14870,7 @@ webpackJsonp([8],[
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15009,7 +15011,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 130 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15017,7 +15019,7 @@ webpackJsonp([8],[
 	//! author : Sardor Muminov : https://github.com/muminoff
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15071,7 +15073,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 131 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15079,7 +15081,7 @@ webpackJsonp([8],[
 	//! author : Bang Nguyen : https://github.com/bangnk
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15154,7 +15156,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 132 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15162,7 +15164,7 @@ webpackJsonp([8],[
 	//! author : Andrew Hood : https://github.com/andrewhood125
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15226,7 +15228,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 133 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15235,7 +15237,7 @@ webpackJsonp([8],[
 	//! author : Zeno Zeng : https://github.com/zenozeng
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15357,7 +15359,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 134 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15367,7 +15369,7 @@ webpackJsonp([8],[
 	//! author : Konstantin : https://github.com/skfd
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15466,7 +15468,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 135 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15475,7 +15477,7 @@ webpackJsonp([8],[
 	//! author : Chris Lam : https://github.com/hehachris
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(29)) :
+	    true ? factory(__webpack_require__(31)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15574,7 +15576,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 136 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -15588,7 +15590,7 @@ webpackJsonp([8],[
 	(function (root, factory) {
 	    if (true) {
 	        // AMD. Make globaly available as well
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(29), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(31), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
 	            return (root.daterangepicker = factory(moment, jquery));
 	        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof module === 'object' && module.exports) {
@@ -17198,7 +17200,7 @@ webpackJsonp([8],[
 
 
 /***/ },
-/* 137 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
@@ -17272,6 +17274,816 @@ webpackJsonp([8],[
 	  window.onmousewheel = document.onmousewheel = wheel;
 	  document.onkeydown = keydown;
 	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+/* 140 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
+	/*
+	* monPickr - jQuery Plugin
+	* Just a simple month picker
+	*
+	* Examples and documentation at: http://update.later
+	*
+	* Version: 0.0.2 (9 Feb 2012)
+	* Requires: jQuery v1.7+
+	*/
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(30)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site) {
+	    (function ($) {
+	        var logger = { error: $.noop };
+	
+	        Date.prototype.toStringFormat = function (format) {
+	            var shortMonthsInYear = Site.getResources(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]),
+	                longMonthsInYear = Site.getResources(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]),
+	                year = this.getFullYear(),
+	                month = this.getMonth(),
+	                day = this.getDate(),
+	                result = format;
+	
+	            function strMonth(value) {
+	                var monthArrayIndex = parseInt(value);
+	                return shortMonthsInYear[monthArrayIndex] || value;
+	            }
+	
+	            function strLongMonth(value) {
+	                var monthArrayIndex = parseInt(value);
+	                return longMonthsInYear[monthArrayIndex] || value;
+	            }
+	
+	            result = result.replace(/yyyy/g, year);
+	            result = result.replace(/yy/g, year.toString().substr(2));
+	
+	            result = result.replace(/MMMM/g, strLongMonth(month));
+	            result = result.replace(/MMM/g, strMonth(month));
+	            result = result.replace(/MM/g, month < 9 ? '0' + (month + 1) : (month + 1));
+	
+	            result = result.replace(/dd/g, day < 10 ? '0' + day : day);
+	
+	            return result;
+	        };
+	
+	        var isInteger = function (value, writeLogToConsole) {
+	            var isValid = Math.ceil(value) == Math.floor(value);
+	
+	            if (writeLogToConsole && !isValid) logger.error('Oops! "' + value + '" is an invalid Integer');
+	
+	            return isValid;
+	        }
+	
+	        var isValidDate = function (value, writeLogToConsole) {
+	            var _value = new Date(value),
+	                isValid = isInteger(_value.getDate()) && isInteger(_value.getMonth()) && isInteger(_value.getFullYear());
+	
+	            if (writeLogToConsole && !isValid) logger.error('Oops! "' + value + '" is an invalid Date');
+	
+	            return isValid;
+	        }
+	
+	        var today = null,
+	            thisYear = null,
+	            thisMonth = null,
+	            thisDay = null,
+	            firstDayThisYear = null,
+	            firstDayThisMonth = null,
+	            lastDayThisMonth = null,
+	
+	        /*
+	        * Private methods
+	        */
+	
+	            _getData = function (target) {
+	                var data = $(target).data('monPickr');
+	                if (!data) {
+	                    logger.error('Oops! No data of monPickr is available');
+	                    return null;
+	                }
+	                return data;
+	            },
+	
+	            _validateMonth = function (minDate, maxDate, year, month) {
+	                var minYear = minDate.getFullYear(),
+	                    minMonth = minDate.getMonth(),
+	                    maxYear = maxDate.getFullYear(),
+	                    maxMonth = maxDate.getMonth(),
+	
+	                    outOfLowBoundary = year < minYear || (year == minYear && month < minMonth),
+	                    outOfHighBoundary = year > maxYear || (year == maxYear && month > maxMonth);
+	
+	                return !outOfLowBoundary && !outOfHighBoundary;
+	            },
+	
+	            _validateDate = function (minDate, maxDate, year, month, date) {
+	                // Re-new the params cauz of time ignorance
+	                var minDayInMonth = new Date(year, month, _getMinDayInMonth(minDate, year, month)),
+	                    maxDayInMonth = new Date(year, month, _getMaxDayInMonth(maxDate, year, month)),
+	                    date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+	
+	                return minDate <= date && date <= maxDayInMonth;
+	            },
+	
+	            _checkReachBound = function (data, year, month) {
+	                // diable next/prev button if the selected month reach the bound
+	                var nextMonth = new Date(year, month + 1, 1),
+	                    prevMonth = new Date(year, month - 1, 1);
+	
+	                if (!_validateMonth(data.minDate, data.maxDate, nextMonth.getFullYear(), nextMonth.getMonth())) data.btnNext.addClass('disable');
+	                else data.btnNext.removeClass('disable');
+	
+	                if (!_validateMonth(data.minDate, data.maxDate, prevMonth.getFullYear(), prevMonth.getMonth())) data.btnPrev.addClass('disable');
+	                else data.btnPrev.removeClass('disable');
+	            },
+	
+	            _setMonth = function (data, year, month) {
+	                data.year = year;
+	                data.month = month;
+	            },
+	
+	            _setMonthLabel = function (data) {
+	                data.lblSelectedMonth.html(new Date(data.year, data.month, 1).toStringFormat(data.monthFormat));
+	            },
+	
+	            _selectMonth = function (data, year, month) {
+	                // invokes handler (if any) just before the event change month
+	                if (typeof data.beforeChangeMonth == 'function') data.beforeChangeMonth();
+	                else { logger.error('Oops! beforeChangeMonth event\'s handler (which has type "' + typeof data.beforeChangeMonth + '") is not a function'); }
+	
+	                // highlight selected month
+	                data.dropDown.find('.monthWrap a[month].selected').removeClass('selected');
+	                data.dropDown.find('.monthWrap[year=' + year + '] a[month=' + (month + 1) + ']:first').addClass('selected');
+	
+	                _setMonth(data, year, month);
+	                _setMonthLabel(data);
+	
+	                // if selected year differs from current year then hide current year and show selected one
+	                if (data.dropDown.find('.monthWrap.selected').attr('year') != year) {
+	                    _hideCurrentYear(data);
+	                    _showSelectedYear(data, year);
+	                    data.dropDown.find('.year a.selected:first').parent().addClass('selected');
+	                }
+	
+	                if (data.showDateRange) {
+	                    var minDayInMonth = _getMinDayInMonth(data.minDate, data.year, data.month),
+	                    maxDayInMonth = _getMaxDayInMonth(data.maxDate, data.year, data.month);
+	
+	                    // change fromDate and toDate
+	                    _selectDay(data, data.ddlFromDate, minDayInMonth, true);
+	                    _selectDay(data, data.ddlToDate, maxDayInMonth, false);
+	
+	                    // re-render fromDay & toDay range
+	                    var limitDayRange = function (idx) {
+	                        var $this = $(this),
+	                        day = idx + 1;
+	
+	                        if (day < minDayInMonth || maxDayInMonth < day) $this.hide();
+	                        else $this.show();
+	                    };
+	
+	                    data.ddlFromDate.dropDown.find('li').each(limitDayRange);
+	                    data.ddlToDate.dropDown.find('li').each(limitDayRange);
+	                }
+	
+	                _checkReachBound(data, year, month);
+	
+	                // invokes handler (if any) just after the event change month
+	                if (typeof data.afterChangeMonth == 'function') data.afterChangeMonth();
+	                else { logger.error('Oops! afterChangeMonth event\'s handler (which has type "' + typeof data.afterChangeMonth + '") is not a function'); }
+	            },
+	
+	            _setDay = function (data, value, isFromDay) {
+	                if (isFromDay) {
+	                    data.fromDay = parseInt(value, 10);
+	                    data.fromDate = new Date(data.year, data.month, value);
+	                } else {
+	                    data.toDay = parseInt(value, 10);
+	                    data.toDate = new Date(data.year, data.month, value);
+	                }
+	            },
+	
+	            _setDayLabel = function (target, value) {
+	                target.find('.selectedDay').html(value);
+	            },
+	
+	            _selectDay = function (data, target, value, isFromDay) {
+	                // invokes handler (if any) just before the event change day
+	                if (typeof data.beforeChangeDay == 'function') data.beforeChangeDay();
+	                else { logger.error('Oops! beforeChangeDay event\'s handler (which has type "' + typeof data.beforeChangeDay + '") is not a function'); }
+	
+	                _setDayLabel(target, value);
+	                _setDay(data, value, isFromDay);
+	
+	                // invokes handler (if any) just after the event change day
+	                if (typeof data.afterChangeDay == 'function') data.afterChangeDay();
+	                else { logger.error('Oops! afterChangeDay event\'s handler (which has type "' + typeof data.afterChangeDay + '") is not a function'); }
+	            },
+	
+	            _getMinDayInMonth = function (minDate, year, month) {
+	                var _firstDayOfMonth = new Date(year, month, 1),
+	                    _minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+	
+	                return _minDate > _firstDayOfMonth ? _minDate.getDate() : 1;
+	            },
+	
+	            _getMaxDayInMonth = function (maxDate, year, month) {
+	                var _lastDayOfMonth = new Date(year, month + 1, 0),
+	                    _maxDate = new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate());
+	
+	                return _lastDayOfMonth > _maxDate ? _maxDate.getDate() : _lastDayOfMonth.getDate();
+	            },
+	
+	            _hideCurrentYear = function (data) {
+	                // collapse current year
+	                var currentMonthWrap = data.dropDown.find('.monthWrap.selected').eq(0);
+	
+	                if (data.dropDown.is(':hidden')) {
+	                    currentMonthWrap.hide();
+	                } else {
+	                    currentMonthWrap.slideUp(data.showYearSpeed);
+	                }
+	
+	                currentMonthWrap.removeClass('selected');
+	                data.dropDown.find('.year .selected').eq(0).removeClass('selected').parent().removeClass('selected');
+	            },
+	
+	            _showSelectedYear = function (data, year) {
+	                var target = data.dropDown.find('.monthWrap[year=' + year + ']').eq(0);
+	
+	                target.prev('.year').find('a[year]').eq(0).addClass('selected');
+	                target.addClass('selected').slideDown(data.showYearSpeed);
+	            },
+	
+	            _showDropDown = function (data, target) {
+	                target.dropDown.slideDown(data.showDropDownSpeed);
+	            },
+	
+	            _hideDropDown = function (data, target) {
+	                target.dropDown.slideUp(data.showDropDownSpeed);
+	            },
+	
+	        _methods = {
+	            init: function (options) {
+	                options = options || {};
+	
+	                if ($.isFunction(options.log)) logger.error = options.log;
+	
+	                if (!this.length) { // if the initial DOM does not exist
+	                    logger.error('Oops! DOM element "' + this.selector + '" does not exist');
+	                    return;
+	                }
+	
+	                if (options.today && !isValidDate(options.today, true)) return;
+	
+	                today = options.today ? new Date(options.today) : new Date();
+	                thisYear = today.getFullYear();
+	                thisMonth = today.getMonth();
+	                thisDay = today.getDate();
+	                firstDayThisYear = new Date(thisYear, 0, 1);
+	                firstDayThisMonth = new Date(thisYear, thisMonth, 1);
+	                lastDayThisMonth = new Date(thisYear, thisMonth + 1, 0);
+	
+	                // Create some defaults, extending them with any options that were provided
+	                var settings = $.extend({
+	                    minDate: firstDayThisYear,
+	                    maxDate: today,
+	                    month: today,
+	
+	                    showDateRange: false,
+	                    fromDay: firstDayThisMonth.getDate(),
+	                    toDay: today.getDate(),
+	                    fromDayId: null, // required if showDateRange is true
+	                    toDayId: null, // required if showDateRange is true
+	
+	                    expandYearOnhover: false,
+	                    expandDayOnhover: false,
+	                    showYearSpeed: 110,
+	                    showDropDownSpeed: 10,
+	
+	                    disabled: false,
+	                    sortDesc: false,
+	                    monthFormat: 'MMM yyyy',
+	                    nextText: 'Next Month',
+	                    prevText: 'Previous Month',
+	                    monPickrText: 'Show/hide Month Picker',
+	                    zIndex: 9999,
+	
+	                    beforeChangeMonth: function () { },
+	                    afterChangeMonth: function () { },
+	                    beforeChangeDay: function () { },
+	                    afterChangeDay: function () { }
+	                }, options);
+	
+	                //#region VALIDATES INPUT VALUES
+	
+	                // Validates minDate & maxDate
+	                if (!isValidDate(settings.minDate, true) || !isValidDate(settings.maxDate, true)) return;
+	
+	                // Convert minDate & maxDate to Date type for easier later using
+	                settings.minDate = new Date(settings.minDate);
+	                settings.maxDate = new Date(settings.maxDate);
+	
+	                // Validtes selected month
+	                if (!isValidDate(settings.month, true)) return;
+	
+	                // Convert selected month to Date type for easier later using
+	                settings.month = new Date(settings.month);
+	
+	                var year = settings.month.getFullYear(),
+	                    month = settings.month.getMonth();
+	
+	                // Make sure selected month are not out of range (minDate ~ maxDate)
+	                if (!_validateMonth(settings.minDate, settings.maxDate, year, month)) {
+	                    logger.error('Oops! Selected month (' + settings.month.toStringFormat('MM/yyyy') +
+	                        ') is out of range (' + settings.minDate.toStringFormat('MM/yyyy') + ' ~ ' + settings.maxDate.toStringFormat('MM/yyyy') + ')');
+	                    return;
+	                }
+	
+	                // Makes sure selected fromDate & toDate are not out of Range (minDate ~ maxDate)
+	                var fromDate = new Date(year, month, settings.fromDay),
+	                    toDate = new Date(year, month, settings.toDay);
+	
+	                if (!_validateDate(settings.minDate, settings.maxDate, year, month, fromDate)) {
+	                    logger.error('Oops! fromDate (' + fromDate.toStringFormat('MMM dd, yyyy') + ') is out of range');
+	                    return;
+	                }
+	
+	                if (!_validateDate(settings.minDate, settings.maxDate, year, month, toDate)) {
+	                    logger.error('Oops! toDate (' + toDate.toStringFormat('MMM dd, yyyy') + ') is out of range');
+	                    return;
+	                }
+	
+	                //#endregion VALIDATES INPUT VALUES
+	
+	                return this.each(function () {
+	                    var $this = $(this),
+	                        data = $this.data('monPickr');
+	
+	                    // Initialize the plugin if it hasn't
+	                    if (!data) {
+	                        $this.data('monPickr', {
+	                            target: $this,
+	
+	                            minDate: settings.minDate,
+	                            maxDate: settings.maxDate,
+	                            originalYear: settings.year,
+	                            originalMonth: settings.month,
+	                            year: settings.month.getFullYear(),
+	                            month: settings.month.getMonth(),
+	
+	                            showDateRange: settings.showDateRange,
+	                            originalFromDay: settings.fromDay,
+	                            originalToDay: settings.toDay,
+	                            fromDay: settings.fromDay,
+	                            toDay: settings.toDay,
+	                            fromDate: fromDate,
+	                            toDate: toDate,
+	                            fromDayId: settings.fromDayId,
+	                            toDayId: settings.toDayId,
+	
+	                            expandYearOnhover: settings.expandYearOnhover,
+	                            expandDayOnhover: settings.expandDayOnhover,
+	                            showYearSpeed: settings.showYearSpeed,
+	                            showDropDownSpeed: settings.showDropDownSpeed,
+	
+	                            disabled: settings.disabled,
+	                            sortDesc: settings.sortDesc,
+	                            monthFormat: settings.monthFormat,
+	                            nextText: settings.nextText,
+	                            prevText: settings.prevText,
+	                            monPickrText: settings.monPickrText,
+	                            zIndex: settings.zIndex,
+	
+	                            beforeChangeMonth: settings.beforeChangeMonth,
+	                            afterChangeMonth: settings.afterChangeMonth,
+	                            beforeChangeDay: settings.beforeChangeDay,
+	                            afterChangeDay: settings.afterChangeDay
+	                        });
+	
+	                        data = $this.data('monPickr')
+	                    }
+	
+	                    //#region INIT DOM ELEMENTS
+	
+	                    //#region Month Picker
+	
+	                    $this.addClass('monPickr');
+	                    data.btnPrev = $('<a href="javascript:;" class="prev" title="' + data.prevText + '"><b>&lsaquo;</b></a>');
+	                    data.btnNext = $('<a href="javascript:;" class="next" title="' + data.nextText + '"><b>&rsaquo;</b></a>');
+	                    data.lblSelectedMonth = $('<span class="selectedMonth" title="' + data.monPickrText + '"></span>');
+	                    _setMonthLabel(data);
+	                    $this.append(data.btnPrev, data.lblSelectedMonth, data.btnNext);
+	
+	                    $this.wrap('<div class="monPickrWrap" style="z-index: ' + data.zIndex + '" />');
+	                    data.wrap = $this.parents('.monPickrWrap');
+	                    data.wrap.wrap('<div class="monPickrWrapParent" style="position: relative" />')
+	                        .css({ 'position': 'absolute' }).parent().width(data.wrap.outerWidth()).height(data.wrap.outerHeight());
+	
+	                    data.dropDown = $('<div class="monPickrDropDown" />');
+	
+	                    var currentYear = data.minDate.getFullYear(),
+	                        currentMonth = data.minDate.getMonth(),
+	                        minYear = data.minDate.getFullYear(),
+	                        minMonth = data.minDate.getMonth(),
+	                        maxYear = data.maxDate.getFullYear(),
+	                        maxMonth = data.maxDate.getMonth(),
+	                        dropDownInner, temp;
+	
+	                    dropDownInner = '<ul class="monPickrDropDownInner">';
+	
+	                    if (data.sortDesc) {
+	                        currentYear = data.maxDate.getFullYear();
+	                        currentMonth = data.maxDate.getMonth();
+	
+	                        while (currentYear > minYear || (currentYear == minYear && currentMonth >= minMonth)) {
+	                            temp = currentYear == data.year ? 'selected' : '';
+	                            temp += data.expandYearOnhover ? ' hover' : '';
+	
+	                            dropDownInner +=
+	                            '<li class="year ' + temp + '">' +
+	                                '<a year="' + currentYear + '" class="' + temp + '" href="javascript:;">' +
+	                                    currentYear +
+	                                '</a>' +
+	                            '</li>';
+	
+	                            if (currentYear == data.year) {
+	                                dropDownInner += '<li class="monthWrap selected" year="' + currentYear + '" style="display: list-item"><ul>';
+	                            } else {
+	                                dropDownInner += '<li class="monthWrap" year="' + currentYear + '"><ul>';
+	                            }
+	
+	                            while ((currentYear > minYear || (currentYear == minYear && currentMonth >= minMonth)) && currentMonth >= 0) {
+	                                temp = currentYear == data.year && currentMonth == data.month ? 'class="selected"' : '';
+	
+	                                dropDownInner +=
+	                                '<li>' +
+	                                    '<a month="' + (currentMonth + 1) + '" ' + temp + ' href="javascript:;">' +
+	                                        new Date(currentYear, currentMonth).toStringFormat('MMMM') + '</a>' +
+	                                '<li>';
+	
+	                                currentMonth--;
+	                            }
+	
+	                            dropDownInner += '</ul></li>';
+	
+	                            currentYear--;
+	                            currentMonth = 11;
+	                        }
+	                    } else {
+	                        while (currentYear < maxYear || (currentYear == maxYear && currentMonth <= maxMonth)) {
+	                            temp = currentYear == data.year ? 'selected' : '';
+	                            temp += data.expandYearOnhover ? ' hover' : '';
+	
+	                            dropDownInner +=
+	                            '<li class="year ' + temp + '">' +
+	                                '<a year="' + currentYear + '" class="' + temp + '" href="javascript:;">' +
+	                                    currentYear +
+	                                '</a>' +
+	                            '</li>';
+	
+	                            if (currentYear == data.year) {
+	                                dropDownInner += '<li class="monthWrap selected" year="' + currentYear + '" style="display: list-item"><ul>';
+	                            } else {
+	                                dropDownInner += '<li class="monthWrap" year="' + currentYear + '"><ul>';
+	                            }
+	
+	                            while ((currentYear < maxYear || (currentYear == maxYear && currentMonth <= maxMonth)) && currentMonth < 12) {
+	                                temp = currentYear == data.year && currentMonth == data.month ? 'class="selected"' : '';
+	
+	                                dropDownInner +=
+	                                '<li>' +
+	                                    '<a month="' + (currentMonth + 1) + '" ' + temp + ' href="javascript:;">' +
+	                                        new Date(currentYear, currentMonth).toStringFormat('MMMM') + '</a>' +
+	                                '<li>';
+	
+	                                currentMonth++;
+	                            }
+	
+	                            dropDownInner += '</ul></li>';
+	
+	                            currentYear++;
+	                            currentMonth = 0;
+	                        }
+	                    }
+	
+	                    dropDownInner += '</ul>';
+	
+	                    data.dropDown.append(dropDownInner);
+	                    $this.after(data.dropDown);
+	
+	                    _checkReachBound(data, year, month);
+	
+	                    //#region Events
+	
+	                    // Toggle the dropdown when users click on selected month label
+	                    data.wrap.on('click', function (e) {
+	                        if ($(e.target).hasClass('selectedMonth')) {
+	                            if (data.dropDown.is(':hidden')) {
+	                                _showDropDown(data, data);
+	                            } else {
+	                                _hideDropDown(data, data);
+	                            }
+	                        }
+	                        e.stopPropagation();
+	                    });
+	
+	                    // Collapse all dropdowns when users click outside the picker
+	                    $('html').on('click', function () {
+	                        _hideDropDown(data, data);
+	                    });
+	
+	                    // Toggle a dropdown when users click/hover on its "the year" link
+	                    var expectedEvent = data.expandYearOnhover ? 'mouseenter' : 'click';
+	                    data.dropDown.on(expectedEvent, '.year a', function () {
+	                        var $this = $(this), year = $this.attr('year'),
+	                            thisIsNotSelected = $this.hasClass('selected') == false;
+	
+	                        switch (expectedEvent) {
+	                            case 'mouseenter':
+	                                {
+	                                    if (thisIsNotSelected) {
+	                                        _hideCurrentYear(data);
+	                                        _showSelectedYear(data, year); // expand this
+	                                    }
+	                                } break;
+	                            case 'click':
+	                                {
+	                                    _hideCurrentYear(data);
+	
+	                                    if (thisIsNotSelected) {
+	                                        // We have to expand "the year" which was clicked.
+	                                        // Else means this is the current year itself --> we don't need to expand it
+	                                        _showSelectedYear(data, year);
+	                                    }
+	
+	                                    data.dropDown.find('.year a.selected:first').parent().addClass('selected');
+	                                } break;
+	                        }
+	                    });
+	
+	                    // Change current month when users select a month
+	                    data.dropDown.on('click', '.monthWrap a[month]', function () {
+	                        var $this = $(this);
+	                        _selectMonth(data, $this.parents('.monthWrap').attr('year'), $this.attr('month') - 1);
+	                        _hideDropDown(data, data);
+	                    });
+	
+	                    // Move to next month when users click next button
+	                    data.btnNext.on('click', function () {
+	                        var nextMonth = data.month + 1,
+	                            year = data.year;
+	
+	                        if (nextMonth > 11) {
+	                            nextMonth = 0;
+	                            year++;
+	                        }
+	
+	                        if (_validateMonth(data.minDate, data.maxDate, year, nextMonth)) {
+	                            _selectMonth(data, year, nextMonth);
+	                        }
+	                    });
+	
+	                    // Move to previous month when users click prev button
+	                    data.btnPrev.on('click', function () {
+	                        var prevMonth = data.month - 1,
+	                            year = data.year;
+	
+	                        if (prevMonth < 0) {
+	                            prevMonth = 11;
+	                            year--;
+	                        }
+	
+	                        if (_validateMonth(data.minDate, data.maxDate, year, prevMonth)) {
+	                            _selectMonth(data, year, prevMonth);
+	                        }
+	                    });
+	
+	                    //#endregion Events
+	
+	                    //#endregion Month Picker
+	
+	                    //#region Day Picker
+	
+	                    if (data.showDateRange) { // Renders date range component (fromDate & toDate)
+	                        var renderDayPicker = function (data, dayPickr, dayPickrId, selectedDay) {
+	                            dayPickr = $('#' + dayPickrId);
+	
+	                            if (dayPickr.length > 0) {
+	                                dayPickr.addClass('dayPickr')
+	                                    .append('<span class="selectedDay">' + selectedDay + '</span>')
+	                                    .append('<a class="darr" href="javascript:;"><b>v</b></a>')
+	                                    .wrap('<div class="selectedDayWrap" style="z-index: ' + data.zIndex + '" />');
+	
+	                                dayPickr.wrap = dayPickr.parents('.selectedDayWrap')
+	                                    .wrap('<div class="selectedDayWrapParent" style="position: relative" />')
+	                                    .css({ 'position': 'absolute' });
+	                                dayPickr.wrap.parent().width(dayPickr.wrap.outerWidth()).height(dayPickr.wrap.outerHeight());
+	                                dayPickr.dropDown = $('<div class="dayPickrDropDown" />');
+	
+	                                var currentDay = 1,
+	                                    minDay = _getMinDayInMonth(data.minDate, data.year, data.month),
+	                                    maxDay = _getMaxDayInMonth(data.maxDate, data.year, data.month),
+	                                    dayPickrDropDown;
+	
+	                                dayPickrDropDown = '<ul>';
+	
+	                                while (currentDay <= 31) {
+	                                    temp = currentDay < minDay || currentDay > maxDay ? 'style="display: none"' : '';
+	                                    dayPickrDropDown += '<li ' + temp + '><a href="javascript:;">' + currentDay + '</a></li>';
+	                                    currentDay++;
+	                                }
+	
+	                                dayPickrDropDown += '</ul>';
+	
+	                                dayPickr.dropDown.append(dayPickrDropDown);
+	                                dayPickr.after(dayPickr.dropDown);
+	
+	                                return dayPickr;
+	                            } else {
+	                                logger.error('Oops! fromDayId (' + data.fromDayId + ') or toDayId (' + data.toDayId + ') does not exist');
+	                            }
+	                        }
+	
+	                        data.ddlFromDate = renderDayPicker(data, data.ddlFromDate, data.fromDayId, data.fromDay);
+	                        data.ddlToDate = renderDayPicker(data, data.ddlToDate, data.toDayId, data.toDay);
+	
+	                        //#region Events
+	
+	                        var dayExpectedEvent = data.expandDayOnhover ? 'hover' : 'click',
+	                            toggleDayPickr = function (e) {
+	                                if (data.isClosingDropDown) {
+	                                    data.isClosingDropDown = false;
+	                                    return;
+	                                }
+	
+	                                var target = e.data.target;
+	
+	                                if (target.dropDown.is(':hidden')) {
+	                                    _showDropDown(data, target);
+	                                } else {
+	                                    _hideDropDown(data, target);
+	                                }
+	                                e.stopPropagation();
+	                            };
+	
+	                        // Toggle the day picker dropdown when users click/hover on selected day label
+	                        data.ddlFromDate.wrap.on(dayExpectedEvent, { target: data.ddlFromDate }, toggleDayPickr);
+	                        data.ddlToDate.wrap.on(dayExpectedEvent, { target: data.ddlToDate }, toggleDayPickr);
+	
+	                        if (!data.expandDayOnhover) {
+	                            // Collapse all day picker dropdowns when users click outside the picker
+	                            $('html').on('click', function () {
+	                                _hideDropDown(data, data.ddlFromDate);
+	                                _hideDropDown(data, data.ddlToDate);
+	                            });
+	                        }
+	
+	                        var changeCurrentDay = function (e) {
+	                            var $this = $(this),
+	                                selectedDay = $this.find('a').html();
+	
+	                            // prevent conflict when closing day dropdown
+	                            if (data.expandDayOnhover) data.isClosingDropDown = true;
+	
+	                            $this.parents('.dayPickrDropDown').hide();
+	                            _selectDay(data, e.data.target, selectedDay, e.data.isFromDay);
+	
+	                            e.stopPropagation();
+	                        };
+	
+	                        // Change current fromDay/toDay when users select a day
+	                        data.ddlFromDate.dropDown.on('click', 'li', { target: data.ddlFromDate, isFromDay: true }, changeCurrentDay);
+	                        data.ddlToDate.dropDown.on('click', 'li', { target: data.ddlToDate, isFromDay: false }, changeCurrentDay);
+	
+	                        //#endregion Events
+	                    }
+	
+	                    //#endregion Day Picker
+	
+	                    //#endregion INIT DOM ELEMENTS
+	                });
+	            },
+	
+	            // Returns the current month or null if the invoker's data does not exist
+	            // format may be '' which tell this to use default format
+	            getMonth: function (format) {
+	                var data = _getData(this);
+	                if (!data) return null;
+	
+	                if (format != undefined) {
+	                    format = format.length > 0 ? format : data.monthFormat;
+	                    return new Date(data.year, data.month).toStringFormat(format);
+	                } else {
+	                    return data.month + 1;
+	                }
+	            },
+	
+	            // Sets the current month for the month picker.
+	            // value may be a Date object or a string but it must be a full date (include year, month & day)
+	            setMonth: function (value) {
+	                var data = _getData(this);
+	                if (!data) return;
+	
+	                var year, month, _value = value;
+	
+	                if ((typeof value).toLowerCase() != 'object') {
+	                    _value = new Date(_value);
+	                }
+	
+	                year = _value.getFullYear();
+	                month = _value.getMonth();
+	
+	                if (isInteger(year) && isInteger(month)) {
+	                    if (_validateMonth(data.minDate, data.maxDate, year, month)) {
+	                        _selectMonth(data, year, month);
+	                    } else {
+	                        logger.error('Oops! Can\'t set month because input (' + value.toString() +
+	                            ') is out of range (' + data.minDate.toStringFormat('MMM yyyy') + ' ~ ' + data.maxDate.toStringFormat('MMM yyyy') + ')');
+	                    }
+	                } else {
+	                    logger.error('Oops! Can\'t set month because of invalid input (' + value.toString() + ')');
+	                }
+	            },
+	
+	            // Returns the current fromDate or null if the invoker's data does not exist
+	            // format may be '' which tell this to use default format
+	            getFromDate: function (format) {
+	                var data = _getData(this);
+	                if (!data) return null;
+	
+	                if (format != undefined) {
+	                    format = format.length > 0 ? format : data.monthFormat;
+	                    return data.fromDate.toStringFormat(format);
+	                }
+	
+	                return data.fromDate;
+	            },
+	
+	            // Returns the current toDate or null if the invoker's data does not exist
+	            // format may be '' which tell this to use default format
+	            getToDate: function (format) {
+	                var data = _getData(this);
+	                if (!data) return null;
+	
+	                if (format != undefined) {
+	                    format = format.length > 0 ? format : data.monthFormat;
+	                    return data.toDate.toStringFormat(format);
+	                }
+	
+	                return data.toDate;
+	            },
+	
+	            // Sets the current fromDay
+	            setFromDay: function (value) {
+	                var data = _getData(this);
+	                if (!data) return;
+	
+	                var selectedDate = new Date(data.year, data.month, value);
+	
+	                if (isInteger(value) && _validateDate(data.minDate, data.maxDate, data.year, data.month, selectedDate)) {
+	                    _selectDay(data, data.ddlFromDate, value, true);
+	                } else {
+	                    logger.error('Oops! input value (' + value + ') is invalid');
+	                }
+	            },
+	
+	            // Sets the current toDay
+	            setToDay: function (value) {
+	                var data = _getData(this);
+	                if (!data) return;
+	
+	                var selectedDate = new Date(data.year, data.month, value);
+	
+	                if (isInteger(value) && _validateDate(data.minDate, data.maxDate, data.year, data.month, selectedDate)) {
+	                    _selectDay(data, data.ddlToDate, value, false);
+	                } else {
+	                    logger.error('Oops! input value (' + value + ') is invalid');
+	                }
+	            },
+	
+	            // Resets picker to its data-original initial state
+	            reset: function () {
+	                var data = _getData(this);
+	                if (!data) return;
+	
+	                _selectMonth(data, data.originalYear, data.originalMonth);
+	            }
+	        };
+	
+	        /*
+	        * Public methods
+	        */
+	
+	        $.fn.monPickr = function (method) {
+	            if (_methods[method]) { // call a method but init
+	                return _methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+	            } else if (typeof method === 'object' || !method) { // call init method
+	                return _methods.init.apply(this, arguments);
+	            } else { //
+	                logger.error('Oops! Method "' + method + '" does not exist on jQuery.monPickr');
+	            }
+	        };
+	    })(jQuery);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }
