@@ -7,25 +7,12 @@
     <form id="livereport" name="livereport" method="post" action="@Url.Content("~/LiveReport?isViewedHistory=true")">
         @Html.AntiForgeryToken()
         <div class="row">
-            @*<div class="input-field input col l2 m3 s12 calendar">
-                <input name="DateRange" autocomplete="off"
-                       data-original-from="@Model.Param.FromDate.ToString("MM/dd/yyyy")"
-                       data-original-to="@Model.Param.ToDate.ToString("MM/dd/yyyy")"
-                       id="DateRange" class="datepicker" type="text" />
-                <input name="FromDate" id="FromDate" type="hidden" />
-                <input name="ToDate" id="ToDate" type="hidden" />
+            <div class="input-field input col l3 m3 s12 calendar">
+                <input name="DateRange" autocomplete="off" id="DateRange" class="datepicker" type="text" />
+                <input name="FromDate" id="FromDate" type="hidden" data-original-from="@Model.Param.FromDate.ToString("MM/dd/yyyy")"/>
+                <input name="ToDate" id="ToDate" type="hidden" data-original-to="@Model.Param.ToDate.ToString("MM/dd/yyyy")"/>
 
                 <label for="DateRange" class="active">@ViewResources.ViewDataInMonth</label>
-                <span class="icon icon-calendar"></span>
-            </div>*@
-            <div class="input-field input col l2 m3 s12 calendar">
-                <input name="FromDate" id="FromDate" class="datepicker" type="text" autocomplete="off" data-original-from="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
-                <label for="FromDate" class="active">@ViewResources.Fromdate</label>
-                <span class="icon icon-calendar"></span>
-            </div>
-            <div class="input-field input col l2 m3 s12 calendar">
-                <input name="ToDate" id="ToDate" class="datepicker" type="text" autocomplete="off" data-original-to="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
-                <label for="ToDate" class="active">@ViewResources.Todate</label>
                 <span class="icon icon-calendar"></span>
             </div>
             <div class="input-field col l2 m3 s12">

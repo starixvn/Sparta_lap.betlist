@@ -64,7 +64,9 @@ define(
         }
 
         function initDateRangePicker() {
-            $(function () {              
+            $(function () {
+                var $dateRange = $('#DateRange');
+
                 var $from = $('#FromDate');
                 var $to = $('#ToDate');
 
@@ -74,11 +76,10 @@ define(
                 function setRangeDate(start, end) {
                     $from.val(start.format('MM/DD/YYYY'));
                     $to.val(end.format('MM/DD/YYYY'));
+                    $dateRange.val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
                 }
 
-                var $picker = $('.datepicker');
-
-                $picker.daterangepicker({
+                $dateRange.daterangepicker({
                     startDate: start,
                     endDate: end,
                     ranges: {
@@ -95,7 +96,7 @@ define(
                     showDropdowns: true
                 }, setRangeDate);
 
-                $picker.on('apply.daterangepicker', function (ev, picker) {
+                $dateRange.on('apply.daterangepicker', function (ev, picker) {
                     setRangeDate(picker.startDate, picker.endDate);
                 });
 
