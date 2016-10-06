@@ -400,4 +400,14 @@ $(document).ready(function () {
 
     $(".toggleMenubar").sideNav2();
 
+    $("#CustomerSearchForm").submit(function (e) {
+        e.preventDefault();
+
+        var userName = $('#searchbox').val();
+        userName = userName || "";
+
+        var url = $("#RootUrl").val() + "Customer/CustomerList?userName=" + userName;
+
+        top.main.location.href = url;
+    });
 });

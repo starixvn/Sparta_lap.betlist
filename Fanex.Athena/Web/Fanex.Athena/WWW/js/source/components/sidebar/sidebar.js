@@ -155,8 +155,6 @@
                 }
             };
 
-
-
             if (!touch) {
                 $this.on('mouseover.opensub', '> li > .collapsible-header', function (e) {
                     if ($('body').hasClass('site-menubar-fold'))

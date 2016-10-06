@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -751,6 +751,7 @@
     <Content Include="www\js\source\components\flatpopup\jquery.flatpopup.js" />
     <Content Include="www\js\source\components\navbar\navbar.js" />
     <Content Include="www\js\source\components\sidebar\sidebar.js" />
+    <Content Include="www\js\source\pages\home\home.js" />
     <Content Include="www\js\source\pages\livereport\livereport.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\webpackconfig\build\utils.js" />

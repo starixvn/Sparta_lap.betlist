@@ -414,6 +414,16 @@ webpackJsonp([7],{
 	
 	    $(".toggleMenubar").sideNav2();
 	
+	    $("#CustomerSearchForm").submit(function (e) {
+	        e.preventDefault();
+	
+	        var userName = $('#searchbox').val();
+	        userName = userName || "";
+	
+	        var url = $("#RootUrl").val() + "Customer/CustomerList?userName=" + userName;
+	
+	        top.main.location.href = url;
+	    });
 	});
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(1)))
@@ -579,8 +589,6 @@ webpackJsonp([7],{
 	                    }
 	                }
 	            };
-	
-	
 	
 	            if (!touch) {
 	                $this.on('mouseover.opensub', '> li > .collapsible-header', function (e) {

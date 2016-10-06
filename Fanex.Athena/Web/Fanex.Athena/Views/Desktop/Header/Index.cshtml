@@ -21,11 +21,11 @@
                 <ul id="profile" class="dropdown-content profile-items">
                     <li>
                         <i class="icon icon-account"></i>
-                        <span>@ViewResources.ChangePassword</span>
+                        <a href="@Url.Content("~/Authorization/ChangePassword")" target="main">@ViewResources.ChangePassword</a>
                     </li>
                     <li>
                         <i class="icon icon-logout"></i>
-                        <span>@ViewResources.Logout</span>
+                        <a href="@Url.Content("~/Authorization/SignOut")">@ViewResources.Logout</a>
                     </li>
                 </ul>
             </div>
@@ -74,7 +74,7 @@
             </ul>
         </div>
 
-        <form class="search_bar" id="search">
+        <form class="search_bar" id="CustomerSearchForm">
             <input type="text" autocomplete="off" name="query" id="searchbox" class="placeholder" placeholder="Search">
             <label id="label-search" for="search" class="active"><i class="icon icon-search"></i></label>
         </form>

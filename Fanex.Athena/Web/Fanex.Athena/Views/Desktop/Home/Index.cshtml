@@ -17,6 +17,7 @@
     <link href="~/www/css/build/pages/layout/layout.css" rel="stylesheet" />
 </head>
 <body>
+    <input type="hidden" id="RootUrl" value="@Url.Content("~")" />
     <header>
         <div class="navbar-fixed">
             @{ Html.RenderAction("Index", "Header"); }
