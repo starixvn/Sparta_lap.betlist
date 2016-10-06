@@ -13,7 +13,7 @@ var cssPaths = {
     main: ["./www/css/source/main.css", "./www/css/source/extensions/main-ex.scss"],
 
     login: "./www/css/source/pages/login.css",
-    livereport: ["./www/css/source/pages/liveReport.css", "./www/css/source/components/flatpopup/jquery.flatpopup.css"]
+    livereport: ["./www/css/source/pages/liveReport.css", "./www/css/source/components/flatpopup/flatpopup.scss"]
 }
 
 var scriptPaths = {

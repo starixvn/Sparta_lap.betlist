@@ -1,0 +1,76 @@
+﻿.flat-popup {
+    background: #fff;
+    box-shadow: 0 0 10px #ccc;
+    float: left;
+    left: 50%;
+    position: fixed;
+    top: 300px;
+    z-index: 99999;
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+
+    .title-bar {
+        background-color: #4C6375;
+        padding: 7px 20px;
+        position: relative;
+
+        .txt-title {
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .popup-close {
+            color: white;
+            display: block;
+            height: 10px;
+            width: 10px;
+            position: absolute;
+            right: 10px;
+            top: 8px;
+        }
+    }
+
+    .wrapContent {
+        overflow-y: scroll;
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: bold;
+        }
+
+        .rule {
+            padding: 8px 10px;
+
+            ul, div {
+                color: #515151;
+                font-size: 12px;
+                line-height: 20px;
+                margin: 0;
+                padding-left: 15px;
+            }
+
+            h4 {
+                color: #515151;
+                font-size: 12px;
+                margin: 0 0 5px;
+            }
+
+            .newline {
+                padding-top: 12px;
+            }
+
+            &:last-child {
+                border-bottom: medium none;
+            }
+        }
+
+        .line {
+            border: none;
+            overflow: auto;
+            width: auto;
+            background-color: #ebeaea;
+            height: 1px;
+            margin: 0 10px;
+        }
+    }
+}
