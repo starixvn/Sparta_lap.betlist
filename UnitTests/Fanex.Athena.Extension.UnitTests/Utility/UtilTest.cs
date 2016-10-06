@@ -23,12 +23,17 @@
         }
 
         [TestCase("123456", false)]
+        [TestCase("123a456", false)]
+        [TestCase("1abcdef", false)]
         [TestCase("123ab", false)]
+        [TestCase("123ab$", true)]
         [TestCase("1234aa", true)]
-        public void CheckValidPassword_WhenCall_ReturnCorrectResult(string languageCode, bool expected)
+        [TestCase("1234Aa", true)]
+        [TestCase("1a2b3c", true)]
+        public void IsPasswordValid_WhenCall_ReturnCorrectResult(string languageCode, bool expected)
         {
             // Action
-            var result = Util.CheckValidPassword(languageCode);
+            var result = Util.IsPasswordValid(languageCode);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

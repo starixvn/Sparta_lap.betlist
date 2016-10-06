@@ -303,7 +303,7 @@ namespace Fanex.Athena.Controllers
         [CustomValidateAntiForgery]
         public ActionResult ChangePassword(string oldPassword, string newPassword)
         {
-            if (string.IsNullOrEmpty(oldPassword) || !Util.CheckValidPassword(newPassword))
+            if (string.IsNullOrEmpty(oldPassword) || !Util.IsPasswordValid(newPassword))
             {
                 return Json(new
                 {
