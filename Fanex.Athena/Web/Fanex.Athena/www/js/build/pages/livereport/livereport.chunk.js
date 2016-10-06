@@ -95,14 +95,15 @@ webpackJsonp([8],[
 	                    locale: {
 	                        format: 'MM/DD/YYYY'
 	                    },
-	                    showDropdowns: true
+	                    showDropdowns: true,
+	                    linkedCalendars: false
 	                }, setRangeDate);
 	
 	                $dateRange.on('apply.daterangepicker', function (ev, picker) {
 	                    setRangeDate(picker.startDate, picker.endDate);
 	                });
 	
-	                setRangeDate(start, end);
+	                //setRangeDate(start, end);
 	            });
 	        }
 	        function initMonthPicker() {
