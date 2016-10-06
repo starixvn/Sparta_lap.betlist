@@ -18,8 +18,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         public int LiveIndicator { get; set; }
 
-        public bool IsExportExcel { get; set; }
-
         public DateTime MinDate
         {
             get

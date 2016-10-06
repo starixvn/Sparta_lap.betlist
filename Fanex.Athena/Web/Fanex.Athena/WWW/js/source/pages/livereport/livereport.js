@@ -65,8 +65,9 @@ define(
 
         function initDateRangePicker() {
             $(function () {
-                var start = moment().subtract(29, 'days');
-                var end = moment();
+                var $dateRange = $('#DateRange');
+                var start = moment($dateRange.attr('data-original-from'), 'MM/DD/YYYY');
+                var end = moment($dateRange.attr('data-original-to'), 'MM/DD/YYYY');
 
                 function setRangeDate(start, end) {
                     $('#FromDate').val(start.format('MM/DD/YYYY'));
