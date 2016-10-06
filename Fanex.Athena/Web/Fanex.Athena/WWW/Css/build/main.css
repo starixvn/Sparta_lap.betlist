@@ -1069,16 +1069,15 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   .picker__box {
     border: none; } }
 
-body {
-  height: auto; }
+.body {
+  height: auto;
+  position: relative; }
 
 .loading {
   display: block;
-  position: absolute;
-  top: 40%;
+  position: fixed;
+  top: 50%;
   left: 40%;
-  width: 100px;
-  height: 100px;
   z-index: 10001; }
   .loading .circle {
     background: initial; }

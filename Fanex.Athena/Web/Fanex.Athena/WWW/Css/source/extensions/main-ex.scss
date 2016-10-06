@@ -1,14 +1,13 @@
-﻿body{
+﻿.body{
     height: auto;
+    position: relative;
 }
 
 .loading {
     display: block;
-    position: absolute;
-    top: 40%;
+    position: fixed;
+    top: 50%;
     left: 40%;
-    width: 100px;
-    height: 100px;
     z-index: 10001;
 
     .circle{

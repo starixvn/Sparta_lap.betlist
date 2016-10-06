@@ -66,18 +66,21 @@ webpackJsonp([8],[
 	        }
 	
 	        function initDateRangePicker() {
-	            $(function () {
-	                var $dateRange = $('#DateRange');
-	                var start = moment($dateRange.attr('data-original-from'), 'MM/DD/YYYY');
-	                var end = moment($dateRange.attr('data-original-to'), 'MM/DD/YYYY');
+	            $(function () {              
+	                var $from = $('#FromDate');
+	                var $to = $('#ToDate');
+	
+	                var start = moment($from.attr('data-original-from'), 'MM/DD/YYYY');
+	                var end = moment($to.attr('data-original-to'), 'MM/DD/YYYY');
 	
 	                function setRangeDate(start, end) {
-	                    $('#FromDate').val(start.format('MM/DD/YYYY'));
-	                    $('#ToDate').val(end.format('MM/DD/YYYY'));
-	                    $('#DateRange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+	                    $from.val(start.format('MM/DD/YYYY'));
+	                    $to.val(end.format('MM/DD/YYYY'));
 	                }
 	
-	                $('#DateRange').daterangepicker({
+	                var $picker = $('.datepicker');
+	
+	                $picker.daterangepicker({
 	                    startDate: start,
 	                    endDate: end,
 	                    ranges: {
@@ -94,7 +97,7 @@ webpackJsonp([8],[
 	                    showDropdowns: true
 	                }, setRangeDate);
 	
-	                $('#DateRange').on('apply.daterangepicker', function (ev, picker) {
+	                $picker.on('apply.daterangepicker', function (ev, picker) {
 	                    setRangeDate(picker.startDate, picker.endDate);
 	                });
 	
@@ -130,8 +133,8 @@ webpackJsonp([8],[
 	            var productCode = $(target).attr("data-product-code");
 	            var data = {
 	                productCode: productCode,
-	                FromDate: $("#DateRange").attr('data-original-from').toString("MM/dd/yyyy"),
-	                ToDate: $("#DateRange").attr('data-original-to').toString("MM/dd/yyyy"),
+	                FromDate: $("#FromDate").attr('data-original-from').toString("MM/dd/yyyy"),
+	                ToDate: $("#ToDate").attr('data-original-to').toString("MM/dd/yyyy"),
 	                BaseCurrency: $("#BaseCurrency").attr('data-original'),
 	                LiveIndicator: $("#LiveIndicator").attr('data-original')
 	            };
