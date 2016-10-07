@@ -752,6 +752,7 @@
     <Content Include="www\js\source\components\monthpicker\monpickr.js" />
     <Content Include="www\js\source\components\navbar\navbar.js" />
     <Content Include="www\js\source\components\sidebar\sidebar.js" />
+    <Content Include="www\js\source\pages\home\home.js" />
     <Content Include="www\js\source\pages\livereport\livereport.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\webpackconfig\build\utils.js" />

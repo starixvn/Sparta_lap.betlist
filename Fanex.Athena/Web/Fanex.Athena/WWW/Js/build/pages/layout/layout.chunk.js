@@ -3,13 +3,14 @@ webpackJsonp([7],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(27);
-	module.exports = __webpack_require__(28);
+	__webpack_require__(30);
+	__webpack_require__(31);
+	module.exports = __webpack_require__(32);
 
 
 /***/ },
 
-/***/ 27:
+/***/ 30:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery, $) {(function ($) {
@@ -432,7 +433,7 @@ webpackJsonp([7],{
 
 /***/ },
 
-/***/ 28:
+/***/ 31:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {(function ($) {
@@ -647,7 +648,7 @@ webpackJsonp([7],{
 	                    temp.parent().find('.collapsible-header').trigger("click");
 	                }
 	
-	                activeMenuItem($element);
+	                activeMenuItem.call($this, $element);
 	            });
 	
 	            // Open first active
@@ -684,6 +685,87 @@ webpackJsonp([7],{
 	    });
 	}(jQuery));
 	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+
+/***/ 32:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
+	
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    var rootUrl;
+	    var $searchBox;
+	
+	    initialize();
+	
+	    function initialize() {
+	        initVariables();
+	        initEvent();
+	    }
+	
+	    function initVariables() {
+	        $searchBox = $('#searchbox');
+	        rootUrl = $('#RootUrl').val();
+	    }
+	
+	    function initEvent() {
+	        
+	
+	        $searchBox.keyup(function (e) {
+	            if (!e) {
+	                e = window.event;
+	            }
+	            var key = (e.keyCode) ? e.keyCode : e.which;
+	            if (key === 13) {
+	                searchByUserName();
+	                return false;
+	            }
+	            else {
+	                suggestCustomer(e.target.value);
+	            }
+	        });     
+	    }
+	
+	    function searchByUserName() {
+	        var userName = $searchBox.val();
+	        userName = null == userName ? "" : userName;
+	
+	        var url = rootUrl + "Customer/CustomerList?userName=" + userName;
+	        top.main.location.href = url;
+	    }
+	
+	    function suggestCustomer(query) {
+	        var url = rootUrl + "CustomerAPI/SearchCustomer?licenseeType=&currencyId=0&query=" + query;
+	
+	        $.ajax({
+	            type: "GET",
+	            dataType: "json",
+	            url: url,
+	            success: function (response) {
+	                var suggestions = response.suggestions;
+	
+	                if (suggestions && suggestions.length > 0) {
+	                    var $suggestionContent = $('.autocomplete-content');
+	                    $suggestionContent.empty();
+	
+	                    suggestions.map(function (item) {
+	                        $suggestionContent.append('<li><span><span class="highlight">' + query + '</span>' + item.substring(item.indexOf(query)) + '</span></li>');
+	                    });
+	
+	                    $searchBox.autocomplete({
+	                        data: {
+	                            "Apple": null,
+	                            "Microsoft": null,
+	                            "Google": 'http://placehold.it/250x250'
+	                        }
+	                    });
+	                }
+	            }
+	        });
+	    }
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }

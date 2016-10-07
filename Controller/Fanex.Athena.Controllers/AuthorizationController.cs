@@ -75,27 +75,9 @@ namespace Fanex.Athena.Controllers
 
             SetErrorForView(0, string.Empty);
             ViewBag.LogInToken = CreateToken();
-            return View("~/Views/Authorization/SignIn.cshtml");
+            return View(GetNewViewPath("~/Views/Authorization/SignIn.cshtml"));
         }
 
-        [CheckUMFilter]
-        [AllowAnonymous]
-        [HttpGet]
-        public ActionResult NewSignIn()
-        {
-            var requestHost = Request.Url.AbsoluteUri;
-
-            var isInternalDomain = requestHost.Contains(AppSettings.GetValue("internaldomain"));
-
-            if (!isInternalDomain)
-            {
-                return RedirectToAction("LocationRestriction", "Utility");
-            }
-
-            SetErrorForView(0, string.Empty);
-            ViewBag.LogInToken = CreateToken();
-            return View("~/Views/Desktop/Authorization/SignIn.cshtml");
-        }
 
         /// <summary>
         /// The sign in page.
@@ -180,7 +162,7 @@ namespace Fanex.Athena.Controllers
             }
 
             ViewBag.LogInToken = CreateToken();
-            return View("~/Views/Authorization/SignIn.cshtml");
+            return View(GetNewViewPath("~/Views/Authorization/SignIn.cshtml"));
         }
 
         /// <summary>

@@ -210,7 +210,7 @@
                     temp.parent().find('.collapsible-header').trigger("click");
                 }
 
-                activeMenuItem($element);
+                activeMenuItem.call($this, $element);
             });
 
             // Open first active

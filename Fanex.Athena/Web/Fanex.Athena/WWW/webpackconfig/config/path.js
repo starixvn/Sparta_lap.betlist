@@ -12,14 +12,14 @@ var cssPaths = {
     layout: ["./www/css/source/components/navbar/navBar.css", "./www/css/source/components/sidebar/sideBar.css"],
     main: ["./www/css/source/main.css", "./www/css/source/extensions/main-ex.scss"],
 
-    login: "./www/css/source/pages/login.css",
+    login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],
     livereport: ["./www/css/source/pages/liveReport.css", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss"]
 }
 
 var scriptPaths = {
     build: "www/js/build",
 
-    layout: ["./www/js/source/components/navbar/navbar.js", "./www/js/source/components/sidebar/sidebar.js"],
+    layout: ["./www/js/source/components/navbar/navbar.js", "./www/js/source/components/sidebar/sidebar.js", "./www/js/source/pages/home/home.js"],
 
     livereport: "./www/js/source/pages/livereport/livereport.js",
 }
