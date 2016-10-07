@@ -21,7 +21,7 @@ pushd ..\
 
 REM NUnit
 REM OpenCover
-set command=Dependencies\OpenCover.4.5.3723\OpenCover.Console.exe -register:user -target:"Dependencies\NUnit.ConsoleRunner.3.4.1\tools\nunit3-console.exe" -targetargs:"%fileList% --result=UnitTest.xml" -output:"UnitTestCoverage.xml"
+set command=Dependencies\OpenCover.4.5.3723\OpenCover.Console.exe -register:user -target:"Dependencies\NUnit.ConsoleRunner.3.4.1\tools\nunit3-console.exe" -targetargs:"%fileList% --result=UnitTest.xml ;format=nunit2" -output:"UnitTestCoverage.xml"
 call %command%
 if %errorlevel% neq 0 goto error
 
