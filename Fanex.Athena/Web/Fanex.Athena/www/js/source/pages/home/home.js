@@ -1,10 +1,10 @@
 ﻿"use strict";
 
-define([], function () {
+define(["materialize-autocomplete"], function () {
     var rootUrl;
     var $searchBox;
 
-    initialize();
+    $(initialize);
 
     function initialize() {
         initVariables();
@@ -17,8 +17,6 @@ define([], function () {
     }
 
     function initEvent() {
-        
-
         $searchBox.keyup(function (e) {
             if (!e) {
                 e = window.event;
@@ -28,10 +26,9 @@ define([], function () {
                 searchByUserName();
                 return false;
             }
-            else {
-                suggestCustomer(e.target.value);
-            }
-        });     
+        });
+
+        initAutoComplete();
     }
 
     function searchByUserName() {
@@ -42,33 +39,41 @@ define([], function () {
         top.main.location.href = url;
     }
 
-    function suggestCustomer(query) {
-        var url = rootUrl + "CustomerAPI/SearchCustomer?licenseeType=&currencyId=0&query=" + query;
+    function initAutoComplete() {
+        var autocomplete = $searchBox.materialize_autocomplete({
+            ignoreCase: false,
+            multiple: {
+                enable: false
+            },
+            dropdown: {
+                el: '#suggestionDropdown'
+            },
+            getData: function (value, callback) {
+                var url = rootUrl + "CustomerAPI/SearchCustomer?licenseeType=&currencyId=0&query=" + value;
 
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: url,
-            success: function (response) {
-                var suggestions = response.suggestions;
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: url,
+                    success: function (response) {
+                        var suggestions = response.suggestions;
 
-                if (suggestions && suggestions.length > 0) {
-                    var $suggestionContent = $('.autocomplete-content');
-                    $suggestionContent.empty();
+                        if (suggestions && suggestions.length > 0) {
+                            var data = suggestions.map(function (item) {
+                                return { id: item, text: item };
+                            });
 
-                    suggestions.map(function (item) {
-                        $suggestionContent.append('<li><span><span class="highlight">' + query + '</span>' + item.substring(item.indexOf(query)) + '</span></li>');
-                    });
-
-                    $searchBox.autocomplete({
-                        data: {
-                            "Apple": null,
-                            "Microsoft": null,
-                            "Google": 'http://placehold.it/250x250'
+                            callback(value, data);
                         }
-                    });
-                }
+                    }
+                });
             }
         });
+
+        autocomplete.select = function (item) {
+            $searchBox.val(item.id);
+            $searchBox.focus();
+            this.$dropdown.hide();
+        }
     }
 });

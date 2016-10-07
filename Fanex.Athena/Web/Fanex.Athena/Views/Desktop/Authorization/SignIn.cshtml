@@ -69,11 +69,15 @@
                 </div>
 
                 <div class="input-field col s12">
-                    <div class="languages left">
-                        <div id="errmsg" class="errmsg">
+                    <div class="row">
+                        <div class="col m8 l9">
+                            <p id="errmsg" class="errmsg">
+                            </p>
+                        </div>
+                        <div class="col m4 l3">
+                            <input type="submit" class="btn btn-login" id="button" name="button" value="@ViewResources.Login" />
                         </div>
                     </div>
-                    <input type="submit" class="btn pull-right" id="button" name="button" value="@ViewResources.Login" />
                 </div>
 
                 @Html.Hidden("LogInToken")

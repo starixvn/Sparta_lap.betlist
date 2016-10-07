@@ -9,7 +9,7 @@ var cssPaths = {
     materialize: "./www/css/source/vendors/materialize/materialize.css",
     daterangepicker: ["bootstrap-daterangepicker/daterangepicker.css", "./www/css/source/components/daterangepicker/daterangepicker-ex.scss"],
 
-    layout: ["./www/css/source/components/navbar/navBar.css", "./www/css/source/components/sidebar/sideBar.css"],
+    layout: ["./www/css/source/components/navbar/navBar.css", "./www/css/source/components/sidebar/sideBar.css", "./www/css/source/extensions/home.scss"],
     main: ["./www/css/source/main.css", "./www/css/source/extensions/main-ex.scss"],
 
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],

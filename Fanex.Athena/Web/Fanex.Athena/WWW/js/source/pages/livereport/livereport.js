@@ -5,7 +5,7 @@ define(
     function (QueryString, Site, moment, daterangepicker) {
         "use strict";
 
-        initialize();
+        $(initialize);
 
         function initialize() {
             initEvent();
@@ -94,7 +94,8 @@ define(
                         format: 'MM/DD/YYYY'
                     },
                     showDropdowns: true,
-                    linkedCalendars: false
+                    linkedCalendars: false,
+                    alwaysShowCalendars: true
                 }, setRangeDate);
 
                 $dateRange.on('apply.daterangepicker', function (ev, picker) {

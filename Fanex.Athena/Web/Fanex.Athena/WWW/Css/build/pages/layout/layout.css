@@ -414,5 +414,9 @@ header nav {
     }
 }*/
 
+.dropdown-content {
+  opacity: 1;
+  top: 50px;
+  width: 20rem; }
 
 /*# sourceMappingURL=layout.css.map*/

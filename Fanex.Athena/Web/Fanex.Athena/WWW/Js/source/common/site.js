@@ -13,7 +13,7 @@ define(["querystring"], function (QueryString) {
     var _rootUrl = null;
     var _pageLanguage = null;
 
-    initialize();
+    $(initialize);
 
     function addNoticationPopup() {
         var $marquee = $("#notification-marquee");
