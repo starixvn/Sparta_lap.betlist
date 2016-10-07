@@ -28,6 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>FanexUnitTestRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -50,24 +51,16 @@
       <HintPath>..\..\packages\Fanex.BetList.Core.2.15.1.2\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NPOI, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NSubstitute, Version=1.10.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
@@ -150,10 +143,6 @@
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
-      <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
-      <Name>Fanex.Athena.Extension</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
       <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>
       <Name>Fanex.Athena.Model.BetList</Name>
@@ -163,7 +152,7 @@
       <Name>Fanex.Athena.Model.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.BetList\Fanex.Athena.Service.BetList.csproj">
-      <Project>{20DEE0CA-7487-4FA5-9AF3-3D1E02F1FAAF}</Project>
+      <Project>{20dee0ca-7487-4fa5-9af3-3d1e02f1faaf}</Project>
       <Name>Fanex.Athena.Service.BetList</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
