@@ -3,6 +3,8 @@
 var alias = {
     // vendors
     materialize: projectRoot + "/www/js/source/vendors/materialize/materialize.js",
+    jquerycookie: projectRoot + "/www/js/source/vendors/jquery/jquery.cookie.js",
+    jclock: projectRoot + "/www/js/source/vendors/jquery/jquery.jclock.js",
 
     // plugins
     daterangepicker: "bootstrap-daterangepicker",

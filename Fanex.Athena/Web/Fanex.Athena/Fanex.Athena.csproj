@@ -754,6 +754,8 @@
     <Content Include="www\js\source\components\sidebar\sidebar.js" />
     <Content Include="www\js\source\pages\home\home.js" />
     <Content Include="www\js\source\pages\livereport\livereport.js" />
+    <Content Include="www\js\source\vendors\jquery\jquery.cookie.js" />
+    <Content Include="www\js\source\vendors\jquery\jquery.jclock.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\webpackconfig\build\utils.js" />
     <Content Include="www\webpackconfig\build\webpack.base.conf.js" />
@@ -1081,6 +1083,7 @@
     <Content Include="www\css\source\components\flatpopup\flatpopup.scss" />
     <Content Include="www\css\source\components\monthpicker\monpickr.scss" />
     <Content Include="www\css\source\extensions\home.scss" />
+    <Content Include="Views\Desktop\Account\ChangeLicensee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">

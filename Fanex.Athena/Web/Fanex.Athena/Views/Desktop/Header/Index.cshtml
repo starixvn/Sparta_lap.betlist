@@ -31,20 +31,20 @@
             </div>
         }
 
-        <div class="languages-block">
+        <div class="licensees-block languages-block">
             @{
                 var currentLicensee = Model.LicenseeList.FirstOrDefault(p => p.Id.Equals(Model.CurrentLicenseeId)).Name;
             }
-            <a class='dropdown-button' href='#' data-activates='licensees'>
+            <a class="dropdown-button" href="javascript:void(0)" data-activates="ddlLicensee">
                 @currentLicensee
                 <i class="icon icon-menu-down" aria-hidden="true"></i>
             </a>
 
-            <ul id='licensees' class='dropdown-content language-items'>
+            <ul id="ddlLicensee" class="dropdown-content licensee-items language-items">
                 @foreach (var licensee in Model.LicenseeList)
                 {
                     <li>
-                        <a href="javascript:void(0)" licenseeId="@licensee.Id">
+                        <a href="javascript:void(0)" class="licenseeItem" licenseeId="@licensee.Id">
                             @licensee.Name
                         </a>
                     </li>
@@ -56,17 +56,17 @@
             @{
                 var currentLanguage = Model.SupportedLanguageList.FirstOrDefault(p => p.Key.Equals(Model.Language)).Value;
             }
-            <a class='dropdown-button' href='#' data-activates='languages'>
+            <a class="dropdown-button" href="javascript:void(0)" data-activates="languagesite">
                 <span class="flag-icon flag-icon-@Model.Language"></span>
                 @currentLanguage
                 <i class="icon icon-menu-down" aria-hidden="true"></i>
             </a>
 
-            <ul id='languages' class='dropdown-content language-items'>
+            <ul id="languagesite" class="dropdown-content language-items">
                 @foreach (var language in Model.SupportedLanguageList)
                 {
                     <li>
-                        <a href="javascript:void(0)" langkey="@language.Key">
+                        <a href="javascript:void(0)" class="languageItem" langkey="@language.Key">
                             <span class="flag-icon flag-icon-@language.Key"></span> @language.Value
                         </a>
                     </li>

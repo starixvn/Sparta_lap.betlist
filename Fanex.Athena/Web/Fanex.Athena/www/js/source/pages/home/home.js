@@ -1,12 +1,13 @@
 ﻿"use strict";
 
-define(["materialize-autocomplete"], function () {
+define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function (Site) {
     var rootUrl;
     var $searchBox;
 
     $(initialize);
 
     function initialize() {
+        //initClock();
         initVariables();
         initEvent();
     }
@@ -17,6 +18,8 @@ define(["materialize-autocomplete"], function () {
     }
 
     function initEvent() {
+        initAutoComplete();
+
         $searchBox.keyup(function (e) {
             e = e || window.event;
             var key = e.keyCode || e.which;
@@ -27,7 +30,13 @@ define(["materialize-autocomplete"], function () {
             }
         });
 
-        initAutoComplete();
+        $('#languagesite').find('.languageItem').click(function () {
+            changeLanguage($(this));
+        });
+
+        $('#ddlLicensee').find('.licenseeItem').click(function () {
+            changeLicensee($(this));
+        }); 
     }
 
     function searchByUserName() {
@@ -76,5 +85,42 @@ define(["materialize-autocomplete"], function () {
             $searchBox.focus();
             this.$dropdown.hide();
         }
+    }
+
+    function initClock() {
+        var options = {
+            utc: true,
+            utcOffset: -4,
+            format: '%H:%M:%S %b %d, %Y GMT'
+        };
+        $('#current-time-clock').jclock(options);
+    }
+
+    function changeLanguage($target) {
+        var lang = $target.attr('langkey');
+        var mainFrame = top.frames["main"];
+        if (mainFrame && mainFrame.Site && mainFrame.Site.blockUI) {
+            mainFrame.Site.blockUI();
+        }
+
+        $.ajax({
+            url: Site.resolveClientUrl("Header/ChangeLanguage?languagesite=") + lang,
+            async: false,
+            type: "GET",
+            cache: false,
+            success: function (result) {
+                if (result === "1") {
+                    if ($.cookie("isClosedNotification") !== "1") {
+                        $.cookie('isFirstLoad', '1', { path: '/' });
+                    }
+                    top.location.reload();
+                }
+            }
+        });
+    }
+
+    function changeLicensee($target) {
+        var licenseeId = $target.attr('licenseeId');
+        top.frames["main"].location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
     }
 });

@@ -1,11 +1,11 @@
 ﻿@{
-    Layout = null;
-    var fucntionAddNewAccount = 47;
-    var functionCustCommGroup = 55;
+        Layout = null;
+        var fucntionAddNewAccount = 47;
+        var functionCustCommGroup = 55;
 
-    var icons = new Dictionary<int, string>
+        var icons = new Dictionary<int, string>
         {
-            { 1, "totalbet" }, { 2, "chart-bar" }, { 3, "table" }, { 52, "table" }, { 4, "customer" }
+            { 1, "totalbet" }, { 2, "chart-bar" }, { 3, "table" }, { 5, "table" }, { 6, "administration" }, { 52, "table" }, { 4, "customer" }
         };
     }
     @model Fanex.Athena.Model.Core.ViewModel.MenuViewModel
@@ -21,7 +21,7 @@
         {
             <li class="menu-item has-sub">
                 <a class="collapsible-header waves-effect">
-                    <i class="menu-icon icon-@(icons.ContainsKey(masterFunction.FunctionId) ? icons[masterFunction.FunctionId] : string.Empty)" aria-hidden="true"></i>
+                    <i class="menu-icon icon-@(icons.ContainsKey(masterFunction.FunctionId) ? icons[masterFunction.FunctionId] : "table")" aria-hidden="true"></i>
                     <span class="menu-title">@masterFunction.Name</span>
                     <i class="right icon-arrow"></i>
                 </a>
