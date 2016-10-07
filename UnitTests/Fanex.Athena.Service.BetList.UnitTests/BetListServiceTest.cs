@@ -4,13 +4,13 @@
     using Core.Configuration.Interfaces;
     using Core.Users.Interfaces;
     using DataAccess.BetList.Interfaces;
+    using Fanex.BetList.Core.Entities;
     using Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
-    using Fanex.BetList.Core.Entities;
 
     [TestFixture]
     public class BetListServiceTest
