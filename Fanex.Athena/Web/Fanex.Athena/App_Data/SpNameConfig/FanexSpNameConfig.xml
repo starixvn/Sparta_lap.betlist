@@ -25,4 +25,5 @@
   <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_SelBetTypeBySport" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_Rpt_CustomerTurnOver" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_Monitor_BetlistSel_New" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelMatchResultParlay" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
