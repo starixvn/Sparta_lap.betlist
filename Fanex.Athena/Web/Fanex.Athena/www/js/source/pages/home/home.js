@@ -3,6 +3,7 @@
 define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function (Site) {
     var rootUrl;
     var $searchBox;
+    var _autocomplete;
 
     $(initialize);
 
@@ -26,7 +27,7 @@ define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function 
 
             if (key === 13) {
                 searchByUserName();
-                return false;
+                _autocomplete.$dropdown.html('').hide();
             }
         });
 
@@ -37,6 +38,19 @@ define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function 
         $('#ddlLicensee').find('.licenseeItem').click(function () {
             changeLicensee($(this));
         }); 
+
+        $('#label-search').click(function () {
+            $(this).parent().addClass('focused');
+            $("#searchbox").focus();
+        });
+        
+        $("#searchbox").blur(function () {
+            if (!$(this).val()) {
+                $(this).parent().removeClass('focused');
+            }
+        });
+
+        $(".toggleMenubar").sideNav2();
     }
 
     function searchByUserName() {
@@ -47,10 +61,11 @@ define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function 
 
         var url = rootUrl + "Customer/CustomerList?userName=" + userName;
         top.main.location.href = url;
+        $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem43'));
     }
 
     function initAutoComplete() {
-        var autocomplete = $searchBox.materialize_autocomplete({
+        _autocomplete = $searchBox.materialize_autocomplete({
             ignoreCase: false,
             multiple: {
                 enable: false
@@ -79,12 +94,6 @@ define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function 
                 });
             }
         });
-
-        autocomplete.select = function (item) {
-            $searchBox.val(item.id);
-            $searchBox.focus();
-            this.$dropdown.hide();
-        }
     }
 
     function initClock() {

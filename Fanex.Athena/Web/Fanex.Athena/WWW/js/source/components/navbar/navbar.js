@@ -384,32 +384,3 @@
         }
     }; // Plugin end
 }(jQuery));
-
-$(document).ready(function () {
-
-    $('#label-search').click(function () {
-        $(this).parent().addClass('focused');
-        $("#searchbox").focus();
-    });
-
-    $("#searchbox").blur(function () {
-        if (!$(this).val()) {
-            $(this).parent().removeClass('focused');
-        }
-    });
-
-    $(".toggleMenubar").sideNav2();
-
-    $("#CustomerSearchForm").submit(function (e) {
-        e.preventDefault();
-
-        var userName = $('#searchbox').val();
-        userName = userName || "";
-
-        var url = $("#RootUrl").val() + "Customer/CustomerList?userName=" + userName;
-
-        top.main.location.href = url;
-
-        $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem43'));
-    });
-});
