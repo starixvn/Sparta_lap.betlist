@@ -1,14 +1,2 @@
 @echo off
-call Fanex.Athena.DataAccess.BetList.UnitTests.bat
-call Fanex.Athena.DataAccess.BetSettings.UnitTests.bat
-call Fanex.Athena.DataAccess.Core.UnitTests.bat
-call Fanex.Athena.DataAccess.Customer.UnitTests.bat
-call Fanex.Athena.DataAccess.Forecast.UnitTests.bat
-call Fanex.Athena.DataAccess.Report.UnitTests.bat
-call Fanex.Athena.DataAccess.TotalBet.UnitTests.bat
-call Fanex.Athena.DataAccess.Warehouse.UnitTests.bat
-call Fanex.Athena.Excel.Base.UnitTests.bat
-call Fanex.Athena.Extension.UnitTests.bat
-call Fanex.Athena.Service.BetList.UnitTests
-call Fanex.Athena.Service.BetSettings.UnitTests
-call Fanex.Athena.Service.Core.UnitTests
+run.bat Fanex.Athena.DataAccess.BetList.UnitTests Fanex.Athena.DataAccess.BetSettings.UnitTests Fanex.Athena.DataAccess.Core.UnitTests Fanex.Athena.DataAccess.Customer.UnitTests Fanex.Athena.DataAccess.Forecast.UnitTests Fanex.Athena.DataAccess.Report.UnitTests Fanex.Athena.DataAccess.TotalBet.UnitTests Fanex.Athena.DataAccess.Warehouse.UnitTests Fanex.Athena.Excel.Base.UnitTests Fanex.Athena.Extension.UnitTests Fanex.Athena.Service.BetList.UnitTests Fanex.Athena.Service.BetSettings.UnitTests Fanex.Athena.Service.Core.UnitTests
