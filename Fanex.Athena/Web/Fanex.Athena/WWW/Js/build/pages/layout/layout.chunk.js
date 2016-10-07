@@ -712,10 +712,9 @@ webpackJsonp([7],{
 	
 	    function initEvent() {
 	        $searchBox.keyup(function (e) {
-	            if (!e) {
-	                e = window.event;
-	            }
-	            var key = (e.keyCode) ? e.keyCode : e.which;
+	            e = e || window.event;
+	            var key = e.keyCode || e.which;
+	
 	            if (key === 13) {
 	                searchByUserName();
 	                return false;
@@ -727,7 +726,9 @@ webpackJsonp([7],{
 	
 	    function searchByUserName() {
 	        var userName = $searchBox.val();
-	        userName = null == userName ? "" : userName;
+	        if (!userName) {
+	            return;
+	        }
 	
 	        var url = rootUrl + "Customer/CustomerList?userName=" + userName;
 	        top.main.location.href = url;

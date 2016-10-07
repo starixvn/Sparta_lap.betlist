@@ -414,9 +414,14 @@ header nav {
     }
 }*/
 
+.autocomplete .ac-dropdown .ac-hover {
+  background: #eee; }
+
 .dropdown-content {
   opacity: 1;
   top: 50px;
   width: 20rem; }
+  .dropdown-content .ac-item.ac-hover {
+    background: #eee; }
 
 /*# sourceMappingURL=layout.css.map*/

@@ -1,5 +1,15 @@
-﻿.dropdown-content{
+﻿.autocomplete .ac-dropdown .ac-hover {
+    background: #eee;
+}
+
+.dropdown-content {
     opacity: 1;
     top: 50px;
     width: 20rem;
+
+    .ac-item{
+        &.ac-hover {
+            background: #eee;
+        }
+    }
 }
