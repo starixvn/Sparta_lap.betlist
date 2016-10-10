@@ -6,6 +6,8 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
+    using System;
+
     #region Using
 
     using System.Web.Mvc;
@@ -60,7 +62,17 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var tokenApiUrl = AppSettings.GetValue("ColossusBetTokenAPI");
             tokenApiUrl = string.Format(tokenApiUrl, SessionService.UserSession.UserId, memberId);
-            var json = _webClientService.DownloadString(tokenApiUrl);
+            string json = string.Empty;
+            try
+            {
+                json = _webClientService.DownloadString(tokenApiUrl);
+            }
+            catch (Exception exception)
+            {
+                LogHelper.WriteError(exception, "ApiUrl: " + tokenApiUrl);
+                return string.Empty;
+            }
+
             var jobject = JObject.Parse(json);
             var token = (string)jobject.SelectToken("data.authorization");
             if (token == null)
