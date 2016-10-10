@@ -78,7 +78,6 @@ namespace Fanex.Athena.Controllers
             return View(GetNewViewPath("~/Views/Authorization/SignIn.cshtml"));
         }
 
-
         /// <summary>
         /// The sign in page.
         /// </summary>

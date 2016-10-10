@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -1083,7 +1083,6 @@
     <Content Include="www\css\source\components\flatpopup\flatpopup.scss" />
     <Content Include="www\css\source\components\monthpicker\monpickr.scss" />
     <Content Include="www\css\source\extensions\home.scss" />
-    <Content Include="Views\Desktop\Account\ChangeLicensee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
@@ -4532,7 +4531,6 @@
     <Content Include="Views\WareHouse\WinLoss\Filter.cshtml" />
     <Content Include="Views\WareHouse\WinLoss\Main.cshtml" />
     <Content Include="Views\Note\Warehouse.cshtml" />
-    <Content Include="Views\Account\ChangeLicensee.cshtml" />
     <Content Include="Views\TotalBets\FirstGoalLastGoal\Content.cshtml" />
     <Content Include="Views\TotalBets\FirstGoalLastGoal\ContentData.cshtml" />
     <Content Include="Views\TotalBets\FirstGoalLastGoal\ContentHeader.cshtml" />

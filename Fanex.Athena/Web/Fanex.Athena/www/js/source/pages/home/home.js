@@ -130,6 +130,6 @@ define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function 
 
     function changeLicensee($target) {
         var licenseeId = $target.attr('licenseeId');
-        top.frames["main"].location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
+        top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
     }
 });

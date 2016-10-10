@@ -71,7 +71,7 @@ namespace Fanex.Athena.Controllers
             }
 
             ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
-            return View(GetNewViewPath("~/Views/Account/ChangeLicensee.cshtml"));
+            return Redirect("~");
         }
 
         /// <summary>
