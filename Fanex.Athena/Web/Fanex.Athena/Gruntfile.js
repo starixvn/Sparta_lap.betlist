@@ -20,8 +20,15 @@ module.exports = function(grunt) {
 		singleRun: true,
 		browsers: ['PhantomJS'],
 		logLevel: 'ERROR'*/
+	  },
+	  unit2: {
+	      configFile: 'karma-new.conf.js',
+	      /*port: 9999,
+          singleRun: true,
+          browsers: ['PhantomJS'],
+          logLevel: 'ERROR'*/
 	  }
-	},
+    },
 	jshint: {
 		options: grunt.file.readJSON('jshint.json'),
 		beforeconcat: jsFilters,

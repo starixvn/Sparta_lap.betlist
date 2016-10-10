@@ -1,5 +1,5 @@
 ﻿/// <reference path="/@JSense.js" />
-define(function () {
+define(['jquery'], function ($) {
     "use strict";
     function parseQueryString(queryString) {
         var args = queryString.split('&');

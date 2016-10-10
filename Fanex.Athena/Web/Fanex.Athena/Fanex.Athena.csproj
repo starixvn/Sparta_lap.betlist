@@ -708,6 +708,7 @@
     <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
     <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
     <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
+    <Content Include="karma-new.conf.js" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\flag_en-US.svg" />
     <Content Include="www\assets\images\flag_ko-KR.png" />
@@ -760,6 +761,8 @@
     <Content Include="www\js\source\vendors\jquery\jquery.cookie.js" />
     <Content Include="www\js\source\vendors\jquery\jquery.jclock.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
+    <Content Include="www\js\tests\common\querystring-spec.js" />
+    <Content Include="www\js\tests\test-main.js" />
     <Content Include="www\webpackconfig\build\utils.js" />
     <Content Include="www\webpackconfig\build\webpack.base.conf.js" />
     <Content Include="www\webpackconfig\build\webpack.dev.conf.js" />
