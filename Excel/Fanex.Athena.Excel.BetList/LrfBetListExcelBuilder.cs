@@ -26,6 +26,10 @@ namespace Fanex.Athena.Excel.BetList
     /// </summary>
     public static class LrfBetListExcelBuilder
     {
+        private const int MinColossusBetBetType = 18000;
+
+        private const int MaxColossusBetBetType = 18007;
+
         private const string NumberFormat = "{0:#,##0.00}";
 
         /// <summary>
@@ -251,7 +255,9 @@ namespace Fanex.Athena.Excel.BetList
             bool isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
             bool isRacing = ticket.BetTypeId == (int)BetType.Win || ticket.BetTypeId == (int)BetType.Place ||
                             ticket.BetTypeId == (int)BetType.WinPlace;
-            if ((isRacing && is12Bet) || ticket.BetTypeId == (int)BetType.BetTradeBought)
+            if ((isRacing && is12Bet) || 
+                ticket.BetTypeId == (int)BetType.BetTradeBought ||
+                (ticket.BetTypeId >= MinColossusBetBetType && ticket.BetTypeId <= MaxColossusBetBetType))
             {
                 string licenseeWl = isRunning
                                     ? "-"
