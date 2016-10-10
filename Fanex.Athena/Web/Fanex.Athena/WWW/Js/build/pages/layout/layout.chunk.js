@@ -665,7 +665,6 @@ webpackJsonp([7],{
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
 	
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(35), __webpack_require__(37), __webpack_require__(38), __webpack_require__(39)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site) {
-	    var rootUrl;
 	    var $searchBox;
 	    var _autocomplete;
 	
@@ -679,7 +678,6 @@ webpackJsonp([7],{
 	
 	    function initVariables() {
 	        $searchBox = $('#searchbox');
-	        rootUrl = $('#RootUrl').val();
 	    }
 	
 	    function initEvent() {
@@ -695,13 +693,14 @@ webpackJsonp([7],{
 	            }
 	        });
 	
-	        $('#languagesite').find('.languageItem').click(function () {
+	        $('#languagesite').on('click', '.languageItem', function () {
 	            changeLanguage($(this));
 	        });
 	
-	        $('#ddlLicensee').find('.licenseeItem').click(function () {
-	            changeLicensee($(this));
-	        }); 
+	        $('#ddlLicensee').on('click', '.licenseeItem', function () {
+	            var licenseeId = $(this).attr('licenseeId');
+	            top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
+	        });
 	
 	        $('#label-search').click(function () {
 	            $(this).parent().addClass('focused');
@@ -723,7 +722,7 @@ webpackJsonp([7],{
 	            return;
 	        }
 	
-	        var url = rootUrl + "Customer/CustomerList?userName=" + userName;
+	        var url = Site.resolveClientUrl("Customer/CustomerList?userName=" + userName);
 	        top.main.location.href = url;
 	        $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem43'));
 	    }
@@ -738,7 +737,7 @@ webpackJsonp([7],{
 	                el: '#suggestionDropdown'
 	            },
 	            getData: function (value, callback) {
-	                var url = rootUrl + "CustomerAPI/SearchCustomer?licenseeType=&currencyId=0&query=" + value;
+	                var url = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0&query=" + value);
 	
 	                $.ajax({
 	                    type: "GET",
@@ -790,11 +789,6 @@ webpackJsonp([7],{
 	                }
 	            }
 	        });
-	    }
-	
-	    function changeLicensee($target) {
-	        var licenseeId = $target.attr('licenseeId');
-	        top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
 	    }
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))

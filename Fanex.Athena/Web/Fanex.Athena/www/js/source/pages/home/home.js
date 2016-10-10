@@ -1,7 +1,6 @@
 ﻿"use strict";
 
 define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function (Site) {
-    var rootUrl;
     var $searchBox;
     var _autocomplete;
 
@@ -15,7 +14,6 @@ define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function 
 
     function initVariables() {
         $searchBox = $('#searchbox');
-        rootUrl = $('#RootUrl').val();
     }
 
     function initEvent() {
@@ -31,13 +29,14 @@ define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function 
             }
         });
 
-        $('#languagesite').find('.languageItem').click(function () {
+        $('#languagesite').on('click', '.languageItem', function () {
             changeLanguage($(this));
         });
 
-        $('#ddlLicensee').find('.licenseeItem').click(function () {
-            changeLicensee($(this));
-        }); 
+        $('#ddlLicensee').on('click', '.licenseeItem', function () {
+            var licenseeId = $(this).attr('licenseeId');
+            top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
+        });
 
         $('#label-search').click(function () {
             $(this).parent().addClass('focused');
@@ -59,7 +58,7 @@ define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function 
             return;
         }
 
-        var url = rootUrl + "Customer/CustomerList?userName=" + userName;
+        var url = Site.resolveClientUrl("Customer/CustomerList?userName=" + userName);
         top.main.location.href = url;
         $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem43'));
     }
@@ -74,7 +73,7 @@ define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function 
                 el: '#suggestionDropdown'
             },
             getData: function (value, callback) {
-                var url = rootUrl + "CustomerAPI/SearchCustomer?licenseeType=&currencyId=0&query=" + value;
+                var url = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0&query=" + value);
 
                 $.ajax({
                     type: "GET",
@@ -126,10 +125,5 @@ define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function 
                 }
             }
         });
-    }
-
-    function changeLicensee($target) {
-        var licenseeId = $target.attr('licenseeId');
-        top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
     }
 });
