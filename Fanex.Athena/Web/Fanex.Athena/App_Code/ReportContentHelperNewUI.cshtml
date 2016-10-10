@@ -1,0 +1,77 @@
+﻿@using Fanex.Athena.Resources
+@using Fanex.Athena.Extension.Helper
+@using Fanex.Athena.Model.Core.ViewModel
+@using Fanex.Athena.Model.Report.DTO
+@using Fanex.Athena.Model.Report.DTO.LiveReports
+
+@functions{
+    public static int GetNumberOfColumnInLiveReport(dynamic model)
+    {
+        var columnCount = model.IsAllowedCustomerCommission ? 10 : 7;
+
+        if (model.ProductAccess.IsAllowRB || model.ProductAccess.IsAllowBA)
+        {
+            columnCount -= 1;
+        }
+
+        return columnCount;
+    }
+}
+
+@helper CreateHeaderForLiveReport(BaseViewModel model, string firstColumnHeader)
+{
+    var rowspanText = model.IsAllowedCustomerCommission ? "rowspan=2" : "";
+    var colspanText = model.IsAllowedCustomerCommission ? "colspan=3" : "";
+
+    <tr>
+        <th @rowspanText>@firstColumnHeader</th>
+        <th @colspanText>@ViewResources.CustomerW_L</th>
+        <th @rowspanText>@ViewResources.Turnover</th>
+        <th @rowspanText>@ViewResources.BetCount</th>
+        <th @rowspanText>@ViewResources.LicenseeW_L</th>
+        @if (model.ProductAccess.IsAllowRB || model.ProductAccess.IsAllowBA)
+        {
+            <th @rowspanText>@ViewResources.Comm</th>
+        }
+        <th @rowspanText>@ViewResources.AmountDueTo</th>
+    </tr>
+
+    if (model.IsAllowedCustomerCommission)
+    {
+        <tr>
+            <th>@ViewResources.WinLoss</th>
+            <th>@ViewResources.Comm</th>
+            <th>@ViewResources.Total</th>
+        </tr>
+    }
+}
+
+@helper RenderDataForLiveReport(BaseViewModel model, LiveReport data)
+{
+    @RenderCustomerWinLossForLiveReport(data, model.IsAllowedCustomerCommission)
+
+    <td>@data.TurnOver.ToStringExt()</td>
+    <td>@data.BetCount.ToStringExt()</td>
+    <td>@RazorHelperNewUI.HighlightNegativeFormat(data.LicenseeWinLoss)</td>
+
+    if (model.ProductAccess.IsAllowRB || model.ProductAccess.IsAllowBA)
+    {
+        <td>@data.LicenseeComm.ToStringExt()</td>
+    }
+
+    <td>@data.AmountDue.ToStringExt()</td>
+}
+
+@helper RenderCustomerWinLossForLiveReport(ICustomerWinLoss data, bool isAllowedCustomerCommission)
+{
+    if (isAllowedCustomerCommission)
+    {
+        <td>@data.CustomerWinLoss.ToStringExt()</td>
+        <td>@data.CustomerComm.ToStringExt()</td>
+        <td>@data.CustomerTotal.ToStringExt()</td>
+    }
+    else
+    {
+        <td>@data.CustomerWinLoss.ToStringExt()</td>
+    }
+}

@@ -1,14 +1,5 @@
 ﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
 
-@{
-    var columnCount = Model.IsAllowedCustomerCommission ? 10 : 7;
-
-    if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
-    {
-        columnCount -= 1;
-    }
-}
-
 <div class="panel-body">
     <div class="table-title"><span>@ViewResources.ByCurrency</span></div>
 
@@ -21,7 +12,7 @@
             @if (Model.ByCurrencies == null || Model.ByCurrencies.Count == 0)
             {
                 <tr>
-                    <td colspan="@columnCount" class="text-center">@ViewResources.NoInfo</td>
+                    <td colspan="@ReportContentHelperNewUI.GetNumberOfColumnInLiveReport(Model)" class="text-center">@ViewResources.NoInfo</td>
                 </tr>
             }
             else

@@ -6,20 +6,6 @@
     var liveReportNoDetailLinkSports = appSettings.LiveReportNoDetailLinkSports;
 }
 
-@helper DisplayCustomerWinLoss(ICustomerWinLoss data, bool isAllowedCustomerCommission)
-{
-    if (isAllowedCustomerCommission)
-    {
-            <td>@data.CustomerWinLoss.ToStringExt()</td>
-                <td>@data.CustomerComm.ToStringExt()</td>
-                    <td>@data.CustomerTotal.ToStringExt()</td>
-    }
-    else
-    {
-            <td>@data.CustomerWinLoss.ToStringExt()</td>
-    }
-}
-
 @foreach (var item in Model.BySports)
 {
     var sportId = string.IsNullOrEmpty(item.ProductCode) ? 0 : Convert.ToInt32(item.ProductCode);
@@ -45,17 +31,6 @@
             }
         </td>
 
-        @DisplayCustomerWinLoss(item, Model.IsAllowedCustomerCommission)
-
-        <td>@item.TurnOver.ToStringExt()</td>
-        <td>@item.BetCount.ToStringExt()</td>
-        <td>@RazorHelper.HighlightNegativeFormat(@item.LicenseeWinLoss)</td>
-
-        @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
-        {
-            <td>@item.LicenseeComm.ToStringExt()</td>
-        }
-
-        <td>@item.AmountDue.ToStringExt()</td>
+        @ReportContentHelperNewUI.RenderDataForLiveReport(Model, item)
     </tr>
 }

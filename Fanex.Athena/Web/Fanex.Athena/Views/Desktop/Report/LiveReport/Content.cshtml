@@ -1,21 +1,12 @@
 ﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
 
-@{
-    var columnCount = Model.IsAllowedCustomerCommission ? 10 : 7;
-
-    if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
-    {
-        columnCount -= 1;
-    }
-}
-
 <div class="page-results">
     <ul class="collapsible collapsible-accordion" data-collapsible="expandable">
         <li>
             <div class="collapsible-header panel-heading active">
                 <div class="panel-title">
-                    @ViewResources.LiveReport - @RazorHelper.ViewLiveStatus(Model.Param.LiveIndicator), @RazorHelper.TitleDateTime(Model.Param.FromDate, Model.Param.ToDate)
-                    - @RazorHelper.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                    @ViewResources.LiveReport - @RazorHelperNewUI.ViewLiveStatus(Model.Param.LiveIndicator), @RazorHelperNewUI.TitleDateTime(Model.Param.FromDate, Model.Param.ToDate)
+                    - @RazorHelperNewUI.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
                     <i class="right icon-arrow"></i>
                 </div>
             </div>
@@ -33,7 +24,7 @@
                             @if (Model.MainResult.Count == 0)
                             {
                             <tr>
-                                <td colspan="@columnCount" class="text-center">@ViewResources.NoInfo</td>
+                                <td colspan="@ReportContentHelperNewUI.GetNumberOfColumnInLiveReport(Model)" class="text-center">@ViewResources.NoInfo</td>
                             </tr>
                             }
                             else

@@ -1,19 +1,4 @@
-﻿@using Fanex.Athena.Model.Report.DTO
-@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
-
-@helper DisplayCustomerWinLoss(ICustomerWinLoss data, bool isAllowedCustomerCommission)
-{
-    if (isAllowedCustomerCommission)
-    {
-            <td>@data.CustomerWinLoss.ToStringExt()</td>
-                <td>@data.CustomerComm.ToStringExt()</td>
-                <td>@data.CustomerTotal.ToStringExt()</td>
-    }
-    else
-    {
-            <td>@data.CustomerWinLoss.ToStringExt()</td>
-    }
-}
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
 
 @{
     var index = 0;
@@ -29,18 +14,7 @@
                 </a>
             </td>
 
-            @DisplayCustomerWinLoss(item, Model.IsAllowedCustomerCommission)
-
-            <td>@item.TurnOver.ToStringExt()</td>
-            <td>@item.BetCount.ToStringExt()</td>
-            <td>@RazorHelper.HighlightNegativeFormat(@item.LicenseeWinLoss)</td>
-
-            @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
-            {
-                <td>@item.LicenseeComm.ToStringExt()</td>
-            }
-
-            <td>@item.AmountDue.ToStringExt()</td>
+            @ReportContentHelperNewUI.RenderDataForLiveReport(Model, item)
         </tr>
     }
 }

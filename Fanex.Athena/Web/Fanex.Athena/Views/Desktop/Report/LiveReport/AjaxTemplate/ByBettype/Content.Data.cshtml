@@ -10,20 +10,6 @@
     }
 }
 
-@helper DisplayCustomerWinLoss(ICustomerWinLoss data, bool isAllowedCustomerCommission)
-{
-    if (isAllowedCustomerCommission)
-    {
-            <td>@data.CustomerWinLoss.ToStringExt()</td>
-            <td>@data.CustomerComm.ToStringExt()</td>
-                <td>@data.CustomerTotal.ToStringExt()</td>
-    }
-    else
-    {
-            <td>@data.CustomerWinLoss.ToStringExt()</td>
-    }
-}
-
 @foreach (var product in Model.ByBetType)
 {
     <tr class="text-left font-weight-600 highlight">
@@ -37,18 +23,7 @@
                 @item.ProductName
             </td>
 
-            @DisplayCustomerWinLoss(item, Model.IsAllowedCustomerCommission)
-
-            <td>@item.TurnOver.ToStringExt()</td>
-            <td>@item.BetCount.ToStringExt()</td>
-            <td>@RazorHelper.HighlightNegativeFormat(@item.LicenseeWinLoss)</td>
-
-            @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
-            {
-                <td>@item.LicenseeComm.ToStringExt()</td>
-            }
-
-            <td>@item.AmountDue.ToStringExt()</td>
+            @ReportContentHelperNewUI.RenderDataForLiveReport(Model, item)
         </tr>
     }
 }

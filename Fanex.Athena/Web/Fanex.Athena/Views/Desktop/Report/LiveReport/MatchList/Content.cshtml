@@ -4,13 +4,6 @@
     ViewBag.Title = "LRF - " + ViewResources.Report +
     " - " + ViewResources.LiveReport;
     Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
-
-    var columnCount = Model.IsAllowedCustomerCommission ? 10 : 7;
-
-    if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
-    {
-        columnCount -= 1;
-    }
 }
 @section pagecss {
     <link href="~/www/css/build/pages/reports/livereport.css" rel="stylesheet" />
@@ -45,7 +38,7 @@
                                 @if (Model.MainResult.Count == 0)
                                 {
                                     <tr>
-                                        <td colspan="@columnCount" class="text-center">@ViewResources.NoInfo</td>
+                                        <td colspan="@ReportContentHelperNewUI.GetNumberOfColumnInLiveReport(Model)" class="text-center">@ViewResources.NoInfo</td>
                                     </tr>
                                 }
                                 else

@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -768,6 +768,8 @@
     <Content Include="www\webpackconfig\config\loader.js" />
     <Content Include="www\webpackconfig\config\path.js" />
     <Content Include="www\webpackconfig\config\plugin.js" />
+    <Content Include="App_Code\RazorHelperNewUI.cshtml" />
+    <Content Include="App_Code\ReportContentHelperNewUI.cshtml" />
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>

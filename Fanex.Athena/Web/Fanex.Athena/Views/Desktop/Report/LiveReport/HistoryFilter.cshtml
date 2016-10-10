@@ -25,15 +25,15 @@
                 </div>
             </div>
             <div class="input-field col l2 m3 s12">
-                @RazorHelper.CurrencyList(Model.CurrencyList, string.Empty, Model.Param.CurrencyId)
+                @RazorHelperNewUI.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
                 <label>@ViewResources.Currency</label>
             </div>
             <div class="input-field col l2 m3 s12">
-                @RazorHelper.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                @RazorHelperNewUI.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
                 <label>@ViewResources.Based</label>
             </div>
             <div class="input-field col l2 m3 s12">
-                @RazorHelper.LiveStatus(Model.Param.LiveIndicator)
+                @RazorHelperNewUI.LiveStatus(Model.Param.LiveIndicator)
                 <label>@ViewResources.LiveStatus</label>
             </div>
             <div class="col button-block" id="btnSubmit">

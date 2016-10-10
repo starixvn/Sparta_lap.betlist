@@ -3,7 +3,7 @@ webpackJsonp([9],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(151);
+	module.exports = __webpack_require__(152);
 
 
 /***/ },
@@ -866,58 +866,7 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 151:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {/*global Site, QueryString, Helper*/
-	/// <reference path="/@JSense.js" />
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(36), __webpack_require__(35), __webpack_require__(152)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
-	    "use strict";
-	
-	    $(initialize);
-	
-	    function initialize() {
-	        initEvent();
-	    }
-	
-	    function initEvent() {
-	        $("body").on("click", ".match-detail-link", function () {
-	            viewMatchBetList(this);
-	        });
-	    }
-	
-	    function viewMatchBetList(target) {
-	        var url = "LiveReportBetList/Match";
-	        var currencyName = $('#CurrencyName').attr('data-original');
-	        url = Site.resolveClientUrl(url);
-	
-	        var data = $(target).attr("data-drill-down");
-	        data = $.parseJSON(data);
-	        url = Site.setLicenseeOptionOriginalParam(url);
-	        url = Site.setDateRangeOriginalParam(url);
-	        url = QueryString.setParam(url, "CurrencyName", currencyName);
-	        url = QueryString.setParam(url, "MatchId", data.MatchId);
-	        url = QueryString.setParam(url, "HomeId", data.HomeId);
-	        url = QueryString.setParam(url, "AwayId", data.AwayId);
-	        url = QueryString.setParam(url, "BetType", data.BetType);
-	        url = QueryString.setParam(url, "LiveIndicator", data.LiveIndicator);
-	        url = Helper.setSumParams(url, data);
-	
-	        var productOptions = Helper.getMatchListProductOption($("#SportId").val(), $("#ProductCode").val());
-	
-	        $(productOptions).each(function (index, element) {
-	            url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);
-	        });
-	
-	        Site.blockUI();
-	        location.href = url;
-	    }
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ },
-
-/***/ 152:
+/***/ 41:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(36)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {
@@ -969,6 +918,57 @@ webpackJsonp([9],{
 	        getMatchListProductOption: getMatchListProductOption,
 	    };
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 152:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {/*global Site, QueryString, Helper*/
+	/// <reference path="/@JSense.js" />
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(36), __webpack_require__(35), __webpack_require__(41)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
+	    "use strict";
+	
+	    $(initialize);
+	
+	    function initialize() {
+	        initEvent();
+	    }
+	
+	    function initEvent() {
+	        $("body").on("click", ".match-detail-link", function () {
+	            viewMatchBetList(this);
+	        });
+	    }
+	
+	    function viewMatchBetList(target) {
+	        var url = "LiveReportBetList/Match";
+	        var currencyName = $('#CurrencyName').attr('data-original');
+	        url = Site.resolveClientUrl(url);
+	
+	        var data = $(target).attr("data-drill-down");
+	        data = $.parseJSON(data);
+	        url = Site.setLicenseeOptionOriginalParam(url);
+	        url = Site.setDateRangeOriginalParam(url);
+	        url = QueryString.setParam(url, "CurrencyName", currencyName);
+	        url = QueryString.setParam(url, "MatchId", data.MatchId);
+	        url = QueryString.setParam(url, "HomeId", data.HomeId);
+	        url = QueryString.setParam(url, "AwayId", data.AwayId);
+	        url = QueryString.setParam(url, "BetType", data.BetType);
+	        url = QueryString.setParam(url, "LiveIndicator", data.LiveIndicator);
+	        url = Helper.setSumParams(url, data);
+	
+	        var productOptions = Helper.getMatchListProductOption($("#SportId").val(), $("#ProductCode").val());
+	
+	        $(productOptions).each(function (index, element) {
+	            url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);
+	        });
+	
+	        Site.blockUI();
+	        location.href = url;
+	    }
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }
 

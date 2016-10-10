@@ -85,7 +85,8 @@ namespace Fanex.Athena.Controllers
 
         protected string GetNewViewPath(string viewPath)
         {
-            var isNewUI = ConfigurationManager.AppSettings["IsNewUI"] == "1" || SessionService.UserSession.IsNewUI;
+            var isNewUI = ConfigurationManager.AppSettings["IsNewUI"] == "1" ||
+                (SessionService.UserSession != null && SessionService.UserSession.IsNewUI);
             return isNewUI ? viewPath.Replace("Views/", "Views/Desktop/") : viewPath;
         }
 
