@@ -27,12 +27,12 @@ pushd ..\
 
 REM NUnit
 REM OpenCover
-set command=Dependencies\OpenCover.4.5.3723\OpenCover.Console.exe -register:user -target:"Dependencies\NUnit.ConsoleRunner.3.4.1\tools\nunit3-console.exe" -targetargs:"%fileList% --result=UnitTest_%project%.xml" -output:"UnitTestCoverage_%project%.xml"
+set command=packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"packages\NUnit.ConsoleRunner.3.4.1\tools\nunit3-console.exe" -targetargs:"%fileList% --result=UnitTest_%project%.xml;format=nunit2" -output:"UnitTestCoverage_%project%.xml"
 call %command%
 if %errorlevel% neq 0 goto error
 
 REM REM ReportGenerator
-set command=Dependencies\ReportGenerator.2.1.6.0\reportgenerator.exe -reports:"UnitTestCoverage_%project%.xml" -targetdir:"cireport\testcoveragereport\"
+set command=packages\ReportGenerator.2.4.5.0\tool\reportgenerator.exe -reports:"UnitTestCoverage_%project%.xml" -targetdir:"cireport\testcoveragereport\"
 call %command%
 if %errorlevel% neq 0 goto error
 

@@ -1,0 +1,7 @@
+D:\TeamProject\GIT_LAB\LRF\lrf\packages\OpenCover.4.6.519\SampleSln\Bom\bin\Debug\Bom.dll
+D:\TeamProject\GIT_LAB\LRF\lrf\packages\OpenCover.4.6.519\SampleSln\Bom\bin\Debug\Bom.pdb
+D:\TeamProject\GIT_LAB\LRF\lrf\packages\OpenCover.4.6.519\SampleSln\Bom\bin\Debug\Bom.dll.CodeAnalysisLog.xml
+D:\TeamProject\GIT_LAB\LRF\lrf\packages\OpenCover.4.6.519\SampleSln\Bom\bin\Debug\Bom.dll.lastcodeanalysissucceeded
+D:\TeamProject\GIT_LAB\LRF\lrf\packages\OpenCover.4.6.519\SampleSln\Bom\obj\Debug\Bom.csprojResolveAssemblyReference.cache
+D:\TeamProject\GIT_LAB\LRF\lrf\packages\OpenCover.4.6.519\SampleSln\Bom\obj\Debug\Bom.dll
+D:\TeamProject\GIT_LAB\LRF\lrf\packages\OpenCover.4.6.519\SampleSln\Bom\obj\Debug\Bom.pdb
