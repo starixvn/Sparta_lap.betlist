@@ -745,6 +745,7 @@
     <Content Include="www\css\source\vendors\materialize\materialize.css" />
     <Content Include="www\js\build\pages\layout\layout.chunk.js" />
     <Content Include="www\js\build\pages\livereport\livereport.chunk.js" />
+    <Content Include="www\js\build\pages\livereport\livereportmatchlist.chunk.js" />
     <Content Include="www\js\build\vendors.chunk.js" />
     <Content Include="www\js\source\common\querystring.js" />
     <Content Include="www\js\source\common\site.js" />
@@ -754,6 +755,7 @@
     <Content Include="www\js\source\components\sidebar\sidebar.js" />
     <Content Include="www\js\source\pages\home\home.js" />
     <Content Include="www\js\source\pages\livereport\livereport.js" />
+    <Content Include="www\js\source\pages\livereport\livereportmatchlist.js" />
     <Content Include="www\js\source\vendors\jquery\jquery.cookie.js" />
     <Content Include="www\js\source\vendors\jquery\jquery.jclock.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
@@ -1083,6 +1085,13 @@
     <Content Include="www\css\source\components\flatpopup\flatpopup.scss" />
     <Content Include="www\css\source\components\monthpicker\monpickr.scss" />
     <Content Include="www\css\source\extensions\home.scss" />
+    <Content Include="Views\Desktop\Report\LicenseeWinLoss\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\LicenseeWinLoss\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\LicenseeWinLoss\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\MatchList\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\MatchList\Content.Data.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\MatchList\Content.Header.cshtml" />
+    <Content Include="www\js\build\pages\livereport\livereportmatchlist.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">

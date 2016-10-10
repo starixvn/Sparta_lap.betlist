@@ -19,7 +19,7 @@ define(
         }
 
         function initMaterialSelect() {
-            $('select').not('.disabled').material_select();
+            $('select.select').not('.disabled').material_select();
         }
 
         function initEvent() {
@@ -274,5 +274,10 @@ define(
                 location.href = url;
             }
         }
+
+        return {
+            setSumParams: setSumParams,
+            getMatchListProductOption: getMatchListProductOption,
+        };
     }
 );

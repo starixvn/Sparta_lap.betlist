@@ -1,0 +1,64 @@
+﻿@using Fanex.Athena.Model.Report.DTO
+@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportMatchListViewModel
+
+@helper DisplayCustomerWinLoss(ICustomerWinLoss data, bool isAllowedCustomerCommission)
+{
+if (isAllowedCustomerCommission)
+{
+        <td>@data.CustomerWinLoss.ToStringExt()</td>
+            <td>@data.CustomerComm.ToStringExt()</td>
+            <td>@data.CustomerTotal.ToStringExt()</td>
+}
+else
+{
+        <td>@data.CustomerWinLoss.ToStringExt()</td>
+}
+}
+
+@{
+    var index = 0;
+    foreach (var item in Model.MainResult)
+    {
+        var drillDownParam = new
+        {
+            item.BetCount,
+            item.CustomerWinLoss,
+            item.CustomerComm,
+            item.LicenseeWinLoss,
+            item.LicenseeComm,
+            item.TurnOver,
+            item.AmountDue,
+            item.BetType,
+            item.MatchId,
+            item.HomeId,
+            item.AwayId,
+            LiveIndicator = Model.Param.LiveIndicator
+        };
+
+        var highlight = (index % 2 == 0) ? string.Empty : "highlight";
+        index++;
+        <tr class="text-right @highlight">
+            <td class="text-left">
+                @{
+                    var matchName = WebUtility.HtmlDecode(item.MatchName);
+                }
+                <a href="javascript:;" class="match-detail-link" data-drill-down="@drillDownParam.ToJson()" title="@matchName">
+                    @(matchName.Length > 60 ? matchName.Substring(0, 60) + "..." : matchName)
+                </a>
+            </td>
+
+            @DisplayCustomerWinLoss(item, Model.IsAllowedCustomerCommission)
+
+            <td>@item.TurnOver.ToStringExt()</td>
+            <td>@item.BetCount.ToStringExt()</td>
+            <td>@RazorHelper.HighlightNegativeFormat(@item.LicenseeWinLoss)</td>
+
+            @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+            {
+                <td>@item.LicenseeComm.ToStringExt()</td>
+            }
+
+            <td>@item.AmountDue.ToStringExt()</td>
+        </tr>
+    }
+}

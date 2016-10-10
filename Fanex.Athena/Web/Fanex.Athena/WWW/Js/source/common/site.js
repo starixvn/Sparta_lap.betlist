@@ -425,7 +425,7 @@ define(["querystring"], function (QueryString) {
             basedCurrency = basedCurrency === undefined ? "" : basedCurrency;
             $baseCurrency.val(basedCurrency);
         }
-        $baseCurrency.material_select();
+        $("select#BaseCurrency").material_select();
     }
 
     function sortReport(sortColumn) {

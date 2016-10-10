@@ -108,7 +108,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyName = metaModel.CurrencyName
             };
 
-            return View("~/Views/Report/LiveReport/MatchList/Content.cshtml", model);
+            return View(GetNewViewPath("~/Views/Report/LiveReport/MatchList/Content.cshtml"), model);
         }
 
         [HttpPost]

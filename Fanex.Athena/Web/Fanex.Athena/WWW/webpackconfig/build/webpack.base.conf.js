@@ -16,7 +16,8 @@ var commonConfigs = {
         "vendors": ["jquery", "materialize"],
 
         [pathConfig.scriptPaths.build + "/pages/layout/layout"]: pathConfig.scriptPaths.layout,
-        [pathConfig.scriptPaths.build + "/pages/livereport/livereport"]: pathConfig.scriptPaths.livereport,
+        [pathConfig.scriptPaths.build + "/pages/livereport/livereport"]: [pathConfig.scriptPaths.livereport],
+        [pathConfig.scriptPaths.build + "/pages/livereport/livereportmatchlist"]: [pathConfig.scriptPaths.livereportmatchlist],
 
         [pathConfig.cssPaths.build + "/pages/reports/livereport"]: pathConfig.cssPaths.livereport,
         [pathConfig.cssPaths.build + "/main"]: pathConfig.cssPaths.main,
