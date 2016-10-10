@@ -1,6 +1,6 @@
-﻿/*global Site, QueryString, LiveReport*/
+﻿/*global Site, QueryString, Helper*/
 /// <reference path="/@JSense.js" />
-define(["querystring", "site", "./livereport"], function (QueryString, Site, LiveReport) {
+define(["querystring", "site", "./helper"], function (QueryString, Site, Helper) {
     "use strict";
 
     $(initialize);
@@ -30,9 +30,9 @@ define(["querystring", "site", "./livereport"], function (QueryString, Site, Liv
         url = QueryString.setParam(url, "AwayId", data.AwayId);
         url = QueryString.setParam(url, "BetType", data.BetType);
         url = QueryString.setParam(url, "LiveIndicator", data.LiveIndicator);
-        url = LiveReport.setSumParams(url, data);
+        url = Helper.setSumParams(url, data);
 
-        var productOptions = LiveReport.getMatchListProductOption($("#SportId").val(), $("#ProductCode").val());
+        var productOptions = Helper.getMatchListProductOption($("#SportId").val(), $("#ProductCode").val());
 
         $(productOptions).each(function (index, element) {
             url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);

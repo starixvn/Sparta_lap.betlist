@@ -1,8 +1,8 @@
 ﻿/*global Site, QueryString*/
 /// <reference path="/@JSense.js" />
 define(
-    ["querystring", "site", "moment", "daterangepicker", "flatpopup", "monthpicker"],
-    function (QueryString, Site, moment, daterangepicker) {
+    ["querystring", "site", "./helper", "moment", "daterangepicker", "flatpopup", "monthpicker"],
+    function (QueryString, Site, Helper, moment) {
         "use strict";
 
         $(initialize);
@@ -70,8 +70,8 @@ define(
                 var $from = $('#FromDate');
                 var $to = $('#ToDate');
 
-                var start = moment().subtract(29, 'days');
-                var end = moment();
+                var start = moment($from.attr('data-original-from'), "MM/DD/YYYY");
+                var end = moment($to.attr('data-original-to'), "MM/DD/YYYY");
 
                 function setRangeDate(start, end) {
                     $from.val(start.format('MM/DD/YYYY'));
@@ -164,24 +164,12 @@ define(
             });
         }
 
-        function setSumParams(url, totalValue) {
-            url = QueryString.setParam(url, "totalrows", totalValue.BetCount);
-            url = QueryString.setParam(url, "sumwinlost", totalValue.CustomerWinLoss);
-            url = QueryString.setParam(url, "sumplayercomm", totalValue.CustomerComm);
-            url = QueryString.setParam(url, "sumlicenseewl", totalValue.LicenseeWinLoss);
-            url = QueryString.setParam(url, "sumcomm", totalValue.LicenseeComm);
-            url = QueryString.setParam(url, "sumturnover", totalValue.TurnOver);
-            url = QueryString.setParam(url, "sumamtdueto3rd", totalValue.AmountDue);
-
-            return url;
-        }
-
         function viewBetList(url, totalValue, productOptions) {
             url = Site.setLicenseeOptionOriginalParam(url);
             url = QueryString.setParam(url, "fromdate", $("#FromDate").attr('data-original-from'));
             url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original-to'));
             url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
-            url = setSumParams(url, totalValue);
+            url = Helper.setSumParams(url, totalValue);
             // [Jacob] Cheat for live report mix parlay, must send
             url = QueryString.setParam(url, "showsb", false);
             url = QueryString.setParam(url, "showba", false);
@@ -194,42 +182,11 @@ define(
             location.href = url;
         }
 
-        function getMatchListProductOption(sportId, productCode) {
-            sportId = Number(sportId);
-            var productOptions = [];
-            if (sportId > 0) {
-                if (sportId === 180 || sportId === 186) {
-                    productOptions.push("VS");
-                }
-                else if (sportId === 162) {
-                    productOptions.push("LC");
-                }
-                else {
-                    if (productCode === "SB" || productCode === "ALL") {
-                        productOptions.push("SB");
-                    }
-                    if (productCode === "BA" || productCode === "ALL") {
-                        productOptions.push("BA");
-                    }
-                }
-            }
-            else {
-                if (productCode === "ALL") {
-                    productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG"];
-                }
-                else {
-                    productOptions.push(productCode);
-                }
-            }
-
-            return productOptions;
-        }
-
         function viewSportDetail(target) {
             var data = $(target).attr("data-drill-down");
             var jsonData = $.parseJSON(data);
             var productCode = $("#ProductCode").val();
-            var productOptions = getMatchListProductOption(jsonData.SportId, productCode);
+            var productOptions = Helper.getMatchListProductOption(jsonData.SportId, productCode);
             var urlMap = {
                 Key101: "LiveReportBetList/MixParlay?bettype=9",
                 Key102: "LiveReportBetList/MixParlay?bettype=29",
@@ -274,10 +231,5 @@ define(
                 location.href = url;
             }
         }
-
-        return {
-            setSumParams: setSumParams,
-            getMatchListProductOption: getMatchListProductOption,
-        };
     }
 );
