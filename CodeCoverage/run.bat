@@ -37,6 +37,14 @@ set command=packages\ReportGenerator.2.4.5.0\tools\ReportGenerator.exe -reports:
 call %command%
 if %errorlevel% neq 0 goto error
 
+
+REM REM CoberturaReport
+set command=packages\OpenCoverToCoberturaConverter.0.2.4.0\tools\OpenCoverToCoberturaConverter.exe -input:"UnitTestCoverage_%project%.xml" -output:"UnitTestCobertura_%project%.xml" -sources:".\"
+call %command%
+if %errorlevel% neq 0 goto error
+
+
+
 echo Success.
 goto end
 
