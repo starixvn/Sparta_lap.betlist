@@ -992,11 +992,12 @@ webpackJsonp([8],[
 	                        'Since last month': [moment().subtract(1, 'month').startOf('month'), moment()]
 	                    },
 	                    locale: {
-	                        format: 'MM/DD/YYYY'
+	                        format: 'MM/DD/YYYY',
 	                    },
 	                    showDropdowns: true,
 	                    linkedCalendars: false,
-	                    alwaysShowCalendars: true
+	                    alwaysShowCalendars: true,
+	                    showCustomRangeLabel: false,
 	                }, setRangeDate);
 	
 	                $dateRange.on('apply.daterangepicker', function (ev, picker) {
