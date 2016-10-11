@@ -14,6 +14,7 @@
 @section Content
 {
     <div class="page-results">
+        <a href="javascript:" onclick="history.back();" class="waves-effect waves-light btn btn-back"><i class="icon-arrow left"></i>@ViewResources.Back</a>
         <ul class="collapsible collapsible-accordion" data-collapsible="expandable">
             <li>
                 <div class="collapsible-header panel-heading active">
@@ -27,8 +28,6 @@
 
                 <div class="collapsible-body">
                     <div class="panel-body">
-                        <div class="table-title"><span>@ViewResources.Summary</span></div>
-
                         <table class="table table-bordered">
                             <thead>
                                 @{Html.RenderPartial("~/Views/Desktop/Report/LiveReport/MatchList/Content.Header.cshtml");}

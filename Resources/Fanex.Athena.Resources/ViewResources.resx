@@ -2905,4 +2905,8 @@
     <value>Ticket detail of {0}</value>
     <comment>#63785</comment>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+    <comment>#63410</comment>
+  </data>
 </root>
