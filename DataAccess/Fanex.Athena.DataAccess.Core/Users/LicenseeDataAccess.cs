@@ -120,7 +120,8 @@ namespace Fanex.Athena.DataAccess.Core.Users
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("LicenseeID")),
                                 Name = reader.GetString(reader.GetOrdinal("LicenseeName")),
-                                IsAllowedCustomerComm = reader.GetBoolean(reader.GetOrdinal("IsAllowedMemberComm"))
+                                IsAllowedCustomerComm = reader.GetBoolean(reader.GetOrdinal("IsAllowedMemberComm")),
+                                IsEnableBA = reader.GetBoolean(reader.GetOrdinal("EnableBA"))
                             };
                             entityList.Add(entity);
                         }
@@ -196,11 +197,11 @@ namespace Fanex.Athena.DataAccess.Core.Users
             var uspParams = new { LicenseeId = licenseeId };
             try
             {
-                var entityList = new List<LicenseeCustomer>();
                 using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
+                        var entityList = new List<LicenseeCustomer>();
                         while (reader.Read())
                         {
                             var entity = new LicenseeCustomer
@@ -215,10 +216,10 @@ namespace Fanex.Athena.DataAccess.Core.Users
                             };
                             entityList.Add(entity);
                         }
+
+                        return entityList;
                     }
                 }
-
-                return entityList;
             }
             catch (ObjectDbException sqlException)
             {

@@ -1,0 +1,52 @@
+﻿namespace Fanex.Athena.Extension.UnitTests.Utility
+{
+    using System;
+    using System.Collections.Generic;
+    using Extension.Utility;
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class DictionayExtensionTest
+    {
+        [TestCase("SB", 0, 1000)]
+        [TestCase("CS", 0, 143.22)]
+        [TestCase("BT", 0, 0)]
+        [TestCase("BT", 100, 100)]
+        public void GetValueOrDefault_WhenCallWithDefaultValue_ValueIsGotCorrectly(string keyValue, object defaultValue, object expected)
+        {
+            // Arrange
+            var dataList = CreateData();
+
+            // Action
+            var result = dataList.GetValueOrDefault(keyValue, Convert.ToDecimal(defaultValue));
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [TestCase("SB", 0, 1000)]
+        [TestCase("CS", 0, 143.22)]
+        [TestCase("BT", 0, 0)]
+        [TestCase("BT", 100, 100)]
+        public void GetValueOrDefault_WhenCallWithDefaultValueProvider_ValueIsGotCorrectly(string keyValue, object defaultValue, object expected)
+        {
+            // Arrange
+            var dataList = CreateData();
+
+            // Action
+            var result = dataList.GetValueOrDefault(keyValue, () => Convert.ToDecimal(defaultValue));
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        private IDictionary<string, decimal> CreateData()
+        {
+            var dictionary = new Dictionary<string, decimal>();
+            dictionary.Add("SB", 1000m);
+            dictionary.Add("CS", 143.22m);
+
+            return dictionary;
+        }
+    }
+}

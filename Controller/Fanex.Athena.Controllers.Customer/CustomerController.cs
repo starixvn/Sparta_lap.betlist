@@ -64,11 +64,6 @@ namespace Fanex.Athena.Controllers.Customer
                 "CustomerOption"
             };
 
-            if (!IsCurrentLicenseeOfferOddsGroup())
-            {
-                columnNames.Remove("OddsGroup");
-            }
-
             _gridColumNames = columnNames.ToArray();
         }
 
@@ -95,7 +90,7 @@ namespace Fanex.Athena.Controllers.Customer
                 UserId = userSession.UserId,
                 AllowLicensees = allowLicensees,
                 GridColumns = this.IniGridColumns(productAccess.IsAllowBA, allowLicensees),
-                OddsGroups = IsCurrentLicenseeOfferOddsGroup() ? GetOddsGroups() : null
+                OddsGroups = GetOddsGroups()
             };
 
             SetConvetedUSDCurrencyName(metaModel);
@@ -219,17 +214,6 @@ namespace Fanex.Athena.Controllers.Customer
                 new CheckedItem() { Name = "C", Checked = true },
                 new CheckedItem() { Name = "D", Checked = true },
             };
-        }
-
-        private bool IsCurrentLicenseeOfferOddsGroup()
-        {
-            if (SessionService == null || SessionService.LicenseeSession == null)
-            {
-                return false;
-            }
-
-            var licenseeIds = GetLicenseesOfferOddsGroup();
-            return licenseeIds.Contains(SessionService.LicenseeSession.LicenseeId.ToString());
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]

@@ -115,27 +115,15 @@ namespace Fanex.Athena.Service.Core.Users
             };
 
             this.UserSession = userSession;
-
-            if (licenseeId > 0)
+            var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
+            if (licenseeId > 0 && selectedLicensee != null)
             {
-                var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
-                var agentList = _licenseeService.GetCustByLicensee(licenseeId) as List<LicenseeCustomer>;
-                agentList = agentList ?? new List<LicenseeCustomer>();
-
                 var licenseeSession = new LicenseeSession
                 {
-                    LicenseeId = licenseeId,
                     UserId = userId,
-                    LicenseeName = selectedLicensee.Name,
-                    UserName = userName,
-                    LicenseeType = agentList
-                            .Where(s => !string.IsNullOrEmpty(s.Description))
-                            .Select(s => s.Description)
-                            .Distinct()
-                            .ToList(),
-                    CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList()
+                    UserName = userName
                 };
-
+                AssignDataForLicenseeSession(licenseeSession, selectedLicensee);
                 licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;
                 this.LicenseeSession = licenseeSession;
             }
@@ -149,23 +137,13 @@ namespace Fanex.Athena.Service.Core.Users
             if (currentUserSession != null && licenseeId > 0)
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
-                var agentList = _licenseeService.GetCustByLicensee(licenseeId) as List<LicenseeCustomer>;
-                agentList = agentList ?? new List<LicenseeCustomer>();
 
                 this.LicenseeSession = new LicenseeSession
                 {
-                    LicenseeId = licenseeId,
                     UserId = currentUserSession.UserId,
-                    LicenseeName = selectedLicensee.Name,
-                    UserName = currentUserSession.UserName,
-                    LicenseeType = agentList
-                            .Where(s => !string.IsNullOrEmpty(s.Description))
-                            .Select(s => s.Description)
-                            .Distinct()
-                            .ToList(),
-                    CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList(),
-                    IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm,
+                    UserName = currentUserSession.UserName
                 };
+                AssignDataForLicenseeSession(this.LicenseeSession, selectedLicensee);
 
                 var functionList = _functionService.GetUserFunctionList(licenseeId, currentUserSession.UserId);
                 var functionIdList = functionList.Select(f => f.FunctionId).ToList();
@@ -187,6 +165,22 @@ namespace Fanex.Athena.Service.Core.Users
             }
 
             return ReportBalanceUrl;
+        }
+
+        private void AssignDataForLicenseeSession(LicenseeSession licenseeSession, Licensee selectedLicensee)
+        {
+            var agentList = _licenseeService.GetCustByLicensee(selectedLicensee.Id);
+
+            licenseeSession.LicenseeId = selectedLicensee.Id;
+            licenseeSession.LicenseeName = selectedLicensee.Name;
+            licenseeSession.LicenseeType = agentList
+                                        .Where(s => !string.IsNullOrEmpty(s.Description))
+                                        .Select(s => s.Description)
+                                        .Distinct()
+                                        .ToList();
+            licenseeSession.CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList();
+            licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;
+            licenseeSession.IsEnableBA = selectedLicensee.IsEnableBA;
         }
 
         public bool UpdateLanguage(string languageCode)

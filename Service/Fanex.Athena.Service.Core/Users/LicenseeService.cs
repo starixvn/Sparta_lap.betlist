@@ -56,7 +56,7 @@ namespace Fanex.Athena.Service.Core.Users
         ///     The licensee data access.
         /// </param>
         public LicenseeService(ILicenseeDataAccess licenseeDataAccess)
-        {            
+        {
             this._licenseeDataAccess = licenseeDataAccess;
         }
 

@@ -1,0 +1,2 @@
+@echo off
+run.bat %1 Fanex.Athena.DataAccess.BetList.UnitTests Fanex.Athena.DataAccess.BetSettings.UnitTests Fanex.Athena.DataAccess.Core.UnitTests Fanex.Athena.DataAccess.Customer.UnitTests Fanex.Athena.DataAccess.Forecast.UnitTests Fanex.Athena.DataAccess.Report.UnitTests Fanex.Athena.DataAccess.TotalBet.UnitTests Fanex.Athena.DataAccess.Warehouse.UnitTests Fanex.Athena.Excel.Base.UnitTests Fanex.Athena.Extension.UnitTests Fanex.Athena.Service.BetList.UnitTests Fanex.Athena.Service.BetSettings.UnitTests Fanex.Athena.Service.Core.UnitTests
