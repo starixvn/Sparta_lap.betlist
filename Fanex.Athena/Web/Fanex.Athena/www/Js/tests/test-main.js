@@ -12,7 +12,7 @@ requirejs.config({
     baseUrl: '/base/www/js/source',
 
     paths: {
-        'querystring': "common/querystring",
+        // 'common': "commonquerystring",
     },
 
     // ask Require.js to load these files (all our tests)

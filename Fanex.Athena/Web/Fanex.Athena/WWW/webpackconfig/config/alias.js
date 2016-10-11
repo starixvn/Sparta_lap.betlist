@@ -3,17 +3,10 @@
 var alias = {
     // vendors
     materialize: projectRoot + "/www/js/source/vendors/materialize/materialize.js",
-    jquerycookie: projectRoot + "/www/js/source/vendors/jquery/jquery.cookie.js",
-    jclock: projectRoot + "/www/js/source/vendors/jquery/jquery.jclock.js",
-
-    // plugins
-    daterangepicker: "bootstrap-daterangepicker",
-
+    
     // common
-    querystring: projectRoot + "/www/js/source/common/querystring.js",
-    site: projectRoot + "/www/js/source/common/site.js",
-    flatpopup: projectRoot + "/www/js/source/components/flatpopup/jquery.flatpopup.js",
-    monthpicker: projectRoot + "/www/js/source/components/monthpicker/monpickr.js",
+    common: projectRoot + "/www/js/source/common",
+    lib: projectRoot + "/www/js/source/lib"
 }
 
 module.exports = alias

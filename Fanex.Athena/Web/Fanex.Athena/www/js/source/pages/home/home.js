@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-define(["site", "jquerycookie", "jclock", "materialize-autocomplete"], function (Site) {
+define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-autocomplete"], function (Site) {
     var $searchBox;
     var _autocomplete;
 

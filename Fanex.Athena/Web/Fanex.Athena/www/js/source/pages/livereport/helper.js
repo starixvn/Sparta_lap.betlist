@@ -1,4 +1,4 @@
-﻿define(["querystring"], function (QueryString) {
+﻿define(["common/querystring"], function (QueryString) {
     function setSumParams(url, totalValue) {
         url = QueryString.setParam(url, "totalrows", totalValue.BetCount);
         url = QueryString.setParam(url, "sumwinlost", totalValue.CustomerWinLoss);

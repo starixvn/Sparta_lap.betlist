@@ -8,7 +8,7 @@
 * Version: 0.0.2 (9 Feb 2012)
 * Requires: jQuery v1.7+
 */
-define(["site"], function (Site) {
+define(["common/site"], function (Site) {
     (function ($) {
         var logger = { error: $.noop };
 

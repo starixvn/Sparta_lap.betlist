@@ -19,7 +19,7 @@ var cssPaths = {
 var scriptPaths = {
     build: "www/js/build",
 
-    layout: ["./www/js/source/components/navbar/navbar.js", "./www/js/source/components/sidebar/sidebar.js", "./www/js/source/pages/home/home.js"],
+    layout: ["./www/js/source/lib/navbar.js", "./www/js/source/lib/sidebar.js", "./www/js/source/pages/home/home.js"],
 
     livereport: "./www/js/source/pages/livereport/livereport.js",
     livereportmatchlist: "./www/js/source/pages/livereport/livereportmatchlist.js",

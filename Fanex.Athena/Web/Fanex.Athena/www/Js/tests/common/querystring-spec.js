@@ -1,4 +1,4 @@
-﻿define(['querystring'], function (QueryString) {
+﻿define(['common/querystring'], function (QueryString) {
     describe("query.string.js > QueryString", function () {
 
         describe("getQueryString(url)", function () {
