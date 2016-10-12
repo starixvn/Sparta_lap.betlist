@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -708,6 +708,7 @@
     <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
     <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
     <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
+    <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new.conf.js" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\flag_en-US.svg" />
@@ -763,6 +764,7 @@
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\js\tests\common\querystring-spec.js" />
     <Content Include="www\js\tests\common\site-spec.js" />
+    <Content Include="www\js\tests\lib\emmet.js" />
     <Content Include="www\js\tests\test-main.js" />
     <Content Include="www\webpackconfig\build\utils.js" />
     <Content Include="www\webpackconfig\build\webpack.base.conf.js" />
