@@ -5,8 +5,6 @@ define(
     function (QueryString, Site, Helper, moment) {
         "use strict";
 
-        $(initialize);
-
         function initialize() {
             Site.initialize();
             initEvent();
@@ -234,5 +232,9 @@ define(
                 location.href = url;
             }
         }
+
+        return {
+            initialize: initialize
+        };
     }
 );

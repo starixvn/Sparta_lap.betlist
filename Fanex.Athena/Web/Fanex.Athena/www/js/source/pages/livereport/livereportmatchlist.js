@@ -3,8 +3,6 @@
 define(["common/querystring", "common/site", "./helper"], function (QueryString, Site, Helper) {
     "use strict";
 
-    $(initialize);
-
     function initialize() {
         Site.initialize();
         initEvent();
@@ -42,4 +40,8 @@ define(["common/querystring", "common/site", "./helper"], function (QueryString,
         Site.blockUI();
         location.href = url;
     }
+
+    return {
+        initialize: initialize
+    };
 });

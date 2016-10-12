@@ -19,10 +19,10 @@ var cssPaths = {
 var scriptPaths = {
     build: "www/js/build",
 
-    layout: ["./www/js/source/lib/navbar.js", "./www/js/source/lib/sidebar.js", "./www/js/source/pages/home/home.js"],
+    layout: ["./www/js/source/lib/navbar.js", "./www/js/source/lib/sidebar.js", "./www/js/source/pages/home/main.js"],
 
-    livereport: "./www/js/source/pages/livereport/livereport.js",
-    livereportmatchlist: "./www/js/source/pages/livereport/livereportmatchlist.js",
+    livereport: "./www/js/source/pages/livereport/mainlivereport.js",
+    livereportmatchlist: "./www/js/source/pages/livereport/mainmatchlist.js",
 }
 
 module.exports = {

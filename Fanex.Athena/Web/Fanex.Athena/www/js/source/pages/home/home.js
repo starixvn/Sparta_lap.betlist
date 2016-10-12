@@ -126,4 +126,8 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
             }
         });
     }
+
+    return {
+        initialize: initialize
+    };
 });

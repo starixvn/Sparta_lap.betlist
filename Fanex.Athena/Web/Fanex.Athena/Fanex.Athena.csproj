@@ -762,11 +762,14 @@
     <Content Include="www\js\source\lib\navbar.js" />
     <Content Include="www\js\source\lib\sidebar.js" />
     <Content Include="www\js\source\pages\home\home.js" />
+    <Content Include="www\js\source\pages\home\main.js" />
     <Content Include="www\js\source\pages\livereport\helper.js" />
     <Content Include="www\js\source\pages\livereport\livereport.js" />
     <Content Include="www\js\source\pages\livereport\livereportmatchlist.js" />
     <Content Include="www\js\source\lib\jquery.cookie.js" />
     <Content Include="www\js\source\lib\jquery.jclock.js" />
+    <Content Include="www\js\source\pages\livereport\mainlivereport.js" />
+    <Content Include="www\js\source\pages\livereport\mainmatchlist.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\js\tests\common\querystring-spec.js" />
     <Content Include="www\js\tests\common\site-spec.js" />
