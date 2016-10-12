@@ -1,2 +1,6 @@
 ﻿[
+  {
+    "outputFile": "www/css/source/components/jqgrid/jqgrid.css",
+    "inputFile": "www/css/source/components/jqgrid/jqgrid.scss"
+  }
 ]

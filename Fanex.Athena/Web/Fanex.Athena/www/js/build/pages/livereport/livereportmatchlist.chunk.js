@@ -26,8 +26,6 @@ webpackJsonp([9],{
 	    var _rootUrl = null;
 	    var _pageLanguage = null;
 	
-	    $(initialize);
-	
 	    function addNoticationPopup() {
 	        var $marquee = $("#notification-marquee");
 	        if ("marquee" in $marquee) {
@@ -930,6 +928,7 @@ webpackJsonp([9],{
 	    $(initialize);
 	
 	    function initialize() {
+	        Site.initialize();
 	        initEvent();
 	    }
 	

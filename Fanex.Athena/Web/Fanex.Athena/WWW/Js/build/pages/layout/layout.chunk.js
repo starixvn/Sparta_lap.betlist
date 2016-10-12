@@ -671,6 +671,7 @@ webpackJsonp([7],{
 	    $(initialize);
 	
 	    function initialize() {
+	        Site.initialize();
 	        //initClock();
 	        initVariables();
 	        initEvent();
@@ -812,8 +813,6 @@ webpackJsonp([7],{
 	    var _isLoadedNotificationPopup = false;
 	    var _rootUrl = null;
 	    var _pageLanguage = null;
-	
-	    $(initialize);
 	
 	    function addNoticationPopup() {
 	        var $marquee = $("#notification-marquee");

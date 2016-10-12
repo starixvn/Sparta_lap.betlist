@@ -8,6 +8,7 @@ define(
         $(initialize);
 
         function initialize() {
+            Site.initialize();
             initEvent();
             initMaterialSelect();
             initDateRangePicker();

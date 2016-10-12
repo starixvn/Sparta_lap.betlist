@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "LRF - " + ViewResources.Report +
     " - " + ViewResources.LicenseeWinLoss;
-    Layout = "~/Views/Shared/_Report.jqGridLayout.cshtml";
+    Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
 }
 @section pagecss {    
     <link href="@Url.ContentLink("/Content/Report/licenseewinloss.css")" rel="stylesheet" type="text/css" />
@@ -20,13 +20,13 @@
 <div class="container_26" style="margin-left: -7px">
     <div class="grid_26">
         @{
-          Html.RenderPartial("~/Views/Report/LicenseeWinLoss/Content.cshtml");
+          Html.RenderPartial("~/Views/Desktop/Report/LicenseeWinLoss/Content.cshtml");
         }
     </div>
   
 </div>
 @section ContentFilter
 {
-    @{Html.RenderPartial("~/Views/Report/LicenseeWinLoss/Filter.cshtml");}
+    @{Html.RenderPartial("~/Views/Desktop/Report/LicenseeWinLoss/Filter.cshtml");}
 }
 

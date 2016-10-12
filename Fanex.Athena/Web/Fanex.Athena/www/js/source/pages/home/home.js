@@ -4,9 +4,9 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
     var $searchBox;
     var _autocomplete;
 
-    $(initialize);
-
+    
     function initialize() {
+        Site.initialize();
         //initClock();
         initVariables();
         initEvent();

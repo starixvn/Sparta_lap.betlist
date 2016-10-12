@@ -6,6 +6,7 @@ define(["common/querystring", "common/site", "./helper"], function (QueryString,
     $(initialize);
 
     function initialize() {
+        Site.initialize();
         initEvent();
     }
 
