@@ -12,7 +12,7 @@ requirejs.config({
     baseUrl: '/base/www/js/source',
 
     paths: {
-        // 'common': "commonquerystring",
+        "vendor-materialize": "vendors/materialize/materialize"
     },
 
     // ask Require.js to load these files (all our tests)

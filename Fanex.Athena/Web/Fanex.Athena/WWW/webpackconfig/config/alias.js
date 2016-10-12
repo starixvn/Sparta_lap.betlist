@@ -2,8 +2,8 @@
 
 var alias = {
     // vendors
-    materialize: projectRoot + "/www/js/source/vendors/materialize/materialize.js",
-    
+    'vendor-materialize': projectRoot + "/www/js/source/vendors/materialize/materialize.js",
+
     // common
     common: projectRoot + "/www/js/source/common",
     lib: projectRoot + "/www/js/source/lib"
