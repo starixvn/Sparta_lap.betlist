@@ -31,9 +31,10 @@ namespace Fanex.Athena.Controllers
             get { return _sessionService; }
         }
 
-        protected new ViewResult View(string viewName)
+        protected override ViewResult View(string viewName, string masterName, object model)
         {
-            return base.View(ClientViewHelper.GetViewPath(viewName));
+            var viewByOption = ClientViewHelper.GetViewPath(viewName);
+            return base.View(viewByOption, masterName, model);
         }
     }
 }
