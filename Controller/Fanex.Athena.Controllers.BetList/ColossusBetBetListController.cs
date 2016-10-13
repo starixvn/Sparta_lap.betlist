@@ -44,18 +44,18 @@ namespace Fanex.Athena.Controllers.BetList
 
             var viewModel = _colossusBetBetListService.GetData(metaModel);
 
-            var iframeUrl = GetIframeUrl(metaModel.RefNo, metaModel.CustId);
+            var iframeUrl = GetIframeUrl(metaModel.BetCheck, metaModel.CustId);
             viewModel.IframeUrl = iframeUrl;
             return this.View("~/Views/BetList/ColossusBetDetail/Main.cshtml", viewModel);
         }
 
-        private string GetIframeUrl(long refNo, int memberId)
+        private string GetIframeUrl(long betCheck, int memberId)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var token = GetToken(memberId);
             var siteId = _colossusBetBetListService.GetSiteId(memberId);
-            var url = AppSettings.GetValue("CBIframeUrlSiteId" + siteId);
-            return string.Format(url, refNo, token);
+            var url = AppSettings.GetValue("CBIframeUrlSiteId" + siteId.ToString());
+            return string.Format(url, betCheck, token);
         }
 
         private string GetToken(int memberId)

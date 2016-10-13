@@ -17,5 +17,7 @@ namespace Fanex.Athena.Model.BetList.MetaModel
         public long RefNo { get; set; }
 
         public string BaseCurrency { get; set; }
+
+        public long BetCheck { get; set; }
     }
 }
