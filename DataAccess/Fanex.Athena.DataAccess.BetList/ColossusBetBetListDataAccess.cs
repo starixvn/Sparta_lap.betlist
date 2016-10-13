@@ -24,10 +24,31 @@ namespace Fanex.Athena.DataAccess.BetList
     {
         private const int SoldBetType = 18002;
 
-        private const string UspKey = "Lrf_BetList_CB_Detail";
+        public int GetSiteId(int custId)
+        {
+            const string UspKey = "Acc_CustomerSelSiteByCustId";
+
+            try
+            {
+                using (var db = this.GetObjectDb(UspKey))
+                {
+                    db.AddInParameter("custid", DbType.Int32, custId);
+                    db.AddOutParameter("siteid", DbType.Int32, 0);
+                    db.ExecuteNonQuery();
+                    return (int)db.GetParameterValue("siteid");
+                }
+            }
+            catch (ObjectDbException exception)
+            {
+                LogService.Error(exception.Message + "\n UspName=" + UspKey, exception);
+                throw new DataAccessException(exception.Message, UspKey, new { CustId = custId });
+            }
+        }
 
         public ColossusBetDetailViewModel GetData(ColossusBetDetailMetaModel metaModel)
         {
+            const string UspKey = "Lrf_BetList_CB_Detail";
+
             try
             {
                 using (var db = this.GetObjectDb(UspKey))
