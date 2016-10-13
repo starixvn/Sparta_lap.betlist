@@ -113,8 +113,6 @@
 	<add key="RNGCasinoTemplate" value="D" />
 	<!-- Colossus Bets API -->
 	<add key="ColossusBetTokenAPI" value="http://220.130.26.188:30051/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
-	<!-- Colossus Bets API -->
-	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
 	<!-- BBin -->
 	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?productToken={1}&amp;siteID=4201300" />
 	<!-- Fun88 -->
@@ -223,8 +221,6 @@
 	<add key="RNGCasinoTemplate" value="D" />
 	<!-- Colossus Bets API -->
 	<add key="ColossusBetTokenAPI" value="http://220.130.26.188:30051/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
-	<!-- Colossus Bets API -->
-	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
 	<!-- BBin -->
 	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?productToken={1}&amp;siteID=4201300" />
 	<!-- Fun88 -->
@@ -326,8 +322,6 @@
 	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
 	<add key="RNGCasinoRole" value="S" />
 	<add key="RNGCasinoTemplate" value="D" />
-	<!-- Colossus Bets API -->
-	<add key="ColossusBetTokenAPI" value="http://172.16.4.132:9075/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
 	<!-- Colossus Bets API -->
 	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
 	<!-- BBin -->
@@ -432,9 +426,7 @@
 	<add key="RNGCasinoRole" value="S" />
 	<add key="RNGCasinoTemplate" value="D" />
 	<!-- Colossus Bets API -->
-	<add key="ColossusBetTokenAPI" value="http://172.16.4.132:9075/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
-	<!-- Colossus Bets API -->
-	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
+	<add key="ColossusBetTokenAPI" value="http://172.16.4.132:9075/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;CustomerId={0}&amp;vendorProduct=4&amp;memberID={1}" />
 	<!-- BBin -->
 	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?productToken={1}&amp;siteID=4201300" />
 	<!-- Fun88 -->
@@ -642,8 +634,6 @@
 	<add key="RNGCasinoTemplate" value="D" />
 	<!-- Colossus Bets API -->
 	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
-	<!-- Colossus Bets API -->
-	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
 	<!-- BBin -->
 	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?productToken={1}&amp;siteID=4201300" />
 	<!-- Fun88 -->
@@ -744,8 +734,6 @@
 	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
 	<add key="RNGCasinoRole" value="S" />
 	<add key="RNGCasinoTemplate" value="D" />
-	<!-- Colossus Bets API -->
-	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
 	<!-- Colossus Bets API -->
 	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
 	<!-- BBin -->
