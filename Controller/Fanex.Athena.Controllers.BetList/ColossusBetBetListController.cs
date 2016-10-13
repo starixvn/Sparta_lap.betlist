@@ -53,9 +53,9 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var token = GetToken(memberId);
-            var url = AppSettings.GetValue("ColossusBetIFrameAPI");
-            var siteId = AppSettings.GetValue("ColossusBetSiteIdForLicensee" + licenseeId);
-            return string.Format(url, refNo, siteId, token);
+            var siteId = _colossusBetBetListService.GetSiteId(memberId);
+            var url = AppSettings.GetValue("CBIframeUrlSiteId" + siteId);
+            return string.Format(url, refNo, token);
         }
 
         private string GetToken(int memberId)

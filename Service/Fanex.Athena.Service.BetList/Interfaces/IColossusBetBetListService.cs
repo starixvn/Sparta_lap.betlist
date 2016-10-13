@@ -6,5 +6,7 @@
     public interface IColossusBetBetListService
     {
         ColossusBetDetailViewModel GetData(ColossusBetDetailMetaModel metaModel);
+
+        int GetSiteId(int custId);
     }
 }
