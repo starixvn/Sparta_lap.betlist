@@ -21,8 +21,8 @@ var scriptPaths = {
 
     layout: ["./www/js/source/lib/navbar.js", "./www/js/source/lib/sidebar.js", "./www/js/source/pages/home/main.js"],
 
-    livereport: "./www/js/source/pages/livereport/mainlivereport.js",
-    livereportmatchlist: "./www/js/source/pages/livereport/mainmatchlist.js",
+    livereport: "./www/js/source/pages/livereport/main-livereport.js",
+    livereportmatchlist: "./www/js/source/pages/livereport/main-matchlist.js",
 }
 
 module.exports = {
