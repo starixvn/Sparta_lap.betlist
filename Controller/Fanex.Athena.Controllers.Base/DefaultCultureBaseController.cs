@@ -13,9 +13,6 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using ONEbook.UM.Filters;
-    using System.Configuration;
-    using Model.Core.DataDomain;
-    using System.Collections.Generic;
 
     #endregion Using
 
@@ -33,6 +30,7 @@ namespace Fanex.Athena.Controllers
         {
             get { return _sessionService; }
         }
+
         protected new ViewResult View(string viewName)
         {
             return base.View(ClientViewHelper.GetViewPath(viewName));

@@ -131,7 +131,8 @@ namespace Fanex.Athena.Controllers.Report
             var liveReportService = new LiveReportService();
             liveReportService.GetLiveReportSumaryDetail(metaModel, productCode, productList, out dataBySport, out dataByCurrency, out dataByBetType);
 
-            return View("~/Views/Report/LiveReport/AjaxTemplate/LiveReportDetail.cshtml",
+            return View(
+                "~/Views/Report/LiveReport/AjaxTemplate/LiveReportDetail.cshtml",
                 new LiveReportDetailViewModel
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,

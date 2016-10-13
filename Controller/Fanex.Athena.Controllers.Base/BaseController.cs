@@ -6,9 +6,7 @@
 
 namespace Fanex.Athena.Controllers
 {
-    using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
@@ -82,8 +80,6 @@ namespace Fanex.Athena.Controllers
             var currentLanguage = LangService.GetCurrentLanguage();
             LangService.SetPageCulture(currentLanguage);
         }
-
-     
 
         private IEnumerable<string> GetBaseUsdLicensees()
         {

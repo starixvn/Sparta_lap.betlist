@@ -13,8 +13,8 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using ONEbook.UM.Filters;
     using Model.Core.DataDomain;
+    using ONEbook.UM.Filters;
 
     /// <summary>
     /// Home controller.
@@ -45,9 +45,10 @@ namespace Fanex.Athena.Controllers
 
         public ActionResult SwitchView(ClientViewType type = ClientViewType.Default)
         {
-            SessionService.UserSession.viewType = type;
+            SessionService.UserSession.ViewType = type;
             return RedirectToAction("Index", "Home");
         }
+
         /// <summary>
         /// Get number online user.
         /// </summary>
