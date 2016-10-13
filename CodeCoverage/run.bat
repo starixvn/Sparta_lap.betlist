@@ -21,6 +21,7 @@ echo %fileList%
 
 REM create output folder
 if not exist ..\cireport\testcoveragereport mkdir ..\cireport\testcoveragereport
+if not exist ..\cireport\coberturareport mkdir ..\cireport\coberturareport
 
 REM Set working dir
 pushd ..\
@@ -36,6 +37,14 @@ REM REM ReportGenerator
 set command=packages\ReportGenerator.2.4.5.0\tools\ReportGenerator.exe -reports:"UnitTestCoverage_%project%.xml" -targetdir:"cireport\testcoveragereport\"
 call %command%
 if %errorlevel% neq 0 goto error
+
+
+REM REM CoberturaReport
+set command=packages\OpenCoverToCoberturaConverter.0.2.4.0\tools\OpenCoverToCoberturaConverter.exe -input:"UnitTestCoverage_%project%.xml" -output:"cireport\coberturareport\UnitTestCobertura.xml" -sources:".\"
+call %command%
+if %errorlevel% neq 0 goto error
+
+
 
 echo Success.
 goto end

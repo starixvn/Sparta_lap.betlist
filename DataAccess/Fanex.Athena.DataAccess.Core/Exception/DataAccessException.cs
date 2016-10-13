@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.Core.Exception
 {
     using System;
+    using System.Web.Script.Serialization;
 
     /// <summary>
     /// Data access exception.
@@ -15,9 +16,9 @@ namespace Fanex.Athena.DataAccess.Core.Exception
     public class DataAccessException : System.Exception
     {
         private readonly string _uspName;
-        private readonly dynamic _uspParams;
+        private readonly object _uspParams;
 
-        public DataAccessException(string message, string uspName, dynamic uspParams)
+        public DataAccessException(string message, string uspName, object uspParams)
             : base(message)
         {
             this._uspName = uspName;
@@ -35,9 +36,15 @@ namespace Fanex.Athena.DataAccess.Core.Exception
         {
             get
             {
-                return this._uspParams == null
-                    ? string.Format("Exception when call usp {0}. Exception: {1}", this._uspName, base.Message)
-                    : string.Format("Exception when call usp {0}. Params: {1}. Exception: {2}", this._uspName, this._uspParams, base.Message);
+                if (this._uspParams == null)
+                {
+                    return string.Format("Exception when call usp {0}. \nException: {1}", this._uspName, base.Message);
+                }
+                else
+                {
+                    var paramJson = new JavaScriptSerializer().Serialize(_uspParams);
+                    return string.Format("Exception when call usp {0}. \nParams: {1}. \nException: {2}", this._uspName, paramJson, base.Message);
+                }
             }
         }
 

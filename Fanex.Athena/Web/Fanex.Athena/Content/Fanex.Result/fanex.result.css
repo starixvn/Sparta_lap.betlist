@@ -68,6 +68,15 @@ table.fn-rs
     border-top: 1px solid #a3d1e1;
     line-height: 20px;
 }
+table.fn-rs tbody .cl-group-name {
+    color: #1d3968;
+    background: #ccc;
+    vertical-align: middle;
+    font-weight: bold;
+    line-height: 7px;
+    height: 21px;
+    text-align: center;
+}
 table.fn-rs.number-game
 {
     line-height: 15px;
