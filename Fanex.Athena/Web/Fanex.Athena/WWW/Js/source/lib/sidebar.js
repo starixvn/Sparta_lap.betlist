@@ -242,7 +242,4 @@
         }
     };
 
-    $(document).ready(function () {
-        $('.collapsible2').collapsibleMenu();
-    });
 }(jQuery));

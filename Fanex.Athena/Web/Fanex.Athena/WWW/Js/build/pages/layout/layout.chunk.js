@@ -650,9 +650,6 @@ webpackJsonp([7],{
 	        }
 	    };
 	
-	    $(document).ready(function () {
-	        $('.collapsible2').collapsibleMenu();
-	    });
 	}(jQuery));
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
@@ -681,14 +678,31 @@ webpackJsonp([7],{
 	    
 	    function initialize() {
 	        Site.initialize();
+	       // getMenu();
+	       // getHeader();
 	        //initClock();
 	        initVariables();
 	        initEvent();
 	    }
-	
+	    function getMenu() {
+	        $.ajax({
+	            async:false,
+	            url: Site.resolveClientUrl("Menu/Index")
+	        }).done(function (data) {
+	            $("#left-menu").html(data);
+	        });
+	    };
+	    function getHeader() {
+	        $.ajax({
+	            async: false,
+	            url: Site.resolveClientUrl("Header/Index")
+	        }).done(function (data) {
+	            $("#header").html(data);
+	        });
+	    };
 	    function initVariables() {
 	        $searchBox = $('#searchbox');
-	    }
+	    };
 	
 	    function initEvent() {
 	        initAutoComplete();
@@ -702,6 +716,7 @@ webpackJsonp([7],{
 	                _autocomplete.$dropdown.html('').hide();
 	            }
 	        });
+	
 	
 	        $('#languagesite').on('click', '.languageItem', function () {
 	            changeLanguage($(this));
@@ -724,6 +739,7 @@ webpackJsonp([7],{
 	        });
 	
 	        $(".toggleMenubar").sideNav2();
+	        $('.collapsible2').collapsibleMenu();
 	    }
 	
 	    function searchByUserName() {

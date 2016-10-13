@@ -83,7 +83,7 @@ namespace Fanex.Athena.Controllers
             LangService.SetPageCulture(currentLanguage);
         }
 
-       
+     
 
         private IEnumerable<string> GetBaseUsdLicensees()
         {
@@ -96,11 +96,10 @@ namespace Fanex.Athena.Controllers
             return new string[] { };
         }
 
-        public new ViewResult View(string viewName)
+        protected override ViewResult View(string viewName, string masterName, object model)
         {
-            return base.View(ClientViewHelper.GetViewPath(viewName));
+            var viewByOption = ClientViewHelper.GetViewPath(viewName);
+            return base.View(viewByOption, masterName, model);
         }
-
-
     }
 }

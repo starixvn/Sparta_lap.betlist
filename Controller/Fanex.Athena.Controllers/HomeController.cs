@@ -34,7 +34,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult Index()
         {
             ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
-            return ReAuthorize(("~/Views/Home/Index.cshtml"));
+            return ReAuthorize("~/Views/Home/Index.cshtml");
         }
 
         public ActionResult IndexIpad()

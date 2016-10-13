@@ -19,8 +19,8 @@
 <body>
     <input type="hidden" id="RootUrl" value="@Url.Content("~")" />
     <header>
-        <div class="navbar-fixed">
-            @{ Html.RenderAction("Index", "Header"); }
+        <div class="navbar-fixed" id="header">
+            @{Html.RenderAction("Index", "Header"); }
         </div>
     </header>
 
@@ -31,8 +31,8 @@
                 <span class="logo-text"><img src="~/www/assets/images/logo-text.png" /> </span>
             </a>
         </li>
-        <li class="site-menu">
-            @{ Html.RenderAction("Index", "Menu"); }
+        <li class="site-menu" id="left-menu">
+           @{Html.RenderAction("Index", "Menu"); }
         </li>
     </ul>    
 
@@ -42,6 +42,6 @@
     </main>
 
     <script src="~/www/js/build/vendors.chunk.js"></script>
-    <script src="~/www/js/build/pages/layout/layout.chunk.js"></script>
+    <script src="~/www/js/build/pages/layout/layout.chunk.js?v=fuck"></script>
 </body>
 </html>

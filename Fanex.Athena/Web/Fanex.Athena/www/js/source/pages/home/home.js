@@ -7,14 +7,15 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
     
     function initialize() {
         Site.initialize();
+     
         //initClock();
         initVariables();
         initEvent();
     }
-
+   
     function initVariables() {
         $searchBox = $('#searchbox');
-    }
+    };
 
     function initEvent() {
         initAutoComplete();
@@ -28,6 +29,7 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
                 _autocomplete.$dropdown.html('').hide();
             }
         });
+
 
         $('#languagesite').on('click', '.languageItem', function () {
             changeLanguage($(this));
@@ -50,6 +52,7 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
         });
 
         $(".toggleMenubar").sideNav2();
+        $('.collapsible2').collapsibleMenu();
     }
 
     function searchByUserName() {

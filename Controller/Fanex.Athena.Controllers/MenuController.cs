@@ -14,7 +14,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Model.Core.DataDomain;
 
-    public class MenuController : ReadonlyBaseController
+    public class MenuController : BaseController
     {
         private readonly IFunctionService _functionService;
 
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers
             viewModel.MasterFunctions = _functionService.GetMasterFunctions(viewModel.UserFunctions);
             viewModel.UserDetailFunctions = _functionService.GetSubMenus(viewModel.UserFunctions);
 
-            return PartialView("~/Views/Menu/Index.cshtml", viewModel);
+            return View("~/Views/Menu/Index.cshtml", viewModel);
         }
     }
 }

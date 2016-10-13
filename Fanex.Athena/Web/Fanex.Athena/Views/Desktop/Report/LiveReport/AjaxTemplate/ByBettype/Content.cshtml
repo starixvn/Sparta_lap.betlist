@@ -12,7 +12,7 @@
             @if (Model.ByBetType == null || Model.ByBetType.Count == 0)
             {
                 <tr>
-                    <td colspan="@ReportContentHelperNewUI.GetNumberOfColumnInLiveReport(Model)" class="text-center">@ViewResources.NoInfo</td>
+                    <td colspan="@ReportContentHelperDesktop.GetNumberOfColumnInLiveReport(Model)" class="text-center">@ViewResources.NoInfo</td>
                 </tr>
             }
             else

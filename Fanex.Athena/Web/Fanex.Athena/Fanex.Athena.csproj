@@ -782,8 +782,8 @@
     <Content Include="www\webpackconfig\config\loader.js" />
     <Content Include="www\webpackconfig\config\path.js" />
     <Content Include="www\webpackconfig\config\plugin.js" />
-    <Content Include="App_Code\RazorHelperNewUI.cshtml" />
-    <Content Include="App_Code\ReportContentHelperNewUI.cshtml" />
+    <Content Include="App_Code\RazorHelperDesktop.cshtml" />
+    <Content Include="App_Code\ReportContentHelperDesktop.cshtml" />
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
@@ -1111,6 +1111,7 @@
     <Content Include="www\js\build\pages\livereport\livereportmatchlist.chunk.js.map" />
     <Content Include="www\css\source\components\jqgrid\jqgrid.scss" />
     <Content Include="Views\Desktop\Shared\_Report.jqGridLayout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
@@ -4389,7 +4390,6 @@
     <Content Include="Scripts\Library\MicrosoftMvcAjax.debug.js" />
     <Content Include="Scripts\Library\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\Library\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config">
