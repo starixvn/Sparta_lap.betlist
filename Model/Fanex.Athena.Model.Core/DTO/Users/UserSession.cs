@@ -65,6 +65,6 @@ namespace Fanex.Athena.Model.Core.DTO.Users
 
         public string DefaultReportUrl { get; set; }
 
-        public bool IsNewUI { get; set; }
+        public ClientViewType viewType { get; set; }
     }
 }

@@ -78,6 +78,7 @@
     <Compile Include="DataDomain\RNGCasinoSetting.cs" />
     <Compile Include="DataDomain\SportType.cs" />
     <Compile Include="DataDomain\SystemConstants.cs" />
+    <Compile Include="DataDomain\ClientViewType.cs" />
     <Compile Include="DTO\Common\CheckedItem.cs" />
     <Compile Include="DTO\Common\Currency.cs" />
     <Compile Include="DTO\Common\ExChangeRate.cs" />

@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using ONEbook.UM.Filters;
+    using Model.Core.DataDomain;
 
     /// <summary>
     /// Home controller.
@@ -33,7 +34,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult Index()
         {
             ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
-            return ReAuthorize(GetNewViewPath("~/Views/Home/Index.cshtml"));
+            return ReAuthorize(("~/Views/Home/Index.cshtml"));
         }
 
         public ActionResult IndexIpad()
@@ -42,18 +43,11 @@ namespace Fanex.Athena.Controllers
             return ReAuthorize("~/Views/Home/IndexIpad.cshtml");
         }
 
-        public ActionResult NewUI()
+        public ActionResult SwitchView(ClientViewType type = ClientViewType.Default)
         {
-            SessionService.UserSession.IsNewUI = true;
+            SessionService.UserSession.viewType = type;
             return RedirectToAction("Index", "Home");
         }
-
-        public ActionResult OldUI()
-        {
-            SessionService.UserSession.IsNewUI = false;
-            return RedirectToAction("Index", "Home");
-        }
-
         /// <summary>
         /// Get number online user.
         /// </summary>

@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
@@ -25,7 +26,6 @@ namespace Fanex.Athena.Controllers
     public class BaseController : Controller
     {
         protected const string DefaultLanguage = "en-US";
-
         private readonly ILanguageService _langService;
         private readonly ISessionService _sessionService;
 
@@ -83,12 +83,7 @@ namespace Fanex.Athena.Controllers
             LangService.SetPageCulture(currentLanguage);
         }
 
-        protected string GetNewViewPath(string viewPath)
-        {
-            var isNewUI = ConfigurationManager.AppSettings["IsNewUI"] == "1" ||
-                (SessionService.UserSession != null && SessionService.UserSession.IsNewUI);
-            return isNewUI ? viewPath.Replace("Views/", "Views/Desktop/") : viewPath;
-        }
+       
 
         private IEnumerable<string> GetBaseUsdLicensees()
         {
@@ -100,5 +95,12 @@ namespace Fanex.Athena.Controllers
 
             return new string[] { };
         }
+
+        public new ViewResult View(string viewName)
+        {
+            return base.View(ClientViewHelper.GetViewPath(viewName));
+        }
+
+
     }
 }

@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.Report
                 ProductAccess = productAccess,
             };
 
-            return View(GetNewViewPath("~/Views/Report/LicenseeWinLoss/Main.cshtml"), model);
+            return View("~/Views/Report/LicenseeWinLoss/Main.cshtml", model);
         }
     }
 }

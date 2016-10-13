@@ -75,7 +75,7 @@ namespace Fanex.Athena.Controllers
 
             SetErrorForView(0, string.Empty);
             ViewBag.LogInToken = CreateToken();
-            return View(GetNewViewPath("~/Views/Authorization/SignIn.cshtml"));
+            return View("~/Views/Authorization/SignIn.cshtml");
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace Fanex.Athena.Controllers
             }
 
             ViewBag.LogInToken = CreateToken();
-            return View(GetNewViewPath("~/Views/Authorization/SignIn.cshtml"));
+            return View("~/Views/Authorization/SignIn.cshtml");
         }
 
         /// <summary>

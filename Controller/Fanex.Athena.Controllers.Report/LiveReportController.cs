@@ -55,7 +55,7 @@ namespace Fanex.Athena.Controllers.Report
                 ProductAccess = productAccess
             };
 
-            return View(GetNewViewPath("~/Views/Report/LiveReport/Main.cshtml"), model);
+            return View("~/Views/Report/LiveReport/Main.cshtml", model);
         }
 
         [HttpPost]
@@ -85,7 +85,7 @@ namespace Fanex.Athena.Controllers.Report
 
             return isExportedExcel
                        ? Excel(model)
-                       : View(GetNewViewPath("~/Views/Report/LiveReport/Main.cshtml"), model);
+                       : View("~/Views/Report/LiveReport/Main.cshtml", model);
         }
 
         [HttpGet]
@@ -108,7 +108,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyName = metaModel.CurrencyName
             };
 
-            return View(GetNewViewPath("~/Views/Report/LiveReport/MatchList/Content.cshtml"), model);
+            return View("~/Views/Report/LiveReport/MatchList/Content.cshtml", model);
         }
 
         [HttpPost]
@@ -131,8 +131,7 @@ namespace Fanex.Athena.Controllers.Report
             var liveReportService = new LiveReportService();
             liveReportService.GetLiveReportSumaryDetail(metaModel, productCode, productList, out dataBySport, out dataByCurrency, out dataByBetType);
 
-            return View(
-                GetNewViewPath("~/Views/Report/LiveReport/AjaxTemplate/LiveReportDetail.cshtml"),
+            return View("~/Views/Report/LiveReport/AjaxTemplate/LiveReportDetail.cshtml",
                 new LiveReportDetailViewModel
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
