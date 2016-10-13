@@ -6,11 +6,6 @@ module.exports = function (config) {
         basePath: '',
         frameworks: ['jasmine-jquery', 'jasmine', 'requirejs'],
         files: [
-            'bower_components/emmetjs/dist/emmet.min.js',
-            'bower_components/jasmine/lib/jasmine-core/jasmine-html.js',
-		    'bower_components/jasmine-fixture/dist/jasmine-fixture.js',
-		    'bower_components/jasmine-ajax/lib/mock-ajax.js',
-
             { pattern: 'www/js/source/**/*.js', included: false },
             { pattern: 'www/js/tests/common/*-spec.js', included: false },
 

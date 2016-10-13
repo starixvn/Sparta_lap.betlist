@@ -1,92 +1,86 @@
-﻿define(['common/site'], function (Site) {
+﻿define(['jquery', 'common/site'], function ($, Site) {
     describe("site.js > Site", function () {
         describe("getLicenseeId()", function () {
             it("return a value from input#LicenseeId", function () {
-                affix("input#LicenseeId[value=1]");
+                setFixtures('<input id="LicenseeId" value="2" />');
                 var result = Site.getLicenseeId();
 
-                expect(result).toBe(1);
+                expect(result).toBe(2);
             });
         });
 
-        //describe("asNull(text)", function () {
-        //    it("return null if the param 'text' is an empty string", function () {
-        //        var result = Site.asNull("");
-        //        expect(result).toBe(null);
-        //    });
-        //});
+        describe("asNull(text)", function () {
+            it("return null if the param 'text' is an empty string", function () {
+                var result = Site.asNull("");
+                expect(result).toBe(null);
+            });
+        });
 
-        //describe("blockUI()", function () {
-        //    it("div.loading will be display", function () {
-        //        affix("div.block-body[style=display:none]");
-        //        affix("div.loading[style=display:none]");
-        //        Site.blockUI();
-        //        var result = $('div.block-body').is(':visible') && $('div.loading').is(':visible');
-        //        expect(result).toBe(true);
-        //    });
-        //});
+        describe("blockUI()", function () {
+            it("div.block-body and div.loading will be display", function () {
+                setFixtures('<div id="123" class="block-body" style="display:none"></div>');
+                appendSetFixtures('<div class="loading" style="display:none"></div>');
+                Site.blockUI();
+                var result = $('div.block-body').is(':visible') && $('div.loading').is(':visible');
+                expect(result).toBe(true);
+            });
+        });
 
-        //describe("setLicenseeOptionParam(urlOrParams)", function () {
-        //    it("return an url with query string if 'urlOrParams' is a string", function () {
-        //        affix("input#LicenseeType[value=1]");
-        //        var $currencyId = affix("select#CurrencyId");
-        //        $currencyId.affix("option[value=1]");
-        //        $currencyId.affix("option[value=2]");
-        //        affix("input#BaseCurrency[value=USD]");
+        describe("setLicenseeOptionParam(urlOrParams)", function () {
+            beforeEach(function () {
+                setFixtures('<input id="LicenseeType" value="1" />');
+                appendSetFixtures('<select id="CurrencyId"><option value="1" /><option value="2" /></select>');
+                appendSetFixtures('<input id="BaseCurrency" value="USD" />');
+            });
 
-        //        var result = Site.setLicenseeOptionParam("localhost");
-        //        expect(result).toBe("localhost?licenseetype=1&currencyid=1&currencyname=&basecurrency=USD");
-        //    });
+            it("return an url with query string if 'urlOrParams' is a string", function () {
+                var result = Site.setLicenseeOptionParam("localhost");
+                expect(result).toBe("localhost?licenseetype=1&currencyid=1&currencyname=&basecurrency=USD");
+            });
 
-        //    it("return an object with query string if 'urlOrParams' is an object", function () {
-        //        affix("input#LicenseeType[value=1]");
-        //        var $currencyId = affix("select#CurrencyId");
-        //        $currencyId.affix("option[value=1]");
-        //        $currencyId.affix("option[value=2]");
-        //        affix("input#BaseCurrency[value=USD]");
+            it("return an object with query string if 'urlOrParams' is an object", function () {
+                var result = Site.setLicenseeOptionParam({});
+                expect(result).toEqual({ LicenseeType: '1', CurrencyId: '1', CurrencyName: '', BaseCurrency: 'USD' });
+            });
+        });
 
-        //        var result = Site.setLicenseeOptionParam({});
-        //        expect(result).toEqual({ LicenseeType: '1', CurrencyId: '1', CurrencyName: '', BaseCurrency: 'USD' });
-        //    });
-        //});
+        describe("setLicenseeOptionOriginalParam(urlOrParams)", function () {
+            it("build an url from 'data-original' attributes of html tags", function () {
+                setFixtures('<input id="LicenseeType" data-original="1" />');
+                appendSetFixtures('<select id="CurrencyId" data-original="2" />');
+                appendSetFixtures('<input id="BaseCurrency" data-original="USD" />');
 
-        //describe("setLicenseeOptionOriginalParam(urlOrParams)", function () {
-        //    it("build an url from 'data-original' attributes of html tags", function () {
-        //        affix("input#LicenseeType[data-original=1]");
-        //        var $currencyId = affix("select#CurrencyId[data-original=2]");
-        //        affix("input#BaseCurrency[data-original=USD]");
+                var result = Site.setLicenseeOptionOriginalParam("localhost");
+                expect(result).toBe("localhost?licenseetype=1&currencyid=2&currencyname=&basecurrency=USD");
+            });
+        });
 
-        //        var result = Site.setLicenseeOptionOriginalParam("localhost");
-        //        expect(result).toBe("localhost?licenseetype=1&currencyid=2&currencyname=&basecurrency=USD");
-        //    });
-        //});
+        describe("updateOriginalLicenseeOption()", function () {
+            it("update values of html tags to 'data-original' attributes", function () {
+                setFixtures('<input id="LicenseeType" value="1">');
+                appendSetFixtures('<input id="BaseCurrency" value="USD">');
+                Site.updateOriginalLicenseeOption();
+                var result = $("#LicenseeType").attr("data-original") === "1" && $("#BaseCurrency").attr("data-original") === "USD";
+                expect(result).toBe(true);
+            });
+        });
 
-        //describe("updateOriginalLicenseeOption()", function () {
-        //    it("update values of html tags to 'data-original' attributes", function () {
-        //        affix("input#LicenseeType[value=1]");
-        //        affix("input#BaseCurrency[value=USD]");
-        //        Site.updateOriginalLicenseeOption();
-        //        var result = $("#LicenseeType").attr("data-original") === "1" && $("#BaseCurrency").attr("data-original") === "USD";
-        //        expect(result).toBe(true);
-        //    });
-        //});
+        describe("setProductOptionParam(url, counter, productCode, status)", function () {
+            it("build an url with production options", function () {
+                var result = Site.setProductOptionParam("localhost", 1, "SB", true);
+                expect(result).toBe("localhost?productoptions[1].code=SB&productoptions[1].name=SB&productoptions[1].status=true");
+            });
+        });
 
-        //describe("setProductOptionParam(url, counter, productCode, status)", function () {
-        //    it("build an url with production options", function () {
-        //        var result = Site.setProductOptionParam("localhost", 1, "SB", true);
-        //        expect(result).toBe("localhost?productoptions[1].code=SB&productoptions[1].name=SB&productoptions[1].status=true");
-        //    });
-        //});
-
-        //describe("initBlockUI()", function () {
-        //    it("Site.blockUI() should be called when clicking on .blockui element", function () {
-        //        affix(".blockui");
-        //        Site.initBlockUI();
-        //        spyOn(Site, 'blockUI');
-        //        $('.blockui').click();
-        //        expect(Site.blockUI).toHaveBeenCalled();
-        //    });
-        //});
+        describe("initBlockUI()", function () {
+            it("Site.blockUI() should be called when clicking on .blockui element", function () {
+                setFixtures('<div class="blockui"></div>');
+                Site.initialize();
+                spyOn(Site, 'blockUI');
+                $('.blockui').click();
+                expect(Site.blockUI).toHaveBeenCalled();
+            });
+        });
 
         //describe("asBool()", function () {
         //    it("convert a string 'TRUE' to true (boolean)", function () {
