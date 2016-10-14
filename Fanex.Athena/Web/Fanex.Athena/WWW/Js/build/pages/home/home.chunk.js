@@ -724,6 +724,9 @@ webpackJsonp([7],{
 	
 	        $(".toggleMenubar").sideNav2();
 	        $('.collapsible2').collapsibleMenu();
+	        $('body').click(function () {
+	            _autocomplete.$dropdown.html('').hide();
+	        });
 	    }
 	
 	    function searchByUserName() {

@@ -947,10 +947,9 @@ webpackJsonp([9],{
 	    }
 	
 	    function viewMatchBetList(target) {
-	        var url = "LiveReportBetList/Match";
-	        var currencyName = $('#CurrencyName').attr('data-original');
-	        url = Site.resolveClientUrl(url);
+	        url = Site.resolveClientUrl("LiveReportBetList/Match");
 	
+	        var currencyName = $('#CurrencyName').attr('data-original');
 	        var data = $(target).attr("data-drill-down");
 	        data = $.parseJSON(data);
 	        url = Site.setLicenseeOptionOriginalParam(url);
@@ -970,7 +969,7 @@ webpackJsonp([9],{
 	        });
 	
 	        Site.blockUI();
-	        location.href = url;
+	        Site.redirect(url);
 	    }
 	
 	    return {

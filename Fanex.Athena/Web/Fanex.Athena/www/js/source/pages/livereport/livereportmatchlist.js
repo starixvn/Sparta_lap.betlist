@@ -15,10 +15,9 @@ define(["common/querystring", "common/site", "./helper"], function (QueryString,
     }
 
     function viewMatchBetList(target) {
-        var url = "LiveReportBetList/Match";
-        var currencyName = $('#CurrencyName').attr('data-original');
-        url = Site.resolveClientUrl(url);
+        url = Site.resolveClientUrl("LiveReportBetList/Match");
 
+        var currencyName = $('#CurrencyName').attr('data-original');
         var data = $(target).attr("data-drill-down");
         data = $.parseJSON(data);
         url = Site.setLicenseeOptionOriginalParam(url);
@@ -38,7 +37,7 @@ define(["common/querystring", "common/site", "./helper"], function (QueryString,
         });
 
         Site.blockUI();
-        location.href = url;
+        Site.redirect(url);
     }
 
     return {

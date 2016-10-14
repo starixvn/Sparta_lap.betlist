@@ -53,6 +53,9 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
 
         $(".toggleMenubar").sideNav2();
         $('.collapsible2').collapsibleMenu();
+        $('body').click(function () {
+            _autocomplete.$dropdown.html('').hide();
+        });
     }
 
     function searchByUserName() {
