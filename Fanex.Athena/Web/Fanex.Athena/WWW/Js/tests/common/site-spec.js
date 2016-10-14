@@ -1,5 +1,5 @@
 ﻿define(['jquery', 'common/site'], function ($, Site) {
-    describe("site.js > Site", function () {
+    describe("Site", function () {
         describe("getLicenseeId()", function () {
             it("return a value from input#LicenseeId", function () {
                 setFixtures('<input id="LicenseeId" value="2" />');

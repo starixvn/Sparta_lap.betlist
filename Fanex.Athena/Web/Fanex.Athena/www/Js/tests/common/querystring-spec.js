@@ -1,6 +1,5 @@
 ﻿define(['common/querystring'], function (QueryString) {
-    describe("query.string.js > QueryString", function () {
-
+    describe("QueryString", function () {
         describe("getQueryString(url)", function () {
             it("return the query string part from an url", function () {
                 var result = QueryString.getQueryString("localhost?a=1");
