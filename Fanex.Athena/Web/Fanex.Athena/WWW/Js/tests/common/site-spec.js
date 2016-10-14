@@ -18,7 +18,7 @@
 
         describe("blockUI()", function () {
             it("div.block-body and div.loading will be display", function () {
-                setFixtures('<div id="123" class="block-body" style="display:none"></div>');
+                setFixtures('<div class="block-body" style="display:none"></div>');
                 appendSetFixtures('<div class="loading" style="display:none"></div>');
                 Site.blockUI();
                 var result = $('div.block-body').is(':visible') && $('div.loading').is(':visible');
@@ -73,52 +73,41 @@
         });
 
         describe("initBlockUI()", function () {
-            it("Site.blockUI() should be called when clicking on .blockui element", function () {
-                setFixtures('<button class="blockui">Block</button>');
+            it(".block-body should be display when clicking on .blockui element.", function () {
+                setFixtures('<div class="blockui"></div>');
+                appendSetFixtures('<div class="block-body" style="display:none"></div>');
+
                 Site.initialize();
-                setFixtures('<div id="123" class="block-body" style="display:none"></div>');
-                appendSetFixtures('<div class="loading" style="display:none"></div>');
                 $('.blockui').click();
-                var result = $('div.block-body').is(':visible') && $('div.loading').is(':visible');
-                expect(result).toBe(true);
+                expect($('.block-body').is(':visible')).toBe(true);
             });
         });
 
-        //describe("asBool()", function () {
-        //    it("convert a string 'TRUE' to true (boolean)", function () {
-        //        var result = Site.asBool("TRUE");
-        //        expect(result).toBe(true);
-        //    });
+        describe("asBool()", function () {
+            it("convert a string 'TRUE' to true (boolean)", function () {
+                var result = Site.asBool("TRUE");
+                expect(result).toBe(true);
+            });
 
-        //    it("convert a string '123' to false (boolean)", function () {
-        //        var result = Site.asBool("123");
-        //        expect(result).toBe(false);
-        //    });
+            it("convert a string '123' to false (boolean)", function () {
+                var result = Site.asBool("123");
+                expect(result).toBe(false);
+            });
 
-        //    it("convert a number 123 to true (boolean)", function () {
-        //        var result = Site.asBool(123);
-        //        expect(result).toBe(true);
-        //    });
+            it("convert a number 123 to true (boolean)", function () {
+                var result = Site.asBool(123);
+                expect(result).toBe(true);
+            });
 
-        //    it("convert an object to true (boolean)", function () {
-        //        var result = Site.asBool({});
-        //        expect(result).toBe(true);
-        //    });
+            it("convert an object to true (boolean)", function () {
+                var result = Site.asBool({});
+                expect(result).toBe(true);
+            });
 
-        //    it("convert null to false (boolean)", function () {
-        //        var result = Site.asBool(null);
-        //        expect(result).toBe(false);
-        //    });
-        //});
-
-        //describe("getSingleResource(enghlishName)", function () {
-        //    it("Site.blockUI() should be called when clicking on .blockui element", function () {
-        //        affix(".blockui");
-        //        Site.initBlockUI();
-        //        spyOn(Site, 'blockUI');
-        //        $('.blockui').click();
-        //        expect(Site.blockUI).toHaveBeenCalled();
-        //    });
-        //});
+            it("convert null to false (boolean)", function () {
+                var result = Site.asBool(null);
+                expect(result).toBe(false);
+            });
+        });
     });
 });
