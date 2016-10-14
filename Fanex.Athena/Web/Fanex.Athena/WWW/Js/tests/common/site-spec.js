@@ -74,11 +74,13 @@
 
         describe("initBlockUI()", function () {
             it("Site.blockUI() should be called when clicking on .blockui element", function () {
-                setFixtures('<div class="blockui"></div>');
+                setFixtures('<button class="blockui">Block</button>');
                 Site.initialize();
-                spyOn(Site, 'blockUI');
+                setFixtures('<div id="123" class="block-body" style="display:none"></div>');
+                appendSetFixtures('<div class="loading" style="display:none"></div>');
                 $('.blockui').click();
-                expect(Site.blockUI).toHaveBeenCalled();
+                var result = $('div.block-body').is(':visible') && $('div.loading').is(':visible');
+                expect(result).toBe(true);
             });
         });
 

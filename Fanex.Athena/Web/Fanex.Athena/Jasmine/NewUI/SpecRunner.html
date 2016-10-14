@@ -9,24 +9,42 @@
         _page = { lang: 'en-US' };
         _language_en_US = {};
     </script>
-    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/jasmine/lib/jasmine-core/jasmine.js"></script>
     <script type="text/javascript" src="/bower_components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
     <script type="text/javascript" src="/bower_components/jasmine/lib/jasmine-core/boot.js"></script>
     <script type="text/javascript" src="/bower_components/jasmine-jquery/lib/jasmine-jquery.js"></script>
-    <script type="text/javascript" src="/bower_components/jasmine-fixture/dist/jasmine-fixture.js"></script>
-    <script type="text/javascript" src="/bower_components/jasmine-ajax/lib/mock-ajax.js"></script>
+    <script type="text/javascript" src="/bower_components/jasmine-ajax/lib/mock-ajax.js"></script>-->
 
     <script src="/node_modules/requirejs/require.js"></script>
     <script>
         requirejs.config({
             baseUrl: '/www/js/source',
             paths: {
-                'jquery': '/node_modules/jquery/dist/jquery.min'
+                'jasmine': ['/bower_components/jasmine/lib/jasmine-core/jasmine'],
+                'jasmine-html': ['/bower_components/jasmine/lib/jasmine-core/jasmine-html'],
+                'jasmine-boot': ['/bower_components/jasmine/lib/jasmine-core/boot'],
+                'jasmine-jquery': ['/bower_components/jasmine-jquery/lib/jasmine-jquery'],
+
+                'jquery': '/node_modules/jquery/dist/jquery.min',
+                'vendor-materialize': 'vendors/materialize/materialize'
+            },
+            shim: {
+                'jasmine-html': {
+                    deps: ['jasmine']
+                },
+                'jasmine-boot': {
+                    deps: ['jasmine', 'jasmine-html']
+                }
             }
         });
 
-        require(['/www/js/tests/common/querystring-spec.js']);
+        var requiredModules = ['jasmine-boot'];
+        require(requiredModules, function () {
+            require(['/www/js/tests/common/querystring-spec.js'], function () {
+                window.onload();
+            });
+        });
     </script>
 </head>
 <body>
