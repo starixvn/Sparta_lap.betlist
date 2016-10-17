@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/main","2":"www/css/build/pages/home/home","3":"www/css/build/pages/login/login","4":"www/css/build/pages/reports/livereport","5":"www/css/build/vendors/daterangepicker","6":"www/css/build/vendors/materialize","7":"www/js/build/pages/home/home","8":"www/js/build/pages/livereport/livereport","9":"www/js/build/pages/livereport/livereportmatchlist"}[chunkId]||chunkId) + ".chunk.js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/main","2":"www/css/build/pages/home/home","3":"www/css/build/pages/login/login","4":"www/css/build/pages/reports/livereport","5":"www/css/build/vendors/daterangepicker","6":"www/css/build/vendors/materialize","7":"www/js/build/pages/home/home","8":"www/js/build/pages/licenseewinloss/licenseewinloss","9":"www/js/build/pages/livereport/livereport","10":"www/js/build/pages/livereport/livereportmatchlist"}[chunkId]||chunkId) + ".chunk.js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};

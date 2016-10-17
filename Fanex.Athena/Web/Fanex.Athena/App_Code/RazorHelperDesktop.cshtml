@@ -92,24 +92,25 @@ selectedBasedCurrency = selectedBasedCurrency.ToLower();
 
 @helper HighlightNegativeFormat(decimal value, bool isHiglight = true)
 {
-    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative'") : new HtmlString(""))>@value.ToStringExt()</span>
+    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative'") : new HtmlString(""))>
+        @value.ToStringExt()</span>
 }
 
 @helper ViewLiveStatus(int liveStatus)
 {
-    string title = string.Empty;
-    switch (liveStatus)
-    {
-        case 0:
-            title = ViewResources.NoneLive;
-            break;
-        case 1:
-            title = ViewResources.Live;
-            break;
-        case 2:
-            title = ViewResources.LiveAndNonLive;
-            break;
-    }
+string title = string.Empty;
+switch (liveStatus)
+{
+    case 0:
+        title = ViewResources.NoneLive;
+        break;
+    case 1:
+        title = ViewResources.Live;
+        break;
+    case 2:
+        title = ViewResources.LiveAndNonLive;
+        break;
+}
 
     @(title + ViewResources.Data)
 }
@@ -117,10 +118,10 @@ selectedBasedCurrency = selectedBasedCurrency.ToLower();
 @helper TitleDateTime(DateTime fromDate, DateTime? toDate)
 {
     @(fromDate.ToString("MM/dd/yyyy"))
-    if (toDate != null)
-    {
-            @(" → ")@(toDate.Value.ToString("MM/dd/yyyy"))
-    }
+if (toDate != null)
+{
+        @(" → ")@(toDate.Value.ToString("MM/dd/yyyy"))
+}
 }
 
 @helper ViewCurrencyBasedOnConverter(bool converter, string BaseCurrency, string CurrencyName)
@@ -128,3 +129,26 @@ selectedBasedCurrency = selectedBasedCurrency.ToLower();
     @(string.Format(ViewResources.Viewin, converter ? BaseCurrency.ToUpper() : CurrencyName))
 }
 
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions)
+{
+    var Url = new UrlHelper(Context.Request.RequestContext);
+    var i = 0;
+    <div class="input-field col l2 m3 s12" id="ProductList">
+        <select id="grid-products-multiselect" name="grid-products-multiselect"></select>
+        <label>
+            @ViewResources.Product
+        </label>
+        <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" class="hide error-img" />
+
+        <div class="hide" id="product-container">
+            @foreach (var product in productOptions)
+            {
+                <input type="hidden" name="ProductOptions[@i].Code" value="@product.Code" />
+                <input type="hidden" name="ProductOptions[@i].Name" value="@product.Name" />
+                <input type="checkbox" class="childCheckbox" data-original="@product.Status.ToString()" id="@product.Code" data-product-code="@product.Code" @(product.Status ? "checked" : "") name="ProductOptions[@i].Status" value="True" />
+                i++;
+            }
+        </div>
+        <input type="hidden" id="productsData" value="@productOptions.ToJson()" />
+    </div>
+}

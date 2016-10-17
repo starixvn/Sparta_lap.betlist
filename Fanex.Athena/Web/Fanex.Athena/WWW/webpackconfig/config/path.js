@@ -23,6 +23,7 @@ var scriptPaths = {
 
     livereport: "./www/js/source/pages/livereport/main-livereport.js",
     livereportmatchlist: "./www/js/source/pages/livereport/main-matchlist.js",
+    licenseewinloss: "./www/js/source/pages/report/licenseewinloss/licenseewinloss.js",
 }
 
 module.exports = {

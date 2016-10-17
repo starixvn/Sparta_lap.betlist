@@ -1,8 +1,8 @@
-webpackJsonp([8],[
+webpackJsonp([9],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(41);
+	module.exports = __webpack_require__(161);
 
 
 /***/ },
@@ -48,7 +48,7 @@ webpackJsonp([8],[
 	/// <reference path="/@JSense.js" />
 	/* Preset */
 	// root JSON object
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(37), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(37), __webpack_require__(2), __webpack_require__(38)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString) {
 	    "use strict";
 	    var UNBLOCKUI_TIMEOUT = 30000;
 	    var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
@@ -893,314 +893,880 @@ webpackJsonp([8],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(42)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveReport) {
-	    $(LiveReport.initialize);
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {/*global Site, QueryString*/
-	/// <reference path="/@JSense.js" />
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(37), __webpack_require__(36), __webpack_require__(43), __webpack_require__(44), __webpack_require__(151), __webpack_require__(152), __webpack_require__(153)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper, moment) {
-	        "use strict";
-	
-	        function initialize() {
-	            Site.initialize();
-	            initEvent();
-	            initMaterialSelect();
-	            initDateRangePicker();
-	            initMonthPicker();
-	            Site.addUserGuide({
-	                resourceName: "LiveReport",
-	                title: Site.getSingleResource("LiveReport")
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
+	(function ($) {
+	    var currentTriggerEvents = [];
+	    var methods = {
+	        createMultiselect: function (opts) {
+	            opts = $.extend({}, $.fn.multiSelect.defaults, opts);
+	            return this.each(function () {
+	                return new MultiSelect(this, opts);
 	            });
-	        }
-	
-	        function initMaterialSelect() {
-	            $('select.select').not('.disabled').material_select();
-	        }
-	
-	        function initEvent() {
-	            $("#switchreport").click(function () {
-	                var mod = $(this).attr("data-history-mode");
-	                if (mod === "False") {
-	                    Site.redirect(Site.resolveClientUrl("LiveReport?isViewedHistory=True"));
-	                }
-	                else {
-	                    Site.redirect(Site.resolveClientUrl("LiveReport?isViewedHistory=False"));
-	                }
+	        },
+	        appendItem: function (item) {
+	        },
+	        removeItem: function (item) {
+	        },
+	        updateItems: function (opts) {
+	            opts = $.extend({}, $.fn.multiSelect.defaults, opts);
+	            return this.each(function () {
+	                return new MultiSelect(this, opts);
 	            });
-	
-	            /*back button*/
-	            /*-affect the action excel*/
-	            window.onbeforeunload = function () {
-	                $("ProductCode").val("");
-	            };
-	            /**************/
-	            /*date-range*/
-	
-	            /*drill down*/
-	            /* sumary detail*/
-	            $("body").on("click", ".product-detail-link", function () {
-	                viewProductDetail(this);
-	            });
-	            /* sumary detail*/
-	            /* detail*/
-	            $("body").on("click", ".sport-detailt-link", function () {
-	                viewSportDetail(this);
-	            });
-	
-	            $('#exporttoexcel').click(function () {
-	                $('#IsExportExcel').val(true);
-	                $('#livereport').submit();
-	                $('#IsExportExcel').val(false);
-	            });
-	
-	            $('#btnSubmit').click(function () {
-	                $('#livereport').submit();
-	            });
-	        }
-	
-	        function initDateRangePicker() {
-	            var $dateRange = $('#DateRange');
-	
-	            var $from = $('#FromDate');
-	            var $to = $('#ToDate');
-	
-	            var start = moment($from.attr('data-original-from'), "MM/DD/YYYY");
-	            var end = moment($to.attr('data-original-to'), "MM/DD/YYYY");
-	
-	            function setRangeDate(start, end) {
-	                $from.val(start.format('MM/DD/YYYY'));
-	                $to.val(end.format('MM/DD/YYYY'));
-	                $dateRange.val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
-	            }
-	
-	            $dateRange.daterangepicker({
-	                startDate: start,
-	                endDate: end,
-	                ranges: {
-	                    'Today': [moment(), moment()],
-	                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-	                    'Current week': [moment().startOf('week'), moment()],
-	                    'Last week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
-	                    'Current month': [moment().startOf('month'), moment()],
-	                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-	                    'Since last month': [moment().subtract(1, 'month').startOf('month'), moment()]
-	                },
-	                locale: {
-	                    format: 'MM/DD/YYYY',
-	                },
-	                showDropdowns: true,
-	                linkedCalendars: false,
-	                alwaysShowCalendars: true,
-	                showCustomRangeLabel: false,
-	            }, setRangeDate);
-	
-	            $dateRange.on('apply.daterangepicker', function (ev, picker) {
-	                setRangeDate(picker.startDate, picker.endDate);
-	            });
-	
-	            setRangeDate(start, end);
-	        }
-	
-	        function initMonthPicker() {
-	            var fromdate = new Date($('#FromDate').val());
-	            var todate = new Date($('#ToDate').val());
-	
-	            $('#month-picker').monPickr({
-	                minDate: Site.getHistoryDate(),
-	                showDateRange: true,
-	                fromDayId: 'fDay',
-	                toDayId: 'tDay',
-	                format: 'MM/dd/yyyy',
-	                month: fromdate,
-	                fromDay: fromdate.getDate(),
-	                toDay: todate.getDate(),
-	                afterChangeMonth: function () {
-	                    $('#FromDate').val($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy"));
-	                    $('#ToDate').val($("#month-picker").monPickr("getToDate", "MM/dd/yyyy"));
-	                },
-	                afterChangeDay: function () {
-	                    $('#FromDate').val($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy"));
-	                    $('#ToDate').val($("#month-picker").monPickr("getToDate", "MM/dd/yyyy"));
-	                }
-	            });
-	        }
-	
-	        function viewProductDetail(target) {
-	            var productCode = $(target).attr("data-product-code");
-	            var data = {
-	                productCode: productCode,
-	                FromDate: $("#FromDate").attr('data-original-from').toString("MM/dd/yyyy"),
-	                ToDate: $("#ToDate").attr('data-original-to').toString("MM/dd/yyyy"),
-	                BaseCurrency: $("#BaseCurrency").attr('data-original'),
-	                LiveIndicator: $("#LiveIndicator").attr('data-original')
-	            };
-	            data = Site.setLicenseeOptionOriginalParam(data);
-	            var isSelected = $(target).parent().hasClass("selected");
-	            if (isSelected) { return; }
-	
-	            $("a.product-detail-link").parent().removeClass("selected");
-	            $(target).parent().addClass("selected");
-	
-	            $.ajax({
-	                type: "POST",
-	                data: data,
-	                dataType: "json",
-	                url: Site.resolveClientUrl("LiveReport/Detail"),
-	                success: function () {
-	                },
-	                beforeSend: Site.blockUI(),
-	                complete: function (jqXHR) {
-	                    if (jqXHR.readyState === 4) {
-	                        $("#ProductCode").val(data.productCode);
-	                        $("#detail-content").html(jqXHR.responseText);
-	                    }
-	                    Site.unBlockUI();
-	                }
-	            });
-	        }
-	
-	        function viewBetList(url, totalValue, productOptions) {
-	            url = Site.setLicenseeOptionOriginalParam(url);
-	            url = QueryString.setParam(url, "fromdate", $("#FromDate").attr('data-original-from'));
-	            url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original-to'));
-	            url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
-	            url = Helper.setSumParams(url, totalValue);
-	            // [Jacob] Cheat for live report mix parlay, must send
-	            url = QueryString.setParam(url, "showsb", false);
-	            url = QueryString.setParam(url, "showba", false);
-	            $(productOptions).each(function (index, element) {
-	                url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);
-	                url = QueryString.setParam(url, "show" + element, true);
-	            });
-	
-	            Site.blockUI();
-	            Site.redirect(url);
-	        }
-	
-	        function viewSportDetail(target) {
-	            var data = $(target).attr("data-drill-down");
-	            var jsonData = $.parseJSON(data);
-	            var productCode = $("#ProductCode").val();
-	            var productOptions = Helper.getMatchListProductOption(jsonData.SportId, productCode);
-	            var urlMap = {
-	                Key101: "LiveReportBetList/MixParlay?bettype=9",
-	                Key102: "LiveReportBetList/MixParlay?bettype=29",
-	                Key103: "LiveReportBetList/Outright",
-	                Key161: "LiveReportBetList/NumberGame",
-	                Key151: "LiveReportBetList/Racing?SportType=151",
-	                Key152: "LiveReportBetList/Racing?SportType=152",
-	                Key153: "LiveReportBetList/Racing?SportType=153",
-	                Key181: "LiveReportBetList/Racing?SportType=181",
-	                Key182: "LiveReportBetList/Racing?SportType=182",
-	                Key183: "LiveReportBetList/Racing?SportType=183",
-	                Key184: "LiveReportBetList/Racing?SportType=184",
-	                Key185: "LiveReportBetList/Racing?SportType=185"
-	            };
-	
-	            var url = urlMap["Key" + jsonData.SportId];
-	            var showBetList = url !== null && url !== undefined;
-	            url = url === null || url === undefined
-	                    ? Site.resolveClientUrl("LiveReport/MatchList")
-	                    : Site.resolveClientUrl(url);
-	
-	            if (showBetList) {
-	                viewBetList(url, jsonData.TotalValue, productOptions);
+	        },
+	        checkAllItems: function () {
+	            var $inputs = $(this).next('div.ui-multiselect-options').find('label').not('.ui-multiselect-state-disabled').find('input');
+	            $inputs.not(':disabled').attr('checked', 'checked');
+	            var numChecked = $(this).next('div.ui-multiselect-options').find('label').not('.ui-multiselect-state-disabled').not('.ui-multiselect-group-mark').find('input').not("#" + $(this).attr('id') + "HeaderCheckBox").filter('[checked]').length;
+	            if (o.isUsedCustomCheckAllText) {
+	                $(this).find('input').val(o.customCheckAllText);
 	            }
 	            else {
-	                // Match List
-	                url = Site.setLicenseeOptionOriginalParam(url);
-	                url = QueryString.setParam(url, "SportId", jsonData.SportId);
-	                url = QueryString.setParam(url, "ProductCode", productCode);
-	                url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original-from'));
-	                url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original-to'));
-	                url = QueryString.setParam(url, "showsb", true);
-	                url = QueryString.setParam(url, "showba", false);
-	                url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
-	
-	                $(productOptions).each(function (index, element) {
-	                    url = Site.setProductOptionParam(url, index, element, true);
-	                    url = QueryString.setParam(url, "show" + element, true);
-	                });
-	
-	                Site.blockUI();
-	                Site.redirect(url);
+	                $(this).find('input').val(numChecked + " selected");
 	            }
+	        },
+	        unCheckAllItems: function () {
+	            var $inputs = $(this).next('div.ui-multiselect-options').find('label').not('.ui-multiselect-state-disabled').find('input');
+	            $inputs.not(':disabled').removeAttr('checked');
+	            var numChecked = $(this).next('div.ui-multiselect-options').find('label').not('.ui-multiselect-state-disabled').find('input').filter('[checked]').length;
+	
+	            $(this).find('input').val($.fn.multiSelect.defaults.noneSelectedText);
+	        },
+	        getUncheckItems: function () {
+	            var listChecked = $(this).next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(:checked)').not("#" + $(this).attr('id') + "HeaderCheckBox");
+	            var tempArray = [];
+	            for (var i = 0; i < listChecked.length; i++) {
+	                tempArray.push(listChecked[i].value);
+	            }
+	            return tempArray;
+	        },
+	        getCheckedItems: function () {
+	            var listChecked = $(this).next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $(this).attr('id') + "HeaderCheckBox)").filter('[checked]');
+	            var tempArray = [];
+	            for (var i = 0; i < listChecked.length; i++) {
+	                tempArray.push(listChecked[i].value);
+	            }
+	            return tempArray;
+	        },
+	        getCheckedItemsByText: function () {
+	            var listChecked = $(this).next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $(this).attr('id') + "HeaderCheckBox)").filter('[checked]');
+	            var tempArray = [];
+	            for (var i = 0; i < listChecked.length; i++) {
+	                tempArray.push(listChecked[i].title);
+	            }
+	            return tempArray;
+	        },
+	        hideMe: function () {
+	            $(this).next('div.ui-multiselect-options').trigger('close', true, false);
+	        },
+	        openMe: function (waiting) {
+	            //$(this).find('#ui-multiselect-options-' + $(this).find(":first-child").attr("id")).trigger('open', false);
+	            $(this).next('div.ui-multiselect-options').trigger('open', false);
 	        }
+	    };
+	
+	    $.fn.multiSelect = function (opts) {
+	        if (methods[opts]) {
+	            return methods[opts].apply(this, Array.prototype.slice.call(arguments, 1));
+	        }
+	        else if (typeof opts === 'object' || !opts) {
+	            // Default to "createMultiselect"
+	            return methods.createMultiselect.apply(this, arguments);
+	        }
+	        else {
+	            //throw error
+	        }
+	    };
+	    //// Detect Browser
+	    //// Grid Scroller
+	    var matchedBrowser, browserDectect;
+	
+	    // Use of jQuery.browser is frowned upon.
+	    // More details: http://api.jquery.com/jQuery.browser
+	    // jQuery.uaMatch maintained for back-compat
+	    function ubMatch(ua) {
+	        ua = ua.toLowerCase();
+	
+	        var match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
+	        /(webkit)[ \/]([\w.]+)/.exec(ua) ||
+	        /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
+	        /(msie) ([\w.]+)/.exec(ua) ||
+	        ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
+	        [];
 	
 	        return {
-	            initialize: initialize
+	            browserDectect: match[1] || "",
+	            version: match[2] || "0"
 	        };
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    };
+	
+	    matchedBrowser = ubMatch(navigator.userAgent);
+	    browserDectect = {};
+	
+	    if (matchedBrowser.browserDectect) {
+	        browserDectect[matchedBrowser.browserDectect] = true;
+	        browserDectect.version = matchedBrowser.version;
+	    }
+	
+	    // Chrome is Webkit, but Webkit is also Safari.
+	    if (browserDectect.chrome) {
+	        browserDectect.webkit = true;
+	    } else if (browserDectect.webkit) {
+	        browserDectect.safari = true;
+	    }
+	
+	    // counter to dynamically generate label/option IDs if they don't exist
+	    var multiselectID = 0;
+	    // built up a multiselect
+	    var MultiSelect = function (select, o) {
+	        //global variables
+	        var $original = $(select);
+	        var $select = $original,
+	            $options, $header, $labels, $footer, $listGroupCheckBox, $body, $listItem, $listCollapse, $divHover,
+	            $allLabel, $inputHeaderCheckBox, $selectinput, $headerCheckbox, $checkedInput, $dropdownlist,
+	            html = [],
+	            optgroups = [],
+	            isDisabled = $select.is(':disabled'),
+	            id = select.id || 'ui-multiselect-' + multiselectID++, // unique ID for the label & option tags
+	            listData = o.listData,
+	            isShowGroup = false,
+	            isOpenning = false,
+	            numGroup = 0;
+	        //render MultiSleclect Interface
+	        var RenderInterface = function (id, idDisable, noneSelectedText, title) {
+	            //remove old
+	            if ($select.prev().is('div.ui-multiselect-options')) {
+	                $select.prev().remove();
+	            }
+	            if ($select.next().is('div.ui-multiselect-options')) {
+	                $select.next().remove();
+	            }
+	
+	            //render new
+	            var tempHtml = [];
+	            tempHtml.push('<a id="' + id + '" class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default ' + (idDisable ? ' ui-multiselect-state-disabled' : '') + '">');
+	            tempHtml.push('<input readonly="readonly" type="text" class="ui-multiselect-state-default" value="' + noneSelectedText + '" title="' + select.title + '" /><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+	            return tempHtml.join('');
+	        };
+	        //render Header
+	        var checkShouldShowGroupOrNo = function () {
+	            for (var i = 0; i < o.listData.length; i++) {
+	                if (typeof o.listData[i].Items !== 'undefined' && o.listData[i].Items.length > 0) {
+	                    isShowGroup = true;
+	                    break;
+	                }
+	            }
+	        }
+	        var RenderHeader = function (id, checkAllText) {
+	            var tempHtml = [];
+	            //html.push('<div class="ui-multiselect-widget-header ui-multiselect-helper-clearfix ui-multiselect-corner-all ui-multiselect-header">');
+	            //html.push('<ul class="ui-multiselect-helper-reset ui-multiselect-checkboxes" style="overflow-y:hidden;">');
+	            tempHtml.push('<div class="ui-multiselect-widget-header ui-multiselect-helper-clearfix ui-multiselect-header custom-ui-widget-header">');
+	            tempHtml.push('<ul class="ui-multiselect-helper-reset ui-multiselect-checkboxes-head" style="overflow-y:hidden;">');
+	            tempHtml.push('<li style="display:inline;">');
+	            tempHtml.push('<label class="ui-multiselect-corner-all" style="color: #000;" for="' + id + "HeaderCheckBox" + '">');
+	            tempHtml.push('<input type="checkbox" id="' + id + "HeaderCheckBox" + '">' + checkAllText + '</label></li>');
+	            if (isShowGroup) {
+	                tempHtml.push('<li class="ui-multiselect-icon-dropdown ui-multiselect-icon-collapse" title="Collapse/Expand" style="display:inline; float:right; cursor:pointer;" id="' + id + "CollapseButton" + '" >&nbsp;</li>');
+	            }
+	            //tempHtml.push('</li>');
+	            tempHtml.push('</ul>');
+	            tempHtml.push('</div>');
+	            return tempHtml.join('');
+	        };
+	        var RenderNoItemHeader = function (id, noItemText) {
+	            var tempHtml = [];
+	            tempHtml.push('<div class="ui-multiselect-widget-header ui-multiselect-helper-clearfix ui-multiselect-corner-all ui-multiselect-header custom-ui-widget-header">');
+	            tempHtml.push('<ul class="ui-multiselect-helper-reset ui-multiselect-checkboxes-head" style="overflow-y:hidden;">');
+	            tempHtml.push('<li style="display:inline;">');
+	            tempHtml.push('<label class="ui-multiselect-corner-all" style="color: #000000" >' + noItemText + '</label>');
+	            tempHtml.push('</ul>');
+	            tempHtml.push('</div>');
+	            return tempHtml.join('');
+	        };
+	        //render Body
+	        var InsertRow = function (tempData, index, isChild, isLastChildItem, isNoGroup, siblingGroup, currentParentGroupId, currentGroupId) {
+	            var tempHtml = [];
+	            var title = tempData.Text || "",
+	            value = tempData.Value || "",
+	            inputID = tempData.Id || "ui-multiselect-" + id + "-option-" + index,
+	            isDisabled = !tempData.Enable,
+	            labelClasses = tempData.CssClass || "",
+	            currentGroupStatus = (tempData.Show == false ? false : true),
+	            liClasses = "",
+	            divClasses = "ui-multiselect-div ui-multiselect-corner-all",
+	            divHtml = "";
+	            var groupIdAttr = "ui-multiselect-option-group-" + currentGroupId;
+	            if (typeof value != 'undefined') {
+	                if (isDisabled) {
+	                    labelClasses += ' ui-multiselect-state-disabled';
+	                }
+	                if (typeof tempData.Items !== 'undefined' && (typeof isChild === 'undefined' || isChild === false) && siblingGroup) {
+	                    labelClasses += ' ui-multiselect-group-mark';
+	                }
+	
+	                liClasses += (isNoGroup == false ? 'rtLI ' : ' rtLI');
+	                liClasses += (isDisabled ? ' ui-multiselect-disabled ' : '');
+	                liClasses += (isLastChildItem == true ? " rtLast" : "");
+	                liClasses += (index === 0 && isNoGroup == false) ? " rtFirst" : "";
+	
+	                if (!isShowGroup && o.columnNumber > 0) {
+	                    var style = "float: left; width:" + (100 / o.columnNumber).toFixed(0) + "%;";
+	                    tempHtml.push('<li class="' + liClasses + '" style="' + style + '">');
+	                }
+	                else {
+	                    tempHtml.push('<li class="' + liClasses + '">');
+	                }
+	
+	                if (siblingGroup == false) {
+	                    if (isNoGroup == true && isShowGroup) {
+	                        divClasses += (isShowGroup == false ? "" : ((isLastChildItem == true) ? ' rtBot' : ' rtMid'));
+	                        tempHtml.push('<div class="' + divClasses + '">');
+	                    }
+	                    else {
+	                        tempHtml.push('<div class="' + divClasses + '" style="margin-left:10px;">');
+	                    }
+	                }
+	                else {
+	                    divClasses += (index === 0) ? " rtMid" : " rtMid rtSelected";
+	                    divClasses += (isLastChildItem === true ? " rtBot" : "");
+	                    tempHtml.push('<div class="' + divClasses + '">');
+	                    if (tempData.Items != null && tempData.Items.length !== 0) {
+	                        tempHtml.push('<span class="collapseClass rtMinus" showstatus="' + currentGroupStatus + '"></span>');
+	                    }
+	                }
+	
+	                labelClasses += " ui-multiselect-corner-all";
+	                tempHtml.push('<label for="' + inputID + '" class="' + labelClasses + '" style="' + tempData.CssClass + '">');
+	                tempHtml.push('<input id="' + inputID + '" type="' + (o.multiple ? 'checkbox' : 'radio') + '" name="' + value + '" value="' + value + '" title="' + title + '" childgroupid="' + currentParentGroupId + '"');
+	
+	                if (o.isCheckAll) {
+	                    tempHtml.push(' checked="checked"');
+	                }
+	                else if (tempData.Checked) {
+	                    tempHtml.push(' checked="checked"');
+	                }
+	                if (isDisabled) {
+	                    tempHtml.push(' disabled="disabled"');
+	                }
+	                tempHtml.push(' />' + title + '</label>');
+	                tempHtml.push('</div>');
+	
+	                if (typeof tempData.Items !== 'undefined' && tempData.Items.length > 0) {
+	                    //var nextGroupIdAtt = "ui-multiselect-option-group-" + currentGroupId + "-" + index.toString();
+	                    tempHtml.push('<ul class="ui-multiselect-ul-group custom-multi-select-rtUL" childgroupid="' + groupIdAttr + '">');
+	                    for (var j = 0; j < tempData.Items.length; j++) {
+	                        if (typeof tempData.Items[j].Items === 'undefined'
+	                        || tempData.Items[j].Items == null
+	                        || tempData.Items[j].Items.length === 0) {
+	                            tempHtml.push(InsertRow(tempData.Items[j], j,
+	                                true, (j === tempData.Items.length - 1 ? true : false), true, siblingGroup, groupIdAttr, currentGroupId));
+	                        }
+	                        else {
+	                            currentGroupId += "-" + j.toString();
+	                            tempHtml.push(InsertRow(tempData.Items[j], j,
+	                                false, (j === tempData.Items.length - 1 ? true : false), false, siblingGroup, groupIdAttr, currentGroupId));
+	                        }
+	
+	                        //tempHtml.push(InsertRow(tempData.Items[j], j, true, (j === tempData.Items.length - 1 ? true : false), false, false));
+	                    }
+	                    tempHtml.push("</ul>");
+	                }
+	
+	                tempHtml.push('</li>');
+	            }
+	            return tempHtml.join('');
+	        };
+	        var RenderBody = function () {
+	            var tempHtml = [];
+	            var groupIdAttr = "ui-multiselect-option-group-0";
+	            tempHtml.push('<ul class="ui-multiselect-checkboxes ui-multiselect-helper-reset rtUL ' + (isShowGroup ? "rtLines" : "") + ' ui-multiselect-ul-group" childgroupid="' + groupIdAttr + '">');
+	            for (var i = 0; i < listData.length; i++) {
+	                var tempGroup = listData[i];
+	                var isChild = tempGroup.Items == null || tempGroup.Items.length === 0;
+	                var isLastChildItem = (i === listData.length - 1 ? true : false);
+	                var isNoGroup = (typeof tempGroup.Items === 'undefined' || (typeof tempGroup.Items !== 'undefined' && tempGroup.Items.length === 0)) ? true : false;
+	                var siblingIsGroup = isShowGroup ? true : false;
+	                var currentGroupId = "0-" + i.toString();
+	                numGroup++;
+	                tempHtml.push(InsertRow(tempGroup, i, isChild, isLastChildItem, isNoGroup, siblingIsGroup, groupIdAttr, currentGroupId));
+	            }
+	            tempHtml.push('</ul>');
+	            return tempHtml.join('');
+	        };
+	        //render Footer
+	        var RenderFooter = function () {
+	            var tempHtml = [];
+	            tempHtml.push('<div class="ui-multiselect-widget-header ui-multiselect-helper-clearfix ui-multiselect-corner-all ui-multiselect-footer custom-ui-widget-header">');
+	            tempHtml.push('<a class="ui-multiselect-update-result" href="">' + o.updateResult + '</a>');
+	            tempHtml.push('</div>');
+	            return tempHtml.join('');
+	        };
+	        //add property value
+	        var AddPropertyValue = function () {
+	            // calculate widths
+	            var iconWidth = $select.find('span.ui-multiselect-icon').width();
+	            var inputWidth = o.minWidth - iconWidth + 3;
+	
+	            // set widths
+	            $select.width(o.minWidth).find('input').width(inputWidth);
+	        };
+	        // binding event
+	        var checkCheckAll = function () {
+	            if (numGroup == $options.find('input[childgroupid="ui-multiselect-option-group-0"]').filter('[checked]').length) {
+	                $headerCheckbox.prop('checked', true);
+	                $headerCheckbox.attr('checked', 'checked');
+	                $listGroupCheckBox.prop('checked', true);
+	                $listGroupCheckBox.attr('checked', 'checked');
+	            }
+	        };
+	        var UpdateSelected = function () {
+	            var $inputs = $inputHeaderCheckBox,
+	                    $checked = $inputs.filter('[checked]'),
+	                    value = '',
+	                    numChecked = $checked.length;
+	
+	            if (numChecked === 0) {
+	                value = o.noneSelectedText;
+	            } else {
+	                if (o.isUsedCustomCheckAllText && $inputs.length === numChecked) {
+	                    value = o.customCheckAllText;
+	                }
+	                else {
+	                    if (isShowGroup == false) {
+	                        var arrayItemChecked = [];
+	                        for (var i = 0; i < numChecked; i++) {
+	                            arrayItemChecked.push($checked[i].title);
+	                        }
+	                        value = arrayItemChecked.join(', ');
+	                        if (value.length * 8 > o.minWidth) {
+	                            value = o.selectedText.replace('#', numChecked).replace('#', $inputs.length);
+	                        }
+	                    }
+	                    else {
+	                        value = o.selectedText.replace('#', numChecked).replace('#', $inputs.length);
+	                    }
+	                }
+	            }
+	
+	            // Update tooltip
+	            if (o.showTooltip) {
+	                var tooltipValue = $checked.map(function () { return this.title; }).get().join(', ');
+	                if (tooltipValue == '') {
+	                    tooltipValue = o.tooltipNoItem;
+	                }
+	                $select.attr("original-title", tooltipValue);
+	            }
+	
+	            $select.find('input').val(value);
+	            return value;
+	        };
+	
+	        var UpdateSelectedFromChild = function (currentGroup) {
+	            var parentGroup = currentGroup.parent().parent();
+	            if (parentGroup.prop("tagName").toLowerCase() == 'ul' && parentGroup.length > 0) {
+	                var currentChildren = parentGroup.find("li > div > label > input");
+	                var currentChildSelected = currentChildren.filter('[checked]').length;
+	                if (currentChildren.length == currentChildSelected) {
+	                    parentGroup.prev().find('input').prop('checked', true);
+	                    parentGroup.prev().find('input').attr('checked', 'checked');
+	                }
+	                UpdateSelectedFromChild(parentGroup);
+	            }
+	        };
+	
+	        var UpdateRemoveParentSelected = function (currentGroup) {
+	            if (currentGroup.hasClass('ui-multiselect-ul-group') && currentGroup.length > 0) {
+	                if (currentGroup.prev().find('input').prop('checked') == true) {//true) {
+	                    currentGroup.prev().find('input').prop('checked', false);
+	                    currentGroup.prev().find('input').removeAttr('checked');
+	                    $headerCheckbox.prop('checked', false);
+	                    $headerCheckbox.removeAttr('checked');
+	                }
+	                UpdateRemoveParentSelected(currentGroup.parent().parent());
+	            }
+	        };
+	
+	        var BindingEvent = function () {
+	            // build header links
+	            if (o.showHeader) {
+	                $header.find('input').click(function (e) {
+	                    var $this = $(this);
+	                    if ($this.prop('checked') == true) {
+	                        $this.attr('checked', 'checked');
+	                        $options.find('label').not('.ui-multiselect-state-disabled').find('input').prop('checked', true);
+	                        $options.find('label').not('.ui-multiselect-state-disabled').find('input').attr('checked', 'checked');
+	                    }
+	                    else {
+	                        $this.removeAttr('checked');
+	                        $options.find('label').not('.ui-multiselect-state-disabled').find('input').prop('checked', false);
+	                        $options.find('label').not('.ui-multiselect-state-disabled').find('input').removeAttr('checked');
+	                    }
+	                    UpdateSelected();
+	                });
+	            }
+	            //build footer link
+	            if (o.showFooter) {
+	                $footer.find('a').click(function (e) {
+	                    o.onUpdateResult.call(this);
+	                    e.preventDefault();
+	                });
+	            }
+	
+	            if (o.showTooltip) {
+	                try {
+	                    $select.tipsy(
+	                        {
+	                            html: true,
+	                            opacity: 0.9,
+	                            gravity: 'sw'
+	                        }
+	                    );
+	                }
+	                catch (e) { };
+	            }
+	            //add handler event collapse
+	            $listCollapse.each(function () {
+	                var $this = $(this);
+	                $this.click(function () {
+	                    if ($(this).hasClass('rtMinus')) {
+	                        //alert("aaa");
+	                        $(this).removeClass('rtMinus').addClass('rtPlus');
+	                    }
+	                    else {
+	                        $(this).removeClass('rtPlus').addClass('rtMinus');
+	                    }
+	                    $(this).parent().next().toggle();
+	                });
+	
+	                var currentStatus = $this.attr('showstatus');
+	                if (currentStatus == 'false') {
+	                    $this.removeClass('rtMinus').addClass('rtPlus');
+	                    $this.parent().next().hide();
+	                    //$this.trigger('click');
+	                }
+	            });
+	            // the select box events
+	            $select.bind({
+	                click: function () {
+	                    $options.trigger('toggle');
+	                },
+	                keypress: function (e) {
+	                    switch (e.keyCode) {
+	                        case 27: // esc
+	                        case 38: // up
+	                            $options.trigger('close');
+	                            break;
+	                        case 40: // down
+	                        case 0: // space
+	                            $options.trigger('toggle');
+	                            break;
+	                    }
+	                },
+	                mouseenter: function () {
+	                    if (!$select.hasClass('ui-multiselect-state-disabled')) {
+	                        $(this).addClass('ui-multiselect-state-hover');
+	                    };
+	                },
+	                mouseleave: function () {
+	                    $(this).removeClass('ui-multiselect-state-hover');
+	                },
+	                focus: function () {
+	                    if (!$select.hasClass('ui-multiselect-state-disabled')) {
+	                        $(this).addClass('ui-multiselect-state-focus');
+	                    }
+	                },
+	                blur: function () {
+	                    $(this).removeClass('ui-multiselect-state-focus');
+	                }
+	            });
+	            // bind custom events to the options div
+	            $options.bind({
+	                'close': function (e, others, isRetrieveData, targetId) {
+	                    if ($options.css('display') != 'none') {
+	                        others = others || false;
+	
+	                        // hides all other options but the one clicked
+	                        if (others === true) {
+	                            $('div.ui-multiselect-options')
+	                                .filter(':visible')
+	                                .fadeOut(o.fadeSpeed)
+	                                .prev('a.ui-multiselect')
+	                                .removeClass('ui-multiselect-state-active')
+	                                .trigger('mouseout');
+	
+	                            // hides the clicked options
+	                        } else {
+	                            $select.removeClass('ui-multiselect-state-active').trigger('mouseout');
+	                            $options.fadeOut(o.fadeSpeed);
+	                        }
+	                        if (o.isRetrieveDataAfterClose) {
+	                            isRetrieveData = isRetrieveData || false;
+	                            if (isRetrieveData) {
+	                                $allLabel.find('input[ischeck="true"]').attr('checked', 'checked');
+	                                if (isOpenning == true) {
+	                                    $allLabel.find('input[ischeck!="true"]').removeAttr('checked');
+	                                }
+	                            }
+	                            $allLabel.find('input').removeAttr('isCheck');
+	                            isOpenning = false;
+	                        }
+	                        UpdateSelected();
+	                        //$.fn.multiSelect.defaults.onLeave();
+	                        if (typeof (targetId) != "undefined" && (targetId != $select.attr("id") || targetId == 'html')) {
+	                            o.onLeave.call($select);
+	                        }
+	                    }
+	                },
+	                'open': function (e, closeOthers) {
+	                    // bail if this widget is disabled
+	                    if ($select.hasClass('ui-multiselect-state-disabled')) {
+	                        return;
+	                    }
+	
+	                    //currentTriggerEvents.push(e.)
+	
+	                    // use position() if inside ui-widget-content, because offset() won't cut it.
+	                    var offset = $select.position(),
+	                            $container = $options.find('ul:last'),
+	                            top, width;
+	
+	                    // calling select is active
+	                    $select.addClass('ui-multiselect-state-active');
+	
+	                    // hide all other options
+	                    if (closeOthers || typeof closeOthers === 'undefined') {
+	                        //$options.trigger('close', [true, true]);
+	                        $('div.ui-multiselect-options').trigger('close', [true, true]);
+	                    }
+	
+	                    // calculate positioning
+	                    if (o.position === 'middle') {
+	                        top = (offset.top + ($select.height() / 2) - ($options.outerHeight() / 2));
+	                    } else if (o.position === 'top') {
+	                        top = (offset.top - $options.outerHeight());
+	                    } else {
+	                        top = (offset.top + $select.outerHeight());
+	                    }
+	                    top += 3; // padding extra 3px to seperate options with multi select div
+	
+	                    // calculate the width of the options menu
+	                    if (browserDectect.msie) {
+	                        width = $select.width() - 2 - parseInt($options.css('padding-left'), 10) - parseInt($options.css('padding-right'), 10);
+	                    } else {
+	                        width = $select.width() + 2 - parseInt($options.css('padding-left'), 10) - parseInt($options.css('padding-right'), 10);
+	                    }
+	
+	                    // select the first option
+	                    //$labels.filter('label:first').trigger('mouseenter').trigger('focus');
+	
+	                    // show the options div + position it
+	                    $options.css({
+	                        position: 'absolute',
+	                        top: top + 'px',
+	                        left: offset.left + 'px',
+	                        width: width + 'px'
+	                    }).show();
+	
+	                    // set the scroll of the checkbox container
+	                    $container.scrollTop(0);
+	
+	                    // set the height of the checkbox container
+	
+	                    if (o.maxHeight) {
+	                        if (o.maxHeight <= $body.height()) {
+	                            $body.css('max-height', o.maxHeight);
+	                        }
+	                    }
+	                    if (o.isRetrieveDataAfterClose) {
+	                        $allLabel.find('input').filter('[checked]').attr("ischeck", "true");
+	                        isOpenning = true;
+	                    }
+	                    //o.onOpen.call($options[0]);
+	                },
+	                'toggle': function () {
+	                    var isHide = $(this).is(':hidden');
+	                    if (isHide) {
+	                        $options.trigger('open');
+	                    }
+	                    else {
+	                        $options.trigger('close', [true, true]);
+	                    }
+	                }
+	            });
+	            // checkbox click event handle
+	            $listItem.each(function () {
+	                var $this = $(this);
+	                //handle group checkbox click event
+	                $this.prev().children().not('span.collapseClass').find('input').click(function () {
+	                    if ($(this).prop('checked') == true) {
+	                        $(this).attr('checked', 'checked');
+	                        $(this).parent().parent().next().find('input:not(:disabled)').prop('checked', true);
+	                        UpdateSelectedFromChild($this);
+	                        checkCheckAll();
+	                    }
+	                    else {
+	                        $(this).parent().parent().next().find('input:not(:disabled)').removeAttr('checked');
+	                        $(this).parent().parent().next().find('input:not(:disabled)').prop('checked', false);
+	                        $headerCheckbox.removeAttr('checked');
+	                        $headerCheckbox.prop('checked', false);
+	                    }
+	                    o.onCheck.call(this);
+	                    UpdateSelected();
+	                });
+	
+	                //handler chilren checkbox event
+	                var childrenNodes = $this.find('input[childgroupid="' + $this.attr("childgroupid") + '"]');
+	                childrenNodes.click(function () {
+	                    var parent = $this;
+	                    var current = $(this);
+	                    if (current.prop('checked') == false) {
+	                        current.removeAttr('checked');
+	                        UpdateRemoveParentSelected(parent);
+	                    }
+	                    else if (current.prop('checked') == true) {
+	                        current.attr('checked', 'checked');
+	                        var currentGroup = parent;
+	                        var currentChildSelected = childrenNodes.filter('[checked]').length;
+	                        var currentChildLength = childrenNodes.length;
+	                        if (currentChildLength == currentChildSelected) {
+	                            currentGroup.prev().find('input').prop('checked', true);
+	                            currentGroup.prev().find('input').attr('checked', 'checked');
+	                            UpdateSelectedFromChild(current.parent().parent().parent().parent());
+	                        }
+	
+	                        //                        if (currentGroup.find('label').not('.ui-multiselect-state-disabled').not('.ui-multiselect-group-mark').find('input').not("#" + currentGroup.attr('id') + "HeaderCheckBox").filter('[checked]').length
+	                        //                                === currentGroup.find('label').not('.ui-multiselect-state-disabled').not('.ui-multiselect-group-mark').find('input').not("#" + currentGroup.attr('id') + "HeaderCheckBox").length) {
+	                        //                            currentGroup.prev().find('input').attr('checked', 'checked');
+	                        //                        }
+	                        //                        if (parent.find('input:not(:disabled)').length === (parent.find('input[checked]').length)) {
+	                        //                            parent.prev().find('input').attr('checked', 'checked');
+	                        //                        }
+	
+	                        checkCheckAll();
+	                    }
+	                    o.onCheck.call(this);
+	                    UpdateSelected();
+	                });
+	            });
+	            //handle collapse button
+	            $('#' + id + "CollapseButton").click(function () {
+	                if ($(this).hasClass("ui-multiselect-icon-collapse")) {
+	                    $(this).removeClass("ui-multiselect-icon-collapse").addClass("ui-multiselect-icon-expand");
+	                    $options.find('ul.ui-multiselect-ul-group:not(.ui-multiselect-checkboxes):visible').hide();
+	                    $options.find('span.collapseClass').removeClass('rtMinus').addClass('rtPlus');;
+	                    //$(this).text('Expande All');
+	                }
+	                else {
+	                    $options.find('ul.ui-multiselect-ul-group:not(.ui-multiselect-checkboxes):hidden').show();
+	                    $options.find('span.collapseClass').removeClass('rtPlus').addClass('rtMinus');
+	                    $(this).removeClass("ui-multiselect-icon-expand").addClass("ui-multiselect-icon-collapse");
+	                }
+	            });
+	        };
+	        //initial setup
+	        var InitialSetup = function () {
+	            if (o.isCheckAll === true) {
+	                $headerCheckbox.attr('checked', 'checked');
+	            }
+	            // open by default?
+	            if (o.state === 'open') {
+	                $options.trigger('open', [false]);
+	            }
+	
+	            // update the number of selected elements when the page initially loads, and use that as the defaultValue.  necessary for form resets when options are pre-selected.
+	            $select.find('input')[0].defaultValue = UpdateSelected();
+	            //$options.trigger('closed', [true]);
+	            //            $('div.ui-multiselect-options').trigger('close', [true]);
+	            $options.hide();
+	        };
+	
+	        //Render All
+	        (function () {
+	            checkShouldShowGroupOrNo();
+	            html.push(RenderInterface(id, isDisabled || o.disabled, o.noneSelectedText));
+	            html.push('<div class="ui-multiselect-options RadTreeView RadTreeView_Office2010Silver' + (o.shadow ? ' ui-multiselect-shadow' : '') + ' ui-multiselect-widget ui-multiselect-widget-content ui-multiselect-corner-all" >');
+	            if (o.listData.length != 0) {
+	                html.push(RenderHeader(id, o.checkAllText));
+	                html.push(RenderBody());
+	            }
+	            else {
+	                html.push(RenderNoItemHeader(id, o.noItemText));
+	            }
+	            if (o.showFooter == true) {
+	                html.push(RenderFooter());
+	            }
+	            html.push('</div>');
+	
+	            //add global variable
+	
+	            $select = $select.after(html.join('')).next('a.ui-multiselect');
+	            $options = $select.next('div.ui-multiselect-options');
+	            $options.attr('id', 'ui-multiselect-options-' + id);
+	            $options = $('#ui-multiselect-options-' + id);
+	            $header = $options.find('div.ui-multiselect-header');
+	            $body = $options.find('ul.ui-multiselect-checkboxes');
+	            $footer = $options.find('div.ui-multiselect-footer');
+	            $labels = $options.find('label').not('.ui-multiselect-state-disabled').not('.ui-multiselect-group-mark');
+	            $allLabel = $options.find('label');
+	            $listItem = $options.find('ul.ui-multiselect-ul-group');
+	            $listCollapse = $options.find('span.collapseClass');
+	            $listGroupCheckBox = $options.find('label.ui-multiselect-group-mark').find('input');
+	            $divHover = $options.find('div.ui-multiselect-div');
+	
+	            AddPropertyValue();
+	            BindingEvent();
+	
+	            $inputHeaderCheckBox = $labels.find('input').not("#" + id + "HeaderCheckBox");
+	            $selectinput = $select.find('input');
+	            $headerCheckbox = $options.find("#" + id + "HeaderCheckBox");
+	            $checkedInput = $labels.find('input[checked]');
+	
+	            InitialSetup();
+	            // remove the original input element
+	
+	            $original.remove();
+	        })();
+	        return $select;
+	    };
+	    // close each select when clicking on any other element/anywhere else on the page
+	    $(document).delegate('html', 'click', function (e, isInsideCall) {
+	        var $target = $(e.target);
+	        if (!$target.closest('div.ui-multiselect-options').length && !$target.parent().hasClass('ui-multiselect')) {
+	            if (!$target.hasClass('exeption-multiselect-click')) {
+	                $('div.ui-multiselect-options').trigger('close', [true, true, ($target.attr("id") || 'html')]);
+	            }
+	        }
+	    });
+	    // default options
+	    $.fn.multiSelect.defaults = {
+	        showHeader: true,
+	        showFooter: true,
+	        showTooltip: false,
+	        maxHeight: 175, /* max height of the checkbox container (scroll) in pixels */
+	        minWidth: 215, /* min width of the entire widget in pixels. setting to 'auto' will disable */
+	        checkAllText: 'Check All',
+	        noItemText: 'No league found.',
+	        unCheckAllText: 'Uncheck All',
+	        updateResult: 'Update Result Table',
+	        noneSelectedText: 'Select options',
+	        selectedText: '# selected',
+	        tooltipNoItem: 'There is no selected item.',
+	        selectedList: 0,
+	        position: 'bottom', /* top|middle|bottom */
+	        shadow: false,
+	        fadeSpeed: 100,
+	        disabled: false,
+	        state: 'closed',
+	        multiple: true,
+	        isCheckAll: false,
+	        hasOptGroup: false,
+	        isRetrieveDataAfterClose: false,
+	        listData: [],
+	        buttons: [],
+	        isUsedCustomCheckAllText: false,
+	        customCheckAllText: '',
+	        columnNumber: 1,
+	        onLeave: function () { },
+	        onCheck: function () { }, /* when an individual checkbox is clicked */
+	        onOpen: function () { }, /* when the select menu is opened */
+	        onCheckAll: function () { }, /* when the check all link is clicked */
+	        onUncheckAll: function () { }, /* when the uncheck all link is clicked */
+	        onOptgroupToggle: function () { }, /* when the optgroup heading is clicked */
+	        onUpdateResult: function () { }
+	    };
+	})(jQuery);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
 /* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(37)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {
-	    function setSumParams(url, totalValue) {
-	        url = QueryString.setParam(url, "totalrows", totalValue.BetCount);
-	        url = QueryString.setParam(url, "sumwinlost", totalValue.CustomerWinLoss);
-	        url = QueryString.setParam(url, "sumplayercomm", totalValue.CustomerComm);
-	        url = QueryString.setParam(url, "sumlicenseewl", totalValue.LicenseeWinLoss);
-	        url = QueryString.setParam(url, "sumcomm", totalValue.LicenseeComm);
-	        url = QueryString.setParam(url, "sumturnover", totalValue.TurnOver);
-	        url = QueryString.setParam(url, "sumamtdueto3rd", totalValue.AmountDue);
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    var MIN_WIDTH = 640;
+	    var MAX_HEIGHT = 480;
+	    $.fn.flatPopup = function (options) {
 	
-	        return url;
-	    }
+	        var $self = this;
+	        var defaultOptions = {
+	            width: MIN_WIDTH,
+	            height: MAX_HEIGHT,
+	            title: "&nbsp;"
+	        };
 	
-	    function getMatchListProductOption(sportId, productCode) {
-	        sportId = Number(sportId);
-	        var productOptions = [];
-	        if (sportId > 0) {
-	            if (sportId === 180 || sportId === 186) {
-	                productOptions.push("VS");
-	            }
-	            else if (sportId === 162) {
-	                productOptions.push("LC");
-	            }
-	            else {
-	                if (productCode === "SB" || productCode === "ALL") {
-	                    productOptions.push("SB");
-	                }
-	                if (productCode === "BA" || productCode === "ALL") {
-	                    productOptions.push("BA");
-	                }
-	            }
-	        }
-	        else {
-	            if (productCode === "ALL") {
-	                productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG"];
-	            }
-	            else {
-	                productOptions.push(productCode);
-	            }
-	        }
+	        options = $.extend(defaultOptions, options || {});
 	
-	        return productOptions;
-	    }
+	        options.width = options.width < MIN_WIDTH ? MIN_WIDTH : options.width;
+	        options.height = options.height > MAX_HEIGHT ? MAX_HEIGHT : options.height;
+	        $self.addClass("flat-popup");
 	
-	    return {
-	        setSumParams: setSumParams,
-	        getMatchListProductOption: getMatchListProductOption,
+	        // add popup content to a wrapper
+	        $self.children().wrapAll("<div class='wrapContent'></div>");
+	        $self.find(".wrapContent").width(options.width - 10).height(options.height - 40);
+	
+	        $self.hide()
+	             .prepend('<div class="title-bar"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="#"><i class="icon-close"></i></a></div>')
+	             .width(options.width)
+	             .height(options.height);
+	
+	        $self.find('a.popup-close').on('click', function () {
+	            $self.fadeOut(300);
+	            return false;
+	        });
+	
+	        return {
+	            show: function () {
+	                $self.fadeIn(300);
+	
+	                //Set the center alignment padding + border see css style                
+	                // var popMarginTop = ($self.height() + 24) / 2;                
+	                var popMarginLeft = ($self.width() + 24) / 2;
+	                var top = parseInt($self.css("top"));
+	
+	                $self.css({
+	                    'margin-top': -(top / 2),
+	                    'margin-left': -popMarginLeft
+	                });
+	            }
+	        };
 	    };
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	
+	function keydown(e) {
+	    for (var i = keys.length; i--;) {
+	        if (e.keyCode === keys[i]) {
+	            preventDefault(e);
+	            return;
+	        }
+	    }
+	}
+	
+	function wheel(e) {
+	  preventDefault(e);
+	}
+	
+	function disable_scroll() {
+	  if (window.addEventListener) {
+	      window.addEventListener('DOMMouseScroll', wheel, false);
+	  }
+	  window.onmousewheel = document.onmousewheel = wheel;
+	  document.onkeydown = keydown;
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 44 */
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
@@ -2999,7 +3565,7 @@ webpackJsonp([8],[
 	                module && module.exports) {
 	            try {
 	                oldLocale = globalLocale._abbr;
-	                __webpack_require__(46)("./" + name);
+	                __webpack_require__(50)("./" + name);
 	                // because defineLocale currently also sets the global locale, we
 	                // want to undo that for lazy loaded locales
 	                locale_locales__getSetGlobalLocale(oldLocale);
@@ -5437,10 +6003,10 @@ webpackJsonp([8],[
 	    return _moment;
 	
 	}));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(49)(module)))
 
 /***/ },
-/* 45 */
+/* 49 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -5456,218 +6022,218 @@ webpackJsonp([8],[
 
 
 /***/ },
-/* 46 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./af": 47,
-		"./af.js": 47,
-		"./ar": 48,
-		"./ar-ly": 49,
-		"./ar-ly.js": 49,
-		"./ar-ma": 50,
-		"./ar-ma.js": 50,
-		"./ar-sa": 51,
-		"./ar-sa.js": 51,
-		"./ar-tn": 52,
-		"./ar-tn.js": 52,
-		"./ar.js": 48,
-		"./az": 53,
-		"./az.js": 53,
-		"./be": 54,
-		"./be.js": 54,
-		"./bg": 55,
-		"./bg.js": 55,
-		"./bn": 56,
-		"./bn.js": 56,
-		"./bo": 57,
-		"./bo.js": 57,
-		"./br": 58,
-		"./br.js": 58,
-		"./bs": 59,
-		"./bs.js": 59,
-		"./ca": 60,
-		"./ca.js": 60,
-		"./cs": 61,
-		"./cs.js": 61,
-		"./cv": 62,
-		"./cv.js": 62,
-		"./cy": 63,
-		"./cy.js": 63,
-		"./da": 64,
-		"./da.js": 64,
-		"./de": 65,
-		"./de-at": 66,
-		"./de-at.js": 66,
-		"./de.js": 65,
-		"./dv": 67,
-		"./dv.js": 67,
-		"./el": 68,
-		"./el.js": 68,
-		"./en-au": 69,
-		"./en-au.js": 69,
-		"./en-ca": 70,
-		"./en-ca.js": 70,
-		"./en-gb": 71,
-		"./en-gb.js": 71,
-		"./en-ie": 72,
-		"./en-ie.js": 72,
-		"./en-nz": 73,
-		"./en-nz.js": 73,
-		"./eo": 74,
-		"./eo.js": 74,
-		"./es": 75,
-		"./es-do": 76,
-		"./es-do.js": 76,
-		"./es.js": 75,
-		"./et": 77,
-		"./et.js": 77,
-		"./eu": 78,
-		"./eu.js": 78,
-		"./fa": 79,
-		"./fa.js": 79,
-		"./fi": 80,
-		"./fi.js": 80,
-		"./fo": 81,
-		"./fo.js": 81,
-		"./fr": 82,
-		"./fr-ca": 83,
-		"./fr-ca.js": 83,
-		"./fr-ch": 84,
-		"./fr-ch.js": 84,
-		"./fr.js": 82,
-		"./fy": 85,
-		"./fy.js": 85,
-		"./gd": 86,
-		"./gd.js": 86,
-		"./gl": 87,
-		"./gl.js": 87,
-		"./he": 88,
-		"./he.js": 88,
-		"./hi": 89,
-		"./hi.js": 89,
-		"./hr": 90,
-		"./hr.js": 90,
-		"./hu": 91,
-		"./hu.js": 91,
-		"./hy-am": 92,
-		"./hy-am.js": 92,
-		"./id": 93,
-		"./id.js": 93,
-		"./is": 94,
-		"./is.js": 94,
-		"./it": 95,
-		"./it.js": 95,
-		"./ja": 96,
-		"./ja.js": 96,
-		"./jv": 97,
-		"./jv.js": 97,
-		"./ka": 98,
-		"./ka.js": 98,
-		"./kk": 99,
-		"./kk.js": 99,
-		"./km": 100,
-		"./km.js": 100,
-		"./ko": 101,
-		"./ko.js": 101,
-		"./ky": 102,
-		"./ky.js": 102,
-		"./lb": 103,
-		"./lb.js": 103,
-		"./lo": 104,
-		"./lo.js": 104,
-		"./lt": 105,
-		"./lt.js": 105,
-		"./lv": 106,
-		"./lv.js": 106,
-		"./me": 107,
-		"./me.js": 107,
-		"./mi": 108,
-		"./mi.js": 108,
-		"./mk": 109,
-		"./mk.js": 109,
-		"./ml": 110,
-		"./ml.js": 110,
-		"./mr": 111,
-		"./mr.js": 111,
-		"./ms": 112,
-		"./ms-my": 113,
-		"./ms-my.js": 113,
-		"./ms.js": 112,
-		"./my": 114,
-		"./my.js": 114,
-		"./nb": 115,
-		"./nb.js": 115,
-		"./ne": 116,
-		"./ne.js": 116,
-		"./nl": 117,
-		"./nl.js": 117,
-		"./nn": 118,
-		"./nn.js": 118,
-		"./pa-in": 119,
-		"./pa-in.js": 119,
-		"./pl": 120,
-		"./pl.js": 120,
-		"./pt": 121,
-		"./pt-br": 122,
-		"./pt-br.js": 122,
-		"./pt.js": 121,
-		"./ro": 123,
-		"./ro.js": 123,
-		"./ru": 124,
-		"./ru.js": 124,
-		"./se": 125,
-		"./se.js": 125,
-		"./si": 126,
-		"./si.js": 126,
-		"./sk": 127,
-		"./sk.js": 127,
-		"./sl": 128,
-		"./sl.js": 128,
-		"./sq": 129,
-		"./sq.js": 129,
-		"./sr": 130,
-		"./sr-cyrl": 131,
-		"./sr-cyrl.js": 131,
-		"./sr.js": 130,
-		"./ss": 132,
-		"./ss.js": 132,
-		"./sv": 133,
-		"./sv.js": 133,
-		"./sw": 134,
-		"./sw.js": 134,
-		"./ta": 135,
-		"./ta.js": 135,
-		"./te": 136,
-		"./te.js": 136,
-		"./th": 137,
-		"./th.js": 137,
-		"./tl-ph": 138,
-		"./tl-ph.js": 138,
-		"./tlh": 139,
-		"./tlh.js": 139,
-		"./tr": 140,
-		"./tr.js": 140,
-		"./tzl": 141,
-		"./tzl.js": 141,
-		"./tzm": 142,
-		"./tzm-latn": 143,
-		"./tzm-latn.js": 143,
-		"./tzm.js": 142,
-		"./uk": 144,
-		"./uk.js": 144,
-		"./uz": 145,
-		"./uz.js": 145,
-		"./vi": 146,
-		"./vi.js": 146,
-		"./x-pseudo": 147,
-		"./x-pseudo.js": 147,
-		"./zh-cn": 148,
-		"./zh-cn.js": 148,
-		"./zh-hk": 149,
-		"./zh-hk.js": 149,
-		"./zh-tw": 150,
-		"./zh-tw.js": 150
+		"./af": 51,
+		"./af.js": 51,
+		"./ar": 52,
+		"./ar-ly": 53,
+		"./ar-ly.js": 53,
+		"./ar-ma": 54,
+		"./ar-ma.js": 54,
+		"./ar-sa": 55,
+		"./ar-sa.js": 55,
+		"./ar-tn": 56,
+		"./ar-tn.js": 56,
+		"./ar.js": 52,
+		"./az": 57,
+		"./az.js": 57,
+		"./be": 58,
+		"./be.js": 58,
+		"./bg": 59,
+		"./bg.js": 59,
+		"./bn": 60,
+		"./bn.js": 60,
+		"./bo": 61,
+		"./bo.js": 61,
+		"./br": 62,
+		"./br.js": 62,
+		"./bs": 63,
+		"./bs.js": 63,
+		"./ca": 64,
+		"./ca.js": 64,
+		"./cs": 65,
+		"./cs.js": 65,
+		"./cv": 66,
+		"./cv.js": 66,
+		"./cy": 67,
+		"./cy.js": 67,
+		"./da": 68,
+		"./da.js": 68,
+		"./de": 69,
+		"./de-at": 70,
+		"./de-at.js": 70,
+		"./de.js": 69,
+		"./dv": 71,
+		"./dv.js": 71,
+		"./el": 72,
+		"./el.js": 72,
+		"./en-au": 73,
+		"./en-au.js": 73,
+		"./en-ca": 74,
+		"./en-ca.js": 74,
+		"./en-gb": 75,
+		"./en-gb.js": 75,
+		"./en-ie": 76,
+		"./en-ie.js": 76,
+		"./en-nz": 77,
+		"./en-nz.js": 77,
+		"./eo": 78,
+		"./eo.js": 78,
+		"./es": 79,
+		"./es-do": 80,
+		"./es-do.js": 80,
+		"./es.js": 79,
+		"./et": 81,
+		"./et.js": 81,
+		"./eu": 82,
+		"./eu.js": 82,
+		"./fa": 83,
+		"./fa.js": 83,
+		"./fi": 84,
+		"./fi.js": 84,
+		"./fo": 85,
+		"./fo.js": 85,
+		"./fr": 86,
+		"./fr-ca": 87,
+		"./fr-ca.js": 87,
+		"./fr-ch": 88,
+		"./fr-ch.js": 88,
+		"./fr.js": 86,
+		"./fy": 89,
+		"./fy.js": 89,
+		"./gd": 90,
+		"./gd.js": 90,
+		"./gl": 91,
+		"./gl.js": 91,
+		"./he": 92,
+		"./he.js": 92,
+		"./hi": 93,
+		"./hi.js": 93,
+		"./hr": 94,
+		"./hr.js": 94,
+		"./hu": 95,
+		"./hu.js": 95,
+		"./hy-am": 96,
+		"./hy-am.js": 96,
+		"./id": 97,
+		"./id.js": 97,
+		"./is": 98,
+		"./is.js": 98,
+		"./it": 99,
+		"./it.js": 99,
+		"./ja": 100,
+		"./ja.js": 100,
+		"./jv": 101,
+		"./jv.js": 101,
+		"./ka": 102,
+		"./ka.js": 102,
+		"./kk": 103,
+		"./kk.js": 103,
+		"./km": 104,
+		"./km.js": 104,
+		"./ko": 105,
+		"./ko.js": 105,
+		"./ky": 106,
+		"./ky.js": 106,
+		"./lb": 107,
+		"./lb.js": 107,
+		"./lo": 108,
+		"./lo.js": 108,
+		"./lt": 109,
+		"./lt.js": 109,
+		"./lv": 110,
+		"./lv.js": 110,
+		"./me": 111,
+		"./me.js": 111,
+		"./mi": 112,
+		"./mi.js": 112,
+		"./mk": 113,
+		"./mk.js": 113,
+		"./ml": 114,
+		"./ml.js": 114,
+		"./mr": 115,
+		"./mr.js": 115,
+		"./ms": 116,
+		"./ms-my": 117,
+		"./ms-my.js": 117,
+		"./ms.js": 116,
+		"./my": 118,
+		"./my.js": 118,
+		"./nb": 119,
+		"./nb.js": 119,
+		"./ne": 120,
+		"./ne.js": 120,
+		"./nl": 121,
+		"./nl.js": 121,
+		"./nn": 122,
+		"./nn.js": 122,
+		"./pa-in": 123,
+		"./pa-in.js": 123,
+		"./pl": 124,
+		"./pl.js": 124,
+		"./pt": 125,
+		"./pt-br": 126,
+		"./pt-br.js": 126,
+		"./pt.js": 125,
+		"./ro": 127,
+		"./ro.js": 127,
+		"./ru": 128,
+		"./ru.js": 128,
+		"./se": 129,
+		"./se.js": 129,
+		"./si": 130,
+		"./si.js": 130,
+		"./sk": 131,
+		"./sk.js": 131,
+		"./sl": 132,
+		"./sl.js": 132,
+		"./sq": 133,
+		"./sq.js": 133,
+		"./sr": 134,
+		"./sr-cyrl": 135,
+		"./sr-cyrl.js": 135,
+		"./sr.js": 134,
+		"./ss": 136,
+		"./ss.js": 136,
+		"./sv": 137,
+		"./sv.js": 137,
+		"./sw": 138,
+		"./sw.js": 138,
+		"./ta": 139,
+		"./ta.js": 139,
+		"./te": 140,
+		"./te.js": 140,
+		"./th": 141,
+		"./th.js": 141,
+		"./tl-ph": 142,
+		"./tl-ph.js": 142,
+		"./tlh": 143,
+		"./tlh.js": 143,
+		"./tr": 144,
+		"./tr.js": 144,
+		"./tzl": 145,
+		"./tzl.js": 145,
+		"./tzm": 146,
+		"./tzm-latn": 147,
+		"./tzm-latn.js": 147,
+		"./tzm.js": 146,
+		"./uk": 148,
+		"./uk.js": 148,
+		"./uz": 149,
+		"./uz.js": 149,
+		"./vi": 150,
+		"./vi.js": 150,
+		"./x-pseudo": 151,
+		"./x-pseudo.js": 151,
+		"./zh-cn": 152,
+		"./zh-cn.js": 152,
+		"./zh-hk": 153,
+		"./zh-hk.js": 153,
+		"./zh-tw": 154,
+		"./zh-tw.js": 154
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -5680,11 +6246,11 @@ webpackJsonp([8],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 46;
+	webpackContext.id = 50;
 
 
 /***/ },
-/* 47 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5692,7 +6258,7 @@ webpackJsonp([8],[
 	//! author : Werner Mollentze : https://github.com/wernerm
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5761,7 +6327,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 48 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5771,7 +6337,7 @@ webpackJsonp([8],[
 	//! author : forabi https://github.com/forabi
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5902,7 +6468,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 49 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5910,7 +6476,7 @@ webpackJsonp([8],[
 	//! author : Ali Hmer: https://github.com/kikoanis
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6028,7 +6594,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 50 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6037,7 +6603,7 @@ webpackJsonp([8],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6092,7 +6658,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 51 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6100,7 +6666,7 @@ webpackJsonp([8],[
 	//! author : Suhail Alkowaileet : https://github.com/xsoh
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6200,7 +6766,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 52 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6208,7 +6774,7 @@ webpackJsonp([8],[
 	//! author : Nader Toukabri : https://github.com/naderio
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6263,7 +6829,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 53 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6271,7 +6837,7 @@ webpackJsonp([8],[
 	//! author : topchiyev : https://github.com/topchiyev
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6372,7 +6938,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 54 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6382,7 +6948,7 @@ webpackJsonp([8],[
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6510,7 +7076,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 55 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6518,7 +7084,7 @@ webpackJsonp([8],[
 	//! author : Krasen Borisov : https://github.com/kraz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6604,7 +7170,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 56 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6612,7 +7178,7 @@ webpackJsonp([8],[
 	//! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6727,7 +7293,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 57 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6735,7 +7301,7 @@ webpackJsonp([8],[
 	//! author : Thupten N. Chakrishar : https://github.com/vajradog
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6850,7 +7416,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 58 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6858,7 +7424,7 @@ webpackJsonp([8],[
 	//! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6962,7 +7528,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 59 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6971,7 +7537,7 @@ webpackJsonp([8],[
 	//! based on (hr) translation by Bojan Marković
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7109,7 +7675,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 60 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7117,7 +7683,7 @@ webpackJsonp([8],[
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7194,7 +7760,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 61 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7202,7 +7768,7 @@ webpackJsonp([8],[
 	//! author : petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7370,7 +7936,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 62 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7378,7 +7944,7 @@ webpackJsonp([8],[
 	//! author : Anatoly Mironov : https://github.com/mirontoli
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7437,7 +8003,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 63 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7446,7 +8012,7 @@ webpackJsonp([8],[
 	//! author : https://github.com/ryangreaves
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7522,7 +8088,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 64 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7530,7 +8096,7 @@ webpackJsonp([8],[
 	//! author : Ulrik Nielsen : https://github.com/mrbase
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7586,7 +8152,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 65 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7596,7 +8162,7 @@ webpackJsonp([8],[
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7668,7 +8234,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 66 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7679,7 +8245,7 @@ webpackJsonp([8],[
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7751,7 +8317,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 67 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7759,7 +8325,7 @@ webpackJsonp([8],[
 	//! author : Jawish Hameed : https://github.com/jawish
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7854,7 +8420,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 68 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7862,7 +8428,7 @@ webpackJsonp([8],[
 	//! author : Aggelos Karalias : https://github.com/mehiel
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7956,7 +8522,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 69 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7964,7 +8530,7 @@ webpackJsonp([8],[
 	//! author : Jared Morse : https://github.com/jarcoal
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8027,7 +8593,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 70 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8035,7 +8601,7 @@ webpackJsonp([8],[
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8094,7 +8660,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 71 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8102,7 +8668,7 @@ webpackJsonp([8],[
 	//! author : Chris Gedrim : https://github.com/chrisgedrim
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8165,7 +8731,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 72 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8173,7 +8739,7 @@ webpackJsonp([8],[
 	//! author : Chris Cartlidge : https://github.com/chriscartlidge
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8236,7 +8802,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 73 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8244,7 +8810,7 @@ webpackJsonp([8],[
 	//! author : Luke McGregor : https://github.com/lukemcgregor
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8307,7 +8873,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 74 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8317,7 +8883,7 @@ webpackJsonp([8],[
 	//!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8384,7 +8950,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 75 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8392,7 +8958,7 @@ webpackJsonp([8],[
 	//! author : Julio Napurí : https://github.com/julionc
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8469,14 +9035,14 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 76 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : Spanish (Dominican Republic) [es-do]
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8553,7 +9119,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 77 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8562,7 +9128,7 @@ webpackJsonp([8],[
 	//! improvements : Illimar Tambek : https://github.com/ragulka
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8637,7 +9203,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 78 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8645,7 +9211,7 @@ webpackJsonp([8],[
 	//! author : Eneko Illarramendi : https://github.com/eillarra
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8707,7 +9273,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 79 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8715,7 +9281,7 @@ webpackJsonp([8],[
 	//! author : Ebrahim Byagowi : https://github.com/ebraminio
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8817,7 +9383,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 80 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8825,7 +9391,7 @@ webpackJsonp([8],[
 	//! author : Tarmo Aidantausta : https://github.com/bleadof
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8928,7 +9494,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 81 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8936,7 +9502,7 @@ webpackJsonp([8],[
 	//! author : Ragnar Johannesen : https://github.com/ragnar123
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8992,7 +9558,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 82 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9000,7 +9566,7 @@ webpackJsonp([8],[
 	//! author : John Fischer : https://github.com/jfroffice
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9060,7 +9626,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 83 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9068,7 +9634,7 @@ webpackJsonp([8],[
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9124,7 +9690,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 84 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9132,7 +9698,7 @@ webpackJsonp([8],[
 	//! author : Gaspard Bucher : https://github.com/gaspard
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9192,7 +9758,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 85 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9200,7 +9766,7 @@ webpackJsonp([8],[
 	//! author : Robin van der Vliet : https://github.com/robin0van0der0v
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9269,7 +9835,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 86 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9277,7 +9843,7 @@ webpackJsonp([8],[
 	//! author : Jon Ashdown : https://github.com/jonashdown
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9349,7 +9915,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 87 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9357,7 +9923,7 @@ webpackJsonp([8],[
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9430,7 +9996,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 88 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9440,7 +10006,7 @@ webpackJsonp([8],[
 	//! author : Tal Ater : https://github.com/TalAter
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9533,7 +10099,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 89 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9541,7 +10107,7 @@ webpackJsonp([8],[
 	//! author : Mayank Singhal : https://github.com/mayanksinghal
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9661,7 +10227,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 90 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9669,7 +10235,7 @@ webpackJsonp([8],[
 	//! author : Bojan Marković : https://github.com/bmarkovic
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9810,7 +10376,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 91 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9818,7 +10384,7 @@ webpackJsonp([8],[
 	//! author : Adam Brunner : https://github.com/adambrunner
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9923,7 +10489,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 92 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9931,7 +10497,7 @@ webpackJsonp([8],[
 	//! author : Armendarabyan : https://github.com/armendarabyan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10022,7 +10588,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 93 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10031,7 +10597,7 @@ webpackJsonp([8],[
 	//! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10109,7 +10675,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 94 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10117,7 +10683,7 @@ webpackJsonp([8],[
 	//! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10240,7 +10806,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 95 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10249,7 +10815,7 @@ webpackJsonp([8],[
 	//! author: Mattia Larentis: https://github.com/nostalgiaz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10314,7 +10880,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 96 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10322,7 +10888,7 @@ webpackJsonp([8],[
 	//! author : LI Long : https://github.com/baryon
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10394,7 +10960,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 97 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10403,7 +10969,7 @@ webpackJsonp([8],[
 	//! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10481,7 +11047,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 98 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10489,7 +11055,7 @@ webpackJsonp([8],[
 	//! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10574,7 +11140,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 99 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10582,7 +11148,7 @@ webpackJsonp([8],[
 	//! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10665,7 +11231,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 100 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10673,7 +11239,7 @@ webpackJsonp([8],[
 	//! author : Kruy Vanna : https://github.com/kruyvanna
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10727,7 +11293,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 101 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10736,7 +11302,7 @@ webpackJsonp([8],[
 	//! author : Jeeeyul Lee <jeeeyul@gmail.com>
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10796,7 +11362,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 102 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10804,7 +11370,7 @@ webpackJsonp([8],[
 	//! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10888,7 +11454,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 103 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10897,7 +11463,7 @@ webpackJsonp([8],[
 	//! author : David Raison : https://github.com/kwisatz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11029,7 +11595,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 104 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11037,7 +11603,7 @@ webpackJsonp([8],[
 	//! author : Ryan Hart : https://github.com/ryanhart2
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11103,7 +11669,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 105 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11111,7 +11677,7 @@ webpackJsonp([8],[
 	//! author : Mindaugas Mozūras : https://github.com/mmozuras
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11224,7 +11790,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 106 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11233,7 +11799,7 @@ webpackJsonp([8],[
 	//! author : Jānis Elmeris : https://github.com/JanisE
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11325,7 +11891,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 107 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11333,7 +11899,7 @@ webpackJsonp([8],[
 	//! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11440,7 +12006,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 108 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11448,7 +12014,7 @@ webpackJsonp([8],[
 	//! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11508,7 +12074,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 109 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11516,7 +12082,7 @@ webpackJsonp([8],[
 	//! author : Borislav Mickov : https://github.com/B0k0
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11602,7 +12168,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 110 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11610,7 +12176,7 @@ webpackJsonp([8],[
 	//! author : Floyd Pink : https://github.com/floydpink
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11687,7 +12253,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 111 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11696,7 +12262,7 @@ webpackJsonp([8],[
 	//! author : Vivek Athalye : https://github.com/vnathalye
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11850,7 +12416,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 112 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11858,7 +12424,7 @@ webpackJsonp([8],[
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11936,7 +12502,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 113 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11945,7 +12511,7 @@ webpackJsonp([8],[
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12023,7 +12589,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 114 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12033,7 +12599,7 @@ webpackJsonp([8],[
 	//! author : Tin Aung Lin : https://github.com/thanyawzinmin
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12122,7 +12688,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 115 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12131,7 +12697,7 @@ webpackJsonp([8],[
 	//!           Sigurd Gartmann : https://github.com/sigurdga
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12189,7 +12755,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 116 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12197,7 +12763,7 @@ webpackJsonp([8],[
 	//! author : suvash : https://github.com/suvash
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12316,7 +12882,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 117 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12325,7 +12891,7 @@ webpackJsonp([8],[
 	//! author : Jacob Middag : https://github.com/middagj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12406,7 +12972,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 118 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12414,7 +12980,7 @@ webpackJsonp([8],[
 	//! author : https://github.com/mechuwind
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12470,7 +13036,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 119 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12478,7 +13044,7 @@ webpackJsonp([8],[
 	//! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12598,7 +13164,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 120 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12606,7 +13172,7 @@ webpackJsonp([8],[
 	//! author : Rafal Hirsz : https://github.com/evoL
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12707,7 +13273,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 121 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12715,7 +13281,7 @@ webpackJsonp([8],[
 	//! author : Jefferson : https://github.com/jalex79
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12776,7 +13342,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 122 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12784,7 +13350,7 @@ webpackJsonp([8],[
 	//! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12841,7 +13407,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 123 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12850,7 +13416,7 @@ webpackJsonp([8],[
 	//! author : Valentin Agachi : https://github.com/avaly
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12920,7 +13486,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 124 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12930,7 +13496,7 @@ webpackJsonp([8],[
 	//! author : Коренберг Марк : https://github.com/socketpair
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13107,7 +13673,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 125 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13115,7 +13681,7 @@ webpackJsonp([8],[
 	//! authors : Bård Rolstad Henriksen : https://github.com/karamell
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13172,7 +13738,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 126 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13180,7 +13746,7 @@ webpackJsonp([8],[
 	//! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13247,7 +13813,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 127 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13256,7 +13822,7 @@ webpackJsonp([8],[
 	//! based on work of petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13401,7 +13967,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 128 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13409,7 +13975,7 @@ webpackJsonp([8],[
 	//! author : Robert Sedovšek : https://github.com/sedovsek
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13567,7 +14133,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 129 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13577,7 +14143,7 @@ webpackJsonp([8],[
 	//! author : Oerd Cukalla : https://github.com/oerd
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13641,7 +14207,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 130 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13649,7 +14215,7 @@ webpackJsonp([8],[
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13755,7 +14321,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 131 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13763,7 +14329,7 @@ webpackJsonp([8],[
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13869,7 +14435,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 132 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13877,7 +14443,7 @@ webpackJsonp([8],[
 	//! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13962,7 +14528,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 133 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13970,7 +14536,7 @@ webpackJsonp([8],[
 	//! author : Jens Alm : https://github.com/ulmus
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14035,7 +14601,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 134 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14043,7 +14609,7 @@ webpackJsonp([8],[
 	//! author : Fahad Kassim : https://github.com/fadsel
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14098,7 +14664,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 135 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14106,7 +14672,7 @@ webpackJsonp([8],[
 	//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14231,7 +14797,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 136 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14239,7 +14805,7 @@ webpackJsonp([8],[
 	//! author : Krishna Chaitanya Thota : https://github.com/kcthota
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14324,7 +14890,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 137 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14332,7 +14898,7 @@ webpackJsonp([8],[
 	//! author : Kridsada Thanabulpong : https://github.com/sirn
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14395,7 +14961,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 138 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14403,7 +14969,7 @@ webpackJsonp([8],[
 	//! author : Dan Hagman : https://github.com/hagmandan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14461,7 +15027,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 139 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14469,7 +15035,7 @@ webpackJsonp([8],[
 	//! author : Dominika Kruk : https://github.com/amaranthrose
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14585,7 +15151,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 140 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14594,7 +15160,7 @@ webpackJsonp([8],[
 	//!           Burak Yiğit Kaya: https://github.com/BYK
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14679,7 +15245,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 141 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14688,7 +15254,7 @@ webpackJsonp([8],[
 	//! author : Iustì Canun
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14774,7 +15340,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 142 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14782,7 +15348,7 @@ webpackJsonp([8],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14836,7 +15402,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 143 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14844,7 +15410,7 @@ webpackJsonp([8],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14898,7 +15464,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 144 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14907,7 +15473,7 @@ webpackJsonp([8],[
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15048,7 +15614,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 145 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15056,7 +15622,7 @@ webpackJsonp([8],[
 	//! author : Sardor Muminov : https://github.com/muminoff
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15110,7 +15676,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 146 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15118,7 +15684,7 @@ webpackJsonp([8],[
 	//! author : Bang Nguyen : https://github.com/bangnk
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15193,7 +15759,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 147 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15201,7 +15767,7 @@ webpackJsonp([8],[
 	//! author : Andrew Hood : https://github.com/andrewhood125
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15265,7 +15831,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 148 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15274,7 +15840,7 @@ webpackJsonp([8],[
 	//! author : Zeno Zeng : https://github.com/zenozeng
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15396,7 +15962,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 149 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15406,7 +15972,7 @@ webpackJsonp([8],[
 	//! author : Konstantin : https://github.com/skfd
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15505,7 +16071,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 150 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15514,7 +16080,7 @@ webpackJsonp([8],[
 	//! author : Chris Lam : https://github.com/hehachris
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(48)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15613,7 +16179,7 @@ webpackJsonp([8],[
 	}));
 
 /***/ },
-/* 151 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -15627,7 +16193,7 @@ webpackJsonp([8],[
 	(function (root, factory) {
 	    if (true) {
 	        // AMD. Make globaly available as well
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(44), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(48), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
 	            return (root.daterangepicker = factory(moment, jquery));
 	        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof module === 'object' && module.exports) {
@@ -17237,84 +17803,318 @@ webpackJsonp([8],[
 
 
 /***/ },
-/* 152 */
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-	    var MIN_WIDTH = 640;
-	    var MAX_HEIGHT = 480;
-	    $.fn.flatPopup = function (options) {
-	
-	        var $self = this;
-	        var defaultOptions = {
-	            width: MIN_WIDTH,
-	            height: MAX_HEIGHT,
-	            title: "&nbsp;"
-	        };
-	
-	        options = $.extend(defaultOptions, options || {});
-	
-	        options.width = options.width < MIN_WIDTH ? MIN_WIDTH : options.width;
-	        options.height = options.height > MAX_HEIGHT ? MAX_HEIGHT : options.height;
-	        $self.addClass("flat-popup");
-	
-	        // add popup content to a wrapper
-	        $self.children().wrapAll("<div class='wrapContent'></div>");
-	        $self.find(".wrapContent").width(options.width - 10).height(options.height - 40);
-	
-	        $self.hide()
-	             .prepend('<div class="title-bar"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="#"><i class="icon-close"></i></a></div>')
-	             .width(options.width)
-	             .height(options.height);
-	
-	        $self.find('a.popup-close').on('click', function () {
-	            $self.fadeOut(300);
-	            return false;
-	        });
-	
-	        return {
-	            show: function () {
-	                $self.fadeIn(300);
-	
-	                //Set the center alignment padding + border see css style                
-	                // var popMarginTop = ($self.height() + 24) / 2;                
-	                var popMarginLeft = ($self.width() + 24) / 2;
-	                var top = parseInt($self.css("top"));
-	
-	                $self.css({
-	                    'margin-top': -(top / 2),
-	                    'margin-left': -popMarginLeft
-	                });
-	            }
-	        };
-	    };
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(162)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveReport) {
+	    $(LiveReport.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	
-	function keydown(e) {
-	    for (var i = keys.length; i--;) {
-	        if (e.keyCode === keys[i]) {
-	            preventDefault(e);
-	            return;
-	        }
-	    }
-	}
-	
-	function wheel(e) {
-	  preventDefault(e);
-	}
-	
-	function disable_scroll() {
-	  if (window.addEventListener) {
-	      window.addEventListener('DOMMouseScroll', wheel, false);
-	  }
-	  window.onmousewheel = document.onmousewheel = wheel;
-	  document.onkeydown = keydown;
-	}
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 153 */
+/* 162 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {/*global Site, QueryString*/
+	/// <reference path="/@JSense.js" />
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(37), __webpack_require__(36), __webpack_require__(163), __webpack_require__(48), __webpack_require__(155), __webpack_require__(43), __webpack_require__(164)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper, moment) {
+	        "use strict";
+	
+	        function initialize() {
+	            Site.initialize();
+	            initEvent();
+	            initMaterialSelect();
+	            initDateRangePicker();
+	            initMonthPicker();
+	            Site.addUserGuide({
+	                resourceName: "LiveReport",
+	                title: Site.getSingleResource("LiveReport")
+	            });
+	        }
+	
+	        function initMaterialSelect() {
+	            $('select.select').not('.disabled').material_select();
+	        }
+	
+	        function initEvent() {
+	            $("#switchreport").click(function () {
+	                var mod = $(this).attr("data-history-mode");
+	                if (mod === "False") {
+	                    location.href = Site.resolveClientUrl("LiveReport?isViewedHistory=True");
+	                }
+	                else {
+	                    location.href = Site.resolveClientUrl("LiveReport?isViewedHistory=False");
+	                }
+	            });
+	
+	            /*back button*/
+	            /*-affect the action excel*/
+	            window.onbeforeunload = function () {
+	                $("ProductCode").val("");
+	            };
+	            /**************/
+	            /*date-range*/
+	
+	            /*drill down*/
+	            /* sumary detail*/
+	            $("body").on("click", ".product-detail-link", function () {
+	                viewProductDetail(this);
+	            });
+	            /* sumary detail*/
+	            /* detail*/
+	            $("body").on("click", ".sport-detailt-link", function () {
+	                viewSportDetail(this);
+	            });
+	
+	            $('#exporttoexcel').click(function () {
+	                $('#IsExportExcel').val(true);
+	                $('#livereport').submit();
+	                $('#IsExportExcel').val(false);
+	            });
+	
+	            $('#btnSubmit').click(function () {
+	                $('#livereport').submit();
+	            });
+	        }
+	
+	        function initDateRangePicker() {
+	            $(function () {
+	                var $dateRange = $('#DateRange');
+	
+	                var $from = $('#FromDate');
+	                var $to = $('#ToDate');
+	
+	                var start = moment($from.attr('data-original-from'), "MM/DD/YYYY");
+	                var end = moment($to.attr('data-original-to'), "MM/DD/YYYY");
+	
+	                function setRangeDate(start, end) {
+	                    $from.val(start.format('MM/DD/YYYY'));
+	                    $to.val(end.format('MM/DD/YYYY'));
+	                    $dateRange.val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+	                }
+	
+	                $dateRange.daterangepicker({
+	                    startDate: start,
+	                    endDate: end,
+	                    ranges: {
+	                        'Today': [moment(), moment()],
+	                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+	                        'Current week': [moment().startOf('week'), moment()],
+	                        'Last week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
+	                        'Current month': [moment().startOf('month'), moment()],
+	                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+	                        'Since last month': [moment().subtract(1, 'month').startOf('month'), moment()]
+	                    },
+	                    locale: {
+	                        format: 'MM/DD/YYYY',
+	                    },
+	                    showDropdowns: true,
+	                    linkedCalendars: false,
+	                    alwaysShowCalendars: true,
+	                    showCustomRangeLabel: false,
+	                }, setRangeDate);
+	
+	                $dateRange.on('apply.daterangepicker', function (ev, picker) {
+	                    setRangeDate(picker.startDate, picker.endDate);
+	                });
+	
+	                setRangeDate(start, end);
+	            });
+	        }
+	        function initMonthPicker() {
+	            /* date-range*/
+	            var fromdate = new Date($('#FromDate').val());
+	            var todate = new Date($('#ToDate').val());
+	
+	            $('#month-picker').monPickr({
+	                minDate: Site.getHistoryDate(),
+	                showDateRange: true,
+	                fromDayId: 'fDay',
+	                toDayId: 'tDay',
+	                format: 'MM/dd/yyyy',
+	                month: fromdate,
+	                fromDay: fromdate.getDate(),
+	                toDay: todate.getDate(),
+	                afterChangeMonth: function () {
+	                    $('#FromDate').val($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy"));
+	                    $('#ToDate').val($("#month-picker").monPickr("getToDate", "MM/dd/yyyy"));
+	                },
+	                afterChangeDay: function () {
+	                    $('#FromDate').val($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy"));
+	                    $('#ToDate').val($("#month-picker").monPickr("getToDate", "MM/dd/yyyy"));
+	                }
+	            });
+	        }
+	
+	        function viewProductDetail(target) {
+	            var productCode = $(target).attr("data-product-code");
+	            var data = {
+	                productCode: productCode,
+	                FromDate: $("#FromDate").attr('data-original-from').toString("MM/dd/yyyy"),
+	                ToDate: $("#ToDate").attr('data-original-to').toString("MM/dd/yyyy"),
+	                BaseCurrency: $("#BaseCurrency").attr('data-original'),
+	                LiveIndicator: $("#LiveIndicator").attr('data-original')
+	            };
+	            data = Site.setLicenseeOptionOriginalParam(data);
+	            var isSelected = $(target).parent().hasClass("selected");
+	            if (isSelected) { return; }
+	
+	            $("a.product-detail-link").parent().removeClass("selected");
+	            $(target).parent().addClass("selected");
+	
+	            $.ajax({
+	                type: "POST",
+	                data: data,
+	                dataType: "json",
+	                url: Site.resolveClientUrl("LiveReport/Detail"),
+	                success: function () {
+	                },
+	                beforeSend: Site.blockUI(),
+	                complete: function (jqXHR) {
+	                    if (jqXHR.readyState === 4) {
+	                        $("#ProductCode").val(data.productCode);
+	                        $("#detail-content").html(jqXHR.responseText);
+	                    }
+	                    Site.unBlockUI();
+	                }
+	            });
+	        }
+	
+	        function viewBetList(url, totalValue, productOptions) {
+	            url = Site.setLicenseeOptionOriginalParam(url);
+	            url = QueryString.setParam(url, "fromdate", $("#FromDate").attr('data-original-from'));
+	            url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original-to'));
+	            url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
+	            url = Helper.setSumParams(url, totalValue);
+	            // [Jacob] Cheat for live report mix parlay, must send
+	            url = QueryString.setParam(url, "showsb", false);
+	            url = QueryString.setParam(url, "showba", false);
+	            $(productOptions).each(function (index, element) {
+	                url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);
+	                url = QueryString.setParam(url, "show" + element, true);
+	            });
+	
+	            Site.blockUI();
+	            location.href = url;
+	        }
+	
+	        function viewSportDetail(target) {
+	            var data = $(target).attr("data-drill-down");
+	            var jsonData = $.parseJSON(data);
+	            var productCode = $("#ProductCode").val();
+	            var productOptions = Helper.getMatchListProductOption(jsonData.SportId, productCode);
+	            var urlMap = {
+	                Key101: "LiveReportBetList/MixParlay?bettype=9",
+	                Key102: "LiveReportBetList/MixParlay?bettype=29",
+	                Key103: "LiveReportBetList/Outright",
+	                Key161: "LiveReportBetList/NumberGame",
+	                Key151: "LiveReportBetList/Racing?SportType=151",
+	                Key152: "LiveReportBetList/Racing?SportType=152",
+	                Key153: "LiveReportBetList/Racing?SportType=153",
+	                Key181: "LiveReportBetList/Racing?SportType=181",
+	                Key182: "LiveReportBetList/Racing?SportType=182",
+	                Key183: "LiveReportBetList/Racing?SportType=183",
+	                Key184: "LiveReportBetList/Racing?SportType=184",
+	                Key185: "LiveReportBetList/Racing?SportType=185"
+	            };
+	
+	            var url = urlMap["Key" + jsonData.SportId];
+	            var showBetList = url !== null && url !== undefined;
+	            url = url === null || url === undefined
+	                    ? Site.resolveClientUrl("LiveReport/MatchList")
+	                    : Site.resolveClientUrl(url);
+	
+	            if (showBetList) {
+	                viewBetList(url, jsonData.TotalValue, productOptions);
+	            }
+	            else {
+	                // Match List
+	                url = Site.setLicenseeOptionOriginalParam(url);
+	                url = QueryString.setParam(url, "SportId", jsonData.SportId);
+	                url = QueryString.setParam(url, "ProductCode", productCode);
+	                url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original-from'));
+	                url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original-to'));
+	                url = QueryString.setParam(url, "showsb", true);
+	                url = QueryString.setParam(url, "showba", false);
+	                url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
+	
+	                $(productOptions).each(function (index, element) {
+	                    url = Site.setProductOptionParam(url, index, element, true);
+	                    url = QueryString.setParam(url, "show" + element, true);
+	                });
+	
+	                Site.blockUI();
+	                location.href = url;
+	            }
+	        }
+	
+	        return {
+	            initialize: initialize
+	        };
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+/* 163 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(37)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {
+	    function setSumParams(url, totalValue) {
+	        url = QueryString.setParam(url, "totalrows", totalValue.BetCount);
+	        url = QueryString.setParam(url, "sumwinlost", totalValue.CustomerWinLoss);
+	        url = QueryString.setParam(url, "sumplayercomm", totalValue.CustomerComm);
+	        url = QueryString.setParam(url, "sumlicenseewl", totalValue.LicenseeWinLoss);
+	        url = QueryString.setParam(url, "sumcomm", totalValue.LicenseeComm);
+	        url = QueryString.setParam(url, "sumturnover", totalValue.TurnOver);
+	        url = QueryString.setParam(url, "sumamtdueto3rd", totalValue.AmountDue);
+	
+	        return url;
+	    }
+	
+	    function getMatchListProductOption(sportId, productCode) {
+	        sportId = Number(sportId);
+	        var productOptions = [];
+	        if (sportId > 0) {
+	            if (sportId === 180 || sportId === 186) {
+	                productOptions.push("VS");
+	            }
+	            else if (sportId === 162) {
+	                productOptions.push("LC");
+	            }
+	            else {
+	                if (productCode === "SB" || productCode === "ALL") {
+	                    productOptions.push("SB");
+	                }
+	                if (productCode === "BA" || productCode === "ALL") {
+	                    productOptions.push("BA");
+	                }
+	            }
+	        }
+	        else {
+	            if (productCode === "ALL") {
+	                productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG"];
+	            }
+	            else {
+	                productOptions.push(productCode);
+	            }
+	        }
+	
+	        return productOptions;
+	    }
+	
+	    return {
+	        setSumParams: setSumParams,
+	        getMatchListProductOption: getMatchListProductOption,
+	    };
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />

@@ -1,42 +1,37 @@
-﻿@{    
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
 }
-@using Fanex.Athena.Extension.Helper;
 @section css
 {
-    <link href="@Url.ContentLink("/Content/Global/grid26.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Global/lrf.global.content.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/Content/Plugin/DateRangePicker/daterangepicker.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.ContentLink("/Content/Plugin/MultiSelect/jquery.multiselect.css")" rel="stylesheet" type="text/css" />
 
-    <link href="@Url.ContentLink("/Content/Library/ui.jqgrid/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.ContentLink("/www/css/source/main.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.ContentLink("/www/css/source/components/jqgrid/jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/www/css/source/extensions/jqgrid-ex.css")" rel="stylesheet" type="text/css" />
     @RenderSection("pagecss", required: false)
 }
 @section js
 {
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqGridLayoutScripts")
     @RenderSection("pagejs", required: false)
 }
-<div class="container_26">
-@if (ViewBag.NotificationMessage != null)
-{
-<div class="grid_26 content-filter new-line notification">
-    <div id="notification-marquee" style="color: #C02603">@ViewBag.NotificationMessage</div>   
-</div>
-}
-    <div class="grid_26">
-        <div class="content-title">
-            @RenderSection("ContentTitle", required: false)
+
+<div class="loading">
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
         </div>
     </div>
-    @RenderSection("ContentFilter", required: false)
 </div>
-<div class="content-main">
-    <div class="loading">
-    </div>
-    <div class="block-body">
-    </div>
-    @RenderBody()
+<div class="block-body">
 </div>
+
+@RenderSection("Filter", required: false)
+
+@RenderSection("Content", required: false)

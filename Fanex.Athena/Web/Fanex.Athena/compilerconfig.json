@@ -1,6 +1,10 @@
 ﻿[
   {
-    "outputFile": "www/css/source/components/jqgrid/jqgrid.css",
-    "inputFile": "www/css/source/components/jqgrid/jqgrid.scss"
+    "outputFile": "www/css/source/components/jqgrid/jqgrid-ex.css",
+    "inputFile": "www/css/source/components/jqgrid/jqgrid-ex.scss"
+  },
+  {
+    "outputFile": "www/css/source/extensions/jqgrid-ex.css",
+    "inputFile": "www/css/source/extensions/jqgrid-ex.scss"
   }
 ]

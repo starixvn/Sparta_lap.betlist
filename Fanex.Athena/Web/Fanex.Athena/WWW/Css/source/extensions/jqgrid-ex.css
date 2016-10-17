@@ -1,0 +1,47 @@
+﻿.theme_jqGrid a {
+  color: #1c5fc3;
+  text-decoration: none; }
+  .theme_jqGrid a:hover, .theme_jqGrid a:focus, .theme_jqGrid a:active {
+    text-decoration: none; }
+
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-view {
+  font-size: 13px; }
+
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-bdiv {
+  overflow: initial; }
+
+.theme_jqGrid .ui-jqgrid-htable thead {
+  border-bottom: 1px solid #d0d0d0; }
+  .theme_jqGrid .ui-jqgrid-htable thead tr th.ui-th-column, .theme_jqGrid .ui-jqgrid-htable thead tr th.ui-th-column-header {
+    vertical-align: middle;
+    text-align: center;
+    background: #d1dae1;
+    border-color: #ffffff;
+    color: #314453;
+    font-weight: 600;
+    padding: 6px 5px; }
+    .theme_jqGrid .ui-jqgrid-htable thead tr th.ui-th-column:first-child, .theme_jqGrid .ui-jqgrid-htable thead tr th.ui-th-column-header:first-child {
+      border-left-color: #d1dae1 !important; }
+    .theme_jqGrid .ui-jqgrid-htable thead tr th.ui-th-column:last-child, .theme_jqGrid .ui-jqgrid-htable thead tr th.ui-th-column-header:last-child {
+      border-right-color: #d1dae1 !important; }
+  .theme_jqGrid .ui-jqgrid-htable thead tr th div {
+    height: auto; }
+  .theme_jqGrid .ui-jqgrid-htable thead tr:nth-child(2) th:last-child {
+    border-right-color: #fff !important; }
+  .theme_jqGrid .ui-jqgrid-htable thead > tr.jqg-second-row-header > th {
+    border: 1px solid #ffffff; }
+
+.theme_jqGrid .ui-jqgrid-btable tr td, .theme_jqGrid .ui-jqgrid-btable tr.footrow td, .theme_jqGrid .ui-jqgrid-ftable tr td, .theme_jqGrid .ui-jqgrid-ftable tr.footrow td {
+  border: 1px solid #d6d6d6;
+  color: #404040;
+  padding: 6px 8px; }
+
+.theme_jqGrid .ui-jqgrid-btable tr.highlight, .theme_jqGrid .ui-jqgrid-btable tr.footrow.highlight, .theme_jqGrid .ui-jqgrid-ftable tr.highlight, .theme_jqGrid .ui-jqgrid-ftable tr.footrow.highlight {
+  background: #fcf4de; }
+
+.theme_jqGrid .ui-jqgrid-btable tr.total, .theme_jqGrid .ui-jqgrid-btable tr.footrow.total, .theme_jqGrid .ui-jqgrid-ftable tr.total, .theme_jqGrid .ui-jqgrid-ftable tr.footrow.total {
+  background: #ffb391; }
+
+.theme_jqGrid .ui-jqgrid-hbox {
+  padding-right: 0; }
+
