@@ -101,7 +101,7 @@ define(
             {
                 name: 'CurrencyName',
                 index: 'CurrencyName',
-                width: 60,
+                width: 50,
                 align: 'center',
                 sortable: true,
                 resizable: false,
@@ -112,7 +112,7 @@ define(
             {
                 name: 'TotalTurnOverSingle',
                 index: 'TotalTurnOverSingle',
-                width: 85,
+                width: 60,
                 align: 'right',
                 sortable: true,
                 resizable: false,
@@ -151,7 +151,7 @@ define(
             {
                 name: 'TotalTransaction',
                 index: 'TotalTransaction',
-                width: 75,
+                width: 50,
                 align: 'right',
                 sortable: true,
                 resizable: false,
@@ -167,7 +167,7 @@ define(
             {
                 name: 'CustomerWinLoss',
                 index: 'CustomerWinLoss',
-                width: 90,
+                width: 70,
                 align: 'right',
                 sortable: true,
                 resizable: false,
@@ -189,7 +189,7 @@ define(
             {
                 name: 'CustomerTotal',
                 index: 'CustomerTotal',
-                width: 90,
+                width: 70,
                 align: 'right',
                 sortable: true,
                 resizable: false,
@@ -201,7 +201,7 @@ define(
                 name: 'TotalLicenseeWLSingle',
                 classes: 'highlight',
                 index: 'TotalLicenseeWLSingle',
-                width: 100,
+                width: 70,
                 align: 'right',
                 sortable: true,
                 resizable: false,

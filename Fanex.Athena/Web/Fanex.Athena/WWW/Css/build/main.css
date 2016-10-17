@@ -1093,4 +1093,7 @@ main {
 .flag-icon-zh-Hans {
   background-image: url(fonts/flags/flags/cn.svg); }
 
+.collapsible-body {
+  border-bottom: none; }
+
 /*# sourceMappingURL=main.css.map*/

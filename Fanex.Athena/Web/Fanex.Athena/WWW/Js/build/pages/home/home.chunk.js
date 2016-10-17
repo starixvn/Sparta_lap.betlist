@@ -1347,7 +1347,7 @@ webpackJsonp([7],[
 	        var title = 20;
 	        var footer = 20;
 	        var headerTitle = 26;
-	        var headerFilter = $("div.content-filter").outerHeight();
+	        var headerFilter = $("div.page-form").outerHeight();
 	        var exHeight = footer + headerTitle + headerFilter + title;
 	
 	        var body = window.document.body;

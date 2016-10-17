@@ -8,10 +8,11 @@
   font-size: 13px; }
 
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-bdiv {
-  overflow: initial; }
+  overflow-y: scroll;
+  overflow-x: hidden; }
 
 .theme_jqGrid .ui-jqgrid-htable thead {
-  border-bottom: 1px solid #d0d0d0; }
+  border: none; }
   .theme_jqGrid .ui-jqgrid-htable thead tr th.ui-th-column, .theme_jqGrid .ui-jqgrid-htable thead tr th.ui-th-column-header {
     vertical-align: middle;
     text-align: center;
@@ -29,7 +30,8 @@
   .theme_jqGrid .ui-jqgrid-htable thead tr:nth-child(2) th:last-child {
     border-right-color: #fff !important; }
   .theme_jqGrid .ui-jqgrid-htable thead > tr.jqg-second-row-header > th {
-    border: 1px solid #ffffff; }
+    border: 1px solid #ffffff;
+    border-top: 1px solid #ffffff !important; }
 
 .theme_jqGrid .ui-jqgrid-btable tr td, .theme_jqGrid .ui-jqgrid-btable tr.footrow td, .theme_jqGrid .ui-jqgrid-ftable tr td, .theme_jqGrid .ui-jqgrid-ftable tr.footrow td {
   border: 1px solid #d6d6d6;
@@ -41,6 +43,16 @@
 
 .theme_jqGrid .ui-jqgrid-btable tr.total, .theme_jqGrid .ui-jqgrid-btable tr.footrow.total, .theme_jqGrid .ui-jqgrid-ftable tr.total, .theme_jqGrid .ui-jqgrid-ftable tr.footrow.total {
   background: #ffb391; }
+
+.theme_jqGrid .ui-jqgrid-btable tr.jqgfirstrow > td {
+  padding: 0;
+  border: none; }
+
+.theme_jqGrid .ui-jqgrid-btable tr > td {
+  border-top: none; }
+
+.theme_jqGrid .ui-jqgrid-ftable {
+  border-top: 3px solid #a7a1a1; }
 
 .theme_jqGrid .ui-jqgrid-hbox {
   padding-right: 0; }

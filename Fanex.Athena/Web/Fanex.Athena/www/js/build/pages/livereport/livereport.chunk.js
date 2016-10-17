@@ -551,7 +551,7 @@ webpackJsonp([9],[
 	        var title = 20;
 	        var footer = 20;
 	        var headerTitle = 26;
-	        var headerFilter = $("div.content-filter").outerHeight();
+	        var headerFilter = $("div.page-form").outerHeight();
 	        var exHeight = footer + headerTitle + headerFilter + title;
 	
 	        var body = window.document.body;
@@ -17845,10 +17845,10 @@ webpackJsonp([9],[
 	            $("#switchreport").click(function () {
 	                var mod = $(this).attr("data-history-mode");
 	                if (mod === "False") {
-	                    location.href = Site.resolveClientUrl("LiveReport?isViewedHistory=True");
+	                    Site.redirect(Site.resolveClientUrl("LiveReport?isViewedHistory=True"));
 	                }
 	                else {
-	                    location.href = Site.resolveClientUrl("LiveReport?isViewedHistory=False");
+	                    Site.redirect(Site.resolveClientUrl("LiveReport?isViewedHistory=False"));
 	                }
 	            });
 	
@@ -17883,51 +17883,49 @@ webpackJsonp([9],[
 	        }
 	
 	        function initDateRangePicker() {
-	            $(function () {
-	                var $dateRange = $('#DateRange');
+	            var $dateRange = $('#DateRange');
 	
-	                var $from = $('#FromDate');
-	                var $to = $('#ToDate');
+	            var $from = $('#FromDate');
+	            var $to = $('#ToDate');
 	
-	                var start = moment($from.attr('data-original-from'), "MM/DD/YYYY");
-	                var end = moment($to.attr('data-original-to'), "MM/DD/YYYY");
+	            var start = moment($from.attr('data-original-from'), "MM/DD/YYYY");
+	            var end = moment($to.attr('data-original-to'), "MM/DD/YYYY");
 	
-	                function setRangeDate(start, end) {
-	                    $from.val(start.format('MM/DD/YYYY'));
-	                    $to.val(end.format('MM/DD/YYYY'));
-	                    $dateRange.val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
-	                }
+	            function setRangeDate(start, end) {
+	                $from.val(start.format('MM/DD/YYYY'));
+	                $to.val(end.format('MM/DD/YYYY'));
+	                $dateRange.val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+	            }
 	
-	                $dateRange.daterangepicker({
-	                    startDate: start,
-	                    endDate: end,
-	                    ranges: {
-	                        'Today': [moment(), moment()],
-	                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-	                        'Current week': [moment().startOf('week'), moment()],
-	                        'Last week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
-	                        'Current month': [moment().startOf('month'), moment()],
-	                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-	                        'Since last month': [moment().subtract(1, 'month').startOf('month'), moment()]
-	                    },
-	                    locale: {
-	                        format: 'MM/DD/YYYY',
-	                    },
-	                    showDropdowns: true,
-	                    linkedCalendars: false,
-	                    alwaysShowCalendars: true,
-	                    showCustomRangeLabel: false,
-	                }, setRangeDate);
+	            $dateRange.daterangepicker({
+	                startDate: start,
+	                endDate: end,
+	                ranges: {
+	                    'Today': [moment(), moment()],
+	                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+	                    'Current week': [moment().startOf('week'), moment()],
+	                    'Last week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
+	                    'Current month': [moment().startOf('month'), moment()],
+	                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+	                    'Since last month': [moment().subtract(1, 'month').startOf('month'), moment()]
+	                },
+	                locale: {
+	                    format: 'MM/DD/YYYY',
+	                },
+	                showDropdowns: true,
+	                linkedCalendars: false,
+	                alwaysShowCalendars: true,
+	                showCustomRangeLabel: false,
+	            }, setRangeDate);
 	
-	                $dateRange.on('apply.daterangepicker', function (ev, picker) {
-	                    setRangeDate(picker.startDate, picker.endDate);
-	                });
-	
-	                setRangeDate(start, end);
+	            $dateRange.on('apply.daterangepicker', function (ev, picker) {
+	                setRangeDate(picker.startDate, picker.endDate);
 	            });
+	
+	            setRangeDate(start, end);
 	        }
+	
 	        function initMonthPicker() {
-	            /* date-range*/
 	            var fromdate = new Date($('#FromDate').val());
 	            var todate = new Date($('#ToDate').val());
 	
@@ -18000,7 +17998,7 @@ webpackJsonp([9],[
 	            });
 	
 	            Site.blockUI();
-	            location.href = url;
+	            Site.redirect(url);
 	        }
 	
 	        function viewSportDetail(target) {
@@ -18049,7 +18047,7 @@ webpackJsonp([9],[
 	                });
 	
 	                Site.blockUI();
-	                location.href = url;
+	                Site.redirect(url);
 	            }
 	        }
 	

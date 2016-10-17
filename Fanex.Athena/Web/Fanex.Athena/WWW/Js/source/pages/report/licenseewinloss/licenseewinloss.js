@@ -202,7 +202,7 @@ define(
                         : currencyTextList[currencyId];
 
                     var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"), currencyStr);
-                    $("div.report-title").html(title);
+                    $("span.report-title").html(title);
                 },
                 //#end
 

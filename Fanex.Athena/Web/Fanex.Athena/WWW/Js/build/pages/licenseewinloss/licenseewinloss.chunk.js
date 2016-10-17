@@ -551,7 +551,7 @@ webpackJsonp([8],[
 	        var title = 20;
 	        var footer = 20;
 	        var headerTitle = 26;
-	        var headerFilter = $("div.content-filter").outerHeight();
+	        var headerFilter = $("div.page-form").outerHeight();
 	        var exHeight = footer + headerTitle + headerFilter + title;
 	
 	        var body = window.document.body;
@@ -1889,7 +1889,7 @@ webpackJsonp([8],[
 	                        : currencyTextList[currencyId];
 	
 	                    var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"), currencyStr);
-	                    $("div.report-title").html(title);
+	                    $("span.report-title").html(title);
 	                },
 	                //#end
 	
@@ -2526,7 +2526,7 @@ webpackJsonp([8],[
 	            {
 	                name: 'CurrencyName',
 	                index: 'CurrencyName',
-	                width: 60,
+	                width: 50,
 	                align: 'center',
 	                sortable: true,
 	                resizable: false,
@@ -2537,7 +2537,7 @@ webpackJsonp([8],[
 	            {
 	                name: 'TotalTurnOverSingle',
 	                index: 'TotalTurnOverSingle',
-	                width: 85,
+	                width: 60,
 	                align: 'right',
 	                sortable: true,
 	                resizable: false,
@@ -2576,7 +2576,7 @@ webpackJsonp([8],[
 	            {
 	                name: 'TotalTransaction',
 	                index: 'TotalTransaction',
-	                width: 75,
+	                width: 50,
 	                align: 'right',
 	                sortable: true,
 	                resizable: false,
@@ -2592,7 +2592,7 @@ webpackJsonp([8],[
 	            {
 	                name: 'CustomerWinLoss',
 	                index: 'CustomerWinLoss',
-	                width: 90,
+	                width: 70,
 	                align: 'right',
 	                sortable: true,
 	                resizable: false,
@@ -2614,7 +2614,7 @@ webpackJsonp([8],[
 	            {
 	                name: 'CustomerTotal',
 	                index: 'CustomerTotal',
-	                width: 90,
+	                width: 70,
 	                align: 'right',
 	                sortable: true,
 	                resizable: false,
@@ -2626,7 +2626,7 @@ webpackJsonp([8],[
 	                name: 'TotalLicenseeWLSingle',
 	                classes: 'highlight',
 	                index: 'TotalLicenseeWLSingle',
-	                width: 100,
+	                width: 70,
 	                align: 'right',
 	                sortable: true,
 	                resizable: false,
@@ -3256,10 +3256,11 @@ webpackJsonp([8],[
 	                clearTimeout(_resizeTimer);
 	                _resizeTimer = setTimeout(function () {
 	                    var $bdiv = $(".ui-jqgrid-bdiv");
-	
 	                    var gridTop = $bdiv.offset().top;
+	
+	                    var pagingHeight = $(".paging:visible").length > 0 ? $(".paging:visible").height() : 0;
 	                    var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-	                                - $(".ui-jqgrid-pager:visible").height() - $(".paging:visible").height() - 30;
+	                                - $(".ui-jqgrid-pager:visible").height() - pagingHeight - 30;
 	                    gridHeight = Math.max(120, gridHeight);
 	
 	                    var gridContainer = $("#gview_ReportGrid");
@@ -3653,25 +3654,6 @@ webpackJsonp([8],[
 	                var rowCount = footerRowList.length;
 	                var columnIndex = 0;
 	                if (rowCount > 0) {
-	                    // Render total section
-	                    var totalCellWidth = 0;
-	
-	                    // Process total section
-	                    // Calculate total width
-	                    columnIndex = 0;
-	                    $("td ", footerRowList[0]).each(function (j, cell) {
-	                        if (columnIndex < colspan) {
-	                            if ($(cell).is(":visible")) {
-	                                totalCellWidth += $(cell).width();
-	                                columnIndex++;
-	                            }
-	                        }
-	                    });
-	
-	                    // Each cell has padding left 2, padding right: 2, border 1
-	                    // Remove right border
-	                    totalCellWidth += (colspan - 1) * 5 - 1;
-	
 	                    // Hide other columns to match the colspan & rowspan
 	                    var processFooter = function ($td, colspan) {
 	                        $td.each(function (j, cell) {
@@ -3705,11 +3687,11 @@ webpackJsonp([8],[
 	                        // Show total text
 	                        $("td:first-child", footerRowList[0]).attr("colspan", colspan)
 	                                .attr("rowspan", rowCount - summaryRowCount).css("display", "")
-	                                .css("width", totalCellWidth + "px").html(totalText);
+	                                .css("width", "auto").html(totalText);
 	                    }
 	                    else {
 	                        $("td:first-child", footerRowList[0]).css("display", "").attr("colspan", summaryColspan)
-	                            .css("width", totalCellWidth + "px").html(totalInText + " EUR");
+	                            .css("width", "auto").html(totalInText + " EUR");
 	                        //remove border style
 	                        $(".ui-jqgrid-sdiv .ui-jqgrid-hbox").css("border-top", "none");
 	                    }

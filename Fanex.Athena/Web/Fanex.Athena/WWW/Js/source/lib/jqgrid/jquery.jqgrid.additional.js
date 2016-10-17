@@ -20,10 +20,11 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
                 clearTimeout(_resizeTimer);
                 _resizeTimer = setTimeout(function () {
                     var $bdiv = $(".ui-jqgrid-bdiv");
-
                     var gridTop = $bdiv.offset().top;
+
+                    var pagingHeight = $(".paging:visible").length > 0 ? $(".paging:visible").height() : 0;
                     var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                                - $(".ui-jqgrid-pager:visible").height() - $(".paging:visible").height() - 30;
+                                - $(".ui-jqgrid-pager:visible").height() - pagingHeight - 30;
                     gridHeight = Math.max(120, gridHeight);
 
                     var gridContainer = $("#gview_ReportGrid");
@@ -417,25 +418,6 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
                 var rowCount = footerRowList.length;
                 var columnIndex = 0;
                 if (rowCount > 0) {
-                    // Render total section
-                    var totalCellWidth = 0;
-
-                    // Process total section
-                    // Calculate total width
-                    columnIndex = 0;
-                    $("td ", footerRowList[0]).each(function (j, cell) {
-                        if (columnIndex < colspan) {
-                            if ($(cell).is(":visible")) {
-                                totalCellWidth += $(cell).width();
-                                columnIndex++;
-                            }
-                        }
-                    });
-
-                    // Each cell has padding left 2, padding right: 2, border 1
-                    // Remove right border
-                    totalCellWidth += (colspan - 1) * 5 - 1;
-
                     // Hide other columns to match the colspan & rowspan
                     var processFooter = function ($td, colspan) {
                         $td.each(function (j, cell) {
@@ -469,11 +451,11 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
                         // Show total text
                         $("td:first-child", footerRowList[0]).attr("colspan", colspan)
                                 .attr("rowspan", rowCount - summaryRowCount).css("display", "")
-                                .css("width", totalCellWidth + "px").html(totalText);
+                                .css("width", "auto").html(totalText);
                     }
                     else {
                         $("td:first-child", footerRowList[0]).css("display", "").attr("colspan", summaryColspan)
-                            .css("width", totalCellWidth + "px").html(totalInText + " EUR");
+                            .css("width", "auto").html(totalInText + " EUR");
                         //remove border style
                         $(".ui-jqgrid-sdiv .ui-jqgrid-hbox").css("border-top", "none");
                     }

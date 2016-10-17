@@ -13,14 +13,15 @@
             font-size: 13px;
         }
 
-        .ui-jqgrid-bdiv{
-            overflow: initial;
+        .ui-jqgrid-bdiv {
+            overflow-y: scroll;
+            overflow-x:hidden;
         }
     }
 
     .ui-jqgrid-htable {
         thead {
-            border-bottom: 1px solid #d0d0d0;
+            border: none;
 
             tr {
                 th {
@@ -56,6 +57,7 @@
 
             > tr.jqg-second-row-header > th {
                 border: 1px solid #ffffff;
+                border-top: 1px solid #ffffff !important;
             }
         }
     }
@@ -81,6 +83,25 @@
                 }
             }
         }
+    }
+
+    .ui-jqgrid-btable {
+        tr.jqgfirstrow {
+            > td {
+                padding: 0;
+                border: none;
+            }
+        }
+
+        tr {
+            > td {
+                border-top: none;
+            }
+        }
+    }
+
+    .ui-jqgrid-ftable{
+        border-top: 3px solid #a7a1a1;
     }
 
     .ui-jqgrid-hbox {
