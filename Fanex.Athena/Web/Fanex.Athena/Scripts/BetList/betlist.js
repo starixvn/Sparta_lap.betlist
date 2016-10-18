@@ -677,14 +677,14 @@ var BetList = (function ($) {
             url = QueryString.setParam(url, "betCheck", betCheck);
             url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
 
-            var popH = Math.min($(window).height() - 100, 550), popW = 820;
+            var popH = Math.min($(window).height() - 100, 550), popW = 860;
             var title = Site.getSingleResource("TicketDetailOf").replace("{0}", refNo);
             var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
                              popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
             $(dialogForm).dialog({
                 modal: true,
-                width: popW + 50,
+                width: popW + 30,
                 height: popH + 50
             });
         },

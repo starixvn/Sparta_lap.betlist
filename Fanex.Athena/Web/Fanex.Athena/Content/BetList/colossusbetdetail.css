@@ -17,12 +17,12 @@ th {
 }
 
 .content-wrapper .left {
-    width: 35%;
+    width: 370px;
     float: left;
 }
 
 .content-wrapper .right {
-    width: calc(65% - 21px);
+    width: 450px;
     float: left;
 }
 
