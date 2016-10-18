@@ -1,5 +1,5 @@
 ﻿"use strict";
-define([], function () {
+define(['jquery'], function ($) {
     var MIN_WIDTH = 640;
     var MAX_HEIGHT = 480;
     $.fn.flatPopup = function (options) {

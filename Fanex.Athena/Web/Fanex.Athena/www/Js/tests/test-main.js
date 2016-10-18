@@ -12,9 +12,17 @@ requirejs.config({
     baseUrl: '/base/www/js/source',
 
     paths: {
+        "jasmine-fixture": '/base/bower_components/jasmine-fixture/dist/jasmine-fixture.min',
+        "squire": "/base/node_modules/squirejs/src/Squire",
+        "hammerjs": "/base/node_modules/hammerjs/hammer",
+        "bootstrap-daterangepicker": "/base/node_modules/bootstrap-daterangepicker/daterangepicker",
         "vendor-materialize": "vendors/materialize/materialize"
     },
-
+    packages: [{
+        name: 'moment',
+        location: '/base/node_modules/moment',
+        main: 'moment'
+    }],
     // ask Require.js to load these files (all our tests)
     deps: tests,
 

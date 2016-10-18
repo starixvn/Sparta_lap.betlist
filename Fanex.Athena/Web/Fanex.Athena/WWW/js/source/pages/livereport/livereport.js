@@ -1,8 +1,8 @@
 ﻿/*global Site, QueryString*/
 /// <reference path="/@JSense.js" />
 define(
-    ["common/querystring", "common/site", "./helper", "moment", "bootstrap-daterangepicker", "lib/jquery.flatpopup", "lib/jquery.monthpicker"],
-    function (QueryString, Site, Helper, moment) {
+    ["jquery",  "moment", "common/querystring", "common/site", "./helper", "bootstrap-daterangepicker", "lib/jquery.flatpopup", "lib/jquery.monthpicker"],
+    function ($, moment, QueryString, Site, Helper) {
         "use strict";
 
         function initialize() {
@@ -67,7 +67,6 @@ define(
 
             var $from = $('#FromDate');
             var $to = $('#ToDate');
-
             var start = moment($from.attr('data-original-from'), "MM/DD/YYYY");
             var end = moment($to.attr('data-original-to'), "MM/DD/YYYY");
 
@@ -206,7 +205,6 @@ define(
             url = url === null || url === undefined
                     ? Site.resolveClientUrl("LiveReport/MatchList")
                     : Site.resolveClientUrl(url);
-
             if (showBetList) {
                 viewBetList(url, jsonData.TotalValue, productOptions);
             }

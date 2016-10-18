@@ -6,9 +6,14 @@ module.exports = function (config) {
         basePath: '',
         frameworks: ['jasmine-jquery', 'jasmine', 'requirejs'],
         files: [
+            'bower_components/jasmine-ajax/lib/mock-ajax.js',
+            { pattern: "node_modules/squirejs/src/Squire.js", included: false },
+            { pattern: "node_modules/hammerjs/hammer.js", included: false },
+            { pattern: "node_modules/moment/**/*.js", included: false },
+            { pattern: "node_modules/bootstrap-daterangepicker/*.js", included: false },
             { pattern: 'www/js/source/**/*.js', included: false },
             { pattern: 'www/js/tests/common/*-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/**/*-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/**/livereport-spec.js', included: false },
 
              'www/js/tests/test-main.js',
         ],
