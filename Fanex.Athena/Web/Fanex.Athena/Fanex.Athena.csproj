@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -748,6 +748,12 @@
     <Content Include="www\css\source\extensions\jqgrid-ex.min.css">
       <DependentUpon>jqgrid-ex.css</DependentUpon>
     </Content>
+    <Content Include="www\css\source\extensions\report-ex.css">
+      <DependentUpon>report-ex.scss</DependentUpon>
+    </Content>
+    <Content Include="www\css\source\extensions\report-ex.min.css">
+      <DependentUpon>report-ex.css</DependentUpon>
+    </Content>
     <Content Include="www\css\source\main.css" />
     <Content Include="www\css\source\pages\liveReport.css" />
     <Content Include="www\css\source\pages\login.css" />
@@ -1128,6 +1134,7 @@
     <Content Include="www\css\source\extensions\jqgrid-ex.scss" />
     <Content Include="www\js\build\pages\licenseewinloss\licenseewinloss.chunk.js.map" />
     <Content Include="www\js\build\pages\home\home.chunk.js.map" />
+    <Content Include="www\css\source\extensions\report-ex.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
@@ -4949,7 +4956,6 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Plugin\MultiSelect\images\images\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup />

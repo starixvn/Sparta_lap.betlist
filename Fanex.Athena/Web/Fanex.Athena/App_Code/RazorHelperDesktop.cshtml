@@ -142,12 +142,11 @@ if (toDate != null)
 {
     var Url = new UrlHelper(Context.Request.RequestContext);
     var i = 0;
-    <div class="input-field col l2 m3 s12" id="ProductList">
+    <div class="input-field col l2 m3 s12 multiselect-container" id="ProductList">
         <select id="grid-products-multiselect" name="grid-products-multiselect"></select>
         <label>
             @ViewResources.Product
         </label>
-        <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" class="hide error-img" />
 
         <div class="hide" id="product-container">
             @foreach (var product in productOptions)

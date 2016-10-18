@@ -7,10 +7,6 @@
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-view {
   font-size: 13px; }
 
-.theme_jqGrid .ui-jqgrid .ui-jqgrid-bdiv {
-  overflow-y: scroll;
-  overflow-x: hidden; }
-
 .theme_jqGrid .ui-jqgrid-htable thead {
   border: none; }
   .theme_jqGrid .ui-jqgrid-htable thead tr th.ui-th-column, .theme_jqGrid .ui-jqgrid-htable thead tr th.ui-th-column-header {

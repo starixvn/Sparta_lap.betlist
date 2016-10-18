@@ -6,5 +6,9 @@
   {
     "outputFile": "www/css/source/extensions/jqgrid-ex.css",
     "inputFile": "www/css/source/extensions/jqgrid-ex.scss"
+  },
+  {
+    "outputFile": "www/css/source/extensions/report-ex.css",
+    "inputFile": "www/css/source/extensions/report-ex.scss"
   }
 ]

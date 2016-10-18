@@ -1,0 +1,49 @@
+﻿.page-form {
+    .input-field {
+        input[type=radio] + label {
+            left: 0;
+            padding-right: 10px;
+            padding-left: 25px;
+        }
+    }
+}
+
+.multiselect-container {
+    > label {
+        position: absolute;
+        top: -14px;
+    }
+
+    > a.ui-multiselect {
+        height: 3.5rem;
+        line-height: 3.5rem;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
+        position: relative;
+
+        .ui-multiselect-icon {
+            background: initial;
+            &:after {
+                content: "▼";
+                position: absolute;
+                right: 0;
+                top: 7px;
+                font-size: 10px;
+                color: #549cba;
+            }
+        }
+    }
+}
+
+.ui-multiselect-div, .ui-multiselect-checkboxes-head {
+    label {
+        position: initial;
+        cursor: pointer;
+
+        > input[type="checkbox"] {
+            position: initial;
+            opacity: 1;
+        }
+    }
+}
