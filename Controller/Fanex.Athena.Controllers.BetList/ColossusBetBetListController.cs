@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers.BetList
     #region Using
 
     using System.Web.Mvc;
+    using System.Web.UI;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Model.Core.DataDomain;
     using Newtonsoft.Json.Linq;
@@ -37,6 +38,7 @@ namespace Fanex.Athena.Controllers.BetList
         }
 
         [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
         public ActionResult Detail(ColossusBetDetailMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
