@@ -2255,8 +2255,8 @@ webpackJsonp([8],[
 /* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	    var MIN_WIDTH = 640;
 	    var MAX_HEIGHT = 480;
 	    $.fn.flatPopup = function (options) {
@@ -2326,7 +2326,6 @@ webpackJsonp([8],[
 	  window.onmousewheel = document.onmousewheel = wheel;
 	  document.onkeydown = keydown;
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 /* 44 */

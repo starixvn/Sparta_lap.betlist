@@ -6,6 +6,15 @@
 @using Fanex.Athena.Model.Core.DataDomain;
 @using Fanex.Athena.Resources;
 
+@helper DateRangePicker(DateTime fromDate, DateTime toDate, DateTime minDate, DateTime maxDate) {
+    <input name="DateRange" autocomplete="off" data-mindate="@minDate.ToString("MM/dd/yyyy")" data-maxdate="@maxDate.ToString("MM/dd/yyyy")" id="DateRange" class="datepicker" type="text" />
+    <input name="FromDate" id="FromDate" type="hidden" data-original-from="@fromDate.ToString("MM/dd/yyyy")" value="@fromDate.ToString("MM/dd/yyyy")" />
+    <input name="ToDate" id="ToDate" type="hidden" data-original-to="@toDate.ToString("MM/dd/yyyy")" value="@toDate.ToString("MM/dd/yyyy")" />
+
+    <label for="DateRange" class="active">@ViewResources.Date</label>
+    <span class="icon icon-calendar"></span>
+}
+
 @helper CurrencyList(IDictionary<string, int> currencyList,
 string className = "", int selected = 0,
 bool addMoreAllOption = true,

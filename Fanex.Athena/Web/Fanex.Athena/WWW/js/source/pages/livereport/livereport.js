@@ -79,6 +79,8 @@ define(
             $dateRange.daterangepicker({
                 startDate: start,
                 endDate: end,
+                minDate: moment($dateRange.attr('data-mindate'), "MM/DD/YYYY"),
+                maxDate: moment($dateRange.attr('data-maxdate'), "MM/DD/YYYY"),
                 ranges: {
                     'Today': [moment(), moment()],
                     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
