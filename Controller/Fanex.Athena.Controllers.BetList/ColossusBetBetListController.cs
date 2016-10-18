@@ -55,7 +55,8 @@ namespace Fanex.Athena.Controllers.BetList
             var token = GetToken(memberId);
             var siteId = _colossusBetBetListService.GetSiteId(memberId);
             var url = AppSettings.GetValue("CBIframeUrlSiteId" + siteId.ToString());
-            return string.Format(url, betCheck, token);
+            var colossusBetSiteId = AppSettings.GetValue("ColossusBetSiteId");
+            return string.Format(url, betCheck, colossusBetSiteId, token);
         }
 
         private string GetToken(int memberId)
