@@ -17915,7 +17915,7 @@ webpackJsonp([9],[
 	                showDropdowns: true,
 	                linkedCalendars: false,
 	                alwaysShowCalendars: true,
-	                showCustomRangeLabel: true,
+	                showCustomRangeLabel: false,
 	            }, setRangeDate);
 	
 	            $dateRange.on('apply.daterangepicker', function (ev, picker) {

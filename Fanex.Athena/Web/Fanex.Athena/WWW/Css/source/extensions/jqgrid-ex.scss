@@ -24,7 +24,7 @@
                         vertical-align: middle;
                         text-align: center;
                         background: #d1dae1;
-                        border-color: #ffffff;
+                        border: 1px solid #fff;
                         color: #314453;
                         font-weight: 600;
                         padding: 6px 5px;
@@ -40,6 +40,10 @@
 
                     div {
                         height: auto;
+                        white-space: pre-wrap;
+                        white-space: -moz-pre-wrap;
+                        white-space: -pre-wrap;
+                        white-space: -o-pre-wrap;
                     }
                 }
 
@@ -95,7 +99,7 @@
         }
     }
 
-    .ui-jqgrid-ftable{
+    .ui-jqgrid-ftable {
         border-top: 3px solid #a7a1a1;
     }
 
