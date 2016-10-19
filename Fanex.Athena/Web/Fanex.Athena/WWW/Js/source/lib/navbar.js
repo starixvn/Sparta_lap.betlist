@@ -283,13 +283,16 @@
                 });
 
                 $this.click(function () {
+                    var $body = $('body');
+                    var $submenu = $(".site-menu .menu-item div.collapsible-body");
+                    var menuCollapse = $body.hasClass('site-menubar-fold');
 
                     if (window.innerWidth > 992) {
                         $(".site-menu li.has-sub").removeClass("active");
                         $('.site-menu .menu-item .collapsible-header').removeClass('active');
-                        $(".site-menu .menu-item div.collapsible-body").css('display', 'none');
+                        $submenu.css('display', 'none');
                         menu_id.removeAttr('style');
-                        $('body').toggleClass('site-menubar-fold');
+                        $body.toggleClass('site-menubar-fold', !menuCollapse);
                     } else {
 
                         if (menuOut === true) {
@@ -297,9 +300,7 @@
                             panning = false;
                             removeMenu();
                         } else {
-
                             // Disable Scrolling
-                            var $body = $('body');
                             var oldWidth = $body.innerWidth();
                             $body.css('overflow', 'hidden');
                             $body.width(oldWidth);
@@ -327,7 +328,7 @@
                                     }
                                 });
                             });
-                            $('body').append(overlay);
+                            $body.append(overlay);
                             overlay.velocity({ opacity: 1 }, {
                                 duration: 300, queue: false, easing: 'easeOutQuad',
                                 complete: function complete() {
@@ -337,6 +338,13 @@
                             });
                         }
                     }
+
+                    if (menuCollapse) {
+                        $submenu.off("mCustomScrollbar");
+                    } else {
+                        $submenu.mCustomScrollbar({ theme: "minimal-dark" });
+                    }
+
                     return false;
                 });
             });
@@ -362,18 +370,6 @@
 })(jQuery);
 
 $(document).ready(function () {
-
-    $('#label-search').click(function () {
-        $(this).parent().addClass('focused');
-        $("#searchbox").focus();
-    });
-
-    $("#searchbox").blur(function () {
-        if (!$(this).val()) {
-            $(this).parent().removeClass('focused');
-        }
-    });
-
     $(".toggleMenubar").sideNav2();
 });
 

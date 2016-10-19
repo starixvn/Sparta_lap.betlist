@@ -10,6 +10,7 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
         //initClock();
         initVariables();
         initEvent();
+        $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem42'));
     }
    
     function initVariables() {
@@ -37,6 +38,17 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
         $('#ddlLicensee').on('click', '.licenseeItem', function () {
             var licenseeId = $(this).attr('licenseeId');
             top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
+        });
+
+        $('#label-search').click(function () {
+            $(this).parent().addClass('focused');
+            $("#searchbox").focus();
+        });
+
+        $("#searchbox").blur(function () {
+            if (!$(this).val()) {
+                $(this).parent().removeClass('focused');
+            }
         });
 
         $('body').click(function () {
