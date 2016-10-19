@@ -7,7 +7,7 @@
 @using Fanex.Athena.Resources;
 
 @helper DateRangePicker(DateTime fromDate, DateTime toDate, DateTime minDate, DateTime maxDate) {
-    <input name="DateRange" autocomplete="off" data-mindate="@minDate.ToString("MM/dd/yyyy")" data-maxdate="@maxDate.ToString("MM/dd/yyyy")" id="DateRange" class="datepicker" type="text" />
+    <input name="DateRange" autocomplete="off" data-mindate="@minDate.ToString("MM/dd/yyyy")" data-maxdate="@maxDate.ToString("MM/dd/yyyy")" data-today="@DateTime.Now.ToString("MM/dd/yyyy")" id="DateRange" class="datepicker" type="text" />
     <input name="FromDate" id="FromDate" type="hidden" data-original-from="@fromDate.ToString("MM/dd/yyyy")" value="@fromDate.ToString("MM/dd/yyyy")" />
     <input name="ToDate" id="ToDate" type="hidden" data-original-to="@toDate.ToString("MM/dd/yyyy")" value="@toDate.ToString("MM/dd/yyyy")" />
 

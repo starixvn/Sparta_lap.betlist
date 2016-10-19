@@ -76,19 +76,21 @@ define(
                 $dateRange.val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
             }
 
+            var now = moment($dateRange.attr('data-today'), "MM/DD/YYYY");
+
             $dateRange.daterangepicker({
                 startDate: start,
                 endDate: end,
                 minDate: moment($dateRange.attr('data-mindate'), "MM/DD/YYYY"),
                 maxDate: moment($dateRange.attr('data-maxdate'), "MM/DD/YYYY"),
                 ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Current week': [moment().startOf('week'), moment()],
-                    'Last week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
-                    'Current month': [moment().startOf('month'), moment()],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-                    'Since last month': [moment().subtract(1, 'month').startOf('month'), moment()]
+                    'Today': [now, now],
+                    'Yesterday': [now.subtract(1, 'days'), now.subtract(1, 'days')],
+                    'Current week': [now.startOf('week'), now],
+                    'Last week': [now.subtract(1, 'week').startOf('week'), now.subtract(1, 'week').endOf('week')],
+                    'Current month': [now.startOf('month'), now],
+                    'Last Month': [now.subtract(1, 'month').startOf('month'), now.subtract(1, 'month').endOf('month')],
+                    'Since last month': [now.subtract(1, 'month').startOf('month'), now]
                 },
                 locale: {
                     format: 'MM/DD/YYYY',
