@@ -4,10 +4,11 @@
 @model Fanex.Athena.Model.Core.ViewModel.HeaderPageViewModel
 
 <nav class="nav-wrapper">
-    <div class="toggle">
-        <a class="toggleMenubar waves-effect waves-light" id="js-toggleMenubar" data-activates="nav-mobile"><i class="icon icon-backburger"></i></a>
-        <div class="page-title hide-on-small-and-down"><span class="active">Live Report</span></div>
-    </div>
+    <a href="#" class="logo toggleMenubar" id="js-toggleMenubar" data-activates="nav-mobile">
+        <span class="logo-image"><img src="~/www/assets/images/logo.svg" /></span>
+        <span class="logo-text hide-on-med-and-down"><img src="~/www/assets/images/logo-text.svg" /> </span>
+    </a>
+    <div class="page-title hide-on-small-and-down"><span class="active">Live Report</span></div>
 
     <div class="right">
         @if (!Model.IsInternalLogin)

@@ -23,10 +23,7 @@
       border-right-color: #d1dae1 !important; }
   .theme_jqGrid .ui-jqgrid-htable thead tr th div {
     height: auto;
-    white-space: pre-wrap;
-    white-space: -moz-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: -o-pre-wrap; }
+    white-space: pre-wrap; }
   .theme_jqGrid .ui-jqgrid-htable thead tr:nth-child(2) th:last-child {
     border-right-color: #fff !important; }
   .theme_jqGrid .ui-jqgrid-htable thead > tr.jqg-second-row-header > th {

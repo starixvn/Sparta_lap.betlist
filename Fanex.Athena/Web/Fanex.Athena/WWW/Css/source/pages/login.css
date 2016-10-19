@@ -7,6 +7,20 @@ body, html {
 .layout-full {
   height: 100%; }
 
+.overflow-hidden {
+  overflow: hidden; }
+
+.errmsg {
+  color: #fc5448;
+  transition: 0.2s ease all;
+  opacity: 0;
+  padding-top: 0;
+  height: 0; }
+  .errmsg.show {
+    opacity: 1;
+    padding-top: 10px;
+    height: 20px; }
+
 .page-login .page {
   background-image: url("../../images/bg-login.jpg");
   background-size: cover;
@@ -60,6 +74,27 @@ body, html {
     border-bottom: 1px solid #314453;
     box-shadow: 0 1px 0 0 #314453; }
 
+.page-login .capcha-block {
+  position: relative;
+  text-align: left;
+  width: 70%;
+  margin-bottom: 0;
+  overflow: hidden; }
+  .page-login .capcha-block .capcha-img {
+    float: left;
+    width: 80px;
+    height: 32px;
+    background: #d2d2d2;
+    border-radius: 3px;
+    overflow: hidden; }
+    .page-login .capcha-block .capcha-img img {
+      width: 100%; }
+  .page-login .capcha-block .input-capcha {
+    float: left;
+    width: calc(100% - 95px);
+    margin-left: 15px;
+    margin-bottom: 1px; }
+
 .page-login form {
   width: 410px;
   background: #fff;
@@ -73,17 +108,20 @@ body, html {
   color: #333;
   border-radius: 0;
   font-size: 13px;
-  height: 37px;
-  line-height: 37px;
+  height: 31px;
+  line-height: 31px;
   width: calc(100% - 30px); }
   .page-login .form-control:focus + .floating-label {
     color: #bdbdbd; }
+  .page-login .form-control:focus:not([readonly]) {
+    border-bottom: 1px solid #314453;
+    box-shadow: 0 1px 0 0 #314453; }
 
 .page-login .input-icon-group i {
   color: #314453;
   font-size: 20px;
   left: 0;
-  top: 18px;
+  top: 13px;
   width: 25px;
   text-align: left;
   pointer-events: none;
@@ -102,10 +140,10 @@ body, html {
     transition: 0.2s all ease; }
   .page-login .input-icon-group i + .form-control {
     padding-left: 30px; }
-    .page-login .input-icon-group i + .form-control:not([value=""]):not(:focus), .page-login .input-icon-group i + .form-control:focus {
+    .page-login .input-icon-group i + .form-control:not([value=""]):not(:focus) {
       border-bottom: 1px solid #314453;
       box-shadow: 0 1px 0 0 #314453; }
-      .page-login .input-icon-group i + .form-control:not([value=""]):not(:focus) + i.pull-right, .page-login .input-icon-group i + .form-control:focus + i.pull-right {
+      .page-login .input-icon-group i + .form-control:not([value=""]):not(:focus) + i.pull-right {
         opacity: 1; }
 
 a {
@@ -118,25 +156,8 @@ a {
   color: #fff;
   width: calc(30% - 20px);
   margin-left: 20px;
-  padding: 2px 0;
-  height: 38px;
-  line-height: 38px;
-  border-radius: 2px; }
+  border-radius: 2px;
+  letter-spacing: initial; }
   .btn:hover, .btn:active {
     background: #f37f50; }
-
-@media (max-width: 767px) {
-  /*.page-login form {
-        width: auto;
-    }
-
-    .page-login {
-        .form-control {
-            width: 100%;
-        }
-    }
-
-    .btn {
-        width: 100%;
-    }*/ }
 

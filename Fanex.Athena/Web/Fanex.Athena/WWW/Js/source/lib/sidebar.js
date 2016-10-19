@@ -1,16 +1,9 @@
-﻿(function ($) {
-    function activeMenuItem($target) {
-        $(this).find('.collapsible-body li.active').removeClass('active');
-        $target.closest('li').addClass('active');
-        var $groupHeader = $target.closest('.menu-item').find('.collapsible-header');
-        if ($groupHeader.hasClass('active') === false) {
-            $groupHeader.trigger("click");
-        }
-    }
+﻿'use strict';
 
-    function init(options) {
+(function ($) {
+    $.fn.collapsibleMenu = function (options) {
         var defaults = {
-            accordion: undefined,
+            accordion: undefined
         };
 
         options = $.extend(defaults, options);
@@ -20,8 +13,7 @@
 
             var $this = $(this);
 
-            if (!$this.parent().hasClass('site-menu'))
-                return;
+            if (!$this.parent().hasClass('site-menu')) return;
 
             var $panel_headers = $(this).find('> li > .collapsible-header');
 
@@ -32,7 +24,6 @@
             $this.off('click.collapse2', '> li > .collapsible-header');
             $panel_headers.off('click.collapse2');
 
-
             /****************
             Helper Functions
             ****************/
@@ -42,43 +33,45 @@
                 $panel_headers = $this.find('> li > .collapsible-header');
                 if (object.hasClass('active')) {
                     object.parent().addClass('active');
-                }
-                else {
+                } else {
                     object.parent().removeClass('active');
                 }
                 if (object.parent().hasClass('active')) {
-                    object.siblings('.collapsible-body').stop(true, false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function () { $(this).css('height', ''); } });
-                }
-                else {
-                    object.siblings('.collapsible-body').stop(true, false).slideUp({ duration: 350, easing: "easeOutQuart", queue: false, complete: function () { $(this).css('height', ''); } });
+                    object.siblings('.collapsible-body').stop(true, false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function complete() {
+                            $(this).css('height', '');
+                        } });
+                } else {
+                    object.siblings('.collapsible-body').stop(true, false).slideUp({ duration: 350, easing: "easeOutQuart", queue: false, complete: function complete() {
+                            $(this).css('height', '');
+                        } });
                 }
 
                 $panel_headers.not(object).removeClass('active').parent().removeClass('active');
-                $panel_headers.not(object).parent().children('.collapsible-body').stop(true, false).slideUp(
-                  {
-                      duration: 350,
-                      easing: "easeOutQuart",
-                      queue: false,
-                      complete:
-                        function () {
-                            $(this).css('height', '');
-                        }
-                  });
+                $panel_headers.not(object).parent().children('.collapsible-body').stop(true, false).slideUp({
+                    duration: 350,
+                    easing: "easeOutQuart",
+                    queue: false,
+                    complete: function complete() {
+                        $(this).css('height', '');
+                    }
+                });
             }
 
             // Expandable Open
             function expandableOpen(object) {
                 if (object.hasClass('active')) {
                     object.parent().addClass('active');
-                }
-                else {
+                } else {
                     object.parent().removeClass('active');
                 }
                 if (object.parent().hasClass('active')) {
-                    object.siblings('.collapsible-body').stop(true, false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function () { $(this).css('height', ''); } });
-                }
-                else {
-                    object.siblings('.collapsible-body').stop(true, false).slideUp({ duration: 350, easing: "easeOutQuart", queue: false, complete: function () { $(this).css('height', ''); } });
+                    object.siblings('.collapsible-body').stop(true, false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function complete() {
+                            $(this).css('height', '');
+                        } });
+                } else {
+                    object.siblings('.collapsible-body').stop(true, false).slideUp({ duration: 350, easing: "easeOutQuart", queue: false, complete: function complete() {
+                            $(this).css('height', '');
+                        } });
                 }
             }
 
@@ -116,33 +109,28 @@
                         $('#sidenav-overlay').unbind("click");
                         $('#sidenav-overlay').remove();
                     }
-
                 } else {
                     var overlay = $('<div id="sidenav-overlay"></div>');
-                    overlay.css('opacity', 0)
-                    .click(function () {
+                    overlay.css('opacity', 0).click(function () {
                         collapse($this, event);
                         overlay.velocity({ opacity: 0 }, {
                             duration: 300, queue: false, easing: 'easeOutQuad',
-                            complete: function () {
+                            complete: function complete() {
                                 $(this).remove();
                             }
                         });
-
                     });
                     $('body').append(overlay);
                     overlay.velocity({ opacity: 1 }, {
                         duration: 300, queue: false, easing: 'easeOutQuad',
-                        complete: function () {
-
-                        }
+                        complete: function complete() {}
                     });
                 }
             };
 
             function collapse($this, event) {
                 var $header = $($this),
-                   element = $(event.target);
+                    element = $(event.target);
 
                 if (isChildrenOfPanelHeader(element)) {
                     element = getPanelHeader(element);
@@ -150,9 +138,11 @@
 
                 element.toggleClass('active');
 
-                if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) { // Handle Accordion
+                if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) {
+                    // Handle Accordion
                     accordionOpen(element);
-                } else { // Handle Expandables
+                } else {
+                    // Handle Expandables
                     expandableOpen(element);
 
                     if ($header.hasClass('active')) {
@@ -163,22 +153,20 @@
 
             if (!touch) {
                 $this.on('mouseover.opensub', '> li > .collapsible-header', function (e) {
-                    if ($('body').hasClass('site-menubar-fold'))
-                        collapse(this, e);
+                    if ($('body').hasClass('site-menubar-fold')) collapse(this, e);
                 });
             }
 
             // Add click handler to only direct collapsible header children
             $this.on('click.collapse2', '> li > .collapsible-header', function (e) {
-                return touch && $('body').hasClass('site-menubar-fold') ? collapseWithOverlay(this, e)
-                    : collapse(this, e);
+                return touch && $('body').hasClass('site-menubar-fold') ? collapseWithOverlay(this, e) : collapse(this, e);
             });
 
             if (!touch) {
                 // Add focusout event
                 $this.on('mouseleave.closesub', '> li > .collapsible-body', function (e) {
                     var $header = $(this),
-                    element = $(e.target);
+                        element = $(e.target);
                     var temp = element.closest('li > .collapsible-body');
 
                     var element = temp.parent().find('.collapsible-header');
@@ -187,9 +175,11 @@
 
                         element.toggleClass('active');
 
-                        if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) { // Handle Accordion
+                        if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) {
+                            // Handle Accordion
                             accordionOpen(element);
-                        } else { // Handle Expandables
+                        } else {
+                            // Handle Expandables
                             expandableOpen(element);
 
                             if ($header.hasClass('active')) {
@@ -200,46 +190,37 @@
                 });
             }
 
-
             //click menu event
             $this.on('click.menuevent', '> li > .collapsible-body  a', function (e) {
-                var $element = $(e.target);
+                var url = $(this).attr("data-url");
+                $('#mainFrame').prop('src', url);
+
                 if (touch && $('body').hasClass('site-menubar-fold')) {
-                    var temp = $element.closest('li > .collapsible-body');
+                    var element = $(e.target);
+                    var temp = element.closest('li > .collapsible-body');
 
-                    temp.parent().find('.collapsible-header').trigger("click");
+                    var element = temp.parent().find('.collapsible-header');
+
+                    element.trigger("click");
                 }
-
-                activeMenuItem.call($this, $element);
             });
 
             // Open first active
             var $panel_headers = $this.find('> li > .collapsible-header');
-            if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) { // Handle Accordion
+            if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) {
+                // Handle Accordion
                 accordionOpen($panel_headers.filter('.active').first());
-            }
-            else { // Handle Expandables
+            } else {
+                // Handle Expandables
                 $panel_headers.filter('.active').each(function () {
                     expandableOpen($(this));
                 });
             }
         });
-    }
-
-    var methods = {
-        init: init,
-        activeMenuItem: activeMenuItem
     };
 
-    $.fn.collapsibleMenu = function (methodOrOptions) {
-        if (methods[methodOrOptions]) {
-            return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
-        } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
-            // Default to "init"
-            return methods.init.apply(this, arguments);
-        } else {
-            $.error('Method ' + methodOrOptions + ' does not exist on jQuery.collapsibleMenu');
-        }
-    };
+    $(document).ready(function () {
+        $('.collapsible2').collapsibleMenu();
+    });
+})(jQuery);
 
-}(jQuery));

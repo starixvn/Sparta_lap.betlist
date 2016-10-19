@@ -24,13 +24,7 @@
         </div>
     </header>
 
-    <ul id="nav-mobile" class="side-nav fixed">
-        <li class="logo-block">
-            <a id="logo-container" href="#" class="logo left">
-                <span class="logo-image"><img src="~/www/assets/images/logo.png" /></span>
-                <span class="logo-text"><img src="~/www/assets/images/logo-text.png" /> </span>
-            </a>
-        </li>
+    <ul id="nav-mobile" class="side-nav fixed mCustomScrollbar light" data-mcs-theme="minimal-dark">
         <li class="site-menu" id="left-menu">
             @{Html.RenderAction("Index", "Menu"); }
         </li>

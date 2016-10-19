@@ -715,8 +715,8 @@
     <Content Include="www\assets\images\flag_ko-KR.png" />
     <Content Include="www\assets\images\flag_zh-CN.svg" />
     <Content Include="www\assets\images\flag_zh-TW.png" />
-    <Content Include="www\assets\images\logo-text.png" />
-    <Content Include="www\assets\images\logo.png" />
+    <Content Include="www\assets\images\logo-text.svg" />
+    <Content Include="www\assets\images\logo.svg" />
     <Content Include="www\css\build\fonts\flags\flags\cn.svg" />
     <Content Include="www\css\build\fonts\flags\flags\gb.svg" />
     <Content Include="www\css\build\fonts\flags\flags\kr.svg" />
@@ -763,6 +763,7 @@
     <Content Include="www\css\source\pages\report\licenseewinloss.min.css">
       <DependentUpon>licenseewinloss.css</DependentUpon>
     </Content>
+    <Content Include="www\css\source\vendors\jquery.mCustomScrollbar.css" />
     <Content Include="www\css\source\vendors\materialize\materialize.css" />
     <Content Include="www\js\build\pages\home\home.chunk.js" />
     <Content Include="www\js\build\pages\licenseewinloss\licenseewinloss.chunk.js" />
@@ -778,6 +779,7 @@
     <Content Include="www\js\source\lib\jqgrid\jquery.jqGrid.en.js" />
     <Content Include="www\js\source\lib\jqgrid\jquery.jqGrid.min.js" />
     <Content Include="www\js\source\lib\jquery.flatpopup.js" />
+    <Content Include="www\js\source\lib\jquery.mCustomScrollbar.js" />
     <Content Include="www\js\source\lib\jquery.monthpicker.js" />
     <Content Include="www\js\source\lib\jquery.multiselect.js" />
     <Content Include="www\js\source\lib\JSLINQ.js" />

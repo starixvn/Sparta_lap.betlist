@@ -1,7 +1,9 @@
-﻿(function ($) {
+﻿'use strict';
+
+(function ($) {
 
     var methods = {
-        init: function (options) {
+        init: function init(options) {
             var defaults = {
                 menuWidth: 260,
                 edge: 'left',
@@ -13,7 +15,6 @@
                 var $this = $(this);
                 var menu_id = $("#" + $this.attr('data-activates'));
 
-
                 // Set to width
                 if (options.menuWidth != 260) {
                     menu_id.css('width', options.menuWidth);
@@ -23,23 +24,21 @@
                 var dragTarget = $('<div class="drag-target"></div>');
                 $('body').append(dragTarget);
 
-                if (options.edge == 'left'){
+                if (options.edge == 'left') {
                     menu_id.css('transform', 'translateX(-100%)');
                     dragTarget.css({ 'left': 0 }); // Add Touch Area
-                }
-                else {
-                    menu_id.addClass('right-aligned') // Change text-alignment to right
-                      .css('transform', 'translateX(100%)');
-                    dragTarget.css({ 'right': 0 }); // Add Touch Area
-                }
+                } else {
+                        menu_id.addClass('right-aligned') // Change text-alignment to right
+                        .css('transform', 'translateX(100%)');
+                        dragTarget.css({ 'right': 0 }); // Add Touch Area
+                    }
 
                 // If fixed sidenav, bring menu out
                 if (menu_id.hasClass('fixed')) {
                     if (window.innerWidth > 992) {
                         menu_id.css('transform', 'translateX(0)');
-                    }
-                    else {
-                        $('body').removeClass('site-menubar-fold')
+                    } else {
+                        $('body').removeClass('site-menubar-fold');
                     }
                 }
 
@@ -55,25 +54,19 @@
                             // Close menu if window is resized bigger than 992 and user has fixed sidenav
                             if ($('#sidenav-overlay').length !== 0 && menuOut) {
                                 removeMenu(true);
-                            }
-                            else {
+                            } else {
                                 // menu_id.removeAttr('style');
                                 menu_id.css('transform', 'translateX(0%)');
                                 // menu_id.css('width', options.menuWidth);
                             }
+                        } else if (menuOut === false) {
 
-
-                        }
-                        else if (menuOut === false) {
-
-                            if (options.edge === 'left') {
-                                menu_id.css('transform', 'translateX(-100%)');
-                            } else {
-                                menu_id.css('transform', 'translateX(100%)');
+                                if (options.edge === 'left') {
+                                    menu_id.css('transform', 'translateX(-100%)');
+                                } else {
+                                    menu_id.css('transform', 'translateX(100%)');
+                                }
                             }
-
-                        }
-
                     });
                 }
 
@@ -96,50 +89,43 @@
                     $('#sidenav-overlay').velocity({ opacity: 0 }, {
                         duration: 200,
                         queue: false, easing: 'easeOutQuad',
-                        complete: function () {
+                        complete: function complete() {
                             $(this).remove();
                         }
                     });
                     if (options.edge === 'left') {
                         // Reset phantom div
                         dragTarget.css({ width: '', right: '', left: '0' });
-                        menu_id.velocity(
-                          { 'translateX': '-100%' },
-                          {
-                              duration: 200,
-                              queue: false,
-                              easing: 'easeOutCubic',
-                              complete: function () {
-                                  if (restoreNav === true) {
-                                      // Restore Fixed sidenav
-                                      menu_id.removeAttr('style');
-                                      menu_id.css('width', options.menuWidth);
-                                  }
-                              }
+                        menu_id.velocity({ 'translateX': '-100%' }, {
+                            duration: 200,
+                            queue: false,
+                            easing: 'easeOutCubic',
+                            complete: function complete() {
+                                if (restoreNav === true) {
+                                    // Restore Fixed sidenav
+                                    menu_id.removeAttr('style');
+                                    menu_id.css('width', options.menuWidth);
+                                }
+                            }
 
-                          });
-                    }
-                    else {
+                        });
+                    } else {
                         // Reset phantom div
                         dragTarget.css({ width: '', right: '0', left: '' });
-                        menu_id.velocity(
-                          { 'translateX': '100%' },
-                          {
-                              duration: 200,
-                              queue: false,
-                              easing: 'easeOutCubic',
-                              complete: function () {
-                                  if (restoreNav === true) {
-                                      // Restore Fixed sidenav
-                                      menu_id.removeAttr('style');
-                                      menu_id.css('width', options.menuWidth);
-                                  }
-                              }
-                          });
+                        menu_id.velocity({ 'translateX': '100%' }, {
+                            duration: 200,
+                            queue: false,
+                            easing: 'easeOutCubic',
+                            complete: function complete() {
+                                if (restoreNav === true) {
+                                    // Restore Fixed sidenav
+                                    menu_id.removeAttr('style');
+                                    menu_id.css('width', options.menuWidth);
+                                }
+                            }
+                        });
                     }
                 }
-
-
 
                 // Touch Event
                 var panning = false;
@@ -179,27 +165,33 @@
 
                         // Keep within boundaries
                         if (options.edge === 'left') {
-                            if (x > options.menuWidth) { x = options.menuWidth; }
-                            else if (x < 0) { x = 0; }
+                            if (x > options.menuWidth) {
+                                x = options.menuWidth;
+                            } else if (x < 0) {
+                                x = 0;
+                            }
                         }
 
                         if (options.edge === 'left') {
                             // Left Direction
-                            if (x < (options.menuWidth / 2)) { menuOut = false; }
-                                // Right Direction
-                            else if (x >= (options.menuWidth / 2)) { menuOut = true; }
-                            menu_id.css('transform', 'translateX(' + (x - options.menuWidth) + 'px)');
-                        }
-                        else {
-                            // Left Direction
-                            if (x < (window.innerWidth - options.menuWidth / 2)) {
-                                menuOut = true;
-                            }
-                                // Right Direction
-                            else if (x >= (window.innerWidth - options.menuWidth / 2)) {
+                            if (x < options.menuWidth / 2) {
                                 menuOut = false;
                             }
-                            var rightPos = (x - options.menuWidth / 2);
+                            // Right Direction
+                            else if (x >= options.menuWidth / 2) {
+                                    menuOut = true;
+                                }
+                            menu_id.css('transform', 'translateX(' + (x - options.menuWidth) + 'px)');
+                        } else {
+                            // Left Direction
+                            if (x < window.innerWidth - options.menuWidth / 2) {
+                                menuOut = true;
+                            }
+                            // Right Direction
+                            else if (x >= window.innerWidth - options.menuWidth / 2) {
+                                    menuOut = false;
+                                }
+                            var rightPos = x - options.menuWidth / 2;
                             if (rightPos < 0) {
                                 rightPos = 0;
                             }
@@ -207,19 +199,16 @@
                             menu_id.css('transform', 'translateX(' + rightPos + 'px)');
                         }
 
-
                         // Percentage overlay
                         var overlayPerc;
                         if (options.edge === 'left') {
                             overlayPerc = x / options.menuWidth;
                             $('#sidenav-overlay').velocity({ opacity: overlayPerc }, { duration: 10, queue: false, easing: 'easeOutQuad' });
-                        }
-                        else {
+                        } else {
                             overlayPerc = Math.abs((x - window.innerWidth) / options.menuWidth);
                             $('#sidenav-overlay').velocity({ opacity: overlayPerc }, { duration: 10, queue: false, easing: 'easeOutQuad' });
                         }
                     }
-
                 }).bind('panend', function (e) {
 
                     if (e.gesture.pointerType == "touch") {
@@ -237,7 +226,7 @@
 
                         if (options.edge === 'left') {
                             // If velocityX <= 0.3 then the user is flinging the menu closed so ignore menuOut
-                            if ((menuOut && velocityX <= 0.3) || velocityX < -0.5) {
+                            if (menuOut && velocityX <= 0.3 || velocityX < -0.5) {
                                 // Return menu to open
                                 if (leftPos !== 0) {
                                     menu_id.velocity({ 'translateX': [0, leftPos] }, { duration: 300, queue: false, easing: 'easeOutQuad' });
@@ -246,8 +235,7 @@
                                 $('#sidenav-overlay').velocity({ opacity: 1 }, { duration: 50, queue: false, easing: 'easeOutQuad' });
                                 dragTarget.css({ width: '50%', right: 0, left: '' });
                                 menuOut = true;
-                            }
-                            else if (!menuOut || velocityX > 0.3) {
+                            } else if (!menuOut || velocityX > 0.3) {
                                 // Enable Scrolling
                                 $('body').css({
                                     overflow: '',
@@ -257,15 +245,14 @@
                                 menu_id.velocity({ 'translateX': [-1 * options.menuWidth - 10, leftPos] }, { duration: 200, queue: false, easing: 'easeOutQuad' });
                                 $('#sidenav-overlay').velocity({ opacity: 0 }, {
                                     duration: 200, queue: false, easing: 'easeOutQuad',
-                                    complete: function () {
+                                    complete: function complete() {
                                         $(this).remove();
                                     }
                                 });
                                 dragTarget.css({ width: '10px', right: '', left: 0 });
                             }
-                        }
-                        else {
-                            if ((menuOut && velocityX >= -0.3) || velocityX > 0.5) {
+                        } else {
+                            if (menuOut && velocityX >= -0.3 || velocityX > 0.5) {
                                 // Return menu to open
                                 if (rightPos !== 0) {
                                     menu_id.velocity({ 'translateX': [0, rightPos] }, { duration: 300, queue: false, easing: 'easeOutQuad' });
@@ -274,8 +261,7 @@
                                 $('#sidenav-overlay').velocity({ opacity: 1 }, { duration: 50, queue: false, easing: 'easeOutQuad' });
                                 dragTarget.css({ width: '50%', right: '', left: 0 });
                                 menuOut = true;
-                            }
-                            else if (!menuOut || velocityX < -0.3) {
+                            } else if (!menuOut || velocityX < -0.3) {
                                 // Enable Scrolling
                                 $('body').css({
                                     overflow: '',
@@ -286,14 +272,13 @@
                                 menu_id.velocity({ 'translateX': [options.menuWidth + 10, rightPos] }, { duration: 200, queue: false, easing: 'easeOutQuad' });
                                 $('#sidenav-overlay').velocity({ opacity: 0 }, {
                                     duration: 200, queue: false, easing: 'easeOutQuad',
-                                    complete: function () {
+                                    complete: function complete() {
                                         $(this).remove();
                                     }
                                 });
                                 dragTarget.css({ width: '10px', right: 0, left: '' });
                             }
                         }
-
                     }
                 });
 
@@ -303,18 +288,15 @@
                         $(".site-menu li.has-sub").removeClass("active");
                         $('.site-menu .menu-item .collapsible-header').removeClass('active');
                         $(".site-menu .menu-item div.collapsible-body").css('display', 'none');
-                        menu_id.removeAttr('style')
+                        menu_id.removeAttr('style');
                         $('body').toggleClass('site-menubar-fold');
-
                     } else {
-
 
                         if (menuOut === true) {
                             menuOut = false;
                             panning = false;
                             removeMenu();
-                        }
-                        else {
+                        } else {
 
                             // Disable Scrolling
                             var $body = $('body');
@@ -328,30 +310,27 @@
                             if (options.edge === 'left') {
                                 dragTarget.css({ width: '50%', right: 0, left: '' });
                                 menu_id.velocity({ 'translateX': [0, -1 * options.menuWidth] }, { duration: 300, queue: false, easing: 'easeOutQuad' });
-                            }
-                            else {
+                            } else {
                                 dragTarget.css({ width: '50%', right: '', left: 0 });
                                 menu_id.velocity({ 'translateX': [0, options.menuWidth] }, { duration: 300, queue: false, easing: 'easeOutQuad' });
                             }
 
                             var overlay = $('<div id="sidenav-overlay"></div>');
-                            overlay.css('opacity', 0)
-                            .click(function () {
+                            overlay.css('opacity', 0).click(function () {
                                 menuOut = false;
                                 panning = false;
                                 removeMenu();
                                 overlay.velocity({ opacity: 0 }, {
                                     duration: 300, queue: false, easing: 'easeOutQuad',
-                                    complete: function () {
+                                    complete: function complete() {
                                         $(this).remove();
                                     }
                                 });
-
                             });
                             $('body').append(overlay);
                             overlay.velocity({ opacity: 1 }, {
                                 duration: 300, queue: false, easing: 'easeOutQuad',
-                                complete: function () {
+                                complete: function complete() {
                                     menuOut = true;
                                     panning = false;
                                 }
@@ -361,17 +340,14 @@
                     return false;
                 });
             });
-
-
         },
-        show: function () {
+        show: function show() {
             this.trigger('click');
         },
-        hide: function () {
+        hide: function hide() {
             $('#sidenav-overlay').trigger('click');
         }
     };
-
 
     $.fn.sideNav2 = function (methodOrOptions) {
         if (methods[methodOrOptions]) {
@@ -383,4 +359,21 @@
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.sideNav');
         }
     }; // Plugin end
-}(jQuery));
+})(jQuery);
+
+$(document).ready(function () {
+
+    $('#label-search').click(function () {
+        $(this).parent().addClass('focused');
+        $("#searchbox").focus();
+    });
+
+    $("#searchbox").blur(function () {
+        if (!$(this).val()) {
+            $(this).parent().removeClass('focused');
+        }
+    });
+
+    $(".toggleMenubar").sideNav2();
+});
+

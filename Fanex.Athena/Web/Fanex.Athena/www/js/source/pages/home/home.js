@@ -6,8 +6,7 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
 
     
     function initialize() {
-        Site.initialize();
-     
+        Site.initialize();    
         //initClock();
         initVariables();
         initEvent();
@@ -40,19 +39,6 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
             top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
         });
 
-        $('#label-search').click(function () {
-            $(this).parent().addClass('focused');
-            $("#searchbox").focus();
-        });
-        
-        $("#searchbox").blur(function () {
-            if (!$(this).val()) {
-                $(this).parent().removeClass('focused');
-            }
-        });
-
-        $(".toggleMenubar").sideNav2();
-        $('.collapsible2').collapsibleMenu();
         $('body').click(function () {
             _autocomplete.$dropdown.html('').hide();
         });

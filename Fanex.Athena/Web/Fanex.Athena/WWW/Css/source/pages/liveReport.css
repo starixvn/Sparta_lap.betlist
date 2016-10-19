@@ -37,6 +37,8 @@
       border-color: #ccc;
       font-size: 1.3rem;
       color: #2c2c2c; }
+      .page-form .input-field input[type=text][readonly="readonly"] {
+        border-bottom: 1px solid #ccc; }
       .page-form .input-field input[type=text]:focus:not([readonly]) {
         border-color: #549cba; }
         .page-form .input-field input[type=text]:focus:not([readonly]) + label {

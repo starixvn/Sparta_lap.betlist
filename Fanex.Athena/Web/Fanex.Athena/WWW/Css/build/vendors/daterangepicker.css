@@ -267,21 +267,24 @@
     float: right; }
   .daterangepicker .calendar.left {
     clear: none !important; } }
-.range_inputs .btn {
-  border-radius: 2px;
-  float: left;
+.btn.applyBtn {
+  margin-right: calc(100% - 48%*2);
+  background: #f05c20;
   width: 48%;
+  padding: initial;
   color: #fff;
-  padding: initial; }
-  .range_inputs .btn.applyBtn {
-    margin-right: calc(100% - 48%*2);
-    background: #f05c20; }
-    .range_inputs .btn.applyBtn:hover, .range_inputs .btn.applyBtn:active {
-      background: #f26d38; }
-  .range_inputs .btn.cancelBtn {
-    background: #8aa5b8; }
-    .range_inputs .btn.cancelBtn:hover, .range_inputs .btn.cancelBtn:active {
-      background: #9ab1c2; }
+  float: left; }
+  .btn.applyBtn:hover, .btn.applyBtn:active {
+    background: #f26d38; }
+
+.btn.cancelBtn {
+  background: #8aa5b8;
+  width: 48%;
+  padding: initial;
+  color: #fff;
+  float: left; }
+  .btn.cancelBtn:hover, .btn.cancelBtn:active {
+    background: #9ab1c2; }
 
 .daterangepicker {
   display: none;
@@ -292,8 +295,6 @@
   .daterangepicker:before, .daterangepicker:after {
     content: none; }
   .daterangepicker .input-mini {
-    /*border: none;
-        border-bottom: 1px solid #ccc;*/
     border-radius: 0;
     padding: 0;
     padding-left: 5px;
