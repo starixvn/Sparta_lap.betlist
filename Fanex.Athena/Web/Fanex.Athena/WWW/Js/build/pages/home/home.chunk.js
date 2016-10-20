@@ -934,7 +934,7 @@ webpackJsonp([7],[
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
 	
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(40), __webpack_require__(43), __webpack_require__(44), __webpack_require__(45)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(40), __webpack_require__(44), __webpack_require__(45), __webpack_require__(46)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site) {
 	    var $searchBox;
 	    var _autocomplete;
 	
@@ -1079,7 +1079,7 @@ webpackJsonp([7],[
 	/// <reference path="/@JSense.js" />
 	/* Preset */
 	// root JSON object
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(41), __webpack_require__(2), __webpack_require__(42)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(41), __webpack_require__(2), __webpack_require__(42), __webpack_require__(43)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString) {
 	    "use strict";
 	    var UNBLOCKUI_TIMEOUT = 30000;
 	    var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
@@ -2715,6 +2715,82 @@ webpackJsonp([7],[
 /* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	    var MIN_WIDTH = 640;
+	    var MAX_HEIGHT = 480;
+	    $.fn.flatPopup = function (options) {
+	
+	        var $self = this;
+	        var defaultOptions = {
+	            width: MIN_WIDTH,
+	            height: MAX_HEIGHT,
+	            title: "&nbsp;"
+	        };
+	
+	        options = $.extend(defaultOptions, options || {});
+	
+	        options.width = options.width < MIN_WIDTH ? MIN_WIDTH : options.width;
+	        options.height = options.height > MAX_HEIGHT ? MAX_HEIGHT : options.height;
+	        $self.addClass("flat-popup");
+	
+	        // add popup content to a wrapper
+	        $self.children().wrapAll("<div class='wrapContent'></div>");
+	        $self.find(".wrapContent").width(options.width - 10).height(options.height - 40);
+	
+	        $self.hide()
+	             .prepend('<div class="title-bar"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="#"><i class="icon-close"></i></a></div>')
+	             .width(options.width)
+	             .height(options.height);
+	
+	        $self.find('a.popup-close').on('click', function () {
+	            $self.fadeOut(300);
+	            return false;
+	        });
+	
+	        return {
+	            show: function () {
+	                $self.fadeIn(300);
+	
+	                //Set the center alignment padding + border see css style                
+	                // var popMarginTop = ($self.height() + 24) / 2;                
+	                var popMarginLeft = ($self.width() + 24) / 2;
+	                var top = parseInt($self.css("top"));
+	
+	                $self.css({
+	                    'margin-top': -(top / 2),
+	                    'margin-left': -popMarginLeft
+	                });
+	            }
+	        };
+	    };
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	
+	function keydown(e) {
+	    for (var i = keys.length; i--;) {
+	        if (e.keyCode === keys[i]) {
+	            preventDefault(e);
+	            return;
+	        }
+	    }
+	}
+	
+	function wheel(e) {
+	  preventDefault(e);
+	}
+	
+	function disable_scroll() {
+	  if (window.addEventListener) {
+	      window.addEventListener('DOMMouseScroll', wheel, false);
+	  }
+	  window.onmousewheel = document.onmousewheel = wheel;
+	  document.onkeydown = keydown;
+	}
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	* jQuery Cookie Plugin v1.4.1
 	* https://github.com/carhartl/jquery-cookie
@@ -2832,7 +2908,7 @@ webpackJsonp([7],[
 
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/*
@@ -3070,7 +3146,7 @@ webpackJsonp([7],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {

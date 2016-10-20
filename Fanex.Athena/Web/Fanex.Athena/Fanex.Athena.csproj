@@ -770,6 +770,7 @@
     <Content Include="www\js\build\pages\livereport\livereport.chunk.js" />
     <Content Include="www\js\build\pages\livereport\livereportmatchlist.chunk.js" />
     <Content Include="www\js\build\vendors.chunk.js" />
+    <Content Include="www\js\source\common\pluginhelper.js" />
     <Content Include="www\js\source\common\querystring.js" />
     <Content Include="www\js\source\common\site.js" />
     <Content Include="www\js\source\extensions\jquery.extension.js" />

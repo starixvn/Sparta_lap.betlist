@@ -3,7 +3,7 @@ webpackJsonp([10],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(169);
+	module.exports = __webpack_require__(170);
 
 
 /***/ },
@@ -15,7 +15,7 @@ webpackJsonp([10],{
 	/// <reference path="/@JSense.js" />
 	/* Preset */
 	// root JSON object
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(41), __webpack_require__(2), __webpack_require__(42)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(41), __webpack_require__(2), __webpack_require__(42), __webpack_require__(43)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString) {
 	    "use strict";
 	    var UNBLOCKUI_TIMEOUT = 30000;
 	    var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
@@ -1651,7 +1651,84 @@ webpackJsonp([10],{
 
 /***/ },
 
-/***/ 167:
+/***/ 43:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	    var MIN_WIDTH = 640;
+	    var MAX_HEIGHT = 480;
+	    $.fn.flatPopup = function (options) {
+	
+	        var $self = this;
+	        var defaultOptions = {
+	            width: MIN_WIDTH,
+	            height: MAX_HEIGHT,
+	            title: "&nbsp;"
+	        };
+	
+	        options = $.extend(defaultOptions, options || {});
+	
+	        options.width = options.width < MIN_WIDTH ? MIN_WIDTH : options.width;
+	        options.height = options.height > MAX_HEIGHT ? MAX_HEIGHT : options.height;
+	        $self.addClass("flat-popup");
+	
+	        // add popup content to a wrapper
+	        $self.children().wrapAll("<div class='wrapContent'></div>");
+	        $self.find(".wrapContent").width(options.width - 10).height(options.height - 40);
+	
+	        $self.hide()
+	             .prepend('<div class="title-bar"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="#"><i class="icon-close"></i></a></div>')
+	             .width(options.width)
+	             .height(options.height);
+	
+	        $self.find('a.popup-close').on('click', function () {
+	            $self.fadeOut(300);
+	            return false;
+	        });
+	
+	        return {
+	            show: function () {
+	                $self.fadeIn(300);
+	
+	                //Set the center alignment padding + border see css style                
+	                // var popMarginTop = ($self.height() + 24) / 2;                
+	                var popMarginLeft = ($self.width() + 24) / 2;
+	                var top = parseInt($self.css("top"));
+	
+	                $self.css({
+	                    'margin-top': -(top / 2),
+	                    'margin-left': -popMarginLeft
+	                });
+	            }
+	        };
+	    };
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	
+	function keydown(e) {
+	    for (var i = keys.length; i--;) {
+	        if (e.keyCode === keys[i]) {
+	            preventDefault(e);
+	            return;
+	        }
+	    }
+	}
+	
+	function wheel(e) {
+	  preventDefault(e);
+	}
+	
+	function disable_scroll() {
+	  if (window.addEventListener) {
+	      window.addEventListener('DOMMouseScroll', wheel, false);
+	  }
+	  window.onmousewheel = document.onmousewheel = wheel;
+	  document.onkeydown = keydown;
+	}
+
+/***/ },
+
+/***/ 169:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(41)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {
@@ -1706,22 +1783,22 @@ webpackJsonp([10],{
 
 /***/ },
 
-/***/ 169:
+/***/ 170:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(170)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchList) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(171)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchList) {
 	    $(MatchList.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
-/***/ 170:
+/***/ 171:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {/*global Site, QueryString, Helper*/
 	/// <reference path="/@JSense.js" />
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(41), __webpack_require__(40), __webpack_require__(167)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(41), __webpack_require__(40), __webpack_require__(169)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
 	    "use strict";
 	
 	    function initialize() {

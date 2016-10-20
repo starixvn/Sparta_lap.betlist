@@ -2,9 +2,9 @@
 /// <reference path="/@JSense.js" />
 ///
 define(
-    ["common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional", "moment", "bootstrap-daterangepicker", "lib/jquery.flatpopup",
+    ["common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional", "common/pluginhelper",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "../../../extensions/jquery.extension", "../../../extensions/prototype", "lib/JSLINQ"],
-    function (QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, moment) {
+    function (QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, PluginHelper) {
         var LicenseeWinLoss = (function ($) {
             "use strict";
             var REPORT_BY_MONTHLY = 2;
@@ -64,57 +64,8 @@ define(
                     });
                     Site.addFilterCollapseExpand();
                     Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
-                    LicenseeWinLoss.initMaterialSelect();
-                    LicenseeWinLoss.initDateRangePicker();
-                },
-
-                initMaterialSelect: function () {
-                    $('select.select').not('.disabled').material_select();
-                },
-
-                initDateRangePicker: function () {
-                    $(function () {
-                        var $dateRange = $('#DateRange');
-
-                        var $from = $('#FromDate');
-                        var $to = $('#ToDate');
-
-                        var start = moment($from.attr('data-original-from'), "MM/DD/YYYY");
-                        var end = moment($to.attr('data-original-to'), "MM/DD/YYYY");
-
-                        function setRangeDate(start, end) {
-                            $from.val(start.format('MM/DD/YYYY'));
-                            $to.val(end.format('MM/DD/YYYY'));
-                            $dateRange.val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
-                        }
-
-                        $dateRange.daterangepicker({
-                            startDate: start,
-                            endDate: end,
-                            ranges: {
-                                'Today': [moment(), moment()],
-                                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                                'Current week': [moment().startOf('week'), moment()],
-                                'Last week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
-                                'Current month': [moment().startOf('month'), moment()],
-                                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-                                'Since last month': [moment().subtract(1, 'month').startOf('month'), moment()]
-                            },
-                            locale: {
-                                format: 'MM/DD/YYYY',
-                            },
-                            showDropdowns: true,
-                            linkedCalendars: false,
-                            alwaysShowCalendars: true,
-                            showCustomRangeLabel: false,
-                        }, setRangeDate);
-
-                        $dateRange.on('apply.daterangepicker', function (ev, picker) {
-                            setRangeDate(picker.startDate, picker.endDate);
-                        });
-
-                        setRangeDate(start, end);
-                    });
+                    PluginHelper.initMaterialSelect();
+                    PluginHelper.initDateRangePicker();
                 },
 
                 initSetting: function () {
@@ -209,7 +160,7 @@ define(
                 //#Get Data
                 ajaxComplete: function (level, response) {
                     level = Number(level);
-                    if (response != null) {
+                    if (response !== null) {
                         var reportBy = $("input[name='ReportBy']:checked").val();
                         _reportBy = reportBy;
                         cacheData[level] = response;
@@ -265,7 +216,7 @@ define(
                             Site.unBlockUI();
                         }
                     };
-                    if (ajaxRequest != null) {
+                    if (ajaxRequest !== null) {
                         ajaxRequest.abort();
                     }
                     ajaxRequest = $.ajax(option);
@@ -339,7 +290,7 @@ define(
                             fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
                         success: function (response) {
                             LicenseeWinLoss.ajaxComplete(level, response);
-                            if (response != null && response.Data.length > 0) {
+                            if (response !== null && response.Data.length > 0) {
                                 if (level > 0 && Number(param.CurrencyId) === 0) {
                                     LicenseeWinLoss.setReportTitle(currencyId, fdate, tdate, currencyName);
                                 } else {
@@ -356,7 +307,7 @@ define(
                             Site.unBlockUI();
                         }
                     };
-                    if (ajaxRequest != null) {
+                    if (ajaxRequest !== null) {
                         ajaxRequest.abort();
                     }
                     ajaxRequest = $.ajax(option);
@@ -439,7 +390,7 @@ define(
                             $("#pg_ppdata").hide();
                         }
 
-                        if (response == null || numOfRow === 0) {
+                        if (response === null || numOfRow === 0) {
                             jqGridAdditional.setNoInfo(gridOption.colModel);
                         }
                         else {

@@ -3,6 +3,8 @@
 @model Fanex.Athena.Model.Report.ViewModel.LicenseeWinLossViewModel
 @{ 
     var appSettings = new AppSettings();
+    var minDate = appSettings.HistoryDate;
+    var maxDate = appSettings.MaxDate;
 }
 
 <div class="page-form">
@@ -10,12 +12,7 @@
         @Html.AntiForgeryToken()
         <div class="row">
             <div class="input-field input col l3 m3 s12 calendar">
-                <input name="DateRange" autocomplete="off" id="DateRange" class="datepicker" type="text" />
-                <input name="FromDate" id="FromDate" type="hidden" data-original-from="@Model.Param.FromDate.ToString("MM/dd/yyyy")" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
-                <input name="ToDate" id="ToDate" type="hidden" data-original-to="@Model.Param.ToDate.ToString("MM/dd/yyyy")" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
-
-                <label for="DateRange" class="active">@ViewResources.Date</label>
-                <span class="icon icon-calendar"></span>
+                @RazorHelperDesktop.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, maxDate)
             </div>
 
             <div class="input-field col l2 m3 s12">

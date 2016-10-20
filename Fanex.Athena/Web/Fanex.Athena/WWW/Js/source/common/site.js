@@ -2,7 +2,7 @@
 /// <reference path="/@JSense.js" />
 /* Preset */
 // root JSON object
-define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multiselect"], function ($, QueryString) {
+define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multiselect", "lib/jquery.flatpopup"], function ($, QueryString) {
     "use strict";
     var UNBLOCKUI_TIMEOUT = 30000;
     var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
