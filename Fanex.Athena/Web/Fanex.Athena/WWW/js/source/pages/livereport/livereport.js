@@ -85,12 +85,12 @@ define(
                 maxDate: moment($dateRange.attr('data-maxdate'), "MM/DD/YYYY"),
                 ranges: {
                     'Today': [now, now],
-                    'Yesterday': [now.subtract(1, 'days'), now.subtract(1, 'days')],
-                    'Current week': [now.startOf('week'), now],
-                    'Last week': [now.subtract(1, 'week').startOf('week'), now.subtract(1, 'week').endOf('week')],
-                    'Current month': [now.startOf('month'), now],
-                    'Last Month': [now.subtract(1, 'month').startOf('month'), now.subtract(1, 'month').endOf('month')],
-                    'Since last month': [now.subtract(1, 'month').startOf('month'), now]
+                    'Yesterday': [now.clone().subtract(1, 'days'), now.clone().subtract(1, 'days')],
+                    'Current week': [now.clone().startOf('week'), now],
+                    'Last week': [now.clone().subtract(1, 'week').startOf('week'), now.clone().subtract(1, 'week').endOf('week')],
+                    'Current month': [now.clone().startOf('month'), now],
+                    'Last Month': [now.clone().subtract(1, 'month').startOf('month'), now.clone().subtract(1, 'month').endOf('month')],
+                    'Since last month': [now.clone().subtract(1, 'month').startOf('month'), now]
                 },
                 locale: {
                     format: 'MM/DD/YYYY',
