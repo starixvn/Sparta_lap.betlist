@@ -24,6 +24,7 @@
 
         .ui-multiselect-icon {
             background: initial;
+
             &:after {
                 content: "▼";
                 position: absolute;
@@ -44,6 +45,93 @@
         > input[type="checkbox"] {
             position: initial;
             opacity: 1;
+        }
+    }
+}
+
+.breadCrumbHolder{
+    display: none;
+
+    a[class^='level']{
+        display: none;
+    }
+}
+
+.breadcrumb {
+    text-align: center;
+    display: inline-block;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+    overflow: hidden;
+
+    > a {
+        text-decoration: none;
+        outline: none;
+        display: block;
+        float: left;
+        font-size: 12px;
+        line-height: 36px;
+        color: #fff;
+        padding: 0 10px 0 25px;
+        position: relative;
+
+        &:first-child {
+            padding-left: 10px;
+
+            &::before {
+                left: 14px;
+            }
+        }
+
+        &:last-child {
+            padding-right: 20px;
+
+            &::after {
+                content: none;
+            }
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -18px;
+            width: 36px;
+            height: 36px;
+            transform: scale(0.707) rotate(45deg);
+            z-index: 1;
+            box-shadow: 2px -2px 0 2px #ca1e58;
+            border-radius: 0 5px 0 50px;
+        }
+    }
+
+    &.flat {
+        a {
+            &, &::after {
+                background: #fff;
+                color: #4C6375;
+                transition: all 0.5s;
+            }
+
+            &::before {
+                background: #fff;
+                box-shadow: 0 0 0 1px #ec407a;
+            }
+
+            &:hover, &.active {
+                color: #fff;
+
+                &, &::after {
+                    background: #4C6375;
+                }
+
+                &::before {
+                    color: #4C6375;
+                }
+            }
+
+            &.active:hover {
+                background: #4C6375;
+            }
         }
     }
 }

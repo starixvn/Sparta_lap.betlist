@@ -114,25 +114,17 @@ define(
                 },
 
                 renderBreadCrumb: function (level) {
-                    //hide history link
                     level = Number(level);
                     if (level === 0) {
                         $(".breadCrumbHolder").hide();
                     }
                     else {
-                        /*show history link*/
                         $(".breadCrumbHolder").show();
-                        $("#history-link-container").width($("#ReportGrid").width() + 17);
-                        //add more 20px for scrolling
-                        $("div#history-link-container li.level0").show();
+                        $("#level-link-container .level0").show();
 
-                        /*show history link*/
-                        $(".breadCrumbHolder").show();
-                        $(".level0").show();
-
-                        $(".level2").showHide(level === 2);
-                        $(".level1").showHide(Number(LicenseeWinLossOption.licenseeId) === 1);
-                        $(".level1").toggleClass("level-link", level !== 1);
+                        var showLevel2 = level === 2;
+                        $("#level-link-container .level2").toggle(showLevel2).toggleClass("active", showLevel2);
+                        $("#level-link-container .level1").toggle(Number(LicenseeWinLossOption.licenseeId) === 1).toggleClass("active", !showLevel2);
                     }
                 },
 
