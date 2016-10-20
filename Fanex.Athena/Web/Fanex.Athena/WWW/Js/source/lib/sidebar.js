@@ -212,6 +212,7 @@
                 }
 
                 activeMenuItem.call($this, element);
+                document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + $(this).text();
             });
 
             // Open first active

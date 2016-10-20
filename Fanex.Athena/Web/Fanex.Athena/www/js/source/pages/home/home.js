@@ -10,7 +10,7 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
         //initClock();
         initVariables();
         initEvent();
-        $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem42'));
+        $('#MenuItem42').click();
     }
    
     function initVariables() {
@@ -53,6 +53,10 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
 
         $('body').click(function () {
             _autocomplete.$dropdown.html('').hide();
+        });
+
+        $('.collapsible2').on("click.menuevent", ".collapsible-body  a", function (e) {
+            $("#page-title").text($(this).text());
         });
     }
 

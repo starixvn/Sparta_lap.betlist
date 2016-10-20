@@ -641,6 +641,7 @@ webpackJsonp([7],[
 	                }
 	
 	                activeMenuItem.call($this, element);
+	                document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + $(this).text();
 	            });
 	
 	            // Open first active
@@ -944,7 +945,7 @@ webpackJsonp([7],[
 	        //initClock();
 	        initVariables();
 	        initEvent();
-	        $('.collapsible2').collapsibleMenu('activeMenuItem', $('#MenuItem42'));
+	        $('#MenuItem42').click();
 	    }
 	   
 	    function initVariables() {
@@ -987,6 +988,10 @@ webpackJsonp([7],[
 	
 	        $('body').click(function () {
 	            _autocomplete.$dropdown.html('').hide();
+	        });
+	
+	        $('.collapsible2').on("click.menuevent", ".collapsible-body  a", function (e) {
+	            $("#page-title").text($(this).text());
 	        });
 	    }
 	

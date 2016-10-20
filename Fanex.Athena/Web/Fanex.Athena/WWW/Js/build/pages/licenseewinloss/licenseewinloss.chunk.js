@@ -1925,6 +1925,7 @@ webpackJsonp([8],[
 	
 	                    var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"), currencyStr);
 	                    $("span.report-title").html(title);
+	                    $(".collapsible-header").removeClass("hide");
 	                },
 	                //#end
 	
