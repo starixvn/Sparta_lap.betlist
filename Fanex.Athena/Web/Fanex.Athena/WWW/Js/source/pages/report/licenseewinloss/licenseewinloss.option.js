@@ -17,7 +17,7 @@ define(
             var _expanseTypes = {};
 
             var setDrillDownLink = function (level, currencyId, custId, datetime, currencyName, cellvalue) {
-                return '<a class="drilldown" href="javascript:;" onclick="return LicenseeWinLoss.drillDown(' + level + ',' +
+                return '<a class="drilldown" href="javascript:;" onclick="return licenseewinlossDrilldown(' + level + ',' +
                  currencyId + ',' + custId + ',\'' + datetime + '\',\'' + currencyName + '\');">' + cellvalue + '</a>';
             };
 

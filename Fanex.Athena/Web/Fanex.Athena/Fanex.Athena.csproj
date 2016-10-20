@@ -776,6 +776,7 @@
     <Content Include="www\js\source\extensions\jquery.extension.js" />
     <Content Include="www\js\source\extensions\prototype.js" />
     <Content Include="www\js\source\lib\BigDecimal-all-last.min.js" />
+    <Content Include="www\js\source\lib\date.min.js" />
     <Content Include="www\js\source\lib\jqgrid\jquery.jqgrid.additional.js" />
     <Content Include="www\js\source\lib\jqgrid\jquery.jqGrid.en.js" />
     <Content Include="www\js\source\lib\jqgrid\jquery.jqGrid.min.js" />
@@ -797,6 +798,7 @@
     <Content Include="www\js\source\pages\livereport\main-matchlist.js" />
     <Content Include="www\js\source\pages\report\licenseewinloss\licenseewinloss.js" />
     <Content Include="www\js\source\pages\report\licenseewinloss\licenseewinloss.option.js" />
+    <Content Include="www\js\source\pages\report\licenseewinloss\main.js" />
     <Content Include="www\js\source\pages\report\report.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\js\tests\common\querystring-spec.js" />
