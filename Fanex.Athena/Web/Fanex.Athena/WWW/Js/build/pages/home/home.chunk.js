@@ -387,7 +387,7 @@ webpackJsonp([7],[
 	                    }
 	
 	                    if (menuCollapse) {
-	                        $submenu.off("mCustomScrollbar");
+	                        $submenu.mCustomScrollbar("destroy");
 	                    } else {
 	                        $submenu.mCustomScrollbar({ theme: "minimal-dark" });
 	                    }

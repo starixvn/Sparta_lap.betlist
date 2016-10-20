@@ -1,4 +1,4 @@
-﻿var path = require('path')
+﻿var path = require('path');
 
 var projectRoot = path.resolve(__dirname, '../../../');
 
@@ -14,7 +14,7 @@ var cssPaths = {
 
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],
     livereport: ["./www/css/source/pages/liveReport.css", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss"]
-}
+};
 
 var scriptPaths = {
     build: "www/js/build",
@@ -23,11 +23,11 @@ var scriptPaths = {
 
     livereport: "./www/js/source/pages/livereport/main-livereport.js",
     livereportmatchlist: "./www/js/source/pages/livereport/main-matchlist.js",
-    licenseewinloss: "./www/js/source/pages/report/licenseewinloss/main.js",
-}
+    licenseewinloss: "./www/js/source/pages/report/licenseewinloss/main.js"
+};
 
 module.exports = {
     projectRoot: projectRoot,
     cssPaths: cssPaths,
     scriptPaths: scriptPaths
-}
+};

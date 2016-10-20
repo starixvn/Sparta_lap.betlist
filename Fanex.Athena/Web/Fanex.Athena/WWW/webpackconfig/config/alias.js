@@ -1,4 +1,4 @@
-﻿var projectRoot = require('../config/path').projectRoot
+﻿var projectRoot = require('../config/path').projectRoot;
 
 var alias = {
     // vendors
@@ -7,6 +7,6 @@ var alias = {
     // common
     common: projectRoot + "/www/js/source/common",
     lib: projectRoot + "/www/js/source/lib"
-}
+};
 
-module.exports = alias
+module.exports = alias;
