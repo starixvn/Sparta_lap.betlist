@@ -39,46 +39,14 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
                 }, 200);
             },
             resetLayout: function (grid, maxWidth) {
-                /// <summary>
-                ///
-                /// </summary>
-                /// <param name="grid"></param>
-                /// <param name="maxWidth"></param>
-                /// <param name="specialWidth">add more width in case actual width < screen width</param>
                 if ($("div.ui-jqgrid-hbox").length === 0) {
                     return;
                 }
 
                 grid.setGridParam({
                     shrinkToFit: false
-                });
-                var maxScreenWidth = Site.getMaxWidth($('div.ui-jqgrid-bdiv'));
-                if (maxWidth === undefined) {
-                    maxWidth = maxScreenWidth;
-                }
-
-                var minWidth = 800;
-                /* set maxWidth*/
-
-                if (maxScreenWidth > maxWidth) {
-                    maxScreenWidth = maxWidth;
-                }
-
-                var actualWidth = $("div.ui-jqgrid-hbox").innerWidth() || maxWidth;
-
-                if (actualWidth > maxScreenWidth) {
-                    actualWidth = maxScreenWidth;
-                }
-                if (actualWidth < minWidth) {
-                    actualWidth = minWidth;
-                }
-                if (actualWidth === minWidth) {
-                    $(".theme_jqGrid div.container_26 div.grid_26").css("width", actualWidth);
-                }
-                else {
-                    $("div.container_26 div.grid_26").css("width", actualWidth);
-                }
-                grid.jqGrid('setGridWidth', actualWidth, false);
+                });
+                grid.jqGrid('setGridWidth');
             },
 
             formatInteger: function (value) {
@@ -251,7 +219,7 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
                 $(".ui-jqgrid-hdiv").css("clear", "both");
 
                 // Show title
-                $("div.report-title").removeClass("hide").show();
+                $(".collapsible-header").removeClass("hide");
             },
 
             clearGrid: function (reportId) {

@@ -1,4 +1,4 @@
-﻿define(["moment", "bootstrap-daterangepicker", "lib/jquery.monthpicker", "vendor-materialize"], function (moment) {
+﻿define(["moment", "bootstrap-daterangepicker", "lib/jquery.monthpicker", "vendor-materialize", "malihu-custom-scrollbar-plugin"], function (moment) {
     var _historyDate = new Date($("#HistoryDate").val());
 
     function initMaterialSelect() {
@@ -74,9 +74,14 @@
         });
     }
 
+    function initCustomScrollbar($target, options) {
+        return $target.mCustomScrollbar(options);
+    }
+
     return {
         initMaterialSelect: initMaterialSelect,
         initDateRangePicker: initDateRangePicker,
-        initMonthPicker: initMonthPicker
+        initMonthPicker: initMonthPicker,
+        initCustomScrollbar: initCustomScrollbar
     };
 });

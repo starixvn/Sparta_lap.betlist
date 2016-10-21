@@ -146,7 +146,6 @@ define(
 
                     var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"), currencyStr);
                     $("span.report-title").html(title);
-                    $(".collapsible-header").removeClass("hide");
                 },
                 //#end
 
@@ -432,11 +431,6 @@ define(
                     jqGridAdditional.resetLayout(reportGrid);
 
                     LicenseeWinLossOption.restoreExpanse();
-
-                    $gridBody = $(".ui-jqgrid-bdiv");
-                    if ($gridBody.length > 0) {
-                        $gridBody[0].scrollLeft = scrollLeft;
-                    }
                 },
 
                 //#end
@@ -500,6 +494,12 @@ define(
                         width: popW + 50,
                         height: popH + 50
                     });
+                },
+
+                onWindowResize: function () {
+                    var reportGrid = $("#ReportGrid");
+                    jqGridAdditional.resetLayout(reportGrid);
+                    jqGridAdditional.resizeGrid();
                 }
             };
         })();
