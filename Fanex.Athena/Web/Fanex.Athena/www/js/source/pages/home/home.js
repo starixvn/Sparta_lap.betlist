@@ -10,7 +10,7 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
         //initClock();
         initVariables();
         initEvent();
-        $('#MenuItem42').click();
+        activeDefaultMenuItem();
     }
    
     function initVariables() {
@@ -56,6 +56,7 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
         });
 
         $('.collapsible2').on("click.menuevent", ".collapsible-body  a", function (e) {
+            document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + $(this).text();
             $("#page-title").text($(this).text());
         });
     }
@@ -133,6 +134,17 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
                 }
             }
         });
+    }
+
+    function activeDefaultMenuItem() {
+        var defaultUrl = $("#DefaultUrl").val();
+        var $menuItem = $("#left-menu .collapsible-body").find("a[href='" + defaultUrl + "']");
+        $('.collapsible2').collapsibleMenu('activeMenuItem', $menuItem);
+
+        var menuItemName = $menuItem.length > 0 ? $menuItem.text() : "";
+        $("#page-title").text(menuItemName);
+
+        document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + menuItemName;
     }
 
     return {

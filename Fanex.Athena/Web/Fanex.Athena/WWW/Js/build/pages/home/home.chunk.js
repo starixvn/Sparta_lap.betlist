@@ -639,9 +639,7 @@ webpackJsonp([7],[
 	
 	                    temp.parent().find('.collapsible-header').trigger("click");
 	                }
-	
 	                activeMenuItem.call($this, element);
-	                document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + $(this).text();
 	            });
 	
 	            // Open first active
@@ -945,7 +943,7 @@ webpackJsonp([7],[
 	        //initClock();
 	        initVariables();
 	        initEvent();
-	        $('#MenuItem42').click();
+	        activeDefaultMenuItem();
 	    }
 	   
 	    function initVariables() {
@@ -991,6 +989,7 @@ webpackJsonp([7],[
 	        });
 	
 	        $('.collapsible2').on("click.menuevent", ".collapsible-body  a", function (e) {
+	            document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + $(this).text();
 	            $("#page-title").text($(this).text());
 	        });
 	    }
@@ -1068,6 +1067,17 @@ webpackJsonp([7],[
 	                }
 	            }
 	        });
+	    }
+	
+	    function activeDefaultMenuItem() {
+	        var defaultUrl = $("#DefaultUrl").val();
+	        var $menuItem = $("#left-menu .collapsible-body").find("a[href='" + defaultUrl + "']");
+	        $('.collapsible2').collapsibleMenu('activeMenuItem', $menuItem);
+	
+	        var menuItemName = $menuItem.length > 0 ? $menuItem.text() : "";
+	        $("#page-title").text(menuItemName);
+	
+	        document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + menuItemName;
 	    }
 	
 	    return {

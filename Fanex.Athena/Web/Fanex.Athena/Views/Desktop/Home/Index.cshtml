@@ -18,6 +18,7 @@
 </head>
 <body>
     <input type="hidden" id="RootUrl" value="@Url.Content("~")" />
+    <input type="hidden" id="DefaultUrl" value="@Url.Content("~/" + ViewBag.DefaultReportUrl)" />
     <header>
         <div class="navbar-fixed" id="header">
             @{Html.RenderAction("Index", "Header"); }
