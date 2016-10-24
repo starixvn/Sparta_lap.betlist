@@ -379,7 +379,7 @@ define(
                             $("#pg_ppdata").show();
                         }
                         else {
-                            $("#pg_ppdata").hide();
+                            $("#pg_ppdata").show();
                         }
 
                         if (response === null || numOfRow === 0) {

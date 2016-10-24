@@ -2391,7 +2391,7 @@ webpackJsonp([8],[
 	                            $("#pg_ppdata").show();
 	                        }
 	                        else {
-	                            $("#pg_ppdata").hide();
+	                            $("#pg_ppdata").show();
 	                        }
 	
 	                        if (response === null || numOfRow === 0) {
@@ -4011,7 +4011,7 @@ webpackJsonp([8],[
 	
 	            showRecommendedBrowser: function (pagingContainer) {
 	                var mes = "<div class='recommend-browser'>" + Site.getSingleResource("RecommendBrowserOnReportPageMsg") + "</div>";
-	                $(pagingContainer + " td#ppdata_left").css("width", 460).append(mes);
+	                $(pagingContainer + " td#ppdata_left").append(mes);
 	            }
 	        };
 	    })();

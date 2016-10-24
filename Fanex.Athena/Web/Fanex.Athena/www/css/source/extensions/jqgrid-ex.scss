@@ -12,95 +12,161 @@
         .ui-jqgrid-view {
             font-size: 13px;
         }
-    }
 
-    .ui-jqgrid-htable {
-        thead {
-            border: none;
+        .ui-jqgrid-htable {
+            thead {
+                border: none;
+
+                tr {
+                    th {
+                        &.ui-th-column, &.ui-th-column-header {
+                            vertical-align: middle;
+                            text-align: center;
+                            background: #d1dae1;
+                            border: 1px solid #fff;
+                            color: #314453;
+                            font-weight: 600;
+                            padding: 6px 5px;
+
+                            &:first-child {
+                                border-left-color: #d1dae1 !important;
+                            }
+
+                            &:last-child {
+                                border-right-color: #d1dae1 !important;
+                            }
+                        }
+
+                        div {
+                            height: auto;
+                            white-space: pre-wrap;
+                        }
+                    }
+
+                    &:nth-child(2) th {
+                        &:last-child {
+                            border-right-color: #fff !important;
+                        }
+                    }
+                }
+
+                > tr.jqg-second-row-header > th {
+                    border: 1px solid #ffffff;
+                    border-top: 1px solid #ffffff !important;
+                }
+            }
+        }
+
+        .ui-jqgrid-btable, .ui-jqgrid-ftable {
+            tr {
+                &, &.footrow {
+                    td {
+                        border: 1px solid #d6d6d6;
+                        color: #404040;
+                        padding: 6px 8px;
+                    }
+
+                    &:hover {
+                    }
+
+                    &.highlight {
+                        background: #fcf4de;
+                    }
+
+                    &.total {
+                        background: #ffb391;
+                    }
+                }
+            }
+        }
+
+        .ui-jqgrid-btable {
+            tr.jqgfirstrow {
+                > td {
+                    padding: 0;
+                    border: none;
+                }
+            }
 
             tr {
-                th {
-                    &.ui-th-column, &.ui-th-column-header {
-                        vertical-align: middle;
-                        text-align: center;
-                        background: #d1dae1;
-                        border: 1px solid #fff;
-                        color: #314453;
-                        font-weight: 600;
-                        padding: 6px 5px;
+                > td {
+                    border-top: none;
+                }
+            }
+        }
 
-                        &:first-child {
-                            border-left-color: #d1dae1 !important;
-                        }
+        .ui-jqgrid-ftable {
+            border-top: 3px solid #a7a1a1;
+        }
 
-                        &:last-child {
-                            border-right-color: #d1dae1 !important;
-                        }
+        .ui-jqgrid-hbox {
+            padding-right: 0;
+        }
+
+        .ui-jqgrid-pager {
+            font-size: 13px;
+            line-height: 15px;
+            height: 55px;
+            padding: 10px !important;
+            background-color: #EFF3F8 !important;
+            border-bottom: 1px solid #d6d6d6 !important;
+            border-top: 1px solid #d6d6d6 !important;
+            border-left: 1px solid #d6d6d6 !important;
+            border-right: 1px solid #d6d6d6 !important;
+
+            [class^="ui-icon"] {
+                font-family: 'icomoon' !important;
+                speak: none;
+                font-style: normal;
+                font-weight: normal;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 1;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            .ui-icon {
+                font-size: 15px;
+                color: #4c6375;
+                cursor: pointer;
+            }
+
+            .ui-pg-table {
+                .ui-icon-seek-first {
+                    &:before {
+                        content: "\ea21";
                     }
+                }
 
-                    div {
-                        height: auto;
-                        white-space: pre-wrap;
+                .ui-icon-seek-prev {
+                    &:before {
+                        content: "\ea1f";
                     }
                 }
 
-                &:nth-child(2) th {
-                    &:last-child {
-                        border-right-color: #fff !important;
+                .ui-icon-seek-next {
+                    &:before {
+                        content: "\ea20";
                     }
                 }
-            }
 
-            > tr.jqg-second-row-header > th {
-                border: 1px solid #ffffff;
-                border-top: 1px solid #ffffff !important;
-            }
-        }
-    }
-
-    .ui-jqgrid-btable, .ui-jqgrid-ftable {
-        tr {
-            &, &.footrow {
-                td {
-                    border: 1px solid #d6d6d6;
-                    color: #404040;
-                    padding: 6px 8px;
+                .ui-icon-seek-end {
+                    &:before {
+                        content: "\ea22";
+                    }
                 }
 
-                &:hover {
+                .ui-pg-input {
+                    width: auto;
+                    font-size: inherit;
                 }
 
-                &.highlight {
-                    background: #fcf4de;
-                }
-
-                &.total {
-                    background: #ffb391;
+                .ui-pg-selbox {
+                    height: auto;
+                    font-size: inherit;
+                    min-width: 65px;
                 }
             }
         }
-    }
-
-    .ui-jqgrid-btable {
-        tr.jqgfirstrow {
-            > td {
-                padding: 0;
-                border: none;
-            }
-        }
-
-        tr {
-            > td {
-                border-top: none;
-            }
-        }
-    }
-
-    .ui-jqgrid-ftable {
-        border-top: 3px solid #a7a1a1;
-    }
-
-    .ui-jqgrid-hbox {
-        padding-right: 0;
     }
 }

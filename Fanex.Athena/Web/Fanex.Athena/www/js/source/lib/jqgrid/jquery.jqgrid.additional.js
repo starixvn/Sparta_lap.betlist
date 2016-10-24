@@ -408,7 +408,7 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
 
             showRecommendedBrowser: function (pagingContainer) {
                 var mes = "<div class='recommend-browser'>" + Site.getSingleResource("RecommendBrowserOnReportPageMsg") + "</div>";
-                $(pagingContainer + " td#ppdata_left").css("width", 460).append(mes);
+                $(pagingContainer + " td#ppdata_left").append(mes);
             }
         };
     })();
