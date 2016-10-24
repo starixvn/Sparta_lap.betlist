@@ -4,7 +4,7 @@
         LicenseeWinLoss.initialize();
         window.licenseewinlossDrilldown = LicenseeWinLoss.drillDown;
 
-        $(window).on("resize", LicenseeWinLoss.onWindowResize);
+        $(window).on("resize", LicenseeWinLoss.resizeGrid);
 
         $(window).on("unload", function () {
             $(window).unbind("resize");

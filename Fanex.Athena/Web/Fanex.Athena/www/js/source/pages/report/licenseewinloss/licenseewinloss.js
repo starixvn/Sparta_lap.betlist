@@ -395,7 +395,6 @@ define(
                             }
 
                             onPaging = false;
-                            jqGridAdditional.resizeGrid();
                         }
                         /*group header*/
                         LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
@@ -428,9 +427,9 @@ define(
 
                     jqGridAdditional.showRecommendedBrowser(gridOption.pager);
 
-                    jqGridAdditional.resetLayout(reportGrid);
-
                     LicenseeWinLossOption.restoreExpanse();
+
+                    $(window).resize();
                 },
 
                 //#end
@@ -496,10 +495,10 @@ define(
                     });
                 },
 
-                onWindowResize: function () {
+                resizeGrid: function () {
                     var reportGrid = $("#ReportGrid");
-                    jqGridAdditional.resetLayout(reportGrid);
                     jqGridAdditional.resizeGrid();
+                    jqGridAdditional.resetLayout(reportGrid);
                 }
             };
         })();

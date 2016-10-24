@@ -18,25 +18,23 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
                     return;
                 }
                 clearTimeout(_resizeTimer);
-                _resizeTimer = setTimeout(function () {
-                    var $bdiv = $(".ui-jqgrid-bdiv");
-                    var gridTop = $bdiv.offset().top;
+                var $bdiv = $(".ui-jqgrid-bdiv");
+                var gridTop = $bdiv.offset().top;
 
-                    var pagingHeight = $(".paging:visible").length > 0 ? $(".paging:visible").height() : 0;
-                    var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                                - $(".ui-jqgrid-pager:visible").height() - pagingHeight - 30;
-                    gridHeight = Math.max(120, gridHeight);
+                var pagingHeight = $(".paging:visible").length > 0 ? $(".paging:visible").height() : 0;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
+                            - $(".ui-jqgrid-pager:visible").height() - pagingHeight - 30;
+                gridHeight = Math.max(120, gridHeight);
 
-                    var gridContainer = $("#gview_ReportGrid");
-                    var bodyHeight = window.innerHeight - gridContainer.offset().top;
-                    var actualHeight = $("#ReportGrid").height();
-                    var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
-                    var tableWidth = $("#ReportGrid").width();
-                    var contentWidth = $bdiv.width();
-                    var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-                    $bdiv.height(Math.min(newHeight, gridHeight))
-                                        .css("height", "auto").css("max-height", gridHeight);
-                }, 200);
+                var gridContainer = $("#gview_ReportGrid");
+                var bodyHeight = window.innerHeight - gridContainer.offset().top;
+                var actualHeight = $("#ReportGrid").height();
+                var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
+                var tableWidth = $("#ReportGrid").width();
+                var contentWidth = $bdiv.width();
+                var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
+                $bdiv.height(Math.min(newHeight, gridHeight))
+                                    .css("height", "auto").css("max-height", gridHeight);
             },
             resetLayout: function (grid, maxWidth) {
                 if ($("div.ui-jqgrid-hbox").length === 0) {
@@ -45,8 +43,8 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
 
                 grid.setGridParam({
                     shrinkToFit: false
-                });
-                grid.jqGrid('setGridWidth');
+                });                var parentWidth = grid.closest(".theme_jqGrid").width();
+                grid.jqGrid('setGridWidth', parentWidth, false);
             },
 
             formatInteger: function (value) {
@@ -171,50 +169,6 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
             },
 
             gridComplete: function (grid, gridOption, totalRowCount) {
-                totalRowCount = totalRowCount === undefined ? 0 : totalRowCount;
-                var refineHeight = function (bodyHeight, gridId) {
-                    var actualHeight = $('#' + gridId).height();
-
-                    // [Bravo]: if the grid have horizontal sroll, the grid will plus scroll height (18px)
-                    var scrollHeight = $("#ReportGrid").width() > $('.ui-jqgrid-bdiv').width() ? 18 : 0;
-                    var height = (actualHeight > bodyHeight ? bodyHeight : actualHeight) + scrollHeight;
-                    $('.ui-jqgrid-bdiv').css({
-                        'height': totalRowCount < 4 ? height : Math.max(height, 150)
-                    });
-                    $('.ui-jqgrid-bdiv').css({
-                        'max-height': totalRowCount < 4 ? bodyHeight - 50 : Math.max(bodyHeight - 50, 150)
-                    });
-                };
-
-                // Refine grid layout
-                var gridId = grid.p.id;
-                var gridContainer = $("#gview_" + gridId);
-                // Correct the grid height
-                var bodyHeight = Site.getMaxHeight(gridContainer);
-                var totalHeight = totalRowCount * 14;
-                if (totalHeight >= 180) {
-                    bodyHeight /= 2;
-                }
-                else {
-                    bodyHeight -= totalHeight;
-                }
-
-                refineHeight(bodyHeight, gridId);
-
-                var matched = Site.detectBrowser(navigator.userAgent);
-                var browser = {};
-                if (matched.browser) {
-                    browser[matched.browser] = true;
-                    browser.version = matched.version;
-                }
-
-                //if (browser.msie && browser.version == 8) {
-                // [Jacob] Cheat for ie 8, because the grid height in ie 8 is calculated strangely,
-                setTimeout(function () {
-                    refineHeight(bodyHeight, gridId);
-                }, 100);
-                //}
-
                 $(".ui-jqgrid-titlebar").hide();
                 $(".ui-jqgrid-hdiv").css("clear", "both");
 
@@ -230,7 +184,7 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
                 /// <param name="pagingElement">ex:ppdata</param>
                 $('#' + reportId).jqGrid('GridUnload');
                 //clear all width attribute
-                $("div.container_26 >div").css('width', '');
+                $("div.theme_jqGrid > div").css('width', '');
             },
 
             rowSpanSetting: function (rowId, val, rawObject) {
