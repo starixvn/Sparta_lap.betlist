@@ -23,7 +23,7 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
 
                 var pagingHeight = $(".paging:visible").length > 0 ? $(".paging:visible").height() : 0;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                            - $(".ui-jqgrid-pager:visible").height() - pagingHeight - 30;
+                            - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - 30;
                 gridHeight = Math.max(120, gridHeight);
 
                 var gridContainer = $("#gview_ReportGrid");

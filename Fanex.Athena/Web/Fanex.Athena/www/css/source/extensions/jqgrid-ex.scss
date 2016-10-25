@@ -10,7 +10,7 @@
 
     .ui-jqgrid {
         .ui-jqgrid-view {
-            font-size: 13px;
+            font-size: 1.3rem;
         }
 
         .ui-jqgrid-hdiv, .ui-jqgrid-bdiv, .ui-jqgrid-sdiv{
@@ -110,6 +110,13 @@
 
         .ui-jqgrid-ftable {
             border-top: 3px solid #a7a1a1;
+        }
+
+        .ui-jqgrid-sdiv{
+            &.jqgrid-footer-scroll-hacking{
+                max-height: 260px;
+                overflow-y: auto;
+            }
         }
 
         .ui-jqgrid-pager {

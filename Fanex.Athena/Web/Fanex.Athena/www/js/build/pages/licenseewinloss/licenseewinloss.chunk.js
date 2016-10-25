@@ -798,7 +798,7 @@ webpackJsonp([8],[
 	
 	    function getMaxWidth() {
 	        var width = 0;
-	        var marginRight = 5;
+	        var marginRight = 20;
 	
 	        var body = window.document.body;
 	        if (window.innerWidth) {
@@ -3626,7 +3626,7 @@ webpackJsonp([8],[
 	
 	                var pagingHeight = $(".paging:visible").length > 0 ? $(".paging:visible").height() : 0;
 	                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-	                            - $(".ui-jqgrid-pager:visible").height() - pagingHeight - 30;
+	                            - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - 30;
 	                gridHeight = Math.max(120, gridHeight);
 	
 	                var gridContainer = $("#gview_ReportGrid");

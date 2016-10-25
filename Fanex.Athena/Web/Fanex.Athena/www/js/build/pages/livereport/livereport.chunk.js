@@ -798,7 +798,7 @@ webpackJsonp([9],[
 	
 	    function getMaxWidth() {
 	        var width = 0;
-	        var marginRight = 5;
+	        var marginRight = 20;
 	
 	        var body = window.document.body;
 	        if (window.innerWidth) {
