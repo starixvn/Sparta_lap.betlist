@@ -778,6 +778,7 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrEmpty(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
             db.AddInParameter("leagueid", DbType.Int32, metaModel.LeagueId);
             db.AddInParameter("raceNo", DbType.String, metaModel.RaceNo);
+            db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             CreateBetListSummaryStakeParameters(db);
