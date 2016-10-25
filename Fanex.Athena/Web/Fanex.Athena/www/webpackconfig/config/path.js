@@ -21,8 +21,8 @@ var scriptPaths = {
 
     home: ["./www/js/source/lib/navbar.js", "./www/js/source/lib/sidebar.js", "malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js", "./www/js/source/pages/home/main.js"],
 
-    livereport: "./www/js/source/pages/livereport/main-livereport.js",
-    livereportmatchlist: "./www/js/source/pages/livereport/main-matchlist.js",
+    livereport: "./www/js/source/pages/report/livereport/main-livereport.js",
+    livereportmatchlist: "./www/js/source/pages/report/livereport/main-matchlist.js",
     licenseewinloss: "./www/js/source/pages/report/licenseewinloss/main.js"
 };
 
