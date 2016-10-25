@@ -13,6 +13,11 @@
             font-size: 13px;
         }
 
+        .ui-jqgrid-hdiv, .ui-jqgrid-bdiv, .ui-jqgrid-sdiv{
+            border-left: 1px solid #d1dae1 !important;
+            border-right: 1px solid #d1dae1 !important;
+        }
+
         .ui-jqgrid-htable {
             thead {
                 border: none;
@@ -47,6 +52,10 @@
                         &:last-child {
                             border-right-color: #fff !important;
                         }
+
+                        &:first-child {
+                            border-left: none;
+                        }
                     }
                 }
 
@@ -64,6 +73,10 @@
                         border: 1px solid #d6d6d6;
                         color: #404040;
                         padding: 6px 8px;
+
+                        &:first-child {
+                            border-left: none;
+                        }
                     }
 
                     &:hover {

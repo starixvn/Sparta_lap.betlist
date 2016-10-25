@@ -7,6 +7,10 @@
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-view {
   font-size: 13px; }
 
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-hdiv, .theme_jqGrid .ui-jqgrid .ui-jqgrid-bdiv, .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv {
+  border-left: 1px solid #d1dae1 !important;
+  border-right: 1px solid #d1dae1 !important; }
+
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead {
   border: none; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column, .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column-header {
@@ -26,6 +30,8 @@
     white-space: pre-wrap; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr:nth-child(2) th:last-child {
     border-right-color: #fff !important; }
+  .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr:nth-child(2) th:first-child {
+    border-left: none; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead > tr.jqg-second-row-header > th {
     border: 1px solid #ffffff;
     border-top: 1px solid #ffffff !important; }
@@ -34,6 +40,8 @@
   border: 1px solid #d6d6d6;
   color: #404040;
   padding: 6px 8px; }
+  .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr td:first-child, .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr.footrow td:first-child, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr td:first-child, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr.footrow td:first-child {
+    border-left: none; }
 
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr.highlight, .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr.footrow.highlight, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr.highlight, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr.footrow.highlight {
   background: #fcf4de; }
