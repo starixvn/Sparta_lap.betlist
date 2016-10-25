@@ -75,7 +75,7 @@
     }
 
     function initCustomScrollbar($target, options) {
-        return $target.mCustomScrollbar(options);
+        return options ? $target.mCustomScrollbar(options) : $target.mCustomScrollbar({ theme: 'light' });
     }
 
     return {

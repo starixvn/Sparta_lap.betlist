@@ -2391,7 +2391,7 @@ webpackJsonp([8],[
 	                            $("#pg_ppdata").show();
 	                        }
 	                        else {
-	                            $("#pg_ppdata").show();
+	                            $("#pg_ppdata").hide();
 	                        }
 	
 	                        if (response === null || numOfRow === 0) {
@@ -2441,7 +2441,7 @@ webpackJsonp([8],[
 	
 	                    LicenseeWinLossOption.restoreExpanse();
 	
-	                    $(window).resize();
+	                    LicenseeWinLoss.resizeGrid();
 	                },
 	
 	                //#end
@@ -9721,7 +9721,7 @@ webpackJsonp([8],[
 	    }
 	
 	    function initCustomScrollbar($target, options) {
-	        return $target.mCustomScrollbar(options);
+	        return options ? $target.mCustomScrollbar(options) : $target.mCustomScrollbar({ theme: 'light' });
 	    }
 	
 	    return {

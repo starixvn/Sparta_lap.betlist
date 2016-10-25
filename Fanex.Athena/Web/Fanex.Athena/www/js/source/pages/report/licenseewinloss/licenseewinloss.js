@@ -379,7 +379,7 @@ define(
                             $("#pg_ppdata").show();
                         }
                         else {
-                            $("#pg_ppdata").show();
+                            $("#pg_ppdata").hide();
                         }
 
                         if (response === null || numOfRow === 0) {
@@ -429,7 +429,7 @@ define(
 
                     LicenseeWinLossOption.restoreExpanse();
 
-                    $(window).resize();
+                    LicenseeWinLoss.resizeGrid();
                 },
 
                 //#end
