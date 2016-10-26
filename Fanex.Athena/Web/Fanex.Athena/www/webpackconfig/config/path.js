@@ -3,17 +3,25 @@
 var projectRoot = path.resolve(__dirname, '../../../');
 
 var cssCommonPath = "./www/css/source/";
+
+var cssDateRangePickerPath = ["bootstrap-daterangepicker/daterangepicker.css", "./www/css/source/components/daterangepicker/daterangepicker-ex.scss"];
+
 var cssPaths = {
     build: "www/css/build",
-
-    materialize: "./www/css/source/vendors/materialize/materialize.css",
-    daterangepicker: ["bootstrap-daterangepicker/daterangepicker.css", "./www/css/source/components/daterangepicker/daterangepicker-ex.scss"],
 
     home: ["malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/components/navbar/navBar.css", "./www/css/source/components/sidebar/sideBar.css", "./www/css/source/extensions/home.scss"],
     main: ["./www/css/source/vendors/materialize/materialize.css", "./www/css/source/main.css", "./www/css/source/extensions/main-ex.scss"],
 
+    reportjqgridlayout: [
+        "./www/css/source/components/flatpopup/flatpopup.scss",
+        "./www/css/source/components/multiselect/jquery.multiselect.css", "./www/css/source/extensions/multiselect-ex.scss",
+        "./www/css/source/pages/common.css", "./www/css/source/extensions/report-ex.css",
+        "./www/css/source/components/jqgrid/jqgrid.css", "./www/css/source/extensions/jqgrid-ex.scss"
+    ],
+
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],
-    livereport: ["./www/css/source/pages/common.css", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss"]
+    livereport: ["./www/css/source/pages/common.css", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss", ...cssDateRangePickerPath],
+    licenseewinloss: ["./www/css/source/pages/report/licenseewinloss.scss", ...cssDateRangePickerPath]
 };
 
 var scriptPaths = {

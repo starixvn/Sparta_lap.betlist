@@ -1,12 +1,12 @@
-﻿var path = require('path')
-var merge = require('webpack-merge')
+﻿var path = require('path');
+var merge = require('webpack-merge');
 
-var pathConfig = require('../config/path')
-var alias = require('../config/alias')
-var loader = require('../config/loader')
-var plugin = require('../config/plugin')
+var pathConfig = require('../config/path');
+var alias = require('../config/alias');
+var loader = require('../config/loader');
+var plugin = require('../config/plugin');
 
-var utils = require('./utils')
+var utils = require('./utils');
 
 var commonConfigs = {
     resolve: {
@@ -21,11 +21,12 @@ var commonConfigs = {
         [pathConfig.scriptPaths.build + "/pages/livereport/livereportmatchlist"]: [pathConfig.scriptPaths.livereportmatchlist],
         [pathConfig.scriptPaths.build + "/pages/licenseewinloss/licenseewinloss"]: [pathConfig.scriptPaths.licenseewinloss],
 
-        [pathConfig.cssPaths.build + "/pages/reports/livereport"]: pathConfig.cssPaths.livereport.concat(pathConfig.cssPaths.daterangepicker),
+        [pathConfig.cssPaths.build + "/pages/reports/reportjqgridlayout"]: pathConfig.cssPaths.reportjqgridlayout,
+        [pathConfig.cssPaths.build + "/pages/reports/livereport"]: pathConfig.cssPaths.livereport,
         [pathConfig.cssPaths.build + "/main"]: pathConfig.cssPaths.main,
         [pathConfig.cssPaths.build + "/pages/home/home"]: pathConfig.cssPaths.home,
-        [pathConfig.cssPaths.build + "/vendors/daterangepicker"]: pathConfig.cssPaths.daterangepicker,
         [pathConfig.cssPaths.build + "/pages/login/login"]: pathConfig.cssPaths.login,
+        [pathConfig.cssPaths.build + "/pages/reports/licenseewinloss"]: pathConfig.cssPaths.licenseewinloss
     },
     output: {
         path: pathConfig.projectRoot,
@@ -35,6 +36,6 @@ var commonConfigs = {
         loaders: loader.commonLoaders
     },
     plugins: plugin.commonPlugins
-}
+};
 
-module.exports = merge(commonConfigs, utils.extractCSS())
+module.exports = merge(commonConfigs, utils.extractCSS());
