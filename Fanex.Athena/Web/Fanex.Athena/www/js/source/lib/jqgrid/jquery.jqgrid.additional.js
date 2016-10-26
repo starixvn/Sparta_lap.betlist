@@ -43,7 +43,10 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
 
                 grid.setGridParam({
                     shrinkToFit: false
-                });                var parentWidth = grid.closest(".theme_jqGrid").width();
+                });
+
+                var parentWidth = grid.closest(".theme_jqGrid").width();
+
                 grid.jqGrid('setGridWidth', parentWidth, false);
             },
 

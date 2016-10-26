@@ -1627,10 +1627,10 @@ tr.ui-search-toolbar select
   overflow-y: auto; }
 
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager {
-  font-size: 13px;
+  font-size: 12px;
   line-height: 15px;
   height: auto;
-  min-height: 40px;
+  min-height: 30px;
   padding: 2px 10px !important;
   background-color: #EFF3F8 !important;
   border-bottom: 1px solid #d6d6d6 !important;
@@ -1647,11 +1647,13 @@ tr.ui-search-toolbar select
     line-height: 1;
     -webkit-font-smoothing: antialiased; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-icon {
-    font-size: 20px;
+    font-size: 14px;
     color: #4c6375;
     cursor: pointer; }
-  .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-pg-table .ui-pg-button:hover {
-    padding: initial; }
+  .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-pg-table .ui-pg-button {
+    padding: 1px; }
+    .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-pg-table .ui-pg-button:hover {
+      padding: 1px; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-pg-table .ui-icon-seek-first:before {
     content: "\EA21"; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-pg-table .ui-icon-seek-prev:before {
@@ -1663,7 +1665,7 @@ tr.ui-search-toolbar select
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-pg-table .ui-pg-input {
     width: auto;
     font-size: inherit;
-    padding: 5px;
+    padding: 2px;
     text-align: center; }
     .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-pg-table .ui-pg-input, .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-pg-table .ui-pg-input:focus {
       background: white;
@@ -1672,6 +1674,7 @@ tr.ui-search-toolbar select
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-pg-table .ui-pg-selbox {
     height: auto;
     font-size: inherit;
+    padding: 2px;
     min-width: 65px;
     border: 1px solid #e2d6d6; }
 

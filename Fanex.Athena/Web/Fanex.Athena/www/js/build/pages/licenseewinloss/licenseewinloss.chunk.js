@@ -3664,7 +3664,10 @@ webpackJsonp([9],[
 	
 	                grid.setGridParam({
 	                    shrinkToFit: false
-	                });                var parentWidth = grid.closest(".theme_jqGrid").width();
+	                });
+	
+	                var parentWidth = grid.closest(".theme_jqGrid").width();
+	
 	                grid.jqGrid('setGridWidth', parentWidth, false);
 	            },
 	

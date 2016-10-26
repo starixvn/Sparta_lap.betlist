@@ -129,10 +129,10 @@
         }
 
         .ui-jqgrid-pager {
-            font-size: 13px;
+            font-size: 12px;
             line-height: 15px;
             height: auto;
-            min-height: 40px;
+            min-height: 30px;
             padding: 2px 10px !important;
             background-color: #EFF3F8 !important;
             border-bottom: 1px solid #d6d6d6 !important;
@@ -152,15 +152,16 @@
             }
 
             .ui-icon {
-                font-size: 20px;
+                font-size: 14px;
                 color: #4c6375;
                 cursor: pointer;
             }
 
             .ui-pg-table {
                 .ui-pg-button {
+                    padding: 1px;
                     &:hover {
-                        padding: initial;
+                        padding: 1px;
                     }
                 }
 
@@ -191,7 +192,7 @@
                 .ui-pg-input {
                     width: auto;
                     font-size: inherit;
-                    padding: 5px;
+                    padding: 2px;
                     text-align: center;
 
                     &, &:focus {
@@ -204,6 +205,7 @@
                 .ui-pg-selbox {
                     height: auto;
                     font-size: inherit;
+                    padding: 2px;
                     min-width: 65px;
                     border: 1px solid #e2d6d6;
                 }
