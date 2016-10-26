@@ -20,7 +20,7 @@
     border: 1px solid #fff;
     color: #314453;
     font-weight: 600;
-    padding: 6px 5px; }
+    padding: 4px 5px; }
     .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column:first-child, .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column-header:first-child {
       border-left-color: #d1dae1 !important; }
     .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column:last-child, .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column-header:last-child {
