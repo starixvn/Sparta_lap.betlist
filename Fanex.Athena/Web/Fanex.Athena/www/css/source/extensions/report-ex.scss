@@ -21,30 +21,22 @@
         border-bottom: 1px solid #ccc;
         cursor: pointer;
         position: relative;
+        border-radius: 0;
+        width: 100% !important;
 
         .ui-multiselect-icon {
             background: initial;
+            font-family: 'icomoon' !important;
 
-            &:after {
-                content: "▼";
+            &:before {
+                content: "\E916";
+                color: #282d38;
+                font-size: 18px;
                 position: absolute;
-                right: 0;
-                top: 7px;
-                font-size: 10px;
-                color: #549cba;
+                top: 14px;
+                right: -5px;
+                line-height: 1;
             }
-        }
-    }
-}
-
-.ui-multiselect-div, .ui-multiselect-checkboxes-head {
-    label {
-        position: initial;
-        cursor: pointer;
-
-        > input[type="checkbox"] {
-            position: initial;
-            opacity: 1;
         }
     }
 }

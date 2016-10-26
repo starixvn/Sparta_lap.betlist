@@ -39,7 +39,7 @@
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr td, .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr.footrow td, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr td, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr.footrow td {
   border: 1px solid #d6d6d6;
   color: #404040;
-  padding: 6px 8px; }
+  padding: 4px 5px; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr td:first-child, .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr.footrow td:first-child, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr td:first-child, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr.footrow td:first-child {
     border-left: none; }
 
@@ -56,8 +56,16 @@
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr > td {
   border-top: none; }
 
-.theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable {
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable {
   border-top: 3px solid #a7a1a1; }
+  .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .grandTotal td {
+    background-color: #fdd1aa;
+    border-color: #fff !important;
+    color: #545454 !important; }
+  .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .total-eur td {
+    background-color: #ffb391;
+    border-color: #fff !important;
+    color: #545454 !important; }
 
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv.jqgrid-footer-scroll-hacking {
   max-height: 260px;
@@ -87,6 +95,8 @@
     font-size: 20px;
     color: #4c6375;
     cursor: pointer; }
+  .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-pg-table .ui-pg-button:hover {
+    padding: initial; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-pg-table .ui-icon-seek-first:before {
     content: "\ea21"; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-pager .ui-pg-table .ui-icon-seek-prev:before {

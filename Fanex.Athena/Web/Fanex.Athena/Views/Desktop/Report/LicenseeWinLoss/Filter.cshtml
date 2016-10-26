@@ -24,19 +24,6 @@
         </div>
 
         <div class="row">
-            <div class="input-field input col l2 m3 s12">
-                <input type="radio" class="with-gap" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="ReportBy" id="reportbydaily" />
-                <label for="reportbydaily">
-                    @ViewResources.Daily
-                </label>
-                <input type="radio" class="with-gap" value="2" @(Model.Param.ReportBy == ReportByType.Monthly ? "checked=checked" : "") name="ReportBy" id="reportbymonthly" />
-                <label for="reportbymonthly">
-                    @ViewResources.Monthly
-                </label>
-
-                <label class="active">@ViewResources.ReportBy</label>
-            </div>
-
             <div class="input-field input col l3 m5 s12">
                 <input type="radio" value="1" class="with-gap" @(Model.Param.DrawFilter == DrawFilterType.Normal ? "checked=checked" : "") name="DrawFilter" id="DrawFilter" />
                 <label for="DrawFilter">
@@ -55,7 +42,20 @@
             </div>
 
             <div class="input-field input col l2 m3 s12">
-                <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" />
+                <input type="radio" class="with-gap" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="ReportBy" id="reportbydaily" />
+                <label for="reportbydaily">
+                    @ViewResources.Daily
+                </label>
+                <input type="radio" class="with-gap" value="2" @(Model.Param.ReportBy == ReportByType.Monthly ? "checked=checked" : "") name="ReportBy" id="reportbymonthly" />
+                <label for="reportbymonthly">
+                    @ViewResources.Monthly
+                </label>
+
+                <label class="active">@ViewResources.ReportBy</label>
+            </div>
+
+            <div class="input-field input col l2 m3 s12">
+                <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData0"/>
                 <label for="IsExcludedTestData0">
                     @ViewResources.Yes
                 </label>

@@ -60,3 +60,53 @@
 .collapsible-body{
     border-bottom: none;
 }
+
+.calendar .icon-calendar {
+    color: #4c6375;
+    font-size: 17px;
+}
+
+//---------------------- Form input style customize ----------------------//
+
+//----- Select dropdown -----//
+.select-wrapper {
+    input.select-dropdown {
+        font-size: 13px;
+    }
+
+    span.caret {
+        font-family: 'icomoon' !important;
+        color: transparent !important;
+
+        &:before {
+            content: "\E916";
+            color: #282d38;
+            font-size: 18px;
+            position: absolute;
+            top: -6px;
+            right: -5px;
+        }
+    }
+}
+
+//----- Radio button -----//
+.input-field input[type="radio"] + label {
+    padding-left: 20px !important;
+}
+
+[type="radio"] + label:before, [type="radio"] + label:after {
+    margin: 4px 0;
+}
+
+[type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+    border-color: #6790b0;
+}
+
+[type="radio"]:not(:checked) + label:before, [type="radio"]:not(:checked) + label:after {
+    border-color: #6790b0;
+}
+
+
+[type="radio"].with-gap:checked + label:after {
+    background-color: #6790b0;
+}

@@ -1,5 +1,4 @@
-﻿@charset "UTF-8";
-.page-form .input-field input[type=radio] + label {
+﻿.page-form .input-field input[type=radio] + label {
   left: 0;
   padding-right: 10px;
   padding-left: 25px; }
@@ -14,23 +13,20 @@
   border: none;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
-  position: relative; }
+  position: relative;
+  border-radius: 0;
+  width: 100% !important; }
   .multiselect-container > a.ui-multiselect .ui-multiselect-icon {
-    background: initial; }
-    .multiselect-container > a.ui-multiselect .ui-multiselect-icon:after {
-      content: "▼";
+    background: initial;
+    font-family: 'icomoon' !important; }
+    .multiselect-container > a.ui-multiselect .ui-multiselect-icon:before {
+      content: "\E916";
+      color: #282d38;
+      font-size: 18px;
       position: absolute;
-      right: 0;
-      top: 7px;
-      font-size: 10px;
-      color: #549cba; }
-
-.ui-multiselect-div label, .ui-multiselect-checkboxes-head label {
-  position: initial;
-  cursor: pointer; }
-  .ui-multiselect-div label > input[type="checkbox"], .ui-multiselect-checkboxes-head label > input[type="checkbox"] {
-    position: initial;
-    opacity: 1; }
+      top: 14px;
+      right: -5px;
+      line-height: 1; }
 
 .breadCrumbHolder {
   display: none; }

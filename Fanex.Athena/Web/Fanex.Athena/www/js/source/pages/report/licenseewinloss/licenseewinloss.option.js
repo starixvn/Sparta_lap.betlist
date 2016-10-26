@@ -729,7 +729,7 @@ define(
                     if (numOfActiveTurnPro > 1) {
                         clear("#btnTurnOverExpand");
                         var $container = $("#" + gridId + "_" + "TotalTurnOverSingle");
-                        var $button = $('<button title="Expand to view details" id="btnTurnOverExpand" class="header-button btn right"></button>');
+                        var $button = $('<button title="Expand to view details" id="btnTurnOverExpand" class="header-button btn"></button>');
                         addToggleButton($container, $button, true, "TurnOver");
                     }
                 };
@@ -741,7 +741,7 @@ define(
                         var $container = $(grid).closest(".ui-jqgrid-view")
                                 .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:first");
 
-                        var $button = $('<button class="header-button btnCollapse btn right" id="btnTurnOverCollapse"></button>');
+                        var $button = $('<button class="header-button btnCollapse btn" id="btnTurnOverCollapse"></button>');
                         addToggleButton($container, $button, false, "TurnOver");
                     }
                 };
@@ -750,7 +750,7 @@ define(
                     if (numOfActiveLicPro > 1) {
                         clear("#btnLicenseeWLExpand");
                         var $container = $("#" + gridId + "_" + "TotalLicenseeWLSingle");
-                        var $button = $('<button title="Expand to view details" id="btnLicenseeWLExpand" class="header-button btn right"></button>');
+                        var $button = $('<button title="Expand to view details" id="btnLicenseeWLExpand" class="header-button btn"></button>');
                         addToggleButton($container, $button, true, "LicenseeWL");
                     }
                 };
@@ -761,7 +761,7 @@ define(
 
                         var $container = $(grid).closest(".ui-jqgrid-view")
                                 .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:last");
-                        var $button = $('<button class="header-button btnCollapse btn right" id="btnLicenseeWLCollapse">');
+                        var $button = $('<button class="header-button btnCollapse btn" id="btnLicenseeWLCollapse">');
                         addToggleButton($container, $button, false, "LicenseeWL");
                     }
                 };
@@ -770,7 +770,7 @@ define(
                     if (isAllowBA !== null) {
                         clear("#btnBuyBackExpand");
                         var $container = $("#" + gridId + "_" + "TotalBuyBackAmountSingle");
-                        var $button = $('<button title="Expand to view details" id="btnBuyBackExpand" class="header-button btn right"></button>');
+                        var $button = $('<button title="Expand to view details" id="btnBuyBackExpand" class="header-button btn"></button>');
                         addToggleButton($container, $button, true, "BuyBackAmount");
                     }
                 };
@@ -781,7 +781,7 @@ define(
                         var $container = $(grid).closest(".ui-jqgrid-view")
                                 .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header");
                         $container = $container[$container.length - (me.hasCustomerComm ? 3 : 2)];
-                        var $button = $('<button class="header-button btnCollapse btn right" id="btnBuyBackCollapse">');
+                        var $button = $('<button class="header-button btnCollapse btn" id="btnBuyBackCollapse">');
                         addToggleButton($container, $button, false, "BuyBackAmount");
                     }
                 };

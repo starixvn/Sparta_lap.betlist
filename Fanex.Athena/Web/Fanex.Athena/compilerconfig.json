@@ -14,5 +14,9 @@
   {
     "outputFile": "www/css/source/pages/report/licenseewinloss.css",
     "inputFile": "www/css/source/pages/report/licenseewinloss.scss"
+  },
+  {
+    "outputFile": "www/css/source/extensions/multiselect-ex.css",
+    "inputFile": "www/css/source/extensions/multiselect-ex.scss"
   }
 ]
