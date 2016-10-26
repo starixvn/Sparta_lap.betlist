@@ -1559,6 +1559,9 @@ tr.ui-search-toolbar select
   .theme_jqGrid a:hover, .theme_jqGrid a:focus, .theme_jqGrid a:active {
     text-decoration: none; }
 
+.theme_jqGrid .ui-jqgrid .highlight {
+  background-color: #F8F1A0; }
+
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-view {
   font-size: 1.3rem; }
 
@@ -1598,12 +1601,6 @@ tr.ui-search-toolbar select
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr td:first-child, .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr.footrow td:first-child, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr td:first-child, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr.footrow td:first-child {
     border-left: none; }
 
-.theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr.highlight, .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr.footrow.highlight, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr.highlight, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr.footrow.highlight {
-  background: #fcf4de; }
-
-.theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr.total, .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr.footrow.total, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr.total, .theme_jqGrid .ui-jqgrid .ui-jqgrid-ftable tr.footrow.total {
-  background: #ffb391; }
-
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable tr.jqgfirstrow > td {
   padding: 0;
   border: none; }
@@ -1613,12 +1610,12 @@ tr.ui-search-toolbar select
 
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable {
   border-top: 3px solid #a7a1a1; }
-  .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .grandTotal td {
-    background-color: #fdd1aa;
+  .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .grandTotal {
+    background-color: #fff;
     border-color: #fff !important;
     color: #545454 !important; }
-  .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .total-eur td {
-    background-color: #ffb391;
+  .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .total-eur {
+    background-color: #bcf9dc;
     border-color: #fff !important;
     color: #545454 !important; }
 

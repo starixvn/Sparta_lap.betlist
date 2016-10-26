@@ -9,6 +9,10 @@
     }
 
     .ui-jqgrid {
+        .highlight{
+            background-color: #F8F1A0;
+        }
+
         .ui-jqgrid-view {
             font-size: 1.3rem;
         }
@@ -78,14 +82,6 @@
                             border-left: none;
                         }
                     }
-
-                    &.highlight {
-                        background: #fcf4de;
-                    }
-
-                    &.total {
-                        background: #ffb391;
-                    }
                 }
             }
         }
@@ -109,14 +105,14 @@
             .ui-jqgrid-ftable {
                 border-top: 3px solid #a7a1a1;
 
-                .grandTotal td {
-                    background-color: #fdd1aa;
+                .grandTotal {
+                    background-color: #fff;
                     border-color: #fff !important;
                     color: #545454 !important;
                 }
 
-                .total-eur td {
-                    background-color: #ffb391;
+                .total-eur {
+                    background-color: #bcf9dc;
                     border-color: #fff !important;
                     color: #545454 !important;
                 }
