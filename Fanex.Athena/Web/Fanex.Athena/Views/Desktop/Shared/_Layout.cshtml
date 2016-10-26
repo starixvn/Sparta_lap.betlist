@@ -15,8 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
     <title>@ViewBag.Title</title>
-
-    <link href="~/www/css/build/vendors/materialize.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="~/www/css/build/main.css" rel="stylesheet" />
 
@@ -29,12 +27,9 @@
     <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
     <input type="hidden" id="HistoryDate" value="@( appSettings.HistoryDate)" />
     @RenderBody()
-    <script src="~/Scripts/Languages/ViewResources.js"></script>
-    <script src="~/Scripts/Languages/ViewResources.zh-CN.js"></script>
-    <script src="~/Scripts/Languages/ViewResources.zh-TW.js"></script>
-    <script src="~/Scripts/Languages/ViewResources.zh-Hans.js"></script>
-    <script src="~/Scripts/Languages/ViewResources.ko-KR.js"></script>
+
     <script src="~/www/js/build/vendors.chunk.js"></script>
+    <script src="~/www/js/build/language.chunk.js"></script>
     @RenderSection("js", required: false)
 </body>
 </html>
