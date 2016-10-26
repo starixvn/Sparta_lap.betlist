@@ -5,11 +5,11 @@
     Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
 }
 @section pagecss {
-    <link href="~/www/css/build/vendors/daterangepicker.css" rel="stylesheet" />
-    <link href="~/www/css/source/pages/report/licenseewinloss.css" rel="stylesheet" />
+    <link href="@Url.ContentLink("/www/css/build/vendors/daterangepicker.css")" rel="stylesheet" />
+    <link href="@Url.ContentLink("/www/css/source/pages/report/licenseewinloss.css")" rel="stylesheet" />
 }
 @section pagejs { 
-    <script src="~/www/js/build/pages/licenseewinloss/licenseewinloss.chunk.js"></script>
+    <script src="@Url.ContentLink("/www/js/build/pages/licenseewinloss/licenseewinloss.chunk.js")"></script>
 }
 
 @section Filter

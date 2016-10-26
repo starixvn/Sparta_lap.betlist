@@ -13,7 +13,7 @@ var cssPaths = {
     main: ["./www/css/source/vendors/materialize/materialize.css", "./www/css/source/main.css", "./www/css/source/extensions/main-ex.scss"],
 
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],
-    livereport: ["./www/css/source/pages/liveReport.css", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss"]
+    livereport: ["./www/css/source/pages/common.css", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss"]
 };
 
 var scriptPaths = {

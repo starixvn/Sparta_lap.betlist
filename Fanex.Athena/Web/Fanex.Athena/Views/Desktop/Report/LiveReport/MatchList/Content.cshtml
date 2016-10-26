@@ -6,10 +6,10 @@
     Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
 }
 @section pagecss {
-    <link href="~/www/css/build/pages/reports/livereport.css" rel="stylesheet" />
+    <link href="@Url.ContentLink("/www/css/build/pages/reports/livereport.css")" rel="stylesheet" />
 }
 @section pagejs {
-    <script src="~/www/js/build/pages/livereport/livereportmatchlist.chunk.js"></script>
+    <script src="@Url.ContentLink("/www/js/build/pages/livereport/livereportmatchlist.chunk.js")"></script>
 }
 @section Content
 {
