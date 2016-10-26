@@ -20,9 +20,7 @@
             LiveIndicator = Model.Param.LiveIndicator
         };
 
-        var highlight = (index % 2 == 0) ? string.Empty : "highlight";
-        index++;
-        <tr class="text-right @highlight">
+        <tr class="text-right">
             <td class="text-left">
                 @{
                     var matchName = WebUtility.HtmlDecode(item.MatchName);

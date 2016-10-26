@@ -888,7 +888,7 @@ html {
   height: 100%; }
 
 body {
-  background: #f5f7fa;
+  background: #eeeff3;
   font-size: 1.3em;
   color: #444444;
   height: 100%; }
@@ -1033,18 +1033,24 @@ main {
 .table > thead:first-child > tr:first-child > th {
   border: 1px solid #ffffff; }
 
-.table > tbody tr {
-  /*&.highlight {
-                background: #fcf4de;
-            }*/ }
-  .table > tbody tr td {
-    border: 1px solid #d6d6d6;
-    color: #404040;
-    padding: 4px 5px; }
-  .table > tbody tr:hover {
-    background: #fcf4de; }
-  .table > tbody tr.total {
-    background: #ffb391; }
+.table > tbody tr td {
+  border: 1px solid #d6d6d6;
+  color: #404040;
+  padding: 4px 5px;
+  background: #ededed; }
+
+.table > tbody tr:nth-child(odd) td {
+  background: #fff; }
+
+.table > tbody tr:hover td {
+  background: #fcf4df; }
+
+.table > tbody tr.total td {
+  background: #ffb391; }
+
+.table > tbody tr.highlight td {
+  background: #f7dbb6;
+  text-transform: uppercase; }
 
 .calendar .icon-calendar {
   position: absolute;

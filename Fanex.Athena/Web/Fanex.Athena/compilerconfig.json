@@ -1,22 +1,2 @@
 ﻿[
-  {
-    "outputFile": "www/css/source/components/jqgrid/jqgrid-ex.css",
-    "inputFile": "www/css/source/components/jqgrid/jqgrid-ex.scss"
-  },
-  {
-    "outputFile": "www/css/source/extensions/jqgrid-ex.css",
-    "inputFile": "www/css/source/extensions/jqgrid-ex.scss"
-  },
-  {
-    "outputFile": "www/css/source/extensions/report-ex.css",
-    "inputFile": "www/css/source/extensions/report-ex.scss"
-  },
-  {
-    "outputFile": "www/css/source/pages/report/licenseewinloss.css",
-    "inputFile": "www/css/source/pages/report/licenseewinloss.scss"
-  },
-  {
-    "outputFile": "www/css/source/extensions/multiselect-ex.css",
-    "inputFile": "www/css/source/extensions/multiselect-ex.scss"
-  }
 ]

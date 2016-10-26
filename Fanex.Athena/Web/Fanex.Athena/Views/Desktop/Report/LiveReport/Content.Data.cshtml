@@ -1,13 +1,10 @@
 ﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
 
 @{
-    var index = 0;
 
     foreach (var item in Model.MainResult)
     {
-        var highlight = (index % 2 == 0) ? string.Empty : "highlight";
-        index++;
-        <tr class="text-right @highlight">
+        <tr class="text-right">
             <td class="text-left">
                 <a href="javascript:;" class="product-detail-link" data-product-code="@item.ProductCode">
                     @item.ProductName

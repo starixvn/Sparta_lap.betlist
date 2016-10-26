@@ -15,7 +15,7 @@ var cssPaths = {
     reportjqgridlayout: [
         "./www/css/source/components/flatpopup/flatpopup.scss",
         "./www/css/source/components/multiselect/jquery.multiselect.css", "./www/css/source/extensions/multiselect-ex.scss",
-        "./www/css/source/pages/common.css", "./www/css/source/extensions/report-ex.css",
+        "./www/css/source/pages/common.css", "./www/css/source/extensions/report-ex.scss",
         "./www/css/source/components/jqgrid/jqgrid.css", "./www/css/source/extensions/jqgrid-ex.scss"
     ],
 
