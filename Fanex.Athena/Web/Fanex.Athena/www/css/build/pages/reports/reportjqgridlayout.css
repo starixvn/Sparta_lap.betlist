@@ -1610,6 +1610,8 @@ tr.ui-search-toolbar select
 
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable {
   border-top: 3px solid #a7a1a1; }
+  .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .footer-firstrow > td {
+    padding: 0; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .grandTotal {
     background-color: #fff;
     border-color: #fff !important;

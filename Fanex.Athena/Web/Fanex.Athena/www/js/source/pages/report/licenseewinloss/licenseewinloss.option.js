@@ -437,21 +437,21 @@ define(
                     titleText: Site.getSingleResource('CustomerW_L')
                 } : {};
 
-                var groupTurnoverWL = lastOfTurnover != null ?
+                var groupTurnoverWL = lastOfTurnover !== null ?
                 {
                     startColumnName: "TurnOver" + lastOfTurnover.Code,
                     numberOfColumns: numOfTurnover,
                     titleText: Site.getSingleResource('Turnover')
                 } : {};
 
-                var groupLicenseeWL = lastOfLicenseeWL != null ?
+                var groupLicenseeWL = lastOfLicenseeWL !== null ?
                 {
                     startColumnName: "LicenseeWL" + lastOfLicenseeWL.Code,
                     numberOfColumns: numOfLicenseeWL,
                     titleText: Site.getSingleResource('LicenseeW_L')
                 } : {};
 
-                var groupBuyBackAmount = lastOfLicenseeWL != null ?
+                var groupBuyBackAmount = lastOfLicenseeWL !== null ?
                 {
                     startColumnName: "BuyBackAmountSB",
                     numberOfColumns: 3,
@@ -713,7 +713,9 @@ define(
                     $("#footer").html($(".ui-jqgrid-ftable").html());
 
                     $('.report-content').css('cursor', 'default');
-                    $(window).resize();
+
+                    jqGridAdditional.resizeGrid();
+                    jqGridAdditional.resetLayout(grid);
                     return false;
                 };
 

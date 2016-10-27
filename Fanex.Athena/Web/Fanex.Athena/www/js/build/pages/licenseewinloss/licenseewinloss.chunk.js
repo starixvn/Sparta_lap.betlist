@@ -3247,21 +3247,21 @@ webpackJsonp([9],[
 	                    titleText: Site.getSingleResource('CustomerW_L')
 	                } : {};
 	
-	                var groupTurnoverWL = lastOfTurnover != null ?
+	                var groupTurnoverWL = lastOfTurnover !== null ?
 	                {
 	                    startColumnName: "TurnOver" + lastOfTurnover.Code,
 	                    numberOfColumns: numOfTurnover,
 	                    titleText: Site.getSingleResource('Turnover')
 	                } : {};
 	
-	                var groupLicenseeWL = lastOfLicenseeWL != null ?
+	                var groupLicenseeWL = lastOfLicenseeWL !== null ?
 	                {
 	                    startColumnName: "LicenseeWL" + lastOfLicenseeWL.Code,
 	                    numberOfColumns: numOfLicenseeWL,
 	                    titleText: Site.getSingleResource('LicenseeW_L')
 	                } : {};
 	
-	                var groupBuyBackAmount = lastOfLicenseeWL != null ?
+	                var groupBuyBackAmount = lastOfLicenseeWL !== null ?
 	                {
 	                    startColumnName: "BuyBackAmountSB",
 	                    numberOfColumns: 3,
@@ -3523,7 +3523,9 @@ webpackJsonp([9],[
 	                    $("#footer").html($(".ui-jqgrid-ftable").html());
 	
 	                    $('.report-content').css('cursor', 'default');
-	                    $(window).resize();
+	
+	                    jqGridAdditional.resizeGrid();
+	                    jqGridAdditional.resetLayout(grid);
 	                    return false;
 	                };
 	
@@ -3669,9 +3671,14 @@ webpackJsonp([9],[
 	
 	                grid.jqGrid('setGridWidth', parentWidth, false);
 	
-	                //$(".theme_jqGrid .ui-jqgrid-hdiv table.ui-jqgrid-htable").width(parentWidth);
-	                //grid.width(parentWidth);
-	                //$(".theme_jqGrid .ui-jqgrid-sdiv table.ui-jqgrid-ftable").width(parentWidth);
+	                grid.css("width", parentWidth + "px");
+	                $(".theme_jqGrid .ui-jqgrid-hdiv table.ui-jqgrid-htable").css("width", parentWidth + "px");                
+	                $(".theme_jqGrid .ui-jqgrid-sdiv table.ui-jqgrid-ftable").css("width", parentWidth + "px");
+	
+	                $(".footer-firstrow").remove();
+	                var settingWidthRow = $(".ui-jqgrid-bdiv table.ui-jqgrid-btable tr.jqgfirstrow").clone();
+	                settingWidthRow.addClass("footer-firstrow").removeClass("jqgfirstrow")
+	                                .prependTo($("tbody", "table.ui-jqgrid-ftable"));
 	            },
 	
 	            formatInteger: function (value) {
@@ -4000,11 +4007,11 @@ webpackJsonp([9],[
 	                        // Show total text
 	                        $("td:first-child", footerRowList[0]).attr("colspan", colspan)
 	                                .attr("rowspan", rowCount - summaryRowCount).css("display", "")
-	                                .css("width", "auto").html(totalText);
+	                                .css("width", "").html(totalText);
 	                    }
 	                    else {
 	                        $("td:first-child", footerRowList[0]).css("display", "").attr("colspan", summaryColspan)
-	                            .css("width", "auto").html(totalInText + " EUR");
+	                            .css("width", "").html(totalInText + " EUR");
 	                        //remove border style
 	                        $(".ui-jqgrid-sdiv .ui-jqgrid-hbox").css("border-top", "none");
 	                    }

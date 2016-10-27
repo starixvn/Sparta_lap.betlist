@@ -105,6 +105,12 @@
             .ui-jqgrid-ftable {
                 border-top: 3px solid #a7a1a1;
 
+                .footer-firstrow{
+                    > td{
+                        padding: 0;
+                    }
+                }
+
                 .grandTotal {
                     background-color: #fff;
                     border-color: #fff !important;
