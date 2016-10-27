@@ -20,7 +20,7 @@ var cssPaths = {
     ],
 
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],
-    livereport: ["./www/css/source/pages/common.css", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss", ...cssDateRangePickerPath],
+    livereport: ["./www/css/source/pages/common.css", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss", "./www/css/source/extensions/report-ex.scss", ...cssDateRangePickerPath],
     licenseewinloss: ["./www/css/source/pages/report/licenseewinloss.scss", ...cssDateRangePickerPath]
 };
 

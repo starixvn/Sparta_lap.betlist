@@ -185,7 +185,7 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
                 $(".ui-jqgrid-hdiv").css("clear", "both");
 
                 // Show title
-                $(".collapsible-header").removeClass("hide");
+                $(".panel-heading").removeClass("hide");
             },
 
             clearGrid: function (reportId) {

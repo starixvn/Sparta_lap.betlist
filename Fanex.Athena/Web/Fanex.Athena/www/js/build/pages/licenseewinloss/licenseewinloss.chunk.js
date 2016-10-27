@@ -3807,7 +3807,7 @@ webpackJsonp([9],[
 	                $(".ui-jqgrid-hdiv").css("clear", "both");
 	
 	                // Show title
-	                $(".collapsible-header").removeClass("hide");
+	                $(".panel-heading").removeClass("hide");
 	            },
 	
 	            clearGrid: function (reportId) {
