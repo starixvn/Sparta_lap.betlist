@@ -325,7 +325,7 @@
 	<add key="RNGCasinoRole" value="S" />
 	<add key="RNGCasinoTemplate" value="D" />
 	<!-- Colossus Bets API -->
-	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com:8068/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;CustomerId={0}&amp;vendorProduct=4&amp;memberID={1}" />
+	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com:8068/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;CustomerId={0}&amp;vendorProduct=4&amp;memberID={1}" />
 	<add key="ColossusBetSiteId" value="5100100" />
 	<!-- BBin -->
 	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
@@ -429,7 +429,7 @@
 	<add key="RNGCasinoRole" value="S" />
 	<add key="RNGCasinoTemplate" value="D" />
 	<!-- Colossus Bets API -->
-	<add key="ColossusBetTokenAPI" value="http://172.16.4.132:9075/api/Authorize/AuthorizeCode?Vendor=101&amp;VendorKey=WZWtzDfCJW&amp;CustomerId={0}&amp;vendorProduct=4&amp;memberID={1}" />
+	<add key="ColossusBetTokenAPI" value="http://172.16.4.132:9075/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;CustomerId={0}&amp;vendorProduct=4&amp;memberID={1}" />
 	<add key="ColossusBetSiteId" value="5100100" />
 	<!-- BBin -->
 	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
