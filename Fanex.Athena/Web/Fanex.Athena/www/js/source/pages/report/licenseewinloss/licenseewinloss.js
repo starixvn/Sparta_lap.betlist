@@ -395,6 +395,7 @@ define(
                             }
 
                             onPaging = false;
+                            LicenseeWinLoss.resizeGrid();
                         }
                         /*group header*/
                         LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
@@ -428,8 +429,6 @@ define(
                     jqGridAdditional.showRecommendedBrowser(gridOption.pager);
 
                     LicenseeWinLossOption.restoreExpanse();
-
-                    LicenseeWinLoss.resizeGrid();
                 },
 
                 //#end

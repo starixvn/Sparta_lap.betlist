@@ -2425,6 +2425,7 @@ webpackJsonp([9],[
 	                            }
 	
 	                            onPaging = false;
+	                            LicenseeWinLoss.resizeGrid();
 	                        }
 	                        /*group header*/
 	                        LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
@@ -2458,8 +2459,6 @@ webpackJsonp([9],[
 	                    jqGridAdditional.showRecommendedBrowser(gridOption.pager);
 	
 	                    LicenseeWinLossOption.restoreExpanse();
-	
-	                    LicenseeWinLoss.resizeGrid();
 	                },
 	
 	                //#end
@@ -3669,6 +3668,10 @@ webpackJsonp([9],[
 	                var parentWidth = grid.closest(".theme_jqGrid").width();
 	
 	                grid.jqGrid('setGridWidth', parentWidth, false);
+	
+	                //$(".theme_jqGrid .ui-jqgrid-hdiv table.ui-jqgrid-htable").width(parentWidth);
+	                //grid.width(parentWidth);
+	                //$(".theme_jqGrid .ui-jqgrid-sdiv table.ui-jqgrid-ftable").width(parentWidth);
 	            },
 	
 	            formatInteger: function (value) {

@@ -48,6 +48,10 @@ define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Sit
                 var parentWidth = grid.closest(".theme_jqGrid").width();
 
                 grid.jqGrid('setGridWidth', parentWidth, false);
+
+                //$(".theme_jqGrid .ui-jqgrid-hdiv table.ui-jqgrid-htable").width(parentWidth);
+                //grid.width(parentWidth);
+                //$(".theme_jqGrid .ui-jqgrid-sdiv table.ui-jqgrid-ftable").width(parentWidth);
             },
 
             formatInteger: function (value) {
