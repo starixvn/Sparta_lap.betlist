@@ -46,6 +46,10 @@ var ColossusBets = (function ($) {
     return {
         initialize: function () {
             ColossusBets.initEvent();
+            Site.addUserGuide({
+                resourceName: "ColossusBetsWL",
+                title: Site.getSingleResource("ColossusBetsWinLoss")
+            });
         },
         initEvent: function () {
             $("body").on("click", ".bet-list-link", function () {
