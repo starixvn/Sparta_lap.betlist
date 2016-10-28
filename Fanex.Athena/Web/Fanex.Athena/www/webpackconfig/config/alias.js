@@ -6,7 +6,8 @@ var alias = {
 
     // common
     common: projectRoot + "/www/js/source/common",
-    lib: projectRoot + "/www/js/source/lib"
+    lib: projectRoot + "/www/js/source/lib",
+    extension: projectRoot + "/www/js/source/extensions"
 };
 
 module.exports = alias;

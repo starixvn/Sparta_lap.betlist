@@ -14,9 +14,9 @@ webpackJsonp([8],{
 /***/ 52:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery, $) {'use strict';
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
-	(function ($) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	
 	    var methods = {
 	        init: function init(options) {
@@ -44,10 +44,10 @@ webpackJsonp([8],{
 	                    menu_id.css('transform', 'translateX(-100%)');
 	                    dragTarget.css({ 'left': 0 }); // Add Touch Area
 	                } else {
-	                        menu_id.addClass('right-aligned') // Change text-alignment to right
-	                        .css('transform', 'translateX(100%)');
-	                        dragTarget.css({ 'right': 0 }); // Add Touch Area
-	                    }
+	                    menu_id.addClass('right-aligned') // Change text-alignment to right
+	                    .css('transform', 'translateX(100%)');
+	                    dragTarget.css({ 'right': 0 }); // Add Touch Area
+	                }
 	
 	                // If fixed sidenav, bring menu out
 	                if (menu_id.hasClass('fixed')) {
@@ -77,12 +77,12 @@ webpackJsonp([8],{
 	                            }
 	                        } else if (menuOut === false) {
 	
-	                                if (options.edge === 'left') {
-	                                    menu_id.css('transform', 'translateX(-100%)');
-	                                } else {
-	                                    menu_id.css('transform', 'translateX(100%)');
-	                                }
+	                            if (options.edge === 'left') {
+	                                menu_id.css('transform', 'translateX(-100%)');
+	                            } else {
+	                                menu_id.css('transform', 'translateX(100%)');
 	                            }
+	                        }
 	                    });
 	                }
 	
@@ -193,20 +193,20 @@ webpackJsonp([8],{
 	                            if (x < options.menuWidth / 2) {
 	                                menuOut = false;
 	                            }
-	                            // Right Direction
+	                                // Right Direction
 	                            else if (x >= options.menuWidth / 2) {
-	                                    menuOut = true;
-	                                }
+	                                menuOut = true;
+	                            }
 	                            menu_id.css('transform', 'translateX(' + (x - options.menuWidth) + 'px)');
 	                        } else {
 	                            // Left Direction
 	                            if (x < window.innerWidth - options.menuWidth / 2) {
 	                                menuOut = true;
 	                            }
-	                            // Right Direction
+	                                // Right Direction
 	                            else if (x >= window.innerWidth - options.menuWidth / 2) {
-	                                    menuOut = false;
-	                                }
+	                                menuOut = false;
+	                            }
 	                            var rightPos = x - options.menuWidth / 2;
 	                            if (rightPos < 0) {
 	                                rightPos = 0;
@@ -383,23 +383,23 @@ webpackJsonp([8],{
 	            $.error('Method ' + methodOrOptions + ' does not exist on jQuery.sideNav');
 	        }
 	    }; // Plugin end
-	})(jQuery);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	
 	$(document).ready(function () {
 	    $(".toggleMenubar").sideNav2();
 	});
 	
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(1)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 
 /***/ 53:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery, $) {'use strict';
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	
-	(function ($) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	    function activeMenuItem($target) {
 	        $(this).find('.collapsible-body li.active').removeClass('active');
 	        $target.closest('li').addClass('active');
@@ -641,14 +641,14 @@ webpackJsonp([8],{
 	            $.error('Method ' + methodOrOptions + ' does not exist on jQuery.collapsibleMenu');
 	        }
 	    }
-	})(jQuery);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	
 	$(document).ready(function () {
 	    $('.collapsible2').collapsibleMenu();
 	});
 	
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(1)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 

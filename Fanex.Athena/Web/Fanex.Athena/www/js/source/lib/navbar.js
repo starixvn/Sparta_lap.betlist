@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-(function ($) {
+define(["jquery"], function ($) {
 
     var methods = {
         init: function init(options) {
@@ -28,10 +28,10 @@
                     menu_id.css('transform', 'translateX(-100%)');
                     dragTarget.css({ 'left': 0 }); // Add Touch Area
                 } else {
-                        menu_id.addClass('right-aligned') // Change text-alignment to right
-                        .css('transform', 'translateX(100%)');
-                        dragTarget.css({ 'right': 0 }); // Add Touch Area
-                    }
+                    menu_id.addClass('right-aligned') // Change text-alignment to right
+                    .css('transform', 'translateX(100%)');
+                    dragTarget.css({ 'right': 0 }); // Add Touch Area
+                }
 
                 // If fixed sidenav, bring menu out
                 if (menu_id.hasClass('fixed')) {
@@ -61,12 +61,12 @@
                             }
                         } else if (menuOut === false) {
 
-                                if (options.edge === 'left') {
-                                    menu_id.css('transform', 'translateX(-100%)');
-                                } else {
-                                    menu_id.css('transform', 'translateX(100%)');
-                                }
+                            if (options.edge === 'left') {
+                                menu_id.css('transform', 'translateX(-100%)');
+                            } else {
+                                menu_id.css('transform', 'translateX(100%)');
                             }
+                        }
                     });
                 }
 
@@ -177,20 +177,20 @@
                             if (x < options.menuWidth / 2) {
                                 menuOut = false;
                             }
-                            // Right Direction
+                                // Right Direction
                             else if (x >= options.menuWidth / 2) {
-                                    menuOut = true;
-                                }
+                                menuOut = true;
+                            }
                             menu_id.css('transform', 'translateX(' + (x - options.menuWidth) + 'px)');
                         } else {
                             // Left Direction
                             if (x < window.innerWidth - options.menuWidth / 2) {
                                 menuOut = true;
                             }
-                            // Right Direction
+                                // Right Direction
                             else if (x >= window.innerWidth - options.menuWidth / 2) {
-                                    menuOut = false;
-                                }
+                                menuOut = false;
+                            }
                             var rightPos = x - options.menuWidth / 2;
                             if (rightPos < 0) {
                                 rightPos = 0;
@@ -367,7 +367,7 @@
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.sideNav');
         }
     }; // Plugin end
-})(jQuery);
+});
 
 $(document).ready(function () {
     $(".toggleMenubar").sideNav2();

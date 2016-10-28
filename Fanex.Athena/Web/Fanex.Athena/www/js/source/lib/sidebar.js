@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-(function ($) {
+define(["jquery"], function ($) {
     function activeMenuItem($target) {
         $(this).find('.collapsible-body li.active').removeClass('active');
         $target.closest('li').addClass('active');
@@ -242,7 +242,7 @@
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.collapsibleMenu');
         }
     }
-})(jQuery);
+});
 
 $(document).ready(function () {
     $('.collapsible2').collapsibleMenu();
