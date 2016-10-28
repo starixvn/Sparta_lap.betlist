@@ -41,6 +41,7 @@
   },
   "scripts": {
     "test": "karma start --reporters kjhtml,junit,dots,coverage,progress",
+    "test-new": "karma start karma-new.conf.js --reporters kjhtml,junit,dots,coverage,progress",
     "build-dev": "webpack --config www/webpackconfig/build/webpack.dev.conf.js",
     "build-pro": "webpack --config www/webpackconfig/build/webpack.pro.conf.js"
   },
