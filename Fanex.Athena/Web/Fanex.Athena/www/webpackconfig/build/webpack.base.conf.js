@@ -13,7 +13,7 @@ var commonConfigs = {
         alias: alias
     },
     entry: {
-        "vendors": ["jquery", "vendor-materialize"],
+        "common": ["jquery", "vendor-materialize", "common/site", "common/querystring"],
 
         [pathConfig.scriptPaths.build + "/language"]: pathConfig.scriptPaths.language,
         [pathConfig.scriptPaths.build + "/pages/home/home"]: pathConfig.scriptPaths.home,

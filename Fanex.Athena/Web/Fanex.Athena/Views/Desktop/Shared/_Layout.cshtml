@@ -28,7 +28,7 @@
     <input type="hidden" id="HistoryDate" value="@( appSettings.HistoryDate)" />
     @RenderBody()
 
-    <script src="@Url.ContentLink("/www/js/build/vendors.chunk.js")"></script>
+    <script src="@Url.ContentLink("/www/js/build/common.chunk.js")"></script>
     <script src="@Url.ContentLink("/www/js/build/language.chunk.js")"></script>
     @RenderSection("js", required: false)
 </body>

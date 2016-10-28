@@ -8,8 +8,8 @@ var commonPlugins = [
         exclude: ['fonts', 'images']
     }),
     new webpack.optimize.CommonsChunkPlugin({
-        name: "vendors",
-        filename: "www/js/build/vendors.chunk.js",
+        name: "common",
+        filename: "www/js/build/common.chunk.js",
         minChunks: Infinity
     }),
 	new webpack.ProvidePlugin({
