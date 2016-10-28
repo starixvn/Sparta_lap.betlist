@@ -6,6 +6,10 @@
             padding-left: 25px;
         }
     }
+
+    input[type="radio"] + label{
+        margin: 0 0 20px 0;
+    }
 }
 
 .page-results {
@@ -44,6 +48,13 @@
         position: relative;
         border-radius: 0;
         width: 100% !important;
+        margin: 0 0 20px 0;
+
+        > input{
+            width: 100% !important;
+            height: 100% !important;
+            cursor: pointer;
+        }
 
         .ui-multiselect-icon {
             background: initial;

@@ -692,6 +692,9 @@
   padding-right: 10px;
   padding-left: 25px; }
 
+.page-form input[type="radio"] + label {
+  margin: 0 0 20px 0; }
+
 .page-results .result-content {
   box-shadow: none;
   border: 0;
@@ -718,7 +721,12 @@
   cursor: pointer;
   position: relative;
   border-radius: 0;
-  width: 100% !important; }
+  width: 100% !important;
+  margin: 0 0 20px 0; }
+  .multiselect-container > a.ui-multiselect > input {
+    width: 100% !important;
+    height: 100% !important;
+    cursor: pointer; }
   .multiselect-container > a.ui-multiselect .ui-multiselect-icon {
     background: initial;
     font-family: 'icomoon' !important; }
