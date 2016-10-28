@@ -803,7 +803,6 @@
     <Content Include="www\js\source\pages\report\licenseewinloss\licenseewinloss.option.js" />
     <Content Include="www\js\source\pages\report\licenseewinloss\main.js" />
     <Content Include="www\js\source\pages\report\report.js" />
-    <Content Include="www\js\source\vendors\materialize\materialize-ext.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\js\tests\common\querystring-spec.js" />
     <Content Include="www\js\tests\common\site-spec.js" />
