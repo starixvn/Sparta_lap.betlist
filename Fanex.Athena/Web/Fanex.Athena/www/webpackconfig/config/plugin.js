@@ -14,7 +14,11 @@ var commonPlugins = [
     }),
 	new webpack.ProvidePlugin({
 	    $: "jquery",
-	    jQuery: "jquery"
+	    jQuery: "jquery",
+	    jquery: 'jquery',
+	    'window.$': 'jquery',
+	    "window.jQuery": 'jquery',
+	    "root.jQuery": 'jquery',
 	})
 ]
 
