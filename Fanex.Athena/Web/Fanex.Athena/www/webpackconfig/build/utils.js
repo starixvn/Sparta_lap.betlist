@@ -37,18 +37,19 @@ exports.minify = function () {
     };
 }
 
-exports.extractCSS = function () {
+exports.extractCSS = function (isProduction) {
+    var queryString = isProduction ? "" : "&sourceMap";
     return {
         module: {
             loaders: [
                 {
                     test: /\.css$/,
-                    loader: ExtractTextPlugin.extract("style", "css?-url")
+                    loader: ExtractTextPlugin.extract("style", "css?-url" + queryString)
                 },
                 {
                     test: /\.scss$/,
-                    loader: ExtractTextPlugin.extract("style", "css?-url!sass")
-                }
+                    loader: ExtractTextPlugin.extract("style", "css?-url" + queryString + "!sass")
+                },
             ]
         },
         plugins: [

@@ -4,8 +4,9 @@ var utils = require('./utils')
 var baseWebpackConfig = require('./webpack.base.conf')
 
 module.exports = merge(baseWebpackConfig, {
-    devtool: 'source-map',
-    watch: true
+        devtool: 'source-map',
+        watch: true
     },
+    utils.extractCSS(false),
     utils.setDefinePlugin('process.env.NODE_ENV', 'development')
 )

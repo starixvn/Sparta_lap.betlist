@@ -64,6 +64,10 @@
         }
     }
 
+    .calendar{
+        max-width: 350px;
+    }
+
     &.show-calendar .calendar {
         border: 1px solid #c2cbd2;
         padding: 10px;

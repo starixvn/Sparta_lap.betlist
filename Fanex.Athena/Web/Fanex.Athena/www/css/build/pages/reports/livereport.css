@@ -313,6 +313,8 @@
     border-color: #ececec; }
     .daterangepicker select.monthselect:focus, .daterangepicker select.yearselect:focus {
       outline: none; }
+  .daterangepicker .calendar {
+    max-width: 350px; }
   .daterangepicker.show-calendar .calendar {
     border: 1px solid #c2cbd2;
     padding: 10px; }

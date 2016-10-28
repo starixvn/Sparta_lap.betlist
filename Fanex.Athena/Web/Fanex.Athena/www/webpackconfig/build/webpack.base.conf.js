@@ -38,4 +38,4 @@ var commonConfigs = {
     plugins: plugin.commonPlugins
 };
 
-module.exports = merge(commonConfigs, utils.extractCSS());
+module.exports = commonConfigs;
