@@ -511,7 +511,6 @@ Rad tree view css
 
 .ui-multiselect-options input
 {
-    vertical-align: -moz-calc();
     margin: 3px;
 }
 
