@@ -2,9 +2,9 @@
 /// <reference path="/@JSense.js" />
 ///
 define(
-    ["common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional", "common/pluginhelper", "lib/date.min",
+    ["common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional", "common/pluginhelper", "moment",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extension/jquery.extension", "extension/prototype", "lib/JSLINQ"],
-    function (QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, PluginHelper) {
+    function (QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, PluginHelper, moment) {
         var LicenseeWinLoss = (function () {
             "use strict";
             var REPORT_BY_MONTHLY = 2;
@@ -107,8 +107,8 @@ define(
                     var temp = 'api/LicenseeWinLossReport/Index';
                     if (level > 0) {
                         temp += "?level=" + level + "&currencyId="
-                        + currencyId + "&custId=" + custId + "&fdate=" + fdate.toString("MM/dd/yyyy")
-                         + "&tdate=" + tdate.toString("MM/dd/yyyy") + "&currencyName=" + currencyName;
+                        + currencyId + "&custId=" + custId + "&fdate=" + fdate.format("MM/DD/YYYY")
+                         + "&tdate=" + tdate.format("MM/DD/YYYY") + "&currencyName=" + currencyName;
                     }
                     LicenseeWinLossOption.urlExcelData = temp;
                 },
@@ -144,7 +144,7 @@ define(
                         ? viewinKey.replace("{0}", currencyName || Site.getCurrencyName(currencyId))
                         : currencyTextList[currencyId];
 
-                    var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"), currencyStr);
+                    var title = $.format(titlePattern, moment(fromdate).format("MM/DD/YYYY"), moment(todate).format("MM/DD/YYYY"), currencyStr);
                     $("span.report-title").html(title);
                 },
                 //#end
@@ -241,26 +241,27 @@ define(
                         BaseCurrency: $("#BaseCurrency").attr("data-original")
                     };
 
-                    var fdate, tdate;
-                    fdate = tdate = Date.parse(datetime);
+                    var momentDate = moment(datetime);
+                    var fdate = momentDate.clone();
+                    var tdate = momentDate.clone();
 
                     if (Number(param.ReportBy) === 2) {
                         var fday = 1;
-                        var month = fdate.getMonth();
-                        var year = fdate.getFullYear();
-                        var orignalFDate = param.FromDate;
-                        if (month === orignalFDate.getMonth()) {
-                            fday = orignalFDate.getDate();
+                        var month = fdate.month();
+                        var year = fdate.year();
+                        var orignalFDate = moment(param.FromDate);
+                        if (month === orignalFDate.month()) {
+                            fday = orignalFDate.date();
                         }
-                        fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                        var originalTDate = param.ToDate;
+                        fdate = moment([year, month, fday, 0, 0, 0, 0]);
 
-                        if (month === originalTDate.getMonth()) {
-                            var tday = originalTDate.getDate();
-                            tdate = new Date(year, month, tday, 0, 0, 0, 0);
+                        var originalTDate = moment(param.ToDate);
+                        if (month === originalTDate.month()) {
+                            var tday = originalTDate.date();
+                            tdate = moment([year, month, tday, 0, 0, 0, 0]);
                         }
                         else {
-                            tdate = LicenseeWinLoss.lastDateOfMonth(year, month);
+                            tdate = moment(LicenseeWinLoss.lastDateOfMonth(year, month));
                         }
                     }
                     if (keepSorting && _sortColumnName) {
@@ -279,7 +280,7 @@ define(
 
                         url: Site.resolveClientUrl(LicenseeWinLossOption.urlData +
                             "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
-                            fdate.toString("MM/dd/yyyy") + "&tdate=" + tdate.toString("MM/dd/yyyy")),
+                            fdate.format("MM/DD/YYYY") + "&tdate=" + tdate.format("MM/DD/YYYY")),
                         success: function (response) {
                             LicenseeWinLoss.ajaxComplete(level, response);
                             if (response !== null && response.Data.length > 0) {
@@ -468,8 +469,8 @@ define(
                     }
 
                     var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
-                    url = QueryString.setParam(url, "fromdate", dataDrillDown.DrillDownFromDate.toString("MM/dd/yyyy"));
-                    url = QueryString.setParam(url, "todate", dataDrillDown.DrillDownToDate.toString("MM/dd/yyyy"));
+                    url = QueryString.setParam(url, "fromdate", moment(dataDrillDown.DrillDownFromDate).format("MM/DD/YYYY"));
+                    url = QueryString.setParam(url, "todate", moment(dataDrillDown.DrillDownToDate).format("MM/DD/YYYY"));
                     url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
                     url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
                     url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
