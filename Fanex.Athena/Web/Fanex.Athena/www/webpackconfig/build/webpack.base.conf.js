@@ -17,6 +17,7 @@ var commonConfigs = {
 
         [pathConfig.scriptPaths.build + "/language"]: pathConfig.scriptPaths.language,
         [pathConfig.scriptPaths.build + "/pages/home/home"]: pathConfig.scriptPaths.home,
+        [pathConfig.scriptPaths.build + "/pages/signin/signin"]: pathConfig.scriptPaths.signin,
         [pathConfig.scriptPaths.build + "/pages/livereport/livereport"]: [pathConfig.scriptPaths.livereport],
         [pathConfig.scriptPaths.build + "/pages/livereport/livereportmatchlist"]: [pathConfig.scriptPaths.livereportmatchlist],
         [pathConfig.scriptPaths.build + "/pages/licenseewinloss/licenseewinloss"]: [pathConfig.scriptPaths.licenseewinloss],

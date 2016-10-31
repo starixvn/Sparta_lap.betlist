@@ -1,25 +1,6 @@
-﻿.errmsg{
-    margin-left: -0.75rem;
-    color: red;
-}
-
-.btn-login {
-    width: 85px;
-    float: right;
-    margin-right: -0.75rem;
-}
-
-.input-capcha-group {
-    .capcha-img {
-        left: 0;
-        top: 10px;
-        width: 60px;
-        pointer-events: none;
-        position: absolute;
-    }
-
-    .capcha-input {
-        padding-left: 70px;
-        width: calc(100% - 70px);
-    }
+﻿input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
 }
