@@ -785,7 +785,6 @@
     <Content Include="www\js\source\lib\jqgrid\jquery.jqGrid.en.js" />
     <Content Include="www\js\source\lib\jqgrid\jquery.jqGrid.min.js" />
     <Content Include="www\js\source\lib\jquery.flatpopup.js" />
-    <Content Include="www\js\source\lib\jquery.mCustomScrollbar.js" />
     <Content Include="www\js\source\lib\jquery.monthpicker.js" />
     <Content Include="www\js\source\lib\jquery.multiselect.js" />
     <Content Include="www\js\source\lib\JSLINQ.js" />

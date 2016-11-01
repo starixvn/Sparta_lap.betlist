@@ -15,7 +15,7 @@ define(["common/querystring", "common/site", "./helper"], function (QueryString,
     }
 
     function viewMatchBetList(target) {
-        url = Site.resolveClientUrl("LiveReportBetList/Match");
+        var url = Site.resolveClientUrl("LiveReportBetList/Match");
 
         var currencyName = $('#CurrencyName').attr('data-original');
         var data = $(target).attr("data-drill-down");

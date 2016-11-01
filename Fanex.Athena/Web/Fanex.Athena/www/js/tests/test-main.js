@@ -22,6 +22,11 @@ requirejs.config({
         name: 'moment',
         location: '/base/node_modules/moment',
         main: 'moment'
+    },
+    {
+        name: 'malihu-custom-scrollbar-plugin',
+        location: '/base/node_modules/malihu-custom-scrollbar-plugin',
+        main: 'malihu-custom-scrollbar-plugin'
     }],
     // ask Require.js to load these files (all our tests)
     deps: tests,

@@ -1,5 +1,5 @@
-﻿define(['jquery', 'common/site', 'pages/livereport/livereport', 'pages/livereport/helper', 'moment'],
-    function ($, Site, LiveReport, Helper, moment) {
+﻿define(['jquery', 'common/site', 'pages/report/livereport/livereport', 'pages/report/livereport/helper', 'moment', "common/pluginhelper"],
+    function ($, Site, LiveReport, Helper, moment, PluginHelper) {
 
     describe("livereport.js", function () {
         beforeAll(function () {
@@ -11,6 +11,12 @@
             spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
                 return url;
             });
+
+            spyOn(PluginHelper, "initMaterialSelect");
+            spyOn(PluginHelper, "initDateRangePicker");
+            spyOn(PluginHelper, "initMonthPicker");
+
+            setFixtures('<input id="HistoryDate" value="1/1/2016" />');
         });
 
         describe("when clicking on #switchreport", function () {
@@ -55,7 +61,7 @@
             });
         });
 
-        describe("view report detail", function () {
+        describe("view sport detail", function () {
             it("Site.redirect() is called with correct url when clicking on sportid = 1", function () {
                 spyOn(Site, "redirect");
                 setFixtures("<a class='sport-detailt-link' data-drill-down='{\"SportId\":1}'></a>");

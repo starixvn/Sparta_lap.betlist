@@ -1,5 +1,5 @@
-﻿define(["common/site", "moment", "bootstrap-daterangepicker", "lib/jquery.monthpicker", "vendor-materialize"],
-    function (Site, moment) {
+﻿define(["jquery", "common/site", "moment", "bootstrap-daterangepicker", "lib/jquery.monthpicker", "vendor-materialize"],
+    function ($, Site, moment) {
     var _historyDate = new Date($("#HistoryDate").val());
 
     function initMaterialSelect() {
