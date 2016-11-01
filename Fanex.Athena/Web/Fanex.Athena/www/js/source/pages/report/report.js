@@ -1,6 +1,6 @@
-﻿define([], function () {
+﻿define(["jquery"], function ($) {
     "use strict";
-    var Report = (function ($) {
+    var Report = (function () {
         return {
             ValidProducts: function () {
                 var temp = true;
@@ -81,7 +81,7 @@
                 return rowCount;
             }
         };
-    })(jQuery);
+    })();
 
     return Report;
 });

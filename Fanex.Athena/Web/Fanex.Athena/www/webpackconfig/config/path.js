@@ -13,14 +13,14 @@ var cssPaths = {
     main: ["./www/css/source/vendors/materialize/materialize.css", "./www/css/source/main.css", "./www/css/source/extensions/main-ex.scss"],
 
     reportjqgridlayout: [
-        "./www/css/source/components/flatpopup/flatpopup.scss",
+        "malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/components/flatpopup/flatpopup.scss",
         "./www/css/source/components/multiselect/jquery.multiselect.css", "./www/css/source/extensions/multiselect-ex.scss",
         "./www/css/source/pages/common.css", "./www/css/source/extensions/report-ex.scss",
         "./www/css/source/components/jqgrid/jqgrid.css", "./www/css/source/extensions/jqgrid-ex.scss"
     ],
 
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],
-    livereport: ["./www/css/source/pages/common.css", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss", "./www/css/source/extensions/report-ex.scss", ...cssDateRangePickerPath],
+    livereport: ["malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/pages/common.css", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss", "./www/css/source/extensions/report-ex.scss", ...cssDateRangePickerPath],
     licenseewinloss: ["./www/css/source/pages/report/licenseewinloss.scss", ...cssDateRangePickerPath]
 };
 

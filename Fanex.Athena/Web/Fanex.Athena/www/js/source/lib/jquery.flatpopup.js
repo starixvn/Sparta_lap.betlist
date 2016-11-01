@@ -1,5 +1,5 @@
 ﻿"use strict";
-define(['jquery'], function ($) {
+define(['jquery', 'malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min'], function ($) {
     var MIN_WIDTH = 640;
     var MAX_HEIGHT = 480;
     $.fn.flatPopup = function (options) {
@@ -19,7 +19,8 @@ define(['jquery'], function ($) {
 
         // add popup content to a wrapper
         $self.children().wrapAll("<div class='wrapContent'></div>");
-        $self.find(".wrapContent").width(options.width - 10).height(options.height - 40);
+        $self.find(".wrapContent").width(options.width - 10).height(options.height - 40)
+            .mCustomScrollbar({ theme: "dark-thin" });
 
         $self.hide()
              .prepend('<div class="title-bar"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="#"><i class="icon-close"></i></a></div>')
