@@ -808,8 +808,8 @@
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\js\tests\common\querystring-spec.js" />
     <Content Include="www\js\tests\common\site-spec.js" />
-    <Content Include="www\js\tests\pages\livereport\livereport-spec.js" />
-    <Content Include="www\js\tests\pages\livereport\helper-spec.js" />
+    <Content Include="www\js\tests\pages\report\livereport\livereport-spec.js" />
+    <Content Include="www\js\tests\pages\report\livereport\helper-spec.js" />
     <Content Include="www\js\tests\test-main.js" />
     <Content Include="www\webpackconfig\build\utils.js" />
     <Content Include="www\webpackconfig\build\webpack.base.conf.js" />
@@ -4958,6 +4958,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
+    <Folder Include="www\js\tests\pages\report\licenseewinloss\" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
