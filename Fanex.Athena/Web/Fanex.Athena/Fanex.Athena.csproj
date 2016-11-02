@@ -711,10 +711,6 @@
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new.conf.js" />
     <Content Include="www\assets\images\15.jpg" />
-    <Content Include="www\assets\images\flag_en-US.svg" />
-    <Content Include="www\assets\images\flag_ko-KR.png" />
-    <Content Include="www\assets\images\flag_zh-CN.svg" />
-    <Content Include="www\assets\images\flag_zh-TW.png" />
     <Content Include="www\assets\images\logo-text.svg" />
     <Content Include="www\assets\images\logo.svg" />
     <Content Include="www\css\build\fonts\flags\flags\cn.svg" />

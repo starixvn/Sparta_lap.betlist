@@ -5,8 +5,8 @@
 
 <nav class="nav-wrapper">
     <a href="#" class="logo toggleMenubar" id="js-toggleMenubar" data-activates="nav-mobile">
-        <span class="logo-image"><img src="~/www/assets/images/logo.svg" /></span>
-        <span class="logo-text hide-on-med-and-down"><img src="~/www/assets/images/logo-text.svg" /> </span>
+        <span class="logo-image"><img src="@Url.Content("/www/assets/images/logo.svg")" /></span>
+        <span class="logo-text hide-on-med-and-down"><img src="@Url.Content("/www/assets/images/logo-text.svg")" /> </span>
     </a>
     <div class="page-title hide-on-small-and-down"><span id="page-title" class="active">@ViewResources.Balance</span></div>
 
@@ -15,7 +15,7 @@
         {
             <div class="navbar-avatar">
                 <div class="dropdown-button" href="javascript:void(0)" data-activates="profile">
-                    <img class="avatar" src="~/www/assets/images/15.jpg" alt="@Html.Encode(Model.UserName)">
+                    <img class="avatar" src="@Url.Content("/www/assets/images/15.jpg")" alt="@Html.Encode(Model.UserName)">
                     <span class="name hide-on-med-and-down">@Html.Encode(Model.UserName)</span>
                     <i class="icon icon-menu-down" aria-hidden="true"></i>
                 </div>
