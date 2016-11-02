@@ -11,7 +11,7 @@
     <form id="licenseewinloss" name="licenseewinloss" method="post" action="">
         @Html.AntiForgeryToken()
         <div class="row">
-            <div class="input-field input col l3 m3 s12 calendar">
+            <div class="input-field input col l3 m3 s12 calendar date-range">
                 @RazorHelperDesktop.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, maxDate)
             </div>
 

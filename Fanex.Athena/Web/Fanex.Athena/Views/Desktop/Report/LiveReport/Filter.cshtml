@@ -9,23 +9,23 @@
     <form id="livereport" name="livereport" method="post" action="@Url.Content("~/LiveReport?isViewedHistory=false")">
         @Html.AntiForgeryToken()
         <div class="row">
-            <div class="input-field input col l3 m3 s12 calendar">
+            <div class="input-field input col l3 m3 s12 calendar date-range">
                 @RazorHelperDesktop.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, maxDate)
             </div>
-            <div class="input-field col l2 m3 s12">
+            <div class="input-field col l2 m2 s12">
                 @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
                 <label>@ViewResources.Currency</label>
             </div>
-            <div class="input-field col l2 m3 s12">
+            <div class="input-field col l2 m2 s12">
                 @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
                 <label>@ViewResources.Based</label>
             </div>
-            <div class="input-field col l2 m3 s12">
+            <div class="input-field col l2 m2 s12">
                 @RazorHelperDesktop.LiveStatus(Model.Param.LiveIndicator)
                 <label>@ViewResources.LiveStatus</label>
             </div>
-            <div class="col button-block" id="btnSubmit">
-                <a class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+            <div class="col l2 m2 s12 button-block">
+                <a id="btnSubmit" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
             </div>
         </div>
         <div class="row">

@@ -1,4 +1,4 @@
-﻿.licensees-block{
+﻿.licensees-block {
     padding: 0 1rem;
 }
 
@@ -7,14 +7,23 @@
     top: 50px;
     width: 20rem;
 
-    .ac-item{
+    .ac-item {
         &.ac-hover {
             background: #eee;
         }
     }
 }
 
-.logo-image{
-    /*Hack for IE*/
-    vertical-align: top;
+/*Hack for IE*/
+.logo {
+    .logo-image {
+        vertical-align: top;
+    }
+
+    .logo-text{
+        img{
+            width: auto;
+            max-width: 167px;
+        }
+    }
 }

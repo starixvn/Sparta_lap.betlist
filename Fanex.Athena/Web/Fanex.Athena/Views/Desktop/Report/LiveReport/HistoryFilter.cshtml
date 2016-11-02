@@ -24,20 +24,20 @@
                 <div id="tDay">
                 </div>
             </div>
-            <div class="input-field col l2 m3 s12">
+            <div class="input-field col l2 m2 s12">
                 @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
                 <label>@ViewResources.Currency</label>
             </div>
-            <div class="input-field col l2 m3 s12">
+            <div class="input-field col l2 m2 s12">
                 @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
                 <label>@ViewResources.Based</label>
             </div>
-            <div class="input-field col l2 m3 s12">
+            <div class="input-field col l2 m2 s12">
                 @RazorHelperDesktop.LiveStatus(Model.Param.LiveIndicator)
                 <label>@ViewResources.LiveStatus</label>
             </div>
-            <div class="col button-block" id="btnSubmit">
-                <a class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+            <div class="col l2 m2 s12 button-block">
+                <a id="btnSubmit" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
             </div>
         </div>
         <div class="row">
