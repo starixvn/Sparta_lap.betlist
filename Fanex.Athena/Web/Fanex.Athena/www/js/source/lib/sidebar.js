@@ -16,7 +16,7 @@ define(["jquery"], function ($) {
         };
 
         options = $.extend(defaults, options);
-        var touch = 'ontouchstart' in window || 'onmsgesturechange' in window;
+        var touch = 'ontouchstart' in window || navigator.maxTouchPoints;
 
         return this.each(function () {
 
