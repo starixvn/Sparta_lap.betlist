@@ -7,7 +7,7 @@ var BetList = (function ($) {
     "use strict";
     var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
     var MIN_BETTYPE_FASTMARKET = 221;
-    var MAX_BETTYPE_FASTMARKET = 224;
+    var MAX_BETTYPE_FASTMARKET = 225;
     var SPORT_MICROGAMMING_LC = 203;
     var SPORT_MICROGAMMING_RNG = 205;
     var SPORT_RNG_GAME = 208;
@@ -474,7 +474,7 @@ var BetList = (function ($) {
                     ? BetList.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
                     : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
 
-                var height = isParlay ? 450 : (isFastMarket(bettype) ? 200 : 150);
+                var height = isParlay ? 450 : (isFastMarket(bettype) ? 250 : 150);
                 var width = 750;
                 var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
                          width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
