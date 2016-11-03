@@ -3,7 +3,7 @@
 ///
 define(
     ["common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional", "common/pluginhelper", "moment",
-        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extension/jquery.extension", "extension/prototype", "lib/JSLINQ"],
+        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extensions/jquery.extension", "lib/JSLINQ"],
     function (QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, PluginHelper, moment) {
         var LicenseeWinLoss = (function () {
             "use strict";
