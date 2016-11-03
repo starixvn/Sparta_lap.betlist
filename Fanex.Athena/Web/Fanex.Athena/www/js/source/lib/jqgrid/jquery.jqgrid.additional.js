@@ -1,7 +1,6 @@
-﻿/*global Site, MathContext, BigDecimal*/
-/// <reference path="/@JSense.js" />
+﻿/// <reference path="/@JSense.js" />
 ///
-define(['jquery', "common/site", '../BigDecimal-all-last.min'], function ($, Site, decimalLibrary) {
+define(['jquery', "common/site", 'lib/bignumber'], function ($, Site, BigNumber) {
     "use strict";
     var jqGridAdditional = (function () {
         var BigDecimal = decimalLibrary.BigDecimal;

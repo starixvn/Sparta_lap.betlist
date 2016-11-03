@@ -1,14 +1,19 @@
 {
-	"jsFilters": [
+  "jsFilters": [
     "Scripts/**/*.js",
+    "www/js/source/**/*.js",
+    "www/js/tests/**/*.js",
+    "!www/js/source/lib/**/*.js",
+    "!www/js/source/common/languages/*.js",
+    "!www/js/source/vendors/**/*.js",
     "!*.min.js",
     "!**/*.min.js",
     "!**/*-vsdoc.js",
     "!**/npm.js",
-	"!Scripts/Library/**/*.js",
-	"!Scripts/Plugin/**/*.js",
-	"!Scripts/Languages/**/*.js"
-	],
+    "!Scripts/Library/**/*.js",
+    "!Scripts/Plugin/**/*.js",
+    "!Scripts/Languages/**/*.js"
+  ],
 	"cssFilters": [
     "Content/**/*.css",
     "Scripts/**/*.css",

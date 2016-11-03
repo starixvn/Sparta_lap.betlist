@@ -775,7 +775,7 @@
     <Content Include="www\js\source\common\site.js" />
     <Content Include="www\js\source\extensions\jquery.extension.js" />
     <Content Include="www\js\source\extensions\prototype.js" />
-    <Content Include="www\js\source\lib\BigDecimal-all-last.min.js" />
+    <Content Include="www\js\source\lib\bignumber.js" />
     <Content Include="www\js\source\lib\date.min.js" />
     <Content Include="www\js\source\lib\jqgrid\jquery.jqgrid.additional.js" />
     <Content Include="www\js\source\lib\jqgrid\jquery.jqGrid.en.js" />
