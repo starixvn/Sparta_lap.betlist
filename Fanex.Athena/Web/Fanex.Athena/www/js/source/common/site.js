@@ -12,6 +12,7 @@ define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multis
     var _isLoadedNotificationPopup = false;
     var _rootUrl = null;
     var _pageLanguage = null;
+    var _userCurrencies = null;
 
     function addNoticationPopup() {
         var $marquee = $("#notification-marquee");
@@ -74,6 +75,10 @@ define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multis
         _historyDate = new Date($("#HistoryDate").val());
         _rootUrl = $('#RootUrl').val();
         _pageLanguage = $('#PageLanguage').val();
+        var userCurrencies = $('#UserCurrencies').val();
+        if (userCurrencies) {
+            _userCurrencies = JSON.parse(userCurrencies);
+        }
         initBlockUI();
         addNoticationPopup();
         overrideInnerSize();
@@ -169,7 +174,7 @@ define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multis
         return _licenseeId;
     }
     function getCurrencyName(currencyId) {
-        return userCurrencies[currencyId];
+        return _userCurrencies[currencyId];
     }
     function getHistoryDate() {
         return _historyDate;
@@ -382,7 +387,6 @@ define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multis
             });
 
             unBlockUI();
-
         } catch (err) {
         }
     }

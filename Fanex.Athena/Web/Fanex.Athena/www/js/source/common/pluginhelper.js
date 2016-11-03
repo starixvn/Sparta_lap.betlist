@@ -3,7 +3,19 @@
     var _historyDate = new Date($("#HistoryDate").val());
 
     function initMaterialSelect() {
-        $('select.select').not('.disabled').material_select();
+        $('select.select').not('.disabled').material_select(function () {
+            $('input.select-dropdown').trigger('close');
+        });
+
+        /*Hack for IE*/
+        var onMouseDown = function(e) {
+            // preventing the default still allows the scroll, but blocks the blur.
+            // We're inside the scrollbar if the clientX is >= the clientWidth.
+            if (e.clientX >= e.target.clientWidth || e.clientY >= e.target.clientHeight) {
+                e.preventDefault();
+            }
+        };
+        $('select.select').siblings('input.select-dropdown').on('mousedown', onMouseDown);
     }
 
     function initDateRangePicker() {
