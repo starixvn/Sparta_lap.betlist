@@ -44,11 +44,12 @@ define(['jquery', "common/site", 'lib/bignumber'], function ($, Site, BigNumber)
 
                 var parentWidth = grid.closest(".theme_jqGrid").width();
 
-                grid.jqGrid('setGridWidth', parentWidth, false);
+                grid.jqGrid('setGridWidth', parentWidth);
 
-                grid.css("width", parentWidth + "px");
-                $(".theme_jqGrid .ui-jqgrid-hdiv table.ui-jqgrid-htable").css("width", parentWidth + "px");                
-                $(".theme_jqGrid .ui-jqgrid-sdiv table.ui-jqgrid-ftable").css("width", parentWidth + "px");
+                var tableWidth = parentWidth - 20;
+                grid.css("width", tableWidth + "px");
+                $(".theme_jqGrid .ui-jqgrid-hdiv table.ui-jqgrid-htable").css("width", tableWidth + "px");
+                $(".theme_jqGrid .ui-jqgrid-sdiv table.ui-jqgrid-ftable").css("width", tableWidth + "px");
 
                 $(".footer-firstrow").remove();
                 var settingWidthRow = $(".ui-jqgrid-bdiv table.ui-jqgrid-btable tr.jqgfirstrow").clone();
@@ -281,7 +282,7 @@ define(['jquery', "common/site", 'lib/bignumber'], function ($, Site, BigNumber)
                 var mainFooter = $(".ui-jqgrid-ftable");
                 var colspan = 0;
                 var numOfHideColumns = 0;
-                var info = message || Site.getSingleResource("NoInfo");
+                var info = message || Site.getSingleResource("NoInfo");              
                 $(columnModel).each(function (index, item) {
                     if (item.hidden === true) {
                         numOfHideColumns++;

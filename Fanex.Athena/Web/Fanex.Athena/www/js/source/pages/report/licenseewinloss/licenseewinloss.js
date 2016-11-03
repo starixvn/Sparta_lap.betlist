@@ -355,6 +355,7 @@ define(
                     var onPaging = false;
 
                     var gridOption = LicenseeWinLossOption.getGridOption(level, reportBy, productOptions);
+                    gridOption.autowidth = response === null || numOfRow === 0;
                     gridOption.rownumbers = true;
                     gridOption.data = response.Data;
                     gridOption.userData = {};
