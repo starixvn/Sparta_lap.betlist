@@ -3,8 +3,6 @@
 define(['jquery', "common/site", 'lib/bignumber'], function ($, Site, BigNumber) {
     "use strict";
     var jqGridAdditional = (function () {
-        var BigDecimal = decimalLibrary.BigDecimal;
-        var MathContext = decimalLibrary.MathContext;
         var _resizeTimer;
         return {
             DECIMAL_FORMAT_OPTIONS: {
@@ -82,26 +80,14 @@ define(['jquery', "common/site", 'lib/bignumber'], function ($, Site, BigNumber)
             },
 
             formatDecimal: function (value) {
-                /// <summary>
-                ///
-                /// </summary>
-                /// <param name="value"></param>
-                /// <returns type=""></returns>
                 if (value !== undefined && value !== null) {
-                    var fixedValue = new BigDecimal(value.toString()).setScale(2, MathContext.ROUND_HALF_UP);
-                    if (fixedValue === "NaN") {
+                    if (isNaN(value)) {
                         return "NaN";
                     }
 
-                    var sRegExp = new RegExp('(-?[0-9]+)([0-9]{3})');
-                    var resultValue = fixedValue + '';
-
-                    while (sRegExp.test(resultValue)) {
-                        resultValue = resultValue.replace(sRegExp, '$1,$2');
-                    }
-
-                    return resultValue;
+                    return new BigNumber(value.toString()).toFormat(2);
                 }
+
                 return value;
             },
 

@@ -107,8 +107,8 @@ define(
                     var temp = 'api/LicenseeWinLossReport/Index';
                     if (level > 0) {
                         temp += "?level=" + level + "&currencyId="
-                        + currencyId + "&custId=" + custId + "&fdate=" + fdate.format("MM/DD/YYYY")
-                         + "&tdate=" + tdate.format("MM/DD/YYYY") + "&currencyName=" + currencyName;
+                        + currencyId + "&custId=" + custId + "&fdate=" + moment(fdate).format("MM/DD/YYYY")
+                         + "&tdate=" + moment(tdate).format("MM/DD/YYYY") + "&currencyName=" + currencyName;
                     }
                     LicenseeWinLossOption.urlExcelData = temp;
                 },
@@ -144,7 +144,7 @@ define(
                         ? viewinKey.replace("{0}", currencyName || Site.getCurrencyName(currencyId))
                         : currencyTextList[currencyId];
 
-                    var title = $.format(titlePattern, moment(fromdate).format("MM/DD/YYYY"), moment(todate).format("MM/DD/YYYY"), currencyStr);
+                    var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyStr);
                     $("span.report-title").html(title);
                 },
                 //#end
