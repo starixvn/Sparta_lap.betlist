@@ -109,5 +109,62 @@
                 expect(result).toBe(false);
             });
         });
+
+        describe("getSingleResource(enghlishName)", function () {
+            beforeEach(function () {
+                setFixtures('<input id="PageLanguage" value="_language_en_US" />');
+                window["_language_en_US"] = { "Test": "en-Test" };
+            });
+
+            it("get correct value from resource", function () {
+                Site.initialize();
+                var result = Site.getSingleResource("Test");
+                expect(result).toEqual("en-Test");
+            });
+
+            it("get key value when resource not contain", function () {
+                Site.initialize();
+                var result = Site.getSingleResource("NotContain");
+                expect(result).toEqual("NotContain");
+            });
+        });
+
+        describe("getResources(arrayText)", function () {
+            it("return correct array text", function () {
+                setFixtures('<input id="PageLanguage" value="_language_en_US" />');
+                window["_language_en_US"] = { "Test1": "en-Test1", "Test2": "en-Test2", "Test3": "en-Test3" };
+                Site.initialize();
+                var arrayText = ["Test1", "Test2", "Test3", "Test4"];
+                var result = Site.getResources(arrayText);
+                expect(result).toEqual(["en-Test1", "en-Test2", "en-Test3", "Test4"]);
+            });
+        });
+
+        describe("isNumber(text)", function () {
+            it("return true when pass text is integer", function () {
+                var result = Site.isNumber(16);
+                expect(result).toBe(true);
+            });
+
+            it("return true when pass text is digit string", function () {
+                var result = Site.isNumber("20");
+                expect(result).toBe(true);
+            });
+
+            it("return true when pass text is float", function () {
+                var result = Site.isNumber(16.002);
+                expect(result).toBe(true);
+            });
+
+            it("return false when pass text is not digit", function () {
+                var result = Site.isNumber("ABC");
+                expect(result).toBe(false);
+            });
+
+            it("return false when we don't pass text value", function () {
+                var result = Site.isNumber();
+                expect(result).toBe(false);
+            });
+        });
     });
 });
