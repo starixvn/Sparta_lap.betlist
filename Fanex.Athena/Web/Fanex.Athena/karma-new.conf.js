@@ -15,7 +15,8 @@ module.exports = function (config) {
             { pattern: 'www/js/source/**/*.js', included: false },
             // { pattern: 'www/js/tests/common/*-spec.js', included: false },
             // { pattern: 'www/js/tests/pages/**/livereport-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/**/licenseewinloss.option-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/**/licenseewinloss.option-spec.js', included: false },
+            { pattern: 'www/js/tests/lib/**/jquery.jqgrid.additional-spec.js', included: false },
              'www/js/tests/test-main.js',
         ],
         exclude: [

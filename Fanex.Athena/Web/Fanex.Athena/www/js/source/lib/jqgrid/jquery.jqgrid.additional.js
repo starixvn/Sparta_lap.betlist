@@ -1,9 +1,8 @@
 ﻿/// <reference path="/@JSense.js" />
 ///
-define(['jquery', "common/site", 'lib/bignumber'], function ($, Site, BigNumber) {
+define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber) {
     "use strict";
     var jqGridAdditional = (function () {
-        var _resizeTimer;
         return {
             DECIMAL_FORMAT_OPTIONS: {
                 decimalSeparator: ".",
@@ -11,13 +10,12 @@ define(['jquery', "common/site", 'lib/bignumber'], function ($, Site, BigNumber)
                 decimalPlaces: 2
             },
             resizeGrid: function () {
-                if ($(".ui-jqgrid-bdiv").length === 0) {
+                var $bdiv = $(".ui-jqgrid-bdiv");
+                if ($bdiv.length === 0) {
                     return;
                 }
-                clearTimeout(_resizeTimer);
-                var $bdiv = $(".ui-jqgrid-bdiv");
+                
                 var gridTop = $bdiv.offset().top;
-
                 var pagingHeight = $(".paging:visible").length > 0 ? $(".paging:visible").height() : 0;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
                             - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - 30;
@@ -30,10 +28,9 @@ define(['jquery', "common/site", 'lib/bignumber'], function ($, Site, BigNumber)
                 var tableWidth = $("#ReportGrid").width();
                 var contentWidth = $bdiv.width();
                 var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-                $bdiv.height(Math.min(newHeight, gridHeight))
-                                    .css("height", "auto").css("max-height", gridHeight);
+                $bdiv.css("height", newHeight).css("max-height", gridHeight);
             },
-            resetLayout: function (grid, maxWidth) {
+            resetLayout: function (grid) {
                 if ($("div.ui-jqgrid-hbox").length === 0) {
                     return;
                 }
