@@ -1,12 +1,11 @@
-﻿/*global Site, JSLINQ, jqGridAdditional*/
-/// <reference path="/@JSense.js" />
+﻿/// <reference path="/@JSense.js" />
 /*
 * Note:in this report, parameter level have 3 value
 *  "0" for master,"1" for agent and "2" for member
 */
 
 define(
-    ["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
+    ["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "lib/linq"],
     function ($, QueryString, Site, jqGridAdditional) {
         "use strict";
         var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA"];
@@ -422,11 +421,11 @@ define(
         }
 
         _me.setGroupHeaderColumns = function (grid, productOptions) {
-            var numOfTurnover = JSLINQ(productOptions).Count(turnoverProductsFilter) + 1;
-            var lastOfTurnover = JSLINQ(productOptions).Last(turnoverProductsFilter);
+            var numOfTurnover = Enumerable.From(productOptions).Count(turnoverProductsFilter) + 1;
+            var lastOfTurnover = Enumerable.From(productOptions).Last(turnoverProductsFilter);
 
-            var numOfLicenseeWL = JSLINQ(productOptions).Count(licenseeWLProductsFilter) + 1;
-            var lastOfLicenseeWL = JSLINQ(productOptions).Last(licenseeWLProductsFilter);
+            var numOfLicenseeWL = Enumerable.From(productOptions).Count(licenseeWLProductsFilter) + 1;
+            var lastOfLicenseeWL = Enumerable.From(productOptions).Last(licenseeWLProductsFilter);
 
             var groupCustomerWinloss = _me.hasCustomerComm ?
                 {
@@ -610,7 +609,7 @@ define(
         _me.getTotalColModel = function (level, productOptions) {
             var colModel = _me.getColModel(level, -1, productOptions);
             // Not show drill down link on total link
-            var curCol = JSLINQ(colModel).First(function (item) {
+            var curCol = Enumerable.From(colModel).First(function (item) {
                 return item.name === "CurrencyName";
             });
 
@@ -624,8 +623,8 @@ define(
             /// </summary>
             /// <param name="grid">grid instance</param>
 
-            var numOfActiveLicPro = JSLINQ(productOptions).Count(licenseeWLProductsFilter);
-            var numOfActiveTurnPro = JSLINQ(productOptions).Count(turnoverProductsFilter);
+            var numOfActiveLicPro = Enumerable.From(productOptions).Count(licenseeWLProductsFilter);
+            var numOfActiveTurnPro = Enumerable.From(productOptions).Count(turnoverProductsFilter);
             var isAllowedBetTrade = isProductChecked(productOptions, "BT");
             var isAllowBA = isProductChecked(productOptions, "BA");
             var clear = function (button) {

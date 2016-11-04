@@ -783,7 +783,7 @@
     <Content Include="www\js\source\lib\jquery.flatpopup.js" />
     <Content Include="www\js\source\lib\jquery.monthpicker.js" />
     <Content Include="www\js\source\lib\jquery.multiselect.js" />
-    <Content Include="www\js\source\lib\JSLINQ.js" />
+    <Content Include="www\js\source\lib\linq.js" />
     <Content Include="www\js\source\lib\navbar.js" />
     <Content Include="www\js\source\lib\sidebar.js" />
     <Content Include="www\js\source\pages\home\home.js" />

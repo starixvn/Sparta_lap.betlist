@@ -1,9 +1,8 @@
-﻿/*global jqGridAdditional, JSLINQ, LicenseeWinLossOption, QueryString, Report, Site */
-/// <reference path="/@JSense.js" />
+﻿/// <reference path="/@JSense.js" />
 ///
 define(
     ["common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional", "common/pluginhelper", "moment",
-        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extensions/jquery.extension", "lib/JSLINQ"],
+        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extensions/jquery.extension", "lib/linq"],
     function (QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, PluginHelper, moment) {
         var LicenseeWinLoss = (function () {
             "use strict";
@@ -21,8 +20,8 @@ define(
 
             function sortData(arrayData) {
                 var data = _sortOrder === "asc" ?
-                     JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items
-                     : JSLINQ(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).items;
+                     Enumerable.From(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).ToArray()
+                     : Enumerable.From(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).ToArray();
                 for (var i = 0; i < data.length; i++) {
                     data[i].Index = i + 1;
                 }
