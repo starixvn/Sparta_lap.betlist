@@ -1,4 +1,4 @@
-﻿define(['pages/livereport/helper'], function (Helper) {
+﻿define(['pages/report/livereport/helper'], function (Helper) {
     describe("helper.js", function () {
         describe("setSumParams(url, totalValue)", function () {
             it("setSumParams(url, totalValue) should return correct value", function () {

@@ -224,7 +224,7 @@ jQuery.extend({
         /// </summary>
         /// <returns type="string">formated string</returns>
         var formatted = arguments[0];
-        var passValue = $.grep(arguments, function (n, i) { return i > 0; });
+        var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
         for (var arg in passValue) {
             formatted = formatted.replace("{" + arg + "}", passValue[arg]);
         }

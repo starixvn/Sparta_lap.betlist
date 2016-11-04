@@ -1,6 +1,11 @@
 ﻿define(['jquery', 'common/site', 'pages/report/licenseewinloss/licenseewinloss.option'],
     function ($, Site, LicenseeWinLossOption) {
         describe("LicenseeWinLossOption", function () {
+            beforeAll(function () {
+                spyOn(Site, "getResources").and.callFake(function (text) {
+                    return text;
+                });
+            });
 
             describe("LicenseeWinLossOption", function () {
                 it("rowNum should be correct.", function () {
@@ -29,8 +34,9 @@
                     LicenseeWinLossOption.hasCustomerComm = true;
                     var columnNames = LicenseeWinLossOption.getColName([]);
 
-                    expect(columnNames).toEqual(['#', 'Date', 'ExternalId', 'SystemId', 'Currency', 'Total', 'Turnover', 'ActualStake', 'BuyBackAmount', 'TotalTransaction', 'Win/Loss', 'Comm',
-                        'Total', 'Total', 'LicenseeW_L', 'BetTrade<br/>Commission', 'BA<br/>Commission', 'RacingRevenue', 'AmtDueToBetTrade', 'AmtDueToBA', 'AmtDueToRacing', 'CurrencyId', 'CustomerId']);
+                    expect(columnNames).toEqual(['#', 'Date', 'ExternalId', 'SystemId', 'Currency', 'Total', 'Turnover', 'ActualStake', 'BuyBackAmount',
+                        'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'Total', 'LicenseeW_L', '@[BetTrade]<br/>@[Commission]', 'BA<br/>@[Commission]',
+                        '@[RacingRevenue]', '@[AmtDueToBetTrade]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId']);
                 });
             });
 
