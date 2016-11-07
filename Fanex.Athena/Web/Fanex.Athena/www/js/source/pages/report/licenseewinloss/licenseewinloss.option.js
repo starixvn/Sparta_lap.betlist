@@ -95,7 +95,7 @@ define(
             name: 'Index',
             index: 'Index',
             resizable: false,
-            width: 30,
+            width: 45,
             align: 'center',
             valign: 'middle',
             sortable: false
@@ -168,7 +168,7 @@ define(
         {
             name: 'ActualStake',
             index: 'ActualStake',
-            width: 80,
+            width: 100,
             align: 'right',
             sortable: true,
             resizable: false,
@@ -210,7 +210,7 @@ define(
         {
             name: 'CustomerWinLoss',
             index: 'CustomerWinLoss',
-            width: 100,
+            width: 120,
             align: 'right',
             sortable: true,
             resizable: false,
@@ -232,7 +232,7 @@ define(
         {
             name: 'CustomerTotal',
             index: 'CustomerTotal',
-            width: 100,
+            width: 120,
             align: 'right',
             sortable: true,
             resizable: false,
@@ -258,7 +258,7 @@ define(
             name: 'BetTradeCommission',
             classes: 'highlight',
             index: 'BetTradeCommission',
-            width: 80,
+            width: 100,
             align: 'right',
             sortable: true,
             resizable: false,
@@ -284,7 +284,7 @@ define(
             name: 'RacingRevenue',
             classes: 'highlight',
             index: 'RacingRevenue',
-            width: 75,
+            width: 100,
             align: 'right',
             sortable: true,
             resizable: false,
@@ -296,7 +296,7 @@ define(
         {
             name: 'AmtDueToBetTrade',
             index: 'AmtDueToBetTrade',
-            width: 70,
+            width: 85,
             align: 'right',
             sortable: true,
             resizable: false,
@@ -308,7 +308,7 @@ define(
         {
             name: 'AmtDueToBA',
             index: 'AmtDueToBA',
-            width: 70,
+            width: 85,
             align: 'right',
             sortable: true,
             resizable: false,
@@ -320,7 +320,7 @@ define(
         {
             name: 'AmtDueToRacing',
             index: 'AmtDueToRacing',
-            width: 65,
+            width: 85,
             align: 'right',
             sortable: true,
             resizable: false,
@@ -354,7 +354,7 @@ define(
         {
             name: 'productName',
             index: 'productName',
-            width: 90,
+            width: 120,
             sortable: true,
             resizable: false,
             align: "right",
