@@ -66,6 +66,9 @@
     color: #2c2c2c; }
   .page-form .select-wrapper span.caret {
     color: #549cba; }
+  @media screen\0 {
+    .page-form {
+      box-shadow: none; } }
 
 .table-title {
   background: #8aa4b8;

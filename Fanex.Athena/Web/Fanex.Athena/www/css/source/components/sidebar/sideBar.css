@@ -47,16 +47,21 @@
   .side-nav.fixed .collapsible-body {
     background: transparent; }
     .side-nav.fixed .collapsible-body li {
-      padding: 0 20px;
+      padding: 0 0 0 20px;
       line-height: 42px; }
       .side-nav.fixed .collapsible-body li a {
         display: inline-block;
         vertical-align: middle;
+        padding-right: 0;
         height: 42px;
         line-height: 42px;
-        color: #dbdbdb; }
-        .side-nav.fixed .collapsible-body li a:hover {
-          color: #f05b1f; }
+        color: #dbdbdb;
+        width: 205px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; }
+      .side-nav.fixed .collapsible-body li:hover a {
+        color: #f05b1f; }
       .side-nav.fixed .collapsible-body li img {
         vertical-align: middle; }
       .side-nav.fixed .collapsible-body li.active {
@@ -112,7 +117,7 @@
           visibility: hidden; }
       .site-menubar-fold .side-nav .site-menu .menu-item .collapsible-body {
         position: absolute !important;
-        top: -44px;
+        top: 0;
         left: 6.9rem;
         background: #2c3d4b;
         width: 24rem;

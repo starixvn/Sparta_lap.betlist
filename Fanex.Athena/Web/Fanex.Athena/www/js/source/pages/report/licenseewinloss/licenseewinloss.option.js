@@ -244,7 +244,7 @@ define(
             name: 'TotalLicenseeWLSingle',
             classes: 'highlight',
             index: 'TotalLicenseeWLSingle',
-            width: 100,
+            width: 120,
             align: 'right',
             sortable: true,
             resizable: false,
