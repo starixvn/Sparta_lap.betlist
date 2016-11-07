@@ -60,3 +60,7 @@
 .collapsible-body{
     border-bottom: none;
 }
+
+input[type=text]::-ms-clear {
+    display: none;
+}
