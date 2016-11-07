@@ -79,6 +79,10 @@
             setRangeDate(picker.startDate, picker.endDate);
         });
 
+        $('.date-range').on("click", ".icon-calendar", function () {
+            $dateRange.data('daterangepicker').toggle();
+        });
+
         setRangeDate(start, end);
     }
 
