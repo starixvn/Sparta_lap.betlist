@@ -20,6 +20,12 @@ module.exports = function (config) {
         ],
         exclude: [
         ],
+        preprocessors: {
+            'www/js/source/common/**/*.js': ['coverage'],
+            'www/js/source/extensions/**/*.js': ['coverage'],
+            'www/js/source/pages/**/*.js': ['coverage'],
+            'www/js/source/vendors/**/*.js': ['coverage']
+        },
         port: 9875,
         colors: true,
         logLevel: config.LOG_INFO,
@@ -28,11 +34,11 @@ module.exports = function (config) {
         reporters: ['kjhtml', 'dots', 'junit', 'coverage', 'progress'],
         singleRun: false,
         junitReporter: {
-            outputFile: 'junit/test-results.xml'
+            outputFile: 'junit/test-results-new.xml'
         },
         coverageReporter: {
             type: 'html',
-            dir: 'junit/coverage/'
+            dir: 'junit/coverage-new/'
         },
         concurrency: Infinity,
         phantomjsLauncher: {
