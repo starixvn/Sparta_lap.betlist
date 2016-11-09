@@ -29,6 +29,10 @@ namespace Fanex.Athena.Api.BetList
     /// </summary>
     public static class LrfBetListHtmlBuilder
     {
+        private const int MinColossusBetBetType = 18000;
+
+        private const int MaxColossusBetBetType = 18007;
+
         /// <summary>
         /// Get ticket status.
         /// </summary>
@@ -90,23 +94,25 @@ namespace Fanex.Athena.Api.BetList
             var running = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
             var racing = ticket.BetTypeId == (int)BetType.Win || ticket.BetTypeId == (int)BetType.Place ||
                            ticket.BetTypeId == (int)BetType.WinPlace;
-            if (!racing && ticket.BetTypeId != (int)BetType.BetTradeBought)
+            if (racing ||
+                ticket.BetTypeId == (int)BetType.BetTradeBought ||
+                (ticket.BetTypeId >= MinColossusBetBetType && ticket.BetTypeId <= MaxColossusBetBetType))
             {
-                return running
+                var licenseeWl = running
+                    ? "-"
+                    : FormatLicenseeWl(ticket.LicenseeWL);
+                var comm = running
+                    ? "-"
+                    : string.Format("{0:#,##0.00}", ticket.Comm);
+
+                return string.Format("<div class ='lic-win-loss'>{0}<br/>{1}</div>", licenseeWl, comm);
+            }
+
+            return running
                     ? "-"
                     : string.Format(
                         "<div class='lic-win-loss'>{0}</div>",
                         FormatLicenseeWl(ticket.LicenseeWL + ticket.Comm));
-            }
-
-            var licenseeWl = running
-                ? "-"
-                : FormatLicenseeWl(ticket.LicenseeWL);
-            var comm = running
-                ? "-"
-                : string.Format("{0:#,##0.00}", ticket.Comm);
-
-            return string.Format("<div class ='lic-win-loss'>{0}<br/>{1}</div>", licenseeWl, comm);
         }
 
         /// <summary>

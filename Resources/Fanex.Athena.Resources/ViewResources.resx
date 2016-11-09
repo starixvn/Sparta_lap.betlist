@@ -2710,7 +2710,7 @@
     <value>Reference No</value>
     <comment>#47601</comment>
   </data>
-  <data name="GrandPrize" xml:space="preserve">
+  <data name="GrandPrizeNote" xml:space="preserve">
     <value>Grand Prize: the grand winning amount which is excluded from member balance</value>
     <comment>#47601</comment>
   </data>
@@ -2852,5 +2852,57 @@
   </data>
   <data name="EnableAllBet" xml:space="preserve">
     <value>Enable AllBet</value>
+  </data>
+  <data name="ProductCB" xml:space="preserve">
+    <value>Colossus Bets</value>
+    <comment>#63785</comment>
+  </data>
+  <data name="ColossusBetsWinLoss" xml:space="preserve">
+    <value>Colossus Bets Win Loss</value>
+  </data>
+  <data name="DisableColossusBets" xml:space="preserve">
+    <value>Disable Colossus Bets</value>
+    <comment>#63785</comment>
+  </data>
+  <data name="EnableColossusBets" xml:space="preserve">
+    <value>Enable Colossus Bets</value>
+    <comment>#63785</comment>
+  </data>
+  <data name="AmountDueToCB" xml:space="preserve">
+    <value>Amount Due To Colossus Bets</value>
+  </data>
+  <data name="CashOutShare" xml:space="preserve">
+    <value>Cash-out Share</value>
+    <comment>#63785</comment>
+  </data>
+  <data name="CashOutAmt" xml:space="preserve">
+    <value>Cash-out Amt</value>
+    <comment>#63785</comment>
+  </data>
+  <data name="CommissionShare" xml:space="preserve">
+    <value>Commission Share</value>
+  </data>
+  <data name="AmtGreaterThan30kGBP" xml:space="preserve">
+    <value>Amt ≥ 30K GBP</value>
+    <comment>#63785</comment>
+  </data>
+  <data name="AmtLessThan30kGBP" xml:space="preserve">
+    <value>Amt &lt; 30K GBP</value>
+    <comment>#63785</comment>
+  </data>
+  <data name="MemberWinnings" xml:space="preserve">
+    <value>Member's Winnings</value>
+    <comment>#63785</comment>
+  </data>
+  <data name="TransactionType" xml:space="preserve">
+    <value>Transaction Type</value>
+  </data>
+  <data name="ColossusBetBetListDetailMsg" xml:space="preserve">
+    <value>Member owned {0}% of this ticket&lt;br/&gt;Member sold {1}% of this ticket for {2}</value>
+    <comment>#63785</comment>
+  </data>
+  <data name="TicketDetailOf" xml:space="preserve">
+    <value>Ticket detail of {0}</value>
+    <comment>#63785</comment>
   </data>
 </root>

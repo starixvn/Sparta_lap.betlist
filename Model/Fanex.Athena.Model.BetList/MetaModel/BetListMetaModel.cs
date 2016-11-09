@@ -29,6 +29,8 @@ namespace Fanex.Athena.Model.BetList.MetaModel
             IsLastBetMonitoring = false;
         }
 
+        public string ExcelFileName { get; set; }
+
         public bool IsShowSumStake { get; set; }
 
         public IEnumerable<ProductOption> ProductOptions { get; set; }

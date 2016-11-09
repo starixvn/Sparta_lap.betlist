@@ -326,4 +326,8 @@
     <value>Edit Bet Setting</value>
     <comment>#61999</comment>
   </data>
+  <data name="Menu_71" xml:space="preserve">
+    <value>Colossus Bets Win Loss</value>
+    <comment>#63785</comment>
+  </data>
 </root>

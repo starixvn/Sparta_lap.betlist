@@ -31,10 +31,12 @@ namespace Fanex.Athena.Model.Core.DataDomain
         public const int GoldDeluxe = 11;
 
         public const int Macau = 12;
-        
+
         public const int BetTrade = 13;
 
         public const int MicroGamingLiveCasino = 14;
+
+        public const int ColossusBets = 15;
 
         public const int MicrogamingRNGCasino = 17;
 

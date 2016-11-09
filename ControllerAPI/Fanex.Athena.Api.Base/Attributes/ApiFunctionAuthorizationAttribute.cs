@@ -28,6 +28,11 @@
             PermissionKeys = new string[] { permissionKey1, permissionKey2 };
         }
 
+        public ApiFunctionAuthorizationAttribute(string permissionKey1, string permissionKey2, string permissionKey3)
+        {
+            PermissionKeys = new string[] { permissionKey1, permissionKey2, permissionKey3 };
+        }
+
         public string[] PermissionKeys { get; set; }
 
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(

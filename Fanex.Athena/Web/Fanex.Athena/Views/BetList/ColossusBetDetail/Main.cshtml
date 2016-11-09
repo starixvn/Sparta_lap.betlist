@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = string.Format("LRF - {0}", ViewResources.BetList);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+   <link href="@Url.ContentLink("/Content/Global/lrf.global.reportable.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLink("/Content/BetList/colossusbetdetail.css")" rel="stylesheet" type="text/css" />
+}
+@model Fanex.Athena.Model.BetList.ViewModel.ColossusBetDetailViewModel
+<div class="content-wrapper">
+    <div class="left">
+        <iframe src="@Model.IframeUrl"></iframe>
+    </div>
+    <div class="middle"></div>
+    <div class="right">
+        @{ 
+            var ownPercent = 100 - Model.TotalSoldPercent;
+            var message = string.Format(ViewResources.ColossusBetBetListDetailMsg, ownPercent.ToString("#,##0.##"), 
+                Model.TotalSoldPercent.ToString("#,##0.##"), Model.TotalSoldWinLoss.ToString("#,##0.00"));
+        }
+        <p>
+            @Html.Raw(message)
+        </p>
+        <table class="report-table table-detail">
+            <tr class="report-header">
+                <th>@ViewResources.Date</th>
+                <th>@ViewResources.TransactionType</th>
+                <th>@ViewResources.WinLoss</th>
+                <th>@ViewResources.Commission</th>
+            </tr>
+            @foreach (var item in Model.DataList)
+            {
+                <tr>
+                    <td class="col-date">@item.TransDate</td>
+                    <td class="col-trans">@item.TransactionType</td>
+                    <td class="col-winloss">@Html.Raw(item.WinLoss)</td>
+                    <td class="col-comm">@item.Commission.ToString("#,##0.00")</td>
+                </tr>
+            }
+            <tr class="total-row">
+                <td colspan="2">@ViewResources.Total</td>
+                <td>@Model.TotalWinLoss.ToString("#,##0.00")</td>
+                <td>@Model.TotalComm.ToString("#,##0.00")</td>
+            </tr>
+        </table>
+    </div>
+</div>

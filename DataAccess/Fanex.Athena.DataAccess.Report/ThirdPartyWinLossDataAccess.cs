@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
@@ -25,13 +24,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class ThirdPartyWinLossDataAccess : BaseDataAccess, IThirdPartyWinLossDataAccess
     {
-        public ThirdPartyWinLossDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
-        {
-        }
-
-        #region IGoldDeluxeWinLossDataAccess Members
-
         public SortableList<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
         {
             var uspName = "Lrf_Rpt_ThirdPartyWinloss";
@@ -101,8 +93,6 @@ namespace Fanex.Athena.DataAccess.Report
                 throw new DataAccessException(sqlException.Message, uspName, metaModel);
             }
         }
-
-        #endregion IGoldDeluxeWinLossDataAccess Members
 
         #region Private
 

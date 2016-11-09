@@ -1,0 +1,67 @@
+﻿html{
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+}
+html, body,
+.content-wrapper,
+#BodyContent,
+.content-wrapper .middle,
+.content-wrapper .left, .content-wrapper .left iframe {
+    height: 99%;
+}
+th {
+    line-height: 2em;
+}
+.content-wrapper, .content-wrapper .left iframe {
+    width: 100%;
+}
+
+.content-wrapper .left {
+    width: 370px;
+    float: left;
+}
+
+.content-wrapper .right {
+    width: 450px;
+    float: left;
+}
+
+.content-wrapper .middle {
+    width: 1px;
+    background: #A3D1E1;
+    float: left;
+    margin: 0 10px;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.table-detail {
+    width: 100% !important;
+    border-collapse: collapse;
+}
+
+.col-date {
+    width: 30%;
+    text-align: center !important;
+}
+
+.col-trans {
+    width: 30%;
+    text-align: left !important;
+}
+
+.col-winloss {
+    width: 20%;
+}
+
+.col-comm {
+    width: 20%;
+}
+.total-row{
+    background-color: #FFEFE3;
+    border-top: 2px solid #FF6600;
+    font-weight: bold;
+}

@@ -14,12 +14,18 @@ var ActiveCustomer = (function ($) {
     var _removeSorting = false;
 
     function sortData(arrayData) {
-        var data = _sortOrder === "asc" ?
-             JSLINQ(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).items
-             : JSLINQ(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).items;
-        for (var i = 0; i < data.length; i++) {
-            data[i].Index = i + 1;
+        var sortColumn = _sortColumnName;
+        if (_sortColumnName.indexOf('CustomerCount') >= 0) {
+            sortColumn = "SortingValue";
+            var productCode = _sortColumnName.replace("CustomerCount", "");
+            for (var i = 0; i < arrayData.length; i++) {
+                arrayData[i].SortingValue = arrayData[i].CustomerCount[productCode];
+            }
         }
+
+        var data = _sortOrder === "asc" ?
+             JSLINQ(arrayData).OrderBy(function (x) { return x[sortColumn]; }).items
+             : JSLINQ(arrayData).OrderByDescending(function (x) { return x[sortColumn]; }).items;
 
         return data;
     }
@@ -129,7 +135,7 @@ var ActiveCustomer = (function ($) {
                 cache: false,
                 url: Site.resolveClientUrl(ActiveCustomerOption.urlData),
                 success: function (response) {
-                    if (response != null) {
+                    if (response !== null) {
                         ActiveCustomer.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
 
                         cacheData = response;
@@ -143,7 +149,7 @@ var ActiveCustomer = (function ($) {
                     Site.unBlockUI();
                 }
             };
-            if (ajaxRequest != null) {
+            if (ajaxRequest !== null) {
                 ajaxRequest.abort();
             }
 
@@ -180,7 +186,7 @@ var ActiveCustomer = (function ($) {
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete(this, gridOption, 1);
 
-                if (response == null || numOfRow === 0) {
+                if (response === null || numOfRow === 0) {
                     jqGridAdditional.setNoInfo(gridOption.colModel);
                 }
                 else {

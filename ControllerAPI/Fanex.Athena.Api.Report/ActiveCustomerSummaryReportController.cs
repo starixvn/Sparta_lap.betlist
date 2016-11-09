@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ReportController.ActiveCustomer.cs" company="">
+// <copyright file="ActiveCustomerSummaryReportController.cs" company="">
 // Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -45,7 +45,7 @@ namespace Fanex.Athena.Api.Report
         {
             return new
             {
-                Data = new List<ActiveCustomerGridViewModel>(),
+                Data = new List<ActiveCustomer>(),
                 GrantTotalCustomer = 0,
                 ProductOptions = metaModel.ProductOptions.ToJson()
             };
@@ -53,23 +53,10 @@ namespace Fanex.Athena.Api.Report
 
         #region ProcessRequest
 
-        /// <summary>
-        /// Sort data list by property (column name).
-        /// </summary>
-        /// <param name="dataList">Data list to be sorted.</param>
-        /// <param name="sortBy">Sort column name.</param>
-        /// <param name="sortOrder">ASC or DESC.</param>
-        /// <returns>Data list after being sorted.</returns>
         private static SortableList<ActiveCustomer> SortData(SortableList<ActiveCustomer> dataList, string sortBy = null, string sortOrder = "asc")
         {
             if (sortBy != null)
             {
-                // Sort for grouping columns, get the real column name
-                if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
-                {
-                    sortBy = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
-                }
-
                 var property = typeof(ActiveCustomer).GetProperty(sortBy);
 
                 if (property == null)
@@ -94,43 +81,6 @@ namespace Fanex.Athena.Api.Report
 
         #region Private Utility
 
-        /// <summary>
-        /// Convert to view model of grid.
-        /// </summary>
-        /// <param name="item">The data object.</param>
-        /// <returns>Licensee WinLoss Grid View Model.</returns>
-        private static ActiveCustomerGridViewModel MapToGridView(ActiveCustomer item)
-        {
-            return new ActiveCustomerGridViewModel
-            {
-                TotalCustomer = item.TotalCustomer,
-                TransactionDate = item.TransactionDate,
-                CustomerCountBA = item.CustomerCount.Keys.Contains(Product.BA) ? item.CustomerCount[Product.BA] : 0,
-                CustomerCountSB = item.CustomerCount.Keys.Contains(Product.SB) ? item.CustomerCount[Product.SB] : 0,
-                CustomerCountRB = item.CustomerCount.Keys.Contains(Product.RB) ? item.CustomerCount[Product.RB] : 0,
-                CustomerCountNG = item.CustomerCount.Keys.Contains(Product.NG) ? item.CustomerCount[Product.NG] : 0,
-                CustomerCountLC = item.CustomerCount.Keys.Contains(Product.LC) ? item.CustomerCount[Product.LC] : 0,
-                CustomerCountVS = item.CustomerCount.Keys.Contains(Product.VS) ? item.CustomerCount[Product.VS] : 0,
-                CustomerCountCS = item.CustomerCount.Keys.Contains(Product.CS) ? item.CustomerCount[Product.CS] : 0,
-                CustomerCountBG = item.CustomerCount.Keys.Contains(Product.BG) ? item.CustomerCount[Product.BG] : 0,
-                CustomerCountKN = item.CustomerCount.Keys.Contains(Product.KN) ? item.CustomerCount[Product.KN] : 0,
-                CustomerCountPTCS = item.CustomerCount.Keys.Contains(Product.PTCS) ? item.CustomerCount[Product.PTCS] : 0,
-                CustomerCountAGC = item.CustomerCount.Keys.Contains(Product.AGC) ? item.CustomerCount[Product.AGC] : 0,
-                CustomerCountMGCLC = item.CustomerCount.Keys.Contains(Product.MGCLC) ? item.CustomerCount[Product.MGCLC] : 0,
-                CustomerCountMGCRNG = item.CustomerCount.Keys.Contains(Product.MGCRNG) ? item.CustomerCount[Product.MGCRNG] : 0,
-                CustomerCountBT = item.CustomerCount.Keys.Contains(Product.BT) ? item.CustomerCount[Product.BT] : 0,
-                CustomerCountVB = item.CustomerCount.Keys.Contains(Product.VB) ? item.CustomerCount[Product.VB] : 0,
-                CustomerCountAB = item.CustomerCount.Keys.Contains(Product.AB) ? item.CustomerCount[Product.AB] : 0
-            };
-        }
-
-        /// <summary>
-        /// Active customer - Export excel.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Data list.</param>
-        /// <param name="totalCustomer">Summary data.</param>
-        /// <returns>Http Response Message.</returns>
         private HttpResponseMessage ExportExcel(ActiveCustomerMetaModel metaModel, IList<ActiveCustomer> dataList, int totalCustomer)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -155,40 +105,20 @@ namespace Fanex.Athena.Api.Report
                 CurrencyName = currencyName.Key
             };
 
-            var exccelModel = new ActiveCustomerViewModel
+            var excelModel = new ActiveCustomerViewModel
             {
                 MainResult = dataList,
                 TotalCustomer = totalCustomer,
             };
 
-            var excel = new ActiveCustomerSummaryExcel(templatePath, FileName, convertingOption, showingOption, metaModel, exccelModel);
+            var excel = new ActiveCustomerSummaryExcel(templatePath, FileName, convertingOption, showingOption, metaModel, excelModel);
 
             excel.Export();
 
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        /// <summary>
-        /// Get data for Active Customer report.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Output parameter: Data List.</param>
-        /// <param name="totalCustomer">Output parameter total customer.</param>
-        private void GetData(
-                ActiveCustomerMetaModel metaModel,
-                out SortableList<ActiveCustomer> dataList,
-                out int totalCustomer)
-        {
-            dataList = _activeCustomerService.GetActiveCustomers(metaModel, out totalCustomer);
-        }
-
-        /// <summary>
-        ///  Process request.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <returns>Dynamic object.</returns>
-        private dynamic ProcessRequest(
-            ActiveCustomerMetaModel metaModel)
+        private dynamic ProcessRequest(ActiveCustomerMetaModel metaModel)
         {
             if (IsValidRequest(metaModel))
             {
@@ -196,21 +126,20 @@ namespace Fanex.Athena.Api.Report
                 metaModel.UserId = SessionService.UserSession.UserId;
 
                 int totalCustomer;
-                SortableList<ActiveCustomer> dataList;
-                GetData(metaModel, out dataList, out totalCustomer);
+                var dataList = _activeCustomerService.GetActiveCustomers(metaModel, out totalCustomer);
 
                 if (metaModel.IsExportExcel)
                 {
                     return ExportExcel(metaModel, dataList, totalCustomer);
                 }
 
-                if (dataList != null && dataList.Count > 0)
+                if (dataList.Any())
                 {
                     dataList = SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
 
                     return new
                     {
-                        Data = dataList.Select(MapToGridView).ToList(),
+                        Data = dataList,
                         GrantTotalCustomer = totalCustomer,
                         ProductOptions = metaModel.ProductOptions.ToJson()
                     };

@@ -21,7 +21,7 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-    [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct)]
+    [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct, PermissionKeys.ReportColossusBetsWinLoss)]
     public class LicenseeWinLossBetListController : BetListBaseController
     {
         [HttpGet]
@@ -76,7 +76,8 @@ namespace Fanex.Athena.Controllers.BetList
 
             var workbook = excel.Export(ticketResult, title);
 
-            return new ExcelResult(workbook, "LicenseeWinLossBetList");
+            var fileName = string.IsNullOrWhiteSpace(metaModel.ExcelFileName) ? "LicenseeWinLossBetList" : metaModel.ExcelFileName;
+            return new ExcelResult(workbook, fileName);
         }
     }
 }

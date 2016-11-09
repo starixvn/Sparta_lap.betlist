@@ -90,6 +90,10 @@
       <HintPath>..\..\..\packages\Fanex.BetList.Core.2.15.2.9\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.BetList.ColossusBets, Version=1.0.1.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.ColossusBets.1.0.1.7\lib\net40\Fanex.BetList.ColossusBets.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fanex.BetList.Core, Version=2.15.2.9, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.Core.2.15.2.9\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
@@ -411,6 +415,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
+    <Content Include="App_Data\UserGuide\ColossusBetsWL\en-US.htm" />
+    <Content Include="App_Data\UserGuide\ColossusBetsWL\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\ColossusBetsWL\zh-TW.htm" />
     <Content Include="Content\BetList\Allbet.css" />
     <Content Include="App_Data\Notification\zh-CN.htm" />
     <Content Include="App_Data\Notification\zh-TW.htm" />
@@ -569,6 +576,7 @@
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-CN.htm" />
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <Content Include="Content\BetList\AGCasino.css" />
+    <Content Include="Content\BetList\colossusbetdetail.css" />
     <Content Include="Content\BetList\Microgaming.css" />
     <Content Include="Content\Customer\customerlist.css" />
     <Content Include="Content\Fanex.Result\Allbet\css\button.css" />
@@ -741,6 +749,7 @@
     <Content Include="App_Data\UserGuide\CustomerList\pdf\zh-TW\Odds Group Feature_Licensee.pdf" />
     <Content Include="App_Data\UserGuide\CustomerList\pdf\zh-TW\Odds Group Feature_Licensee_BA.pdf" />
     <Content Include="App_Data\UserGuide\CustomerList\pdf\en-US\Odds Group Feature_Licensee_BA.pdf" />
+    <Content Include="App_Data\Template\Reports\ColossusBetsWinLoss.xls" />
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
@@ -914,6 +923,8 @@
     <Content Include="Scripts\Report\agcasinobalance.option.js" />
     <Content Include="Scripts\Report\CasinoProgressiveWins.js" />
     <Content Include="Scripts\Report\CasinoProgressiveWins.option.js" />
+    <Content Include="Scripts\Report\colossusbetswinloss.js" />
+    <Content Include="Scripts\Report\colossusbetswinloss.option.js" />
     <Content Include="Scripts\Report\weeklylivematch.js" />
     <Content Include="Scripts\Report\weeklylivematch.option.js" />
     <Content Include="Scripts\Report\thirdpartywinloss.golddeluxe.js" />
@@ -957,6 +968,11 @@
     <Content Include="Views\BetList\RunningBettypesOfMatchBetList\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\AllBet.cshtml" />
     <Content Include="Views\Report\Result\Popup\AllBet.cshtml" />
+    <Content Include="Views\Report\ColossusBetsWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\ColossusBetsWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\ColossusBetsWinLoss\Main.cshtml" />
+    <Content Include="Views\Customer\BetSetting\ColossusBets.cshtml" />
+    <Content Include="Views\BetList\ColossusBetDetail\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
@@ -4732,6 +4748,10 @@
     <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
+      <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>
+      <Name>Fanex.Athena.Model.BetList</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>

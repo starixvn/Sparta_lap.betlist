@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Core.Helpers
 {
     using System;
     using System.Data.SqlClient;
+    using System.Text;
     using System.Web;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Logging;
@@ -17,38 +18,58 @@ namespace Fanex.Athena.Service.Core.Helpers
     /// </summary>
     public static class LogHelper
     {
-        public static void WriteError(Exception exception)
+        public static void WriteError(Exception exception, string additionalMessage = null)
         {
             var request = HttpContext.Current.Request;
-            string message = exception.Message +
-                             "\r\nSOURCE: " + exception.Source +
-                             "\r\nDOMAIN: " + request.Headers["Host"] +
-                             "\r\nFORM: " + string.Join("~", request.Form) +
-                             "\r\nUrl: " + request.RawUrl +
-                             "\r\nQUERYSTRING: " + string.Join("~", request.QueryString) +
-                             "\r\nTARGETSITE: " + exception.TargetSite +
-                             "\r\nSTACKTRACE: " + exception.StackTrace +
-                             "\r\nBrowser:" + request.Browser.Type.ToString() +
-                             "\r\nBrowserVer:" + request.Browser.Version.ToString() +
-                             "\r\nAgent:" + request.UserAgent.ToString();
+            var content = BuildMessage(exception.Message);
+            if (!string.IsNullOrWhiteSpace(additionalMessage))
+            {
+                content.AppendLine(additionalMessage);
+            }
+
+            content.AppendLine("SOURCE: " + exception.Source)
+                   .AppendLine("TARGETSITE: " + exception.TargetSite)
+                   .AppendLine("STACKTRACE: " + exception.StackTrace);
+
             var sqlException = exception as SqlException;
             if (sqlException != null)
             {
-                message += "\r\nProcedure: " + sqlException.Procedure +
-                    "\r\nLine Number: " + sqlException.LineNumber +
-                    "\r\nServer: " + sqlException.Server;
+                content.AppendLine("Procedure: " + sqlException.Procedure)
+                    .AppendLine("Line Number: " + sqlException.LineNumber)
+                    .AppendLine("Server: " + sqlException.Server);
             }
+
+            LogService.Error(content.ToString(), exception);
+        }
+
+        public static void WriteError(string message)
+        {
+            var content = BuildMessage(message);
+            LogService.Error(content.ToString());
+        }
+
+        private static StringBuilder BuildMessage(string message)
+        {
+            var request = HttpContext.Current.Request;
+            var builder = new StringBuilder(message).AppendLine();
+            builder.AppendLine("DOMAIN: " + request.Headers["Host"])
+                   .AppendLine("FORM: " + string.Join("~", request.Form))
+                   .AppendLine("Url: " + request.RawUrl)
+                   .AppendLine("QUERYSTRING: " + string.Join("~", request.QueryString))
+                   .AppendLine("Browser:" + request.Browser.Type.ToString())
+                   .AppendLine("BrowserVer:" + request.Browser.Version.ToString())
+                   .AppendLine("Agent:" + request.UserAgent.ToString());
 
             var sessionService = new SessionService();
             var licenseeSession = sessionService.LicenseeSession;
             if (licenseeSession != null)
             {
-                message += "\r\nSystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" + 
+                builder.AppendLine("SystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" +
                     licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId + ";" +
-                    licenseeSession.UserName;
+                    licenseeSession.UserName);
             }
 
-            LogService.Error(message, exception);
+            return builder;
         }
     }
 }

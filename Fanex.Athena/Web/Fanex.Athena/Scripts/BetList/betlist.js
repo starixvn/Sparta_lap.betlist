@@ -14,7 +14,6 @@ var BetList = (function ($) {
     var SPORT_ALLBET = 211;
     var SPORT_VOIDBRIDGE = 212;
 
-
     var _sortColumnName, _sortOrder;
     var _params, _url;
     var _isShowSumStake;
@@ -222,7 +221,7 @@ var BetList = (function ($) {
                 cache: false,
                 url: url,
                 success: function (response) {
-                    if (response != null) {
+                    if (response !== null) {
                         BetList.bindData(response);
                         BetList.setLeagueTitle(response.LeagueName);
                     }
@@ -269,7 +268,7 @@ var BetList = (function ($) {
         },
 
         bindData: function (response) {
-            if (response != null) {
+            if (response !== null) {
                 var rawData = response.Main;
                 var summary = response.Total;
                 var sumWinLoss = jqGridAdditional.formatDecimal(summary.SumWinLoss);
@@ -657,7 +656,7 @@ var BetList = (function ($) {
             url = QueryString.setParam(url, "date", winlostDate);
 
             var popH = Math.min($(window).height() - 100, 550), popW = 820;
-            var title = Site.getSingleResource("AllBet") + " - " +
+            var title = Site.getSingleResource("ProductAB") + " - " +
                 Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
             var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
                              popW + '" height="100%" src="' + url + '" ></iframe></div>';
@@ -665,6 +664,27 @@ var BetList = (function ($) {
             $(dialogForm).dialog({
                 modal: true,
                 width: popW + 50,
+                height: popH + 50
+            });
+        },
+        showColossusBetsDetails: function (refNo, winlostDate, transId, custId, betCheck) {
+            var params = $.parseJSON($("#BetListMetaModel").val());
+            var url = Site.resolveClientUrl('ColossusBetBetList/Detail');
+            url = QueryString.setParam(url, "refNo", refNo);
+            url = QueryString.setParam(url, "date", winlostDate);
+            url = QueryString.setParam(url, "transid", transId);
+            url = QueryString.setParam(url, "custid", custId);
+            url = QueryString.setParam(url, "betCheck", betCheck);
+            url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
+
+            var popH = Math.min($(window).height() - 100, 550), popW = 860;
+            var title = Site.getSingleResource("TicketDetailOf").replace("{0}", refNo);
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 30,
                 height: popH + 50
             });
         },
@@ -724,3 +744,4 @@ var showRnGCasinoDetails = BetList.showRnGCasinoDetails;
 var showVoidBridgeDetails = BetList.showVoidBridgeDetails;
 var showVoidbridgeResult = BetList.viewVoidbridgeResult;
 var showTodayRunningBetsDetails = BetList.showAllBetDetails;
+var showColossusBetsDetails = BetList.showColossusBetsDetails;

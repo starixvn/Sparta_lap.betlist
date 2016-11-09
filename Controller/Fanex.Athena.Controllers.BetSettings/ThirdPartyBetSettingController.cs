@@ -50,6 +50,9 @@ namespace Fanex.Athena.Controllers.BetSettings
                 case ProductTypes.BetTrade:
                     return View("~/Views/Customer/BetSetting/BetTrade.cshtml", viewModel);
 
+                case ProductTypes.ColossusBets:
+                    return View("~/Views/Customer/BetSetting/ColossusBets.cshtml", viewModel);
+
                 default:
                     throw new Exception("Not a thirdparty product.");
             }
@@ -81,6 +84,13 @@ namespace Fanex.Athena.Controllers.BetSettings
         public JsonResult UpdateBetTradeStatus(int custId, string nickName, int status)
         {
             return UpdateThirdPartyProductStatus((int)ProductTypes.BetTrade, custId, nickName, status);
+        }
+
+        [HttpPost]
+        [CustomValidateAntiForgery]
+        public JsonResult UpdateColossusBetsStatus(int custId, string nickName, int status)
+        {
+            return UpdateThirdPartyProductStatus((int)ProductTypes.ColossusBets, custId, nickName, status);
         }
 
         private JsonResult UpdateThirdPartyProductStatus(int productId, int custId, string nickName, int status)

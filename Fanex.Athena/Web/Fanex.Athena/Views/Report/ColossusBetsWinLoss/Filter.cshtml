@@ -1,0 +1,72 @@
+﻿@using Fanex.Athena.Model.Core.DataDomain
+@model Fanex.Athena.Model.Report.ViewModel.ThirdPartyWinLossViewModel
+ @{ 
+     var appSettings = new AppSettings();
+ }
+<div class="grid_26 content-filter new-line">
+    <!--grid_26-->
+    <form id="MainForm" name="MainForm" method="post" action="">
+        @Html.AntiForgeryToken()
+    @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
+        appSettings.HistoryDate, DateTime.Today, "date-range", "date-range", 3, 3, 2, 3)
+    <div>
+        <input type="hidden" id="FromDay" name="FromDay" value="@Model.Param.FromDate.Day" />
+        <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDate.Day" />
+        <input type="hidden" id="Month" name="Month" value="@Model.Param.FromDate.Month" />
+        <input type="hidden" id="Year" name="Year" value="@Model.Param.FromDate.Year" />
+        @{
+            var minDate = appSettings.HistoryDate;
+        }
+        <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
+    </div>
+    <div class="grid_3 filter-label new-line">
+        <label>
+            @ViewResources.Currency
+        </label>
+    </div>
+    <div class="grid_3 filter-input">
+        @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true)
+    </div>
+    <div class="grid_4 filter-label">
+        <label for="IsExcludedTestData">
+            @ViewResources.ExcludeTestData
+        </label>
+    </div>
+    <div class="grid_5 filter-input option-list">
+        <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
+    </div>
+    <div class="grid_2 note-group">
+        <div>
+            <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
+            </div>
+        </div>
+        <div>
+            <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+        </div>
+    </div>
+    <div class="grid_3 filter-label new-line">
+            <label>
+                @ViewResources.ReportBy
+            </label>
+        </div>    
+        <div class="grid_5 filter-input option-list">
+            <input type="radio" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="reportby" id="reportbydaily"/>
+            <label for="reportbydaily">
+                @ViewResources.Daily
+            </label>
+            <input type="radio" class="report-by-monthly" value="2" @(Model.Param.ReportBy == ReportByType.Monthly ? "checked=checked" : "") name="reportby" id="reportbymonthly" />
+            <label for="reportbymonthly">
+                @ViewResources.Monthly
+            </label>
+        </div>
+    <div class="grid_3 filter-label new-line">
+        &nbsp;</div>
+    <div class="grid_2 filter-input" id="control-container">
+        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+    </div>
+    @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+    </form>
+    @Html.Hidden("ReportTitle", ViewResources.ColossusBetsWinLoss)
+</div>

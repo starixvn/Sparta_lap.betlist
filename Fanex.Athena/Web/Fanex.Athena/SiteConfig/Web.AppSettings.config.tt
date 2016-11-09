@@ -41,7 +41,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=63370" />
+	<add key="JsVersion" value="v=63785" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.70.70.242:8888/CallGetRefFunction" />  
@@ -111,6 +111,27 @@
 	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
 	<add key="RNGCasinoRole" value="S" />
 	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://220.130.26.188:30051/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://cb.garcade.net/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
 </appSettings>
 <#
 				break;
@@ -131,7 +152,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=63370" />
+	<add key="JsVersion" value="v=63785" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.70.70.242:8888/CallGetRefFunction" />  
@@ -199,6 +220,27 @@
 	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
 	<add key="RNGCasinoRole" value="S" />
 	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://220.130.26.188:30051/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://cb.garcade.net/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
 </appSettings>
 				<#
 				break;
@@ -220,7 +262,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=63370" />
+	<add key="JsVersion" value="v=63785" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -282,6 +324,27 @@
 	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
 	<add key="RNGCasinoRole" value="S" />
 	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com:8068/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;CustomerId={0}&amp;vendorProduct=4&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://maxbet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
 </appSettings>
 				<#
 				break;
@@ -303,7 +366,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="1"/>
-	<add key="JsVersion" value="v=63370" />
+	<add key="JsVersion" value="v=63785" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://172.16.4.118:8098/CallGetRefFunction" />
@@ -365,6 +428,27 @@
 	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
 	<add key="RNGCasinoRole" value="S" />
 	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://172.16.4.132:9075/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;CustomerId={0}&amp;vendorProduct=4&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://cb.garcade.net/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
 </appSettings>
 				<#
 				break;
@@ -386,7 +470,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="0"/>
-	<add key="JsVersion" value="v=63370" />
+	<add key="JsVersion" value="v=63785" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.29:8098/CallGetRefFunction" />
@@ -447,6 +531,27 @@
 	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
 	<add key="RNGCasinoRole" value="S" />
 	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://cb.garcade.net/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
 </appSettings>
 
 				<#
@@ -468,7 +573,7 @@
 	<add key="ClientValidationEnabled" value="true" />
 	<add key="UnobtrusiveJavaScriptEnabled" value="true" />
 	<add key="AllowAutomationCaptchaCode" value="1" />
-	<add key="JsVersion" value="v=63370" />
+	<add key="JsVersion" value="v=63785" />
 	<add key="LocalTest" value="1" />
 	<add key="IsTesting" value="0" />
 	<add key="RemoteRefURL" value="tcp://10.70.70.242:8888/CallGetRefFunction" />
@@ -532,6 +637,27 @@
 	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
 	<add key="RNGCasinoRole" value="S" />
 	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://cb.garcade.net/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
 </appSettings>
 				<#
 				break;
@@ -553,7 +679,7 @@
 	<add key="ClientValidationEnabled" value="true"/>
 	<add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 	<add key="AllowAutomationCaptchaCode" value="0"/>
-	<add key="JsVersion" value="v=63370" />
+	<add key="JsVersion" value="v=63785" />
 	<add key="LocalTest" value="0" />
 	<add key="IsTesting" value="0"/>
 	<add key="RemoteRefURL" value="tcp://10.40.40.130:8098/CallGetRefFunction" />
@@ -614,6 +740,27 @@
 	<add key="RNGCasinoEncryptedKey" value="Casino@ibcbet#8899" />
 	<add key="RNGCasinoRole" value="S" />
 	<add key="RNGCasinoTemplate" value="D" />
+	<!-- Colossus Bets API -->
+	<add key="ColossusBetTokenAPI" value="http://cbapi.edge2cast.com/api/Authorize/AuthorizeCode?Vendor=106&amp;VendorKey=htdhssdudm&amp;vendorProduct=4&amp;CustomerId={0}&amp;memberID={1}" />
+	<add key="ColossusBetSiteId" value="5100100" />
+	<!-- BBin -->
+	<add key="CBIframeUrlSiteId44" value="http://bbin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Fun88 -->
+	<add key="CBIframeUrlSiteId31" value="http://fun88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Dafa -->
+	<add key="CBIframeUrlSiteId36" value="http://dafabet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Vwin -->
+	<add key="CBIframeUrlSiteId49" value="http://vwin.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- TLC88 -->
+	<add key="CBIframeUrlSiteId211" value="http://tlc88.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Letou -->
+	<add key="CBIframeUrlSiteId41" value="http://bet16.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- 12Bet -->
+	<add key="CBIframeUrlSiteId30" value="http://12bet.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- Spondemo -->
+	<add key="CBIframeUrlSiteId37" value="http://spondemo.staging-colossusbets.com/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
+	<!-- MaxBet -->
+	<add key="CBIframeUrlSiteId-1" value="http://cb.garcade.net/api/tickets/ref/{0}/selection?siteID={1}&amp;authorization={2}" />
 </appSettings>
                 <#break;
 			default:

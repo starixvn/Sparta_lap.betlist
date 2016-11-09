@@ -50,6 +50,10 @@
       <HintPath>..\..\packages\Fanex.BetList.Core.2.15.2.9\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.BetList.ColossusBets, Version=1.0.1.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.ColossusBets.1.0.1.7\lib\net40\Fanex.BetList.ColossusBets.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fanex.BetList.Core, Version=2.15.2.9, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.Core.2.15.2.9\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
@@ -120,8 +124,10 @@
   <ItemGroup>
     <Compile Include="CancelledBetListDataAccess.cs" />
     <Compile Include="BetListDataAccess.cs" />
+    <Compile Include="Interfaces\IColossusBetBetListDataAccess.cs" />
     <Compile Include="Interfaces\ICancelledBetListDataAccess.cs" />
     <Compile Include="Interfaces\ILastBetsMonitoringBetListDataAccess.cs" />
+    <Compile Include="ColossusBetBetListDataAccess.cs" />
     <Compile Include="LastBetsMonitoringBetListDataAccess.cs" />
     <Compile Include="BaseBetListDataAccess.cs" />
     <Compile Include="Interfaces\IBetListDataAccess.cs" />
