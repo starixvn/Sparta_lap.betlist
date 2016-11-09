@@ -59,6 +59,21 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
             document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + $(this).text();
             $("#page-title").text($(this).text());
         });
+
+        $("#mainFrame").on("load", (function () {
+            $(window.frames["main"]).click(function () {
+                $('.dropdown-button').dropdown('close');
+            });
+        }));
+
+        //prevent close dropdown when scrolling
+        $("#ddlLicensee").on("mouseup pointerup", function (e) {
+            $("#ddlLicensee .mCSB_scrollTools").removeClass("mCSB_scrollTools_onDrag");
+        }).on("click", function (e) {
+            if ($(e.target).parents(".mCSB_scrollTools").length || $(".dropdown-menu .mCSB_scrollTools").hasClass("mCSB_scrollTools_onDrag")) {
+                e.stopPropagation();
+            }
+        });
     }
 
     function searchByUserName() {

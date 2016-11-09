@@ -194,7 +194,7 @@ define(
         {
             name: 'TotalTransaction',
             index: 'TotalTransaction',
-            width: 80,
+            width: 90,
             align: 'right',
             sortable: true,
             resizable: false,
@@ -271,7 +271,7 @@ define(
             name: 'BACommission',
             classes: 'highlight',
             index: 'BACommission',
-            width: 85,
+            width: 95,
             align: 'right',
             sortable: true,
             resizable: false,

@@ -14,11 +14,11 @@
         @if (!Model.IsInternalLogin)
         {
             <div class="navbar-avatar">
-                <div class="dropdown-button" href="javascript:void(0)" data-activates="profile">
+                <a class="dropdown-button" href="javascript:void(0)" data-activates="profile">
                     <img class="avatar" src="@Url.Content("~/www/assets/images/15.jpg")" alt="@Html.Encode(Model.UserName)">
                     <span class="name hide-on-med-and-down">@Html.Encode(Model.UserName)</span>
                     <i class="icon icon-menu-down" aria-hidden="true"></i>
-                </div>
+                </a>
                 <ul id="profile" class="dropdown-content profile-items">
                     <li>
                         <i class="icon icon-account"></i>
@@ -41,7 +41,7 @@
                 <i class="icon icon-menu-down" aria-hidden="true"></i>
             </a>
 
-            <ul id="ddlLicensee" class="dropdown-content licensee-items language-items mCustomScrollbar" data-mcs-theme="minimal-dark">
+            <ul id="ddlLicensee" class="dropdown-content dropdown-header language-items mCustomScrollbar" data-mcs-theme="minimal-dark">
                 @foreach (var licensee in Model.LicenseeList)
                 {
                     <li>
