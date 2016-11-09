@@ -42,10 +42,11 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
 
         $('#label-search').click(function () {
             $(this).parent().addClass('focused');
-            $("#searchbox").focus();
+            $searchBox.focus();
+            searchByUserName();
         });
 
-        $("#searchbox").blur(function () {
+        $searchBox.blur(function () {
             if (!$(this).val()) {
                 $(this).parent().removeClass('focused');
             }
@@ -78,7 +79,7 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
 
     function searchByUserName() {
         var userName = $searchBox.val();
-        if (!userName) {
+        if (!userName || userName === "") {
             return;
         }
 

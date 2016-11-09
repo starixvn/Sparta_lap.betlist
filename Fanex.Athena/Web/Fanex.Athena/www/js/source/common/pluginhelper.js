@@ -8,14 +8,16 @@
         });
 
         /*Hack for IE*/
-        var onMouseDown = function(e) {
+        var onMouseDown = function (e) {
+            $('input.select-dropdown').not($(e.target).find('input.select-dropdown')).trigger('close');
+            $('#grid-products-multiselect').multiSelect('hideMe');
             // preventing the default still allows the scroll, but blocks the blur.
             // We're inside the scrollbar if the clientX is >= the clientWidth.
             if (e.clientX >= e.target.clientWidth || e.clientY >= e.target.clientHeight) {
                 e.preventDefault();
             }
         };
-        $('select.select').siblings('input.select-dropdown').on('mousedown', onMouseDown);
+        $('select.initialized').siblings('input.select-dropdown').on('mousedown', onMouseDown);
     }
 
     function initDateRangePicker() {

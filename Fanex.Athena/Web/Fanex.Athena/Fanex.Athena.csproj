@@ -734,7 +734,6 @@
     <Content Include="www\css\source\components\navbar\navBar.css" />
     <Content Include="www\css\source\components\sidebar\sideBar.css" />
     <Content Include="www\css\source\main.css" />
-    <Content Include="www\css\source\pages\common.css" />
     <Content Include="www\css\source\pages\login.css" />
     <Content Include="www\css\source\vendors\jquery.mCustomScrollbar.css" />
     <Content Include="www\css\source\vendors\materialize\materialize.css" />
@@ -1135,6 +1134,8 @@
     <Content Include="www\css\source\pages\report\licenseewinloss.scss" />
     <Content Include="www\css\source\extensions\multiselect-ex.scss" />
     <Content Include="www\js\tests\lib\jqgrid\jquery.jqgrid.additional-spec.js" />
+    <Content Include="www\css\source\pages\common.scss" />
+    <Content Include="www\css\source\scss\abstracts\_variables.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
