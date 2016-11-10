@@ -2,8 +2,6 @@
 using NSubstitute;
 using NUnit.Framework;
 using ONEbook.UM.Services;
-using System.Security.Policy;
-using System.Web.Mvc;
 
 namespace Fanex.Athena.Controllers.UnitTests
 {
@@ -36,13 +34,11 @@ namespace Fanex.Athena.Controllers.UnitTests
             _maintenanceService = Substitute.For<IMaintenanceService>();
 
             var controller = new OneAuthorizationController(_userService, _maintenanceService);
-            controller.ControllerContext = controllerContext;
+            controller.ControllerContext = ControllerContext;
 
             controller.Url = this.Url;
 
             return controller;
         }
-
-
     }
 }
