@@ -1,0 +1,1489 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="D:\GITLab\lrf\UnitTests\Fanex.Athena.DataAccess.BetList.UnitTests\bin\Debug\Fanex.Athena.DataAccess.BetList.UnitTests.dll" total="495" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2016-11-10" time="07:07:55">
+  <environment nunit-version="3.4.1.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.10586.0" platform="Win32NT" cwd="D:\GITLab\lrf" machine-name="CP103-JOSEPH" user="joseph.pham" user-domain="SPVN" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.DataAccess.BetList.UnitTests\bin\Debug\Fanex.Athena.DataAccess.BetList.UnitTests.dll" executed="True" result="Success" success="True" time="4.769" asserts="63">
+    <properties>
+      <property name="_PID" value="20236" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.DataAccess.BetList.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="4.733" asserts="63">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="4.704" asserts="63">
+            <results>
+              <test-suite type="TestSuite" name="DataAccess" executed="True" result="Success" success="True" time="4.685" asserts="63">
+                <results>
+                  <test-suite type="TestSuite" name="BetList" executed="True" result="Success" success="True" time="4.521" asserts="15">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="4.508" asserts="15">
+                        <results>
+                          <test-suite type="TestFixture" name="BetListDataAccessTest" executed="True" result="Success" success="True" time="4.293" asserts="13">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByAGCasinoDetail_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="1.188" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByCancelBetList_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.006" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByCorectScoreBetlist_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.062" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByCustomerWlBetlist_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.113" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByDailyRacingWLBetlist_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.081" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByDailyStatementBetList_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.021" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByDailyStatementBetListOld_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.021" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByDailyWLBetlist_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.091" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByLicenseeWLBetlist_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.027" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByLiveReportBetListByMatch_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.008" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByLiveReportNumberGameBetlist_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.008" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByLiveReportOutRightBetlist_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.028" asserts="0" />
+                              <test-suite type="ParameterizedTest" name="GetBetListData_CalledByLiveReportParlayBetlist_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.162" asserts="0">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByLiveReportParlayBetlist_ParametersPassedCorrectly(&quot;Lrf_BetList_LiveReport_SelWinlossRacing&quot;)" executed="True" result="Success" success="True" time="0.136" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByLiveReportParlayBetlist_ParametersPassedCorrectly(&quot;Lrf_BetList_LiveReport_SelWinlossVHRacing&quot;)" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByLiveReportParlayBetlist_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.015" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByMatchRunningBetListOfHR_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.016" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByMatchRunningBetLitByBettype_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.015" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByMatchRunningBetLitByMultipleBettypeOfMatch_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.036" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByMatchWLBettypeBetlist_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.084" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByMatchWLOutRightBetList_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.050" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByMatchWLParlayBetList_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.017" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByMatchWLRacingBetlist_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.011" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByMicroGamingRngDetail_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.018" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByOutStandingCompletedBetList_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.011" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByPlatformWinLossBetList_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.012" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByRacingCommissionBetlist_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.011" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByRunningBetList_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.013" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByRunningBetListByBettype_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByRunningBetListByForeCastMatch_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.011" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByRunningBetListByMultipleBettype_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.009" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByWinLossByBetType_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.012" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetBetListData_CalledByWinlossByLeague_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.012" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetDailyStatementData_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.080" asserts="13" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetDailyStatementData_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetMixParlayDetailTicket_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.BetListDataAccessTest.GetSystemParlayDetail_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.035" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="CancelledBetListDataAccessTest" executed="True" result="Success" success="True" time="0.031" asserts="1">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.CancelledBetListDataAccessTest.GetCancelBetCustList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.018" asserts="1" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.CancelledBetListDataAccessTest.GetCancelBetCustList_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.005" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="LastBetsMonitoringBetListDataAccessTest" executed="True" result="Success" success="True" time="0.064" asserts="1">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.LastBetsMonitoringBetListDataAccessTest.GetLastBetsMonitoringData_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.037" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetList.UnitTests.LastBetsMonitoringBetListDataAccessTest.GetMatchList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.017" asserts="1" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestSuite" name="Core" executed="True" result="Success" success="True" time="4.628" asserts="48">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="4.590" asserts="48">
+                        <results>
+                          <test-suite type="TestSuite" name="Common" executed="True" result="Success" success="True" time="4.565" asserts="48">
+                            <results>
+                              <test-suite type="TestFixture" name="BaseBetListDataAccessTest" executed="True" result="Success" success="True" time="0.140" asserts="48">
+                                <results>
+                                  <test-suite type="ParameterizedTest" name="NumberReport_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.025" asserts="5">
+                                    <results>
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.BaseBetListDataAccessTest.NumberReport_WhenCall_DataReturnedCorrectly(10.2d,&quot;&lt;span class='bl-underdog'&gt;10.20&lt;/span&gt;&quot;)" executed="True" result="Success" success="True" time="0.004" asserts="1" />
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.BaseBetListDataAccessTest.NumberReport_WhenCall_DataReturnedCorrectly(1000.2d,&quot;&lt;span class='bl-underdog'&gt;1,000.20&lt;/span&gt;&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.BaseBetListDataAccessTest.NumberReport_WhenCall_DataReturnedCorrectly(0,&quot;&lt;span class='bl-underdog'&gt;0.00&lt;/span&gt;&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.BaseBetListDataAccessTest.NumberReport_WhenCall_DataReturnedCorrectly(-10.2d,&quot;&lt;span class='bl-favorite'&gt;-10.20&lt;/span&gt;&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.BaseBetListDataAccessTest.NumberReport_WhenCall_DataReturnedCorrectly(-1000.2d,&quot;&lt;span class='bl-favorite'&gt;-1,000.20&lt;/span&gt;&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                    </results>
+                                  </test-suite>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.BaseBetListDataAccessTest.ReadLrfTicket_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.106" asserts="43" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.DataAccess.BetSettings.UnitTests\bin\Debug\Fanex.Athena.DataAccess.BetSettings.UnitTests.dll" executed="True" result="Success" success="True" time="4.122" asserts="44">
+    <properties>
+      <property name="_PID" value="12696" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.DataAccess.BetSettings.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="4.085" asserts="44">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="4.063" asserts="44">
+            <results>
+              <test-suite type="TestSuite" name="DataAccess" executed="True" result="Success" success="True" time="4.048" asserts="44">
+                <results>
+                  <test-suite type="TestSuite" name="BetSettings" executed="True" result="Success" success="True" time="4.020" asserts="44">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="4.000" asserts="44">
+                        <results>
+                          <test-suite type="TestFixture" name="AgCasinoBetSettingDataAccessTest" executed="True" result="Success" success="True" time="2.127" asserts="0">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.AgCasinoBetSettingDataAccessTest.GetBetSetting_WhenCall_ParameterPassedCorrectly" executed="True" result="Success" success="True" time="1.887" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.AgCasinoBetSettingDataAccessTest.UpdateBetSetting_WhenCall_ParameterPassedCorrectly" executed="True" result="Success" success="True" time="0.181" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.AgCasinoBetSettingDataAccessTest.UpdateStatus_WhenCall_ParameterPassedCorrectly" executed="True" result="Success" success="True" time="0.023" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="CasinoBettingBaseDataAccessTest" executed="True" result="Success" success="True" time="0.198" asserts="0">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.CasinoBettingBaseDataAccessTest.UpdateCasinoStatus_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.162" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.CasinoBettingBaseDataAccessTest.WriteLogUpdatingAction_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.018" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="CoreBetSettingDataAccessTest" executed="True" result="Success" success="True" time="0.112" asserts="2">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.CoreBetSettingDataAccessTest.GetBetSettingProducts_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.054" asserts="1" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.CoreBetSettingDataAccessTest.IsBetSettingEditable_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.034" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="KenoBetSettingDataAccessTest" executed="True" result="Success" success="True" time="0.393" asserts="9">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.KenoBetSettingDataAccessTest.GetBetSettings_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.348" asserts="7" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.KenoBetSettingDataAccessTest.GetBetSettings_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.KenoBetSettingDataAccessTest.UpdateBetSetting_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.026" asserts="2" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.KenoBetSettingDataAccessTest.UpdateBetSetting_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="LiveCasinoBetSettingDataAccessTest" executed="True" result="Success" success="True" time="0.187" asserts="5">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.LiveCasinoBetSettingDataAccessTest.GetBetSetting_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.116" asserts="5" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.LiveCasinoBetSettingDataAccessTest.GetBetSetting_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.006" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.LiveCasinoBetSettingDataAccessTest.UpdateBetSetting_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.053" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="NumberGameBetSettingDataAccessTest" executed="True" result="Success" success="True" time="0.320" asserts="9">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.NumberGameBetSettingDataAccessTest.GetBetSetting_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.207" asserts="7" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.NumberGameBetSettingDataAccessTest.GetBetSetting_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.008" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.NumberGameBetSettingDataAccessTest.UpdateBetSetting_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.046" asserts="2" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.NumberGameBetSettingDataAccessTest.UpdateBetSetting_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.033" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="RacingBetSettingDataAccessTest" executed="True" result="Success" success="True" time="0.221" asserts="0">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.RacingBetSettingDataAccessTest.GetBetSetting_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.041" asserts="0" />
+                              <test-suite type="ParameterizedTest" name="UpdateBetSetting_WhenCallUpdate15131Method_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.173" asserts="0">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.RacingBetSettingDataAccessTest.UpdateBetSetting_WhenCallUpdate15131Method_ParametersPassedCorrectly(&quot;151_31&quot;,&quot;Lrf_CustomerUpdMember_MinMaxBet151_31&quot;)" executed="True" result="Success" success="True" time="0.102" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.RacingBetSettingDataAccessTest.UpdateBetSetting_WhenCallUpdate15131Method_ParametersPassedCorrectly(&quot;151_41&quot;,&quot;Lrf_CustomerUpdMember_MinMaxBet151_41&quot;)" executed="True" result="Success" success="True" time="0.027" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.RacingBetSettingDataAccessTest.UpdateBetSetting_WhenCallUpdate15131Method_ParametersPassedCorrectly(&quot;151_51&quot;,&quot;Lrf_CustomerUpdMember_MinMaxBet151_51&quot;)" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.RacingBetSettingDataAccessTest.UpdateBetSetting_WhenCallUpdate15131Method_ParametersPassedCorrectly(&quot;152_41&quot;,&quot;Lrf_CustomerUpdMember_MinMaxBet152_41&quot;)" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.RacingBetSettingDataAccessTest.UpdateBetSetting_WhenCallUpdate15131Method_ParametersPassedCorrectly(&quot;152_51&quot;,&quot;Lrf_CustomerUpdMember_MinMaxBet152_51&quot;)" executed="True" result="Success" success="True" time="0.007" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.RacingBetSettingDataAccessTest.UpdateBetSetting_WhenCallUpdate15131Method_ParametersPassedCorrectly(&quot;153_51&quot;,&quot;Lrf_CustomerUpdMember_MinMaxBet153_51&quot;)" executed="True" result="Success" success="True" time="0.010" asserts="0" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="SportsbookBetSettingDataAccessTest" executed="True" result="Success" success="True" time="0.159" asserts="4">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.SportsbookBetSettingDataAccessTest.GetBetSetting_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.058" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.SportsbookBetSettingDataAccessTest.UpdateBetSetting_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.023" asserts="2" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.SportsbookBetSettingDataAccessTest.UpdateBetSetting_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.SportsbookBetSettingDataAccessTest.UpdateEsportStatus_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.016" asserts="2" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.SportsbookBetSettingDataAccessTest.UpdateEsportStatus_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.007" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ThirdPartyBetSettingDataAccessTest" executed="True" result="Success" success="True" time="0.134" asserts="5">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.ThirdPartyBetSettingDataAccessTest.GetBetSetting_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.077" asserts="3" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.ThirdPartyBetSettingDataAccessTest.GetBetSetting_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.006" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.ThirdPartyBetSettingDataAccessTest.UpdateStatus_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.023" asserts="2" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.ThirdPartyBetSettingDataAccessTest.UpdateStatus_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="VirtualSportsBetSettingDataAccessTest" executed="True" result="Success" success="True" time="0.044" asserts="10">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.VirtualSportsBetSettingDataAccessTest.GetBetSetting_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.020" asserts="8" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.VirtualSportsBetSettingDataAccessTest.GetBetSetting_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.VirtualSportsBetSettingDataAccessTest.UpdateBetSetting_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                              <test-case name="Fanex.Athena.DataAccess.BetSettings.UnitTests.VirtualSportsBetSettingDataAccessTest.UpdateBetSetting_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.DataAccess.Core.UnitTests\bin\Debug\Fanex.Athena.DataAccess.Core.UnitTests.dll" executed="True" result="Success" success="True" time="4.645" asserts="112">
+    <properties>
+      <property name="_PID" value="12688" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.DataAccess.Core.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="4.599" asserts="112">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="4.582" asserts="112">
+            <results>
+              <test-suite type="TestSuite" name="DataAccess" executed="True" result="Success" success="True" time="4.566" asserts="112">
+                <results>
+                  <test-suite type="TestSuite" name="Core" executed="True" result="Success" success="True" time="4.537" asserts="112">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="4.518" asserts="112">
+                        <results>
+                          <test-suite type="TestSuite" name="Common" executed="True" result="Success" success="True" time="3.651" asserts="37">
+                            <results>
+                              <test-suite type="TestFixture" name="BetTypeDataAccessTest" executed="True" result="Success" success="True" time="1.879" asserts="3">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.BetTypeDataAccessTest.GetAllBettypes_WhenCall_PassCorrectParameters" executed="True" result="Success" success="True" time="1.640" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.BetTypeDataAccessTest.GetBettypes_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.196" asserts="3" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.BetTypeDataAccessTest.GetBettypes_WhenCall_PassCorrectParameters" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="CurrencyDataAccessTest" executed="True" result="Success" success="True" time="0.373" asserts="2">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.CurrencyDataAccessTest.AssignCurrenciesByUser_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.268" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.CurrencyDataAccessTest.AssignCurrenciesByUser_WhenCall_ResultInfoReturnCorrectly" executed="True" result="Success" success="True" time="0.045" asserts="2" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.CurrencyDataAccessTest.GetCurrenciesByUser_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.037" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="ExChangeRateDataAccessTest" executed="True" result="Success" success="True" time="0.056" asserts="0">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.ExChangeRateDataAccessTest.GetExChangeRate_WhenCall_ParameterPassedCorrectly" executed="True" result="Success" success="True" time="0.049" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="FunctionDataAccessTest" executed="True" result="Success" success="True" time="0.250" asserts="8">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.FunctionDataAccessTest.AssignUserFunction_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.142" asserts="2" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.FunctionDataAccessTest.AssignUserFunction_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.FunctionDataAccessTest.GetLicenseeFunctionList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.043" asserts="2" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.FunctionDataAccessTest.GetLicenseeFunctionList_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.005" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.FunctionDataAccessTest.GetUserFunctionList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.009" asserts="2" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.FunctionDataAccessTest.GetUserFunctionList_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.011" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.FunctionDataAccessTest.RemoveUserFunction_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="2" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.FunctionDataAccessTest.RemoveUserFunction_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="LeagueDataAccessTest" executed="True" result="Success" success="True" time="0.220" asserts="0">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.LeagueDataAccessTest.GetLeaguesBySport_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.216" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="MatchDataAccessTest" executed="True" result="Success" success="True" time="0.211" asserts="8">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.MatchDataAccessTest.GetAllRunningMatch_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.100" asserts="5" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.MatchDataAccessTest.GetAllRunningMatch_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.013" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.MatchDataAccessTest.GetForecastMatchListByLeague_WhenCall_ExecuteReaderMethodIsCalled" executed="True" result="Success" success="True" time="0.056" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.MatchDataAccessTest.GetMatchesByLeague_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.018" asserts="3" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.MatchDataAccessTest.GetMatchesByLeague_WhenCall_ExecuteReaderMethodIsCalled" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="ProductDataAccessTest" executed="True" result="Success" success="True" time="0.399" asserts="16">
+                                <results>
+                                  <test-suite type="ParameterizedTest" name="GetProductAccessList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.336" asserts="14">
+                                    <results>
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.ProductDataAccessTest.GetProductAccessList_WhenCall_DataReturnedCorrectly(True)" executed="True" result="Success" success="True" time="0.326" asserts="7" />
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.ProductDataAccessTest.GetProductAccessList_WhenCall_DataReturnedCorrectly(False)" executed="True" result="Success" success="True" time="0.001" asserts="7" />
+                                    </results>
+                                  </test-suite>
+                                  <test-suite type="ParameterizedTest" name="GetProductAccessList_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.009" asserts="0">
+                                    <results>
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.ProductDataAccessTest.GetProductAccessList_WhenCall_ParametersPassedCorrectly(True)" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.ProductDataAccessTest.GetProductAccessList_WhenCall_ParametersPassedCorrectly(False)" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                                    </results>
+                                  </test-suite>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.ProductDataAccessTest.IsAllowedSaToteCurrency_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.018" asserts="0" />
+                                  <test-suite type="ParameterizedTest" name="IsAllowedSaToteCurrency_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.008" asserts="2">
+                                    <results>
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.ProductDataAccessTest.IsAllowedSaToteCurrency_WhenCall_ParametersPassedCorrectly(True)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.ProductDataAccessTest.IsAllowedSaToteCurrency_WhenCall_ParametersPassedCorrectly(False)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                    </results>
+                                  </test-suite>
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="SportTypeDataAccessTest" executed="True" result="Success" success="True" time="0.102" asserts="0">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.SportTypeDataAccessTest.GetAllSports_WhenCall_ExecuteReaderMethodIsCalled" executed="True" result="Success" success="True" time="0.043" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.SportTypeDataAccessTest.GetAllWHSports_WhenCall_ExecuteReaderMethodIsCalled" executed="True" result="Success" success="True" time="0.036" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Common.SportTypeDataAccessTest.GetSportsAndProducts_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.012" asserts="0" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestSuite" name="Configuration" executed="True" result="Success" success="True" time="3.845" asserts="2">
+                            <results>
+                              <test-suite type="TestFixture" name="BalanceUpDataAccessTest" executed="True" result="Success" success="True" time="0.068" asserts="0">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Configuration.BalanceUpDataAccessTest.GetBalanceUpDay_WhenCall_ExecuteReaderMethodIsCalled" executed="True" result="Success" success="True" time="0.064" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="MoveBetDataAccessTest" executed="True" result="Success" success="True" time="0.128" asserts="2">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Configuration.MoveBetDataAccessTest.GetMoveBet_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.116" asserts="2" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Configuration.MoveBetDataAccessTest.GetMoveBet_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestSuite" name="Extensions" executed="True" result="Success" success="True" time="3.910" asserts="6">
+                            <results>
+                              <test-suite type="TestFixture" name="DataReaderExtensionsTest" executed="True" result="Success" success="True" time="0.092" asserts="6">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Extensions.DataReaderExtensionsTest.HasColumn_ReaderContainColumn_ReturnTrue" executed="True" result="Success" success="True" time="0.020" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Extensions.DataReaderExtensionsTest.HasColumn_ReaderNotContainColumn_ReturnFalse" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Extensions.DataReaderExtensionsTest.ToNullableDecimal_ReaderContainValueOfFieldName_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.018" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Extensions.DataReaderExtensionsTest.ToNullableDecimal_ReaderNotContainValueOfFieldName_ReturnDefaultValue" executed="True" result="Success" success="True" time="0.004" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Extensions.DataReaderExtensionsTest.ToNullableInt_ReaderContainValueOfFieldName_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.010" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Extensions.DataReaderExtensionsTest.ToNullableInt_ReaderNotContainValueOfFieldName_ReturnDefaultValue" executed="True" result="Success" success="True" time="0.007" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestSuite" name="Users" executed="True" result="Success" success="True" time="4.395" asserts="63">
+                            <results>
+                              <test-suite type="TestFixture" name="AuthorizationDataAccessTest" executed="True" result="Success" success="True" time="0.041" asserts="2">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.AuthorizationDataAccessTest.IsCustomerBelonging_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.012" asserts="0" />
+                                  <test-suite type="ParameterizedTest" name="IsCustomerBelonging_WhenCall_ValueReturnedCorrectly" executed="True" result="Success" success="True" time="0.011" asserts="2">
+                                    <results>
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.AuthorizationDataAccessTest.IsCustomerBelonging_WhenCall_ValueReturnedCorrectly(True)" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.AuthorizationDataAccessTest.IsCustomerBelonging_WhenCall_ValueReturnedCorrectly(False)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                    </results>
+                                  </test-suite>
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="LicenseeDataAccessTest" executed="True" result="Success" success="True" time="0.258" asserts="17">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.LicenseeDataAccessTest.GetBelongingStatus_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.022" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.LicenseeDataAccessTest.GetBelongingStatus_WhenCall_ValueReturnedCorrectly" executed="True" result="Success" success="True" time="0.024" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.LicenseeDataAccessTest.GetByUser_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.037" asserts="3" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.LicenseeDataAccessTest.GetByUser_WhenCall_ExecuteReaderMethodIsCalled" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.LicenseeDataAccessTest.GetCurrencies_WhenCall_DataReturnCorrectly" executed="True" result="Success" success="True" time="0.022" asserts="2" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.LicenseeDataAccessTest.GetCurrencies_WhenCall_ExecuteReaderMethodIsCalled" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.LicenseeDataAccessTest.GetCustByLicensee_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.049" asserts="7" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.LicenseeDataAccessTest.GetCustByLicensee_WhenCall_ExecuteReaderMethodIsCalled" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.LicenseeDataAccessTest.GetNumberOfOnlineUser_WhenCall_ExecuteScalarMethodIsCalled" executed="True" result="Success" success="True" time="0.011" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.LicenseeDataAccessTest.GetNumberOfOnlineUser_WhenCall_ValueReturnedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.LicenseeDataAccessTest.IsAllowUpdateMemberBAStatus_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.012" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.LicenseeDataAccessTest.IsAllowUpdateMemberBAStatus_WhenCall_ValueReturnedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="3" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="UserDataAccessTest" executed="True" result="Success" success="True" time="0.201" asserts="44">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.ChangePassword_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.017" asserts="2" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.ChangePassword_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.GetByLicensee_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.019" asserts="8" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.GetByLicensee_WhenCall_ExecuteReaderMethodIsCalled" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.GetByUsername_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.013" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.GetByUsername_WhenCall_QueryMethodIsCalled" executed="True" result="Success" success="True" time="0.006" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.GetUserInfo_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="7" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.GetUserInfo_WhenCall_ExecuteReaderMethodIsCalled" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.GetUserSalt_WhenCall_ExecuteScalarMethodIsCalled" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.GetUserSalt_WhenCall_ValueReturnedCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.IsUsernameExited_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                                  <test-suite type="ParameterizedTest" name="IsUsernameExited_WhenCall_ValueReturnCorrectly" executed="True" result="Success" success="True" time="0.008" asserts="2">
+                                    <results>
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.IsUsernameExited_WhenCall_ValueReturnCorrectly(True)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                      <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.IsUsernameExited_WhenCall_ValueReturnCorrectly(False)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                    </results>
+                                  </test-suite>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.LoginOnUser_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.LoginOnUser_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.Logout_WhenCall_ExecuteNonQueryMethodIsCalled" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.ResetPassword_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.009" asserts="2" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.ResetPassword_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.UpdateInfo_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.UpdateInfo_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.ValidateInternalUser_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.011" asserts="9" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.ValidateInternalUser_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.005" asserts="0" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.ValidateUserForLrfSystem_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.007" asserts="9" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Users.UserDataAccessTest.ValidateUserForLrfSystem_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestSuite" name="Utilities" executed="True" result="Success" success="True" time="4.403" asserts="4">
+                            <results>
+                              <test-suite type="TestFixture" name="SafeDataReaderTest" executed="True" result="Success" success="True" time="0.022" asserts="4">
+                                <results>
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Utilities.SafeDataReaderTest.GetValue_WhenCallGenericMethodAndContainColumn_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.007" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Utilities.SafeDataReaderTest.GetValue_WhenCallGenericMethodAndNotContainColumn_ReturnDefaultValue" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Utilities.SafeDataReaderTest.GetValue_WhenCallNormalMethodAndContainColumn_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                  <test-case name="Fanex.Athena.DataAccess.Core.UnitTests.Utilities.SafeDataReaderTest.GetValue_WhenCallNormalMethodAndNotContainColumn_ReturnDefaultValue" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.DataAccess.Customer.UnitTests\bin\Debug\Fanex.Athena.DataAccess.Customer.UnitTests.dll" executed="True" result="Success" success="True" time="3.839" asserts="0">
+    <properties>
+      <property name="_PID" value="11240" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.DataAccess.Customer.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="3.809" asserts="0">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="3.791" asserts="0">
+            <results>
+              <test-suite type="TestSuite" name="DataAccess" executed="True" result="Success" success="True" time="3.764" asserts="0">
+                <results>
+                  <test-suite type="TestSuite" name="Customer" executed="True" result="Success" success="True" time="3.743" asserts="0">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="3.727" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="CustomerDataAccessTest" executed="True" result="Success" success="True" time="3.113" asserts="0">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.GetCustomerInfo_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="1.721" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.GetCustomerLoginInfo_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.039" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.MoveCustomersToGroup_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.349" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.RemoveCustomersFromGroup_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.077" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.Search_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.408" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.SearchCustomers_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.013" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.UpdateCustClosed_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.133" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.UpdateCustomerBAStatus_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.042" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.UpdateCustomersCommission_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.099" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.UpdateCustSuspend_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.018" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.UpdateOddsGroup_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.088" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.UpdateOddsGroup_WhenCallWithFiveParameters_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.027" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerDataAccessTest.UpdateSpecialLevel_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.010" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="CustomerLogDataAccessTest" executed="True" result="Success" success="True" time="0.216" asserts="0">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerLogDataAccessTest.GetCustomerSettingList_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.201" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.CustomerLogDataAccessTest.GetGroupCommList_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.007" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="GroupComDataAccessTest" executed="True" result="Success" success="True" time="0.312" asserts="0">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.GroupComDataAccessTest.CheckByName_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.052" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.GroupComDataAccessTest.GetAll_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.018" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.GroupComDataAccessTest.GetById_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.007" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.GroupComDataAccessTest.GetDataForExcel_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.033" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.GroupComDataAccessTest.InsertGroup_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.113" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.GroupComDataAccessTest.UpdateGroup_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.053" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="LogInLogDataAccessTest" executed="True" result="Success" success="True" time="0.063" asserts="0">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Customer.UnitTests.LogInLogDataAccessTest.GetDataList_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.058" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.DataAccess.Forecast.UnitTests\bin\Debug\Fanex.Athena.DataAccess.Forecast.UnitTests.dll" executed="True" result="Success" success="True" time="3.828" asserts="37">
+    <properties>
+      <property name="_PID" value="4400" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.DataAccess.Forecast.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="3.788" asserts="37">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="3.746" asserts="37">
+            <results>
+              <test-suite type="TestSuite" name="DataAccess" executed="True" result="Success" success="True" time="3.703" asserts="37">
+                <results>
+                  <test-suite type="TestSuite" name="Forecast" executed="True" result="Success" success="True" time="3.669" asserts="37">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="3.641" asserts="37">
+                        <results>
+                          <test-suite type="TestFixture" name="ForecastDataAccessTest" executed="True" result="Success" success="True" time="3.600" asserts="37">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Forecast.UnitTests.ForecastDataAccessTest.GetForecastHandicap_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="1.831" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Forecast.UnitTests.ForecastDataAccessTest.GetForecastHandicapOverUnder_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.890" asserts="15" />
+                              <test-case name="Fanex.Athena.DataAccess.Forecast.UnitTests.ForecastDataAccessTest.GetForecastHandicapOverUnder_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Forecast.UnitTests.ForecastDataAccessTest.GetForecastOneXTwoByLeague_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.129" asserts="8" />
+                              <test-case name="Fanex.Athena.DataAccess.Forecast.UnitTests.ForecastDataAccessTest.GetForecastOneXTwoByLeague_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Forecast.UnitTests.ForecastDataAccessTest.GetForecastOneXTwoByMatch_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.042" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Forecast.UnitTests.ForecastDataAccessTest.GetForecastOverUnder_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.021" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Forecast.UnitTests.ForecastDataAccessTest.GetForecastRunningLeague_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.060" asserts="1" />
+                              <test-case name="Fanex.Athena.DataAccess.Forecast.UnitTests.ForecastDataAccessTest.GetForecastRunningLeague_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.035" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Forecast.UnitTests.ForecastDataAccessTest.GetForecastTopOddsByMatch_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.032" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Forecast.UnitTests.ForecastDataAccessTest.GetNewForecastData_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.449" asserts="13" />
+                              <test-case name="Fanex.Athena.DataAccess.Forecast.UnitTests.ForecastDataAccessTest.GetNewForecastData_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.008" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.DataAccess.Report.UnitTests\bin\Debug\Fanex.Athena.DataAccess.Report.UnitTests.dll" executed="True" result="Success" success="True" time="4.622" asserts="137">
+    <properties>
+      <property name="_PID" value="12780" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.DataAccess.Report.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="4.588" asserts="137">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="4.572" asserts="137">
+            <results>
+              <test-suite type="TestSuite" name="DataAccess" executed="True" result="Success" success="True" time="4.557" asserts="137">
+                <results>
+                  <test-suite type="TestSuite" name="Report" executed="True" result="Success" success="True" time="4.522" asserts="137">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="4.485" asserts="137">
+                        <results>
+                          <test-suite type="TestFixture" name="ActiveCustomerSummaryDataAccessTest" executed="True" result="Success" success="True" time="2.386" asserts="3">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.ActiveCustomerSummaryDataAccessTest.GetActiveCustomers_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="2.351" asserts="3" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.ActiveCustomerSummaryDataAccessTest.GetActiveCustomers_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="AgCasinoBalanceDataAccessTest" executed="True" result="Success" success="True" time="0.812" asserts="24">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.AgCasinoBalanceDataAccessTest.GetAgentWinlossDetail_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.618" asserts="5" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.AgCasinoBalanceDataAccessTest.GetCustomerWinlossDetail_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.076" asserts="5" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.AgCasinoBalanceDataAccessTest.GetCustomerWinlossDetail_WhenCall_ParametersReturnedCorrectly" executed="True" result="Success" success="True" time="0.009" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.AgCasinoBalanceDataAccessTest.GetSummaryWinloss_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.059" asserts="14" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.AgCasinoBalanceDataAccessTest.GetSummaryWinloss_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="AgCasinoWinLossDataAccessTest" executed="True" result="Success" success="True" time="0.470" asserts="30">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.AgCasinoWinLossDataAccessTest.GetAgentWinlossDetail_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.291" asserts="10" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.AgCasinoWinLossDataAccessTest.GetAgentWinlossDetail_WhenCall_ParameterPassedCorrectly" executed="True" result="Success" success="True" time="0.022" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.AgCasinoWinLossDataAccessTest.GetCustomerWinlossDetail_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.023" asserts="10" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.AgCasinoWinLossDataAccessTest.GetCustomerWinlossDetail_WhenCall_ParameterPassedCorrectly" executed="True" result="Success" success="True" time="0.023" asserts="0" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.AgCasinoWinLossDataAccessTest.GetSummaryWinloss_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.071" asserts="10" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.AgCasinoWinLossDataAccessTest.GetSummaryWinloss_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.009" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="CasinoProgressiveWinsDataAccessTest" executed="True" result="Success" success="True" time="0.280" asserts="10">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.CasinoProgressiveWinsDataAccessTest.GetDataList_WhenCall_DateReturnedCorrectly" executed="True" result="Success" success="True" time="0.233" asserts="10" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.CasinoProgressiveWinsDataAccessTest.GetDataList_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.015" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="CreditBalanceDataAccessTest" executed="True" result="Success" success="True" time="0.189" asserts="14">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.CreditBalanceDataAccessTest.GetReportData_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.185" asserts="14" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="CustomerBalanceDataAccessTest" executed="True" result="Success" success="True" time="0.070" asserts="15">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.CustomerBalanceDataAccessTest.GetDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.055" asserts="15" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.CustomerBalanceDataAccessTest.GetDataList_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="CustomerPendingFundsDataAccessTest" executed="True" result="Success" success="True" time="0.029" asserts="8">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.CustomerPendingFundsDataAccessTest.GetDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.019" asserts="8" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.CustomerPendingFundsDataAccessTest.GetDataList_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="CustomerTurnoverDataAccessTest" executed="True" result="Success" success="True" time="0.132" asserts="16">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.CustomerTurnoverDataAccessTest.GetDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.120" asserts="16" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.CustomerTurnoverDataAccessTest.GetDataList_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="CustomerWinlossDataAccessTest" executed="True" result="Success" success="True" time="0.063" asserts="17">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.CustomerWinlossDataAccessTest.GetDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.052" asserts="17" />
+                              <test-case name="Fanex.Athena.DataAccess.Report.UnitTests.CustomerWinlossDataAccessTest.GetDataList_WhenCall_ParametersPassedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.DataAccess.TotalBet.UnitTests\bin\Debug\Fanex.Athena.DataAccess.TotalBet.UnitTests.dll" executed="True" result="Success" success="True" time="4.184" asserts="114">
+    <properties>
+      <property name="_PID" value="19896" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.DataAccess.TotalBet.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="4.126" asserts="114">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="4.102" asserts="114">
+            <results>
+              <test-suite type="TestSuite" name="DataAccess" executed="True" result="Success" success="True" time="4.081" asserts="114">
+                <results>
+                  <test-suite type="TestSuite" name="TotalBet" executed="True" result="Success" success="True" time="4.056" asserts="114">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="4.043" asserts="114">
+                        <results>
+                          <test-suite type="TestFixture" name="FirstGoalLastGoalDataAccessTest" executed="True" result="Success" success="True" time="2.492" asserts="16">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.TotalBet.UnitTests.FirstGoalLastGoalDataAccessTest.GetFirstGoalLastGoalDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="2.416" asserts="16" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="HalfTimeFullTimeDataAccessTest" executed="True" result="Success" success="True" time="0.286" asserts="13">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.TotalBet.UnitTests.HalfTimeFullTimeDataAccessTest.GetHalfTimeFullTimeDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.265" asserts="13" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="HandicapOverUnderDataAccessTest" executed="True" result="Success" success="True" time="0.315" asserts="16">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.TotalBet.UnitTests.HandicapOverUnderDataAccessTest.GetHandicapOverUnderDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.311" asserts="16" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="HomeDrawAwayNoBetDataAccessTest" executed="True" result="Success" success="True" time="0.201" asserts="18">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.TotalBet.UnitTests.HomeDrawAwayNoBetDataAccessTest.GetHomeDrawAwayNoBetDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.197" asserts="18" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="MoneyLineDataAccessTest" executed="True" result="Success" success="True" time="0.243" asserts="16">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.TotalBet.UnitTests.MoneyLineDataAccessTest.GetMoneyLineDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.238" asserts="16" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="OddEvenDrawNoDrawDataAccessTest" executed="True" result="Success" success="True" time="0.241" asserts="19">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.TotalBet.UnitTests.OddEvenDrawNoDrawDataAccessTest.GetOddEventDrawNoDrawDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.225" asserts="19" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="OutrightDataAccessTest" executed="True" result="Success" success="True" time="0.137" asserts="5">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.TotalBet.UnitTests.OutrightDataAccessTest.GetOutrightDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.102" asserts="5" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="TotalGoalDataAccessTest" executed="True" result="Success" success="True" time="0.078" asserts="11">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.TotalBet.UnitTests.TotalGoalDataAccessTest.GetTotalGoalDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.075" asserts="11" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.DataAccess.Warehouse.UnitTests\bin\Debug\Fanex.Athena.DataAccess.Warehouse.UnitTests.dll" executed="True" result="Success" success="True" time="2.859" asserts="14">
+    <properties>
+      <property name="_PID" value="11656" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.DataAccess.Warehouse.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="2.830" asserts="14">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="2.795" asserts="14">
+            <results>
+              <test-suite type="TestSuite" name="DataAccess" executed="True" result="Success" success="True" time="2.758" asserts="14">
+                <results>
+                  <test-suite type="TestSuite" name="Warehouse" executed="True" result="Success" success="True" time="2.733" asserts="14">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="2.713" asserts="14">
+                        <results>
+                          <test-suite type="TestFixture" name="TopCustomerDataAccessTest" executed="True" result="Success" success="True" time="2.205" asserts="6">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Warehouse.UnitTests.TopCustomerDataAccessTest.GetDataForExcel_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="2.002" asserts="1" />
+                              <test-case name="Fanex.Athena.DataAccess.Warehouse.UnitTests.TopCustomerDataAccessTest.GetDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.177" asserts="5" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="WinLossDataAccessTest" executed="True" result="Success" success="True" time="0.481" asserts="8">
+                            <results>
+                              <test-case name="Fanex.Athena.DataAccess.Warehouse.UnitTests.WinLossDataAccessTest.GetDataList_WhenCall_DataReturnedCorrectly" executed="True" result="Success" success="True" time="0.467" asserts="8" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.Excel.Base.UnitTests\bin\Debug\Fanex.Athena.Excel.Base.UnitTests.dll" executed="True" result="Success" success="True" time="3.978" asserts="28">
+    <properties>
+      <property name="_PID" value="16292" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.Excel.Base.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="3.934" asserts="28">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="3.914" asserts="28">
+            <results>
+              <test-suite type="TestSuite" name="Excel" executed="True" result="Success" success="True" time="3.893" asserts="28">
+                <results>
+                  <test-suite type="TestSuite" name="Base" executed="True" result="Success" success="True" time="3.868" asserts="28">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="3.855" asserts="28">
+                        <results>
+                          <test-suite type="TestFixture" name="ExcelBaseTest" executed="True" result="Success" success="True" time="2.053" asserts="0">
+                            <results>
+                              <test-case name="Fanex.Athena.Excel.Base.UnitTests.ExcelBaseTest.HideColumn_WhenCall_SetCellValueMethodCalled" executed="True" result="Success" success="True" time="1.265" asserts="0" />
+                              <test-case name="Fanex.Athena.Excel.Base.UnitTests.ExcelBaseTest.HideColumn_WhenCall_SetColumnHiddenMethodCalledWithCorrectParam" executed="True" result="Success" success="True" time="0.067" asserts="0" />
+                              <test-case name="Fanex.Athena.Excel.Base.UnitTests.ExcelBaseTest.HideRow_WhenCall_SetCellValueMethodCalled" executed="True" result="Success" success="True" time="0.296" asserts="0" />
+                              <test-case name="Fanex.Athena.Excel.Base.UnitTests.ExcelBaseTest.HideRow_WhenCall_ZeroHeightIsTrue" executed="True" result="Success" success="True" time="0.323" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ExcelExceptionTest" executed="True" result="Success" success="True" time="0.037" asserts="1">
+                            <results>
+                              <test-case name="Fanex.Athena.Excel.Base.UnitTests.ExcelExceptionTest.Message_WhenGetProperty_ReturnCorrectFormat" executed="True" result="Success" success="True" time="0.025" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestSuite" name="Extension" executed="True" result="Success" success="True" time="2.749" asserts="7">
+                            <results>
+                              <test-suite type="TestFixture" name="HSSFCellExtensionTest" executed="True" result="Success" success="True" time="0.071" asserts="0">
+                                <results>
+                                  <test-suite type="ParameterizedTest" name="SetCellValue_ParamIsObject_SetCellValueMethodIsCalledCorrectly" executed="True" result="Success" success="True" time="0.055" asserts="0">
+                                    <results>
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFCellExtensionTest.SetCellValue_ParamIsObject_SetCellValueMethodIsCalledCorrectly(True)" executed="True" result="Success" success="True" time="0.026" asserts="0" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFCellExtensionTest.SetCellValue_ParamIsObject_SetCellValueMethodIsCalledCorrectly(&quot;string&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFCellExtensionTest.SetCellValue_ParamIsObject_SetCellValueMethodIsCalledCorrectly(10.2d)" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFCellExtensionTest.SetCellValue_ParamIsObject_SetCellValueMethodIsCalledCorrectly(10)" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                                    </results>
+                                  </test-suite>
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="HSSFSheetExtensionTest" executed="True" result="Success" success="True" time="0.362" asserts="6">
+                                <results>
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.CopyCell_SourceCellIsNotNull_SetCellTypeMethodIsCalled" executed="True" result="Success" success="True" time="0.079" asserts="0" />
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.CopyCell_SourceCellIsNull_ReturnNull" executed="True" result="Success" success="True" time="0.019" asserts="1" />
+                                  <test-suite type="ParameterizedTest" name="CopyCell_SourceCellTypeIsBlankOrUnknown_SetCellValueMethodIsCalledWithCorrectParameter" executed="True" result="Success" success="True" time="0.028" asserts="0">
+                                    <results>
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.CopyCell_SourceCellTypeIsBlankOrUnknown_SetCellValueMethodIsCalledWithCorrectParameter(Blank)" executed="True" result="Success" success="True" time="0.008" asserts="0" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.CopyCell_SourceCellTypeIsBlankOrUnknown_SetCellValueMethodIsCalledWithCorrectParameter(Unknown)" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                                    </results>
+                                  </test-suite>
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.CopyCell_SourceCellTypeIsBoolean_SetCellValueMethodIsCalledWithCorrectParameter" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.CopyCell_SourceCellTypeIsError_SetCellValueMethodIsCalledWithCorrectParameter" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                                  <test-suite type="ParameterizedTest" name="CopyRow" executed="True" result="Success" success="True" time="0.054" asserts="2">
+                                    <results>
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.CopyRow(0,2)" executed="True" result="Success" success="True" time="0.018" asserts="1" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.CopyRow(2,0)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                    </results>
+                                  </test-suite>
+                                  <test-suite type="ParameterizedTest" name="DeleteRow_WhenCall_RemoveRowMethodIsCalled" executed="True" result="Success" success="True" time="0.026" asserts="0">
+                                    <results>
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.DeleteRow_WhenCall_RemoveRowMethodIsCalled(0)" executed="True" result="Success" success="True" time="0.007" asserts="0" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.DeleteRow_WhenCall_RemoveRowMethodIsCalled(1)" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.DeleteRow_WhenCall_RemoveRowMethodIsCalled(10)" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                                    </results>
+                                  </test-suite>
+                                  <test-suite type="ParameterizedTest" name="GetCell_WhenCall_ReturnCorrectCellByIndex" executed="True" result="Success" success="True" time="0.010" asserts="3">
+                                    <results>
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.GetCell_WhenCall_ReturnCorrectCellByIndex(1,0)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.GetCell_WhenCall_ReturnCorrectCellByIndex(1,5)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.GetCell_WhenCall_ReturnCorrectCellByIndex(1,9)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                    </results>
+                                  </test-suite>
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFSheetExtensionTest.MergeCells_WhenCall_AddMergedRegionMethodIsCalled" executed="True" result="Success" success="True" time="0.047" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="HSSFWorkbookExtensionTest" executed="True" result="Success" success="True" time="0.151" asserts="1">
+                                <results>
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFWorkbookExtensionTest.CloneSheet_WhenCall_ReturnNewSheet" executed="True" result="Success" success="True" time="0.108" asserts="1" />
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.Extension.HSSFWorkbookExtensionTest.RemoveSheet_WhenCall_RemoveSheetAtMethodIsCalled" executed="True" result="Success" success="True" time="0.008" asserts="0" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ReportBaseTest" executed="True" result="Success" success="True" time="0.948" asserts="11">
+                            <results>
+                              <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.AssignData_ReportDoesNotHaveData_AssignNoInfoRowMethodIsCalled" executed="True" result="Success" success="True" time="0.318" asserts="0" />
+                              <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.AssignData_ReportHasData_AssignSheetDataMethodIsCalled" executed="True" result="Success" success="True" time="0.103" asserts="0" />
+                              <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.AssignRowContent_WhenCall_SetCellValueMethodIsCalled" executed="True" result="Success" success="True" time="0.029" asserts="0" />
+                              <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.Export_WhenCall_AssignDataMethodIsCalled" executed="True" result="Success" success="True" time="0.014" asserts="0" />
+                              <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.Export_WhenCall_LoadTemplateMethodIsCalled" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.Export_WhenCall_RemoveTemplateMethodIsCalled" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-suite type="ParameterizedTest" name="GetExactTitleCurrencyName_CurrencyIdInRange_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.129" asserts="4">
+                                <results>
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.GetExactTitleCurrencyName_CurrencyIdInRange_ReturnCorrectValue(0,&quot;All Currencies&quot;)" executed="True" result="Success" success="True" time="0.098" asserts="1" />
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.GetExactTitleCurrencyName_CurrencyIdInRange_ReturnCorrectValue(-1,&quot;View in EUR&quot;)" executed="True" result="Success" success="True" time="0.006" asserts="1" />
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.GetExactTitleCurrencyName_CurrencyIdInRange_ReturnCorrectValue(-2,&quot;View in USD&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.GetExactTitleCurrencyName_CurrencyIdInRange_ReturnCorrectValue(-3,&quot;View in GBP&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="GetExactTitleCurrencyName_CurrencyIdNotInRange_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.055" asserts="3">
+                                <results>
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.GetExactTitleCurrencyName_CurrencyIdNotInRange_ReturnCorrectValue(-10,True,&quot;ABC&quot;,&quot;View in EUR&quot;)" executed="True" result="Success" success="True" time="0.040" asserts="1" />
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.GetExactTitleCurrencyName_CurrencyIdNotInRange_ReturnCorrectValue(10,True,&quot;ABC&quot;,&quot;View in EUR&quot;)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.GetExactTitleCurrencyName_CurrencyIdNotInRange_ReturnCorrectValue(10,False,&quot;ABC&quot;,&quot;View in ABC&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="GetLicenseeWLProduct_ProductOptionListDoesNotHaveData_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.050" asserts="2">
+                                <results>
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.GetLicenseeWLProduct_ProductOptionListDoesNotHaveData_ReturnCorrectValue(&quot;Caption Test&quot;,&quot;, Caption Test&quot;)" executed="True" result="Success" success="True" time="0.044" asserts="1" />
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.GetLicenseeWLProduct_ProductOptionListDoesNotHaveData_ReturnCorrectValue(null,&quot;&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="GetLicenseeWLProduct_ProductOptionListHasData_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.130" asserts="2">
+                                <results>
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.GetLicenseeWLProduct_ProductOptionListHasData_ReturnCorrectValue(&quot;Caption&quot;,&quot;, Caption (SB, CS)&quot;)" executed="True" result="Success" success="True" time="0.120" asserts="1" />
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.GetLicenseeWLProduct_ProductOptionListHasData_ReturnCorrectValue(null,&quot;, Licensee W/L (SB, CS)&quot;)" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="SetTextRowValue_WhenCall_SetCellValueMethodIsCalled" executed="True" result="Success" success="True" time="0.046" asserts="0">
+                                <results>
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.SetTextRowValue_WhenCall_SetCellValueMethodIsCalled(0,2)" executed="True" result="Success" success="True" time="0.029" asserts="0" />
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.ReportBaseTest.SetTextRowValue_WhenCall_SetCellValueMethodIsCalled(2,0)" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestSuite" name="Utility" executed="True" result="Success" success="True" time="3.818" asserts="9">
+                            <results>
+                              <test-suite type="TestFixture" name="DataHelperTest" executed="True" result="Success" success="True" time="0.109" asserts="9">
+                                <results>
+                                  <test-suite type="ParameterizedTest" name="GetCurrencyColumnName_IsConvertEqualFalse_ReturnColumnNameWithoutCurrencySuffix" executed="True" result="Success" success="True" time="0.038" asserts="3">
+                                    <results>
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Utility.DataHelperTest.GetCurrencyColumnName_IsConvertEqualFalse_ReturnColumnNameWithoutCurrencySuffix(&quot;LicenseeWL&quot;,&quot;LicenseeWL&quot;)" executed="True" result="Success" success="True" time="0.004" asserts="1" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Utility.DataHelperTest.GetCurrencyColumnName_IsConvertEqualFalse_ReturnColumnNameWithoutCurrencySuffix(&quot;Commission&quot;,&quot;Commission&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Utility.DataHelperTest.GetCurrencyColumnName_IsConvertEqualFalse_ReturnColumnNameWithoutCurrencySuffix(&quot;&quot;,&quot;&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                    </results>
+                                  </test-suite>
+                                  <test-suite type="ParameterizedTest" name="GetCurrencyColumnName_IsConvertEqualTrue_ReturnColumnNameWithCurrencySuffix" executed="True" result="Success" success="True" time="0.032" asserts="3">
+                                    <results>
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Utility.DataHelperTest.GetCurrencyColumnName_IsConvertEqualTrue_ReturnColumnNameWithCurrencySuffix(&quot;LicenseeWL&quot;,&quot;USD&quot;,&quot;LicenseeWLUSD&quot;)" executed="True" result="Success" success="True" time="0.009" asserts="1" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Utility.DataHelperTest.GetCurrencyColumnName_IsConvertEqualTrue_ReturnColumnNameWithCurrencySuffix(&quot;Commission&quot;,&quot;EUR&quot;,&quot;CommissionEUR&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Utility.DataHelperTest.GetCurrencyColumnName_IsConvertEqualTrue_ReturnColumnNameWithCurrencySuffix(&quot;&quot;,&quot;&quot;,&quot;&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                    </results>
+                                  </test-suite>
+                                  <test-suite type="ParameterizedTest" name="GetCurrencyValue_ContainColumn_ReturnCorrectValueOfColumn" executed="True" result="Success" success="True" time="0.018" asserts="2">
+                                    <results>
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Utility.DataHelperTest.GetCurrencyValue_ContainColumn_ReturnCorrectValueOfColumn(&quot;LicenseeWL&quot;,5.2d)" executed="True" result="Success" success="True" time="0.010" asserts="1" />
+                                      <test-case name="Fanex.Athena.Excel.Base.UnitTests.Utility.DataHelperTest.GetCurrencyValue_ContainColumn_ReturnCorrectValueOfColumn(&quot;Commission&quot;,1)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                    </results>
+                                  </test-suite>
+                                  <test-case name="Fanex.Athena.Excel.Base.UnitTests.Utility.DataHelperTest.GetCurrencyValue_NotContainColumn_ReturnZero" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.Extension.UnitTests\bin\Debug\Fanex.Athena.Extension.UnitTests.dll" executed="True" result="Success" success="True" time="3.954" asserts="128">
+    <properties>
+      <property name="_PID" value="13968" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.Extension.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="3.869" asserts="128">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="3.848" asserts="128">
+            <results>
+              <test-suite type="TestSuite" name="Extension" executed="True" result="Success" success="True" time="3.823" asserts="128">
+                <results>
+                  <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="3.808" asserts="128">
+                    <results>
+                      <test-suite type="TestFixture" name="HashtableExtensionsTest" executed="True" result="Success" success="True" time="0.315" asserts="3">
+                        <results>
+                          <test-case name="Fanex.Athena.Extension.UnitTests.HashtableExtensionsTest.UpdateWith_DataIsUpdated" executed="True" result="Success" success="True" time="0.296" asserts="3" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="Helper" executed="True" result="Success" success="True" time="3.214" asserts="85">
+                        <results>
+                          <test-suite type="TestFixture" name="ConvertHelperTest" executed="True" result="Success" success="True" time="0.940" asserts="4">
+                            <results>
+                              <test-suite type="ParameterizedTest" name="ToDateTime_InvalidDateParam_ThrowException" executed="True" result="Success" success="True" time="0.850" asserts="4">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.ConvertHelperTest.ToDateTime_InvalidDateParam_ThrowException(null,System.NullReferenceException)" executed="True" result="Success" success="True" time="0.374" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.ConvertHelperTest.ToDateTime_InvalidDateParam_ThrowException(&quot;&quot;,System.ArgumentOutOfRangeException)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.ConvertHelperTest.ToDateTime_InvalidDateParam_ThrowException(&quot;123&quot;,System.ArgumentOutOfRangeException)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.ConvertHelperTest.ToDateTime_InvalidDateParam_ThrowException(&quot;2016/01/01&quot;,System.FormatException)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="DateTimeHelperTest" executed="True" result="Success" success="True" time="0.413" asserts="13">
+                            <results>
+                              <test-suite type="ParameterizedTest" name="GetFirstDateOfWeek_StartOfWeekIsSunday_ReturnCorrectDate" executed="True" result="Success" success="True" time="0.097" asserts="3">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetFirstDateOfWeek_StartOfWeekIsSunday_ReturnCorrectDate(&quot;7/25/2016&quot;,&quot;7/24/2016&quot;)" executed="True" result="Success" success="True" time="0.046" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetFirstDateOfWeek_StartOfWeekIsSunday_ReturnCorrectDate(&quot;7/28/2016&quot;,&quot;7/24/2016&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetFirstDateOfWeek_StartOfWeekIsSunday_ReturnCorrectDate(&quot;7/31/2016&quot;,&quot;7/31/2016&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="GetFirstDateOfWeek_WhenCall_ReturnCorrectDate" executed="True" result="Success" success="True" time="0.073" asserts="4">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetFirstDateOfWeek_WhenCall_ReturnCorrectDate(&quot;1/1/2016&quot;,&quot;12/28/2015&quot;)" executed="True" result="Success" success="True" time="0.042" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetFirstDateOfWeek_WhenCall_ReturnCorrectDate(&quot;7/25/2016&quot;,&quot;7/25/2016&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetFirstDateOfWeek_WhenCall_ReturnCorrectDate(&quot;7/28/2016&quot;,&quot;7/25/2016&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetFirstDateOfWeek_WhenCall_ReturnCorrectDate(&quot;7/31/2016&quot;,&quot;7/25/2016&quot;)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="GetWeeks_StartOfWeekIsFriday_ReturnCorrectDate" executed="True" result="Success" success="True" time="0.063" asserts="2">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetWeeks_StartOfWeekIsFriday_ReturnCorrectDate(&quot;7/28/2016&quot;,&quot;7/29/2016&quot;,2)" executed="True" result="Success" success="True" time="0.024" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetWeeks_StartOfWeekIsFriday_ReturnCorrectDate(&quot;7/30/2016&quot;,&quot;7/31/2016&quot;,1)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="GetWeeks_WhenCall_ReturnCorrectDate" executed="True" result="Success" success="True" time="0.044" asserts="4">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetWeeks_WhenCall_ReturnCorrectDate(&quot;7/25/2016&quot;,&quot;7/24/2016&quot;,0)" executed="True" result="Success" success="True" time="0.015" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetWeeks_WhenCall_ReturnCorrectDate(&quot;7/25/2016&quot;,&quot;7/24/2016&quot;,0)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetWeeks_WhenCall_ReturnCorrectDate(&quot;7/25/2016&quot;,&quot;7/31/2016&quot;,1)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.DateTimeHelperTest.GetWeeks_WhenCall_ReturnCorrectDate(&quot;7/24/2016&quot;,&quot;7/25/2016&quot;,2)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="JsonHelperTest" executed="True" result="Success" success="True" time="0.571" asserts="4">
+                            <results>
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Helper.JsonHelperTest.ToJson_WithCollection_ReturnCorrectResult" executed="True" result="Success" success="True" time="0.425" asserts="1" />
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Helper.JsonHelperTest.ToJson_WithComplexObject_ReturnCorrectResult" executed="True" result="Success" success="True" time="0.126" asserts="1" />
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Helper.JsonHelperTest.ToJson_WithNullValue_ReturnCorrectResult" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Helper.JsonHelperTest.ToJson_WithObject_ReturnCorrectResult" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="NumberHelperTest" executed="True" result="Success" success="True" time="0.560" asserts="49">
+                            <results>
+                              <test-suite type="ParameterizedTest" name="DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits" executed="True" result="Success" success="True" time="0.234" asserts="9">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(0,&quot;0.00&quot;)" executed="True" result="Success" success="True" time="0.014" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(2.5d,&quot;2.50&quot;)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(2.53d,&quot;2.53&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(2.534d,&quot;2.53&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(2.535d,&quot;2.54&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(2.5361d,&quot;2.54&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(2,&quot;2.00&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(-1,&quot;-1.00&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(-2.5d,&quot;-2.50&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="DecFormat_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits" executed="True" result="Success" success="True" time="0.043" asserts="9">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(0,&quot;0.000&quot;)" executed="True" result="Success" success="True" time="0.006" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(2.5d,&quot;2.500&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(2.53d,&quot;2.530&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(2.534d,&quot;2.534&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(2.5354d,&quot;2.535&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(2.5366d,&quot;2.537&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(2,&quot;2.000&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(-1,&quot;-1.000&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.DecFormat_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(-2.5d,&quot;-2.500&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits" executed="True" result="Success" success="True" time="0.071" asserts="9">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(0,&quot;0.00&quot;)" executed="True" result="Success" success="True" time="0.016" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(2.5d,&quot;2.50&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(2.53d,&quot;2.53&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(2.534d,&quot;2.53&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(2.535d,&quot;2.54&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(2.5361d,&quot;2.54&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(2,&quot;2.00&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(-1,&quot;-1.00&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithDecimalType_ReturnFormattedNumberWithTwoDigits(-2.5d,&quot;-2.50&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="ToStringExt_OneArgumentWithIntType_ReturnFormattedNumberWithThousandSeparator" executed="True" result="Success" success="True" time="0.034" asserts="7">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithIntType_ReturnFormattedNumberWithThousandSeparator(0,&quot;&quot;)" executed="True" result="Success" success="True" time="0.008" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithIntType_ReturnFormattedNumberWithThousandSeparator(2,&quot;2&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithIntType_ReturnFormattedNumberWithThousandSeparator(25,&quot;25&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithIntType_ReturnFormattedNumberWithThousandSeparator(2530,&quot;2,530&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithIntType_ReturnFormattedNumberWithThousandSeparator(1000000,&quot;1,000,000&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithIntType_ReturnFormattedNumberWithThousandSeparator(-1,&quot;-1&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithIntType_ReturnFormattedNumberWithThousandSeparator(-25000,&quot;-25,000&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="ToStringExt_OneArgumentWithOtherType_ReturnOriginalNumber" executed="True" result="Success" success="True" time="0.019" asserts="6">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithOtherType_ReturnOriginalNumber(0.2d,&quot;0.2&quot;)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithOtherType_ReturnOriginalNumber(0.158d,&quot;0.158&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithOtherType_ReturnOriginalNumber(2.57384d,&quot;2.57384&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithOtherType_ReturnOriginalNumber(-0.2d,&quot;-0.2&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithOtherType_ReturnOriginalNumber(-0.158d,&quot;-0.158&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_OneArgumentWithOtherType_ReturnOriginalNumber(-2.57384d,&quot;-2.57384&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits" executed="True" result="Success" success="True" time="0.081" asserts="9">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(0,&quot;0.000&quot;)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(2.5d,&quot;2.500&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(2.53d,&quot;2.530&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(2.534d,&quot;2.534&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(2.5354d,&quot;2.535&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(2.5366d,&quot;2.537&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(2,&quot;2.000&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(-1,&quot;-1.000&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.NumberHelperTest.ToStringExt_TwoArgumentsWithDecimalType_ReturnFormattedNumberWithThreeDigits(-2.5d,&quot;-2.500&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="UtilTest" executed="True" result="Success" success="True" time="0.228" asserts="15">
+                            <results>
+                              <test-suite type="ParameterizedTest" name="IsPasswordValid_WhenCall_ReturnCorrectResult" executed="True" result="Success" success="True" time="0.155" asserts="8">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsPasswordValid_WhenCall_ReturnCorrectResult(&quot;123456&quot;,False)" executed="True" result="Success" success="True" time="0.021" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsPasswordValid_WhenCall_ReturnCorrectResult(&quot;123a456&quot;,False)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsPasswordValid_WhenCall_ReturnCorrectResult(&quot;1abcdef&quot;,False)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsPasswordValid_WhenCall_ReturnCorrectResult(&quot;123ab&quot;,False)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsPasswordValid_WhenCall_ReturnCorrectResult(&quot;123ab$&quot;,True)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsPasswordValid_WhenCall_ReturnCorrectResult(&quot;1234aa&quot;,True)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsPasswordValid_WhenCall_ReturnCorrectResult(&quot;1234Aa&quot;,True)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsPasswordValid_WhenCall_ReturnCorrectResult(&quot;1a2b3c&quot;,True)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="IsValidLanguage_WhenCall_ReturnCorrectResult" executed="True" result="Success" success="True" time="0.044" asserts="7">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsValidLanguage_WhenCall_ReturnCorrectResult(&quot;en-US&quot;,True)" executed="True" result="Success" success="True" time="0.015" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsValidLanguage_WhenCall_ReturnCorrectResult(&quot;zh-TW&quot;,True)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsValidLanguage_WhenCall_ReturnCorrectResult(&quot;zh-CN&quot;,True)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsValidLanguage_WhenCall_ReturnCorrectResult(&quot;ko-KR&quot;,True)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsValidLanguage_WhenCall_ReturnCorrectResult(&quot;zh-Hans&quot;,True)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsValidLanguage_WhenCall_ReturnCorrectResult(&quot;en-us&quot;,False)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Helper.UtilTest.IsValidLanguage_WhenCall_ReturnCorrectResult(&quot;vi-VN&quot;,False)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestSuite" name="Utility" executed="True" result="Success" success="True" time="3.770" asserts="40">
+                        <results>
+                          <test-suite type="TestFixture" name="CookiesHelperTest" executed="True" result="Success" success="True" time="0.090" asserts="2">
+                            <results>
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Utility.CookiesHelperTest.GetCookies_CookieNameExist_ReturnCorrectData" executed="True" result="Success" success="True" time="0.071" asserts="1" />
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Utility.CookiesHelperTest.GetCookies_CookieNameNotExist_ReturnEmptyString" executed="True" result="Success" success="True" time="0.007" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="DictionaryPropertyComparerTest" executed="True" result="Success" success="True" time="0.218" asserts="6">
+                            <results>
+                              <test-suite type="ParameterizedTest" name="Compare_AscendingDirection_ReturnCorrecvalue" executed="True" result="Success" success="True" time="0.183" asserts="3">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionaryPropertyComparerTest.Compare_AscendingDirection_ReturnCorrecvalue(10,-1)" executed="True" result="Success" success="True" time="0.171" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionaryPropertyComparerTest.Compare_AscendingDirection_ReturnCorrecvalue(11,0)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionaryPropertyComparerTest.Compare_AscendingDirection_ReturnCorrecvalue(12,1)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="Compare_DescendingDirection_ReturnCorrecvalue" executed="True" result="Success" success="True" time="0.028" asserts="3">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionaryPropertyComparerTest.Compare_DescendingDirection_ReturnCorrecvalue(10,1)" executed="True" result="Success" success="True" time="0.018" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionaryPropertyComparerTest.Compare_DescendingDirection_ReturnCorrecvalue(11,0)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionaryPropertyComparerTest.Compare_DescendingDirection_ReturnCorrecvalue(12,-1)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="DictionayExtensionTest" executed="True" result="Success" success="True" time="0.074" asserts="8">
+                            <results>
+                              <test-suite type="ParameterizedTest" name="GetValueOrDefault_WhenCallWithDefaultValue_ValueIsGotCorrectly" executed="True" result="Success" success="True" time="0.039" asserts="4">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionayExtensionTest.GetValueOrDefault_WhenCallWithDefaultValue_ValueIsGotCorrectly(&quot;SB&quot;,0,1000)" executed="True" result="Success" success="True" time="0.019" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionayExtensionTest.GetValueOrDefault_WhenCallWithDefaultValue_ValueIsGotCorrectly(&quot;CS&quot;,0,143.22d)" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionayExtensionTest.GetValueOrDefault_WhenCallWithDefaultValue_ValueIsGotCorrectly(&quot;BT&quot;,0,0)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionayExtensionTest.GetValueOrDefault_WhenCallWithDefaultValue_ValueIsGotCorrectly(&quot;BT&quot;,100,100)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="GetValueOrDefault_WhenCallWithDefaultValueProvider_ValueIsGotCorrectly" executed="True" result="Success" success="True" time="0.017" asserts="4">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionayExtensionTest.GetValueOrDefault_WhenCallWithDefaultValueProvider_ValueIsGotCorrectly(&quot;SB&quot;,0,1000)" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionayExtensionTest.GetValueOrDefault_WhenCallWithDefaultValueProvider_ValueIsGotCorrectly(&quot;CS&quot;,0,143.22d)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionayExtensionTest.GetValueOrDefault_WhenCallWithDefaultValueProvider_ValueIsGotCorrectly(&quot;BT&quot;,0,0)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.DictionayExtensionTest.GetValueOrDefault_WhenCallWithDefaultValueProvider_ValueIsGotCorrectly(&quot;BT&quot;,100,100)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="GroupCommSettingTest" executed="True" result="Success" success="True" time="0.074" asserts="8">
+                            <results>
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Utility.GroupCommSettingTest.CommissionsProperty_CorrectValue" executed="True" result="Success" success="True" time="0.020" asserts="3" />
+                              <test-suite type="ParameterizedTest" name="GetCommValue_WhenCall_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.039" asserts="2">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.GroupCommSettingTest.GetCommValue_WhenCall_ReturnCorrectValue(2)" executed="True" result="Success" success="True" time="0.033" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.GroupCommSettingTest.GetCommValue_WhenCall_ReturnCorrectValue(10)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Utility.GroupCommSettingTest.ValidCommissionsProperty_CorrectValue" executed="True" result="Success" success="True" time="0.004" asserts="3" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="PropertyComparerTest" executed="True" result="Success" success="True" time="0.061" asserts="8">
+                            <results>
+                              <test-suite type="ParameterizedTest" name="Compare_AscendingDirection_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.025" asserts="3">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.PropertyComparerTest.Compare_AscendingDirection_ReturnCorrectValue(&quot;Id&quot;,-1)" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.PropertyComparerTest.Compare_AscendingDirection_ReturnCorrectValue(&quot;NickName&quot;,0)" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.PropertyComparerTest.Compare_AscendingDirection_ReturnCorrectValue(&quot;Name&quot;,1)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="ParameterizedTest" name="Compare_DescendingDirection_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.012" asserts="3">
+                                <results>
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.PropertyComparerTest.Compare_DescendingDirection_ReturnCorrectValue(&quot;Id&quot;,1)" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.PropertyComparerTest.Compare_DescendingDirection_ReturnCorrectValue(&quot;NickName&quot;,0)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                  <test-case name="Fanex.Athena.Extension.UnitTests.Utility.PropertyComparerTest.Compare_DescendingDirection_ReturnCorrectValue(&quot;Name&quot;,-1)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Utility.PropertyComparerTest.Compare_PropertyNotExistInFirstObject_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Utility.PropertyComparerTest.Compare_PropertyNotExistInSecondObject_ReturnCorrectValue" executed="True" result="Success" success="True" time="0.007" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="SortableListTest" executed="True" result="Success" success="True" time="0.040" asserts="8">
+                            <results>
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Utility.SortableListTest.Sort_AscendingDirection_ListSortedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Utility.SortableListTest.Sort_DescendingDirection_ListSortedCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Utility.SortableListTest.SortByDictionary_AscendingDirection_ListSortedCorrectly" executed="True" result="Success" success="True" time="0.015" asserts="2" />
+                              <test-case name="Fanex.Athena.Extension.UnitTests.Utility.SortableListTest.SortByDictionary_DescendingDirection_ListSortedCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.Service.BetList.UnitTests\bin\Debug\Fanex.Athena.Service.BetList.UnitTests.dll" executed="True" result="Success" success="True" time="2.243" asserts="5">
+    <properties>
+      <property name="_PID" value="11764" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.Service.BetList.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="2.209" asserts="5">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="2.199" asserts="5">
+            <results>
+              <test-suite type="TestSuite" name="Service" executed="True" result="Success" success="True" time="2.168" asserts="5">
+                <results>
+                  <test-suite type="TestSuite" name="BetList" executed="True" result="Success" success="True" time="2.161" asserts="5">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="2.153" asserts="5">
+                        <results>
+                          <test-suite type="TestSuite" name="Common" executed="True" result="Success" success="True" time="2.148" asserts="5">
+                            <results>
+                              <test-suite type="TestFixture" name="BetListServiceTest" executed="True" result="Success" success="True" time="2.050" asserts="4">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.BetList.UnitTests.Common.BetListServiceTest.GetBetListData_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="1.939" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.BetList.UnitTests.Common.BetListServiceTest.GetDailyStatementData_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.035" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.BetList.UnitTests.Common.BetListServiceTest.GetMixParlayDetailTicket_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.015" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.BetList.UnitTests.Common.BetListServiceTest.GetSystemParlayDetail_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.009" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="CancelledBetListServiceTest" executed="True" result="Success" success="True" time="0.072" asserts="1">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.BetList.UnitTests.Common.CancelledBetListServiceTest.GetCancelBetCustList_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.065" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.Service.BetSettings.UnitTests\bin\Debug\Fanex.Athena.Service.BetSettings.UnitTests.dll" executed="True" result="Success" success="True" time="4.182" asserts="17">
+    <properties>
+      <property name="_PID" value="17612" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.Service.BetSettings.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="4.132" asserts="17">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="4.111" asserts="17">
+            <results>
+              <test-suite type="TestSuite" name="Service" executed="True" result="Success" success="True" time="4.085" asserts="17">
+                <results>
+                  <test-suite type="TestSuite" name="Core" executed="True" result="Success" success="True" time="4.071" asserts="17">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="4.062" asserts="17">
+                        <results>
+                          <test-suite type="TestSuite" name="Common" executed="True" result="Success" success="True" time="4.031" asserts="17">
+                            <results>
+                              <test-suite type="TestFixture" name="AgCasinoBetSettingServiceTest" executed="True" result="Success" success="True" time="2.404" asserts="4">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.AgCasinoBetSettingServiceTest.GetViewModel_WhenCall_ApiResultRetriviedCorrectly" executed="True" result="Success" success="True" time="2.075" asserts="2" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.AgCasinoBetSettingServiceTest.UpdateAgCasinoBetSetting_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.266" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.AgCasinoBetSettingServiceTest.UpdateStatus_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.012" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="GoldDeluxeBetSettingTest" executed="True" result="Success" success="True" time="0.408" asserts="5">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.GoldDeluxeBetSettingTest.GetViewModel_WhenCall_ApiResultRetriviedCorrectly" executed="True" result="Success" success="True" time="0.372" asserts="3" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.GoldDeluxeBetSettingTest.UpdateBetSetting_ApiReturnCodeIsZero_ReturnSuccessResult" executed="True" result="Success" success="True" time="0.008" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.GoldDeluxeBetSettingTest.UpdateStatus_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.016" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="KenoBetSettingServiceTest" executed="True" result="Success" success="True" time="0.289" asserts="1">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.KenoBetSettingServiceTest.GetViewModel_WhenCall_BetSettingListReturnedFromDataAccess" executed="True" result="Success" success="True" time="0.127" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.KenoBetSettingServiceTest.UpdateBetSetting_WhenCall_DataAccessExecuteWithCorrectParams" executed="True" result="Success" success="True" time="0.150" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="LiveCasinoBetSettingServiceTest" executed="True" result="Success" success="True" time="0.302" asserts="1">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LiveCasinoBetSettingServiceTest.GetViewModel_WhenCall_DataAccessExecuteWithCorrectParams" executed="True" result="Success" success="True" time="0.257" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LiveCasinoBetSettingServiceTest.UpdateBetSetting_PassTwoBetSettingItems_DataAccessExecuteTwoTimes" executed="True" result="Success" success="True" time="0.015" asserts="0" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LiveCasinoBetSettingServiceTest.UpdateStatus_WhenCall_DataAccessExecuteWithCorrectParams" executed="True" result="Success" success="True" time="0.018" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="NumberGameBetSettingServiceTest" executed="True" result="Success" success="True" time="0.335" asserts="1">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.NumberGameBetSettingServiceTest.GetViewModel_WhenCall_ReturnDataFromDataAcccess" executed="True" result="Success" success="True" time="0.037" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.NumberGameBetSettingServiceTest.UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters" executed="True" result="Success" success="True" time="0.292" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="RacingBetSettingServiceTest" executed="True" result="Success" success="True" time="0.121" asserts="1">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.RacingBetSettingServiceTest.GetViewModel_WhenCall_ReturnDataFromDataAcccess" executed="True" result="Success" success="True" time="0.072" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.RacingBetSettingServiceTest.UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters" executed="True" result="Success" success="True" time="0.038" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="SportsbookBetSettingServiceTest" executed="True" result="Success" success="True" time="0.049" asserts="1">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.SportsbookBetSettingServiceTest.GetViewModel_WhenCall_ReturnDataFromDataAcccess" executed="True" result="Success" success="True" time="0.014" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.SportsbookBetSettingServiceTest.UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters" executed="True" result="Success" success="True" time="0.008" asserts="0" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.SportsbookBetSettingServiceTest.UpdateEsportStatus_WhenCall_CallDataAccessWithCorrectParameters" executed="True" result="Success" success="True" time="0.006" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="ThirdPartyBetSettingServiceTest" executed="True" result="Success" success="True" time="0.038" asserts="2">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.ThirdPartyBetSettingServiceTest.GetViewModel_WhenCall_ReturnDataFromDataAcccess" executed="True" result="Success" success="True" time="0.024" asserts="2" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.ThirdPartyBetSettingServiceTest.UpdateStatus_WhenCall_CallDataAccessWithCorrectParameters" executed="True" result="Success" success="True" time="0.007" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="VirtualSportsBetSettingServiceTest" executed="True" result="Success" success="True" time="0.052" asserts="1">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.VirtualSportsBetSettingServiceTest.GetViewModel_WhenCall_ReturnDataFromDataAcccess" executed="True" result="Success" success="True" time="0.008" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.VirtualSportsBetSettingServiceTest.UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters" executed="True" result="Success" success="True" time="0.033" asserts="0" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+  <test-suite type="Assembly" name="D:\GITLab\lrf\UnitTests\Fanex.Athena.Service.Core.UnitTests\bin\Debug\Fanex.Athena.Service.Core.UnitTests.dll" executed="True" result="Success" success="True" time="4.978" asserts="70">
+    <properties>
+      <property name="_PID" value="11776" />
+      <property name="_APPDOMAIN" value="test-domain-Fanex.Athena.Service.Core.UnitTests.dll" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Fanex" executed="True" result="Success" success="True" time="4.941" asserts="70">
+        <results>
+          <test-suite type="TestSuite" name="Athena" executed="True" result="Success" success="True" time="4.910" asserts="70">
+            <results>
+              <test-suite type="TestSuite" name="Service" executed="True" result="Success" success="True" time="4.898" asserts="70">
+                <results>
+                  <test-suite type="TestSuite" name="Core" executed="True" result="Success" success="True" time="4.890" asserts="70">
+                    <results>
+                      <test-suite type="TestSuite" name="UnitTests" executed="True" result="Success" success="True" time="4.884" asserts="70">
+                        <results>
+                          <test-suite type="TestSuite" name="Common" executed="True" result="Success" success="True" time="4.860" asserts="70">
+                            <results>
+                              <test-suite type="TestFixture" name="AuthorizationServiceTest" executed="True" result="Success" success="True" time="1.806" asserts="5">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.AuthorizationServiceTest.HasPermissionOnData_AllParamsIsGreaterThanZero_CallToDataAccess" executed="True" result="Success" success="True" time="1.340" asserts="0" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.AuthorizationServiceTest.HasPermissionOnData_CustIdAndTransIdAreZero_ReturnTrue" executed="True" result="Success" success="True" time="0.035" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.AuthorizationServiceTest.HasPermissionOnData_LicenseeIdIsZero_ThrowException" executed="True" result="Success" success="True" time="0.121" asserts="1" />
+                                  <test-suite type="ParameterizedTest" name="HasPermissions_WhenCall_ReturnCorrectResult" executed="True" result="Success" success="True" time="0.180" asserts="3">
+                                    <results>
+                                      <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.AuthorizationServiceTest.HasPermissions_WhenCall_ReturnCorrectResult(1,&quot;Function1&quot;,True)" executed="True" result="Success" success="True" time="0.152" asserts="1" />
+                                      <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.AuthorizationServiceTest.HasPermissions_WhenCall_ReturnCorrectResult(1,&quot;Function2&quot;,False)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                      <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.AuthorizationServiceTest.HasPermissions_WhenCall_ReturnCorrectResult(1,&quot;Function3&quot;,False)" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                    </results>
+                                  </test-suite>
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="BalanceUpServiceTest" executed="True" result="Success" success="True" time="0.307" asserts="1">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.BalanceUpServiceTest.GetAllSports_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.304" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="BetTypeServiceTest" executed="True" result="Success" success="True" time="0.301" asserts="4">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.BetTypeServiceTest.GetAllBettypes_WhenCall_ReturnResultFromDataAcess" executed="True" result="Success" success="True" time="0.086" asserts="2" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.BetTypeServiceTest.GetBettypes_WhenCall_PassCorrectParamsToDataAccess" executed="True" result="Success" success="True" time="0.180" asserts="0" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.BetTypeServiceTest.GetBettypes_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.026" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="CurrencyServiceTest" executed="True" result="Success" success="True" time="0.320" asserts="8">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.CurrencyServiceTest.AssignCurrenciesByUser_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.140" asserts="2" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.CurrencyServiceTest.GetCurrenciesByUser_LicenseeIsKeenOcean_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.142" asserts="2" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.CurrencyServiceTest.GetCurrenciesByUser_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.CurrencyServiceTest.GetCurrencyMapByUser_WhenCall_ReturnActiveCurrencyUserList" executed="True" result="Success" success="True" time="0.009" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="ExChangeRateServiceTest" executed="True" result="Success" success="True" time="0.096" asserts="3">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.ExChangeRateServiceTest.GetExChangeRate_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.092" asserts="3" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="FunctionServiceTest" executed="True" result="Success" success="True" time="0.751" asserts="14">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.FunctionServiceTest.AssignUserFunctions_WhenCall_CallAssignUserFunctionFromDataAccessCorrectly" executed="True" result="Success" success="True" time="0.307" asserts="0" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.FunctionServiceTest.AssignUserFunctions_WhenCall_CallRemoveUserFunctionFromDataAccessCorrectly" executed="True" result="Success" success="True" time="0.157" asserts="0" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.FunctionServiceTest.Functions_WhenAccessed_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.FunctionServiceTest.GetLicenseeFunctionList_WhenCall_ReturnExistFunctionsFromDataAccess" executed="True" result="Success" success="True" time="0.027" asserts="2" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.FunctionServiceTest.GetMasterFunctions_WhenCall_ReturnCorrectData" executed="True" result="Success" success="True" time="0.090" asserts="2" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.FunctionServiceTest.GetSubFunctions_WhenCall_ReturnCorrectData" executed="True" result="Success" success="True" time="0.052" asserts="3" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.FunctionServiceTest.GetSubMenus_WhenCall_ReturnCorrectData" executed="True" result="Success" success="True" time="0.054" asserts="3" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.FunctionServiceTest.GetUserFunctionList_WhenCall_ReturnCorrectFunctions" executed="True" result="Success" success="True" time="0.002" asserts="3" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="LanguageServiceTest" executed="True" result="Success" success="True" time="0.065" asserts="1">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LanguageServiceTest.ChangeLanguage_WhenCall_CallAndPassCorrectParamToSessionService" executed="True" result="Success" success="True" time="0.032" asserts="0" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LanguageServiceTest.GetCurrentLanguage_WhenCall_ReturnLanguageFromUserSession" executed="True" result="Success" success="True" time="0.024" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="LeagueServiceTest" executed="True" result="Success" success="True" time="0.055" asserts="1">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LeagueServiceTest.GetLeaguesBySport_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.050" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="LicenseeServiceTest" executed="True" result="Success" success="True" time="0.163" asserts="7">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LicenseeServiceTest.GetByUser_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.030" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LicenseeServiceTest.GetCurrencies_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.042" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LicenseeServiceTest.GetCustByLicensee_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.041" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LicenseeServiceTest.GetNumberOfOnlineUser_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LicenseeServiceTest.IsAllowUpdateMemberBAStatus_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.007" asserts="1" />
+                                  <test-suite type="ParameterizedTest" name="IsLicenseeBelongToUser_WhenCall_ReturnCorrectResult" executed="True" result="Success" success="True" time="0.018" asserts="2">
+                                    <results>
+                                      <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LicenseeServiceTest.IsLicenseeBelongToUser_WhenCall_ReturnCorrectResult(1,True)" executed="True" result="Success" success="True" time="0.011" asserts="1" />
+                                      <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.LicenseeServiceTest.IsLicenseeBelongToUser_WhenCall_ReturnCorrectResult(2,False)" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                                    </results>
+                                  </test-suite>
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="MatchServiceTest" executed="True" result="Success" success="True" time="0.071" asserts="3">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.MatchServiceTest.GetAllRunningMatch_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.041" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.MatchServiceTest.GetForecastMatchListByLeague_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.007" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.MatchServiceTest.GetMatchesByLeague_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.010" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="MoveBetServiceTest" executed="True" result="Success" success="True" time="0.326" asserts="1">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.MoveBetServiceTest.GetMoveBet_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.315" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="ProductServiceTest" executed="True" result="Success" success="True" time="0.152" asserts="5">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.ProductServiceTest.GetProductAccess_WhenCall_ReturnAllowedProducts" executed="True" result="Success" success="True" time="0.136" asserts="2" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.ProductServiceTest.GetProductAccessForActiveCustomerSummary_WhenCall_ReturnAllowedProducts" executed="True" result="Success" success="True" time="0.004" asserts="2" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.ProductServiceTest.GetProductList_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="SessionServiceTest" executed="True" result="Success" success="True" time="0.101" asserts="6">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.SessionServiceTest.CreateNewSession_WhenCall_LicenseeSessionIsCreatedProperly" executed="True" result="Success" success="True" time="0.075" asserts="2" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.SessionServiceTest.CreateNewSession_WhenCall_UserSessionIsCreatedProperly" executed="True" result="Success" success="True" time="0.008" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.SessionServiceTest.UpdateLanguage" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.SessionServiceTest.UpdateLiceseeSession_WhenCall_LicenseeSessionIsCreatedProperly" executed="True" result="Success" success="True" time="0.004" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="SportTypeServiceTest" executed="True" result="Success" success="True" time="0.051" asserts="3">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.SportTypeServiceTest.GetAllSports_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.020" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.SportTypeServiceTest.GetAllWHSports_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.014" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.SportTypeServiceTest.GetSportsAndProducts_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="SSOServiceTest" executed="True" result="Success" success="True" time="0.099" asserts="0">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.SSOServiceTest.SSO_WhenCall_RelevantMethodCalled" executed="True" result="Success" success="True" time="0.096" asserts="0" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="UserServiceTest" executed="True" result="Success" success="True" time="0.091" asserts="8">
+                                <results>
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.UserServiceTest.ChangePassword_WhenCall_CallRelevantMethodsOfDataAccess" executed="True" result="Success" success="True" time="0.026" asserts="0" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.UserServiceTest.GetByLicensee_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.UserServiceTest.GetByUsername_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.UserServiceTest.GetUserInfo_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.UserServiceTest.IsUserNameExisted_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.UserServiceTest.LoginOnUser_WhenCall_ReturnDataFromDataAccess" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.UserServiceTest.Logout_WhenCall_ExcuteDataAccessCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.UserServiceTest.RecheckIn_WhenCall_ExcuteDataAccessCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.UserServiceTest.ResetPassword_WhenCall_ExcuteDataAccessCorrectly" executed="True" result="Success" success="True" time="0.004" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.UserServiceTest.UpdateInfo_WhenCall_ExcuteDataAccessCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.UserServiceTest.ValidateInternalUser_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                  <test-case name="Fanex.Athena.Service.Core.UnitTests.Common.UserServiceTest.ValidateUserForLrfSystem_WhenCall_ReturnResultFromDataAccess" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

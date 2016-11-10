@@ -31,7 +31,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
         public bool IsBetSettingEditable(int licenseeId, int userId)
         {
             var uspName = "Lrf_CheckEditBetSetting";
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 var param = new Hashtable
                 {

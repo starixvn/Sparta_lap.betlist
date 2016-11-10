@@ -60,7 +60,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             var oldParam = GetLiveCasinoLogParam(custId, param.GameTypeId, language);
             var trackingValue2 = GetTrackingValue(uspName, custId, oldParam, ip, language);
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("gametypeid", DbType.Int32, param.GameTypeId);
                 db.AddInParameter("custid", DbType.Int32, custId);
