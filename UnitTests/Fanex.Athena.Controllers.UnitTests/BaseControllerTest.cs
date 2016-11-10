@@ -1,4 +1,9 @@
-﻿using Fanex.Athena.Web.RouterConfig;
+﻿using Fanex.Athena.Extension.Utility;
+using Fanex.Athena.Model.Core.DataDomain;
+using Fanex.Athena.Service.Core.Common.Interfaces;
+using Fanex.Athena.Service.Core.Users;
+using Fanex.Athena.Service.Core.Users.Interfaces;
+using Fanex.Athena.Web.RouterConfig;
 using NSubstitute;
 using NUnit.Framework;
 using System;
@@ -20,6 +25,9 @@ namespace Fanex.Athena.Controllers.UnitTests
 
         protected ControllerContext controllerContext { get; set; }
 
+        protected ILanguageService LangService;
+        protected ISessionService SessionService;
+        protected IAppSettings AppSettings;
 
         [OneTimeSetUp]
         public void FixtureSetUp()
@@ -36,6 +44,27 @@ namespace Fanex.Athena.Controllers.UnitTests
             var requestContext = new RequestContext(httpContext, new RouteData());
 
             Url = new UrlHelper(requestContext, routes);
+        }
+
+        protected void FakeBaseControllerDependency()
+        {
+            LangService = Substitute.For<ILanguageService>();
+
+           
+            SessionService = Substitute.For<ISessionService>();
+            SessionService.UserSession.Returns(new Model.Core.DTO.Users.UserSession
+            {
+                ViewType = ClientViewType.None,
+                UserId=1,
+                Language="en-Us",
+                UserName="alex.vn",
+                OnUserId=1,
+                FunctionIdList=new List<int>()
+            });
+            
+            AppSettings = Substitute.For<IAppSettings>();
+
+            AppSettings.ClientViewType.Returns("1");
         }
     }
 }

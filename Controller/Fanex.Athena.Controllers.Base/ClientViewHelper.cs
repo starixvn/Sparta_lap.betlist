@@ -12,15 +12,11 @@ namespace Fanex.Athena.Controllers
         private static readonly IDictionary<ClientViewType, string> ClientViewTypes =
             new Dictionary<ClientViewType, string>() { { ClientViewType.Default, string.Empty }, { ClientViewType.Desktop, "Desktop" } };
 
-        public static string GetViewPath(string viewPath)
+        public static string GetViewPath(string viewPath, ClientViewType viewtype)
         {
-            var sessionService = new SessionService();
-            var userSession = sessionService.UserSession;
-            var option = userSession != null && userSession.ViewType != ClientViewType.None ?
-                            userSession.ViewType : (ClientViewType)int.Parse(ConfigurationManager.AppSettings["ClientViewType"].ToString());
 
             var themeSuffix = string.Empty;
-            ClientViewTypes.TryGetValue(option, out themeSuffix);
+            ClientViewTypes.TryGetValue(viewtype, out themeSuffix);
 
             if (string.IsNullOrEmpty(themeSuffix) || string.IsNullOrEmpty(viewPath))
             {

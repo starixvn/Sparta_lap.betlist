@@ -5281,6 +5281,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Who let you here ?.
+        /// </summary>
+        public static string OneTokenRestrictionDefaultMsg {
+            get {
+                return ResourceManager.GetString("OneTokenRestrictionDefaultMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 1 X 2.
         /// </summary>
         public static string OneXTwo {

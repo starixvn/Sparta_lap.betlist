@@ -2909,4 +2909,7 @@
     <value>Back</value>
     <comment>#63410</comment>
   </data>
+  <data name="OneTokenRestrictionDefaultMsg" xml:space="preserve">
+    <value>Who let you here ?</value>
+  </data>
 </root>

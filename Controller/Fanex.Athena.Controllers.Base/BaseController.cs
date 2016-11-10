@@ -26,15 +26,19 @@ namespace Fanex.Athena.Controllers
         protected const string DefaultLanguage = "en-US";
         private readonly ILanguageService _langService;
         private readonly ISessionService _sessionService;
-
         private readonly IAppSettings _appSettings;
 
-        public BaseController()
+        public BaseController() : this(null, null, null)
         {
-            _langService = new LanguageService();
-            _sessionService = new SessionService();
-            _appSettings = new AppSettings();
         }
+        public BaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
+        {
+            _langService = languageService ?? new LanguageService();
+            _sessionService = sessionService ?? new SessionService();
+            _appSettings = appSetting ?? new AppSettings();
+        }
+
+
 
         public ILanguageService LangService
         {
@@ -94,7 +98,12 @@ namespace Fanex.Athena.Controllers
 
         protected override ViewResult View(string viewName, string masterName, object model)
         {
-            var viewByOption = ClientViewHelper.GetViewPath(viewName);
+            var userSession = SessionService.UserSession;
+
+            var option = userSession != null && userSession.ViewType != ClientViewType.None ?
+                userSession.ViewType : (ClientViewType)int.Parse(AppSettings.ClientViewType);
+
+            var viewByOption = ClientViewHelper.GetViewPath(viewName, option);
             return base.View(viewByOption, masterName, model);
         }
     }

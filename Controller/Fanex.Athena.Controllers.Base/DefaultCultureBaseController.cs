@@ -13,6 +13,8 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using ONEbook.UM.Filters;
+    using Model.Core.DataDomain;
+    using Extension.Utility;
 
     #endregion Using
 
@@ -25,6 +27,7 @@ namespace Fanex.Athena.Controllers
     public class DefaultCultureBaseController : Controller
     {
         private readonly ISessionService _sessionService = new SessionService();
+        private readonly IAppSettings _appSettings = new AppSettings();
 
         public ISessionService SessionService
         {
@@ -33,7 +36,12 @@ namespace Fanex.Athena.Controllers
 
         protected override ViewResult View(string viewName, string masterName, object model)
         {
-            var viewByOption = ClientViewHelper.GetViewPath(viewName);
+            var userSession = SessionService.UserSession;
+
+            var option = userSession != null && userSession.ViewType != ClientViewType.None ?
+                userSession.ViewType : (ClientViewType)int.Parse(_appSettings.ClientViewType);
+
+            var viewByOption = ClientViewHelper.GetViewPath(viewName, option);
             return base.View(viewByOption, masterName, model);
         }
     }

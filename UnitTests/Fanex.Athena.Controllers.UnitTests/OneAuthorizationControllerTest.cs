@@ -20,7 +20,7 @@ namespace Fanex.Athena.Controllers.UnitTests
         [TestCase("rtXOPRo iuU y1ZwlOy96GYQ ")]
         public void CreateSession_InvalidToken_ReturnTokenRestrictionPage(string token)
         {
-            // Assign
+            // Arrange
             var controller = FakeController();
             var expectedUrl = "Utility/OneTokenRestriction";
             // Action

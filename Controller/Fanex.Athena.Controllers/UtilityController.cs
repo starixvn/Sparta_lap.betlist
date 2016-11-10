@@ -12,20 +12,36 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Users;
     using ONEbook.UM.Services.Impl;
     using Resources;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     /// <summary>
     /// Utility controller.
     /// </summary>
     public class UtilityController : BaseController
     {
+
+        public UtilityController() : base()
+        {
+
+        }
+
+        public UtilityController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
+            : base(languageService, sessionService, appSetting)
+        {
+
+        }
+
         [AllowAnonymous]
         public ActionResult AccessDenied()
         {
             return View("~/Views/Utility/AccessDenied.cshtml");
         }
+
         [AllowAnonymous]
         public ActionResult OneTokenRestriction(string code)
         {
+            ViewBag.Msg = ViewResources.OneTokenRestrictionDefaultMsg;
             return View("~/Views/Utility/OneTokenRestriction.cshtml");
         }
         /// <summary>

@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
 using Fanex.Athena.Service.Core.Users.Interfaces;
 using ONEbook.UM.Services;
+using Fanex.Athena.Service.Core.Users;
+using ONEbook.UM.Services.Impl;
 
 namespace Fanex.Athena.Controllers
 {
@@ -15,8 +17,8 @@ namespace Fanex.Athena.Controllers
         }
         public OneAuthorizationController(IUserService userService, IMaintenanceService maintenanceService)
         {
-            _userService = userService;
-            _maintenanceService = maintenanceService;
+            _userService = userService ?? new UserService();
+            _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
 
         [HttpGet]
