@@ -167,8 +167,7 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                 $(".ui-jqgrid-titlebar").hide();
                 $(".ui-jqgrid-hdiv").css("clear", "both");
 
-                // Show title
-                $(".panel-heading").removeClass("hide");
+                $('#noInfoRow').remove();
             },
 
             clearGrid: function (reportId) {
@@ -275,33 +274,11 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                 //#endregion
             },
 
-            setNoInfo: function (columnModel, message) {
-                var mainFooter = $(".ui-jqgrid-ftable");
-                var colspan = 0;
-                var numOfHideColumns = 0;
-                var info = message || Site.getSingleResource("NoInfo");              
-                $(columnModel).each(function (index, item) {
-                    if (item.hidden === true) {
-                        numOfHideColumns++;
-                    }
-                    else {
-                        colspan++;
-                    }
-                });
-
-                if (mainFooter.length > 0) {
-                    mainFooter.remove();
-                }
-
-                var contentTable = $("table.ui-jqgrid-htable");
-                if (contentTable.find(".no-info-row").length === 0) {
-                    var temps = '<tr role="row" class="no-info-row ui-widget-content jqgrow ui-row-ltr" style="height:auto;">' +
-                            ' <td style="text-align:center;" role="role="gridcell" colspan="' +
-                            colspan + '">' + info + '</td><td class="hide" colspan="' + numOfHideColumns + '"></td></tr>';
-                    contentTable.append(temps);
-                }
-
-                $("div.ui-jqgrid-sdiv").hide();
+            setNoInfo: function (message) {
+                var noInfoText = message || Site.getSingleResource("NoInfo");
+                var htmlNoInfor = '<p id="noInfoRow" class="no-info-row" style="text-align: center;">' + noInfoText + '</p>';
+                $('#noInfoRow').remove();
+                $('.theme_jqGrid').append(htmlNoInfor);
             },
 
             setNoInfoWithColspan: function (colspan) {

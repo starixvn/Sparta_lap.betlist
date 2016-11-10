@@ -155,7 +155,7 @@ define(
         {
             name: 'TotalTurnOverSingle',
             index: 'TotalTurnOverSingle',
-            width: 100,
+            width: 120,
             align: 'right',
             sortable: true,
             resizable: false,
@@ -194,7 +194,7 @@ define(
         {
             name: 'TotalTransaction',
             index: 'TotalTransaction',
-            width: 110,
+            width: 90,
             align: 'right',
             sortable: true,
             resizable: false,
@@ -271,7 +271,7 @@ define(
             name: 'BACommission',
             classes: 'highlight',
             index: 'BACommission',
-            width: 110,
+            width: 95,
             align: 'right',
             sortable: true,
             resizable: false,

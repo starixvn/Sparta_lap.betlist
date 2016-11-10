@@ -143,6 +143,8 @@ define(
 
                 var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyStr);
                 $(".report-title").html(title);
+                // Show title
+                $(".panel-heading").removeClass("hide");
             },
             //#end
 
@@ -335,24 +337,28 @@ define(
             },
 
             bindData: function (level, reportBy, response) {
+                jqGridAdditional.clearGrid("ReportGrid");
+                var numOfRow = response.Data.length;
+                if (response === null || numOfRow === 0) {
+                    jqGridAdditional.setNoInfo();
+                    return;
+                }
+
                 level = Number(level);
                 var $gridBody = $(".ui-jqgrid-bdiv");
 
                 var scrollLeft = $gridBody.length > 0 ? $gridBody[0].scrollLeft : 0;
 
-                jqGridAdditional.clearGrid("ReportGrid");
-
                 var reportGrid = $("#ReportGrid");
                 var productOptions = $.parseJSON(_submitData.ProductOptions);
                 productOptions = productOptions.reverse(); //make orders of product columns like excel file
-                var numOfRow = response.Data.length;
+                
                 var numOfTotalRow = response.Total.length;
                 totalRowCount = numOfTotalRow;
 
                 var onPaging = false;
 
                 var gridOption = LicenseeWinLossOption.getGridOption(level, reportBy, productOptions);
-                gridOption.autowidth = response === null || numOfRow === 0;
                 gridOption.rownumbers = true;
                 gridOption.data = response.Data;
                 gridOption.userData = {};
@@ -381,21 +387,17 @@ define(
                         $("#pg_ppdata").hide();
                     }
 
-                    if (response === null || numOfRow === 0) {
-                        jqGridAdditional.setNoInfo(gridOption.colModel);
+                    if (onPaging && level === 2) {
+                        $(".ui-jqgrid-ftable").html($("#footer").html());
                     }
                     else {
-                        if (onPaging && level === 2) {
-                            $(".ui-jqgrid-ftable").html($("#footer").html());
-                        }
-                        else {
-                            _me.bindTotal(level, response.Total, response.SummaryTotal);
-                            $("#footer").html($(".ui-jqgrid-ftable").html());
-                        }
-
-                        onPaging = false;
-                        _me.resizeGrid();
+                        _me.bindTotal(level, response.Total, response.SummaryTotal);
+                        $("#footer").html($(".ui-jqgrid-ftable").html());
                     }
+
+                    onPaging = false;
+                    _me.resizeGrid();
+
                     /*group header*/
                     if (numOfTotalRow > 0) {
                         LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
