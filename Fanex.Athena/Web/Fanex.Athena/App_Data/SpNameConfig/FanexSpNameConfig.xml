@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelMatchResult" EnvironmentText="_UAT2"></SpNameConfig>
 </Root>
