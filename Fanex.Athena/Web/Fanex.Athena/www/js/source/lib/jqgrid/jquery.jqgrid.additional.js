@@ -20,15 +20,7 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
                             - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - 30;
                 gridHeight = Math.max(120, gridHeight);
-
-                var gridContainer = $("#gview_ReportGrid");
-                var bodyHeight = window.innerHeight - gridContainer.offset().top;
-                var actualHeight = $("#ReportGrid").height();
-                var contentHeight = actualHeight > bodyHeight ? bodyHeight : actualHeight;
-                var tableWidth = $("#ReportGrid").width();
-                var contentWidth = $bdiv.width();
-                var newHeight = tableWidth > contentWidth ? contentHeight + 18 : contentHeight;
-                $bdiv.css("height", newHeight).css("max-height", gridHeight);
+                $bdiv.css("max-height", gridHeight);
             },
             resetLayout: function (grid) {
                 if ($("div.ui-jqgrid-hbox").length === 0) {

@@ -15,11 +15,11 @@ ul.ui-multiselect-checkboxes {
 
 .ui-multiselect-div, .ui-multiselect-checkboxes-head {
     label {
-        position: initial;
+        position: static;
         cursor: pointer;
 
         > input[type="checkbox"] {
-            position: initial;
+            position: static;
             opacity: 1;
             display: inline-block;
             vertical-align: middle;
