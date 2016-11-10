@@ -194,7 +194,7 @@ define(
         {
             name: 'TotalTransaction',
             index: 'TotalTransaction',
-            width: 100,
+            width: 110,
             align: 'right',
             sortable: true,
             resizable: false,
