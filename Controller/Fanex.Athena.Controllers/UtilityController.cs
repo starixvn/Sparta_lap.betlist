@@ -23,7 +23,11 @@ namespace Fanex.Athena.Controllers
         {
             return View("~/Views/Utility/AccessDenied.cshtml");
         }
-
+        [AllowAnonymous]
+        public ActionResult OneTokenRestriction(string code)
+        {
+            return View("~/Views/Utility/OneTokenRestriction.cshtml");
+        }
         /// <summary>
         /// The denied page.
         /// </summary>

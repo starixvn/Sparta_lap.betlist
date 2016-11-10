@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataDomain\AppMode.cs" />
     <Compile Include="DataDomain\BaseCurrencyType.cs" />
     <Compile Include="DataDomain\BetType.cs" />
     <Compile Include="DataDomain\CurrencyType.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="DTO\Common\League.cs" />
     <Compile Include="DTO\Common\Licensee.cs" />
     <Compile Include="DTO\Common\Match.cs" />
+    <Compile Include="DTO\Common\OneAuthenticationToken.cs" />
     <Compile Include="DTO\Common\Product.cs" />
     <Compile Include="DTO\Common\ProductAccess.cs" />
     <Compile Include="DTO\Common\Request.cs" />

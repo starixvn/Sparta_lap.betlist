@@ -88,6 +88,9 @@
     <Reference Include="NPOI, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
     </Reference>
+    <Reference Include="ONEbook.Security">
+      <HintPath>..\..\DLLs\ONEbook.Security\ONEbook.Security.dll</HintPath>
+    </Reference>
     <Reference Include="ONEbook.UM, Version=2.0.2.7, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ONEbook.UM.2.0.2.7\lib\net40\ONEbook.UM.dll</HintPath>
       <Private>True</Private>
@@ -162,6 +165,7 @@
     <Compile Include="HeaderController.cs" />
     <Compile Include="MenuController.cs" />
     <Compile Include="LicenseeListController.cs" />
+    <Compile Include="OneAuthorizationController.cs" />
     <Compile Include="UserGuideController.cs" />
     <Compile Include="UtilityController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
