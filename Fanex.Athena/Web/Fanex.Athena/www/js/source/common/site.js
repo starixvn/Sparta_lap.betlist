@@ -654,14 +654,6 @@ define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multis
         window.location.href = url;
     }
 
-    function signOut() {
-        var index = window;
-        while (index !== index.parent) {
-            index = index.parent;
-        }
-        index.location = resolveClientUrl('Authorization/SignOut');
-    }
-
     function setMultiSelectForDropDownList(dropDownListId, dataSource, valueField, textField, checkField) {
         var data = $.parseJSON(dataSource);
         var length = data.length;
@@ -750,7 +742,6 @@ define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multis
         isNumber: isNumber,
         isInteger: isInteger,
         redirect: redirect,
-        signOut: signOut,
         setMultiSelectForDropDownList: setMultiSelectForDropDownList
     };
 });

@@ -15,6 +15,9 @@
     <link href="@Url.ContentLink("/www/css/build/pages/home/home.css")" rel="stylesheet" />
 </head>
 <body>
+    <input type="hidden" id="HasRecheckIn" value="@ViewBag.HasRecheckIn" />
+    <input type="hidden" id="IsInternal" value="@ViewBag.IsInternal" />
+    <input type="hidden" id="OnUserId" value="@ViewBag.OnUserId" />
     <input type="hidden" id="RootUrl" value="@Url.Content("~")" />
     <input type="hidden" id="DefaultUrl" value="@Url.Content("~/" + ViewBag.DefaultReportUrl)" />
     <header>

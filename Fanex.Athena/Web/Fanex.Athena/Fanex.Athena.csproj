@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -786,6 +786,7 @@
     <Content Include="www\js\source\lib\sidebar.js" />
     <Content Include="www\js\source\pages\home\home.js" />
     <Content Include="www\js\source\pages\home\main.js" />
+    <Content Include="www\js\source\pages\home\recheckin.js" />
     <Content Include="www\js\source\pages\report\livereport\helper.js" />
     <Content Include="www\js\source\pages\report\livereport\livereport.js" />
     <Content Include="www\js\source\pages\report\livereport\livereportmatchlist.js" />

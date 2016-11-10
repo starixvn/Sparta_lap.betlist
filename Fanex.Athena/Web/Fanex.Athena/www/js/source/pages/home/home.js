@@ -1,21 +1,24 @@
 ﻿"use strict";
 
-define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-autocomplete"], function (Site) {
+define(["common/site", "./recheckin", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-autocomplete"], function (Site, Recheckin) {
     var $searchBox;
     var _autocomplete;
 
-    
     function initialize() {
         Site.initialize();    
         //initClock();
         initVariables();
         initEvent();
         activeDefaultMenuItem();
+
+        if ($('#HasRecheckIn').val() === "1") {
+            Recheckin.init();
+        }
     }
    
     function initVariables() {
         $searchBox = $('#searchbox');
-    };
+    }
 
     function initEvent() {
         initAutoComplete();
@@ -29,7 +32,6 @@ define(["common/site", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-au
                 _autocomplete.$dropdown.html('').hide();
             }
         });
-
 
         $('#languagesite').on('click', '.languageItem', function () {
             changeLanguage($(this));

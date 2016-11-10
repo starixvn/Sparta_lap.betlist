@@ -33,13 +33,13 @@ namespace Fanex.Athena.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
+            AssignViewBagData();
             return ReAuthorize("~/Views/Home/Index.cshtml");
         }
 
         public ActionResult IndexIpad()
         {
-            ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
+            AssignViewBagData();
             return ReAuthorize("~/Views/Home/IndexIpad.cshtml");
         }
 
@@ -127,6 +127,15 @@ namespace Fanex.Athena.Controllers
                 content = content.Replace("{endDate}", moveBet.EstimatedTime.Value.ToString("HH:mm:ss MM/dd/yyyy"));
                 return content;
             }
+        }
+
+        private void AssignViewBagData()
+        {
+            var userSession = SessionService.UserSession;
+            ViewBag.DefaultReportUrl = userSession.DefaultReportUrl;
+            ViewBag.OnUserId = userSession.OnUserId;
+            ViewBag.IsInternal = userSession.IsInternal ? "1" : "0";
+            ViewBag.HasRecheckIn = AppSettings.LocalTest ? "0" : "1";
         }
     }
 }
