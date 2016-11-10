@@ -13,7 +13,6 @@
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
-  line-height: 1;
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
@@ -888,7 +887,7 @@ html {
   height: 100%; }
 
 body {
-  background: #eeeff3;
+  background: #f5f7fa;
   font-size: 1.3em;
   color: #444444;
   height: 100%; }
@@ -901,6 +900,9 @@ iframe {
   height: 100%;
   /* Viewport-relative units */
   width: 100%; }
+
+#mainFrame {
+  height: 100%; }
 
 * {
   margin: 0;
@@ -967,6 +969,21 @@ main {
   .icon-block {
     margin-top: 1rem; } }
 
+.tipsy .tipsy-inner {
+  background-color: #000; }
+
+.tipsy .tipsy-arrow-s {
+  border-top-color: #000; }
+
+.tipsy .tipsy-arrow-n {
+  border-bottom-color: #000; }
+
+.tipsy .tipsy-arrow-e {
+  border-left-color: #000; }
+
+.tipsy .tipsy-arrow-w {
+  border-right-color: #000; }
+
 .button-block {
   margin-top: 1rem; }
   @media (max-width: 600px) {
@@ -1018,7 +1035,7 @@ main {
   vertical-align: middle;
   text-align: center;
   background: #d1dae1;
-  border-color: #ffffff;
+  border: 1px solid #ffffff;
   color: #314453;
   font-weight: 600;
   padding: 4px 5px; }
@@ -1052,13 +1069,12 @@ main {
   background: #f7dbb6;
   text-transform: uppercase; }
 
-.calendar .icon-calendar {
-  position: absolute;
-  top: 17px;
-  right: 31px;
-  font-size: 18px; }
-
-@media only screen and (min-width: 1900px) {
-  .calendar.l3 {
-    width: 16.66667% !important; } }
+/*.calendar {
+    .icon-calendar {
+        position: absolute;
+        top: 17px;
+        right: 31px;
+        font-size: 18px;
+    }
+}*/
 

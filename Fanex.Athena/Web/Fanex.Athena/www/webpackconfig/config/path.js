@@ -9,7 +9,7 @@ var cssDateRangePickerPath = ["bootstrap-daterangepicker/daterangepicker.css", "
 var cssPaths = {
     build: "www/css/build",
 
-    home: ["malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/components/navbar/navBar.css", "./www/css/source/components/sidebar/sideBar.css", "./www/css/source/extensions/home.scss"],
+    home: ["malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/components/navbar/navBar.scss", "./www/css/source/components/sidebar/sideBar.css", "./www/css/source/extensions/home.scss"],
     main: ["./www/css/source/vendors/materialize/materialize.css", "./www/css/source/main.css", "./www/css/source/extensions/main-ex.scss"],
 
     reportjqgridlayout: [
