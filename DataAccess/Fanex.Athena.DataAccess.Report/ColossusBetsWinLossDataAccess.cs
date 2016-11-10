@@ -71,6 +71,8 @@ namespace Fanex.Athena.DataAccess.Report
             var hasCustomerId = reader.HasColumn("custid");
 
             var index = 1;
+            var isFirstLevel = metaModel.DrillDownLevel == 0;
+            var isMonthly = metaModel.ReportBy == ReportByType.Monthly;
             while (reader.Read())
             {
                 var item = new ColossusBetWinLoss
@@ -88,9 +90,7 @@ namespace Fanex.Athena.DataAccess.Report
                     CashOutShare = reader.ToDecimal(cashOutShareColumn),
                     CommissionShare = reader.ToDecimal(commColumn),
                     GrandPrize = reader.ToDecimal(grantPrizeColumn),
-                    Date = metaModel.DrillDownLevel > 0 ?
-                        metaModel.DrillDownFromDate :
-                        ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
+                    Date = isFirstLevel ? ConvertHelper.ToDateTime(reader.ToString("reporttype"), isMonthly) : metaModel.DrillDownFromDate
                 };
 
                 result.Add(item);

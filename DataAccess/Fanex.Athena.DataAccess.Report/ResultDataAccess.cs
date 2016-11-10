@@ -57,13 +57,13 @@ namespace Fanex.Athena.DataAccess.Report
                         while (reader.Read())
                         {
                             data.Add(new Outright
-                                            {
-                                                EventDate = DateTime.Parse(reader.ToString("eventdate")),
-                                                SportType = reader.ToInt("sporttype"),
-                                                LeagueId = reader.ToInt("leagueid"),
-                                                TeamId = reader.ToInt("teamid"),
-                                                Status = reader.ToString("status")
-                                            });
+                            {
+                                EventDate = DateTime.Parse(reader.ToString("eventdate")),
+                                SportType = reader.ToInt("sporttype"),
+                                LeagueId = reader.ToInt("leagueid"),
+                                TeamId = reader.ToInt("teamid"),
+                                Status = reader.ToString("status")
+                            });
                         }
 
                         return data;
@@ -305,40 +305,40 @@ namespace Fanex.Athena.DataAccess.Report
                             if (parlay == null)
                             {
                                 parlay = new Parlay()
-                                   {
-                                       LeagueId = leagueId,
-                                       SportId = reader.ToInt("sporttype")
-                                   };
+                                {
+                                    LeagueId = leagueId,
+                                    SportId = reader.ToInt("sporttype")
+                                };
 
                                 results.Add(parlay);
                             }
 
                             parlay.Sportbook.Add(new Sportsbook
-                                                      {
-                                                          Bettype = reader.HasColumn("bettype") ? reader.ToInt("bettype") : 0,
-                                                          BetID = reader.HasColumn("betcheck") ? reader.ToString("betcheck") : string.Empty,
-                                                          AwayId = reader.ToInt("awayID"),
-                                                          HomeId = reader.ToInt("homeID"),
-                                                          BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
-                                                          LeagueId = leagueId,
-                                                          MatchId = reader.ToInt("matchid"),
-                                                          EventStatus = reader.ToString("eventstatus"),
-                                                          FinalAwayScore = reader.ToNullableInt("finalawayscore"),
-                                                          HtAwayScore = reader.ToNullableInt("htawayscore"),
-                                                          Color = reader.HasColumn("lcolor") &&
+                            {
+                                Bettype = reader.HasColumn("bettype") ? reader.ToInt("bettype") : 0,
+                                BetID = reader.HasColumn("betcheck") ? reader.ToString("betcheck") : string.Empty,
+                                AwayId = reader.ToInt("awayID"),
+                                HomeId = reader.ToInt("homeID"),
+                                BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
+                                LeagueId = leagueId,
+                                MatchId = reader.ToInt("matchid"),
+                                EventStatus = reader.ToString("eventstatus"),
+                                FinalAwayScore = reader.ToNullableInt("finalawayscore"),
+                                HtAwayScore = reader.ToNullableInt("htawayscore"),
+                                Color = reader.HasColumn("lcolor") &&
                                                               reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
-                                                          FinalHomeScore = reader.ToNullableInt("finalhomescore"),
-                                                          HtHomeScore = reader.ToNullableInt("hthomescore"),
-                                                          EventDate = DateTime.Parse(reader.ToString("eventdate")),
-                                                          IsNeutral = reader.ToBool("IsNeutral"),
-                                                          IsPending = reader.ToBool("IsPending"),
-                                                          KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
-                                                          MatchCode = reader.ToString("matchcode"),
-                                                          GoalRecord = reader.ToString("goalrecord"),
-                                                          IsHTCal = reader.ToBool("IsHTCal"),
-                                                          Calculate = reader.ToBool("Calculate"),
-                                                          RefNo = refNo.ToString(CultureInfo.InvariantCulture),
-                                                      });
+                                FinalHomeScore = reader.ToNullableInt("finalhomescore"),
+                                HtHomeScore = reader.ToNullableInt("hthomescore"),
+                                EventDate = DateTime.Parse(reader.ToString("eventdate")),
+                                IsNeutral = reader.ToBool("IsNeutral"),
+                                IsPending = reader.ToBool("IsPending"),
+                                KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
+                                MatchCode = reader.ToString("matchcode"),
+                                GoalRecord = reader.ToString("goalrecord"),
+                                IsHTCal = reader.ToBool("IsHTCal"),
+                                Calculate = reader.ToBool("Calculate"),
+                                RefNo = refNo.ToString(CultureInfo.InvariantCulture),
+                            });
                         }
 
                         var gameDetails = GetGameDetails(reader);
@@ -506,28 +506,30 @@ namespace Fanex.Athena.DataAccess.Report
         private static Sportsbook BindSportsbook(IDataReader reader)
         {
             return new Sportsbook
-                                {
-                                    AwayId = reader.ToInt("awayID"),
-                                    HomeId = reader.ToInt("homeID"),
-                                    BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
-                                    LeagueId = reader.ToInt("leagueid"),
-                                    MatchId = reader.ToInt("matchid"),
-                                    EventStatus = reader.ToString("eventstatus"),
-                                    FinalAwayScore = reader.ToNullableInt("finalawayscore"),
-                                    HtAwayScore = reader.ToNullableInt("htawayscore"),
-                                    Color = reader.HasColumn("lcolor") && reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
-                                    FinalHomeScore = reader.ToNullableInt("finalhomescore"),
-                                    HtHomeScore = reader.ToNullableInt("hthomescore"),
-                                    EventDate = DateTime.Parse(reader.ToString("eventdate")),
-                                    IsNeutral = reader.ToBool("IsNeutral"),
-                                    IsPending = reader.ToBool("IsPending"),
-                                    KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
-                                    MatchCode = reader.ToString("matchcode"),
-                                    GoalRecord = reader.ToString("goalrecord"),
-                                    IsHTCal = reader.ToBool("IsHTCal"),
-                                    Calculate = reader.ToBool("Calculate"),
-                                    RefNo = string.Empty
-                                };
+            {
+                AwayId = reader.ToInt("awayID"),
+                HomeId = reader.ToInt("homeID"),
+                BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
+                LeagueId = reader.ToInt("leagueid"),
+                MatchId = reader.ToInt("matchid"),
+                EventStatus = reader.ToString("eventstatus"),
+                FinalAwayScore = reader.ToNullableInt("finalawayscore"),
+                HtAwayScore = reader.ToNullableInt("htawayscore"),
+                Color = reader.HasColumn("lcolor") && reader["lcolor"] != DBNull.Value ? reader.ToString("lcolor") : string.Empty,
+                FinalHomeScore = reader.ToNullableInt("finalhomescore"),
+                HtHomeScore = reader.ToNullableInt("hthomescore"),
+                EventDate = DateTime.Parse(reader.ToString("eventdate")),
+                IsNeutral = reader.ToBool("IsNeutral"),
+                IsPending = reader.ToBool("IsPending"),
+                KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
+                MatchCode = reader.ToString("matchcode"),
+                GoalRecord = reader.ToString("goalrecord"),
+                IsHTCal = reader.ToBool("IsHTCal"),
+                Calculate = reader.ToBool("Calculate"),
+                RefNo = string.Empty,
+                LiveAwayScore = reader.HasColumn("LiveAwayScore") ? reader.ToNullableInt("LiveAwayScore") : null,
+                LiveHomeScore = reader.HasColumn("LiveHomeScore") ? reader.ToNullableInt("LiveHomeScore") : null
+            };
         }
 
         /// <summary>
@@ -613,20 +615,20 @@ namespace Fanex.Athena.DataAccess.Report
             while (reader.Read())
             {
                 dataList.Add(new LiveCasino
-                                {
-                                    ShowTime = reader.ToString("showtime"),
-                                    LeagueId = reader.ToInt("leagueid"),
-                                    EventStatus = reader.ToString("eventstatus"),
-                                    FinalAwayScore = reader.ToNullableInt("finalawayscore"),
-                                    FinalHomeScore = reader.ToNullableInt("finalhomescore"),
-                                    EventDate = DateTime.Parse(reader.ToString("eventdate")),
-                                    IsPending = reader.ToBool("IsPending"),
-                                    KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
-                                    IsHTCal = reader.ToBool("IsHTCal"),
-                                    Calculate = reader.ToBool("Calculate"),
-                                    BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
-                                    Bettype = reader.ToInt("homeid2")
-                                });
+                {
+                    ShowTime = reader.ToString("showtime"),
+                    LeagueId = reader.ToInt("leagueid"),
+                    EventStatus = reader.ToString("eventstatus"),
+                    FinalAwayScore = reader.ToNullableInt("finalawayscore"),
+                    FinalHomeScore = reader.ToNullableInt("finalhomescore"),
+                    EventDate = DateTime.Parse(reader.ToString("eventdate")),
+                    IsPending = reader.ToBool("IsPending"),
+                    KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
+                    IsHTCal = reader.ToBool("IsHTCal"),
+                    Calculate = reader.ToBool("Calculate"),
+                    BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
+                    Bettype = reader.ToInt("homeid2")
+                });
             }
 
             return dataList;
