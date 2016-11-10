@@ -1,9 +1,4 @@
-﻿.body{
-    height: auto;
-    position: relative;
-}
-
-.loading {
+﻿.loading {
     display: block;
     position: fixed;
     top: 50%;
@@ -35,6 +30,11 @@
             width: 16.5rem !important;
         }
     }
+}
+
+.wrapper{
+    position: relative;
+    overflow-y: scroll;
 }
 
 .flag-icon-en-US {

@@ -60,7 +60,6 @@ define(
                     resourceName: "LicenseeWL",
                     title: Site.getSingleResource("LicenseeWinLoss")
                 });
-                Site.addFilterCollapseExpand();
                 Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
                 PluginHelper.initMaterialSelect();
                 PluginHelper.initDateRangePicker();
@@ -398,7 +397,9 @@ define(
                         _me.resizeGrid();
                     }
                     /*group header*/
-                    LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
+                    if (numOfTotalRow > 0) {
+                        LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
+                    }
 
                     Site.unBlockUI();
                 };

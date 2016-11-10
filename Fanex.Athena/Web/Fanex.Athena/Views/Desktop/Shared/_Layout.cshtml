@@ -20,13 +20,34 @@
 
     @RenderSection("css", required: false)
 </head>
-<body class="body">
+<body>
     <input type="hidden" id="RootUrl" value="@Url.Content("~/")" />
     <input type="hidden" id="PageLanguage" value="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag" />
     <input type="hidden" id="UserCurrencies" value="@JsonHelper.ToJson(userCurrencies)" />
     <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
     <input type="hidden" id="HistoryDate" value="@( appSettings.HistoryDate)" />
-    @RenderBody()
+
+    <div class="loading">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-body">
+    </div>
+
+    <div class="wrapper">
+        @RenderBody()
+    </div>
 
     <script src="@Url.ContentLink("/www/js/build/common.chunk.js")"></script>
     <script src="@Url.ContentLink("/www/js/build/language.chunk.js")"></script>
