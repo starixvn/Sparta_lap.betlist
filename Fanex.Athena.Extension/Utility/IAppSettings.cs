@@ -55,7 +55,8 @@
 
         string RemoteRefUrl { get; }
 
-        string GetValue(string key);
         string ClientViewType { get; }
+
+        string GetValue(string key);
     }
 }

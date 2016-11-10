@@ -21,6 +21,7 @@ namespace Fanex.Athena.Controllers.UnitTests
             // Arrange
             var controller = FakeController();
             var expectedUrl = "Utility/OneTokenRestriction";
+
             // Action
             var result = controller.CreateSession(token);
 

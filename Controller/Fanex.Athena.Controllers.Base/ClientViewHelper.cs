@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Web;
 using Fanex.Athena.Model.Core.DataDomain;
-using Fanex.Athena.Service.Core.Users;
 
 namespace Fanex.Athena.Controllers
 {
@@ -14,7 +12,6 @@ namespace Fanex.Athena.Controllers
 
         public static string GetViewPath(string viewPath, ClientViewType viewtype)
         {
-
             var themeSuffix = string.Empty;
             ClientViewTypes.TryGetValue(viewtype, out themeSuffix);
 

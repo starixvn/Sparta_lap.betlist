@@ -1,14 +1,14 @@
-﻿using Fanex.Athena.Extension.Utility;
+﻿using System.Collections.Generic;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.Service.Core.Common.Interfaces;
 using Fanex.Athena.Service.Core.Users.Interfaces;
 using Fanex.Athena.Web.RouterConfig;
 using NSubstitute;
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace Fanex.Athena.Controllers.UnitTests
 {
@@ -20,7 +20,9 @@ namespace Fanex.Athena.Controllers.UnitTests
         protected ControllerContext ControllerContext { get; set; }
 
         protected ILanguageService LangService { get; set; }
+
         protected ISessionService SessionService { get; set; }
+
         protected IAppSettings AppSettings { get; set; }
 
         [OneTimeSetUp]

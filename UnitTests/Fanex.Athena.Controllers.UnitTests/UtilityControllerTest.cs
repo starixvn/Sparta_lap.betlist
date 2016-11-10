@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.UnitTests
     {
         [TestCase("")]
         [TestCase(null)]
+        [TestCase("20 0")]
         public void OneTokenRestriction_InvalidCode_ReturnDefaultMsg(string code)
         {
             // Arrange
@@ -21,6 +22,22 @@ namespace Fanex.Athena.Controllers.UnitTests
 
             // Assert
             Assert.AreEqual(expectedMsg, result.ViewBag.Msg);
+        }
+
+        [TestCase("100", "Token was expired")]
+        [TestCase("200", "Licensee is not existed")]
+        public void OneTokenRestriction_ValidCode_ReturnMsgByCode(string code, string msg)
+        {
+            // Arrange
+            FakeBaseControllerDependency();
+            var controller = new UtilityController(LangService, SessionService, AppSettings);
+            controller.ControllerContext = this.ControllerContext;
+
+            // Action
+            var result = controller.OneTokenRestriction(code) as ViewResult;
+
+            // Assert
+            Assert.AreEqual(msg, result.ViewBag.Msg);
         }
     }
 }

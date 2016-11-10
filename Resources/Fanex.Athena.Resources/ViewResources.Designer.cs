@@ -3949,6 +3949,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licensee is not existed.
+        /// </summary>
+        public static string LicenseeIsNotExisted {
+            get {
+                return ResourceManager.GetString("LicenseeIsNotExisted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licensee Net Win.
         /// </summary>
         public static string LicenseeNetWin {
@@ -7014,6 +7023,15 @@ namespace Fanex.Athena.Resources {
         public static string Today {
             get {
                 return ResourceManager.GetString("Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token was expired.
+        /// </summary>
+        public static string TokenWasExpired {
+            get {
+                return ResourceManager.GetString("TokenWasExpired", resourceCulture);
             }
         }
         

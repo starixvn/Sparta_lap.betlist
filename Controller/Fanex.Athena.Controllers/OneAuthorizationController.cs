@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Service.Core.Users;
+﻿using System.Web.Mvc;
+using Fanex.Athena.Service.Core.Users;
 using Fanex.Athena.Service.Core.Users.Interfaces;
 using ONEbook.UM.Services;
 using ONEbook.UM.Services.Impl;
-using System.Web.Mvc;
 
 namespace Fanex.Athena.Controllers
 {
@@ -23,9 +23,13 @@ namespace Fanex.Athena.Controllers
         }
 
         [HttpGet]
-        public RedirectResult CreateSession(string Token)
+        public RedirectResult CreateSession(string token)
         {
             var returnUrl = Url.Content("~/Utility/OneTokenRestriction");
+            if (!string.IsNullOrWhiteSpace(token))
+            {
+            }
+
             return Redirect(returnUrl);
         }
     }

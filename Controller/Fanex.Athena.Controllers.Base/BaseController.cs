@@ -31,14 +31,13 @@ namespace Fanex.Athena.Controllers
         public BaseController() : this(null, null, null)
         {
         }
+
         public BaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
         {
             _langService = languageService ?? new LanguageService();
             _sessionService = sessionService ?? new SessionService();
             _appSettings = appSetting ?? new AppSettings();
         }
-
-
 
         public ILanguageService LangService
         {

@@ -2912,4 +2912,10 @@
   <data name="OneTokenRestrictionDefaultMsg" xml:space="preserve">
     <value>Who let you here ?</value>
   </data>
+  <data name="LicenseeIsNotExisted" xml:space="preserve">
+    <value>Licensee is not existed</value>
+  </data>
+  <data name="TokenWasExpired" xml:space="preserve">
+    <value>Token was expired</value>
+  </data>
 </root>

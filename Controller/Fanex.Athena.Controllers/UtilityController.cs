@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Service.Core.Users;
     using ONEbook.UM.Services.Impl;
     using Resources;
     using Service.Core.Common.Interfaces;
@@ -20,16 +19,13 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     public class UtilityController : BaseController
     {
-
         public UtilityController() : base()
         {
-
         }
 
         public UtilityController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
             : base(languageService, sessionService, appSetting)
         {
-
         }
 
         [AllowAnonymous]
@@ -41,9 +37,26 @@ namespace Fanex.Athena.Controllers
         [AllowAnonymous]
         public ActionResult OneTokenRestriction(string code)
         {
-            ViewBag.Msg = ViewResources.OneTokenRestrictionDefaultMsg;
+            ViewBag.Msg = GetMessageRestriction(code);
+
             return View("~/Views/Utility/OneTokenRestriction.cshtml");
         }
+
+        private string GetMessageRestriction(string code)
+        {
+            switch (code)
+            {
+                case "100":
+                    return ViewResources.TokenWasExpired;
+
+                case "200":
+                    return ViewResources.LicenseeIsNotExisted;
+
+                default:
+                    return ViewResources.OneTokenRestrictionDefaultMsg;
+            }
+        }
+
         /// <summary>
         /// The denied page.
         /// </summary>

@@ -10,11 +10,11 @@ namespace Fanex.Athena.Controllers
 
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using Extension.Utility;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using ONEbook.UM.Filters;
     using Model.Core.DataDomain;
-    using Extension.Utility;
+    using ONEbook.UM.Filters;
 
     #endregion Using
 
