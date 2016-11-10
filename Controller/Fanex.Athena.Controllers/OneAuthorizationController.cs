@@ -1,11 +1,6 @@
-﻿using Fanex.Athena.Service.Core.Users.Interfaces;
+﻿using System.Web.Mvc;
+using Fanex.Athena.Service.Core.Users.Interfaces;
 using ONEbook.UM.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace Fanex.Athena.Controllers
 {
