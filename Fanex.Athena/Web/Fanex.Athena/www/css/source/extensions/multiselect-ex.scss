@@ -1,6 +1,6 @@
 ﻿.ui-multiselect-shadow {
     box-shadow: 0 1px 12px rgba(0,0,0,.175);
-    padding: 0;  
+    padding: 0;
 }
 
 .ui-multiselect-header {
@@ -19,7 +19,7 @@ ul.ui-multiselect-checkboxes {
         cursor: pointer;
 
         > input[type="checkbox"] {
-            position: static;
+            position: inherit;
             opacity: 1;
             display: inline-block;
             vertical-align: middle;
@@ -42,7 +42,7 @@ ul.ui-multiselect-checkboxes {
     }
 
     &:hover {
-            background-color: #eee;
+        background-color: #eee;
     }
 }
 
