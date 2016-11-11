@@ -61,8 +61,10 @@
         {
             public override string ReadToEnd()
             {
-                var items = new List<LicenseeSiteName> { new LicenseeSiteName {LicenseeID=1,SiteName="12bet" },
-                    new LicenseeSiteName {LicenseeID=1,SiteName="spondemo" }
+                var items = new List<LicenseeSiteName>
+                {
+                    new LicenseeSiteName { LicenseeID = 1, SiteName = "12bet" },
+                    new LicenseeSiteName { LicenseeID = 1, SiteName = "spondemo" }
                 };
 
                 return JsonConvert.SerializeObject(items);

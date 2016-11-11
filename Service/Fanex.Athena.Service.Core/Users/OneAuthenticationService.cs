@@ -16,6 +16,21 @@ namespace Fanex.Athena.Service.Core.Users
         private const int CacheTimeoutMinute = 30;
         private ICache _memCacheService;
 
+#pragma warning disable CS3003 // Type is not CLS-compliant
+        protected internal virtual ICache MemCacheService
+#pragma warning restore CS3003 // Type is not CLS-compliant
+        {
+            get
+            {
+                if (_memCacheService == null)
+                {
+                    _memCacheService = CacheService.CreateInstance(CacheType.MemoryCache);
+                }
+
+                return _memCacheService;
+            }
+        }
+
         public IResultInfo InsertLicenseeUser(OneAuthenticationToken tokenInfo)
         {
             throw new NotImplementedException();
@@ -28,11 +43,11 @@ namespace Fanex.Athena.Service.Core.Users
 
         public LicenseeSiteName SingleLicenseeSiteName(string siteName)
         {
-            const string siteNameFilePath = "~/App_Data/LicenseeSiteName.json";
+            const string SiteNameFilePath = "~/App_Data/LicenseeSiteName.json";
 
             if (!string.IsNullOrWhiteSpace(siteName))
             {
-                var items = GetLiceseeSiteNameList(siteNameFilePath);
+                var items = GetLiceseeSiteNameList(SiteNameFilePath);
 
                 if (items != null)
                 {
@@ -47,19 +62,6 @@ namespace Fanex.Athena.Service.Core.Users
         protected internal virtual TextReader GetStreamReader(string path)
         {
             return new StreamReader(path);
-        }
-
-        protected internal virtual ICache MemCacheService
-        {
-            get
-            {
-                if (_memCacheService == null)
-                {
-                    _memCacheService = CacheService.CreateInstance(CacheType.MemoryCache);
-                }
-
-                return _memCacheService;
-            }
         }
 
         private IList<LicenseeSiteName> GetLiceseeSiteNameList(string filePath)
