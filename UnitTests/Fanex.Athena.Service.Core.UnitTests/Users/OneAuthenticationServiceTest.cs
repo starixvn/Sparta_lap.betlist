@@ -4,6 +4,7 @@
     using System.IO;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DTO.Common;
+    using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -15,7 +16,10 @@
         [OneTimeSetUp]
         public void SetUp()
         {
-            _oneAuthenticationService = Substitute.For<OneAuthenticationService>();
+            _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>();
+            _oneAuthenticationService.When(x => x.GetStreamReader(null)).DoNotCallBase();
+            _oneAuthenticationService.GetStreamReader(null).Returns(new FakeReader());
+
         }
 
         [TestCase("", 0)]
@@ -34,8 +38,6 @@
         [TestCase("hello", 0)]
         public void SingleLicenseeSiteName_NotExistedSiteName_ReturnDefatulValue(string siteName, int expectedLicenseeId)
         {
-            ///Arrange
-
             ///Action
             var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
 
@@ -64,7 +66,7 @@
                     new LicenseeSiteName {LicenseeID=1,SiteName="spondemo" }
                 };
 
-                return JsonConverter
+                return JsonConvert.SerializeObject(items);
             }
         }
     }
