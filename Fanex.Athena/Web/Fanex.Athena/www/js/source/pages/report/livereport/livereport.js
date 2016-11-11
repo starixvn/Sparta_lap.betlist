@@ -1,6 +1,4 @@
-﻿/*global Site, QueryString*/
-/// <reference path="/@JSense.js" />
-define(
+﻿define(
     ["jquery", "common/querystring", "common/site", "common/pluginhelper", "./helper"],
     function ($, QueryString, Site, PluginHelper, Helper) {
         "use strict";

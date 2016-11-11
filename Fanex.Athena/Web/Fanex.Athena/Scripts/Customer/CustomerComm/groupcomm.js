@@ -247,6 +247,7 @@ var GroupComm = (function ($) {
             $('#IsResetDefault').val(true);
             $('form').submit();
         },
+        /* jshint ignore:start */
         initCommParam: function () {
             var sbComm1 = parseInt($('#DdlSBComm1').val());
             var sbComm2 = parseInt($('#DdlSBComm2').val());
@@ -312,6 +313,7 @@ var GroupComm = (function ($) {
             $('#CSComm2').val(csComm2);
             $('#CSComm3').val(csComm3);
         }
+        /* jshint ignore:end */
     };
 })(jQuery);
 

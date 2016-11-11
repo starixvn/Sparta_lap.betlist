@@ -12,8 +12,8 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    karma: {
+	pkg: grunt.file.readJSON('package.json'),
+	karma: {
 	  unit: {
 		configFile: 'karma.conf.js'
 		/*port: 9999,
@@ -22,21 +22,21 @@ module.exports = function(grunt) {
 		logLevel: 'ERROR'*/
 	  },
 	  unit2: {
-	      configFile: 'karma-new.conf.js'
-	      /*port: 9999,
-          singleRun: true,
-          browsers: ['PhantomJS'],
-          logLevel: 'ERROR'*/
+		  configFile: 'karma-new.conf.js'
+		  /*port: 9999,
+		  singleRun: true,
+		  browsers: ['PhantomJS'],
+		  logLevel: 'ERROR'*/
 	  }
-    },
+	},
 	jshint: {
 		options: grunt.file.readJSON('jshint.json'),
 		beforeconcat: jsFilters,
 		afterconcat: ['dist/output.js']
-    },
+	},
 	webpack: {
-	    dev: webpackDevelopment,
-	    pro: webpackProduction
+		dev: webpackDevelopment,
+		pro: webpackProduction
 	}
   });
 

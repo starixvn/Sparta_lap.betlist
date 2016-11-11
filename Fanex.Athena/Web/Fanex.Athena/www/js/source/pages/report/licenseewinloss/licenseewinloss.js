@@ -1,7 +1,8 @@
 ﻿/// <reference path="/@JSense.js" />
 ///
 define(
-    ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional", "common/pluginhelper", "moment",
+    ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option",
+        "lib/jqgrid/jquery.jqgrid.additional", "common/pluginhelper", "moment",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extensions/jquery.extension", "lib/linq"],
     function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, PluginHelper, moment) {
         "use strict";
@@ -141,7 +142,7 @@ define(
                     ? viewinKey.replace("{0}", currencyName || Site.getCurrencyName(currencyId))
                     : currencyTextList[currencyId];
 
-                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyStr);
+                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyStr); // jshint ignore:line
                 $(".report-title").html(title);
                 // Show title
                 $(".panel-heading").removeClass("hide");
@@ -345,10 +346,6 @@ define(
                 }
 
                 level = Number(level);
-                var $gridBody = $(".ui-jqgrid-bdiv");
-
-                var scrollLeft = $gridBody.length > 0 ? $gridBody[0].scrollLeft : 0;
-
                 var reportGrid = $("#ReportGrid");
                 var productOptions = $.parseJSON(_submitData.ProductOptions);
                 productOptions = productOptions.reverse(); //make orders of product columns like excel file

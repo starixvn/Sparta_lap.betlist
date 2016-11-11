@@ -1,12 +1,11 @@
 ﻿"use strict";
 
-define(["common/site", "./recheckin", "lib/jquery.cookie", "lib/jquery.jclock", "materialize-autocomplete"], function (Site, Recheckin) {
+define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomplete"], function (Site, Recheckin) {
     var $searchBox;
     var _autocomplete;
 
     function initialize() {
-        Site.initialize();    
-        //initClock();
+        Site.initialize();  
         initVariables();
         initEvent();
         activeDefaultMenuItem();
@@ -58,19 +57,19 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "lib/jquery.jclock", 
             _autocomplete.$dropdown.html('').hide();
         });
 
-        $('.collapsible2').on("click.menuevent", ".collapsible-body  a", function (e) {
+        $('.collapsible2').on("click.menuevent", ".collapsible-body  a", function () {
             document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + $(this).text();
             $("#page-title").text($(this).text());
         });
 
-        $("#mainFrame").on("load", (function () {
+        $("#mainFrame").on("load", function () {
             $(window.frames["main"]).click(function () {
                 $('.dropdown-button').dropdown('close');
             });
-        }));
+        });
 
         //prevent close dropdown when scrolling
-        $("#ddlLicensee").on("mouseup pointerup", function (e) {
+        $("#ddlLicensee").on("mouseup pointerup", function () {
             $("#ddlLicensee .mCSB_scrollTools").removeClass("mCSB_scrollTools_onDrag");
         }).on("click", function (e) {
             if ($(e.target).parents(".mCSB_scrollTools").length || $(".dropdown-menu .mCSB_scrollTools").hasClass("mCSB_scrollTools_onDrag")) {
@@ -91,7 +90,7 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "lib/jquery.jclock", 
     }
 
     function initAutoComplete() {
-        _autocomplete = $searchBox.materialize_autocomplete({
+        _autocomplete = $searchBox.materialize_autocomplete({ // jshint ignore:line
             ignoreCase: false,
             multiple: {
                 enable: false
@@ -120,15 +119,6 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "lib/jquery.jclock", 
                 });
             }
         });
-    }
-
-    function initClock() {
-        var options = {
-            utc: true,
-            utcOffset: -4,
-            format: '%H:%M:%S %b %d, %Y GMT'
-        };
-        $('#current-time-clock').jclock(options);
     }
 
     function changeLanguage($target) {

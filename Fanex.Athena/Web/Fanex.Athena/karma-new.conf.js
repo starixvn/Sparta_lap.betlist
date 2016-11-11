@@ -16,7 +16,7 @@ module.exports = function (config) {
             { pattern: 'www/js/tests/common/*-spec.js', included: false },
             { pattern: 'www/js/tests/pages/**/*-spec.js', included: false },
             { pattern: 'www/js/tests/lib/**/jquery.jqgrid.additional-spec.js', included: false },
-             'www/js/tests/test-main.js',
+             'www/js/tests/test-main.js'
         ],
         exclude: [
         ],
@@ -45,5 +45,5 @@ module.exports = function (config) {
             // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
             exitOnResourceError: true
         }
-    })
-}
+    });
+};

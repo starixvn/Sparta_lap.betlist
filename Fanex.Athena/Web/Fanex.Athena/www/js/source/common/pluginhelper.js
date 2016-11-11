@@ -1,9 +1,11 @@
 ﻿define(["jquery", "common/site", "moment", "bootstrap-daterangepicker", "lib/jquery.monthpicker", "vendor-materialize"],
     function ($, Site, moment) {
+        "use strict";
+
     var _historyDate = new Date($("#HistoryDate").val());
 
     function initMaterialSelect() {
-        $('select.select').not('.disabled').material_select(function () {
+        $('select.select').not('.disabled').material_select(function () { // jshint ignore:line
             $('input.select-dropdown').trigger('close');
         });
 

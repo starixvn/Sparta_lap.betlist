@@ -35,11 +35,11 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
         return salt;
     }
 
-    function GetValidateImage() {
+    function getValidateImage() {
         var url = $("#captchaUrl").val();
         $("#imgCode").attr("src", url);
 
-        setTimeout(GetValidateImage, 120000);
+        setTimeout(getValidateImage, 120000);
     }
 
     function isValidData() {
@@ -74,7 +74,7 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
             window.parent.location = location.href;
         }
 
-        GetValidateImage();
+        getValidateImage();
 
         if (typeof _page.errCode !== 'undefined' && _page.errCode !== 0) {
             $("#errmsg").html(_page.errMsg).css("opacity", 1);
@@ -115,12 +115,12 @@ define(["jquery", "crypto-js"], function ($, CryptoJS) {
             }
         });
 
-        $("#btnLogin").on("click", function (event) {
+        $("#btnLogin").on("click", function () {
             $("#fLogin").submit();
         });
 
         $("#captcha-img").on("click", function () {
-            GetValidateImage();
+            getValidateImage();
         });
     }
 

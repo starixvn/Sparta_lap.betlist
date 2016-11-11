@@ -1,6 +1,4 @@
-﻿/*global Site, QueryString, Helper*/
-/// <reference path="/@JSense.js" />
-define(["common/querystring", "common/site", "./helper"], function (QueryString, Site, Helper) {
+﻿define(["common/querystring", "common/site", "./helper"], function (QueryString, Site, Helper) {
     "use strict";
 
     function initialize() {

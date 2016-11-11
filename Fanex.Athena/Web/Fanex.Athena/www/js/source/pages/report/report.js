@@ -1,4 +1,5 @@
-﻿define(["jquery"], function ($) {
+﻿/*global Site*/
+define(["jquery"], function ($) {
     "use strict";
     var Report = (function () {
         return {
