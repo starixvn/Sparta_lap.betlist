@@ -1,4 +1,5 @@
-﻿using Fanex.Athena.Service.Core.Users.Interfaces;
+﻿using Fanex.Athena.Service.Core.Users;
+using Fanex.Athena.Service.Core.Users.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 using ONEbook.UM.Services;
@@ -10,7 +11,7 @@ namespace Fanex.Athena.Controllers.UnitTests
     {
         private IUserService _userService;
         private IMaintenanceService _maintenanceService;
-
+        private IOneAuthenticationService _oneAuthenticationService;
         [TestCase("")]
         [TestCase(null)]
         [TestCase("   ")]
@@ -33,8 +34,8 @@ namespace Fanex.Athena.Controllers.UnitTests
         {
             _userService = Substitute.For<IUserService>();
             _maintenanceService = Substitute.For<IMaintenanceService>();
-
-            var controller = new OneAuthorizationController(_userService, _maintenanceService);
+            _oneAuthenticationService = new OneAuthenticationService();
+            var controller = new OneAuthorizationController(_userService, _maintenanceService, _oneAuthenticationService);
             controller.ControllerContext = ControllerContext;
 
             controller.Url = this.Url;

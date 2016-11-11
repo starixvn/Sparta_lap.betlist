@@ -19,7 +19,6 @@
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>();
             _oneAuthenticationService.When(x => x.GetStreamReader(null)).DoNotCallBase();
             _oneAuthenticationService.GetStreamReader(null).Returns(new FakeReader());
-
         }
 
         [TestCase("", 0)]
@@ -58,7 +57,7 @@
             Assert.AreEqual(result.LicenseeID, licenseeId);
         }
 
-        class FakeReader : TextReader
+        private class FakeReader : TextReader
         {
             public override string ReadToEnd()
             {

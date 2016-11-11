@@ -11,23 +11,26 @@ namespace Fanex.Athena.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMaintenanceService _maintenanceService;
+        private readonly IOneAuthenticationService _oneAuthenticationService;
 
-        public OneAuthorizationController() : this(null, null)
+        public OneAuthorizationController() : this(null, null, null)
         {
         }
 
-        internal OneAuthorizationController(IUserService userService, IMaintenanceService maintenanceService)
+        internal OneAuthorizationController(IUserService userService, IMaintenanceService maintenanceService, IOneAuthenticationService oneAuthenticationService)
         {
             _userService = userService ?? new UserService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();
+            _oneAuthenticationService = oneAuthenticationService ?? new OneAuthenticationService();
         }
 
         [HttpGet]
         public RedirectResult CreateSession(string token)
         {
             var returnUrl = Url.Content("~/Utility/OneTokenRestriction");
-            if (!string.IsNullOrWhiteSpace(token))
+            if (!string.IsNullOrWhiteSpace(token) && !token.Trim().Contains(" "))
             {
+                var tokenInfo = _oneAuthenticationService.GetTokenInfo(token);
             }
 
             return Redirect(returnUrl);

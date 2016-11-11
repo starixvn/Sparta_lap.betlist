@@ -44,6 +44,24 @@ namespace Fanex.Athena.Service.Core.Users
             return new LicenseeSiteName();
         }
 
+        protected internal virtual TextReader GetStreamReader(string path)
+        {
+            return new StreamReader(path);
+        }
+
+        protected internal virtual ICache MemCacheService
+        {
+            get
+            {
+                if (_memCacheService == null)
+                {
+                    _memCacheService = CacheService.CreateInstance(CacheType.MemoryCache);
+                }
+
+                return _memCacheService;
+            }
+        }
+
         private IList<LicenseeSiteName> GetLiceseeSiteNameList(string filePath)
         {
             IList<LicenseeSiteName> result = MemCacheService.Get<IList<LicenseeSiteName>>(LicenseeSiteNameCacheKey);
@@ -67,22 +85,9 @@ namespace Fanex.Athena.Service.Core.Users
             return result;
         }
 
-        protected internal virtual TextReader GetStreamReader(string path)
+        public OneAuthenticationToken GetTokenInfo(string token)
         {
-            return new StreamReader(path);
-        }
-
-        protected internal virtual ICache MemCacheService
-        {
-            get
-            {
-                if (_memCacheService == null)
-                {
-                    _memCacheService = CacheService.CreateInstance(CacheType.MemoryCache);
-                }
-
-                return _memCacheService;
-            }
+            throw new NotImplementedException();
         }
     }
 }
