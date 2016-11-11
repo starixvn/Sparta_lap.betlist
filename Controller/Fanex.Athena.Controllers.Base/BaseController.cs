@@ -32,7 +32,7 @@ namespace Fanex.Athena.Controllers
         {
         }
 
-        public BaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
+        protected BaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
         {
             _langService = languageService ?? new LanguageService();
             _sessionService = sessionService ?? new SessionService();

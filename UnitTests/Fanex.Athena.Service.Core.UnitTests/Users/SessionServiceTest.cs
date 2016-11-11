@@ -2,15 +2,14 @@
 {
     using System.Collections.Generic;
     using System.IO;
-    using System.Reflection;
     using System.Web;
     using System.Web.SessionState;
     using Core.Common.Interfaces;
+    using Core.Users;
+    using Core.Users.Interfaces;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
-    using Users;
-    using Users.Interfaces;
 
     [TestFixture]
     public class SessionServiceTest

@@ -5,14 +5,14 @@
     using System.Security.Principal;
     using System.Web;
     using System.Web.SessionState;
+    using Core.Users;
+    using Core.Users.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
-    using Users;
-    using Users.Interfaces;
     using Utility.Interfaces;
 
     [TestFixture]

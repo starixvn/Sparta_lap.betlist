@@ -16,7 +16,7 @@ namespace Fanex.Athena.Controllers
         {
         }
 
-        public OneAuthorizationController(IUserService userService, IMaintenanceService maintenanceService)
+        internal OneAuthorizationController(IUserService userService, IMaintenanceService maintenanceService)
         {
             _userService = userService ?? new UserService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();

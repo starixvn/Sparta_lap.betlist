@@ -23,7 +23,7 @@ namespace Fanex.Athena.Controllers
         {
         }
 
-        public UtilityController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
+        internal UtilityController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
             : base(languageService, sessionService, appSetting)
         {
         }

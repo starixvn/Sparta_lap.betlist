@@ -3,12 +3,12 @@
     using System;
     using System.Collections.Generic;
     using Core.Common.Interfaces;
+    using Core.Users;
+    using Core.Users.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
-    using Users;
-    using Users.Interfaces;
 
     [TestFixture]
     public class AuthorizationServiceTest

@@ -2,10 +2,10 @@
 {
     using Core.Common;
     using Core.Common.Interfaces;
+    using Core.Users.Interfaces;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
-    using Users.Interfaces;
 
     [TestFixture]
     public class LanguageServiceTest
