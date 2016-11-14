@@ -16,9 +16,7 @@ namespace Fanex.Athena.Service.Core.Users
         private const int CacheTimeoutMinute = 30;
         private ICache _memCacheService;
 
-#pragma warning disable CS3003 // Type is not CLS-compliant
-        protected internal virtual ICache MemCacheService
-#pragma warning restore CS3003 // Type is not CLS-compliant
+        private ICache MemCacheService
         {
             get
             {

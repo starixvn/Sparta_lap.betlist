@@ -24,6 +24,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Resources;
+    using Service.Core.Utility;
     using Service.Report;
     using Service.Report.Interfaces;
 
@@ -247,13 +248,8 @@ namespace Fanex.Athena.Api.Report
         private bool IsValidRequest(WinLossByProductMetaModel metaModel, int currencyId = 0)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
-            var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
-                             || currencyList.Values.Contains(metaModel.CurrencyId);
-            var validCurrency = (currencyId <= 0 && currencyId >= SystemConstants.MinBaseCurrencyType)
-                                 || currencyList.Values.Contains(currencyId)
-                                 || (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Cny);
-
-            return validModel && validCurrency;
+            return (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
+                  || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
         }
 
         /// <summary>

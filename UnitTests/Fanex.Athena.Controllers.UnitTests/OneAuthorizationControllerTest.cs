@@ -15,8 +15,6 @@ namespace Fanex.Athena.Controllers.UnitTests
         [TestCase("")]
         [TestCase(null)]
         [TestCase("   ")]
-        [TestCase("rtXOPRoiuUy1ZwlOy96GYQ ")]
-        [TestCase("rtXOPRo iuU y1ZwlOy96GYQ ")]
         public void CreateSession_InvalidToken_ReturnTokenRestrictionPage(string token)
         {
             // Arrange

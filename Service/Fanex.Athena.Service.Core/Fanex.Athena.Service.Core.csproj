@@ -148,6 +148,7 @@
     <Compile Include="Users\UserService.cs" />
     <Compile Include="Utility\Interfaces\IWebClientService.cs" />
     <Compile Include="Utility\Interfaces\IRSAEncryptor.cs" />
+    <Compile Include="Utility\KeanOceanBusinessHelper.cs" />
     <Compile Include="Utility\RSAEncryptor.cs" />
     <Compile Include="Utility\WebClientService.cs" />
   </ItemGroup>

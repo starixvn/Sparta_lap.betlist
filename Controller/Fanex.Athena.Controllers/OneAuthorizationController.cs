@@ -28,7 +28,7 @@ namespace Fanex.Athena.Controllers
         public RedirectResult CreateSession(string token)
         {
             var returnUrl = Url.Content("~/Utility/OneTokenRestriction");
-            if (!string.IsNullOrWhiteSpace(token) && !token.Trim().Contains(" "))
+            if (!string.IsNullOrWhiteSpace(token))
             {
                 var tokenInfo = _oneAuthenticationService.GetTokenInfo(token);
             }

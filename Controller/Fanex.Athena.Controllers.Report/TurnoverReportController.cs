@@ -20,6 +20,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Service.Core.Utility;
 
     [FunctionAuthorization(PermissionKeys.ReportTurnover)]
     public class TurnoverReportController : ReportBaseController
@@ -130,13 +131,9 @@ namespace Fanex.Athena.Controllers.Report
 
         private IDictionary<string, int> GetCurrenciesForTurnoverReport(int licenseeId)
         {
-            var currencies = SessionService.UserSession.CurrencyList;
-            if (licenseeId == Licensees.KeenOcean && currencies.Keys.Contains("CNY") == false)
-            {
-                currencies.Add("CNY", CurrencyType.Hkd);
-            }
-
-            return currencies;
+            var currencyList = SessionService.UserSession.CurrencyList;
+            KeanOceanBusinessHelper.AddHKDCurrencyForTurnOverReport(currencyList, licenseeId);
+            return currencyList;
         }
     }
 }

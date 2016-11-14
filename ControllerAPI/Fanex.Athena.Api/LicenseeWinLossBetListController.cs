@@ -10,6 +10,7 @@ namespace Fanex.Athena.Api.BetList
     using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Service.Core.Utility;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct, PermissionKeys.ReportColossusBetsWinLoss)]
     public class LicenseeWinLossBetListController : ApiBetListBaseController
@@ -21,9 +22,7 @@ namespace Fanex.Athena.Api.BetList
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var currencyList = userSession.CurrencyList;
 
-            if (metaModel.CurrencyId != 0 &&
-                !currencyList.Values.Contains(metaModel.CurrencyId) &&
-                (licenseeId == Licensees.KeenOcean && metaModel.CurrencyId != CurrencyType.Cny))
+            if (!KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, licenseeId, metaModel.CurrencyId))
             {
                 return null;
             }

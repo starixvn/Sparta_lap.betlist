@@ -18,6 +18,7 @@ namespace Fanex.Athena.Service.Core.Common
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Model.Core.MetaModel.Account;
     using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Utility;
 
     /// <summary>
     ///     The currency service.
@@ -46,9 +47,9 @@ namespace Fanex.Athena.Service.Core.Common
         public IDictionary<string, int> GetCurrencyMapByUser(int licenseeId, int userId)
         {
             var currencies = GetCurrenciesByUser(licenseeId, userId);
-            if (licenseeId == Licensees.KeenOcean)
+            if (licenseeId == LicenseeIdentityDefinition.KeenOcean)
             {
-                currencies = ModifyCurrenciesForKeenOcean(currencies);
+                currencies = KeanOceanBusinessHelper.ModifyCurrenciesForKeenOcean(currencies);
             }
 
             return currencies
@@ -72,20 +73,6 @@ namespace Fanex.Athena.Service.Core.Common
         public IResultInfo AssignCurrenciesByUser(AssignCurrencyMetaModel request)
         {
             return _currencyDataAccess.AssignCurrenciesByUser(request);
-        }
-
-        private static IList<CurrencyUser> ModifyCurrenciesForKeenOcean(IList<CurrencyUser> currencies)
-        {
-            currencies = currencies.Where(x => x.CurrencyId != CurrencyType.Cny).ToList();
-
-            var currency = currencies.Where(x => x.CurrencyId == CurrencyType.Hkd && x.CurrencyName.Equals("CNY") == false)
-                                     .FirstOrDefault();
-            if (currency != null)
-            {
-                currency.CurrencyName = "CNY";
-            }
-
-            return currencies;
         }
     }
 }

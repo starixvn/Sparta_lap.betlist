@@ -53,7 +53,7 @@
                 new CurrencyUser() { CurrencyName = "HKD", CurrencyId = CurrencyType.Hkd, IsActive = true },
                 new CurrencyUser() { CurrencyName = "CNY", CurrencyId = CurrencyType.Cny, IsActive = true }
             };
-            var licenseeId = Licensees.KeenOcean;
+            var licenseeId = LicenseeIdentityDefinition.KeenOcean;
             var userId = 2;
             _currencyDataAccess.GetCurrenciesByUser(licenseeId, userId).Returns(expectedResult);
 

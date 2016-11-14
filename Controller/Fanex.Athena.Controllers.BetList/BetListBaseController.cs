@@ -22,6 +22,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Resources;
+    using Service.Core.Utility;
 
     #endregion Using
 
@@ -164,8 +165,8 @@ namespace Fanex.Athena.Controllers.BetList
         protected bool IsValidCurrency(int currencyId)
         {
             return currencyId == BaseCurrencyType.All ||
-                SessionService.UserSession.CurrencyList.Values.Contains(currencyId) ||
-                (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Cny);
+                KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(
+                    SessionService.UserSession.CurrencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
         }
     }
 }
