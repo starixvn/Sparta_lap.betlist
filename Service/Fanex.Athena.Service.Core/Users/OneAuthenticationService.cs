@@ -1,34 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web.Hosting;
-using Fanex.Athena.Model.Core.DTO.Common;
-using Fanex.Athena.Service.Core.Users.Interfaces;
-using Fanex.Caching;
-using Newtonsoft.Json;
-
-namespace Fanex.Athena.Service.Core.Users
+﻿namespace Fanex.Athena.Service.Core.Users
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Web.Hosting;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Fanex.Caching;
+    using Newtonsoft.Json;
+
     public class OneAuthenticationService : IOneAuthenticationService
     {
-        private const string LicenseeSiteNameCacheKey = "OneAuthenticationService_LicenseeSiteNameCacheKey";
-        private const int CacheTimeoutMinute = 30;
-        private ICache _memCacheService;
-
-        private ICache MemCacheService
-        {
-            get
-            {
-                if (_memCacheService == null)
-                {
-                    _memCacheService = CacheService.CreateInstance(CacheType.MemoryCache);
-                }
-
-                return _memCacheService;
-            }
-        }
-
         public IResultInfo InsertLicenseeUser(OneAuthenticationToken tokenInfo)
         {
             throw new NotImplementedException();
@@ -64,7 +47,10 @@ namespace Fanex.Athena.Service.Core.Users
 
         private IList<LicenseeSiteName> GetLiceseeSiteNameList(string filePath)
         {
-            IList<LicenseeSiteName> result = MemCacheService.Get<IList<LicenseeSiteName>>(LicenseeSiteNameCacheKey);
+            const string LicenseeSiteNameCacheKey = "OneAuthenticationService_LicenseeSiteNameCacheKey";
+            const int CacheTimeoutMinute = 30;
+            var memCacheService = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
+            IList<LicenseeSiteName> result = memCacheService.Get<IList<LicenseeSiteName>>(LicenseeSiteNameCacheKey);
 
             if (result == null || !result.Any())
             {
@@ -76,7 +62,7 @@ namespace Fanex.Athena.Service.Core.Users
                         result = JsonConvert.DeserializeObject<IList<LicenseeSiteName>>(temp);
                         if (result.Any())
                         {
-                            MemCacheService.Set(LicenseeSiteNameCacheKey, result, DateTime.Now.AddMinutes(CacheTimeoutMinute));
+                            memCacheService.Set(LicenseeSiteNameCacheKey, result, DateTime.Now.AddMinutes(CacheTimeoutMinute));
                         }
                     }
                 }

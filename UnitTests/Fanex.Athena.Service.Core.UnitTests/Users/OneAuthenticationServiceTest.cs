@@ -21,6 +21,7 @@
             _oneAuthenticationService.GetStreamReader(null).Returns(new FakeReader());
         }
 
+        #region SingleLicenseeSiteName
         [TestCase("", 0)]
         [TestCase(null, 0)]
         [TestCase("12 bet", 0)]
@@ -56,7 +57,11 @@
             Assert.AreEqual(result.SiteName, siteName);
             Assert.AreEqual(result.LicenseeID, licenseeId);
         }
+        #endregion
 
+        #region GetTokenInfo
+
+        #endregion
         private class FakeReader : TextReader
         {
             public override string ReadToEnd()
