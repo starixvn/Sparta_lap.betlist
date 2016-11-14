@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
+    using Model.Core.DataDomain;
     using ONEbook.UM.Services.Impl;
     using Resources;
     using Service.Core.Common.Interfaces;
@@ -46,10 +47,10 @@ namespace Fanex.Athena.Controllers
         {
             switch (code)
             {
-                case "100":
+                case OneAuthorizationErrorCode.TokenWasExpired:
                     return ViewResources.TokenWasExpired;
 
-                case "200":
+                case OneAuthorizationErrorCode.LicenseeIsNotExisted:
                     return ViewResources.LicenseeIsNotExisted;
 
                 default:

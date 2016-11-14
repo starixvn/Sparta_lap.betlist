@@ -9,14 +9,10 @@
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Caching;
     using Newtonsoft.Json;
+    using User.Common;
 
     public class OneAuthenticationService : IOneAuthenticationService
     {
-        public IResultInfo InsertLicenseeUser(OneAuthenticationToken tokenInfo)
-        {
-            throw new NotImplementedException();
-        }
-
         public IResultInfo SignIn(int licenseeId, OneAuthenticationToken tokenInfo)
         {
             throw new NotImplementedException();
@@ -38,6 +34,12 @@
             }
 
             return new LicenseeSiteName();
+        }
+
+        public OneAuthenticationToken GetTokenInfo(string token)
+        {
+            var oneBookService = new OneBookSecurityWrapper();
+            return oneBookService.Authenticate(token);
         }
 
         protected internal virtual TextReader GetStreamReader(string path)
@@ -69,11 +71,6 @@
             }
 
             return result;
-        }
-
-        public OneAuthenticationToken GetTokenInfo(string token)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Fanex.Athena.Model.Core.DataDomain
+{
+    public static class OneAuthorizationErrorCode
+    {
+        public const string TokenWasExpired = "100";
+        public const string LicenseeIsNotExisted = "200";
+        public const string TokenIsInValid = "300";
+
+    }
+}

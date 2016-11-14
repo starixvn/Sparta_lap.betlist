@@ -6,8 +6,6 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
     {
         LicenseeSiteName SingleLicenseeSiteName(string siteName);
 
-        IResultInfo InsertLicenseeUser(OneAuthenticationToken tokenInfo);
-
         IResultInfo SignIn(int licenseeId, OneAuthenticationToken tokenInfo);
 
         OneAuthenticationToken GetTokenInfo(string token);

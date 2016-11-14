@@ -87,6 +87,9 @@
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ONEbook.Security">
+      <HintPath>..\..\DLLs\ONEbook.Security\ONEbook.Security.dll</HintPath>
+    </Reference>
     <Reference Include="RSACryptoPad, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\RSACryptoPad.1.0.0.0\lib\net40\RSACryptoPad.dll</HintPath>
       <Private>True</Private>
@@ -113,6 +116,8 @@
     <Compile Include="Common\CurrencyService.cs" />
     <Compile Include="Common\ExChangeRateService.cs" />
     <Compile Include="Common\FunctionService.cs" />
+    <Compile Include="Users\Interfaces\IOneBookSecurityWrapper.cs" />
+    <Compile Include="Users\OneBookSecurityWrapper.cs" />
     <Compile Include="Users\Interfaces\IOneAuthenticationService.cs" />
     <Compile Include="Common\LanguageService.cs" />
     <Compile Include="Common\LeagueService.cs" />
