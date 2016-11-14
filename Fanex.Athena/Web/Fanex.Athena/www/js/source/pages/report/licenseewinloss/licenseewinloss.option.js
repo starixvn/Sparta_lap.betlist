@@ -670,17 +670,18 @@ define(
                     grid.jqGrid(param, baColumnName);
                 } else {
                     startTime('toggleProductColumns');
+                    var productColumnNames = [];
                     // footer product columns
                     $.each(productOptions, function (index, value) {
                         //insert turn over column
                         if (value.Status === true) {
                             var columnName = column + value.Code;
+                            productColumnNames.push(columnName);
                             fColumns.push(gridName + "_" + columnName);
-                            startTime('Column ' + columnName);
-                            grid.jqGrid(param, columnName);
-                            endTime('Column ' + columnName);
                         }
                     });
+
+                    grid.jqGrid(param, productColumnNames);
                     endTime('toggleProductColumns');
                 }
                 var totalColumn = 'Total' + column;

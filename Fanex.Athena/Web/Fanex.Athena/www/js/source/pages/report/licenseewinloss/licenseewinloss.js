@@ -426,8 +426,6 @@ define(
                 reportGrid.jqGrid('showCol', 'rn');
                 LicenseeWinLossOption.setGroupHeaderColumns(reportGrid, productOptions);
 
-                jqGridAdditional.showRecommendedBrowser(gridOption.pager);
-
                 LicenseeWinLossOption.restoreExpanse();
             },
 

@@ -368,11 +368,6 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                         footerTable.parent().parent().addClass("jqgrid-footer-scroll-hacking");
                     }
                 }
-            },
-
-            showRecommendedBrowser: function (pagingContainer) {
-                var mes = "<div class='recommend-browser'>" + Site.getSingleResource("RecommendBrowserOnReportPageMsg") + "</div>";
-                $(pagingContainer + " td#ppdata_left").append(mes);
             }
         };
     })();
