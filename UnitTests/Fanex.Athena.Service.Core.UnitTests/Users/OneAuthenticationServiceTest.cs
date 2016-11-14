@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.IO;
+    using Core.Common;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DTO.Common;
     using Newtonsoft.Json;
@@ -21,7 +22,14 @@
             _oneAuthenticationService.GetStreamReader(null).Returns(new FakeReader());
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            CacheService.Delete();
+        }
+
         #region SingleLicenseeSiteName
+
         [TestCase("", 0)]
         [TestCase(null, 0)]
         [TestCase("12 bet", 0)]
@@ -57,11 +65,9 @@
             Assert.AreEqual(result.SiteName, siteName);
             Assert.AreEqual(result.LicenseeID, licenseeId);
         }
-        #endregion
 
-        #region GetTokenInfo
+        #endregion SingleLicenseeSiteName
 
-        #endregion
         private class FakeReader : TextReader
         {
             public override string ReadToEnd()
