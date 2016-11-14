@@ -20,7 +20,8 @@ var cssPaths = {
     ],
 
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],
-    livereport: ["malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/pages/common.scss", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss", "./www/css/source/extensions/report-ex.scss", ...cssDateRangePickerPath],
+    livereport: ["malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/pages/common.scss", "./www/css/source/components/flatpopup/flatpopup.scss",
+        "./www/css/source/components/monthpicker/monpickr.scss", "./www/css/source/extensions/report-ex.scss", "./www/css/source/pages/report/livereport.scss", ...cssDateRangePickerPath],
     licenseewinloss: ["./www/css/source/pages/report/licenseewinloss.scss", ...cssDateRangePickerPath]
 };
 

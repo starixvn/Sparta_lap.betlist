@@ -101,7 +101,7 @@ selectedBasedCurrency = selectedBasedCurrency.ToLower();
 
 @helper HighlightNegativeFormat(decimal value, bool isHiglight = true)
 {
-    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative'") : new HtmlString(""))>
+    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative-number'") : new HtmlString(""))>
         @value.ToStringExt()</span>
 }
 

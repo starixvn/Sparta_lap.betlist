@@ -637,9 +637,21 @@ define(
                 $("#ReportGrid_TotalLicenseeWLSingle div").css("width", "100px");
             }
 
+            function startTime(key) {
+                if (console.time) {
+                    console.time(key);
+                }
+            }
+            function endTime(key) {
+                if (console.timeEnd) {
+                    console.timeEnd(key);
+                }
+            }
+
             //#region Toggle
             // column params: TurnOver, LicenseeWL, BuyBackAmount
             var toggle = function (isShow, column) {
+                startTime('toggleFunction');
                 if ((column === "LicenseeWL" && numOfActiveLicPro <= 1) ||
                     (column === "TurnOver" && numOfActiveTurnPro <= 1) ||
                     (column === "BuyBackAmount" && (!isAllowedBetTrade || isAllowBA === null))) {
@@ -657,15 +669,19 @@ define(
                     grid.jqGrid(param, sbColumnName);
                     grid.jqGrid(param, baColumnName);
                 } else {
+                    startTime('toggleProductColumns');
                     // footer product columns
                     $.each(productOptions, function (index, value) {
                         //insert turn over column
                         if (value.Status === true) {
                             var columnName = column + value.Code;
                             fColumns.push(gridName + "_" + columnName);
+                            startTime('Column ' + columnName);
                             grid.jqGrid(param, columnName);
+                            endTime('Column ' + columnName);
                         }
                     });
+                    endTime('toggleProductColumns');
                 }
                 var totalColumn = 'Total' + column;
 
@@ -713,6 +729,7 @@ define(
 
                 jqGridAdditional.resizeGrid();
                 jqGridAdditional.resetLayout(grid);
+                endTime('toggleFunction');
                 return false;
             };
 

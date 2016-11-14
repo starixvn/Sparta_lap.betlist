@@ -1,5 +1,5 @@
-﻿const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+﻿const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 exports.setDefinePlugin = function (key, value) {
@@ -11,7 +11,7 @@ exports.setDefinePlugin = function (key, value) {
           new webpack.DefinePlugin(env)
         ]
     };
-}
+};
 
 exports.minify = function () {
     return {
@@ -22,12 +22,12 @@ exports.minify = function () {
                 comments: false,
                 compress: {
                     warnings: false,
-                    drop_console: true
+                    drop_console: false
                 }
             })
         ]
     };
-}
+};
 
 exports.extractCSS = function (isProduction) {
     var queryString = isProduction ? "" : "&sourceMap";
@@ -41,11 +41,11 @@ exports.extractCSS = function (isProduction) {
                 {
                     test: /\.scss$/,
                     loader: ExtractTextPlugin.extract("style", "css?-url" + queryString + "!sass")
-                },
+                }
             ]
         },
         plugins: [
             new ExtractTextPlugin('[name].css')
         ]
     };
-}
+};

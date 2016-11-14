@@ -177,6 +177,14 @@
     cursor: pointer;
 }
 
+.negative-number{
+    color: #ff0000;
+}
+
+.highlight, .table > tbody > tr > td.highlight {
+    background-color: #F8F1A0;
+}
+
 //---------------------- Form input style customize ----------------------//
 
 //----- Select dropdown -----//

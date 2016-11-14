@@ -37,11 +37,11 @@
 
     <td>@Model.MainResult.Sum(i => i.TurnOver).ToStringExt()</td>
     <td>@Model.MainResult.Sum(i => i.BetCount).ToStringExt()</td>
-    <td>@RazorHelper.HighlightNegativeFormat(Model.MainResult.Sum(i => i.LicenseeWinLoss))</td>
+    <td class="highlight">@RazorHelperDesktop.HighlightNegativeFormat(Model.MainResult.Sum(i => i.LicenseeWinLoss))</td>
 
     @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
     {
-        <td>@Model.MainResult.Sum(i => i.LicenseeComm).ToStringExt()</td>
+        <td class="highlight">@Model.MainResult.Sum(i => i.LicenseeComm).ToStringExt()</td>
     }
 
     <td>@Model.MainResult.Sum(i => i.AmountDue).ToStringExt()</td>
