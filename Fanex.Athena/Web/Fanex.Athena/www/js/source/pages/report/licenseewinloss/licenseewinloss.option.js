@@ -637,37 +637,9 @@ define(
                 $("#ReportGrid_TotalLicenseeWLSingle div").css("width", "100px");
             }
 
-            // console.time implementation for IE
-            if (window.console && typeof (window.console.time) == "undefined") {
-                console.time = function (name, reset) {
-                    if (!name) { return; }
-                    var time = new Date().getTime();
-                    if (!console.timeCounters) { console.timeCounters = {}; }
-                    var key = "KEY" + name.toString();
-                    if (!reset && console.timeCounters[key]) { return; }
-                    console.timeCounters[key] = time;
-                };
-
-                console.timeEnd = function (name) {
-                    var time = new Date().getTime();
-                    if (!console.timeCounters) { return; }
-                    var key = "KEY" + name.toString();
-                    var timeCounter = console.timeCounters[key];
-                    var diff;
-                    if (timeCounter) {
-                        diff = time - timeCounter;
-                        var label = name + ": " + diff + "ms";
-                        console.info(label);
-                        delete console.timeCounters[key];
-                    }
-                    return diff;
-                };
-            }
-
             //#region Toggle
             // column params: TurnOver, LicenseeWL, BuyBackAmount
             var toggle = function (isShow, column) {
-                console.time('toggleFunction');
                 if ((column === "LicenseeWL" && numOfActiveLicPro <= 1) ||
                     (column === "TurnOver" && numOfActiveTurnPro <= 1) ||
                     (column === "BuyBackAmount" && (!isAllowedBetTrade || isAllowBA === null))) {
@@ -679,7 +651,6 @@ define(
                 var fColumns = [];
                 var productColumnNames = [];
 
-                console.time('toggleProductColumns');
                 if (column === "BuyBackAmount") {
                     var sbColumnName = column + "SB";
                     var baColumnName = column + "BA";
@@ -699,27 +670,21 @@ define(
                 productColumnNames.push(totalColumn);
 
                 grid.jqGrid(param, productColumnNames);
-                console.timeEnd('toggleProductColumns');
 
                 var fTotalColumn = gridName + "_" + totalColumn;
                 fColumns.push(fTotalColumn);
 
-                console.time("hideSingleColumn")
                 /*show /hide single column*/
                 var singleColumn = totalColumn + 'Single';
                 var singleParam = isShow ? "hideCol" : "showCol";
                 grid.jqGrid(singleParam, singleColumn);
-                console.timeEnd("hideSingleColumn");
 
-                console.time("renderFooterColumn");
                 /*show/hide footer column*/
                 jqGridAdditional.setFooterColumns(param, fColumns);
 
                 var singleFColumn = gridName + "_" + singleColumn;
                 jqGridAdditional.setFooterColumns(singleParam, [singleFColumn]);
-                console.timeEnd("renderFooterColumn");
 
-                console.time("another");
                 if (column === "TurnOver") {
                     addTurnOverExpand();
                 }
@@ -741,8 +706,6 @@ define(
 
                 jqGridAdditional.resizeGrid();
                 jqGridAdditional.resetLayout(grid);
-                console.timeEnd("another");
-                console.timeEnd('toggleFunction');
                 return false;
             };
 

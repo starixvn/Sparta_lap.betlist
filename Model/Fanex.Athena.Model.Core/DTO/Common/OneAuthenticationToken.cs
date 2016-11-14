@@ -6,6 +6,7 @@ namespace Fanex.Athena.Model.Core.DTO.Common
     public class OneAuthenticationToken
     {
         public int UserSEQ { get; set; }
+
         public string VendorID { get; set; }
 
         public string UserID { get; set; }

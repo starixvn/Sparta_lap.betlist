@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fanex.Athena.Model.Core.DataDomain
+﻿namespace Fanex.Athena.Model.Core.DataDomain
 {
     public static class OneAuthorizationErrorCode
     {
@@ -12,6 +6,5 @@ namespace Fanex.Athena.Model.Core.DataDomain
         public const string LicenseeIsNotExisted = "200";
         public const string TokenIsInValid = "300";
         public const string LocationRestrictionMsg = "400";
-
     }
 }
