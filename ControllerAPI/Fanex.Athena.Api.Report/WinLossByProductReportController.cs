@@ -249,6 +249,7 @@ namespace Fanex.Athena.Api.Report
         {
             var currencyList = SessionService.UserSession.CurrencyList;
             return (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
+                  || currencyList.Values.Contains(metaModel.CurrencyId)
                   || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
         }
 
