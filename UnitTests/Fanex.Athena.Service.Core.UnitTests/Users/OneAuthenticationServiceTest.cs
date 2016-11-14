@@ -27,10 +27,10 @@
         [TestCase("12 bet", 0)]
         public void SingleLicenseeSiteName_InvalidSiteName_ReturnDefatulValue(string siteName, int expectedLicenseeId)
         {
-            ///Action
+            // Action
             var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
 
-            ///Assert
+            // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(result.LicenseeID, expectedLicenseeId);
         }
@@ -38,10 +38,10 @@
         [TestCase("hello", 0)]
         public void SingleLicenseeSiteName_NotExistedSiteName_ReturnDefatulValue(string siteName, int expectedLicenseeId)
         {
-            ///Action
+            // Action
             var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
 
-            ///Assert
+            // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(result.LicenseeID, expectedLicenseeId);
         }
@@ -49,10 +49,10 @@
         [TestCase(1, "12bet")]
         public void SingleLicenseeSiteName_ExitedSiteName_ReturnValidLicenseeSiteName(int licenseeId, string siteName)
         {
-            ///Action
+            // Action
             var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
 
-            ///Assert
+            // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(result.SiteName, siteName);
             Assert.AreEqual(result.LicenseeID, licenseeId);

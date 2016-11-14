@@ -12,7 +12,6 @@
             var currencyList = SessionService.UserSession.CurrencyList;
             return (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
                              || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
-
         }
     }
 }
