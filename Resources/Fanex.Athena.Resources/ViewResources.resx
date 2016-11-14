@@ -2918,4 +2918,7 @@
   <data name="TokenWasExpired" xml:space="preserve">
     <value>Token was expired</value>
   </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
 </root>

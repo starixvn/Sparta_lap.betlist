@@ -11,6 +11,7 @@ namespace Fanex.Athena.Model.Core.DataDomain
         public const string TokenWasExpired = "100";
         public const string LicenseeIsNotExisted = "200";
         public const string TokenIsInValid = "300";
+        public const string LocationRestrictionMsg = "400";
 
     }
 }

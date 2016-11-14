@@ -1,11 +1,23 @@
-﻿using Fanex.Athena.Resources;
+﻿using System.Web.Mvc;
+using Fanex.Athena.Resources;
+using NSubstitute;
 using NUnit.Framework;
-using System.Web.Mvc;
+using ONEbook.UM.Models;
+using ONEbook.UM.Services;
 
 namespace Fanex.Athena.Controllers.UnitTests
 {
     public class UtilityControllerTest : BaseControllerTest
     {
+        private IMaintenanceService _maintenanceService;
+
+        [OneTimeSetUp]
+        public void SetUp()
+        {
+            base.FixtureSetUp();
+            _maintenanceService = Substitute.For<IMaintenanceService>();
+        }
+
         [TestCase("")]
         [TestCase(null)]
         [TestCase("20 0")]
@@ -13,7 +25,7 @@ namespace Fanex.Athena.Controllers.UnitTests
         {
             // Arrange
             FakeBaseControllerDependency();
-            var controller = new UtilityController(LangService, SessionService, AppSettings);
+            var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService);
             controller.ControllerContext = this.ControllerContext;
             var expectedMsg = ViewResources.OneTokenRestrictionDefaultMsg;
 
@@ -26,11 +38,12 @@ namespace Fanex.Athena.Controllers.UnitTests
 
         [TestCase("100", "Token was expired")]
         [TestCase("200", "Licensee is not existed")]
+        [TestCase("400", "Direct Access to this website is restricted. Please contact Administrator for further enquiries.")]
         public void OneTokenRestriction_ValidCode_ReturnMsgByCode(string code, string msg)
         {
             // Arrange
             FakeBaseControllerDependency();
-            var controller = new UtilityController(LangService, SessionService, AppSettings);
+            var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService);
             controller.ControllerContext = this.ControllerContext;
 
             // Action
@@ -38,6 +51,42 @@ namespace Fanex.Athena.Controllers.UnitTests
 
             // Assert
             Assert.AreEqual(msg, result.ViewBag.Msg);
+        }
+
+        [Test]
+        public void UnderMaintenance_UnderMaintenanceState_ReturnRightUMTimeInfo()
+        {
+            // Arrange
+            FakeBaseControllerDependency();
+            var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService);
+            controller.ControllerContext = this.ControllerContext;
+            var maintenanceInfo = new UnderMaintenanceTime(true, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
+            _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
+            // Action
+            var result = controller.UnderMaintenance(Arg.Any<bool>()) as ViewResult;
+
+            // Assert
+
+            Assert.AreEqual(maintenanceInfo.From, result.ViewBag.UmTimeFrom);
+            Assert.AreEqual(maintenanceInfo.To, result.ViewBag.UmTimeTo);
+        }
+
+        [Test]
+        public void UnderMaintenance_NotUnderMaintenanceState_ShowEmptyUMInfo()
+        {
+            // Arrange
+            FakeBaseControllerDependency();
+            var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService);
+            controller.ControllerContext = this.ControllerContext;
+            var maintenanceInfo = new UnderMaintenanceTime(false, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
+            _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
+            // Action
+            var result = controller.UnderMaintenance(true) as ViewResult;
+
+            // Assert
+
+            Assert.AreEqual(string.Empty, result.ViewBag.UmTimeFrom);
+            Assert.AreEqual(string.Empty, result.ViewBag.UmTimeTo);
         }
     }
 }

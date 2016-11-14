@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers
 {
+    using System;
     using System.Web.Mvc;
-    using System.Web.UI;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -39,17 +39,30 @@
             _logger = logger ?? Logger.Log;
         }
 
+        [AllowAnonymous]
         [HttpGet]
-        [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
         public RedirectResult CreateSession(string token)
         {
+            if (_maintenanceService.IsUnderMaintenance())
+            {
+                return Redirect(Url.Content("~/Utility/UnderMaintenance?notReload=true"));
+            }
+
             var returnUrl = "~/Utility/OneTokenRestriction?code=";
             var errMsg = string.Empty;
             if (!string.IsNullOrWhiteSpace(token))
             {
                 var tokenInfo = _oneAuthenticationService.GetTokenInfo(token);
-                if (tokenInfo != null || VerifyToken(tokenInfo))
+                if (tokenInfo != null && VerifyToken(tokenInfo))
                 {
+                    if (IsInternalDomain(tokenInfo.ActionLink))
+                    {
+                        returnUrl += OneAuthorizationErrorCode.LocationRestrictionMsg;
+                    }
+                    else
+                    {
+
+                    }
                 }
                 else
                 {
@@ -64,6 +77,11 @@
             }
 
             return Redirect(Url.Content(returnUrl));
+        }
+
+        private bool IsInternalDomain(string actionLink)
+        {
+            return actionLink.Contains(_appSetting.GetValue("internaldomain"));
         }
 
         private bool VerifyToken(OneAuthenticationToken tokenInfo)

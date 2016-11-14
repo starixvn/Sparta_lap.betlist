@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers
     using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
     using Model.Core.DataDomain;
+    using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
     using Resources;
     using Service.Core.Common.Interfaces;
@@ -20,13 +21,21 @@ namespace Fanex.Athena.Controllers
     /// </summary>
     public class UtilityController : BaseController
     {
+        private readonly IMaintenanceService _maintenanceService;
+
         public UtilityController() : base()
         {
+            _maintenanceService = new MaintenanceService();
         }
 
-        internal UtilityController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
+        internal UtilityController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IMaintenanceService maintenanceService)
             : base(languageService, sessionService, appSetting)
         {
+            _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
 
         [AllowAnonymous]
@@ -52,7 +61,8 @@ namespace Fanex.Athena.Controllers
 
                 case OneAuthorizationErrorCode.LicenseeIsNotExisted:
                     return ViewResources.LicenseeIsNotExisted;
-
+                case OneAuthorizationErrorCode.LocationRestrictionMsg:
+                    return string.Format(ViewResources.LocationRestrictionMsg, ViewResources.Administrator); ;
                 default:
                     return ViewResources.OneTokenRestrictionDefaultMsg;
             }
@@ -174,25 +184,20 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Utility/Error.cshtml");
         }
 
+
         /// <summary>
         /// The under maintenance page.
         /// </summary>
         /// <returns>The maintenance information.</returns>
         [AllowAnonymous]
-        public ActionResult UnderMaintenance()
+        public ActionResult UnderMaintenance(bool notReload = false)
         {
-            var maintenanceService = new MaintenanceService();
 
             var underMaintenanceTimeFrom = string.Empty;
             var underMaintenanceTimeTo = string.Empty;
-            var maintenanceInfo = maintenanceService.GetUnderMaintenanceTime();
+            var maintenanceInfo = _maintenanceService.GetUnderMaintenanceTime();
 
-            if (!maintenanceInfo.IsUnderMaintenanceTime)
-            {
-                Response.Redirect(FormsAuthentication.LoginUrl);
-                Response.End();
-            }
-            else
+            if (maintenanceInfo.IsUnderMaintenanceTime)
             {
                 underMaintenanceTimeFrom = maintenanceInfo.From;
                 underMaintenanceTimeTo = maintenanceInfo.To;
@@ -202,6 +207,10 @@ namespace Fanex.Athena.Controllers
                     underMaintenanceTimeFrom = Request.QueryString["from"] != null ? Request.QueryString["from"] : string.Empty;
                     underMaintenanceTimeTo = Request.QueryString["to"] != null ? Request.QueryString["to"] : string.Empty;
                 }
+            }
+            else if (!notReload)
+            {
+                return Redirect(FormsAuthentication.LoginUrl);
             }
 
             ViewBag.UmTimeFrom = underMaintenanceTimeFrom;
