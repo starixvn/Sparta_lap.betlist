@@ -1,12 +1,12 @@
-﻿using System.Web.Mvc;
-using Fanex.Athena.Resources;
-using NSubstitute;
-using NUnit.Framework;
-using ONEbook.UM.Models;
-using ONEbook.UM.Services;
-
-namespace Fanex.Athena.Controllers.UnitTests
+﻿namespace Fanex.Athena.Controllers.UnitTests
 {
+    using System.Web.Mvc;
+    using Fanex.Athena.Resources;
+    using NSubstitute;
+    using NUnit.Framework;
+    using ONEbook.UM.Models;
+    using ONEbook.UM.Services;
+
     public class UtilityControllerTest : BaseControllerTest
     {
         private IMaintenanceService _maintenanceService;
@@ -14,7 +14,6 @@ namespace Fanex.Athena.Controllers.UnitTests
         [OneTimeSetUp]
         public void SetUp()
         {
-            base.FixtureSetUp();
             _maintenanceService = Substitute.For<IMaintenanceService>();
         }
 
@@ -62,11 +61,11 @@ namespace Fanex.Athena.Controllers.UnitTests
             controller.ControllerContext = this.ControllerContext;
             var maintenanceInfo = new UnderMaintenanceTime(true, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
             _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
+
             // Action
             var result = controller.UnderMaintenance(Arg.Any<bool>()) as ViewResult;
 
             // Assert
-
             Assert.AreEqual(maintenanceInfo.From, result.ViewBag.UmTimeFrom);
             Assert.AreEqual(maintenanceInfo.To, result.ViewBag.UmTimeTo);
         }
@@ -80,11 +79,11 @@ namespace Fanex.Athena.Controllers.UnitTests
             controller.ControllerContext = this.ControllerContext;
             var maintenanceInfo = new UnderMaintenanceTime(false, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
             _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
+
             // Action
             var result = controller.UnderMaintenance(true) as ViewResult;
 
             // Assert
-
             Assert.AreEqual(string.Empty, result.ViewBag.UmTimeFrom);
             Assert.AreEqual(string.Empty, result.ViewBag.UmTimeTo);
         }

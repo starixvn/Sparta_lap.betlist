@@ -52,22 +52,6 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Utility/OneTokenRestriction.cshtml");
         }
 
-        private string GetMessageRestriction(string code)
-        {
-            switch (code)
-            {
-                case OneAuthorizationErrorCode.TokenWasExpired:
-                    return ViewResources.TokenWasExpired;
-
-                case OneAuthorizationErrorCode.LicenseeIsNotExisted:
-                    return ViewResources.LicenseeIsNotExisted;
-                case OneAuthorizationErrorCode.LocationRestrictionMsg:
-                    return string.Format(ViewResources.LocationRestrictionMsg, ViewResources.Administrator); ;
-                default:
-                    return ViewResources.OneTokenRestrictionDefaultMsg;
-            }
-        }
-
         /// <summary>
         /// The denied page.
         /// </summary>
@@ -184,15 +168,9 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Utility/Error.cshtml");
         }
 
-
-        /// <summary>
-        /// The under maintenance page.
-        /// </summary>
-        /// <returns>The maintenance information.</returns>
         [AllowAnonymous]
         public ActionResult UnderMaintenance(bool notReload = false)
         {
-
             var underMaintenanceTimeFrom = string.Empty;
             var underMaintenanceTimeTo = string.Empty;
             var maintenanceInfo = _maintenanceService.GetUnderMaintenanceTime();
@@ -216,6 +194,24 @@ namespace Fanex.Athena.Controllers
             ViewBag.UmTimeFrom = underMaintenanceTimeFrom;
             ViewBag.UmTimeTo = underMaintenanceTimeTo;
             return View("~/Views/Utility/UnderMaintenance.cshtml");
+        }
+
+        private string GetMessageRestriction(string code)
+        {
+            switch (code)
+            {
+                case OneAuthorizationErrorCode.TokenWasExpired:
+                    return ViewResources.TokenWasExpired;
+
+                case OneAuthorizationErrorCode.LicenseeIsNotExisted:
+                    return ViewResources.LicenseeIsNotExisted;
+
+                case OneAuthorizationErrorCode.LocationRestrictionMsg:
+                    return string.Format(ViewResources.LocationRestrictionMsg, ViewResources.Administrator);
+
+                default:
+                    return ViewResources.OneTokenRestrictionDefaultMsg;
+            }
         }
     }
 }

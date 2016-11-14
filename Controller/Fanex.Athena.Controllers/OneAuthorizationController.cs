@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers
 {
-    using System;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -61,7 +60,6 @@
                     }
                     else
                     {
-
                     }
                 }
                 else
