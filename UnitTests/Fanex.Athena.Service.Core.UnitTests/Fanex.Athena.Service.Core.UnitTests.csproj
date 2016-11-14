@@ -136,6 +136,7 @@
     <Compile Include="Users\SessionServiceTest.cs" />
     <Compile Include="Users\SSOServiceTest.cs" />
     <Compile Include="Users\UserServiceTest.cs" />
+    <Compile Include="Utility\KeanOceanBusinessHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
