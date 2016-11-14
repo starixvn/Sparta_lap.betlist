@@ -1,14 +1,12 @@
-﻿using Fanex.Athena.Extension.Utility;
-using Fanex.Athena.Model.Core.DTO.Common;
-using Fanex.Athena.Service.Core.Users;
-using Fanex.Athena.Service.Core.Users.Interfaces;
-using Fanex.Logging;
-using NSubstitute;
-using NUnit.Framework;
-using ONEbook.UM.Services;
-
-namespace Fanex.Athena.Controllers.UnitTests
+﻿namespace Fanex.Athena.Controllers.UnitTests
 {
+    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Fanex.Logging;
+    using NSubstitute;
+    using NUnit.Framework;
+    using ONEbook.UM.Services;
+
     [TestFixture]
     public class OneAuthorizationControllerTest : BaseControllerTest
     {
@@ -48,6 +46,7 @@ namespace Fanex.Athena.Controllers.UnitTests
             var controller = FakeController();
             var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedCode;
             _oneAuthenticationService.GetTokenInfo(token).Returns(x => null);
+
             // Action
             var result = controller.CreateSession(token);
 
@@ -63,6 +62,7 @@ namespace Fanex.Athena.Controllers.UnitTests
             var controller = FakeController();
             _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("1");
             _oneAuthenticationService.GetTokenInfo(token).Returns(x => null);
+
             // Action
             var result = controller.CreateSession(token);
 
@@ -78,7 +78,7 @@ namespace Fanex.Athena.Controllers.UnitTests
             _appSetting = Substitute.For<IAppSettings>();
             _logger = Substitute.For<ILogger>();
             _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("0");
-            _logger.When(x => x.Error(Arg.Any<string>())).Do(x => loggerCounnter++); ;
+            _logger.When(x => x.Error(Arg.Any<string>())).Do(x => loggerCounnter++);
             var controller = new OneAuthorizationController(_userService, _maintenanceService, _oneAuthenticationService, _appSetting, _logger);
             controller.ControllerContext = ControllerContext;
 
