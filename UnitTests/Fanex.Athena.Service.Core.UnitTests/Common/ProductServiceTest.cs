@@ -20,7 +20,7 @@
         private IServerPathMapper _serverPathMapper;
         private IProductService _productService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _appSettings = Substitute.For<IAppSettings>();
@@ -28,6 +28,11 @@
             _serverPathMapper = Substitute.For<IServerPathMapper>();
 
             _productService = new ProductService(_appSettings, _productDataAccess, _serverPathMapper);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
             CacheService.Delete();
         }
 
