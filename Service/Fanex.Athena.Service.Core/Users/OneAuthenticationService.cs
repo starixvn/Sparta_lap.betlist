@@ -54,9 +54,7 @@
                 }
             }
 
-            result = SetAuthorize(licenseeId, tokenInfo);
-
-            return result;
+            return SetAuthorize(licenseeId, tokenInfo);
         }
 
         public LicenseeSiteName SingleLicenseeSiteName(string siteName)
@@ -93,10 +91,8 @@
             return new StreamReader(path);
         }
 
-#pragma warning disable CS3003 // Type is not CLS-compliant
-
+        [CLSCompliant(false)]
         protected internal virtual ICache GetMemCacheService()
-#pragma warning restore CS3003 // Type is not CLS-compliant
         {
             return CacheService.CreateInstance(CacheType.MemoryCache);
         }

@@ -18,6 +18,12 @@
     <Setting Key="Lrf_CustomerSelCheckBelonging" SpName="Lrf_CustomerSelCheckBelonging" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_GetNumberOfOnlineUsers" SpName="Lrf_GetNumberOfOnlineUsers" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeProductSel" SpName="Lrf_LicenseeProductSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeSelByLicenseeId" SpName="Lrf_LicenseeSelByLicenseeId" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet">
+      <Mapping DataField="LicenseeID" ObjectProperty="Id"/>
+      <Mapping DataField="LicenseeName" ObjectProperty="Name"/>
+      <Mapping DataField="IsAllowedMemberComm" ObjectProperty="IsAllowedCustomerComm"/>
+      <Mapping DataField="EnableBA" ObjectProperty="IsEnableBA"/>
+    </Setting>
   </Function>
 
   <Function Name="Authorization">

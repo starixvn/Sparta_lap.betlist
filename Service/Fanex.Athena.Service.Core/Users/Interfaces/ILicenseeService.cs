@@ -19,8 +19,6 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
     /// </summary>
     public interface ILicenseeService
     {
-        #region Public Methods and Operators
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
         IResultInfo IsAllowUpdateMemberBAStatus(Request request, int licenseeId, out bool isAllow);
@@ -32,11 +30,11 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
         IList<Currency> GetCurrencies(int licenseeId, int userId);
 
         IList<LicenseeCustomer> GetCustByLicensee(int licenseeId);
-        
+
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]
         string GetNumberOfOnlineUser();
 
-        #endregion Public Methods and Operators
+        Licensee GetLicenseeById(int licenseeId);
     }
 }

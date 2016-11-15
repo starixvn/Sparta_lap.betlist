@@ -240,5 +240,23 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 return result != null ? result.ToString() : string.Empty;
             }
         }
+
+        public Licensee GetLicenseeById(int licenseeId)
+        {
+            const string UspName = "Lrf_LicenseeSelByLicenseeId";
+            var uspParams = new { LicenseeId = licenseeId };
+            try
+            {
+                using (var db = this.GetObjectDb(UspName))
+                {
+                    return db.QueryEntity<Licensee>(uspParams);
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+            }
+        }
     }
 }

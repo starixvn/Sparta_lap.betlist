@@ -68,14 +68,7 @@
                         else
                         {
                             var result = _oneAuthenticationService.SignIn(HttpContext, siteNameInfo.LicenseeID, tokenInfo);
-                            if (result.IsSuccessful)
-                            {
-                                returnUrl = result.ExtendedData;
-                            }
-                            else
-                            {
-                                returnUrl += result.Code;
-                            }
+                            returnUrl = result.IsSuccessful ? result.ExtendedData : returnUrl += result.Code;
                         }
                     }
                 }

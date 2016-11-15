@@ -57,10 +57,10 @@
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
-        [TestCase(1, "Function1", true)]
-        [TestCase(1, "Function2", true)]
-        [TestCase(1, "Function3", false)]
-        public void HasPermissions_WhenCall_ReturnCorrectResult1(int userFunction, string permissionKey, bool expectedResult)
+        [TestCase("Function1", true)]
+        [TestCase("Function2", true)]
+        [TestCase("Function3", false)]
+        public void HasPermissions_WhenCall_ReturnCorrectResult(string permissionKey, bool expectedResult)
         {
             // Arrange
             var userFunctions = new List<PortalSystemFunction>()

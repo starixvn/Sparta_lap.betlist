@@ -257,6 +257,24 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
+        [Test]
+        public void GetLicenseeById_WhenCall_ValueReturnedCorrectly()
+        {
+            // Arrange
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeSelByLicenseeId")).Returns(_objectDb);
+            var expected = new Licensee()
+            {
+                Id = 100
+            };
+            _objectDb.QueryEntity<Licensee>(Arg.Any<object>()).Returns(expected);
+
+            // Action
+            var result = _dataAccess.GetLicenseeById(0);
+
+            // Assert
+            Assert.That(result.Id, Is.EqualTo(expected.Id));
+        }
+
         private void ConfigureReaderForGetCustByLicensee(LicenseeCustomer expected)
         {
             int usernameIndex = 0, custIdIndex = 1, currencyIndex = 2, roleIdIndex = 3, currencyNameIndex = 4;

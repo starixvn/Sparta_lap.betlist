@@ -13,6 +13,7 @@
     public class BetTypeServiceTest
     {
         private IBetTypeDataAccess _betTypeDataAccess;
+
         private IBetTypeService _betTypeService;
 
         [SetUp]
