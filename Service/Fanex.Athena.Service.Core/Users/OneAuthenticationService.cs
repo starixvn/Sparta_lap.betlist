@@ -35,7 +35,7 @@
 
         public IResultInfo SignIn(HttpContextBase currentContext, int licenseeId, OneAuthenticationToken tokenInfo)
         {
-            var result = new ResultInfo();
+            IResultInfo result = new ResultInfo();
             var userSession = _sessionService.UserSession;
             var licenseeSession = _sessionService.LicenseeSession;
             if (IsAuthenticated(currentContext, userSession, licenseeSession))
@@ -49,16 +49,12 @@
                     {
                         _sessionService.UpdateLanguage(language);
                     }
-                }
-                else
-                {
-                    SetAuthorize(licenseeId, tokenInfo);
+
+                    return result;
                 }
             }
-            else
-            {
-                SetAuthorize(licenseeId, tokenInfo);
-            }
+
+            result = SetAuthorize(licenseeId, tokenInfo);
 
             return result;
         }
@@ -87,8 +83,9 @@
             return oneBookService.Authenticate(token);
         }
 
-        protected internal void SetAuthorize(int licenseeId, OneAuthenticationToken tokenInfo)
+        protected internal IResultInfo SetAuthorize(int licenseeId, OneAuthenticationToken tokenInfo)
         {
+            return null;
         }
 
         protected internal virtual TextReader GetStreamReader(string path)

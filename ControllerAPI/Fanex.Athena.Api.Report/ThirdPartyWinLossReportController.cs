@@ -19,6 +19,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Users;
     using Resources;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
@@ -147,9 +148,7 @@ namespace Fanex.Athena.Api.Report
             int custId = 0)
         {
             var userSession = SessionService.UserSession;
-            var permissionKey = _productPermissionMap[metaModel.ProductId];
-
-            if (!_authorizationService.HasPermissions(userSession.FunctionIdList, new string[] { permissionKey }))
+            if (!HasPermission(metaModel.ProductId, userSession))
             {
                 return new HttpResponseMessage
                 {
@@ -188,6 +187,16 @@ namespace Fanex.Athena.Api.Report
             }
 
             return GetEmptyThirdPartyWinLossResult();
+        }
+
+        private bool HasPermission(int productId, UserSession user)
+        {
+            var permissionKey = new string[] { _productPermissionMap[productId] };
+
+            return
+                user.ApplicationMode == AppMode.Parasitic ?
+                _authorizationService.HasPermissions(user.PortalFunctionList, permissionKey) :
+                _authorizationService.HasPermissions(user.FunctionIdList, permissionKey);
         }
     }
 }

@@ -56,8 +56,7 @@ namespace Fanex.Athena.Web.ActionFilter
             {
                 if (userSession.ApplicationMode == AppMode.Parasitic)
                 {
-                    authorized = userSession.PortalFunctionList != null
-                        && userSession.PortalFunctionList.Any(i => PermissionKeys.Contains(i.FunctionKey));
+                    authorized = authorization.HasPermissions(userSession.PortalFunctionList, PermissionKeys);
                 }
                 else
                 {

@@ -12,6 +12,7 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Linq;
     using Fanex.Athena.DataAccess.Core.Users;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
+    using Model.Core.DTO;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
@@ -56,6 +57,11 @@ namespace Fanex.Athena.Service.Core.Users
             }
 
             return _authorizationDataAccess.IsCustomerBelonging(licenseeId, custId, transId);
+        }
+
+        public bool HasPermissions(IList<PortalSystemFunction> userFunctionList, string[] permissionKeys)
+        {
+            throw new NotImplementedException();
         }
     }
 }
