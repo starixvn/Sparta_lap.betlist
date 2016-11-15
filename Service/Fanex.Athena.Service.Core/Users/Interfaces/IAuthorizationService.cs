@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.Core.Users.Interfaces
 {
     using System.Collections.Generic;
+    using Model.Core.DataDomain;
 
     /// <summary>
     /// Authorization Service class.

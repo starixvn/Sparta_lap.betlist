@@ -11,6 +11,7 @@
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
     using Fanex.Athena.Service.Core.Users;
+    using Model.Core.DataDomain;
     using Resources;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
@@ -104,7 +105,15 @@
             var authorized = true;
             if (userSession != null && licenseeSession != null)
             {
-                authorized = authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
+                if (userSession.ApplicationMode == AppMode.Parasitic)
+                {
+                    authorized = userSession.PortalFunctionList != null
+                        && userSession.PortalFunctionList.Any(i => PermissionKeys.Contains(i.FunctionKey));
+                }
+                else
+                {
+                    authorized = authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
+                }
             }
 
             return authorized;
