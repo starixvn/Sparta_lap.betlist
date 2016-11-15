@@ -1,8 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Common
 {
-    using System;
     using System.Collections.Generic;
-    using System.IO;
+    using System.Xml.Linq;
     using Core.Common;
     using Core.Common.Interfaces;
     using DataAccess.Core.Common.Interfaces;
@@ -17,7 +16,7 @@
     {
         private IAppSettings _appSettings;
         private IProductDataAccess _productDataAccess;
-        private IServerPathMapper _serverPathMapper;
+        private IXDocumentWrapper _xmlWrapper;
         private IProductService _productService;
 
         [SetUp]
@@ -25,15 +24,21 @@
         {
             _appSettings = Substitute.For<IAppSettings>();
             _productDataAccess = Substitute.For<IProductDataAccess>();
-            _serverPathMapper = Substitute.For<IServerPathMapper>();
+            _xmlWrapper = Substitute.For<IXDocumentWrapper>();
 
-            _productService = new ProductService(_appSettings, _productDataAccess, _serverPathMapper);
+            _productService = Substitute.ForPartsOf<ProductService>(_appSettings, _productDataAccess, _xmlWrapper);
+
+            _appSettings.GetValue("FunctionAllowedProductFile").Returns(@"xml_file_path");
         }
 
         [TearDown]
         public void TearDown()
         {
-            CacheService.Delete();
+            _appSettings = null;
+            _productDataAccess = null;
+            _xmlWrapper = null;
+            _productService = null;
+            CacheService.Clear();
         }
 
         [Test]
@@ -63,10 +68,10 @@
                 new Product() { ProductID = 100, ProductCode = "SB" },
                 new Product() { ProductID = 200, ProductCode = "ABC" },
             };
+            var xmlContent = "<Root><Group Name=\"Default\"><Function Name = \"_Default\" Product=\"SB,DB\"></Function></Group></Root>";
+
             var licenseeId = 1;
-            _appSettings.GetValue("FunctionAllowedProductFile").Returns(@"AppData\FunctionAllowedProduct.xml");
-            _serverPathMapper.MapPath(Arg.Any<string>())
-                .Returns(x => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, (string)x[0]));
+            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(xmlContent));
 
             _productDataAccess.GetProductAccessList(licenseeId).Returns(expectedResult);
 
@@ -88,9 +93,9 @@
                 new Product() { ProductID = 200, ProductCode = "ABC" },
             };
             var licenseeId = 1;
-            _appSettings.GetValue("FunctionAllowedProductFile").Returns(@"AppData\FunctionAllowedProduct.xml");
-            _serverPathMapper.MapPath(Arg.Any<string>())
-                .Returns(x => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, (string)x[0]));
+            var xmlContent = "<Root><Group Name=\"Default\"><Function Name = \"ActiveCustomerSummary\" Product=\"SB,DB\"></Function></Group></Root>";
+
+            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(xmlContent));
 
             _productDataAccess.GetProductAccessList(licenseeId, true).Returns(expectedResult);
 

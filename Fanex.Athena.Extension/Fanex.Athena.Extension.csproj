@@ -129,8 +129,8 @@
     <Compile Include="Utility\Interfaces\IHttpContextService.cs" />
     <Compile Include="Utility\Interfaces\IFormsAuthenticationService.cs" />
     <Compile Include="Utility\Interfaces\IFileSystem.cs" />
-    <Compile Include="Utility\ServerPathMapper.cs" />
-    <Compile Include="Utility\Interfaces\IServerPathMapper.cs" />
+    <Compile Include="Utility\XDocumentWrapper.cs" />
+    <Compile Include="Utility\Interfaces\IXDocumentWrapper.cs" />
     <Compile Include="Utility\PropertyComparer.cs" />
     <Compile Include="Utility\RandomNumber.cs" />
     <Compile Include="Utility\SortableList.cs" />

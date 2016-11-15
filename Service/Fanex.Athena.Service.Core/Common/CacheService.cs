@@ -28,7 +28,7 @@ namespace Fanex.Athena.Service.Core.Common
             Cache.Set(key, DeepClone(value), seconds);
         }
 
-        public static void Delete()
+        public static void Clear()
         {
             Cache.Clear();
         }

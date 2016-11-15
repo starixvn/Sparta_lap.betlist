@@ -51,6 +51,7 @@ namespace Fanex.Athena.Controllers.UnitTests
             SessionService = null;
             AppSettings = null;
         }
+
         protected void FakeBaseControllerDependency()
         {
             LangService = Substitute.For<ILanguageService>();

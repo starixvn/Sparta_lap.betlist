@@ -14,6 +14,7 @@ namespace Fanex.Athena.Service.Core.Common
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Hosting;
     using System.Xml.Linq;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core.Common;
@@ -37,20 +38,20 @@ namespace Fanex.Athena.Service.Core.Common
 
         private readonly IAppSettings _appSettings;
 
-        private readonly IServerPathMapper _serverPathMapper;
+        private readonly IXDocumentWrapper _xmlWrapper;
 
         public ProductService()
         {
             _appSettings = new AppSettings();
             _productDataAccess = new ProductDataAccess();
-            _serverPathMapper = new ServerPathMapper();
+            _xmlWrapper = new XDocumentWrapper();
         }
 
-        public ProductService(IAppSettings appSettings, IProductDataAccess productDataAccess, IServerPathMapper serverPathMapper)
+        public ProductService(IAppSettings appSettings, IProductDataAccess productDataAccess, IXDocumentWrapper xmlWrapper)
         {
             _appSettings = appSettings;
             _productDataAccess = productDataAccess;
-            _serverPathMapper = serverPathMapper;
+            _xmlWrapper = xmlWrapper;
         }
 
         #region Public Methods and Operators
@@ -154,8 +155,8 @@ namespace Fanex.Athena.Service.Core.Common
             var functions = CacheService.Get<IEnumerable<XElement>>(FunctionAllowedProductsKey);
             if (functions == null)
             {
-                var filePath = _serverPathMapper.MapPath(_appSettings.GetValue("FunctionAllowedProductFile"));
-                functions = XDocument.Load(filePath).Descendants("Function");
+                var filePath = HostingEnvironment.MapPath(_appSettings.GetValue("FunctionAllowedProductFile"));
+                functions = _xmlWrapper.Load(filePath).Descendants("Function");
                 if (functions != null && functions.Count() > 0)
                 {
                     CacheService.Set(FunctionAllowedProductsKey, functions);
