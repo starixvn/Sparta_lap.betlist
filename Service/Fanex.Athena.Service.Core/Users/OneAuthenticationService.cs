@@ -89,8 +89,8 @@
 
         protected internal void SetAuthorize(int licenseeId, OneAuthenticationToken tokenInfo)
         {
-
         }
+
         protected internal virtual TextReader GetStreamReader(string path)
         {
             return new StreamReader(path);
@@ -143,8 +143,6 @@
                 !string.IsNullOrEmpty(userSession.VendorID) && !string.IsNullOrEmpty(userSession.VendorIdentityID)
                 && userSession.IsInternal == true && licenseeSession.LicenseeId > 0 && userSession.ApplicationMode == AppMode.Parasitic;
             return identityValidation && sessionValidation;
-
         }
-
     }
 }

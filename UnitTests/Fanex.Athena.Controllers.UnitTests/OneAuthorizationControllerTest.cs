@@ -216,7 +216,7 @@
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
             _oneAuthenticationService.GetTokenInfo(token).Returns(x => tokenInfo);
             _oneAuthenticationService.SingleLicenseeSiteName(Arg.Is<string>(siteName)).Returns(new LicenseeSiteName { LicenseeID = 66, SiteName = siteName });
-            _oneAuthenticationService.SignIn(Arg.Any<int>(), tokenInfo).Returns(resultInfo);
+            _oneAuthenticationService.SignIn(_controller.HttpContext, Arg.Any<int>(), tokenInfo).Returns(resultInfo);
 
             // Action
             var result = _controller.CreateSession(token);
@@ -246,7 +246,7 @@
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
             _oneAuthenticationService.GetTokenInfo(token).Returns(x => tokenInfo);
             _oneAuthenticationService.SingleLicenseeSiteName(Arg.Is<string>(tokenInfo.SiteName)).Returns(new LicenseeSiteName { LicenseeID = 66, SiteName = tokenInfo.SiteName });
-            _oneAuthenticationService.SignIn(Arg.Any<int>(), tokenInfo).Returns(resultInfo);
+            _oneAuthenticationService.SignIn(_controller.HttpContext, Arg.Any<int>(), tokenInfo).Returns(resultInfo);
             var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedErrorCode.ToString();
 
             // Action
