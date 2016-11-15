@@ -819,6 +819,7 @@
     <Content Include="App_Code\RazorHelperDesktop.cshtml" />
     <Content Include="App_Code\ReportContentHelperDesktop.cshtml" />
     <Content Include="App_Data\LicenseeSiteName.json" />
+    <Content Include="App_Data\PortalSystemFunction.json" />
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
