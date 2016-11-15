@@ -26,7 +26,7 @@ namespace Fanex.Athena.Controllers.UnitTests
         protected IAppSettings AppSettings { get; set; }
 
         [OneTimeSetUp]
-        public virtual void FixtureSetUp()
+        public void FixtureSetUp()
         {
             var routes = new RouteCollection();
             RouteConfig.RegisterRoutes(routes);
@@ -42,6 +42,15 @@ namespace Fanex.Athena.Controllers.UnitTests
             Url = new UrlHelper(requestContext, routes);
         }
 
+        [OneTimeTearDown]
+        public void FixtureTearDown()
+        {
+            Url = null;
+            ControllerContext = null;
+            LangService = null;
+            SessionService = null;
+            AppSettings = null;
+        }
         protected void FakeBaseControllerDependency()
         {
             LangService = Substitute.For<ILanguageService>();

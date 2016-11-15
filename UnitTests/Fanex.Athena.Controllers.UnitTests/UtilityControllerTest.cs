@@ -11,10 +11,15 @@
     {
         private IMaintenanceService _maintenanceService;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             _maintenanceService = Substitute.For<IMaintenanceService>();
+        }
+        [TearDown]
+        public void TearDown()
+        {
+            _maintenanceService = null;
         }
 
         [TestCase("")]

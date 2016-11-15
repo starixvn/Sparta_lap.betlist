@@ -1,8 +1,9 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
-    using Core.Common;
+    using Caching;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DTO.Common;
     using Newtonsoft.Json;
@@ -13,19 +14,36 @@
     public class OneAuthenticationServiceTest
     {
         private OneAuthenticationService _oneAuthenticationService;
+        private ICache _cacheService;
+        private TextReader fakeTextReader;
+        private int _cacheCounter = 0;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
-            _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>();
+            fakeTextReader = new FakeReader();
+            _cacheService = Substitute.For<ICache>();
+            _cacheService.Get<IList<LicenseeSiteName>>(Arg.Is<string>("OneAuthenticationService_LicenseeSiteNameCacheKey")).Returns(x => null);
+            _cacheService.When(x => x.Set<IList<LicenseeSiteName>>(Arg.Any<string>(), Arg.Any<IList<LicenseeSiteName>>(), Arg.Any<DateTime>()))
+                .DoNotCallBase();
+
+            _cacheService.When(x => x.Set<IList<LicenseeSiteName>>(Arg.Any<string>(), Arg.Any<IList<LicenseeSiteName>>(), Arg.Any<DateTime>()))
+                .Do(x => _cacheCounter++);
+            _oneAuthenticationService = Substitute.For<OneAuthenticationService>();
+
+            _oneAuthenticationService.When(x => x.GetMemCacheService()).DoNotCallBase();
+            _oneAuthenticationService.GetMemCacheService().Returns(_cacheService);
             _oneAuthenticationService.When(x => x.GetStreamReader(null)).DoNotCallBase();
-            _oneAuthenticationService.GetStreamReader(null).Returns(new FakeReader());
+            _oneAuthenticationService.GetStreamReader(null).Returns(fakeTextReader);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
-            CacheService.Delete();
+            _cacheService = null;
+            fakeTextReader = null;
+            _oneAuthenticationService = null;
+            _cacheCounter = 0;
         }
 
         #region SingleLicenseeSiteName
@@ -66,6 +84,35 @@
             Assert.AreEqual(result.LicenseeID, licenseeId);
         }
 
+        [TestCase(2, "12bet44")]
+        [TestCase(1, "12bet")]
+        public void SingleLicenseeSiteName_AnySiteName_SetDataToCache(int licenseeId, string siteName)
+        {
+            // Action
+            var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
+
+            // Assert
+            Assert.AreEqual(1, _cacheCounter);
+        }
+
+        [TestCase(3, "12bet44")]
+        public void SingleLicenseeSiteName_AnySiteName_GetDataFromCache(int licenseeId, string siteName)
+        {
+            // Arrange
+            var data = new List<LicenseeSiteName>
+                {
+                    new LicenseeSiteName { LicenseeID = 1, SiteName = "12bet44" },
+                    new LicenseeSiteName { LicenseeID = 1, SiteName = "spondemo222" }
+                };
+            _cacheService.Get<IList<LicenseeSiteName>>(Arg.Is<string>("OneAuthenticationService_LicenseeSiteNameCacheKey")).Returns(data);
+
+            // Action
+            var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
+
+            // Assert
+            _cacheService.DidNotReceive().Set(Arg.Any<string>(), Arg.Any<IList<LicenseeSiteName>>(), Arg.Any<DateTime>());
+        }
+
         #endregion SingleLicenseeSiteName
 
         private class FakeReader : TextReader
@@ -77,7 +124,6 @@
                     new LicenseeSiteName { LicenseeID = 1, SiteName = "12bet" },
                     new LicenseeSiteName { LicenseeID = 1, SiteName = "spondemo" }
                 };
-
                 return JsonConvert.SerializeObject(items);
             }
         }

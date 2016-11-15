@@ -18,13 +18,13 @@
         private IOneAuthenticationService _oneAuthenticationService;
         private IAppSettings _appSetting;
         private ILogger _logger;
-        private int loggerCounnter = 0;
+        private int _loggerCounnter = 0;
         private OneAuthorizationController _controller = null;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
-            loggerCounnter = 0;
+            _loggerCounnter = 0;
 
             _userService = Substitute.For<IUserService>();
             _maintenanceService = Substitute.For<IMaintenanceService>();
@@ -33,7 +33,7 @@
             _logger = Substitute.For<ILogger>();
 
             _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("0");
-            _logger.When(x => x.Error(Arg.Any<string>())).Do(x => loggerCounnter++);
+            _logger.When(x => x.Error(Arg.Any<string>())).Do(x => _loggerCounnter++);
             _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
 
             _controller = new OneAuthorizationController(_userService, _maintenanceService, _oneAuthenticationService, _appSetting, _logger);
@@ -42,6 +42,16 @@
             _controller.Url = this.Url;
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            _userService = null;
+            _maintenanceService = null;
+            _appSetting = null;
+            _logger = null;
+            _controller = null;
+            _loggerCounnter = 0;
+        }
         [Test]
         public void CreateSession_UnderMaintenanceState_RedirectToUMPage()
         {

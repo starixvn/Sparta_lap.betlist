@@ -21,7 +21,7 @@
         public LicenseeSiteName SingleLicenseeSiteName(string siteName)
         {
             const string SiteNameFilePath = "~/App_Data/LicenseeSiteName.json";
-
+            var defaultValue = new LicenseeSiteName();
             if (!string.IsNullOrWhiteSpace(siteName))
             {
                 var items = GetLiceseeSiteNameList(SiteNameFilePath);
@@ -29,11 +29,11 @@
                 if (items != null)
                 {
                     var item = items.Where(i => i.SiteName.Equals(siteName)).FirstOrDefault();
-                    return item != null ? item : new LicenseeSiteName();
+                    return item != null ? item : defaultValue;
                 }
             }
 
-            return new LicenseeSiteName();
+            return defaultValue;
         }
 
         public OneAuthenticationToken GetTokenInfo(string token)
@@ -47,12 +47,20 @@
             return new StreamReader(path);
         }
 
+#pragma warning disable CS3003 // Type is not CLS-compliant
+
+        protected internal virtual ICache GetMemCacheService()
+#pragma warning restore CS3003 // Type is not CLS-compliant
+        {
+            return CacheService.CreateInstance(CacheType.MemoryCache);
+        }
+
         private IList<LicenseeSiteName> GetLiceseeSiteNameList(string filePath)
         {
             const string LicenseeSiteNameCacheKey = "OneAuthenticationService_LicenseeSiteNameCacheKey";
             const int CacheTimeoutMinute = 30;
-            var memCacheService = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
-            IList<LicenseeSiteName> result = memCacheService.Get<IList<LicenseeSiteName>>(LicenseeSiteNameCacheKey);
+            var cacheService = GetMemCacheService();
+            IList<LicenseeSiteName> result = cacheService.Get<IList<LicenseeSiteName>>(LicenseeSiteNameCacheKey);
 
             if (result == null || !result.Any())
             {
@@ -64,7 +72,7 @@
                         result = JsonConvert.DeserializeObject<IList<LicenseeSiteName>>(temp);
                         if (result.Any())
                         {
-                            memCacheService.Set(LicenseeSiteNameCacheKey, result, DateTime.Now.AddMinutes(CacheTimeoutMinute));
+                            cacheService.Set(LicenseeSiteNameCacheKey, result, DateTime.Now.AddMinutes(CacheTimeoutMinute));
                         }
                     }
                 }
