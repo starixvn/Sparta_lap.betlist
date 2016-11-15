@@ -40,7 +40,6 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
 
         bool UpdateLanguage(string languageCode);
 
-
         #endregion Public Properties
     }
 }

@@ -6,7 +6,6 @@
 namespace Fanex.Athena.Model.Core.Helper
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Threading;
@@ -21,8 +20,6 @@ namespace Fanex.Athena.Model.Core.Helper
     public sealed class CacheRef
     {
         private const string MicrogamingResourceKey = "MG_Casino";
-
-
 
         private CacheRef()
         {

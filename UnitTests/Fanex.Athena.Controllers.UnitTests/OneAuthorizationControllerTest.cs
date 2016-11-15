@@ -245,7 +245,8 @@
             _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "alex.");
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
             _oneAuthenticationService.GetTokenInfo(token).Returns(x => tokenInfo);
-            _oneAuthenticationService.SingleLicenseeSiteName(Arg.Is<string>(tokenInfo.SiteName)).Returns(new LicenseeSiteName { LicenseeID = 66, SiteName = tokenInfo.SiteName });
+            _oneAuthenticationService.SingleLicenseeSiteName(Arg.Is<string>(tokenInfo.SiteName)).Returns(
+                new LicenseeSiteName { LicenseeID = 66, SiteName = tokenInfo.SiteName });
             _oneAuthenticationService.SignIn(_controller.HttpContext, Arg.Any<int>(), tokenInfo).Returns(resultInfo);
             var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedErrorCode.ToString();
 

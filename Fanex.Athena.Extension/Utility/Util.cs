@@ -10,9 +10,6 @@ namespace Fanex.Athena.Extension.Utility
     using System.Diagnostics.CodeAnalysis;
     using System.Text.RegularExpressions;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public static class Util
     {
         public static IDictionary<string, string> SupportedLanguages
@@ -29,17 +26,25 @@ namespace Fanex.Athena.Extension.Utility
                     };
             }
         }
-        public static IDictionary<string, string> MapLanguages = new Dictionary<string, string>()
+
+        public static IDictionary<string, string> MapLanguages
+        {
+            get
             {
-                { "en-US", "en" },
-                { "zh-TW", "ch" },
-                { "zh-CN", "cs" },
-                { "zh-Hans", "zhcn" },
-                { "ja-JP", "jp" },
-                { "th-TH", "th" },
-                { "ko-KR", "ko" },
-                { "vi-VN", "vn" }
-            };
+                return new Dictionary<string, string>()
+                {
+                    { "en-US", "en" },
+                    { "zh-TW", "ch" },
+                    { "zh-CN", "cs" },
+                    { "zh-Hans", "zhcn" },
+                    { "ja-JP", "jp" },
+                    { "th-TH", "th" },
+                    { "ko-KR", "ko" },
+                    { "vi-VN", "vn" }
+                };
+            }
+        }
+
         /// <summary>
         /// Gets root path of site.
         /// </summary>

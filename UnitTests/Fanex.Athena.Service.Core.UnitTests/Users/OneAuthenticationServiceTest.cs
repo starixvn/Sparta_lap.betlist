@@ -6,11 +6,9 @@
     using System.Web;
     using Caching;
     using Core.Users.Interfaces;
-    using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
@@ -25,6 +23,7 @@
         private ISessionService _sessionService;
         private ILicenseeService _licenseeService;
         private IFormsAuthenticationService _formAuthenticationService;
+
         [SetUp]
         public void SetUp()
         {
@@ -141,6 +140,7 @@
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
+
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, licenseeId, tokenInfo);
 
@@ -151,15 +151,15 @@
         [Test]
         public void SignIn_ExistedSessionFixWithToken_UpdateLanguage()
         {
-
         }
 
         [Test]
         public void SignIn_ExistedSessionNotFixWithToken_CallSetAuthorize()
         {
-
         }
-        #endregion
+
+        #endregion SignIn
+
         private class FakeReader : TextReader
         {
             public override string ReadToEnd()
