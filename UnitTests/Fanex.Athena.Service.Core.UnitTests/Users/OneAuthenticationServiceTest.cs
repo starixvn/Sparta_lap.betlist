@@ -3,9 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Web;
     using Caching;
+    using Core.Users.Interfaces;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.Users;
     using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
@@ -17,7 +22,9 @@
         private ICache _cacheService;
         private TextReader fakeTextReader;
         private int _cacheCounter = 0;
-
+        private ISessionService _sessionService;
+        private ILicenseeService _licenseeService;
+        private IFormsAuthenticationService _formAuthenticationService;
         [SetUp]
         public void SetUp()
         {
@@ -29,7 +36,11 @@
 
             _cacheService.When(x => x.Set<IList<LicenseeSiteName>>(Arg.Any<string>(), Arg.Any<IList<LicenseeSiteName>>(), Arg.Any<DateTime>()))
                 .Do(x => _cacheCounter++);
-            _oneAuthenticationService = Substitute.For<OneAuthenticationService>();
+
+            _sessionService = Substitute.For<ISessionService>();
+            _licenseeService = Substitute.For<LicenseeService>();
+            _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
+            _oneAuthenticationService = Substitute.For<OneAuthenticationService>(_sessionService, _licenseeService, _formAuthenticationService);
 
             _oneAuthenticationService.When(x => x.GetMemCacheService()).DoNotCallBase();
             _oneAuthenticationService.GetMemCacheService().Returns(_cacheService);
@@ -44,6 +55,9 @@
             fakeTextReader = null;
             _oneAuthenticationService = null;
             _cacheCounter = 0;
+            _sessionService = null;
+            _licenseeService = null;
+            _formAuthenticationService = null;
         }
 
         #region SingleLicenseeSiteName
@@ -115,6 +129,37 @@
 
         #endregion SingleLicenseeSiteName
 
+        #region SignIn
+
+        [Test]
+        public void SignIn_NotExistedSession_CallSetAuthorize()
+        {
+            // Arrange
+            var licenseeId = 1;
+            var tokenInfo = new OneAuthenticationToken { UserID = "1" };
+            var fakeHttpContext = Substitute.For<HttpContextBase>();
+            fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
+            _sessionService.UserSession.Returns(x => null);
+            _sessionService.LicenseeSession.Returns(x => null);
+            // Action
+            var result = _oneAuthenticationService.SignIn(fakeHttpContext, licenseeId, tokenInfo);
+
+            // Result
+            _oneAuthenticationService.Received().SetAuthorize(licenseeId, tokenInfo);
+        }
+
+        [Test]
+        public void SignIn_ExistedSessionFixWithToken_UpdateLanguage()
+        {
+
+        }
+
+        [Test]
+        public void SignIn_ExistedSessionNotFixWithToken_CallSetAuthorize()
+        {
+
+        }
+        #endregion
         private class FakeReader : TextReader
         {
             public override string ReadToEnd()

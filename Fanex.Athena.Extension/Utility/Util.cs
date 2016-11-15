@@ -29,7 +29,17 @@ namespace Fanex.Athena.Extension.Utility
                     };
             }
         }
-
+        public static IDictionary<string, string> MapLanguages = new Dictionary<string, string>()
+            {
+                { "en-US", "en" },
+                { "zh-TW", "ch" },
+                { "zh-CN", "cs" },
+                { "zh-Hans", "zhcn" },
+                { "ja-JP", "jp" },
+                { "th-TH", "th" },
+                { "ko-KR", "ko" },
+                { "vi-VN", "vn" }
+            };
         /// <summary>
         /// Gets root path of site.
         /// </summary>

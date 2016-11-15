@@ -60,6 +60,23 @@
                     }
                     else
                     {
+                        var siteNameInfo = _oneAuthenticationService.SingleLicenseeSiteName(tokenInfo.SiteName);
+                        if (siteNameInfo.LicenseeID <= 0)
+                        {
+                            returnUrl += OneAuthorizationErrorCode.LicenseeIsNotExisted;
+                        }
+                        else
+                        {
+                            var result = _oneAuthenticationService.SignIn(HttpContext, siteNameInfo.LicenseeID, tokenInfo);
+                            if (result.IsSuccessful)
+                            {
+                                returnUrl = result.ExtendedData;
+                            }
+                            else
+                            {
+                                returnUrl += result.Code;
+                            }
+                        }
                     }
                 }
                 else

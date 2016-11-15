@@ -4,6 +4,7 @@
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Logging;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Newtonsoft.Json;
     using NSubstitute;
@@ -84,7 +85,7 @@
             StringAssert.Contains(expectedUrl, result.Url);
         }
 
-        [TestCase("ghskhgk9863096804396oisoie", "300")]
+        [TestCase("ghskhgk9863096804396oisoie", OneAuthorizationErrorCode.TokenIsInValid)]
         public void CreateSession_NotAuthenticateToken_ReturnTokenRestrictionPage(string token, string expectedCode)
         {
             // Arrange
@@ -103,8 +104,9 @@
             // Arrange
             var token = "GasgSDgS";
             var expectedMsg = "token is null";
-            _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("1");
+
             _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
+            _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("1");
 
             // Action
             var result = _controller.CreateSession(token);
@@ -118,7 +120,6 @@
         {
             // Arrange
             var token = "GasgSDgS";
-            _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("1");
             var tokenInfo = new OneAuthenticationToken
             {
                 UserID = "1",
@@ -128,6 +129,8 @@
             };
 
             var expectedMsg = JsonConvert.SerializeObject(tokenInfo);
+
+            _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("1");
 
             _oneAuthenticationService.GetTokenInfo(token).Returns(x => tokenInfo);
 
@@ -143,8 +146,6 @@
         {
             // Arrange
             var token = "GasgSDgS";
-            _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "localhost");
-            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
             _oneAuthenticationService.GetTokenInfo(token).Returns(x => new OneAuthenticationToken
             {
                 UserID = "1",
@@ -155,7 +156,98 @@
                 UserName = "pgmAlex",
                 VendorID = "localhost"
             });
-            var expectedUrl = "Utility/OneTokenRestriction?code=400";
+            var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
+            _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "localhost");
+            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
+
+            // Action
+            var result = _controller.CreateSession(token);
+
+            // Assert
+            StringAssert.Contains(expectedUrl, result.Url);
+        }
+
+        [TestCase("spondemoasfs")]
+        public void CreateSession_NotFoundLicensee_RedirectToRestrictionPage(string siteName)
+        {
+            // Arrange
+            var token = "GasgSDgS";
+            _oneAuthenticationService.GetTokenInfo(token).Returns(x => new OneAuthenticationToken
+            {
+                UserID = "1",
+                SiteName = siteName,
+                UserSEQ = 1,
+                ActionLink = "http://localhost:6985/LicenseeWinLossReport",
+                Language = "en-US",
+                UserName = "pgmAlex",
+                VendorID = "localhost"
+            });
+            var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LicenseeIsNotExisted;
+
+            _oneAuthenticationService.SingleLicenseeSiteName(Arg.Is<string>(siteName)).Returns(new LicenseeSiteName());
+            _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "alex.");
+            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
+
+            // Action
+            var result = _controller.CreateSession(token);
+
+            // Assert
+            StringAssert.Contains(expectedUrl, result.Url);
+        }
+
+        [TestCase("spondemo", "http://localhost:6985/LicenseeWinLossReport")]
+        public void CreateSession_Authenticated_RedirectToActionLink(string siteName, string actionLink)
+        {
+            // Arrange
+            var token = "GasgSDgS";
+            var tokenInfo = new OneAuthenticationToken
+            {
+                UserID = "1",
+                SiteName = siteName,
+                UserSEQ = 1,
+                ActionLink = actionLink,
+                Language = "en-US",
+                UserName = "pgmAlex",
+                VendorID = "localhost"
+            };
+            var resultInfo = new ResultInfo { Code = 0, Message = string.Empty, ExtendedData = actionLink };
+
+            _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "alex.");
+            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
+            _oneAuthenticationService.GetTokenInfo(token).Returns(x => tokenInfo);
+            _oneAuthenticationService.SingleLicenseeSiteName(Arg.Is<string>(siteName)).Returns(new LicenseeSiteName { LicenseeID = 66, SiteName = siteName });
+            _oneAuthenticationService.SignIn(Arg.Any<int>(), tokenInfo).Returns(resultInfo);
+
+            // Action
+            var result = _controller.CreateSession(token);
+
+            // Assert
+            StringAssert.Contains(actionLink, result.Url);
+        }
+
+        [TestCase(500)]
+        public void CreateSession_NotAuthenticated_RedirectToRestrictionPageWithErrorCode(int expectedErrorCode)
+        {
+            // Arrange
+            var token = "GasgSDgS";
+
+            var tokenInfo = new OneAuthenticationToken
+            {
+                UserID = "1",
+                SiteName = "spondemo",
+                UserSEQ = 1,
+                ActionLink = "http://localhost:6985/alexakak",
+                Language = "en-US",
+                UserName = "pgmAlex",
+                VendorID = "localhost"
+            };
+            var resultInfo = new ResultInfo { Code = expectedErrorCode, Message = "error" };
+            _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "alex.");
+            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
+            _oneAuthenticationService.GetTokenInfo(token).Returns(x => tokenInfo);
+            _oneAuthenticationService.SingleLicenseeSiteName(Arg.Is<string>(tokenInfo.SiteName)).Returns(new LicenseeSiteName { LicenseeID = 66, SiteName = tokenInfo.SiteName });
+            _oneAuthenticationService.SignIn(Arg.Any<int>(), tokenInfo).Returns(resultInfo);
+            var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedErrorCode.ToString();
 
             // Action
             var result = _controller.CreateSession(token);

@@ -26,7 +26,7 @@ namespace Fanex.Athena.Controllers.UnitTests
         protected IAppSettings AppSettings { get; set; }
 
         [OneTimeSetUp]
-        public void FixtureSetUp()
+        public virtual void FixtureSetUp()
         {
             var routes = new RouteCollection();
             RouteConfig.RegisterRoutes(routes);
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers.UnitTests
         }
 
         [OneTimeTearDown]
-        public void FixtureTearDown()
+        public virtual void FixtureTearDown()
         {
             Url = null;
             ControllerContext = null;

@@ -16,6 +16,10 @@ namespace Fanex.Athena.Model.Core.DTO.Users
     [Serializable]
     public class UserSession
     {
+        public string VendorID { get; set; }
+
+        public string VendorIdentityID { get; set; }
+
         public int UserId { get; set; }
 
         public string UserName { get; set; }
@@ -66,5 +70,7 @@ namespace Fanex.Athena.Model.Core.DTO.Users
         public string DefaultReportUrl { get; set; }
 
         public ClientViewType ViewType { get; set; }
+
+        public AppMode ApplicationMode { get; set; }
     }
 }

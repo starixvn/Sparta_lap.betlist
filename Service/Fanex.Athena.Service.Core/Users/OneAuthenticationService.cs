@@ -4,18 +4,63 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.Hosting;
+    using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Caching;
+    using Model.Core.DataDomain;
+    using Model.Core.DTO.Users;
     using Newtonsoft.Json;
     using User.Common;
 
     public class OneAuthenticationService : IOneAuthenticationService
     {
-        public IResultInfo SignIn(int licenseeId, OneAuthenticationToken tokenInfo)
+        private readonly ISessionService _sessionService;
+        private readonly ILicenseeService _licenseeService;
+        private readonly IFormsAuthenticationService _formsAuthenticationService;
+
+        public OneAuthenticationService() : this(null, null, null)
         {
-            throw new NotImplementedException();
+        }
+
+        public OneAuthenticationService(ISessionService sessionService, ILicenseeService licenseeService, IFormsAuthenticationService formsAuthenticationService)
+        {
+            _sessionService = sessionService ?? new SessionService();
+            _licenseeService = licenseeService ?? new LicenseeService();
+            _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
+        }
+
+        public IResultInfo SignIn(HttpContextBase currentContext, int licenseeId, OneAuthenticationToken tokenInfo)
+        {
+            var result = new ResultInfo();
+            var userSession = _sessionService.UserSession;
+            var licenseeSession = _sessionService.LicenseeSession;
+            if (IsAuthenticated(currentContext, userSession, licenseeSession))
+            {
+                var isSameSession = VerifySessionWithToken(userSession, licenseeSession, tokenInfo);
+                if (isSameSession)
+                {
+                    var language = Util.MapLanguages.Where(i => i.Value.Equals(tokenInfo.Language))
+                        .Select(i => i.Key).DefaultIfEmpty<string>("en-Us").FirstOrDefault();
+                    if (!language.Equals(userSession.Language))
+                    {
+                        _sessionService.UpdateLanguage(language);
+                    }
+                }
+                else
+                {
+                    SetAuthorize(licenseeId, tokenInfo);
+                }
+            }
+            else
+            {
+                SetAuthorize(licenseeId, tokenInfo);
+            }
+
+            return result;
         }
 
         public LicenseeSiteName SingleLicenseeSiteName(string siteName)
@@ -42,12 +87,17 @@
             return oneBookService.Authenticate(token);
         }
 
+        protected internal void SetAuthorize(int licenseeId, OneAuthenticationToken tokenInfo)
+        {
+
+        }
         protected internal virtual TextReader GetStreamReader(string path)
         {
             return new StreamReader(path);
         }
 
 #pragma warning disable CS3003 // Type is not CLS-compliant
+
         protected internal virtual ICache GetMemCacheService()
 #pragma warning restore CS3003 // Type is not CLS-compliant
         {
@@ -79,5 +129,22 @@
 
             return result;
         }
+
+        private bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthenticationToken tokenInfo)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool IsAuthenticated(HttpContextBase currentContext, UserSession userSession, LicenseeSession licenseeSession)
+        {
+            var identity = currentContext.User.Identity;
+            var identityValidation = identity != null && identity.IsAuthenticated && !string.IsNullOrEmpty(identity.Name);
+            var sessionValidation = userSession != null && licenseeSession != null && userSession.UserId > 0 &&
+                !string.IsNullOrEmpty(userSession.VendorID) && !string.IsNullOrEmpty(userSession.VendorIdentityID)
+                && userSession.IsInternal == true && licenseeSession.LicenseeId > 0 && userSession.ApplicationMode == AppMode.Parasitic;
+            return identityValidation && sessionValidation;
+
+        }
+
     }
 }
