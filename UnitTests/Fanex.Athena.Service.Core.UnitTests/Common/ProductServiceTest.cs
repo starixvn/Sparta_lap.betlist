@@ -26,7 +26,7 @@
             _productDataAccess = Substitute.For<IProductDataAccess>();
             _xmlWrapper = Substitute.For<IXDocumentWrapper>();
 
-            _productService = Substitute.ForPartsOf<ProductService>(_appSettings, _productDataAccess, _xmlWrapper);
+            _productService = new ProductService(_appSettings, _productDataAccess, _xmlWrapper);
 
             _appSettings.GetValue("FunctionAllowedProductFile").Returns(@"xml_file_path");
         }

@@ -20,7 +20,7 @@
         private IAuthorizationService _authorizationService;
         private IBetListService _betListService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _balanceUpService = Substitute.For<IBalanceUpService>();
@@ -30,6 +30,15 @@
 
             _balanceUpService.BalanceUpInfo.Returns(new BalanceUp());
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _balanceUpService = null;
+            _betlistDataAccess = null;
+            _authorizationService = null;
+            _betListService = null;
         }
 
         [Test]
