@@ -48,7 +48,9 @@ namespace Fanex.Athena.Model.Core.DTO.Users
         /// </summary>
         /// <value>The currency List.</value>
         public IList<int> FunctionIdList { get; set; }
+
         public IList<PortalSystemFunction> PortalFunctionList { get; set; }
+
         public bool IsAllowedEditCommission
         {
             get

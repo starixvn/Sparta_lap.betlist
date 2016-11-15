@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
             Justification = "Reviewed. Suppression is OK here.")]
         bool HasPermissions(IEnumerable<int> userFunctionList, string[] permissionKeys);
 
-        bool HasPermissions(IList<PortalSystemFunction> userFunctionList, string[] permissionKeys);
+        bool HasPermissions(IEnumerable<PortalSystemFunction> userFunctionList, string[] permissionKeys);
 
         bool HasPermissionOnData(int licenseeId, int custId, long transId);
     }
