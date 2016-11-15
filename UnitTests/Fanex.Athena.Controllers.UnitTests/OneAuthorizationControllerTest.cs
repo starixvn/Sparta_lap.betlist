@@ -52,6 +52,7 @@
             _controller = null;
             _loggerCounnter = 0;
         }
+
         [Test]
         public void CreateSession_UnderMaintenanceState_RedirectToUMPage()
         {

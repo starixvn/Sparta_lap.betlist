@@ -48,7 +48,6 @@
         }
 
 #pragma warning disable CS3003 // Type is not CLS-compliant
-
         protected internal virtual ICache GetMemCacheService()
 #pragma warning restore CS3003 // Type is not CLS-compliant
         {

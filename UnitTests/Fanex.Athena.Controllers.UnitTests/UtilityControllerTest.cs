@@ -16,6 +16,7 @@
         {
             _maintenanceService = Substitute.For<IMaintenanceService>();
         }
+
         [TearDown]
         public void TearDown()
         {
