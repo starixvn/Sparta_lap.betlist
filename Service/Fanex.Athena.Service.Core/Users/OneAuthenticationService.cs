@@ -35,7 +35,6 @@
 
         public IResultInfo SignIn(HttpContextBase currentContext, int licenseeId, OneAuthenticationToken tokenInfo)
         {
-            IResultInfo result = new ResultInfo();
             var userSession = _sessionService.UserSession;
             var licenseeSession = _sessionService.LicenseeSession;
             if (IsAuthenticated(currentContext, userSession, licenseeSession))
@@ -50,7 +49,7 @@
                         _sessionService.UpdateLanguage(language);
                     }
 
-                    return result;
+                    return new ResultInfo();
                 }
             }
 

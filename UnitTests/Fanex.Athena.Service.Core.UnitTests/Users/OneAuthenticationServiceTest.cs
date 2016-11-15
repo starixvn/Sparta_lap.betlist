@@ -132,6 +132,32 @@
 
         #region SignIn
 
+        [TestCase("spondemo")]
+        public void SignIn_SetAuthorize_ReturnErrorIsLicenseeNotFound(string siteName)
+        {
+            //Arrange
+            var licenseeId = 1;
+            var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "pgmAlex", SiteName = siteName };
+
+            var fakeHttpContext = Substitute.For<HttpContextBase>();
+            fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
+            _sessionService.UserSession.Returns(x => null);
+            _sessionService.LicenseeSession.Returns(x => null);
+
+            // Action
+            var result = _oneAuthenticationService.SignIn(fakeHttpContext, licenseeId, tokenInfo);
+        }
+
+        [Test]
+        public void SignIn_SetAuthorize_ReturnErrorIsLicenseeNotOfferedCurrency()
+        {
+        }
+
+        [Test]
+        public void SignIn_SetAuthorize_ReturnRightResultInfo()
+        {
+        }
+
         [Test]
         public void SignIn_NotHaveSession_CallSetAuthorize()
         {
