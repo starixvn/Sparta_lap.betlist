@@ -113,6 +113,7 @@
 
             // Assert
             _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(expectedMsg)));
+            Assert.AreEqual(1, _loggerCounnter);
         }
 
         [Test]
@@ -139,6 +140,7 @@
 
             // Assert
             _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(expectedMsg)));
+            Assert.AreEqual(1, _loggerCounnter);
         }
 
         [Test]

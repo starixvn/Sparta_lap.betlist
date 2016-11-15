@@ -40,7 +40,7 @@
             var licenseeSession = _sessionService.LicenseeSession;
             if (IsAuthenticated(currentContext, userSession, licenseeSession))
             {
-                var isSameSession = VerifySessionWithToken(userSession, licenseeSession, tokenInfo);
+                var isSameSession = VerifySessionWithToken(userSession, licenseeSession, tokenInfo, licenseeId);
                 if (isSameSession)
                 {
                     var language = Util.MapLanguages.Where(i => i.Value.Equals(tokenInfo.Language))
@@ -83,7 +83,7 @@
             return oneBookService.Authenticate(token);
         }
 
-        protected internal IResultInfo SetAuthorize(int licenseeId, OneAuthenticationToken tokenInfo)
+        protected internal virtual IResultInfo SetAuthorize(int licenseeId, OneAuthenticationToken tokenInfo)
         {
             return null;
         }
@@ -127,9 +127,11 @@
             return result;
         }
 
-        private bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthenticationToken tokenInfo)
+        private bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthenticationToken tokenInfo, int licenseeId)
         {
-            throw new NotImplementedException();
+            return userSession.UserId == tokenInfo.UserSEQ && userSession.UserName == tokenInfo.UserName
+                && userSession.VendorID == tokenInfo.VendorID && userSession.VendorIdentityID == tokenInfo.UserID
+                && licenseeSession.LicenseeId == licenseeId;
         }
 
         private bool IsAuthenticated(HttpContextBase currentContext, UserSession userSession, LicenseeSession licenseeSession)
