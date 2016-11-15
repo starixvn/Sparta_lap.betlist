@@ -26,7 +26,7 @@
         private IWebClientService _webClientService;
         private IGoldDeluxeBetSettingService _service;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _authorizationService = Substitute.For<IAuthorizationService>();
@@ -41,6 +41,16 @@
                 IsLineEnabled = true,
                 IsEnabled = true
             });
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _authorizationService = null;
+            _dataAccess = null;
+            _appSettings = null;
+            _webClientService = null;
+            _service = null;
         }
 
         [Test]

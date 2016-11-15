@@ -22,7 +22,7 @@
         private IWebClientService _webClientService;
         private IAgCasinoBetSettingService _service;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _authorizationService = Substitute.For<IAuthorizationService>();
@@ -32,6 +32,16 @@
             _service = new AgCasinoBetSettingService(_authorizationService, _dataAccess, _appSettings, _webClientService);
 
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _authorizationService = null;
+            _dataAccess = null;
+            _appSettings = null;
+            _webClientService = null;
+            _service = null;
         }
 
         [Test]
