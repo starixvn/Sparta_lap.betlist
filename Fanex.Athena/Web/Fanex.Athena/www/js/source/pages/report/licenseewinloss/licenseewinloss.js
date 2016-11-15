@@ -423,7 +423,6 @@ define(
                         });
                 }
 
-                reportGrid.jqGrid('showCol', 'rn');
                 LicenseeWinLossOption.setGroupHeaderColumns(reportGrid, productOptions);
 
                 LicenseeWinLossOption.restoreExpanse();

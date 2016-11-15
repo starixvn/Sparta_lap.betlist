@@ -13,7 +13,7 @@ var cssPaths = {
     main: ["./www/css/source/vendors/materialize/materialize.css", "./www/css/source/main.css", "./www/css/source/extensions/main-ex.scss"],
 
     reportjqgridlayout: [
-        "malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/components/flatpopup/flatpopup.scss",
+        "./www/css/source/components/flatpopup/flatpopup.scss",
         "./www/css/source/components/multiselect/jquery.multiselect.css", "./www/css/source/extensions/multiselect-ex.scss",
         "./www/css/source/pages/common.scss", "./www/css/source/extensions/report-ex.scss",
         "./www/css/source/components/jqgrid/jqgrid.css", "./www/css/source/extensions/jqgrid-ex.scss"

@@ -22,7 +22,7 @@ exports.minify = function () {
                 comments: false,
                 compress: {
                     warnings: false,
-                    drop_console: false
+                    drop_console: true
                 }
             })
         ]
