@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_BetSettingLayout.cshtml";
+}
+@model Fanex.Athena.Model.BetSettings.ViewModel.BetSettingBaseViewModel
+
+@{Html.RenderPartial("~/Views/Customer/BetSetting/Menu.cshtml", Model);}
+
+<div class="content-title" style="width: 855px">
+    @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+</div>
+<!--Content-->
+<div class="data-content">
+    <div style="width: 885px!important; padding: 20px 0px 20px 0px">
+        <div>@String.Format(ViewResources.CannotUpdateBetLimitForProduct, ViewResources.ProductFW)</div>
+    </div>
+</div>
+<!--/Content-->
+<!--SubmitButton-->
+@if (Model.Editable && Model.IsEnabled.HasValue)
+{
+    <div style="width: 855px">
+        <input type="button" class="button" data-status="@(Model.IsEnabled.Value ? 0 : 1)"
+               data-cust-id="@Model.Param.CustId"
+               data-nick-name="@Model.Param.NickName" value="@(Model.IsEnabled.Value ? ViewResources.DisableColossusBets: ViewResources.EnableColossusBets)"
+               id="btnUpdateStatus" />
+    </div>
+}
+<!--/SubmitButton-->

@@ -1218,6 +1218,7 @@
     <Content Include="www\css\source\scss\layout\sidebar.scss" />
     <Content Include="www\js\tests\components\betlist\betlist.option-spec.js" />
     <Content Include="www\css\source\pages\utility\error.scss" />
+    <Content Include="Views\Customer\BetSetting\FishingWorld.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
