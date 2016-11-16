@@ -3976,6 +3976,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licensee does not offered currency.
+        /// </summary>
+        public static string LicenseeNotOfferedCurrency {
+            get {
+                return ResourceManager.GetString("LicenseeNotOfferedCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licensee Type.
         /// </summary>
         public static string LicenseeType {

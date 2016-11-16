@@ -93,12 +93,13 @@
             {
                 new Currency { CurrencyId = 1 }
             };
-            var licenseeId = 1;
-            var userId = 1;
-            _licenseeDataAccess.GetCurrencies(licenseeId, userId).Returns(expectedResult);
+
+            const int licenseeId = 1;
+
+            _licenseeDataAccess.GetCurrencies(licenseeId).Returns(expectedResult);
 
             // Action
-            var result = _licenseeService.GetCurrencies(licenseeId, userId);
+            var result = _licenseeService.GetCurrencies(licenseeId);
 
             // Assert
             Assert.That(result[0].CurrencyId, Is.EqualTo(expectedResult[0].CurrencyId));

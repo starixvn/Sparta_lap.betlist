@@ -144,11 +144,10 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrency")).Returns(_objectDb);
-            var licenseeId = 1;
-            var userId = 2;
+            const int licenseeId = 1;
 
             // Action
-            _dataAccess.GetCurrencies(licenseeId, userId);
+            _dataAccess.GetCurrencies(licenseeId);
 
             // Assert
             _objectDb.ReceivedWithAnyArgs().ExecuteReader(null);
@@ -170,11 +169,10 @@
             _reader.GetInt32(Arg.Any<int>()).Returns(expected.CurrencyId);
             _reader.GetString(Arg.Any<int>()).Returns(expected.Name);
 
-            var licenseeId = 1;
-            var userId = 2;
+            const int licenseeId = 1;
 
             // Action
-            var result = _dataAccess.GetCurrencies(licenseeId, userId);
+            var result = _dataAccess.GetCurrencies(licenseeId);
 
             // Assert
             Assert.That(result[0].CurrencyId, Is.EqualTo(expected.CurrencyId));

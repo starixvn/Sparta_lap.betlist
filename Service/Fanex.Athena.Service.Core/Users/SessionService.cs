@@ -43,8 +43,8 @@ namespace Fanex.Athena.Service.Core.Users
         }
 
         public SessionService(
-            IFunctionService functionService, 
-            ILicenseeService licenseeService, 
+            IFunctionService functionService,
+            ILicenseeService licenseeService,
             ICurrencyService currencyService)
         {
             _functionService = functionService;
@@ -153,11 +153,28 @@ namespace Fanex.Athena.Service.Core.Users
             }
         }
 
+        public bool UpdateLanguage(string languageCode)
+        {
+            if (!string.IsNullOrEmpty(languageCode))
+            {
+                UserSession.Language = languageCode;
+                return true;
+            }
+
+            return false;
+        }
+
+        public void CreateNewSession(UserSession user, LicenseeSession lic)
+        {
+            UserSession = user;
+            LicenseeSession = lic;
+        }
+
         private static string GetDefaultReportUrl(IList<int> functionIdList, IList<Function> functionList)
         {
             if (!functionIdList.Contains(ReportBalanceId))
             {
-                var firstFunction = functionList.Where(x => x.ParentId > 0 && x.IsActive).FirstOrDefault();
+                var firstFunction = functionList.FirstOrDefault(x => x.ParentId > 0 && x.IsActive);
                 if (firstFunction != null)
                 {
                     return firstFunction.Url;
@@ -181,17 +198,6 @@ namespace Fanex.Athena.Service.Core.Users
             licenseeSession.CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList();
             licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;
             licenseeSession.IsEnableBA = selectedLicensee.IsEnableBA;
-        }
-
-        public bool UpdateLanguage(string languageCode)
-        {
-            if (!string.IsNullOrEmpty(languageCode))
-            {
-                UserSession.Language = languageCode;
-                return true;
-            }
-
-            return false;
         }
     }
 

@@ -2921,4 +2921,7 @@
   <data name="Administrator" xml:space="preserve">
     <value>Administrator</value>
   </data>
+  <data name="LicenseeNotOfferedCurrency" xml:space="preserve">
+    <value>Licensee does not offered currency</value>
+  </data>
 </root>

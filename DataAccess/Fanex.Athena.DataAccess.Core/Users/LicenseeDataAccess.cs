@@ -143,16 +143,13 @@ namespace Fanex.Athena.DataAccess.Core.Users
         /// <param name="licenseeId">
         ///     The licensee id.
         /// </param>
-        /// <param name="userId">
-        ///     The user id.
-        /// </param>
         /// <returns>
         /// List currency.
         /// </returns>
-        public IList<Currency> GetCurrencies(int licenseeId, int userId)
+        public IList<Currency> GetCurrencies(int licenseeId)
         {
-            const string UspName = "Lrf_SelCurrency";
-            var uspParams = new { LicenseeId = licenseeId, UserId = userId };
+            const string UspName = "Lrf_SelCurrencyByLicensee";
+            var uspParams = new { LicenseeId = licenseeId };
             try
             {
                 var entityList = new List<Currency>();
@@ -164,7 +161,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
                         {
                             var currency = new Currency
                             {
-                                CurrencyId = reader.GetInt32(reader.GetOrdinal("Currency")),
+                                CurrencyId = reader.GetInt32(reader.GetOrdinal(nameof(Currency))),
                                 Name = reader.GetString(reader.GetOrdinal("CurrencyName"))
                             };
 

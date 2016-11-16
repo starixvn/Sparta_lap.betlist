@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult SwitchView(ClientViewType type = ClientViewType.Default)
         {
             SessionService.UserSession.ViewType = type;
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index), "Home");
         }
 
         /// <summary>
@@ -56,7 +56,9 @@ namespace Fanex.Athena.Controllers
         [HttpGet]
         [AllowAnonymous]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
+#pragma warning disable CC0091 // Use static method
         public string NumOfOnlineUser()
+#pragma warning restore CC0091 // Use static method
         {
             var result = string.Empty;
             try
@@ -99,7 +101,7 @@ namespace Fanex.Athena.Controllers
             var cookie = Request.Cookies[IsFirstLoadCookieKey];
             var isFirstLoad = cookie == null ? true : cookie.Value == "1";
 
-            if (isFirstLoad == false)
+            if (!isFirstLoad)
             {
                 return string.Empty;
             }
@@ -114,7 +116,7 @@ namespace Fanex.Athena.Controllers
 
             var language = SessionService.UserSession.Language;
 
-            var filePath = Server.MapPath(string.Format(@"~/App_Data/Notification/{0}.htm", language));
+            var filePath = Server.MapPath($@"~/App_Data/Notification/{language}.htm");
             if (!language.Equals(DefaultLanguage, System.StringComparison.OrdinalIgnoreCase) && !System.IO.File.Exists(filePath))
             {
                 filePath = filePath.Replace(language, DefaultLanguage);

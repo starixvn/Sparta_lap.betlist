@@ -80,10 +80,9 @@ namespace Fanex.Athena.Service.Core.Users
             return this._licenseeDataAccess.GetByUser(userId);
         }
 
-        public IList<Currency> GetCurrencies(int licenseeId, int userId)
+        public IList<Currency> GetCurrencies(int licenseeId)
         {
-            var currencies = this._licenseeDataAccess.GetCurrencies(licenseeId, userId);
-            return currencies;
+            return _licenseeDataAccess.GetCurrencies(licenseeId);
         }
 
         public IList<LicenseeCustomer> GetCustByLicensee(int licenseeId)

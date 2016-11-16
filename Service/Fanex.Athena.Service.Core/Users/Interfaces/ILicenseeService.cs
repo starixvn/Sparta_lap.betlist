@@ -27,7 +27,7 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
 
         IList<Licensee> GetByUser(int userId);
 
-        IList<Currency> GetCurrencies(int licenseeId, int userId);
+        IList<Currency> GetCurrencies(int licenseeId);
 
         IList<LicenseeCustomer> GetCustByLicensee(int licenseeId);
 

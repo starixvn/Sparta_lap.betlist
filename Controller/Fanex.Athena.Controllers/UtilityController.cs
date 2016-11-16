@@ -116,14 +116,8 @@ namespace Fanex.Athena.Controllers
         {
             var requestHost = Request.Url.AbsoluteUri;
             var isInternalDomain = requestHost.Contains(AppSettings.GetValue("internaldomain"));
-            if (isInternalDomain)
-            {
-                return RedirectToAction("SignIn", "Authorization");
-            }
-            else
-            {
-                return View("~/Views/Utility/LocationRestriction.cshtml");
-            }
+
+            return isInternalDomain ? (ActionResult)RedirectToAction("SignIn", "Authorization") : View("~/Views/Utility/LocationRestriction.cshtml");
         }
 
         /// <summary>
@@ -133,8 +127,9 @@ namespace Fanex.Athena.Controllers
         [AllowAnonymous]
         public ActionResult Error()
         {
-            string errorStr = string.Empty;
-            string errCode = Request.QueryString["err"];
+            var errorStr = string.Empty;
+
+            var errCode = Request.QueryString["err"];
             if (string.IsNullOrEmpty(errCode))
             {
                 errCode = string.Empty;
