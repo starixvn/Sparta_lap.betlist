@@ -38,7 +38,7 @@
         public void GetCancelBetCustList_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<CustomerCancelBetItem>()
+            var expectedResult = new List<CustomerCancelBetItem>
             {
                 new CustomerCancelBetItem()
             };

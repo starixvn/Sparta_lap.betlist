@@ -45,7 +45,7 @@
         public void GetMixParlayDetailTicket_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new TicketResult() { TotalRows = 999 };
+            var expectedResult = new TicketResult { TotalRows = 999 };
             var licenseeId = 1;
             long transId = 1;
             _betlistDataAccess.GetMixParlayDetailTicket(transId).Returns(expectedResult);
@@ -78,7 +78,7 @@
         public void GetBetListData_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new TicketResult()
+            var expectedResult = new TicketResult
             {
                 TotalRows = 999
             };
@@ -96,7 +96,7 @@
         public void GetDailyStatementData_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<DailyStatement>()
+            var expectedResult = new List<DailyStatement>
             {
                 new DailyStatement()
             };

@@ -20,7 +20,7 @@
         private IVirtualSportsBetSettingDataAccess _dataAccess;
         private IVirtualSportsBetSettingService _service;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _authorizationService = Substitute.For<IAuthorizationService>();
@@ -28,6 +28,14 @@
             _service = new VirtualSportsBetSettingService(_authorizationService, _dataAccess);
 
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _authorizationService = null;
+            _dataAccess = null;
+            _service = null;
         }
 
         [Test]

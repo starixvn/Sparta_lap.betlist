@@ -18,7 +18,7 @@
         private IKenoBetSettingDataAccess _dataAccess;
         private IKenoBetSettingService _service;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _authorizationService = Substitute.For<IAuthorizationService>();
@@ -28,11 +28,19 @@
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _authorizationService = null;
+            _dataAccess = null;
+            _service = null;
+        }
+
         [Test]
         public void GetViewModel_WhenCall_BetSettingListReturnedFromDataAccess()
         {
             // Arrange
-            var betSetting = new List<BetSetting>()
+            var betSetting = new List<BetSetting>
             {
                 new BetSetting()
             };
@@ -54,7 +62,7 @@
             var custId = 3;
             var language = "en-US";
             var ip = "ip";
-            var setting = new KenoBetSetting()
+            var setting = new KenoBetSetting
             {
                 GameTypeID = "1",
                 MinBet = 2,

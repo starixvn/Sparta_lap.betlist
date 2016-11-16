@@ -94,7 +94,7 @@
         public void UpdateStatus_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new ResultInfo()
+            var expectedResult = new ResultInfo
             {
                 Code = 999
             };
