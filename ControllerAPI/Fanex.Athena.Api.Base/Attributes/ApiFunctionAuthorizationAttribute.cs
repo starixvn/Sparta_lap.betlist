@@ -49,7 +49,7 @@
                 {
                     if (!headers.Contains(KeyName))
                     {
-                        return UnauthorizeAccessHandler(actionContext);
+                        return UnauthorizeAccessHandlerAsync(actionContext);
                     }
 
                     var cookie = headers
@@ -62,17 +62,17 @@
                 }
                 else
                 {
-                    System.Web.Helpers.AntiForgery.Validate();
+                    AntiForgery.Validate();
                 }
             }
             catch (Exception)
             {
-                return UnauthorizeAccessHandler(actionContext);
+                return UnauthorizeAccessHandlerAsync(actionContext);
             }
 
             if (!AuthorizeRequest(actionContext))
             {
-                return UnauthorizeAccessHandler(actionContext);
+                return UnauthorizeAccessHandlerAsync(actionContext);
             }
 
             return continuation?.Invoke();
@@ -83,7 +83,7 @@
             return headers.Contains("X-Requested-With") && headers.GetValues("X-Requested-With").FirstOrDefault() == "XMLHttpRequest";
         }
 
-        private Task<HttpResponseMessage> UnauthorizeAccessHandler(HttpActionContext actionContext)
+        private static Task<HttpResponseMessage> UnauthorizeAccessHandlerAsync(HttpActionContext actionContext)
         {
             actionContext.Response = new HttpResponseMessage
             {
@@ -92,7 +92,7 @@
                 Content = new StringContent(ViewResources.AccessDeniedMsg)
             };
 
-            return FromResult(actionContext.Response);
+            return FromResultAsync(actionContext.Response);
         }
 
         private bool AuthorizeRequest(HttpActionContext actionContext)
@@ -118,7 +118,7 @@
             return authorized;
         }
 
-        private Task<HttpResponseMessage> FromResult(HttpResponseMessage result)
+        private static Task<HttpResponseMessage> FromResultAsync(HttpResponseMessage result)
         {
             var source = new TaskCompletionSource<HttpResponseMessage>();
             source.SetResult(result);
