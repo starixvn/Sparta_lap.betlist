@@ -17,11 +17,18 @@
         private ICurrencyDataAccess _currencyDataAccess;
         private ICurrencyService _currencyService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
             _currencyService = new CurrencyService(_currencyDataAccess);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _currencyDataAccess = null;
+            _currencyService = null;
         }
 
         [Test]
@@ -30,8 +37,8 @@
             // Arrange
             var expectedResult = new List<CurrencyUser>
             {
-                new CurrencyUser() { CurrencyName = "USD", IsActive = true },
-                new CurrencyUser() { CurrencyName = "UUS", IsActive = false }
+                new CurrencyUser { CurrencyName = "USD", IsActive = true },
+                new CurrencyUser { CurrencyName = "UUS", IsActive = false }
             };
 
             _currencyDataAccess.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(expectedResult);
@@ -50,8 +57,8 @@
             // Arrange
             var expectedResult = new List<CurrencyUser>
             {
-                new CurrencyUser() { CurrencyName = "HKD", CurrencyId = CurrencyType.Hkd, IsActive = true },
-                new CurrencyUser() { CurrencyName = "CNY", CurrencyId = CurrencyType.Cny, IsActive = true }
+                new CurrencyUser { CurrencyName = "HKD", CurrencyId = CurrencyType.Hkd, IsActive = true },
+                new CurrencyUser { CurrencyName = "CNY", CurrencyId = CurrencyType.Cny, IsActive = true }
             };
             var licenseeId = LicenseeIdentityDefinition.KeenOcean;
             var userId = 2;
@@ -71,8 +78,8 @@
             // Arrange
             var expectedResult = new List<CurrencyUser>
             {
-                new CurrencyUser() { CurrencyName = "USD" },
-                new CurrencyUser() { CurrencyName = "UUS" }
+                new CurrencyUser { CurrencyName = "USD" },
+                new CurrencyUser { CurrencyName = "UUS" }
             };
             var licenseeId = 1;
             var userId = 2;

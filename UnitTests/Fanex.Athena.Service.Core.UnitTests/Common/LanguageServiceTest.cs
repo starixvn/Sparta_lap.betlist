@@ -13,11 +13,18 @@
         private ISessionService _sessionService;
         private ILanguageService _languageService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
             _languageService = new LanguageService(_sessionService);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _sessionService = null;
+            _languageService = null;
         }
 
         [Test]

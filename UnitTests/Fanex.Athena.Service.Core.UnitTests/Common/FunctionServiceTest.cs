@@ -16,19 +16,26 @@
         private readonly IReadOnlyCollection<Function> _functionList =
             new ReadOnlyCollection<Function>(new List<Function>()
             {
-                new Function() { FunctionId = 1 },
-                new Function() { FunctionId = 2, ParentId = 1 }
+                new Function { FunctionId = 1 },
+                new Function { FunctionId = 2, ParentId = 1 }
             });
 
         private IFunctionDataAccess _functionDataAccess;
         private IFunctionService _service;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _functionDataAccess = Substitute.For<IFunctionDataAccess>();
             _service = new FunctionService(_functionDataAccess);
             _functionDataAccess.GetFunctionList().Returns(_functionList.ToList());
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _functionDataAccess = null;
+            _service = null;
         }
 
         [Test]
@@ -44,10 +51,10 @@
             // Arrange
             var licenseeId = 1;
 
-            var licenseeFunctionList = new List<Function>()
+            var licenseeFunctionList = new List<Function>
             {
-                new Function() { FunctionId = 1 },
-                new Function() { FunctionId = 3 }
+                new Function { FunctionId = 1 },
+                new Function { FunctionId = 3 }
             };
 
             _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(licenseeFunctionList);
@@ -66,14 +73,14 @@
             // Arrange
             var licenseeId = 1;
             var userId = 2;
-            var userFunctionList = new List<Function>()
+            var userFunctionList = new List<Function>
             {
-                new Function() { FunctionId = 2 }
+                new Function { FunctionId = 2 }
             };
-            var licenseeFunctionList = new List<Function>()
+            var licenseeFunctionList = new List<Function>
             {
-                new Function() { FunctionId = 1 },
-                new Function() { FunctionId = 2 }
+                new Function { FunctionId = 1 },
+                new Function { FunctionId = 2 }
             };
             _functionDataAccess.GetUserFunctionList(licenseeId, userId).Returns(userFunctionList);
             _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(licenseeFunctionList);
@@ -96,7 +103,7 @@
             var custId = 3;
             var langKey = "en-US";
             var ip = string.Empty;
-            var functionIdList = new List<int>() { 1 };
+            var functionIdList = new List<int> { 1 };
 
             // Action
             _service.AssignUserFunctions(licenseeId, custId, functionIdList, userId, ip, langKey);
@@ -114,20 +121,20 @@
             var custId = 3;
             var langKey = "en-US";
             var ip = string.Empty;
-            var functionIdList = new List<int>() { 1 };
-            var userFunctionList = new List<Function>()
+            var functionIdList = new List<int> { 1 };
+            var userFunctionList = new List<Function>
             {
-                new Function() { FunctionId = 2 }
+                new Function { FunctionId = 2 }
             };
-            var licenseeFunctionList = new List<Function>()
+            var licenseeFunctionList = new List<Function>
             {
-                new Function() { FunctionId = 1 },
-                new Function() { FunctionId = 2 }
+                new Function { FunctionId = 1 },
+                new Function { FunctionId = 2 }
             };
             _functionDataAccess.GetUserFunctionList(licenseeId, custId).Returns(userFunctionList);
             _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(licenseeFunctionList);
             _functionDataAccess.RemoveUserFunction(licenseeId, userId, custId, ip, Arg.Any<int>(), langKey)
-                .Returns(new ResultInfo() { });
+                .Returns(new ResultInfo());
 
             // Action
             _service.AssignUserFunctions(licenseeId, custId, functionIdList, userId, ip, langKey);
@@ -140,9 +147,9 @@
         public void GetMasterFunctions_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var functionList = new List<Function>()
+            var functionList = new List<Function>
             {
-                new Function() { FunctionId = 1 }
+                new Function { FunctionId = 1 }
             };
 
             // Action
@@ -157,9 +164,9 @@
         public void GetSubMenus_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var functionList = new List<Function>()
+            var functionList = new List<Function>
             {
-                new Function() { FunctionId = 2, ParentId = 1, IsMenu = true }
+                new Function { FunctionId = 2, ParentId = 1, IsMenu = true }
             };
 
             // Action
@@ -175,9 +182,9 @@
         public void GetSubFunctions_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var functionList = new List<Function>()
+            var functionList = new List<Function>
             {
-                new Function() { FunctionId = 2, ParentId = 1, IsFunction = true }
+                new Function { FunctionId = 2, ParentId = 1, IsFunction = true }
             };
 
             // Action

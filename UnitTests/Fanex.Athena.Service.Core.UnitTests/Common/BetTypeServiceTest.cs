@@ -16,18 +16,25 @@
 
         private IBetTypeService _betTypeService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _betTypeDataAccess = Substitute.For<IBetTypeDataAccess>();
             _betTypeService = new BetTypeService(_betTypeDataAccess);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _betTypeDataAccess = null;
+            _betTypeService = null;
+        }
+
         [Test]
         public void GetAllBettypes_WhenCall_ReturnResultFromDataAcess()
         {
             // Arrange
-            var expectedResult = new Dictionary<string, int>()
+            var expectedResult = new Dictionary<string, int>
             {
                 { "SB", 1 },
                 { "NG", 2 }
@@ -48,7 +55,7 @@
         {
             // Arrange
             var expectedSportXmlString = "<products><product ID=\"1\" Sport=\"2,3\"> </product></products>";
-            var sports = new List<SportProductItem>()
+            var sports = new List<SportProductItem>
             {
                 new SportProductItem() { ParentId = -1, ID = 1 },
                 new SportProductItem() { ParentId = 1, ID = 2 },
@@ -69,12 +76,12 @@
         public void GetBettypes_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<CheckedItem>()
+            var expectedResult = new List<CheckedItem>
             {
                 new CheckedItem() { ID = 1 },
                 new CheckedItem() { ID = 2 }
             };
-            var sports = new List<SportProductItem>()
+            var sports = new List<SportProductItem>
             {
                 new SportProductItem()
             };

@@ -21,13 +21,22 @@
         private ICurrencyService _currencyService;
         private ISessionService _sessionService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _functionService = Substitute.For<IFunctionService>();
             _licenseeService = Substitute.For<ILicenseeService>();
             _currencyService = Substitute.For<ICurrencyService>();
             _sessionService = new SessionService(_functionService, _licenseeService, _currencyService);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _functionService = null;
+            _licenseeService = null;
+            _currencyService = null;
+            _sessionService = null;
         }
 
         [Test]

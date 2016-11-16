@@ -15,18 +15,25 @@
         private ISportTypeDataAccess _sportTypeDataAccess;
         private ISportTypeService _sportTypeService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _sportTypeDataAccess = Substitute.For<ISportTypeDataAccess>();
             _sportTypeService = new SportTypeService(_sportTypeDataAccess);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _sportTypeDataAccess = null;
+            _sportTypeService = null;
+        }
+
         [Test]
         public void GetAllSports_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new Dictionary<int, string>()
+            var expectedResult = new Dictionary<int, string>
             {
                 { 1, "A" }
             };
@@ -43,7 +50,7 @@
         public void GetAllWHSports_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<Sport>()
+            var expectedResult = new List<Sport>
             {
                 new Sport("1")
             };
@@ -60,9 +67,9 @@
         public void GetSportsAndProducts_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<SportProductItem>()
+            var expectedResult = new List<SportProductItem>
             {
-                new SportProductItem() { ID = 1 }
+                new SportProductItem { ID = 1 }
             };
             var licenseeId = 1;
             var languageCode = "en-US";

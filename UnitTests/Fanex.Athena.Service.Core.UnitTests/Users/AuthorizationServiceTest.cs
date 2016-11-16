@@ -41,10 +41,10 @@
         public void HasPermissions_WhenCall_ReturnCorrectResult(int userFunction, string permissionKey, bool expectedResult)
         {
             // Arrange
-            var allFunctions = new List<Function>()
+            var allFunctions = new List<Function>
             {
-                new Function() { FunctionId = 1, FunctionKey = "Function1" },
-                new Function() { FunctionId = 2, FunctionKey = "Function2" }
+                new Function { FunctionId = 1, FunctionKey = "Function1" },
+                new Function { FunctionId = 2, FunctionKey = "Function2" }
             };
             var userFunctions = new int[] { userFunction };
             var permissionKeys = new string[] { permissionKey };
@@ -63,10 +63,10 @@
         public void HasPermissions_WhenCall_ReturnCorrectResult(string permissionKey, bool expectedResult)
         {
             // Arrange
-            var userFunctions = new List<PortalSystemFunction>()
+            var userFunctions = new List<PortalSystemFunction>
             {
-                new PortalSystemFunction() { FunctionKey = "Function1" },
-                new PortalSystemFunction() { FunctionKey = "Function2" }
+                new PortalSystemFunction { FunctionKey = "Function1" },
+                new PortalSystemFunction { FunctionKey = "Function2" }
             };
             var permissionKeys = new string[] { permissionKey, "unknown_function" };
 

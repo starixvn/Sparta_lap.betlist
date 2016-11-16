@@ -14,18 +14,25 @@
         private IExChangeRateDataAccess _exchangeRateDataAccess;
         private IExChangeRateService _exchangeRateService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _exchangeRateDataAccess = Substitute.For<IExChangeRateDataAccess>();
             _exchangeRateService = new ExChangeRateService(_exchangeRateDataAccess);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _exchangeRateDataAccess = null;
+            _exchangeRateDataAccess = null;
+        }
+
         [Test]
         public void GetExChangeRate_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new ExChangeRate()
+            var expectedResult = new ExChangeRate
             {
                 USD = 1,
                 EUR = 2,

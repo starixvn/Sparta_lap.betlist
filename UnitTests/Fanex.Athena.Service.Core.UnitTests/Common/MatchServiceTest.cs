@@ -15,20 +15,27 @@
         private IMatchDataAccess _matchDataAccess;
         private IMatchService _matchService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _matchDataAccess = Substitute.For<IMatchDataAccess>();
             _matchService = new MatchService(_matchDataAccess);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _matchDataAccess = null;
+            _matchService = null;
+        }
+
         [Test]
         public void GetAllRunningMatch_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<Match>()
+            var expectedResult = new List<Match>
             {
-                new Match() { MatchId = 1 }
+                new Match { MatchId = 1 }
             };
             var sportId = 1;
             _matchDataAccess.GetAllRunningMatch(sportId).Returns(expectedResult);
@@ -44,9 +51,9 @@
         public void GetForecastMatchListByLeague_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<Match>()
+            var expectedResult = new List<Match>
             {
-                new Match() { MatchId = 1 }
+                new Match { MatchId = 1 }
             };
             var leagueId = 1;
             _matchDataAccess.GetForecastMatchListByLeague(leagueId).Returns(expectedResult);
@@ -62,9 +69,9 @@
         public void GetMatchesByLeague_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<Match>()
+            var expectedResult = new List<Match>
             {
-                new Match() { MatchId = 1 }
+                new Match { MatchId = 1 }
             };
             var leagueId = 1;
             var fromDate = new DateTime(2016, 1, 1);

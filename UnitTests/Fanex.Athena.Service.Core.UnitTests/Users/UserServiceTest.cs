@@ -16,11 +16,18 @@
         private IUserDataAccess _userDataAccess;
         private IUserService _userService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _userDataAccess = Substitute.For<IUserDataAccess>();
             _userService = new UserService(_userDataAccess);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _userDataAccess = null;
+            _userService = null;
         }
 
         [Test]
@@ -45,9 +52,9 @@
         public void GetByLicensee_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<User>()
+            var expectedResult = new List<User>
             {
-                new User() { Id = 1 }
+                new User { Id = 1 }
             };
             var licenseeId = 1;
             var isInternal = true;
@@ -64,7 +71,7 @@
         public void GetByUsername_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new User() { Id = 1 };
+            var expectedResult = new User { Id = 1 };
             var userName = "demo";
             _userDataAccess.GetByUsername(userName).Returns(expectedResult);
 
@@ -79,7 +86,7 @@
         public void GetUserInfo_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new User() { Id = 1 };
+            var expectedResult = new User { Id = 1 };
             var licenseeId = 1;
             var userId = 2;
             _userDataAccess.GetUserInfo(licenseeId, userId).Returns(expectedResult);
@@ -111,7 +118,7 @@
         {
             // Arrange
             var expectedResult = 100;
-            var user = new User()
+            var user = new User
             {
                 Request = new Request()
             };
@@ -185,7 +192,7 @@
         public void ValidateInternalUser_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var outputUser = new User()
+            var outputUser = new User
             {
                 Id = 999
             };
@@ -205,7 +212,7 @@
         public void ValidateUserForLrfSystem_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var outputUser = new User()
+            var outputUser = new User
             {
                 Id = 999,
                 Password = "password1",
@@ -213,7 +220,7 @@
             };
             var loginToken = "logintoken";
             var hashPassword = Cryptography.CreateHash(outputUser.Password + loginToken, outputUser.UserSalt);
-            var inputUser = new User()
+            var inputUser = new User
             {
                 Username = "user1",
                 Password = hashPassword

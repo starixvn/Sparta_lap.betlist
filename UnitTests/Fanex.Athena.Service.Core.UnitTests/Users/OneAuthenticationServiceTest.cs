@@ -26,7 +26,7 @@
         private ILicenseeService _licenseeService;
         private IFormsAuthenticationService _formAuthenticationService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             fakeTextReader = new FakeReader();

@@ -15,20 +15,27 @@
         private ILeagueDataAccess _leagueDataAccess;
         private ILeagueService _languageService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _leagueDataAccess = Substitute.For<ILeagueDataAccess>();
             _languageService = new LeagueService(_leagueDataAccess);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _leagueDataAccess = null;
+            _languageService = null;
+        }
+
         [Test]
         public void GetLeaguesBySport_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<League>()
+            var expectedResult = new List<League>
             {
-                new League() { LeagueId = 1 }
+                new League { LeagueId = 1 }
             };
             _leagueDataAccess.GetLeaguesBySport(Arg.Any<LeagueMetaModel>()).Returns(expectedResult);
 

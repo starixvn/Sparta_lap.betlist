@@ -26,7 +26,7 @@
         private IFormsAuthenticationService _formsAuthenticationService;
         private SSOService _ssoService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             MockHttpContext();
@@ -50,6 +50,18 @@
             _fileSystem.Exists(Arg.Any<string>()).Returns(true);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _httpContextService = null;
+            _userService = null;
+            _sessionService = null;
+            _rsaEncryptor = null;
+            _fileSystem = null;
+            _formsAuthenticationService = null;
+            _ssoService = null;
+        }
+
         [Test]
         public void SSO_WhenCall_RelevantMethodCalled()
         {
@@ -63,12 +75,12 @@
                 .Returns(x =>
                 {
                     x[3] = new ResultInfo();
-                    return new User()
+                    return new User
                     {
                         Username = "user1",
                         Id = 1,
                         ServerId = 999,
-                        Licensee = new Licensee()
+                        Licensee = new Licensee
                         {
                             Id = 2
                         }
