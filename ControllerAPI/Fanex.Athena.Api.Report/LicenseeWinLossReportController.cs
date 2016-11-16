@@ -149,6 +149,7 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.LicenseeWLMGCRNG = licenseeWLProducts.GetValueOrDefault(Product.MGCRNG, 0);
             licenseeWinLoss.LicenseeWLVB = licenseeWLProducts.GetValueOrDefault(Product.VB, 0);
             licenseeWinLoss.LicenseeWLAB = licenseeWLProducts.GetValueOrDefault(Product.AB, 0);
+            licenseeWinLoss.LicenseeWLFW = licenseeWLProducts.GetValueOrDefault(Product.FW, 0);
         }
 
         private static void SetTurnOverProductData(LicenseeWinLossGridViewModel licenseeWinLoss, IDictionary<string, decimal> turnOverProducts)
@@ -168,6 +169,7 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.TurnOverMGCRNG = turnOverProducts.GetValueOrDefault(Product.MGCRNG, 0);
             licenseeWinLoss.TurnOverVB = turnOverProducts.GetValueOrDefault(Product.VB, 0);
             licenseeWinLoss.TurnOverAB = turnOverProducts.GetValueOrDefault(Product.AB, 0);
+            licenseeWinLoss.TurnOverFW = turnOverProducts.GetValueOrDefault(Product.FW, 0);
         }
 
         private HttpResponseMessage ExportExcel(LicenseeWinLossMetaModel metaModel, IList<LicenseeWinLoss> dataList, IDictionary<string, LicenseeWinLoss> summaryTotal)

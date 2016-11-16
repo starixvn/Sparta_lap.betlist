@@ -5776,6 +5776,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fishing World.
+        /// </summary>
+        public static string ProductFW {
+            get {
+                return ResourceManager.GetString("ProductFW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gold Deluxe.
         /// </summary>
         public static string ProductGD {
