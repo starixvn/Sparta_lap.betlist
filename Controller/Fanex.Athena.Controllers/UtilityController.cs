@@ -49,7 +49,7 @@ namespace Fanex.Athena.Controllers
         {
             ViewBag.Message = GetMessageRestriction(code);
 
-            return View("~/Views/Utility/Error.cshtml");
+            return View("~/Views/Utility/OneTokenRestriction.cshtml");
         }
 
         /// <summary>
