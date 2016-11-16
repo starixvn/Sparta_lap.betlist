@@ -40,14 +40,9 @@ namespace Fanex.Athena.Service.BetSettings
         public RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customer, string language, string licenseeName)
         {
             IList<GameKind> gameKinds;
-            if (customer.SyncCasino)
-            {
-                gameKinds = _casinoSetting.GetRngCasinoSettings(custId, licenseeName, language);
-            }
-            else
-            {
-                gameKinds = new List<GameKind>();
-            }
+
+            gameKinds = customer.SyncCasino ?
+            _casinoSetting.GetRngCasinoSettings(custId, licenseeName, language) : gameKinds = new List<GameKind>();
 
             return new RngCasinoBetSettingViewModel
             {
@@ -107,11 +102,12 @@ namespace Fanex.Athena.Service.BetSettings
         private static bool? IsRngCasinoEnabled(CustomerInfo customer)
         {
             bool? resultValue = false;
-            if (customer.DisableCasino == false && customer.SyncCasino)
+
+            if (!customer.DisableCasino && customer.SyncCasino)
             {
                 resultValue = true;
             }
-            else if (customer.SyncCasino == false)
+            else if (!customer.SyncCasino)
             {
                 resultValue = null;
             }

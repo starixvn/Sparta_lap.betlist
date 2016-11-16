@@ -53,7 +53,7 @@ namespace Fanex.Athena.Controllers.Customer
             _groupComService = new GroupComService();
             _productService = new ProductService();
 
-            var columnNames = new List<string>()
+            var columnNames = new List<string>
             {
                 "ExternalId",
                 "SystemId",
@@ -119,7 +119,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             var totalRows = 0;
             var dataList = _customerService.Search(metaModel, ref totalRows);
-            return new JsonResult()
+            return new JsonResult
             {
                 Data = new
                 {
@@ -146,7 +146,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             if (!string.IsNullOrEmpty(excelParam))
             {
-                CustomerListMetaModel metaModel = JsonConvert.DeserializeObject<CustomerListMetaModel>(excelParam);
+                var metaModel = JsonConvert.DeserializeObject<CustomerListMetaModel>(excelParam);
                 if (metaModel != null)
                 {
                     var licenseeSession = SessionService.LicenseeSession;
@@ -155,7 +155,7 @@ namespace Fanex.Athena.Controllers.Customer
                     metaModel.UserId = userSession.UserId;
                     metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
 
-                    if (metaModel.GridColumns.Where(i => i.Checked).Count() > 0)
+                    if (metaModel.GridColumns.Count(i => i.Checked) > 0)
                     {
                         var model = GetCustomers(metaModel);
                         var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/CustomerList.xls");
@@ -203,39 +203,33 @@ namespace Fanex.Athena.Controllers.Customer
 
         #endregion Action
 
-
-
         #region Ultilities
 
         private static IEnumerable<CheckedItem> GetOddsGroups()
         {
-            return new List<CheckedItem>()
+            return new List<CheckedItem>
             {
-                new CheckedItem() { Name = "A", Checked = true },
-                new CheckedItem() { Name = "B", Checked = true },
-                new CheckedItem() { Name = "C", Checked = true },
-                new CheckedItem() { Name = "D", Checked = true },
+                new CheckedItem { Name = "A", Checked = true },
+                new CheckedItem { Name = "B", Checked = true },
+                new CheckedItem { Name = "C", Checked = true },
+                new CheckedItem { Name = "D", Checked = true },
             };
         }
 
-        /// <summary>
-        /// Create customer view model.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="licenseeSession">The licensee session.</param>
-        /// <param name="userSession">The user session.</param>
-        /// <returns>The customer view model.</returns>
         private CustomerListViewModel CreateCustomerViewModel(CustomerListMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var model = new CustomerListViewModel { Param = metaModel };
-            model.CurrencyList = userSession.CurrencyList;
-            model.LicenseeTypeList = licenseeSession.LicenseeType;
-            model.ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
-            model.IsAllowedUserEditComm = userSession.IsAllowedEditCommission;
-            model.IsAllowedUserChangeBA = userSession.IsAllowedSpecialBA;
-            model.IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm;
+            var model = new CustomerListViewModel
+            {
+                Param = metaModel,
+                CurrencyList = userSession.CurrencyList,
+                LicenseeTypeList = licenseeSession.LicenseeType,
+                ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
+                IsAllowedUserEditComm = userSession.IsAllowedEditCommission,
+                IsAllowedUserChangeBA = userSession.IsAllowedSpecialBA,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
+            };
             if (licenseeSession.IsAllowedCustomerComm)
             {
                 model.GroupCommDataList = _groupComService.GetAll(licenseeSession.LicenseeId);
@@ -245,13 +239,6 @@ namespace Fanex.Athena.Controllers.Customer
             return model;
         }
 
-        /// <summary>
-        /// Get customers.
-        /// </summary>
-        /// <param name="metaModel">The meta model.</param>
-        /// <param name="licenseeSession">The licensee session.</param>
-        /// <param name="userSession">The user session.</param>
-        /// <returns>The view model.</returns>
         private CustomerListViewModel GetCustomers(CustomerListMetaModel metaModel)
         {
             var model = CreateCustomerViewModel(metaModel);
@@ -296,12 +283,6 @@ namespace Fanex.Athena.Controllers.Customer
             model.CanUpdateBAMessage = canUpdateBaMessage;
         }
 
-        /// <summary>
-        /// Initialize grid columns.
-        /// </summary>
-        /// <param name="productAccess">The product access.</param>
-        /// <param name="allowLicensees">The allowed licensees.</param>
-        /// <returns>The columns.</returns>
         private IList<CheckedItem> IniGridColumns(bool isAllowBA, IList<string> allowLicensees)
         {
             var items = new List<CheckedItem>();

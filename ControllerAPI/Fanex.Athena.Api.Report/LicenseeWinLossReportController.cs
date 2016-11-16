@@ -226,16 +226,10 @@ namespace Fanex.Athena.Api.Report
                 out SortableList<LicenseeWinLoss> dataList,
                 out IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
-            if (metaModel.DrillDownLevel == 0)
-            {
-                dataList = _licenseeWinLossService.GetSummaryWinloss(metaModel, out summaryTotal);
-            }
-            else
-            {
-                dataList = metaModel.LicenseeId > 1 || metaModel.DrillDownLevel == 2
+
+            dataList = metaModel.DrillDownLevel == 0 ? _licenseeWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) : metaModel.LicenseeId > 0x1 || metaModel.DrillDownLevel == 2
                                ? _licenseeWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
                                : _licenseeWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
-            }
         }
 
         private dynamic ProcessRequest(

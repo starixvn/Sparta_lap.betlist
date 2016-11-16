@@ -34,8 +34,9 @@
         public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
-            var productId = 100;
-            var betSetting = new ThirdPartyBetSetting()
+            const int productId = 100;
+
+            var betSetting = new ThirdPartyBetSetting
             {
                 IsEnabled = true,
                 IsLineEnabled = true
@@ -55,8 +56,10 @@
         public void UpdateStatus_WhenCall_CallDataAccessWithCorrectParameters()
         {
             // Arrange
-            var productId = 100;
-            var betSetting = new ThirdPartyBetSetting()
+
+            const int productId = 100;
+
+            var betSetting = new ThirdPartyBetSetting
             {
                 IsLineEnabled = true
             };

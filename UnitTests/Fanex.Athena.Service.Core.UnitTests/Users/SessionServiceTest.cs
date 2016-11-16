@@ -44,10 +44,10 @@
         public void CreateNewSession_WhenCall_LicenseeSessionIsCreatedProperly()
         {
             // Arrange
-            var licenseeId = 1;
-            var licensees = new List<Licensee>()
+            const int licenseeId = 1;
+            var licensees = new List<Licensee>
             {
-                new Licensee() { Id = 1, Name = "spondemo" }
+                new Licensee { Id = 1, Name = "spondemo" }
             };
             _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
 
@@ -63,14 +63,14 @@
         public void UpdateLiceseeSession_WhenCall_LicenseeSessionIsCreatedProperly()
         {
             // Arrange
-            var licensees = new List<Licensee>()
+            var licensees = new List<Licensee>
             {
                 new Licensee { Id = 1, Name = "spondemo" },
                 new Licensee { Id = 2, Name = "12bet" },
             };
             _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
-            var oldLicenseeId = 1;
-            var newLicenseeId = 2;
+            const int oldLicenseeId = 1;
+            const int newLicenseeId = 2;
             CreateDefaultNewSession(oldLicenseeId);
 
             // Action
@@ -85,7 +85,7 @@
         public void UpdateLanguage()
         {
             // Arrange
-            var languageCode = "vi-VN";
+            const string languageCode = "vi-VN";
             CreateDefaultNewSession();
 
             // Action
@@ -117,10 +117,10 @@
         private void CreateDefaultNewSession(int licenseeId = 0)
         {
             MockHttpContext();
-            var userId = 1;
-            var onUserId = 2;
-            var userName = "user1";
-            var isInternal = false;
+            const int userId = 1;
+            const int onUserId = 2;
+            const string userName = "user1";
+            const bool isInternal = false;
 
             _sessionService.CreateNewSession(userId, onUserId, userName, isInternal, licenseeId);
         }

@@ -37,10 +37,12 @@
             _logger.When(x => x.Error(Arg.Any<string>())).Do(x => _loggerCounnter++);
             _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
 
-            _controller = new OneAuthorizationController(_userService, _maintenanceService, _oneAuthenticationService, _appSetting, _logger);
-            _controller.ControllerContext = ControllerContext;
+            _controller = new OneAuthorizationController(_userService, _maintenanceService, _oneAuthenticationService, _appSetting, _logger)
+            {
+                ControllerContext = ControllerContext,
 
-            _controller.Url = this.Url;
+                Url = this.Url
+            };
         }
 
         [TearDown]
@@ -58,10 +60,10 @@
         public void CreateSession_UnderMaintenanceState_RedirectToUMPage()
         {
             // Arrange
-            var token = "ghskhgk9863096804396oisoie";
+            const string token = "ghskhgk9863096804396oisoie";
             _maintenanceService.IsUnderMaintenance().Returns(true);
 
-            var expectedUrl = "/Utility/UnderMaintenance?notReload=true";
+            const string expectedUrl = "/Utility/UnderMaintenance?notReload=true";
 
             // Action
             var result = _controller.CreateSession(token);
@@ -76,7 +78,7 @@
         public void CreateSession_InvalidToken_ReturnTokenRestrictionPage(string token)
         {
             // Arrange
-            var expectedUrl = "Utility/OneTokenRestriction";
+            const string expectedUrl = "Utility/OneTokenRestriction";
 
             // Action
             var result = _controller.CreateSession(token);
@@ -102,8 +104,8 @@
         public void CreateSession_NotAuthenticatedByNullToken_WriteLog()
         {
             // Arrange
-            var token = "GasgSDgS";
-            var expectedMsg = "token is null";
+            const string token = "GasgSDgS";
+            const string expectedMsg = "token is null";
 
             _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
             _appSetting.GetValue(Arg.Is<string>("EnableLogForOneAuthorization")).Returns("1");
@@ -120,7 +122,7 @@
         public void CreateSession_NotAuthenticatedByBadToken_WriteLog()
         {
             // Arrange
-            var token = "GasgSDgS";
+            const string token = "GasgSDgS";
             var tokenInfo = new OneAuthenticationToken
             {
                 UserID = "1",
@@ -147,7 +149,7 @@
         public void CreateSession_AuthenticatedTokenButWrongDomain_RedirectToRestrictionPage()
         {
             // Arrange
-            var token = "GasgSDgS";
+            const string token = "GasgSDgS";
             _oneAuthenticationService.GetTokenInfo(token).Returns(x => new OneAuthenticationToken
             {
                 UserID = "1",
@@ -158,7 +160,7 @@
                 UserName = "pgmAlex",
                 VendorID = "localhost"
             });
-            var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
+            const string expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
             _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "localhost");
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
 
@@ -173,7 +175,7 @@
         public void CreateSession_NotFoundLicensee_RedirectToRestrictionPage(string siteName)
         {
             // Arrange
-            var token = "GasgSDgS";
+            const string token = "GasgSDgS";
             _oneAuthenticationService.GetTokenInfo(token).Returns(x => new OneAuthenticationToken
             {
                 UserID = "1",
@@ -184,7 +186,7 @@
                 UserName = "pgmAlex",
                 VendorID = "localhost"
             });
-            var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LicenseeIsNotExisted;
+            const string expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LicenseeIsNotExisted;
 
             _oneAuthenticationService.SingleLicenseeSiteName(Arg.Is<string>(siteName)).Returns(new LicenseeSiteName());
             _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "alex.");
@@ -201,7 +203,7 @@
         public void CreateSession_Authenticated_RedirectToActionLink(string siteName, string actionLink)
         {
             // Arrange
-            var token = "GasgSDgS";
+            const string token = "GasgSDgS";
             var tokenInfo = new OneAuthenticationToken
             {
                 UserID = "1",
@@ -231,7 +233,7 @@
         public void CreateSession_NotAuthenticated_RedirectToRestrictionPageWithErrorCode(int expectedErrorCode)
         {
             // Arrange
-            var token = "GasgSDgS";
+            const string token = "GasgSDgS";
 
             var tokenInfo = new OneAuthenticationToken
             {

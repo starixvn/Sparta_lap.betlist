@@ -22,7 +22,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         public IList<LiveCasinoBetSetting> GetBetSetting(int custId, string language)
         {
-            var uspName = "TP_Admin_StakeLevel_GetCustStakeLevelMulti";
+            const string uspName = "TP_Admin_StakeLevel_GetCustStakeLevelMulti";
 
             var listCasinoBetSetting = new List<LiveCasinoBetSetting>();
 
@@ -54,7 +54,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         public IResultInfo UpdateBetSetting(int userId, int custId, LiveCasinoBetSetting param, string ip, string language)
         {
-            var uspName = "TP_User_CustGameType_UpdStakeLevel";
+            const string uspName = "TP_User_CustGameType_UpdStakeLevel";
 
             // Tracking value before update (Tracking value 2)
             var oldParam = GetLiveCasinoLogParam(custId, param.GameTypeId, language);
@@ -101,7 +101,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         private static string GetGameTypeColumn(string language)
         {
-            string gameTypeName = "GameTypeName_En";
+            var gameTypeName = "GameTypeName_En";
 
             switch (language)
             {

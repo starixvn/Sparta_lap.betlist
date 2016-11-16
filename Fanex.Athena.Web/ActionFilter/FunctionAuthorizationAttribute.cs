@@ -54,14 +54,12 @@ namespace Fanex.Athena.Web.ActionFilter
             var authorized = true;
             if (userSession != null && licenseeSession != null)
             {
-                if (userSession.ApplicationMode == AppMode.Parasitic)
-                {
-                    authorized = authorization.HasPermissions(userSession.PortalFunctionList, PermissionKeys);
-                }
-                else
-                {
-                    authorized = authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
-                }
+                authorized =
+                userSession.ApplicationMode == AppMode.Parasitic ?
+
+                      authorization.HasPermissions(userSession.PortalFunctionList, PermissionKeys) :
+
+                      authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
             }
 
             if (!authorized)

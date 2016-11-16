@@ -153,7 +153,7 @@ namespace Fanex.Athena.Service.Casino
         {
             var bacsicInfo = new BasicInfo();
             var gameKindNameByLanguage = GetGameKindColumn(language);
-            DataTable gameKindTable = bacsicInfo.GetGameKind("01");
+            var gameKindTable = bacsicInfo.GetGameKind("01");
 
             var gameKindList = new List<GameKind>();
 
@@ -185,7 +185,7 @@ namespace Fanex.Athena.Service.Casino
         {
             var bacsicInfo = new BasicInfo();
             var gameTypeNameByLanguage = GetGameTypeColumn(language);
-            DataTable gameTypeTable = bacsicInfo.GetGameType(gameKindId);
+            var gameTypeTable = bacsicInfo.GetGameType(gameKindId);
 
             var gameTypeList = new List<GameType>();
 
@@ -212,7 +212,7 @@ namespace Fanex.Athena.Service.Casino
         /// <returns>Game type name.</returns>
         private static string GetGameKindColumn(string language)
         {
-            string gameTypeKind = "CodeName_En";
+            var gameTypeKind = "CodeName_En";
 
             switch (language)
             {
@@ -240,7 +240,7 @@ namespace Fanex.Athena.Service.Casino
         /// <returns>Game type name.</returns>
         private static string GetGameTypeColumn(string language)
         {
-            string gameTypeName = "GameTypeName_En";
+            var gameTypeName = "GameTypeName_En";
 
             switch (language)
             {
@@ -272,7 +272,7 @@ namespace Fanex.Athena.Service.Casino
         private static List<StakeLevel> GetCustStakeLevel(int custId, int gameTypeId)
         {
             var customer = new CustomerCasinoSetting();
-            DataTable stakeLevelTable = customer.GetCustStakeLevel(custId, gameTypeId);
+            var stakeLevelTable = customer.GetCustStakeLevel(custId, gameTypeId);
 
             var stakeLevelList = new List<StakeLevel>();
 

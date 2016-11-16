@@ -156,25 +156,16 @@ namespace Fanex.Athena.Service.Core.Common
             if (functions == null)
             {
                 var filePath = HostingEnvironment.MapPath(_appSettings.GetValue("FunctionAllowedProductFile"));
-                functions = _xmlWrapper.Load(filePath).Descendants("Function");
+                functions = _xmlWrapper.Load(filePath).Descendants(nameof(Function));
                 if (functions != null && functions.Count() > 0)
                 {
                     CacheService.Set(FunctionAllowedProductsKey, functions);
                 }
             }
 
-            var config = functions
-                    .Where(x => x.Attribute("Name").Value.Equals(functionName, System.StringComparison.OrdinalIgnoreCase))
-                    .FirstOrDefault();
-            if (config == null)
-            {
-                return new string[] { };
-            }
-            else
-            {
-                return config.Attribute("Product").Value.Split(',')
+            var config = functions.FirstOrDefault(x => x.Attribute("Name").Value.Equals(functionName, StringComparison.OrdinalIgnoreCase));
+            return config == null ? new string[] { } : config.Attribute(nameof(Product)).Value.Split(',')
                     .Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            }
         }
     }
 }

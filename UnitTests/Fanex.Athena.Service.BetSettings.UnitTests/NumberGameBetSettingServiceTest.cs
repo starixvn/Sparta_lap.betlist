@@ -36,7 +36,7 @@
         public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
-            var betSettings = new List<BetSetting>()
+            var betSettings = new List<BetSetting>
             {
                 new BetSetting()
             };
@@ -53,14 +53,14 @@
         public void UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters()
         {
             // Arrange
-            var data = new Hashtable()
+            var data = new Hashtable
             {
                 { "minbet161", 111m },
                 { "maxbet161", 222m },
                 { "maxpermatch161", 333m },
                 { "maxperball", 444m }
             };
-            var setting = new CommonBetSetting()
+            var setting = new CommonBetSetting
             {
                 CustId = CustId,
                 UserId = UserId,
@@ -81,7 +81,7 @@
                     x.MaxBet == 222m &&
                     x.MaxPerMatch == 333m &&
                     x.MaxPerBall == 444m &&
-                    x.IsDataChange == true));
+                    x.IsDataChange));
         }
     }
 }

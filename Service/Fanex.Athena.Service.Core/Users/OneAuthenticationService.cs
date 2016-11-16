@@ -66,7 +66,7 @@
 
                 if (items != null)
                 {
-                    var item = items.Where(i => i.SiteName.Equals(siteName)).FirstOrDefault();
+                    var item = items.FirstOrDefault(i => i.SiteName.Equals(siteName));
                     return item != null ? item : defaultValue;
                 }
             }
@@ -101,7 +101,8 @@
             const string LicenseeSiteNameCacheKey = "OneAuthenticationService_LicenseeSiteNameCacheKey";
             const int CacheTimeoutMinute = 30;
             var cacheService = GetMemCacheService();
-            IList<LicenseeSiteName> result = cacheService.Get<IList<LicenseeSiteName>>(LicenseeSiteNameCacheKey);
+
+            var result = cacheService.Get<IList<LicenseeSiteName>>(LicenseeSiteNameCacheKey);
 
             if (result == null || !result.Any())
             {
@@ -133,9 +134,11 @@
         {
             var identity = currentContext.User.Identity;
             var identityValidation = identity != null && identity.IsAuthenticated && !string.IsNullOrEmpty(identity.Name);
+
             var sessionValidation = userSession != null && licenseeSession != null && userSession.UserId > 0 &&
                 !string.IsNullOrEmpty(userSession.VendorID) && !string.IsNullOrEmpty(userSession.VendorIdentityID)
-                && userSession.IsInternal == true && licenseeSession.LicenseeId > 0 && userSession.ApplicationMode == AppMode.Parasitic;
+                && userSession.IsInternal && licenseeSession.LicenseeId > 0 && userSession.ApplicationMode == AppMode.Parasitic;
+
             return identityValidation && sessionValidation;
         }
     }

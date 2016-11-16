@@ -14,24 +14,17 @@
             var request = filterContext.RequestContext.HttpContext.Request;
             string clientToken = null;
 
-            if (request.IsAjaxRequest())
-            {
-                clientToken = request.Headers.Get(KEYNAME);
-            }
-            else
-            {
-                clientToken = request.Form[KEYNAME];
-            }
+            clientToken = request.IsAjaxRequest() ? request.Headers.Get(KEYNAME) : request.Form[KEYNAME];
 
             if (clientToken == null)
             {
-                throw new HttpAntiForgeryException(string.Format("Header/Form does not contain {0}", KEYNAME));
+                throw new HttpAntiForgeryException($"Header/Form does not contain {KEYNAME}");
             }
 
             var serverTokenCookie = request.Cookies.Get(AntiForgeryConfig.CookieName);
             if (serverTokenCookie == null || serverTokenCookie.Value == null)
             {
-                throw new HttpAntiForgeryException(string.Format("Cookies does not contain {0}", KEYNAME));
+                throw new HttpAntiForgeryException($"Cookies does not contain {KEYNAME}");
             }
 
             AntiForgery.Validate(serverTokenCookie.Value, clientToken);

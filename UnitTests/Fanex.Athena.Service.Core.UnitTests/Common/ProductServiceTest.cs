@@ -45,11 +45,12 @@
         public void GetProductList_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<Product>()
+            var expectedResult = new List<Product>
             {
-                new Product() { ProductID = 1 }
+                new Product { ProductID = 1 }
             };
-            var licenseeId = 1;
+
+            const int licenseeId = 1;
             _productDataAccess.GetProductAccessList(licenseeId).Returns(expectedResult);
 
             // Action
@@ -63,14 +64,15 @@
         public void GetProductAccess_WhenCall_ReturnAllowedProducts()
         {
             // Arrange
-            var expectedResult = new List<Product>()
+            var expectedResult = new List<Product>
             {
-                new Product() { ProductID = 100, ProductCode = "SB" },
-                new Product() { ProductID = 200, ProductCode = "ABC" },
+                new Product{ ProductID = 100, ProductCode = "SB" },
+                new Product{ ProductID = 200, ProductCode = "ABC" },
             };
-            var xmlContent = "<Root><Group Name=\"Default\"><Function Name = \"_Default\" Product=\"SB,DB\"></Function></Group></Root>";
 
-            var licenseeId = 1;
+            const string xmlContent = "<Root><Group Name=\"Default\"><Function Name = \"_Default\" Product=\"SB,DB\"></Function></Group></Root>";
+
+            const int licenseeId = 1;
             _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(xmlContent));
 
             _productDataAccess.GetProductAccessList(licenseeId).Returns(expectedResult);
@@ -87,13 +89,14 @@
         public void GetProductAccessForActiveCustomerSummary_WhenCall_ReturnAllowedProducts()
         {
             // Arrange
-            var expectedResult = new List<Product>()
+            var expectedResult = new List<Product>
             {
                 new Product { ProductID = 100, ProductCode = "SB" },
                 new Product { ProductID = 200, ProductCode = "ABC" },
             };
-            var licenseeId = 1;
-            var xmlContent = "<Root><Group Name=\"Default\"><Function Name = \"ActiveCustomerSummary\" Product=\"SB,DB\"></Function></Group></Root>";
+
+            const int licenseeId = 1;
+            const string xmlContent = "<Root><Group Name=\"Default\"><Function Name = \"ActiveCustomerSummary\" Product=\"SB,DB\"></Function></Group></Root>";
 
             _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(xmlContent));
 

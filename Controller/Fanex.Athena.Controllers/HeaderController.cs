@@ -6,9 +6,7 @@
 
 namespace Fanex.Athena.Controllers
 {
-    using System;
     using System.Web.Mvc;
-    using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.ViewModel;
     using Fanex.Athena.Service.Core.Users;
@@ -54,13 +52,7 @@ namespace Fanex.Athena.Controllers
             var originalLicenseeId = SessionService.LicenseeSession.LicenseeId;
             var originalUserId = SessionService.UserSession.UserId;
 
-            if (newLicenseeId > 0)
-            {
-                newLicenseeId = _licenseeService.IsLicenseeBelongToUser(originalLicenseeId, originalUserId)
-                                    ? newLicenseeId
-                                    : originalLicenseeId;
-            }
-            else
+            if (newLicenseeId <= 0 || !_licenseeService.IsLicenseeBelongToUser(originalLicenseeId, originalUserId))
             {
                 newLicenseeId = originalLicenseeId;
             }

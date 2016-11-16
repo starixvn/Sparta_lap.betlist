@@ -136,7 +136,7 @@
         public void SignIn_SetAuthorize_ReturnErrorIsLicenseeNotFound(string siteName)
         {
             //Arrange
-            var licenseeId = 1;
+            const int licenseeId = 1;
             var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "pgmAlex", SiteName = siteName };
 
             var fakeHttpContext = Substitute.For<HttpContextBase>();
@@ -163,7 +163,7 @@
         {
             // Arrange
             var counter = 0;
-            var licenseeId = 1;
+            const int licenseeId = 1;
             var tokenInfo = new OneAuthenticationToken { UserID = "1" };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
@@ -190,7 +190,9 @@
         public void SignIn_AlreadyHasSessionFixWithToken_UpdateLanguage(string newLanguageCode)
         {
             // Arrange
-            int licenseeId = 1, counter = 0, langCounter = 0;
+            const int licenseeId = 1;
+            var counter = 0;
+            var langCounter = 0;
 
             var tokenInfo = FakeSessionFixToken(1);
             tokenInfo.Language = newLanguageCode;
@@ -217,7 +219,8 @@
         public void SignIn_AlreadyHasSessionFixWithToken_DoNoThing()
         {
             // Arrange
-            int licenseeId = 1, counter = 0;
+            const int licenseeId = 1;
+            var counter = 0;
             var tokenInfo = FakeSessionFixToken(1);
 
             var fakeHttpContext = Substitute.For<HttpContextBase>();
@@ -252,8 +255,10 @@
             bool isInternal)
         {
             // Arrange
-            var licenseeId = 1;
+            const int licenseeId = 1;
+
             var counter = 0;
+
             var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "alex", VendorID = "spondemo" };
             var userSession = new UserSession
             {

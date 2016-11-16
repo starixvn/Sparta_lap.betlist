@@ -83,9 +83,9 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
         [HttpGet]
         public ActionResult RNGCasinoCallAPIDataTable(RNGCasinoResultMetaModel metalModel)
         {
-            if (this.SessionService.UserSession.UserName == "pgmbravo")
+            if (SessionService.UserSession.UserName == "pgmbravo")
             {
-                var model = new RNGCasinoService().GetRNGCasinoResultDataTable(metalModel);
+                var model = RNGCasinoService.GetRNGCasinoResultDataTable(metalModel);
                 return this.View("~/Views/RNGCasino/DataTableFromAPI.cshtml", model);
             }
             else

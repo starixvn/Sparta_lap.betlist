@@ -30,15 +30,17 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService);
-            controller.ControllerContext = this.ControllerContext;
-            var expectedMsg = ViewResources.OneTokenRestrictionDefaultMsg;
+            using (var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService))
+            {
+                controller.ControllerContext = this.ControllerContext;
+                var expectedMsg = ViewResources.OneTokenRestrictionDefaultMsg;
 
-            // Action
-            var result = controller.OneTokenRestriction(code) as ViewResult;
+                // Action
+                var result = controller.OneTokenRestriction(code) as ViewResult;
 
-            // Assert
-            Assert.AreEqual(expectedMsg, result.ViewBag.Msg);
+                // Assert
+                Assert.AreEqual(expectedMsg, result.ViewBag.Msg);
+            }
         }
 
         [TestCase("100", "Token was expired")]
@@ -48,14 +50,15 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService);
-            controller.ControllerContext = this.ControllerContext;
+            using (var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService))
+            {
+                ControllerContext = ControllerContext;
+                // Action
+                var result = controller.OneTokenRestriction(code) as ViewResult;
 
-            // Action
-            var result = controller.OneTokenRestriction(code) as ViewResult;
-
-            // Assert
-            Assert.AreEqual(msg, result.ViewBag.Msg);
+                // Assert
+                Assert.AreEqual(msg, result.ViewBag.Msg);
+            }
         }
 
         [Test]
@@ -63,17 +66,19 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService);
-            controller.ControllerContext = this.ControllerContext;
-            var maintenanceInfo = new UnderMaintenanceTime(true, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
-            _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
+            using (var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService))
+            {
+                controller.ControllerContext = this.ControllerContext;
+                var maintenanceInfo = new UnderMaintenanceTime(true, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
+                _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
 
-            // Action
-            var result = controller.UnderMaintenance(Arg.Any<bool>()) as ViewResult;
+                // Action
+                var result = controller.UnderMaintenance(Arg.Any<bool>()) as ViewResult;
 
-            // Assert
-            Assert.AreEqual(maintenanceInfo.From, result.ViewBag.UmTimeFrom);
-            Assert.AreEqual(maintenanceInfo.To, result.ViewBag.UmTimeTo);
+                // Assert
+                Assert.AreEqual(maintenanceInfo.From, result.ViewBag.UmTimeFrom);
+                Assert.AreEqual(maintenanceInfo.To, result.ViewBag.UmTimeTo);
+            }
         }
 
         [Test]
@@ -81,17 +86,19 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService);
-            controller.ControllerContext = this.ControllerContext;
-            var maintenanceInfo = new UnderMaintenanceTime(false, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
-            _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
+            using (var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService))
+            {
+                controller.ControllerContext = ControllerContext;
+                var maintenanceInfo = new UnderMaintenanceTime(false, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
+                _maintenanceService.GetUnderMaintenanceTime().Returns(x => maintenanceInfo);
 
-            // Action
-            var result = controller.UnderMaintenance(true) as ViewResult;
+                // Action
+                var result = controller.UnderMaintenance(true) as ViewResult;
 
-            // Assert
-            Assert.AreEqual(string.Empty, result.ViewBag.UmTimeFrom);
-            Assert.AreEqual(string.Empty, result.ViewBag.UmTimeTo);
+                // Assert
+                Assert.AreEqual(string.Empty, result.ViewBag.UmTimeFrom);
+                Assert.AreEqual(string.Empty, result.ViewBag.UmTimeTo);
+            }
         }
     }
 }

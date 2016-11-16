@@ -24,8 +24,8 @@
         public void GetCurrentLanguage_WhenCall_ReturnLanguageFromUserSession()
         {
             // Arrange
-            var expectedLanguage = "vi-VN";
-            _sessionService.UserSession.Returns(new UserSession()
+            const string expectedLanguage = "vi-VN";
+            _sessionService.UserSession.Returns(new UserSession
             {
                 Language = expectedLanguage
             });
@@ -41,7 +41,7 @@
         public void ChangeLanguage_WhenCall_CallAndPassCorrectParamToSessionService()
         {
             // Arrange
-            var languageCode = "vi-VN";
+            const string languageCode = "vi-VN";
 
             // Action
             var result = _languageService.ChangeLanguage(languageCode);

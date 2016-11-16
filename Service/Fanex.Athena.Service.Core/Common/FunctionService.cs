@@ -161,7 +161,7 @@ namespace Fanex.Athena.Service.Core.Common
             var message = string.Empty;
             var addedFailure = string.Empty;
 
-            IResultInfo addedResultInfo = AddUserToFunction(licenseeId, custId, userId, ip, langKey, addingIdList, ref addedFailure);
+            var addedResultInfo = AddUserToFunction(licenseeId, custId, userId, ip, langKey, addingIdList, ref addedFailure);
 
             RemoveUserFromFunction(licenseeId, custId, userId, ip, langKey, removingIdList, ref code, ref message, ref addedFailure, addedResultInfo);
 

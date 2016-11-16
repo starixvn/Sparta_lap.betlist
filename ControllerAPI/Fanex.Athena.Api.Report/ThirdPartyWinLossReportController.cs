@@ -84,10 +84,7 @@ namespace Fanex.Athena.Api.Report
 
             // Use product code of Vegas Games to Macau
             var productCodeExport = metaModel.ProductCode == "VG" ? "MC" : metaModel.ProductCode;
-            var exportedFileName = productCodeExport + string.Format(
-                "WinLoss_{0:ddMMMyyyy}_{1}.xls",
-                metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate,
-                currency.Value == 0 ? "All" : currency.Key);
+            var exportedFileName = productCodeExport + $"WinLoss_{(metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate):ddMMMyyyy}_{(currency.Value == 0 ? "All" : currency.Key)}.xls";
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
@@ -127,16 +124,10 @@ namespace Fanex.Athena.Api.Report
                 out SortableList<ThirdPartyWinLoss> dataList,
                 out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
         {
-            if (metaModel.DrillDownLevel == 0)
-            {
-                dataList = _thirdPartyWinLossService.GetSummaryWinloss(metaModel, out summaryTotal);
-            }
-            else
-            {
-                dataList = metaModel.DrillDownLevel == 2
+
+            dataList = metaModel.DrillDownLevel == 0 ? _thirdPartyWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) : metaModel.DrillDownLevel == 2
                                ? _thirdPartyWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
                                : _thirdPartyWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
-            }
         }
 
         private dynamic ProcessRequest(

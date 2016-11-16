@@ -34,7 +34,7 @@
         public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
-            var betSettings = new List<BetSetting>()
+            var betSettings = new List<BetSetting>
             {
                 new BetSetting()
             };
@@ -51,10 +51,11 @@
         public void UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters()
         {
             // Arrange
-            var expectedXmlParam = "<settings><setting sporttype=\"1\" minbet=\"100\" maxbet=\"200\" maxpermatch=\"300\" ></setting></settings>";
-            var betSettings = new List<VSBetSetting>()
+            const string expectedXmlParam = "<settings><setting sporttype=\"1\" minbet=\"100\" maxbet=\"200\" maxpermatch=\"300\" ></setting></settings>";
+
+            var betSettings = new List<VSBetSetting>
             {
-                new VSBetSetting()
+                new VSBetSetting
                 {
                     SportId = "1",
                     MinBet = 100,

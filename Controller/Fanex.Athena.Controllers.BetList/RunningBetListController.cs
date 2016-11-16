@@ -103,10 +103,7 @@ namespace Fanex.Athena.Controllers.BetList
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
 
-            var title = string.Format(
-               "{0} - {1}",
-               CacheRef.GetBettype(metaModel.BetType),
-               string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
+            var title = $"{CacheRef.GetBettype(metaModel.BetType)} - {string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName)}";
 
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId == 1, HiddenColumnIndexes, true);
 

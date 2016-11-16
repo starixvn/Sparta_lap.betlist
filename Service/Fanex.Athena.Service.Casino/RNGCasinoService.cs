@@ -47,10 +47,10 @@ namespace Fanex.Athena.Service.Casino
         {
             var casinos = new List<RNGCasinoResult>();
             var dataTable = GetResultFromAPI(metaModel);
-
             if (dataTable != null && dataTable.Rows.Count > 0)
             {
-                var currency = GetDataRowExtension(dataTable.Rows[0], "Currency");
+                var currency = GetDataRowExtension(dataTable.Rows[0], nameof(Currency));
+
                 var date = Converter.ToDateTime(GetDataRowExtension(dataTable.Rows[0], "StartTime"));
                 var exchangeRate = this._exchangeRateService.GetExChangeRate(currency, date);
                 for (int i = 0; i < dataTable.Rows.Count; i++)
@@ -190,11 +190,6 @@ namespace Fanex.Athena.Service.Casino
             }
         }
 
-        /// <summary>
-        /// Get result from API.
-        /// </summary>
-        /// <param name="metalModel">The metal model.</param>
-        /// <param name="dataTable">The data table.</param>
         private static DataTable GetResultFromAPI(RNGCasinoResultMetaModel metalModel)
         {
             var casinoLib = new CasinoLibrary.SBAgent.Report();
@@ -308,7 +303,7 @@ namespace Fanex.Athena.Service.Casino
             ExChangeRate exchangeRate;
             if (detailTable.Rows.Count > 0)
             {
-                var currency = GetDataRowExtension(detailTable.Rows[0], "Currency");
+                var currency = GetDataRowExtension(detailTable.Rows[0], nameof(Currency));
                 exchangeRate = this._exchangeRateService.GetExChangeRate(currency, betTime);
             }
             else
@@ -415,7 +410,7 @@ namespace Fanex.Athena.Service.Casino
                 GameTypeNo = GetDataRowExtension(row, "GameTypeNo"),
                 GameTypeName = gameTypeName,
                 GameGroupName = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("GameGroupName")),
-                Currency = GetDataRowExtension(row, "Currency"),
+                Currency = GetDataRowExtension(row, nameof(Currency)),
                 TableName = GetDataRowExtension(row, "TableName"),
                 RollingComm = Converter.ToDecimal(GetDataRowExtension(row, "RollComm")),
             };
@@ -437,7 +432,7 @@ namespace Fanex.Athena.Service.Casino
                 Win = Converter.ToDecimal(GetDataRowExtension(row, "Win")),
                 WinLoss = Converter.ToDecimal(GetDataRowExtension(row, "WinLoss")),
                 GameTypeId = Converter.ToInt(GetDataRowExtension(row, "GameTypeID")),
-                Currency = GetDataRowExtension(row, "Currency"),
+                Currency = GetDataRowExtension(row, nameof(Currency)),
                 BetContent = GetDataRowExtension(row, "BetContent"),
             };
         }
