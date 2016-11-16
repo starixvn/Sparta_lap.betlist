@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="ActiveCustomerSummaryDataAccessTest.cs" />
     <Compile Include="AgCasinoBalanceDataAccessTest.cs" />
+    <Compile Include="ColossusBetsWinLossDataAccessTest.cs" />
     <Compile Include="AgCasinoWinLossDataAccessTest.cs" />
     <Compile Include="CasinoProgressiveWinsDataAccessTest.cs" />
     <Compile Include="CreditBalanceDataAccessTest.cs" />
