@@ -35,6 +35,10 @@
             _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
         }
 
+#pragma warning disable CS3008 // Identifier is not CLS-compliant
+        protected internal TextReader _textReader { get; set; }
+#pragma warning restore CS3008 // Identifier is not CLS-compliant
+
         public IResultInfo SignIn(HttpContextBase currentContext, int licenseeId, OneAuthenticationToken tokenInfo)
         {
             var userSession = _sessionService.UserSession;
@@ -147,16 +151,8 @@
             return new ResultInfo();
         }
 
-        protected internal virtual TextReader GetStreamReader(string path)
-        {
-            return new StreamReader(path);
-        }
-
         [CLSCompliant(false)]
-        protected internal virtual ICache GetMemCacheService()
-        {
-            return CacheService.CreateInstance(CacheType.MemoryCache);
-        }
+        protected internal virtual ICache GetMemCacheService() => CacheService.CreateInstance(CacheType.MemoryCache);
 
         private static bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthenticationToken tokenInfo, int licenseeId)
         {
@@ -181,7 +177,7 @@
         {
             const string FunctionFilePath = "~/App_Data/PortalSystemFunction.json";
             IList<PortalSystemFunction> result = null;
-            using (var _textReader = GetStreamReader(HostingEnvironment.MapPath(FunctionFilePath)))
+            using (var reader = _textReader != null ? _textReader : new StreamReader(HostingEnvironment.MapPath(FunctionFilePath)))
             {
                 var temp = _textReader.ReadToEnd();
                 if (!string.IsNullOrEmpty(temp))
@@ -203,7 +199,7 @@
 
             if (result == null || !result.Any())
             {
-                using (var _textReader = GetStreamReader(HostingEnvironment.MapPath(filePath)))
+                using (var reader = _textReader != null ? _textReader : new StreamReader(HostingEnvironment.MapPath(filePath)))
                 {
                     var temp = _textReader.ReadToEnd();
                     if (!string.IsNullOrEmpty(temp))

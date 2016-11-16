@@ -9,6 +9,7 @@
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DataDomain;
+    using Model.Core.DTO;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Newtonsoft.Json;
@@ -20,7 +21,7 @@
     {
         private OneAuthenticationService _oneAuthenticationService;
         private ICache _cacheService;
-        private TextReader fakeTextReader;
+        private TextReader _fakeTextReader;
         private int _cacheCounter;
         private ISessionService _sessionService;
         private ILicenseeService _licenseeService;
@@ -28,7 +29,7 @@
         [SetUp]
         public void SetUp()
         {
-            fakeTextReader = new FakeReader();
+            _fakeTextReader = new FakeSiteNameReader();
             _cacheService = Substitute.For<ICache>();
             _cacheService.Get<IList<LicenseeSiteName>>(Arg.Is<string>("OneAuthenticationService_LicenseeSiteNameCacheKey")).Returns(x => null);
             _cacheService.When(x => x.Set<IList<LicenseeSiteName>>(Arg.Any<string>(), Arg.Any<IList<LicenseeSiteName>>(), Arg.Any<DateTime>()))
@@ -40,19 +41,19 @@
             _sessionService = Substitute.For<ISessionService>();
             _licenseeService = Substitute.For<ILicenseeService>();
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
-            _oneAuthenticationService = Substitute.For<OneAuthenticationService>(_sessionService, _licenseeService, _formAuthenticationService);
+
+            _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(_sessionService, _licenseeService, _formAuthenticationService);
+            _oneAuthenticationService._textReader = _fakeTextReader;
 
             _oneAuthenticationService.When(x => x.GetMemCacheService()).DoNotCallBase();
             _oneAuthenticationService.GetMemCacheService().Returns(_cacheService);
-            _oneAuthenticationService.When(x => x.GetStreamReader(null)).DoNotCallBase();
-            _oneAuthenticationService.GetStreamReader(null).Returns(fakeTextReader);
         }
 
         [TearDown]
         public void TearDown()
         {
             _cacheService = null;
-            fakeTextReader = null;
+            _fakeTextReader = null;
             _oneAuthenticationService = null;
             _cacheCounter = 0;
             _sessionService = null;
@@ -130,7 +131,7 @@
         #endregion SingleLicenseeSiteName
 
         #region SignIn
-
+        #region Authorize
         [Test]
         public void SignIn_SetAuthorize_ReturnErrorLicenseDoesNotOfferedCurrency()
         {
@@ -218,10 +219,13 @@
             _licenseeService.GetCurrencies(Arg.Any<int>()).Returns(new List<Currency> { new Currency { Name = "USD", CurrencyId = 1 } });
             _licenseeService.GetCustByLicensee(Arg.Any<int>()).Returns(new List<LicenseeCustomer> { new LicenseeCustomer() });
             _sessionService.When(x => x.CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>())).Do(x => sessionCounter++);
-
+            _fakeTextReader = new FakeFunctionReader();
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService);
 
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService)
+            {
+                _textReader = _fakeTextReader
+            };
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, Arg.Any<int>(), tokenInfo);
 
@@ -232,7 +236,7 @@
             Assert.AreEqual(1, sessionCounter);
             Assert.AreEqual(1, cookieCounter);
         }
-
+        #endregion
         [Test]
         public void SignIn_NotHaveSession_CallSetAuthorize()
         {
@@ -392,7 +396,7 @@
 
         #endregion SignIn
 
-        private class FakeReader : TextReader
+        private class FakeSiteNameReader : TextReader
         {
             public override string ReadToEnd()
             {
@@ -404,5 +408,18 @@
                 return JsonConvert.SerializeObject(items);
             }
         }
+        private class FakeFunctionReader : TextReader
+        {
+            public override string ReadToEnd()
+            {
+                var items = new List<PortalSystemFunction>
+                {
+                    new PortalSystemFunction { FunctionId = 1, FunctionKey = "LicenseeWinLoss" },
+                    new PortalSystemFunction { FunctionId = 1, FunctionKey = "BalanceReport" }
+                };
+                return JsonConvert.SerializeObject(items);
+            }
+        }
+
     }
 }
