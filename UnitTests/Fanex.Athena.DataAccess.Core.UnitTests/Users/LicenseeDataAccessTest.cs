@@ -151,7 +151,7 @@
         public void GetCurrencies_WhenCall_ExecuteReaderMethodIsCalled()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrency")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicensee")).Returns(_objectDb);
             const int licenseeId = 1;
 
             // Action
@@ -165,7 +165,7 @@
         public void GetCurrencies_WhenCall_DataReturnCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrency")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicensee")).Returns(_objectDb);
             _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
             _reader.Read().Returns(true, false);
 
