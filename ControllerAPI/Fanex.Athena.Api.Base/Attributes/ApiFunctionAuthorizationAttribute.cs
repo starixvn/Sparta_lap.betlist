@@ -78,6 +78,13 @@
             return continuation?.Invoke();
         }
 
+        private static Task<HttpResponseMessage> FromResultAsync(HttpResponseMessage result)
+        {
+            var source = new TaskCompletionSource<HttpResponseMessage>();
+            source.SetResult(result);
+            return source.Task;
+        }
+
         private static bool IsAjaxRequest(HttpRequestHeaders headers)
         {
             return headers.Contains("X-Requested-With") && headers.GetValues("X-Requested-With").FirstOrDefault() == "XMLHttpRequest";
@@ -114,13 +121,6 @@
             }
 
             return authorized;
-        }
-
-        private static Task<HttpResponseMessage> FromResultAsync(HttpResponseMessage result)
-        {
-            var source = new TaskCompletionSource<HttpResponseMessage>();
-            source.SetResult(result);
-            return source.Task;
         }
     }
 }

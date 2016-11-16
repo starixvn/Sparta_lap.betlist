@@ -87,17 +87,17 @@
             return Redirect(Url.Content(returnUrl));
         }
 
-        private bool IsInternalDomain(string actionLink)
-        {
-            var internalDomainSuffix = _appSetting.GetValue("internaldomain");
-            return !string.IsNullOrEmpty(internalDomainSuffix) && actionLink.Contains(internalDomainSuffix);
-        }
-
         private static bool VerifyToken(OneAuthenticationToken tokenInfo)
         {
             return !string.IsNullOrEmpty(tokenInfo.SiteName) && tokenInfo.UserSEQ > 0 && !string.IsNullOrEmpty(tokenInfo.UserName)
                 && !string.IsNullOrEmpty(tokenInfo.VendorID) && !string.IsNullOrEmpty(tokenInfo.UserID)
                 && !string.IsNullOrEmpty(tokenInfo.Language) && !string.IsNullOrEmpty(tokenInfo.ActionLink);
+        }
+
+        private bool IsInternalDomain(string actionLink)
+        {
+            var internalDomainSuffix = _appSetting.GetValue("internaldomain");
+            return !string.IsNullOrEmpty(internalDomainSuffix) && actionLink.Contains(internalDomainSuffix);
         }
     }
 }

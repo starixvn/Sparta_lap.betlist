@@ -110,7 +110,6 @@
             Assert.That(result.WinLoss, Is.EqualTo(expectedResult.WinLoss));
             Assert.That(result.PlayerComm, Is.EqualTo(expectedResult.PlayerComm));
             Assert.That(result.TotalWL, Is.EqualTo(expectedResult.TotalWL));
-
             Assert.That(totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
             Assert.That(totalData.DrawGame, Is.EqualTo(expectedTotalData.DrawGame));
             Assert.That(totalData.NetTurnover, Is.EqualTo(expectedTotalData.NetTurnover));

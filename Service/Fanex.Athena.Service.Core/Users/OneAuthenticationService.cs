@@ -120,6 +120,45 @@
                 return licenseeNotExistedError;
             }
 
+            CreateSession(languageCode, tokenInfo, licenseeInfo, currencyOfLicensee, agentList);
+            var authName = $"{tokenInfo.UserName}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
+            _formsAuthenticationService.SetAuthCookie(authName, false);
+
+            return new ResultInfo
+            {
+                ExtendedData = tokenInfo.ActionLink
+            };
+        }
+
+        [CLSCompliant(false)]
+        protected internal virtual ICache GetMemCacheService() => CacheService.CreateInstance(CacheType.MemoryCache);
+
+        private static bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthenticationToken tokenInfo, int licenseeId)
+        {
+            return userSession.UserId == tokenInfo.UserSEQ && userSession.UserName == tokenInfo.UserName
+                && userSession.VendorID == tokenInfo.VendorID && userSession.VendorIdentityID == tokenInfo.UserID
+                && licenseeSession.LicenseeId == licenseeId;
+        }
+
+        private static bool IsAuthenticated(HttpContextBase currentContext, UserSession userSession, LicenseeSession licenseeSession)
+        {
+            var identity = currentContext.User.Identity;
+            var identityValidation = identity != null && identity.IsAuthenticated && !string.IsNullOrEmpty(identity.Name);
+
+            var sessionValidation = userSession != null && licenseeSession != null && userSession.UserId > 0 &&
+                !string.IsNullOrEmpty(userSession.VendorID) && !string.IsNullOrEmpty(userSession.VendorIdentityID)
+                && userSession.IsInternal && licenseeSession.LicenseeId > 0 && userSession.ApplicationMode == AppMode.Parasitic;
+
+            return identityValidation && sessionValidation;
+        }
+
+        private void CreateSession(
+            string languageCode,
+            OneAuthenticationToken tokenInfo,
+            Licensee licenseeInfo,
+            IList<Currency> currencyOfLicensee,
+            IList<LicenseeCustomer> agentList)
+        {
             var licSession = new LicenseeSession
             {
                 LicenseeId = licenseeInfo.Id,
@@ -154,35 +193,6 @@
             };
 
             _sessionService.CreateNewSession(userSerssion, licSession);
-            var authName = $"{tokenInfo.UserName}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
-            _formsAuthenticationService.SetAuthCookie(authName, false);
-
-            return new ResultInfo
-            {
-                ExtendedData = tokenInfo.ActionLink
-            };
-        }
-
-        [CLSCompliant(false)]
-        protected internal virtual ICache GetMemCacheService() => CacheService.CreateInstance(CacheType.MemoryCache);
-
-        private static bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthenticationToken tokenInfo, int licenseeId)
-        {
-            return userSession.UserId == tokenInfo.UserSEQ && userSession.UserName == tokenInfo.UserName
-                && userSession.VendorID == tokenInfo.VendorID && userSession.VendorIdentityID == tokenInfo.UserID
-                && licenseeSession.LicenseeId == licenseeId;
-        }
-
-        private static bool IsAuthenticated(HttpContextBase currentContext, UserSession userSession, LicenseeSession licenseeSession)
-        {
-            var identity = currentContext.User.Identity;
-            var identityValidation = identity != null && identity.IsAuthenticated && !string.IsNullOrEmpty(identity.Name);
-
-            var sessionValidation = userSession != null && licenseeSession != null && userSession.UserId > 0 &&
-                !string.IsNullOrEmpty(userSession.VendorID) && !string.IsNullOrEmpty(userSession.VendorIdentityID)
-                && userSession.IsInternal && licenseeSession.LicenseeId > 0 && userSession.ApplicationMode == AppMode.Parasitic;
-
-            return identityValidation && sessionValidation;
         }
 
         private IList<PortalSystemFunction> GetFunctionList()

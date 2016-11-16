@@ -211,31 +211,13 @@
             // Arrange
             var sessionCounter = 0;
             var cookieCounter = 0;
-            const int expectedLicId = 1;
+            const int ExpectedLicId = 1;
             UserSession user = null;
             LicenseeSession lic = null;
-            var tokenInfo = new OneAuthenticationToken
-            {
-                UserID = "1",
-                UserSEQ = 1,
-                UserName = "pgmAlex",
-                SiteName = "spondemo",
-                VendorID = "locl",
-                ActionLink = "test",
-                Language = "cs"
-            };
+            OneAuthenticationToken tokenInfo;
+            Licensee expectedLicInfo;
+            CreateTokenInfoAndLicInfo(ExpectedLicId, out tokenInfo, out expectedLicInfo);
             var expectedCookie = $"{tokenInfo.UserName}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
-            var expectedLicInfo = new Licensee
-            {
-                Id = expectedLicId,
-                Name = tokenInfo.SiteName,
-                Description = "USD",
-                IsActive = true,
-                IsAllowedCustomerComm = true,
-                IsEnableBA = false,
-                ResellerId = 1,
-                ResellerName = "test"
-            };
             var expectedCurrency = new List<Currency> { new Currency { Name = "USD", CurrencyId = 1 } };
             var expectedAgents = new List<LicenseeCustomer> { new LicenseeCustomer() };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
@@ -263,7 +245,7 @@
             };
 
             // Action
-            var result = _oneAuthenticationService.SignIn(fakeHttpContext, expectedLicId, tokenInfo);
+            var result = _oneAuthenticationService.SignIn(fakeHttpContext, ExpectedLicId, tokenInfo);
 
             // Assert
             _sessionService.Received(1).CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>());
@@ -424,6 +406,31 @@
                  && lic.LicenseeType.Count == licType.Count && lic.LicenseeName == expectedLicInfo.Name
                  && lic.IsEnableBA == expectedLicInfo.IsEnableBA && lic.IsAllowedCustomerComm == expectedLicInfo.IsAllowedCustomerComm
                  && lic.UserId == tokenInfo.UserSEQ && lic.UserName == tokenInfo.UserName;
+        }
+
+        private static void CreateTokenInfoAndLicInfo(int expectedLicId, out OneAuthenticationToken tokenInfo, out Licensee expectedLicInfo)
+        {
+            tokenInfo = new OneAuthenticationToken
+            {
+                UserID = "1",
+                UserSEQ = 1,
+                UserName = "pgmAlex",
+                SiteName = "spondemo",
+                VendorID = "locl",
+                ActionLink = "test",
+                Language = "cs"
+            };
+            expectedLicInfo = new Licensee
+            {
+                Id = expectedLicId,
+                Name = tokenInfo.SiteName,
+                Description = "USD",
+                IsActive = true,
+                IsAllowedCustomerComm = true,
+                IsEnableBA = false,
+                ResellerId = 1,
+                ResellerName = "test"
+            };
         }
 
         private static bool VerifyUserSession(UserSession userSession, IList<Currency> currency, OneAuthenticationToken tokenInfo)
