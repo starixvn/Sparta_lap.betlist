@@ -3,9 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Web;
     using Caching;
     using Core.Users.Interfaces;
+    using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DataDomain;
@@ -122,7 +124,7 @@
                 };
             _cacheService.Get<IList<LicenseeSiteName>>(Arg.Is<string>("OneAuthenticationService_LicenseeSiteNameCacheKey")).Returns(data);
             _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => null);
-
+           
             // Action
             var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
 
@@ -209,18 +211,50 @@
             // Arrange
             var sessionCounter = 0;
             var cookieCounter = 0;
-
-            var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "pgmAlex", SiteName = "spondemo", VendorID = "locl" };
+            var expectedLicId = 1;
+            UserSession user = null;
+            LicenseeSession lic = null;
+            var tokenInfo = new OneAuthenticationToken
+            {
+                UserID = "1",
+                UserSEQ = 1,
+                UserName = "pgmAlex",
+                SiteName = "spondemo",
+                VendorID = "locl",
+                ActionLink = "test",
+                Language = "cs"
+            };
             var expectedCookie = $"{tokenInfo.UserName}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
-
+            var expectedLicInfo = new Licensee
+            {
+                Id = expectedLicId,
+                Name = tokenInfo.SiteName,
+                Description = "USD",
+                IsActive = true,
+                IsAllowedCustomerComm = true,
+                IsEnableBA = false,
+                ResellerId = 1,
+                ResellerName = "test"
+            };
+            var expectedCurrency = new List<Currency> { new Currency { Name = "USD", CurrencyId = 1 } };
+            var expectedAgents = new List<LicenseeCustomer> { new LicenseeCustomer() };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
-            _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => new Licensee { Id = 1 });
-            _licenseeService.GetCurrencies(Arg.Any<int>()).Returns(new List<Currency> { new Currency { Name = "USD", CurrencyId = 1 } });
-            _licenseeService.GetCustByLicensee(Arg.Any<int>()).Returns(new List<LicenseeCustomer> { new LicenseeCustomer() });
-            _sessionService.When(x => x.CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>())).Do(x => sessionCounter++);
+            _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => expectedLicInfo);
+            _licenseeService.GetCurrencies(Arg.Any<int>()).Returns(expectedCurrency);
+            _licenseeService.GetCustByLicensee(Arg.Any<int>()).Returns(expectedAgents);
+            _sessionService.When(x => x.CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>()))
+                .Do(
+                    x =>
+                    {
+                        sessionCounter++;
+                        user = x.ArgAt<UserSession>(0);
+                        lic = x.ArgAt<LicenseeSession>(1);
+                    }
+
+                );
             _fakeTextReader = new FakeFunctionReader();
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
 
@@ -230,7 +264,7 @@
             };
 
             // Action
-            var result = _oneAuthenticationService.SignIn(fakeHttpContext, Arg.Any<int>(), tokenInfo);
+            var result = _oneAuthenticationService.SignIn(fakeHttpContext, expectedLicId, tokenInfo);
 
             // Assert
             _sessionService.Received(1).CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>());
@@ -238,7 +272,9 @@
             Assert.AreEqual(true, result.IsSuccessful);
             Assert.AreEqual(1, sessionCounter);
             Assert.AreEqual(1, cookieCounter);
-            Assert.AreEqual(false, string.IsNullOrEmpty(result.ExtendedData));
+            Assert.False(string.IsNullOrEmpty(result.ExtendedData));
+            Assert.True(VerifyUserSession(user, expectedCurrency, tokenInfo));
+            Assert.True(VeryfiLicSession(lic, expectedAgents, expectedLicInfo, tokenInfo));
         }
 
         #endregion Authorize
@@ -374,6 +410,30 @@
             // Result
             _oneAuthenticationService.Received().SetAuthorize(Arg.Is<int>(LicenseeId), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
             Assert.AreEqual(1, counter);
+        }
+
+        private static bool VeryfiLicSession(LicenseeSession lic, List<LicenseeCustomer> expectedAgents, Licensee expectedLicInfo, OneAuthenticationToken tokenInfo)
+        {
+            var licType = expectedAgents.Where(s => !string.IsNullOrEmpty(s.Description))
+                                        .Select(s => s.Description)
+                                        .Distinct()
+                                        .ToList();
+            var curName = expectedAgents.Select(s => s.CurrencyName).Distinct().ToList();
+            return lic.LicenseeId == expectedLicInfo.Id && lic.CurrencyName.Count == curName.Count
+                 && lic.LicenseeType.Count == licType.Count && lic.LicenseeName == expectedLicInfo.Name
+                 && lic.IsEnableBA == expectedLicInfo.IsEnableBA && lic.IsAllowedCustomerComm == expectedLicInfo.IsAllowedCustomerComm
+                 && lic.UserId == tokenInfo.UserSEQ && lic.UserName == tokenInfo.UserName;
+        }
+
+        private static bool VerifyUserSession(UserSession userSession, IList<Currency> currency, OneAuthenticationToken tokenInfo)
+        {
+            var lang = Util.MapLanguages.Where(i => i.Value.Equals(tokenInfo.Language))
+                       .Select(i => i.Key).DefaultIfEmpty<string>("en-Us").FirstOrDefault();
+            return userSession != null && userSession.UserId == tokenInfo.UserSEQ &&
+                userSession.VendorID == tokenInfo.VendorID && userSession.VendorIdentityID == tokenInfo.UserID
+                && userSession.IsInternal && userSession.ApplicationMode == AppMode.Parasitic
+                && userSession.PortalFunctionList.Count > 0 && userSession.CurrencyList.Count == currency.Count
+                && userSession.Language == lang && userSession.FunctionIdList.Count == 0;
         }
 
         private OneAuthenticationToken FakeSessionFixToken(int licenseeId)

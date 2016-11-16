@@ -127,7 +127,10 @@
                                         .ToList(),
                 CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList(),
                 IsAllowedCustomerComm = licenseeInfo.IsAllowedCustomerComm,
-                IsEnableBA = licenseeInfo.IsEnableBA
+                IsEnableBA = licenseeInfo.IsEnableBA,
+                LicenseeName = licenseeInfo.Name,
+                UserId = tokenInfo.UserSEQ,
+                UserName = tokenInfo.UserName
             };
 
             var userSerssion = new UserSession
@@ -141,7 +144,11 @@
                 PortalFunctionList = GetFunctionList(),
                 Language = languageCode,
                 CurrencyList = currencyOfLicensee.Distinct().ToDictionary(x => x.Name, x => x.CurrencyId),
-                DefaultReportUrl = "BalanceReport"
+                DefaultReportUrl = "BalanceReport",
+                ApplicationMode = AppMode.Parasitic,
+                VendorID = tokenInfo.VendorID,
+                VendorIdentityID = tokenInfo.UserID,
+
             };
 
             _sessionService.CreateNewSession(userSerssion, licSession);
