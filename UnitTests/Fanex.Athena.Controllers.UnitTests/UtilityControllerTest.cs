@@ -39,11 +39,11 @@
                 var result = controller.OneTokenRestriction(code) as ViewResult;
 
                 // Assert
-                Assert.AreEqual(expectedMsg, result.ViewBag.Msg);
+                Assert.AreEqual(expectedMsg, result.ViewBag.Message);
             }
         }
 
-        [TestCase("100", ViewResources.OneTokenRestrictionDefaultMsg)]
+        [TestCase("100", "Token was expired")]
         [TestCase("200", "Licensee is not existed")]
         [TestCase("400", "Direct Access to this website is restricted. Please contact Administrator for further enquiries.")]
         [TestCase("600", "Licensee does not offered currency")]
@@ -58,7 +58,7 @@
                 var result = controller.OneTokenRestriction(code) as ViewResult;
 
                 // Assert
-                Assert.AreEqual(msg, result.ViewBag.Msg);
+                Assert.AreEqual(msg, result.ViewBag.Message);
             }
         }
 
