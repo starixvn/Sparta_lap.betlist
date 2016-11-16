@@ -89,7 +89,8 @@
 
         private bool IsInternalDomain(string actionLink)
         {
-            return actionLink.Contains(_appSetting.GetValue("internaldomain"));
+            var internalDomainSuffix = _appSetting.GetValue("internaldomain");
+            return !string.IsNullOrEmpty(internalDomainSuffix) && actionLink.Contains(internalDomainSuffix);
         }
 
         private static bool VerifyToken(OneAuthenticationToken tokenInfo)

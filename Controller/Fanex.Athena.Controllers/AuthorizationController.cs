@@ -174,7 +174,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult RecheckIn()
         {
             var userSession = SessionService.UserSession;
-            int currentLoginId = 0;
+            var currentLoginId = 0;
 
             if (int.TryParse(Request["onid"], out currentLoginId) == false || currentLoginId == 0 || !Request.IsAuthenticated || userSession == null)
             {
@@ -193,7 +193,7 @@ namespace Fanex.Athena.Controllers
                 return Json(RecheckInResult(ErrorType.UnderMaintenance, message), JsonRequestBehavior.AllowGet);
             }
 
-            bool isKickout = _userService.RecheckIn(userSession.OnUserId);
+            var isKickout = _userService.RecheckIn(userSession.OnUserId);
 
             var errorCode = ErrorType.Success;
             var errorMsg = string.Empty;
@@ -225,7 +225,7 @@ namespace Fanex.Athena.Controllers
             var sessionService = new SessionService();
             var userSession = sessionService.UserSession;
             var viewType = userSession != null && userSession.ViewType != ClientViewType.None ? userSession.ViewType :
-                        (ClientViewType)int.Parse(AppSettings.GetValue("ClientViewType"));
+                        (ClientViewType)int.Parse(AppSettings.GetValue(nameof(ClientViewType)));
 
             if (viewType == ClientViewType.Desktop)
             {
