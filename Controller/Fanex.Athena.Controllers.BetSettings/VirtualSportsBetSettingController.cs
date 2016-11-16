@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             if (!ProductAccess.IsAllowVS || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo{ Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var commonParam = GetBetSettingCommonParam();

@@ -24,7 +24,8 @@ namespace Fanex.Athena.Web.RouterConfig
             if (includeAttributeMapping)
             {
                 routes.MapMvcAttributeRoutes();
-            };
+            }
+
             var apiRoute = routes.MapHttpRoute(
                     name: "apiRoute",
                     routeTemplate: "api/{controller}/{action}");

@@ -31,30 +31,30 @@
         public void GetCurrentLanguage_WhenCall_ReturnLanguageFromUserSession()
         {
             // Arrange
-            const string expectedLanguage = "vi-VN";
+            const string ExpectedLanguage = "vi-VN";
             _sessionService.UserSession.Returns(new UserSession
             {
-                Language = expectedLanguage
+                Language = ExpectedLanguage
             });
 
             // Action
             var result = _languageService.GetCurrentLanguage();
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedLanguage));
+            Assert.That(result, Is.EqualTo(ExpectedLanguage));
         }
 
         [Test]
         public void ChangeLanguage_WhenCall_CallAndPassCorrectParamToSessionService()
         {
             // Arrange
-            const string languageCode = "vi-VN";
+            const string LanguageCode = "vi-VN";
 
             // Action
-            var result = _languageService.ChangeLanguage(languageCode);
+            var result = _languageService.ChangeLanguage(LanguageCode);
 
             // Assert
-            _sessionService.Received().UpdateLanguage(languageCode);
+            _sessionService.Received().UpdateLanguage(LanguageCode);
         }
     }
 }

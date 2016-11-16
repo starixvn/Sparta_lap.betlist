@@ -22,13 +22,13 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         public IList<LiveCasinoBetSetting> GetBetSetting(int custId, string language)
         {
-            const string uspName = "TP_Admin_StakeLevel_GetCustStakeLevelMulti";
+            const string UspName = "TP_Admin_StakeLevel_GetCustStakeLevelMulti";
 
             var listCasinoBetSetting = new List<LiveCasinoBetSetting>();
 
             var gameTypeName = GetGameTypeColumn(language);
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
 
@@ -54,13 +54,13 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         public IResultInfo UpdateBetSetting(int userId, int custId, LiveCasinoBetSetting param, string ip, string language)
         {
-            const string uspName = "TP_User_CustGameType_UpdStakeLevel";
+            const string UspName = "TP_User_CustGameType_UpdStakeLevel";
 
             // Tracking value before update (Tracking value 2)
             var oldParam = GetLiveCasinoLogParam(custId, param.GameTypeId, language);
-            var trackingValue2 = GetTrackingValue(uspName, custId, oldParam, ip, language);
+            var trackingValue2 = GetTrackingValue(UspName, custId, oldParam, ip, language);
 
-            using (var db = this.GetObjectDb(uspName))
+            using (var db = this.GetObjectDb(UspName))
             {
                 db.AddInParameter("gametypeid", DbType.Int32, param.GameTypeId);
                 db.AddInParameter("custid", DbType.Int32, custId);
@@ -82,9 +82,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
                 // Tracking value after update (Tracking value 1)
                 var newParam = GetLiveCasinoLogParam(custId, param.GameTypeId, language);
-                var trackingValue1 = GetTrackingValue(uspName, custId, newParam, ip, language, result);
+                var trackingValue1 = GetTrackingValue(UspName, custId, newParam, ip, language, result);
 
-                WriteLogUpdatingAction(userId, custId, uspName, trackingValue1, trackingValue2);
+                WriteLogUpdatingAction(userId, custId, UspName, trackingValue1, trackingValue2);
 
                 return new ResultInfo
                 {

@@ -54,6 +54,7 @@
             using (var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService))
             {
                 ControllerContext = ControllerContext;
+
                 // Action
                 var result = controller.OneTokenRestriction(code) as ViewResult;
 

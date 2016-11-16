@@ -50,11 +50,11 @@
                 new Product { ProductID = 1 }
             };
 
-            const int licenseeId = 1;
-            _productDataAccess.GetProductAccessList(licenseeId).Returns(expectedResult);
+            const int LicenseeId = 1;
+            _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
 
             // Action
-            var result = _productService.GetProductList(licenseeId, Arg.Any<string>());
+            var result = _productService.GetProductList(LicenseeId, Arg.Any<string>());
 
             // Assert
             Assert.That(result[0].ProductID, Is.EqualTo(expectedResult[0].ProductID));
@@ -66,19 +66,19 @@
             // Arrange
             var expectedResult = new List<Product>
             {
-                new Product{ ProductID = 100, ProductCode = "SB" },
-                new Product{ ProductID = 200, ProductCode = "ABC" },
+                new Product { ProductID = 100, ProductCode = "SB" },
+                new Product { ProductID = 200, ProductCode = "ABC" },
             };
 
-            const string xmlContent = "<Root><Group Name=\"Default\"><Function Name = \"_Default\" Product=\"SB,DB\"></Function></Group></Root>";
+            const string XmlContent = "<Root><Group Name=\"Default\"><Function Name = \"_Default\" Product=\"SB,DB\"></Function></Group></Root>";
 
-            const int licenseeId = 1;
-            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(xmlContent));
+            const int LicenseeId = 1;
+            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
 
-            _productDataAccess.GetProductAccessList(licenseeId).Returns(expectedResult);
+            _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
 
             // Action
-            var result = _productService.GetProductAccess(licenseeId, Arg.Any<string>());
+            var result = _productService.GetProductAccess(LicenseeId, Arg.Any<string>());
 
             // Assert
             Assert.That(result.IsAllow(100), Is.True);
@@ -95,15 +95,15 @@
                 new Product { ProductID = 200, ProductCode = "ABC" },
             };
 
-            const int licenseeId = 1;
-            const string xmlContent = "<Root><Group Name=\"Default\"><Function Name = \"ActiveCustomerSummary\" Product=\"SB,DB\"></Function></Group></Root>";
+            const int LicenseeId = 1;
+            const string XmlContent = "<Root><Group Name=\"Default\"><Function Name = \"ActiveCustomerSummary\" Product=\"SB,DB\"></Function></Group></Root>";
 
-            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(xmlContent));
+            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
 
-            _productDataAccess.GetProductAccessList(licenseeId, true).Returns(expectedResult);
+            _productDataAccess.GetProductAccessList(LicenseeId, true).Returns(expectedResult);
 
             // Action
-            var result = _productService.GetProductAccessForActiveCustomerSummary(licenseeId, Arg.Any<string>());
+            var result = _productService.GetProductAccessForActiveCustomerSummary(LicenseeId, Arg.Any<string>());
 
             // Assert
             Assert.That(result.IsAllow(100), Is.True);

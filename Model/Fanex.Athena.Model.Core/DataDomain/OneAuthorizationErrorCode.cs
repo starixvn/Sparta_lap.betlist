@@ -7,6 +7,5 @@
         public const string TokenIsInValid = "300";
         public const string LocationRestrictionMsg = "400";
         public const string LicenseeNotOfferedCurrency = "600";
-
     }
 }

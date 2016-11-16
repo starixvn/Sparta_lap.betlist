@@ -53,7 +53,7 @@
         public void CreateNewSession_WhenCall_LicenseeSessionIsCreatedProperly()
         {
             // Arrange
-            const int licenseeId = 1;
+            const int LicenseeId = 1;
             var licensees = new List<Licensee>
             {
                 new Licensee { Id = 1, Name = "spondemo" }
@@ -61,10 +61,10 @@
             _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
 
             // Action
-            CreateDefaultNewSession(licenseeId);
+            CreateDefaultNewSession(LicenseeId);
 
             // Assert
-            Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(licenseeId));
+            Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(LicenseeId));
             Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("spondemo"));
         }
 
@@ -78,15 +78,15 @@
                 new Licensee { Id = 2, Name = "12bet" },
             };
             _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
-            const int oldLicenseeId = 1;
-            const int newLicenseeId = 2;
-            CreateDefaultNewSession(oldLicenseeId);
+            const int OldLicenseeId = 1;
+            const int NewLicenseeId = 2;
+            CreateDefaultNewSession(OldLicenseeId);
 
             // Action
-            _sessionService.UpdateLiceseeSession(newLicenseeId);
+            _sessionService.UpdateLiceseeSession(NewLicenseeId);
 
             // Assert
-            Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(newLicenseeId));
+            Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(NewLicenseeId));
             Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("12bet"));
         }
 
@@ -94,14 +94,14 @@
         public void UpdateLanguage()
         {
             // Arrange
-            const string languageCode = "vi-VN";
+            const string LanguageCode = "vi-VN";
             CreateDefaultNewSession();
 
             // Action
-            _sessionService.UpdateLanguage(languageCode);
+            _sessionService.UpdateLanguage(LanguageCode);
 
             // Assert
-            Assert.That(_sessionService.UserSession.Language, Is.EqualTo(languageCode));
+            Assert.That(_sessionService.UserSession.Language, Is.EqualTo(LanguageCode));
         }
 
         private static void MockHttpContext()
@@ -126,12 +126,12 @@
         private void CreateDefaultNewSession(int licenseeId = 0)
         {
             MockHttpContext();
-            const int userId = 1;
-            const int onUserId = 2;
-            const string userName = "user1";
-            const bool isInternal = false;
+            const int UserId = 1;
+            const int OnuserId = 2;
+            const string UserName = "user1";
+            const bool IsInternal = false;
 
-            _sessionService.CreateNewSession(userId, onUserId, userName, isInternal, licenseeId);
+            _sessionService.CreateNewSession(UserId, OnuserId, UserName, IsInternal, licenseeId);
         }
     }
 }

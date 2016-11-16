@@ -211,12 +211,12 @@ namespace Fanex.Athena.Service.Customer
                     });
                 }
             }
+
             return callApiSuccess ? result : new ResultInfo
             {
                 Code = 1,
                 Message = "Having errors when calling CasinoAPI to update customer commission."
             };
-
         }
 
         #endregion Group Commission

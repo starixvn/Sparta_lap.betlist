@@ -26,6 +26,7 @@
         private ISessionService _sessionService;
         private ILicenseeService _licenseeService;
         private IFormsAuthenticationService _formAuthenticationService;
+
         [SetUp]
         public void SetUp()
         {
@@ -121,6 +122,7 @@
                 };
             _cacheService.Get<IList<LicenseeSiteName>>(Arg.Is<string>("OneAuthenticationService_LicenseeSiteNameCacheKey")).Returns(data);
             _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => null);
+
             // Action
             var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
 
@@ -131,12 +133,13 @@
         #endregion SingleLicenseeSiteName
 
         #region SignIn
+
         #region Authorize
+
         [Test]
         public void SignIn_SetAuthorize_ReturnErrorLicenseDoesNotOfferedCurrency()
         {
-            //Arrange
-
+            // Arrange
             var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "pgmAlex", SiteName = "spondemo" };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
@@ -159,8 +162,7 @@
         [Test]
         public void SignIn_SetAuthorize_ReturnErrorLicenseDoesNotHaveAgent()
         {
-            //Arrange
-
+            // Arrange
             var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "pgmAlex", SiteName = "spondemo" };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
@@ -183,8 +185,7 @@
         [Test]
         public void SignIn_SetAuthorize_ReturnErrorIsLicenseeNotFound()
         {
-            //Arrange
-
+            // Arrange
             var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "pgmAlex", SiteName = "spondemo" };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
@@ -193,6 +194,7 @@
             _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => null);
             var expectedResult = new ResultInfo { Code = 200, Message = "Licensee is Not Exit" };
             _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService);
+
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, Arg.Any<int>(), tokenInfo);
 
@@ -204,7 +206,7 @@
         [Test]
         public void SignIn_SetAuthorize_ReturnRightResultInfo()
         {
-            //Arrange
+            // Arrange
             var sessionCounter = 0;
             var cookieCounter = 0;
 
@@ -226,6 +228,7 @@
             {
                 _textReader = _fakeTextReader
             };
+
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, Arg.Any<int>(), tokenInfo);
 
@@ -236,13 +239,15 @@
             Assert.AreEqual(1, sessionCounter);
             Assert.AreEqual(1, cookieCounter);
         }
-        #endregion
+
+        #endregion Authorize
+
         [Test]
         public void SignIn_NotHaveSession_CallSetAuthorize()
         {
             // Arrange
             var counter = 0;
-            const int licenseeId = 1;
+            const int LicenseeId = 1;
             var tokenInfo = new OneAuthenticationToken { UserID = "1" };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
@@ -253,10 +258,10 @@
             _oneAuthenticationService.When(x => x.SetAuthorize(1, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
 
             // Action
-            var result = _oneAuthenticationService.SignIn(fakeHttpContext, licenseeId, tokenInfo);
+            var result = _oneAuthenticationService.SignIn(fakeHttpContext, LicenseeId, tokenInfo);
 
             // Result
-            _oneAuthenticationService.Received().SetAuthorize(licenseeId, Arg.Any<string>(), tokenInfo);
+            _oneAuthenticationService.Received().SetAuthorize(LicenseeId, Arg.Any<string>(), tokenInfo);
             Assert.AreEqual(1, counter);
         }
 
@@ -269,7 +274,7 @@
         public void SignIn_AlreadyHasSessionFixWithToken_UpdateLanguage(string newLanguageCode)
         {
             // Arrange
-            const int licenseeId = 1;
+            const int LicenseeId = 1;
             var counter = 0;
             var langCounter = 0;
 
@@ -285,10 +290,10 @@
             _sessionService.UpdateLanguage(Arg.Is<string>(newLanguageCode)).Returns(true);
 
             // Action
-            var result = _oneAuthenticationService.SignIn(fakeHttpContext, licenseeId, tokenInfo);
+            var result = _oneAuthenticationService.SignIn(fakeHttpContext, LicenseeId, tokenInfo);
 
             // Result
-            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<int>(licenseeId), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
+            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<int>(LicenseeId), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
             Assert.AreEqual(0, counter);
             _sessionService.Received(1).UpdateLanguage(Arg.Any<string>());
             Assert.AreEqual(1, langCounter);
@@ -298,7 +303,7 @@
         public void SignIn_AlreadyHasSessionFixWithToken_DoNoThing()
         {
             // Arrange
-            const int licenseeId = 1;
+            const int LicenseeId = 1;
             var counter = 0;
             var tokenInfo = FakeSessionFixToken(1);
 
@@ -310,10 +315,10 @@
             _oneAuthenticationService.When(x => x.SetAuthorize(1, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
 
             // Action
-            var result = _oneAuthenticationService.SignIn(fakeHttpContext, licenseeId, tokenInfo);
+            var result = _oneAuthenticationService.SignIn(fakeHttpContext, LicenseeId, tokenInfo);
 
             // Result
-            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<int>(licenseeId), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
+            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<int>(LicenseeId), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
             Assert.AreEqual(0, counter);
         }
 
@@ -334,7 +339,7 @@
             bool isInternal)
         {
             // Arrange
-            const int licenseeId = 1;
+            const int LicenseeId = 1;
 
             var counter = 0;
 
@@ -363,10 +368,10 @@
             _oneAuthenticationService.When(x => x.SetAuthorize(1, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
 
             // Action
-            var result = _oneAuthenticationService.SignIn(fakeHttpContext, licenseeId, tokenInfo);
+            var result = _oneAuthenticationService.SignIn(fakeHttpContext, LicenseeId, tokenInfo);
 
             // Result
-            _oneAuthenticationService.Received().SetAuthorize(Arg.Is<int>(licenseeId), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
+            _oneAuthenticationService.Received().SetAuthorize(Arg.Is<int>(LicenseeId), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
             Assert.AreEqual(1, counter);
         }
 
@@ -408,6 +413,7 @@
                 return JsonConvert.SerializeObject(items);
             }
         }
+
         private class FakeFunctionReader : TextReader
         {
             public override string ReadToEnd()
@@ -420,6 +426,5 @@
                 return JsonConvert.SerializeObject(items);
             }
         }
-
     }
 }

@@ -59,7 +59,7 @@
         public void UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters()
         {
             // Arrange
-            const string expectedXmlParam = "<settings><setting sporttype=\"1\" minbet=\"100\" maxbet=\"200\" maxpermatch=\"300\" ></setting></settings>";
+            const string ExpectedXmlParam = "<settings><setting sporttype=\"1\" minbet=\"100\" maxbet=\"200\" maxpermatch=\"300\" ></setting></settings>";
 
             var betSettings = new List<VSBetSetting>
             {
@@ -76,7 +76,7 @@
             var result = _service.UpdateBetSetting(LicenseeId, CustId, UserId, Language, "ip", betSettings);
 
             // Assert
-            _dataAccess.Received().UpdateBetSetting(CustId, UserId, Language, "ip", expectedXmlParam);
+            _dataAccess.Received().UpdateBetSetting(CustId, UserId, Language, "ip", ExpectedXmlParam);
         }
     }
 }
