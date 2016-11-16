@@ -211,7 +211,7 @@
             // Arrange
             var sessionCounter = 0;
             var cookieCounter = 0;
-            var expectedLicId = 1;
+            const int expectedLicId = 1;
             UserSession user = null;
             LicenseeSession lic = null;
             var tokenInfo = new OneAuthenticationToken
@@ -333,6 +333,7 @@
             Assert.AreEqual(0, counter);
             _sessionService.Received(1).UpdateLanguage(Arg.Any<string>());
             Assert.AreEqual(1, langCounter);
+            Assert.False(string.IsNullOrEmpty(result.ExtendedData));
         }
 
         [Test]
@@ -356,6 +357,7 @@
             // Result
             _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<int>(LicenseeId), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
             Assert.AreEqual(0, counter);
+            Assert.False(string.IsNullOrEmpty(result.ExtendedData));
         }
 
         [TestCase(2, "alex", "spondemo", "1", 1, AppMode.Parasitic, true)]
@@ -437,7 +439,7 @@
 
         private OneAuthenticationToken FakeSessionFixToken(int licenseeId)
         {
-            var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "alex", VendorID = "spondemo" };
+            var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "alex", VendorID = "spondemo", ActionLink = "LiceenseeWLReport" };
             var userSession = new UserSession
             {
                 UserId = tokenInfo.UserSEQ,

@@ -55,7 +55,10 @@
                         _sessionService.UpdateLanguage(language);
                     }
 
-                    return new ResultInfo();
+                    return new ResultInfo
+                    {
+                        ExtendedData = tokenInfo.ActionLink
+                    };
                 }
             }
 
@@ -148,7 +151,6 @@
                 ApplicationMode = AppMode.Parasitic,
                 VendorID = tokenInfo.VendorID,
                 VendorIdentityID = tokenInfo.UserID,
-
             };
 
             _sessionService.CreateNewSession(userSerssion, licSession);
