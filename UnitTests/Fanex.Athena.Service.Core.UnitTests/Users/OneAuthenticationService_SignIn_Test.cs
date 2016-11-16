@@ -1,11 +1,5 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Web;
-    using Caching;
     using Core.Users.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
@@ -17,14 +11,16 @@
     using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
 
     [TestFixture]
-    public class OneAuthenticationServiceTest
+    public class OneAuthenticationService_SignInTest
     {
         private OneAuthenticationService _oneAuthenticationService;
-        private ICache _cacheService;
         private TextReader _fakeTextReader;
-        private int _cacheCounter;
         private ISessionService _sessionService;
         private ILicenseeService _licenseeService;
         private IFormsAuthenticationService _formAuthenticationService;
@@ -32,111 +28,23 @@
         [SetUp]
         public void SetUp()
         {
-            _fakeTextReader = new FakeSiteNameReader();
-            _cacheService = Substitute.For<ICache>();
-            _cacheService.Get<IList<LicenseeSiteName>>(Arg.Is<string>("OneAuthenticationService_LicenseeSiteNameCacheKey")).Returns(x => null);
-            _cacheService.When(x => x.Set<IList<LicenseeSiteName>>(Arg.Any<string>(), Arg.Any<IList<LicenseeSiteName>>(), Arg.Any<DateTime>()))
-                .DoNotCallBase();
-
-            _cacheService.When(x => x.Set<IList<LicenseeSiteName>>(Arg.Any<string>(), Arg.Any<IList<LicenseeSiteName>>(), Arg.Any<DateTime>()))
-                .Do(x => _cacheCounter++);
-
+            _fakeTextReader = new FakeFunctionReader();
             _sessionService = Substitute.For<ISessionService>();
             _licenseeService = Substitute.For<ILicenseeService>();
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
-
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(_sessionService, _licenseeService, _formAuthenticationService);
             _oneAuthenticationService._textReader = _fakeTextReader;
-
-            _oneAuthenticationService.When(x => x.GetMemCacheService()).DoNotCallBase();
-            _oneAuthenticationService.GetMemCacheService().Returns(_cacheService);
         }
 
         [TearDown]
         public void TearDown()
         {
-            _cacheService = null;
             _fakeTextReader = null;
             _oneAuthenticationService = null;
-            _cacheCounter = 0;
             _sessionService = null;
             _licenseeService = null;
             _formAuthenticationService = null;
         }
-
-        #region SingleLicenseeSiteName
-
-        [TestCase("", 0)]
-        [TestCase(null, 0)]
-        [TestCase("12 bet", 0)]
-        public void SingleLicenseeSiteName_InvalidSiteName_ReturnDefatulValue(string siteName, int expectedLicenseeId)
-        {
-            // Action
-            var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(result.LicenseeID, expectedLicenseeId);
-        }
-
-        [TestCase("hello", 0)]
-        public void SingleLicenseeSiteName_NotExistedSiteName_ReturnDefatulValue(string siteName, int expectedLicenseeId)
-        {
-            // Action
-            var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(result.LicenseeID, expectedLicenseeId);
-        }
-
-        [TestCase(1, "12bet")]
-        public void SingleLicenseeSiteName_ExitedSiteName_ReturnValidLicenseeSiteName(int licenseeId, string siteName)
-        {
-            // Action
-            var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(result.SiteName, siteName);
-            Assert.AreEqual(result.LicenseeID, licenseeId);
-        }
-
-        [TestCase("spondemo")]
-        [TestCase("12bet")]
-        public void SingleLicenseeSiteName_AnySiteName_SetDataToCache(string siteName)
-        {
-            // Action
-            var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
-
-            // Assert
-            Assert.AreEqual(1, _cacheCounter);
-        }
-
-        [TestCase("12bet44")]
-        public void SingleLicenseeSiteName_AnySiteName_GetDataFromCache(string siteName)
-        {
-            // Arrange
-            var data = new List<LicenseeSiteName>
-                {
-                    new LicenseeSiteName { LicenseeID = 1, SiteName = "12bet44" },
-                    new LicenseeSiteName { LicenseeID = 1, SiteName = "spondemo222" }
-                };
-            _cacheService.Get<IList<LicenseeSiteName>>(Arg.Is<string>("OneAuthenticationService_LicenseeSiteNameCacheKey")).Returns(data);
-            _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => null);
-
-            // Action
-            var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
-
-            // Assert
-            _cacheService.DidNotReceive().Set(Arg.Any<string>(), Arg.Any<IList<LicenseeSiteName>>(), Arg.Any<DateTime>());
-        }
-
-        #endregion SingleLicenseeSiteName
-
-        #region SignIn
-
-        #region Authorize
 
         [Test]
         public void SignIn_SetAuthorize_ReturnErrorLicenseDoesNotOfferedCurrency()
@@ -239,10 +147,10 @@
             _fakeTextReader = new FakeFunctionReader();
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
 
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService)
-            {
-                _textReader = _fakeTextReader
-            };
+            //_oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService)
+            //{
+            //    _textReader = _fakeTextReader
+            //};
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, ExpectedLicId, tokenInfo);
@@ -257,8 +165,6 @@
             Assert.True(VerifyUserSession(user, expectedCurrency, tokenInfo));
             Assert.True(VeryfiLicSession(lic, expectedAgents, expectedLicInfo, tokenInfo));
         }
-
-        #endregion Authorize
 
         [Test]
         public void SignIn_NotHaveSession_CallSetAuthorize()
@@ -466,21 +372,6 @@
             _sessionService.LicenseeSession.Returns(x => licSession);
 
             return tokenInfo;
-        }
-
-        #endregion SignIn
-
-        private class FakeSiteNameReader : TextReader
-        {
-            public override string ReadToEnd()
-            {
-                var items = new List<LicenseeSiteName>
-                {
-                    new LicenseeSiteName { LicenseeID = 1, SiteName = "12bet" },
-                    new LicenseeSiteName { LicenseeID = 1, SiteName = "spondemo" }
-                };
-                return JsonConvert.SerializeObject(items);
-            }
         }
 
         private class FakeFunctionReader : TextReader
