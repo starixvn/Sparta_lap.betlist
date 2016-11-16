@@ -72,7 +72,7 @@
 
                 if (items != null)
                 {
-                    var item = items.FirstOrDefault(i => i.SiteName.Equals(siteName));
+                    var item = items.FirstOrDefault(i => i.SiteName.Equals(siteName, StringComparison.OrdinalIgnoreCase));
                     return item != null ? item : defaultValue;
                 }
             }
@@ -179,7 +179,7 @@
             IList<PortalSystemFunction> result = null;
             using (var reader = _textReader != null ? _textReader : new StreamReader(HostingEnvironment.MapPath(FunctionFilePath)))
             {
-                var temp = _textReader.ReadToEnd();
+                var temp = reader.ReadToEnd();
                 if (!string.IsNullOrEmpty(temp))
                 {
                     result = JsonConvert.DeserializeObject<IList<PortalSystemFunction>>(temp);
@@ -201,7 +201,7 @@
             {
                 using (var reader = _textReader != null ? _textReader : new StreamReader(HostingEnvironment.MapPath(filePath)))
                 {
-                    var temp = _textReader.ReadToEnd();
+                    var temp = reader.ReadToEnd();
                     if (!string.IsNullOrEmpty(temp))
                     {
                         result = JsonConvert.DeserializeObject<IList<LicenseeSiteName>>(temp);
