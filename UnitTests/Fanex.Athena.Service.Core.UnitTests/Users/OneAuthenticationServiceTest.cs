@@ -238,6 +238,7 @@
             Assert.AreEqual(true, result.IsSuccessful);
             Assert.AreEqual(1, sessionCounter);
             Assert.AreEqual(1, cookieCounter);
+            Assert.AreEqual(false, string.IsNullOrEmpty(result.ExtendedData));
         }
 
         #endregion Authorize

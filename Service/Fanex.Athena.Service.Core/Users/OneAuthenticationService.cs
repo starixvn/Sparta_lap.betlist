@@ -148,7 +148,10 @@
             var authName = $"{tokenInfo.UserName}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
             _formsAuthenticationService.SetAuthCookie(authName, false);
 
-            return new ResultInfo();
+            return new ResultInfo
+            {
+                ExtendedData = tokenInfo.ActionLink
+            };
         }
 
         [CLSCompliant(false)]
