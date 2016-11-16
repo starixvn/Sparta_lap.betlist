@@ -25,6 +25,7 @@ namespace Fanex.Athena.Web.RouterConfig
             routes.IgnoreRoute("content/{*pathInfo}");
             routes.IgnoreRoute("images/{*pathInfo}");
             routes.IgnoreRoute("scripts/{*pathInfo}");
+            routes.MapMvcAttributeRoutes();
             var apiRoute = routes.MapHttpRoute(
                     name: "apiRoute",
                     routeTemplate: "api/{controller}/{action}");

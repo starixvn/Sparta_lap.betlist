@@ -11,7 +11,6 @@
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
 
-    [Route(Name = "Auth")]
     public class OneAuthorizationController : Controller
     {
         private readonly IUserService _userService;
@@ -40,6 +39,7 @@
 
         [AllowAnonymous]
         [HttpGet]
+        [Route("Auth/CreateSession")]
         public RedirectResult CreateSession(string token)
         {
             if (_maintenanceService.IsUnderMaintenance())
