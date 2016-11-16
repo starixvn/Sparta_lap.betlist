@@ -43,9 +43,10 @@
             }
         }
 
-        [TestCase("100", "Token was expired")]
+        [TestCase("100", ViewResources.OneTokenRestrictionDefaultMsg)]
         [TestCase("200", "Licensee is not existed")]
         [TestCase("400", "Direct Access to this website is restricted. Please contact Administrator for further enquiries.")]
+        [TestCase("600", "Licensee does not offered currency")]
         public void OneTokenRestriction_ValidCode_ReturnMsgByCode(string code, string msg)
         {
             // Arrange

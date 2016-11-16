@@ -15,17 +15,16 @@ namespace Fanex.Athena.Web.RouterConfig
     /// </summary>
     public static class RouteConfig
     {
-        /// <summary>
-        /// Register routes.
-        /// </summary>
-        /// <param name="routes">The route collection.</param>
-        public static void RegisterRoutes(RouteCollection routes)
+        public static void RegisterRoutes(RouteCollection routes, bool includeAttributeMapping = true)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("content/{*pathInfo}");
             routes.IgnoreRoute("images/{*pathInfo}");
             routes.IgnoreRoute("scripts/{*pathInfo}");
-            routes.MapMvcAttributeRoutes();
+            if (includeAttributeMapping)
+            {
+                routes.MapMvcAttributeRoutes();
+            };
             var apiRoute = routes.MapHttpRoute(
                     name: "apiRoute",
                     routeTemplate: "api/{controller}/{action}");

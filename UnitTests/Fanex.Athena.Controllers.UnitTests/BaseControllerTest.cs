@@ -29,7 +29,7 @@ namespace Fanex.Athena.Controllers.UnitTests
         public virtual void FixtureSetUp()
         {
             var routes = new RouteCollection();
-            RouteConfig.RegisterRoutes(routes);
+            RouteConfig.RegisterRoutes(routes, false);
 
             var httpContext = Substitute.For<HttpContextBase>();
             httpContext.Request.ApplicationPath.Returns("/");
