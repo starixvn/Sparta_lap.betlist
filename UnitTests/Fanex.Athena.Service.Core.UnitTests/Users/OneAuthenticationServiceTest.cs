@@ -21,7 +21,7 @@
         private OneAuthenticationService _oneAuthenticationService;
         private ICache _cacheService;
         private TextReader fakeTextReader;
-        private int _cacheCounter = 0;
+        private int _cacheCounter;
         private ISessionService _sessionService;
         private ILicenseeService _licenseeService;
         private IFormsAuthenticationService _formAuthenticationService;
@@ -99,9 +99,9 @@
             Assert.AreEqual(result.LicenseeID, licenseeId);
         }
 
-        [TestCase(2, "12bet44")]
-        [TestCase(1, "12bet")]
-        public void SingleLicenseeSiteName_AnySiteName_SetDataToCache(int licenseeId, string siteName)
+        [TestCase("12bet44")]
+        [TestCase("12bet")]
+        public void SingleLicenseeSiteName_AnySiteName_SetDataToCache(string siteName)
         {
             // Action
             var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
@@ -110,8 +110,8 @@
             Assert.AreEqual(1, _cacheCounter);
         }
 
-        [TestCase(3, "12bet44")]
-        public void SingleLicenseeSiteName_AnySiteName_GetDataFromCache(int licenseeId, string siteName)
+        [TestCase("12bet44")]
+        public void SingleLicenseeSiteName_AnySiteName_GetDataFromCache(string siteName)
         {
             // Arrange
             var data = new List<LicenseeSiteName>
@@ -252,13 +252,14 @@
             bool isInternal)
         {
             // Arrange
-            int licenseeId = 1, counter = 0;
+            var licenseeId = 1;
+            var counter = 0;
             var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "alex", VendorID = "spondemo" };
             var userSession = new UserSession
             {
                 UserId = userId,
                 UserName = userName,
-                ApplicationMode = AppMode.Parasitic,
+                ApplicationMode = mode,
                 VendorID = vendorId,
                 IsInternal = isInternal,
                 VendorIdentityID = identity

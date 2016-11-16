@@ -65,8 +65,8 @@
             // Arrange
             var licensees = new List<Licensee>()
             {
-                new Licensee() { Id = 1, Name = "spondemo" },
-                new Licensee() { Id = 2, Name = "12bet" },
+                new Licensee { Id = 1, Name = "spondemo" },
+                new Licensee { Id = 2, Name = "12bet" },
             };
             _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
             var oldLicenseeId = 1;
@@ -108,7 +108,7 @@
                 10,
                 true,
                 HttpCookieMode.AutoDetect,
-                SessionStateMode.InProc, 
+                SessionStateMode.InProc,
                 false);
             SessionStateUtility.AddHttpSessionStateToContext(httpContext, sessionContainer);
             HttpContext.Current = httpContext;

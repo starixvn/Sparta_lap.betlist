@@ -92,7 +92,7 @@
             return actionLink.Contains(_appSetting.GetValue("internaldomain"));
         }
 
-        private bool VerifyToken(OneAuthenticationToken tokenInfo)
+        private static bool VerifyToken(OneAuthenticationToken tokenInfo)
         {
             return !string.IsNullOrEmpty(tokenInfo.SiteName) && tokenInfo.UserSEQ > 0 && !string.IsNullOrEmpty(tokenInfo.UserName)
                 && !string.IsNullOrEmpty(tokenInfo.VendorID) && !string.IsNullOrEmpty(tokenInfo.UserID)

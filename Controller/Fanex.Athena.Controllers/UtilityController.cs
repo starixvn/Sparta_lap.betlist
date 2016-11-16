@@ -196,7 +196,7 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Utility/UnderMaintenance.cshtml");
         }
 
-        private string GetMessageRestriction(string code)
+        private static string GetMessageRestriction(string code)
         {
             switch (code)
             {

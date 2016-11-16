@@ -411,7 +411,7 @@ namespace Fanex.Athena.Service.Customer
 
             return _customerDataAccess.UpdateSpecialLevel(userId, custId, level, ip, language);
         }
-        
+
         #endregion Update
     }
 }

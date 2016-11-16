@@ -89,8 +89,8 @@
             // Arrange
             var expectedResult = new List<Product>()
             {
-                new Product() { ProductID = 100, ProductCode = "SB" },
-                new Product() { ProductID = 200, ProductCode = "ABC" },
+                new Product { ProductID = 100, ProductCode = "SB" },
+                new Product { ProductID = 200, ProductCode = "ABC" },
             };
             var licenseeId = 1;
             var xmlContent = "<Root><Group Name=\"Default\"><Function Name = \"ActiveCustomerSummary\" Product=\"SB,DB\"></Function></Group></Root>";

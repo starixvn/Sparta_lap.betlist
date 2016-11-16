@@ -31,7 +31,7 @@ namespace Fanex.Athena.Service.Casino
         private readonly ILanguageService _langService = new LanguageService();
         private readonly IExChangeRateService _exchangeRateService = new ExChangeRateService();
 
-        public DataTable GetRNGCasinoResultDataTable(RNGCasinoResultMetaModel metaModel)
+        public static DataTable GetRNGCasinoResultDataTable(RNGCasinoResultMetaModel metaModel)
         {
             DataTable dataTable;
             GetResultFromAPIRealTime(metaModel, out dataTable);

@@ -23,7 +23,7 @@ namespace Fanex.Athena.Service.Casino
     /// </summary>
     public class RngCasinoSingleWalletService : IRNGCasinoSingleWalletService
     {
-        private static IDictionary<string, string> _mapLanguages = new Dictionary<string, string>()
+        private static readonly IDictionary<string, string> _mapLanguages = new Dictionary<string, string>()
             {
                 { "en-US", "en" },
                 { "zh-TW", "ch" },

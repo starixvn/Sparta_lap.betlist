@@ -19,8 +19,8 @@
         private IOneAuthenticationService _oneAuthenticationService;
         private IAppSettings _appSetting;
         private ILogger _logger;
-        private int _loggerCounnter = 0;
-        private OneAuthorizationController _controller = null;
+        private int _loggerCounnter;
+        private OneAuthorizationController _controller;
 
         [SetUp]
         public void Setup()

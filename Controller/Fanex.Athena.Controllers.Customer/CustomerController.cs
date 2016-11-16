@@ -67,7 +67,7 @@ namespace Fanex.Athena.Controllers.Customer
             _gridColumNames = columnNames.ToArray();
         }
 
-       #region Action
+        #region Action
 
         /// <summary>
         /// The customer list report.
@@ -201,7 +201,9 @@ namespace Fanex.Athena.Controllers.Customer
             return View("~/Views/Customer/CustomerDialog/LogInfo.cshtml", model);
         }
 
-        #endregion Action 
+        #endregion Action
+
+
 
         #region Ultilities
 
@@ -214,18 +216,6 @@ namespace Fanex.Athena.Controllers.Customer
                 new CheckedItem() { Name = "C", Checked = true },
                 new CheckedItem() { Name = "D", Checked = true },
             };
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
-        private IList<string> GetLicenseesOfferOddsGroup()
-        {
-            var licenseeIds = AppSettings.GetValue("LicenseesOfferOddsGroup");
-            if (!string.IsNullOrEmpty(licenseeIds))
-            {
-                return licenseeIds.Split(',');
-            }
-
-            return new List<string>();
         }
 
         /// <summary>

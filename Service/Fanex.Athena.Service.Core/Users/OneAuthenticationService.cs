@@ -122,14 +122,14 @@
             return result;
         }
 
-        private bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthenticationToken tokenInfo, int licenseeId)
+        private static bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthenticationToken tokenInfo, int licenseeId)
         {
             return userSession.UserId == tokenInfo.UserSEQ && userSession.UserName == tokenInfo.UserName
                 && userSession.VendorID == tokenInfo.VendorID && userSession.VendorIdentityID == tokenInfo.UserID
                 && licenseeSession.LicenseeId == licenseeId;
         }
 
-        private bool IsAuthenticated(HttpContextBase currentContext, UserSession userSession, LicenseeSession licenseeSession)
+        private static bool IsAuthenticated(HttpContextBase currentContext, UserSession userSession, LicenseeSession licenseeSession)
         {
             var identity = currentContext.User.Identity;
             var identityValidation = identity != null && identity.IsAuthenticated && !string.IsNullOrEmpty(identity.Name);
