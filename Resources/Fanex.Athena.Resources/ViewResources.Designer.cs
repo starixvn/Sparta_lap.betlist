@@ -7045,6 +7045,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Token is invalid.
+        /// </summary>
+        public static string TokenIsInValid {
+            get {
+                return ResourceManager.GetString("TokenIsInValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token was expired.
         /// </summary>
         public static string TokenWasExpired {

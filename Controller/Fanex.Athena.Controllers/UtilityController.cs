@@ -47,9 +47,9 @@ namespace Fanex.Athena.Controllers
         [AllowAnonymous]
         public ActionResult OneTokenRestriction(string code)
         {
-            ViewBag.Msg = GetMessageRestriction(code);
+            ViewBag.Message = GetMessageRestriction(code);
 
-            return View("~/Views/Utility/OneTokenRestriction.cshtml");
+            return View("~/Views/Utility/Error.cshtml");
         }
 
         /// <summary>
@@ -201,8 +201,14 @@ namespace Fanex.Athena.Controllers
                 case OneAuthorizationErrorCode.LicenseeIsNotExisted:
                     return ViewResources.LicenseeIsNotExisted;
 
+                case OneAuthorizationErrorCode.TokenIsInValid:
+                    return ViewResources.TokenIsInValid;
+
                 case OneAuthorizationErrorCode.LocationRestrictionMsg:
                     return string.Format(ViewResources.LocationRestrictionMsg, ViewResources.Administrator);
+
+                case OneAuthorizationErrorCode.LicenseeNotOfferedCurrency:
+                    return ViewResources.LicenseeNotOfferedCurrency;
 
                 default:
                     return ViewResources.OneTokenRestrictionDefaultMsg;

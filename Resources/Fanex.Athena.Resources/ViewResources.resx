@@ -2924,4 +2924,7 @@
   <data name="LicenseeNotOfferedCurrency" xml:space="preserve">
     <value>Licensee does not offered currency</value>
   </data>
+  <data name="TokenIsInValid" xml:space="preserve">
+    <value>Token is invalid</value>
+  </data>
 </root>
