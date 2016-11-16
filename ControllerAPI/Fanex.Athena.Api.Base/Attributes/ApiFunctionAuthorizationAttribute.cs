@@ -65,7 +65,7 @@
                     System.Web.Helpers.AntiForgery.Validate();
                 }
             }
-            catch
+            catch (Exception)
             {
                 return UnauthorizeAccessHandler(actionContext);
             }
@@ -75,7 +75,7 @@
                 return UnauthorizeAccessHandler(actionContext);
             }
 
-            return continuation();
+            return continuation?.Invoke();
         }
 
         private static bool IsAjaxRequest(HttpRequestHeaders headers)
