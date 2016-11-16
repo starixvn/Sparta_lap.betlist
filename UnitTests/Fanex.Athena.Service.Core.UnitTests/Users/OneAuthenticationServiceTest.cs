@@ -289,7 +289,7 @@
         [TestCase("vn")]
         [TestCase("ko")]
         [TestCase("jp")]
-        public void SignIn_AlreadyHasSessionFixWithToken_UpdateLanguage(string newLanguageCode)
+        public void SignIn_AlreadyHasSessionFixWithToken_UpdateLanguageAndAssignActionLinkToResult(string newLanguageCode)
         {
             // Arrange
             const int LicenseeId = 1;
@@ -315,11 +315,11 @@
             Assert.AreEqual(0, counter);
             _sessionService.Received(1).UpdateLanguage(Arg.Any<string>());
             Assert.AreEqual(1, langCounter);
-            Assert.False(string.IsNullOrEmpty(result.ExtendedData));
+            Assert.True(result.ExtendedData.Equals(tokenInfo.ActionLink));
         }
 
         [Test]
-        public void SignIn_AlreadyHasSessionFixWithToken_DoNoThing()
+        public void SignIn_AlreadyHasSessionFixWithToken_AssignActionLinkToResult()
         {
             // Arrange
             const int LicenseeId = 1;
@@ -339,7 +339,7 @@
             // Result
             _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<int>(LicenseeId), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
             Assert.AreEqual(0, counter);
-            Assert.False(string.IsNullOrEmpty(result.ExtendedData));
+            Assert.True(result.ExtendedData.Equals(tokenInfo.ActionLink));
         }
 
         [TestCase(2, "alex", "spondemo", "1", 1, AppMode.Parasitic, true)]
