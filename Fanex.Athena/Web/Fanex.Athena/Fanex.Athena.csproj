@@ -3865,7 +3865,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\UserGuide\Index.cshtml" />
-    <Content Include="Views\RNGCasino\DataTableFromAPI.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Content.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Filter.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Main.cshtml" />
