@@ -124,7 +124,7 @@
                 };
             _cacheService.Get<IList<LicenseeSiteName>>(Arg.Is<string>("OneAuthenticationService_LicenseeSiteNameCacheKey")).Returns(data);
             _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => null);
-           
+
             // Action
             var result = _oneAuthenticationService.SingleLicenseeSiteName(siteName);
 
@@ -252,9 +252,8 @@
                         sessionCounter++;
                         user = x.ArgAt<UserSession>(0);
                         lic = x.ArgAt<LicenseeSession>(1);
-                    }
+                    });
 
-                );
             _fakeTextReader = new FakeFunctionReader();
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
 
