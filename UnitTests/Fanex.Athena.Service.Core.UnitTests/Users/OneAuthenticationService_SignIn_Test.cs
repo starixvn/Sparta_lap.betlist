@@ -147,10 +147,10 @@
             _fakeTextReader = new FakeFunctionReader();
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
 
-            //_oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService)
-            //{
-            //    _textReader = _fakeTextReader
-            //};
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService)
+            {
+                _textReader = _fakeTextReader
+            };
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, ExpectedLicId, tokenInfo);
