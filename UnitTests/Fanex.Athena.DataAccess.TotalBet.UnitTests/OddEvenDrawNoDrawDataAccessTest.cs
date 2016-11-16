@@ -15,13 +15,21 @@
         private OddEvenDrawNoDrawDataAccess _dataAccess;
         private IDataReader _reader;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<OddEvenDrawNoDrawDataAccess>();
             _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
         }
 
         [Test]

@@ -20,7 +20,7 @@
         private IDataReader _reader;
         private CasinoProgressiveWinsMetaModel _metaModel;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
@@ -43,6 +43,15 @@
                 CurrencyId = 3,
                 ProductOptions = GetProductOptions()
             };
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
+            _metaModel = null;
         }
 
         [Test]

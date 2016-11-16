@@ -13,11 +13,18 @@
         private IObjectDb _objectDb;
         private KenoBetSettingDataAccess _dataAccess;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<KenoBetSettingDataAccess>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
         }
 
         [Test]

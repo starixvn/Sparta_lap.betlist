@@ -12,11 +12,18 @@
         private IObjectDb _objectDb;
         private AgCasinoBetSettingDataAccess _dataAccess;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<AgCasinoBetSettingDataAccess>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
         }
 
         [Test]

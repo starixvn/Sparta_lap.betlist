@@ -15,11 +15,18 @@
         private IObjectDb _objectDb;
         private SportsbookBetSettingDataAccess _dataAccess;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<SportsbookBetSettingDataAccess>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
         }
 
         [Test]

@@ -16,12 +16,20 @@
         private LicenseeDataAccess _dataAccess;
         private IDataReader _reader;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<LicenseeDataAccess>();
             _reader = Substitute.For<IDataReader>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
         }
 
         [Test]
@@ -260,7 +268,7 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeSelByLicenseeId")).Returns(_objectDb);
-            var expected = new Licensee()
+            var expected = new Licensee
             {
                 Id = 100
             };

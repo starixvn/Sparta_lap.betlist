@@ -29,6 +29,13 @@
             _dataAccess = Substitute.ForPartsOf<BetListDataAccess>();
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+        }
+
         [Test]
         public void GetMixParlayDetailTicket_WhenCall_ParametersPassedCorrectly()
         {

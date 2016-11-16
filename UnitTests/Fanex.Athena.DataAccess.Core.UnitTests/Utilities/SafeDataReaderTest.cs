@@ -12,13 +12,20 @@
         private IDataReader _dataReader;
         private IEnumerable<string> _columns = new string[] { "Column1", "Column2" };
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _dataReader = Substitute.For<IDataReader>();
             _dataReader.FieldCount.Returns(1);
             _dataReader.GetName(0).Returns("Column1");
             _dataReader.GetName(1).Returns("Column2");
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _columns = null;
+            _dataReader = null;
         }
 
         [Test]

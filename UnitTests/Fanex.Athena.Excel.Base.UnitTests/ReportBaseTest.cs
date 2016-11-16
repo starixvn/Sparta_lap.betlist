@@ -138,7 +138,7 @@
         {
             // Arrange
             var report = new FakeReportBase("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
-            report.ConvertingOption = new ConvertingOption() { IsConvert = convertOption, BaseCurrency = "EUR", CurrencyName = currencyName };
+            report.ConvertingOption = new ConvertingOption { IsConvert = convertOption, BaseCurrency = "EUR", CurrencyName = currencyName };
 
             // Action
             var result = report.GetExactTitleCurrencyName(currencyId);

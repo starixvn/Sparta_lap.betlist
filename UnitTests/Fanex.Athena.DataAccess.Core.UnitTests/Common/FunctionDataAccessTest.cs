@@ -16,13 +16,21 @@
         private FunctionDataAccess _dataAccess;
         private IDataReader _reader;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<FunctionDataAccess>();
             _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(_reader);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
         }
 
         [Test]
@@ -47,7 +55,7 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeFunctionsSel")).Returns(_objectDb);
             _reader.Read().Returns(true, true, false);
             _reader["FunctionId"].Returns(1, 2);
-            var expected = new List<Function>() { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
+            var expected = new List<Function> { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
 
             // Action
             var result = _dataAccess.GetLicenseeFunctionList(licenseeId);
@@ -82,7 +90,7 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeUserFunctionsSel")).Returns(_objectDb);
             _reader.Read().Returns(true, true, false);
             _reader["FunctionId"].Returns(1, 2);
-            var expected = new List<Function>() { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
+            var expected = new List<Function> { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
 
             // Action
             var result = _dataAccess.GetUserFunctionList(licenseeId, userId);

@@ -14,13 +14,19 @@
         private IObjectDb _objectDb;
         private CancelledBetListDataAccess _dataAccess;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
-            var test = new CancelledBetListDataAccess();
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<CancelledBetListDataAccess>();
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_SelDeleted_UserList")).Returns(_objectDb);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
         }
 
         [Test]

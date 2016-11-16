@@ -12,13 +12,20 @@
         private IObjectDb _objectDb;
         private CustomerLogDataAccess _dataAccess;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<CustomerLogDataAccess>();
         }
-        
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+        }
+
         [Test]
         public void GetCustomerSettingList_WhenCall_ParametersPassedCorrectly()
         {

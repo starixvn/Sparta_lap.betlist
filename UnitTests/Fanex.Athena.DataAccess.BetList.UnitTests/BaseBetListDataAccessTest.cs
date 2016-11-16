@@ -15,11 +15,18 @@
         private FakeBaseBetListDataAccess _dataAccess;
         private IDataReader _reader;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _dataAccess = Substitute.ForPartsOf<FakeBaseBetListDataAccess>();
             _reader = Substitute.For<IDataReader>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _dataAccess = null;
+            _reader = null;
         }
 
         [TestCase(10.2, "<span class='bl-underdog'>10.20</span>")]
