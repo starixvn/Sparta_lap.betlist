@@ -13,7 +13,6 @@ namespace Fanex.Athena.Controllers.Account
     using System.Linq;
     using System.Text;
     using System.Web.Mvc;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.MetaModel.Account;
@@ -31,6 +30,7 @@ namespace Fanex.Athena.Controllers.Account
     /// </summary>
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.AccountManageAccount)]
+    [AuthorizeRestriction(AppMode.Self)]
     public class AccountController : BaseController
     {
         private readonly IFunctionService _functionService;
