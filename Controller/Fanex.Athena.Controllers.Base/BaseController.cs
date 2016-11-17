@@ -16,11 +16,12 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.MetaModel;
-
+    using Fanex.Athena.Web.ActionFilter;
     /// <summary>
     /// Base controller.
     /// </summary>
     [Authorize]
+    [XFrameOption]
     public class BaseController : Controller
     {
         protected const string DefaultLanguage = "en-US";

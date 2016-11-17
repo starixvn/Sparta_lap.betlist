@@ -218,7 +218,7 @@ namespace Fanex.Athena.Controllers
             Response.Cache.SetExpires(Cache.NoAbsoluteExpiration);
             Response.Cache.SetLastModifiedFromFileDependencies();
 
-            string code = CreateRandomCaptchaCode();
+            var code = CreateRandomCaptchaCode();
 
             SessionService.CaptchaCode = code;
             FileContentResult img = null;

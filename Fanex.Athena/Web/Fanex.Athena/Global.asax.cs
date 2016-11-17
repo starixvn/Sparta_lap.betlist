@@ -9,6 +9,7 @@ namespace Fanex.Athena
     using System;
     using System.Configuration;
     using System.Web;
+    using System.Web.Helpers;
     using System.Web.Http;
     using System.Web.Http.ExceptionHandling;
     using System.Web.Mvc;
@@ -44,6 +45,9 @@ namespace Fanex.Athena
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
             GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
             /*End Web API*/
+
+            AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
+
             DbSettingProviderManager.Current.Start();
             log4net.Config.XmlConfigurator.Configure();
             log4net.LogManager.GetLogger("GeneralLog").Info("Start");

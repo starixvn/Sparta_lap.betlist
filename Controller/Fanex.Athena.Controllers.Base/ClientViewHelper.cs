@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Web;
-using Fanex.Athena.Model.Core.DataDomain;
-
-namespace Fanex.Athena.Controllers
+﻿namespace Fanex.Athena.Controllers
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Web;
+    using Fanex.Athena.Model.Core.DataDomain;
+
     public static class ClientViewHelper
     {
         private static readonly IDictionary<ClientViewType, string> ClientViewTypes =
-            new Dictionary<ClientViewType, string>() { { ClientViewType.Default, string.Empty }, { ClientViewType.Desktop, "Desktop" } };
+            new Dictionary<ClientViewType, string> { { ClientViewType.Default, string.Empty }, { ClientViewType.Desktop, "Desktop" } };
 
         public static string GetViewPath(string viewPath, ClientViewType viewtype)
         {

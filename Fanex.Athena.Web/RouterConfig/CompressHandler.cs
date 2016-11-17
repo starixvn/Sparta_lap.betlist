@@ -28,7 +28,7 @@ namespace Fanex.Athena.Web.RouterConfig
             return base.SendAsync(request, cancellationToken).ContinueWith(
                 responseToCompleteTask =>
                 {
-                    HttpResponseMessage response = responseToCompleteTask.Result;
+                    var response = responseToCompleteTask.Result;
 
                     if (response.StatusCode == HttpStatusCode.Unauthorized)
                     {
