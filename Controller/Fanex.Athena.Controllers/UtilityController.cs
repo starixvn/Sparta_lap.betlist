@@ -210,6 +210,9 @@ namespace Fanex.Athena.Controllers
                 case OneAuthorizationErrorCode.LicenseeNotOfferedCurrency:
                     return ViewResources.LicenseeNotOfferedCurrency;
 
+                case OneAuthorizationErrorCode.YouAreNotAllowToAccessThisPage:
+                    return ViewResources.YouAreNotAllowToAccessThisPage;
+
                 default:
                     return ViewResources.OneTokenRestrictionDefaultMsg;
             }

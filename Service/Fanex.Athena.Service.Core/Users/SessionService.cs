@@ -17,6 +17,7 @@ namespace Fanex.Athena.Service.Core.Users
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
 
     public class SessionService : ISessionService
@@ -111,7 +112,8 @@ namespace Fanex.Athena.Service.Core.Users
                 FunctionIdList = functionIdList,
                 Language = language,
                 CurrencyList = _currencyService.GetCurrencyMapByUser(licenseeId, userId),
-                DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList)
+                DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList),
+                ApplicationMode = AppMode.Self
             };
 
             this.UserSession = userSession;

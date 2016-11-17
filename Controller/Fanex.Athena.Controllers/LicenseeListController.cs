@@ -1,15 +1,12 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="UtilityController.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Controllers
+﻿namespace Fanex.Athena.Controllers
 {
     using System.Web.Mvc;
     using Fanex.Athena.Service.Core.Users;
+    using Model.Core.DataDomain;
     using Service.Core.Users.Interfaces;
+    using Web.ActionFilter;
 
+    [AuthorizeRestriction(AppMode.Self)]
     public class LicenseeListController : BaseController
     {
         private readonly ILicenseeService _licenseeService;

@@ -275,7 +275,7 @@ namespace Fanex.Athena.Controllers
         [HttpGet]
         public ActionResult ChangePassword()
         {
-            ViewBag.PageData = new Dictionary<string, string>()
+            ViewBag.PageData = new Dictionary<string, string>
             {
             { "alertInputOldPwd", ViewResources.AlertInputOldPwdMsg },
             { "alertPasswordEmpty", ViewResources.AlertPasswordEmptyMsg },

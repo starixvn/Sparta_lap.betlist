@@ -48,6 +48,7 @@
         [TestCase("400", "Direct Access to this website is restricted. Please contact Administrator for further enquiries.")]
         [TestCase("600", "Licensee does not offered currency")]
         [TestCase("300", "Token is invalid")]
+        [TestCase("700", "You are not allowed to access this page !!!")]
         public void OneTokenRestriction_ValidCode_ReturnMsgByCode(string code, string msg)
         {
             // Arrange

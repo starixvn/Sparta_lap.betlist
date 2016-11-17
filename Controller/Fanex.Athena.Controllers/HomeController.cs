@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
+    using Web.ActionFilter;
 
     /// <summary>
     /// Home controller.
@@ -31,12 +32,14 @@ namespace Fanex.Athena.Controllers
             _moveBetService = new MoveBetService();
         }
 
+        [AuthorizeRestriction(AppMode.Self)]
         public ActionResult Index()
         {
             AssignViewBagData();
             return ReAuthorize("~/Views/Home/Index.cshtml");
         }
 
+        [AuthorizeRestriction(AppMode.Self)]
         public ActionResult IndexIpad()
         {
             AssignViewBagData();

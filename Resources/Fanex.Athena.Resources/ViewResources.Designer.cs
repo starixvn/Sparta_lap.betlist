@@ -8143,6 +8143,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are not allowed to access this page !!!.
+        /// </summary>
+        public static string YouAreNotAllowToAccessThisPage {
+            get {
+                return ResourceManager.GetString("YouAreNotAllowToAccessThisPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You still not choose any customer..
         /// </summary>
         public static string YouNotChooseAnyCustomerMsg {
