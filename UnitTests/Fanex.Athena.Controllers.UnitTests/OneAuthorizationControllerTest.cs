@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
+    using System;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Logging;
@@ -9,7 +10,6 @@
     using NSubstitute;
     using NUnit.Framework;
     using ONEbook.UM.Services;
-    using System;
 
     [TestFixture]
     public class OneAuthorizationControllerTest : BaseControllerTest
@@ -199,7 +199,7 @@
             StringAssert.Contains(ExpectedUrl, result.Url);
         }
 
-        [TestCase("spondemo", "http://localhost:6985/LicenseeWinLossReport")]
+        [TestCase("spondemo", "hLicenseeWinLossReport")]
         public void CreateSession_Authenticated_RedirectToActionLink(string siteName, string actionLink)
         {
             // Arrange

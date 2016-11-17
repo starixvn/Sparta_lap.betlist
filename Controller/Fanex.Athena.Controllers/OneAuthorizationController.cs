@@ -68,7 +68,7 @@
                         else
                         {
                             var result = _oneAuthenticationService.SignIn(HttpContext, siteNameInfo.LicenseeID, tokenInfo);
-                            returnUrl = result.IsSuccessful ? result.ExtendedData : returnUrl += result.Code;
+                            returnUrl = result.IsSuccessful ? "~/" + result.ExtendedData : returnUrl += result.Code;
                         }
                     }
                 }
