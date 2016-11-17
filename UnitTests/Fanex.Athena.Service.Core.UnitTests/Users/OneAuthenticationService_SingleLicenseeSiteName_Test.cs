@@ -1,14 +1,14 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
     using Caching;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DTO.Common;
     using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
 
     [TestFixture]
     public class OOneAuthenticationService_SingleLicenseeSiteNameTest

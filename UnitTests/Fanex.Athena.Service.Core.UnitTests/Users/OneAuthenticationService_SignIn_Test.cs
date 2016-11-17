@@ -1,5 +1,9 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
     using Core.Users.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
@@ -11,10 +15,6 @@
     using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Web;
 
     [TestFixture]
     public class OneAuthenticationService_SignInTest
