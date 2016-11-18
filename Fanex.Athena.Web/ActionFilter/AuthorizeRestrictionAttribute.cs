@@ -6,7 +6,7 @@
     using Model.Core.DataDomain;
     using Service.Core.Users;
 
-    [AttributeUsage(AttributeTargets.All)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public sealed class AuthorizeRestrictionAttribute : AuthorizeAttribute
     {
         private readonly AppMode _appMode;
