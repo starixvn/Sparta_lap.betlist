@@ -34,7 +34,9 @@
             var user = _sessionService.UserSession;
             var value = user != null && user.ApplicationMode == AppMode.Parasitic ? _appSetting.GetValue(XFrameOptionAppSettingKey)
                 : "SAMEORIGIN";
+
             IEnumerable<string> headerValues = actionContext.HttpContext.Response.Headers.GetValues(XFrameOptionHeaderName);
+
             if (headerValues != null && headerValues.Any())
             {
                 actionContext.HttpContext.Response.Headers.Remove(XFrameOptionHeaderName);
