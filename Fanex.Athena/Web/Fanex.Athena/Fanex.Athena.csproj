@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -724,11 +724,16 @@
     <Content Include="www\css\build\images\logo-text.png" />
     <Content Include="www\css\build\images\logo.png" />
     <Content Include="www\css\build\main.css" />
+    <Content Include="www\css\build\pages\betlist\betlistSimpleLayout.css" />
     <Content Include="www\css\build\pages\home\home.css" />
     <Content Include="www\css\build\pages\login\login.css" />
     <Content Include="www\css\build\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\pages\reports\livereport.css" />
     <Content Include="www\css\build\pages\reports\reportjqgridlayout.css" />
+    <Content Include="www\css\source\components\betlist\AGCasino.css" />
+    <Content Include="www\css\source\components\betlist\Allbet.css" />
+    <Content Include="www\css\source\components\betlist\betlist.core.css" />
+    <Content Include="www\css\source\components\betlist\Microgaming.css" />
     <Content Include="www\css\source\components\jqgrid\jqgrid.css" />
     <Content Include="www\css\source\components\multiselect\jquery.multiselect.css" />
     <Content Include="www\css\source\components\sidebar\sideBar.css" />
@@ -738,6 +743,7 @@
     <Content Include="www\css\source\vendors\materialize\materialize.css" />
     <Content Include="www\js\build\common.chunk.js" />
     <Content Include="www\js\build\language.chunk.js" />
+    <Content Include="www\js\build\pages\betlist\betlist.chunk.js" />
     <Content Include="www\js\build\pages\home\home.chunk.js" />
     <Content Include="www\js\build\pages\licenseewinloss\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\pages\livereport\livereport.chunk.js" />
@@ -771,6 +777,10 @@
     <Content Include="www\js\source\common\pluginhelper.js" />
     <Content Include="www\js\source\common\querystring.js" />
     <Content Include="www\js\source\common\site.js" />
+    <Content Include="www\js\source\components\betlist\betlist.js" />
+    <Content Include="www\js\source\components\betlist\betlist.option.js" />
+    <Content Include="www\js\source\components\betlist\commonbetlist.js" />
+    <Content Include="www\js\source\components\betlist\main.js" />
     <Content Include="www\js\source\extensions\jquery.extension.js" />
     <Content Include="www\js\source\extensions\prototype.js" />
     <Content Include="www\js\source\lib\bignumber.js" />
@@ -781,6 +791,7 @@
     <Content Include="www\js\source\lib\jquery.flatpopup.js" />
     <Content Include="www\js\source\lib\jquery.monthpicker.js" />
     <Content Include="www\js\source\lib\jquery.multiselect.js" />
+    <Content Include="www\js\source\lib\jquery.tiny-draggable.js" />
     <Content Include="www\js\source\lib\linq.js" />
     <Content Include="www\js\source\lib\navbar.js" />
     <Content Include="www\js\source\lib\sidebar.js" />
@@ -1141,6 +1152,9 @@
     <Content Include="www\css\source\components\navbar\navBar.scss" />
     <Content Include="www\css\source\pages\report\livereport.scss" />
     <Content Include="Views\Utility\OneTokenRestriction.cshtml" />
+    <Content Include="Views\Desktop\Shared\_BetListSimpleLayout.cshtml" />
+    <Content Include="Views\Desktop\BetList\LicenseeWl\Main.cshtml" />
+    <Content Include="www\css\source\components\betlist\betlist.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">

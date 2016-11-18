@@ -1,5 +1,5 @@
 ﻿"use strict";
-define(['jquery'], function ($) {
+define(['jquery', 'lib/jquery.tiny-draggable'], function ($) {
     var MIN_WIDTH = 640;
     var MAX_HEIGHT = 480;
     $.fn.flatPopup = function (options) {
@@ -19,10 +19,10 @@ define(['jquery'], function ($) {
 
         // add popup content to a wrapper
         $self.children().wrapAll("<div class='wrapContent'></div>");
-        $self.find(".wrapContent").width(options.width - 10).height(options.height - 40);
+        $self.find(".wrapContent").height(options.height - 40);
 
         $self.hide()
-             .prepend('<div class="title-bar"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="#"><i class="icon-close"></i></a></div>')
+             .prepend('<div class="title-bar popup-title"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="#"><i class="icon-close"></i></a></div>')
              .width(options.width)
              .height(options.height);
 
@@ -30,6 +30,11 @@ define(['jquery'], function ($) {
             $self.fadeOut(300);
             return false;
         });
+
+        $self.tinyDraggable({ handle: '.popup-title' });
+
+        $(".wrapper").find(".flat-popup").remove();
+        $(".wrapper").append($self);
 
         return {
             show: function () {

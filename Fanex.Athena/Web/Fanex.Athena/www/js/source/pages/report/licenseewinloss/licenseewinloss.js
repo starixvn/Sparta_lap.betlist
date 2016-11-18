@@ -1,6 +1,4 @@
-﻿/// <reference path="/@JSense.js" />
-///
-define(
+﻿define(
     ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option",
         "lib/jqgrid/jquery.jqgrid.additional", "common/pluginhelper", "moment",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extensions/jquery.extension", "lib/linq"],
@@ -481,14 +479,10 @@ define(
                 url = Site.setProductOptionOriginalParamList(url);
 
                 var popH = Math.min($(window).height() - 100, 650), popW = 920;
-                var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' +
-                                 popW + '" height="100%" src="' + url + '" ></iframe></div>';
+                var dialogForm = '<div id="betlistPopup" class="betlist-popup"><iframe scrolling="no" frameborder="0" height="100%" src="' + url + '" ></iframe></div>';
 
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: popW + 50,
-                    height: popH + 50
-                });
+                var popupOption = { width: popW + 50, height: popH + 50, title: "Customer Bet List" };
+                $(dialogForm).flatPopup(popupOption).show();
             },
 
             resizeGrid: function () {

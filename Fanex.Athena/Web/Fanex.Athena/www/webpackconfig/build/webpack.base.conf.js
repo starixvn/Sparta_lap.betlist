@@ -21,13 +21,15 @@ var commonConfigs = {
         [pathConfig.scriptPaths.build + "/pages/livereport/livereport"]: [pathConfig.scriptPaths.livereport],
         [pathConfig.scriptPaths.build + "/pages/livereport/livereportmatchlist"]: [pathConfig.scriptPaths.livereportmatchlist],
         [pathConfig.scriptPaths.build + "/pages/licenseewinloss/licenseewinloss"]: [pathConfig.scriptPaths.licenseewinloss],
+        [pathConfig.scriptPaths.build + "/pages/betlist/betlist"]: [pathConfig.scriptPaths.betlist],
 
         [pathConfig.cssPaths.build + "/pages/reports/reportjqgridlayout"]: pathConfig.cssPaths.reportjqgridlayout,
         [pathConfig.cssPaths.build + "/pages/reports/livereport"]: pathConfig.cssPaths.livereport,
         [pathConfig.cssPaths.build + "/main"]: pathConfig.cssPaths.main,
         [pathConfig.cssPaths.build + "/pages/home/home"]: pathConfig.cssPaths.home,
         [pathConfig.cssPaths.build + "/pages/login/login"]: pathConfig.cssPaths.login,
-        [pathConfig.cssPaths.build + "/pages/reports/licenseewinloss"]: pathConfig.cssPaths.licenseewinloss
+        [pathConfig.cssPaths.build + "/pages/reports/licenseewinloss"]: pathConfig.cssPaths.licenseewinloss,
+        [pathConfig.cssPaths.build + "/pages/betlist/betlistSimpleLayout"]: pathConfig.cssPaths.betlistSimpleLayout
     },
     output: {
         path: pathConfig.projectRoot,

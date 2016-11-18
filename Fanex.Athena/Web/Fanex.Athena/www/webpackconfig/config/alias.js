@@ -7,6 +7,7 @@ var alias = {
     common: projectRoot + "/www/js/source/common",
     lib: projectRoot + "/www/js/source/lib",
     extensions: projectRoot + "/www/js/source/extensions",
+    components: projectRoot + "/www/js/source/components"
    
 };
 

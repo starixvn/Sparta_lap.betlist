@@ -5,6 +5,7 @@ var projectRoot = path.resolve(__dirname, '../../../');
 var cssCommonPath = "./www/css/source/";
 
 var cssDateRangePickerPath = ["bootstrap-daterangepicker/daterangepicker.css", "./www/css/source/components/daterangepicker/daterangepicker-ex.scss"];
+var jqgridPath = ["./www/css/source/components/jqgrid/jqgrid.css", "./www/css/source/extensions/jqgrid-ex.scss"];
 
 var cssPaths = {
     build: "www/css/build",
@@ -16,7 +17,14 @@ var cssPaths = {
         "./www/css/source/components/flatpopup/flatpopup.scss",
         "./www/css/source/components/multiselect/jquery.multiselect.css", "./www/css/source/extensions/multiselect-ex.scss",
         "./www/css/source/pages/common.scss", "./www/css/source/extensions/report-ex.scss",
-        "./www/css/source/components/jqgrid/jqgrid.css", "./www/css/source/extensions/jqgrid-ex.scss"
+        ...jqgridPath
+    ],
+    betlistSimpleLayout: [
+        "./www/css/source/pages/common.scss", "./www/css/source/extensions/report-ex.scss",
+        "./www/css/source/components/betlist/betlist.core.css", "./www/css/source/components/betlist/Microgaming.css",
+        "./www/css/source/components/betlist/AGCasino.css", "./www/css/source/components/betlist/Allbet.css",
+        "./www/css/source/components/betlist/betlist.scss",
+        ...jqgridPath
     ],
 
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],
@@ -34,7 +42,8 @@ var scriptPaths = {
 
     livereport: "./www/js/source/pages/report/livereport/main-livereport.js",
     livereportmatchlist: "./www/js/source/pages/report/livereport/main-matchlist.js",
-    licenseewinloss: "./www/js/source/pages/report/licenseewinloss/main.js"
+    licenseewinloss: "./www/js/source/pages/report/licenseewinloss/main.js",
+    betlist: "./www/js/source/components/betlist/main.js"
 };
 
 module.exports = {

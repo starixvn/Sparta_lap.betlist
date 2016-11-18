@@ -271,6 +271,7 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                 var htmlNoInfor = '<p id="noInfoRow" class="no-info-row" style="text-align: center;">' + noInfoText + '</p>';
                 $('#noInfoRow').remove();
                 $('.theme_jqGrid').append(htmlNoInfor);
+                $("div.ui-jqgrid-sdiv").hide();
             },
 
             setNoInfoWithColspan: function (colspan) {

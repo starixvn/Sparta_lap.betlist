@@ -26,6 +26,7 @@
     <input type="hidden" id="UserCurrencies" value="@JsonHelper.ToJson(userCurrencies)" />
     <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
     <input type="hidden" id="HistoryDate" value="@( appSettings.HistoryDate)" />
+    @Html.AntiForgeryToken()
 
     <div class="loading">
         <div class="preloader-wrapper big active">

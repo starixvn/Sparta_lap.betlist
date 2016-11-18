@@ -184,11 +184,10 @@
             };
             options = $.extend(defaultOptions, options);
             options.title = options.title || "";
-            $("body").prepend('<div id="UserGuidePopup" style="display: none" ></div>');
             var url = resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName) + "&_" + (new Date().getTime());
             var popup;
             $(options.buttonSelector).click(function () {
-                var $userGuidePopup = $("#UserGuidePopup");
+                var $userGuidePopup = $('<div id="UserGuidePopup" style="display: none" ></div>');
                 if ($userGuidePopup.is(":visible")) {
                     return;
                 }
@@ -649,6 +648,10 @@
             window.location.href = url;
         }
 
+        function getCurrentUrl() {
+            return window.location.href;
+        }
+
         function setMultiSelectForDropDownList(dropDownListId, dataSource, valueField, textField, checkField) {
             var data = $.parseJSON(dataSource);
             var length = data.length;
@@ -735,6 +738,7 @@
             isNumber: isNumber,
             isInteger: isInteger,
             redirect: redirect,
+            getCurrentUrl: getCurrentUrl,
             setMultiSelectForDropDownList: setMultiSelectForDropDownList
         };
     });
