@@ -80,8 +80,8 @@
 	<add name="CS_BackupDB_004202700" connectionString="Data Source=172.16.40.19;initial catalog=CasinoAdmin;User ID=dot_agent;Password=SITDot,;Pooling=true;" providerName="System.Data.SqlClient" />
 	<add name="LV_BackupDB" connectionString="packet size=4096; Data Source=172.16.40.20;Initial Catalog=LiveCasinoAdmin;integrated security=false; User Id=LVCasino_Agen;Password=SITDot," providerName="System.Data.SqlClient" />
 	<add name="CS_ArchiveDB" connectionString="Data Source=172.16.40.19;initial catalog=Casino_Archive;User ID=dot_agent;Password=SITDot,;Pooling=true;" providerName="System.Data.SqlClient" /> 
-	<add key="ConnectionString_Lic_Admin_Central" value="Data Source=172.16.40.23;Initial Catalog=Lic_Admin_Central;User Id=Dot_Admin_Portal;Password=sit_dot_admin_portal;"/>
-	<add key="ConnectionString_ClearinghouseDB" value="Data Source=172.16.40.2;Initial Catalog=ClearinghouseDB;User Id=Dot_clearhouse;Password=SITDot_clearhouse;"/>
+	<add name="ConnectionString_Lic_Admin_Central" connectionString="Data Source=172.16.40.23;Initial Catalog=Lic_Admin_Central;User Id=Dot_Admin_Portal;Password=sit_dot_admin_portal;"/>
+	<add name="ConnectionString_ClearinghouseDB" connectionString="Data Source=172.16.40.2;Initial Catalog=ClearinghouseDB;User Id=Dot_clearhouse;Password=SITDot_clearhouse;"/>
 
 </connectionStrings>
 <#
