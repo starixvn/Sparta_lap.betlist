@@ -6,6 +6,12 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.Linq;
+    using System.Web.Mvc;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
@@ -21,12 +27,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Fanex.Common;
     using Resources;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
-    using System.Linq;
-    using System.Web.Mvc;
 
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossReportController : ReportBaseController
@@ -206,7 +206,6 @@ namespace Fanex.Athena.Controllers.Report
                 reportData.Tables[1],
                 metaModel)
             {
-
                 ProductOptions = metaModel.ProductOptions
             };
 
@@ -322,16 +321,19 @@ namespace Fanex.Athena.Controllers.Report
                             row["matchname"] = ViewResources.Race + Converter.ToString2(row["race"]);
                             break;
                         }
+
                     case Product.NG:
                         {
                             row["matchname"] = ViewResources.NumberGameNo + " " + row["matchcode"];
                             break;
                         }
+
                     case Product.LC:
                         {
-                            row["matchname"] = $"{CacheRef.GetSportName(162)} {CacheRef.GetBettype(row["bettype"])} {row["showtime"]} ";
+                            row["matchname"] = string.Format("{0} {1} {2} ", CacheRef.GetSportName(162), CacheRef.GetBettype(row["bettype"]), row["showtime"]);
                             break;
                         }
+
                     default:
                         {
                             // Virtual Horse Racing
@@ -339,9 +341,9 @@ namespace Fanex.Athena.Controllers.Report
                             if (virtualHrBettypes.Contains(betType))
                             {
                                 var culture = new CultureInfo("en-US");
-                                const string timeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
+                                const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
                                 var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
-                                row["matchname"] = string.Format(culture, timeFormatter, kickOffTime);
+                                row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
                                 break;
                             }
 

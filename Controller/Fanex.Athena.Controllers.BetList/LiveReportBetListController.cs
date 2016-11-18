@@ -151,9 +151,9 @@
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
+                    var currencyName = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
                     var title = ViewResources.BetList
-
-                        + $" - {ViewResources.ProductRB} - {metaModel.FromDate.ToShortDateString()} --> {metaModel.ToDate.ToShortDateString()} - {string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName)}";
+                        + $" - {ViewResources.ProductRB} - {metaModel.FromDate.ToShortDateString()} --> {metaModel.ToDate.ToShortDateString()} - {currencyName}";
 
                     var racingBettypes = new List<int>
                     {
