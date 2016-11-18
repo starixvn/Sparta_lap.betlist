@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="BetListController : ApiBetListBaseController.LastBetMonitoring.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Dave.Bui" date="2012.4.11">Created</change>
-// </history>
-
-namespace Fanex.Athena.Api.BetList
+﻿namespace Fanex.Athena.Api.BetList
 {
     #region Using
 
@@ -63,7 +54,7 @@ namespace Fanex.Athena.Api.BetList
         {
             var matchList = _matchService.GetAllRunningMatch(sportId);
 
-            var leagueListNormal = matchList.Where(i => i.IsOutRight == false).Select(m => m.LeagueId).Distinct()
+            var leagueListNormal = matchList.Where(i => !i.IsOutRight).Select(m => m.LeagueId).Distinct()
                                       .Select(l => new League
                                       {
                                           IsOutRight = false,
@@ -226,7 +217,7 @@ namespace Fanex.Athena.Api.BetList
                 _ticketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);
 
                 // Begin of row
-                var row = string.Format("<tr class='content-row monitor-hightlight' id='trans-{0}' data-transid='{0}'>", ticket.TransId);
+                var row = $"<tr class='content-row monitor-hightlight' id='trans-{ticket.TransId}' data-transid='{ticket.TransId}'>";
                 builder.Append(row);
 
                 // Platform

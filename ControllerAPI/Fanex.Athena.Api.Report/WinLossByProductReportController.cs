@@ -264,6 +264,7 @@ namespace Fanex.Athena.Api.Report
         /// <param name="custId">Customer Id.</param>
         /// <param name="memberId">Member Id.</param>
         /// <param name="systemId">System Id.</param>
+        /// <param name="currencyName">todo: describe currencyName parameter on ProcessRequest</param>
         /// <returns>Dynamic type.</returns>
         [SuppressMessage(
            "StyleCop.CSharp.StylecopPlus.Rules",
@@ -318,7 +319,7 @@ namespace Fanex.Athena.Api.Report
 
             resultInfo.Message = GetErrorMessage(resultInfo.Code);
 
-            if (memberId == 0 && string.IsNullOrWhiteSpace(resultInfo.ExtendedData) == false)
+            if (memberId == 0 && !string.IsNullOrWhiteSpace(resultInfo.ExtendedData))
             {
                 var extendedItems = resultInfo.ExtendedData.Split(';');
                 memberId = string.IsNullOrWhiteSpace(extendedItems[0]) ? 0 : Convert.ToInt32(extendedItems[0]);

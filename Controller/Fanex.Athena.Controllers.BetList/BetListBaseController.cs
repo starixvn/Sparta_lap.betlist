@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.cs" company="">
-// Report controller
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Controllers.BetList
+﻿namespace Fanex.Athena.Controllers.BetList
 {
     #region Using
 
@@ -49,7 +43,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// Hidden column indexes. WinLoss: 7, LicenseeWL: 8.
         /// </summary>
         protected static readonly ReadOnlyCollection<int> HiddenColumnIndexes =
-            new ReadOnlyCollection<int>(new List<int>() { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
+            new ReadOnlyCollection<int>(new List<int> { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
 
         /// <summary>
         /// The list contains all bet type of racing.

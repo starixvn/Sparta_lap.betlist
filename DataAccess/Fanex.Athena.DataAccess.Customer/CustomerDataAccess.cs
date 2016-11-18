@@ -139,17 +139,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        private void AddOddsGroupParam(IObjectDb objectDb, CustomerListMetaModel metaModel)
-        {
-            var oddsGroups = metaModel.OddsGroups;
-            if (oddsGroups != null)
-            {
-                var selectedOddsGroups = oddsGroups.Where(g => g.Checked).Select(g => g.Name).ToArray();
-                var oddsGroupValues = string.Join(",", selectedOddsGroups);
-                objectDb.AddInParameter("OddsGroups", DbType.String, oddsGroupValues);
-            }
-        }
-
         /// <summary>
         /// Get customer Information such as: SyncCasino, DisableBingo, ...
         /// </summary>
@@ -194,7 +183,7 @@ namespace Fanex.Athena.DataAccess.Customer
                 using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, custId);
-                    db.AddInParameter("licenseeId", DbType.Int32, licenseeId);
+                    db.AddInParameter(nameof(licenseeId), DbType.Int32, licenseeId);
 
                     return db.Query<LogInfo>().FirstOrDefault();
                 }
@@ -486,7 +475,7 @@ namespace Fanex.Athena.DataAccess.Customer
                     db.AddInParameter("custid", DbType.Int32, custId);
                     db.AddInParameter("userid", DbType.Int32, userId);
                     db.AddInParameter("speciallevel", DbType.Int32, level);
-                    db.AddInParameter("ip", DbType.String, ip);
+                    db.AddInParameter(nameof(ip), DbType.String, ip);
                     db.AddInParameter("langkey", DbType.String, language);
                     AddResultParam(db);
                     db.ExecuteNonQuery();
@@ -520,7 +509,7 @@ namespace Fanex.Athena.DataAccess.Customer
                     db.AddInParameter("custid", DbType.Int32, custId);
                     db.AddInParameter("userid", DbType.Int32, userId);
                     db.AddInParameter("oddsgroup", DbType.String, group);
-                    db.AddInParameter("ip", DbType.String, ip);
+                    db.AddInParameter(nameof(ip), DbType.String, ip);
                     db.AddInParameter("langkey", DbType.String, language);
                     AddResultParam(db);
                     db.ExecuteNonQuery();
@@ -536,5 +525,16 @@ namespace Fanex.Athena.DataAccess.Customer
         }
 
         #endregion Update
+
+        private static void AddOddsGroupParam(IObjectDb objectDb, CustomerListMetaModel metaModel)
+        {
+            var oddsGroups = metaModel.OddsGroups;
+            if (oddsGroups != null)
+            {
+                var selectedOddsGroups = oddsGroups.Where(g => g.Checked).Select(g => g.Name).ToArray();
+                var oddsGroupValues = string.Join(",", selectedOddsGroups);
+                objectDb.AddInParameter("OddsGroups", DbType.String, oddsGroupValues);
+            }
+        }
     }
 }

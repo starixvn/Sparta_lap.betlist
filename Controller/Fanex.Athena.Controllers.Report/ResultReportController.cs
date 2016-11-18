@@ -6,14 +6,6 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Web;
-    using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -31,10 +23,17 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Result.Core.MicroGaming;
     using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
-    using Model.Core.Helper;
     using Resources;
     using Result.Core.AllBetCasino;
     using Result.Core.Voidbridge;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
 
     /// <summary>
     /// The result controller.
@@ -467,12 +466,12 @@ namespace Fanex.Athena.Controllers.Report
                     && productAccess.IsAllowVS;
                 if (!limitedProduct)
                 {
-                    var lcsport = (int)SportType.LiveCasino;
-                    var ngsport = (int)SportType.NumberGame;
-                    var hrsport = (int)SportType.HorseRacing;
-                    var grsport = (int)SportType.Greyhound;
-                    var hnsport = (int)SportType.Harness;
-                    var vssoccer = (int)SportType.VirtualSports;
+                    const int lcsport = (int)SportType.LiveCasino;
+                    const int ngsport = (int)SportType.NumberGame;
+                    const int hrsport = (int)SportType.HorseRacing;
+                    const int grsport = (int)SportType.Greyhound;
+                    const int hnsport = (int)SportType.Harness;
+                    const int vssoccer = (int)SportType.VirtualSports;
                     limitedSports = sports.Where(i => !i.SportId.Equals(lcsport.ToString())
                       && !i.SportId.Equals(ngsport.ToString()) && !i.SportId.Equals(vssoccer.ToString()) && !i.SportId.Equals(hrsport.ToString())
                       && !i.SportId.Equals(grsport.ToString()) && !i.SportId.Equals(hnsport.ToString())).ToList();

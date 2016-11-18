@@ -73,7 +73,7 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        private HttpResponseMessage ExportExcel(
+        private static HttpResponseMessage ExportExcel(
             WeeklyLiveMatchMetaModel metaModel,
             IEnumerable<WeeklyLiveMatch> dataList,
             int[] totalData,

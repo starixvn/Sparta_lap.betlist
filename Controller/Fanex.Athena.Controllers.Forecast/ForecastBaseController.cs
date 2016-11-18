@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ForecastController.cs" company="">
+// <copyright file="ForecastBaseController.cs" company="">
 // Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------

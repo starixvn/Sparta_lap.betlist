@@ -38,10 +38,10 @@ namespace Fanex.Athena.DataAccess.Report
         /// <returns>The result value.</returns>
         public IList<LiveReport> GetLiveReportSummary(LiveReportMetalModel metaModel, DateTime moveBetsDate)
         {
-            var uspName = "Lrf_Rpt_LiveReportSummary";
+            const string UspName = "Lrf_Rpt_LiveReportSummary";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = new ObjectDb(UspName))
                 {
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
@@ -78,7 +78,7 @@ namespace Fanex.Athena.DataAccess.Report
             catch (ObjectDbException ex)
             {
                 Logging.LogService.Error(ex.Message);
-                throw new DataAccessException(ex.Message, uspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
+                throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
 
@@ -103,15 +103,15 @@ namespace Fanex.Athena.DataAccess.Report
             out IList<LiveReport> resultByByCurrency,
             out IList<LiveReportByBetType> resultByBettype)
         {
-            var uspName = "Lrf_Rpt_LiveReportSummaryDetail";
-            var uspNameBySport = "Lrf_Rpt_LiveReportBySport";
+            const string UspName = "Lrf_Rpt_LiveReportSummaryDetail";
+            const string UspNameBySport = "Lrf_Rpt_LiveReportBySport";
 
             try
             {
                 var currency = metaModel.BaseCurrency;
                 var task1 = Task<IList<LiveReport>[]>.Factory.StartNew(() =>
                  {
-                     using (var db = new ObjectDb(uspName))
+                     using (var db = new ObjectDb(UspName))
                      {
                          db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                          db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
@@ -126,7 +126,7 @@ namespace Fanex.Athena.DataAccess.Report
                          {
                              while (reader.Read())
                              {
-                                 var productName = reader.ToString("currency");
+                                 var productName = reader.ToString(nameof(currency));
                                  result[0].Add(new LiveReport
                                  {
                                      ReportType = 0,
@@ -171,7 +171,7 @@ namespace Fanex.Athena.DataAccess.Report
                     {
                         // Task2
                         var items = new List<LiveReport>();
-                        using (var db = new ObjectDb(uspNameBySport))
+                        using (var db = new ObjectDb(UspNameBySport))
                         {
                             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                             db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
@@ -245,7 +245,7 @@ namespace Fanex.Athena.DataAccess.Report
                 Logging.LogService.Error(ex.Message);
                 throw new DataAccessException(
                     ex.Message,
-                    uspName + "," + uspNameBySport,
+                    UspName + "," + UspNameBySport,
                     new
                     {
                         Model = metaModel,
@@ -253,13 +253,6 @@ namespace Fanex.Athena.DataAccess.Report
                         ProductCode = productCode
                     });
             }
-        }
-
-        private bool IsIgnoredProduct(Product product, IList<LiveReportByBetType> resultByBettype)
-        {
-            return product.ProductCode == Product.MGCLC || product.ProductCode == Product.MGCRNG ||
-                    product.ProductCode == Product.BA ||
-                    resultByBettype.Any(p => p.ProductName == product.ProductName);
         }
 
         /// <summary>
@@ -272,10 +265,10 @@ namespace Fanex.Athena.DataAccess.Report
                     Justification = "Reviewed. Suppression is OK here.")]
         public IList<LiveReportWinLossByMatch> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel, DateTime moveBetsDate)
         {
-            var uspName = "Lrf_Rpt_LiveReportWinlossByMatch";
+            const string UspName = "Lrf_Rpt_LiveReportWinlossByMatch";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = new ObjectDb(UspName))
                 {
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
@@ -322,8 +315,12 @@ namespace Fanex.Athena.DataAccess.Report
             catch (ObjectDbException ex)
             {
                 Logging.LogService.Error(ex.Message);
-                throw new DataAccessException(ex.Message, uspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
+                throw new DataAccessException(ex.Message, UspName, new { Model = metaModel, MoveBetDate = moveBetsDate });
             }
         }
+
+        private static bool IsIgnoredProduct(Product product, IList<LiveReportByBetType> resultByBettype) => product.ProductCode == Product.MGCLC || product.ProductCode == Product.MGCRNG ||
+            product.ProductCode == Product.BA ||
+            resultByBettype.Any(p => p.ProductName == product.ProductName);
     }
 }

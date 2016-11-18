@@ -84,8 +84,10 @@ namespace Fanex.Athena.Api.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            var mobileWinLossExcel = new PlatformWinLossMemberExcel(templatePath, FileName, excelModel, showingOption, convertingOption);
-            mobileWinLossExcel.ProductOptions = metaModel.ProductOptions;
+            var mobileWinLossExcel = new PlatformWinLossMemberExcel(templatePath, FileName, excelModel, showingOption, convertingOption)
+            {
+                ProductOptions = metaModel.ProductOptions
+            };
             mobileWinLossExcel.Export();
 
             return ExcelStream(mobileWinLossExcel.Workbook, FileName);

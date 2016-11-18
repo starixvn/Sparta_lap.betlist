@@ -25,7 +25,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         public ActionResult Index()
         {
-            var metaModel = new BalanceMetaModel() { LicenseeId = SessionService.LicenseeSession.LicenseeId };
+            var metaModel = new BalanceMetaModel { LicenseeId = SessionService.LicenseeSession.LicenseeId };
             SetConvetedUSDCurrencyName(metaModel);
             return Index(metaModel);
         }

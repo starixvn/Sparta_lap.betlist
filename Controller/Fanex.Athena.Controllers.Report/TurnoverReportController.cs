@@ -43,7 +43,7 @@ namespace Fanex.Athena.Controllers.Report
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.Turnover);
-            var productOption = productAccess.ProductList.Where(a => a.ProductCode.Equals(Product.BA) == false)
+            var productOption = productAccess.ProductList.Where(a => !a.ProductCode.Equals(Product.BA))
                                              .Select(i => new ProductOption
                                              {
                                                  Code = i.ProductCode,

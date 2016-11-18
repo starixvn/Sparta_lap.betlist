@@ -126,11 +126,10 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
                 IsHistory = false,
+                TotalRows = totalRows,
+                DataList = dataList,
+                TotalData = totalData
             };
-
-            model.TotalRows = totalRows;
-            model.DataList = dataList;
-            model.TotalData = totalData;
 
             return metaModel.IsExportExcel
                        ? Excel(model)
@@ -188,7 +187,7 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult Excel(CustomerWinLossViewModel viewModel)
         {
-            const string FileName = "CustomerWinLoss";
+            const string FileName = nameof(CustomerWinLoss);
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls");
             var productAccess = ProductService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language);
@@ -218,9 +217,10 @@ namespace Fanex.Athena.Controllers.Report
                 FileName,
                 showingOption,
                 convertingOption,
-                viewModel);
-
-            custWinlossExcel.ProductOptions = viewModel.Param.ProductOptions;
+                viewModel)
+            {
+                ProductOptions = viewModel.Param.ProductOptions
+            };
             custWinlossExcel.Export();
 
             return new ExcelResult(custWinlossExcel.Workbook, FileName);
@@ -230,7 +230,7 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult HistoryExcel(CustomerWinLossViewModel viewModel)
         {
-            const string FileName = "CustomerWinLoss";
+            const string FileName = nameof(CustomerWinLoss);
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerWinLoss.xls");
             var productAccess = ProductService.GetProductAccess(viewModel.HistoryParam.LicenseeId, SessionService.UserSession.Language);
@@ -258,9 +258,10 @@ namespace Fanex.Athena.Controllers.Report
                 FileName,
                 showingOption,
                 convertingOption,
-                viewModel);
-
-            custWinlossExcel.ProductOptions = viewModel.HistoryParam.ProductOptions;
+                viewModel)
+            {
+                ProductOptions = viewModel.HistoryParam.ProductOptions
+            };
             custWinlossExcel.Export();
 
             return new ExcelResult(custWinlossExcel.Workbook, FileName);

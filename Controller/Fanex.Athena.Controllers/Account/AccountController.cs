@@ -133,7 +133,7 @@ namespace Fanex.Athena.Controllers.Account
                 user.Licensee = new Licensee { Id = licenseeId };
 
                 // proceed updating
-                IResultInfo resultInfo = _userService.UpdateInfo(user, userSession.UserId);
+                var resultInfo = _userService.UpdateInfo(user, userSession.UserId);
                 if (resultInfo.IsSuccessful)
                 {
                     resultInfo.Message = ViewResources.UpdateAccountSuccessMsg;
@@ -311,7 +311,7 @@ namespace Fanex.Athena.Controllers.Account
         [CustomValidateAntiForgery]
         public ActionResult EditPermission(EditPermissionMetaModel model)
         {
-            bool isValid = ValidatePermissionRestriction(model.UserId);
+            var isValid = ValidatePermissionRestriction(model.UserId);
 
             if (!isValid)
             {
@@ -402,7 +402,7 @@ namespace Fanex.Athena.Controllers.Account
                 });
             }
 
-            if (AppSettings.EnableAssignCurrency == false || ValidatePermissionRestriction(model.UserId) == false)
+            if (!AppSettings.EnableAssignCurrency || !ValidatePermissionRestriction(model.UserId))
             {
                 return Json(new ResultInfo
                 {
@@ -420,20 +420,20 @@ namespace Fanex.Athena.Controllers.Account
 
             // convert currencies into xml
             var currencyDict = _currencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
-            var xmlPattern = "<currencies>{0}</currencies>";
-            var xmlElement = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
+            const string XmlPattern = "<currencies>{0}</currencies>";
+            const string XmlElementPattern = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
             var xmlElementBuilder = new StringBuilder();
             var selectedCurrencyList = model.CurrencyList.Split(',');
 
             foreach (var currency in currencyDict)
             {
                 xmlElementBuilder.Append(string.Format(
-                    xmlElement,
+                    XmlElementPattern,
                     currency.CurrencyId,
                     selectedCurrencyList.Contains(currency.CurrencyId.ToString(CultureInfo.InvariantCulture)) ? 1 : 0));
             }
 
-            model.CurrencyList = string.Format(xmlPattern, xmlElementBuilder);
+            model.CurrencyList = string.Format(XmlPattern, xmlElementBuilder);
 
             var result = _currencyService.AssignCurrenciesByUser(model);
 

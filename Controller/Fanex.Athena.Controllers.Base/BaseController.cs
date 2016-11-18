@@ -15,8 +15,9 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Model.Core.MetaModel;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.MetaModel;
+
     /// <summary>
     /// Base controller.
     /// </summary>
@@ -85,17 +86,6 @@ namespace Fanex.Athena.Controllers
             LangService.SetPageCulture(currentLanguage);
         }
 
-        private IEnumerable<string> GetBaseUsdLicensees()
-        {
-            var items = _appSettings.GetValue("BaseUsdLicensees");
-            if (!string.IsNullOrEmpty(items))
-            {
-                return items.Split(',');
-            }
-
-            return new string[] { };
-        }
-
         protected override ViewResult View(string viewName, string masterName, object model)
         {
             var userSession = SessionService.UserSession;
@@ -105,6 +95,17 @@ namespace Fanex.Athena.Controllers
 
             var viewByOption = ClientViewHelper.GetViewPath(viewName, option);
             return base.View(viewByOption, masterName, model);
+        }
+
+        private IEnumerable<string> GetBaseUsdLicensees()
+        {
+            var items = _appSettings.GetValue("BaseUsdLicensees");
+            if (!string.IsNullOrEmpty(items))
+            {
+                return items.Split(',');
+            }
+
+            return new string[] { };
         }
     }
 }

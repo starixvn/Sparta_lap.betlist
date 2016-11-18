@@ -6,10 +6,6 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
@@ -20,6 +16,10 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
 
     [FunctionAuthorization(PermissionKeys.ReportWinLossByBetType)]
     public class WinLossByBetTypeReportController : ReportBaseController
@@ -127,7 +127,7 @@ namespace Fanex.Athena.Controllers.Report
 
         private ActionResult Excel(WinLossByBetTypeViewModel viewModel)
         {
-            const string FileName = "WinLossByBetType";
+            const string FileName = nameof(WinLossByBetType);
 
             var templatePath = Server.MapPath("~/App_Data/Template/Reports/WinLossByBetType.xls");
 

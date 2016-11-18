@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="WinlossByLeagueBetListController.cs" company="">
+// <copyright file="WinlossByLeagueBetListController.cs" company="Nexdev">
 // Report controller
 // </copyright>
 // -----------------------------------------------------------------------
@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Web.ActionFilter;
+
     #endregion Using
 
     [FunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]

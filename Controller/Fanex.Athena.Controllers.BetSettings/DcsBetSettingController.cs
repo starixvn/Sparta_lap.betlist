@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="DcsController.cs" company="">
+// <copyright file="DcsBetSettingController.cs" company="">
 // Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -30,7 +30,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var viewModel = new BetSettingBaseViewModel()
+            var viewModel = new BetSettingBaseViewModel
             {
                 IsEnabled = _betSettingService.GetStatus(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId),
             };
@@ -53,9 +53,9 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateStatus(int custId, string nickName, int status, int productId)
         {
-            if (ProductAccess.IsAllow(productId) == false || !IsBetSettingEditable())
+            if (!ProductAccess.IsAllow(productId) || !IsBetSettingEditable())
             {
-                return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
+                return Json(new ResultInfo { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
 
             var userSession = SessionService.UserSession;
