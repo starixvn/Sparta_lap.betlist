@@ -155,7 +155,7 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                 return temp;
             },
 
-            gridComplete: function (grid, gridOption, totalRowCount) {
+            gridComplete: function () {
                 $(".ui-jqgrid-titlebar").hide();
                 $(".ui-jqgrid-hdiv").css("clear", "both");
 

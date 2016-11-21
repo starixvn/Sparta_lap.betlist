@@ -374,7 +374,7 @@
                 };
                 gridOption.gridComplete = function () {
                     level = Number(level);
-                    jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
+                    jqGridAdditional.gridComplete();
                     if (level === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
                         $("#pg_ppdata").show();
                     }

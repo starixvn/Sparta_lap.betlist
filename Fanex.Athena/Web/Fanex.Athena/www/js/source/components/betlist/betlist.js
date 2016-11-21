@@ -76,7 +76,7 @@
                         });
                 }
                 // Resize
-                jqGridAdditional.gridComplete(grid, gridOption, totalRowCount);
+                jqGridAdditional.gridComplete();
                 // Remove unnecessary item
                 if (_isShowSumStake) {
                     $(".ui-jqgrid-ftable td[aria-describedby=BetListGrid_Odds]").html(Site.getSingleResource("GrandTotal")).removeAttr("title");
@@ -187,7 +187,7 @@
                     beforeSend: function () {
                         Site.blockUI();
                     },
-                    complete: function (/*jqXhr, textStatus*/) {
+                    complete: function () {
                         Site.unBlockUI();
                     }
                 });
