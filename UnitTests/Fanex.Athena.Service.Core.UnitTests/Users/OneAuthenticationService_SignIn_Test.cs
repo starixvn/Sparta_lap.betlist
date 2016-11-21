@@ -144,11 +144,8 @@
                         lic = x.ArgAt<LicenseeSession>(1);
                     });
 
-            _fakeTextReader = new FakeFunctionReader();
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
-
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService);
-
+           
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, ExpectedLicId, tokenInfo);
 
