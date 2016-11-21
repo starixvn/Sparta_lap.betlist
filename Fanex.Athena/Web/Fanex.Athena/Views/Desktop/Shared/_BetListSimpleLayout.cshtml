@@ -14,28 +14,26 @@
     
     @RenderSection("pagejs", required: false)
 }
-<div class="content-title">
-    @RenderSection("ContentTitle", required: false)
-    <div class="export-excel">
-        @RenderSection("BackButton", required: false)
-        @if (ViewBag.HideExportExcel != true)
-        {
-        <input alt="@Fanex.Athena.Resources.ViewResources.ExportToExcel" 
-            src="@Url.ContentLink("/Content/Global/Images/excel.gif")" type="image" id="ExportToExcel" name="exporttoexcel"
-            title="@Fanex.Athena.Resources.ViewResources.ExportToExcel" class="hand" />
-        }
-    </div>
-</div>
-<div class="content-main" id="report-container">
-    <div id="dialog">
-    </div>
-    <div class="theme_jqGrid">
-        <div id="pager1">
-        </div>
-        <table id="BetListGrid">
-        </table>
-        <div id="pager2">
+
+<div class="betlist-container">
+    <div class="content-title">
+        @RenderSection("ContentTitle", required: false)
+        <div class="export-excel">
+            @RenderSection("BackButton", required: false)
+            @if (ViewBag.HideExportExcel != true)
+            {
+                <i class="icon-book right" id="ExportToExcel" name="exporttoexcel" title="@Fanex.Athena.Resources.ViewResources.ExportToExcel"></i>
+            }
         </div>
     </div>
-    @RenderBody()
+    <div class="content-main" id="report-container">
+        <div class="theme_jqGrid">
+            <div id="pager1">
+            </div>
+            <table id="BetListGrid"></table>
+            <div id="pager2">
+            </div>
+        </div>
+        @RenderBody()
+    </div>
 </div>

@@ -1,7 +1,6 @@
 ﻿@import "../scss/abstracts/_variables.scss";
 
 .page-title {
-
     .title {
         font-size: 16px;
         color: $blue-dark;
@@ -18,12 +17,6 @@
 
 .page-results {
     margin: 2rem 2rem 0;
-
-    .collapsible {
-        box-shadow: none;
-        border: 0;
-        overflow: auto;
-    }
 }
 
 .page-form {
@@ -60,9 +53,9 @@
             &[readonly="readonly"] {
                 border-bottom: 1px solid #ccc;
 
-                 + label {
-                     color: #808080;
-                 }
+                + label {
+                    color: #808080;
+                }
             }
 
             &:focus:not([readonly]) {
@@ -127,7 +120,6 @@
                 right: -5px;
             }
         }
-
         /*span.caret {
             color: $blue-light;
         }*/
@@ -169,11 +161,15 @@
 
     &.active {
         .panel-title {
-
-
             .icon-arrow {
                 transform: rotate(0);
             }
         }
     }
+}
+
+.no-info-row {
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 5px;
 }
