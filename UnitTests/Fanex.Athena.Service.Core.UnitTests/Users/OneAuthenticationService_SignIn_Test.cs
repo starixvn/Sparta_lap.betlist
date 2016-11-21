@@ -304,8 +304,7 @@
             var curName = expectedAgents.Select(s => s.CurrencyName).Distinct().ToList();
             return lic.LicenseeId == expectedLicInfo.Id && lic.CurrencyName.Count == curName.Count
                  && lic.LicenseeType.Count == licType.Count && lic.LicenseeName == expectedLicInfo.Name
-                 && lic.IsEnableBA == expectedLicInfo.IsEnableBA && lic.IsAllowedCustomerComm == expectedLicInfo.IsAllowedCustomerComm
-                 && lic.UserId == tokenInfo.UserSEQ && lic.UserName == tokenInfo.UserName;
+                 && lic.IsEnableBA == expectedLicInfo.IsEnableBA && lic.IsAllowedCustomerComm == expectedLicInfo.IsAllowedCustomerComm;
         }
 
         private static void CreateTokenInfoAndLicInfo(int expectedLicId, out OneAuthenticationToken tokenInfo, out Licensee expectedLicInfo)

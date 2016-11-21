@@ -120,11 +120,7 @@ namespace Fanex.Athena.Service.Core.Users
             var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
             if (licenseeId > 0 && selectedLicensee != null)
             {
-                var licenseeSession = new LicenseeSession
-                {
-                    UserId = userId,
-                    UserName = userName
-                };
+                var licenseeSession = new LicenseeSession();
                 AssignDataForLicenseeSession(licenseeSession, selectedLicensee);
                 licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;
                 this.LicenseeSession = licenseeSession;
@@ -140,11 +136,7 @@ namespace Fanex.Athena.Service.Core.Users
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
 
-                this.LicenseeSession = new LicenseeSession
-                {
-                    UserId = currentUserSession.UserId,
-                    UserName = currentUserSession.UserName
-                };
+                this.LicenseeSession = new LicenseeSession();
                 AssignDataForLicenseeSession(this.LicenseeSession, selectedLicensee);
 
                 var functionList = _functionService.GetUserFunctionList(licenseeId, currentUserSession.UserId);

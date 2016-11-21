@@ -62,11 +62,12 @@ namespace Fanex.Athena.Service.Core.Helpers
 
             var sessionService = new SessionService();
             var licenseeSession = sessionService.LicenseeSession;
-            if (licenseeSession != null)
+            var userSession = sessionService.UserSession;
+            if (licenseeSession != null && userSession != null)
             {
                 builder.AppendLine("SystemInfo:Licensee=" + licenseeSession.LicenseeId + "-" +
-                    licenseeSession.LicenseeName + ";userId=" + licenseeSession.UserId + ";" +
-                    licenseeSession.UserName);
+                    licenseeSession.LicenseeName + ";userId=" + userSession.UserId + ";" +
+                    userSession.UserName);
             }
 
             return builder;

@@ -131,7 +131,7 @@ namespace Fanex.Athena.Service.Customer
                         CustomerId = customerIds,
                         FromIp = metaModel.Ip,
                         ModifyBy = metaModel.UserId,
-                        ModifyUserName = _sessionService.LicenseeSession.UserName
+                        ModifyUserName = _sessionService.UserSession.UserName
                     });
                 }
             }

@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = licenseeSession.UserId;
+            metaModel.UserId = userSession.UserId;
             var winLossByBetTypeService = new WinLossByBetTypeService();
             var reportData = winLossByBetTypeService.GetDataList(metaModel);
 

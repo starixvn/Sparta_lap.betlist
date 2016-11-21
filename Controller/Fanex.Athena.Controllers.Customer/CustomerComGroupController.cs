@@ -101,6 +101,7 @@ namespace Fanex.Athena.Controllers.Customer
         public ActionResult Create(GroupCommMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var result = new ResultViewModel { Success = false };
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             if (ModelState.IsValid)
@@ -123,10 +124,10 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     var request = new Request
                     {
-                        Language = SessionService.UserSession.Language,
+                        Language = userSession.Language,
                         Ip = Request.UserHostAddress
                     };
-                    _customerComService.InsertGroup(metaModel, request, licenseeSession.UserId, out result);
+                    _customerComService.InsertGroup(metaModel, request, userSession.UserId, out result);
                     GetCreateErrorMessage(result);
                 }
                 else

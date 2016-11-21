@@ -174,9 +174,7 @@
                 CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList(),
                 IsAllowedCustomerComm = licenseeInfo.IsAllowedCustomerComm,
                 IsEnableBA = licenseeInfo.IsEnableBA,
-                LicenseeName = licenseeInfo.Name,
-                UserId = tokenInfo.UserSEQ,
-                UserName = tokenInfo.UserName
+                LicenseeName = licenseeInfo.Name
             };
 
             var userSerssion = new UserSession
