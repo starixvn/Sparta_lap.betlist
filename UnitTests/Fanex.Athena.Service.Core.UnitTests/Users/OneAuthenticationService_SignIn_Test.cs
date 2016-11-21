@@ -33,7 +33,7 @@
             _licenseeService = Substitute.For<ILicenseeService>();
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(_sessionService, _licenseeService, _formAuthenticationService);
-            _oneAuthenticationService._textReader = _fakeTextReader;
+            _oneAuthenticationService.GetStringFromFile(Arg.Any<string>()).Returns(_fakeTextReader.ReadToEnd());
         }
 
         [TearDown]
@@ -147,10 +147,7 @@
             _fakeTextReader = new FakeFunctionReader();
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
 
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService)
-            {
-                _textReader = _fakeTextReader
-            };
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService);
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, ExpectedLicId, tokenInfo);

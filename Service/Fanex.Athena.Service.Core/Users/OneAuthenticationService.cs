@@ -35,9 +35,13 @@
             _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
         }
 
-#pragma warning disable CS3008 // Identifier is not CLS-compliant
-        protected internal TextReader _textReader { get; set; }
-#pragma warning restore CS3008 // Identifier is not CLS-compliant
+        protected internal virtual string GetStringFromFile(string path)
+        {
+            using (var reader = new StreamReader(HostingEnvironment.MapPath(path)))
+            {
+                return reader.ReadToEnd();
+            }
+        }
 
         public IResultInfo SignIn(HttpContextBase currentContext, int licenseeId, OneAuthenticationToken tokenInfo)
         {
@@ -199,13 +203,11 @@
         {
             const string FunctionFilePath = "~/App_Data/PortalSystemFunction.json";
             IList<PortalSystemFunction> result = null;
-            using (var reader = _textReader != null ? _textReader : new StreamReader(HostingEnvironment.MapPath(FunctionFilePath)))
+            var temp = GetStringFromFile(FunctionFilePath);
+
+            if (!string.IsNullOrEmpty(temp))
             {
-                var temp = reader.ReadToEnd();
-                if (!string.IsNullOrEmpty(temp))
-                {
-                    result = JsonConvert.DeserializeObject<IList<PortalSystemFunction>>(temp);
-                }
+                result = JsonConvert.DeserializeObject<IList<PortalSystemFunction>>(temp);
             }
 
             return result == null ? new List<PortalSystemFunction>() : result;
@@ -221,16 +223,13 @@
 
             if (result == null || !result.Any())
             {
-                using (var reader = _textReader != null ? _textReader : new StreamReader(HostingEnvironment.MapPath(filePath)))
+                var temp = GetStringFromFile(filePath);
+                if (!string.IsNullOrEmpty(temp))
                 {
-                    var temp = reader.ReadToEnd();
-                    if (!string.IsNullOrEmpty(temp))
+                    result = JsonConvert.DeserializeObject<IList<LicenseeSiteName>>(temp);
+                    if (result.Any())
                     {
-                        result = JsonConvert.DeserializeObject<IList<LicenseeSiteName>>(temp);
-                        if (result.Any())
-                        {
-                            cacheService.Set(LicenseeSiteNameCacheKey, result, DateTime.Now.AddMinutes(CacheTimeoutMinute));
-                        }
+                        cacheService.Set(LicenseeSiteNameCacheKey, result, DateTime.Now.AddMinutes(CacheTimeoutMinute));
                     }
                 }
             }

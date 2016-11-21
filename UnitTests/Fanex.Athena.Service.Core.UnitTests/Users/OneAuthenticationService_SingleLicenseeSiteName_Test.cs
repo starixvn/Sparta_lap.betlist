@@ -31,8 +31,7 @@
                 .Do(x => _cacheCounter++);
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>();
-            _oneAuthenticationService._textReader = _fakeTextReader;
-
+            _oneAuthenticationService.GetStringFromFile(Arg.Any<string>()).Returns(_fakeTextReader.ReadToEnd());
             _oneAuthenticationService.When(x => x.GetMemCacheService()).DoNotCallBase();
             _oneAuthenticationService.GetMemCacheService().Returns(_cacheService);
         }
