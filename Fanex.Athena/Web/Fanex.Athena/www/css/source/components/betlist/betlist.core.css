@@ -1,12 +1,10 @@
-﻿a
-{
+﻿a{
     text-decoration: none;
 }
 .mx-parlay .void, .mx-parlay .reject, .mx-parlay .refund {
     text-decoration: line-through;
 }
-.line
-{
+.line{
     border-bottom: 1px solid #A0A0A0;
     margin-bottom: 5px;
     margin-top: 5px;
@@ -14,18 +12,15 @@
     text-align: left;
     width: 100%;
 }
-.underdog
-{
+.underdog{
     color: #01122B;
     font-weight: bold !important;
     white-space: normal;
 }
-.stake
-{
+.stake{
     font-weight: bold !important;
 }
-.favorite
-{
+.favorite{
     color: #B50000;
     font-weight: bold !important;
     display: inline;
@@ -34,40 +29,32 @@
 .favorite .excluding-choices {
     white-space: normal;
 }
-.handicap .odds
-{
+.handicap .odds{
     color: #003399;
     font-size: 8pt;
 }
-div.match + div.league
-{
+div.match + div.league{
     color: #666666;
     line-height: 15px;
     margin-top: 1px;
-}
-div.match + div.league
-{
     background: none repeat scroll 0 0 transparent;
     font-weight: normal;
     text-align: right;
     text-transform: none;
 }
-.bettype
-{
+.bettype{
     color: #003399;
     font-weight: 600;
     text-align: right;
 }
-.firstGoal
-{
+.firstGoal{
     background: url("images/firstGoal.gif") no-repeat scroll center center transparent;
     display: inline;
     height: 10px;
     padding: 0 4px;
     width: 14px;
 }
-.lastGoal
-{
+.lastGoal{
     background: url("images/lastGoal.gif") no-repeat scroll center center transparent;
     display: inline;
     height: 10px;
@@ -76,42 +63,34 @@ div.match + div.league
 }
 .fhFirstGoal{background: url(Images/1F.gif) no-repeat scroll center center transparent;display: inline;height: 10px;	padding: 0 4px;	width: 14px;}
 .fhLastGoal{background: url(Images/1L.gif) no-repeat scroll center center transparent;display: inline;	height: 10px;	padding: 0 4px;	width: 14px;}
-.match
-{
+.match{
     color: #000000;
     font-weight: normal;
     line-height: 15px;
     text-align: right;
     white-space: normal;
 }
-.leagueName
-{
+.leagueName{
     white-space: normal;
 }
-.oddstype
-{
+.oddstype{
     color: #586985;
     font-weight: bold;
 }
-.colorHandicap, .handicap
-{
+.colorHandicap, .handicap{
     color: #606060;
 }
-.handicap.custom
-{
+.handicap.custom{
     font-weight: bold;
 }
-.sport
-{
+.sport{
     color: #0066CC;
 }
-.lic-win-loss
-{
+.lic-win-loss{
     background-color: #F5E3E3;
     font-weight: bold;
 }
-.negative-number
-{
+.negative-number{
     color: #b50000;
 }
 .iplink {
@@ -119,8 +98,7 @@ div.match + div.league
     cursor: pointer;
     font-size: 11px;
 }
-.detail
-{
+.detail{
     background: url("images/q_Icon2_1.png") no-repeat scroll center center transparent;
     color: #755200;
     display: inline;
@@ -130,8 +108,7 @@ div.match + div.league
     padding: 0 1px 0 65px;
     width: 14px;
 }
-.detail:hover
-{
+.detail:hover{
     background: url("images/q_Icon_2.png") no-repeat scroll center center transparent;
     color: #755200;
     cursor: pointer;
@@ -141,8 +118,7 @@ div.match + div.league
     padding: 0 1px 0 65px;
     width: 14px;
 }
-.combinationLink
-{
+.combinationLink{
     line-height: 20px;
 }
 .scoremap {
@@ -157,8 +133,7 @@ div.match + div.league
 .gamegroupname {
     color: #008000;
 }
-.light-blue
-{
+.light-blue{
     color:#0017CD;
 }
 /* Trans */
@@ -167,8 +142,7 @@ div.match + div.league
 	color:#1E1EEB;
 	font-size: 11px;
 }
-.time
-{
+.time{
     color: #434343;
     font-size: 7pt;
     font-weight: normal;
@@ -176,90 +150,38 @@ div.match + div.league
     margin: 10px 0 0 0;
 }
 
-.status
-{
+.status{
     color: #606060;
     font-size: 11px;
     font-weight: bold;
     text-transform: capitalize;
 }
 
-.result
-{
+.result{
     color: #1BA4ED;
     cursor: pointer;
 }
 
-.ip
-{
+.ip{
     display: none;
 }
 
-/* jqgrid customize */
 
-.ui-jqgrid-ftable .ui-widget-content
-{
-    background: #FFEFE3;
-    border-top: 2px solid #FF6600;
-    font-weight: bold;
-}
-.theme_jqGrid .ui-widget-content .no-info-row, .theme_jqGrid .ui-widget-content .no-info-row td, .no-info-row td
-{
-    border: none;
-}
-.ui-jqgrid tr.footrow td
-{
-    height: 22px;
-    padding: 2px;
-}
-.ui-jqgrid-hdiv .ui-jqgrid-hbox, .ui-jqgrid-bdiv
-{
-    border-left: 1px solid #A3D1E1;
-}
-.theme_jqGrid .ui-jqgrid-sdiv .ui-jqgrid-hbox
-{
-    border-top: none medium;
-}
-
-.ui-jqgrid span.ui-jqgrid-resize
-{
-    height: 14px !important;
-}
-
-.theme_jqGrid .ui-jqgrid-btable tr.jqgrow td
-{
-    vertical-align: top;
-}
-.theme_jqGrid .ui-jqgrid-btable tr.jqgrow td a
-{
-    color: #0000FF;
-}
-
-/* Grid 26 customize*/
-
-.bet-list-popup .container_26, .bet-list-popup .container_26 .grid_26
-{
-    width: auto;
-}
 
 /*ul.h-list li a*/
-.selected
-{
+.selected{
     color: Gray !important;
 }
-.base-currency
-{
+.base-currency{
     font-size: 14px;
     color: rgb(2, 69, 132);
 }
 
-.export-excel
-{
+.export-excel{
     overflow: auto;
     float: right;
 }
-div.history-link
-{
+div.history-link{
     background: url("images/undo.png") no-repeat scroll center center #FFEFDE;
     cursor: pointer;
     float: left;
@@ -271,33 +193,23 @@ div.history-link
 
 /* Link */
 
-span.inactive-switch-link
-{
+span.inactive-switch-link{
     font-size: 16px;
     font-weight: bold;
     cursor: default;
     text-decoration: none;
+    color: #88003E;
 }
 
-span.active-switch-link
-{
+span.active-switch-link{
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     text-decoration: underline;
-}
-
-span.inactive-switch-link
-{
-    color: #88003E;
-}
-
-span.active-switch-link
-{
     color: #3547E3;
 }
-.blue
-{
+
+.blue{
     color: #2673CE;
 }
 
@@ -307,12 +219,10 @@ span.active-switch-link
 }
 
 /*to make line-through for void-parlay-ticket*/
-div.mx-parlay div.void span, div.mx-parlay div.void div
-{
+div.mx-parlay div.void span, div.mx-parlay div.void div{
     text-decoration: line-through;
 }
-div.mx-parlay div.void > div.match, div.mx-parlay div.void div.firstGoal, div.mx-parlay div.void div.lastGoal
-{
+div.mx-parlay div.void > div.match, div.mx-parlay div.void div.firstGoal, div.mx-parlay div.void div.lastGoal{
     text-decoration: none;
 }
 

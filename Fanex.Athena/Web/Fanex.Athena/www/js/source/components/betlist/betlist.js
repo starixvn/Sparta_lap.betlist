@@ -30,9 +30,6 @@
             submiting: true,
             initialize: function () {
                 Site.initialize();
-                $(window).on('resize', function () {
-                    $("#BetListGrid").setGridWidth($(window).width());
-                }).trigger('resize');
 
                 if (_me.isMatchWLBetList() === true) {
                     _me.updateSortColumn();
@@ -95,6 +92,8 @@
                     }
                 });
 
+                jqGridAdditional.resizeGrid();
+                jqGridAdditional.resetLayout(betListGrid);
                 Site.unBlockUI();
             },
 
