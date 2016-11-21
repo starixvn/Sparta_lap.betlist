@@ -44,6 +44,9 @@ namespace Fanex.Athena.Controllers.BetSettings
                 case ProductTypes.Voidbridge:
                     return View("~/Views/Customer/BetSetting/Voidbridge.cshtml", viewModel);
 
+                case ProductTypes.FishingWorld:
+                    return View("~/Views/Customer/BetSetting/FishingWorld.cshtml", viewModel);
+
                 default:
                     throw new ArgumentException("Invalid product id.");
             }
