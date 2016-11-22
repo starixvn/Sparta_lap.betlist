@@ -1,4 +1,5 @@
-﻿define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multiselect", "lib/jquery.flatpopup", "extensions/prototype"],
+﻿/*global _language_en_US*/
+define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multiselect", "lib/jquery.flatpopup", "extensions/prototype"],
     function ($, QueryString) {// jshint ignore:line
         "use strict";
         var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];

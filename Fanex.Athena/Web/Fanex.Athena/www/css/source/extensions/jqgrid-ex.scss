@@ -11,6 +11,10 @@
             }
         }
 
+        .ui-widget-content{
+            border: 1px solid #d1dae1;
+        }
+
         .ui-jqgrid {
             .highlight {
                 background-color: #F8F1A0;
@@ -18,11 +22,6 @@
 
             .ui-jqgrid-view {
                 font-size: 1.3rem;
-            }
-
-            .ui-jqgrid-hdiv, .ui-jqgrid-bdiv, .ui-jqgrid-sdiv {
-                border-left: 1px solid #d1dae1 !important;
-                border-right: 1px solid #d1dae1 !important;
             }
 
             .ui-jqgrid-htable {

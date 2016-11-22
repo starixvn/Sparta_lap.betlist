@@ -17,6 +17,19 @@
         var _isShowSumStake;
 
         var _me = {
+            updateGridHeight: function () {
+                var $bdiv = $(".ui-jqgrid-bdiv");
+                if ($bdiv.length === 0) {
+                    return;
+                }
+
+                var gridTop = $bdiv.offset().top;
+                var pagingHeight = $(".paging:visible").length > 0 ? $(".paging:visible").height() : 0;
+                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
+                            - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - 30;
+                gridHeight = Math.max(150, gridHeight);
+                $bdiv.css({ "height": "auto" });
+            },
             getSortParams: function () {
                 if (!_sortColumnName) {
                     return null;
@@ -51,7 +64,7 @@
                 return regex.test($("#ApiUrl").val());
             },
 
-            gridComplete: function (grid, gridOption, betListGrid, totalRowCount) {
+            gridComplete: function (grid, betListGrid) {
                 // add sort icon
                 var sortCol = _sortColumnName === "Winlost" ? "WinLoss" : _sortColumnName;
                 sortCol = _sortColumnName === "nickname" ? "ExternalId" : sortCol;
@@ -92,8 +105,7 @@
                     }
                 });
 
-                jqGridAdditional.resizeGrid();
-                jqGridAdditional.resetLayout(betListGrid);
+                _me.updateGridHeight();
                 Site.unBlockUI();
             },
 
@@ -211,8 +223,7 @@
                 gridOption.loadonce = false;
                 gridOption.datatype = "json";
                 gridOption.gridComplete = function () {
-                    var totalRowCount = gridOption.footerrow ? 2 : 1;
-                    _me.gridComplete(this, gridOption, $("#BetListGrid"), totalRowCount);
+                    _me.gridComplete(this, $("#BetListGrid"));
                     if (_me.submiting) {
                         $(".ui-pg-selbox").val(rows);
                     }
@@ -259,8 +270,7 @@
                     gridOption.footerrow = false;
                 }
                 gridOption.gridComplete = function () {
-                    var totalRowCount = gridOption.footerrow ? 2 : 1;
-                    _me.gridComplete(this, gridOption, $("#BetListGrid"), totalRowCount);
+                    _me.gridComplete(this, $("#BetListGrid"));
                 };
 
                 $("#BetListGrid").jqGrid('GridUnload');

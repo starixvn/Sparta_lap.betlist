@@ -1,20 +1,17 @@
 ﻿"use strict";
 define(['jquery', 'lib/jquery.tiny-draggable'], function ($) {
-    var MIN_WIDTH = 640;
-    var MAX_HEIGHT = 480;
+    var DEFAULT_WIDTH = 640;
+    var DEFAULT_HEIGHT = 480;
     $.fn.flatPopup = function (options) {
 
         var $self = this;
         var defaultOptions = {
-            width: MIN_WIDTH,
-            height: MAX_HEIGHT,
+            width: DEFAULT_WIDTH,
+            height: DEFAULT_HEIGHT,
             title: "&nbsp;"
         };
 
         options = $.extend(defaultOptions, options || {});
-
-        options.width = options.width < MIN_WIDTH ? MIN_WIDTH : options.width;
-        options.height = options.height > MAX_HEIGHT ? MAX_HEIGHT : options.height;
         $self.addClass("flat-popup");
 
         // add popup content to a wrapper
@@ -40,8 +37,7 @@ define(['jquery', 'lib/jquery.tiny-draggable'], function ($) {
             show: function () {
                 $self.fadeIn(300);
 
-                //Set the center alignment padding + border see css style                
-                // var popMarginTop = ($self.height() + 24) / 2;                
+                //Set the center alignment padding + border see css style             
                 var popMarginLeft = ($self.width() + 24) / 2;
                 var top = parseInt($self.css("top"));
 
