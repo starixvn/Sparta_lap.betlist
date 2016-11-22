@@ -29,7 +29,8 @@ var commonConfigs = {
         [pathConfig.cssPaths.build + "/pages/home/home"]: pathConfig.cssPaths.home,
         [pathConfig.cssPaths.build + "/pages/login/login"]: pathConfig.cssPaths.login,
         [pathConfig.cssPaths.build + "/pages/reports/licenseewinloss"]: pathConfig.cssPaths.licenseewinloss,
-        [pathConfig.cssPaths.build + "/pages/betlist/betlistSimpleLayout"]: pathConfig.cssPaths.betlistSimpleLayout
+        [pathConfig.cssPaths.build + "/pages/betlist/betlistSimpleLayout"]: pathConfig.cssPaths.betlistSimpleLayout,
+        [pathConfig.cssPaths.build + "/pages/betlist/betlistResult"]: pathConfig.cssPaths.betlistResult
     },
     output: {
         path: pathConfig.projectRoot,

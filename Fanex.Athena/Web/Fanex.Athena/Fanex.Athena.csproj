@@ -720,6 +720,7 @@
     <Content Include="www\css\build\images\logo-text.png" />
     <Content Include="www\css\build\images\logo.png" />
     <Content Include="www\css\build\main.css" />
+    <Content Include="www\css\build\pages\betlist\betlistResult.css" />
     <Content Include="www\css\build\pages\betlist\betlistSimpleLayout.css" />
     <Content Include="www\css\build\pages\home\home.css" />
     <Content Include="www\css\build\pages\login\login.css" />
@@ -730,6 +731,7 @@
     <Content Include="www\css\source\components\betlist\Allbet.css" />
     <Content Include="www\css\source\components\betlist\betlist.core.css" />
     <Content Include="www\css\source\components\betlist\Microgaming.css" />
+    <Content Include="www\css\source\components\betlist\result\fanex.result.css" />
     <Content Include="www\css\source\components\jqgrid\jqgrid.css" />
     <Content Include="www\css\source\components\multiselect\jquery.multiselect.css" />
     <Content Include="www\css\source\components\sidebar\sideBar.css" />
@@ -1151,6 +1153,8 @@
     <Content Include="Views\Desktop\Shared\_BetListSimpleLayout.cshtml" />
     <Content Include="Views\Desktop\BetList\LicenseeWl\Main.cshtml" />
     <Content Include="www\css\source\components\betlist\betlist.scss" />
+    <Content Include="Views\Desktop\Report\Result\Popup\Main.cshtml" />
+    <None Include="www\css\source\components\betlist\result\fanex.result.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">

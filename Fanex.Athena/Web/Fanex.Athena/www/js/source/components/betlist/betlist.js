@@ -28,7 +28,7 @@
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
                             - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - 30;
                 gridHeight = Math.max(150, gridHeight);
-                $bdiv.css({ "height": "auto" });
+                $bdiv.css({ "height": "auto", "max-height": gridHeight });
             },
             getSortParams: function () {
                 if (!_sortColumnName) {
@@ -418,13 +418,8 @@
 
                     var height = isParlay ? 450 : 150;
                     var width = 750;
-                    var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
-                             width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
-                    $(dialogForm).dialog({
-                        modal: true,
-                        width: width + 25,
-                        height: height + 70
-                    });
+                    var dialogForm = '<div class="betlist-popup"><iframe frameborder="0" src="' + url + '" ></iframe></div>';
+                    $(dialogForm).flatPopup({ width: width + 25, height: height + 70 }).show();
                 }
             },
 

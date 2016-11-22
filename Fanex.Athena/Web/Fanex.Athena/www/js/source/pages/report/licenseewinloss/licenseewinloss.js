@@ -479,7 +479,7 @@
                 url = Site.setProductOptionOriginalParamList(url);
 
                 var popH = Math.min($(window).height() - 100, 650), popW = 920;
-                var dialogForm = '<div id="betlistPopup" class="betlist-popup"><iframe scrolling="no" frameborder="0" height="100%" src="' + url + '" ></iframe></div>'; // jshint ignore:line
+                var dialogForm = '<div class="betlist-popup"><iframe src="' + url + '" ></iframe></div>'; // jshint ignore:line
 
                 var popupOption = { width: popW + 50, height: popH + 50, title: "Customer Bet List" };
                 $(dialogForm).flatPopup(popupOption).show();

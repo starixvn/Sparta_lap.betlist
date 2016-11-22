@@ -11,17 +11,15 @@
             }
         }
 
-        .ui-widget-content{
-            border: 1px solid #d1dae1;
-        }
-
         .ui-jqgrid {
+            
             .highlight {
                 background-color: #F8F1A0;
             }
 
             .ui-jqgrid-view {
                 font-size: 1.3rem;
+                border: 1px solid #d1dae1;
             }
 
             .ui-jqgrid-htable {
@@ -113,6 +111,12 @@
                         }
                     }
 
+                    tr.footrow{
+                        > td{
+                            border-bottom: 0 none;
+                        }
+                    }
+
                     .grandTotal {
                         background-color: #fff;
                         border-color: #fff !important;
@@ -139,10 +143,9 @@
                 min-height: 30px;
                 padding: 2px 10px !important;
                 background-color: #EFF3F8 !important;
-                border-bottom: 1px solid #d6d6d6 !important;
-                border-top: 1px solid #d6d6d6 !important;
-                border-left: 1px solid #d6d6d6 !important;
-                border-right: 1px solid #d6d6d6 !important;
+                border-left: 1px solid #d1dae1 !important;
+                border-right: 1px solid #d1dae1 !important;
+                border-bottom: 1px solid #d1dae1 !important;
 
                 [class^="ui-icon"] {
                     font-family: 'icomoon' !important;

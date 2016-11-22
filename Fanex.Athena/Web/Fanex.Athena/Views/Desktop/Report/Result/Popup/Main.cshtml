@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = ViewResources.Result;
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+}
+
+@section css
+{
+    <link href="@Url.ContentLink("/www/css/build/pages/betlist/betlistResult.css")" rel="stylesheet" type="text/css" />
+}
+
+@section js{
+    <script type="text/javascript">
+        (function () {
+            var table = document.getElementsByTagName("table");
+            for (var i = 0; i < table.length; i++) {
+                table[i].className += " table";
+            }
+        })();
+    </script>
+}
+
+<div class="betlist-result-container">
+    @Html.Raw(ViewBag.Data)
+</div>
