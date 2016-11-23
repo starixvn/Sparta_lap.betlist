@@ -23,21 +23,24 @@
     public class OneAuthenticationService : IOneAuthenticationService
     {
         private readonly ISessionService _sessionService;
+        private readonly IFunctionService _functionService;
         private readonly ILicenseeService _licenseeService;
         private readonly ICurrencyService _currencyService;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
 
-        public OneAuthenticationService() : this(null, null, null, null)
+        public OneAuthenticationService() : this(null, null, null, null, null)
         {
         }
 
         public OneAuthenticationService(
             ISessionService sessionService,
+            IFunctionService functionService,
             ILicenseeService licenseeService,
             ICurrencyService currencyService,
             IFormsAuthenticationService formsAuthenticationService)
         {
             _sessionService = sessionService ?? new SessionService();
+            _functionService = functionService ?? new FunctionService();
             _licenseeService = licenseeService ?? new LicenseeService();
             _currencyService = currencyService ?? new CurrencyService();
             _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
@@ -115,7 +118,12 @@
                 return licenseeNotExistedError;
             }
 
-            var currencyOfLicensee = _currencyService.GetCurrencies(licenseeId);
+            var currencyOfLicensee = _currencyService.GetCurrencyMapByUser(licenseeId, tokenInfo.UserSEQ)
+                .Select(x => new Currency
+                {
+                    CurrencyId = x.Value,
+                    Name = x.Key
+                }).ToList();
 
             if (currencyOfLicensee.Count <= 0)
             {
@@ -185,6 +193,13 @@
                 LicenseeName = licenseeInfo.Name
             };
 
+            var functionList = _functionService.GetUserFunctionList(licenseeInfo.Id, tokenInfo.UserSEQ)
+                .Select(x => new PortalSystemFunction
+                {
+                    FunctionId = x.FunctionId,
+                    FunctionKey = x.FunctionKey
+                }).ToList();
+
             var userSerssion = new UserSession
             {
                 UserId = tokenInfo.UserSEQ,
@@ -193,7 +208,7 @@
                 IsAdmin = false,
                 IsInternal = true,
                 FunctionIdList = new List<int>(),
-                PortalFunctionList = GetFunctionList(),
+                PortalFunctionList = functionList,
                 Language = languageCode,
                 CurrencyList = currencyOfLicensee.Distinct().ToDictionary(x => x.Name, x => x.CurrencyId),
                 DefaultReportUrl = "BalanceReport",

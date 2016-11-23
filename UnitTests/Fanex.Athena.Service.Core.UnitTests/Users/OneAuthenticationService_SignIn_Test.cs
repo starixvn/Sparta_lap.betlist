@@ -23,6 +23,7 @@
         private OneAuthenticationService _oneAuthenticationService;
         private TextReader _fakeTextReader;
         private ISessionService _sessionService;
+        private IFunctionService _functionService;
         private ILicenseeService _licenseeService;
         private ICurrencyService _currencyService;
         private IFormsAuthenticationService _formAuthenticationService;
@@ -32,10 +33,16 @@
         {
             _fakeTextReader = new FakeFunctionReader();
             _sessionService = Substitute.For<ISessionService>();
+            _functionService = Substitute.For<IFunctionService>();
             _licenseeService = Substitute.For<ILicenseeService>();
             _currencyService = Substitute.For<ICurrencyService>();
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
-            _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(_sessionService, _licenseeService, _currencyService, _formAuthenticationService);
+            _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
+                _sessionService,
+                _functionService,
+                _licenseeService,
+                _currencyService,
+                _formAuthenticationService);
             _oneAuthenticationService.GetStringFromFile(Arg.Any<string>()).Returns(_fakeTextReader.ReadToEnd());
         }
 
@@ -61,7 +68,7 @@
             _sessionService.LicenseeSession.Returns(x => null);
             _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => new Licensee { Id = 1 });
             _currencyService.GetCurrencies(Arg.Any<int>()).Returns(new List<Currency>());
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService);
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _functionService, _licenseeService, _currencyService, _formAuthenticationService);
 
             var expectedResult = new ResultInfo { Code = 600, Message = "Not found currency" };
 
@@ -83,8 +90,8 @@
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
             _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => new Licensee { Id = 1 });
-            _currencyService.GetCurrencies(Arg.Any<int>()).Returns(new List<Currency> { new Currency() });
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService);
+            _currencyService.GetCurrencyMapByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(new Dictionary<string, int> { { "UUS", 0 } });
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _functionService, _licenseeService, _currencyService, _formAuthenticationService);
 
             var expectedResult = new ResultInfo { Code = 200, Message = "Not found currency" };
 
@@ -107,7 +114,7 @@
             _sessionService.LicenseeSession.Returns(x => null);
             _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => null);
             var expectedResult = new ResultInfo { Code = 200, Message = "Licensee is Not Exit" };
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService);
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _functionService, _licenseeService, _currencyService, _formAuthenticationService);
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, Arg.Any<int>(), tokenInfo);
@@ -130,14 +137,20 @@
             Licensee expectedLicInfo;
             CreateTokenInfoAndLicInfo(ExpectedLicId, out tokenInfo, out expectedLicInfo);
             var expectedCookie = $"{tokenInfo.UserName}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
-            var expectedCurrency = new List<Currency> { new Currency { Name = "USD", CurrencyId = 1 } };
+            var expectedCurrency = new Dictionary<string, int> { { "USD", 1 } };
+            var expectedCurrencyList = expectedCurrency.Select(x => new Currency
+            {
+                CurrencyId = x.Value,
+                Name = x.Key
+            }).ToList();
             var expectedAgents = new List<LicenseeCustomer> { new LicenseeCustomer() };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
+            _functionService.GetUserFunctionList(Arg.Any<int>(), Arg.Any<int>()).Returns(new List<Function> { new Function() });
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
             _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => expectedLicInfo);
-            _currencyService.GetCurrencies(Arg.Any<int>()).Returns(expectedCurrency);
+            _currencyService.GetCurrencyMapByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(expectedCurrency);
             _licenseeService.GetCustByLicensee(Arg.Any<int>()).Returns(expectedAgents);
             _sessionService.When(x => x.CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>()))
                 .Do(
@@ -149,7 +162,7 @@
                     });
 
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
-           
+
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, ExpectedLicId, tokenInfo);
 
@@ -160,7 +173,7 @@
             Assert.AreEqual(1, sessionCounter);
             Assert.AreEqual(1, cookieCounter);
             Assert.False(string.IsNullOrEmpty(result.ExtendedData));
-            Assert.True(VerifyUserSession(user, expectedCurrency, tokenInfo));
+            Assert.True(VerifyUserSession(user, expectedCurrencyList, tokenInfo));
             Assert.True(VeryfiLicSession(lic, expectedAgents, expectedLicInfo, tokenInfo));
         }
 
