@@ -68,102 +68,106 @@
         text-align: center;
         border-top: 1px solid #a3d1e1;
         line-height: 20px;
-    }
 
-    table.fn-rs tbody .cl-group-name {
-        color: #1d3968;
-        background: #ccc;
-        vertical-align: middle;
-        font-weight: bold;
-        line-height: 7px;
-        height: 21px;
-        text-align: center;
-    }
+        &.number-game{
+            line-height: 15px;
+        }
 
-    table.fn-rs.number-game {
-        line-height: 15px;
-    }
+        thead{
+            th.cl-title{
+                background: #ccc;
+            }
+        }
 
-    table.fn-rs thead th.cl-title {
-        background: #ccc;
-    }
+        tbody{
+            .cl-group-name{
+                color: #1d3968;
+                background: #ccc;
+                vertical-align: middle;
+                font-weight: bold;
+                line-height: 7px;
+                height: 21px;
+                text-align: center;
+            }
 
-    table.fn-rs .header, table.fn-rs .sub-header {
-        color: #024584;
-        background-color: #c7e9f5;
-        background-image: url("images/tab_topbg.gif");
-        background-position: center bottom;
-        background-repeat: repeat-x;
-    }
+            .cl-league{
+                background: url("images/bg_header03.jpg") repeat-x scroll center top #dae6ed;
+                vertical-align: middle;
+                border: 0;
+                font-weight: bold;
+                text-align: left;
+                line-height: 7px;
+                height: 21px;
+            }
 
-    table.fn-rs tbody .cl-league {
-        background: url("images/bg_header03.jpg") repeat-x scroll center top #dae6ed;
-        vertical-align: middle;
-        border: 0;
-        font-weight: bold;
-        text-align: left;
-        line-height: 7px;
-        height: 21px;
-    }
+            .cl-team{
+                text-align: left;
+            }
 
-    table.fn-rs tbody .cl-team {
-        text-align: left;
-    }
+            .cl-match-mt{
+                text-align: left;
+                padding-left: 3px;
 
-    table.fn-rs tbody .cl-match-mt {
-        text-align: left;
-        padding-left: 3px;
-    }
+                &.home{
+                    color: #c00;
+                }
 
-    table.fn-rs tbody .cl-match-mt.home {
-        color: #c00;
-    }
+                &.away{
+                    color: #4169e1;
+                }
 
-    table.fn-rs tbody .cl-match-mt.away {
-        color: #4169e1;
-    }
+                &.win{
+                    font-weight: bold;
+                }
+            }
 
-    table.fn-rs tbody .cl-match-mt.win {
-        font-weight: bold;
-    }
+            .cl-match{
+                text-align: left;
+                padding-left: 3px;
 
-    table.fn-rs tbody .cl-match {
-        text-align: left;
-        padding-left: 3px;
-    }
+                &.home{
+                    color: rgb(69, 69, 69);
+                }
 
-    table.fn-rs tbody .cl-match.home {
-        color: rgb(69, 69, 69);
-    }
+                &.away{
+                    color: rgb(69, 69, 69);
+                }
 
-    table.fn-rs tbody .cl-match.away {
-        color: rgb(69, 69, 69);
-    }
+                &.win{
+                    font-weight: bold;
+                }
 
-    table.fn-rs tbody .cl-match.win {
-        font-weight: bold;
-    }
+                div{
+                    width: 14px;
+                    height: 14px;
+                    display: inline-block;
 
-    table.fn-rs tbody .cl-match div {
-        width: 14px;
-        height: 14px;
-        display: inline-block;
-    }
+                    &.first-goal{
+                        background: url("images/goal-icon.png") no-repeat -9px -32px;
+                    }
 
-    table.fn-rs tbody .cl-match div.first-goal {
-        background: url("images/goal-icon.png") no-repeat -9px -32px;
-    }
+                    &.last-goal{
+                        background: url("images/goal-icon.png") no-repeat -9px -16px;
+                    }
 
-    table.fn-rs tbody .cl-match div.last-goal {
-        background: url("images/goal-icon.png") no-repeat -9px -16px;
-    }
+                    &.first-half-first-goal{
+                        background: url("images/goal-icon.png") no-repeat -9px -65px;
+                    }
 
-    table.fn-rs tbody .cl-match div.first-half-first-goal {
-        background: url("images/goal-icon.png") no-repeat -9px -65px;
-    }
+                    &.first-half-last-goal{
+                        background: url("images/goal-icon.png") no-repeat no-repeat -9px -83px;
+                    }
+                }
+            }
+        }
 
-    table.fn-rs tbody .cl-match div.first-half-last-goal {
-        background: url("images/goal-icon.png") no-repeat no-repeat -9px -83px;
+        .header, .sub-header{
+            color: #024584;
+            background-color: #c7e9f5;
+            background-image: url("images/tab_topbg.gif");
+            background-position: center bottom;
+            background-repeat: repeat-x;
+        }
     }
 
     table.fn-rs tbody .cl-match div.home, table.fn-rs tbody .cl-match div.away {
@@ -270,7 +274,7 @@
         border-radius: 0px;
         border: 1px solid #5c5757;
         text-shadow: 1px 0px 0px rgba(0, 0, 0, 0.4),1px 1px 0px rgba(255, 255, 255, 0.4);
-        width: 15px !important;
+        width: 27px !important;
         display: inline-block;
         text-align: center;
         margin-left: 2px;
