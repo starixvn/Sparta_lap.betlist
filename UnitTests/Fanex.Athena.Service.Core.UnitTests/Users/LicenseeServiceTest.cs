@@ -86,26 +86,6 @@
         }
 
         [Test]
-        public void GetCurrencies_WhenCall_ReturnDataFromDataAccess()
-        {
-            // Arrange
-            var expectedResult = new List<Currency>
-            {
-                new Currency { CurrencyId = 1 }
-            };
-
-            const int LicenseeId = 1;
-
-            _licenseeDataAccess.GetCurrencies(LicenseeId).Returns(expectedResult);
-
-            // Action
-            var result = _licenseeService.GetCurrencies(LicenseeId);
-
-            // Assert
-            Assert.That(result[0].CurrencyId, Is.EqualTo(expectedResult[0].CurrencyId));
-        }
-
-        [Test]
         public void GetCustByLicensee_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange

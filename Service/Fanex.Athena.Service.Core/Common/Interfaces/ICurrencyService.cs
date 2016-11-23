@@ -14,12 +14,9 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Model.Core.MetaModel.Account;
 
-    /// <summary>
-    ///     The i currency service.
-    /// </summary>
     public interface ICurrencyService
     {
-        #region Public Methods and Operators
+        IList<Currency> GetCurrencies(int licenseeId);
 
         /// <summary>
         /// Get currencies by user.
@@ -44,7 +41,5 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
         /// <param name="userId">The user id.</param>
         /// <returns>The currencies.</returns>
         IDictionary<string, int> GetCurrencyMapByUser(int licenseeId, int userId);
-
-        #endregion Public Methods and Operators
     }
 }

@@ -4,6 +4,7 @@
     using System.IO;
     using System.Linq;
     using System.Web;
+    using Core.Common.Interfaces;
     using Core.Users.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
@@ -23,6 +24,7 @@
         private TextReader _fakeTextReader;
         private ISessionService _sessionService;
         private ILicenseeService _licenseeService;
+        private ICurrencyService _currencyService;
         private IFormsAuthenticationService _formAuthenticationService;
 
         [SetUp]
@@ -31,8 +33,9 @@
             _fakeTextReader = new FakeFunctionReader();
             _sessionService = Substitute.For<ISessionService>();
             _licenseeService = Substitute.For<ILicenseeService>();
+            _currencyService = Substitute.For<ICurrencyService>();
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
-            _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(_sessionService, _licenseeService, _formAuthenticationService);
+            _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(_sessionService, _licenseeService, _currencyService, _formAuthenticationService);
             _oneAuthenticationService.GetStringFromFile(Arg.Any<string>()).Returns(_fakeTextReader.ReadToEnd());
         }
 
@@ -43,6 +46,7 @@
             _oneAuthenticationService = null;
             _sessionService = null;
             _licenseeService = null;
+            _currencyService = null;
             _formAuthenticationService = null;
         }
 
@@ -56,8 +60,8 @@
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
             _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => new Licensee { Id = 1 });
-            _licenseeService.GetCurrencies(Arg.Any<int>()).Returns(new List<Currency>());
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService);
+            _currencyService.GetCurrencies(Arg.Any<int>()).Returns(new List<Currency>());
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService);
 
             var expectedResult = new ResultInfo { Code = 600, Message = "Not found currency" };
 
@@ -79,8 +83,8 @@
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
             _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => new Licensee { Id = 1 });
-            _licenseeService.GetCurrencies(Arg.Any<int>()).Returns(new List<Currency> { new Currency() });
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService);
+            _currencyService.GetCurrencies(Arg.Any<int>()).Returns(new List<Currency> { new Currency() });
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService);
 
             var expectedResult = new ResultInfo { Code = 200, Message = "Not found currency" };
 
@@ -103,7 +107,7 @@
             _sessionService.LicenseeSession.Returns(x => null);
             _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => null);
             var expectedResult = new ResultInfo { Code = 200, Message = "Licensee is Not Exit" };
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _formAuthenticationService);
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService);
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, Arg.Any<int>(), tokenInfo);
@@ -133,7 +137,7 @@
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
             _licenseeService.GetLicenseeById(Arg.Any<int>()).Returns(x => expectedLicInfo);
-            _licenseeService.GetCurrencies(Arg.Any<int>()).Returns(expectedCurrency);
+            _currencyService.GetCurrencies(Arg.Any<int>()).Returns(expectedCurrency);
             _licenseeService.GetCustByLicensee(Arg.Any<int>()).Returns(expectedAgents);
             _sessionService.When(x => x.CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>()))
                 .Do(

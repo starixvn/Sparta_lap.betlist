@@ -6,6 +6,8 @@
     using System.Linq;
     using System.Web;
     using System.Web.Hosting;
+    using Common;
+    using Common.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -22,16 +24,22 @@
     {
         private readonly ISessionService _sessionService;
         private readonly ILicenseeService _licenseeService;
+        private readonly ICurrencyService _currencyService;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
 
-        public OneAuthenticationService() : this(null, null, null)
+        public OneAuthenticationService() : this(null, null, null, null)
         {
         }
 
-        public OneAuthenticationService(ISessionService sessionService, ILicenseeService licenseeService, IFormsAuthenticationService formsAuthenticationService)
+        public OneAuthenticationService(
+            ISessionService sessionService,
+            ILicenseeService licenseeService,
+            ICurrencyService currencyService,
+            IFormsAuthenticationService formsAuthenticationService)
         {
             _sessionService = sessionService ?? new SessionService();
             _licenseeService = licenseeService ?? new LicenseeService();
+            _currencyService = currencyService ?? new CurrencyService();
             _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
         }
 
@@ -107,7 +115,7 @@
                 return licenseeNotExistedError;
             }
 
-            var currencyOfLicensee = _licenseeService.GetCurrencies(licenseeId);
+            var currencyOfLicensee = _currencyService.GetCurrencies(licenseeId);
 
             if (currencyOfLicensee.Count <= 0)
             {
@@ -135,7 +143,7 @@
         }
 
         [CLSCompliant(false)]
-        protected internal virtual ICache GetMemCacheService() => CacheService.CreateInstance(CacheType.MemoryCache);
+        protected internal virtual ICache GetMemCacheService() => Caching.CacheService.CreateInstance(CacheType.MemoryCache);
 
         private static bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthenticationToken tokenInfo, int licenseeId)
         {

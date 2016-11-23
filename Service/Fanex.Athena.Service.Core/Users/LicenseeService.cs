@@ -80,11 +80,6 @@ namespace Fanex.Athena.Service.Core.Users
             return this._licenseeDataAccess.GetByUser(userId);
         }
 
-        public IList<Currency> GetCurrencies(int licenseeId)
-        {
-            return _licenseeDataAccess.GetCurrencies(licenseeId);
-        }
-
         public IList<LicenseeCustomer> GetCustByLicensee(int licenseeId)
         {
             var cache = CacheService.CreateInstance(CacheType.MemoryCache);

@@ -148,46 +148,6 @@
         }
 
         [Test]
-        public void GetCurrencies_WhenCall_ExecuteReaderMethodIsCalled()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicensee")).Returns(_objectDb);
-            const int LicenseeId = 1;
-
-            // Action
-            _dataAccess.GetCurrencies(LicenseeId);
-
-            // Assert
-            _objectDb.ReceivedWithAnyArgs().ExecuteReader(null);
-        }
-
-        [Test]
-        public void GetCurrencies_WhenCall_DataReturnCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicensee")).Returns(_objectDb);
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-            _reader.Read().Returns(true, false);
-
-            var expected = new Currency
-            {
-                CurrencyId = 1,
-                Name = "Currency Test"
-            };
-            _reader.GetInt32(Arg.Any<int>()).Returns(expected.CurrencyId);
-            _reader.GetString(Arg.Any<int>()).Returns(expected.Name);
-
-            const int LicenseeId = 1;
-
-            // Action
-            var result = _dataAccess.GetCurrencies(LicenseeId);
-
-            // Assert
-            Assert.That(result[0].CurrencyId, Is.EqualTo(expected.CurrencyId));
-            Assert.That(result[0].Name, Is.EqualTo(expected.Name));
-        }
-
-        [Test]
         public void GetCustByLicensee_WhenCall_ExecuteReaderMethodIsCalled()
         {
             // Arrange
