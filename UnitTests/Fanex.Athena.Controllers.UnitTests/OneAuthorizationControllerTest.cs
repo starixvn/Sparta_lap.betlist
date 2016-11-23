@@ -14,7 +14,6 @@
     [TestFixture]
     public class OneAuthorizationControllerTest : BaseControllerTest
     {
-        private IUserService _userService;
         private IMaintenanceService _maintenanceService;
         private IOneAuthenticationService _oneAuthenticationService;
         private IAppSettings _appSetting;
@@ -27,7 +26,6 @@
         {
             _loggerCounnter = 0;
 
-            _userService = Substitute.For<IUserService>();
             _maintenanceService = Substitute.For<IMaintenanceService>();
             _oneAuthenticationService = Substitute.For<IOneAuthenticationService>();
             _appSetting = Substitute.For<IAppSettings>();
@@ -37,7 +35,7 @@
             _logger.When(x => x.Error(Arg.Any<string>())).Do(x => _loggerCounnter++);
             _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
 
-            _controller = new OneAuthorizationController(_userService, _maintenanceService, _oneAuthenticationService, _appSetting, _logger)
+            _controller = new OneAuthorizationController(_maintenanceService, _oneAuthenticationService, _appSetting, _logger)
             {
                 ControllerContext = ControllerContext,
 
@@ -48,7 +46,6 @@
         [TearDown]
         public void TearDown()
         {
-            _userService = null;
             _maintenanceService = null;
             _appSetting = null;
             _logger = null;

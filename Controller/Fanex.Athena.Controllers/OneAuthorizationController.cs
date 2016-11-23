@@ -13,24 +13,21 @@
 
     public class OneAuthorizationController : Controller
     {
-        private readonly IUserService _userService;
         private readonly IMaintenanceService _maintenanceService;
         private readonly IOneAuthenticationService _oneAuthenticationService;
         private readonly IAppSettings _appSetting;
         private readonly ILogger _logger;
 
-        public OneAuthorizationController() : this(null, null, null, null, null)
+        public OneAuthorizationController() : this(null, null, null, null)
         {
         }
 
         internal OneAuthorizationController(
-            IUserService userService,
             IMaintenanceService maintenanceService,
             IOneAuthenticationService oneAuthenticationService,
             IAppSettings appSetting,
             ILogger logger)
         {
-            _userService = userService ?? new UserService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();
             _oneAuthenticationService = oneAuthenticationService ?? new OneAuthenticationService();
             _appSetting = appSetting ?? new AppSettings();
