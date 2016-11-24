@@ -177,13 +177,6 @@
                 LicenseeName = licenseeInfo.Name
             };
 
-            var functionList = _functionService.GetUserFunctionList(licenseeInfo.Id, tokenInfo.UserSEQ)
-                .Select(x => new PortalSystemFunction
-                {
-                    FunctionId = x.FunctionId,
-                    FunctionKey = x.FunctionKey
-                }).ToList();
-
             var userSerssion = new UserSession
             {
                 UserId = tokenInfo.UserSEQ,
@@ -192,7 +185,7 @@
                 IsAdmin = false,
                 IsInternal = true,
                 FunctionIdList = new List<int>(),
-                PortalFunctionList = functionList,
+                PortalFunctionList = GetFunctionList(),
                 Language = languageCode,
                 CurrencyList = currencyOfLicensee.Distinct().ToDictionary(x => x.Name, x => x.CurrencyId),
                 DefaultReportUrl = "BalanceReport",
