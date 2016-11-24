@@ -30,7 +30,7 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            using (var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService))
+            using (var controller = new UtilityController(LangService, _maintenanceService))
             {
                 controller.ControllerContext = this.ControllerContext;
                 var expectedMsg = ViewResources.OneTokenRestrictionDefaultMsg;
@@ -53,7 +53,7 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            using (var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService))
+            using (var controller = new UtilityController(LangService, _maintenanceService))
             {
                 ControllerContext = ControllerContext;
 
@@ -70,7 +70,7 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            using (var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService))
+            using (var controller = new UtilityController(LangService, _maintenanceService))
             {
                 controller.ControllerContext = this.ControllerContext;
                 var maintenanceInfo = new UnderMaintenanceTime(true, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
@@ -90,7 +90,7 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            using (var controller = new UtilityController(LangService, SessionService, AppSettings, _maintenanceService))
+            using (var controller = new UtilityController(LangService, _maintenanceService))
             {
                 controller.ControllerContext = ControllerContext;
                 var maintenanceInfo = new UnderMaintenanceTime(false, "11-14-2016 05:00:00", "11-14-2016 07:00:00");

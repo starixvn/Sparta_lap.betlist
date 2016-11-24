@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers
 {
+    using System.Configuration;
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
@@ -13,28 +14,27 @@ namespace Fanex.Athena.Controllers
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
     using Resources;
+    using Service.Core.Common;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Users.Interfaces;
 
     /// <summary>
     /// Utility controller.
     /// </summary>
-    public class UtilityController : BaseController
+    public class UtilityController : Controller
     {
+        private readonly ILanguageService _languageService;
+
         private readonly IMaintenanceService _maintenanceService;
 
         public UtilityController() : base()
         {
+            _languageService = new LanguageService();
             _maintenanceService = new MaintenanceService();
         }
 
-        internal UtilityController(
-            ILanguageService languageService,
-            ISessionService sessionService,
-            IAppSettings appSetting,
-            IMaintenanceService maintenanceService)
-            : base(languageService, sessionService, appSetting)
+        internal UtilityController(ILanguageService languageService, IMaintenanceService maintenanceService)
         {
+            _languageService = languageService ?? new LanguageService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
 
@@ -115,7 +115,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult LocationRestriction()
         {
             var requestHost = Request.Url.AbsoluteUri;
-            var isInternalDomain = requestHost.Contains(AppSettings.GetValue("internaldomain"));
+            var isInternalDomain = requestHost.Contains(ConfigurationManager.AppSettings["internaldomain"]);
 
             return isInternalDomain ? (ActionResult)RedirectToAction("SignIn", "Authorization") : View("~/Views/Utility/LocationRestriction.cshtml");
         }
@@ -189,6 +189,13 @@ namespace Fanex.Athena.Controllers
             ViewBag.UmTimeFrom = underMaintenanceTimeFrom;
             ViewBag.UmTimeTo = underMaintenanceTimeTo;
             return View("~/Views/Utility/UnderMaintenance.cshtml");
+        }
+
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            var currentLanguage = _languageService.GetCurrentLanguage();
+            _languageService.SetPageCulture(currentLanguage);
         }
 
         private static string GetMessageRestriction(string code)
