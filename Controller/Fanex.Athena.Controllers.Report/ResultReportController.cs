@@ -25,6 +25,8 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Result.Core.Sportsbook.DTO;
     using Resources;
     using Result.Core.AllBetCasino;
+    using Result.Core.GlobalGaming;
+    using Result.Core.GlobalGaming.DTO;
     using Result.Core.Voidbridge;
     using System;
     using System.Collections.Generic;
@@ -244,6 +246,20 @@ namespace Fanex.Athena.Controllers.Report
             var allbetResultService = new AllbetResultBuilder();
             ViewBag.Data = allbetResultService.Render(transDesc, betCheck, betType, SessionService.UserSession.Language);
             return View("~/Views/Report/Result/Popup/AllBet.cshtml");
+        }
+
+        [HttpGet]
+        public string GlobalGamingResult(string custId, string gameId)
+        {
+            var globalGamingResultApi = new GlobalGamingResultApi();
+
+            var criteria = new GlobalGamingDTO
+            {
+                CustId = custId,
+                GameId = gameId,
+            };
+
+            return globalGamingResultApi.GetResultUrl(criteria);
         }
 
         /// <summary>
