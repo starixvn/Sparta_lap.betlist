@@ -168,33 +168,6 @@
             StringAssert.Contains(ExpectedUrl, result.Url);
         }
 
-        [TestCase("spondemoasfs")]
-        public void CreateSession_NotFoundLicensee_RedirectToRestrictionPage(string siteName)
-        {
-            // Arrange
-            const string Token = "GasgSDgS";
-            _oneAuthenticationService.GetTokenInfo(Token).Returns(x => new OneAuthenticationToken
-            {
-                UserID = "1",
-                SiteName = siteName,
-                UserSEQ = 1,
-                ActionLink = "http://localhost:6985/LicenseeWinLossReport",
-                Language = "en-US",
-                UserName = "pgmAlex",
-                VendorID = "localhost"
-            });
-            const string ExpectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LicenseeIsNotExisted;
-
-            _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "alex.");
-            _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
-
-            // Action
-            var result = _controller.CreateSession(Token);
-
-            // Assert
-            StringAssert.Contains(ExpectedUrl, result.Url);
-        }
-
         [TestCase("spondemo", "hLicenseeWinLossReport")]
         public void CreateSession_Authenticated_RedirectToActionLink(string siteName, string actionLink)
         {
@@ -244,7 +217,7 @@
             _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "alex.");
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
             _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
-            
+
             _oneAuthenticationService.SignIn(_controller.HttpContext, tokenInfo).Returns(resultInfo);
             var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedErrorCode.ToString();
 

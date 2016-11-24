@@ -194,6 +194,7 @@
             _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).DoNotCallBase();
 
             _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
+            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
@@ -229,12 +230,13 @@
             _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
             _sessionService.When(x => x.UpdateLanguage(Arg.Any<string>())).Do(x => langCounter++);
             _sessionService.UpdateLanguage(Arg.Is<string>(newLanguageCode)).Returns(true);
+            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
-            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<Licensee>(licensee), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
+            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
             Assert.AreEqual(0, counter);
             _sessionService.Received(1).UpdateLanguage(Arg.Any<string>());
             Assert.AreEqual(1, langCounter);
@@ -258,6 +260,7 @@
             fakeHttpContext.User.Identity.Name.Returns(tokenInfo.UserName);
             _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).DoNotCallBase();
             _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
+            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
@@ -266,6 +269,24 @@
             _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<Licensee>(licensee), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
             Assert.AreEqual(0, counter);
             Assert.True(result.ExtendedData.Equals(tokenInfo.ActionLink));
+        }
+
+        public void SignIn_LicenseeNameIsNotExisted_ReturnCorrectResult()
+        {
+            // Arrange
+            var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "alex", VendorID = "spondemo" };
+
+            var fakeHttpContext = Substitute.For<HttpContextBase>();
+
+            fakeHttpContext.User.Identity.IsAuthenticated.Returns(true);
+            fakeHttpContext.User.Identity.Name.Returns(tokenInfo.UserName);
+            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(x => null);
+
+            // Action
+            var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
+
+            // Result
+            Assert.That(result.Code.ToString(), Is.EqualTo(OneAuthorizationErrorCode.LicenseeIsNotExisted));
         }
 
         [TestCase(2, "alex", "spondemo", "1", 1, AppMode.Parasitic, true)]
@@ -315,12 +336,13 @@
             _sessionService.LicenseeSession.Returns(x => licSession);
             _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).DoNotCallBase();
             _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
+            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
-            _oneAuthenticationService.Received().SetAuthorize(Arg.Is<Licensee>(licensee), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
+            _oneAuthenticationService.Received().SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
             Assert.AreEqual(1, counter);
         }
 
