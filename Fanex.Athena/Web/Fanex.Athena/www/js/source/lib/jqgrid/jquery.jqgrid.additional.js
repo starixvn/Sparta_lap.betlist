@@ -9,20 +9,21 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                 thousandsSeparator: ",",
                 decimalPlaces: 2
             },
-            resizeGrid: function () {
+            updateGridHeight: function () {
                 var $bdiv = $(".ui-jqgrid-bdiv");
                 if ($bdiv.length === 0) {
                     return;
                 }
-                
+
                 var gridTop = $bdiv.offset().top;
                 var pagingHeight = $(".paging:visible").length > 0 ? $(".paging:visible").height() : 0;
                 var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
                             - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - 30;
                 gridHeight = Math.max(120, gridHeight);
+
                 $bdiv.css("max-height", gridHeight);
             },
-            resetLayout: function (grid) {
+            updateGridWidth: function (grid) {
                 if ($("div.ui-jqgrid-hbox").length === 0) {
                     return;
                 }
@@ -32,7 +33,6 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                 });
 
                 var parentWidth = grid.closest(".theme_jqGrid").width();
-
                 grid.jqGrid('setGridWidth', parentWidth);
 
                 var tableWidth = parentWidth - 20;
@@ -40,6 +40,10 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                 $(".theme_jqGrid .ui-jqgrid-hdiv table.ui-jqgrid-htable").css("width", tableWidth + "px");
                 $(".theme_jqGrid .ui-jqgrid-sdiv table.ui-jqgrid-ftable").css("width", tableWidth + "px");
 
+                jqGridAdditional.updateFooterWidth(parentWidth);
+            },
+
+            updateFooterWidth: function () {
                 $(".footer-firstrow").remove();
                 var settingWidthRow = $(".ui-jqgrid-bdiv table.ui-jqgrid-btable tr.jqgfirstrow").clone();
                 settingWidthRow.addClass("footer-firstrow").removeClass("jqgfirstrow")

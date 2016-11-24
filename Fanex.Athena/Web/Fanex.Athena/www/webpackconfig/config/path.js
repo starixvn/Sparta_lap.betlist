@@ -22,13 +22,12 @@ var cssPaths = {
     betlistSimpleLayout: [
         "./www/css/source/components/flatpopup/flatpopup.scss",
         "./www/css/source/pages/common.scss", "./www/css/source/extensions/report-ex.scss",
-        "./www/css/source/components/betlist/betlist.core.css", "./www/css/source/components/betlist/Microgaming.css",
+        "./www/css/source/components/betlist/betlist.scss", "./www/css/source/components/betlist/Microgaming.css",
         "./www/css/source/components/betlist/AGCasino.css", "./www/css/source/components/betlist/Allbet.css",
-        "./www/css/source/components/betlist/betlist.scss",
         ...jqgridPath
     ],
 
-    betlistResult: ["./www/css/source/pages/common.scss", "./www/css/source/components/betlist/result/fanex.result.scss"],
+    betlistResult: ["./www/css/source/pages/common.scss", "./www/css/source/components/betlist/result/betlist.result.scss"],
 
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],
     livereport: ["malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/pages/common.scss", "./www/css/source/components/flatpopup/flatpopup.scss",

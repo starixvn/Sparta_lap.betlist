@@ -1,8 +1,8 @@
 ﻿define(
     ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option",
-        "lib/jqgrid/jquery.jqgrid.additional", "common/pluginhelper", "moment",
+        "lib/jqgrid/jquery.jqgrid.additional", "common/pluginhelper", "moment", "common/popup",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extensions/jquery.extension", "lib/linq"],
-    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, PluginHelper, moment) {
+    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, PluginHelper, moment, Popup) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
 
@@ -479,16 +479,14 @@
                 url = Site.setProductOptionOriginalParamList(url);
 
                 var popH = Math.min($(window).height() - 100, 650), popW = 920;
-                var dialogForm = '<div class="betlist-popup"><iframe src="' + url + '" ></iframe></div>'; // jshint ignore:line
-
-                var popupOption = { width: popW + 50, height: popH + 50, title: "Customer Bet List" };
-                $(dialogForm).flatPopup(popupOption).show();
+                var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
+                Popup.openBetListPopup(url, popupOption);
             },
 
             resizeGrid: function () {
                 var reportGrid = $("#ReportGrid");
-                jqGridAdditional.resizeGrid();
-                jqGridAdditional.resetLayout(reportGrid);
+                jqGridAdditional.updateGridHeight();
+                jqGridAdditional.updateGridWidth(reportGrid);
             }
         };
 

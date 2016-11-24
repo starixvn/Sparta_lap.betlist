@@ -181,14 +181,15 @@ define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multis
         }
         function addUserGuide(options) {
             var defaultOptions = {
-                buttonSelector: "#UserGuide"
+                buttonSelector: "#UserGuide",
+                id: "UserGuidePopup"
             };
             options = $.extend(defaultOptions, options);
             options.title = options.title || "";
             var url = resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName) + "&_" + (new Date().getTime());
             var popup;
             $(options.buttonSelector).click(function () {
-                var $userGuidePopup = $('<div id="UserGuidePopup" style="display: none" ></div>');
+                var $userGuidePopup = $('<div style="display: none" ></div>');
                 if ($userGuidePopup.is(":visible")) {
                     return;
                 }

@@ -1,7 +1,7 @@
 ﻿define(
-    ['jquery', 'common/site', 'common/querystring', 'lib/jqgrid/jquery.jqgrid.additional', './betlist.option', 'moment',
+    ['jquery', 'common/site', 'common/querystring', 'lib/jqgrid/jquery.jqgrid.additional', './betlist.option', 'moment', 'common/popup',
         'lib/jqgrid/jquery.jqGrid.en', 'lib/jqgrid/jquery.jqGrid.min'],
-    function ($, Site, QueryString, jqGridAdditional, BetListOption, moment) {
+    function ($, Site, QueryString, jqGridAdditional, BetListOption, moment, Popup) {
         "use strict";
         var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
         var SPORT_MICROGAMMING_LC = 203;
@@ -16,20 +16,17 @@
         var _params, _url;
         var _isShowSumStake;
 
-        var _me = {
-            updateGridHeight: function () {
-                var $bdiv = $(".ui-jqgrid-bdiv");
-                if ($bdiv.length === 0) {
-                    return;
-                }
+        function showDetailPopUp(url, option) {
+            option.id = "betlist-popup-detail";
+            Popup.openBetListPopup(url, option);
+        }
 
-                var gridTop = $bdiv.offset().top;
-                var pagingHeight = $(".paging:visible").length > 0 ? $(".paging:visible").height() : 0;
-                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-                            - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - 30;
-                gridHeight = Math.max(150, gridHeight);
-                $bdiv.css({ "height": "auto", "max-height": gridHeight });
-            },
+        function showResultPopUp(url, option) {
+            option.id = "betlist-popup-result";
+            Popup.openBetListPopup(url, option);
+        }
+
+        var _me = {
             getSortParams: function () {
                 if (!_sortColumnName) {
                     return null;
@@ -64,7 +61,7 @@
                 return regex.test($("#ApiUrl").val());
             },
 
-            gridComplete: function (grid, betListGrid) {
+            gridComplete: function (grid) {
                 // add sort icon
                 var sortCol = _sortColumnName === "Winlost" ? "WinLoss" : _sortColumnName;
                 sortCol = _sortColumnName === "nickname" ? "ExternalId" : sortCol;
@@ -105,7 +102,8 @@
                     }
                 });
 
-                _me.updateGridHeight();
+                $(".ui-jqgrid-bdiv").css({ "height": "auto" });
+                jqGridAdditional.updateGridHeight();
                 Site.unBlockUI();
             },
 
@@ -223,7 +221,7 @@
                 gridOption.loadonce = false;
                 gridOption.datatype = "json";
                 gridOption.gridComplete = function () {
-                    _me.gridComplete(this, $("#BetListGrid"));
+                    _me.gridComplete(this);
                     if (_me.submiting) {
                         $(".ui-pg-selbox").val(rows);
                     }
@@ -270,7 +268,7 @@
                     gridOption.footerrow = false;
                 }
                 gridOption.gridComplete = function () {
-                    _me.gridComplete(this, $("#BetListGrid"));
+                    _me.gridComplete(this);
                 };
 
                 $("#BetListGrid").jqGrid('GridUnload');
@@ -321,8 +319,13 @@
                     success: function (response) {
                         var result = response.Result;
                         if (response.Success) {
-                            _me.showRngCasinoResultPopup(title, result);
-                        } else {
+                            if (result === "") {
+                                return;
+                            }
+
+                            showResultPopUp(result, { width: 800, height: 380, title: title });
+                        }
+                        else {
                             alert(Site.getSingleResource("ErrorProcessingMsg"));
                         }
                     },
@@ -335,49 +338,24 @@
                 });
             },
 
-            viewVoidbridgeResult: function (custId, gamePlayId) {
+            viewVoidbridgeResult: function (custId, gamePlayId, title) {
                 var url = Site.resolveClientUrl('ResultReport/VoidbridgeResult');
                 Site.blockUI();
                 $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
                     if (result !== '') {
-                        var dialogForm = '<div title="' + Site.getSingleResource("Result") +
-                            '"><iframe frameborder="0" style="width:100%; height:100%;" src="' + result + '" ></iframe></div></div>';
-                        $(dialogForm).dialog({
-                            modal: true,
-                            width: 800,
-                            height: 380
-                        });
+                        showResultPopUp(result, { width: 800, height: 380, title: title });
                         Site.unBlockUI();
                     }
                 });
             },
 
-            viewAllBetResult: function (trasdesc, betcheck, bettype) {
+            viewAllBetResult: function (trasdesc, betcheck, bettype, title) {
                 var url = Site.resolveClientUrl('ResultReport/AllBetResult?transdesc=' +
                     encodeURIComponent(trasdesc) + '&betcheck=' + betcheck + '&bettype=' + bettype);
+
                 Site.blockUI();
-
-                var dialogForm = '<div title="' + Site.getSingleResource("Result") +
-                            '"><iframe frameborder="0" style="width:100%; height:100%;" src="' + url + '" ></iframe></div></div>';
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: 800,
-                    height: 380
-                });
+                showResultPopUp(url, { width: 800, height: 380, title: title });
                 Site.unBlockUI();
-            },
-
-            showRngCasinoResultPopup: function (title, url) {
-                if (url === "") {
-                    return;
-                }
-
-                var dialogForm = '<div title="' + title + '"><iframe frameborder="0" style="width:100%; height:100%;" src="' + url + '" ></iframe></div></div>';
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: 800,
-                    height: 380
-                });
             },
 
             setLeagueTitle: function (leagueName) {
@@ -387,14 +365,9 @@
             showMicrogamingResultPopup: function (title, gameid, custid) {
                 var url = _me.getMicrogamingResultUrl(gameid, custid);
 
-                var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="720" height="350" src="' + url + '" ></iframe></div></div>';
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: 750,
-                    height: 400
-                });
+                showResultPopUp(url, { width: 750, height: 400, title: title });
             },
-            showResult: function (matchid, raceNo, bettype, sporttype, refno,
+            viewResult: function (matchid, raceNo, bettype, sporttype, refno,
                 username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid, transdecs) {
                 var title = Site.getSingleResource("Result");
                 if (sporttype === SPORT_MICROGAMMING_RNG || sporttype === SPORT_MICROGAMMING_LC) {
@@ -404,10 +377,10 @@
                     _me.viewRngCasinoResult(title, refno);
                 }
                 else if (sporttype === SPORT_VOIDBRIDGE) {
-                    _me.viewVoidbridgeResult(custid, betcheck);
+                    _me.viewVoidbridgeResult(custid, betcheck, title);
                 }
                 else if (sporttype === SPORT_ALLBET) {
-                    _me.viewAllBetResult(transdecs, betcheck, bettype);
+                    _me.viewAllBetResult(transdecs, betcheck, bettype, title);
                 }
                 else {
                     bettype = Number(bettype);
@@ -418,8 +391,8 @@
 
                     var height = isParlay ? 450 : 150;
                     var width = 750;
-                    var dialogForm = '<div class="betlist-popup"><iframe frameborder="0" src="' + url + '" ></iframe></div>';
-                    $(dialogForm).flatPopup({ width: width + 25, height: height + 70 }).show();
+
+                    showResultPopUp(url, { width: width + 25, height: height + 70, title: title });
                 }
             },
 
@@ -519,17 +492,7 @@
                 url = QueryString.setParam(url, "betteam", betTeam);
                 url = QueryString.setParam(url, "basecurrency", baseCurrency);
 
-                var height = 450;
-                var width = 750;
-
-                var dialogForm = '<div title="' + betTeam + '"><iframe frameborder="0" width="' +
-                             width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
-
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: width + 25,
-                    height: height + 50
-                });
+                showDetailPopUp(url, { width: 775, height: 500, title: betTeam });
             },
 
             showMicroGamingRnGBetsDetails: function (transId, winlostDate, custId, transType) {
@@ -538,17 +501,11 @@
                 url = QueryString.setParam(url, "custid", custId);
                 url = QueryString.setParam(url, "transType", transType);
 
-                var popH = Math.min($(window).height() - 100, 550), popW = 820;
+                var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("Microgaming") + " - " +
                     Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
-                var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
-                                 popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: popW + 50,
-                    height: popH + 50
-                });
+                showDetailPopUp(url, { width: 870, height: popH + 50, title: title });
             },
 
             showAGCasinoDetails: function (transId, winlostDate, custId, transType) {
@@ -557,17 +514,11 @@
                 url = QueryString.setParam(url, "custid", custId);
                 url = QueryString.setParam(url, "transType", transType);
 
-                var popH = Math.min($(window).height() - 100, 550), popW = 820;
+                var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("AGCasino") + " - " +
                     Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
-                var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
-                                 popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: popW + 50,
-                    height: popH + 50
-                });
+                showDetailPopUp(url, { width: 870, height: popH + 50, title: title });
             },
 
             showRnGCasinoDetails: function (transId, winlostDate, custId, transType) {
@@ -577,17 +528,11 @@
                 url = QueryString.setParam(url, "custId", custId);
                 url = QueryString.setParam(url, "transType", transType);
 
-                var popH = Math.min($(window).height() - 100, 550), popW = 840;
+                var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("ProductCS") + " - " +
                     Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
-                var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
-                                 popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: popW + 50,
-                    height: popH + 50
-                });
+                showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
 
             showVoidBridgeDetails: function (transId, winlostDate, custId, transType) {
@@ -597,17 +542,11 @@
                 url = QueryString.setParam(url, "custId", custId);
                 url = QueryString.setParam(url, "transType", transType);
 
-                var popH = Math.min($(window).height() - 100, 550), popW = 840;
+                var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("ProductVB") + " - " +
                     Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
-                var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
-                                 popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: popW + 50,
-                    height: popH + 50
-                });
+                showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
             showAllBetDetails: function (transId, winlostDate, custId, transType) {
                 var url = Site.resolveClientUrl('AllBetBetList/Detail');
@@ -616,17 +555,11 @@
                 url = QueryString.setParam(url, "transType", transType);
                 url = QueryString.setParam(url, "date", winlostDate);
 
-                var popH = Math.min($(window).height() - 100, 550), popW = 820;
+                var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("ProductAB") + " - " +
                     Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
-                var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
-                                 popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: popW + 50,
-                    height: popH + 50
-                });
+                showDetailPopUp(url, { width: 870, height: popH + 50, title: title });
             },
             showColossusBetsDetails: function (refNo, winlostDate, transId, custId, betCheck) {
                 var params = $.parseJSON($("#BetListMetaModel").val());
@@ -638,30 +571,20 @@
                 url = QueryString.setParam(url, "betCheck", betCheck);
                 url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
 
-                var popH = Math.min($(window).height() - 100, 550), popW = 860;
+                var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("TicketDetailOf").replace("{0}", refNo);
-                var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
-                                 popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: popW + 30,
-                    height: popH + 50
-                });
+                showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
+
             },
             ValidProducts: function () {
                 var temp = true;
                 if ($("#ProductList input:checked").length === 0) {
                     temp = false;
                     var title = Site.getSingleResource("LrfNotification");
-                    $('<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>').dialog({
-                        open: function () {
-                            $('#SubmitButton').prop('disabled', true);
-                        },
-                        close: function () {
-                            $('#SubmitButton').removeAttr('disabled');
-                        }
-                    });
+                    var dialogForm = '<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>';
+
+                    Popup.openPopup(dialogForm, { width: 350, height: 200, title: title });
                 }
 
                 return temp;

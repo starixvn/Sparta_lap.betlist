@@ -1,7 +1,7 @@
 ﻿define(['jquery', './betlist', './commonbetlist'], function ($, BetList, CommonBetList) {
     "use strict";
 
-    window.ViewResult = BetList.showResult;
+    window.ViewResult = BetList.viewResult;
 
     window.showMP = function (transId) {
         var divEvent = $('#divEvent_' + transId);

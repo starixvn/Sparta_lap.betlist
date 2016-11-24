@@ -704,8 +704,8 @@ define(
                 $("#footer").html($(".ui-jqgrid-ftable").html());
                 $('.report-content').css('cursor', 'default');
 
-                jqGridAdditional.resizeGrid();
-                jqGridAdditional.resetLayout(grid);
+                jqGridAdditional.updateGridHeight();
+                jqGridAdditional.updateGridWidth(grid);
                 return false;
             };
 

@@ -114,14 +114,9 @@
         });
     }
 
-    function initCustomScrollbar($target, options) {
-        return options ? $target.mCustomScrollbar(options) : $target.mCustomScrollbar({ theme: 'light' });
-    }
-
     return {
         initMaterialSelect: initMaterialSelect,
         initDateRangePicker: initDateRangePicker,
-        initMonthPicker: initMonthPicker,
-        initCustomScrollbar: initCustomScrollbar
+        initMonthPicker: initMonthPicker
     };
 });

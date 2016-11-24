@@ -722,6 +722,17 @@
     <Content Include="www\css\build\main.css" />
     <Content Include="www\css\build\pages\betlist\betlistResult.css" />
     <Content Include="www\css\build\pages\betlist\betlistSimpleLayout.css" />
+    <Content Include="www\css\build\pages\betlist\images\1F.gif" />
+    <Content Include="www\css\build\pages\betlist\images\1L.gif" />
+    <Content Include="www\css\build\pages\betlist\images\ajax-loader.gif" />
+    <Content Include="www\css\build\pages\betlist\images\bg_header03.jpg" />
+    <Content Include="www\css\build\pages\betlist\images\firstGoal.gif" />
+    <Content Include="www\css\build\pages\betlist\images\goal-icon.png" />
+    <Content Include="www\css\build\pages\betlist\images\lastGoal.gif" />
+    <Content Include="www\css\build\pages\betlist\images\q_Icon2_1.png" />
+    <Content Include="www\css\build\pages\betlist\images\q_Icon_2.png" />
+    <Content Include="www\css\build\pages\betlist\images\tab_topbg.gif" />
+    <Content Include="www\css\build\pages\betlist\images\undo.png" />
     <Content Include="www\css\build\pages\home\home.css" />
     <Content Include="www\css\build\pages\login\login.css" />
     <Content Include="www\css\build\pages\reports\licenseewinloss.css" />
@@ -729,9 +740,7 @@
     <Content Include="www\css\build\pages\reports\reportjqgridlayout.css" />
     <Content Include="www\css\source\components\betlist\AGCasino.css" />
     <Content Include="www\css\source\components\betlist\Allbet.css" />
-    <Content Include="www\css\source\components\betlist\betlist.core.css" />
     <Content Include="www\css\source\components\betlist\Microgaming.css" />
-    <Content Include="www\css\source\components\betlist\result\fanex.result.css" />
     <Content Include="www\css\source\components\jqgrid\jqgrid.css" />
     <Content Include="www\css\source\components\multiselect\jquery.multiselect.css" />
     <Content Include="www\css\source\components\sidebar\sideBar.css" />
@@ -773,6 +782,7 @@
     </Content>
     <Content Include="www\js\source\common\languages\ViewResources1.txt" />
     <Content Include="www\js\source\common\pluginhelper.js" />
+    <Content Include="www\js\source\common\popup.js" />
     <Content Include="www\js\source\common\querystring.js" />
     <Content Include="www\js\source\common\site.js" />
     <Content Include="www\js\source\components\betlist\betlist.js" />
@@ -1154,7 +1164,7 @@
     <Content Include="Views\Desktop\BetList\LicenseeWl\Main.cshtml" />
     <Content Include="www\css\source\components\betlist\betlist.scss" />
     <Content Include="Views\Desktop\Report\Result\Popup\Main.cshtml" />
-    <None Include="www\css\source\components\betlist\result\fanex.result.scss" />
+    <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
