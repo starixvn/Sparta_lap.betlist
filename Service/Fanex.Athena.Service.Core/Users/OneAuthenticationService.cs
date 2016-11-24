@@ -54,15 +54,25 @@
             }
         }
 
-        public IResultInfo SignIn(HttpContextBase currentContext, int licenseeId, OneAuthenticationToken tokenInfo)
+        public IResultInfo SignIn(HttpContextBase currentContext, OneAuthenticationToken tokenInfo)
         {
+            var licensee = _licenseeService.GetLicenseeByName(tokenInfo.SiteName);
+            if (licensee == null)
+            {
+                return new ResultInfo
+                {
+                    Code = int.Parse(OneAuthorizationErrorCode.LicenseeIsNotExisted),
+                    Message = ViewResources.LicenseeIsNotExisted
+                };
+            }
+
             var userSession = _sessionService.UserSession;
             var licenseeSession = _sessionService.LicenseeSession;
             var language = Util.MapLanguages.Where(i => i.Value.Equals(tokenInfo.Language))
                        .Select(i => i.Key).DefaultIfEmpty<string>("en-Us").FirstOrDefault();
             if (IsAuthenticated(currentContext, userSession, licenseeSession))
             {
-                var isSameSession = VerifySessionWithToken(userSession, licenseeSession, tokenInfo, licenseeId);
+                var isSameSession = VerifySessionWithToken(userSession, licenseeSession, tokenInfo, licensee.Id);
                 if (isSameSession)
                 {
                     if (!language.Equals(userSession.Language))
@@ -77,25 +87,7 @@
                 }
             }
 
-            return SetAuthorize(licenseeId, language, tokenInfo);
-        }
-
-        public LicenseeSiteName SingleLicenseeSiteName(string siteName)
-        {
-            const string SiteNameFilePath = "~/App_Data/LicenseeSiteName.json";
-            var defaultValue = new LicenseeSiteName();
-            if (!string.IsNullOrWhiteSpace(siteName))
-            {
-                var items = GetLiceseeSiteNameList(SiteNameFilePath);
-
-                if (items != null)
-                {
-                    var item = items.FirstOrDefault(i => i.SiteName.Equals(siteName, StringComparison.OrdinalIgnoreCase));
-                    return item != null ? item : defaultValue;
-                }
-            }
-
-            return defaultValue;
+            return SetAuthorize(licensee, language, tokenInfo);
         }
 
         public OneAuthenticationToken GetTokenInfo(string token)
@@ -104,21 +96,9 @@
             return oneBookService.Authenticate(token);
         }
 
-        protected internal virtual IResultInfo SetAuthorize(int licenseeId, string languageCode, OneAuthenticationToken tokenInfo)
+        protected internal virtual IResultInfo SetAuthorize(Licensee licensee, string languageCode, OneAuthenticationToken tokenInfo)
         {
-            var licenseeNotExistedError = new ResultInfo
-            {
-                Code = int.Parse(OneAuthorizationErrorCode.LicenseeIsNotExisted),
-                Message = ViewResources.LicenseeIsNotExisted
-            };
-
-            var licenseeInfo = _licenseeService.GetLicenseeById(licenseeId);
-            if (licenseeInfo == null)
-            {
-                return licenseeNotExistedError;
-            }
-
-            var currencyOfLicensee = _currencyService.GetCurrencyMapByUser(licenseeId, tokenInfo.UserSEQ)
+            var currencyOfLicensee = _currencyService.GetCurrencyMapByUser(licensee.Id, tokenInfo.UserSEQ)
                 .Select(x => new Currency
                 {
                     CurrencyId = x.Value,
@@ -134,13 +114,17 @@
                 };
             }
 
-            var agentList = _licenseeService.GetCustByLicensee(licenseeId);
+            var agentList = _licenseeService.GetCustByLicensee(licensee.Id);
             if (agentList.Count <= 0)
             {
-                return licenseeNotExistedError;
+                return new ResultInfo
+                {
+                    Code = int.Parse(OneAuthorizationErrorCode.LicenseeIsNotExisted),
+                    Message = ViewResources.LicenseeIsNotExisted
+                };
             }
 
-            CreateSession(languageCode, tokenInfo, licenseeInfo, currencyOfLicensee, agentList);
+            CreateSession(languageCode, tokenInfo, licensee, currencyOfLicensee, agentList);
             var authName = $"{tokenInfo.UserName}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
             _formsAuthenticationService.SetAuthCookie(authName, false);
 
@@ -232,30 +216,6 @@
             }
 
             return result == null ? new List<PortalSystemFunction>() : result;
-        }
-
-        private IList<LicenseeSiteName> GetLiceseeSiteNameList(string filePath)
-        {
-            const string LicenseeSiteNameCacheKey = "OneAuthenticationService_LicenseeSiteNameCacheKey";
-            const int CacheTimeoutMinute = 30;
-            var cacheService = GetMemCacheService();
-
-            var result = cacheService.Get<IList<LicenseeSiteName>>(LicenseeSiteNameCacheKey);
-
-            if (result == null || !result.Any())
-            {
-                var temp = GetStringFromFile(filePath);
-                if (!string.IsNullOrEmpty(temp))
-                {
-                    result = JsonConvert.DeserializeObject<IList<LicenseeSiteName>>(temp);
-                    if (result.Any())
-                    {
-                        cacheService.Set(LicenseeSiteNameCacheKey, result, DateTime.Now.AddMinutes(CacheTimeoutMinute));
-                    }
-                }
-            }
-
-            return result;
         }
     }
 }

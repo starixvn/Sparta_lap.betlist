@@ -33,6 +33,6 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
             Justification = "Reviewed. Suppression is OK here.")]
         string GetNumberOfOnlineUser();
 
-        Licensee GetLicenseeById(int licenseeId);
+        Licensee GetLicenseeByName(string licenseeName);
     }
 }

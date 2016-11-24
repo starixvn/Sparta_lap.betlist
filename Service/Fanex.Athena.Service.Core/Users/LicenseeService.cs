@@ -107,9 +107,9 @@ namespace Fanex.Athena.Service.Core.Users
             return _licenseeDataAccess.GetNumberOfOnlineUser();
         }
 
-        public Licensee GetLicenseeById(int licenseeId)
+        public Licensee GetLicenseeByName(string licenseeName)
         {
-            return _licenseeDataAccess.GetLicenseeById(licenseeId);
+            return _licenseeDataAccess.GetLicenseeByName(licenseeName);
         }
     }
 }

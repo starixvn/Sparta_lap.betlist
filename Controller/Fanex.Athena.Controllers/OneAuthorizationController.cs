@@ -57,16 +57,8 @@
                     }
                     else
                     {
-                        var siteNameInfo = _oneAuthenticationService.SingleLicenseeSiteName(tokenInfo.SiteName);
-                        if (siteNameInfo.LicenseeID <= 0)
-                        {
-                            returnUrl += OneAuthorizationErrorCode.LicenseeIsNotExisted;
-                        }
-                        else
-                        {
-                            var result = _oneAuthenticationService.SignIn(HttpContext, siteNameInfo.LicenseeID, tokenInfo);
-                            returnUrl = result.IsSuccessful ? "~/" + result.ExtendedData : returnUrl += result.Code;
-                        }
+                        var result = _oneAuthenticationService.SignIn(HttpContext, tokenInfo);
+                        returnUrl = result.IsSuccessful ? "~/" + result.ExtendedData : returnUrl += result.Code;
                     }
                 }
                 else

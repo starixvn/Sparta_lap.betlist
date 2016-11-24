@@ -187,10 +187,10 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
         }
 
-        public Licensee GetLicenseeById(int licenseeId)
+        public Licensee GetLicenseeByName(string licenseeName)
         {
-            const string UspName = "Lrf_LicenseeSelByLicenseeId";
-            var uspParams = new { LicenseeId = licenseeId };
+            const string UspName = "Lrf_LicenseeSelBySiteName";
+            var uspParams = new { LicenseeId = licenseeName };
             try
             {
                 using (var db = this.GetObjectDb(UspName))

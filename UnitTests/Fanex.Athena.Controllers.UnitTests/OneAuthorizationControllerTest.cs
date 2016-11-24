@@ -185,7 +185,6 @@
             });
             const string ExpectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LicenseeIsNotExisted;
 
-            _oneAuthenticationService.SingleLicenseeSiteName(Arg.Is<string>(siteName)).Returns(new LicenseeSiteName());
             _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "alex.");
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
 
@@ -216,8 +215,7 @@
             _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "alex.");
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
             _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
-            _oneAuthenticationService.SingleLicenseeSiteName(Arg.Is<string>(siteName)).Returns(new LicenseeSiteName { LicenseeID = 66, SiteName = siteName });
-            _oneAuthenticationService.SignIn(_controller.HttpContext, Arg.Any<int>(), tokenInfo).Returns(resultInfo);
+            _oneAuthenticationService.SignIn(_controller.HttpContext, tokenInfo).Returns(resultInfo);
 
             // Action
             var result = _controller.CreateSession(Token);
@@ -246,9 +244,8 @@
             _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "alex.");
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
             _oneAuthenticationService.GetTokenInfo(Token).Returns(x => tokenInfo);
-            _oneAuthenticationService.SingleLicenseeSiteName(Arg.Is<string>(tokenInfo.SiteName)).Returns(
-                new LicenseeSiteName { LicenseeID = 66, SiteName = tokenInfo.SiteName });
-            _oneAuthenticationService.SignIn(_controller.HttpContext, Arg.Any<int>(), tokenInfo).Returns(resultInfo);
+            
+            _oneAuthenticationService.SignIn(_controller.HttpContext, tokenInfo).Returns(resultInfo);
             var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedErrorCode.ToString();
 
             // Action

@@ -95,7 +95,6 @@
     <Compile Include="DTO\Common\ProductAccess.cs" />
     <Compile Include="DTO\Common\Request.cs" />
     <Compile Include="DTO\Common\ResultInfo.cs" />
-    <Compile Include="DTO\Common\LicenseeSiteName.cs" />
     <Compile Include="DTO\Common\Sport.cs" />
     <Compile Include="DTO\Common\SportProductItem.cs" />
     <Compile Include="DTO\Configuration\BalanceUp.cs" />

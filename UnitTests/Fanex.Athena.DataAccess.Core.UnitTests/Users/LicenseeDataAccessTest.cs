@@ -224,10 +224,10 @@
         }
 
         [Test]
-        public void GetLicenseeById_WhenCall_ValueReturnedCorrectly()
+        public void GetLicenseeByName_WhenCall_ValueReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeSelByLicenseeId")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeSelBySiteName")).Returns(_objectDb);
             var expected = new Licensee
             {
                 Id = 100
@@ -235,7 +235,7 @@
             _objectDb.QueryEntity<Licensee>(Arg.Any<object>()).Returns(expected);
 
             // Action
-            var result = _dataAccess.GetLicenseeById(0);
+            var result = _dataAccess.GetLicenseeByName(string.Empty);
 
             // Assert
             Assert.That(result.Id, Is.EqualTo(expected.Id));
