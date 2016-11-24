@@ -6,7 +6,6 @@ showAGCasinoDetails, showRnGCasinoDetails, showVoidBridgeDetails, showVoidbridge
 var BetList = (function ($) {
     "use strict";
     var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
-    var BETTYPE_GLOBALGAMING = 1011;
     var SPORT_MICROGAMMING_LC = 203;
     var SPORT_MICROGAMMING_RNG = 205;
     var SPORT_RNG_GAME = 208;
@@ -14,6 +13,7 @@ var BetList = (function ($) {
     var SPORT_RNG_MOBILE = 210;
     var SPORT_ALLBET = 211;
     var SPORT_VOIDBRIDGE = 212;
+    var SPORT_GLOBALGAMING = 219;
 
     var _sortColumnName, _sortOrder;
     var _params, _url;
@@ -458,27 +458,25 @@ var BetList = (function ($) {
             else if (sporttype === SPORT_ALLBET) {
                 BetList.viewAllBetResult(transdecs, betcheck, bettype);
             }
+            else if (sporttype === SPORT_GLOBALGAMING) {
+                BetList.viewGlobalGamingResult(custid, betcheck);
+            }
             else {
                 bettype = Number(bettype);
-                if (bettype === BETTYPE_GLOBALGAMING) {
-                    BetList.viewGlobalGamingResult(custid, betcheck);
-                }
-                else {
-                    var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY;
-                    var url = isParlay
-                        ? BetList.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
-                        : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
+                var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY;
+                var url = isParlay
+                    ? BetList.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
+                    : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
 
-                    var height = isParlay ? 450 : 150;
-                    var width = 750;
-                    var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
-                             width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
-                    $(dialogForm).dialog({
-                        modal: true,
-                        width: width + 25,
-                        height: height + 70
-                    });
-                }
+                var height = isParlay ? 450 : 150;
+                var width = 750;
+                var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
+                         width + '" height="' + height + '" src="' + url + '" ></iframe></div>';
+                $(dialogForm).dialog({
+                    modal: true,
+                    width: width + 25,
+                    height: height + 70
+                });
             }
         },
 
