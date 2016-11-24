@@ -15,12 +15,12 @@
             try
             {
                 var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString_ClearinghouseDB"].ConnectionString;
-                Auth<OneAuthenticationToken> oneBookSecurity = new Auth<OneAuthenticationToken>(connectionString);
+                var oneBookSecurity = new Auth<OneAuthenticationToken>(connectionString);
                 oneBookSecurity.Authenticate(token, ref result);
             }
             catch (Exception exception)
             {
-                throw new ServiceException("Error when calling OneBookSecurity.Authenticate - Error =" + exception.Message, "OneBookSecurityWrapper");
+                throw new ServiceException("Error when calling OneBookSecurity.Authenticate - Error =" + exception.Message, nameof(OneBookSecurityWrapper));
             }
 
             return result;
