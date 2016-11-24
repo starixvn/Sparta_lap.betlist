@@ -1,14 +1,20 @@
 ﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
 
 <div class="page-results">
-    <ul class="result-content">
-        <li>
-            <div class="panel-heading active">
-                <div class="panel-title">
-                    @ViewResources.LiveReport - @RazorHelperDesktop.ViewLiveStatus(Model.Param.LiveIndicator), @RazorHelperDesktop.TitleDateTime(Model.Param.FromDate, Model.Param.ToDate)
-                    - @RazorHelperDesktop.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
-                </div>
+    <div class="result-content">
+        <div class="panel-heading active">
+            <div class="panel-title">
+                @ViewResources.LiveReport - @RazorHelperDesktop.ViewLiveStatus(Model.Param.LiveIndicator), @RazorHelperDesktop.TitleDateTime(Model.Param.FromDate, Model.Param.ToDate)
+                - @RazorHelperDesktop.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
             </div>
+        </div>
+
+        @if (Model.MainResult.Count == 0)
+        {
+            <p class="no-info-row">@ViewResources.NoInfo</p>
+        }
+        else
+        {
 
             <div class="main-content">
                 <div class="panel-body">
@@ -20,16 +26,7 @@
                         </thead>
 
                         <tbody>
-                            @if (Model.MainResult.Count == 0)
-                            {
-                            <tr>
-                                <td colspan="@ReportContentHelperDesktop.GetNumberOfColumnInLiveReport(Model)" class="text-center">@ViewResources.NoInfo</td>
-                            </tr>
-                            }
-                            else
-                            {
-                                Html.RenderPartial("~/Views/Desktop/Report/LiveReport/Content.Data.cshtml");
-                            }
+                            @{ Html.RenderPartial("~/Views/Desktop/Report/LiveReport/Content.Data.cshtml"); }
                         </tbody>
                     </table>
                 </div>
@@ -37,6 +34,6 @@
                 <div id="detail-content">
                 </div>
             </div>
-        </li>
-    </ul>
+        }
+    </div>
 </div>

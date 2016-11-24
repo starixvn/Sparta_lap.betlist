@@ -4,8 +4,8 @@
 
     foreach (var item in Model.MainResult)
     {
-        <tr class="text-right">
-            <td class="text-left">
+        <tr>
+            <td class="left-align">
                 <a href="javascript:;" class="product-detail-link" data-product-code="@item.ProductCode">
                     @item.ProductName
                 </a>
@@ -17,8 +17,8 @@
 }
 
 <!--total row-->
-<tr class="text-right total font-weight-600">
-    <td class="text-left">
+<tr class="total font-weight-600">
+    <td>
         <a href="javascript:;" class="product-detail-link" data-product-code="ALL">
             @ViewResources.Total
         </a>
@@ -26,23 +26,23 @@
 
     @if (Model.IsAllowedCustomerCommission)
     {
-        <td>@Model.MainResult.Sum(i => i.CustomerWinLoss).ToStringExt()</td>
-        <td>@Model.MainResult.Sum(i => i.CustomerComm).ToStringExt()</td>
-        <td>@Model.MainResult.Sum(i => i.CustomerTotal).ToStringExt()</td>
+        <td class="right-align">@Model.MainResult.Sum(i => i.CustomerWinLoss).ToStringExt()</td>
+        <td class="right-align">@Model.MainResult.Sum(i => i.CustomerComm).ToStringExt()</td>
+        <td class="right-align">@Model.MainResult.Sum(i => i.CustomerTotal).ToStringExt()</td>
     }
     else
     {
-        <td>@Model.MainResult.Sum(i => i.CustomerWinLoss).ToStringExt()</td>
+        <td class="right-align">@Model.MainResult.Sum(i => i.CustomerWinLoss).ToStringExt()</td>
     }
 
-    <td>@Model.MainResult.Sum(i => i.TurnOver).ToStringExt()</td>
-    <td>@Model.MainResult.Sum(i => i.BetCount).ToStringExt()</td>
-    <td class="highlight">@RazorHelperDesktop.HighlightNegativeFormat(Model.MainResult.Sum(i => i.LicenseeWinLoss))</td>
+    <td class="right-align">@Model.MainResult.Sum(i => i.TurnOver).ToStringExt()</td>
+    <td class="right-align">@Model.MainResult.Sum(i => i.BetCount).ToStringExt()</td>
+    <td class="right-align highlight">@RazorHelperDesktop.HighlightNegativeFormat(Model.MainResult.Sum(i => i.LicenseeWinLoss))</td>
 
     @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
     {
-        <td class="highlight">@Model.MainResult.Sum(i => i.LicenseeComm).ToStringExt()</td>
+        <td class="right-align highlight">@Model.MainResult.Sum(i => i.LicenseeComm).ToStringExt()</td>
     }
 
-    <td>@Model.MainResult.Sum(i => i.AmountDue).ToStringExt()</td>
+    <td class="right-align">@Model.MainResult.Sum(i => i.AmountDue).ToStringExt()</td>
 </tr>

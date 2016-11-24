@@ -20,8 +20,8 @@
             LiveIndicator = Model.Param.LiveIndicator
         };
 
-        <tr class="text-right">
-            <td class="text-left">
+        <tr>
+            <td>
                 @{
                     var matchName = WebUtility.HtmlDecode(item.MatchName);
                 }
@@ -32,16 +32,16 @@
 
             @ReportContentHelperDesktop.RenderCustomerWinLossForLiveReport(item, Model.IsAllowedCustomerCommission)
 
-            <td>@item.TurnOver.ToStringExt()</td>
-            <td>@item.BetCount.ToStringExt()</td>
-            <td class="highlight">@RazorHelperDesktop.HighlightNegativeFormat(item.LicenseeWinLoss)</td>
+            <td class="right-align">@item.TurnOver.ToStringExt()</td>
+            <td class="right-align">@item.BetCount.ToStringExt()</td>
+            <td class="right-align highlight">@RazorHelperDesktop.HighlightNegativeFormat(item.LicenseeWinLoss)</td>
 
             @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
             {
-                <td class="highlight">@item.LicenseeComm.ToStringExt()</td>
+                <td class="right-align highlight">@item.LicenseeComm.ToStringExt()</td>
             }
 
-            <td>@item.AmountDue.ToStringExt()</td>
+            <td class="right-align">@item.AmountDue.ToStringExt()</td>
         </tr>
     }
 }

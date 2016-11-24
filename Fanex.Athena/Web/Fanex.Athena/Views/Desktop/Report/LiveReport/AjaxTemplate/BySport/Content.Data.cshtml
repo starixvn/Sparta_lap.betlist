@@ -10,8 +10,8 @@
 {
     var sportId = string.IsNullOrEmpty(item.ProductCode) ? 0 : Convert.ToInt32(item.ProductCode);
 
-    <tr class="text-right">
-        <td class="text-left">
+    <tr>
+        <td>
             @{
                 if (Model.IsShowedDetailLink && !liveReportNoDetailLinkSports.Contains(sportId))
                 {

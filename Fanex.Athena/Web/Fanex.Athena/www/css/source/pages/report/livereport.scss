@@ -1,3 +1,23 @@
-﻿.panel-body{
+﻿.panel-body {
     padding-bottom: 1.5rem;
+}
+
+.table{
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.header-large {
+    width: 190px;
+}
+
+.rpt-match-list {
+    &.table{
+        table-layout: auto;
+        word-wrap: normal;
+
+        .header-large {
+            width: auto;
+        }
+    }
 }

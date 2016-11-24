@@ -2,23 +2,20 @@
 
 <div class="panel-body">
     <div class="table-title"><span>@ViewResources.BySportsType</span></div>
+    @if (Model.BySports == null || Model.BySports.Count == 0)
+    {
+        <p class="no-info-row">@ViewResources.NoInfo</p>
+    }
+    else
+    {
+        <table class="table table-bordered">
+            <thead>
+                @{ Html.RenderPartial("~/Views/Desktop/Report/LiveReport/AjaxTemplate/BySport/Content.Header.cshtml"); }
+            </thead>
 
-    <table class="table table-bordered">
-        <thead>
-            @{ Html.RenderPartial("~/Views/Desktop/Report/LiveReport/AjaxTemplate/BySport/Content.Header.cshtml"); }
-        </thead>
-
-        <tbody>
-            @if (Model.BySports == null || Model.BySports.Count == 0)
-            {
-                <tr>
-                    <td colspan="@ReportContentHelperDesktop.GetNumberOfColumnInLiveReport(Model)" class="text-center">@ViewResources.NoInfo</td>
-                </tr>
-            }
-            else
-            {
-                Html.RenderPartial("~/Views/Desktop/Report/LiveReport/AjaxTemplate/BySport/Content.Data.cshtml");
-            }
-        </tbody>
-    </table>
+            <tbody>
+                @{Html.RenderPartial("~/Views/Desktop/Report/LiveReport/AjaxTemplate/BySport/Content.Data.cshtml");}
+            </tbody>
+        </table>
+    }
 </div>

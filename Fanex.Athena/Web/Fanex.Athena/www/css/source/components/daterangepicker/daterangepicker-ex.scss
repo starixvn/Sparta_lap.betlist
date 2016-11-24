@@ -3,7 +3,6 @@
         margin-right: calc(100% - 48%*2);
         background: #f05c20;
         width: 48%;
-        padding: initial;
         color: #fff;
         float: left;
         &:hover, &:active {
@@ -14,7 +13,6 @@
     &.cancelBtn {
         background: #8aa5b8;
         width: 48%;
-        padding: initial;
         color: #fff;
         float: left;
 
