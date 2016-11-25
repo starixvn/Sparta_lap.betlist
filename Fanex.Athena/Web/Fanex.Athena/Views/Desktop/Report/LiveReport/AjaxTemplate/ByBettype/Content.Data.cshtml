@@ -1,5 +1,4 @@
-﻿@using Fanex.Athena.Model.Report.DTO
-@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
 
 @{ 
     var columnCount = Model.IsAllowedCustomerCommission ? 10 : 7;
@@ -12,8 +11,9 @@
 
 @foreach (var product in Model.ByBetType)
 {
+    var productName = product.ProductName == "SB" ? ViewResources.Sportsbook : product.ProductName;
     <tr class="font-weight-600 highlight">
-        <td colspan="@columnCount">@(product.ProductName == "SB" ? ViewResources.Sportsbook : product.ProductName)</td>
+        <td colspan="@columnCount" title="@productName">@productName</td>
     </tr>
 
     foreach (var item in product.LiveReports)

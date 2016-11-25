@@ -1,7 +1,6 @@
 ﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportMatchListViewModel
 
 @{
-    var index = 0;
     foreach (var item in Model.MainResult)
     {
         var drillDownParam = new
@@ -21,27 +20,36 @@
         };
 
         <tr>
-            <td>
-                @{
-                    var matchName = WebUtility.HtmlDecode(item.MatchName);
-                }
-                <a href="javascript:;" class="match-detail-link" data-drill-down="@drillDownParam.ToJson()" title="@matchName">
+            @{
+                var matchName = WebUtility.HtmlDecode(item.MatchName);
+            }
+
+            <td title="@matchName">
+                <a href="javascript:;" class="match-detail-link" data-drill-down="@drillDownParam.ToJson()">
                     @(matchName.Length > 60 ? matchName.Substring(0, 60) + "..." : matchName)
                 </a>
             </td>
 
             @ReportContentHelperDesktop.RenderCustomerWinLossForLiveReport(item, Model.IsAllowedCustomerCommission)
 
-            <td class="right-align">@item.TurnOver.ToStringExt()</td>
-            <td class="right-align">@item.BetCount.ToStringExt()</td>
-            <td class="right-align highlight">@RazorHelperDesktop.HighlightNegativeFormat(item.LicenseeWinLoss)</td>
+            @{ 
+                var turnOver = item.TurnOver.ToStringExt();
+                var betCount = item.BetCount.ToStringExt();
+                var licenseeWL = item.LicenseeWinLoss;
+                var amountDue = item.AmountDue.ToStringExt();
+            }
+
+            <td class="right-align" title="@turnOver">@turnOver</td>
+            <td class="right-align" title="@betCount">@betCount</td>
+            <td class="right-align highlight" title="@licenseeWL.ToStringExt()">@RazorHelperDesktop.HighlightNegativeFormat(licenseeWL)</td>
 
             @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
             {
-                <td class="right-align highlight">@item.LicenseeComm.ToStringExt()</td>
+                var licenseeComm = item.LicenseeComm.ToStringExt();
+                <td class="right-align highlight" title="@licenseeComm">@licenseeComm</td>
             }
 
-            <td class="right-align">@item.AmountDue.ToStringExt()</td>
+            <td class="right-align" title="@amountDue">@amountDue</td>
         </tr>
     }
 }

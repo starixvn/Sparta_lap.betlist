@@ -4,17 +4,17 @@
 
 .table {
     table-layout: fixed;
-    overflow: hidden;
     white-space: nowrap;
     font-size: 1.3rem;
 
     tr {
         > th:first-child {
             width: 235px;
+            text-overflow: ellipsis;
         }
 
         > td {
-            text-overflow: ellipsis;
+            overflow: hidden;
         }
 
         .header-small {

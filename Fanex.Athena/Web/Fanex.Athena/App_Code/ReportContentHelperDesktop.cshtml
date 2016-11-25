@@ -6,8 +6,8 @@
 
 @helper CreateHeaderForLiveReport(BaseViewModel model, string firstColumnHeader)
 {
-    var rowspanText = model.IsAllowedCustomerCommission ? "rowspan=2" : "";
-    var colspanText = model.IsAllowedCustomerCommission ? "colspan=3" : "";
+var rowspanText = model.IsAllowedCustomerCommission ? "rowspan=2" : "";
+var colspanText = model.IsAllowedCustomerCommission ? "colspan=3" : "";
 
     <tr>
         <th @rowspanText>@firstColumnHeader</th>
@@ -22,42 +22,52 @@
         <th @rowspanText>@ViewResources.AmountDueTo</th>
     </tr>
 
-    if (model.IsAllowedCustomerCommission)
-    {
+if (model.IsAllowedCustomerCommission)
+{
         <tr>
             <th>@ViewResources.WinLoss</th>
             <th class="header-small">@ViewResources.Comm</th>
             <th>@ViewResources.Total</th>
         </tr>
-    }
+}
 }
 
 @helper RenderDataForLiveReport(BaseViewModel model, LiveReport data)
 {
     @RenderCustomerWinLossForLiveReport(data, model.IsAllowedCustomerCommission)
+    var turnOver = data.TurnOver.ToStringExt();
+    var betCount = data.BetCount.ToStringExt();
+    var licenseeWL = data.LicenseeWinLoss;
+    var amountDue = data.AmountDue.ToStringExt();
 
-    <td class="right-align">@data.TurnOver.ToStringExt()</td>
-    <td class="right-align">@data.BetCount.ToStringExt()</td>
-    <td class="right-align highlight">@RazorHelperDesktop.HighlightNegativeFormat(data.LicenseeWinLoss)</td>
+    <td class="right-align" title="@turnOver">@turnOver</td>
+    <td class="right-align" title="@betCount">@betCount</td>
+    <td class="right-align highlight" title="@licenseeWL.ToStringExt()">@RazorHelperDesktop.HighlightNegativeFormat(licenseeWL)</td>
 
     if (model.ProductAccess.IsAllowRB || model.ProductAccess.IsAllowBA)
     {
-        <td class="right-align highlight">@data.LicenseeComm.ToStringExt()</td>
+        var licenseeComm = data.LicenseeComm.ToStringExt();
+        <td class="right-align highlight" title="@licenseeComm">@licenseeComm</td>
     }
 
-    <td class="right-align">@data.AmountDue.ToStringExt()</td>
+    <td class="right-align" title="@amountDue">@amountDue</td>
 }
 
 @helper RenderCustomerWinLossForLiveReport(ICustomerWinLoss data, bool isAllowedCustomerCommission)
 {
+    var customerWinLoss = data.CustomerWinLoss.ToStringExt();
+
     if (isAllowedCustomerCommission)
     {
-        <td class="right-align">@data.CustomerWinLoss.ToStringExt()</td>
-        <td class="right-align">@data.CustomerComm.ToStringExt()</td>
-        <td class="right-align">@data.CustomerTotal.ToStringExt()</td>
+        var customerComm = data.CustomerComm.ToStringExt();
+        var customerTotal = data.CustomerTotal.ToStringExt();
+
+            <td class="right-align" title="@customerWinLoss">@customerWinLoss</td>
+            <td class="right-align" title="@customerComm">@customerComm</td>
+            <td class="right-align" title="@customerTotal">@customerTotal</td>
     }
     else
     {
-        <td class="right-align">@data.CustomerWinLoss.ToStringExt()</td>
+            <td class="right-align" title="@customerWinLoss">@customerWinLoss</td>
     }
 }
