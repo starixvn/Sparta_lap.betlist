@@ -96,8 +96,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     // Long
                     TransId = reader.GetLong("transid")
                 };
-                var betid = reader.GetValue("betid");
-                ticket.BetId = betid == DBNull.Value ? null : (long?)betid;
+                ticket.BetId = reader.GetLong("betid");
 
                 // DateTime
                 ticket.WinlostDate = reader.GetDateTime("winlostdate", DateTime.Now);
