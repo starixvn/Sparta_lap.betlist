@@ -1,22 +1,28 @@
 ﻿"use strict";
-define(['jquery', 'lib/jquery.tiny-draggable'], function ($) {
-    var DEFAULT_WIDTH = 640;
-    var DEFAULT_HEIGHT = 480;
-    var DEFAULT_CONTAINER = "body";
+define(['jquery'], function ($) {
+    var defaultOptions = {
+        width: 640,
+        height: 480,
+        id: "popup-content",
+        title: "&nbsp;",
+        container: "body",
+        modal: true
+    };
+
     $.fn.flatPopup = function (options) {
         var $self = this;
-        var defaultOptions = {
-            width: DEFAULT_WIDTH,
-            height: DEFAULT_HEIGHT,
-            id: "popup-content",
-            title: "&nbsp;",
-            container: DEFAULT_CONTAINER
-        };
+        var $blockBody = $(".block-body");
 
         options = $.extend(defaultOptions, options || {});
         $self.addClass("flat-popup");
 
         var $container = $(options.container);
+
+        if (options.modal && $blockBody.length === 0) {
+            $blockBody = $('<div class="block-body" style="display: none"></div>');
+            $container.append($blockBody);
+        }
+
         var isNew = $container.find("#" + options.id).length === 0;
         if (isNew) {
             $self.attr("id", options.id);
@@ -26,18 +32,16 @@ define(['jquery', 'lib/jquery.tiny-draggable'], function ($) {
 
             $self.find('a.popup-close').on('click', function () {
                 $self.fadeOut(300);
+                $blockBody.hide();
                 return false;
             });
-        }
 
-        $self.find(".wrapContent").height(options.height - 40);
-        $self.width(options.width);
-        $self.height(options.height);
-        $self.tinyDraggable({ handle: '.popup-title' });
-
-        if (isNew) {
             $container.append($self);
         }
+
+        $self.width(options.width);
+        $self.height(options.height);
+        $self.find(".wrapContent").height(options.height - 40);
 
         return {
             show: function () {
@@ -49,6 +53,10 @@ define(['jquery', 'lib/jquery.tiny-draggable'], function ($) {
                     'margin-top': -(top / 2),
                     'margin-left': -popMarginLeft
                 });
+
+                if (options.modal) {
+                    $blockBody.show();
+                }
 
                 $self.fadeIn(300);
             }

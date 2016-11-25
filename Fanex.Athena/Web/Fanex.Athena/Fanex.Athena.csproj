@@ -722,6 +722,7 @@
     <Content Include="www\css\build\main.css" />
     <Content Include="www\css\build\pages\betlist\betlistResult.css" />
     <Content Include="www\css\build\pages\betlist\betlistSimpleLayout.css" />
+    <Content Include="www\css\build\pages\betlist\colossusbetdetail.css" />
     <Content Include="www\css\build\pages\betlist\images\1F.gif" />
     <Content Include="www\css\build\pages\betlist\images\1L.gif" />
     <Content Include="www\css\build\pages\betlist\images\ajax-loader.gif" />
@@ -733,6 +734,7 @@
     <Content Include="www\css\build\pages\betlist\images\q_Icon_2.png" />
     <Content Include="www\css\build\pages\betlist\images\tab_topbg.gif" />
     <Content Include="www\css\build\pages\betlist\images\undo.png" />
+    <Content Include="www\css\build\pages\betlist\systemparlaydetail.css" />
     <Content Include="www\css\build\pages\home\home.css" />
     <Content Include="www\css\build\pages\login\login.css" />
     <Content Include="www\css\build\pages\reports\licenseewinloss.css" />
@@ -1163,6 +1165,13 @@
     <Content Include="Views\Desktop\BetList\LicenseeWl\Main.cshtml" />
     <Content Include="www\css\source\components\betlist\betlist.scss" />
     <Content Include="Views\Desktop\Report\Result\Popup\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\RngCasinoDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\AGCasinoDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\ColossusBetDetail\Main.cshtml" />
+    <Content Include="www\css\source\components\betlist\colossusbetdetail.scss" />
+    <Content Include="Views\Desktop\BetList\MicroGamingRngDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\SystemParlayDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\VoidbridgeDetail\Main.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1171,6 +1180,7 @@
     <Content Include="www\css\source\scss\fonts\flags\_flags-icon.scss" />
     <Content Include="www\css\source\scss\fonts\font-icon\_style.scss" />
     <Content Include="www\css\source\scss\fonts\montserrat\_style.scss" />
+    <Content Include="www\css\source\components\betlist\systemparlaydetail.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">

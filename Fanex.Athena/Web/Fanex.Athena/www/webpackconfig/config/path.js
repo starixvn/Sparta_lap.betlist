@@ -27,6 +27,9 @@ var cssPaths = {
         ...jqgridPath
     ],
 
+    colossusbetdetail: ["./www/css/source/pages/common.scss", "./www/css/source/components/betlist/colossusbetdetail.scss"],
+    systemparlaydetail: ["./www/css/source/pages/common.scss", "./www/css/source/components/betlist/systemparlaydetail.scss"],
+
     betlistResult: ["./www/css/source/pages/common.scss", "./www/css/source/components/betlist/result/betlist.result.scss"],
 
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],

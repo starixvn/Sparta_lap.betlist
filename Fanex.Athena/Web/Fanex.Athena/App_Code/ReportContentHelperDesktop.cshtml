@@ -10,24 +10,24 @@
     var colspanText = model.IsAllowedCustomerCommission ? "colspan=3" : "";
 
     <tr>
-        <th class="header-large" @rowspanText>@firstColumnHeader</th>
+        <th @rowspanText>@firstColumnHeader</th>
         <th @colspanText>@ViewResources.CustomerW_L</th>
-        <th class="header-medium" @rowspanText>@ViewResources.Turnover</th>
+        <th @rowspanText>@ViewResources.Turnover</th>
         <th class="header-small" @rowspanText>@ViewResources.BetCount</th>
-        <th class="header-medium" @rowspanText>@ViewResources.LicenseeW_L</th>
+        <th @rowspanText>@ViewResources.LicenseeW_L</th>
         @if (model.ProductAccess.IsAllowRB || model.ProductAccess.IsAllowBA)
         {
             <th class="header-small" @rowspanText>@ViewResources.Comm</th>
         }
-        <th class="header-medium" @rowspanText>@ViewResources.AmountDueTo</th>
+        <th @rowspanText>@ViewResources.AmountDueTo</th>
     </tr>
 
     if (model.IsAllowedCustomerCommission)
     {
         <tr>
-            <th class="header-medium">@ViewResources.WinLoss</th>
+            <th>@ViewResources.WinLoss</th>
             <th class="header-small">@ViewResources.Comm</th>
-            <th class="header-medium">@ViewResources.Total</th>
+            <th>@ViewResources.Total</th>
         </tr>
     }
 }

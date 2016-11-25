@@ -2,22 +2,46 @@
     padding-bottom: 1.5rem;
 }
 
-.table{
+.table {
     table-layout: fixed;
-    word-wrap: break-word;
-}
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1.3rem;
 
-.header-large {
-    width: 190px;
+    tr {
+        > th:first-child {
+            width: 235px;
+        }
+
+        > td {
+            text-overflow: ellipsis;
+        }
+
+        .header-small {
+            width: 90px;
+        }
+    }
 }
 
 .rpt-match-list {
-    &.table{
+    &.table {
         table-layout: auto;
         word-wrap: normal;
 
-        .header-large {
+        th:first-child {
             width: auto;
+        }
+    }
+}
+
+@media only screen and (max-width: 1180px) {
+    .table {
+        font-size: 1.2rem;
+
+        tr {
+            > th:first-child {
+                width: 195px;
+            }
         }
     }
 }
