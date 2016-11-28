@@ -10,7 +10,7 @@ var jqgridPath = ["./www/css/source/components/jqgrid/jqgrid.css", "./www/css/so
 var cssPaths = {
     build: "www/css/build",
 
-    home: ["malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/components/navbar/navBar.scss", "./www/css/source/components/sidebar/sideBar.css", "./www/css/source/extensions/home.scss"],
+    home: ["malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/scss/layout/navbar.scss", "./www/css/source/scss/layout/sidebar.scss", "./www/css/source/extensions/home.scss"],
     main: ["./www/css/source/vendors/materialize/materialize.css", "./www/css/source/main.scss", "./www/css/source/extensions/main-ex.scss"],
 
     reportjqgridlayout: [
@@ -33,8 +33,8 @@ var cssPaths = {
     betlistResult: ["./www/css/source/pages/common.scss", "./www/css/source/components/betlist/result/betlist.result.scss"],
 
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],
-    livereport: ["malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/pages/common.scss", "./www/css/source/components/flatpopup/flatpopup.scss",
-        "./www/css/source/components/monthpicker/monpickr.scss", "./www/css/source/extensions/report-ex.scss", "./www/css/source/pages/report/livereport.scss", ...cssDateRangePickerPath],
+    livereport: ["./www/css/source/pages/common.scss", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss",
+        "./www/css/source/extensions/report-ex.scss", "./www/css/source/pages/report/livereport.scss", ...cssDateRangePickerPath],
     licenseewinloss: ["./www/css/source/pages/report/licenseewinloss.scss", ...cssDateRangePickerPath]
 };
 

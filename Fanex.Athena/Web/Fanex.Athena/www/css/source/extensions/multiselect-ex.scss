@@ -1,4 +1,6 @@
-﻿.ui-multiselect-shadow {
+﻿@import "../scss/abstracts/_variables.scss";
+
+.ui-multiselect-shadow {
     box-shadow: 0 1px 12px rgba(0,0,0,.175);
     padding: 0;
 }
@@ -33,7 +35,7 @@ ul.ui-multiselect-checkboxes {
     margin-left: 0 !important;
 
     label {
-        font-size: 13px !important;
+        font-size: $font-size !important;
         color: #2c2c2c !important;
 
         &:hover {

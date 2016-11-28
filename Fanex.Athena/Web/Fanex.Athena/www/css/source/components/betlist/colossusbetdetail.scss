@@ -1,23 +1,15 @@
-﻿html {
-    font-size: 11px;
-}
-
-html, body,
-.content-wrapper,
-#BodyContent,
-.content-wrapper .middle,
-.content-wrapper .left, .content-wrapper .left iframe {
-    height: 99%;
-}
-
-th {
-    line-height: 2em;
+﻿th {
+    line-height: 2rem;
 }
 
 .content-wrapper{
     width: 100%;
 
-    .left{
+    &, .col-left, .col-right, .line-middle{
+        height: 100%;
+    }
+
+    .col-left{
         width: 370px;
         float: left;
 
@@ -26,14 +18,14 @@ th {
         }
     }
 
-    .right{
+    .col-right{
         width: 450px;
         float: left;
     }
 
-    .middle{
+    .line-middle{
         width: 1px;
-        background: #A3D1E1;
+        background: #808080;
         float: left;
         margin: 0 10px;
     }
@@ -42,11 +34,6 @@ th {
 p {
     margin-top: 0;
     margin-bottom: 5px;
-}
-
-.table-detail {
-    width: 100% !important;
-    border-collapse: collapse;
 }
 
 .col-date {
@@ -69,6 +56,6 @@ p {
 
 .total-row {
     background-color: #FFEFE3;
-    border-top: 2px solid #FF6600;
+    border-top: 3px solid #a7a1a1;
     font-weight: bold;
 }

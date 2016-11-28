@@ -4,13 +4,10 @@
 
 .table {
     table-layout: fixed;
-    white-space: nowrap;
-    font-size: 1.3rem;
 
     tr {
         > th:first-child {
-            width: 235px;
-            text-overflow: ellipsis;
+            width: 200px;
         }
 
         > td {
@@ -18,7 +15,7 @@
         }
 
         .header-small {
-            width: 90px;
+            width: 8%;
         }
     }
 }
@@ -26,21 +23,10 @@
 .rpt-match-list {
     &.table {
         table-layout: auto;
-        word-wrap: normal;
-
-        th:first-child {
-            width: auto;
-        }
-    }
-}
-
-@media only screen and (max-width: 1180px) {
-    .table {
-        font-size: 1.2rem;
 
         tr {
-            > th:first-child {
-                width: 195px;
+            > th:first-child, .header-small {
+                width: auto;
             }
         }
     }

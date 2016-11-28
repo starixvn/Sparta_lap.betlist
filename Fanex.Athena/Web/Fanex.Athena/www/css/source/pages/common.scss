@@ -35,11 +35,11 @@
     }
 
     .input-field {
-        font-size: 1.3rem;
+        font-size: $font-size;
 
         label {
             left: 1.5rem;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #808080;
         }
 
@@ -47,7 +47,7 @@
             height: 3.5rem;
             line-height: 3.5rem;
             border-color: #ccc;
-            font-size: 1.3rem;
+            font-size: $font-size;
             color: $black;
 
             &[readonly="readonly"] {
@@ -71,12 +71,6 @@
             color: $black;
         }
 
-        &.input {
-            label {
-                top: 14px;
-            }
-        }
-
         .icon-calendar {
             position: absolute;
             right: 15px;
@@ -93,7 +87,7 @@
 
     .dropdown-content li > {
         a, span {
-            font-size: 1.3rem;
+            font-size: $font-size;
             color: $black;
         }
     }
@@ -103,7 +97,7 @@
             height: 3.5rem;
             line-height: 3.5rem;
             border-color: #ccc;
-            font-size: 1.3rem;
+            font-size: $font-size;
             color: $black;
         }
 
@@ -166,6 +160,10 @@
             }
         }
     }
+}
+
+.table{
+    table-layout: fixed;
 }
 
 .no-info-row {

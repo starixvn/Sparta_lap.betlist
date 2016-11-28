@@ -745,7 +745,6 @@
     <Content Include="www\css\source\components\betlist\Microgaming.css" />
     <Content Include="www\css\source\components\jqgrid\jqgrid.css" />
     <Content Include="www\css\source\components\multiselect\jquery.multiselect.css" />
-    <Content Include="www\css\source\components\sidebar\sideBar.css" />
     <Content Include="www\css\source\main.css" />
     <Content Include="www\css\source\pages\login.css" />
     <Content Include="www\css\source\vendors\jquery.mCustomScrollbar.css" />
@@ -1158,7 +1157,6 @@
     <Content Include="www\js\tests\lib\jqgrid\jquery.jqgrid.additional-spec.js" />
     <Content Include="www\css\source\pages\common.scss" />
     <Content Include="www\css\source\scss\abstracts\_variables.scss" />
-    <Content Include="www\css\source\components\navbar\navBar.scss" />
     <Content Include="www\css\source\pages\report\livereport.scss" />
     <Content Include="Views\Utility\OneTokenRestriction.cshtml" />
     <Content Include="Views\Desktop\Shared\_BetListSimpleLayout.cshtml" />
@@ -1181,6 +1179,8 @@
     <Content Include="www\css\source\scss\fonts\font-icon\_style.scss" />
     <Content Include="www\css\source\scss\fonts\montserrat\_style.scss" />
     <Content Include="www\css\source\components\betlist\systemparlaydetail.scss" />
+    <Content Include="www\css\source\scss\layout\navbar.scss" />
+    <Content Include="www\css\source\scss\layout\sidebar.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">

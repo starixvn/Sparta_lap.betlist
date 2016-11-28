@@ -7,11 +7,11 @@
 }
 @model Fanex.Athena.Model.BetList.ViewModel.ColossusBetDetailViewModel
 <div class="content-wrapper">
-    <div class="left">
+    <div class="col-left">
         <iframe src="@Model.IframeUrl"></iframe>
     </div>
-    <div class="middle"></div>
-    <div class="right">
+    <div class="line-middle"></div>
+    <div class="col-right">
         @{
             var ownPercent = 100 - Model.TotalSoldPercent;
             var message = string.Format(ViewResources.ColossusBetBetListDetailMsg, ownPercent.ToString("#,##0.##"),
@@ -20,27 +20,31 @@
         <p>
             @Html.Raw(message)
         </p>
-        <table class="table report-table table-detail">
-            <tr class="report-header">
-                <th>@ViewResources.Date</th>
-                <th>@ViewResources.TransactionType</th>
-                <th>@ViewResources.WinLoss</th>
-                <th>@ViewResources.Commission</th>
-            </tr>
-            @foreach (var item in Model.DataList)
-            {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td class="col-date">@item.TransDate</td>
-                    <td class="col-trans">@item.TransactionType</td>
-                    <td class="col-winloss">@Html.Raw(item.WinLoss)</td>
-                    <td class="col-comm">@item.Commission.ToString("#,##0.00")</td>
+                    <th>@ViewResources.Date</th>
+                    <th>@ViewResources.TransactionType</th>
+                    <th>@ViewResources.WinLoss</th>
+                    <th>@ViewResources.Commission</th>
                 </tr>
-            }
-            <tr class="total-row">
-                <td colspan="2">@ViewResources.Total</td>
-                <td>@Model.TotalWinLoss.ToString("#,##0.00")</td>
-                <td>@Model.TotalComm.ToString("#,##0.00")</td>
-            </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DataList)
+                {
+                    <tr>
+                        <td class="col-date">@item.TransDate</td>
+                        <td class="col-trans">@item.TransactionType</td>
+                        <td class="col-winloss">@Html.Raw(item.WinLoss)</td>
+                        <td class="col-comm">@item.Commission.ToString("#,##0.00")</td>
+                    </tr>
+                }
+                <tr class="total-row">
+                    <td colspan="2">@ViewResources.Total</td>
+                    <td>@Model.TotalWinLoss.ToString("#,##0.00")</td>
+                    <td>@Model.TotalComm.ToString("#,##0.00")</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>

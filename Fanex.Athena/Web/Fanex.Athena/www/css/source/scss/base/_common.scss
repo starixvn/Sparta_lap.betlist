@@ -7,7 +7,7 @@ html {
 
 body {
     background: #f5f7fa;
-    font-size: 1.3em;
+    font-size: $font-size;
     color: $gray;
     height: 100%;
 }
@@ -45,12 +45,6 @@ main {
 @media only screen and (max-width: 992px) {
     header, main, footer {
         padding-left: 0;
-    }
-}
-
-@media only screen and (max-width: 1440px) {
-    body {
-        font-size: 1.2rem;
     }
 }
 

@@ -1,4 +1,6 @@
-﻿#report-container {
+﻿@import "../scss/abstracts/_variables.scss";
+
+#report-container {
     position: relative;
 
     .theme_jqGrid {
@@ -18,7 +20,7 @@
             }
 
             .ui-jqgrid-view {
-                font-size: 1.3rem;
+                font-size: $font-size;
                 border: 1px solid #d1dae1;
             }
 
@@ -137,7 +139,7 @@
             }
 
             .ui-jqgrid-pager {
-                font-size: 12px;
+                font-size: 1.1rem;
                 line-height: 15px;
                 height: auto;
                 min-height: 30px;
@@ -159,7 +161,7 @@
                 }
 
                 .ui-icon {
-                    font-size: 14px;
+                    font-size: 1.2rem;
                     color: #4c6375;
                     cursor: pointer;
                 }
