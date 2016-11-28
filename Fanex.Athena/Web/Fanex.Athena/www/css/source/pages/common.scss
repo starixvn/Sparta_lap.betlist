@@ -16,13 +16,13 @@
 }
 
 .page-results {
-    margin: 2rem 2rem 0;
+    margin: 1.5rem 1.5rem 0;
 }
 
 .page-form {
-    margin: 2rem 2rem 0;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    margin: 1.5rem 1.5rem 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     background: $white;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 
@@ -49,6 +49,7 @@
             border-color: #ccc;
             font-size: $font-size;
             color: $black;
+            margin-bottom: 10px;
 
             &[readonly="readonly"] {
                 border-bottom: 1px solid #ccc;
@@ -99,6 +100,7 @@
             border-color: #ccc;
             font-size: $font-size;
             color: $black;
+            margin-bottom: 10px;
         }
 
         span.caret {
@@ -122,7 +124,7 @@
 
 .table-title {
     background: #8aa4b8;
-    padding: 6px 15px;
+    padding: 4px 15px;
     color: #fff;
     text-transform: uppercase;
 }
@@ -134,7 +136,7 @@
 
     .panel-title {
         color: #fff;
-        padding: 3px 15px;
+        padding: 0 15px;
         font-size: 13px;
 
         .icon-arrow {
