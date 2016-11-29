@@ -711,11 +711,13 @@ var BetList = (function ($) {
             });
         },
         showGlobalGamingDetails: function (transId, winlostDate, custId, transType) {
+            var params = $.parseJSON($("#BetListMetaModel").val());
             var url = Site.resolveClientUrl('GlobalGamingBetList/Detail');
             url = QueryString.setParam(url, "transId", transId);
             url = QueryString.setParam(url, "winlostDate", winlostDate);
             url = QueryString.setParam(url, "custId", custId);
             url = QueryString.setParam(url, "transType", transType);
+            url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
 
             var popH = Math.min($(window).height() - 100, 550), popW = 840;
             var title = Site.getSingleResource("ProductFW") + " - " +

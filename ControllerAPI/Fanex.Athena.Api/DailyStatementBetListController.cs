@@ -43,7 +43,16 @@ namespace Fanex.Athena.Api.BetList
 
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);
 
-            return GetBetListResult(metaModel, uspKey);
+            const int RunningTicketTransType = 3;
+            var result = GetBetListResult(metaModel, uspKey);
+
+            return new
+            {
+                result.Main,
+                result.Total,
+                result.LeagueName,
+                IsShowTotal = metaModel.TransType != RunningTicketTransType
+            };
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Fanex.Athena.Api.BetList
                 result.Main,
                 result.LeagueName,
                 result.Total,
-                IsShowTotal = false
+                IsShowTotal = true
             };
         }
     }
