@@ -144,7 +144,7 @@
             {
                 return new ResultInfo
                 {
-                    ExtendedData = temp.Id.ToString()
+                    ExtendedData = temp.UserID.ToString()
                 };
             }
 

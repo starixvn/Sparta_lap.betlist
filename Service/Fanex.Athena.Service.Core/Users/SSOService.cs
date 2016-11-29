@@ -258,7 +258,7 @@ namespace Fanex.Athena.Service.Core.Users
             if (loginResultInfo.IsSuccessful)
             {
                 _sessionService.CreateNewSession(
-                    user.Id,
+                    user.UserID,
                     _userService.LoginOnUser(user, _context.Session.SessionID, user.ServerId, _context.Request.UserHostAddress),
                     user.Username,
                     true,

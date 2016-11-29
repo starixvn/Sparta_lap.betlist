@@ -54,7 +54,7 @@
             // Arrange
             var expectedResult = new List<User>
             {
-                new User { Id = 1 }
+                new User { UserID = 1 }
             };
             var licenseeId = 1;
             var isInternal = true;
@@ -64,14 +64,14 @@
             var result = _userService.GetByLicensee(licenseeId, isInternal);
 
             // Assert
-            Assert.That(result[0].Id, Is.EqualTo(expectedResult[0].Id));
+            Assert.That(result[0].UserID, Is.EqualTo(expectedResult[0].UserID));
         }
 
         [Test]
         public void GetByUsername_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new User { Id = 1 };
+            var expectedResult = new User { UserID = 1 };
             var userName = "demo";
             _userDataAccess.GetByUsername(userName).Returns(expectedResult);
 
@@ -79,14 +79,14 @@
             var result = _userService.GetByUsername(userName);
 
             // Assert
-            Assert.That(result.Id, Is.EqualTo(expectedResult.Id));
+            Assert.That(result.UserID, Is.EqualTo(expectedResult.UserID));
         }
 
         [Test]
         public void GetUserInfo_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new User { Id = 1 };
+            var expectedResult = new User { UserID = 1 };
             var licenseeId = 1;
             var userId = 2;
             _userDataAccess.GetUserInfo(licenseeId, userId).Returns(expectedResult);
@@ -95,7 +95,7 @@
             var result = _userService.GetUserInfo(licenseeId, userId);
 
             // Assert
-            Assert.That(result.Id, Is.EqualTo(expectedResult.Id));
+            Assert.That(result.UserID, Is.EqualTo(expectedResult.UserID));
         }
 
         [Test]
@@ -194,7 +194,7 @@
             // Arrange
             var outputUser = new User
             {
-                Id = 999
+                UserID = 999
             };
             var licenseeName = "spondemo";
             long timeStamp = 100;
@@ -205,7 +205,7 @@
             var result = _userService.ValidateInternalUser(new User(), licenseeName, timeStamp, out resultInfo);
 
             // Assert
-            Assert.That(result.Id, Is.EqualTo(outputUser.Id));
+            Assert.That(result.UserID, Is.EqualTo(outputUser.UserID));
         }
 
         [Test]
@@ -214,7 +214,7 @@
             // Arrange
             var outputUser = new User
             {
-                Id = 999,
+                UserID = 999,
                 Password = "password1",
                 UserSalt = "salt1"
             };
@@ -234,7 +234,7 @@
             var result = _userService.ValidateUserForLrfSystem(inputUser, loginToken, out resultInfo);
 
             // Assert
-            Assert.That(result.Id, Is.EqualTo(outputUser.Id));
+            Assert.That(result.UserID, Is.EqualTo(outputUser.UserID));
         }
     }
 }

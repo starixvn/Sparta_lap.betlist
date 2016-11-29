@@ -57,7 +57,7 @@ namespace Fanex.Athena.Controllers.Account
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
             var model = _userService.GetByLicensee(licenseeSession.LicenseeId, userSession.IsInternal)
-                .Where(i => i.Id != userSession.UserId).ToList();
+                .Where(i => i.UserID != userSession.UserId).ToList();
 
             return View("~/Views/Account/Manage.cshtml", model);
         }
@@ -87,7 +87,7 @@ namespace Fanex.Athena.Controllers.Account
                         FirstName = user.FirstName,
                         LastName = user.LastName,
                         Status = user.Status,
-                        UserId = user.Id
+                        UserId = user.UserID
                     };
 
                     return View("~/Views/Account/EditAccount.cshtml", model);

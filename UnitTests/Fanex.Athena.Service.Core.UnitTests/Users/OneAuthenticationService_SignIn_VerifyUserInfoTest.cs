@@ -79,7 +79,7 @@
             var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "pgmAlex", SiteName = "spondemo" };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
-            _userService.GetByUsername(tokenInfo.UserName, Arg.Any<int>()).Returns(x => new User { Id = exptectedUserId });
+            _userService.GetByUsername(tokenInfo.UserName, Arg.Any<int>()).Returns(x => new User { UserID = exptectedUserId });
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
 

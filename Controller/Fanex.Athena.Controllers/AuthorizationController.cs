@@ -138,7 +138,7 @@ namespace Fanex.Athena.Controllers
                 if (resultInfo.IsSuccessful)
                 {
                     SessionService.CreateNewSession(
-                        user.Id,
+                        user.UserID,
                         _userService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress),
                         user.Username,
                         user.IsInternal,

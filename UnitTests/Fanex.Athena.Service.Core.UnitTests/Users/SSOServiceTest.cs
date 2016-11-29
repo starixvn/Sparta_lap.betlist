@@ -78,7 +78,7 @@
                     return new User
                     {
                         Username = "user1",
-                        Id = 1,
+                        UserID = 1,
                         ServerId = 999,
                         Licensee = new Licensee
                         {
