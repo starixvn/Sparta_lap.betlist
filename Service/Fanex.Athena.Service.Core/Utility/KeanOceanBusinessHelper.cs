@@ -16,8 +16,7 @@
         {
             currencies = currencies.Where(x => x.CurrencyId != CurrencyType.Cny).ToList();
 
-            var currency = currencies.FirstOrDefault(x => x.CurrencyId == CurrencyType.Hkd && !x.CurrencyName.Equals("CNY"))
-;
+            var currency = currencies.FirstOrDefault(x => x.CurrencyId == CurrencyType.Hkd && !x.CurrencyName.Equals("CNY"));
             if (currency != null)
             {
                 currency.CurrencyName = "CNY";

@@ -81,12 +81,12 @@
                 new CurrencyUser { CurrencyName = "CNY", CurrencyId = CurrencyType.Cny, IsActive = true }
             };
 
-            const int licenseeId = LicenseeIdentityDefinition.KeenOcean;
-            const int userId = 2;
-            _currencyDataAccess.GetCurrenciesByUser(licenseeId, userId).Returns(expectedResult);
+            const int LicenseeId = LicenseeIdentityDefinition.KeenOcean;
+            const int UserId = 2;
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(expectedResult);
 
             // Action
-            var result = _currencyService.GetCurrencyMapByUser(licenseeId, userId);
+            var result = _currencyService.GetCurrencyMapByUser(LicenseeId, UserId);
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(1));
@@ -103,12 +103,12 @@
                 new CurrencyUser { CurrencyName = "UUS" }
             };
 
-            const int licenseeId = 1;
-            const int userId = 2;
-            _currencyDataAccess.GetCurrenciesByUser(licenseeId, userId).Returns(expectedResult);
+            const int LicenseeId = 1;
+            const int UserId = 2;
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(expectedResult);
 
             // Action
-            var result = _currencyService.GetCurrenciesByUser(licenseeId, userId);
+            var result = _currencyService.GetCurrenciesByUser(LicenseeId, UserId);
 
             // Assert
             Assert.That(result[0].CurrencyName, Is.EqualTo(expectedResult[0].CurrencyName));

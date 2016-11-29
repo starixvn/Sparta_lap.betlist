@@ -11,10 +11,10 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Model.Core.ViewModel;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Model.Core.DataDomain;
+    using Web.ActionFilter;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
+    [AuthorizeRestriction(AppMode.Self)]
     public class HeaderController : BaseController
     {
         private readonly ILicenseeService _licenseeService;

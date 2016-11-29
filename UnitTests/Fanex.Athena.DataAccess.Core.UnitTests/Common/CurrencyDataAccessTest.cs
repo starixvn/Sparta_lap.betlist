@@ -121,16 +121,16 @@
         public void GetCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            const int licenseeId = 1;
-            const int userId = 2;
+            const int LicenseeId = 1;
+            const int UserId = 2;
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicenseeUser")).Returns(_objectDb);
 
             // Action
-            _dataAccess.GetCurrenciesByUser(licenseeId, userId);
+            _dataAccess.GetCurrenciesByUser(LicenseeId, UserId);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-            _objectDb.Received().AddInParameter("UserID", DbType.Int32, userId);
+            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+            _objectDb.Received().AddInParameter("UserID", DbType.Int32, UserId);
         }
     }
 }
