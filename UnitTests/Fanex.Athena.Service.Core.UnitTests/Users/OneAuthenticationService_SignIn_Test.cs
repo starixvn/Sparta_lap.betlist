@@ -67,7 +67,7 @@
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
             _licenseeService.GetLicenseeByName(Arg.Any<string>()).Returns(x => new Licensee { Id = 1 });
-            _currencyService.GetCurrencies(Arg.Any<int>()).Returns(new List<Currency>());
+            _currencyService.GetCurrencies(Arg.Any<int>()).Returns(new List<CurrencyUser>());
             _oneAuthenticationService = new OneAuthenticationService(_sessionService, _functionService, _licenseeService, _currencyService, _formAuthenticationService);
 
             var expectedResult = new ResultInfo { Code = 600, Message = "Not found currency" };
@@ -90,7 +90,7 @@
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
             _licenseeService.GetLicenseeByName(Arg.Any<string>()).Returns(x => new Licensee { Id = 1 });
-            _currencyService.GetCurrencyMapByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(new Dictionary<string, int> { { "UUS", 0 } });
+            _currencyService.GetCurrencies(Arg.Any<int>()).Returns(new List<CurrencyUser> { new CurrencyUser { CurrencyName = "USD", CurrencyId = 1 } });
             _oneAuthenticationService = new OneAuthenticationService(_sessionService, _functionService, _licenseeService, _currencyService, _formAuthenticationService);
 
             var expectedResult = new ResultInfo { Code = 200, Message = "Not found currency" };
@@ -137,12 +137,7 @@
             Licensee expectedLicInfo;
             CreateTokenInfoAndLicInfo(ExpectedLicId, out tokenInfo, out expectedLicInfo);
             var expectedCookie = $"{tokenInfo.UserName}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
-            var expectedCurrency = new Dictionary<string, int> { { "USD", 1 } };
-            var expectedCurrencyList = expectedCurrency.Select(x => new Currency
-            {
-                CurrencyId = x.Value,
-                Name = x.Key
-            }).ToList();
+            var expectedCurrencyList = new List<CurrencyUser> { new CurrencyUser { CurrencyName = "USD", CurrencyId = 1 } };
             var expectedAgents = new List<LicenseeCustomer> { new LicenseeCustomer() };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
@@ -150,7 +145,7 @@
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
             _licenseeService.GetLicenseeByName(Arg.Any<string>()).Returns(x => expectedLicInfo);
-            _currencyService.GetCurrencyMapByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(expectedCurrency);
+            _currencyService.GetCurrencies(Arg.Any<int>()).Returns(expectedCurrencyList);
             _licenseeService.GetCustByLicensee(Arg.Any<int>()).Returns(expectedAgents);
             _sessionService.When(x => x.CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>()))
                 .Do(
@@ -383,7 +378,7 @@
             };
         }
 
-        private static bool VerifyUserSession(UserSession userSession, IList<Currency> currency, OneAuthenticationToken tokenInfo)
+        private static bool VerifyUserSession(UserSession userSession, IList<CurrencyUser> currency, OneAuthenticationToken tokenInfo)
         {
             var lang = Util.MapLanguages.Where(i => i.Value.Equals(tokenInfo.Language))
                        .Select(i => i.Key).DefaultIfEmpty<string>("en-Us").FirstOrDefault();

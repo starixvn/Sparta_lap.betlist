@@ -82,7 +82,6 @@
     <Compile Include="DataDomain\SystemConstants.cs" />
     <Compile Include="DataDomain\ClientViewType.cs" />
     <Compile Include="DTO\Common\CheckedItem.cs" />
-    <Compile Include="DTO\Common\Currency.cs" />
     <Compile Include="DTO\Common\ExChangeRate.cs" />
     <Compile Include="DTO\Common\Function.cs" />
     <Compile Include="DTO\Common\IRequest.cs" />

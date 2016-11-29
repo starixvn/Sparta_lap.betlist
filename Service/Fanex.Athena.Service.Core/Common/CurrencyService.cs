@@ -37,7 +37,7 @@ namespace Fanex.Athena.Service.Core.Common
             this._currencyDataAccess = currencyDataAccess;
         }
 
-        public IList<Currency> GetCurrencies(int licenseeId)
+        public IList<CurrencyUser> GetCurrencies(int licenseeId)
         {
             return _currencyDataAccess.GetCurrencies(licenseeId);
         }
@@ -58,7 +58,7 @@ namespace Fanex.Athena.Service.Core.Common
             }
 
             return currencies
-                .Where(i => i.IsActive == true)
+                .Where(i => i.IsActive)
                 .Select(p => new { p.CurrencyName, p.CurrencyId })
                 .ToDictionary(kvp => kvp.CurrencyName, kvp => kvp.CurrencyId);
         }

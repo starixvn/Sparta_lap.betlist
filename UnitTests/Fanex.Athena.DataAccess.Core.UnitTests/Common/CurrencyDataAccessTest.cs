@@ -4,6 +4,7 @@
     using Core.Common;
     using Data;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Account;
     using NSubstitute;
     using NUnit.Framework;
@@ -54,13 +55,13 @@
             _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
             _reader.Read().Returns(true, false);
 
-            var expected = new Currency
+            var expected = new CurrencyUser
             {
                 CurrencyId = 1,
-                Name = "Currency Test"
+                CurrencyName = "Currency Test"
             };
             _reader.GetInt32(Arg.Any<int>()).Returns(expected.CurrencyId);
-            _reader.GetString(Arg.Any<int>()).Returns(expected.Name);
+            _reader.GetString(Arg.Any<int>()).Returns(expected.CurrencyName);
 
             const int LicenseeId = 1;
 
@@ -69,7 +70,7 @@
 
             // Assert
             Assert.That(result[0].CurrencyId, Is.EqualTo(expected.CurrencyId));
-            Assert.That(result[0].Name, Is.EqualTo(expected.Name));
+            Assert.That(result[0].CurrencyName, Is.EqualTo(expected.CurrencyName));
         }
 
         [Test]
@@ -120,8 +121,8 @@
         public void GetCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var licenseeId = 1;
-            var userId = 2;
+            const int licenseeId = 1;
+            const int userId = 2;
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicenseeUser")).Returns(_objectDb);
 
             // Action

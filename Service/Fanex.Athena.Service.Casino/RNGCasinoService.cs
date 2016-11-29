@@ -49,7 +49,7 @@ namespace Fanex.Athena.Service.Casino
             var dataTable = GetResultFromAPI(metaModel);
             if (dataTable != null && dataTable.Rows.Count > 0)
             {
-                var currency = GetDataRowExtension(dataTable.Rows[0], nameof(Currency));
+                var currency = GetDataRowExtension(dataTable.Rows[0], "Currency");
 
                 var date = Converter.ToDateTime(GetDataRowExtension(dataTable.Rows[0], "StartTime"));
                 var exchangeRate = this._exchangeRateService.GetExChangeRate(currency, date);
@@ -303,7 +303,7 @@ namespace Fanex.Athena.Service.Casino
             ExChangeRate exchangeRate;
             if (detailTable.Rows.Count > 0)
             {
-                var currency = GetDataRowExtension(detailTable.Rows[0], nameof(Currency));
+                var currency = GetDataRowExtension(detailTable.Rows[0], "Currency");
                 exchangeRate = this._exchangeRateService.GetExChangeRate(currency, betTime);
             }
             else
@@ -410,7 +410,7 @@ namespace Fanex.Athena.Service.Casino
                 GameTypeNo = GetDataRowExtension(row, "GameTypeNo"),
                 GameTypeName = gameTypeName,
                 GameGroupName = GetDataRowExtension(row, GetColumnNameByCurrentLanguage("GameGroupName")),
-                Currency = GetDataRowExtension(row, nameof(Currency)),
+                Currency = GetDataRowExtension(row, "Currency"),
                 TableName = GetDataRowExtension(row, "TableName"),
                 RollingComm = Converter.ToDecimal(GetDataRowExtension(row, "RollComm")),
             };
@@ -432,7 +432,7 @@ namespace Fanex.Athena.Service.Casino
                 Win = Converter.ToDecimal(GetDataRowExtension(row, "Win")),
                 WinLoss = Converter.ToDecimal(GetDataRowExtension(row, "WinLoss")),
                 GameTypeId = Converter.ToInt(GetDataRowExtension(row, "GameTypeID")),
-                Currency = GetDataRowExtension(row, nameof(Currency)),
+                Currency = GetDataRowExtension(row, "Currency"),
                 BetContent = GetDataRowExtension(row, "BetContent"),
             };
         }

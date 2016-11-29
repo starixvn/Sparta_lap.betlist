@@ -98,12 +98,10 @@
 
         protected internal virtual IResultInfo SetAuthorize(Licensee licensee, string languageCode, OneAuthenticationToken tokenInfo)
         {
-            var currencyOfLicensee = _currencyService.GetCurrencyMapByUser(licensee.Id, tokenInfo.UserSEQ)
-                .Select(x => new Currency
-                {
-                    CurrencyId = x.Value,
-                    Name = x.Key
-                }).ToList();
+            /**
+             * - Remember to modify currency list for KeanOcean before release
+             * */
+            var currencyOfLicensee = _currencyService.GetCurrencies(licensee.Id);
 
             if (currencyOfLicensee.Count <= 0)
             {
@@ -160,7 +158,7 @@
             string languageCode,
             OneAuthenticationToken tokenInfo,
             Licensee licenseeInfo,
-            IList<Currency> currencyOfLicensee,
+            IList<CurrencyUser> currencyOfLicensee,
             IList<LicenseeCustomer> agentList)
         {
             var licSession = new LicenseeSession
@@ -187,7 +185,7 @@
                 FunctionIdList = new List<int>(),
                 PortalFunctionList = GetFunctionList(),
                 Language = languageCode,
-                CurrencyList = currencyOfLicensee.Distinct().ToDictionary(x => x.Name, x => x.CurrencyId),
+                CurrencyList = currencyOfLicensee.Distinct().ToDictionary(x => x.CurrencyName, x => x.CurrencyId),
                 DefaultReportUrl = "BalanceReport",
                 ApplicationMode = AppMode.Parasitic,
                 VendorID = tokenInfo.VendorID,

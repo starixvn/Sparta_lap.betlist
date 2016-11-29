@@ -16,7 +16,7 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
 
     public interface ICurrencyService
     {
-        IList<Currency> GetCurrencies(int licenseeId);
+        IList<CurrencyUser> GetCurrencies(int licenseeId);
 
         /// <summary>
         /// Get currencies by user.

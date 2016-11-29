@@ -126,7 +126,7 @@ namespace Fanex.Athena.DataAccess.Report
                          {
                              while (reader.Read())
                              {
-                                 var productName = reader.ToString(nameof(currency));
+                                 var productName = reader.ToString("Currency");
                                  result[0].Add(new LiveReport
                                  {
                                      ReportType = 0,

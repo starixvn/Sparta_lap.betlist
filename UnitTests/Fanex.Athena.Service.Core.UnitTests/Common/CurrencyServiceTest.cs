@@ -35,9 +35,9 @@
         public void GetCurrencies_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<Currency>
+            var expectedResult = new List<CurrencyUser>
             {
-                new Currency { CurrencyId = 1 }
+                new CurrencyUser { CurrencyId = 1 }
             };
 
             const int LicenseeId = 1;
@@ -80,8 +80,9 @@
                 new CurrencyUser { CurrencyName = "HKD", CurrencyId = CurrencyType.Hkd, IsActive = true },
                 new CurrencyUser { CurrencyName = "CNY", CurrencyId = CurrencyType.Cny, IsActive = true }
             };
-            var licenseeId = LicenseeIdentityDefinition.KeenOcean;
-            var userId = 2;
+
+            const int licenseeId = LicenseeIdentityDefinition.KeenOcean;
+            const int userId = 2;
             _currencyDataAccess.GetCurrenciesByUser(licenseeId, userId).Returns(expectedResult);
 
             // Action
@@ -101,8 +102,9 @@
                 new CurrencyUser { CurrencyName = "USD" },
                 new CurrencyUser { CurrencyName = "UUS" }
             };
-            var licenseeId = 1;
-            var userId = 2;
+
+            const int licenseeId = 1;
+            const int userId = 2;
             _currencyDataAccess.GetCurrenciesByUser(licenseeId, userId).Returns(expectedResult);
 
             // Action

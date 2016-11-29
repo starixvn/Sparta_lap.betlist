@@ -16,8 +16,8 @@
         {
             currencies = currencies.Where(x => x.CurrencyId != CurrencyType.Cny).ToList();
 
-            var currency = currencies.Where(x => x.CurrencyId == CurrencyType.Hkd && x.CurrencyName.Equals("CNY") == false)
-                                     .FirstOrDefault();
+            var currency = currencies.FirstOrDefault(x => x.CurrencyId == CurrencyType.Hkd && !x.CurrencyName.Equals("CNY"))
+;
             if (currency != null)
             {
                 currency.CurrencyName = "CNY";
@@ -28,7 +28,7 @@
 
         public static void KeepHKDCurrencyName(IList<CurrencyUser> currencies)
         {
-            var currency = currencies.Where(x => x.CurrencyId == CurrencyType.Hkd).FirstOrDefault();
+            var currency = currencies.FirstOrDefault(x => x.CurrencyId == CurrencyType.Hkd);
             if (currency != null)
             {
                 currency.CurrencyName = "HKD";
@@ -43,7 +43,7 @@
 
         public static void AddHKDCurrencyForTurnOverReport(IDictionary<string, int> currenyList, int licenseeId)
         {
-            if (licenseeId == LicenseeIdentityDefinition.KeenOcean && currenyList.Keys.Contains("CNY") == false)
+            if (licenseeId == LicenseeIdentityDefinition.KeenOcean && !currenyList.Keys.Contains("CNY"))
             {
                 currenyList.Add("CNY", CurrencyType.Hkd);
             }

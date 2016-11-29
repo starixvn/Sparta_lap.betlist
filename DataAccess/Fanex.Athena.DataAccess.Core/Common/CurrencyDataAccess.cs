@@ -24,23 +24,24 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
     public class CurrencyDataAccess : BaseDataAccess, ICurrencyDataAccess
     {
-        public IList<Currency> GetCurrencies(int licenseeId)
+        public IList<CurrencyUser> GetCurrencies(int licenseeId)
         {
             const string UspName = "Lrf_SelCurrencyByLicensee";
             var uspParams = new { LicenseeId = licenseeId };
             try
             {
-                var entityList = new List<Currency>();
+                var entityList = new List<CurrencyUser>();
                 using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
                         while (reader.Read())
                         {
-                            var currency = new Currency
+                            var currency = new CurrencyUser
                             {
-                                CurrencyId = reader.GetInt32(reader.GetOrdinal(nameof(Currency))),
-                                Name = reader.GetString(reader.GetOrdinal("CurrencyName"))
+                                CurrencyId = reader.GetInt32(reader.GetOrdinal("Currency")),
+                                CurrencyName = reader.GetString(reader.GetOrdinal("CurrencyName")),
+                                IsActive = true
                             };
 
                             entityList.Add(currency);
