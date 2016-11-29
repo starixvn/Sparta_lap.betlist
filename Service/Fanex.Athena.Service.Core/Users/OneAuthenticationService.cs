@@ -26,9 +26,10 @@
         private readonly IFunctionService _functionService;
         private readonly ILicenseeService _licenseeService;
         private readonly ICurrencyService _currencyService;
+        private readonly IUserService _userService;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
 
-        public OneAuthenticationService() : this(null, null, null, null, null)
+        public OneAuthenticationService() : this(null, null, null, null, null, null)
         {
         }
 
@@ -37,13 +38,15 @@
             IFunctionService functionService,
             ILicenseeService licenseeService,
             ICurrencyService currencyService,
-            IFormsAuthenticationService formsAuthenticationService)
+            IFormsAuthenticationService formsAuthenticationService,
+            IUserService userService)
         {
             _sessionService = sessionService ?? new SessionService();
             _functionService = functionService ?? new FunctionService();
             _licenseeService = licenseeService ?? new LicenseeService();
             _currencyService = currencyService ?? new CurrencyService();
             _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
+            _userService = userService ?? new UserService();
         }
 
         protected internal virtual string GetStringFromFile(string path)
@@ -87,7 +90,34 @@
                 }
             }
 
+            var userCheckingResult = CheckUserInfo(licensee, tokenInfo.UserName);
+
+            if (!userCheckingResult.IsSuccessful)
+            {
+                return userCheckingResult;
+            }
+
+            tokenInfo.UserSEQ = int.Parse(userCheckingResult.ExtendedData);
+
             return SetAuthorize(licensee, language, tokenInfo);
+        }
+
+        private IResultInfo CheckUserInfo(Licensee licensee, string userName)
+        {
+            var temp = _userService.GetByUsername(userName, licensee.Id);
+            if (temp != null)
+            {
+                return new ResultInfo
+                {
+                    ExtendedData = temp.Id.ToString()
+                };
+            }
+
+            var result = _userService.SyncUserInfo(licensee.Name, userName);
+            return result.IsSuccessful ? CheckUserInfo(licensee, userName) : new ResultInfo
+            {
+                Code = int.Parse(OneAuthorizationErrorCode.NotFoundUser)
+            };
         }
 
         public OneAuthenticationToken GetTokenInfo(string token)
@@ -98,10 +128,8 @@
 
         protected internal virtual IResultInfo SetAuthorize(Licensee licensee, string languageCode, OneAuthenticationToken tokenInfo)
         {
-            /**
-             * - Remember to modify currency list for KeanOcean before release
-             * */
-            var currencyOfLicensee = _currencyService.GetCurrencies(licensee.Id);
+
+            var currencyOfLicensee = _currencyService.GetCurrencyMapByUser(licensee.Id, tokenInfo.UserSEQ);
 
             if (currencyOfLicensee.Count <= 0)
             {
@@ -158,7 +186,7 @@
             string languageCode,
             OneAuthenticationToken tokenInfo,
             Licensee licenseeInfo,
-            IList<CurrencyUser> currencyOfLicensee,
+            IDictionary<string, int> currencyOfUser,
             IList<LicenseeCustomer> agentList)
         {
             var licSession = new LicenseeSession
@@ -185,7 +213,7 @@
                 FunctionIdList = new List<int>(),
                 PortalFunctionList = GetFunctionList(),
                 Language = languageCode,
-                CurrencyList = currencyOfLicensee.Distinct().ToDictionary(x => x.CurrencyName, x => x.CurrencyId),
+                CurrencyList = currencyOfUser,
                 DefaultReportUrl = "BalanceReport",
                 ApplicationMode = AppMode.Parasitic,
                 VendorID = tokenInfo.VendorID,

@@ -110,11 +110,12 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
         }
 
-        public User GetByUsername(string userName)
+        public User GetByUsername(string userName, int licenseeId = 0)
         {
             var param = new
             {
                 Username = userName,
+                LicenseeId = licenseeId
             };
             using (var objectDb = this.GetObjectDb("Lrf_UserInfoSelByUserName"))
             {
