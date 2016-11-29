@@ -177,7 +177,7 @@ namespace Fanex.Athena.Service.Core.Users
 
         public IResultInfo SyncUserInfo(string licenseeName, string userName)
         {
-            throw new NotImplementedException();
+            return _userDataAccess.SyncUserInfo(licenseeName, userName);
         }
 
         public IResultInfo UpdateInfo(User user, int updatedBy)

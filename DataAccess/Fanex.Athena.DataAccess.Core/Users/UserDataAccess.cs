@@ -335,6 +335,31 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
         }
 
+        public IResultInfo SyncUserInfo(string licenseeName, string userName)
+        {
+            const string UspName = "Lrf_SyncInternalUser";
+            const string DefaultPass = "754A738BF99D986D8716FE00A81BC5CA32916BF6";//1234aa
+            try
+            {
+                using (var db = this.GetObjectDb(UspName))
+                {
+                    db.AddInParameter("LicenseeName", DbType.String, licenseeName);
+                    db.AddInParameter("Username", DbType.String, userName);
+                    db.AddInParameter("EncryptedPassword", DbType.String, DefaultPass);
+                    AddResultParam(db);
+
+                    db.ExecuteNonQuery();
+
+                    return GetResult(db);
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName);
+            }
+        }
+
         /// <summary>
         ///     The update info.
         /// </summary>

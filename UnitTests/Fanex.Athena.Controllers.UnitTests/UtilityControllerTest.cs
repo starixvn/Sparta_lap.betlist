@@ -49,6 +49,7 @@
         [TestCase("600", "Licensee does not offered currency")]
         [TestCase("300", "Token is invalid")]
         [TestCase("700", "You are not allowed to access this page !!!")]
+        [TestCase("800", "User does not exist.")]
         public void OneTokenRestriction_ValidCode_ReturnMsgByCode(string code, string msg)
         {
             // Arrange

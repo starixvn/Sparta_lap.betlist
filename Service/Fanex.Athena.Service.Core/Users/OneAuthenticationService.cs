@@ -19,30 +19,29 @@
     using Newtonsoft.Json;
     using Resources;
     using User.Common;
+    using System.Text;
+    using System.Globalization;
 
     public class OneAuthenticationService : IOneAuthenticationService
     {
         private readonly ISessionService _sessionService;
-        private readonly IFunctionService _functionService;
         private readonly ILicenseeService _licenseeService;
         private readonly ICurrencyService _currencyService;
         private readonly IUserService _userService;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
 
-        public OneAuthenticationService() : this(null, null, null, null, null, null)
+        public OneAuthenticationService() : this(null, null, null, null, null)
         {
         }
 
         public OneAuthenticationService(
             ISessionService sessionService,
-            IFunctionService functionService,
             ILicenseeService licenseeService,
             ICurrencyService currencyService,
             IFormsAuthenticationService formsAuthenticationService,
             IUserService userService)
         {
             _sessionService = sessionService ?? new SessionService();
-            _functionService = functionService ?? new FunctionService();
             _licenseeService = licenseeService ?? new LicenseeService();
             _currencyService = currencyService ?? new CurrencyService();
             _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
@@ -90,7 +89,7 @@
                 }
             }
 
-            var userCheckingResult = CheckUserInfo(licensee, tokenInfo.UserName);
+            var userCheckingResult = CheckAndSyncUserInfo(licensee, tokenInfo.UserName);
 
             if (!userCheckingResult.IsSuccessful)
             {
@@ -98,11 +97,47 @@
             }
 
             tokenInfo.UserSEQ = int.Parse(userCheckingResult.ExtendedData);
-
+            CheckAndSyncCurrency(licensee.Id, tokenInfo, currentContext.Request.UserHostAddress);
             return SetAuthorize(licensee, language, tokenInfo);
         }
 
-        private IResultInfo CheckUserInfo(Licensee licensee, string userName)
+        private void CheckAndSyncCurrency(int licenseeId, OneAuthenticationToken tokenInfo, string ip)
+        {
+            /* 
+             * var currentCurrencyRestriction = _currencyService.GetCurrenciesByUser(licenseeId, tokenInfo.UserSEQ);
+             var currencyRestriction = currentCurrencyRestriction;// new List<CurrencyUser>();//get from token
+
+             var result = from t in currencyRestriction
+                          from c in currentCurrencyRestriction
+                          where t.CurrencyId == c.CurrencyId
+                          select c;
+             if (result.Count() != currentCurrencyRestriction.Count)
+             {
+                 // convert currencies into xml
+                 const string XmlPattern = "<currencies>{0}</currencies>";
+                 const string XmlElementPattern = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
+                 var xmlElementBuilder = new StringBuilder();
+
+                 foreach (var currency in currentCurrencyRestriction)
+                 {
+                     xmlElementBuilder.Append(string.Format(
+                         XmlElementPattern,
+                         currency.CurrencyId,
+                         currencyRestriction.Any(i => i.CurrencyId == currency.CurrencyId) ? 1 : 0));
+                 }
+
+                 _currencyService.AssignCurrenciesByUser(new Model.Core.MetaModel.Account.AssignCurrencyMetaModel
+                 {
+                     LicenseeId = licenseeId,
+                     CurrencyList = string.Format(XmlPattern, xmlElementBuilder),
+                     ModifyBy = tokenInfo.UserSEQ,
+                     IP = ip
+                 });
+             }
+             */
+        }
+
+        private IResultInfo CheckAndSyncUserInfo(Licensee licensee, string userName)
         {
             var temp = _userService.GetByUsername(userName, licensee.Id);
             if (temp != null)
@@ -114,9 +149,10 @@
             }
 
             var result = _userService.SyncUserInfo(licensee.Name, userName);
-            return result.IsSuccessful ? CheckUserInfo(licensee, userName) : new ResultInfo
+            return result.IsSuccessful ? CheckAndSyncUserInfo(licensee, userName) : new ResultInfo
             {
-                Code = int.Parse(OneAuthorizationErrorCode.NotFoundUser)
+                Code = int.Parse(OneAuthorizationErrorCode.NotFoundUser),
+                Message = ViewResources.UserNotExist
             };
         }
 

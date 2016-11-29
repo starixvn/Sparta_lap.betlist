@@ -219,7 +219,8 @@ namespace Fanex.Athena.Controllers
 
                 case OneAuthorizationErrorCode.YouAreNotAllowToAccessThisPage:
                     return ViewResources.YouAreNotAllowToAccessThisPage;
-
+                case OneAuthorizationErrorCode.NotFoundUser:
+                    return ViewResources.UserNotExist;
                 default:
                     return ViewResources.OneTokenRestrictionDefaultMsg;
             }

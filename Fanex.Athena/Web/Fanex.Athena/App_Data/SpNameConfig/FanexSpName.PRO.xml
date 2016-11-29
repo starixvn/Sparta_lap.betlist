@@ -24,6 +24,8 @@
       <Mapping DataField="IsAllowedMemberComm" ObjectProperty="IsAllowedCustomerComm"/>
       <Mapping DataField="EnableBA" ObjectProperty="IsEnableBA"/>
     </Setting>
+    <Setting Key="Lrf_SyncInternalUser" SpName="Lrf_SyncInternalUser" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+
   </Function>
 
   <Function Name="Authorization">
