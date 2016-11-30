@@ -1,14 +1,31 @@
-﻿define(['jquery', 'common/popup', 'lib/jquery.flatpopup'], function ($, PopUp) {
+﻿define(['jquery', 'common/popup'], function ($, PopUp) {
     describe("PopUp", function () {
         describe("openPopup(element, option)", function () {
-            xit("flatpopup jquery plugin should be called with correct parameters", function () {
+            it("flatpopup jquery plugin should be called with correct parameters", function () {
                 spyOn($.fn, "flatPopup");
+
                 var $element = setFixtures('<div id="popup"></div>');
-                var option = { width: 200, height: 300, title: "title" };
+                var option = {
+                    width: 200, height: 300, title: "title"
+                };
 
                 PopUp.openPopup($element, option);
 
-                expect($.fn.flatPopup).toHaveBeenCalled();
+                expect($.fn.flatPopup).toHaveBeenCalledWith(option);
+            });
+        });
+
+        describe("openBetListPopup(url, option)", function () {
+            it("Bet List popup should be called with correct url", function () {
+                spyOn($.fn, "flatPopup").and.callThrough();
+
+                var url = "/Test/Index?transid=1234&custId=5678";
+                var option = { width: 500, height: 600, title: "Bet List", id: "BetListPopUp" };
+
+                PopUp.openBetListPopup(url, option);
+                var srcValue = $("#popupFrame").attr("src");
+
+                expect(srcValue).toEqual(url);
             });
         });
     });

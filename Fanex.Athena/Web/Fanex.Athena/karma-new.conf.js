@@ -18,6 +18,9 @@ module.exports = function (config) {
             { pattern: 'www/js/tests/lib/**/jquery.jqgrid.additional-spec.js', included: false },
              'www/js/tests/test-main.js'
         ],
+        proxies: {
+            '/Test/Index': 'about:blank'
+        },
         exclude: [
         ],
         preprocessors: {

@@ -130,25 +130,17 @@
 	            });
 	        });
 
-	        describe("setNoInfo(columnModel, message)", function () {
+	        describe("setNoInfo(message)", function () {
 	            it("div.ui-jqgrid-sdiv should be hidden", function () {
 	                setFixtures('<div class="ui-jqgrid-sdiv"></div>');
-	                jqGridAdditional.setNoInfo([]);
+	                jqGridAdditional.setNoInfo("No Information");
 	                expect($("div.ui-jqgrid-sdiv").is(":visible")).toBe(false);
 	            });
 
-	            it("table.ui-jqgrid-htable should contains a td.hide", function () {
-	                setFixtures('<div class="ui-jqgrid-sdiv"></div>');
-	                setFixtures('<table class="ui-jqgrid-htable"></table>');
-	                jqGridAdditional.setNoInfo([], "NoInfo");
-	                expect($("table.ui-jqgrid-htable td.hide").length).toBe(1);
-	            });
-
 	            it("first td contains text of param 'message'", function () {
-	                setFixtures('<div class="ui-jqgrid-ftable"></div>');
-	                setFixtures('<table class="ui-jqgrid-htable"></table>');
-	                jqGridAdditional.setNoInfo([], "No Info Message");
-	                expect($("table.ui-jqgrid-htable td:first").text()).toBe('No Info Message');
+	                setFixtures('<div class="theme_jqGrid"></div>');
+	                jqGridAdditional.setNoInfo("No Info Message");
+	                expect($("#noInfoRow").text()).toBe('No Info Message');
 	            });
 
 	        });
@@ -172,14 +164,6 @@
 	                setFixtures('<table class="ui-jqgrid-htable"></table>');
 	                jqGridAdditional.setNoInfoWithColspan(1);
 	                expect($("table.ui-jqgrid-htable td:first").text()).toBe('NoInfo');
-	            });
-	        });
-
-	        describe("showRecommendedBrowser(pagingContainer)", function () {
-	            it("pager element should contain a div having text resource 'RecommendBrowserOnReportPageMsg'", function () {
-	                var $pagingContainer = setFixtures('<table id="pager"><td id="ppdata_left"></td></table>');
-	                jqGridAdditional.showRecommendedBrowser("table#pager");
-	                expect($pagingContainer.find("#ppdata_left").html()).toBe('<div class="recommend-browser">RecommendBrowserOnReportPageMsg</div>');
 	            });
 	        });
 	    });

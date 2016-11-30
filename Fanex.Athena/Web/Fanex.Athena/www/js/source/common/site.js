@@ -1,6 +1,6 @@
 ﻿/*global _language_en_US*/
-define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multiselect", "lib/jquery.flatpopup", "extensions/prototype"],
-    function ($, QueryString) {// jshint ignore:line
+define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "lib/jquery.multiselect", "extensions/prototype"],
+    function ($, QueryString, Popup) {// jshint ignore:line
         "use strict";
         var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
         var REQUEST_VERIFICATION_TOKEN;
@@ -188,27 +188,27 @@ define(["jquery", "common/querystring", "vendor-materialize", "lib/jquery.multis
             options = $.extend(defaultOptions, options);
             options.title = options.title || "";
             var url = resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName) + "&_" + (new Date().getTime());
-            var popup;
+            var $popup;
             $(options.buttonSelector).click(function () {
                 var $userGuidePopup = $('<div style="display: none" ></div>');
                 if ($userGuidePopup.is(":visible")) {
                     return;
                 }
 
-                if (!popup) {
+                if (!$popup) {
                     $userGuidePopup.empty().attr('style', '').hide()
                         .load(url, function (response, status) {
                             if (status === "success") {
                                 setTimeout(function () {
-                                    popup = $userGuidePopup.flatPopup(options);
-                                    popup.show();
+                                    Popup.openPopup($userGuidePopup, defaultOptions);
+                                    $popup = $("#" + defaultOptions.id);
                                 }, 50);
                             } else {
                                 $userGuidePopup.hide();
                             }
                         });
                 } else {
-                    popup.show();
+                    $popup.show();
                 }
             });
         }
