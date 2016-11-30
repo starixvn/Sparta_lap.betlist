@@ -97,7 +97,7 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
 
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(true);
-            fakeHttpContext.User.Identity.Name.Returns(tokenInfo.UserName);
+            fakeHttpContext.User.Identity.Name.Returns(tokenInfo.UserID);
             _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).DoNotCallBase();
             _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
             _sessionService.When(x => x.UpdateLanguage(Arg.Any<string>())).Do(x => langCounter++);
@@ -129,7 +129,7 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
 
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(true);
-            fakeHttpContext.User.Identity.Name.Returns(tokenInfo.UserName);
+            fakeHttpContext.User.Identity.Name.Returns(tokenInfo.UserID);
             _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).DoNotCallBase();
             _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).Do(x => counter++);
             _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
@@ -146,7 +146,7 @@
         public void SignIn_LicenseeNameIsNotExisted_ReturnErrorCodeEqual200()
         {
             // Arrange
-            var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "alex", VendorID = "spondemo" };
+            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo" };
 
             var fakeHttpContext = Substitute.For<HttpContextBase>();
 
@@ -181,7 +181,7 @@
 
             var counter = 0;
 
-            var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "alex", VendorID = "spondemo" };
+            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo" };
             var userSession = new UserSession
             {
                 UserId = 1,
@@ -199,7 +199,7 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
 
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(true);
-            fakeHttpContext.User.Identity.Name.Returns(tokenInfo.UserName);
+            fakeHttpContext.User.Identity.Name.Returns(tokenInfo.UserID);
             _sessionService.UserSession.Returns(x => userSession);
             _sessionService.LicenseeSession.Returns(x => licSession);
             _oneAuthenticationService.When(x => x.SetAuthorize(licensee, Arg.Any<string>(), tokenInfo)).DoNotCallBase();
@@ -216,11 +216,11 @@
 
         private OneAuthenticationToken FakeSessionFixToken(int licenseeId)
         {
-            var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "alex", VendorID = "spondemo", ActionLink = "LiceenseeWLReport" };
+            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo", ActionLink = "LiceenseeWLReport" };
             var userSession = new UserSession
             {
                 UserId = tokenInfo.UserSEQ,
-                UserName = tokenInfo.UserName,
+                UserName = tokenInfo.UserID,
                 ApplicationMode = AppMode.Parasitic,
                 VendorID = tokenInfo.VendorID,
                 IsInternal = true,

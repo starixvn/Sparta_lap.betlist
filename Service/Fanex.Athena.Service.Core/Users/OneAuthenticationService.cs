@@ -143,7 +143,7 @@
 
         private static bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthenticationToken tokenInfo, int licenseeId)
         {
-            return userSession.UserName == tokenInfo.UserName
+            return userSession.UserName == tokenInfo.UserID
                 && userSession.VendorID == tokenInfo.VendorID && userSession.VendorIdentityID == tokenInfo.UserID
                 && licenseeSession.LicenseeId == licenseeId;
         }
@@ -187,7 +187,7 @@
             }
 
             CreateSession(languageCode, tokenInfo, licensee, currencyOfLicensee, agentList);
-            var authName = $"{tokenInfo.UserName}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
+            var authName = $"{tokenInfo.UserID}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
             _formsAuthenticationService.SetAuthCookie(authName, false);
 
             return new ResultInfo
@@ -198,17 +198,32 @@
 
         private IResultInfo CheckAndSyncUserInfo(Licensee licensee, string userName)
         {
-            var temp = _userService.GetByUsername(userName, licensee.Id);
-            if (temp != null)
+            var result = GetUser(licensee.Id, userName);
+            if (result.IsSuccessful)
+            {
+                return result;
+            }
+
+            result = _userService.SyncUserInfo(licensee.Name, userName);
+            return result.IsSuccessful ? GetUser(licensee.Id, userName) : new ResultInfo
+            {
+                Code = OneAuthorizationErrorCode.NotFoundUser,
+                Message = ViewResources.UserNotExist
+            };
+        }
+
+        private IResultInfo GetUser(int licenseeId, string userName)
+        {
+            var user = _userService.GetByUsername(userName, licenseeId);
+            if (user != null)
             {
                 return new ResultInfo
                 {
-                    ExtendedData = temp.UserID.ToString()
+                    ExtendedData = user.UserID.ToString()
                 };
             }
 
-            var result = _userService.SyncUserInfo(licensee.Name, userName);
-            return result.IsSuccessful ? CheckAndSyncUserInfo(licensee, userName) : new ResultInfo
+            return new ResultInfo
             {
                 Code = OneAuthorizationErrorCode.NotFoundUser,
                 Message = ViewResources.UserNotExist
@@ -240,7 +255,7 @@
             {
                 UserId = tokenInfo.UserSEQ,
                 OnUserId = tokenInfo.UserSEQ,
-                UserName = tokenInfo.UserName,
+                UserName = tokenInfo.UserID,
                 IsAdmin = false,
                 IsInternal = true,
                 FunctionIdList = new List<int>(),

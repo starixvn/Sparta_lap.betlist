@@ -149,12 +149,11 @@
             const string Token = "GasgSDgS";
             _oneAuthenticationService.GetTokenInfo(Token).Returns(x => new OneAuthenticationToken
             {
-                UserID = "1",
                 SiteName = "spondemo",
                 UserSEQ = 1,
                 ActionLink = "http://localhost:6985/LicenseeWinLossReport",
                 Language = "en-US",
-                UserName = "pgmAlex",
+                UserID = "pgmAlex",
                 VendorID = "localhost"
             });
             string expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
@@ -175,12 +174,11 @@
             const string Token = "GasgSDgS";
             var tokenInfo = new OneAuthenticationToken
             {
-                UserID = "1",
                 SiteName = siteName,
                 UserSEQ = 1,
                 ActionLink = actionLink,
                 Language = "en-US",
-                UserName = "pgmAlex",
+                UserID = "pgmAlex",
                 VendorID = "localhost"
             };
             var resultInfo = new ResultInfo { Code = 0, Message = string.Empty, ExtendedData = actionLink };
@@ -205,12 +203,11 @@
 
             var tokenInfo = new OneAuthenticationToken
             {
-                UserID = "1",
                 SiteName = "spondemo",
                 UserSEQ = 1,
                 ActionLink = "http://localhost:6985/alexakak",
                 Language = "en-US",
-                UserName = "pgmAlex",
+                UserID = "pgmAlex",
                 VendorID = "localhost"
             };
             var resultInfo = new ResultInfo { Code = expectedErrorCode, Message = "error" };

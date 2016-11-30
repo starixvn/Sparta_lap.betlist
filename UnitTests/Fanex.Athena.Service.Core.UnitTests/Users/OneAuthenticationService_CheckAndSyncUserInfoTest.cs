@@ -47,10 +47,10 @@
         public void SignIn_NotFoundUser_ReturnErrorNotFoundUser()
         {
             // Arrange
-            var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "pgmAlex", SiteName = "spondemo" };
+            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo" };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
-            _userService.GetByUsername(tokenInfo.UserName, Arg.Any<int>()).Returns(x => null);
+            _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => null);
             _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
 
             var expectedResult = new ResultInfo { Code = 800, Message = "Not found user" };
@@ -69,10 +69,10 @@
             // Arrange
             var counter = 0;
             var exptectedUserId = 10;
-            var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "pgmAlex", SiteName = "spondemo" };
+            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo" };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
-            _userService.GetByUsername(tokenInfo.UserName, Arg.Any<int>()).Returns(x => new User { UserID = exptectedUserId });
+            _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => new User { UserID = exptectedUserId });
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
                 _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);

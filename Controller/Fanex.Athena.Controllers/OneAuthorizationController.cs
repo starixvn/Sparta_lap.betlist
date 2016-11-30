@@ -78,7 +78,7 @@
 
         private static bool VerifyToken(OneAuthenticationToken tokenInfo)
         {
-            return !string.IsNullOrEmpty(tokenInfo.SiteName) && tokenInfo.UserSEQ > 0 && !string.IsNullOrEmpty(tokenInfo.UserName)
+            return !string.IsNullOrEmpty(tokenInfo.SiteName) && tokenInfo.UserSEQ > 0
                 && !string.IsNullOrEmpty(tokenInfo.VendorID) && !string.IsNullOrEmpty(tokenInfo.UserID)
                 && !string.IsNullOrEmpty(tokenInfo.Language) && !string.IsNullOrEmpty(tokenInfo.ActionLink);
         }
