@@ -11,8 +11,12 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/ReportLayoutSettledMatchCountScripts")
     @RenderSection("pagejs")
 }
+@{
+    var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
+    var isAppModeSelf = userSession != null ? false : userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Self;
+}
 <div class="container_26">
-    <div class="grid_26">
+    <div class="grid_26 @(isAppModeSelf ? string.Empty: "hide")">
         <div class="content-title grid_12" style="min-width:0">
             @RenderSection("ContentTitle")
         </div>

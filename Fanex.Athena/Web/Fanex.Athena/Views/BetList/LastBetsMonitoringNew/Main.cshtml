@@ -11,9 +11,16 @@
 @section pagejs {
     @Scripts.Render("~/bundles/LastBetsMonitoringScripts")
 }
+@{
+    var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
+    var isAppModeSelf = userSession != null ? false : userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Self;
+}
+@if (isAppModeSelf)
+{
 @section ContentTitle
 {
     @ViewResources.LastBetsMonitoring
+}
 }
 @section ContentFilter
 {

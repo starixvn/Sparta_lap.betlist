@@ -87,7 +87,7 @@
                 }
             }
 
-            var userCheckingResult = CheckAndSyncUserInfo(licensee, tokenInfo.UserName);
+            var userCheckingResult = CheckAndSyncUserInfo(licensee, tokenInfo.UserID);
 
             if (!userCheckingResult.IsSuccessful)
             {
@@ -251,6 +251,7 @@
                 ApplicationMode = AppMode.Parasitic,
                 VendorID = tokenInfo.VendorID,
                 VendorIdentityID = tokenInfo.UserID,
+                ViewType = ClientViewType.Desktop
             };
 
             _sessionService.CreateNewSession(userSerssion, licSession);

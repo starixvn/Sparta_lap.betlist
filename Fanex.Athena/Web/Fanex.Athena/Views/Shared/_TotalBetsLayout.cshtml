@@ -10,9 +10,13 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/TotalBetsLayoutScripts")
     @RenderSection("page", required: false)
 }
+@{
+    var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
+    var isAppModeSelf = userSession != null ? false : userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Self;
+}
 <div>
     <div class="container_26">
-        <div class="grid_26">
+        <div class="grid_26  @(isAppModeSelf ? string.Empty: "hide")">
             <div class="content-title">
                 @RenderSection("ContentTitle", required: false)
             </div>
