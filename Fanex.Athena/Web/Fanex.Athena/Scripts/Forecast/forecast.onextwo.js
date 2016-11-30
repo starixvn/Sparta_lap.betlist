@@ -84,19 +84,26 @@ var ForecastOneXTwo = (function ($) {
 
 if (!window._IsInJsTestingMode) {
     $(window).load(function () {
-        var height = Math.min(parent.innerHeight - 20, 460);
-        // Set default value for popup
-        parent.$('.ui-dialog').css({ 'width': 700 + 'px' });
-        parent.$('.ui-dialog').css({ 'height': height + 'px' });
-        parent.$('.ui-dialog').css({ 'top': (parent.innerHeight - height) / 2 + 'px' });
-        parent.$('.ui-dialog').css({ 'left': '20%' });
-        parent.$('.ui-dialog').css({ 'margin': 'auto' });
-        parent.$('.ui-dialog-title').html(Site.getSingleResource('Forecast') + ' - ' + Site.getSingleResource('OneXTwo'));
+        var parentWindow;
+        try {
+            parentWindow = window.parent.location.host == window.location.host ? window.parent : window;
+        }catch(exception) {
+            parentWindow = window;
+        }
 
-        parent.$('#myframe').attr('width', 690);
-        parent.$('#myframe').attr('height', height);
-        parent.$('#forecast-dialog').attr('style', 'width:680px;height:' + (height - 60) + 'px');
-        parent.$('#forecast-dialog').css({ 'overflow': 'hidden' });
+        var height = Math.min(parentWindow.innerHeight - 20, 460);
+        // Set default value for popup
+        parentWindow.$('.ui-dialog').css({ 'width': 700 + 'px' });
+        parentWindow.$('.ui-dialog').css({ 'height': height + 'px' });
+        parentWindow.$('.ui-dialog').css({ 'top': (parentWindow.innerHeight - height) / 2 + 'px' });
+        parentWindow.$('.ui-dialog').css({ 'left': '20%' });
+        parentWindow.$('.ui-dialog').css({ 'margin': 'auto' });
+        parentWindow.$('.ui-dialog-title').html(Site.getSingleResource('Forecast') + ' - ' + Site.getSingleResource('OneXTwo'));
+        
+        parentWindow.$('#myframe').attr('width', 690);
+        parentWindow.$('#myframe').attr('height', height);
+        parentWindow.$('#forecast-dialog').attr('style', 'width:680px;height:' + (height - 60) + 'px');
+        parentWindow.$('#forecast-dialog').css({ 'overflow': 'hidden' });
     });
 
     $(window).resize(function () {
