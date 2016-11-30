@@ -85,7 +85,7 @@
         }
 
         [TestCase("ghskhgk9863096804396oisoie", OneAuthorizationErrorCode.TokenIsInValid)]
-        public void CreateSession_NotAuthenticateToken_ReturnTokenRestrictionPage(string token, string expectedCode)
+        public void CreateSession_NotAuthenticateToken_ReturnTokenRestrictionPage(string token, int expectedCode)
         {
             // Arrange
             var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedCode;
@@ -157,7 +157,7 @@
                 UserName = "pgmAlex",
                 VendorID = "localhost"
             });
-            const string ExpectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
+            string expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
             _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "localhost");
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
 
@@ -165,7 +165,7 @@
             var result = _controller.CreateSession(Token);
 
             // Assert
-            StringAssert.Contains(ExpectedUrl, result.Url);
+            StringAssert.Contains(expectedUrl, result.Url);
         }
 
         [TestCase("spondemo", "hLicenseeWinLossReport")]

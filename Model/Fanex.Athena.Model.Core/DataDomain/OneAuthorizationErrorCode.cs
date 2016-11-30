@@ -2,12 +2,12 @@
 {
     public static class OneAuthorizationErrorCode
     {
-        public const string TokenWasExpired = "100";
-        public const string LicenseeIsNotExisted = "200";
-        public const string TokenIsInValid = "300";
-        public const string LocationRestrictionMsg = "400";
-        public const string LicenseeNotOfferedCurrency = "600";
-        public const string YouAreNotAllowToAccessThisPage = "700";
-        public const string NotFoundUser = "800";
+        public const int TokenWasExpired = 100;
+        public const int LicenseeIsNotExisted = 200;
+        public const int TokenIsInValid = 300;
+        public const int LocationRestrictionMsg = 400;
+        public const int LicenseeNotOfferedCurrency = 600;
+        public const int YouAreNotAllowToAccessThisPage = 700;
+        public const int NotFoundUser = 800;
     }
 }

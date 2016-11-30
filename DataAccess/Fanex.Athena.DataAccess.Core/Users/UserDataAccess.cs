@@ -338,7 +338,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
         public IResultInfo SyncUserInfo(string licenseeName, string userName)
         {
             const string UspName = "Lrf_SyncInternalUser";
-            const string DefaultPass = "754A738BF99D986D8716FE00A81BC5CA32916BF6";//1234aa
+            const string DefaultPass = "754A738BF99D986D8716FE00A81BC5CA32916BF6"; // 1234aa
             try
             {
                 using (var db = this.GetObjectDb(UspName))

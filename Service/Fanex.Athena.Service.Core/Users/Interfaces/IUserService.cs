@@ -48,7 +48,8 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
 
         User GetByUsername(string userName, int licenseeId = 0);
 
-        IResultInfo SyncUserInfo(string licenseeName,string userName);
+        IResultInfo SyncUserInfo(string licenseeName, string userName);
+
         #endregion Public Methods and Operators
     }
 }

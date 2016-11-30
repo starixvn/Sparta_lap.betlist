@@ -61,7 +61,7 @@
             {
                 return new ResultInfo
                 {
-                    Code = int.Parse(OneAuthorizationErrorCode.LicenseeIsNotExisted),
+                    Code = OneAuthorizationErrorCode.LicenseeIsNotExisted,
                     Message = ViewResources.LicenseeIsNotExisted
                 };
             }
@@ -95,7 +95,7 @@
             }
 
             tokenInfo.UserSEQ = int.Parse(userCheckingResult.ExtendedData);
-            // CheckAndSyncCurrency(licensee.Id, tokenInfo, currentContext.Request.UserHostAddress);
+            //// CheckAndSyncCurrency(licensee.Id, tokenInfo, currentContext.Request.UserHostAddress);
             return SetAuthorize(licensee, language, tokenInfo);
         }
 
@@ -135,70 +135,15 @@
         }
         */
 
-        private IResultInfo CheckAndSyncUserInfo(Licensee licensee, string userName)
-        {
-            var temp = _userService.GetByUsername(userName, licensee.Id);
-            if (temp != null)
-            {
-                return new ResultInfo
-                {
-                    ExtendedData = temp.UserID.ToString()
-                };
-            }
-
-            var result = _userService.SyncUserInfo(licensee.Name, userName);
-            return result.IsSuccessful ? CheckAndSyncUserInfo(licensee, userName) : new ResultInfo
-            {
-                Code = int.Parse(OneAuthorizationErrorCode.NotFoundUser),
-                Message = ViewResources.UserNotExist
-            };
-        }
-
         public OneAuthenticationToken GetTokenInfo(string token)
         {
             var oneBookService = new OneBookSecurityWrapper();
             return oneBookService.Authenticate(token);
         }
 
-        protected internal virtual IResultInfo SetAuthorize(Licensee licensee, string languageCode, OneAuthenticationToken tokenInfo)
-        {
-            var currencyOfLicensee = _currencyService.GetCurrencyMapByUser(licensee.Id, tokenInfo.UserSEQ);
-
-            if (currencyOfLicensee.Count <= 0)
-            {
-                return new ResultInfo
-                {
-                    Code = int.Parse(OneAuthorizationErrorCode.LicenseeNotOfferedCurrency),
-                    Message = ViewResources.LicenseeNotOfferedCurrency
-                };
-            }
-
-            var agentList = _licenseeService.GetCustByLicensee(licensee.Id);
-            if (agentList.Count <= 0)
-            {
-                return new ResultInfo
-                {
-                    Code = int.Parse(OneAuthorizationErrorCode.LicenseeIsNotExisted),
-                    Message = ViewResources.LicenseeIsNotExisted
-                };
-            }
-
-            CreateSession(languageCode, tokenInfo, licensee, currencyOfLicensee, agentList);
-            var authName = $"{tokenInfo.UserName}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
-            _formsAuthenticationService.SetAuthCookie(authName, false);
-
-            return new ResultInfo
-            {
-                ExtendedData = tokenInfo.ActionLink
-            };
-        }
-
-        [CLSCompliant(false)]
-        protected internal virtual ICache GetMemCacheService() => Caching.CacheService.CreateInstance(CacheType.MemoryCache);
-
         private static bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthenticationToken tokenInfo, int licenseeId)
         {
-            return userSession.UserId == tokenInfo.UserSEQ && userSession.UserName == tokenInfo.UserName
+            return userSession.UserName == tokenInfo.UserName
                 && userSession.VendorID == tokenInfo.VendorID && userSession.VendorIdentityID == tokenInfo.UserID
                 && licenseeSession.LicenseeId == licenseeId;
         }
@@ -213,6 +158,61 @@
                 && userSession.IsInternal && licenseeSession.LicenseeId > 0 && userSession.ApplicationMode == AppMode.Parasitic;
 
             return identityValidation && sessionValidation;
+        }
+
+        [CLSCompliant(false)]
+        protected internal virtual ICache GetMemCacheService() => Caching.CacheService.CreateInstance(CacheType.MemoryCache);
+
+        protected internal virtual IResultInfo SetAuthorize(Licensee licensee, string languageCode, OneAuthenticationToken tokenInfo)
+        {
+            var currencyOfLicensee = _currencyService.GetCurrencyMapByUser(licensee.Id, tokenInfo.UserSEQ);
+
+            if (currencyOfLicensee.Count <= 0)
+            {
+                return new ResultInfo
+                {
+                    Code = OneAuthorizationErrorCode.LicenseeNotOfferedCurrency,
+                    Message = ViewResources.LicenseeNotOfferedCurrency
+                };
+            }
+
+            var agentList = _licenseeService.GetCustByLicensee(licensee.Id);
+            if (agentList.Count <= 0)
+            {
+                return new ResultInfo
+                {
+                    Code = OneAuthorizationErrorCode.LicenseeIsNotExisted,
+                    Message = ViewResources.LicenseeIsNotExisted
+                };
+            }
+
+            CreateSession(languageCode, tokenInfo, licensee, currencyOfLicensee, agentList);
+            var authName = $"{tokenInfo.UserName}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
+            _formsAuthenticationService.SetAuthCookie(authName, false);
+
+            return new ResultInfo
+            {
+                ExtendedData = tokenInfo.ActionLink
+            };
+        }
+
+        private IResultInfo CheckAndSyncUserInfo(Licensee licensee, string userName)
+        {
+            var temp = _userService.GetByUsername(userName, licensee.Id);
+            if (temp != null)
+            {
+                return new ResultInfo
+                {
+                    ExtendedData = temp.UserID.ToString()
+                };
+            }
+
+            var result = _userService.SyncUserInfo(licensee.Name, userName);
+            return result.IsSuccessful ? CheckAndSyncUserInfo(licensee, userName) : new ResultInfo
+            {
+                Code = OneAuthorizationErrorCode.NotFoundUser,
+                Message = ViewResources.UserNotExist
+            };
         }
 
         private void CreateSession(

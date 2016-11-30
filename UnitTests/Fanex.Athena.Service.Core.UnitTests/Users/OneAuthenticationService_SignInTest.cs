@@ -1,22 +1,15 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using System.Web;
     using Core.Common.Interfaces;
     using Core.Users.Interfaces;
-    using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DataDomain;
-    using Model.Core.DTO;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
-    using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
-    using Fanex.Athena.Model.Core.MetaModel.Account;
 
     [TestFixture]
     public class OneAuthenticationService_SignInTest
@@ -27,6 +20,7 @@
         private ICurrencyService _currencyService;
         private IFormsAuthenticationService _formAuthenticationService;
         private IUserService _userService;
+
         [SetUp]
         public void SetUp()
         {
@@ -165,15 +159,13 @@
             Assert.That(result.Code.ToString(), Is.EqualTo(OneAuthorizationErrorCode.LicenseeIsNotExisted));
         }
 
-        [TestCase(2, "alex", "spondemo", "1", 1, AppMode.Parasitic, true)]
-        [TestCase(2, "alex3", "spondemo", "1", 1, AppMode.Parasitic, true)]
-        [TestCase(2, "alex", "spondemo1", "1", 1, AppMode.Parasitic, true)]
-        [TestCase(2, "alex", "spondemo", "3", 1, AppMode.Parasitic, true)]
-        [TestCase(2, "alex", "spondemo", "1", 5, AppMode.Parasitic, true)]
-        [TestCase(2, "alex", "spondemo", "1", 1, AppMode.Self, true)]
-        [TestCase(2, "alex", "spondemo", "1", 1, AppMode.Parasitic, false)]
+        [TestCase("alex3", "spondemo", "1", 1, AppMode.Parasitic, true)]
+        [TestCase("alex", "spondemo1", "1", 1, AppMode.Parasitic, true)]
+        [TestCase("alex", "spondemo", "3", 1, AppMode.Parasitic, true)]
+        [TestCase("alex", "spondemo", "1", 5, AppMode.Parasitic, true)]
+        [TestCase("alex", "spondemo", "1", 1, AppMode.Self, true)]
+        [TestCase("alex", "spondemo", "1", 1, AppMode.Parasitic, false)]
         public void SignIn_AlreadyHasSessionButNotFixWithToken_CallSetAuthorize(
-            int userId,
             string userName,
             string vendorId,
             string identity,
@@ -192,7 +184,7 @@
             var tokenInfo = new OneAuthenticationToken { UserID = "1", UserSEQ = 1, UserName = "alex", VendorID = "spondemo" };
             var userSession = new UserSession
             {
-                UserId = userId,
+                UserId = 1,
                 UserName = userName,
                 ApplicationMode = mode,
                 VendorID = vendorId,
@@ -245,6 +237,5 @@
 
             return tokenInfo;
         }
-
     }
 }

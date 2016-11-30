@@ -16,7 +16,6 @@
     using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
-    using Fanex.Athena.Model.Core.MetaModel.Account;
 
     [TestFixture]
     public class OneAuthenticationService_SetAuthorizeTest
@@ -28,6 +27,7 @@
         private ICurrencyService _currencyService;
         private IFormsAuthenticationService _formAuthenticationService;
         private IUserService _userService;
+
         [SetUp]
         public void SetUp()
         {
@@ -75,8 +75,6 @@
             Assert.AreEqual(expectedResult.IsSuccessful, result.IsSuccessful);
             Assert.AreEqual(expectedResult.Code, result.Code);
         }
-
-
 
         [Test]
         public void SignIn_SetAuthorize_ReturnErrorLicenseDoesNotHaveAgent()
@@ -130,7 +128,8 @@
 
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
 
-            _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
+            _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
+                _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
 
             _oneAuthenticationService.GetStringFromFile(Arg.Any<string>()).Returns(_fakeTextReader.ReadToEnd());
 
@@ -147,8 +146,6 @@
             Assert.True(VerifyUserSession(user, expectedCurrency, tokenInfo));
             Assert.True(VeryfiLicSession(lic, expectedAgents, expectedLicInfo, tokenInfo));
         }
-
-
 
         private static bool VeryfiLicSession(LicenseeSession lic, List<LicenseeCustomer> expectedAgents, Licensee expectedLicInfo, OneAuthenticationToken tokenInfo)
         {
@@ -202,6 +199,7 @@
         {
             return new Dictionary<string, int>() { { "UUS", 1 } };
         }
+
         private class FakeFunctionReader : TextReader
         {
             public override string ReadToEnd()
@@ -214,6 +212,5 @@
                 return JsonConvert.SerializeObject(items);
             }
         }
-
     }
 }

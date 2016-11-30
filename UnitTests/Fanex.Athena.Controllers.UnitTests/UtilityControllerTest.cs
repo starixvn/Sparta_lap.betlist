@@ -23,10 +23,10 @@
             _maintenanceService = null;
         }
 
-        [TestCase("")]
+        [TestCase(-1)]
         [TestCase(null)]
-        [TestCase("20 0")]
-        public void OneTokenRestriction_InvalidCode_ReturnDefaultMsg(string code)
+        [TestCase(20)]
+        public void OneTokenRestriction_InvalidCode_ReturnDefaultMsg(int code)
         {
             // Arrange
             FakeBaseControllerDependency();
@@ -43,14 +43,14 @@
             }
         }
 
-        [TestCase("100", "Token was expired")]
-        [TestCase("200", "Not found licensee")]
-        [TestCase("400", "Direct Access to this website is restricted. Please contact Administrator for further enquiries.")]
-        [TestCase("600", "Licensee is not offered any currency")]
-        [TestCase("300", "Token is invalid")]
-        [TestCase("700", "You are not allowed to access this page !!!")]
-        [TestCase("800", "Not found user.")]
-        public void OneTokenRestriction_ValidCode_ReturnMsgByCode(string code, string msg)
+        [TestCase(100, "Token was expired")]
+        [TestCase(200, "Not found licensee")]
+        [TestCase(400, "Direct Access to this website is restricted. Please contact Administrator for further enquiries.")]
+        [TestCase(600, "Licensee is not offered any currency")]
+        [TestCase(300, "Token is invalid")]
+        [TestCase(700, "You are not allowed to access this page !!!")]
+        [TestCase(800, "Not found user")]
+        public void OneTokenRestriction_ValidCode_ReturnMsgByCode(int code, string msg)
         {
             // Arrange
             FakeBaseControllerDependency();

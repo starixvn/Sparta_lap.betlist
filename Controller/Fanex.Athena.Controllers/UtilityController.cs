@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers
     using System.Configuration;
     using System.Web.Mvc;
     using System.Web.Security;
-    using Fanex.Athena.Extension.Utility;
     using Model.Core.DataDomain;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
@@ -45,7 +44,7 @@ namespace Fanex.Athena.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult OneTokenRestriction(string code)
+        public ActionResult OneTokenRestriction(int code)
         {
             ViewBag.Message = GetMessageRestriction(code);
 
@@ -198,7 +197,7 @@ namespace Fanex.Athena.Controllers
             _languageService.SetPageCulture(currentLanguage);
         }
 
-        private static string GetMessageRestriction(string code)
+        private static string GetMessageRestriction(int code)
         {
             switch (code)
             {

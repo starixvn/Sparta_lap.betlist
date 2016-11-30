@@ -1,22 +1,14 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using System.Web;
     using Core.Common.Interfaces;
     using Core.Users.Interfaces;
-    using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
-    using Model.Core.DataDomain;
-    using Model.Core.DTO;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
-    using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
-    using Fanex.Athena.Model.Core.MetaModel.Account;
 
     [TestFixture]
     public class OneAuthenticationService_CheckAndSyncUserInfoTest
@@ -27,6 +19,7 @@
         private ICurrencyService _currencyService;
         private IFormsAuthenticationService _formAuthenticationService;
         private IUserService _userService;
+
         [SetUp]
         public void SetUp()
         {
@@ -81,7 +74,8 @@
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _userService.GetByUsername(tokenInfo.UserName, Arg.Any<int>()).Returns(x => new User { UserID = exptectedUserId });
 
-            _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
+            _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
+                _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
 
             _oneAuthenticationService.When(x => x.SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), tokenInfo)).DoNotCallBase();
             _oneAuthenticationService.When(x => x.SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), tokenInfo)).Do(x => counter++);
@@ -94,7 +88,5 @@
             Assert.AreEqual(exptectedUserId, tokenInfo.UserSEQ);
             Assert.AreEqual(1, counter);
         }
-
-
     }
 }
