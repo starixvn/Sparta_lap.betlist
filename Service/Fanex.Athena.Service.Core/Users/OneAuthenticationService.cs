@@ -19,8 +19,6 @@
     using Newtonsoft.Json;
     using Resources;
     using User.Common;
-    using System.Text;
-    using System.Globalization;
 
     public class OneAuthenticationService : IOneAuthenticationService
     {
@@ -97,13 +95,13 @@
             }
 
             tokenInfo.UserSEQ = int.Parse(userCheckingResult.ExtendedData);
-            CheckAndSyncCurrency(licensee.Id, tokenInfo, currentContext.Request.UserHostAddress);
+            // CheckAndSyncCurrency(licensee.Id, tokenInfo, currentContext.Request.UserHostAddress);
             return SetAuthorize(licensee, language, tokenInfo);
         }
 
+        /*
         private void CheckAndSyncCurrency(int licenseeId, OneAuthenticationToken tokenInfo, string ip)
         {
-            /* 
              * var currentCurrencyRestriction = _currencyService.GetCurrenciesByUser(licenseeId, tokenInfo.UserSEQ);
              var currencyRestriction = currentCurrencyRestriction;// new List<CurrencyUser>();//get from token
 
@@ -134,8 +132,8 @@
                      IP = ip
                  });
              }
-             */
         }
+        */
 
         private IResultInfo CheckAndSyncUserInfo(Licensee licensee, string userName)
         {
@@ -164,7 +162,6 @@
 
         protected internal virtual IResultInfo SetAuthorize(Licensee licensee, string languageCode, OneAuthenticationToken tokenInfo)
         {
-
             var currencyOfLicensee = _currencyService.GetCurrencyMapByUser(licensee.Id, tokenInfo.UserSEQ);
 
             if (currencyOfLicensee.Count <= 0)

@@ -3958,7 +3958,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Licensee is not existed.
+        ///   Looks up a localized string similar to Not found licensee.
         /// </summary>
         public static string LicenseeIsNotExisted {
             get {
@@ -3976,7 +3976,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Licensee does not offered currency.
+        ///   Looks up a localized string similar to Licensee is not offered any currency.
         /// </summary>
         public static string LicenseeNotOfferedCurrency {
             get {
@@ -7783,7 +7783,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User does not exist..
+        ///   Looks up a localized string similar to Not found user.
         /// </summary>
         public static string UserNotExist {
             get {

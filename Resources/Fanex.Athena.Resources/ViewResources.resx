@@ -2495,7 +2495,7 @@
     <comment>#22443</comment>
   </data>
   <data name="UserNotExist" xml:space="preserve">
-    <value>User does not exist.</value>
+    <value>Not found user</value>
   </data>
   <data name="SSOLinkExpiredMsg" xml:space="preserve">
     <value>Single Sign On link is expired. Please log in again.</value>
@@ -2913,7 +2913,7 @@
     <value>Who let you here ?</value>
   </data>
   <data name="LicenseeIsNotExisted" xml:space="preserve">
-    <value>Licensee is not existed</value>
+    <value>Not found licensee</value>
   </data>
   <data name="TokenWasExpired" xml:space="preserve">
     <value>Token was expired</value>
@@ -2922,7 +2922,7 @@
     <value>Administrator</value>
   </data>
   <data name="LicenseeNotOfferedCurrency" xml:space="preserve">
-    <value>Licensee does not offered currency</value>
+    <value>Licensee is not offered any currency</value>
   </data>
   <data name="TokenIsInValid" xml:space="preserve">
     <value>Token is invalid</value>

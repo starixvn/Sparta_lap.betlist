@@ -19,7 +19,7 @@
     using Fanex.Athena.Model.Core.MetaModel.Account;
 
     [TestFixture]
-    public class OneAuthenticationService_SignIn_SetAuthorizeTest
+    public class OneAuthenticationService_SetAuthorizeTest
     {
         private OneAuthenticationService _oneAuthenticationService;
         private TextReader _fakeTextReader;

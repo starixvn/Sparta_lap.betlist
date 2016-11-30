@@ -44,12 +44,12 @@
         }
 
         [TestCase("100", "Token was expired")]
-        [TestCase("200", "Licensee is not existed")]
+        [TestCase("200", "Not found licensee")]
         [TestCase("400", "Direct Access to this website is restricted. Please contact Administrator for further enquiries.")]
-        [TestCase("600", "Licensee does not offered currency")]
+        [TestCase("600", "Licensee is not offered any currency")]
         [TestCase("300", "Token is invalid")]
         [TestCase("700", "You are not allowed to access this page !!!")]
-        [TestCase("800", "User does not exist.")]
+        [TestCase("800", "Not found user.")]
         public void OneTokenRestriction_ValidCode_ReturnMsgByCode(string code, string msg)
         {
             // Arrange
