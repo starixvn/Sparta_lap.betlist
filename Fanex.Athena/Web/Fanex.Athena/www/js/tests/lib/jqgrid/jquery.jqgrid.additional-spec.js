@@ -16,7 +16,7 @@
 	            })
 	        });
 
-	        describe("resizeGrid()", function () {
+	        describe("updateGridHeight()", function () {
 	            beforeEach(function () {
 	                window.innerHeight = 1000;
 	                var $bdiv = $(sandbox({ class: 'ui-jqgrid-bdiv', style: 'width: 300px; height: 500px; top: 20px; position:relative;' }));
@@ -33,30 +33,15 @@
 	                $('#gview_ReportGrid').remove();
 	            });
 
-	            it("height css value of '.ui-jqgrid-bdiv' in jqgrid should be correct", function () {
-	                jqGridAdditional.resizeGrid();
-	                var cssHeight = $('.ui-jqgrid-bdiv').css('height');
-
-	                expect(cssHeight).toEqual('700px');
-	            });
-
-	            it("height css value of '.ui-jqgrid-bdiv' in jqgrid should be correct when grid has horizontal scrollbar", function () {
-	                $('#ReportGrid').css('width', 800);
-	                jqGridAdditional.resizeGrid();
-	                var cssHeight = $('.ui-jqgrid-bdiv').css('height');
-
-	                expect(cssHeight).toEqual('718px');
-	            });
-
 	            it("max-height css value of '.ui-jqgrid-bdiv' in jqgrid should be correct", function () {
-	                jqGridAdditional.resizeGrid();
+	                jqGridAdditional.updateGridHeight();
 	                var cssMaxHeight = $('.ui-jqgrid-bdiv').css('max-height');
 
 	                expect(cssMaxHeight).toEqual('910px');
 	            });
 	        });
 
-	        describe("resetLayout(grid)", function () {
+	        describe("updateGridWidth(grid)", function () {
 	            var $reportGrid;
 	            beforeEach(function () {
 	                var $gridContainer = $(sandbox({ class: 'theme_jqGrid', style: 'width: 800px; height: 100px;' }));
@@ -76,17 +61,17 @@
 	            });
 
 	            it("'setGridParam' function of jqgrid should be called with correct parameter", function () {
-	                jqGridAdditional.resetLayout($reportGrid);
+	                jqGridAdditional.updateGridWidth($reportGrid);
 	                expect($.fn.setGridParam).toHaveBeenCalledWith({ shrinkToFit: false });
 	            });
 
 	            it("'setGridWidth' function of jqgrid should be called with correct parameter", function () {
-	                jqGridAdditional.resetLayout($reportGrid);
+	                jqGridAdditional.updateGridWidth($reportGrid);
 	                expect($.fn.jqGrid.setGridWidth).toHaveBeenCalled();
 	            });
 
 	            it("Width of grid should be correct", function () {
-	                jqGridAdditional.resetLayout($reportGrid);
+	                jqGridAdditional.updateGridWidth($reportGrid);
 	                var cssWidth = $reportGrid.css('width');
 	                expect(cssWidth).toEqual('780px');
 	            })

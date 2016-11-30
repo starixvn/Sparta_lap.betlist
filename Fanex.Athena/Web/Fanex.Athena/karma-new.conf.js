@@ -32,7 +32,7 @@ module.exports = function (config) {
         autoWatch: false,
         browsers: ['PhantomJS'],
         reporters: ['kjhtml', 'dots', 'junit', 'coverage', 'progress'],
-        singleRun: false,
+        singleRun: true,
         junitReporter: {
             outputFile: 'junit/test-results-new.xml'
         },
