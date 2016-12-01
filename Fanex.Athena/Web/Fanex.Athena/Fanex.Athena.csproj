@@ -412,7 +412,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Allbet.css" />
     <Content Include="App_Data\SpNameConfig\FanexSpName.xml1.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
