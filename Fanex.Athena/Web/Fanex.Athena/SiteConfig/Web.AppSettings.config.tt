@@ -34,9 +34,7 @@
 	<add key="ClientViewType" value="2" />
 	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
 	<add key="Environment" value="DEV"/>
-	  <add key="EnableLogForOneAuthorization" value="1"/>
-  <add key="XFrameOption" value="ALLOW-FROM http://localhost:64577/"/>
-
+	<add key="EnableLogForOneAuthorization" value="1"/>
 	<add key="EnableCasinoService" value="0" />
 	<add key="IsEnablePiwik" value="0" />
 	<add key="MoveBetDayStart" value="" />
@@ -149,9 +147,7 @@
 	<add key="ClientViewType" value="2" />
 	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
 	<add key="Environment" value="LOCAL"/>
-	  <add key="EnableLogForOneAuthorization" value="1"/>
-  <add key="XFrameOption" value="ALLOW-FROM http://10.18.200.209:8073/"/>
-
+	<add key="EnableLogForOneAuthorization" value="1"/>
 	<add key="EnableCasinoService" value="0" />
 	<add key="IsEnablePiwik" value="0" />
 	<add key="MoveBetDayStart" value="" />
@@ -265,8 +261,6 @@
 	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
 	<add key="Environment" value="UAT"/>
 	<add key="EnableLogForOneAuthorization" value="0"/>
-	<add key="XFrameOption" value="SAMEORIGIN"/>
-
 	<add key="EnableCasinoService" value="1" />
 	<add key="IsEnablePiwik" value="0" />
 	<add key="MoveBetDayStart" value="" />
@@ -373,7 +367,6 @@
 	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
 	<add key="Environment" value="SIT"/>
 	<add key="EnableLogForOneAuthorization" value="1"/>
-	<add key="XFrameOption" value="ALLOW-FROM http://licadmin.playthefun.com/"/>
 	<add key="EnableCasinoService" value="0" />
 	<add key="IsEnablePiwik" value="0" />
 	<add key="MoveBetDayStart" value="" />
@@ -480,7 +473,6 @@
 	<add key="AllbetResultImagePath" value="/Content/Fanex.Result/Allbet/template/public/game_result/" />
 	<add key="Environment" value="PRO"/>
 	<add key="EnableLogForOneAuthorization" value="1"/>
-	<add key="XFrameOption" value="SAMEORIGIN"/>
 	<add key="EnableCasinoService" value="1" />
 	<add key="IsEnablePiwik" value="1" />
 	<add key="MoveBetDayStart" value="" />
