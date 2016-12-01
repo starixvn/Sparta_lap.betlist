@@ -7,8 +7,8 @@
             ? document.referrer
             : document.location.href;
             var sessionUrl = $(url).attr("hostname") + "/ExternalApi/SessionIsAlive";
-            var internalSessionUrl=@Url.Content("~/Utility/SessionIsAlive");
-            var internalSignOutUrl=@Url.Content("~/Utility/InternalSignOut");
+            var internalSessionUrl='@Url.Content("~/Utility/SessionIsAlive")';
+            var internalSignOutUrl='@Url.Content("~/Utility/InternalSignOut")';
             var checkInterval = setInterval(function () {
                 if (new Date().getTime() - lastUpdate > 900000) {
                     clearInterval(checkInterval);
