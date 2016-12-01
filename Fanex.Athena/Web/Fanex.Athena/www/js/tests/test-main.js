@@ -12,6 +12,7 @@ requirejs.config({
     baseUrl: '/base/www/js/source',
 
     paths: {
+        "global": '../tests/global',
         "jasmine-fixture": '/base/bower_components/jasmine-fixture/dist/jasmine-fixture.min',
         "squire": "/base/node_modules/squirejs/src/Squire",
         "hammerjs": "/base/node_modules/hammerjs/hammer",

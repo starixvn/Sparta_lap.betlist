@@ -13,10 +13,13 @@ module.exports = function (config) {
             { pattern: "node_modules/bootstrap-daterangepicker/*.js", included: false },
             { pattern: "node_modules/malihu-custom-scrollbar-plugin/*.js", included: false },
             { pattern: 'www/js/source/**/*.js', included: false },
+            { pattern: 'www/js/tests/global.js', included: false },
+            
             { pattern: 'www/js/tests/common/*-spec.js', included: false },
             { pattern: 'www/js/tests/pages/**/*-spec.js', included: false },
             { pattern: 'www/js/tests/lib/**/jquery.jqgrid.additional-spec.js', included: false },
-             'www/js/tests/test-main.js'
+            { pattern: 'www/js/tests/components/**/*-spec.js', included: false },
+            'www/js/tests/test-main.js'
         ],
         proxies: {
             '/Test/Index': 'about:blank'

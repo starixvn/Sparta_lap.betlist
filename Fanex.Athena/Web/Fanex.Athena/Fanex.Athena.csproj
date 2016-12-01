@@ -824,10 +824,13 @@
     <Content Include="www\js\tests\common\popup-spec.js" />
     <Content Include="www\js\tests\common\querystring-spec.js" />
     <Content Include="www\js\tests\common\site-spec.js" />
+    <Content Include="www\js\tests\components\betlist\betlist-spec.js" />
+    <Content Include="www\js\tests\components\betlist\commonbetlist-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss.option-spec.js" />
     <Content Include="www\js\tests\pages\report\livereport\livereport-spec.js" />
     <Content Include="www\js\tests\pages\report\livereport\helper-spec.js" />
+    <Content Include="www\js\tests\global.js" />
     <Content Include="www\js\tests\test-main.js" />
     <Content Include="www\webpackconfig\build\utils.js" />
     <Content Include="www\webpackconfig\build\webpack.base.conf.js" />
@@ -1184,6 +1187,7 @@
     <Content Include="www\css\source\components\betlist\systemparlaydetail.scss" />
     <Content Include="www\css\source\scss\layout\navbar.scss" />
     <Content Include="www\css\source\scss\layout\sidebar.scss" />
+    <Content Include="www\js\tests\components\betlist\betlist.option-spec.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">

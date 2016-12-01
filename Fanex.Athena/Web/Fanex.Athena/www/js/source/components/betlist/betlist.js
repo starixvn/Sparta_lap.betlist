@@ -422,7 +422,7 @@
                         beforeSend: function () {
                             Site.blockUI();
                         },
-                        complete: function (/*jqXhr, textStatus*/) {
+                        complete: function () {
                             Site.unBlockUI();
                         }
                     });
