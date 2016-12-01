@@ -1,10 +1,13 @@
 ﻿@{
     var sessionService = new Fanex.Athena.Service.Core.Users.SessionService();
-    var userCurrencies = sessionService.UserSession == null || sessionService.UserSession.CurrencyList == null ?
+    var userSession = sessionService.UserSession;
+    var licSession = sessionService.LicenseeSession;
+    var userCurrencies = userSession == null || userSession.CurrencyList == null ?
         new Dictionary<string, string>() :
-        sessionService.UserSession.CurrencyList.ToDictionary(x => x.Value.ToString(), x => x.Key);
+        userSession.CurrencyList.ToDictionary(x => x.Value.ToString(), x => x.Key);
 
-    var hasCustComm = sessionService.LicenseeSession != null && sessionService.LicenseeSession.IsAllowedCustomerComm;
+    var hasCustComm = licSession != null && licSession.IsAllowedCustomerComm;
+    var isParasiticMode = userSession != null && userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Parasitic;
     var appSettings = new AppSettings();
 }
 <!DOCTYPE html>
@@ -53,5 +56,9 @@
     <script src="@Url.ContentLink("/www/js/build/common.chunk.js")"></script>
     <script src="@Url.ContentLink("/www/js/build/language.chunk.js")"></script>
     @RenderSection("js", required: false)
+    @if (isParasiticMode)
+    {
+        Html.RenderPartial("~/Views/Desktop/Shared/_SessionScript.cshtml");
+    }
 </body>
 </html>

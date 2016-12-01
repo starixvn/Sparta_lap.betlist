@@ -23,7 +23,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -1171,6 +1171,8 @@
     <Content Include="Views\Desktop\BetList\MicroGamingRngDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\SystemParlayDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\VoidbridgeDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\Shared\_SessionScript.cshtml" />
+    <Content Include="Views\Shared\_SessionScript.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />

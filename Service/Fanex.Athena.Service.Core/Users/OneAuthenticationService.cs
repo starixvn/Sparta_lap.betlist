@@ -187,7 +187,7 @@
             }
 
             CreateSession(languageCode, tokenInfo, licensee, currencyOfLicensee, agentList);
-            var authName = $"{tokenInfo.UserID}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
+            var authName = $"{tokenInfo.VendorID}_{tokenInfo.SiteName}_{tokenInfo.UserID}";
             _formsAuthenticationService.SetAuthCookie(authName, false);
 
             return new ResultInfo

@@ -38,6 +38,12 @@ namespace Fanex.Athena.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
+        public ActionResult SessionIsAlive()
+        {
+            return Json(HttpContext.User.Identity.IsAuthenticated, JsonRequestBehavior.AllowGet);
+        }
+        [AllowAnonymous]
         public ActionResult AccessDenied()
         {
             return View("~/Views/Utility/AccessDenied.cshtml");

@@ -268,6 +268,21 @@ namespace Fanex.Athena.Controllers
             return RedirectToAction("LocationRestriction", "Utility");
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult InternalSignOut()
+        {
+            var userSession = SessionService.UserSession;
+            if (userSession != null)
+            {
+                _userService.Logout(userSession.OnUserId);
+            }
+
+            Session.Clear();
+            ClearCookies();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("OneTokenRestriction?code=100", "Utility");
+        }
         /// <summary>
         /// The changing password page.
         /// </summary>
