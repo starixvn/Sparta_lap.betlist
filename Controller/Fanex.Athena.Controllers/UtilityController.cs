@@ -19,6 +19,7 @@ namespace Fanex.Athena.Controllers
     /// <summary>
     /// Utility controller.
     /// </summary>
+    [AllowAnonymous]
     public class UtilityController : Controller
     {
         private readonly ILanguageService _languageService;
@@ -37,20 +38,18 @@ namespace Fanex.Athena.Controllers
             _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public ActionResult SessionIsAlive()
         {
             return Json(HttpContext.User.Identity.IsAuthenticated, JsonRequestBehavior.AllowGet);
         }
 
-        [AllowAnonymous]
         public ActionResult AccessDenied()
         {
             return View("~/Views/Utility/AccessDenied.cshtml");
         }
 
-        [AllowAnonymous]
+
         public ActionResult OneTokenRestriction(int code)
         {
             ViewBag.Message = GetMessageRestriction(code);
@@ -58,11 +57,6 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Desktop/Utility/OneTokenRestriction.cshtml");
         }
 
-        /// <summary>
-        /// The denied page.
-        /// </summary>
-        /// <returns>The denied message.</returns>
-        [AllowAnonymous]
         public ActionResult SSODenyAccess()
         {
             int code;
@@ -113,11 +107,6 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Utility/SSODenyAccess.cshtml");
         }
 
-        /// <summary>
-        /// The location restriction page.
-        /// </summary>
-        /// <returns>The restriction information.</returns>
-        [AllowAnonymous]
         public ActionResult LocationRestriction()
         {
             var requestHost = Request.Url.AbsoluteUri;
@@ -130,7 +119,6 @@ namespace Fanex.Athena.Controllers
         /// The error page.
         /// </summary>
         /// <returns>The error information.</returns>
-        [AllowAnonymous]
         public ActionResult Error()
         {
             var errorStr = string.Empty;
@@ -169,7 +157,6 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Utility/Error.cshtml");
         }
 
-        [AllowAnonymous]
         public ActionResult UnderMaintenance(bool notReload = false)
         {
             var underMaintenanceTimeFrom = string.Empty;
