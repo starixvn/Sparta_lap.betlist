@@ -8,7 +8,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Collections.Generic;
     using System.Data;
-    using Common;
     using Core;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.BetSettings.Interfaces;
@@ -36,14 +35,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 {
                     if (reader.Read())
                     {
-                        if (reader.HasColumn("DisableEsports"))
-                        {
-                            esportSetting = Converter.ToBool(reader["DisableEsports"]) ? EsportSettingType.NoneMemberOffering : EsportSettingType.LicenseeOffering;
-                        }
-                        else
-                        {
-                            esportSetting = EsportSettingType.NoneOffering;
-                        }
+                        esportSetting = reader.HasColumn("DisableEsports") ?
+                            (EsportSettingType)System.Convert.ToInt32(reader["DisableEsports"])
+                            : EsportSettingType.NoneOffering;
 
                         return RenderSportBookBetSetting(reader);
                     }
