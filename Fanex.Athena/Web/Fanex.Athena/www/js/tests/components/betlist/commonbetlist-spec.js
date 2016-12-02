@@ -13,6 +13,11 @@
                 spyOn(QueryString, "getQueryString").and.returnValue("fromdate=1/1/2016&todate=10/5/2016&pagesize=50&pageindex=2");
             });
 
+            afterEach(function () {
+                $("#ApiUrl").remove();
+                $("#IsServerPaging").remove();
+            });
+
             describe("initialize()", function () {
                 it("'.content-filter' should be removed", function () {
                     appendSetFixtures('<div class="content-filter" style="width: 10px; height: 20px;"></div>');
@@ -62,6 +67,12 @@
                     spyOn(Site, "redirect");
 
                     CommonBetList.initialize();
+                });
+
+                afterEach(function () {
+                    $("#ExportToExcel").remove();
+                    $("#IsExportAll").remove();
+                    $("#BetListGrid").remove();
                 });
 
                 it("window.alert should be called when totalRows > MAXIMUM_EXCEL_ROWS", function () {

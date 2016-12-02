@@ -2,13 +2,16 @@
     ['jquery', 'common/site', 'common/querystring', 'lib/jqgrid/jquery.jqgrid.additional', 'components/betlist/betlist.option', 'common/popup', 'components/betlist/betlist', 'global'],
     function ($, Site, QueryString, jqGridAdditional, BetListOption, Popup, BetList, GlobalSetting) {
         describe("BetList", function () {
-            beforeAll(function () {
+            beforeEach(function () {
                 GlobalSetting.initGlobalSetting();
                 appendSetFixtures('<input id="SortBy" value="Foo" />');
                 appendSetFixtures('<input id="SortOrder" value="asc" />');
                 BetList.initialize();
+            });
 
-                $(window).height(300);
+            afterEach(function () {
+                $("#SortBy").remove();
+                $("#SortOrder").remove();
             });
 
             describe("getSortParams()", function () {
@@ -45,6 +48,7 @@
 
                 afterEach(function () {
                     jasmine.Ajax.uninstall();
+                    $("#HiddenColumnList").remove();
                 });
 
                 it("should return sorting data stored in inputs", function () {
@@ -67,6 +71,10 @@
                     BetList.loadDataPaging('');
                 });
 
+                afterEach(function () {
+                    $("#HiddenColumnList").remove();
+                });
+
                 it("should call .jqGrid('GridUnload')", function () {
                     expect($.fn.jqGrid).toHaveBeenCalledWith('GridUnload');
                 });
@@ -77,7 +85,6 @@
             });
 
             describe("bindData(url)", function () {
-
                 it("gridOption.colNames should be a valid array", function () {
                     var gridOption;
                     appendSetFixtures('<div id="HiddenColumnList"></div>');
@@ -180,6 +187,10 @@
                         BetList.showMixParlayDetail(0, $div);
                     });
 
+                    afterEach(function () {
+                        $div.remove();
+                    });
+
                     it("'divEvent' element should be hide", function () {
                         expect($div.is(':visible')).toBe(false);
                     });
@@ -214,6 +225,7 @@
 
                     afterEach(function () {
                         jasmine.Ajax.uninstall();
+                        $div.remove();
                     });
 
                     it("request url should be correct", function () {
@@ -242,6 +254,7 @@
             describe("showMicroGamingRnGBetsDetails(transId, winlostDate, custId, transType)", function () {
                 it("Popup.openBetListPopup(url, options) should be called with correct parameters", function () {
                     spyOn(Popup, 'openBetListPopup');
+                    spyOn($.fn, 'height').and.returnValue(300);
                     BetList.showMicroGamingRnGBetsDetails(0, new Date('2015/2/1'), 0, 0);
                     var url = 'MicroGamingRngBetList/Detail?transid=0&custid=0&transtype=0';
                     var title = 'Microgaming - DetailedBetlist - 02/01/2015';
@@ -253,6 +266,7 @@
             describe("showAGCasinoDetails(transId, winlostDate, custId, transType)", function () {
                 it("Popup.openBetListPopup(url, options) should be called with correct parameters", function () {
                     spyOn(Popup, 'openBetListPopup');
+                    spyOn($.fn, 'height').and.returnValue(300);
                     BetList.showAGCasinoDetails(0, new Date('2015/2/1'), 0, 0);
                     var url = 'AGCasinoBetList/Detail?transid=0&custid=0&transtype=0';
                     var title = 'AGCasino - DetailedBetlist - 02/01/2015';
@@ -265,6 +279,10 @@
                 beforeEach(function () {
                     appendSetFixtures('<div id="ProductList"></div>');
                     spyOn(Popup, 'openPopup');
+                });
+
+                afterEach(function () {
+                    $("#ProductList").remove();
                 });
 
                 it("should return false if #ProductList does not contain checked input", function () {

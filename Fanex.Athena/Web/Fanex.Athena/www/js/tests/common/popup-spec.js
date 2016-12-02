@@ -17,15 +17,14 @@
 
         describe("openBetListPopup(url, option)", function () {
             it("Bet List popup should be called with correct url", function () {
-                spyOn($.fn, "flatPopup").and.callThrough();
+                spyOn($.fn, "flatPopup");
 
                 var url = "/Test/Index?transid=1234&custId=5678";
                 var option = { width: 500, height: 600, title: "Bet List", id: "BetListPopUp" };
 
                 PopUp.openBetListPopup(url, option);
-                var srcValue = $("#popupFrame").attr("src");
 
-                expect(srcValue).toEqual(url);
+                expect($.fn.flatPopup).toHaveBeenCalledWith(option);
             });
         });
     });
