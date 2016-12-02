@@ -1,6 +1,6 @@
 ﻿
 <script type="text/javascript" language="javascript">
-    $(document).ready(function () {
+    window.onload = function () {
         $(function () {
             var lastUpdate = 0;
             var url = (window.location != window.parent.location)
@@ -29,6 +29,7 @@
                 lastUpdate = new Date().getTime();
             });
         });
-    });
+
+    };
 
 </script>

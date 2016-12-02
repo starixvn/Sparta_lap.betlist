@@ -56,7 +56,7 @@
     <script src="@Url.ContentLink("/www/js/build/common.chunk.js")"></script>
     <script src="@Url.ContentLink("/www/js/build/language.chunk.js")"></script>
     @RenderSection("js", required: false)
-    @if (isParasiticMode)
+    @if (!isParasiticMode)
     {
         Html.RenderPartial("~/Views/Desktop/Shared/_SessionScript.cshtml");
     }

@@ -5,7 +5,7 @@ var pathConfig = require('../config/path');
 var alias = require('../config/alias');
 var loader = require('../config/loader');
 var plugin = require('../config/plugin');
-
+var exposeLoader = require('expose-loader')
 var utils = require('./utils');
 
 var commonConfigs = {
