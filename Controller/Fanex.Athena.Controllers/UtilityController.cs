@@ -43,6 +43,7 @@ namespace Fanex.Athena.Controllers
         {
             return Json(HttpContext.User.Identity.IsAuthenticated, JsonRequestBehavior.AllowGet);
         }
+
         [AllowAnonymous]
         public ActionResult AccessDenied()
         {

@@ -283,6 +283,7 @@ namespace Fanex.Athena.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("OneTokenRestriction?code=100", "Utility");
         }
+
         /// <summary>
         /// The changing password page.
         /// </summary>

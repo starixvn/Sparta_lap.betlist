@@ -39,6 +39,7 @@
             {
                 actionContext.HttpContext.Response.Headers.Remove(XFrameOptionHeaderName);
             }
+
             if (user == null || user.ApplicationMode == AppMode.Self)
             {
                 actionContext.HttpContext.Response.Headers.Add(XFrameOptionHeaderName, "SAMEORIGIN");
