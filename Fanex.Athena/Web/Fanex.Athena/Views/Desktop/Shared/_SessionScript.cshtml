@@ -6,20 +6,18 @@
             var url = (window.location != window.parent.location)
             ? document.referrer
             : document.location.href;
-            var sessionUrl = $(url).attr("hostname") + "/ExternalApi/SessionIsAlive";
-            var internalSessionUrl='@Url.Content("~/Utility/SessionIsAlive")';
-            var internalSignOutUrl='@Url.Content("~/Utility/InternalSignOut")';
+            var sessionUrl = url + "/ExternalApi/SessionIsAlive";
+            var internalSessionUrl = '@Url.Content("~/Utility/SessionIsAlive")';
+            var internalSignOutUrl = '@Url.Content("~/Utility/InternalSignOut")';
             var checkInterval = setInterval(function () {
                 if (new Date().getTime() - lastUpdate > 900000) {
                     clearInterval(checkInterval);
                 } else {
                     $.getJSON(sessionUrl, function (data) {
-                        if(data===true)
-                        {
+                        if (data === true) {
                             $.getJSON(internalSessionUrl, function (data) {
-                                if(data===false)
-                                {
-                                    document.location.href=internalSignOutUrl;
+                                if (data === false) {
+                                    document.location.href = internalSignOutUrl;
                                 }
                             });
                         }
