@@ -19,7 +19,7 @@ namespace Fanex.Athena.Controllers
     /// <summary>
     /// Utility controller.
     /// </summary>
-    public class UtilityController : Controller
+    public class UtilityController : BaseController
     {
         private readonly ILanguageService _languageService;
 

@@ -12,6 +12,7 @@ var cssPaths = {
 
     home: ["malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/scss/layout/navbar.scss", "./www/css/source/scss/layout/sidebar.scss", "./www/css/source/extensions/home.scss"],
     main: ["./www/css/source/vendors/materialize/materialize.css", "./www/css/source/main.scss", "./www/css/source/extensions/main-ex.scss"],
+    error: ["./www/css/source/pages/utility/error.scss"],
 
     reportjqgridlayout: [
         "./www/css/source/components/flatpopup/flatpopup.scss",

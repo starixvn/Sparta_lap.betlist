@@ -26,6 +26,7 @@ var commonConfigs = {
         [pathConfig.cssPaths.build + "/pages/reports/reportjqgridlayout"]: pathConfig.cssPaths.reportjqgridlayout,
         [pathConfig.cssPaths.build + "/pages/reports/livereport"]: pathConfig.cssPaths.livereport,
         [pathConfig.cssPaths.build + "/main"]: pathConfig.cssPaths.main,
+        [pathConfig.cssPaths.build + "/pages/utility/error"]: pathConfig.cssPaths.error,
         [pathConfig.cssPaths.build + "/pages/home/home"]: pathConfig.cssPaths.home,
         [pathConfig.cssPaths.build + "/pages/login/login"]: pathConfig.cssPaths.login,
         [pathConfig.cssPaths.build + "/pages/reports/licenseewinloss"]: pathConfig.cssPaths.licenseewinloss,
