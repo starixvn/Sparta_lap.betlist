@@ -19,7 +19,7 @@ namespace Fanex.Athena.Controllers
     /// <summary>
     /// Utility controller.
     /// </summary>
-    public class UtilityController : BaseController
+    public class UtilityController : Controller
     {
         private readonly ILanguageService _languageService;
 
@@ -55,7 +55,7 @@ namespace Fanex.Athena.Controllers
         {
             ViewBag.Message = GetMessageRestriction(code);
 
-            return View("~/Views/Utility/OneTokenRestriction.cshtml");
+            return View("~/Views/Desktop/Utility/OneTokenRestriction.cshtml");
         }
 
         /// <summary>
