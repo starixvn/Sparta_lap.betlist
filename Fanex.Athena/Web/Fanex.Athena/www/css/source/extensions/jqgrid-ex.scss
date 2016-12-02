@@ -1,220 +1,212 @@
 ﻿@import "../scss/abstracts/_variables.scss";
 
-#report-container {
-    position: relative;
+.theme_jqGrid {
+    a {
+        color: #1c5fc3;
+        text-decoration: none;
 
-    .theme_jqGrid {
-        a {
-            color: #1c5fc3;
+        &:hover, &:focus, &:active {
             text-decoration: none;
+        }
+    }
 
-            &:hover, &:focus, &:active {
-                text-decoration: none;
-            }
+    .ui-jqgrid {
+        .highlight {
+            background-color: #F8F1A0;
         }
 
-        .ui-jqgrid {
-            
-            .highlight {
-                background-color: #F8F1A0;
-            }
+        .ui-jqgrid-view {
+            font-size: $font-size;
+            border: 1px solid #d1dae1;
+        }
 
-            .ui-jqgrid-view {
-                font-size: $font-size;
-                border: 1px solid #d1dae1;
-            }
+        .ui-jqgrid-htable {
+            thead {
+                border: none;
 
-            .ui-jqgrid-htable {
-                thead {
-                    border: none;
-
-                    tr {
-                        th {
-                            &.ui-th-column, &.ui-th-column-header {
-                                vertical-align: middle;
-                                text-align: center;
-                                background: #d1dae1;
-                                border: 1px solid #fff;
-                                color: #314453;
-                                font-weight: 600;
-                                padding: 4px 5px;
-
-                                &:first-child {
-                                    border-left-color: #d1dae1 !important;
-                                }
-
-                                &:last-child {
-                                    border-right-color: #d1dae1 !important;
-                                }
-                            }
-
-                            div {
-                                height: auto;
-                                white-space: pre-wrap;
-                            }
-                        }
-
-                        &:nth-child(2) th {
-                            &:last-child {
-                                border-right-color: #fff !important;
-                            }
-
-                            &:first-child {
-                                border-left: none;
-                            }
-                        }
-                    }
-
-                    > tr.jqg-second-row-header > th {
-                        border: 1px solid #ffffff;
-                        border-top: 1px solid #ffffff !important;
-                    }
-                }
-            }
-
-            .ui-jqgrid-btable, .ui-jqgrid-ftable {
                 tr {
-                    &, &.footrow {
-                        td {
-                            border: 1px solid #d6d6d6;
-                            color: #404040;
+                    th {
+                        &.ui-th-column, &.ui-th-column-header {
+                            vertical-align: middle;
+                            text-align: center;
+                            background: #d1dae1;
+                            border: 1px solid #fff;
+                            color: #314453;
+                            font-weight: 600;
                             padding: 4px 5px;
 
                             &:first-child {
-                                border-left: none;
+                                border-left-color: #d1dae1 !important;
+                            }
+
+                            &:last-child {
+                                border-right-color: #d1dae1 !important;
                             }
                         }
+
+                        div {
+                            height: auto;
+                            white-space: pre-wrap;
+                        }
+                    }
+
+                    &:nth-child(2) th {
+                        &:last-child {
+                            border-right-color: #fff !important;
+                        }
+
+                        &:first-child {
+                            border-left: none;
+                        }
+                    }
+                }
+
+                > tr.jqg-second-row-header > th {
+                    border: 1px solid #ffffff;
+                    border-top: 1px solid #ffffff !important;
+                }
+            }
+        }
+
+        .ui-jqgrid-btable, .ui-jqgrid-ftable {
+            tr {
+                &, &.footrow {
+                    td {
+                        border: 1px solid #d6d6d6;
+                        color: #404040;
+                        padding: 4px 5px;
+
+                        &:first-child {
+                            border-left: none;
+                        }
                     }
                 }
             }
+        }
 
-            .ui-jqgrid-btable {
-                tr.jqgfirstrow {
+        .ui-jqgrid-btable {
+            tr.jqgfirstrow {
+                > td {
+                    padding: 0;
+                    border: none;
+                }
+            }
+
+            tr {
+                > td {
+                    border-top: none;
+                }
+            }
+        }
+
+        .ui-jqgrid-sdiv {
+            .ui-jqgrid-ftable {
+                border-top: 3px solid #a7a1a1;
+
+                .footer-firstrow {
                     > td {
                         padding: 0;
-                        border: none;
                     }
                 }
 
-                tr {
+                tr.footrow {
                     > td {
-                        border-top: none;
+                        border-bottom: 0 none;
                     }
+                }
+
+                .grandTotal {
+                    background-color: #fff;
+                    border-color: #fff !important;
+                    color: #545454 !important;
+                }
+
+                .total-eur {
+                    background-color: #ffb391;
+                    border-color: #fff !important;
+                    color: #545454 !important;
                 }
             }
 
-            .ui-jqgrid-sdiv {
-                .ui-jqgrid-ftable {
-                    border-top: 3px solid #a7a1a1;
+            &.jqgrid-footer-scroll-hacking {
+                max-height: 260px;
+                overflow-y: auto;
+            }
+        }
 
-                    .footer-firstrow {
-                        > td {
-                            padding: 0;
-                        }
-                    }
+        .ui-jqgrid-pager {
+            font-size: 1.1rem;
+            background-color: #EFF3F8 !important;
+            border-left: 1px solid #d1dae1 !important;
+            border-right: 1px solid #d1dae1 !important;
+            border-bottom: 1px solid #d1dae1 !important;
 
-                    tr.footrow{
-                        > td{
-                            border-bottom: 0 none;
-                        }
-                    }
-
-                    .grandTotal {
-                        background-color: #fff;
-                        border-color: #fff !important;
-                        color: #545454 !important;
-                    }
-
-                    .total-eur {
-                        background-color: #ffb391;
-                        border-color: #fff !important;
-                        color: #545454 !important;
-                    }
-                }
-
-                &.jqgrid-footer-scroll-hacking {
-                    max-height: 260px;
-                    overflow-y: auto;
-                }
+            .ui-icon {
+                font-family: 'icomoon' !important;
+                speak: none;
+                font-style: normal;
+                font-weight: normal;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 1;
+                -webkit-font-smoothing: antialiased;
+                font-size: 1.2rem;
+                color: #4c6375;
+                cursor: pointer;
             }
 
-            .ui-jqgrid-pager {
-                font-size: 1.1rem;
-                background-color: #EFF3F8 !important;
-                border-left: 1px solid #d1dae1 !important;
-                border-right: 1px solid #d1dae1 !important;
-                border-bottom: 1px solid #d1dae1 !important;
+            .ui-pg-table {
+                .ui-pg-button {
+                    padding: 1px;
 
-                [class^="ui-icon"] {
-                    font-family: 'icomoon' !important;
-                    speak: none;
-                    font-style: normal;
-                    font-weight: normal;
-                    font-variant: normal;
-                    text-transform: none;
-                    line-height: 1;
-                    -webkit-font-smoothing: antialiased;
-                }
-
-                .ui-icon {
-                    font-size: 1.2rem;
-                    color: #4c6375;
-                    cursor: pointer;
-                }
-
-                .ui-pg-table {
-                    .ui-pg-button {
+                    &:hover {
                         padding: 1px;
-
-                        &:hover {
-                            padding: 1px;
-                        }
                     }
+                }
 
-                    .ui-icon-seek-first {
-                        &:before {
-                            content: "\ea21";
-                        }
+                .ui-icon-seek-first {
+                    &:before {
+                        content: "\ea21";
                     }
+                }
 
-                    .ui-icon-seek-prev {
-                        &:before {
-                            content: "\ea1f";
-                        }
+                .ui-icon-seek-prev {
+                    &:before {
+                        content: "\ea1f";
                     }
+                }
 
-                    .ui-icon-seek-next {
-                        &:before {
-                            content: "\ea20";
-                        }
+                .ui-icon-seek-next {
+                    &:before {
+                        content: "\ea20";
                     }
+                }
 
-                    .ui-icon-seek-end {
-                        &:before {
-                            content: "\ea22";
-                        }
+                .ui-icon-seek-end {
+                    &:before {
+                        content: "\ea22";
                     }
+                }
 
-                    .ui-pg-input {
-                        width: auto;
-                        font-size: inherit;
-                        padding: 2px;
-                        text-align: center;
+                .ui-pg-input {
+                    width: auto;
+                    font-size: inherit;
+                    padding: 2px;
+                    text-align: center;
 
-                        &, &:focus {
-                            background: white;
-                            border: 1px solid #e2d6d6;
-                            box-shadow: none;
-                        }
-                    }
-
-                    .ui-pg-selbox {
-                        height: auto;
-                        font-size: inherit;
-                        padding: 2px;
-                        min-width: 65px;
+                    &, &:focus {
+                        background: white;
                         border: 1px solid #e2d6d6;
+                        box-shadow: none;
                     }
+                }
+
+                .ui-pg-selbox {
+                    height: auto;
+                    font-size: inherit;
+                    padding: 2px;
+                    min-width: 65px;
+                    border: 1px solid #e2d6d6;
                 }
             }
         }

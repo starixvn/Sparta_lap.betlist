@@ -747,9 +747,7 @@
     <Content Include="www\css\source\components\betlist\Microgaming.css" />
     <Content Include="www\css\source\components\jqgrid\jqgrid.css" />
     <Content Include="www\css\source\components\multiselect\jquery.multiselect.css" />
-    <Content Include="www\css\source\main.css" />
     <Content Include="www\css\source\pages\login.css" />
-    <Content Include="www\css\source\vendors\jquery.mCustomScrollbar.css" />
     <Content Include="www\css\source\vendors\materialize\materialize.css" />
     <Content Include="www\js\build\common.chunk.js" />
     <Content Include="www\js\build\language.chunk.js" />
