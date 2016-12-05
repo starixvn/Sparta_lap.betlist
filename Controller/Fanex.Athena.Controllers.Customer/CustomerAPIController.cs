@@ -261,7 +261,7 @@ namespace Fanex.Athena.Controllers.Customer
                 Ip = Request.UserHostAddress
             };
 
-            var specialBaPermission = userSession.IsAllowedSpecialBA;
+            var specialBaPermission = SessionService.IsAllowedSpecialBA(userSession);
             if (!specialBaPermission)
             {
                 bool isAllowUpdateBa;

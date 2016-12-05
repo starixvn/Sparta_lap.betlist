@@ -16,5 +16,6 @@ namespace Fanex.Athena.Model.Core.DTO.Common
         public string ActionLink { get; set; }
 
         public string SiteName { get; set; }
+        public string HostDomain { get; set; }
     }
 }

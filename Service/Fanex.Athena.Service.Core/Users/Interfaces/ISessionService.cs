@@ -43,5 +43,9 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
         bool UpdateLanguage(string languageCode);
 
         #endregion Public Properties
+
+        bool IsAllowedEditCommission(UserSession user);
+
+        bool IsAllowedSpecialBA(UserSession user);
     }
 }

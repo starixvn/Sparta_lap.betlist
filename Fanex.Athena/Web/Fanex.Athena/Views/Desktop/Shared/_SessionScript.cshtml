@@ -4,7 +4,7 @@
         var url = (window.location != window.parent.location)
         ? document.referrer
         : document.location.href;
-        var sessionUrl = "http://licadmin.playthefun.com/spondemo/ExternalApi/SessionIsAlive?callback=?";
+        var sessionUrl = $("#hostdomain").val() + "ExternalApi/SessionIsAlive?callback=?";
         var internalSessionUrl = '@Url.Content("~/Utility/SessionIsAlive")';
         var internalSignOutUrl = '@Url.Content("~/Utility/InternalSignOut")';
 

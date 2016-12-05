@@ -226,8 +226,8 @@ namespace Fanex.Athena.Controllers.Customer
                 CurrencyList = userSession.CurrencyList,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
-                IsAllowedUserEditComm = userSession.IsAllowedEditCommission,
-                IsAllowedUserChangeBA = userSession.IsAllowedSpecialBA,
+                IsAllowedUserEditComm = SessionService.IsAllowedEditCommission(userSession),
+                IsAllowedUserChangeBA = SessionService.IsAllowedSpecialBA(userSession),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
             if (licenseeSession.IsAllowedCustomerComm)
@@ -261,7 +261,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var specialBaPermission = userSession.IsAllowedSpecialBA;
+            var specialBaPermission = SessionService.IsAllowedSpecialBA(userSession);
             var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             var request = new Request
             {

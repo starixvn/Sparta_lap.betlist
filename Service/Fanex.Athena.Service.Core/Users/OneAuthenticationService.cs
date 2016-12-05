@@ -256,7 +256,6 @@
                 UserId = tokenInfo.UserSEQ,
                 OnUserId = tokenInfo.UserSEQ,
                 UserName = tokenInfo.UserID,
-                IsAdmin = false,
                 IsInternal = true,
                 FunctionIdList = new List<int>(),
                 PortalFunctionList = GetFunctionList(),
@@ -266,7 +265,8 @@
                 ApplicationMode = AppMode.Parasitic,
                 VendorID = tokenInfo.VendorID,
                 VendorIdentityID = tokenInfo.UserID,
-                ViewType = ClientViewType.Desktop
+                ViewType = ClientViewType.Desktop,
+                HostDomain = tokenInfo.HostDomain
             };
 
             _sessionService.CreateNewSession(userSerssion, licSession);

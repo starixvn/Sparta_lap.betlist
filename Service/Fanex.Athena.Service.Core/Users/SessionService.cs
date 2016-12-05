@@ -98,7 +98,6 @@ namespace Fanex.Athena.Service.Core.Users
             string language = "en-US")
         {
             var licenseeList = _licenseeService.GetByUser(userId);
-            var isAdmin = licenseeList != null & licenseeList.Count > 0;
             var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
             var functionIdList = functionList.Select(f => f.FunctionId).ToList();
 
@@ -107,7 +106,6 @@ namespace Fanex.Athena.Service.Core.Users
                 UserId = userId,
                 OnUserId = onuserId,
                 UserName = userName,
-                IsAdmin = isAdmin,
                 IsInternal = isInternal,
                 FunctionIdList = functionIdList,
                 Language = language,
@@ -156,6 +154,20 @@ namespace Fanex.Athena.Service.Core.Users
             }
 
             return false;
+        }
+        public bool IsAllowedEditCommission(UserSession user)
+        {
+            return user.ApplicationMode == AppMode.Parasitic ? user.PortalFunctionList != null && user.PortalFunctionList.Any(i => i.FunctionKey == PermissionKeys.CustomerInfoCommissionGroupList)
+                : user.FunctionIdList != null && user.FunctionIdList.Contains((int)FunctionType.CommissionGroupList);
+
+
+        }
+
+        public bool IsAllowedSpecialBA(UserSession user)
+        {
+            return user.ApplicationMode == AppMode.Parasitic ? user.PortalFunctionList != null && user.PortalFunctionList.Any(i => i.FunctionKey == PermissionKeys.CustomerInfoSpecialBA)
+                : user.FunctionIdList != null && user.FunctionIdList.Contains((int)FunctionType.SpecialBA);
+
         }
 
         public void CreateNewSession(UserSession user, LicenseeSession lic)
