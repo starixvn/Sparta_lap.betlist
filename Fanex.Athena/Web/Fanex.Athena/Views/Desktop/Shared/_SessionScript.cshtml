@@ -4,7 +4,7 @@
         var url = (window.location != window.parent.location)
         ? document.referrer
         : document.location.href;
-        var sessionUrl = url + "/ExternalApi/SessionIsAlive?callback=?";
+        var sessionUrl = url + "/ExternalApi/SessionIsAlive";
         var internalSessionUrl = '@Url.Content("~/Utility/SessionIsAlive")';
         var internalSignOutUrl = '@Url.Content("~/Utility/InternalSignOut")';
 
