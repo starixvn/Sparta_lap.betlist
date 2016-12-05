@@ -1,6 +1,7 @@
 ﻿
 <script type="text/javascript" language="javascript">
-    window.onload = function () {
+
+    $(document).ready(function () {
         $(function () {
             var lastUpdate = 0;
             var url = (window.location != window.parent.location)
@@ -28,8 +29,8 @@
             $(document).keydown(function () {
                 lastUpdate = new Date().getTime();
             });
-        });
+        })();
 
-    };
+    });
 
 </script>
