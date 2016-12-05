@@ -265,8 +265,7 @@
                 ApplicationMode = AppMode.Parasitic,
                 VendorID = tokenInfo.VendorID,
                 VendorIdentityID = tokenInfo.UserID,
-                ViewType = ClientViewType.Desktop,
-                HostDomain = tokenInfo.HostDomain
+                ViewType = ClientViewType.Desktop
             };
 
             _sessionService.CreateNewSession(userSerssion, licSession);

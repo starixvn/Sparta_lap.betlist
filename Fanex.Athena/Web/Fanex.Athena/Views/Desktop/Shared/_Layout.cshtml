@@ -58,7 +58,6 @@
     @RenderSection("js", required: false)
     @if (isParasiticMode)
     {
-        <input type="hidden" value="@userSession.HostDomain" id="hostdomain" />
         Html.RenderPartial("~/Views/Desktop/Shared/_SessionScript.cshtml");
     }
     @if (appSettings.IsEnablePiwik)

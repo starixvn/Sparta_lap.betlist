@@ -4,19 +4,22 @@
         var url = (window.location != window.parent.location)
         ? document.referrer
         : document.location.href;
-        var sessionUrl = "http://licadmin.playthefun.com/spondemo/ExternalApi/SessionIsAlive?callback=?";
+        var sessionUrl = url + + "ExternalApi/SessionIsAlive?callback=?";
         var internalSessionUrl = '@Url.Content("~/Utility/SessionIsAlive")';
         var internalSignOutUrl = '@Url.Content("~/Utility/InternalSignOut")';
 
         var checkInterval = setInterval(function () {
             if (new Date().getTime() - lastUpdate >= 900000) {
+
+                $.getJSON(internalSessionUrl, function (data) {
+                    if (data === "false") {
+                        document.location.href = internalSignOutUrl;
+                    }
+                });
+
                 $.getJSON(sessionUrl, function (data) {
-                    if (data.IsAlive === "true") {
-                        $.getJSON(internalSessionUrl, function (data) {
-                            if (data === "false") {
-                                document.location.href = internalSignOutUrl;
-                            }
-                        });
+                    if (data.IsAlive === "false") {
+                        document.location.href = internalSignOutUrl;
                     }
                 });
 

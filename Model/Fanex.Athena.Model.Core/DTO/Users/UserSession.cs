@@ -56,6 +56,5 @@ namespace Fanex.Athena.Model.Core.DTO.Users
         public ClientViewType ViewType { get; set; }
 
         public AppMode ApplicationMode { get; set; }
-        public string HostDomain { get; set; }
     }
 }
