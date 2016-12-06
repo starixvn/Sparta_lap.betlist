@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_ErrorLayout.cshtml";
+    Page.Title = Fanex.Athena.Resources.ViewResources.UnderMaintenance;
+}
+
+@section head{
+    <style type="text/css">
+        .text_time {
+            color: #F00;
+            font-weight: bold;
+        }
+    </style>
+
+    <script type="text/javascript">
+        if (window.parent != window) {
+            window.parent.location = location.href;
+        }
+    </script>
+}
+
+@section message{
+    @Fanex.Athena.Resources.ViewResources.UnderMaintenance
+}
+
+<p class="text_time">
+    @ViewBag.UmTimeFrom
+    <font color="#555">until</font>
+    @ViewBag.UmTimeTo
+</p>
+<p class="text_time">
+    @ViewBag.UmTimeFrom
+    <font color="#555">至</font>
+    @ViewBag.UmTimeTo
+</p>

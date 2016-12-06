@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -1178,6 +1178,12 @@
     <Content Include="Views\Desktop\Shared\_SessionScript.cshtml" />
     <Content Include="Views\Desktop\Utility\OneTokenRestriction.cshtml" />
     <Content Include="Views\Shared\_SessionScript.cshtml" />
+    <Content Include="Views\Desktop\Shared\_ErrorLayout.cshtml" />
+    <Content Include="Views\Desktop\Utility\AccessDenied.cshtml" />
+    <Content Include="Views\Desktop\Utility\Error.cshtml" />
+    <Content Include="Views\Desktop\Utility\LocationRestriction.cshtml" />
+    <Content Include="Views\Desktop\Utility\SSODenyAccess.cshtml" />
+    <Content Include="Views\Desktop\Utility\UnderMaintenance.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />

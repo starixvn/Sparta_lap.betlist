@@ -46,9 +46,8 @@ namespace Fanex.Athena.Controllers
 
         public ActionResult AccessDenied()
         {
-            return View("~/Views/Utility/AccessDenied.cshtml");
+            return View("~/Views/Desktop/Utility/AccessDenied.cshtml");
         }
-
 
         public ActionResult OneTokenRestriction(int code)
         {
@@ -104,7 +103,7 @@ namespace Fanex.Athena.Controllers
             }
 
             ViewBag.Message = message;
-            return View("~/Views/Utility/SSODenyAccess.cshtml");
+            return View("~/Views/Desktop/Utility/SSODenyAccess.cshtml");
         }
 
         public ActionResult LocationRestriction()
@@ -112,7 +111,7 @@ namespace Fanex.Athena.Controllers
             var requestHost = Request.Url.AbsoluteUri;
             var isInternalDomain = requestHost.Contains(ConfigurationManager.AppSettings["internaldomain"]);
 
-            return isInternalDomain ? (ActionResult)RedirectToAction("SignIn", "Authorization") : View("~/Views/Utility/LocationRestriction.cshtml");
+            return isInternalDomain ? (ActionResult)RedirectToAction("SignIn", "Authorization") : View("~/Views/Desktop/Utility/LocationRestriction.cshtml");
         }
 
         /// <summary>
@@ -154,7 +153,7 @@ namespace Fanex.Athena.Controllers
             }
 
             ViewBag.Message = errorStr;
-            return View("~/Views/Utility/Error.cshtml");
+            return View("~/Views/Desktop/Utility/Error.cshtml");
         }
 
         public ActionResult UnderMaintenance(bool notReload = false)
@@ -181,7 +180,7 @@ namespace Fanex.Athena.Controllers
 
             ViewBag.UmTimeFrom = underMaintenanceTimeFrom;
             ViewBag.UmTimeTo = underMaintenanceTimeTo;
-            return View("~/Views/Utility/UnderMaintenance.cshtml");
+            return View("~/Views/Desktop/Utility/UnderMaintenance.cshtml");
         }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
@@ -212,8 +211,10 @@ namespace Fanex.Athena.Controllers
 
                 case OneAuthorizationErrorCode.YouAreNotAllowToAccessThisPage:
                     return ViewResources.YouAreNotAllowToAccessThisPage;
+
                 case OneAuthorizationErrorCode.NotFoundUser:
                     return ViewResources.UserNotExist;
+
                 default:
                     return ViewResources.OneTokenRestrictionDefaultMsg;
             }
