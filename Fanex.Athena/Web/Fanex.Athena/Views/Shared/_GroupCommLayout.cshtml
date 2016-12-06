@@ -13,7 +13,7 @@
 }
 @{
     var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
-    var isAppModeSelf = userSession != null ? false : userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Self;
+    var isAppModeSelf = userSession == null ? true : userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Self;
 }
 <div class="content-title @(isAppModeSelf ? string.Empty: "hide")">
     @RenderSection("ContentTitle")
