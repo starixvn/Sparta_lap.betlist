@@ -4,9 +4,12 @@
 @model Fanex.Athena.Model.Core.ViewModel.HeaderPageViewModel
 
 <nav class="nav-wrapper">
-    <a href="#" class="logo toggleMenubar" id="js-toggleMenubar" data-activates="nav-mobile">
+    <a href="#" class="logo">
         <span class="logo-image"><img src="@Url.Content("~/www/assets/images/logo.svg")" /></span>
-        <span class="logo-text hide-on-med-and-down"><img src="@Url.Content("~/www/assets/images/logo-text.svg")" /> </span>
+        <span class="logo-text hide-on-med-and-down"><img src="@Url.Content("~/www/assets/images/logo-text.svg")" /></span>
+        <span class="icon-hambuger toggleMenubar" id="js-toggleMenubar" data-activates="nav-mobile">
+            <span class="lines"></span>
+        </span>
     </a>
     <div class="page-title hide-on-small-and-down"><span id="page-title" class="active">@ViewResources.Balance</span></div>
 

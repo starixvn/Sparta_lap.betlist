@@ -15,12 +15,11 @@ header {
     font-size: 20px;
 }
 
-
 .navbar-fixed {
     height: 64px;
     position: fixed;
     top: 0;
-        right: 0;
+    right: 0;
 
     nav {
         height: 64px;
@@ -30,28 +29,14 @@ header {
     }
 }
 
-@media only screen and (min-width: 601px) {
-    .navbar-fixed {
-        //height: 78px;
-    }
-}
-
-/*.logo-block {
-    overflow: hidden;
-    background-color: #314453;
-    z-index: 9999;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
-}*/
-
 .logo {
     padding-left: 15px;
-    padding-right: 25px;
-   // transition: 0.1s ease all;
+    padding-right: 15px;
     height: 64px;
     line-height: 64px;
     float: left;
     background: #314453;
-    //width: 260px;
+
     img {
         vertical-align: middle;
     }
@@ -65,7 +50,43 @@ header {
         margin-left: 10px;
 
         img {
-            width: 167px;
+            max-width: 129px;
+        }
+    }
+
+    .icon-hambuger {
+        display: inline-block;
+        width: 3rem;
+        text-align: center;
+        margin-left: 21px;
+    }
+
+    .lines {
+        background: #fff;
+        width: 16px;
+        height: 2px;
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+
+        &:before, &:after {
+            content: "";
+            background: #fff;
+            width: 16px;
+            height: 2px;
+            display: inline-block;
+        }
+
+        &:before {
+            position: absolute;
+            left: 0;
+            top: 5px;
+        }
+
+        &:after {
+            position: absolute;
+            left: 0;
+            top: -5px;
         }
     }
 
@@ -84,15 +105,13 @@ header {
 }
 
 .nav-wrapper {
-    //transition: 0.3s ease all;
-
     .page-title {
         float: left;
         vertical-align: middle;
         font-size: 15px;
         padding: 0 20px;
 
-        @media (max-width: 992px) {            
+        @media (max-width: 992px) {
             position: absolute;
             left: 50px;
         }
@@ -400,28 +419,21 @@ header {
     }
 }
 
-
-/*@media (max-device-width: 1280px) and (orientation: landscape) {
-    .nav-wrapper {
-        padding-left: 0;
-    }
-
-    .nav-wrapper .toggleMenubar .icon-backburger {
-        transform: rotate(180deg);
-    }
-}*/
-
 .site-menubar-fold {
     .logo {
         width: 70px;
 
-        .logo-text {
+        .logo-text, .logo-image {
             display: none;
+        }
+
+        .icon-hambuger {
+            padding-left: 12px;
+            margin-left: 0;
         }
     }
 
     .nav-wrapper {
-        //padding-left: 70px;
         .toggleMenubar {
             .icon-backburger {
                 transform: rotate(180deg);
