@@ -151,7 +151,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B/O/N team to score.
+        ///   Looks up a localized string similar to B/O/N Team To Score.
         /// </summary>
         public static string Menu_19 {
             get {
@@ -169,7 +169,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To win to nil.
+        ///   Looks up a localized string similar to To Win To Nil.
         /// </summary>
         public static string Menu_20 {
             get {

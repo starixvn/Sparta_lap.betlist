@@ -148,13 +148,13 @@
     <value>Home/Draw/Away No Bet</value>
   </data>
   <data name="Menu_19" xml:space="preserve">
-    <value>B/O/N team to score</value>
+    <value>B/O/N Team To Score</value>
   </data>
   <data name="Menu_2" xml:space="preserve">
     <value>FORECAST</value>
   </data>
   <data name="Menu_20" xml:space="preserve">
-    <value>To win to nil</value>
+    <value>To Win To Nil</value>
   </data>
   <data name="Menu_21" xml:space="preserve">
     <value>3-Way Handicap</value>
