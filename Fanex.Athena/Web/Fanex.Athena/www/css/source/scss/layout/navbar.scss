@@ -422,14 +422,15 @@ header {
 .site-menubar-fold {
     .logo {
         width: 70px;
+        padding: 0;
 
         .logo-text, .logo-image {
             display: none;
         }
 
         .icon-hambuger {
-            padding-left: 12px;
             margin-left: 0;
+            width: 100%;
         }
     }
 
