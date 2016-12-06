@@ -706,6 +706,9 @@
     <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
     <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
     <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
+    <Content Include="Content\Plugin\ColorPicker\images\checked-dark.png" />
+    <Content Include="Content\Plugin\ColorPicker\images\transparent.png" />
+    <Content Include="Content\Plugin\ColorPicker\images\checked-light.png" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new.conf.js" />
     <Content Include="www\assets\images\15.jpg" />
