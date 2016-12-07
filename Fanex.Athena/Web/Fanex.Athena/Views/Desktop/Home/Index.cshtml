@@ -25,8 +25,8 @@
             @{Html.RenderAction("Index", "Header"); }
         </div>
     </header>
-
-    <ul id="nav-mobile" class="side-nav fixed mCustomScrollbar light" data-mcs-theme="minimal-dark">
+    <!-- overflow: hidden Cheat to not show ugly scollbar at loading time-->
+    <ul id="nav-mobile" class="side-nav fixed mCustomScrollbar light" data-mcs-theme="minimal-dark" style="overflow: hidden">
         <li class="site-menu" id="left-menu">
             @{Html.RenderAction("Index", "Menu"); }
         </li>
