@@ -40,6 +40,10 @@ main {
     top: 64px;
     bottom: 0;
     transition: 0.3s ease all;
+
+    @media (max-width: 500px) {
+        top: 98px;
+    }
 }
 
 @media only screen and (max-width: 992px) {
