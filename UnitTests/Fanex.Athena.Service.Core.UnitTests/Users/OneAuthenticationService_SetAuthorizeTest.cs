@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Web;
     using Core.Common.Interfaces;
@@ -21,7 +20,6 @@
     public class OneAuthenticationService_SetAuthorizeTest
     {
         private OneAuthenticationService _oneAuthenticationService;
-        private TextReader _fakeTextReader;
         private ISessionService _sessionService;
         private ILicenseeService _licenseeService;
         private ICurrencyService _currencyService;
@@ -31,7 +29,6 @@
         [SetUp]
         public void SetUp()
         {
-            _fakeTextReader = new FakeFunctionReader();
             _sessionService = Substitute.For<ISessionService>();
             _licenseeService = Substitute.For<ILicenseeService>();
             _currencyService = Substitute.For<ICurrencyService>();
@@ -46,7 +43,6 @@
         [TearDown]
         public void TearDown()
         {
-            _fakeTextReader = null;
             _oneAuthenticationService = null;
             _sessionService = null;
             _licenseeService = null;
@@ -110,7 +106,7 @@
             Licensee expectedLicInfo;
             var expectedCurrency = FakeCurrencyListMapByUser();
             CreateTokenInfoAndLicInfo(ExpectedLicId, out tokenInfo, out expectedLicInfo);
-            var expectedCookie = $"{tokenInfo.UserID}_{tokenInfo.VendorID}_{tokenInfo.SiteName}";
+            var expectedCookie = $"{tokenInfo.VendorID}_{tokenInfo.SiteName}_{tokenInfo.UserID}";
             var expectedAgents = new List<LicenseeCustomer> { new LicenseeCustomer() };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
@@ -131,7 +127,7 @@
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
                 _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
 
-            _oneAuthenticationService.GetStringFromFile(Arg.Any<string>()).Returns(_fakeTextReader.ReadToEnd());
+            _oneAuthenticationService.GetStringFromFile(Arg.Any<string>()).Returns(GetJsonSystemFunctionList());
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
@@ -199,17 +195,14 @@
             return new Dictionary<string, int>() { { "UUS", 1 } };
         }
 
-        private class FakeFunctionReader : TextReader
+        private string GetJsonSystemFunctionList()
         {
-            public override string ReadToEnd()
-            {
-                var items = new List<PortalSystemFunction>
+            var items = new List<PortalSystemFunction>
                 {
                     new PortalSystemFunction { FunctionId = 1, FunctionKey = "LicenseeWinLoss" },
                     new PortalSystemFunction { FunctionId = 1, FunctionKey = "BalanceReport" }
                 };
-                return JsonConvert.SerializeObject(items);
-            }
+            return JsonConvert.SerializeObject(items);
         }
     }
 }
