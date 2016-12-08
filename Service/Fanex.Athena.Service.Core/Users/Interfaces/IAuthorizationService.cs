@@ -7,6 +7,8 @@
 namespace Fanex.Athena.Service.Core.Users.Interfaces
 {
     using System.Collections.Generic;
+    using Model.Core.DataDomain;
+    using Model.Core.DTO;
 
     /// <summary>
     /// Authorization Service class.
@@ -16,6 +18,8 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
         bool HasPermissions(IEnumerable<int> userFunctionList, string[] permissionKeys);
+
+        bool HasPermissions(IEnumerable<PortalSystemFunction> userFunctionList, string[] permissionKeys);
 
         bool HasPermissionOnData(int licenseeId, int custId, long transId);
     }

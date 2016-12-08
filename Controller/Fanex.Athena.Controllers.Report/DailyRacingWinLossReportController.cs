@@ -23,10 +23,11 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Index()
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var metaModel = new DailyRacingWinLossMetaModel
             {
                 LicenseeId = licenseeSession.LicenseeId,
-                UserId = licenseeSession.UserId,
+                UserId = userSession.UserId,
                 BalanceUpDay = this.BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString()
             };
 
@@ -37,7 +38,7 @@ namespace Fanex.Athena.Controllers.Report
                 ShowEmptyContent = true,
                 Param = metaModel,
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                CurrencyList = SessionService.UserSession.CurrencyList,
+                CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
             };
 
@@ -49,8 +50,9 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Index(DailyRacingWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = licenseeSession.UserId;
+            metaModel.UserId = userSession.UserId;
             metaModel.BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString();
             var dailyRacingWinLossService = new DailyRacingWinLossService();
             var dailyRacingWlData = dailyRacingWinLossService.GetDailyRacingWinLossData(metaModel);
@@ -59,7 +61,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 Param = metaModel,
                 LicenseeTypeList = licenseeSession.LicenseeType,
-                CurrencyList = SessionService.UserSession.CurrencyList,
+                CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 DailyRacingWinLossData = dailyRacingWlData
             };

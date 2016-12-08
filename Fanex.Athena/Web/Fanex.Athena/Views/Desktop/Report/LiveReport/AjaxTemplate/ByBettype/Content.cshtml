@@ -1,0 +1,21 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
+
+<div class="panel-body">
+    <div class="table-title"><span>@ViewResources.ByBetType</span></div>
+    @if (Model.ByBetType == null || Model.ByBetType.Count == 0)
+    {
+        <p class="no-info-row">@ViewResources.NoInfo</p>
+    }
+    else
+    {
+        <table class="table table-bordered">
+            <thead>
+                @{ Html.RenderPartial("~/Views/Desktop/Report/LiveReport/AjaxTemplate/ByBettype/Content.Header.cshtml"); }
+            </thead>
+
+            <tbody>
+                @{ Html.RenderPartial("~/Views/Desktop/Report/LiveReport/AjaxTemplate/ByBettype/Content.Data.cshtml"); }
+            </tbody>
+        </table>
+    }
+</div>

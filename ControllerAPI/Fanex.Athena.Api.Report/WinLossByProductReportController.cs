@@ -24,6 +24,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Resources;
+    using Service.Core.Utility;
     using Service.Report;
     using Service.Report.Interfaces;
 
@@ -247,13 +248,9 @@ namespace Fanex.Athena.Api.Report
         private bool IsValidRequest(WinLossByProductMetaModel metaModel, int currencyId = 0)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
-            var validModel = (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
-                             || currencyList.Values.Contains(metaModel.CurrencyId);
-            var validCurrency = (currencyId <= 0 && currencyId >= SystemConstants.MinBaseCurrencyType)
-                                 || currencyList.Values.Contains(currencyId)
-                                 || (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Cny);
-
-            return validModel && validCurrency;
+            return (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
+                  || currencyList.Values.Contains(metaModel.CurrencyId)
+                  || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
         }
 
         /// <summary>
@@ -267,6 +264,7 @@ namespace Fanex.Athena.Api.Report
         /// <param name="custId">Customer Id.</param>
         /// <param name="memberId">Member Id.</param>
         /// <param name="systemId">System Id.</param>
+        /// <param name="currencyName">todo: describe currencyName parameter on ProcessRequest</param>
         /// <returns>Dynamic type.</returns>
         [SuppressMessage(
            "StyleCop.CSharp.StylecopPlus.Rules",
@@ -321,7 +319,7 @@ namespace Fanex.Athena.Api.Report
 
             resultInfo.Message = GetErrorMessage(resultInfo.Code);
 
-            if (memberId == 0 && string.IsNullOrWhiteSpace(resultInfo.ExtendedData) == false)
+            if (memberId == 0 && !string.IsNullOrWhiteSpace(resultInfo.ExtendedData))
             {
                 var extendedItems = resultInfo.ExtendedData.Split(';');
                 memberId = string.IsNullOrWhiteSpace(extendedItems[0]) ? 0 : Convert.ToInt32(extendedItems[0]);

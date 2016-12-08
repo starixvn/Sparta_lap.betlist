@@ -65,7 +65,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            var isExportedExcel = Request.Form["exporttoexcel.x"] != null;
+            var isExportedExcel = metaModel.IsExportExcel || Request.Form["exporttoexcel.x"] != null;
             var balance = BalanceUpService.BalanceUpInfo;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
@@ -92,10 +92,11 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult MatchList(LiveReportMatchListMetalModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = licenseeSession.UserId;
+            metaModel.UserId = userSession.UserId;
 
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             var liveReportService = new LiveReportService();
             var dataList = liveReportService.GetLiveReportWinLossByMatch(metaModel);
 
@@ -117,10 +118,11 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Detail(LiveReportMetalModel metaModel, string productCode)
         {
             var licenseeSession = this.SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = licenseeSession.UserId;
+            metaModel.UserId = userSession.UserId;
 
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             var balanceUpDay = this.BalanceUpService.BalanceUpInfo.BalanceUpDay;
 
             IList<LiveReport> dataByCurrency;

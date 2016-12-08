@@ -1090,8 +1090,10 @@ var CustomerList = (function ($) {
 if (!window._IsInJsTestingMode) {
     $(document).ready(function () {
         "use strict";
-        parent.document.title = 'LRF - ' + $('.content-title').html();
-
+        try {
+            parent.document.title = 'LRF - ' + $('.content-title').html();
+        }
+        catch(e) {}
         CustomerList.initialize();
         Site.keepBlockingAfterInit = true;
 

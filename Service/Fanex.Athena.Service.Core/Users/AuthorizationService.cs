@@ -15,6 +15,7 @@ namespace Fanex.Athena.Service.Core.Users
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Model.Core.DTO;
 
     public class AuthorizationService : IAuthorizationService
     {
@@ -39,6 +40,11 @@ namespace Fanex.Athena.Service.Core.Users
             var functions = allFunctions.Where(x => permissionKeys.Contains(x.FunctionKey, StringComparer.InvariantCultureIgnoreCase));
 
             return functions.Any() && userFunctionIds.Any(id => functions.Any(x => x.FunctionId == id));
+        }
+
+        public bool HasPermissions(IEnumerable<PortalSystemFunction> userFunctionList, string[] permissionKeys)
+        {
+            return userFunctionList.Any(x => permissionKeys.Contains(x.FunctionKey, StringComparer.InvariantCultureIgnoreCase));
         }
 
         [DebuggerStepThrough]

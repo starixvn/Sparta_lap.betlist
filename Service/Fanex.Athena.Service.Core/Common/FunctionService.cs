@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Core.Common
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -160,7 +161,7 @@ namespace Fanex.Athena.Service.Core.Common
             var message = string.Empty;
             var addedFailure = string.Empty;
 
-            IResultInfo addedResultInfo = AddUserToFunction(licenseeId, custId, userId, ip, langKey, addingIdList, ref addedFailure);
+            var addedResultInfo = AddUserToFunction(licenseeId, custId, userId, ip, langKey, addingIdList, ref addedFailure);
 
             RemoveUserFromFunction(licenseeId, custId, userId, ip, langKey, removingIdList, ref code, ref message, ref addedFailure, addedResultInfo);
 
@@ -308,6 +309,7 @@ namespace Fanex.Athena.Service.Core.Common
             };
 
             var deletedFailure = string.Empty;
+            var builderDeletedFailure = new StringBuilder();
 
             foreach (var function in removingIdList)
             {
@@ -315,10 +317,12 @@ namespace Fanex.Athena.Service.Core.Common
 
                 if (!tempResult.IsSuccessful)
                 {
-                    deletedFailure += function.ToString() + ",";
+                    builderDeletedFailure.Append(function.ToString() + ",");
                     deletedResultInfo = tempResult;
                 }
             }
+
+            deletedFailure = builderDeletedFailure.ToString();
 
             if (!string.IsNullOrEmpty(addedFailure))
             {

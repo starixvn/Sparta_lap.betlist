@@ -3,12 +3,14 @@
     using System;
     using System.Collections.Generic;
     using Core.Common.Interfaces;
+    using Core.Users;
+    using Core.Users.Interfaces;
     using DataAccess.Core.Users.Interfaces;
+    using Model.Core.DTO;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
-    using Users;
-    using Users.Interfaces;
 
     [TestFixture]
     public class AuthorizationServiceTest
@@ -17,12 +19,20 @@
         private IFunctionService _functionService;
         private IAuthorizationService _authorizationService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _authorizationDataAccess = Substitute.For<IAthorizationDataAccess>();
             _functionService = Substitute.For<IFunctionService>();
             _authorizationService = new AuthorizationService(_authorizationDataAccess, _functionService);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _authorizationDataAccess = null;
+            _functionService = null;
+            _authorizationService = null;
         }
 
         [TestCase(1, "Function1", true)]
@@ -31,14 +41,34 @@
         public void HasPermissions_WhenCall_ReturnCorrectResult(int userFunction, string permissionKey, bool expectedResult)
         {
             // Arrange
-            var allFunctions = new List<Function>()
+            var allFunctions = new List<Function>
             {
-                new Function() { FunctionId = 1, FunctionKey = "Function1" },
-                new Function() { FunctionId = 2, FunctionKey = "Function2" }
+                new Function { FunctionId = 1, FunctionKey = "Function1" },
+                new Function { FunctionId = 2, FunctionKey = "Function2" }
             };
             var userFunctions = new int[] { userFunction };
             var permissionKeys = new string[] { permissionKey };
             _functionService.Functions.Returns(allFunctions);
+
+            // Action
+            var result = _authorizationService.HasPermissions(userFunctions, permissionKeys);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [TestCase("Function1", true)]
+        [TestCase("Function2", true)]
+        [TestCase("Function3", false)]
+        public void HasPermissions_WhenCall_ReturnCorrectResult(string permissionKey, bool expectedResult)
+        {
+            // Arrange
+            var userFunctions = new List<PortalSystemFunction>
+            {
+                new PortalSystemFunction { FunctionKey = "Function1" },
+                new PortalSystemFunction { FunctionKey = "Function2" }
+            };
+            var permissionKeys = new string[] { permissionKey, "unknown_function" };
 
             // Action
             var result = _authorizationService.HasPermissions(userFunctions, permissionKeys);

@@ -1,0 +1,41 @@
+﻿@using Fanex.Athena.Extension.Utility;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <title>@ViewBag.Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="@Url.ContentLink("/www/css/build/main.css")" rel="stylesheet" />
+    <link href="@Url.ContentLink("/www/css/build/pages/home/home.css")" rel="stylesheet" />
+</head>
+<body>
+    <input type="hidden" id="HasRecheckIn" value="@ViewBag.HasRecheckIn" />
+    <input type="hidden" id="IsInternal" value="@ViewBag.IsInternal" />
+    <input type="hidden" id="OnUserId" value="@ViewBag.OnUserId" />
+    <input type="hidden" id="RootUrl" value="@Url.Content("~")" />
+    <input type="hidden" id="DefaultUrl" value="@Url.Content("~/" + ViewBag.DefaultReportUrl)" />
+    <header>
+        <div class="navbar-fixed" id="header">
+            @{Html.RenderAction("Index", "Header"); }
+        </div>
+    </header>
+    <!-- overflow: hidden Cheat to not show ugly scollbar at loading time-->
+    <ul id="nav-mobile" class="side-nav fixed mCustomScrollbar light" data-mcs-theme="minimal-dark">
+        <li class="site-menu" id="left-menu">
+            @{Html.RenderAction("Index", "Menu"); }
+        </li>
+    </ul>
+
+    <main class="main">
+        <iframe id="mainFrame" name="main" data-src="@(Util.RootPath + ViewBag.DefaultReportUrl)" frameborder="0" scrolling="auto"></iframe>
+    </main>
+    <script src="@Url.ContentLink("/www/js/build/common.chunk.js")"></script>
+    <script src="@Url.ContentLink("/www/js/build/pages/home/home.chunk.js")"></script>
+</body>
+</html>

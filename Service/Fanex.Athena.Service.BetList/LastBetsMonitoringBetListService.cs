@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Service.BetList
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Core.Common;
     using Fanex.Athena.DataAccess.BetList;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
@@ -15,6 +13,8 @@ namespace Fanex.Athena.Service.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class LastBetsMonitoringBetListService : ILastBetsMonitoringBetListService
     {
@@ -181,7 +181,8 @@ namespace Fanex.Athena.Service.BetList
             foreach (LrfTicket ticket in mainTicketList)
             {
                 var isOutright = IsOutright(ticket.BetTypeId);
-                var match = (isOutright ? outrightMatchList : matchList).Where(x => x.MatchId == ticket.MatchId).FirstOrDefault();
+
+                var match = (isOutright ? outrightMatchList : matchList).FirstOrDefault(x => x.MatchId == ticket.MatchId);
 
                 if (match != null)
                 {
@@ -199,7 +200,6 @@ namespace Fanex.Athena.Service.BetList
                     ticket.TransDate = ticket.TransDate.ToUniversalTime().AddHours(timeZoneDelta).ToLocalTime();
                 }
 
-                //// Update odds
                 if (metaModel.OddsType.ToLower() == "dec" && IsConvertToOdd(ticket.BetTypeId))
                 {
                     ConvertToDecimalOdds(ticket);

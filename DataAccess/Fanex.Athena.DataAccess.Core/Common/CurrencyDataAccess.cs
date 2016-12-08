@@ -22,11 +22,42 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Logging;
     using Model.Core.MetaModel.Account;
 
-    /// <summary>
-    /// Currency Data access.
-    /// </summary>
     public class CurrencyDataAccess : BaseDataAccess, ICurrencyDataAccess
     {
+        public IList<CurrencyUser> GetCurrencies(int licenseeId)
+        {
+            const string UspName = "Lrf_SelCurrencyByLicensee";
+            var uspParams = new { LicenseeId = licenseeId };
+            try
+            {
+                var entityList = new List<CurrencyUser>();
+                using (var db = this.GetObjectDb(UspName))
+                {
+                    using (var reader = db.ExecuteReader(uspParams))
+                    {
+                        while (reader.Read())
+                        {
+                            var currency = new CurrencyUser
+                            {
+                                CurrencyId = reader.GetInt32(reader.GetOrdinal("Currency")),
+                                CurrencyName = reader.GetString(reader.GetOrdinal("CurrencyName")),
+                                IsActive = true
+                            };
+
+                            entityList.Add(currency);
+                        }
+                    }
+                }
+
+                return entityList;
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+            }
+        }
+
         /// <summary>
         /// Assign currencies by user.
         /// </summary>

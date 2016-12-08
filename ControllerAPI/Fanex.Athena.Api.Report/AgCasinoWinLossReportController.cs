@@ -116,18 +116,17 @@ namespace Fanex.Athena.Api.Report
                 out SortableList<AgCasinoWinLoss> dataList,
                 out IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
-            if (metaModel.DrillDownLevel == 0)
-            {
-                dataList = _agcasinoWinLossService.GetSummaryWinloss(metaModel, out summaryTotal);
-            }
-            else
-            {
-                dataList = metaModel.DrillDownLevel == 2
+            dataList = metaModel.DrillDownLevel == 0 ? _agcasinoWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) : metaModel.DrillDownLevel == 2
                                ? _agcasinoWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
                                : _agcasinoWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
-            }
         }
 
+        /// <param name="metaModel">todo: describe metaModel parameter on ProcessRequest</param>
+        /// <param name="fdate">todo: describe fdate parameter on ProcessRequest</param>
+        /// <param name="tdate">todo: describe tdate parameter on ProcessRequest</param>
+        /// <param name="level">todo: describe level parameter on ProcessRequest</param>
+        /// <param name="currencyId">todo: describe currencyId parameter on ProcessRequest</param>
+        /// <param name="custId">todo: describe custId parameter on ProcessRequest</param>
         /// <returns>Dynamic object.</returns>
         private dynamic ProcessRequest(
             AgCasinoWinLossMetaModel metaModel,

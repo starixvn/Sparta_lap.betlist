@@ -12,16 +12,14 @@
     [TestFixture]
     public class CustomerTurnoverDataAccessTest
     {
+        private const string LanguageCode = "en-us";
         private IObjectDb _objectDb;
         private CustomerTurnoverDataAccess _dataAccess;
         private BalanceUp _balance;
         private IDataReader _reader;
         private CustomerTurnoverMetaModel _metaModel;
-        private CustTurnover _totalData;
-        private int _totalRow = 0;
-        private string _languageCode = "en-us";
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
@@ -41,14 +39,27 @@
             {
                 Username = "UsernameTest"
             };
-            _totalData = new CustTurnover();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
+            _metaModel = null;
+            _balance = null;
         }
 
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
+            // Arrange
+            var totalData = new CustTurnover();
+            int totalRow = 0;
+
             // Action
-            _dataAccess.GetDataList(_metaModel, _languageCode, out _totalData, out _totalRow);
+            _dataAccess.GetDataList(_metaModel, LanguageCode, out totalData, out totalRow);
 
             // Assert
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
@@ -60,7 +71,7 @@
             _objectDb.Received().AddInParameter("username", DbType.String, _metaModel.Username);
             _objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
             _objectDb.Received().AddInParameter("balanceupday", DbType.DateTime, _balance.BalanceUpDay);
-            _objectDb.Received().AddInParameter("Langkey", DbType.String, _languageCode);
+            _objectDb.Received().AddInParameter("Langkey", DbType.String, LanguageCode);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
             _objectDb.Received().AddInParameter("currencyid", DbType.Int32, _metaModel.CurrencyId);
@@ -92,12 +103,13 @@
                 SportId = 1,
                 ReportBy = new DateTime(2016, 8, 31)
             };
-
+            var totalData = new CustTurnover();
+            int totalRow = 0;
             ConfigureReaderForTotalData(expectedTotalData);
             ConfigureReaderForResult(expectedResult);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel, _languageCode, out _totalData, out _totalRow)[0];
+            var result = _dataAccess.GetDataList(_metaModel, LanguageCode, out totalData, out totalRow)[0];
 
             // Assert
             Assert.That(result.Turnover, Is.EqualTo(expectedResult.Turnover));
@@ -111,13 +123,13 @@
             Assert.That(result.EffectiveBettingValue, Is.EqualTo(expectedResult.EffectiveBettingValue));
             Assert.That(result.CustomerComm, Is.EqualTo(expectedResult.CustomerComm));
 
-            Assert.That(_totalData.TotalTransactions, Is.EqualTo(expectedTotalData.TotalTransactions));
-            Assert.That(_totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
-            Assert.That(_totalData.CustomerWinLoss, Is.EqualTo(expectedTotalData.CustomerWinLoss));
-            Assert.That(_totalData.CustomerComm, Is.EqualTo(expectedTotalData.CustomerComm));
-            Assert.That(_totalData.EffectiveBettingValue, Is.EqualTo(expectedTotalData.EffectiveBettingValue));
+            Assert.That(totalData.TotalTransactions, Is.EqualTo(expectedTotalData.TotalTransactions));
+            Assert.That(totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
+            Assert.That(totalData.CustomerWinLoss, Is.EqualTo(expectedTotalData.CustomerWinLoss));
+            Assert.That(totalData.CustomerComm, Is.EqualTo(expectedTotalData.CustomerComm));
+            Assert.That(totalData.EffectiveBettingValue, Is.EqualTo(expectedTotalData.EffectiveBettingValue));
 
-            Assert.That(_totalRow, Is.EqualTo(100));
+            Assert.That(totalRow, Is.EqualTo(100));
         }
 
         private void ConfigureReaderForResult(CustTurnover expected)

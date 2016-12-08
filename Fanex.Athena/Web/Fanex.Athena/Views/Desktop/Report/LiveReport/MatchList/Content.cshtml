@@ -1,0 +1,56 @@
+﻿@using Fanex.Athena.Model.Core.Helper
+@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportMatchListViewModel
+@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.LiveReport;
+    Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
+}
+@section pagecss {
+    <link href="@Url.ContentLink("/www/css/build/pages/reports/livereport.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/www/js/build/pages/livereport/livereportmatchlist.chunk.js")"></script>
+}
+@section Content
+{
+    <div class="page-results">
+        <a href="javascript:" onclick="history.back();" class="waves-effect waves-light btn btn-back"><i class="icon-arrow left"></i>@ViewResources.Back</a>
+        <div class="result-content">
+            <div class="panel-heading active">
+                <div class="panel-title">
+                    @{var param = Model.Param;}
+                    @CacheRef.GetSportName(param.SportId) -
+                    @(string.Format(ViewResources.Viewin, param.IsConvert ? param.BaseCurrency.ToUpper() : param.CurrencyName.ToUpper()))
+                </div>
+            </div>
+            @if (Model.MainResult.Count == 0)
+            {
+                <p class="no-info-row">@ViewResources.NoInfo</p>
+            }
+            else
+            {
+                <div class="main-content">
+                    <div class="panel-body">
+                        <table class="table table-bordered rpt-match-list">
+                            <thead>
+                                @{ Html.RenderPartial("~/Views/Desktop/Report/LiveReport/MatchList/Content.Header.cshtml"); }
+                            </thead>
+
+                            <tbody>
+                                @{ Html.RenderPartial("~/Views/Desktop/Report/LiveReport/MatchList/Content.Data.cshtml"); }
+                            </tbody>
+                        </table>
+
+                        <input type="hidden" id="ProductCode" value="@Model.Param.ProductCode" />
+                        <input type="hidden" id="SportId" value="@Model.Param.SportId" />
+                        <input type="hidden" id="FromDate" data-original="@Model.Param.FromDate" />
+                        <input type="hidden" id="ToDate" data-original="@Model.Param.ToDate" />
+                        <input type="hidden" id="CurrencyId" data-original="@Model.Param.CurrencyId" />
+                        <input type="hidden" id="CurrencyName" data-original="@Model.CurrencyName" />
+                        <input type="hidden" id="BaseCurrency" data-original="@Model.Param.BaseCurrency" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

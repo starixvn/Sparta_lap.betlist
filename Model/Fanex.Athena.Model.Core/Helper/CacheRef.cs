@@ -6,10 +6,10 @@
 namespace Fanex.Athena.Model.Core.Helper
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Threading;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using RemotingRef;
     using Resources;
@@ -20,18 +20,6 @@ namespace Fanex.Athena.Model.Core.Helper
     public sealed class CacheRef
     {
         private const string MicrogamingResourceKey = "MG_Casino";
-
-        private static IDictionary<string, string> _mapLanguages = new Dictionary<string, string>()
-            {
-                { "en-US", "en" },
-                { "zh-TW", "ch" },
-                { "zh-CN", "cs" },
-                { "zh-Hans", "zhcn" },
-                { "ja-JP", "jp" },
-                { "th-TH", "th" },
-                { "ko-KR", "ko" },
-                { "vi-VN", "vn" }
-            };
 
         private CacheRef()
         {
@@ -137,9 +125,9 @@ namespace Fanex.Athena.Model.Core.Helper
                 languageCode = Thread.CurrentThread.CurrentUICulture.IetfLanguageTag;
             }
 
-            if (_mapLanguages.ContainsKey(languageCode))
+            if (Util.MapLanguages.ContainsKey(languageCode))
             {
-                return _mapLanguages[languageCode];
+                return Util.MapLanguages[languageCode];
             }
 
             return "en";

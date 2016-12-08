@@ -15,7 +15,7 @@
         private TopCustomerDataAccess _dataAccess;
         private IDataReader _reader;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
@@ -24,6 +24,14 @@
 
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_rpt_DWTopCustomerSel")).Returns(_objectDb);
             _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
         }
 
         [Test]

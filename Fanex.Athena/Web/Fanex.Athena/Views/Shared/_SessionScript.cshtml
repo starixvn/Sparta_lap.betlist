@@ -1,0 +1,19 @@
+﻿<script type="text/javascript" language="javascript">
+    $(function () {
+        var lastUpdate = 0;
+        var internalSessionUrl = '@Url.Content("~/Utility/SessionIsAlive")';
+        var internalSignOutUrl = '@Url.Content("~/Utility/InternalSignOut")';
+        var checkInterval = setInterval(function () {
+            if (new Date().getTime() - lastUpdate >= 900000) {
+                $.getJSON(internalSessionUrl, function (data) {
+                    if (data.IsAlive === "false") {
+                        document.location.href = internalSignOutUrl;
+                    }
+                });
+            }
+        }, 180000);
+        $(document).keydown(function () {
+            lastUpdate = new Date().getTime();
+        });
+    });
+</script>

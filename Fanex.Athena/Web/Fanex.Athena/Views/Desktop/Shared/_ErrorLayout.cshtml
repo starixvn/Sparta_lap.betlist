@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>@Page.Title</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <title>Error!!!!!</title>
+        <link href="@Url.ContentLink("/www/css/build/pages/utility/error.css")" rel="stylesheet" />
+
+        @RenderSection("head", false)
+    </head>
+    <body>
+        <div class="error-content">
+            <img src="@Url.Content("~/www/assets/images/robot.jpg")" />
+            <p class="first-line">Oops...</p>
+            <p class="second-line">@RenderSection("message", false)</p>
+            @RenderBody()
+            <a href="#" class="back">
+                <span class="text">&#8592; Take me back to the dashboard</span>
+            </a>
+        </div>
+    </body>
+</html>

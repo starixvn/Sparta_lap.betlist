@@ -86,7 +86,7 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <returns> HTML string.</returns>
         private static string ParseDictonaryToRazorView(int actionId, ActionViewModel viewModel)
         {
-            var templatePath = HostingEnvironment.MapPath(string.Format("~/Views/Customer/CustomerLog/Action/{0}.cshtml", actionId));
+            var templatePath = HostingEnvironment.MapPath($"~/Views/Customer/CustomerLog/Action/{actionId}.cshtml");
             var template = File.ReadAllText(templatePath);
             return Engine.Razor.RunCompile(template, actionId.ToString(), null, viewModel);
         }
@@ -134,8 +134,8 @@ namespace Fanex.Athena.Api.CustomerLog
                 docOld.LoadXml(trackingValueOld);
             }
 
-            XmlElement root = doc.DocumentElement;
-            XmlElement rootOld = docOld.DocumentElement;
+            var root = doc.DocumentElement;
+            var rootOld = docOld.DocumentElement;
             foreach (var attr in actionTypes)
             {
                 if (root != null && root.HasAttribute(attr))

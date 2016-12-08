@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.Report
             SetConvetedUSDCurrencyId(metaModel);
             var sports = this._sportTypeService.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, ProductTypes.Sportsbook);
             var leagues = this._leagueService.GetLeaguesBySport(
-                            new LeagueMetaModel()
+                            new LeagueMetaModel
                             {
                                 LicenseeId = licenseeSession.LicenseeId,
                                 UserId = userSession.UserId,
@@ -77,12 +77,11 @@ namespace Fanex.Athena.Controllers.Report
             {
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
-                ProductAccess = productAccess
+                ProductAccess = productAccess,
+                Sports = sports.ToDictionary(x => x.ID, y => y.Name),
+                Leagues = leagues.ToDictionary(x => x.LeagueId, y => y.LeagueName),
+                Matches = matches.ToDictionary(x => x.MatchId, y => y.MatchName)
             };
-
-            viewModel.Sports = sports.ToDictionary(x => x.ID, y => y.Name);
-            viewModel.Leagues = leagues.ToDictionary(x => x.LeagueId, y => y.LeagueName);
-            viewModel.Matches = matches.ToDictionary(x => x.MatchId, y => y.MatchName);
 
             return View("~/Views/Report/WinLossByLeague/Main.cshtml", viewModel);
         }
@@ -106,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult GetMatchesByLeague(int leagueid, DateTime fromDate, DateTime toDate)
         {
             var matches = _matchService.GetMatchesByLeague(leagueid, fromDate, toDate);
-            matches.Insert(0, new Match() { MatchName = ViewResources.All, MatchId = 0 });
+            matches.Insert(0, new Match { MatchName = ViewResources.All, MatchId = 0 });
 
             return Json(matches.Select(x => new { Key = x.MatchId, Value = x.MatchName }));
         }

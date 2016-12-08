@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    using System;
-    using System.Web.Mvc;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
@@ -17,6 +15,8 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using System;
+    using System.Web.Mvc;
 
     [FunctionAuthorization(PermissionKeys.ReportRacingCommission)]
     public class RacingCommissionReportController : ReportBaseController
@@ -83,7 +83,7 @@ namespace Fanex.Athena.Controllers.Report
 
         private ActionResult Excel(RacingCommissionViewModel viewModel)
         {
-            const string FileName = "RacingCommission";
+            const string FileName = nameof(RacingCommission);
 
             var currencyConvert = new ConvertingOption
             {

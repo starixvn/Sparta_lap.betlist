@@ -1,0 +1,162 @@
+﻿@using System.Web.Mvc;
+@using Fanex.Athena.Extension.Helper;
+@using Fanex.Athena.Model.Core.DTO.Common
+@using Fanex.Athena.Model.Core.MetaModel.Product;
+@using Fanex.Athena.Web.HtmlExtension;
+@using Fanex.Athena.Model.Core.DataDomain;
+@using Fanex.Athena.Resources;
+
+@helper DateRangePicker(DateTime fromDate, DateTime toDate, DateTime minDate, DateTime maxDate) {
+    <input name="DateRange" autocomplete="off" data-mindate="@minDate.ToString("MM/dd/yyyy")" data-maxdate="@maxDate.ToString("MM/dd/yyyy")" data-today="@DateTime.Today.ToString("MM/dd/yyyy")" id="DateRange" class="datepicker" type="text" />
+    <input name="FromDate" id="FromDate" type="hidden" data-original-from="@fromDate.ToString("MM/dd/yyyy")" value="@fromDate.ToString("MM/dd/yyyy")" />
+    <input name="ToDate" id="ToDate" type="hidden" data-original-to="@toDate.ToString("MM/dd/yyyy")" value="@toDate.ToString("MM/dd/yyyy")" />
+
+    <label for="DateRange" class="active">@ViewResources.Date</label>
+    <span class="icon icon-calendar"></span>
+}
+
+@helper CurrencyList(IDictionary<string, int> currencyList,
+string className = "", int selected = 0,
+bool addMoreAllOption = true,
+bool addBasedOption = false)
+{
+var selectedName = currencyList.Where(p => p.Value == selected).FirstOrDefault().Key;
+var selectedBaseCurrency = selected == BaseCurrencyType.Gbp ? "gbp" :
+                           (selected == BaseCurrencyType.Usd ? "usd" :
+                           (selected == BaseCurrencyType.Eur ? "eur" : string.Empty));
+var items = currencyList
+ .Select(c => new System.Web.WebPages.Html.SelectListItem
+ {
+     Value = c.Value.ToString(),
+     Text = c.Key,
+     Selected = selected == c.Value
+ }).ToList();
+if (addBasedOption)
+{
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+    {
+        Text = ViewResources.Based + " GBP",
+        Value = BaseCurrencyType.Gbp.ToString(),
+        Selected = BaseCurrencyType.Gbp == selected
+    });
+
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+    {
+        Text = ViewResources.Based + " USD",
+        Value = BaseCurrencyType.Usd.ToString(),
+        Selected = BaseCurrencyType.Usd == selected
+    });
+
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+    {
+        Text = ViewResources.Based + " EUR",
+        Value = BaseCurrencyType.Eur.ToString(),
+        Selected = BaseCurrencyType.Eur == selected
+    });
+
+}
+if (addMoreAllOption)
+{
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+    {
+        Text = ViewResources.All.ToUpper(),
+        Value = BaseCurrencyType.All.ToString(),
+        Selected = BaseCurrencyType.All == selected
+    });
+}
+    <input type="hidden" id="CurrencyName" name="CurrencyName" value="@selectedName" data-original="@selectedName" />
+if (addBasedOption)
+{
+        <input type="hidden" id="BaseCurrency" name="BaseCurrency" value="@selectedBaseCurrency" data-original="@selectedBaseCurrency" />
+}
+    <select name="CurrencyId" id="CurrencyId" class="@className" data-original="@selected">
+        @foreach (var item in items)
+        {
+            <option value="@item.Value" @(item.Selected ? new HtmlString("selected=selected") : new HtmlString(""))>@item.Text</option>
+        }
+    </select>
+}
+
+@helper BasedCurrency(string selectedBasedCurrency, string CurrencyName = null)
+{
+selectedBasedCurrency = string.IsNullOrEmpty(selectedBasedCurrency) ? string.Empty : selectedBasedCurrency;
+selectedBasedCurrency = selectedBasedCurrency.ToLower();
+
+    <select class="based-currency" name="BaseCurrency" id="BaseCurrency" data-original="@selectedBasedCurrency">
+        <option value="eur" @(selectedBasedCurrency == "eur" ? new HtmlString("selected=selected") : new HtmlString(""))>EUR</option>
+        <option value="usd" @(selectedBasedCurrency == "usd" ? new HtmlString("selected=selected") : new HtmlString(""))>USD</option>
+        <option value="gbp" @(selectedBasedCurrency == "gbp" ? new HtmlString("selected=selected") : new HtmlString(""))>GBP</option>
+        <option value="" @(selectedBasedCurrency == "" ? new HtmlString("selected=selected") : new HtmlString(""))>@CurrencyName</option>
+    </select>
+}
+
+@helper LiveStatus(int selectedStatus)
+{
+    <select class="live-status select" name="LiveIndicator" id="LiveIndicator" data-original="@selectedStatus">
+        <option value="2" @(selectedStatus.Equals(2) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.All</option>
+        <option value="1" @(selectedStatus.Equals(1) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.Live</option>
+        <option value="0" @(selectedStatus.Equals(0) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.NoneLive</option>
+    </select>
+}
+
+@helper HighlightNegativeFormat(decimal value, bool isHiglight = true)
+{
+    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative-number'") : new HtmlString(""))>
+        @value.ToStringExt()</span>
+}
+
+@helper ViewLiveStatus(int liveStatus)
+{
+string title = string.Empty;
+switch (liveStatus)
+{
+    case 0:
+        title = ViewResources.NoneLive;
+        break;
+    case 1:
+        title = ViewResources.Live;
+        break;
+    case 2:
+        title = ViewResources.LiveAndNonLive;
+        break;
+}
+
+    @(title + ViewResources.Data)
+}
+
+@helper TitleDateTime(DateTime fromDate, DateTime? toDate)
+{
+    @(fromDate.ToString("MM/dd/yyyy"))
+if (toDate != null)
+{
+        @(" → ")@(toDate.Value.ToString("MM/dd/yyyy"))
+}
+}
+
+@helper ViewCurrencyBasedOnConverter(bool converter, string BaseCurrency, string CurrencyName)
+{
+    @(string.Format(ViewResources.Viewin, converter ? BaseCurrency.ToUpper() : CurrencyName))
+}
+
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions)
+{
+    var Url = new UrlHelper(Context.Request.RequestContext);
+    var i = 0;
+    <div class="input-field col l2 m4 s12 multiselect-container" id="ProductList">
+        <select id="grid-products-multiselect" name="grid-products-multiselect"></select>
+        <label>
+            @ViewResources.Product
+        </label>
+
+        <div class="hide" id="product-container">
+            @foreach (var product in productOptions)
+            {
+                <input type="hidden" name="ProductOptions[@i].Code" value="@product.Code" />
+                <input type="hidden" name="ProductOptions[@i].Name" value="@product.Name" />
+                <input type="checkbox" class="childCheckbox" data-original="@product.Status.ToString()" id="@product.Code" data-product-code="@product.Code" @(product.Status ? "checked" : "") name="ProductOptions[@i].Status" value="True" />
+                i++;
+            }
+        </div>
+        <input type="hidden" id="productsData" value="@productOptions.ToJson()" />
+    </div>
+}

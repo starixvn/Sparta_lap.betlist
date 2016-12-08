@@ -19,10 +19,6 @@ namespace Fanex.Athena.Model.Core.DTO.Users
 
         public string LicenseeName { get; set; }
 
-        public int UserId { get; set; }
-
-        public string UserName { get; set; }
-
         public IList<string> LicenseeType { get; set; }
 
         public IList<string> CurrencyName { get; set; }

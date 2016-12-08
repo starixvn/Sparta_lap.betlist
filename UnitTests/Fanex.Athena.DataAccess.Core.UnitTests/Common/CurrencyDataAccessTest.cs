@@ -3,6 +3,8 @@
     using System.Data;
     using Core.Common;
     using Data;
+    using Model.Core.DTO.Common;
+    using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Account;
     using NSubstitute;
     using NUnit.Framework;
@@ -13,12 +15,62 @@
     {
         private IObjectDb _objectDb;
         private CurrencyDataAccess _dataAccess;
+        private IDataReader _reader;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<CurrencyDataAccess>();
+            _reader = Substitute.For<IDataReader>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
+        }
+
+        [Test]
+        public void GetCurrencies_WhenCall_ExecuteReaderMethodIsCalled()
+        {
+            // Arrange
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicensee")).Returns(_objectDb);
+            const int LicenseeId = 1;
+
+            // Action
+            _dataAccess.GetCurrencies(LicenseeId);
+
+            // Assert
+            _objectDb.ReceivedWithAnyArgs().ExecuteReader(null);
+        }
+
+        [Test]
+        public void GetCurrencies_WhenCall_DataReturnCorrectly()
+        {
+            // Arrange
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicensee")).Returns(_objectDb);
+            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
+            _reader.Read().Returns(true, false);
+
+            var expected = new CurrencyUser
+            {
+                CurrencyId = 1,
+                CurrencyName = "Currency Test"
+            };
+            _reader.GetInt32(Arg.Any<int>()).Returns(expected.CurrencyId);
+            _reader.GetString(Arg.Any<int>()).Returns(expected.CurrencyName);
+
+            const int LicenseeId = 1;
+
+            // Action
+            var result = _dataAccess.GetCurrencies(LicenseeId);
+
+            // Assert
+            Assert.That(result[0].CurrencyId, Is.EqualTo(expected.CurrencyId));
+            Assert.That(result[0].CurrencyName, Is.EqualTo(expected.CurrencyName));
         }
 
         [Test]
@@ -69,16 +121,16 @@
         public void GetCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var licenseeId = 1;
-            var userId = 2;
+            const int LicenseeId = 1;
+            const int UserId = 2;
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicenseeUser")).Returns(_objectDb);
 
             // Action
-            _dataAccess.GetCurrenciesByUser(licenseeId, userId);
+            _dataAccess.GetCurrenciesByUser(LicenseeId, UserId);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-            _objectDb.Received().AddInParameter("UserID", DbType.Int32, userId);
+            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+            _objectDb.Received().AddInParameter("UserID", DbType.Int32, UserId);
         }
     }
 }

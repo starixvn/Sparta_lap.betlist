@@ -19,6 +19,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Users;
     using Resources;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
@@ -72,6 +73,15 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
+        private static string GetExcelFileName(ThirdPartyWinLossMetaModel metaModel, ref KeyValuePair<string, int> currency, string productCodeExport)
+        {
+            var fromDate = $"{(metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate)}:ddMMMyyyy";
+            var currencyName = currency.Value == 0 ? "All" : currency.Key;
+
+            var exportedFileName = $"{productCodeExport}WinLoss_{fromDate}_{currencyName}.xls";
+            return exportedFileName;
+        }
+
         private HttpResponseMessage ExportExcel(
             ThirdPartyWinLossMetaModel metaModel,
             IList<ThirdPartyWinLoss> dataList,
@@ -83,10 +93,9 @@ namespace Fanex.Athena.Api.Report
 
             // Use product code of Vegas Games to Macau
             var productCodeExport = metaModel.ProductCode == "VG" ? "MC" : metaModel.ProductCode;
-            var exportedFileName = productCodeExport + string.Format(
-                "WinLoss_{0:ddMMMyyyy}_{1}.xls",
-                metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate,
-                currency.Value == 0 ? "All" : currency.Key);
+
+            string exportedFileName = GetExcelFileName(metaModel, ref currency, productCodeExport);
+
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
@@ -126,16 +135,9 @@ namespace Fanex.Athena.Api.Report
                 out SortableList<ThirdPartyWinLoss> dataList,
                 out IDictionary<string, ThirdPartyWinLoss> summaryTotal)
         {
-            if (metaModel.DrillDownLevel == 0)
-            {
-                dataList = _thirdPartyWinLossService.GetSummaryWinloss(metaModel, out summaryTotal);
-            }
-            else
-            {
-                dataList = metaModel.DrillDownLevel == 2
+            dataList = metaModel.DrillDownLevel == 0 ? _thirdPartyWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) : metaModel.DrillDownLevel == 2
                                ? _thirdPartyWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
                                : _thirdPartyWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
-            }
         }
 
         private dynamic ProcessRequest(
@@ -147,9 +149,7 @@ namespace Fanex.Athena.Api.Report
             int custId = 0)
         {
             var userSession = SessionService.UserSession;
-            var permissionKey = _productPermissionMap[metaModel.ProductId];
-
-            if (!_authorizationService.HasPermissions(userSession.FunctionIdList, new string[] { permissionKey }))
+            if (!HasPermission(metaModel.ProductId, userSession))
             {
                 return new HttpResponseMessage
                 {
@@ -188,6 +188,16 @@ namespace Fanex.Athena.Api.Report
             }
 
             return GetEmptyThirdPartyWinLossResult();
+        }
+
+        private bool HasPermission(int productId, UserSession user)
+        {
+            var permissionKey = new string[] { _productPermissionMap[productId] };
+
+            return
+                user.ApplicationMode == AppMode.Parasitic ?
+                _authorizationService.HasPermissions(user.PortalFunctionList, permissionKey) :
+                _authorizationService.HasPermissions(user.FunctionIdList, permissionKey);
         }
     }
 }

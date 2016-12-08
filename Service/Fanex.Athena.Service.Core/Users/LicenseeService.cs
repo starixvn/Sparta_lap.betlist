@@ -80,12 +80,6 @@ namespace Fanex.Athena.Service.Core.Users
             return this._licenseeDataAccess.GetByUser(userId);
         }
 
-        public IList<Currency> GetCurrencies(int licenseeId, int userId)
-        {
-            var currencies = this._licenseeDataAccess.GetCurrencies(licenseeId, userId);
-            return currencies;
-        }
-
         public IList<LicenseeCustomer> GetCustByLicensee(int licenseeId)
         {
             var cache = CacheService.CreateInstance(CacheType.MemoryCache);
@@ -105,12 +99,17 @@ namespace Fanex.Athena.Service.Core.Users
 
             return licenseeCustList;
         }
-        
+
         #endregion Public Methods and Operators
 
         public string GetNumberOfOnlineUser()
         {
             return _licenseeDataAccess.GetNumberOfOnlineUser();
+        }
+
+        public Licensee GetLicenseeByName(string licenseeName)
+        {
+            return _licenseeDataAccess.GetLicenseeByName(licenseeName);
         }
     }
 }

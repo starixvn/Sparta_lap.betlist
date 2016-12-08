@@ -85,18 +85,18 @@
                     <td style="text-align: center" class="cmd">
                     @if (!user.IsInternal)
                     {  
-                        <span data-custid="@user.Id" data-lastname="@user.LastName" data-firstname="@user.FirstName" data-username="@user.Username" onclick="ManageAccount.resetPassword(this)" class="link">
+                        <span data-custid="@user.UserID" data-lastname="@user.LastName" data-firstname="@user.FirstName" data-username="@user.Username" onclick="ManageAccount.resetPassword(this)" class="link">
                             @ViewResources.Reset</span>
                     }
                     </td>
                     <td style="text-align: center" class="cmd">
                     @if (!user.IsInternal)
                     {  
-                        <span data-custid="@user.Id" onclick="ManageAccount.editAccount(this)" class="link">@ViewResources.Edit</span>
+                        <span data-custid="@user.UserID" onclick="ManageAccount.editAccount(this)" class="link">@ViewResources.Edit</span>
                     }
                     </td>
                     <td style="text-align: center">
-                        <span data-custid="@user.Id" onclick="ManageAccount.editPermission(this)" class="link">@ViewResources.Edit</span>
+                        <span data-custid="@user.UserID" onclick="ManageAccount.editPermission(this)" class="link">@ViewResources.Edit</span>
                     </td>
                     <td style="text-align: center" class="cmd">
                     @if (user.IsManageAccount)

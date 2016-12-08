@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.LiveReport.cs" company="">
-// Report controller
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Controllers.BetList
+﻿namespace Fanex.Athena.Controllers.BetList
 {
     using System;
     using System.Collections.Generic;
@@ -157,16 +151,11 @@ namespace Fanex.Athena.Controllers.BetList
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
                 {
+                    var currencyName = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
                     var title = ViewResources.BetList
+                        + $" - {ViewResources.ProductRB} - {metaModel.FromDate.ToShortDateString()} --> {metaModel.ToDate.ToShortDateString()} - {currencyName}";
 
-                        + string.Format(
-                        " - {0} - {1} --> {2} - {3}",
-                        ViewResources.ProductRB,
-                        metaModel.FromDate.ToShortDateString(),
-                        metaModel.ToDate.ToShortDateString(),
-                        string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName));
-
-                    var racingBettypes = new List<int>()
+                    var racingBettypes = new List<int>
                     {
                         (int)SportType.VirtualHorseRacing,
                         (int)SportType.VirtualGreyhound,

@@ -11,6 +11,7 @@ namespace Fanex.Athena.Web.ActionFilter
     using System.Web.Mvc;
     using System.Web.Routing;
     using Fanex.Athena.Service.Core.Users;
+    using Model.Core.DataDomain;
 
     /// <summary>
     /// TODO: Update summary.
@@ -53,7 +54,12 @@ namespace Fanex.Athena.Web.ActionFilter
             var authorized = true;
             if (userSession != null && licenseeSession != null)
             {
-                authorized = authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
+                authorized =
+                userSession.ApplicationMode == AppMode.Parasitic ?
+
+                      authorization.HasPermissions(userSession.PortalFunctionList, PermissionKeys) :
+
+                      authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
             }
 
             if (!authorized)

@@ -16,7 +16,7 @@
         private IAuthorizationService _authorizationService;
         private ICancelledBetListService _betListService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _cancelledBetListDataAccessDataAccess = Substitute.For<ICancelledBetListDataAccess>();
@@ -26,11 +26,19 @@
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _cancelledBetListDataAccessDataAccess = null;
+            _authorizationService = null;
+            _betListService = null;
+        }
+
         [Test]
         public void GetCancelBetCustList_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<CustomerCancelBetItem>()
+            var expectedResult = new List<CustomerCancelBetItem>
             {
                 new CustomerCancelBetItem()
             };

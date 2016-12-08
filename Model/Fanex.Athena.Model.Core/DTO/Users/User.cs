@@ -17,7 +17,7 @@ namespace Fanex.Athena.Model.Core.DTO.Users
     [Serializable]
     public class User
     {
-        public int Id { get; set; }
+        public int UserID { get; set; }
 
         public string Username { get; set; }
 

@@ -14,18 +14,25 @@
         private IBalanceUpDataAccess _balanceUpDataAccess;
         private IBalanceUpService _balanceUpService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balanceUpService = new BalanceUpService(_balanceUpDataAccess);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _balanceUpDataAccess = null;
+            _balanceUpService = null;
+        }
+
         [Test]
         public void GetAllSports_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new BalanceUp()
+            var expectedResult = new BalanceUp
             {
                 BalanceUpDay = new DateTime(2016, 1, 1)
             };

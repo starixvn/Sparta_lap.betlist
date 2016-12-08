@@ -45,14 +45,7 @@ namespace Fanex.Athena.Service.Core.Common
             }
 
             var cookiValue = CookiesHelper.GetCookies(_cookieName);
-            if (string.IsNullOrEmpty(cookiValue))
-            {
-                return _defaultLanguage;
-            }
-            else
-            {
-                return cookiValue;
-            }
+            return string.IsNullOrEmpty(cookiValue) ? _defaultLanguage : cookiValue;
         }
 
         public void SetPageCulture(string languageCode)

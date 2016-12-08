@@ -16,12 +16,20 @@
         private LicenseeDataAccess _dataAccess;
         private IDataReader _reader;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<LicenseeDataAccess>();
             _reader = Substitute.For<IDataReader>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
         }
 
         [Test]
@@ -140,48 +148,6 @@
         }
 
         [Test]
-        public void GetCurrencies_WhenCall_ExecuteReaderMethodIsCalled()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrency")).Returns(_objectDb);
-            var licenseeId = 1;
-            var userId = 2;
-
-            // Action
-            _dataAccess.GetCurrencies(licenseeId, userId);
-
-            // Assert
-            _objectDb.ReceivedWithAnyArgs().ExecuteReader(null);
-        }
-
-        [Test]
-        public void GetCurrencies_WhenCall_DataReturnCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrency")).Returns(_objectDb);
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-            _reader.Read().Returns(true, false);
-
-            var expected = new Currency
-            {
-                CurrencyId = 1,
-                Name = "Currency Test"
-            };
-            _reader.GetInt32(Arg.Any<int>()).Returns(expected.CurrencyId);
-            _reader.GetString(Arg.Any<int>()).Returns(expected.Name);
-
-            var licenseeId = 1;
-            var userId = 2;
-
-            // Action
-            var result = _dataAccess.GetCurrencies(licenseeId, userId);
-
-            // Assert
-            Assert.That(result[0].CurrencyId, Is.EqualTo(expected.CurrencyId));
-            Assert.That(result[0].Name, Is.EqualTo(expected.Name));
-        }
-
-        [Test]
         public void GetCustByLicensee_WhenCall_ExecuteReaderMethodIsCalled()
         {
             // Arrange
@@ -255,6 +221,24 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void GetLicenseeByName_WhenCall_ValueReturnedCorrectly()
+        {
+            // Arrange
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeSelBySiteName")).Returns(_objectDb);
+            var expected = new Licensee
+            {
+                Id = 100
+            };
+            _objectDb.QueryEntity<Licensee>(Arg.Any<object>()).Returns(expected);
+
+            // Action
+            var result = _dataAccess.GetLicenseeByName(string.Empty);
+
+            // Assert
+            Assert.That(result.Id, Is.EqualTo(expected.Id));
         }
 
         private void ConfigureReaderForGetCustByLicensee(LicenseeCustomer expected)

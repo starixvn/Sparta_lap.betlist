@@ -2495,7 +2495,7 @@
     <comment>#22443</comment>
   </data>
   <data name="UserNotExist" xml:space="preserve">
-    <value>User does not exist.</value>
+    <value>Not found user</value>
   </data>
   <data name="SSOLinkExpiredMsg" xml:space="preserve">
     <value>Single Sign On link is expired. Please log in again.</value>
@@ -2904,5 +2904,30 @@
   <data name="TicketDetailOf" xml:space="preserve">
     <value>Ticket detail of {0}</value>
     <comment>#63785</comment>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+    <comment>#63410</comment>
+  </data>
+  <data name="OneTokenRestrictionDefaultMsg" xml:space="preserve">
+    <value>Who let you here ?</value>
+  </data>
+  <data name="LicenseeIsNotExisted" xml:space="preserve">
+    <value>Not found licensee</value>
+  </data>
+  <data name="TokenWasExpired" xml:space="preserve">
+    <value>Token was expired</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="LicenseeNotOfferedCurrency" xml:space="preserve">
+    <value>Licensee is not offered any currency</value>
+  </data>
+  <data name="TokenIsInValid" xml:space="preserve">
+    <value>Token is invalid</value>
+  </data>
+  <data name="YouAreNotAllowToAccessThisPage" xml:space="preserve">
+    <value>You are not allowed to access this page !!!</value>
   </data>
 </root>

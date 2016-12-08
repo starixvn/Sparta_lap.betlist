@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using Data;
     using Model.BetSettings.DTO;
@@ -26,6 +27,25 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void IsBetSettingEditable_WhenCall_DataReturnedCorrectly()
+        {
+            // Arrange
+            var reader = Substitute.For<IDataReader>();
+            reader.Read().Returns(true, false);
+            reader["IsGrant"].Returns(true);
+            var objectDb = Substitute.For<IObjectDb>();
+            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
+            var dataAccess = Substitute.ForPartsOf<CoreBetSettingDataAccess>();
+            dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CheckEditBetSetting")).Returns(objectDb);
+            
+            // Action
+            var result = dataAccess.IsBetSettingEditable(0, 0);
+
+            // Assert
+            Assert.That(result, Is.True);
         }
     }
 }

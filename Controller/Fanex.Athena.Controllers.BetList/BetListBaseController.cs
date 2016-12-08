@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="BetListController.cs" company="">
-// Report controller
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Controllers.BetList
+﻿namespace Fanex.Athena.Controllers.BetList
 {
     #region Using
 
@@ -22,6 +16,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Resources;
+    using Service.Core.Utility;
 
     #endregion Using
 
@@ -48,7 +43,7 @@ namespace Fanex.Athena.Controllers.BetList
         /// Hidden column indexes. WinLoss: 7, LicenseeWL: 8.
         /// </summary>
         protected static readonly ReadOnlyCollection<int> HiddenColumnIndexes =
-            new ReadOnlyCollection<int>(new List<int>() { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
+            new ReadOnlyCollection<int>(new List<int> { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
 
         /// <summary>
         /// The list contains all bet type of racing.
@@ -164,8 +159,8 @@ namespace Fanex.Athena.Controllers.BetList
         protected bool IsValidCurrency(int currencyId)
         {
             return currencyId == BaseCurrencyType.All ||
-                SessionService.UserSession.CurrencyList.Values.Contains(currencyId) ||
-                (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean && currencyId == CurrencyType.Cny);
+                KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(
+                    SessionService.UserSession.CurrencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
         }
     }
 }

@@ -1,0 +1,55 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportMatchListViewModel
+
+@{
+    foreach (var item in Model.MainResult)
+    {
+        var drillDownParam = new
+        {
+            item.BetCount,
+            item.CustomerWinLoss,
+            item.CustomerComm,
+            item.LicenseeWinLoss,
+            item.LicenseeComm,
+            item.TurnOver,
+            item.AmountDue,
+            item.BetType,
+            item.MatchId,
+            item.HomeId,
+            item.AwayId,
+            LiveIndicator = Model.Param.LiveIndicator
+        };
+
+        <tr>
+            @{
+                var matchName = WebUtility.HtmlDecode(item.MatchName);
+            }
+
+            <td title="@matchName">
+                <a href="javascript:;" class="match-detail-link" data-drill-down="@drillDownParam.ToJson()">
+                    @(matchName.Length > 60 ? matchName.Substring(0, 60) + "..." : matchName)
+                </a>
+            </td>
+
+            @ReportContentHelperDesktop.RenderCustomerWinLossForLiveReport(item, Model.IsAllowedCustomerCommission)
+
+            @{ 
+                var turnOver = item.TurnOver.ToStringExt();
+                var betCount = item.BetCount.ToStringExt();
+                var licenseeWL = item.LicenseeWinLoss;
+                var amountDue = item.AmountDue.ToStringExt();
+            }
+
+            <td class="right-align" title="@turnOver">@turnOver</td>
+            <td class="right-align" title="@betCount">@betCount</td>
+            <td class="right-align highlight" title="@licenseeWL.ToStringExt()">@RazorHelperDesktop.HighlightNegativeFormat(licenseeWL)</td>
+
+            @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+            {
+                var licenseeComm = item.LicenseeComm.ToStringExt();
+                <td class="right-align highlight" title="@licenseeComm">@licenseeComm</td>
+            }
+
+            <td class="right-align" title="@amountDue">@amountDue</td>
+        </tr>
+    }
+}

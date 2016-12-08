@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+}
+@section css
+{
+    <link href="@Url.ContentLink("/www/css/build/pages/reports/reportjqgridlayout.css")" rel="stylesheet" type="text/css" />
+    @RenderSection("pagecss", required: false)
+}
+@section js
+{
+    @RenderSection("pagejs", required: false)
+}
+<div id="report-container">
+    @RenderSection("Filter", required: false)
+    @RenderSection("Content", required: false)
+</div>

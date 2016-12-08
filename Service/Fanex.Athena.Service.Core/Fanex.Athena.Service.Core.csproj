@@ -83,9 +83,12 @@
       <HintPath>..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="ONEbook.Security">
+      <HintPath>..\..\DLLs\ONEbook.Security\ONEbook.Security.dll</HintPath>
     </Reference>
     <Reference Include="RSACryptoPad, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\RSACryptoPad.1.0.0.0\lib\net40\RSACryptoPad.dll</HintPath>
@@ -113,6 +116,9 @@
     <Compile Include="Common\CurrencyService.cs" />
     <Compile Include="Common\ExChangeRateService.cs" />
     <Compile Include="Common\FunctionService.cs" />
+    <Compile Include="Users\Interfaces\IOneBookSecurityWrapper.cs" />
+    <Compile Include="Users\OneBookSecurityWrapper.cs" />
+    <Compile Include="Users\Interfaces\IOneAuthenticationService.cs" />
     <Compile Include="Common\LanguageService.cs" />
     <Compile Include="Common\LeagueService.cs" />
     <Compile Include="Common\MatchService.cs" />
@@ -134,6 +140,7 @@
     <Compile Include="Configuration\Interfaces\IBalanceUpService.cs" />
     <Compile Include="Configuration\Interfaces\IMoveBetService.cs" />
     <Compile Include="Users\Interfaces\ISSOService.cs" />
+    <Compile Include="Users\OneAuthenticationService.cs" />
     <Compile Include="Users\SSOService.cs" />
     <Compile Include="Users\Interfaces\IAuthorizationService.cs" />
     <Compile Include="Users\Interfaces\ILicenseeService.cs" />
@@ -146,6 +153,7 @@
     <Compile Include="Users\UserService.cs" />
     <Compile Include="Utility\Interfaces\IWebClientService.cs" />
     <Compile Include="Utility\Interfaces\IRSAEncryptor.cs" />
+    <Compile Include="Utility\KeanOceanBusinessHelper.cs" />
     <Compile Include="Utility\RSAEncryptor.cs" />
     <Compile Include="Utility\WebClientService.cs" />
   </ItemGroup>

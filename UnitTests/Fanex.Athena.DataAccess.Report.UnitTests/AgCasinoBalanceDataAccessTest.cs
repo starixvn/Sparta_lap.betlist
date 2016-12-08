@@ -18,7 +18,7 @@
         private AgCasinoBalanceDataAccess _dataAccess;
         private IDataReader _reader;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
@@ -28,6 +28,14 @@
 
             _reader = Substitute.For<IDataReader>();          
             _objectDb.ExecuteReader().Returns(_reader);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
         }
 
         [Test]

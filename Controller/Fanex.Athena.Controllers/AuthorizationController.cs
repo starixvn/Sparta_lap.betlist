@@ -138,7 +138,7 @@ namespace Fanex.Athena.Controllers
                 if (resultInfo.IsSuccessful)
                 {
                     SessionService.CreateNewSession(
-                        user.Id,
+                        user.UserID,
                         _userService.LoginOnUser(user, Session.SessionID, user.ServerId, Request.UserHostAddress),
                         user.Username,
                         user.IsInternal,
@@ -174,7 +174,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult RecheckIn()
         {
             var userSession = SessionService.UserSession;
-            int currentLoginId = 0;
+            var currentLoginId = 0;
 
             if (int.TryParse(Request["onid"], out currentLoginId) == false || currentLoginId == 0 || !Request.IsAuthenticated || userSession == null)
             {
@@ -193,7 +193,7 @@ namespace Fanex.Athena.Controllers
                 return Json(RecheckInResult(ErrorType.UnderMaintenance, message), JsonRequestBehavior.AllowGet);
             }
 
-            bool isKickout = _userService.RecheckIn(userSession.OnUserId);
+            var isKickout = _userService.RecheckIn(userSession.OnUserId);
 
             var errorCode = ErrorType.Success;
             var errorMsg = string.Empty;
@@ -218,35 +218,22 @@ namespace Fanex.Athena.Controllers
             Response.Cache.SetExpires(Cache.NoAbsoluteExpiration);
             Response.Cache.SetLastModifiedFromFileDependencies();
 
-            string code = CreateRandomCaptchaCode();
+            var code = CreateRandomCaptchaCode();
 
             SessionService.CaptchaCode = code;
             FileContentResult img = null;
-            var iwidth = (code.Length * 12) + 10;
-            using (var mem = new MemoryStream())
-            using (var bmp = new Bitmap(iwidth, 20))
-            using (var gfx = Graphics.FromImage((Image)bmp))
+            var sessionService = new SessionService();
+            var userSession = sessionService.UserSession;
+            var viewType = userSession != null && userSession.ViewType != ClientViewType.None ? userSession.ViewType :
+                        (ClientViewType)int.Parse(AppSettings.GetValue(nameof(ClientViewType)));
+
+            if (viewType == ClientViewType.Desktop)
             {
-                var random = new Random();
-
-                var fonts = new[] { "Tahoma", "Arial" };
-
-                var f = new Font(fonts[random.Next(0, fonts.Length - 1)], 11, FontStyle.Bold);
-                Brush b = new SolidBrush(Color.White);
-                gfx.Clear(Color.DimGray);
-
-                gfx.DrawString(code, f, b, random.Next(2, 12), random.Next(-1, 1));
-                gfx.DrawRectangle(new Pen(Color.Black), 0, 0, bmp.Width - 1, bmp.Height - 1);
-
-                for (int i = 0; i < 50; i++)
-                {
-                    int x = random.Next(bmp.Width);
-                    int y = random.Next(bmp.Height);
-                    bmp.SetPixel(x, y, Color.FromArgb(random.Next()));
-                }
-
-                bmp.Save(mem, ImageFormat.Png);
-                img = this.File(mem.GetBuffer(), "image/png");
+                img = CreateCaptchaForNewViewType(code);
+            }
+            else
+            {
+                img = CreateCaptchaForOldViewType(code);
             }
 
             return File(img.FileContents, img.ContentType);
@@ -281,6 +268,22 @@ namespace Fanex.Athena.Controllers
             return RedirectToAction("LocationRestriction", "Utility");
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult InternalSignOut()
+        {
+            var userSession = SessionService.UserSession;
+            if (userSession != null)
+            {
+                _userService.Logout(userSession.OnUserId);
+            }
+
+            Session.Clear();
+            ClearCookies();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("OneTokenRestriction?code=100", "Utility");
+        }
+
         /// <summary>
         /// The changing password page.
         /// </summary>
@@ -288,7 +291,7 @@ namespace Fanex.Athena.Controllers
         [HttpGet]
         public ActionResult ChangePassword()
         {
-            ViewBag.PageData = new Dictionary<string, string>()
+            ViewBag.PageData = new Dictionary<string, string>
             {
             { "alertInputOldPwd", ViewResources.AlertInputOldPwdMsg },
             { "alertPasswordEmpty", ViewResources.AlertPasswordEmptyMsg },
@@ -373,6 +376,66 @@ namespace Fanex.Athena.Controllers
             foreach (string cookie in cookies)
             {
                 Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
+            }
+        }
+
+        private FileContentResult CreateCaptchaForNewViewType(string code)
+        {
+            var iwidth = (code.Length * 12) + 10;
+            using (var mem = new MemoryStream())
+            using (var bmp = new Bitmap(iwidth, 25))
+            using (var gfx = Graphics.FromImage((Image)bmp))
+            {
+                var random = new Random();
+
+                var fonts = new[] { "Tahoma", "Arial" };
+
+                var f = new Font(fonts[random.Next(0, fonts.Length - 1)], 11, FontStyle.Bold);
+                Brush b = new SolidBrush(Color.Black);
+                gfx.Clear(Color.LightGray);
+
+                gfx.DrawString(code, f, b, random.Next(2, 12), random.Next(-1, 1));
+                gfx.DrawRectangle(new Pen(Color.LightGray), 0, 0, bmp.Width - 1, bmp.Height - 1);
+
+                for (int i = 0; i < 50; i++)
+                {
+                    int x = random.Next(bmp.Width);
+                    int y = random.Next(bmp.Height);
+                    bmp.SetPixel(x, y, Color.FromArgb(random.Next()));
+                }
+
+                bmp.Save(mem, ImageFormat.Png);
+                return this.File(mem.GetBuffer(), "image/png");
+            }
+        }
+
+        private FileContentResult CreateCaptchaForOldViewType(string code)
+        {
+            var iwidth = (code.Length * 12) + 10;
+            using (var mem = new MemoryStream())
+            using (var bmp = new Bitmap(iwidth, 20))
+            using (var gfx = Graphics.FromImage((Image)bmp))
+            {
+                var random = new Random();
+
+                var fonts = new[] { "Tahoma", "Arial" };
+
+                var f = new Font(fonts[random.Next(0, fonts.Length - 1)], 11, FontStyle.Bold);
+                Brush b = new SolidBrush(Color.White);
+                gfx.Clear(Color.DimGray);
+
+                gfx.DrawString(code, f, b, random.Next(2, 12), random.Next(-1, 1));
+                gfx.DrawRectangle(new Pen(Color.Black), 0, 0, bmp.Width - 1, bmp.Height - 1);
+
+                for (int i = 0; i < 50; i++)
+                {
+                    int x = random.Next(bmp.Width);
+                    int y = random.Next(bmp.Height);
+                    bmp.SetPixel(x, y, Color.FromArgb(random.Next()));
+                }
+
+                bmp.Save(mem, ImageFormat.Png);
+                return this.File(mem.GetBuffer(), "image/png");
             }
         }
     }

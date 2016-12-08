@@ -18,7 +18,7 @@
         private ActiveCustomerSummaryDataAccess _dataAccess;
         private ActiveCustomerMetaModel _metaModel;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
@@ -31,6 +31,14 @@
                 new ProductOption { Code = "NG", Status = true }
             };
             _metaModel = new ActiveCustomerMetaModel { ProductOptions = productOptions };
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _metaModel = null;
         }
 
         [Test]

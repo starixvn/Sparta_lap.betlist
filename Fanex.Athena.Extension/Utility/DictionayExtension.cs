@@ -19,7 +19,8 @@
             TKey key,
             Func<TValue> defaultValueProvider)
         {
-            return dictionary.GetValueOrDefault(key, defaultValueProvider());
+            var handler = defaultValueProvider != null ? defaultValueProvider.Invoke() : default(TValue);
+            return dictionary.GetValueOrDefault(key, handler);
         }
     }
 }

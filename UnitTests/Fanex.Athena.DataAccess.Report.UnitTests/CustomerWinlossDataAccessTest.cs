@@ -20,10 +20,8 @@
         private BalanceUp _balance;
         private IDataReader _reader;
         private CustomerWinLossMetaModel _metaModel;
-        private CustomerWinLoss _totalData;
-        private int _totalRow = 0;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
@@ -46,14 +44,27 @@
                 ProductOptions = GetProductOptions(),
                 BaseCurrency = "UUS"
             };
-            _totalData = new CustomerWinLoss();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
+            _metaModel = null;
+            _balance = null;
         }
 
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
+            // Arrange
+            var totalData = new CustomerWinLoss();
+            int totalRow = 0;
+
             // Action
-            _dataAccess.GetDataList(_metaModel, out _totalData, out _totalRow);
+            _dataAccess.GetDataList(_metaModel, out totalData, out totalRow);
 
             // Assert
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
@@ -92,12 +103,13 @@
                 MemberTotalWL = 15m,
                 RacingRevenue = 15m
             };
-
+            var totalData = new CustomerWinLoss();
+            int totalRow = 0;
             ConfigureReaderForResult(expectedResult);
             ConfigureReaderForTotalData(expectedTotalData);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel, out _totalData, out _totalRow)[0];
+            var result = _dataAccess.GetDataList(_metaModel, out totalData, out totalRow)[0];
 
             // Assert
             Assert.That(result.CustId, Is.EqualTo(expectedResult.CustId));
@@ -111,14 +123,14 @@
             Assert.That(result.MemberTotalWL, Is.EqualTo(expectedResult.MemberTotalWL));
             Assert.That(result.RacingRevenue, Is.EqualTo(expectedResult.RacingRevenue));
 
-            Assert.That(_totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
-            Assert.That(_totalData.LicenseeWL, Is.EqualTo(expectedTotalData.LicenseeWL));
-            Assert.That(_totalData.RacingRevenue, Is.EqualTo(expectedTotalData.RacingRevenue));
-            Assert.That(_totalData.TotalTransaction, Is.EqualTo(expectedTotalData.TotalTransaction));
-            Assert.That(_totalData.MemberWL, Is.EqualTo(expectedTotalData.MemberWL));
-            Assert.That(_totalData.PlayerComm, Is.EqualTo(expectedTotalData.PlayerComm));
+            Assert.That(totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
+            Assert.That(totalData.LicenseeWL, Is.EqualTo(expectedTotalData.LicenseeWL));
+            Assert.That(totalData.RacingRevenue, Is.EqualTo(expectedTotalData.RacingRevenue));
+            Assert.That(totalData.TotalTransaction, Is.EqualTo(expectedTotalData.TotalTransaction));
+            Assert.That(totalData.MemberWL, Is.EqualTo(expectedTotalData.MemberWL));
+            Assert.That(totalData.PlayerComm, Is.EqualTo(expectedTotalData.PlayerComm));
 
-            Assert.That(_totalRow, Is.EqualTo(100));
+            Assert.That(totalRow, Is.EqualTo(100));
         }
 
         private IList<ProductOption> GetProductOptions()

@@ -118,7 +118,7 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult Excel(PlaytechCasinoViewModel viewModel)
         {
-            const string FileName = "PlaytechCasino";
+            const string FileName = nameof(PlaytechCasino);
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/Reports/PlaytechCasino.xls");
             if (!System.IO.File.Exists(templatePath))
@@ -171,7 +171,7 @@ namespace Fanex.Athena.Controllers.Report
 
                 default:
                     return string.Empty;
-            }            
+            }
         }
     }
 }

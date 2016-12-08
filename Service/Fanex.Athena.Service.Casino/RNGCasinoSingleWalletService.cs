@@ -23,7 +23,7 @@ namespace Fanex.Athena.Service.Casino
     /// </summary>
     public class RngCasinoSingleWalletService : IRNGCasinoSingleWalletService
     {
-        private static IDictionary<string, string> _mapLanguages = new Dictionary<string, string>()
+        private static readonly IDictionary<string, string> MapLanguages = new Dictionary<string, string>
             {
                 { "en-US", "en" },
                 { "zh-TW", "ch" },
@@ -75,7 +75,7 @@ namespace Fanex.Athena.Service.Casino
         {
             var languageCode = CultureInfo.CurrentUICulture.IetfLanguageTag;
             string result;
-            if (!_mapLanguages.TryGetValue(languageCode, out result))
+            if (!MapLanguages.TryGetValue(languageCode, out result))
             {
                 return "en";
             }
@@ -144,8 +144,7 @@ namespace Fanex.Athena.Service.Casino
             var template = _appSettings.GetValue("RNGCasinoTemplate");
             var role = _appSettings.GetValue("RNGCasinoRole");
 
-            var queryString = string.Format(
-                "Token={0}&RefID={1}&Lang={2}&Template={3}&Role={4}", token, refNo, languageCode, template, role);
+            var queryString = $"Token={token}&RefID={refNo}&Lang={languageCode}&Template={template}&Role={role}";
 
             return queryString;
         }

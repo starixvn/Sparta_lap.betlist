@@ -13,11 +13,18 @@
         private IObjectDb _objectDb;
         private ThirdPartyBetSettingDataAccess _dataAccess;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<ThirdPartyBetSettingDataAccess>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
         }
 
         [Test]

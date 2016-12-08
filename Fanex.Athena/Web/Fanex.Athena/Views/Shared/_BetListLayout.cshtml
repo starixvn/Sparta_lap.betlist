@@ -15,11 +15,14 @@
     @RenderSection("pagejs", required: false)
 }
 <div class="container_26 ">
+    @if (IsSectionDefined("ContentTitle"))
+    {
     <div class="grid_26">
         <div class="content-title">
             @RenderSection("ContentTitle", required: false)
         </div>
     </div>
+    }
     <div class="grid_26 content-filter new-line">
         @RenderSection("ContentFilter", required: false)
     </div>

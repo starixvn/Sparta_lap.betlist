@@ -3,10 +3,13 @@
 
 @{
     var sessionService = new Fanex.Athena.Service.Core.Users.SessionService();
-    var userCurrencies = sessionService.UserSession == null || sessionService.UserSession.CurrencyList == null ?
+    var userSession = sessionService.UserSession;
+    var userCurrencies = userSession == null || userSession.CurrencyList == null ?
         new Dictionary<string, string>() :
-        sessionService.UserSession.CurrencyList.ToDictionary(x => x.Value.ToString(), x => x.Key);
+        userSession.CurrencyList.ToDictionary(x => x.Value.ToString(), x => x.Key);
     var appSettings = new AppSettings();
+    var isParasiticMode = userSession != null && userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Parasitic;
+
 }
 <!DOCTYPE html>
 <html>
@@ -50,18 +53,23 @@
             };
         });
     </script>
+    @if (isParasiticMode)
+    {
+        Html.RenderPartial("~/Views/Shared/_SessionScript.cshtml");
+    }
     @if (appSettings.IsEnablePiwik)
     {
+        var piwikId = isParasiticMode ? 49 : 5;
+
         <script type="text/javascript">
             var _paq = _paq || [];
             _paq.push(['trackPageView']);
             _paq.push(['enableLinkTracking']);
-
             $(function () {
                 setTimeout(function () {
                     var u = "https://pw.detecas.com/";
                     window._paq.push(['setTrackerUrl', u + 'piwik.php']);
-                    window._paq.push(['setSiteId', 5]);
+                    window._paq.push(['setSiteId', @piwikId]);
                     var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
                     g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g, s);
                 }, 500);
@@ -70,9 +78,10 @@
 
         <noscript>
             <p>
-                <img src="https://pw.detecas.com/piwik.php?rec=1&idsite=5" style="border: 0;" alt="" />
+                <img src="https://pw.detecas.com/piwik.php?rec=1&idsite=@piwikId" style="border: 0;" alt="" />
             </p>
         </noscript>
     }
+
 </body>
 </html>

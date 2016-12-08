@@ -16,13 +16,21 @@
         private MatchDataAccess _dataAccess;
         private IDataReader _reader;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<MatchDataAccess>();
             _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(_reader);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
         }
 
         [Test]

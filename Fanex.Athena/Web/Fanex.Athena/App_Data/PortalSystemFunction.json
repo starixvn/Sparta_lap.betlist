@@ -1,0 +1,254 @@
+﻿[
+  {
+    "FunctionId": 7,
+    "FunctionKey": "HandicapOverUnderLive7"
+  },
+  {
+    "FunctionId": 8,
+    "FunctionKey": "MoneyLine8"
+  },
+  {
+    "FunctionId": 9,
+    "FunctionKey": "OddEven1x2DND9"
+  },
+  {
+    "FunctionId": 10,
+    "FunctionKey": "CorrectScore10"
+  },
+  {
+    "FunctionId": 11,
+    "FunctionKey": "TotalGoal11"
+  },
+  {
+    "FunctionId": 12,
+    "FunctionKey": "MixParlay12"
+  },
+  {
+    "FunctionId": 13,
+    "FunctionKey": "Outright13"
+  },
+  {
+    "FunctionId": 14,
+    "FunctionKey": "HTFT14"
+  },
+  {
+    "FunctionId": 15,
+    "FunctionKey": "FGLG15"
+  },
+  {
+    "FunctionId": 16,
+    "FunctionKey": "CleanSheet16"
+  },
+  {
+    "FunctionId": 17,
+    "FunctionKey": "DoubleChance17"
+  },
+  {
+    "FunctionId": 18,
+    "FunctionKey": "HomeDrawAwayNoBet18"
+  },
+  {
+    "FunctionId": 19,
+    "FunctionKey": "BONteamtoscore19"
+  },
+  {
+    "FunctionId": 20,
+    "FunctionKey": "Towintonil20"
+  },
+  {
+    "FunctionId": 21,
+    "FunctionKey": "3-WayHandicap21"
+  },
+  {
+    "FunctionId": 22,
+    "FunctionKey": "Racing22"
+  },
+  {
+    "FunctionId": 23,
+    "FunctionKey": "NumberGame23"
+  },
+  {
+    "FunctionId": 24,
+    "FunctionKey": "HandicapOverUnderLive24"
+  },
+  {
+    "FunctionId": 25,
+    "FunctionKey": "1X225"
+  },
+  {
+    "FunctionId": 26,
+    "FunctionKey": "LastBetsMonitoring26"
+  },
+  {
+    "FunctionId": 27,
+    "FunctionKey": "LicenseeWinLoss27"
+  },
+  {
+    "FunctionId": 28,
+    "FunctionKey": "SettledMatchCount28"
+  },
+  {
+    "FunctionId": 29,
+    "FunctionKey": "CustomerWinLoss29"
+  },
+  {
+    "FunctionId": 30,
+    "FunctionKey": "CustomerPendingFunds30"
+  },
+  {
+    "FunctionId": 31,
+    "FunctionKey": "MatchWinLoss31"
+  },
+  {
+    "FunctionId": 32,
+    "FunctionKey": "WinLossByProducts32"
+  },
+  {
+    "FunctionId": 33,
+    "FunctionKey": "WinLossByBetType33"
+  },
+  {
+    "FunctionId": 34,
+    "FunctionKey": "RacingCommission34"
+  },
+  {
+    "FunctionId": 35,
+    "FunctionKey": "DailyRacingWinLoss35"
+  },
+  {
+    "FunctionId": 36,
+    "FunctionKey": "CancelledBets36"
+  },
+  {
+    "FunctionId": 37,
+    "FunctionKey": "DailyBetList37"
+  },
+  {
+    "FunctionId": 38,
+    "FunctionKey": "LiveReport38"
+  },
+  {
+    "FunctionId": 39,
+    "FunctionKey": "Turnover39"
+  },
+  {
+    "FunctionId": 40,
+    "FunctionKey": "CustomerBalance40"
+  },
+  {
+    "FunctionId": 41,
+    "FunctionKey": "Results41"
+  },
+  {
+    "FunctionId": 42,
+    "FunctionKey": "Balance42"
+  },
+  {
+    "FunctionId": 43,
+    "FunctionKey": "CustomerList43"
+  },
+  {
+    "FunctionId": 44,
+    "FunctionKey": "WinLoss44"
+  },
+  {
+    "FunctionId": 45,
+    "FunctionKey": "TopCustomer45"
+  },
+  {
+    "FunctionId": 46,
+    "FunctionKey": "ManageAccount46"
+  },
+  {
+    "FunctionId": 47,
+    "FunctionKey": "AddNewAccount47"
+  },
+  {
+    "FunctionId": 48,
+    "FunctionKey": "EditNewAccount48"
+  },
+  {
+    "FunctionId": 49,
+    "FunctionKey": "AssignPermission49"
+  },
+  {
+    "FunctionId": 50,
+    "FunctionKey": "ResetPassword50"
+  },
+  {
+    "FunctionId": 51,
+    "FunctionKey": "CustomerTurnover51"
+  },
+  {
+    "FunctionId": 53,
+    "FunctionKey": "MobileWinLoss53"
+  },
+  {
+    "FunctionId": 54,
+    "FunctionKey": "SpecialBA54"
+  },
+  {
+    "FunctionId": 55,
+    "FunctionKey": "CommissionGroupList55"
+  },
+  {
+    "FunctionId": 56,
+    "FunctionKey": "CustomerLog56"
+  },
+  {
+    "FunctionId": 57,
+    "FunctionKey": "AssignCurrency57"
+  },
+  {
+    "FunctionId": 59,
+    "FunctionKey": "WinLossByLeague59"
+  },
+  {
+    "FunctionId": 60,
+    "FunctionKey": "AGENCYSYSTEM60"
+  },
+  {
+    "FunctionId": 61,
+    "FunctionKey": "PlaytechCasinoWinLoss61"
+  },
+  {
+    "FunctionId": 62,
+    "FunctionKey": "AGCasinoWinLoss62"
+  },
+  {
+    "FunctionId": 63,
+    "FunctionKey": "AGCasinoBalance63"
+  },
+  {
+    "FunctionId": 64,
+    "FunctionKey": "ActiveCustomerSummary64"
+  },
+  {
+    "FunctionId": 65,
+    "FunctionKey": "GoldDeluxeWinloss65"
+  },
+  {
+    "FunctionId": 66,
+    "FunctionKey": "MacauWinloss66"
+  },
+  {
+    "FunctionId": 67,
+    "FunctionKey": "MicrogamingWinloss67"
+  },
+  {
+    "FunctionId": 68,
+    "FunctionKey": "CasinoProgressiveWins68"
+  },
+  {
+    "FunctionId": 69,
+    "FunctionKey": "WeeklyLiveMatches69"
+  },
+  {
+    "FunctionId": 70,
+    "FunctionKey": "EditBetSetting70"
+  },
+  {
+    "FunctionId": 71,
+    "FunctionKey": "ColossusBetsWinLoss71"
+  }
+]

@@ -26,7 +26,7 @@
         private IWebClientService _webClientService;
         private IGoldDeluxeBetSettingService _service;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _authorizationService = Substitute.For<IAuthorizationService>();
@@ -41,6 +41,16 @@
                 IsLineEnabled = true,
                 IsEnabled = true
             });
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _authorizationService = null;
+            _dataAccess = null;
+            _appSettings = null;
+            _webClientService = null;
+            _service = null;
         }
 
         [Test]
@@ -84,7 +94,7 @@
         public void UpdateStatus_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new ResultInfo()
+            var expectedResult = new ResultInfo
             {
                 Code = 999
             };

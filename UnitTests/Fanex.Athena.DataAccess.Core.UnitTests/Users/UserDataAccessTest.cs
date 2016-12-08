@@ -18,12 +18,20 @@
         private UserDataAccess _dataAccess;
         private IDataReader _reader;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<UserDataAccess>();
             _reader = Substitute.For<IDataReader>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
         }
 
         [Test]
@@ -96,7 +104,7 @@
             var result = _dataAccess.GetByLicensee(licenseeId, isInternal);
 
             // Assert
-            Assert.That(result[0].Id, Is.EqualTo(expected.Id));
+            Assert.That(result[0].UserID, Is.EqualTo(expected.UserID));
             Assert.That(result[0].Username, Is.EqualTo(expected.Username));
             Assert.That(result[0].FirstName, Is.EqualTo(expected.FirstName));
             Assert.That(result[0].LastName, Is.EqualTo(expected.LastName));
@@ -162,13 +170,13 @@
             var userId = 2;
             var expected = GetFakeUserData(licenseeId);
             ConfigureDataReader(expected);
-            _reader["userid"].Returns(expected.Id);
+            _reader["userid"].Returns(expected.UserID);
 
             // Action
             var result = _dataAccess.GetUserInfo(licenseeId, userId);
 
             // Assert
-            Assert.That(result.Id, Is.EqualTo(expected.Id));
+            Assert.That(result.UserID, Is.EqualTo(expected.UserID));
             Assert.That(result.Username, Is.EqualTo(expected.Username));
             Assert.That(result.FirstName, Is.EqualTo(expected.FirstName));
             Assert.That(result.LastName, Is.EqualTo(expected.LastName));
@@ -243,7 +251,7 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CheckIn")).Returns(_objectDb);
-            var requestUser = new User { Id = 1, Request = new Request { Ip = "::1" } };
+            var requestUser = new User { UserID = 1, Request = new Request { Ip = "::1" } };
             var netSessionId = "1a2b3c";
             var serverId = 2;
 
@@ -251,7 +259,7 @@
             _dataAccess.LoginOnUser(requestUser, netSessionId, serverId);
 
             // Assert
-            _objectDb.Received().AddInParameter("CustID", DbType.Int32, requestUser.Id);
+            _objectDb.Received().AddInParameter("CustID", DbType.Int32, requestUser.UserID);
             _objectDb.Received().AddInParameter("NetSessionID", DbType.String, netSessionId);
             _objectDb.Received().AddInParameter("ServerID", DbType.Int32, serverId);
             _objectDb.Received().AddOutParameter("On_UserID", DbType.Int32, 4);
@@ -263,7 +271,7 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CheckIn")).Returns(_objectDb);
-            var requestUser = new User { Id = 1, Request = new Request { Ip = "::1" } };
+            var requestUser = new User { UserID = 1, Request = new Request { Ip = "::1" } };
             var netSessionId = "1a2b3c";
             var serverId = 2;
 
@@ -298,7 +306,7 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserPwdReset")).Returns(_objectDb);
             var user = new User
             {
-                Id = 1,
+                UserID = 1,
                 Licensee = new Licensee { Id = 1 },
                 Password = "1234aa",
                 Request = new Request { Ip = "::1", Language = "en-US" }
@@ -311,7 +319,7 @@
 
             // Assert
             _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-            _objectDb.Received().AddInParameter("UserId", DbType.Int32, user.Id);
+            _objectDb.Received().AddInParameter("UserId", DbType.Int32, user.UserID);
             _objectDb.Received().AddInParameter("UpdateBy", DbType.Int32, resetPwdBy);
             _objectDb.Received().AddInParameter("Pwd", DbType.String, user.Password);
             _objectDb.Received().AddInParameter("UserSalt", DbType.String, salt);
@@ -326,7 +334,7 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserPwdReset")).Returns(_objectDb);
             var user = new User
             {
-                Id = 1,
+                UserID = 1,
                 Licensee = new Licensee { Id = 1 },
                 Password = "1234aa",
                 Request = new Request { Ip = "::1", Language = "en-US" }
@@ -350,7 +358,7 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserUpdAccount")).Returns(_objectDb);
             var user = new User
             {
-                Id = 1,
+                UserID = 1,
                 FirstName = "FirstName",
                 LastName = "LastName",
                 Status = "active",
@@ -365,7 +373,7 @@
 
             // Assert
             _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-            _objectDb.Received().AddInParameter("UserId", DbType.Int32, user.Id);
+            _objectDb.Received().AddInParameter("UserId", DbType.Int32, user.UserID);
             _objectDb.Received().AddInParameter("UpdateBy", DbType.Int32, updatedBy);
             _objectDb.Received().AddInParameter("FirstName", DbType.String, user.FirstName);
             _objectDb.Received().AddInParameter("LastName", DbType.String, user.LastName);
@@ -383,7 +391,7 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserUpdAccount")).Returns(_objectDb);
             var user = new User
             {
-                Id = 1,
+                UserID = 1,
                 FirstName = "FirstName",
                 LastName = "LastName",
                 Status = "active",
@@ -484,7 +492,7 @@
             var result = _dataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out resultInfo);
 
             // Assert
-            Assert.That(result.Id, Is.EqualTo(expected.Id));
+            Assert.That(result.UserID, Is.EqualTo(expected.UserID));
             Assert.That(result.Username, Is.EqualTo(expected.Username));
             Assert.That(result.FirstName, Is.EqualTo(expected.FirstName));
             Assert.That(result.LastName, Is.EqualTo(expected.LastName));
@@ -568,7 +576,7 @@
             var result = _dataAccess.ValidateUserForLrfSystem(requestUser, out resultInfo);
 
             // Assert
-            Assert.That(result.Id, Is.EqualTo(expected.Id));
+            Assert.That(result.UserID, Is.EqualTo(expected.UserID));
             Assert.That(result.Username, Is.EqualTo(expected.Username));
             Assert.That(result.FirstName, Is.EqualTo(expected.FirstName));
             Assert.That(result.LastName, Is.EqualTo(expected.LastName));
@@ -583,7 +591,7 @@
         {
             return new User
             {
-                Id = 1,
+                UserID = 1,
                 Username = "UserNameTest",
                 FirstName = "FirstName Test",
                 LastName = "LastName Test",
@@ -597,7 +605,7 @@
         private void ConfigureDataReader(User expected)
         {
             _reader.Read().Returns(true, false);
-            _reader["UserID"].Returns(expected.Id);
+            _reader["UserID"].Returns(expected.UserID);
             _reader["username"].Returns(expected.Username);
             _reader["firstname"].Returns(expected.FirstName);
             _reader["lastname"].Returns(expected.LastName);

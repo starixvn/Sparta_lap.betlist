@@ -10,9 +10,6 @@ namespace Fanex.Athena.Extension.Utility
     using System.Diagnostics.CodeAnalysis;
     using System.Text.RegularExpressions;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public static class Util
     {
         public static IDictionary<string, string> SupportedLanguages
@@ -27,6 +24,24 @@ namespace Fanex.Athena.Extension.Utility
                         { "ko-KR", "한국의" },
                         { "zh-Hans", "简体中文(新)" }
                     };
+            }
+        }
+
+        public static IDictionary<string, string> MapLanguages
+        {
+            get
+            {
+                return new Dictionary<string, string>()
+                {
+                    { "en-US", "en" },
+                    { "zh-TW", "ch" },
+                    { "zh-CN", "cs" },
+                    { "zh-Hans", "zhcn" },
+                    { "ja-JP", "jp" },
+                    { "th-TH", "th" },
+                    { "ko-KR", "ko" },
+                    { "vi-VN", "vn" }
+                };
             }
         }
 

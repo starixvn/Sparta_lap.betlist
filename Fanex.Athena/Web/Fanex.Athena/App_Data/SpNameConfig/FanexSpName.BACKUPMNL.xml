@@ -6,7 +6,7 @@
     <Setting Key="Lrf_LicenseeProduct3rdSel" SpName="Lrf_LicenseeProduct3rdSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeProduct3rdSel_active" SpName="Lrf_LicenseeProduct3rdSel_active" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_SelBalanceUpDay" SpName="Lrf_SelBalanceUpDay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_SelCurrency" SpName="Lrf_SelCurrency" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_SelCurrencyByLicensee" SpName="Lrf_SelCurrencyByLicensee" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeSel" SpName="Lrf_LicenseeSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeCustSel" SpName="Lrf_LicenseeCustSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CheckHRAllowedCurrency" SpName="Lrf_CheckHRAllowedCurrency" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -18,6 +18,14 @@
     <Setting Key="Lrf_CustomerSelCheckBelonging" SpName="Lrf_CustomerSelCheckBelonging" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_GetNumberOfOnlineUsers" SpName="Lrf_GetNumberOfOnlineUsers" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeProductSel" SpName="Lrf_LicenseeProductSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeSelBySiteName" SpName="Lrf_LicenseeSelBySiteName" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet">
+      <Mapping DataField="LicenseeID" ObjectProperty="Id"/>
+      <Mapping DataField="LicenseeName" ObjectProperty="Name"/>
+      <Mapping DataField="IsAllowedMemberComm" ObjectProperty="IsAllowedCustomerComm"/>
+      <Mapping DataField="EnableBA" ObjectProperty="IsEnableBA"/>
+    </Setting>
+    <Setting Key="Lrf_SyncInternalUser" SpName="Lrf_SyncInternalUser" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+
   </Function>
 
   <Function Name="Authorization">

@@ -1,0 +1,13 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
+
+
+@foreach (var item in Model.ByCurrencies)
+{
+    <tr>
+        <td title="@item.ProductName">
+            @item.ProductName
+        </td>
+
+        @ReportContentHelperDesktop.RenderDataForLiveReport(Model, item)
+    </tr>
+}

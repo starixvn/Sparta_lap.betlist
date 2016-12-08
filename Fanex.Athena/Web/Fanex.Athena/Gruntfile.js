@@ -1,3 +1,7 @@
+var webpack = require("webpack");
+var webpackDevelopment = require("./www/webpackconfig/build/webpack.dev.conf.js");
+var webpackProduction = require("./www/webpackconfig/build/webpack.pro.conf.js");
+
 module.exports = function(grunt) {
 
 	grunt.file.defaultEncoding = "utf-8";
@@ -8,27 +12,35 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    karma: {
+	pkg: grunt.file.readJSON('package.json'),
+	karma: {
 	  unit: {
-		configFile: 'karma.conf.js',
+		configFile: 'karma.conf.js'
 		/*port: 9999,
 		singleRun: true,
 		browsers: ['PhantomJS'],
 		logLevel: 'ERROR'*/
+	  },
+	  unit2: {
+		  configFile: 'karma-new.conf.js'
+		  /*port: 9999,
+		  singleRun: true,
+		  browsers: ['PhantomJS'],
+		  logLevel: 'ERROR'*/
 	  }
 	},
 	jshint: {
 		options: grunt.file.readJSON('jshint.json'),
 		beforeconcat: jsFilters,
 		afterconcat: ['dist/output.js']
-     }
+	},
+	webpack: {
+		dev: webpackDevelopment,
+		pro: webpackProduction
+	}
   });
 
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-
-  // Default task(s).
-  // grunt.registerTask('default', ['karma']);
-
+	grunt.loadNpmTasks('grunt-karma');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-webpack');
 };

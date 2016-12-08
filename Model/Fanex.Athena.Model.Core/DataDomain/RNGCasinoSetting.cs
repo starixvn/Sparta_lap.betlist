@@ -18,14 +18,14 @@ namespace Fanex.Athena.Model.Core.DataDomain
 
         public const string CasinoGroup2 = "02";
 
-        private static ReadOnlyCollection<string> _specialGames = new ReadOnlyCollection<string>(
-            new List<string>() { "S0001", "S0004", "S0003", "S0007", "S0005" });
+        private static readonly ReadOnlyCollection<string> _SpecialGames = new ReadOnlyCollection<string>(
+            new List<string> { "S0001", "S0004", "S0003", "S0007", "S0005" });
 
         public static ReadOnlyCollection<string> SpecialGames
         {
             get
             {
-                return _specialGames;
+                return _SpecialGames;
             }
         }
     }

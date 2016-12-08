@@ -48,7 +48,7 @@ namespace Fanex.Athena.Service.Core.Configuration
                 var endDate = _appSettings.MoveBetDayEnd;
                 if (endDate.HasValue)
                 {
-                    return new MoveBet()
+                    return new MoveBet
                     {
                         AvailableWinlostDate = _appSettings.MoveBetDayStart.Value,
                         EstimatedTime = endDate

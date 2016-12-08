@@ -40,7 +40,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\RemotingRef.1.0.0.11\lib\net40\RemotingRef.dll</HintPath>
+      <HintPath>..\..\packages\RemotingRef.1.0.0.13\lib\net40\RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataDomain\AppMode.cs" />
     <Compile Include="DataDomain\BaseCurrencyType.cs" />
     <Compile Include="DataDomain\BetType.cs" />
     <Compile Include="DataDomain\CurrencyType.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="DataDomain\ErrorType.cs" />
     <Compile Include="DataDomain\EsportSettingType.cs" />
     <Compile Include="DataDomain\FormatKey.cs" />
+    <Compile Include="DataDomain\OneAuthorizationErrorCode.cs" />
     <Compile Include="DataDomain\PermissionKeys.cs" />
     <Compile Include="DataDomain\FunctionNames.cs" />
     <Compile Include="DataDomain\FunctionType.cs" />
@@ -78,8 +80,8 @@
     <Compile Include="DataDomain\RNGCasinoSetting.cs" />
     <Compile Include="DataDomain\SportType.cs" />
     <Compile Include="DataDomain\SystemConstants.cs" />
+    <Compile Include="DataDomain\ClientViewType.cs" />
     <Compile Include="DTO\Common\CheckedItem.cs" />
-    <Compile Include="DTO\Common\Currency.cs" />
     <Compile Include="DTO\Common\ExChangeRate.cs" />
     <Compile Include="DTO\Common\Function.cs" />
     <Compile Include="DTO\Common\IRequest.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="DTO\Common\League.cs" />
     <Compile Include="DTO\Common\Licensee.cs" />
     <Compile Include="DTO\Common\Match.cs" />
+    <Compile Include="DTO\Common\OneAuthenticationToken.cs" />
     <Compile Include="DTO\Common\Product.cs" />
     <Compile Include="DTO\Common\ProductAccess.cs" />
     <Compile Include="DTO\Common\Request.cs" />
@@ -97,6 +100,7 @@
     <Compile Include="DTO\Configuration\CacheKey.cs" />
     <Compile Include="DTO\Configuration\MaintenanceInfo.cs" />
     <Compile Include="DTO\Configuration\MoveBet.cs" />
+    <Compile Include="DTO\PortalSystemFunction.cs" />
     <Compile Include="DTO\Users\CurrencyUser.cs" />
     <Compile Include="DTO\Users\LicenseeCustomer.cs" />
     <Compile Include="DTO\Users\LicenseeSession.cs" />

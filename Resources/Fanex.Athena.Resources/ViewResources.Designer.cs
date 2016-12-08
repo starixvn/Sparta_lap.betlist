@@ -151,6 +151,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administrator.
+        /// </summary>
+        public static string Administrator {
+            get {
+                return ResourceManager.GetString("Administrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Affiliate Transfer.
         /// </summary>
         public static string AffiliateTransfer {
@@ -597,6 +606,15 @@ namespace Fanex.Athena.Resources {
         public static string BA {
             get {
                 return ResourceManager.GetString("BA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
             }
         }
         
@@ -3940,11 +3958,29 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not found licensee.
+        /// </summary>
+        public static string LicenseeIsNotExisted {
+            get {
+                return ResourceManager.GetString("LicenseeIsNotExisted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licensee Net Win.
         /// </summary>
         public static string LicenseeNetWin {
             get {
                 return ResourceManager.GetString("LicenseeNetWin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licensee is not offered any currency.
+        /// </summary>
+        public static string LicenseeNotOfferedCurrency {
+            get {
+                return ResourceManager.GetString("LicenseeNotOfferedCurrency", resourceCulture);
             }
         }
         
@@ -5268,6 +5304,15 @@ namespace Fanex.Athena.Resources {
         public static string OneMonth {
             get {
                 return ResourceManager.GetString("OneMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Who let you here ?.
+        /// </summary>
+        public static string OneTokenRestrictionDefaultMsg {
+            get {
+                return ResourceManager.GetString("OneTokenRestrictionDefaultMsg", resourceCulture);
             }
         }
         
@@ -7000,6 +7045,24 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Token is invalid.
+        /// </summary>
+        public static string TokenIsInValid {
+            get {
+                return ResourceManager.GetString("TokenIsInValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token was expired.
+        /// </summary>
+        public static string TokenWasExpired {
+            get {
+                return ResourceManager.GetString("TokenWasExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Top.
         /// </summary>
         public static string Top {
@@ -7720,7 +7783,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User does not exist..
+        ///   Looks up a localized string similar to Not found user.
         /// </summary>
         public static string UserNotExist {
             get {
@@ -8076,6 +8139,15 @@ namespace Fanex.Athena.Resources {
         public static string Yesterday {
             get {
                 return ResourceManager.GetString("Yesterday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not allowed to access this page !!!.
+        /// </summary>
+        public static string YouAreNotAllowToAccessThisPage {
+            get {
+                return ResourceManager.GetString("YouAreNotAllowToAccessThisPage", resourceCulture);
             }
         }
         

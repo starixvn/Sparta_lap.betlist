@@ -99,9 +99,9 @@ namespace Fanex.Athena.Service.Core.Users
             return this._userDataAccess.GetByLicensee(licenseeId, isInternal);
         }
 
-        public User GetByUsername(string userName)
+        public User GetByUsername(string userName, int licenseeId = 0)
         {
-            return _userDataAccess.GetByUsername(userName);
+            return _userDataAccess.GetByUsername(userName, licenseeId);
         }
 
         public User GetUserInfo(int licenseeId, int userId)
@@ -173,6 +173,11 @@ namespace Fanex.Athena.Service.Core.Users
 
             user.Password = Cryptography.CreateHash(user.Password, salt);
             return this._userDataAccess.ResetPassword(user, salt, resetPwdBy);
+        }
+
+        public IResultInfo SyncUserInfo(string licenseeName, string userName)
+        {
+            return _userDataAccess.SyncUserInfo(licenseeName, userName);
         }
 
         public IResultInfo UpdateInfo(User user, int updatedBy)

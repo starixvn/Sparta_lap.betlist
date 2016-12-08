@@ -27,6 +27,8 @@ namespace Fanex.Athena.Model.Core.DTO.Common
             Description = info.GetString("Description");
             IsAllowedCustomerComm = info.GetBoolean("IsAllowedCustomerComm");
             IsEnableBA = info.GetBoolean("IsEnableBA");
+            ResellerId = info.GetInt32("ResellerId");
+            ResellerName = info.GetString("ResellerName");
         }
 
         public int Id { get; set; }
@@ -41,16 +43,22 @@ namespace Fanex.Athena.Model.Core.DTO.Common
 
         public bool IsEnableBA { get; set; }
 
+        public int ResellerId { get; set; }
+
+        public string ResellerName { get; set; }
+
         #region ISerializable Members
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("IsActive", IsActive);
-            info.AddValue("Id", Id);
-            info.AddValue("Name", Name);
-            info.AddValue("Description", Description);
-            info.AddValue("IsAllowedCustomerComm", IsAllowedCustomerComm);
-            info.AddValue("IsEnableBA", IsEnableBA);
+            info.AddValue(nameof(IsActive), IsActive);
+            info.AddValue(nameof(Id), Id);
+            info.AddValue(nameof(Name), Name);
+            info.AddValue(nameof(Description), Description);
+            info.AddValue(nameof(IsAllowedCustomerComm), IsAllowedCustomerComm);
+            info.AddValue(nameof(IsEnableBA), IsEnableBA);
+            info.AddValue(nameof(ResellerId), ResellerId);
+            info.AddValue(nameof(ResellerName), ResellerName);
         }
 
         #endregion ISerializable Members

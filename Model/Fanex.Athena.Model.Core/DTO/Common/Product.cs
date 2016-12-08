@@ -31,7 +31,7 @@ namespace Fanex.Athena.Model.Core.DTO.Common
         public const string CS = "CS";
 
         public const string BG = "BG";
-      
+
         public const string KN = "KN";
 
         public const string AGC = "AGC";
@@ -59,7 +59,7 @@ namespace Fanex.Athena.Model.Core.DTO.Common
         public Product()
         {
             ProductCode = SB;
-            ProductName = "SB";
+            ProductName = nameof(SB);
             AllowCommission = true;
             AllowWinloss = true;
         }

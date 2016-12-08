@@ -27,6 +27,7 @@ namespace Fanex.Athena.Api.Base
     /// </summary>
     [CustomApiAuthorize]
     [CheckUMFilter]
+    [XFrameOptionApi]
     public class BaseApiController : ApiController
     {
         private readonly ILanguageService _langService;

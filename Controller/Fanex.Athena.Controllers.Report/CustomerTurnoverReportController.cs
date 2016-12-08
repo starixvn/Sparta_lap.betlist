@@ -78,7 +78,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            CustomerTurnoverMetaModel metaModel = JsonConvert.DeserializeObject<CustomerTurnoverMetaModel>(excelParam);
+            var metaModel = JsonConvert.DeserializeObject<CustomerTurnoverMetaModel>(excelParam);
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
             if (metaModel == null || !metaModel.IsValid)
@@ -99,7 +99,7 @@ namespace Fanex.Athena.Controllers.Report
             var currencyName = userSession.CurrencyList
                 .Where(i => i.Value == metaModel.CurrencyId).Select(i => i.Key).SingleOrDefault();
 
-            CustTurnover totalData = new CustTurnover();
+            var totalData = new CustTurnover();
             var totalRow = 0;
             var data = GetData(metaModel, out totalData, out totalRow);
             var usernameExcelTitle = string.IsNullOrEmpty(metaModel.Username) ?

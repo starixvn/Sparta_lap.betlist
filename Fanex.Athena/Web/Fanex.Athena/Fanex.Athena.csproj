@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -41,6 +42,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -87,19 +89,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.15.2.9\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.15.5.2\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.ColossusBets, Version=1.0.1.7, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.ColossusBets.1.0.1.7\lib\net40\Fanex.BetList.ColossusBets.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.15.2.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.15.2.9\lib\net40\Fanex.BetList.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.BetList.GoldDeluxe, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.15.2.9\lib\net40\Fanex.BetList.GoldDeluxe.dll</HintPath>
+    <Reference Include="Fanex.BetList.Core, Version=2.15.5.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.15.5.2\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.Microgaming, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
@@ -230,8 +228,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLLs\3rds\NetUtility.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
@@ -251,7 +249,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\RemotingRef.1.0.0.11\lib\net40\RemotingRef.dll</HintPath>
+      <HintPath>..\..\..\packages\RemotingRef.1.0.0.13\lib\net40\RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -708,6 +706,148 @@
     <Content Include="App_Data\Fanex.Result\VSHRacing.xls" />
     <Content Include="App_Data\Fanex.Result\VSSpeedWay.xls" />
     <Content Include="App_Data\Fanex.Result\VSTennis.xls" />
+    <Content Include="Content\Plugin\ColorPicker\images\checked-dark.png" />
+    <Content Include="Content\Plugin\ColorPicker\images\transparent.png" />
+    <Content Include="Content\Plugin\ColorPicker\images\checked-light.png" />
+    <Content Include="Jasmine\NewUI\SpecRunner.html" />
+    <Content Include="karma-new.conf.js" />
+    <Content Include="www\assets\images\15.jpg" />
+    <Content Include="www\assets\images\logo-text.svg" />
+    <Content Include="www\assets\images\logo.svg" />
+    <Content Include="www\assets\images\robot.jpg" />
+    <Content Include="www\css\build\fonts\flags\flags\cn.svg" />
+    <Content Include="www\css\build\fonts\flags\flags\gb.svg" />
+    <Content Include="www\css\build\fonts\flags\flags\kr.svg" />
+    <Content Include="www\css\build\fonts\flags\flags\tw.svg" />
+    <Content Include="www\css\build\fonts\font-icon\fonts\icomoon.svg" />
+    <Content Include="www\css\build\images\15.jpg" />
+    <Content Include="www\css\build\images\bg-login.jpg" />
+    <Content Include="www\css\build\images\ic-calendar.png" />
+    <Content Include="www\css\build\images\logo-text.png" />
+    <Content Include="www\css\build\images\logo.png" />
+    <Content Include="www\css\build\main.css" />
+    <Content Include="www\css\build\pages\betlist\betlistResult.css" />
+    <Content Include="www\css\build\pages\betlist\betlistSimpleLayout.css" />
+    <Content Include="www\css\build\pages\betlist\colossusbetdetail.css" />
+    <Content Include="www\css\build\pages\betlist\images\1F.gif" />
+    <Content Include="www\css\build\pages\betlist\images\1L.gif" />
+    <Content Include="www\css\build\pages\betlist\images\ajax-loader.gif" />
+    <Content Include="www\css\build\pages\betlist\images\bg_header03.jpg" />
+    <Content Include="www\css\build\pages\betlist\images\firstGoal.gif" />
+    <Content Include="www\css\build\pages\betlist\images\goal-icon.png" />
+    <Content Include="www\css\build\pages\betlist\images\lastGoal.gif" />
+    <Content Include="www\css\build\pages\betlist\images\q_Icon2_1.png" />
+    <Content Include="www\css\build\pages\betlist\images\q_Icon_2.png" />
+    <Content Include="www\css\build\pages\betlist\images\tab_topbg.gif" />
+    <Content Include="www\css\build\pages\betlist\images\undo.png" />
+    <Content Include="www\css\build\pages\betlist\systemparlaydetail.css" />
+    <Content Include="www\css\build\pages\home\home.css" />
+    <Content Include="www\css\build\pages\login\login.css" />
+    <Content Include="www\css\build\pages\reports\licenseewinloss.css" />
+    <Content Include="www\css\build\pages\reports\livereport.css" />
+    <Content Include="www\css\build\pages\reports\reportjqgridlayout.css" />
+    <Content Include="www\css\build\pages\utility\error.css" />
+    <Content Include="www\css\source\components\betlist\AGCasino.css" />
+    <Content Include="www\css\source\components\betlist\Allbet.css" />
+    <Content Include="www\css\source\components\betlist\Microgaming.css" />
+    <Content Include="www\css\source\components\jqgrid\jqgrid.css" />
+    <Content Include="www\css\source\components\multiselect\jquery.multiselect.css" />
+    <Content Include="www\css\source\pages\login.css" />
+    <Content Include="www\css\source\vendors\materialize\materialize.css" />
+    <Content Include="www\js\build\common.chunk.js" />
+    <Content Include="www\js\build\language.chunk.js" />
+    <Content Include="www\js\build\pages\betlist\betlist.chunk.js" />
+    <Content Include="www\js\build\pages\home\home.chunk.js" />
+    <Content Include="www\js\build\pages\licenseewinloss\licenseewinloss.chunk.js" />
+    <Content Include="www\js\build\pages\livereport\livereport.chunk.js" />
+    <Content Include="www\js\build\pages\livereport\livereportmatchlist.chunk.js" />
+    <Content Include="www\js\build\pages\signin\signin.chunk.js" />
+    <Content Include="www\js\source\common\languages\ViewResources.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="www\js\source\common\languages\ViewResources.ko-KR.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="www\js\source\common\languages\ViewResources.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewResources.txt</LastGenOutput>
+    </Content>
+    <Content Include="www\js\source\common\languages\ViewResources.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="www\js\source\common\languages\ViewResources.zh-CN.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="www\js\source\common\languages\ViewResources.zh-Hans.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="www\js\source\common\languages\ViewResources.zh-TW.js">
+      <DependentUpon>ViewResources.tt</DependentUpon>
+    </Content>
+    <Content Include="www\js\source\common\languages\ViewResources1.txt" />
+    <Content Include="www\js\source\common\pluginhelper.js" />
+    <Content Include="www\js\source\common\popup.js" />
+    <Content Include="www\js\source\common\querystring.js" />
+    <Content Include="www\js\source\common\site.js" />
+    <Content Include="www\js\source\components\betlist\betlist.js" />
+    <Content Include="www\js\source\components\betlist\betlist.option.js" />
+    <Content Include="www\js\source\components\betlist\commonbetlist.js" />
+    <Content Include="www\js\source\components\betlist\main.js" />
+    <Content Include="www\js\source\extensions\jquery.extension.js" />
+    <Content Include="www\js\source\extensions\prototype.js" />
+    <Content Include="www\js\source\lib\bignumber.js" />
+    <Content Include="www\js\source\lib\date.min.js" />
+    <Content Include="www\js\source\lib\jqgrid\jquery.jqgrid.additional.js" />
+    <Content Include="www\js\source\lib\jqgrid\jquery.jqGrid.en.js" />
+    <Content Include="www\js\source\lib\jqgrid\jquery.jqGrid.min.js" />
+    <Content Include="www\js\source\lib\jquery.flatpopup.js" />
+    <Content Include="www\js\source\lib\jquery.monthpicker.js" />
+    <Content Include="www\js\source\lib\jquery.multiselect.js" />
+    <Content Include="www\js\source\lib\jquery.tiny-draggable.js" />
+    <Content Include="www\js\source\lib\linq.js" />
+    <Content Include="www\js\source\lib\navbar.js" />
+    <Content Include="www\js\source\lib\sidebar.js" />
+    <Content Include="www\js\source\pages\home\home.js" />
+    <Content Include="www\js\source\pages\home\main.js" />
+    <Content Include="www\js\source\pages\home\recheckin.js" />
+    <Content Include="www\js\source\pages\report\livereport\helper.js" />
+    <Content Include="www\js\source\pages\report\livereport\livereport.js" />
+    <Content Include="www\js\source\pages\report\livereport\livereportmatchlist.js" />
+    <Content Include="www\js\source\lib\jquery.cookie.js" />
+    <Content Include="www\js\source\lib\jquery.jclock.js" />
+    <Content Include="www\js\source\pages\report\livereport\main-livereport.js" />
+    <Content Include="www\js\source\pages\report\livereport\main-matchlist.js" />
+    <Content Include="www\js\source\pages\report\licenseewinloss\licenseewinloss.js" />
+    <Content Include="www\js\source\pages\report\licenseewinloss\licenseewinloss.option.js" />
+    <Content Include="www\js\source\pages\report\licenseewinloss\main.js" />
+    <Content Include="www\js\source\pages\report\report.js" />
+    <Content Include="www\js\source\pages\signin\main.js" />
+    <Content Include="www\js\source\pages\signin\signin.js" />
+    <Content Include="www\js\source\vendors\materialize\materialize.js" />
+    <Content Include="www\js\tests\common\popup-spec.js" />
+    <Content Include="www\js\tests\common\querystring-spec.js" />
+    <Content Include="www\js\tests\common\site-spec.js" />
+    <Content Include="www\js\tests\components\betlist\betlist-spec.js" />
+    <Content Include="www\js\tests\components\betlist\commonbetlist-spec.js" />
+    <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss-spec.js" />
+    <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss.option-spec.js" />
+    <Content Include="www\js\tests\pages\report\livereport\livereport-spec.js" />
+    <Content Include="www\js\tests\pages\report\livereport\helper-spec.js" />
+    <Content Include="www\js\tests\global.js" />
+    <Content Include="www\js\tests\test-main.js" />
+    <Content Include="www\webpackconfig\build\utils.js" />
+    <Content Include="www\webpackconfig\build\webpack.base.conf.js" />
+    <Content Include="www\webpackconfig\build\webpack.dev.conf.js" />
+    <Content Include="www\webpackconfig\build\webpack.pro.conf.js" />
+    <Content Include="www\webpackconfig\config\alias.js" />
+    <Content Include="www\webpackconfig\config\loader.js" />
+    <Content Include="www\webpackconfig\config\path.js" />
+    <Content Include="www\webpackconfig\config\plugin.js" />
+    <Content Include="App_Code\RazorHelperDesktop.cshtml" />
+    <Content Include="App_Code\ReportContentHelperDesktop.cshtml" />
+    <Content Include="App_Data\PortalSystemFunction.json" />
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">
       <SubType>Designer</SubType>
     </None>
@@ -750,6 +890,10 @@
     <Content Include="App_Data\UserGuide\CustomerList\pdf\zh-TW\Odds Group Feature_Licensee_BA.pdf" />
     <Content Include="App_Data\UserGuide\CustomerList\pdf\en-US\Odds Group Feature_Licensee_BA.pdf" />
     <Content Include="App_Data\Template\Reports\ColossusBetsWinLoss.xls" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="img\Slot\S0007\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
@@ -973,11 +1117,105 @@
     <Content Include="Views\Report\ColossusBetsWinLoss\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\ColossusBets.cshtml" />
     <Content Include="Views\BetList\ColossusBetDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\Content.Data.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\Content.Header.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\HistoryFilter.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\Main.cshtml" />
+    <Content Include="Views\Desktop\Shared\_ReportLayout.cshtml" />
+    <Content Include="Views\Desktop\Shared\_Layout.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\ByBettype\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\ByBettype\Content.Data.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\ByBettype\Content.Header.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\ByCurrency\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\ByCurrency\Content.Data.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\ByCurrency\Content.Header.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\BySport\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\BySport\Content.Data.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\BySport\Content.Header.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\AjaxTemplate\LiveReportDetail.cshtml" />
+    <Content Include="Views\Desktop\Header\Index.cshtml" />
+    <Content Include="Views\Desktop\Home\Index.cshtml" />
+    <Content Include="Views\Desktop\Menu\Index.cshtml" />
+    <Content Include="www\css\source\components\daterangepicker\daterangepicker-ex.scss" />
+    <Content Include="Views\Desktop\Authorization\SignIn.cshtml" />
+    <Content Include="www\css\source\extensions\login-ex.scss" />
+    <Content Include="www\css\build\fonts\font-icon\fonts\icomoon.eot" />
+    <Content Include="www\css\build\fonts\font-icon\fonts\icomoon.ttf" />
+    <Content Include="www\css\build\fonts\font-icon\fonts\icomoon.woff" />
+    <Content Include="www\css\build\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="www\css\build\fonts\montserrat\Montserrat-Hairline.woff" />
+    <Content Include="www\css\build\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="www\css\source\extensions\main-ex.scss" />
+    <Content Include="www\css\source\components\flatpopup\flatpopup.scss" />
+    <Content Include="www\css\source\components\monthpicker\monpickr.scss" />
+    <Content Include="www\css\source\extensions\home.scss" />
+    <Content Include="Views\Desktop\Report\LicenseeWinLoss\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\LicenseeWinLoss\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\LicenseeWinLoss\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\MatchList\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\MatchList\Content.Data.cshtml" />
+    <Content Include="Views\Desktop\Report\LiveReport\MatchList\Content.Header.cshtml" />
+    <Content Include="Views\Desktop\Shared\_Report.jqGridLayout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="www\css\source\extensions\jqgrid-ex.scss" />
+    <Content Include="www\css\source\extensions\report-ex.scss" />
+    <Content Include="www\css\source\pages\report\licenseewinloss.scss" />
+    <Content Include="www\css\source\extensions\multiselect-ex.scss" />
+    <Content Include="www\js\tests\lib\jqgrid\jquery.jqgrid.additional-spec.js" />
+    <Content Include="www\css\source\pages\common.scss" />
+    <Content Include="www\css\source\scss\abstracts\_variables.scss" />
+    <Content Include="www\css\source\pages\report\livereport.scss" />
+    <Content Include="Views\Desktop\Shared\_BetListSimpleLayout.cshtml" />
+    <Content Include="Views\Desktop\BetList\LicenseeWl\Main.cshtml" />
+    <Content Include="www\css\source\components\betlist\betlist.scss" />
+    <Content Include="Views\Desktop\Report\Result\Popup\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\RngCasinoDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\AGCasinoDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\ColossusBetDetail\Main.cshtml" />
+    <Content Include="www\css\source\components\betlist\colossusbetdetail.scss" />
+    <Content Include="Views\Desktop\BetList\MicroGamingRngDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\SystemParlayDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\VoidbridgeDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\Shared\_SessionScript.cshtml" />
+    <Content Include="Views\Desktop\Utility\OneTokenRestriction.cshtml" />
+    <Content Include="Views\Shared\_SessionScript.cshtml" />
+    <Content Include="Views\Desktop\Shared\_ErrorLayout.cshtml" />
+    <Content Include="Views\Desktop\Utility\AccessDenied.cshtml" />
+    <Content Include="Views\Desktop\Utility\Error.cshtml" />
+    <Content Include="Views\Desktop\Utility\LocationRestriction.cshtml" />
+    <Content Include="Views\Desktop\Utility\SSODenyAccess.cshtml" />
+    <Content Include="Views\Desktop\Utility\UnderMaintenance.cshtml" />
+    <Content Include="SiteConfig\Web.AppSettings.BACKUPMNL.config" />
+    <Content Include="SiteConfig\Web.AppSettings.DEV.config" />
+    <Content Include="SiteConfig\Web.AppSettings.LOCAL.config" />
+    <Content Include="SiteConfig\Web.AppSettings.PRO.config" />
+    <Content Include="SiteConfig\Web.AppSettings.SANDBOX.config" />
+    <Content Include="SiteConfig\Web.AppSettings.SIT.config" />
+    <Content Include="SiteConfig\Web.AppSettings.UAT.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.BACKUPMNL.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.DEV.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.LOCAL.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.PRO.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.SANDBOX.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.UAT.config" />
+    <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
+    <Content Include="www\css\source\scss\base\_common.scss" />
+    <Content Include="www\css\source\scss\components\_button.scss" />
+    <Content Include="www\css\source\scss\components\_table.scss" />
+    <Content Include="www\css\source\main.scss" />
+    <Content Include="www\css\source\scss\fonts\flags\_flags-icon.scss" />
+    <Content Include="www\css\source\scss\fonts\font-icon\_style.scss" />
+    <Content Include="www\css\source\scss\fonts\montserrat\_style.scss" />
+    <Content Include="www\css\source\components\betlist\systemparlaydetail.scss" />
+    <Content Include="www\css\source\scss\layout\navbar.scss" />
+    <Content Include="www\css\source\scss\layout\sidebar.scss" />
+    <Content Include="www\js\tests\components\betlist\betlist.option-spec.js" />
+    <Content Include="www\css\source\pages\utility\error.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-    </Content>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3698,7 +3936,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\UserGuide\Index.cshtml" />
-    <Content Include="Views\RNGCasino\DataTableFromAPI.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Content.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Filter.cshtml" />
     <Content Include="Views\Report\ActiveCustomerSummary\Main.cshtml" />
@@ -3710,9 +3947,6 @@
     <Content Include="Views\Report\MacauWinLoss\Content.cshtml" />
     <Content Include="Views\Report\MacauWinLoss\Filter.cshtml" />
     <Content Include="Views\Report\MacauWinLoss\Main.cshtml" />
-    <Content Include="SiteConfig\Web.ConnectionStrings.DEV.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-    </Content>
     <Content Include="Views\Customer\BetSetting\MicroGamingLiveCasino.cshtml" />
     <Content Include="Views\Customer\BetSetting\BetTrade.cshtml" />
   </ItemGroup>
@@ -4224,18 +4458,8 @@
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Content>
     <Content Include="under-maintenance.gif" />
-    <Content Include="SiteConfig\Web.AppSettings.config.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
-    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="SiteConfig\Web.ConnectionStrings.config.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
     </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -4251,7 +4475,6 @@
     <Content Include="Scripts\Library\MicrosoftMvcAjax.debug.js" />
     <Content Include="Scripts\Library\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\Library\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config">
@@ -4421,7 +4644,6 @@
     <Content Include="Views\WareHouse\WinLoss\Filter.cshtml" />
     <Content Include="Views\WareHouse\WinLoss\Main.cshtml" />
     <Content Include="Views\Note\Warehouse.cshtml" />
-    <Content Include="Views\Account\ChangeLicensee.cshtml" />
     <Content Include="Views\TotalBets\FirstGoalLastGoal\Content.cshtml" />
     <Content Include="Views\TotalBets\FirstGoalLastGoal\ContentData.cshtml" />
     <Content Include="Views\TotalBets\FirstGoalLastGoal\ContentHeader.cshtml" />
@@ -4635,62 +4857,13 @@
     <Content Include="Views\Report\AgCasinoWinLoss\Content.cshtml" />
     <Content Include="Views\Report\AgCasinoWinLoss\Filter.cshtml" />
     <Content Include="Views\Report\AgCasinoWinLoss\Main.cshtml" />
-    <Content Include="SiteConfig\Web.AppSettings.BACKUPMNL.config">
-      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <None Include="SiteConfig\Web.AppSettings.config.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Web.AppSettings.config.txt</LastGenOutput>
-    </None>
-    <Content Include="SiteConfig\Web.AppSettings.LOCAL.config">
-      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="SiteConfig\Web.AppSettings.PRO.config">
-      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.AppSettings.SANDBOX.config">
-      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.AppSettings.UAT.config">
-      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="SiteConfig\Web.AppSettings.DEV.config">
-      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
-    </Content>
     <Content Include="SiteConfig\Web.BACKUPMNL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.AppSettings.SIT.config">
-      <DependentUpon>Web.AppSettings.config.tt</DependentUpon>
     </Content>
     <None Include="SiteConfig\Web.config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.config.txt</LastGenOutput>
     </None>
-    <Content Include="SiteConfig\Web.ConnectionStrings.BACKUPMNL.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-    </Content>
-    <None Include="SiteConfig\Web.ConnectionStrings.config.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Web.ConnectionStrings.config.txt</LastGenOutput>
-    </None>
-    <Content Include="SiteConfig\Web.ConnectionStrings.LOCAL.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.ConnectionStrings.PRO.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="SiteConfig\Web.ConnectionStrings.SANDBOX.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.ConnectionStrings.UAT.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">
@@ -4792,19 +4965,19 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Plugin\MultiSelect\images\images\" />
     <Folder Include="Logs\" />
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,7 +9,7 @@ namespace Fanex.Athena.Model.Core.DataDomain
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public static class Licensees
+    public static class LicenseeIdentityDefinition
     {
         /// <summary>
         /// Value = 96.

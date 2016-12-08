@@ -22,7 +22,7 @@
         private IWebClientService _webClientService;
         private IAgCasinoBetSettingService _service;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _authorizationService = Substitute.For<IAuthorizationService>();
@@ -34,6 +34,16 @@
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _authorizationService = null;
+            _dataAccess = null;
+            _appSettings = null;
+            _webClientService = null;
+            _service = null;
+        }
+
         [Test]
         public void GetViewModel_WhenCall_ApiResultRetriviedCorrectly()
         {
@@ -42,7 +52,7 @@
             var licenseeName = "spondemo";
             var custId = 2;
             _appSettings.GetValue("AGCasinoApiUrl").Returns("http://api.com");
-            _dataAccess.GetBetSetting(custId).Returns(new AgCasinoBetSetting()
+            _dataAccess.GetBetSetting(custId).Returns(new AgCasinoBetSetting
             {
                 AgGroup = "A",
                 CheckedGroups = new string[] { "B" }
@@ -67,11 +77,11 @@
                 Code = 999
             };
             var group = "A";
-            var setting = new CommonBetSetting()
+            var setting = new CommonBetSetting
             {
                 CustId = 2
             };
-            _dataAccess.GetBetSetting(setting.CustId).Returns(new AgCasinoBetSetting()
+            _dataAccess.GetBetSetting(setting.CustId).Returns(new AgCasinoBetSetting
             {
                 IsEnabled = true
             });
@@ -88,7 +98,7 @@
         public void UpdateStatus_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new ResultInfo()
+            var expectedResult = new ResultInfo
             {
                 Code = 999
             };

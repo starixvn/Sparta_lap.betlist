@@ -86,7 +86,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
                         {
                             var entity = new User
                             {
-                                Id = Convert.ToInt32(reader["UserID"]),
+                                UserID = Convert.ToInt32(reader["UserID"]),
                                 Username = reader.ToString("username"),
                                 FirstName = reader.ToString("firstname"),
                                 LastName = reader.ToString("lastname"),
@@ -110,11 +110,12 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
         }
 
-        public User GetByUsername(string userName)
+        public User GetByUsername(string userName, int licenseeId = 0)
         {
             var param = new
             {
                 Username = userName,
+                LicenseeId = licenseeId
             };
             using (var objectDb = this.GetObjectDb("Lrf_UserInfoSelByUserName"))
             {
@@ -141,7 +142,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
                         var user = new User();
                         if (reader.Read())
                         {
-                            user.Id = reader.ToInt("userid");
+                            user.UserID = reader.ToInt("userid");
                             user.Username = reader.ToString("username");
                             user.FirstName = reader.ToString("firstname");
                             user.LastName = reader.ToString("lastname");
@@ -228,7 +229,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             {
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    db.AddInParameter("CustID", DbType.Int32, requestUser.Id);
+                    db.AddInParameter("CustID", DbType.Int32, requestUser.UserID);
                     db.AddInParameter("NetSessionID", DbType.String, netSessionId);
                     db.AddInParameter("ServerID", DbType.Int32, serverId);
                     db.AddOutParameter("On_UserID", DbType.Int32, 4);
@@ -313,13 +314,38 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-                    db.AddInParameter("UserId", DbType.Int32, user.Id);
+                    db.AddInParameter("UserId", DbType.Int32, user.UserID);
                     db.AddInParameter("UpdateBy", DbType.Int32, resetPwdBy);
                     db.AddInParameter("Pwd", DbType.String, user.Password);
                     db.AddInParameter("UserSalt", DbType.String, salt);
                     db.AddInParameter("langkey", DbType.String, user.Request.Language);
                     db.AddInParameter("LoginIP", DbType.String, user.Request.Ip);
 
+                    AddResultParam(db);
+
+                    db.ExecuteNonQuery();
+
+                    return GetResult(db);
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName);
+            }
+        }
+
+        public IResultInfo SyncUserInfo(string licenseeName, string userName)
+        {
+            const string UspName = "Lrf_SyncInternalUser";
+            const string DefaultPass = "754A738BF99D986D8716FE00A81BC5CA32916BF6"; // 1234aa
+            try
+            {
+                using (var db = this.GetObjectDb(UspName))
+                {
+                    db.AddInParameter("LicenseeName", DbType.String, licenseeName);
+                    db.AddInParameter("Username", DbType.String, userName);
+                    db.AddInParameter("EncryptedPassword", DbType.String, DefaultPass);
                     AddResultParam(db);
 
                     db.ExecuteNonQuery();
@@ -348,7 +374,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-                    db.AddInParameter("UserId", DbType.Int32, user.Id);
+                    db.AddInParameter("UserId", DbType.Int32, user.UserID);
                     db.AddInParameter("UpdateBy", DbType.Int32, updatedBy);
                     db.AddInParameter("FirstName", DbType.String, user.FirstName);
                     db.AddInParameter("LastName", DbType.String, user.LastName);
@@ -403,7 +429,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
                         {
                             user = new User
                             {
-                                Id = reader.ToInt("UserID"),
+                                UserID = reader.ToInt("UserID"),
                                 Username = reader.ToString("username"),
                                 FirstName = reader.ToString("firstname"),
                                 LastName = reader.ToString("lastname"),
@@ -459,7 +485,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
                         {
                             user = new User
                             {
-                                Id = reader.ToInt("UserID"),
+                                UserID = reader.ToInt("UserID"),
                                 Username = reader.ToString("username"),
                                 FirstName = reader.ToString("firstname"),
                                 LastName = reader.ToString("lastname"),

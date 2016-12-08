@@ -1,0 +1,35 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
+
+@{
+    var appSettings = new AppSettings();
+    var liveReportNoDetailLinkSports = appSettings.LiveReportNoDetailLinkSports;
+}
+
+@foreach (var item in Model.BySports)
+{
+    var sportId = string.IsNullOrEmpty(item.ProductCode) ? 0 : Convert.ToInt32(item.ProductCode);
+
+    <tr>
+        <td title="@item.ProductName">
+            @{
+                if (Model.IsShowedDetailLink && !liveReportNoDetailLinkSports.Contains(sportId))
+                {
+                    var detailParam = new
+                    {
+                        SportId = sportId,
+                        TotalValue = item
+                    };
+                    <a href="javascript:;" class="sport-detailt-link" data-drill-down="@detailParam.ToJson()">
+                        @item.ProductName
+                    </a>
+                }
+                else
+                {
+                    @item.ProductName
+                }
+            }
+        </td>
+
+        @ReportContentHelperDesktop.RenderDataForLiveReport(Model, item)
+    </tr>
+}

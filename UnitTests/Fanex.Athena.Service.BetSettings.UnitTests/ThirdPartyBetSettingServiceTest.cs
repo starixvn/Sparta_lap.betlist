@@ -20,7 +20,7 @@
         private IThirdPartyBetSettingDataAccess _dataAccess;
         private IThirdPartyBetSettingService _service;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _authorizationService = Substitute.For<IAuthorizationService>();
@@ -30,21 +30,30 @@
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _authorizationService = null;
+            _dataAccess = null;
+            _service = null;
+        }
+
         [Test]
         public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
-            var productId = 100;
-            var betSetting = new ThirdPartyBetSetting()
+            const int ProductId = 100;
+
+            var betSetting = new ThirdPartyBetSetting
             {
                 IsEnabled = true,
                 IsLineEnabled = true
             };
 
-            _dataAccess.GetBetSetting(CustId, productId).Returns(betSetting);
+            _dataAccess.GetBetSetting(CustId, ProductId).Returns(betSetting);
 
             // Action
-            var result = _service.GetViewModel(LicenseeId, CustId, productId);
+            var result = _service.GetViewModel(LicenseeId, CustId, ProductId);
 
             // Assert
             Assert.That(result.IsEnabled, Is.EqualTo(betSetting.IsEnabled));
@@ -55,18 +64,19 @@
         public void UpdateStatus_WhenCall_CallDataAccessWithCorrectParameters()
         {
             // Arrange
-            var productId = 100;
-            var betSetting = new ThirdPartyBetSetting()
+            const int ProductId = 100;
+
+            var betSetting = new ThirdPartyBetSetting
             {
                 IsLineEnabled = true
             };
-            _dataAccess.GetBetSetting(CustId, productId).Returns(betSetting);
+            _dataAccess.GetBetSetting(CustId, ProductId).Returns(betSetting);
 
             // Action
-            var result = _service.UpdateStatus(LicenseeId, productId, UserId, CustId, Language, "ip", true);
+            var result = _service.UpdateStatus(LicenseeId, ProductId, UserId, CustId, Language, "ip", true);
 
             // Assert
-            _dataAccess.Received().UpdateStatus(productId, UserId, CustId, Language, "ip", true);
+            _dataAccess.Received().UpdateStatus(ProductId, UserId, CustId, Language, "ip", true);
         }
     }
 }

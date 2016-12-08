@@ -1,0 +1,50 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
+@{
+    var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);
+    var appSettings = new AppSettings();
+    var maxDate = appSettings.MaxDate;
+}
+
+<div class="page-form">
+    <form id="livereport" name="livereport" method="post" action="@Url.Content("~/LiveReport?isViewedHistory=false")">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="input-field input col l3 m3 s12 calendar date-range">
+                @RazorHelperDesktop.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, maxDate)
+            </div>
+            <div class="input-field col l2 m2 s12">
+                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
+                <label>@ViewResources.Currency</label>
+            </div>
+            <div class="input-field col l2 m2 s12">
+                @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                <label>@ViewResources.Based</label>
+            </div>
+            <div class="input-field col l2 m2 s12">
+                @RazorHelperDesktop.LiveStatus(Model.Param.LiveIndicator)
+                <label>@ViewResources.LiveStatus</label>
+            </div>
+            <div class="col l2 m2 s12 button-block">
+                <a id="btnSubmit" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span class="circle"></span>
+                <span>
+                    @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate),
+                    <a data-history-mode="False" id="switchreport" href="javascript:;">
+                        @ViewResources.ToViewHistoryRptMsg
+                    </a>
+                </span>
+            </div>
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="exporttoexcel" name="exporttoexcel"></i>
+            </div>
+        </div>
+
+        <input type="hidden" name="ProductCode" id="ProductCode" />
+        <input type="hidden" name="IsExportExcel" id="IsExportExcel" value="false" />
+    </form>
+</div>

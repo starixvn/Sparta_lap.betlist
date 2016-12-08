@@ -11,6 +11,17 @@ var UpdateGroup = (function ($) {
         $('#Save').attr("disabled", false);
     }
 
+    function isParentSameOrigin() {
+        var sameOrigin;
+        try {
+            sameOrigin = window.parent.location.host == window.location.host;
+        }
+        catch (e) {
+            sameOrigin = false;
+        }
+        return sameOrigin;
+    }
+
     return {
         initialize: function () {
             UpdateGroup.initEvent();
@@ -50,10 +61,12 @@ var UpdateGroup = (function ($) {
 
             $('#CustList').click(function () {
                 var groupCommId = $('#GroupCommId').val();
+                if (isParentSameOrigin()) {
+                    parent.$("#menu").contents().find("td.active-menu").removeClass('active-menu');
+                    parent.$("#menu").contents().find("#child-menu-43").addClass('active-menu');
+                    parent.document.title = 'LRF - Customer Information - Customer List';
+                }
 
-                parent.$("#menu").contents().find("td.active-menu").removeClass('active-menu');
-                parent.$("#menu").contents().find("#child-menu-43").addClass('active-menu');
-                parent.document.title = 'LRF - Customer Information - Customer List';
                 window.location.href = Site.resolveClientUrl("Customer/CustomerList") + "?groupId=" + groupCommId;
             });
 

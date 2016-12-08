@@ -14,11 +14,18 @@
         private IObjectDb _objectDb;
         private LastBetsMonitoringBetListDataAccess _dataAccess;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<LastBetsMonitoringBetListDataAccess>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
         }
 
         [Test]

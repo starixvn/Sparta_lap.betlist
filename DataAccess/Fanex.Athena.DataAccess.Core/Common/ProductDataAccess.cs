@@ -34,6 +34,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
         ///   The get product access list.
         /// </summary>
         /// <param name="licenseeId"> The licensee id. </param>
+        /// <param name="isActiveCustomerSummaryReport">todo: describe isActiveCustomerSummaryReport parameter on GetProductAccessList</param>
         /// <returns> The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -42,7 +43,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             var uspName = isActiveCustomerSummaryReport ? "Lrf_LicenseeProduct3rdSel_active" : "Lrf_LicenseeProduct3rdSel";
 
             // All licensees have product Sb
-            var allowedProducts = new List<Product>() { new Product { ProductCode = "SB", ProductName = ViewResources.Sportsbook } };
+            var allowedProducts = new List<Product> { new Product { ProductCode = "SB", ProductName = ViewResources.Sportsbook } };
 
             try
             {
@@ -82,11 +83,11 @@ namespace Fanex.Athena.DataAccess.Core.Common
         /// <returns>The result value.</returns>
         public bool IsAllowedSaToteCurrency(int custId)
         {
-            var uspName = "Lrf_CheckHRAllowedCurrency";
+            const string UspName = "Lrf_CheckHRAllowedCurrency";
 
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, custId);
 
@@ -100,7 +101,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName, new { });
+                throw new DataAccessException(sqlException.Message, UspName, new { });
             }
         }
 

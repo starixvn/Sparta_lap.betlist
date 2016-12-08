@@ -6,29 +6,56 @@
 
 namespace Fanex.Athena.Controllers
 {
+    using System.Configuration;
     using System.Web.Mvc;
     using System.Web.Security;
-    using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Service.Core.Users;
+    using Model.Core.DataDomain;
+    using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
     using Resources;
+    using Service.Core.Common;
+    using Service.Core.Common.Interfaces;
 
     /// <summary>
     /// Utility controller.
     /// </summary>
-    public class UtilityController : BaseController
+    [AllowAnonymous]
+    public class UtilityController : Controller
     {
-        [AllowAnonymous]
-        public ActionResult AccessDenied()
+        private readonly ILanguageService _languageService;
+
+        private readonly IMaintenanceService _maintenanceService;
+
+        public UtilityController() : base()
         {
-            return View("~/Views/Utility/AccessDenied.cshtml");
+            _languageService = new LanguageService();
+            _maintenanceService = new MaintenanceService();
         }
 
-        /// <summary>
-        /// The denied page.
-        /// </summary>
-        /// <returns>The denied message.</returns>
-        [AllowAnonymous]
+        internal UtilityController(ILanguageService languageService, IMaintenanceService maintenanceService)
+        {
+            _languageService = languageService ?? new LanguageService();
+            _maintenanceService = maintenanceService ?? new MaintenanceService();
+        }
+
+        [HttpGet]
+        public ActionResult SessionIsAlive()
+        {
+            return Json(HttpContext.User.Identity.IsAuthenticated, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AccessDenied()
+        {
+            return View("~/Views/Desktop/Utility/AccessDenied.cshtml");
+        }
+
+        public ActionResult OneTokenRestriction(int code)
+        {
+            ViewBag.Message = GetMessageRestriction(code);
+
+            return View("~/Views/Desktop/Utility/OneTokenRestriction.cshtml");
+        }
+
         public ActionResult SSODenyAccess()
         {
             int code;
@@ -76,37 +103,26 @@ namespace Fanex.Athena.Controllers
             }
 
             ViewBag.Message = message;
-            return View("~/Views/Utility/SSODenyAccess.cshtml");
+            return View("~/Views/Desktop/Utility/SSODenyAccess.cshtml");
         }
 
-        /// <summary>
-        /// The location restriction page.
-        /// </summary>
-        /// <returns>The restriction information.</returns>
-        [AllowAnonymous]
         public ActionResult LocationRestriction()
         {
             var requestHost = Request.Url.AbsoluteUri;
-            var isInternalDomain = requestHost.Contains(AppSettings.GetValue("internaldomain"));
-            if (isInternalDomain)
-            {
-                return RedirectToAction("SignIn", "Authorization");
-            }
-            else
-            {
-                return View("~/Views/Utility/LocationRestriction.cshtml");
-            }
+            var isInternalDomain = requestHost.Contains(ConfigurationManager.AppSettings["internaldomain"]);
+
+            return isInternalDomain ? (ActionResult)RedirectToAction("SignIn", "Authorization") : View("~/Views/Desktop/Utility/LocationRestriction.cshtml");
         }
 
         /// <summary>
         /// The error page.
         /// </summary>
         /// <returns>The error information.</returns>
-        [AllowAnonymous]
         public ActionResult Error()
         {
-            string errorStr = string.Empty;
-            string errCode = Request.QueryString["err"];
+            var errorStr = string.Empty;
+
+            var errCode = Request.QueryString["err"];
             if (string.IsNullOrEmpty(errCode))
             {
                 errCode = string.Empty;
@@ -137,28 +153,16 @@ namespace Fanex.Athena.Controllers
             }
 
             ViewBag.Message = errorStr;
-            return View("~/Views/Utility/Error.cshtml");
+            return View("~/Views/Desktop/Utility/Error.cshtml");
         }
 
-        /// <summary>
-        /// The under maintenance page.
-        /// </summary>
-        /// <returns>The maintenance information.</returns>
-        [AllowAnonymous]
-        public ActionResult UnderMaintenance()
+        public ActionResult UnderMaintenance(bool notReload = false)
         {
-            var maintenanceService = new MaintenanceService();
-
             var underMaintenanceTimeFrom = string.Empty;
             var underMaintenanceTimeTo = string.Empty;
-            var maintenanceInfo = maintenanceService.GetUnderMaintenanceTime();
+            var maintenanceInfo = _maintenanceService.GetUnderMaintenanceTime();
 
-            if (!maintenanceInfo.IsUnderMaintenanceTime)
-            {
-                Response.Redirect(FormsAuthentication.LoginUrl);
-                Response.End();
-            }
-            else
+            if (maintenanceInfo.IsUnderMaintenanceTime)
             {
                 underMaintenanceTimeFrom = maintenanceInfo.From;
                 underMaintenanceTimeTo = maintenanceInfo.To;
@@ -169,10 +173,51 @@ namespace Fanex.Athena.Controllers
                     underMaintenanceTimeTo = Request.QueryString["to"] != null ? Request.QueryString["to"] : string.Empty;
                 }
             }
+            else if (!notReload)
+            {
+                return Redirect(FormsAuthentication.LoginUrl);
+            }
 
             ViewBag.UmTimeFrom = underMaintenanceTimeFrom;
             ViewBag.UmTimeTo = underMaintenanceTimeTo;
             return View("~/Views/Utility/UnderMaintenance.cshtml");
+        }
+
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            var currentLanguage = _languageService.GetCurrentLanguage();
+            _languageService.SetPageCulture(currentLanguage);
+        }
+
+        private static string GetMessageRestriction(int code)
+        {
+            switch (code)
+            {
+                case OneAuthorizationErrorCode.TokenWasExpired:
+                    return ViewResources.TokenWasExpired;
+
+                case OneAuthorizationErrorCode.LicenseeIsNotExisted:
+                    return ViewResources.LicenseeIsNotExisted;
+
+                case OneAuthorizationErrorCode.TokenIsInValid:
+                    return ViewResources.TokenIsInValid;
+
+                case OneAuthorizationErrorCode.LocationRestrictionMsg:
+                    return string.Format(ViewResources.LocationRestrictionMsg, ViewResources.Administrator);
+
+                case OneAuthorizationErrorCode.LicenseeNotOfferedCurrency:
+                    return ViewResources.LicenseeNotOfferedCurrency;
+
+                case OneAuthorizationErrorCode.YouAreNotAllowToAccessThisPage:
+                    return ViewResources.YouAreNotAllowToAccessThisPage;
+
+                case OneAuthorizationErrorCode.NotFoundUser:
+                    return ViewResources.UserNotExist;
+
+                default:
+                    return ViewResources.OneTokenRestrictionDefaultMsg;
+            }
         }
     }
 }

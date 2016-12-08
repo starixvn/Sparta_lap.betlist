@@ -76,25 +76,6 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
         }
 
         /// <summary>
-        /// Load RNGCasino result page.
-        /// </summary>
-        /// <param name="metalModel">The metal model.</param>
-        /// <returns>The action result.</returns>
-        [HttpGet]
-        public ActionResult RNGCasinoCallAPIDataTable(RNGCasinoResultMetaModel metalModel)
-        {
-            if (this.SessionService.UserSession.UserName == "pgmbravo")
-            {
-                var model = new RNGCasinoService().GetRNGCasinoResultDataTable(metalModel);
-                return this.View("~/Views/RNGCasino/DataTableFromAPI.cshtml", model);
-            }
-            else
-            {
-                return View("~/Views/Utility/AccessDenied.cshtml");
-            }
-        }
-
-        /// <summary>
         /// RNG Casino detail.
         /// </summary>
         /// <param name="metaModel">The meta model.</param>

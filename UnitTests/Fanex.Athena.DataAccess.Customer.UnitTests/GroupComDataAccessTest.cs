@@ -14,11 +14,18 @@
         private IObjectDb _objectDb;
         private GroupComDataAccess _dataAccess;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<GroupComDataAccess>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
         }
 
         [Test]

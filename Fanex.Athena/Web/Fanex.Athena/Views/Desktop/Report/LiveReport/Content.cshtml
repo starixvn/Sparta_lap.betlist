@@ -1,0 +1,39 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
+
+<div class="page-results">
+    <div class="result-content">
+        <div class="panel-heading active">
+            <div class="panel-title">
+                @ViewResources.LiveReport - @RazorHelperDesktop.ViewLiveStatus(Model.Param.LiveIndicator), @RazorHelperDesktop.TitleDateTime(Model.Param.FromDate, Model.Param.ToDate)
+                - @RazorHelperDesktop.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
+            </div>
+        </div>
+
+        @if (Model.MainResult.Count == 0)
+        {
+            <p class="no-info-row">@ViewResources.NoInfo</p>
+        }
+        else
+        {
+
+            <div class="main-content">
+                <div class="panel-body">
+                    <div class="table-title"><span>@ViewResources.Summary</span></div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            @{ Html.RenderPartial("~/Views/Desktop/Report/LiveReport/Content.Header.cshtml"); }
+                        </thead>
+
+                        <tbody>
+                            @{ Html.RenderPartial("~/Views/Desktop/Report/LiveReport/Content.Data.cshtml"); }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="detail-content">
+                </div>
+            </div>
+        }
+    </div>
+</div>

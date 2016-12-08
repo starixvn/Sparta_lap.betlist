@@ -1,14 +1,14 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Common
 {
     using System.Collections.Generic;
+    using Core.Users;
+    using Core.Users.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Fanex.Common;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
-    using Users;
-    using Users.Interfaces;
 
     [TestFixture]
     public class UserServiceTest
@@ -16,11 +16,18 @@
         private IUserDataAccess _userDataAccess;
         private IUserService _userService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _userDataAccess = Substitute.For<IUserDataAccess>();
             _userService = new UserService(_userDataAccess);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _userDataAccess = null;
+            _userService = null;
         }
 
         [Test]
@@ -45,9 +52,9 @@
         public void GetByLicensee_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<User>()
+            var expectedResult = new List<User>
             {
-                new User() { Id = 1 }
+                new User { UserID = 1 }
             };
             var licenseeId = 1;
             var isInternal = true;
@@ -57,14 +64,14 @@
             var result = _userService.GetByLicensee(licenseeId, isInternal);
 
             // Assert
-            Assert.That(result[0].Id, Is.EqualTo(expectedResult[0].Id));
+            Assert.That(result[0].UserID, Is.EqualTo(expectedResult[0].UserID));
         }
 
         [Test]
         public void GetByUsername_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new User() { Id = 1 };
+            var expectedResult = new User { UserID = 1 };
             var userName = "demo";
             _userDataAccess.GetByUsername(userName).Returns(expectedResult);
 
@@ -72,14 +79,14 @@
             var result = _userService.GetByUsername(userName);
 
             // Assert
-            Assert.That(result.Id, Is.EqualTo(expectedResult.Id));
+            Assert.That(result.UserID, Is.EqualTo(expectedResult.UserID));
         }
 
         [Test]
         public void GetUserInfo_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new User() { Id = 1 };
+            var expectedResult = new User { UserID = 1 };
             var licenseeId = 1;
             var userId = 2;
             _userDataAccess.GetUserInfo(licenseeId, userId).Returns(expectedResult);
@@ -88,7 +95,7 @@
             var result = _userService.GetUserInfo(licenseeId, userId);
 
             // Assert
-            Assert.That(result.Id, Is.EqualTo(expectedResult.Id));
+            Assert.That(result.UserID, Is.EqualTo(expectedResult.UserID));
         }
 
         [Test]
@@ -111,7 +118,7 @@
         {
             // Arrange
             var expectedResult = 100;
-            var user = new User()
+            var user = new User
             {
                 Request = new Request()
             };
@@ -185,9 +192,9 @@
         public void ValidateInternalUser_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var outputUser = new User()
+            var outputUser = new User
             {
-                Id = 999
+                UserID = 999
             };
             var licenseeName = "spondemo";
             long timeStamp = 100;
@@ -198,22 +205,22 @@
             var result = _userService.ValidateInternalUser(new User(), licenseeName, timeStamp, out resultInfo);
 
             // Assert
-            Assert.That(result.Id, Is.EqualTo(outputUser.Id));
+            Assert.That(result.UserID, Is.EqualTo(outputUser.UserID));
         }
 
         [Test]
         public void ValidateUserForLrfSystem_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var outputUser = new User()
+            var outputUser = new User
             {
-                Id = 999,
+                UserID = 999,
                 Password = "password1",
                 UserSalt = "salt1"
             };
             var loginToken = "logintoken";
             var hashPassword = Cryptography.CreateHash(outputUser.Password + loginToken, outputUser.UserSalt);
-            var inputUser = new User()
+            var inputUser = new User
             {
                 Username = "user1",
                 Password = hashPassword
@@ -227,7 +234,7 @@
             var result = _userService.ValidateUserForLrfSystem(inputUser, loginToken, out resultInfo);
 
             // Assert
-            Assert.That(result.Id, Is.EqualTo(outputUser.Id));
+            Assert.That(result.UserID, Is.EqualTo(outputUser.UserID));
         }
     }
 }

@@ -2,15 +2,14 @@
 {
     using System.Collections.Generic;
     using System.IO;
-    using System.Reflection;
     using System.Web;
     using System.Web.SessionState;
     using Core.Common.Interfaces;
+    using Core.Users;
+    using Core.Users.Interfaces;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
-    using Users;
-    using Users.Interfaces;
 
     [TestFixture]
     public class SessionServiceTest
@@ -22,13 +21,22 @@
         private ICurrencyService _currencyService;
         private ISessionService _sessionService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _functionService = Substitute.For<IFunctionService>();
             _licenseeService = Substitute.For<ILicenseeService>();
             _currencyService = Substitute.For<ICurrencyService>();
             _sessionService = new SessionService(_functionService, _licenseeService, _currencyService);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _functionService = null;
+            _licenseeService = null;
+            _currencyService = null;
+            _sessionService = null;
         }
 
         [Test]
@@ -45,18 +53,18 @@
         public void CreateNewSession_WhenCall_LicenseeSessionIsCreatedProperly()
         {
             // Arrange
-            var licenseeId = 1;
-            var licensees = new List<Licensee>()
+            const int LicenseeId = 1;
+            var licensees = new List<Licensee>
             {
-                new Licensee() { Id = 1, Name = "spondemo" }
+                new Licensee { Id = 1, Name = "spondemo" }
             };
             _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
 
             // Action
-            CreateDefaultNewSession(licenseeId);
+            CreateDefaultNewSession(LicenseeId);
 
             // Assert
-            Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(licenseeId));
+            Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(LicenseeId));
             Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("spondemo"));
         }
 
@@ -64,21 +72,21 @@
         public void UpdateLiceseeSession_WhenCall_LicenseeSessionIsCreatedProperly()
         {
             // Arrange
-            var licensees = new List<Licensee>()
+            var licensees = new List<Licensee>
             {
-                new Licensee() { Id = 1, Name = "spondemo" },
-                new Licensee() { Id = 2, Name = "12bet" },
+                new Licensee { Id = 1, Name = "spondemo" },
+                new Licensee { Id = 2, Name = "12bet" },
             };
             _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
-            var oldLicenseeId = 1;
-            var newLicenseeId = 2;
-            CreateDefaultNewSession(oldLicenseeId);
+            const int OldLicenseeId = 1;
+            const int NewLicenseeId = 2;
+            CreateDefaultNewSession(OldLicenseeId);
 
             // Action
-            _sessionService.UpdateLiceseeSession(newLicenseeId);
+            _sessionService.UpdateLiceseeSession(NewLicenseeId);
 
             // Assert
-            Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(newLicenseeId));
+            Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(NewLicenseeId));
             Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("12bet"));
         }
 
@@ -86,14 +94,14 @@
         public void UpdateLanguage()
         {
             // Arrange
-            var languageCode = "vi-VN";
+            const string LanguageCode = "vi-VN";
             CreateDefaultNewSession();
 
             // Action
-            _sessionService.UpdateLanguage(languageCode);
+            _sessionService.UpdateLanguage(LanguageCode);
 
             // Assert
-            Assert.That(_sessionService.UserSession.Language, Is.EqualTo(languageCode));
+            Assert.That(_sessionService.UserSession.Language, Is.EqualTo(LanguageCode));
         }
 
         private static void MockHttpContext()
@@ -109,7 +117,7 @@
                 10,
                 true,
                 HttpCookieMode.AutoDetect,
-                SessionStateMode.InProc, 
+                SessionStateMode.InProc,
                 false);
             SessionStateUtility.AddHttpSessionStateToContext(httpContext, sessionContainer);
             HttpContext.Current = httpContext;
@@ -118,12 +126,12 @@
         private void CreateDefaultNewSession(int licenseeId = 0)
         {
             MockHttpContext();
-            var userId = 1;
-            var onUserId = 2;
-            var userName = "user1";
-            var isInternal = false;
+            const int UserId = 1;
+            const int OnuserId = 2;
+            const string UserName = "user1";
+            const bool IsInternal = false;
 
-            _sessionService.CreateNewSession(userId, onUserId, userName, isInternal, licenseeId);
+            _sessionService.CreateNewSession(UserId, OnuserId, UserName, IsInternal, licenseeId);
         }
     }
 }

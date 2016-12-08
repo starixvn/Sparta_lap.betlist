@@ -25,7 +25,7 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 
         List<User> GetByLicensee(int licenseeId, bool isInternal);
 
-        User GetByUsername(string userName);
+        User GetByUsername(string userName, int licenseeId = 0);
 
         User GetUserInfo(int licenseeId, int userId);
 
@@ -50,6 +50,8 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
         User ValidateUserForLrfSystem(User requestUser, out IResultInfo resultInfo);
+
+        IResultInfo SyncUserInfo(string licenseeName, string userName);
 
         #endregion Public Methods and Operators
     }

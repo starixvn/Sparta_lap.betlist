@@ -137,60 +137,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
         }
 
-        /// <summary>
-        ///     The get currencies.
-        /// </summary>
-        /// <param name="licenseeId">
-        ///     The licensee id.
-        /// </param>
-        /// <param name="userId">
-        ///     The user id.
-        /// </param>
-        /// <returns>
-        /// List currency.
-        /// </returns>
-        public IList<Currency> GetCurrencies(int licenseeId, int userId)
-        {
-            const string UspName = "Lrf_SelCurrency";
-            var uspParams = new { LicenseeId = licenseeId, UserId = userId };
-            try
-            {
-                var entityList = new List<Currency>();
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    using (var reader = db.ExecuteReader(uspParams))
-                    {
-                        while (reader.Read())
-                        {
-                            var currency = new Currency
-                            {
-                                CurrencyId = reader.GetInt32(reader.GetOrdinal("Currency")),
-                                Name = reader.GetString(reader.GetOrdinal("CurrencyName"))
-                            };
-
-                            entityList.Add(currency);
-                        }
-                    }
-                }
-
-                return entityList;
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
-            }
-        }
-
-        /// <summary>
-        ///     The get customer by licensee.
-        /// </summary>
-        /// <param name="licenseeId">
-        ///     The licensee id.
-        /// </param>
-        /// <returns>
-        /// List licensee customer.
-        /// </returns>
         public IList<LicenseeCustomer> GetCustByLicensee(int licenseeId)
         {
             const string UspName = "Lrf_LicenseeCustSel";
@@ -238,6 +184,24 @@ namespace Fanex.Athena.DataAccess.Core.Users
             {
                 var result = db.ExecuteScalar();
                 return result != null ? result.ToString() : string.Empty;
+            }
+        }
+
+        public Licensee GetLicenseeByName(string licenseeName)
+        {
+            const string UspName = "Lrf_LicenseeSelBySiteName";
+            var uspParams = new { siteName = licenseeName };
+            try
+            {
+                using (var db = this.GetObjectDb(UspName))
+                {
+                    return db.QueryEntity<Licensee>(uspParams);
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, uspParams);
             }
         }
     }

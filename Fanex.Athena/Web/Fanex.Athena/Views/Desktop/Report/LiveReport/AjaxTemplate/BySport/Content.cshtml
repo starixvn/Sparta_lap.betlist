@@ -1,0 +1,21 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
+
+<div class="panel-body">
+    <div class="table-title"><span>@ViewResources.BySportsType</span></div>
+    @if (Model.BySports == null || Model.BySports.Count == 0)
+    {
+        <p class="no-info-row">@ViewResources.NoInfo</p>
+    }
+    else
+    {
+        <table class="table table-bordered">
+            <thead>
+                @{ Html.RenderPartial("~/Views/Desktop/Report/LiveReport/AjaxTemplate/BySport/Content.Header.cshtml"); }
+            </thead>
+
+            <tbody>
+                @{Html.RenderPartial("~/Views/Desktop/Report/LiveReport/AjaxTemplate/BySport/Content.Data.cshtml");}
+            </tbody>
+        </table>
+    }
+</div>

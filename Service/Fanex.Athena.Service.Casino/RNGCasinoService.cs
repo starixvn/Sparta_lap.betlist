@@ -31,7 +31,7 @@ namespace Fanex.Athena.Service.Casino
         private readonly ILanguageService _langService = new LanguageService();
         private readonly IExChangeRateService _exchangeRateService = new ExChangeRateService();
 
-        public DataTable GetRNGCasinoResultDataTable(RNGCasinoResultMetaModel metaModel)
+        public static DataTable GetRNGCasinoResultDataTable(RNGCasinoResultMetaModel metaModel)
         {
             DataTable dataTable;
             GetResultFromAPIRealTime(metaModel, out dataTable);
@@ -47,10 +47,10 @@ namespace Fanex.Athena.Service.Casino
         {
             var casinos = new List<RNGCasinoResult>();
             var dataTable = GetResultFromAPI(metaModel);
-
             if (dataTable != null && dataTable.Rows.Count > 0)
             {
                 var currency = GetDataRowExtension(dataTable.Rows[0], "Currency");
+
                 var date = Converter.ToDateTime(GetDataRowExtension(dataTable.Rows[0], "StartTime"));
                 var exchangeRate = this._exchangeRateService.GetExChangeRate(currency, date);
                 for (int i = 0; i < dataTable.Rows.Count; i++)
@@ -190,11 +190,6 @@ namespace Fanex.Athena.Service.Casino
             }
         }
 
-        /// <summary>
-        /// Get result from API.
-        /// </summary>
-        /// <param name="metalModel">The metal model.</param>
-        /// <param name="dataTable">The data table.</param>
         private static DataTable GetResultFromAPI(RNGCasinoResultMetaModel metalModel)
         {
             var casinoLib = new CasinoLibrary.SBAgent.Report();

@@ -1,0 +1,30 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
+@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.LiveReport;
+    Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
+}
+@section pagecss {
+    <link href="@Url.ContentLink("/www/css/build/pages/reports/livereport.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/www/js/build/pages/livereport/livereport.chunk.js")"></script>
+}
+@section Filter
+{
+    @if (Model.Param.IsViewedHistory)
+    {
+        Html.RenderPartial("~/Views/Desktop/Report/LiveReport/HistoryFilter.cshtml");
+    }
+    else
+    {
+        Html.RenderPartial("~/Views/Desktop/Report/LiveReport/Filter.cshtml");
+    }
+}
+@section Content
+{
+    @if (!Model.ShowEmptyContent)
+    {
+        Html.RenderPartial("~/Views/Desktop/Report/LiveReport/Content.cshtml");
+    }
+}

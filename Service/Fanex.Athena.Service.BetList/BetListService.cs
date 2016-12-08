@@ -39,8 +39,8 @@ namespace Fanex.Athena.Service.BetList
 
         [System.CLSCompliant(false)]
         public BetListService(
-            IBalanceUpService balanceUpService, 
-            IBetListDataAccess betlistDataAccess, 
+            IBalanceUpService balanceUpService,
+            IBetListDataAccess betlistDataAccess,
             IAuthorizationService authorizationService)
         {
             _balanceUpService = balanceUpService;
@@ -56,6 +56,7 @@ namespace Fanex.Athena.Service.BetList
         /// Get Mix Parlay Detail data.
         /// </summary>
         /// <param name="transId">The transaction identity.</param>
+        /// <param name="licenseeId">todo: describe licenseeId parameter on GetMixParlayDetailTicket</param>
         /// <returns>The ticket result.</returns>
         public TicketResult GetMixParlayDetailTicket(int licenseeId, long transId)
         {

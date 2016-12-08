@@ -10,13 +10,13 @@
 
 namespace Fanex.Athena.DataAccess.BetList
 {
-    using System;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using DataAccess.Core.Utilities;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
+    using System;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// TODO: Update summary.
@@ -26,9 +26,9 @@ namespace Fanex.Athena.DataAccess.BetList
         /// <summary>
         /// Do not use reflection because of bad performance.
         /// </summary>
-        /// <param name="reader">Reader value.</param>
         /// <param name="baseCurrency">Base currency value.</param>
         /// <param name="custId">The customer ID.</param>
+        /// <param name="dataReader">todo: describe dataReader parameter on ReadLrfTicket</param>
         /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -58,42 +58,43 @@ namespace Fanex.Athena.DataAccess.BetList
 
             while (reader.Read())
             {
-                var ticket = new LrfTicket();
+                var ticket = new LrfTicket
+                {
+                    // string
+                    UserName = reader.GetString("username"),
+                    RefNo = reader.GetString("refno"),
+                    MatchCode = reader.GetString("matchcode"),
+                    Status = reader.GetString("status"),
+                    BetTeam = reader.GetString("betteam"),
+                    EventStatus = reader.GetString("betstatus"),
+                    ShowTime = reader.GetString("showtime"),
+                    OddsType = reader.GetString("oddstype", "0"),
+                    ExternalId = reader.GetString("nickname"),
+                    Race = reader.GetString("race"),
+                    BetFrom = reader.GetString("betfrom"),
+                    BetCheck = reader.GetString("betcheck"),
 
-                // string
-                ticket.UserName = reader.GetString("username");
-                ticket.RefNo = reader.GetString("refno");
-                ticket.MatchCode = reader.GetString("matchcode");
-                ticket.Status = reader.GetString("status");
-                ticket.BetTeam = reader.GetString("betteam");
-                ticket.EventStatus = reader.GetString("betstatus");
-                ticket.ShowTime = reader.GetString("showtime");
-                ticket.OddsType = reader.GetString("oddstype", "0");
-                ticket.ExternalId = reader.GetString("nickname");
-                ticket.Race = reader.GetString("race");
-                ticket.BetFrom = reader.GetString("betfrom");
-                ticket.BetCheck = reader.GetString("betcheck");
+                    // Boolean
+                    IsLive = reader.GetValue("liveindicator", x => ReadBoolean(x), false),
+                    IsNeutral = reader.GetValue("isneutral", x => ReadBoolean(x), false),
 
-                // Boolean
-                ticket.IsLive = reader.GetValue("liveindicator", x => ReadBoolean(x), false);
-                ticket.IsNeutral = reader.GetValue("isneutral", x => ReadBoolean(x), false);
+                    // Int
+                    SportTypeId = reader.GetInt("sporttype"),
+                    BetTypeId = reader.GetInt("bettype"),
+                    LeagueId = reader.GetInt("leagueid"),
+                    HomeId = reader.GetInt("homeid"),
+                    AwayId = reader.GetInt("awayid"),
+                    MatchId = reader.GetInt("matchid"),
+                    CustId = reader.GetLong("custid", custId),
+                    CurrencyId = reader.GetInt("currencyid"),
+                    LiveHomeScore = reader.GetInt("livehomescore"),
+                    LiveAwayScore = reader.GetInt("liveawayscore"),
+                    SpecialLevel = reader.GetInt("SpecialLevel"),
+                    StatusId = reader.GetInt("StatusId"),
 
-                // Int
-                ticket.SportTypeId = reader.GetInt("sporttype");
-                ticket.BetTypeId = reader.GetInt("bettype");
-                ticket.LeagueId = reader.GetInt("leagueid");
-                ticket.HomeId = reader.GetInt("homeid");
-                ticket.AwayId = reader.GetInt("awayid");
-                ticket.MatchId = reader.GetInt("matchid");
-                ticket.CustId = reader.GetLong("custid", custId);
-                ticket.CurrencyId = reader.GetInt("currencyid");
-                ticket.LiveHomeScore = reader.GetInt("livehomescore");
-                ticket.LiveAwayScore = reader.GetInt("liveawayscore");
-                ticket.SpecialLevel = reader.GetInt("SpecialLevel");
-                ticket.StatusId = reader.GetInt("StatusId");
-
-                // Long
-                ticket.TransId = reader.GetLong("transid");
+                    // Long
+                    TransId = reader.GetLong("transid")
+                };
                 var betid = reader.GetValue("betid");
                 ticket.BetId = betid == DBNull.Value ? null : (long?)betid;
 
@@ -129,10 +130,9 @@ namespace Fanex.Athena.DataAccess.BetList
         /// <returns>The result value.</returns>
         protected static string NumberReport(object value)
         {
-            decimal number = Convert.ToDecimal(value);
-            return (number >= 0)
-                       ? "<span class='bl-underdog'>" + string.Format("{0:#,##0.00}", number) + "</span>"
-                       : "<span class='bl-favorite'>" + string.Format("{0:#,##0.00}", number) + "</span>";
+            var number = Convert.ToDecimal(value);
+            return number >= 0 ? "<span class='bl-underdog'>" + $"{number:#,##0.00}" + "</span>"
+                       : "<span class='bl-favorite'>" + $"{number:#,##0.00}" + "</span>";
         }
 
         /// <summary>

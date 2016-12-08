@@ -65,7 +65,7 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        private HttpResponseMessage ExportExcel(CasinoProgressiveWinsMetaModel metaModel, IEnumerable<CasinoProgressiveWins> dataList)
+        private static HttpResponseMessage ExportExcel(CasinoProgressiveWinsMetaModel metaModel, IEnumerable<CasinoProgressiveWins> dataList)
         {
             const string FileName = "CasinoProgressiveWin_Microgaming.xls";
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/CasinoProgressiveWins.xls");

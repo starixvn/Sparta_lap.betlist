@@ -1,0 +1,85 @@
+﻿@{
+    Layout = null;
+    var loginToken = ViewBag.LogInToken as string;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewResources.InternalSystem</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <!-- Style for page -->
+    <link href="~/www/css/build/main.css" rel="stylesheet" />
+    <link href="~/www/css/build/pages/login/login.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        var _page =
+        {
+            errCode: @(ViewBag.errCode),
+            errMsg: '@(ViewBag.errMsg)'
+        };
+        var resolveClientUrl = function (relativeUrl) {
+            return '@Url.Content("~/")' + relativeUrl;
+        };
+    </script>
+</head>
+<body class="page-login layout-full">
+    <div class="page text-center">
+
+        <div class="page-content">
+            <div class="brand">
+                <div class="brand-text text-left">
+                    <div class="text-small">Welcome</div>
+                    <div class="big-text">Risk and Forecast</div>
+                </div>
+            </div>
+
+            <form class="form-content" action="@Url.Content("~/Authorization/SignIn")" method="post" name="fLogin" id="fLogin">
+                @Html.AntiForgeryToken()
+                <div class="input-field col s12">
+                    <div class="input-icon-group">
+                        <i class="icon icon-account" aria-hidden="true"></i>
+                        <input type="text" class="form-control" placeholder="@ViewResources.Username" id="userName" name="userName" value="" />
+                        <i class="icon icon-close pull-right" id="btn-reset-1"></i>
+                    </div>
+                </div>
+
+                <div class="input-field col s12">
+                    <div class="input-icon-group">
+                        <i class="icon icon-lock" aria-hidden="true"></i>
+                        <input type="password" class="form-control" placeholder="@ViewResources.Password" id="passWord" name="passWord" value="" autocomplete="off" />
+                        <i class="icon icon-close pull-right"></i>
+                    </div>
+                </div>
+
+                <div class="input-field col s12 overflow-hidden">
+                    <div class="capcha-block left">
+                        <div class="capcha-img" id="captcha-img">
+                            <img src="@Url.Content("~/Authorization/Captcha")" id="imgCode" alt="" />
+                        </div>
+                        <input type="text" maxlength="4" autocomplete="off" value="" id="captcha" name="captcha" class="form-control input-capcha" />
+                    </div>
+                    <a class="btn right" id="btnLogin">@ViewResources.Login</a>
+                </div>
+
+                <div class="input-field col s12">
+                    <p id="errmsg" class="errmsg"></p>
+                </div>
+
+                @Html.Hidden("LogInToken")
+            </form>
+        </div>
+    </div>
+
+    <input type="hidden" id="captchaUrl" value="@Url.Content("~/Authorization/Captcha")" />
+    @Html.Hidden("LogInTokenTemp", loginToken)
+
+    <script src="@Url.ContentLink("/www/js/build/common.chunk.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLink("/www/js/build/pages/signin/signin.chunk.js")" type="text/javascript"></script>
+</body>
+</html>

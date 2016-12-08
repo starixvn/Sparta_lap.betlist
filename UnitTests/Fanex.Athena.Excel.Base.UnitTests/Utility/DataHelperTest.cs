@@ -51,7 +51,7 @@
             // Arrange
             value = Convert.ToDecimal(value);
             var columnNameWithCurrency = columnName + "USD";
-            var convertOption = new ConvertingOption()
+            var convertOption = new ConvertingOption
             {
                 IsConvert = true,
                 BaseCurrency = "USD",
@@ -71,7 +71,7 @@
         {
             // Arrange
             var columnNameWithCurrency = "ColumnUSD";
-            var convertOption = new ConvertingOption()
+            var convertOption = new ConvertingOption
             {
                 IsConvert = true,
                 BaseCurrency = "USD",

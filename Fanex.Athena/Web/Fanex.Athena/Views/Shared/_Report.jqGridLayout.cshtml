@@ -12,6 +12,10 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/jqGridLayoutScripts")
     @RenderSection("pagejs", required: false)
 }
+@{
+    var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
+    var isAppModeSelf = userSession == null ? true : userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Self;
+}
 <div class="container_26">
 @if (ViewBag.NotificationMessage != null)
 {
@@ -19,7 +23,7 @@
     <div id="notification-marquee" style="color: #C02603">@ViewBag.NotificationMessage</div>   
 </div>
 }
-    <div class="grid_26">
+    <div class="grid_26 @(isAppModeSelf ? string.Empty: "hide")">
         <div class="content-title">
             @RenderSection("ContentTitle", required: false)
         </div>

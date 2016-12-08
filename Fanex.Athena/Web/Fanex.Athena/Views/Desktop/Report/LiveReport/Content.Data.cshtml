@@ -1,0 +1,59 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
+
+@{
+
+    foreach (var item in Model.MainResult)
+    {
+        <tr>
+            <td class="left-align" title="@item.ProductName">
+                <a href="javascript:;" class="product-detail-link" data-product-code="@item.ProductCode">
+                    @item.ProductName
+                </a>
+            </td>
+
+            @ReportContentHelperDesktop.RenderDataForLiveReport(Model, item)
+        </tr>
+    }
+}
+
+<!--total row-->
+<tr class="total font-weight-600">
+    <td title="@ViewResources.Total">
+        <a href="javascript:;" class="product-detail-link" data-product-code="ALL">
+            @ViewResources.Total
+        </a>
+    </td>
+
+    @{
+        var sumCustomerWinLoss = Model.MainResult.Sum(i => i.CustomerWinLoss).ToStringExt();
+        var sumTurnOver = Model.MainResult.Sum(i => i.TurnOver).ToStringExt();
+        var sumBetCount = Model.MainResult.Sum(i => i.BetCount).ToStringExt();
+        var sumLicenseeWL = Model.MainResult.Sum(i => i.LicenseeWinLoss);
+        var sumAmountDue = Model.MainResult.Sum(i => i.AmountDue).ToStringExt();
+    }
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        var sumCustomerComm = Model.MainResult.Sum(i => i.CustomerComm).ToStringExt();
+        var sumCustomerTotal = Model.MainResult.Sum(i => i.CustomerTotal).ToStringExt();
+
+        <td class="right-align" title="@sumCustomerWinLoss">@sumCustomerWinLoss</td>
+        <td class="right-align" title="@sumCustomerComm">@sumCustomerComm</td>
+        <td class="right-align" title="@sumCustomerTotal">@sumCustomerTotal</td>
+    }
+    else
+    {
+        <td class="right-align" title="@sumCustomerWinLoss">@sumCustomerWinLoss</td>
+    }
+
+    <td class="right-align" title="@sumTurnOver">@sumTurnOver</td>
+    <td class="right-align" title="@sumBetCount">@sumBetCount</td>
+    <td class="right-align highlight" title="@sumLicenseeWL.ToStringExt()">@RazorHelperDesktop.HighlightNegativeFormat(sumLicenseeWL)</td>
+
+    @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+    {
+        var sumLicenseeComm = Model.MainResult.Sum(i => i.LicenseeComm).ToStringExt();
+        <td class="right-align highlight" title="@sumLicenseeComm">@sumLicenseeComm</td>
+    }
+
+    <td class="right-align" title="@sumAmountDue">@sumAmountDue</td>
+</tr>

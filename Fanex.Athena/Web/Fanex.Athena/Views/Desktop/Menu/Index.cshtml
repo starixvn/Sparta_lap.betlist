@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+    var fucntionAddNewAccount = 47;
+    var functionCustCommGroup = 55;
+
+    var icons = new Dictionary<int, string>
+        {
+            { 1, "totalbet" }, { 2, "chart-bar" }, { 3, "table" }, { 5, "table" }, { 6, "administration" }, { 52, "table" }, { 4, "customer" }
+        };
+}
+@model Fanex.Athena.Model.Core.ViewModel.MenuViewModel
+
+<ul class="collapsible2 collapsible-expandable" data-collapsible="accordion">
+    @foreach (var masterFunction in Model.MasterFunctions)
+    {
+        var subFunctions = Model.UserDetailFunctions.ContainsKey(masterFunction.FunctionId)
+                    ? Model.UserDetailFunctions[masterFunction.FunctionId].Where(f => f.IsMenu).ToList()
+                    : null;
+        var subMenuCount = subFunctions != null ? subFunctions.Count : 0;
+        if (subMenuCount > 0)
+        {
+            <li class="menu-item has-sub">
+                <a class="collapsible-header waves-effect">
+                    <i class="menu-icon icon-@(icons.ContainsKey(masterFunction.FunctionId) ? icons[masterFunction.FunctionId] : "table")" aria-hidden="true"></i>
+                    <span class="menu-title">@masterFunction.Name</span>
+                    <i class="right icon-arrow"></i>
+                </a>
+
+                <div class="collapsible-body">
+                    <ul>
+                        @foreach (var subFunction in subFunctions)
+                        {
+                            if (!Model.IsAllowedCustonmerCommission && subFunction.FunctionId == functionCustCommGroup)
+                            {
+                                continue;
+                            }
+                            if (Model.IsInternalLogin && subFunction.FunctionId == fucntionAddNewAccount)
+                            {
+                                continue;
+                            }
+
+                            <li>
+                                <a id="MenuItem@(subFunction.FunctionId)" href="@Url.Content("~/" + subFunction.Url)" target="main">@Html.Raw(subFunction.Name)</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </li>
+        }
+    }
+</ul>
+

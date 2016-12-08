@@ -46,7 +46,9 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
             Justification = "Reviewed. Suppression is OK here.")]
         User ValidateUserForLrfSystem(User requestUser, string loginToken, out IResultInfo resultInfo);
 
-        User GetByUsername(string userName);
+        User GetByUsername(string userName, int licenseeId = 0);
+
+        IResultInfo SyncUserInfo(string licenseeName, string userName);
 
         #endregion Public Methods and Operators
     }

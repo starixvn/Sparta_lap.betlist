@@ -11,11 +11,18 @@
         private IObjectDb _objectDb;
         private LogInLogDataAccess _dataAccess;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<LogInLogDataAccess>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
         }
 
         [Test]

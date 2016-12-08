@@ -15,26 +15,30 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Fanex.Athena.Web.ActionFilter;
     using Model.Core.MetaModel;
 
     /// <summary>
     /// Base controller.
     /// </summary>
     [Authorize]
+    [XFrameOption]
     public class BaseController : Controller
     {
         protected const string DefaultLanguage = "en-US";
-
         private readonly ILanguageService _langService;
         private readonly ISessionService _sessionService;
-
         private readonly IAppSettings _appSettings;
 
-        public BaseController()
+        public BaseController() : this(null, null, null)
         {
-            _langService = new LanguageService();
-            _sessionService = new SessionService();
-            _appSettings = new AppSettings();
+        }
+
+        protected BaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting)
+        {
+            _langService = languageService ?? new LanguageService();
+            _sessionService = sessionService ?? new SessionService();
+            _appSettings = appSetting ?? new AppSettings();
         }
 
         public ILanguageService LangService
@@ -80,6 +84,17 @@ namespace Fanex.Athena.Controllers
             base.Initialize(requestContext);
             var currentLanguage = LangService.GetCurrentLanguage();
             LangService.SetPageCulture(currentLanguage);
+        }
+
+        protected override ViewResult View(string viewName, string masterName, object model)
+        {
+            var userSession = SessionService.UserSession;
+
+            var option = userSession != null && userSession.ViewType != ClientViewType.None ?
+                userSession.ViewType : (ClientViewType)int.Parse(AppSettings.ClientViewType);
+
+            var viewByOption = ClientViewHelper.GetViewPath(viewName, option);
+            return base.View(viewByOption, masterName, model);
         }
 
         private IEnumerable<string> GetBaseUsdLicensees()

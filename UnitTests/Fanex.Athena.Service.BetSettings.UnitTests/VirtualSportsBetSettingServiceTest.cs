@@ -20,7 +20,7 @@
         private IVirtualSportsBetSettingDataAccess _dataAccess;
         private IVirtualSportsBetSettingService _service;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _authorizationService = Substitute.For<IAuthorizationService>();
@@ -30,11 +30,19 @@
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _authorizationService = null;
+            _dataAccess = null;
+            _service = null;
+        }
+
         [Test]
         public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
-            var betSettings = new List<BetSetting>()
+            var betSettings = new List<BetSetting>
             {
                 new BetSetting()
             };
@@ -51,10 +59,11 @@
         public void UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters()
         {
             // Arrange
-            var expectedXmlParam = "<settings><setting sporttype=\"1\" minbet=\"100\" maxbet=\"200\" maxpermatch=\"300\" ></setting></settings>";
-            var betSettings = new List<VSBetSetting>()
+            const string ExpectedXmlParam = "<settings><setting sporttype=\"1\" minbet=\"100\" maxbet=\"200\" maxpermatch=\"300\" ></setting></settings>";
+
+            var betSettings = new List<VSBetSetting>
             {
-                new VSBetSetting()
+                new VSBetSetting
                 {
                     SportId = "1",
                     MinBet = 100,
@@ -67,7 +76,7 @@
             var result = _service.UpdateBetSetting(LicenseeId, CustId, UserId, Language, "ip", betSettings);
 
             // Assert
-            _dataAccess.Received().UpdateBetSetting(CustId, UserId, Language, "ip", expectedXmlParam);
+            _dataAccess.Received().UpdateBetSetting(CustId, UserId, Language, "ip", ExpectedXmlParam);
         }
     }
 }

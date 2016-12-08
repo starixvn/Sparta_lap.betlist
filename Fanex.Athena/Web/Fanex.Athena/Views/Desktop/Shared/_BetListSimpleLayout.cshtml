@@ -1,0 +1,38 @@
+﻿@using System.Web.Optimization
+@{    
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+}
+@section css
+{
+    <link href="@Url.ContentLink("/www/css/build/pages/betlist/betlistSimpleLayout.css")" rel="stylesheet" />
+    @RenderSection("pagecss", required: false)
+}
+@section js
+{
+    <script src="@Url.ContentLink("/www/js/build/pages/betlist/betlist.chunk.js")"></script>
+    
+    @RenderSection("pagejs", required: false)
+}
+
+<div class="betlist-container">
+    <div class="content-title">
+        @RenderSection("ContentTitle", required: false)
+        <div class="export-excel">
+            @RenderSection("BackButton", required: false)
+            @if (ViewBag.HideExportExcel != true)
+            {
+                <i class="icon-excel right" id="ExportToExcel" name="exporttoexcel" title="@Fanex.Athena.Resources.ViewResources.ExportToExcel"></i>
+            }
+        </div>
+    </div>
+    <div class="content-main" id="report-container">
+        <div class="theme_jqGrid">
+            <div id="pager1">
+            </div>
+            <table id="BetListGrid"></table>
+            <div id="pager2">
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+</div>

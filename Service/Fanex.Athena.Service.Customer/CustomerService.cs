@@ -82,11 +82,6 @@ namespace Fanex.Athena.Service.Customer
             return _customerDataAccess.Search(metaModel, ref totalRows);
         }
 
-        /// <summary>
-        /// Get customer Information such as: SyncCasino, DisableBingo, ...
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <returns>The customer information.</returns>
         public CustomerInfo GetCustomerInfo(int licenseeId, int custId)
         {
             return _authorizationService.HasPermissionOnData(licenseeId, custId, 0)
@@ -136,23 +131,16 @@ namespace Fanex.Athena.Service.Customer
                         CustomerId = customerIds,
                         FromIp = metaModel.Ip,
                         ModifyBy = metaModel.UserId,
-                        ModifyUserName = _sessionService.LicenseeSession.UserName
+                        ModifyUserName = _sessionService.UserSession.UserName
                     });
                 }
             }
 
-            if (callApiSuccess)
+            return callApiSuccess ? result : new ResultInfo
             {
-                return result;
-            }
-            else
-            {
-                return new ResultInfo()
-                {
-                    Code = 1,
-                    Message = "Having errors when calling CasinoAPI to update customer commission."
-                };
-            }
+                Code = 1,
+                Message = "Having errors when calling CasinoAPI to update customer commission."
+            };
         }
 
         /// <summary>
@@ -190,18 +178,11 @@ namespace Fanex.Athena.Service.Customer
                 }
             }
 
-            if (callApiSuccess)
+            return callApiSuccess ? result : new ResultInfo
             {
-                return result;
-            }
-            else
-            {
-                return new ResultInfo()
-                {
-                    Code = 1,
-                    Message = "Having errors when calling CasinoAPI to update customer commission."
-                };
-            }
+                Code = 1,
+                Message = "Having errors when calling CasinoAPI to update customer commission."
+            };
         }
 
         /// <summary>
@@ -231,18 +212,11 @@ namespace Fanex.Athena.Service.Customer
                 }
             }
 
-            if (callApiSuccess)
+            return callApiSuccess ? result : new ResultInfo
             {
-                return result;
-            }
-            else
-            {
-                return new ResultInfo()
-                {
-                    Code = 1,
-                    Message = "Having errors when calling CasinoAPI to update customer commission."
-                };
-            }
+                Code = 1,
+                Message = "Having errors when calling CasinoAPI to update customer commission."
+            };
         }
 
         #endregion Group Commission
@@ -411,7 +385,7 @@ namespace Fanex.Athena.Service.Customer
 
             return _customerDataAccess.UpdateSpecialLevel(userId, custId, level, ip, language);
         }
-        
+
         #endregion Update
     }
 }

@@ -16,14 +16,14 @@ namespace Fanex.Athena.Model.Core.DataDomain
     {
         public static readonly int MinBaseCurrencyType = BaseCurrencyType.Gbp;
 
-        private static ReadOnlyCollection<string> _baseCurrencyList = new ReadOnlyCollection<string>(
+        private static readonly ReadOnlyCollection<string> _BaseCurrencyList = new ReadOnlyCollection<string>(
             new List<string> { "EUR", "USD", "GBP" });
 
         public static ReadOnlyCollection<string> BaseCurrencyList
         {
             get
             {
-                return _baseCurrencyList;
+                return _BaseCurrencyList;
             }
         }
     }

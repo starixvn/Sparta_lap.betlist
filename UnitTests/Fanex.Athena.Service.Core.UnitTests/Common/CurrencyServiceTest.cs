@@ -17,11 +17,38 @@
         private ICurrencyDataAccess _currencyDataAccess;
         private ICurrencyService _currencyService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
             _currencyService = new CurrencyService(_currencyDataAccess);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _currencyDataAccess = null;
+            _currencyService = null;
+        }
+
+        [Test]
+        public void GetCurrencies_WhenCall_ReturnDataFromDataAccess()
+        {
+            // Arrange
+            var expectedResult = new List<CurrencyUser>
+            {
+                new CurrencyUser { CurrencyId = 1 }
+            };
+
+            const int LicenseeId = 1;
+
+            _currencyDataAccess.GetCurrencies(LicenseeId).Returns(expectedResult);
+
+            // Action
+            var result = _currencyService.GetCurrencies(LicenseeId);
+
+            // Assert
+            Assert.That(result[0].CurrencyId, Is.EqualTo(expectedResult[0].CurrencyId));
         }
 
         [Test]
@@ -30,8 +57,8 @@
             // Arrange
             var expectedResult = new List<CurrencyUser>
             {
-                new CurrencyUser() { CurrencyName = "USD", IsActive = true },
-                new CurrencyUser() { CurrencyName = "UUS", IsActive = false }
+                new CurrencyUser { CurrencyName = "USD", IsActive = true },
+                new CurrencyUser { CurrencyName = "UUS", IsActive = false }
             };
 
             _currencyDataAccess.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(expectedResult);
@@ -50,15 +77,16 @@
             // Arrange
             var expectedResult = new List<CurrencyUser>
             {
-                new CurrencyUser() { CurrencyName = "HKD", CurrencyId = CurrencyType.Hkd, IsActive = true },
-                new CurrencyUser() { CurrencyName = "CNY", CurrencyId = CurrencyType.Cny, IsActive = true }
+                new CurrencyUser { CurrencyName = "HKD", CurrencyId = CurrencyType.Hkd, IsActive = true },
+                new CurrencyUser { CurrencyName = "CNY", CurrencyId = CurrencyType.Cny, IsActive = true }
             };
-            var licenseeId = Licensees.KeenOcean;
-            var userId = 2;
-            _currencyDataAccess.GetCurrenciesByUser(licenseeId, userId).Returns(expectedResult);
+
+            const int LicenseeId = LicenseeIdentityDefinition.KeenOcean;
+            const int UserId = 2;
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(expectedResult);
 
             // Action
-            var result = _currencyService.GetCurrencyMapByUser(licenseeId, userId);
+            var result = _currencyService.GetCurrencyMapByUser(LicenseeId, UserId);
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(1));
@@ -71,15 +99,16 @@
             // Arrange
             var expectedResult = new List<CurrencyUser>
             {
-                new CurrencyUser() { CurrencyName = "USD" },
-                new CurrencyUser() { CurrencyName = "UUS" }
+                new CurrencyUser { CurrencyName = "USD" },
+                new CurrencyUser { CurrencyName = "UUS" }
             };
-            var licenseeId = 1;
-            var userId = 2;
-            _currencyDataAccess.GetCurrenciesByUser(licenseeId, userId).Returns(expectedResult);
+
+            const int LicenseeId = 1;
+            const int UserId = 2;
+            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(expectedResult);
 
             // Action
-            var result = _currencyService.GetCurrenciesByUser(licenseeId, userId);
+            var result = _currencyService.GetCurrenciesByUser(LicenseeId, UserId);
 
             // Assert
             Assert.That(result[0].CurrencyName, Is.EqualTo(expectedResult[0].CurrencyName));

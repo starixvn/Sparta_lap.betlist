@@ -6,17 +6,15 @@
 
 namespace Fanex.Athena.Controllers
 {
-    using System;
     using System.Web.Mvc;
-    using System.Web.Security;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.ViewModel;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Model.Core.DataDomain;
+    using Web.ActionFilter;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
+    [AuthorizeRestriction(AppMode.Self)]
     public class HeaderController : BaseController
     {
         private readonly ILicenseeService _licenseeService;
@@ -54,13 +52,7 @@ namespace Fanex.Athena.Controllers
             var originalLicenseeId = SessionService.LicenseeSession.LicenseeId;
             var originalUserId = SessionService.UserSession.UserId;
 
-            if (newLicenseeId > 0)
-            {
-                newLicenseeId = _licenseeService.IsLicenseeBelongToUser(originalLicenseeId, originalUserId)
-                                    ? newLicenseeId
-                                    : originalLicenseeId;
-            }
-            else
+            if (newLicenseeId <= 0 || !_licenseeService.IsLicenseeBelongToUser(originalLicenseeId, originalUserId))
             {
                 newLicenseeId = originalLicenseeId;
             }
@@ -71,7 +63,7 @@ namespace Fanex.Athena.Controllers
             }
 
             ViewBag.DefaultReportUrl = SessionService.UserSession.DefaultReportUrl;
-            return View("~/Views/Account/ChangeLicensee.cshtml");
+            return Redirect("~");
         }
 
         /// <summary>

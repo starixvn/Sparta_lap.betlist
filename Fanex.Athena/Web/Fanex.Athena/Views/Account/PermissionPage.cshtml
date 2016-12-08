@@ -31,11 +31,11 @@
 }
 <div id="permission-tabs">
      <ul>
-        <li><a href="@Url.Action("EditPermission", "Account", new { UserId =Model.Id})">@ViewResources.Function</a></li>
+        <li><a href="@Url.Action("EditPermission", "Account", new { UserId =Model.UserID})">@ViewResources.Function</a></li>
 
     @if (enableAssignCurrency)
     {
-        <li><a href="@Url.Action("AssignCurrency", "Account", new { UserId = Model.Id })">@ViewResources.Currency</a></li>
+        <li><a href="@Url.Action("AssignCurrency", "Account", new { UserId = Model.UserID })">@ViewResources.Currency</a></li>
     }
     </ul>
 

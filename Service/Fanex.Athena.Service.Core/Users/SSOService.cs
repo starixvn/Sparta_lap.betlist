@@ -166,7 +166,7 @@ namespace Fanex.Athena.Service.Core.Users
             }
             else
             {
-                string message = InternalLoginErrorMessage +
+                var message = InternalLoginErrorMessage +
                     "\r\nCode: " + resultInfo.Code +
                     "\r\nMessage: " + resultInfo.Message +
                     "\r\nExtendedData: " + resultInfo.ExtendedData +
@@ -184,7 +184,7 @@ namespace Fanex.Athena.Service.Core.Users
 
         private NameValueCollection GetQueryParams()
         {
-            string parameter = GetRequestKey();
+            var parameter = GetRequestKey();
             var privateKeyPath = GetPrivateKeyPath();
 
             parameter = parameter.Replace(" ", "+");
@@ -206,7 +206,7 @@ namespace Fanex.Athena.Service.Core.Users
 
         private string GetRequestKey()
         {
-            string parameter = HttpContext.Current.Request["key"] ?? string.Empty;
+            var parameter = HttpContext.Current.Request["key"] ?? string.Empty;
 
             if (string.IsNullOrEmpty(parameter))
             {
@@ -253,12 +253,12 @@ namespace Fanex.Athena.Service.Core.Users
                 }
             };
             IResultInfo loginResultInfo;
-            User user = _userService.ValidateInternalUser(requestUser, licname, timeSpan, out loginResultInfo);
+            var user = _userService.ValidateInternalUser(requestUser, licname, timeSpan, out loginResultInfo);
 
             if (loginResultInfo.IsSuccessful)
             {
                 _sessionService.CreateNewSession(
-                    user.Id,
+                    user.UserID,
                     _userService.LoginOnUser(user, _context.Session.SessionID, user.ServerId, _context.Request.UserHostAddress),
                     user.Username,
                     true,

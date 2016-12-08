@@ -13,7 +13,6 @@ namespace Fanex.Athena.Controllers.Account
     using System.Linq;
     using System.Text;
     using System.Web.Mvc;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.MetaModel.Account;
@@ -24,12 +23,14 @@ namespace Fanex.Athena.Controllers.Account
     using Fanex.Athena.Web.ActionFilter;
     using ONEbook.UM.Filters;
     using Resources;
+    using Service.Core.Utility;
 
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.AccountManageAccount)]
+    [AuthorizeRestriction(AppMode.Self)]
     public class AccountController : BaseController
     {
         private readonly IFunctionService _functionService;
@@ -56,7 +57,7 @@ namespace Fanex.Athena.Controllers.Account
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
             var model = _userService.GetByLicensee(licenseeSession.LicenseeId, userSession.IsInternal)
-                .Where(i => i.Id != userSession.UserId).ToList();
+                .Where(i => i.UserID != userSession.UserId).ToList();
 
             return View("~/Views/Account/Manage.cshtml", model);
         }
@@ -86,7 +87,7 @@ namespace Fanex.Athena.Controllers.Account
                         FirstName = user.FirstName,
                         LastName = user.LastName,
                         Status = user.Status,
-                        UserId = user.Id
+                        UserId = user.UserID
                     };
 
                     return View("~/Views/Account/EditAccount.cshtml", model);
@@ -132,7 +133,7 @@ namespace Fanex.Athena.Controllers.Account
                 user.Licensee = new Licensee { Id = licenseeId };
 
                 // proceed updating
-                IResultInfo resultInfo = _userService.UpdateInfo(user, userSession.UserId);
+                var resultInfo = _userService.UpdateInfo(user, userSession.UserId);
                 if (resultInfo.IsSuccessful)
                 {
                     resultInfo.Message = ViewResources.UpdateAccountSuccessMsg;
@@ -310,7 +311,7 @@ namespace Fanex.Athena.Controllers.Account
         [CustomValidateAntiForgery]
         public ActionResult EditPermission(EditPermissionMetaModel model)
         {
-            bool isValid = ValidatePermissionRestriction(model.UserId);
+            var isValid = ValidatePermissionRestriction(model.UserId);
 
             if (!isValid)
             {
@@ -367,13 +368,9 @@ namespace Fanex.Athena.Controllers.Account
             if (userId > 0)
             {
                 var currencies = _currencyService.GetCurrenciesByUser(SessionService.LicenseeSession.LicenseeId, userId);
-                if (SessionService.LicenseeSession.LicenseeId == Licensees.KeenOcean)
+                if (SessionService.LicenseeSession.LicenseeId == LicenseeIdentityDefinition.KeenOcean)
                 {
-                    var currency = currencies.Where(x => x.CurrencyId == CurrencyType.Hkd).FirstOrDefault();
-                    if (currency != null)
-                    {
-                        currency.CurrencyName = "HKD";
-                    }
+                    KeanOceanBusinessHelper.KeepHKDCurrencyName(currencies);
                 }
 
                 ViewBag.CurrencyList = currencies;
@@ -405,7 +402,7 @@ namespace Fanex.Athena.Controllers.Account
                 });
             }
 
-            if (AppSettings.EnableAssignCurrency == false || ValidatePermissionRestriction(model.UserId) == false)
+            if (!AppSettings.EnableAssignCurrency || !ValidatePermissionRestriction(model.UserId))
             {
                 return Json(new ResultInfo
                 {
@@ -423,20 +420,20 @@ namespace Fanex.Athena.Controllers.Account
 
             // convert currencies into xml
             var currencyDict = _currencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
-            var xmlPattern = "<currencies>{0}</currencies>";
-            var xmlElement = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
+            const string XmlPattern = "<currencies>{0}</currencies>";
+            const string XmlElementPattern = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
             var xmlElementBuilder = new StringBuilder();
             var selectedCurrencyList = model.CurrencyList.Split(',');
 
             foreach (var currency in currencyDict)
             {
                 xmlElementBuilder.Append(string.Format(
-                    xmlElement,
+                    XmlElementPattern,
                     currency.CurrencyId,
                     selectedCurrencyList.Contains(currency.CurrencyId.ToString(CultureInfo.InvariantCulture)) ? 1 : 0));
             }
 
-            model.CurrencyList = string.Format(xmlPattern, xmlElementBuilder);
+            model.CurrencyList = string.Format(XmlPattern, xmlElementBuilder);
 
             var result = _currencyService.AssignCurrenciesByUser(model);
 

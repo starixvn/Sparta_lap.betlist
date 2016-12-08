@@ -11,6 +11,7 @@
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
     using Fanex.Athena.Service.Core.Users;
+    using Model.Core.DataDomain;
     using Resources;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
@@ -48,7 +49,7 @@
                 {
                     if (!headers.Contains(KeyName))
                     {
-                        return UnauthorizeAccessHandler(actionContext);
+                        return UnauthorizeAccessHandlerAsync(actionContext);
                     }
 
                     var cookie = headers
@@ -61,20 +62,27 @@
                 }
                 else
                 {
-                    System.Web.Helpers.AntiForgery.Validate();
+                    AntiForgery.Validate();
                 }
             }
-            catch
+            catch (Exception)
             {
-                return UnauthorizeAccessHandler(actionContext);
+                return UnauthorizeAccessHandlerAsync(actionContext);
             }
 
             if (!AuthorizeRequest(actionContext))
             {
-                return UnauthorizeAccessHandler(actionContext);
+                return UnauthorizeAccessHandlerAsync(actionContext);
             }
 
-            return continuation();
+            return continuation?.Invoke();
+        }
+
+        private static Task<HttpResponseMessage> FromResultAsync(HttpResponseMessage result)
+        {
+            var source = new TaskCompletionSource<HttpResponseMessage>();
+            source.SetResult(result);
+            return source.Task;
         }
 
         private static bool IsAjaxRequest(HttpRequestHeaders headers)
@@ -82,7 +90,7 @@
             return headers.Contains("X-Requested-With") && headers.GetValues("X-Requested-With").FirstOrDefault() == "XMLHttpRequest";
         }
 
-        private Task<HttpResponseMessage> UnauthorizeAccessHandler(HttpActionContext actionContext)
+        private static Task<HttpResponseMessage> UnauthorizeAccessHandlerAsync(HttpActionContext actionContext)
         {
             actionContext.Response = new HttpResponseMessage
             {
@@ -91,7 +99,7 @@
                 Content = new StringContent(ViewResources.AccessDeniedMsg)
             };
 
-            return FromResult(actionContext.Response);
+            return FromResultAsync(actionContext.Response);
         }
 
         private bool AuthorizeRequest(HttpActionContext actionContext)
@@ -104,17 +112,15 @@
             var authorized = true;
             if (userSession != null && licenseeSession != null)
             {
-                authorized = authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
+                authorized =
+              userSession.ApplicationMode == AppMode.Parasitic ?
+
+                    authorization.HasPermissions(userSession.PortalFunctionList, PermissionKeys) :
+
+                    authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
             }
 
             return authorized;
-        }
-
-        private Task<HttpResponseMessage> FromResult(HttpResponseMessage result)
-        {
-            var source = new TaskCompletionSource<HttpResponseMessage>();
-            source.SetResult(result);
-            return source.Task;
         }
     }
 }

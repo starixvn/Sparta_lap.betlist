@@ -7,59 +7,61 @@
 @using Fanex.Athena.Resources;
 
 @helper TitleLicenseeWLPrefix(IEnumerable<ProductOption> productOptions)
+{
+var prdOptionTitleList = productOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
+var prdText = string.Empty;
+foreach (var prd in prdOptionTitleList)
+{
+    if (prd.Status)
     {
-        var prdOptionTitleList = productOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
-        var prdText = string.Empty;
-        foreach (var prd in prdOptionTitleList)
-        {
-            if (prd.Status)
-            {
-                prdText += string.IsNullOrEmpty(prdText) ? prd.Code : ", " + prd.Code;
-            }
-        }
-        prdText = string.IsNullOrEmpty(prdText) ? string.Empty : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, prdText);
+        prdText += string.IsNullOrEmpty(prdText) ? prd.Code : ", " + prd.Code;
+    }
+}
+prdText = string.IsNullOrEmpty(prdText) ? string.Empty : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, prdText);
 
     @prdText
 }
 @helper GroupComSettingDropDownList(string name, Dictionary<int, int> items, decimal selectedValue = 0, string className = "")
-    {
+{
     <select id="@name" name="@name" class="@className">
         @foreach (var item in items)
         {
-            <option @(selectedValue == item.Value ? "selected=selected" : string.Empty)  value="@item.Value">@item.Key.ToString("0.#")</option>
+            <option @(selectedValue == item.Value ? "selected=selected" : string.Empty) value="@item.Value">@item.Key.ToString("0.#")</option>
         }
     </select>
 }
 @helper TruncateWithTip(String value, Int32 maxLength, bool hasSpanReturn = false)
-    {
-        if (value.Length > maxLength)
-        {
-    <span title="@value.Replace("'", "&#39;")">@HttpUtility.HtmlEncode(value.Substring(0, maxLength - 2) + "..")</span>
+{
+if (value.Length > maxLength)
+{
+        <span title="@value.Replace("'", "&#39;")">@HttpUtility.HtmlEncode(value.Substring(0, maxLength - 2) + "..")</span>
 
-        }
-        else if (hasSpanReturn)
-        {
-    <span>@HttpUtility.HtmlEncode(value)</span>
-        }
-        else
-        {
-    @value
-        }
+}
+else if (hasSpanReturn)
+{
+        <span>@HttpUtility.HtmlEncode(value)</span>
+}
+else
+{
+        @value
+}
 
 }
 @helper  SpecialLevelList(int custId, int level)
-    {
+{
     <select id="@("special-level-list-" + custId)" style="width:60px; padding-right: 0px" data-cust-id="@custId" data-level="@level" class="@("special-level-list level-" + level)">
         @for (var i = 0; i <= 10; i++)
         {
             if (i == level)
             {
-            <option value="@i" selected='selected' class="@("level-" + i)">@(i == 0 ? ViewResources.None : i.ToString())
+                <option value="@i" selected='selected' class="@("level-" + i)">
+                    @(i == 0 ? ViewResources.None : i.ToString())
             </option>
             }
             else
             {
-            <option value="@i"  class="@("level-" + i)">@(i == 0 ? ViewResources.None : i.ToString())
+                <option value="@i" class="@("level-" + i)">
+                    @(i == 0 ? ViewResources.None : i.ToString())
             </option>
             }
 
@@ -67,67 +69,67 @@
     </select>
 }
 @helper  SpecialLevelListSearch(int level)
-    {
-    <select id="special-level-list-search" class="@("level-" + level)"
->
+{
+    <select id="special-level-list-search" class="@("level-" + level)">
         <option value="-1" class="level-0" @(level == -1 ? "selected=selected" : "")>@ViewResources.All</option>
         @for (var i = 0; i <= 10; i++)
         {
-            <option value="@i" class="@("level-" + i)" @(level == i ? "selected=selected" : "")>@(i == 0 ? ViewResources.None : i.ToString())
-            </option>
+            <option value="@i" class="@("level-" + i)" @(level == i ? "selected=selected" : "")>
+                @(i == 0 ? ViewResources.None : i.ToString())
+        </option>
         }
     </select>
 }
 <!--Example:@RazorHelper.Paging("WarehouseWinLossForm", 5000, 1)-->
 @helper Paging(string formId, int NoOfItems, int currentIndex = 1, int pageSize = 1000, string method = "POST")
-    {
-        var noOfPage = NoOfItems / pageSize + (NoOfItems % pageSize == 0 ? 0 : 1);
-        var pagingVisible = NoOfItems > 1000;
-        if (pagingVisible)
-        {
-    <div class="pagingContainer">
-        <input type="button" class="icon pagingFirst" />
-        <input type="button" class="icon pagingPrev  @(currentIndex == 1 ? "pagingDisable" : string.Empty) " @(currentIndex == 1 ? "disabled=disabled" : string.Empty) />
-        <span class="pagingSeperator"></span>@ViewResources.Page
-        <input  type="text" name="PageIndex" class="pagingCurrent" maxlength="4" size="2" value="@currentIndex" />
-        @ViewResources.of @noOfPage
-        <input type="hidden" name="PageSize" value="@pageSize" />
-        <input type="hidden" name="Method" value="@method" />
-        <input type="hidden" name="FormName" value="@formId" />
-        <input type="hidden" name="NoOfPage" value="@noOfPage" />
-        <span class="pagingSeperator"></span>
-        <input type="button" class="icon pagingNext @(currentIndex == noOfPage ? "pagingDisable" : string.Empty)" @(currentIndex == noOfPage ? "disabled=disabled" : string.Empty) />
-        <input type="button" class="icon pagingLast @(currentIndex == noOfPage ? "pagingDisable" : string.Empty)" @(currentIndex == noOfPage ? "disabled=disabled" : string.Empty) />
-        <select class="pageSizeSelected">
-            @for (var i = 1000; i <= 2000; i += 1000)
-            {
-                <option value="@i" @(pageSize == i ? "selected=selected" : string.Empty)>
-                    @i
-                </option>
-            }
-        </select>
-    </div>
-        }
+{
+var noOfPage = NoOfItems / pageSize + (NoOfItems % pageSize == 0 ? 0 : 1);
+var pagingVisible = NoOfItems > 1000;
+if (pagingVisible)
+{
+        <div class="pagingContainer">
+            <input type="button" class="icon pagingFirst" />
+            <input type="button" class="icon pagingPrev  @(currentIndex == 1 ? "pagingDisable" : string.Empty) " @(currentIndex == 1 ? "disabled=disabled" : string.Empty) />
+            <span class="pagingSeperator"></span>@ViewResources.Page
+            <input type="text" name="PageIndex" class="pagingCurrent" maxlength="4" size="2" value="@currentIndex" />
+            @ViewResources.of @noOfPage
+            <input type="hidden" name="PageSize" value="@pageSize" />
+            <input type="hidden" name="Method" value="@method" />
+            <input type="hidden" name="FormName" value="@formId" />
+            <input type="hidden" name="NoOfPage" value="@noOfPage" />
+            <span class="pagingSeperator"></span>
+            <input type="button" class="icon pagingNext @(currentIndex == noOfPage ? "pagingDisable" : string.Empty)" @(currentIndex == noOfPage ? "disabled=disabled" : string.Empty) />
+            <input type="button" class="icon pagingLast @(currentIndex == noOfPage ? "pagingDisable" : string.Empty)" @(currentIndex == noOfPage ? "disabled=disabled" : string.Empty) />
+            <select class="pageSizeSelected">
+                @for (var i = 1000; i <= 2000; i += 1000)
+                {
+                    <option value="@i" @(pageSize == i ? "selected=selected" : string.Empty)>
+                        @i
+                    </option>
+                }
+            </select>
+        </div>
+}
 }
 @helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int LabelSpan)
- {  
-    var Url = new UrlHelper(Context.Request.RequestContext);
-    var i = 0;
+{
+var Url = new UrlHelper(Context.Request.RequestContext);
+var i = 0;
     <div class="grid_@(LabelSpan) filter-label new-line">
         <label>
-            @ViewResources.Product</label>
+            @ViewResources.Product
+        </label>
     </div>
     <div class="grid_6 option-list filter-input" id="ProductList">
-        <select id="grid-products-multiselect" name="grid-products-multiselect">
-        </select>       
+        <select id="grid-products-multiselect" name="grid-products-multiselect"></select>
         <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" class="hide error-img" />
 
         <div class="hide" id="product-container">
             @foreach (var product in productOptions)
             {
-                <input type="hidden" name="ProductOptions[@i].Code" value="@product.Code"  />
-                <input type="hidden" name="ProductOptions[@i].Name" value="@product.Name"  />
-                <input type="checkbox" class="childCheckbox" data-original="@product.Status.ToString()" id="@product.Code" data-product-code="@product.Code" @(product.Status ? "checked" : "")  name="ProductOptions[@i].Status" value="True" />
+                <input type="hidden" name="ProductOptions[@i].Code" value="@product.Code" />
+                <input type="hidden" name="ProductOptions[@i].Name" value="@product.Name" />
+                <input type="checkbox" class="childCheckbox" data-original="@product.Status.ToString()" id="@product.Code" data-product-code="@product.Code" @(product.Status ? "checked" : "") name="ProductOptions[@i].Status" value="True" />
                 i++;
             }
         </div>
@@ -145,12 +147,12 @@
                     return true;
 
                 });
-            });           
+            });
         </script>
     </div>
 }
 @helper MonthDropDownList(int selectedMonth)
-    {
+{
     <select id="Month">
         <option @(selectedMonth == 1 ? "selected = selected" : string.Empty) value="0">@ViewResources.January</option>
         <option @(selectedMonth == 2 ? "selected = selected" : string.Empty) value="1">@ViewResources.February</option>
@@ -167,34 +169,34 @@
     </select>
 }
 @helper YearDropDownList(int selectedYear, int itemCount)
-    {
-        var currentYear = DateTime.Now.Year;
+{
+var currentYear = DateTime.Now.Year;
     <select id="Year">
         @for (int i = currentYear; i > currentYear - itemCount && i >= 2012; i--)
         {
-            <option @(selectedYear == i ? "selected = selected" : string.Empty)  value="@i.ToString()">@i.ToString()</option>
+            <option @(selectedYear == i ? "selected = selected" : string.Empty) value="@i.ToString()">@i.ToString()</option>
         }
     </select>
 }
 @helper LicenseeType(IList<string> licenseeTypes, string className = "", string selected = "", bool addMoreAllOption = true)
+{
+var items = licenseeTypes
+ .Select(c => new System.Web.WebPages.Html.SelectListItem
+ {
+     Value = c,
+     Text = c,
+     Selected = selected == c
+ }).ToList();
+if (addMoreAllOption)
+{
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
     {
-        var items = licenseeTypes
-         .Select(c => new System.Web.WebPages.Html.SelectListItem
-         {
-             Value = c,
-             Text = c,
-             Selected = selected == c
-         }).ToList();
-        if (addMoreAllOption)
-        {
-            items.Insert(0, new System.Web.WebPages.Html.SelectListItem
-            {
-                Text = ViewResources.All.ToUpper(),
-                Value = "",
-                Selected = string.IsNullOrEmpty(selected) || selected == "0"
-            });
-        }
-    <select name="LicenseeType" id="LicenseeType"  class="@className" data-original="@selected">
+        Text = ViewResources.All.ToUpper(),
+        Value = "",
+        Selected = string.IsNullOrEmpty(selected) || selected == "0"
+    });
+}
+    <select name="LicenseeType" id="LicenseeType" class="@className" data-original="@selected">
         @foreach (var item in items)
         {
             <option value="@item.Value" @(item.Selected ? "selected=selected" : "")>
@@ -207,83 +209,78 @@
 string className = "", int selected = 0,
 bool addMoreAllOption = true,
 bool addBasedOption = false)
+{
+var selectedName = currencyList.Where(p => p.Value == selected).FirstOrDefault().Key;
+var selectedBaseCurrency = selected == BaseCurrencyType.Gbp ? "gbp" :
+                           (selected == BaseCurrencyType.Usd ? "usd" :
+                           (selected == BaseCurrencyType.Eur ? "eur" : string.Empty));
+var items = currencyList
+ .Select(c => new System.Web.WebPages.Html.SelectListItem
+ {
+     Value = c.Value.ToString(),
+     Text = c.Key,
+     Selected = selected == c.Value
+ }).ToList();
+if (addBasedOption)
+{
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
     {
-        var selectedName = currencyList.Where(p => p.Value == selected).FirstOrDefault().Key;
-        var selectedBaseCurrency = selected == BaseCurrencyType.Gbp ? "gbp" :
-                                   (selected == BaseCurrencyType.Usd ? "usd" :
-                                   (selected == BaseCurrencyType.Eur ? "eur" : string.Empty));
-        var items = currencyList
-         .Select(c => new System.Web.WebPages.Html.SelectListItem
-         {
-             Value = c.Value.ToString(),
-             Text = c.Key,
-             Selected = selected == c.Value
-         }).ToList();
-        if (addBasedOption)
-        {
-            items.Insert(0, new System.Web.WebPages.Html.SelectListItem
-            {
-                Text = ViewResources.Based + " GBP",
-                Value = BaseCurrencyType.Gbp.ToString(),
-                Selected = BaseCurrencyType.Gbp == selected
-            });
+        Text = ViewResources.Based + " GBP",
+        Value = BaseCurrencyType.Gbp.ToString(),
+        Selected = BaseCurrencyType.Gbp == selected
+    });
 
-            items.Insert(0, new System.Web.WebPages.Html.SelectListItem
-            {
-                Text = ViewResources.Based + " USD",
-                Value = BaseCurrencyType.Usd.ToString(),
-                Selected = BaseCurrencyType.Usd == selected
-            });
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+    {
+        Text = ViewResources.Based + " USD",
+        Value = BaseCurrencyType.Usd.ToString(),
+        Selected = BaseCurrencyType.Usd == selected
+    });
 
-            items.Insert(0, new System.Web.WebPages.Html.SelectListItem
-            {
-                Text = ViewResources.Based + " EUR",
-                Value = BaseCurrencyType.Eur.ToString(),
-                Selected = BaseCurrencyType.Eur == selected
-            });
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+    {
+        Text = ViewResources.Based + " EUR",
+        Value = BaseCurrencyType.Eur.ToString(),
+        Selected = BaseCurrencyType.Eur == selected
+    });
 
-        }
-        if (addMoreAllOption)
-        {
-            items.Insert(0, new System.Web.WebPages.Html.SelectListItem
-            {
-                Text = ViewResources.All.ToUpper(),
-                Value = BaseCurrencyType.All.ToString(),
-                Selected = BaseCurrencyType.All == selected
-            });
-        }
-    <select name="CurrencyId" id="CurrencyId"  class="@className" data-original="@selected">
+}
+if (addMoreAllOption)
+{
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+    {
+        Text = ViewResources.All.ToUpper(),
+        Value = BaseCurrencyType.All.ToString(),
+        Selected = BaseCurrencyType.All == selected
+    });
+}
+    <input type="hidden" id="CurrencyName" name="CurrencyName" value="@selectedName" data-original="@selectedName" />
+    if (addBasedOption)
+    {
+        <input type="hidden" id="BaseCurrency" name="BaseCurrency" value="@selectedBaseCurrency" data-original="@selectedBaseCurrency" />
+    }
+    <select name="CurrencyId" id="CurrencyId" class="@className" data-original="@selected">
         @foreach (var item in items)
         {
-            <option value="@item.Value" @(item.Selected ? new HtmlString("selected=selected") : new HtmlString(""))>
-                @item.Text
-            </option>
+            <option value="@item.Value" @(item.Selected ? new HtmlString("selected=selected") : new HtmlString(""))>@item.Text</option>
         }
     </select>
-    <input type="hidden" id="CurrencyName" name="CurrencyName" value="@selectedName" data-original="@selectedName" />
-        if (addBasedOption)
-        {
-    <input type="hidden" id="BaseCurrency" name="BaseCurrency" value="@selectedBaseCurrency" data-original="@selectedBaseCurrency" />
-        }
 }
 @helper BasedCurrency(string selectedBasedCurrency, string CurrencyName = null)
-    {
-        selectedBasedCurrency = string.IsNullOrEmpty(selectedBasedCurrency) ? string.Empty : selectedBasedCurrency;
-        selectedBasedCurrency = selectedBasedCurrency.ToLower();
+{
+selectedBasedCurrency = string.IsNullOrEmpty(selectedBasedCurrency) ? string.Empty : selectedBasedCurrency;
+selectedBasedCurrency = selectedBasedCurrency.ToLower();
 
-    <select class="based-currency" name="BaseCurrency" id="BaseCurrency"  data-original="@selectedBasedCurrency">
-        <option value="eur" @(selectedBasedCurrency == "eur" ? new HtmlString("selected=selected") : new HtmlString(""))>
-            EUR</option>
-        <option value="usd" @(selectedBasedCurrency == "usd" ? new HtmlString("selected=selected") : new HtmlString(""))>
-            USD</option>
-        <option value="gbp" @(selectedBasedCurrency == "gbp" ? new HtmlString("selected=selected") : new HtmlString(""))>
-            GBP</option>
+    <select class="based-currency" name="BaseCurrency" id="BaseCurrency" data-original="@selectedBasedCurrency">
+        <option value="eur" @(selectedBasedCurrency == "eur" ? new HtmlString("selected=selected") : new HtmlString(""))>EUR</option>
+        <option value="usd" @(selectedBasedCurrency == "usd" ? new HtmlString("selected=selected") : new HtmlString(""))>USD</option>
+        <option value="gbp" @(selectedBasedCurrency == "gbp" ? new HtmlString("selected=selected") : new HtmlString(""))>GBP</option>
         <option value="" @(selectedBasedCurrency == "" ? new HtmlString("selected=selected") : new HtmlString(""))>@CurrencyName</option>
     </select>
 }
 @helper LiveStatus(int selectedStatus)
-    {
-    <select class="live-status" name="LiveIndicator" id="LiveIndicator"  data-original="@selectedStatus">
+{
+    <select class="live-status select" name="LiveIndicator" id="LiveIndicator" data-original="@selectedStatus">
         <option value="2" @(selectedStatus.Equals(2) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.All</option>
         <option value="1" @(selectedStatus.Equals(1) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.Live</option>
         <option value="0" @(selectedStatus.Equals(0) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.NoneLive</option>
@@ -292,7 +289,7 @@ bool addBasedOption = false)
 <!--Total bets-->
 <!--Timer countdown control-->
 @helper TimerCountDown(string name, int start)
-    {
+{
     <input type="hidden" id="count-down-of" name="@name" data-default-value="@start" />
     <div class="timer-countdown">
         <div id="count" class="button-refresh">
@@ -304,122 +301,124 @@ bool addBasedOption = false)
         @for (var i = 1; i <= 5; i++)
         {
             <div id="option-@(start)" data-count-down="@start" class="menu-item">
-                @start sec</div>
+                @start sec
+            </div>
             start += 15;
         }
     </div>
 }
 @helper HighlightNegativeFormat(decimal value, bool isHiglight = true)
-    {
-    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative'") : new HtmlString(""))>@value.ToStringExt()</span>
+{
+    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative'") : new HtmlString(""))>
+        @value.ToStringExt()</span>
 }
 <!-- Format total bets number -->
 @helper PositiveFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
-    {
-        if (value != 0)
-        {
-    <span @(value > 0 ? "class=positive-number" : string.Empty)>@value.ToString("#,##0.00")</span>
-        }
-        else
-        {
-    <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
-        }
+{
+if (value != 0)
+{
+        <span @(value > 0 ? "class=positive-number" : string.Empty)>@value.ToString("#,##0.00")</span>
+}
+else
+{
+        <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
+}
 }
 @helper NegativeFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
-    {
-        if (value != 0)
-        {
-    <span @(value < 0 ? "class=negative-number" : string.Empty)>@value.ToString("#,##0.00")</span>
-        }
-        else
-        {
-    <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
-        }
+{
+if (value != 0)
+{
+        <span @(value < 0 ? "class=negative-number" : string.Empty)>@value.ToString("#,##0.00")</span>
+}
+else
+{
+        <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
+}
 }
 @helper PositiveFormatExt(decimal? value)
-    {
-        if ((value.HasValue))
-        {
-    @PositiveFormat(Convert.ToDecimal(value), true, false);
-        }
+{
+if ((value.HasValue))
+{
+        @PositiveFormat(Convert.ToDecimal(value), true, false);
+}
 }
 @helper DecFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
-    {
-        if (isDisplayZero)
-        {
-    <span>@value.ToString((value != 0 || isFormatZero) ? "#,##0.00" : "0")</span>
-        }
-        else
-        {
-    <span>@(value == 0 ? string.Empty : value.ToString("#,##0.00"))</span>
-        }
+{
+if (isDisplayZero)
+{
+        <span>@value.ToString((value != 0 || isFormatZero) ? "#,##0.00" : "0")</span>
+}
+else
+{
+        <span>@(value == 0 ? string.Empty : value.ToString("#,##0.00"))</span>
+}
 }
 <!-- /Format total bets number -->
 <!--/Total bets-->
 @helper ViewBaseCurrency(string currencyName, string basedCurrencyName)
-    {
+{
     @(string.IsNullOrEmpty(basedCurrencyName) ? string.Format(ViewResources.Viewin, currencyName) : string.Format(ViewResources.Viewin, basedCurrencyName.ToUpper()))
 
 }
 @helper ViewCurrencyBasedOnConverter(bool converter, string BaseCurrency, string CurrencyName)
-    {
+{
     @(string.Format(ViewResources.Viewin, converter ? BaseCurrency.ToUpper() : CurrencyName))
 }
 @helper ViewLiveStatus(int liveStatus)
-    {
-        string title = string.Empty;
-        switch (liveStatus)
-        {
-            case 0:
-                title = ViewResources.NoneLive;
-                break;
-            case 1:
-                title = ViewResources.Live;
-                break;
-            case 2:
-                title = ViewResources.LiveAndNonLive;
-                break;
-        }
+{
+string title = string.Empty;
+switch (liveStatus)
+{
+    case 0:
+        title = ViewResources.NoneLive;
+        break;
+    case 1:
+        title = ViewResources.Live;
+        break;
+    case 2:
+        title = ViewResources.LiveAndNonLive;
+        break;
+}
 
     @(title + ViewResources.Data)
 }
 @helper ViewInCurrency(int currencyId, string currencyName)
-    {
-        string title;
+{
+string title;
 
-        switch (currencyId)
-        {
-            case BaseCurrencyType.All:
-                title = ViewResources.AllCurrencies;
-                break;
-            case BaseCurrencyType.Eur:
-                title = string.Format(ViewResources.Viewin, FormatKey.Eur);
-                break;
-            case BaseCurrencyType.Usd:
-                title = string.Format(ViewResources.Viewin, FormatKey.Usd);
-                break;
-            case BaseCurrencyType.Gbp:
-                title = string.Format(ViewResources.Viewin, FormatKey.Gbp);
-                break;
-            default:
-                title = string.Format(ViewResources.Viewin, currencyName);
-                break;
-        }
+switch (currencyId)
+{
+    case BaseCurrencyType.All:
+        title = ViewResources.AllCurrencies;
+        break;
+    case BaseCurrencyType.Eur:
+        title = string.Format(ViewResources.Viewin, FormatKey.Eur);
+        break;
+    case BaseCurrencyType.Usd:
+        title = string.Format(ViewResources.Viewin, FormatKey.Usd);
+        break;
+    case BaseCurrencyType.Gbp:
+        title = string.Format(ViewResources.Viewin, FormatKey.Gbp);
+        break;
+    default:
+        title = string.Format(ViewResources.Viewin, currencyName);
+        break;
+}
     @(title)
 
 }
 @helper TitleDateTime(DateTime fromDate, DateTime? toDate)
-    {
+{
     @(fromDate.ToString("MM/dd/yyyy"))
-        if (toDate != null)
-        {
-    @(" → ")@(toDate.Value.ToString("MM/dd/yyyy"))
-        }
+if (toDate != null)
+{
+        @(" → ")@(toDate.Value.ToString("MM/dd/yyyy"))
+}
 }
 @helper FullDateFormat(DateTime? date)
-    {
-        if (date != null)
-        {
-    @(date.Value.ToString("MM/dd/yyyy hh:mm:ss tt"))
-        }
+{
+if (date != null)
+{
+        @(date.Value.ToString("MM/dd/yyyy hh:mm:ss tt"))
+}
 }

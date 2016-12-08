@@ -14,7 +14,7 @@
             // Arrange            
             var firstObject = new Person { Id = 1, Name = "Walter", Children = CreateData("Ariana", "Selena", "Kross") };
             var secondObject = new Person { Id = 2, Name = "Ralph", Children = CreateData("Kyle", "Selena", "Alex") };
-            var dataList = new SortableList<Person>() { firstObject, secondObject };
+            var dataList = new SortableList<Person> { firstObject, secondObject };
 
             // Action
             dataList.SortByDictionary<int, string>(10, "Children", true);
@@ -30,7 +30,7 @@
             // Arrange            
             var firstObject = new Person { Id = 1, Name = "Walter", Children = CreateData("Ariana", "Selena", "Kross") };
             var secondObject = new Person { Id = 2, Name = "Ralph", Children = CreateData("Kyle", "Selena", "Alex") };
-            var dataList = new SortableList<Person>() { firstObject, secondObject };
+            var dataList = new SortableList<Person> { firstObject, secondObject };
 
             // Action
             dataList.SortByDictionary<int, string>(10, "Children", false);
@@ -46,7 +46,7 @@
             // Arrange            
             var firstObject = new Person { Id = 1, Name = "Walter" };
             var secondObject = new Person { Id = 2, Name = "Ralph" };
-            var dataList = new SortableList<Person>() { firstObject, secondObject };
+            var dataList = new SortableList<Person> { firstObject, secondObject };
 
             // Action
             dataList.Sort("Name", true);
@@ -62,7 +62,7 @@
             // Arrange            
             var firstObject = new Person { Id = 1, Name = "Walter" };
             var secondObject = new Person { Id = 2, Name = "Ralph" };
-            var dataList = new SortableList<Person>() { firstObject, secondObject };
+            var dataList = new SortableList<Person> { firstObject, secondObject };
 
             // Action
             dataList.Sort("Name", false);

@@ -12,6 +12,7 @@ namespace Fanex.Athena.Api.BetList
     using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Service.Core.Utility;
 
     #endregion Using
 
@@ -25,8 +26,7 @@ namespace Fanex.Athena.Api.BetList
             var currencyList = userSession.CurrencyList;
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            if (metaModel.CurrencyId > 0 && !currencyList.Values.Contains(metaModel.CurrencyId) &&
-                (licenseeId == Licensees.KeenOcean && metaModel.CurrencyId != CurrencyType.Cny))
+            if (!KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, licenseeId, metaModel.CurrencyId))
             {
                 return null;
             }

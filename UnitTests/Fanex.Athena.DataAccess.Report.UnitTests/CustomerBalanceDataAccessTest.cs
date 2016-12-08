@@ -16,10 +16,8 @@
         private CustomerBalanceDataAccess _dataAccess;
         private IDataReader _reader;
         private CustomerBalanceMetaModel _metaModel;
-        private CustBalance _totalData;
-        private int _totalRow = 0;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
@@ -31,14 +29,26 @@
             _objectDb.ExecuteReader().Returns(_reader);
 
             _metaModel = new CustomerBalanceMetaModel { ProductOptions = GetProductOptions() };
-            _totalData = new CustBalance();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _objectDb = null;
+            _dataAccess = null;
+            _reader = null;
+            _metaModel = null;
         }
 
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
+            // Arrange
+            var totalData = new CustBalance();
+            int totalRow = 0;
+
             // Action
-            _dataAccess.GetDataList(_metaModel, ref _totalData, ref _totalRow);
+            _dataAccess.GetDataList(_metaModel, ref totalData, ref totalRow);
 
             // Assert
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
@@ -81,13 +91,15 @@
                 TotalWL = 20m
             };
 
+            var totalData = new CustBalance();
+            int totalRow = 0;
             _reader.Read().Returns(true, false, true, false);
             _reader.NextResult().Returns(true);
             ConfigureReaderForGetDataListMethod(expectedResult);
             ConfigureReaderForTotalData(expectedTotalData);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel, ref _totalData, ref _totalRow)[0];
+            var result = _dataAccess.GetDataList(_metaModel, ref totalData, ref totalRow)[0];
 
             // Assert
             Assert.That(result.ExternalId, Is.EqualTo(expectedResult.ExternalId));
@@ -98,14 +110,13 @@
             Assert.That(result.WinLoss, Is.EqualTo(expectedResult.WinLoss));
             Assert.That(result.PlayerComm, Is.EqualTo(expectedResult.PlayerComm));
             Assert.That(result.TotalWL, Is.EqualTo(expectedResult.TotalWL));
-
-            Assert.That(_totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
-            Assert.That(_totalData.DrawGame, Is.EqualTo(expectedTotalData.DrawGame));
-            Assert.That(_totalData.NetTurnover, Is.EqualTo(expectedTotalData.NetTurnover));
-            Assert.That(_totalData.WinLoss, Is.EqualTo(expectedTotalData.WinLoss));
-            Assert.That(_totalData.PlayerComm, Is.EqualTo(expectedTotalData.PlayerComm));
-            Assert.That(_totalData.TotalWL, Is.EqualTo(expectedTotalData.TotalWL));
-            Assert.That(_totalRow, Is.EqualTo(100));
+            Assert.That(totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
+            Assert.That(totalData.DrawGame, Is.EqualTo(expectedTotalData.DrawGame));
+            Assert.That(totalData.NetTurnover, Is.EqualTo(expectedTotalData.NetTurnover));
+            Assert.That(totalData.WinLoss, Is.EqualTo(expectedTotalData.WinLoss));
+            Assert.That(totalData.PlayerComm, Is.EqualTo(expectedTotalData.PlayerComm));
+            Assert.That(totalData.TotalWL, Is.EqualTo(expectedTotalData.TotalWL));
+            Assert.That(totalRow, Is.EqualTo(100));
         }
 
         private IList<ProductOption> GetProductOptions()
@@ -118,7 +129,7 @@
         }
 
         private void ConfigureReaderForGetDataListMethod(CustBalance expected)
-        {           
+        {
             _reader["nickname"].Returns(expected.ExternalId);
             _reader["username"].Returns(expected.SystemId);
             _reader["openingbalance"].Returns(expected.OpeningBalance);

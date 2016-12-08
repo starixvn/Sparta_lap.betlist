@@ -45,8 +45,8 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = new ObjectDb(UspName))
                 {
-                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
-                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status == true);
+                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status);
+                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status);
 
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
@@ -92,8 +92,8 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = new ObjectDb(UspName))
                 {
-                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
-                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status == true);
+                    var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status);
+                    var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status);
 
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
@@ -171,9 +171,7 @@ namespace Fanex.Athena.DataAccess.Report
         /// Get data list.
         /// </summary>
         /// <param name="reader">Report data table.</param>
-        /// <param name="grandTotalTable">Grand total data table.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="grandTotal">Grand total object.</param>
+        /// <param name="baseCurrency">todo: describe baseCurrency parameter on GetCustomers</param>
         /// <returns>The result value.</returns>
         private static IEnumerable<WinLossByLeague> GetCustomers(IDataReader reader, string baseCurrency)
         {

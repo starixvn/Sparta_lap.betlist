@@ -1,0 +1,29 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
+
+@{ 
+    var columnCount = Model.IsAllowedCustomerCommission ? 10 : 7;
+
+    if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+    {
+        columnCount -= 1;
+    }
+}
+
+@foreach (var product in Model.ByBetType)
+{
+    var productName = product.ProductName == "SB" ? ViewResources.Sportsbook : product.ProductName;
+    <tr class="font-weight-600 highlight">
+        <td colspan="@columnCount" title="@productName">@productName</td>
+    </tr>
+
+    foreach (var item in product.LiveReports)
+    {
+        <tr>
+            <td title="@item.ProductName">
+                @item.ProductName
+            </td>
+
+            @ReportContentHelperDesktop.RenderDataForLiveReport(Model, item)
+        </tr>
+    }
+}

@@ -16,7 +16,7 @@
         private IMoveBetDataAccess _moveBetDataAccess;
         private IMoveBetService _moveBetService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _appSettings = Substitute.For<IAppSettings>();
@@ -24,11 +24,19 @@
             _moveBetService = new MoveBetService(_appSettings, _moveBetDataAccess);
         }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _appSettings = null;
+            _moveBetDataAccess = null;
+            _moveBetService = null;
+        }
+
         [Test]
         public void GetMoveBet_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new MoveBet()
+            var expectedResult = new MoveBet
             {
                 AvailableWinlostDate = new DateTime(2016, 1, 1)
             };

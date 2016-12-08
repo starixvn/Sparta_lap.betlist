@@ -17,6 +17,7 @@ namespace Fanex.Athena.Service.Core.Users
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
 
     public class SessionService : ISessionService
@@ -43,8 +44,8 @@ namespace Fanex.Athena.Service.Core.Users
         }
 
         public SessionService(
-            IFunctionService functionService, 
-            ILicenseeService licenseeService, 
+            IFunctionService functionService,
+            ILicenseeService licenseeService,
             ICurrencyService currencyService)
         {
             _functionService = functionService;
@@ -97,7 +98,6 @@ namespace Fanex.Athena.Service.Core.Users
             string language = "en-US")
         {
             var licenseeList = _licenseeService.GetByUser(userId);
-            var isAdmin = licenseeList != null & licenseeList.Count > 0;
             var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
             var functionIdList = functionList.Select(f => f.FunctionId).ToList();
 
@@ -106,23 +106,19 @@ namespace Fanex.Athena.Service.Core.Users
                 UserId = userId,
                 OnUserId = onuserId,
                 UserName = userName,
-                IsAdmin = isAdmin,
                 IsInternal = isInternal,
                 FunctionIdList = functionIdList,
                 Language = language,
                 CurrencyList = _currencyService.GetCurrencyMapByUser(licenseeId, userId),
-                DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList)
+                DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList),
+                ApplicationMode = AppMode.Self
             };
 
             this.UserSession = userSession;
             var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
             if (licenseeId > 0 && selectedLicensee != null)
             {
-                var licenseeSession = new LicenseeSession
-                {
-                    UserId = userId,
-                    UserName = userName
-                };
+                var licenseeSession = new LicenseeSession();
                 AssignDataForLicenseeSession(licenseeSession, selectedLicensee);
                 licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;
                 this.LicenseeSession = licenseeSession;
@@ -138,11 +134,7 @@ namespace Fanex.Athena.Service.Core.Users
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
 
-                this.LicenseeSession = new LicenseeSession
-                {
-                    UserId = currentUserSession.UserId,
-                    UserName = currentUserSession.UserName
-                };
+                this.LicenseeSession = new LicenseeSession();
                 AssignDataForLicenseeSession(this.LicenseeSession, selectedLicensee);
 
                 var functionList = _functionService.GetUserFunctionList(licenseeId, currentUserSession.UserId);
@@ -153,11 +145,42 @@ namespace Fanex.Athena.Service.Core.Users
             }
         }
 
+        public bool UpdateLanguage(string languageCode)
+        {
+            if (!string.IsNullOrEmpty(languageCode))
+            {
+                UserSession.Language = languageCode;
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool IsAllowedEditCommission(UserSession user)
+        {
+            return user.ApplicationMode == AppMode.Parasitic ?
+                    user.PortalFunctionList != null && user.PortalFunctionList.Any(i => i.FunctionKey == PermissionKeys.CustomerInfoCommissionGroupList)
+                    : user.FunctionIdList != null && user.FunctionIdList.Contains((int)FunctionType.CommissionGroupList);
+        }
+
+        public bool IsAllowedSpecialBA(UserSession user)
+        {
+            return user.ApplicationMode == AppMode.Parasitic ?
+                    user.PortalFunctionList != null && user.PortalFunctionList.Any(i => i.FunctionKey == PermissionKeys.CustomerInfoSpecialBA)
+                    : user.FunctionIdList != null && user.FunctionIdList.Contains((int)FunctionType.SpecialBA);
+        }
+
+        public void CreateNewSession(UserSession user, LicenseeSession lic)
+        {
+            UserSession = user;
+            LicenseeSession = lic;
+        }
+
         private static string GetDefaultReportUrl(IList<int> functionIdList, IList<Function> functionList)
         {
             if (!functionIdList.Contains(ReportBalanceId))
             {
-                var firstFunction = functionList.Where(x => x.ParentId > 0 && x.IsActive).FirstOrDefault();
+                var firstFunction = functionList.FirstOrDefault(x => x.ParentId > 0 && x.IsActive);
                 if (firstFunction != null)
                 {
                     return firstFunction.Url;
@@ -181,17 +204,6 @@ namespace Fanex.Athena.Service.Core.Users
             licenseeSession.CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList();
             licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;
             licenseeSession.IsEnableBA = selectedLicensee.IsEnableBA;
-        }
-
-        public bool UpdateLanguage(string languageCode)
-        {
-            if (!string.IsNullOrEmpty(languageCode))
-            {
-                UserSession.Language = languageCode;
-                return true;
-            }
-
-            return false;
         }
     }
 
