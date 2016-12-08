@@ -26,15 +26,14 @@
         </div>
     </header>
     <!-- overflow: hidden Cheat to not show ugly scollbar at loading time-->
-    <ul id="nav-mobile" class="side-nav fixed mCustomScrollbar light" data-mcs-theme="minimal-dark" style="overflow: hidden">
+    <ul id="nav-mobile" class="side-nav fixed mCustomScrollbar light" data-mcs-theme="minimal-dark">
         <li class="site-menu" id="left-menu">
             @{Html.RenderAction("Index", "Menu"); }
         </li>
     </ul>
 
     <main class="main">
-        <!--Place your content at here -->
-        <iframe id="mainFrame" name="main" src="@(Util.RootPath + ViewBag.DefaultReportUrl)" frameborder="0" scrolling="auto"></iframe>
+        <iframe id="mainFrame" name="main" data-src="@(Util.RootPath + ViewBag.DefaultReportUrl)" frameborder="0" scrolling="auto"></iframe>
     </main>
     <script src="@Url.ContentLink("/www/js/build/common.chunk.js")"></script>
     <script src="@Url.ContentLink("/www/js/build/pages/home/home.chunk.js")"></script>

@@ -9,7 +9,11 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomp
         initVariables();
         initEvent();
         activeDefaultMenuItem();
-
+        setTimeout(function () {
+            var $mainFrame = $("#mainFrame");
+            $mainFrame.attr('src', $mainFrame.data('src'));
+        }, 100);
+        
         if ($('#HasRecheckIn').val() === "1") {
             Recheckin.init();
         }
