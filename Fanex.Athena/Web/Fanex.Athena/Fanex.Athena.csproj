@@ -1194,6 +1194,13 @@
     <Content Include="SiteConfig\Web.AppSettings.SANDBOX.config" />
     <Content Include="SiteConfig\Web.AppSettings.SIT.config" />
     <Content Include="SiteConfig\Web.AppSettings.UAT.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.BACKUPMNL.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.DEV.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.LOCAL.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.PRO.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.SANDBOX.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.UAT.config" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1209,9 +1216,6 @@
     <Content Include="www\css\source\pages\utility\error.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-    </Content>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3943,9 +3947,6 @@
     <Content Include="Views\Report\MacauWinLoss\Content.cshtml" />
     <Content Include="Views\Report\MacauWinLoss\Filter.cshtml" />
     <Content Include="Views\Report\MacauWinLoss\Main.cshtml" />
-    <Content Include="SiteConfig\Web.ConnectionStrings.DEV.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-    </Content>
     <Content Include="Views\Customer\BetSetting\MicroGamingLiveCasino.cshtml" />
     <Content Include="Views\Customer\BetSetting\BetTrade.cshtml" />
   </ItemGroup>
@@ -4460,11 +4461,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="SiteConfig\Web.ConnectionStrings.config.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -4868,27 +4864,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Web.config.txt</LastGenOutput>
     </None>
-    <Content Include="SiteConfig\Web.ConnectionStrings.BACKUPMNL.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-    </Content>
-    <None Include="SiteConfig\Web.ConnectionStrings.config.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Web.ConnectionStrings.config.txt</LastGenOutput>
-    </None>
-    <Content Include="SiteConfig\Web.ConnectionStrings.LOCAL.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.ConnectionStrings.PRO.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="SiteConfig\Web.ConnectionStrings.SANDBOX.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-    </Content>
-    <Content Include="SiteConfig\Web.ConnectionStrings.UAT.config">
-      <DependentUpon>Web.ConnectionStrings.config.tt</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">
