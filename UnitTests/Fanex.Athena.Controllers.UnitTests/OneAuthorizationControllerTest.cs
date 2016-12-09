@@ -49,7 +49,10 @@
             _maintenanceService = null;
             _appSetting = null;
             _logger = null;
-            _controller = null;
+            if (_controller != null)
+            {
+                _controller.Dispose();
+            }
             _loggerCounnter = 0;
         }
 
@@ -156,7 +159,7 @@
                 UserID = "pgmAlex",
                 VendorID = "localhost"
             });
-            string expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
+            var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.LocationRestrictionMsg;
             _appSetting.GetValue(Arg.Is<string>("internaldomain")).Returns(x => "localhost");
             _controller.Request.Url.Returns(x => new Uri("http://localhost:6985/"));
 
