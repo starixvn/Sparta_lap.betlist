@@ -126,7 +126,6 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="BaseControllerTest.cs" />
     <Compile Include="OneAuthorizationControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtilityControllerTest.cs" />
@@ -159,6 +158,10 @@
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{FCFD7434-085B-4C93-848F-E1CBCEDCC5A0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Controllers.Base.UnitTests\Fanex.Athena.Controllers.Base.UnitTests.csproj">
+      <Project>{5A7466E4-F6B3-4042-8971-E6CE5EAB1F09}</Project>
+      <Name>Fanex.Athena.Controllers.Base.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

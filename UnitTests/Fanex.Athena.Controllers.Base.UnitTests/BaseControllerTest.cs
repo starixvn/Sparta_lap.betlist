@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Fanex.Athena.Extension.Utility;
-using Fanex.Athena.Model.Core.DataDomain;
-using Fanex.Athena.Service.Core.Common.Interfaces;
-using Fanex.Athena.Service.Core.Users.Interfaces;
-using Fanex.Athena.Web.RouterConfig;
-using NSubstitute;
-using NUnit.Framework;
-
-namespace Fanex.Athena.Controllers.UnitTests
+﻿namespace Fanex.Athena.Controllers.Base.UnitTests
 {
+    using System.Collections.Generic;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Routing;
+    using Fanex.Athena.Extension.Utility;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Fanex.Athena.Web.RouterConfig;
+    using Model.Core.DTO.Users;
+    using NSubstitute;
+    using NUnit.Framework;
+
     [TestFixture]
     public class BaseControllerTest
     {
@@ -57,7 +58,7 @@ namespace Fanex.Athena.Controllers.UnitTests
             LangService = Substitute.For<ILanguageService>();
 
             SessionService = Substitute.For<ISessionService>();
-            SessionService.UserSession.Returns(new Model.Core.DTO.Users.UserSession
+            SessionService.UserSession.Returns(new UserSession
             {
                 ViewType = ClientViewType.None,
                 UserId = 1,
@@ -65,6 +66,14 @@ namespace Fanex.Athena.Controllers.UnitTests
                 UserName = "alex.vn",
                 OnUserId = 1,
                 FunctionIdList = new List<int>()
+            });
+
+            SessionService.LicenseeSession.Returns(new LicenseeSession
+            {
+                CurrencyName = new List<string> { "UUS" },
+                LicenseeId = 100,
+                LicenseeName = "Spondemo",
+                LicenseeType = new List<string>()
             });
 
             AppSettings = Substitute.For<IAppSettings>();
