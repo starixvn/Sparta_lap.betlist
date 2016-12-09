@@ -6,6 +6,7 @@ var cssCommonPath = "./www/css/source/";
 
 var cssDateRangePickerPath = ["bootstrap-daterangepicker/daterangepicker.css", "./www/css/source/components/daterangepicker/daterangepicker-ex.scss"];
 var jqgridPath = ["./www/css/source/components/jqgrid/jqgrid.css", "./www/css/source/extensions/jqgrid-ex.scss"];
+var cssReportCommon = ["./www/css/source/pages/common.scss", "./www/css/source/extensions/report-ex.scss", "./www/css/source/components/flatpopup/flatpopup.scss"];
 
 var cssPaths = {
     build: "www/css/build",
@@ -15,21 +16,18 @@ var cssPaths = {
     error: ["./www/css/source/pages/utility/error.scss"],
 
     reportjqgridlayout: [
-        "./www/css/source/components/flatpopup/flatpopup.scss",
-        "./www/css/source/components/multiselect/jquery.multiselect.css", "./www/css/source/extensions/multiselect-ex.scss",
-        "./www/css/source/pages/common.scss", "./www/css/source/extensions/report-ex.scss",
-        ...jqgridPath
+        ...cssReportCommon, ...jqgridPath,
+        "./www/css/source/components/multiselect/jquery.multiselect.css", "./www/css/source/extensions/multiselect-ex.scss"
     ],
     betlistSimpleLayout: [
-        "./www/css/source/components/flatpopup/flatpopup.scss",
-        "./www/css/source/pages/common.scss", "./www/css/source/extensions/report-ex.scss",
+        ...cssReportCommon, ...jqgridPath,
         "./www/css/source/components/betlist/betlist.scss", "./www/css/source/components/betlist/Microgaming.css",
-        "./www/css/source/components/betlist/AGCasino.css", "./www/css/source/components/betlist/Allbet.css",
-        ...jqgridPath
+        "./www/css/source/components/betlist/AGCasino.css", "./www/css/source/components/betlist/Allbet.css"
     ],
 
     totalbetlayout: [
-        "./www/css/source/components/flatpopup/flatpopup.scss"
+        ...cssReportCommon,
+        "./www/css/source/pages/totalbet/totalbet.scss"
     ],
 
     colossusbetdetail: ["./www/css/source/pages/common.scss", "./www/css/source/components/betlist/colossusbetdetail.scss"],
@@ -38,8 +36,7 @@ var cssPaths = {
     betlistResult: ["./www/css/source/pages/common.scss", "./www/css/source/components/betlist/result/betlist.result.scss"],
 
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],
-    livereport: ["./www/css/source/pages/common.scss", "./www/css/source/components/flatpopup/flatpopup.scss", "./www/css/source/components/monthpicker/monpickr.scss",
-        "./www/css/source/extensions/report-ex.scss", "./www/css/source/pages/report/livereport.scss", ...cssDateRangePickerPath],
+    livereport: [...cssReportCommon, ...cssDateRangePickerPath, "./www/css/source/components/monthpicker/monpickr.scss", "./www/css/source/pages/report/livereport.scss"],
     licenseewinloss: ["./www/css/source/pages/report/licenseewinloss.scss", ...cssDateRangePickerPath]
 };
 

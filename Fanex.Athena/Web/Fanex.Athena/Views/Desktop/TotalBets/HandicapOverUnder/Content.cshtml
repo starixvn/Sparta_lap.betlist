@@ -1,12 +1,84 @@
 ﻿@model Fanex.Athena.Model.TotalBet.ViewModel.HandicapOverUnderViewModel
-@{
-    Html.RenderPartial("~/Views/Desktop/TotalBets/HandicapOverUnder/ContentHeader.cshtml");
+
+@helper RenderFirstRow()
+{
+    <tr class="first-row">
+        <td class="col-small"></td>
+        <td class="col-medium"></td>
+        <td class="col-large"></td>
+        <td class="col-half-large"></td>
+        <td class="col-half-large"></td>
+        <td class="col-half-large"></td>
+        <td class="col-half-large"></td>
+    </tr>
 }
+
 @if (Model.MainData.Count == 0)
 {
-    Html.RenderPartial("~/Views/TotalBets/HandicapOverUnder/ContentNoInfo.cshtml");
+    <p class="no-info-row">@ViewResources.NoInfo</p>
 }
 else
 {
-    Html.RenderPartial("~/Views/Desktop/TotalBets/HandicapOverUnder/" + (string)ViewBag.LicenseeView);
+    <div class="page-results">
+        <div class="result-content">
+            <div class="header-content">
+                <table class="table">
+                    <thead>
+                        @RenderFirstRow()
+
+                        <tr>
+                            <th rowspan="2">#</th>
+                            <th rowspan="2">@ViewResources.Time</th>
+                            <th rowspan="2">@ViewResources.Event</th>
+                            <th colspan="2">@ViewResources.FullTime</th>
+                            <th colspan="2" style="border-right-color: #d1dae1 !important;">@ViewResources.lbl1stHalf</th>
+                        </tr>
+                        <tr>
+                            <th>@ViewResources.Handicap</th>
+                            <th>@ViewResources.OverUnder</th>
+                            <th>@ViewResources.Handicap</th>
+                            <th>@ViewResources.OverUnder</th>
+                        </tr>
+
+                    </thead>
+                </table>
+            </div>
+
+            <div class="body-content">
+                <table class="table">
+                    <tbody>
+                        @RenderFirstRow()
+                        @{ Html.RenderPartial("~/Views/Desktop/TotalBets/HandicapOverUnder/" + (string)ViewBag.LicenseeView); }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer-content">
+                <table class="table">
+                    <tbody>
+                        @RenderFirstRow()
+
+                        <tr class="total-footer">
+                            <td class="right-align" colspan="3">
+                                @ViewResources.Total
+                            </td>
+                            <td class="right-align">
+                                @RazorHelperDesktop.DecFormat(Model.TotalData.FullTimeHandicap, true, false)
+                            </td>
+                            <td class="right-align">
+                                @RazorHelperDesktop.DecFormat(Model.TotalData.FullTimeOverUnder, true, false)
+                            </td>
+                            <td class="right-align">
+                                @RazorHelperDesktop.DecFormat(Model.TotalData.FirstTimeHandicap, true, false)
+                            </td>
+                            <td class="right-align">
+                                @RazorHelperDesktop.DecFormat(Model.TotalData.FirstTimeOverUnder, true, false)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
 }

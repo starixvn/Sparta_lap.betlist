@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([11],{
 
 /***/ 0:
@@ -21,3 +22,6 @@ webpackJsonp([11],{
 =======
 webpackJsonp([12],{0:function(n,o,c){n.exports=c(71)},71:function(n,o){}});
 >>>>>>> 12a6046... #67998 - Add Handicap Over Under Report
+=======
+webpackJsonp([12],{0:function(n,o,c){n.exports=c(73)},73:function(n,o){}});
+>>>>>>> e5a9a5d... #67998 - Show data table in Handicap Over Under Report

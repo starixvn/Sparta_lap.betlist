@@ -1216,6 +1216,9 @@
     <Content Include="Views\Desktop\BetList\GlobalGamingDetail\Main.cshtml" />
     <Content Include="Views\Desktop\Shared\_TotalBetsLayout.cshtml" />
     <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\Main.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\ContentHeader.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\ContentData.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\ContentDataBodog.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1231,6 +1234,7 @@
     <Content Include="www\css\source\pages\utility\error.scss" />
     <Content Include="Views\Customer\BetSetting\FishingWorld.cshtml" />
     <Content Include="Views\BetList\GlobalGamingDetail\Main.cshtml" />
+    <Content Include="www\css\source\pages\totalbet\totalbet.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
@@ -4988,7 +4992,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
-    <Folder Include="www\css\source\pages\totalbet\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

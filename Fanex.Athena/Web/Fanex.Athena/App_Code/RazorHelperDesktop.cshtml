@@ -210,3 +210,27 @@ if (toDate != null)
         }
     </select>
 }
+
+@helper NegativeFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
+{
+    if (value != 0)
+    {
+        <span @(value < 0 ? "class=negative-number" : string.Empty)>@value.ToString("#,##0.00")</span>
+    }
+    else
+    {
+        <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
+    }
+}
+
+@helper DecFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
+{
+    if (isDisplayZero)
+    {
+        <span>@value.ToString((value != 0 || isFormatZero) ? "#,##0.00" : "0")</span>
+    }
+    else
+    {
+        <span>@(value == 0 ? string.Empty : value.ToString("#,##0.00"))</span>
+    }
+}

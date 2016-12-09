@@ -1,0 +1,122 @@
+﻿@using System.Linq
+@using Fanex.Athena.Model.TotalBet.DTO
+@model Fanex.Athena.Model.TotalBet.ViewModel.HandicapOverUnderViewModel
+@{
+    var leagueList = Model.MainData.GroupBy(x => new { x.LeagueId, x.LeagueName, x.LiveIndicator })
+                            .Select(x => x.Key)
+                            .OrderBy(x => x.LeagueName)
+                            .OrderByDescending(x => x.LiveIndicator)
+                            .ToList();
+    var index = 1;
+}
+<div class="data-content">
+    <table class="report-table">
+        <tbody>
+            @foreach (var league in leagueList)
+            {
+                // Render League name
+                <tr>
+                    <td class="league" data-league-id="@league.LeagueId" colspan="11">
+                        @league.LeagueName
+                    </td>
+                </tr>
+                var matchOfLeague = Model.MainData
+                            .Where(x => x.LeagueId == league.LeagueId && x.LiveIndicator == league.LiveIndicator)
+                            .OrderBy(x => x.HomeTeamName)
+                            .ToList();
+
+                foreach (var match in matchOfLeague)
+                {
+                    <tr class="@(match.LiveIndicator == 1 ? "live" : string.Empty)">
+                        <td style="width: 3%" class="order-number">
+                            @(index++)
+                        </td>
+                        <td style="width: 10%">
+                            @if (match.LiveIndicator == 1)
+                            {
+                                <div class="show-time">
+                                    <span>@match.LiveHomeScore - @match.LiveAwayScore</span>
+                                    <br />
+                                    <i class="live-notice">@ViewResources.Live!</i>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="show-time">
+                                    @Html.Raw(match.ShowTime)
+                                </div>
+                            }
+                        </td>
+                        <td style="width: 38%" class="match-name">
+                            <span class="hand" onclick="javascript:HandicapOU.viewNewForecast(@league.LeagueId,@match.MatchId,@Model.Param.CurrencyId,'@Model.Param.BaseCurrency')" style="text-decoration:underline; color:#0000FF;">
+                                @match.HomeTeamName -vs- @match.AwayTeamName
+                            </span>
+                        </td>
+                        <!--Render Fulltime Handicap OU-->
+                        <td style="width: 12%" class="score-value">
+                            @if (match.BetCountHandicap != 0)
+                            {
+                                <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="1" href="javascript:;">
+                                    @RazorHelper.NegativeFormat(match.FullTimeHandicap, true, false)
+                                </a>
+                            }
+                        </td>
+                        <td style="width: 12%" class="score-value">
+                            @if (match.BetCountOverUnder != 0)
+                            {
+                                <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="3" href="javascript:;">
+                                    @RazorHelper.NegativeFormat(match.FullTimeOverUnder, true, false)
+                                </a>
+                            }
+                        </td>
+                        <!--Render 1st Half Handicap OU-->
+                        <td style="width: 12%" class="score-value">
+                            @if (match.BetCountHandicap1StHalf != 0)
+                            {
+                                <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="7" href="javascript:;">
+                                    @RazorHelper.NegativeFormat(match.FirstTimeHandicap, true, false)
+                                </a>
+                            }
+                        </td>
+                        <td style="width: 12%" class="score-value">
+                            @if (match.BetCountOverUnder1StHalf != 0)
+                            {
+                                <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="8" href="javascript:;">
+                                    @RazorHelper.NegativeFormat(match.FirstTimeOverUnder, true, false)
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@*Footer*@
+<div class="footer-content">
+    <table class="report-table">
+        <thead>
+            <tr class="total-footer">
+                <td style="width: 3%"></td>
+                <td style="width: 10%"></td>
+                <td class="score-value" style="width: 38%">
+                    @ViewResources.Total
+                </td>
+                <td class="score-value" style="width: 12%">
+                    @RazorHelper.DecFormat(Model.TotalData.FullTimeHandicap, true, false)
+                </td>
+                <td class="score-value" style="width: 12%">
+                    @RazorHelper.DecFormat(Model.TotalData.FullTimeOverUnder, true, false)
+                </td>
+                <td class="score-value" style="width: 12%">
+                    @RazorHelper.DecFormat(Model.TotalData.FirstTimeHandicap, true, false)
+                </td>
+                <td class="score-value" style="width: 12%">
+                    @RazorHelper.DecFormat(Model.TotalData.FirstTimeOverUnder, true, false)
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*/Footer*@ 
