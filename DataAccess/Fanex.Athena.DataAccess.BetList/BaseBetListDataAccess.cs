@@ -77,7 +77,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     // Boolean
                     IsLive = reader.GetValue("liveindicator", x => ReadBoolean(x), false),
                     IsNeutral = reader.GetValue("isneutral", x => ReadBoolean(x), false),
-                ticket.Currency = reader.GetString("Currency");
+                    Currency = reader.GetString("Currency"),
 
                     // Int
                     SportTypeId = reader.GetInt("sporttype"),
