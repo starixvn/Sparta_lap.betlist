@@ -30,10 +30,7 @@
                 _firstGoalLastGoalService);
             FirstGoalLastGoal total;
             _firstGoalLastGoalService.GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total)
-                .Returns(new List<FirstGoalLastGoal>
-                {
-                    new FirstGoalLastGoal()
-                });
+                .Returns(new List<FirstGoalLastGoal> { new FirstGoalLastGoal() });
         }
 
         [OneTimeTearDown]

@@ -126,6 +126,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="HalfTimeFullTimeTotalBetControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FirstGoalLastGoalTotalBetControllerTest.cs" />
   </ItemGroup>
