@@ -60,6 +60,7 @@
             SessionService = Substitute.For<ISessionService>();
             SessionService.UserSession.Returns(new UserSession
             {
+                CurrencyList = new Dictionary<string, int> { { "UUS", 1 } },
                 ViewType = ClientViewType.None,
                 UserId = 1,
                 Language = "en-Us",

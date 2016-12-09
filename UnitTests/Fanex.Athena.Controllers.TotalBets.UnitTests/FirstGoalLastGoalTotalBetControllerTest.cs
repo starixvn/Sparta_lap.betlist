@@ -69,5 +69,21 @@
             _firstGoalLastGoalService.Received().GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total);
             Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
         }
+
+        [Test]
+        public void Index_InvalidCurrency_ViewNameIsAccessDenied()
+        {
+            // Arrange
+            var metaModel = new FirstGoalLastGoalMetaModel
+            {
+                CurrencyId = -999
+            };
+
+            // Action
+            var viewResult = _controller.Index(metaModel) as RedirectResult;
+
+            // Assert
+            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+        }
     }
 }
