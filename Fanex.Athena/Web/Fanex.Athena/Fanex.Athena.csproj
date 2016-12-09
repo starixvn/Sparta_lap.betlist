@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -750,6 +750,7 @@
     <Content Include="www\css\build\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\pages\reports\livereport.css" />
     <Content Include="www\css\build\pages\reports\reportjqgridlayout.css" />
+    <Content Include="www\css\build\pages\totalbet\totalbetlayout.css" />
     <Content Include="www\css\build\pages\utility\error.css" />
     <Content Include="www\css\source\components\betlist\AGCasino.css" />
     <Content Include="www\css\source\components\betlist\Allbet.css" />
@@ -812,6 +813,7 @@
     <Content Include="www\js\source\lib\jquery.tiny-draggable.js" />
     <Content Include="www\js\source\lib\linq.js" />
     <Content Include="www\js\source\lib\navbar.js" />
+    <Content Include="www\js\source\components\refreshcountdown.js" />
     <Content Include="www\js\source\lib\sidebar.js" />
     <Content Include="www\js\source\pages\home\home.js" />
     <Content Include="www\js\source\pages\home\main.js" />
@@ -829,6 +831,10 @@
     <Content Include="www\js\source\pages\report\report.js" />
     <Content Include="www\js\source\pages\signin\main.js" />
     <Content Include="www\js\source\pages\signin\signin.js" />
+    <Content Include="www\js\source\components\forecastpopup.js" />
+    <Content Include="www\js\source\pages\totalbet\handicapoverunder\handicapoverunder.js" />
+    <Content Include="www\js\source\pages\totalbet\handicapoverunder\main.js" />
+    <Content Include="www\js\source\pages\totalbet\totalbetsbase.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\js\tests\common\popup-spec.js" />
     <Content Include="www\js\tests\common\querystring-spec.js" />
@@ -841,6 +847,8 @@
     <Content Include="www\js\tests\pages\report\livereport\helper-spec.js" />
     <Content Include="www\js\tests\global.js" />
     <Content Include="www\js\tests\test-main.js" />
+    <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\Filter.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\Content.cshtml" />
     <Content Include="www\webpackconfig\build\utils.js" />
     <Content Include="www\webpackconfig\build\webpack.base.conf.js" />
     <Content Include="www\webpackconfig\build\webpack.dev.conf.js" />
@@ -1206,6 +1214,8 @@
     <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config" />
     <Content Include="SiteConfig\Web.ConnectionStrings.UAT.config" />
     <Content Include="Views\Desktop\BetList\GlobalGamingDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\Shared\_TotalBetsLayout.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\Main.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -4978,6 +4988,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
+    <Folder Include="www\css\source\pages\totalbet\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

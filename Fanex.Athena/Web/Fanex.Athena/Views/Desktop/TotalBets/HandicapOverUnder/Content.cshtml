@@ -1,0 +1,12 @@
+﻿@model Fanex.Athena.Model.TotalBet.ViewModel.HandicapOverUnderViewModel
+@{
+    Html.RenderPartial("~/Views/Desktop/TotalBets/HandicapOverUnder/ContentHeader.cshtml");
+}
+@if (Model.MainData.Count == 0)
+{
+    Html.RenderPartial("~/Views/TotalBets/HandicapOverUnder/ContentNoInfo.cshtml");
+}
+else
+{
+    Html.RenderPartial("~/Views/Desktop/TotalBets/HandicapOverUnder/" + (string)ViewBag.LicenseeView);
+}

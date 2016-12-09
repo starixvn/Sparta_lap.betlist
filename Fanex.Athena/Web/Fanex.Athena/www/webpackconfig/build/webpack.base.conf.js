@@ -5,7 +5,7 @@ var pathConfig = require('../config/path');
 var alias = require('../config/alias');
 var loader = require('../config/loader');
 var plugin = require('../config/plugin');
-var exposeLoader = require('expose-loader')
+var exposeLoader = require('expose-loader');
 var utils = require('./utils');
 
 var commonConfigs = {
@@ -34,7 +34,9 @@ var commonConfigs = {
         [pathConfig.cssPaths.build + "/pages/betlist/betlistSimpleLayout"]: pathConfig.cssPaths.betlistSimpleLayout,
         [pathConfig.cssPaths.build + "/pages/betlist/betlistResult"]: pathConfig.cssPaths.betlistResult,
         [pathConfig.cssPaths.build + "/pages/betlist/colossusbetdetail"]: pathConfig.cssPaths.colossusbetdetail,
-        [pathConfig.cssPaths.build + "/pages/betlist/systemparlaydetail"]: pathConfig.cssPaths.systemparlaydetail
+        [pathConfig.cssPaths.build + "/pages/betlist/systemparlaydetail"]: pathConfig.cssPaths.systemparlaydetail,
+
+        [pathConfig.cssPaths.build + "/pages/totalbet/totalbetlayout"]: pathConfig.cssPaths.totalbetlayout
     },
     output: {
         path: pathConfig.projectRoot,

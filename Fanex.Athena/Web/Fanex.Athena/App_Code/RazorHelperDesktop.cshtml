@@ -160,3 +160,53 @@ if (toDate != null)
         <input type="hidden" id="productsData" value="@productOptions.ToJson()" />
     </div>
 }
+
+<!--Total bets-->
+<!--Timer countdown control-->
+@helper TimerCountDown(string name, int start)
+{
+    <input type="hidden" id="count-down-of" name="@name" data-default-value="@start" />
+    <div class="timer-countdown">
+        <div id="count" class="button-refresh">
+        </div>
+        <div class="button-select">
+        </div>
+    </div>
+    <div id="countdown-menu" class="countdown-menu" style="display: none">
+        @for (var i = 1; i <= 5; i++)
+        {
+            <div id="option-@(start)" data-count-down="@start" class="menu-item">
+                @start sec
+            </div>
+            start += 15;
+        }
+    </div>
+}
+
+@helper LicenseeType(IList<string> licenseeTypes, string className = "", string selected = "", bool addMoreAllOption = true)
+{
+    var items = licenseeTypes
+     .Select(c => new System.Web.WebPages.Html.SelectListItem
+     {
+         Value = c,
+         Text = c,
+         Selected = selected == c
+     }).ToList();
+    if (addMoreAllOption)
+    {
+        items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+        {
+            Text = ViewResources.All.ToUpper(),
+            Value = "",
+            Selected = string.IsNullOrEmpty(selected) || selected == "0"
+        });
+    }
+    <select name="LicenseeType" id="LicenseeType" class="@className" data-original="@selected">
+        @foreach (var item in items)
+        {
+            <option value="@item.Value" @(item.Selected ? "selected=selected" : "")>
+                @item.Text
+            </option>
+        }
+    </select>
+}

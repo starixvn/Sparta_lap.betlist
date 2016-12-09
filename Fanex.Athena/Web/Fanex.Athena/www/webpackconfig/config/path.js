@@ -28,6 +28,10 @@ var cssPaths = {
         ...jqgridPath
     ],
 
+    totalbetlayout: [
+        "./www/css/source/components/flatpopup/flatpopup.scss"
+    ],
+
     colossusbetdetail: ["./www/css/source/pages/common.scss", "./www/css/source/components/betlist/colossusbetdetail.scss"],
     systemparlaydetail: ["./www/css/source/pages/common.scss", "./www/css/source/components/betlist/systemparlaydetail.scss"],
 
