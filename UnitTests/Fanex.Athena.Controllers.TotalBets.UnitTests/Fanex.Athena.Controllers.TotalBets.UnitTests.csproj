@@ -126,6 +126,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="OutrightTotalBetControllerTest.cs" />
     <Compile Include="TotalGoalTotalBetControllerTest.cs" />
     <Compile Include="OddEvenDrawNoDrawTotalBetControllerTest.cs" />
     <Compile Include="MoneyLineTotalBetControllerTest.cs" />

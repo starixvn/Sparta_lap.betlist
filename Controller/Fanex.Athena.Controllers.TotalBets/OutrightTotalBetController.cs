@@ -10,10 +10,13 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.TotalBet;
     using Service.TotalBet.Interfaces;
 
@@ -25,6 +28,16 @@ namespace Fanex.Athena.Controllers.TotalBets
         public OutrightTotalBetController()
         {
             _outrightService = new OutrightService();
+        }
+
+        public OutrightTotalBetController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IOutrightService outrightService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _outrightService = outrightService;
         }
 
         [HttpGet]
