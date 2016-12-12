@@ -36,18 +36,21 @@
 
         private void AddXFrameOption(HttpActionExecutedContext actionExecutedContext)
         {
-            var user = _sessionService.UserSession;
-
-            IEnumerable<string> headerValues;
-
-            if (actionExecutedContext.Response.Headers.TryGetValues(XFrameOptionHeaderName, out headerValues) && headerValues.Any())
+            if (actionExecutedContext.Response != null)
             {
-                actionExecutedContext.Response.Headers.Remove(XFrameOptionHeaderName);
-            }
+                var user = _sessionService.UserSession;
 
-            if (user == null || user.ApplicationMode == AppMode.Self)
-            {
-                actionExecutedContext.Response.Headers.Add(XFrameOptionHeaderName, "SAMEORIGIN");
+                IEnumerable<string> headerValues;
+
+                if (actionExecutedContext.Response.Headers.TryGetValues(XFrameOptionHeaderName, out headerValues) && headerValues.Any())
+                {
+                    actionExecutedContext.Response.Headers.Remove(XFrameOptionHeaderName);
+                }
+
+                if (user == null || user.ApplicationMode == AppMode.Self)
+                {
+                    actionExecutedContext.Response.Headers.Add(XFrameOptionHeaderName, "SAMEORIGIN");
+                }
             }
         }
     }
