@@ -6,7 +6,6 @@
         function initialize() {
             Site.initialize();
             initEvent();
-            PluginHelper.initMaterialSelect();
             PluginHelper.initDateRangePicker();
             PluginHelper.initMonthPicker();
             Site.addUserGuide({

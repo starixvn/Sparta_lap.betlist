@@ -204,9 +204,7 @@ if (toDate != null)
     <select name="LicenseeType" id="LicenseeType" class="@className" data-original="@selected">
         @foreach (var item in items)
         {
-            <option value="@item.Value" @(item.Selected ? "selected=selected" : "")>
-                @item.Text
-            </option>
+            <option value="@item.Value" @(item.Selected ? "selected=selected" : "")>@item.Text</option>
         }
     </select>
 }

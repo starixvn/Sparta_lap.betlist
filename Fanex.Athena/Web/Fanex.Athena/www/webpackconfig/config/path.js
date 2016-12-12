@@ -50,7 +50,9 @@ var scriptPaths = {
     livereport: "./www/js/source/pages/report/livereport/main-livereport.js",
     livereportmatchlist: "./www/js/source/pages/report/livereport/main-matchlist.js",
     licenseewinloss: "./www/js/source/pages/report/licenseewinloss/main.js",
-    betlist: "./www/js/source/components/betlist/main.js"
+    betlist: "./www/js/source/components/betlist/main.js",
+
+    handicapoverunder: "./www/js/source/pages/totalbet/handicapoverunder/main.js"
 };
 
 module.exports = {

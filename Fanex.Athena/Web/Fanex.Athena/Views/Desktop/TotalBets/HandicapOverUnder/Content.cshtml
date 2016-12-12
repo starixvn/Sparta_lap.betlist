@@ -13,13 +13,14 @@
     </tr>
 }
 
-@if (Model.MainData.Count == 0)
-{
-    <p class="no-info-row">@ViewResources.NoInfo</p>
-}
-else
-{
-    <div class="page-results">
+<div class="page-results">
+    @if (Model.MainData.Count == 0)
+    {
+        <p class="no-info-row">@ViewResources.NoInfo</p>
+    }
+    else
+    {
+
         <div class="result-content">
             <div class="header-content">
                 <table class="table">
@@ -58,8 +59,8 @@ else
                     <tbody>
                         @RenderFirstRow()
 
-                        <tr class="total-footer">
-                            <td class="right-align" colspan="3">
+                        <tr class="total total-footer">
+                            <td class="right-align total-label" colspan="3">
                                 @ViewResources.Total
                             </td>
                             <td class="right-align">
@@ -80,5 +81,5 @@ else
             </div>
 
         </div>
-    </div>
-}
+    }
+</div>

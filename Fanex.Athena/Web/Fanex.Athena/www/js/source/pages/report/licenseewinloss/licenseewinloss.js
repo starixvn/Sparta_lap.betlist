@@ -60,7 +60,6 @@
                     title: Site.getSingleResource("LicenseeWinLoss")
                 });
                 Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
-                PluginHelper.initMaterialSelect();
                 PluginHelper.initDateRangePicker();
             },
 

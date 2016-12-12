@@ -1,17 +1,16 @@
-﻿define(['jquery', 'common/site', 'common/queyrystring', 'components/refreshcountdown'], function ($, Site, QueryString, RefreshCountDown) {
+﻿define(['jquery', 'common/site', 'common/querystring', 'components/refreshcountdown'], function ($, Site, QueryString, RefreshCountDown) {
     var _me = {
         resizeGrid: function () {
-            var $grid = $(".data-content");
+            var $grid = $(".body-content");
             if ($grid.length === 0) {
                 return;
             }
 
             var gridTop = $grid.offset().top;
 
-            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - 35;
+            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height();
             gridHeight = Math.max(150, gridHeight);
-            gridHeight = Math.min($(".data-content .report-table").height(), gridHeight);
-            $grid.attr("style", "height: " + gridHeight + "px !important; max-height: 100% !important;");
+            $grid.css("max-height", gridHeight);
         },
         initEvent: function () {
             // Init refresh countdown

@@ -762,6 +762,7 @@
     <Content Include="www\js\build\common.chunk.js" />
     <Content Include="www\js\build\language.chunk.js" />
     <Content Include="www\js\build\pages\betlist\betlist.chunk.js" />
+    <Content Include="www\js\build\pages\handicapoverunder\handicapoverunder.chunk.js" />
     <Content Include="www\js\build\pages\home\home.chunk.js" />
     <Content Include="www\js\build\pages\licenseewinloss\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\pages\livereport\livereport.chunk.js" />
@@ -1216,7 +1217,6 @@
     <Content Include="Views\Desktop\BetList\GlobalGamingDetail\Main.cshtml" />
     <Content Include="Views\Desktop\Shared\_TotalBetsLayout.cshtml" />
     <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\Main.cshtml" />
-    <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\ContentHeader.cshtml" />
     <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\ContentData.cshtml" />
     <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\ContentDataBodog.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />

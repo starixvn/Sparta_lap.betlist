@@ -1,8 +1,10 @@
-﻿define(['jquery', 'common/site', 'common/querystring', '../totalbetbase', 'components/forecastpopup'], function ($, Site, QueryString, Totalbets, ForecastPopup) {
+﻿define(['jquery', 'common/site', 'common/querystring', '../totalbetsbase', 'components/forecastpopup'],
+    function ($, Site, QueryString, Totalbets, ForecastPopup) {
     "use strict";
 
     var _me = {
         initialize: function () {
+            Site.initialize();
             Totalbets.initialize();
             _me.initEvent();
             Site.addUserGuide({
@@ -11,16 +13,20 @@
             });
         },
         initEvent: function () {
-            // Submit event.
             $("#SubmitButton").on("click", function () {
                 _me.submit();
             });
 
-            // Forcast button click
             $("#Refresh-Content").on("click", '.button-add', function () {
                 var matchId = $(this).attr("data-match-id");
                 var betType = $(this).attr("data-bet-type");
                 _me.viewForecast(matchId, betType);
+            });
+
+            $(window).on("resize", Totalbets.resizeGrid);
+
+            $(window).on("unload", function () {
+                $(window).off("resize");
             });
         },
         viewNewForecast: function (leagueId, matchId, currencyId, baseCurrency) {
@@ -37,7 +43,6 @@
             url = Site.setLicenseeOptionOriginalParam(url);
 
             var popH = 250, popW = 700;
-
             ForecastPopup.showPopup(popW, popH, url);
         },
         submit: function () {
@@ -45,4 +50,6 @@
             $("#HandicapOUForm").submit();
         }
     };
+
+    return _me;
 });
