@@ -16,18 +16,11 @@
     {
         private IHalfTimeFullTimeService _halfTimeFullTimeService;
 
-        private HalfTimeFullTimeTotalBetController _controller;
-
         [OneTimeSetUp]
         public new void FixtureSetUp()
         {
             FakeBaseControllerDependency();
             _halfTimeFullTimeService = Substitute.For<IHalfTimeFullTimeService>();
-            _controller = new HalfTimeFullTimeTotalBetController(
-                LangService,
-                SessionService,
-                AppSettings,
-                _halfTimeFullTimeService);
             HalfTimeFullTime total;
             _halfTimeFullTimeService.GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total)
                 .Returns(x =>
@@ -40,51 +33,67 @@
         [OneTimeTearDown]
         public new void FixtureTearDown()
         {
-            _controller.Dispose();
-            _controller = null;
+            _halfTimeFullTimeService = null;
         }
 
         [Test]
         public void Index_WhenCall_ReturnCorrectViewName()
         {
             // Arrange
+            using (var controller = CreateController())
+            {
+                // Action
+                var viewResult = controller.Index() as ViewResult;
 
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
-
-            // Assert
-            Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HalfTimeFullTime/Main.cshtml"));
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HalfTimeFullTime/Main.cshtml"));
+            }
         }
 
         [Test]
         public void Index_WhenCall_CallAndGetDataFromService()
         {
             // Arrange
-            HalfTimeFullTime total;
+            using (var controller = CreateController())
+            {
+                HalfTimeFullTime total = null;
 
-            // Action
-            var viewResult = _controller.Index() as ViewResult;
-            var viewModel = viewResult.Model as HalfTimeFullTimeViewModel;
+                // Action
+                var viewResult = controller.Index() as ViewResult;
+                var viewModel = viewResult.Model as HalfTimeFullTimeViewModel;
 
-            // Assert
-            _halfTimeFullTimeService.Received().GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total);
-            Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+                // Assert
+                _halfTimeFullTimeService.ReceivedWithAnyArgs().GetHalfTimeFullTimeDataList(Arg.Any<HalfTimeFullTimeMetaModel>(), out total);
+                Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
+            }
         }
 
         [Test]
         public void Index_InvalidCurrency_ViewNameIsAccessDenied()
         {
             // Arrange
-            var metaModel = new HalfTimeFullTimeMetaModel
+            using (var controller = CreateController())
             {
-                CurrencyId = -999
-            };
+                var metaModel = new HalfTimeFullTimeMetaModel
+                {
+                    CurrencyId = -999
+                };
 
-            // Action
-            var viewResult = _controller.Index(metaModel) as RedirectResult;
+                // Action
+                var viewResult = controller.Index(metaModel) as RedirectResult;
 
-            // Assert
-            Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+                // Assert
+                Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+            }
+        }
+
+        private HalfTimeFullTimeTotalBetController CreateController()
+        {
+            return new HalfTimeFullTimeTotalBetController(
+                            LangService,
+                            SessionService,
+                            AppSettings,
+                            _halfTimeFullTimeService);
         }
     }
 }

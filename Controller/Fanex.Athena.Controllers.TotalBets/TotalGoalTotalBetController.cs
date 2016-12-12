@@ -10,11 +10,14 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.TotalBet;
     using Service.TotalBet.Interfaces;
 
@@ -26,6 +29,16 @@ namespace Fanex.Athena.Controllers.TotalBets
         public TotalGoalTotalBetController()
         {
             _totalGoalService = new TotalGoalService();
+        }
+
+        public TotalGoalTotalBetController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            ITotalGoalService totalGoalService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _totalGoalService = totalGoalService;
         }
 
         [HttpGet]
