@@ -8,29 +8,24 @@ namespace Fanex.Athena.Service.TotalBet
 {
     using System.Collections.Generic;
     using DataAccess.TotalBet;
+    using DataAccess.TotalBet.Interfaces;
     using Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// TODO: update class.
-    /// </summary>
     public class HomeDrawAwayNoBetService : IHomeDrawAwayNoBetService
     {
-        #region Fields
-
-        private readonly HomeDrawAwayNoBetDataAccess _homeDrawAwayNoBetDataAccess;
-
-        #endregion Fields
-
-        #region Constructor
+        private readonly IHomeDrawAwayNoBetDataAccess _homeDrawAwayNoBetDataAccess;
 
         public HomeDrawAwayNoBetService()
         {
             _homeDrawAwayNoBetDataAccess = new HomeDrawAwayNoBetDataAccess();
         }
 
-        #endregion Constructor
+        public HomeDrawAwayNoBetService(IHomeDrawAwayNoBetDataAccess homeDrawAwayNoBetDataAccess)
+        {
+            _homeDrawAwayNoBetDataAccess = homeDrawAwayNoBetDataAccess;
+        }
 
         public IList<HomeDrawAwayNoBet> GetHomeDrawAwayNoBetDataList(HomeDrawAwayNoBetMetaModel metaModel)
         {

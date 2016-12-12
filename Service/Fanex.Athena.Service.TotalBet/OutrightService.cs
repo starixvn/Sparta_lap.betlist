@@ -8,29 +8,24 @@ namespace Fanex.Athena.Service.TotalBet
 {
     using System.Collections.Generic;
     using DataAccess.TotalBet;
+    using DataAccess.TotalBet.Interfaces;
     using Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// Outright Service class.
-    /// </summary>
     public class OutrightService : IOutrightService
     {
-        #region Fields
-
-        private readonly OutrightDataAccess _outrightDataAccess;
-
-        #endregion Fields
-
-        #region Constructor
+        private readonly IOutrightDataAccess _outrightDataAccess;
 
         public OutrightService()
         {
             _outrightDataAccess = new OutrightDataAccess();
         }
 
-        #endregion Constructor
+        public OutrightService(IOutrightDataAccess outrightDataAccess)
+        {
+            _outrightDataAccess = outrightDataAccess;
+        }
 
         public IList<Outright> GetOutrightDataList(OutrightMetaModel metaModel)
         {
