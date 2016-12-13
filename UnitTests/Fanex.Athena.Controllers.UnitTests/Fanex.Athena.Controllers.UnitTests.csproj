@@ -126,6 +126,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AccountControllerTest.cs" />
     <Compile Include="OneAuthorizationControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtilityControllerTest.cs" />
