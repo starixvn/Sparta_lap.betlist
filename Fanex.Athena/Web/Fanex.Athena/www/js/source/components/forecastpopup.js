@@ -2,11 +2,6 @@
     "use strict";
 
     var _me = {
-        showPopup: function (width, height, url) {
-            var dialogForm = '<div><iframe id="myframe" src="' + url + '" ></iframe></div>';
-
-            Popup.openPopup(dialogForm, { width: width, height: height, title: Site.getSingleResource("Forecast"), id: "forecast-dialog" });
-        },
         resizePopup: function (width, height, url) {
             var $popup = parent.$('.ui-dialog');
             var top = Math.max(0, (parent.innerHeight - height - 50) / 2);

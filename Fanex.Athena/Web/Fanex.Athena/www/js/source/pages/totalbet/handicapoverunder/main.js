@@ -1,4 +1,8 @@
 ﻿define(['./handicapoverunder'], function (HandicapOU) {
     "use strict";
-    $(HandicapOU.initialize);
+    $(function () {
+        HandicapOU.initialize();
+
+        window.viewNewForecast = HandicapOU.viewNewForecast;
+    });
 });

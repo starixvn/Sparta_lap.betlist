@@ -49,14 +49,14 @@ define(['jquery'], function ($) {
         },
 
         show: function (modal) {
-            var $self = $(this);
+            var $self = this;
             //Set the center alignment padding + border see css style
-            var popMarginLeft = ($self.width() + 24) / 2;
-            var top = parseInt($self.css("top"));
+            var left = ($(window).width() - $self.width()) / 2;
+            var top = ($(window).height() - $self.height()) / 2;
 
             $self.css({
-                'margin-top': -(top / 2),
-                'margin-left': -popMarginLeft
+                'top': top + "px",
+                'left': left + "px"
             });
 
             if (modal) {

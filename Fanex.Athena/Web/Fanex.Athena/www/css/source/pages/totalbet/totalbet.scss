@@ -23,16 +23,20 @@
 }
 
 .col-large {
-    width: 400px;
+    width: 40%;
 }
 
 .col-half-large {
-    width: 200px;
+    width: 10%;
 }
 
 .table {
     > thead, > tbody {
         tr {
+            &.live {
+                background-color: #ffddcc;
+            }
+
             td, th {
                 padding: 5px 8px;
             }
@@ -44,6 +48,10 @@
     }
 
     td {
+        .live-notice {
+            color: #FF0004;
+        }
+
         .icon-plus {
             margin-left: 5px;
             padding: 0 5px;
@@ -54,6 +62,11 @@
                 content: "\ea0a";
                 vertical-align: middle;
             }
+        }
+
+        .forcast-number {
+            color: #000;
+            font-weight: bold;
         }
     }
 }
@@ -76,10 +89,6 @@
 
 .header-content, .footer-content {
     padding-right: 17px;
-}
-
-.forcast-number {
-    font-weight: bold;
 }
 
 .forcast-number, .icon-plus {

@@ -1,5 +1,5 @@
-﻿define(['jquery', 'common/site', 'common/querystring', '../totalbetsbase', 'components/forecastpopup'],
-    function ($, Site, QueryString, Totalbets, ForecastPopup) {
+﻿define(['jquery', 'common/site', 'common/querystring', '../totalbetsbase', 'common/popup'],
+    function ($, Site, QueryString, Totalbets, Popup) {
     "use strict";
 
     var _me = {
@@ -17,7 +17,7 @@
                 _me.submit();
             });
 
-            $("#Refresh-Content").on("click", '.button-add', function () {
+            $("#reportContent").on("click", '.button-add', function () {
                 var matchId = $(this).attr("data-match-id");
                 var betType = $(this).attr("data-bet-type");
                 _me.viewForecast(matchId, betType);
@@ -43,7 +43,7 @@
             url = Site.setLicenseeOptionOriginalParam(url);
 
             var popH = 250, popW = 700;
-            ForecastPopup.showPopup(popW, popH, url);
+            Popup.openPopupWithIframe(url, { width: popW, height: popH, title: Site.getSingleResource("Forecast"), id: "forecast-dialog" });
         },
         submit: function () {
             Site.blockUI();

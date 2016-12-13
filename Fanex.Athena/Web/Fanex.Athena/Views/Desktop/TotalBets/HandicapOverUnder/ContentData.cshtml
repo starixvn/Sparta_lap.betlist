@@ -12,7 +12,7 @@
 {
     // Render League name
     <tr class="highlight">
-        <td class="league" data-league-id="@league.LeagueId" colspan="7">
+        <td data-league-id="@league.LeagueId" colspan="7">
             @league.LeagueName
         </td>
     </tr>
@@ -40,11 +40,11 @@
                     @Html.Raw(match.ShowTime)
                 }
             </td>
-            <td class="match-name">
+            <td>
                 @match.HomeTeamName -vs- @match.AwayTeamName
             </td>
             <!--Render Fulltime Handicap OU-->
-            <td class="right-align score-value">
+            <td class="right-align">
                 @if (match.BetCountHandicap != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="1" href="javascript:;">
@@ -56,7 +56,7 @@
                 </a>
             </td>
 
-            <td class="right-align score-value">
+            <td class="right-align">
                 @if (match.BetCountOverUnder != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="3" href="javascript:;">
@@ -69,7 +69,7 @@
             </td>
 
             <!--Render 1st Half Handicap OU-->
-            <td class="right-align score-value">
+            <td class="right-align">
                 @if (match.BetCountHandicap1StHalf != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="7" href="javascript:;">
@@ -81,7 +81,7 @@
                 </a>
             </td>
 
-            <td class="right-align score-value">
+            <td class="right-align">
                 @if (match.BetCountOverUnder1StHalf != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="8" href="javascript:;">

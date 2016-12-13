@@ -1,0 +1,21 @@
+﻿@{
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";
+}
+@section css
+{
+}
+@section js
+{
+}
+
+<div id="reportContent">
+    <div class="timer">
+        @RazorHelper.TimerCountDown("forecastah", 15)
+    </div>
+
+    <div class="page-results">
+        @{
+            Html.RenderPartial("~/Views/Forecast/ForecastAH/Content.cshtml");
+        }
+    </div>
+</div>

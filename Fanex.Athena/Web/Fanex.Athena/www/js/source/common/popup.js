@@ -6,12 +6,12 @@
             return $(element).flatPopup(option);
         },
 
-        openBetListPopup: function (url, option) {
+        openPopupWithIframe: function (url, option) {
             var $popUp = $("#" + option.id);
             if ($popUp.length > 0) {
                 $("#popupFrame").attr('src', url);
             } else {
-                $popUp = $('<div id="' + option.id + '" class="betlist-popup"><iframe id="popupFrame" src="' + url + '" ></iframe></div>');
+                $popUp = $('<div id="' + option.id + '" class="popup-frame"><iframe id="popupFrame" src="' + url + '" ></iframe></div>');
             }
 
             return $popUp.flatPopup(option);

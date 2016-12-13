@@ -21,12 +21,12 @@
 
         function showDetailPopUp(url, option) {
             option.id = "betlist-popup-detail";
-            Popup.openBetListPopup(url, option);
+            Popup.openPopupWithIframe(url, option);
         }
 
         function showResultPopUp(url, option) {
             option.id = "betlist-popup-result";
-            Popup.openBetListPopup(url, option);
+            Popup.openPopupWithIframe(url, option);
         }
 
         function isFastMarket(bettype) {
