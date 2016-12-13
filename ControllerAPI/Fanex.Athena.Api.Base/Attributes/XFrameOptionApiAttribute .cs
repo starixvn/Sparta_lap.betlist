@@ -1,14 +1,14 @@
 ﻿namespace Fanex.Athena.Api.Base
 {
-    using Model.Core.DataDomain;
-    using Service.Core.Users;
-    using Service.Core.Users.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web.Http.Filters;
+    using Model.Core.DataDomain;
+    using Service.Core.Users;
+    using Service.Core.Users.Interfaces;
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public sealed class XFrameOptionApiAttribute : ActionFilterAttribute
@@ -44,6 +44,7 @@
             {
                 actionExecutedContext.Response.Headers.Remove(XFrameOptionHeaderName);
             }
+
             if (user == null || user.ApplicationMode == AppMode.Self)
             {
                 actionExecutedContext.Response.Headers.Add(XFrameOptionHeaderName, "SAMEORIGIN");

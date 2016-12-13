@@ -1,19 +1,18 @@
 ﻿namespace Fanex.Athena.Web.ActionFilter
 {
-    using Extension.Utility;
-    using Model.Core.DataDomain;
-    using Service.Core.Users;
-    using Service.Core.Users.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Model.Core.DataDomain;
+    using Service.Core.Users;
+    using Service.Core.Users.Interfaces;
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public sealed class XFrameOptionAttribute : ActionFilterAttribute
     {
         private const string XFrameOptionHeaderName = "X-Frame-Options";
-        private readonly IAppSettings _appSetting;
+
         private readonly ISessionService _sessionService;
 
         public XFrameOptionAttribute()
