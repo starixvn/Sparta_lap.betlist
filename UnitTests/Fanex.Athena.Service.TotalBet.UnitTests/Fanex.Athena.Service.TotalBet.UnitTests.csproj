@@ -94,6 +94,13 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="HomeDrawAwayNoBetServiceTest.cs" />
+    <Compile Include="MoneyLineServiceTest.cs" />
+    <Compile Include="OddEvenDrawNoDrawServiceTest.cs" />
+    <Compile Include="OutrightServiceTest.cs" />
+    <Compile Include="TotalGoalServiceTest.cs" />
+    <Compile Include="HandicapOverUnderServiceTest.cs" />
+    <Compile Include="HalfTimeFullTimeServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FirstGoalLastGoalServiceTest.cs" />
   </ItemGroup>
