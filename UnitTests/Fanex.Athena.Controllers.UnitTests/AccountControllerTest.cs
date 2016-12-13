@@ -4,7 +4,6 @@
     using System.Web.Mvc;
     using Account;
     using Base.UnitTests;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DTO.Users;
     using NSubstitute;
@@ -28,11 +27,11 @@
             _userService = Substitute.For<IUserService>();
             _currencyService = Substitute.For<ICurrencyService>();
             _controller = new AccountController(
-                LangService, 
-                SessionService, 
-                AppSettings, 
-                _functionService, 
-                _userService, 
+                LangService,
+                SessionService,
+                AppSettings,
+                _functionService,
+                _userService,
                 _currencyService);
         }
 
@@ -48,21 +47,35 @@
         }
 
         [Test]
-        public void Manage_WhenCall_Return()
+        public void Manage_WhenCall_ReturnCorrectViewName()
         {
             // Arrange
             const int LicenseeId = 1;
-            var userList = new List<User>
-            {
-                new User()
-            };
-            _userService.GetByLicensee(LicenseeId, Arg.Any<bool>()).Returns(userList);
+            _userService.GetByLicensee(LicenseeId, Arg.Any<bool>()).Returns(new List<User>());
 
             // Action
             var result = _controller.Manage() as ViewResult;
 
             // Assert
             Assert.That(result.ViewName, Is.EqualTo("~/Views/Account/Manage.cshtml"));
+        }
+
+        [Test]
+        public void Manage_WhenCall_ReturnCorrectViewModel()
+        {
+            // Arrange
+            var userList = new List<User>
+            {
+                new User { UserID = 1 },
+                new User { UserID = 2 }
+            };
+            _userService.GetByLicensee(SessionService.LicenseeSession.LicenseeId, Arg.Any<bool>()).Returns(userList);
+
+            // Action
+            var result = (_controller.Manage() as ViewResult).Model as List<User>;
+
+            // Assert
+            Assert.That(result.Count, Is.EqualTo(1));
         }
     }
 }
