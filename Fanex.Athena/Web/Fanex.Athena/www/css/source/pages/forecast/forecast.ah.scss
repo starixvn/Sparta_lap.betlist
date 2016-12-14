@@ -1,0 +1,66 @@
+﻿body {
+    background: #fff;
+}
+
+.table {
+    .first-row {
+        td {
+            width: 20%;
+            padding: 0;
+            border: none;
+        }
+    }
+
+    > tbody {
+        tr {
+            td {
+                text-align: center;
+                background: #fff;
+            }
+
+            &:hover td {
+                color: #009;
+            }
+        }
+
+        td {
+            .txt-currentscore {
+                width: 30%;
+                height: auto;
+                margin: 0;
+                padding: 3px;
+                border: 1px solid #9e9e9e;
+                font-size: 1.2rem;
+
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+
+            .btn {
+                line-height: 21px;
+                height: 21px;
+                padding: 0 10px;
+                color: #fff;
+                margin-left: 5px;
+                font-weight: bold;
+            }
+
+            .current-score, .positive-number {
+                color: #FF0004;
+            }
+        }
+
+        .last-row {
+            .col-view-betlist {
+                border-right: none;
+                text-align: left;
+            }
+
+            .col-view-forecast {
+                border-left: none;
+                text-align: right;
+            }
+        }
+    }
+}

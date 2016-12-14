@@ -5,7 +5,7 @@
     var fcValue = Model.ForecastValue;
 }
 @Html.Hidden("IsPopUp", true)
-<table class="report-table" id="forecast-table"
+<table class="table" id="forecast-table"
        data-match-id="@Model.Param.MatchId"
        data-bettype="@Model.Param.BetType"
        data-licenseetype="@Model.Param.LicenseeType"
@@ -13,82 +13,81 @@
        data-currencyid="@Model.Param.CurrencyId"
        data-currencyname="@Model.Param.CurrencyName">
     <tbody>
+        <tr class="first-row">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
         <tr>
-            <td style="width: 20%" class="middle-text forecast-name">
+            <td class="forecast-name">
                 @Model.ForecastHeaderParam.ForecastName
-        </td>
-        <td class="middle-text" colspan="3">
-            <!--Render forecast link-->
-            @foreach (var item in fcValue.ForeCastLink)
-            {
-                <a href="javascript:;" data-current-score="@item" data-bettype="@Model.Param.BetType"
-                   class="forecast-link @(Model.Param.CurrentScore.ToString(CultureInfo.InvariantCulture).Equals(item) ? "current-score" : string.Empty)">
-                    @item
+            </td>
+            <td colspan="3">
+                <!--Render forecast link-->
+                @foreach (var item in fcValue.ForeCastLink)
+                {
+                    <a href="javascript:;" data-current-score="@item" data-bettype="@Model.Param.BetType"
+                       class="forecast-link @(Model.Param.CurrentScore.ToString(CultureInfo.InvariantCulture).Equals(item) ? "current-score" : string.Empty)">
+                        @item
+                    </a>
+                }
+                <!--/Render forecast link-->
+            </td>
+            <td>
+                <input type="text" id="txtCurrentscore" class="txt-currentscore" />
+                <a href="javascript:;" id="btnCurrentscore" class="btn waves-effect waves-light">@ViewResources.Go</a>
+            </td>
+        </tr>
+        <tr>
+            <!--Forecasr header number-->
+            <td>
+                @fcValue.ForecastHeader[4]
+            </td>
+            <td>
+                @fcValue.ForecastHeader[3]
+            </td>
+            <td>
+                @fcValue.ForecastHeader[2]
+            </td>
+            <td>
+                @fcValue.ForecastHeader[1]
+            </td>
+            <td>
+                @fcValue.ForecastHeader[0]
+            </td>
+            <!--/Forecasr header number-->
+        </tr>
+        <tr>
+            <td>
+                @RazorHelperDesktop.PositiveFormat(fcValue.ForeCastValue4, true, false)
+            </td>
+            <td>
+                @RazorHelperDesktop.PositiveFormat(fcValue.ForeCastValue3, true, false)
+            </td>
+            <td>
+                @RazorHelperDesktop.PositiveFormat(fcValue.ForeCastValue2, true, false)
+            </td>
+            <td>
+                @RazorHelperDesktop.PositiveFormat(fcValue.ForeCastValue1, true, false)
+            </td>
+            <td>
+                @RazorHelperDesktop.PositiveFormat(fcValue.ForeCastValue0, true, false)
+            </td>
+        </tr>
+        <tr class="last-row">
+            <td colspan="2" class="col-view-betlist">
+                <a href="javascript:;" class="view-betlist" data-bettype="@Model.Param.BetType">@ViewResources.BetList</a>
+            </td>
+            <td colspan="3" class="col-view-forecast">
+                <a href="javascript:;" class="view-forecast-link" data-bettype="@ViewBag.SwitchBetType">
+                    @ViewResources.View
+                    @(ViewBag.BetTypeName)
+                    @ViewResources.Forecast
                 </a>
-            }
-            <!--/Render forecast link-->
-        </td>
-        <td class="middle-text">
-            <tt>
-                <input type="text" id="txt-currentscore" onkeyup="javascript:Forecast.currentScoreKeyUp(event)"
-                       class="txt-currentscore" />
-            </tt><tt>
-                <input type="button" id="btn-currentscore" onclick="javascript:Forecast.setCurrentScore()"
-                       value="@ViewResources.Go" class="btn-currentscore" />
-            </tt>
-        </td>
-    </tr>
-    <tr>
-        <!--Forecasr header number-->
-        <td style="width: 20%" class="middle-text">
-            @fcValue.ForecastHeader[4]
-    </td>
-    <td style="width: 20%" class="middle-text">
-        @fcValue.ForecastHeader[3]
-</td>
-<td style="width: 20%" class="middle-text">
-    @fcValue.ForecastHeader[2]
-</td>
-<td style="width: 20%" class="middle-text">
-    @fcValue.ForecastHeader[1]
-</td>
-<td style="width: 20%" class="middle-text">
-    @fcValue.ForecastHeader[0]
-</td>
-<!--/Forecasr header number-->
-</tr>
-<tr>
-    <td style="width: 20%" class="middle-text">
-        @RazorHelper.PositiveFormat(fcValue.ForeCastValue4, true, false)
-</td>
-<td style="width: 20%" class="middle-text">
-    @RazorHelper.PositiveFormat(fcValue.ForeCastValue3, true, false)
-</td>
-<td style="width: 20%" class="middle-text">
-    @RazorHelper.PositiveFormat(fcValue.ForeCastValue2, true, false)
-</td>
-<td style="width: 20%" class="middle-text">
-    @RazorHelper.PositiveFormat(fcValue.ForeCastValue1, true, false)
-</td>
-<td style="width: 20%" class="middle-text">
-    @RazorHelper.PositiveFormat(fcValue.ForeCastValue0, true, false)
-</td>
-</tr>
-<tr>
-    <td colspan="5">
-        <div>
-            <a href="javascript:;" class="view-betlist" data-bettype="@Model.Param.BetType">@ViewResources.BetList</a>
-        </div>
-        <div class="view-forecast">
-            <a href="javascript:;" class="view-forecast-link" data-bettype="@ViewBag.SwitchBetType">
-                @ViewResources.View
-            @(ViewBag.BetTypeName)
-            @ViewResources.Forecast
-        </a>
-    </div>
-</td>
-</tr>
-</tbody>
+            </td>
+        </tr>
+    </tbody>
 </table>
-<div class="clear">
-</div>

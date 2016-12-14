@@ -23,6 +23,7 @@ var commonConfigs = {
         [pathConfig.scriptPaths.build + "/pages/licenseewinloss/licenseewinloss"]: [pathConfig.scriptPaths.licenseewinloss],
         [pathConfig.scriptPaths.build + "/pages/betlist/betlist"]: [pathConfig.scriptPaths.betlist],
         [pathConfig.scriptPaths.build + "/pages/handicapoverunder/handicapoverunder"]: [pathConfig.scriptPaths.handicapoverunder],
+        [pathConfig.scriptPaths.build + "/pages/forecast/ahforecast"]: [pathConfig.scriptPaths.ahforecast],
 
         [pathConfig.cssPaths.build + "/pages/reports/reportjqgridlayout"]: pathConfig.cssPaths.reportjqgridlayout,
         [pathConfig.cssPaths.build + "/pages/reports/livereport"]: pathConfig.cssPaths.livereport,
@@ -37,7 +38,8 @@ var commonConfigs = {
         [pathConfig.cssPaths.build + "/pages/betlist/colossusbetdetail"]: pathConfig.cssPaths.colossusbetdetail,
         [pathConfig.cssPaths.build + "/pages/betlist/systemparlaydetail"]: pathConfig.cssPaths.systemparlaydetail,
 
-        [pathConfig.cssPaths.build + "/pages/totalbet/totalbetlayout"]: pathConfig.cssPaths.totalbetlayout
+        [pathConfig.cssPaths.build + "/pages/totalbet/totalbetlayout"]: pathConfig.cssPaths.totalbetlayout,
+        [pathConfig.cssPaths.build + "/pages/forecast/ahforecast"]: pathConfig.cssPaths.ahforecast
     },
     output: {
         path: pathConfig.projectRoot,

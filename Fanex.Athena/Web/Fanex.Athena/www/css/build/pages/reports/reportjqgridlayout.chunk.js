@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([10],{
 
 /***/ 0:
@@ -69,3 +70,6 @@ webpackJsonp([10],{
 =======
 webpackJsonp([10],{0:function(n,o,c){c(21),c(25),c(27),c(29),c(31),c(67),n.exports=c(69)},21:function(n,o){},25:21,27:21,29:21,31:21,67:21,69:21});
 >>>>>>> e5a9a5d... #67998 - Show data table in Handicap Over Under Report
+=======
+webpackJsonp([11],{0:function(n,o,c){c(21),c(25),c(27),c(29),c(31),c(69),n.exports=c(71)},21:function(n,o){},25:21,27:21,29:21,31:21,69:21,71:21});
+>>>>>>> 31480ed... #67998 - Update for resizing current ahforecast popup

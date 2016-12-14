@@ -20,20 +20,26 @@
     ViewBag.BetTypeName = betTypeNameMap.ContainsKey(betType) ? betTypeNameMap[betType] : string.Empty;
     ViewBag.SwitchBetType = switchBetTypeMap.ContainsKey(betType) ? switchBetTypeMap[betType] : 1;
 }
+
 @{
     if (Model.ForecastHeaderParam != null)
     {
-        Html.RenderPartial("~/Views/Forecast/ForecastAH/ContentHeader.cshtml", Model.ForecastHeaderParam);
+        Html.RenderPartial("~/Views/Desktop/Forecast/ForecastAH/ContentHeader.cshtml", Model.ForecastHeaderParam);
     }
 }
 @{
-    @if (Model.ForecastValue == null || !Model.ForecastValue.HasData)
+    if (Model.ForecastValue == null || !Model.ForecastValue.HasData)
     {
         <p class="no-info-row">@ViewResources.NoInfo</p>
+        <p class="no-info-row" style="text-align: right;">
+            <a href="javascript:;" class="view-forecast-link" data-bettype="@ViewBag.SwitchBetType">
+                @ViewResources.View @(ViewBag.BetTypeName) @ViewResources.Forecast
+            </a>
+        </p>
     }
     else
     {
-        Html.RenderPartial("~/Views/Forecast/ForecastAH/ContentData.cshtml");
+        Html.RenderPartial("~/Views/Desktop/Forecast/ForecastAH/ContentData.cshtml");
     }
 }
 

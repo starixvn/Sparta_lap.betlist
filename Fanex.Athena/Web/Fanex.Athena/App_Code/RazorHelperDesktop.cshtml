@@ -232,3 +232,14 @@ if (toDate != null)
         <span>@(value == 0 ? string.Empty : value.ToString("#,##0.00"))</span>
     }
 }
+@helper PositiveFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
+{
+    if (value != 0)
+    {
+            <span @(value > 0 ? "class=positive-number" : string.Empty)>@value.ToString("#,##0.00")</span>
+    }
+    else
+    {
+            <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
+    }
+}

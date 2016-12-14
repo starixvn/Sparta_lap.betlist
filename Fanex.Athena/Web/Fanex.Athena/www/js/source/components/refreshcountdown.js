@@ -1,4 +1,4 @@
-﻿define(['jquery', 'common/site', 'common/querystring'], function ($, Site, QueryString) {
+﻿define(['jquery', 'common/site', 'common/querystring', 'lib/jquery.cookie'], function ($, Site, QueryString) {
     var curCountDown = 0;
     var countDownTimer = null;
     var cookieName = null;
@@ -32,7 +32,7 @@
         initEvent: function () {
             cookieName = "RefeshCountDown" + countDownId;
             //read countdown from cookie
-            var countDownFromCookie = jQuery.cookie(cookieName);
+            var countDownFromCookie = $.cookie(cookieName);
             if (countDownFromCookie && Number(countDownFromCookie) !== 0) {
                 _me.setCountDown(countDownFromCookie, false);
             } else {
@@ -51,7 +51,7 @@
         setCountDown: function (countDown, isSetToCookie) {
             var countDownInt = parseInt(countDown);
             if (isSetToCookie) {
-                jQuery.cookie(cookieName, countDownInt);
+                $.cookie(cookieName, countDownInt);
             }
             curCountDown = countDownInt;
             _me.setMenuStatus();

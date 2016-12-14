@@ -37,7 +37,9 @@ var cssPaths = {
 
     login: ["./www/css/source/pages/login.css", "./www/css/source/extensions/login-ex.scss"],
     livereport: [...cssReportCommon, ...cssDateRangePickerPath, "./www/css/source/components/monthpicker/monpickr.scss", "./www/css/source/pages/report/livereport.scss"],
-    licenseewinloss: ["./www/css/source/pages/report/licenseewinloss.scss", ...cssDateRangePickerPath]
+    licenseewinloss: ["./www/css/source/pages/report/licenseewinloss.scss", ...cssDateRangePickerPath],
+
+    ahforecast: [...cssReportCommon, "./www/css/source/pages/forecast/forecast.ah.scss"]
 };
 
 var scriptPaths = {
@@ -52,7 +54,8 @@ var scriptPaths = {
     licenseewinloss: "./www/js/source/pages/report/licenseewinloss/main.js",
     betlist: "./www/js/source/components/betlist/main.js",
 
-    handicapoverunder: "./www/js/source/pages/totalbet/handicapoverunder/main.js"
+    handicapoverunder: "./www/js/source/pages/totalbet/handicapoverunder/main.js",
+    ahforecast: "./www/js/source/pages/forecast/forecast.ah.main.js",
 };
 
 module.exports = {
