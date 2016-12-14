@@ -135,16 +135,16 @@
 
             describe("showMicrogamingResultPopup(title, gameid, custid)", function () {
                 it(".dialog() should be called with correct parameters", function () {
-                    spyOn(Popup, 'openBetListPopup');
+                    spyOn(Popup, 'openPopupWithIframe');
                     BetList.showMicrogamingResultPopup('Hello', 1, 2);
                     var url = "ResultReport/MicrogamingResultPopup?gameid=1&custid=2";
-                    expect(Popup.openBetListPopup).toHaveBeenCalledWith(url, { width: 750, height: 400, title: 'Hello', id: 'betlist-popup-result' });
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 750, height: 400, title: 'Hello', id: 'betlist-popup-result' });
                 });
             });
 
             describe("viewResult(matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid)", function () {
                 beforeEach(function () {
-                    spyOn(Popup, 'openBetListPopup');
+                    spyOn(Popup, 'openPopupWithIframe');
                 });
 
                 it("BetList.showMicrogamingResultPopup() should be called if sporttype is Microgaming", function () {
@@ -174,7 +174,7 @@
                     spyOn(BetList, 'getSportBookResultUrl');
                     BetList.viewResult(null, null);
 
-                    expect(Popup.openBetListPopup).toHaveBeenCalled();
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalled();
                 });
             });
 
@@ -243,35 +243,35 @@
             });
 
             describe("showSystemParlayDetail(transId, refNo, betId, custId, betTeam, baseCurrency)", function () {
-                it("Popup.openBetListPopup(url, options) should be called with correct parameters", function () {
-                    spyOn(Popup, 'openBetListPopup');
+                it("Popup.openPopupWithIframe(url, options) should be called with correct parameters", function () {
+                    spyOn(Popup, 'openPopupWithIframe');
                     BetList.showSystemParlayDetail(1, 0, 0, 0, 2, "eur");
                     var url = 'SystemParlayBetList/Detail?refno=0&betteam=2&basecurrency=eur';
-                    expect(Popup.openBetListPopup).toHaveBeenCalledWith(url, { width: 775, height: 500, title: 2, id: 'betlist-popup-detail' });
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 775, height: 500, title: 2, id: 'betlist-popup-detail' });
                 });
             });
 
             describe("showMicroGamingRnGBetsDetails(transId, winlostDate, custId, transType)", function () {
-                it("Popup.openBetListPopup(url, options) should be called with correct parameters", function () {
-                    spyOn(Popup, 'openBetListPopup');
+                it("Popup.openPopupWithIframe(url, options) should be called with correct parameters", function () {
+                    spyOn(Popup, 'openPopupWithIframe');
                     spyOn($.fn, 'height').and.returnValue(300);
                     BetList.showMicroGamingRnGBetsDetails(0, new Date('2015/2/1'), 0, 0);
                     var url = 'MicroGamingRngBetList/Detail?transid=0&custid=0&transtype=0';
                     var title = 'Microgaming - DetailedBetlist - 02/01/2015';
                     
-                    expect(Popup.openBetListPopup).toHaveBeenCalledWith(url, { width: 870, height: 250, title: title, id: 'betlist-popup-detail' });
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 870, height: 250, title: title, id: 'betlist-popup-detail' });
                 });
             });
 
             describe("showAGCasinoDetails(transId, winlostDate, custId, transType)", function () {
-                it("Popup.openBetListPopup(url, options) should be called with correct parameters", function () {
-                    spyOn(Popup, 'openBetListPopup');
+                it("Popup.openPopupWithIframe(url, options) should be called with correct parameters", function () {
+                    spyOn(Popup, 'openPopupWithIframe');
                     spyOn($.fn, 'height').and.returnValue(300);
                     BetList.showAGCasinoDetails(0, new Date('2015/2/1'), 0, 0);
                     var url = 'AGCasinoBetList/Detail?transid=0&custid=0&transtype=0';
                     var title = 'AGCasino - DetailedBetlist - 02/01/2015';
 
-                    expect(Popup.openBetListPopup).toHaveBeenCalledWith(url, { width: 870, height: 250, title: title, id: 'betlist-popup-detail' });
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 870, height: 250, title: title, id: 'betlist-popup-detail' });
                 });
             });
 
@@ -289,7 +289,7 @@
                     expect(BetList.ValidProducts()).toBe(false);
                 });
 
-                it("Popup.openBetListPopup(url, options) should be called if #ProductList does not contain checked input", function () {
+                it("Popup.openPopupWithIframe(url, options) should be called if #ProductList does not contain checked input", function () {
                     BetList.ValidProducts();
                     var dialogForm = '<div title="LrfNotification">AlertChooseProductMsg</div>';
 

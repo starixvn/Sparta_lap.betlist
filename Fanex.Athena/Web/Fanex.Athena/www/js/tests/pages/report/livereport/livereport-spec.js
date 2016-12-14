@@ -12,7 +12,6 @@
                 return url;
             });
 
-            spyOn(PluginHelper, "initMaterialSelect");
             spyOn(PluginHelper, "initDateRangePicker");
             spyOn(PluginHelper, "initMonthPicker");
 

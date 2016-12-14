@@ -9,7 +9,6 @@
                     return url;
                 });
                 spyOn(Site, "setMultiSelectForDropDownList");
-                spyOn(PluginHelper, "initMaterialSelect");
                 spyOn(PluginHelper, "initDateRangePicker");
                 spyOn(PluginHelper, "initMonthPicker");
             });

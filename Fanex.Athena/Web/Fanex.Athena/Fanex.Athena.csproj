@@ -850,6 +850,7 @@
     <Content Include="www\js\tests\pages\report\livereport\livereport-spec.js" />
     <Content Include="www\js\tests\pages\report\livereport\helper-spec.js" />
     <Content Include="www\js\tests\global.js" />
+    <Content Include="www\js\tests\pages\totalbet\totalbetsbase-spec.js" />
     <Content Include="www\js\tests\test-main.js" />
     <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\Filter.cshtml" />
     <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\Content.cshtml" />
