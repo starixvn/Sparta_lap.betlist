@@ -1,0 +1,23 @@
+﻿@{
+    var formatTitle = "{0} {1} {2} - {3}";
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets, ViewBag.ReportTitle);
+    Layout = "~/Views/Desktop/Shared/_BetListLayout.cshtml";
+}
+
+@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
+@section pagecss {
+}
+@section pagejs {
+    <script src="@Url.ContentLink("/www/js/build/pages/betlist/runningbetlist.chunk.js")"></script>
+}
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/Desktop/BetList/RunningBetList/Filter.cshtml");
+    }
+}
+<div id="popupSystemParlay"></div>
+<input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
+<input type="hidden" id="IsShowSumStake" value="1" />
+<input type="hidden" id="title" value="@ViewBag.ReportTitle" />
+<input type="hidden" id="userGuideName" value="@ViewBag.UserGuideName" />

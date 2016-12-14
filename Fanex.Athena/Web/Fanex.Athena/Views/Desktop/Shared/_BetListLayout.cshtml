@@ -1,0 +1,30 @@
+﻿@using System.Web.Optimization
+@{    
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+}
+@section css
+{
+    <link href="@Url.ContentLink("/www/css/build/pages/betlist/betlistLayout.css")" rel="stylesheet" />
+    @RenderSection("pagecss", required: false)
+}
+@section js
+{
+    <script src="@Url.ContentLink("/www/js/build/pages/betlist/betlist.chunk.js")"></script>
+    
+    @RenderSection("pagejs", required: false)
+}
+<div class="report-container">
+    @RenderSection("ContentFilter", required: false)
+    <div class="page-results">
+        <div class="content-main" id="report-container">
+            <div class="theme_jqGrid">
+                <div id="pager1">
+                </div>
+                <table id="BetListGrid"></table>
+                <div id="pager2">
+                </div>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+</div>

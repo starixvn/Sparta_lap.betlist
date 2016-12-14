@@ -19,6 +19,12 @@ var cssPaths = {
         ...cssReportCommon, ...jqgridPath,
         "./www/css/source/components/multiselect/jquery.multiselect.css", "./www/css/source/extensions/multiselect-ex.scss"
     ],
+    betlistLayout: [
+        ...cssReportCommon, ...jqgridPath,
+        "./www/css/source/components/betlist/betlist.scss", "./www/css/source/components/betlist/Microgaming.css",
+        "./www/css/source/components/multiselect/jquery.multiselect.css", "./www/css/source/extensions/multiselect-ex.scss",
+        "./www/css/source/components/betlist/AGCasino.css", "./www/css/source/components/betlist/Allbet.css"
+    ],
     betlistSimpleLayout: [
         ...cssReportCommon, ...jqgridPath,
         "./www/css/source/components/betlist/betlist.scss", "./www/css/source/components/betlist/Microgaming.css",
@@ -53,6 +59,7 @@ var scriptPaths = {
     livereportmatchlist: "./www/js/source/pages/report/livereport/main-matchlist.js",
     licenseewinloss: "./www/js/source/pages/report/licenseewinloss/main.js",
     betlist: "./www/js/source/components/betlist/main.js",
+    runningbetlist: "./www/js/source/components/betlist/main-runningbetlist.js",
 
     handicapoverunder: "./www/js/source/pages/totalbet/handicapoverunder/main.js",
     ahforecast: "./www/js/source/pages/forecast/forecast.ah.main.js",

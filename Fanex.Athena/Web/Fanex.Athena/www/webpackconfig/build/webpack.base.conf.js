@@ -22,6 +22,7 @@ var commonConfigs = {
         [pathConfig.scriptPaths.build + "/pages/livereport/livereportmatchlist"]: [pathConfig.scriptPaths.livereportmatchlist],
         [pathConfig.scriptPaths.build + "/pages/licenseewinloss/licenseewinloss"]: [pathConfig.scriptPaths.licenseewinloss],
         [pathConfig.scriptPaths.build + "/pages/betlist/betlist"]: [pathConfig.scriptPaths.betlist],
+        [pathConfig.scriptPaths.build + "/pages/betlist/runningbetlist"]: [pathConfig.scriptPaths.runningbetlist],
         [pathConfig.scriptPaths.build + "/pages/handicapoverunder/handicapoverunder"]: [pathConfig.scriptPaths.handicapoverunder],
         [pathConfig.scriptPaths.build + "/pages/forecast/ahforecast"]: [pathConfig.scriptPaths.ahforecast],
 
@@ -33,6 +34,7 @@ var commonConfigs = {
         [pathConfig.cssPaths.build + "/pages/login/login"]: pathConfig.cssPaths.login,
         [pathConfig.cssPaths.build + "/pages/reports/licenseewinloss"]: pathConfig.cssPaths.licenseewinloss,
 
+        [pathConfig.cssPaths.build + "/pages/betlist/betlistLayout"]: pathConfig.cssPaths.betlistLayout,
         [pathConfig.cssPaths.build + "/pages/betlist/betlistSimpleLayout"]: pathConfig.cssPaths.betlistSimpleLayout,
         [pathConfig.cssPaths.build + "/pages/betlist/betlistResult"]: pathConfig.cssPaths.betlistResult,
         [pathConfig.cssPaths.build + "/pages/betlist/colossusbetdetail"]: pathConfig.cssPaths.colossusbetdetail,
