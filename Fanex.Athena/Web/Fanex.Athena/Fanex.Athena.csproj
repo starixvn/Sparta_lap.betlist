@@ -1226,6 +1226,7 @@
     <Content Include="Views\Desktop\Forecast\ForecastAH\Content.cshtml" />
     <Content Include="Views\Desktop\Forecast\ForecastAH\ContentHeader.cshtml" />
     <Content Include="Views\Desktop\Forecast\ForecastAH\ContentData.cshtml" />
+    <Content Include="Views\Desktop\BetList\RunningBetListOfMatch\Main.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />

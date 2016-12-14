@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = string.Format("LRF - {0}", ViewResources.BetList);
+    Layout = "~/Views/Desktop/Shared/_BetListSimpleLayout.cshtml";
+}
+
+@using Fanex.Athena.Model.Core.Helper
+@model Fanex.Athena.Model.BetList.MetaModel.BetListMetaModel
+@section pagecss {}
+@section pagejs {}
+@section ContentTitle
+{
+    @{
+        var bettype = Model.BetType.ToString();
+        if (bettype == "0" && string.IsNullOrWhiteSpace(Model.MultipleBettype) == false)
+        {
+            bettype = Model.MultipleBettype.Split(',')[0];
+        }
+    }
+    <span class="league-name-title"></span>@CacheRef.GetBettype(bettype) <span class="base-currency">-@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
+}
+@section BackButton
+{
+    <a href="javascript:;" onclick="history.back()" class="icon-back"></a>
+}
+@{
+    <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
+    <input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
+    <input type="hidden" id="IsShowSumStake" value="@(Model.IsShowSumStake ? 1 : 0)" />
+    <input type="hidden" id="ApiUrl" value="api/RunningMatchBetList/Index" />
+}

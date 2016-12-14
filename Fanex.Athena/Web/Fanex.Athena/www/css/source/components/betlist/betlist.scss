@@ -227,19 +227,9 @@
         color: rgb(2, 69, 132);
     }
 
-    .export-excel {
-        overflow: auto;
-        float: right;
-    }
-
-    div.history-link {
-        background: url("images/undo.png") no-repeat scroll center center #FFEFDE;
-        cursor: pointer;
-        float: left;
-        height: 22px;
-        margin-right: 10px;
-        margin-top: -2px;
-        width: 22px;
+    .icon-back {
+        color: #555;
+        font-size: 1.8rem;
     }
     /* Link */
     span.inactive-switch-link {
