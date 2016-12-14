@@ -58,8 +58,9 @@ var scriptPaths = {
     livereport: "./www/js/source/pages/report/livereport/main-livereport.js",
     livereportmatchlist: "./www/js/source/pages/report/livereport/main-matchlist.js",
     licenseewinloss: "./www/js/source/pages/report/licenseewinloss/main.js",
-    betlist: "./www/js/source/components/betlist/main.js",
-    runningbetlist: "./www/js/source/components/betlist/main-runningbetlist.js",
+    betlist: "./www/js/source/components/betlist/betlist.js",
+    betlistsimple: "./www/js/source/components/betlist/main-simple.js",
+    betlistrunning: "./www/js/source/components/betlist/main-runningbetlist.js",
 
     handicapoverunder: "./www/js/source/pages/totalbet/handicapoverunder/main.js",
     ahforecast: "./www/js/source/pages/forecast/forecast.ah.main.js",

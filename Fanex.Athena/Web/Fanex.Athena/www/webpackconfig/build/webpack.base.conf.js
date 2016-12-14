@@ -22,7 +22,8 @@ var commonConfigs = {
         [pathConfig.scriptPaths.build + "/pages/livereport/livereportmatchlist"]: [pathConfig.scriptPaths.livereportmatchlist],
         [pathConfig.scriptPaths.build + "/pages/licenseewinloss/licenseewinloss"]: [pathConfig.scriptPaths.licenseewinloss],
         [pathConfig.scriptPaths.build + "/pages/betlist/betlist"]: [pathConfig.scriptPaths.betlist],
-        [pathConfig.scriptPaths.build + "/pages/betlist/runningbetlist"]: [pathConfig.scriptPaths.runningbetlist],
+        [pathConfig.scriptPaths.build + "/pages/betlist/betlistsimple"]: [pathConfig.scriptPaths.betlistsimple],
+        [pathConfig.scriptPaths.build + "/pages/betlist/betlistrunning"]: [pathConfig.scriptPaths.betlistrunning],
         [pathConfig.scriptPaths.build + "/pages/handicapoverunder/handicapoverunder"]: [pathConfig.scriptPaths.handicapoverunder],
         [pathConfig.scriptPaths.build + "/pages/forecast/ahforecast"]: [pathConfig.scriptPaths.ahforecast],
 

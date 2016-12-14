@@ -34,7 +34,30 @@
         }
 
         $(function () {
-            window.showGlobalGaming = _me.showGlobalGamingDetails;
+            window.ViewResult = _me.viewResult;
+
+            window.showMP = function (transId) {
+                var divEvent = $('#divEvent_' + transId);
+                divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+                _me.showMixParlayDetail(transId, divEvent);
+            };
+
+            window.showCombMP = function (transId, index) {
+                var divEvent = $('#divEvent_' + transId + "" + index);
+                divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+                _me.showMixParlayDetail(transId, divEvent);
+            };
+
+            window.showNewCombMP = _me.showNewParlayDetail;
+            window.showCombMPDetail = _me.showSystemParlayDetail;
+            window.showMicroGamingRnGBetsDetails = _me.showMicroGamingRnGBetsDetails;
+            window.showAGCasinoDetails = _me.showAGCasinoDetails;
+            window.showRnGCasinoDetails = _me.showRnGCasinoDetails;
+            window.showVoidBridgeDetails = _me.showVoidBridgeDetails;
+            window.showVoidbridgeResult = _me.viewVoidbridgeResult;
+            window.showTodayRunningBetsDetails = _me.showAllBetDetails;
+            window.showColossusBetsDetails = _me.showColossusBetsDetails;
+			window.showGlobalGaming = _me.showGlobalGamingDetails;
         });
 
         var _me = {

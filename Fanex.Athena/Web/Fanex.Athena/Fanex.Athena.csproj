@@ -803,8 +803,8 @@
     <Content Include="www\js\source\components\betlist\betlist.option.js" />
     <Content Include="www\js\source\components\betlist\commonbetlist.js" />
     <Content Include="www\js\source\components\betlist\main-runningbetlist.js" />
-    <Content Include="www\js\source\components\betlist\main.js" />
-    <Content Include="www\js\source\components\betlist\runningbetlist.js" />
+    <Content Include="www\js\source\components\betlist\main-simple.js" />
+    <Content Include="www\js\source\components\betlist\betlistrunning.js" />
     <Content Include="www\js\source\extensions\jquery.extension.js" />
     <Content Include="www\js\source\extensions\prototype.js" />
     <Content Include="www\js\source\lib\bignumber.js" />
