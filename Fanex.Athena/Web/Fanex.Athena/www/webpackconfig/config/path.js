@@ -7,6 +7,11 @@ var cssCommonPath = "./www/css/source/";
 var cssDateRangePickerPath = ["bootstrap-daterangepicker/daterangepicker.css", "./www/css/source/components/daterangepicker/daterangepicker-ex.scss"];
 var jqgridPath = ["./www/css/source/components/jqgrid/jqgrid.css", "./www/css/source/extensions/jqgrid-ex.scss"];
 var cssReportCommon = ["./www/css/source/pages/common.scss", "./www/css/source/extensions/report-ex.scss", "./www/css/source/components/flatpopup/flatpopup.scss"];
+var cssBetlistCommon = [
+    ...cssReportCommon, ...jqgridPath,
+    "./www/css/source/components/betlist/betlist.scss", "./www/css/source/components/betlist/Microgaming.css",
+    "./www/css/source/components/betlist/AGCasino.css", "./www/css/source/components/betlist/Allbet.css"
+];
 
 var cssPaths = {
     build: "www/css/build",
@@ -20,16 +25,10 @@ var cssPaths = {
         "./www/css/source/components/multiselect/jquery.multiselect.css", "./www/css/source/extensions/multiselect-ex.scss"
     ],
     betlistLayout: [
-        ...cssReportCommon, ...jqgridPath,
-        "./www/css/source/components/betlist/betlist.scss", "./www/css/source/components/betlist/Microgaming.css",
-        "./www/css/source/components/multiselect/jquery.multiselect.css", "./www/css/source/extensions/multiselect-ex.scss",
-        "./www/css/source/components/betlist/AGCasino.css", "./www/css/source/components/betlist/Allbet.css"
+        ...cssBetlistCommon,
+        "./www/css/source/components/multiselect/jquery.multiselect.css", "./www/css/source/extensions/multiselect-ex.scss"
     ],
-    betlistSimpleLayout: [
-        ...cssReportCommon, ...jqgridPath,
-        "./www/css/source/components/betlist/betlist.scss", "./www/css/source/components/betlist/Microgaming.css",
-        "./www/css/source/components/betlist/AGCasino.css", "./www/css/source/components/betlist/Allbet.css"
-    ],
+    betlistSimpleLayout: [...cssBetlistCommon, "./www/css/source/extensions/popup-ex.scss"],
 
     totalbetlayout: [
         ...cssReportCommon,
@@ -46,7 +45,7 @@ var cssPaths = {
     livereport: [...cssReportCommon, ...cssDateRangePickerPath, "./www/css/source/components/monthpicker/monpickr.scss", "./www/css/source/pages/report/livereport.scss"],
     licenseewinloss: ["./www/css/source/pages/report/licenseewinloss.scss", ...cssDateRangePickerPath],
 
-    ahforecast: [...cssReportCommon, "./www/css/source/components/refreshcountdown/refreshcountdown.scss", "./www/css/source/pages/forecast/forecast.ah.scss",]
+    ahforecast: [...cssReportCommon, "./www/css/source/components/refreshcountdown/refreshcountdown.scss", "./www/css/source/pages/forecast/forecast.ah.scss", ]
 };
 
 var scriptPaths = {

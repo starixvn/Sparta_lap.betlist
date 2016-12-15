@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([5],{
 =======
 webpackJsonp([6],{
@@ -41,3 +42,6 @@ webpackJsonp([6],{
 =======
 webpackJsonp([6],{0:function(n,o,c){c(21),n.exports=c(47)},21:function(n,o){},47:21});
 >>>>>>> 78c4435... #67998 - Add refresh count down to filter
+=======
+webpackJsonp([6],{0:function(n,o,c){c(21),n.exports=c(49)},21:function(n,o){},49:21});
+>>>>>>> b682d91... #67998 - Update css for bet list report

@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([6],{
 =======
 webpackJsonp([8],{
@@ -76,3 +77,6 @@ webpackJsonp([7],{0:function(n,o,c){c(47),c(49),c(51),n.exports=c(53)},47:functi
 =======
 //# sourceMappingURL=home.chunk.js.map
 >>>>>>> e7e0530... #67998 - Add blockUI for livereport
+=======
+webpackJsonp([8],{0:function(n,o,c){c(55),c(57),c(59),n.exports=c(61)},55:function(n,o){},57:55,59:55,61:55});
+>>>>>>> b682d91... #67998 - Update css for bet list report

@@ -1,5 +1,5 @@
 ﻿@using System.Web.Optimization
-@{    
+@{
     Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
 }
 @section css
@@ -8,23 +8,23 @@
     @RenderSection("pagecss", required: false)
 }
 @section js
-{   
+{
     @RenderSection("pagejs", required: false)
 }
 <div class="report-container">
-    <div class="betlist-container">
+    <div class="page-form">
         @RenderSection("ContentFilter", required: false)
-        <div class="page-results">
-            <div class="content-main" id="report-container">
-                <div class="theme_jqGrid">
-                    <div id="pager1">
-                    </div>
-                    <table id="BetListGrid"></table>
-                    <div id="pager2">
-                    </div>
+    </div>
+    <div class="page-results">
+        <div class="betlist-container" id="report-container">
+            <div class="theme_jqGrid">
+                <div id="pager1">
                 </div>
-                @RenderBody()
+                <table id="BetListGrid"></table>
+                <div id="pager2">
+                </div>
             </div>
+            @RenderBody()
         </div>
     </div>
 </div>
