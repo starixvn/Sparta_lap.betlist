@@ -1,1 +1,413 @@
-webpackJsonp([16],{0:function(e,t,n){e.exports=n(197)},197:function(e,t,n){var r,a;(function(o){r=[n(198)],a=function(e){"use strict";o(e.initialize)}.apply(t,r),!(void 0!==a&&(e.exports=a))}).call(t,n(1))},198:function(e,t,n){var r,a;r=[n(1),n(7),n(8),n(9),n(199)],a=function(e,t,n,r,a){var o,i,c,u,s,l={initialize:function(){t.initialize(),l.resizePopup(),o=e("#forecast-table").attr("data-match-id"),i=e("#forecast-table").attr("data-basecurrency"),c=e("#forecast-table").attr("data-licenseetype"),u=e("#forecast-table").attr("data-currencyid"),s=e("#forecast-table").attr("data-currencyname"),a.initialize(),l.initEvent()},initEvent:function(){e("#reportContent").on("click",".forecast-link",function(){var t=parseInt(e(this).attr("data-bettype")),n=parseInt(e(this).attr("data-current-score"));l.loadForecast(n,t)}),e("#reportContent").on("click",".view-forecast-link",function(){var t=parseInt(e(this).attr("data-bettype"));l.loadForecast(null,t)}),e("#reportContent").on("click",".view-betlist",function(){var t=parseInt(e(this).attr("data-bettype"));l.viewBetlist(t)}),e("#reportContent").on("keyup","#txtCurrentscore",function(t){t||(t=window.event),13===t.keyCode&&e("#btnCurrentscore").click()}),e("#reportContent").on("click","#btnCurrentscore",function(e){e.preventDefault(),l.setCurrentScore()})},loadForecast:function(r,s){var l=t.resolveClientUrl("AhForecast/Index?matchid="+o+"&bettype="+s);l=n.setParam(l,"basecurrency",i),l=n.setParam(l,"LicenseeType",c),l=n.setParam(l,"CurrencyId",u),null!==r&&(l=n.setParam(l,"CurrentScore",r)),e("#BetType").val(s),e("#CurrentScore").val(r),e.ajax({url:l,beforeSend:function(){t.blockUI()},success:function(n){t.unBlockUI(),e("#reportContent").html(n),a.initialize(),a.initEvent(),e("#txtCurrentscore").focus()},type:"POST",async:!0,dataType:"html"})},viewBetlist:function(e){var a=t.resolveClientUrl("RunningMatchBetList/Index");a=n.setParam(a,"matchid",o),a=n.setParam(a,"bettype",e),a=n.setParam(a,"basecurrency",i),a=n.setParam(a,"currencyid",u),a=n.setParam(a,"currencyname",s),a=n.setParam(a,"licenseetype",c);var l=Math.min(parent.innerHeight-100,700),d=960;r.updateCurrentPopup(a,{width:d,height:l,title:t.getSingleResource("BetList")})},setCurrentScore:function(){var n=e("#txtCurrentscore").val();if(null!==n&&void 0!==n&&t.isInteger(n)){var r=e("#reportContent a.view-betlist").attr("data-bettype");l.loadForecast(n,r)}},resizePopup:function(){var e=250,n=700;r.updateCurrentPopup(null,{width:n,height:e,title:t.getSingleResource("Forecast")})}};return l}.apply(t,r),!(void 0!==a&&(e.exports=a))},199:function(e,t,n){var r,a;r=[n(1),n(7),n(8),n(200)],a=function(e,t,n){var r=0,a=null,o=null,i=null,c=0,u={initialize:function(){e(".button-select").on("click",function(){u.initMenu()}),e(".menu-item").on("click",function(){var t=parseInt(e(this).attr("data-count-down"));u.setCountDown(t,!0)}),e(".button-refresh").on("click",function(){u.refresh()}),i=e("#count-down-of").attr("name"),c=parseInt(e("#count-down-of").attr("data-default-value"))},initEvent:function(){o="RefeshCountDown"+i;var t=e.cookie(o);t&&0!==Number(t)?u.setCountDown(t,!1):u.setCountDown(c,!0)},initMenu:function(){var t="none"!==e("#countdown-menu").css("display");t?e("#countdown-menu").hide():e("#countdown-menu").show()},setCountDown:function(t,n){var a=parseInt(t);n&&e.cookie(o,a),r=a,u.setMenuStatus(),e("#countdown-menu").hide(),u.tick()},setMenuStatus:function(){var t=r;e("#countdown-menu div").removeClass("menu-selected"),e("#option-"+t).addClass("menu-selected")},tick:function(){document.getElementById("count").innerHTML=r,r--,null!=a&&clearTimeout(a),a=setTimeout(u.tick,1e3),r<-1&&u.refresh()},refresh:function(){var n;e(".data-content").length&&(n=e(".data-content")[0].scrollTop),null!=a&&clearTimeout(a),document.getElementById("count").innerHTML="<span class='timer-loading'>loading</span>";var r=u.calculateUrl();return e.ajaxSetup({cache:!1}),e("#Refresh-Content").load(r,{noncache:(new Date).getTime()},function(){t.unBlockUI(),u.initEvent();var r=new RegExp(">[ \t\r\n\x0B\f]*<","g");e("#Refresh-Content").html(e("#Refresh-Content").html().replace(r,"><")),t.currencyConstraint(),"undefined"!=typeof Forecast&&u.initialize(),e(".data-content").length&&e(".data-content").scrollTop(n),e(window).resize()}),!0},calculateUrl:function(){var r=e("#LeagueId").val(),a=e("#MatchId").val(),o=e("#BetType").val(),i=e("#CurrentScore").val(),c=e("#IsShowFt").val(),u=e("#IsShowFh").val(),s=e("#HomeTeamId").val(),l=e("#AwayTeamId").val(),d=location.href;return d=t.setLicenseeOptionOriginalParam(d),d=n.setParam(d,"LeagueId",r),d=n.setParam(d,"MatchId",a),d=n.setParam(d,"BetType",o),d=n.setParam(d,"CurrentScore",i),d=n.setParam(d,"IsShowFt",c),d=n.setParam(d,"IsShowFh",u),d=n.setParam(d,"HomeTeamId",s),d=n.setParam(d,"AwayTeamId",l)}};return u}.apply(t,r),!(void 0!==a&&(e.exports=a))},200:function(e,t,n){var r,a,o;!function(i){a=[n(1)],r=i,o="function"==typeof r?r.apply(t,a):r,!(void 0!==o&&(e.exports=o))}(function(e){function t(e){return c.raw?e:encodeURIComponent(e)}function n(e){return c.raw?e:decodeURIComponent(e)}function r(e){return t(c.json?JSON.stringify(e):String(e))}function a(e){0===e.indexOf('"')&&(e=e.slice(1,-1).replace(/\\"/g,'"').replace(/\\\\/g,"\\"));try{return e=decodeURIComponent(e.replace(i," ")),c.json?JSON.parse(e):e}catch(t){}}function o(t,n){var r=c.raw?t:a(t);return e.isFunction(n)?n(r):r}var i=/\+/g,c=e.cookie=function(a,i,u){if(arguments.length>1&&!e.isFunction(i)){if(u=e.extend({},c.defaults,u),"number"==typeof u.expires){var s=u.expires,l=u.expires=new Date;l.setMilliseconds(l.getMilliseconds()+864e5*s)}return document.cookie=[t(a),"=",r(i),u.expires?"; expires="+u.expires.toUTCString():"",u.path?"; path="+u.path:"",u.domain?"; domain="+u.domain:"",u.secure?"; secure":""].join("")}for(var d=a?void 0:{},p=document.cookie?document.cookie.split("; "):[],f=0,m=p.length;f<m;f++){var v=p[f].split("="),h=n(v.shift()),y=v.join("=");if(a===h){d=o(y,i);break}a||void 0===(y=o(y))||(d[h]=y)}return d};c.defaults={},e.removeCookie=function(t,n){return e.cookie(t,"",e.extend({},n,{expires:-1})),!e.cookie(t)}})}});
+webpackJsonp([19],{
+
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(199);
+
+
+/***/ },
+
+/***/ 199:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(200)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Forecast) {
+	    "use strict";
+	
+	    $(Forecast.initialize);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+
+/***/ 200:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(9), __webpack_require__(201)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Popup, RefreshCountDown) {
+	    var matchid, baseCurrency, licenseetype, currencyid, currencyName;
+	
+	    var _me = {
+	        initialize: function () {
+	            Site.initialize();
+	            _me.resizePopup();
+	
+	            matchid = $('#forecast-table').attr('data-match-id');
+	            baseCurrency = $('#forecast-table').attr('data-basecurrency');
+	            licenseetype = $('#forecast-table').attr('data-licenseetype');
+	            currencyid = $('#forecast-table').attr('data-currencyid');
+	            currencyName = $('#forecast-table').attr('data-currencyname');
+	
+	            RefreshCountDown.initialize();
+	            _me.initEvent();
+	        },
+	        initEvent: function () {
+	            $('#reportContent').on('click', '.forecast-link', function () {
+	                var bettype = parseInt($(this).attr('data-bettype'));
+	                var selectedScore = parseInt($(this).attr('data-current-score'));
+	                _me.loadForecast(selectedScore, bettype);
+	            });
+	
+	            $('#reportContent').on('click', '.view-forecast-link', function () {
+	                var bettype = parseInt($(this).attr('data-bettype'));
+	                _me.loadForecast(null, bettype);
+	            });
+	
+	            $('#reportContent').on('click', '.view-betlist', function () {
+	                var bettype = parseInt($(this).attr('data-bettype'));
+	                _me.viewBetlist(bettype);
+	            });
+	
+	            $('#reportContent').on('keyup', '#txtCurrentscore', function (evt) {
+	                if (!evt) {
+	                    evt = window.event;
+	                }
+	
+	                if (evt.keyCode === 13) {
+	                    $("#btnCurrentscore").click();
+	                }
+	            });
+	
+	            $('#reportContent').on("click", '#btnCurrentscore', function (event) {
+	                event.preventDefault();
+	                _me.setCurrentScore();
+	            });
+	        },
+	
+	        loadForecast: function (selectedScore, bettype) {
+	            var url = Site.resolveClientUrl("AhForecast/Index?matchid=" + matchid + '&bettype=' + bettype);
+	            url = QueryString.setParam(url, "basecurrency", baseCurrency);
+	            url = QueryString.setParam(url, "LicenseeType", licenseetype);
+	            url = QueryString.setParam(url, "CurrencyId", currencyid);
+	            if (selectedScore !== null) {
+	                url = QueryString.setParam(url, "CurrentScore", selectedScore);
+	            }
+	            $("#BetType").val(bettype);
+	            $("#CurrentScore").val(selectedScore);
+	
+	            $.ajax({
+	                url: url,
+	                beforeSend: function () {
+	                    Site.blockUI();
+	                },
+	                success: function (data) {
+	                    Site.unBlockUI();
+	                    $('#reportContent').html(data);
+	                    RefreshCountDown.initialize();
+	                    RefreshCountDown.initEvent();
+	                    $("#txtCurrentscore").focus();
+	                },
+	                type: "POST",
+	                async: true,
+	                dataType: "html"
+	            });
+	        },
+	
+	        viewBetlist: function (bettype) {
+	            var url = Site.resolveClientUrl("RunningMatchBetList/Index");
+	            url = QueryString.setParam(url, "matchid", matchid);
+	            url = QueryString.setParam(url, "bettype", bettype);
+	            url = QueryString.setParam(url, "basecurrency", baseCurrency);
+	            url = QueryString.setParam(url, "currencyid", currencyid);
+	            url = QueryString.setParam(url, "currencyname", currencyName);
+	            url = QueryString.setParam(url, "licenseetype", licenseetype);
+	
+	            var popH = Math.min(parent.innerHeight - 100, 700), popW = 960;
+	
+	            Popup.updateCurrentPopup(url, { width: popW, height: popH, title: Site.getSingleResource("BetList") });
+	        },
+	
+	        setCurrentScore: function () {
+	            var data = $("#txtCurrentscore").val();
+	            if (data === null || data === undefined || !Site.isInteger(data)) {
+	                return;
+	            }
+	            var bettype = $("#reportContent a.view-betlist").attr("data-bettype");
+	            _me.loadForecast(data, bettype);
+	        },
+	
+	        resizePopup: function () {
+	            var popH = 250, popW = 700;
+	            Popup.updateCurrentPopup(null, { width: popW, height: popH, title: Site.getSingleResource("Forecast") });
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 201:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(202)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	    var curCountDown = 0;
+	    var countDownTimer = null;
+	    var cookieName = null;
+	    var countDownId = null;
+	    var defaultCountDown = 0;
+	
+	    var _me = {
+	        initialize: function () {
+	            // Open count down menu
+	            $('.button-select').on('click', function () {
+	                _me.initMenu();
+	            });
+	
+	            // Select countdown
+	            $('.menu-item').on('click', function () {
+	                var selectedCountDown = parseInt($(this).attr('data-count-down'));
+	                _me.setCountDown(selectedCountDown, true);
+	            });
+	
+	            // Refresh button click
+	            $('.button-refresh').on('click', function () {
+	                _me.refresh();
+	            });
+	
+	            // Get count down id from filter
+	            countDownId = $('#count-down-of').attr('name');
+	
+	            // Get default count down
+	            defaultCountDown = parseInt($('#count-down-of').attr('data-default-value'));
+	        },
+	        initEvent: function () {
+	            cookieName = "RefeshCountDown" + countDownId;
+	            //read countdown from cookie
+	            var countDownFromCookie = $.cookie(cookieName);
+	            if (countDownFromCookie && Number(countDownFromCookie) !== 0) {
+	                _me.setCountDown(countDownFromCookie, false);
+	            } else {
+	                _me.setCountDown(defaultCountDown, true);
+	            }
+	        },
+	        initMenu: function () {
+	            var isVisible = $('#countdown-menu').css('display') !== 'none';
+	            if (isVisible) {
+	                $('#countdown-menu').hide();
+	            }
+	            else {
+	                $('#countdown-menu').show();
+	            }
+	        },
+	        setCountDown: function (countDown, isSetToCookie) {
+	            var countDownInt = parseInt(countDown);
+	            if (isSetToCookie) {
+	                $.cookie(cookieName, countDownInt);
+	            }
+	            curCountDown = countDownInt;
+	            _me.setMenuStatus();
+	            $('#countdown-menu').hide();
+	            _me.tick();
+	        },
+	        setMenuStatus: function () {
+	            var index = curCountDown;
+	            $('#countdown-menu div').removeClass('menu-selected');
+	            $('#option-' + index).addClass('menu-selected');
+	        },
+	        tick: function () {
+	            document.getElementById('count').innerHTML = curCountDown;
+	            curCountDown--;
+	            if (countDownTimer != null) {
+	                clearTimeout(countDownTimer);
+	            }
+	            countDownTimer = setTimeout(_me.tick, 1000);
+	            if (curCountDown < -1) {
+	                _me.refresh();
+	            }
+	        },
+	        refresh: function () {
+	            var oldScrollTop;
+	            if ($(".data-content").length) {
+	                oldScrollTop = $(".data-content")[0].scrollTop;
+	            }
+	
+	            if (countDownTimer != null) {
+	                clearTimeout(countDownTimer);
+	            }
+	            document.getElementById('count').innerHTML = "<span class='timer-loading'>loading</span>";
+	
+	            // Get param before load data
+	            var url = _me.calculateUrl();
+	
+	            // Set up ajax no cache
+	            $.ajaxSetup({ cache: false });
+	
+	            $('#Refresh-Content').load(url, { noncache: new Date().getTime() }, function () {
+	                Site.unBlockUI();
+	                _me.initEvent();
+	
+	                // Remove white space between html tag (fix bug wrong ui displaying on IE9).
+	                var expr = new RegExp('>[ \t\r\n\v\f]*<', 'g');
+	                $('#Refresh-Content').html($('#Refresh-Content').html().replace(expr, '><'));
+	
+	                // Currency constraint
+	                Site.currencyConstraint();
+	
+	                // Re init countdown event with forecast AH
+	                if (typeof (Forecast) !== 'undefined') {
+	                    _me.initialize();
+	                }
+	
+	                // Scrollbar still kept current position
+	                if ($(".data-content").length) {
+	                    $(".data-content").scrollTop(oldScrollTop);
+	                }
+	                $(window).resize();
+	            });
+	
+	            return true;
+	        },
+	        calculateUrl: function () {
+	            var leagueId = $('#LeagueId').val();
+	            var matchId = $('#MatchId').val();
+	            var betType = $("#BetType").val();
+	            var currentScore = $("#CurrentScore").val();
+	            var isShowFt = $("#IsShowFt").val();
+	            var isShowFh = $("#IsShowFh").val();
+	            var homeName = $("#HomeTeamId").val();
+	            var awayName = $("#AwayTeamId").val();
+	
+	            var url = location.href;
+	            url = Site.setLicenseeOptionOriginalParam(url);
+	            url = QueryString.setParam(url, "LeagueId", leagueId);
+	            url = QueryString.setParam(url, "MatchId", matchId);
+	            url = QueryString.setParam(url, "BetType", betType);
+	            url = QueryString.setParam(url, "CurrentScore", currentScore);
+	            url = QueryString.setParam(url, "IsShowFt", isShowFt);
+	            url = QueryString.setParam(url, "IsShowFh", isShowFh);
+	
+	            url = QueryString.setParam(url, "HomeTeamId", homeName);
+	            url = QueryString.setParam(url, "AwayTeamId", awayName);
+	
+	            return url;
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 202:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	* jQuery Cookie Plugin v1.4.1
+	* https://github.com/carhartl/jquery-cookie
+	*
+	* Copyright 2006, 2014 Klaus Hartl
+	* Released under the MIT license
+	*/
+	(function (factory) {
+	    if (true) {
+	        // AMD (Register as an anonymous module)
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else if (typeof exports === 'object') {
+	        // Node/CommonJS
+	        module.exports = factory(require('jquery'));
+	    } else {
+	        // Browser globals
+	        factory(jQuery);
+	    }
+	} (function ($) {
+	
+	    var pluses = /\+/g;
+	
+	    function encode(s) {
+	        return config.raw ? s : encodeURIComponent(s);
+	    }
+	
+	    function decode(s) {
+	        return config.raw ? s : decodeURIComponent(s);
+	    }
+	
+	    function stringifyCookieValue(value) {
+	        return encode(config.json ? JSON.stringify(value) : String(value));
+	    }
+	
+	    function parseCookieValue(s) {
+	        if (s.indexOf('"') === 0) {
+	            // This is a quoted cookie as according to RFC2068, unescape...
+	            s = s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+	        }
+	
+	        try {
+	            // Replace server-side written pluses with spaces.
+	            // If we can't decode the cookie, ignore it, it's unusable.
+	            // If we can't parse the cookie, ignore it, it's unusable.
+	            s = decodeURIComponent(s.replace(pluses, ' '));
+	            return config.json ? JSON.parse(s) : s;
+	        } catch (e) { }
+	    }
+	
+	    function read(s, converter) {
+	        var value = config.raw ? s : parseCookieValue(s);
+	        return $.isFunction(converter) ? converter(value) : value;
+	    }
+	
+	    var config = $.cookie = function (key, value, options) {
+	
+	        // Write
+	
+	        if (arguments.length > 1 && !$.isFunction(value)) {
+	            options = $.extend({}, config.defaults, options);
+	
+	            if (typeof options.expires === 'number') {
+	                var days = options.expires, t = options.expires = new Date();
+	                t.setMilliseconds(t.getMilliseconds() + days * 864e+5);
+	            }
+	
+	            return (document.cookie = [
+					encode(key), '=', stringifyCookieValue(value),
+					options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+					options.path ? '; path=' + options.path : '',
+					options.domain ? '; domain=' + options.domain : '',
+					options.secure ? '; secure' : ''
+				].join(''));
+	        }
+	
+	        // Read
+	
+	        var result = key ? undefined : {},
+	        // To prevent the for loop in the first place assign an empty array
+	        // in case there are no cookies at all. Also prevents odd result when
+	        // calling $.cookie().
+				cookies = document.cookie ? document.cookie.split('; ') : [],
+				i = 0,
+				l = cookies.length;
+	
+	        for (; i < l; i++) {
+	            var parts = cookies[i].split('='),
+					name = decode(parts.shift()),
+					cookie = parts.join('=');
+	
+	            if (key === name) {
+	                // If second argument (value) is a function it's a converter...
+	                result = read(cookie, value);
+	                break;
+	            }
+	
+	            // Prevent storing a cookie that we couldn't decode.
+	            if (!key && (cookie = read(cookie)) !== undefined) {
+	                result[name] = cookie;
+	            }
+	        }
+	
+	        return result;
+	    };
+	
+	    config.defaults = {};
+	
+	    $.removeCookie = function (key, options) {
+	        // Must not alter options, thus extending a fresh object...
+	        $.cookie(key, '', $.extend({}, options, { expires: -1 }));
+	        return !$.cookie(key);
+	    };
+	
+	}));
+
+
+/***/ }
+
+});
+//# sourceMappingURL=ahforecast.chunk.js.map

@@ -51,6 +51,7 @@
             });
 
             $('#btnSubmit').click(function () {
+                Site.blockUI();
                 $('#livereport').submit();
             });
         }
