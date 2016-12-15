@@ -10,7 +10,9 @@ define(['jquery'], function ($) {
                 id: "popup-content",
                 title: "&nbsp;",
                 container: "body",
-                modal: true
+                modal: true,
+                onOpen: null,
+                onClose: null
             };
 
             $blockBody = $(".block-body");
@@ -34,6 +36,10 @@ define(['jquery'], function ($) {
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="#"><i class="icon-close"></i></a></div>')
 
                     $self.find('a.popup-close').on('click', function () {
+                        if (options.onClose) {
+                            options.onClose.apply($self);
+                        }
+
                         _methods.hide.apply($self);
                     });
 
@@ -43,6 +49,10 @@ define(['jquery'], function ($) {
                 $self.width(options.width);
                 $self.height(options.height);
                 $self.find(".wrapContent").height(options.height - 40);
+
+                if (options.onOpen) {
+                    options.onOpen.apply($self);
+                }
 
                 _methods.show.call($self, options.modal);
             });
