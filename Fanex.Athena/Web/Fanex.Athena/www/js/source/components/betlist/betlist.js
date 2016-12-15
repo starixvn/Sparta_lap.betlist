@@ -372,7 +372,7 @@
 
                 showResultPopUp(url, { width: 750, height: 400, title: title });
             },
-            viewGlobalGamingResult: function (custid, betcheck, title) {
+            viewGlobalGamingResult: function (custId, gameId, title) {
                 var url = Site.resolveClientUrl('ResultReport/GlobalGamingResult');
                 Site.blockUI();
                 $.get(url + '?custid=' + custId + '&gameId=' + gameId, function (result) {
