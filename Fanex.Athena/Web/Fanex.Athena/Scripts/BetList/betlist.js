@@ -13,6 +13,7 @@ var BetList = (function ($) {
     var SPORT_RNG_MOBILE = 210;
     var SPORT_ALLBET = 211;
     var SPORT_VOIDBRIDGE = 212;
+    var SPORT_GLOBALGAMING = 219;
 
     var _sortColumnName, _sortOrder;
     var _params, _url;
@@ -424,6 +425,24 @@ var BetList = (function ($) {
                 height: 400
             });
         },
+
+        viewGlobalGamingResult: function (custId, gameId) {
+            var url = Site.resolveClientUrl('ResultReport/GlobalGamingResult');
+            Site.blockUI();
+            $.get(url + '?custid=' + custId + '&gameId=' + gameId, function (result) {
+                if (result !== '') {
+                    var dialogForm = '<div title="' + Site.getSingleResource("Result") +
+                        '"><iframe frameborder="0" style="width:100%; height:100%;" src="' + result + '" ></iframe></div></div>';
+                    $(dialogForm).dialog({
+                        modal: true,
+                        width: 800,
+                        height: 380
+                    });
+                    Site.unBlockUI();
+                }
+            });
+        },
+
         showResult: function (matchid, raceNo, bettype, sporttype, refno,
             username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid, transdecs) {
             var title = Site.getSingleResource("Result");
@@ -438,6 +457,9 @@ var BetList = (function ($) {
             }
             else if (sporttype === SPORT_ALLBET) {
                 BetList.viewAllBetResult(transdecs, betcheck, bettype);
+            }
+            else if (sporttype === SPORT_GLOBALGAMING) {
+                BetList.viewGlobalGamingResult(custid, betcheck);
             }
             else {
                 bettype = Number(bettype);
@@ -688,6 +710,27 @@ var BetList = (function ($) {
                 height: popH + 50
             });
         },
+        showGlobalGamingDetails: function (transId, winlostDate, custId, transType) {
+            var params = $.parseJSON($("#BetListMetaModel").val());
+            var url = Site.resolveClientUrl('GlobalGamingBetList/Detail');
+            url = QueryString.setParam(url, "transId", transId);
+            url = QueryString.setParam(url, "winlostDate", winlostDate);
+            url = QueryString.setParam(url, "custId", custId);
+            url = QueryString.setParam(url, "transType", transType);
+            url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
+
+            var popH = Math.min($(window).height() - 100, 550), popW = 840;
+            var title = Site.getSingleResource("ProductFW") + " - " +
+                Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
+        },
         ValidProducts: function () {
             var temp = true;
             if ($("#ProductList input:checked").length === 0) {
@@ -745,3 +788,4 @@ var showVoidBridgeDetails = BetList.showVoidBridgeDetails;
 var showVoidbridgeResult = BetList.viewVoidbridgeResult;
 var showTodayRunningBetsDetails = BetList.showAllBetDetails;
 var showColossusBetsDetails = BetList.showColossusBetsDetails;
+var showGlobalGaming = BetList.showGlobalGamingDetails;

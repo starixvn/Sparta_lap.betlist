@@ -19,6 +19,7 @@ var BetSetting = (function ($) {
     var TAB_MICROGAMINGRNGCASINO = 17;
     var TAB_ALLBET = 21;
     var TAB_VOIDBRIDGE = 22;
+    var TAB_FISHINGWORLD = 24;
 
     var _sportIds = null;
     return {
@@ -114,6 +115,7 @@ var BetSetting = (function ($) {
                     break;
                 case TAB_ALLBET:
                 case TAB_VOIDBRIDGE:
+                case TAB_FISHINGWORLD:
                     url = "DcsBetSetting/UpdateStatus";
                     break;
             }

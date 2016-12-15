@@ -489,6 +489,7 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
             db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
             db.AddInParameter("transtype", DbType.Int32, metaModel.TransType);
+            db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             CreateBetListErrorParameters(db);

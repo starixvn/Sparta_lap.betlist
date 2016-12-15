@@ -43,5 +43,7 @@ namespace Fanex.Athena.Model.Core.DataDomain
         public const int AllBet = 21;
 
         public const int Voidbridge = 22;
+
+        public const int FishingWorld = 24;
     }
 }

@@ -77,6 +77,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     // Boolean
                     IsLive = reader.GetValue("liveindicator", x => ReadBoolean(x), false),
                     IsNeutral = reader.GetValue("isneutral", x => ReadBoolean(x), false),
+                    Currency = reader.GetString("Currency"),
 
                     // Int
                     SportTypeId = reader.GetInt("sporttype"),
@@ -95,8 +96,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     // Long
                     TransId = reader.GetLong("transid")
                 };
-                var betid = reader.GetValue("betid");
-                ticket.BetId = betid == DBNull.Value ? null : (long?)betid;
+                ticket.BetId = reader.GetLong("betid");
 
                 // DateTime
                 ticket.WinlostDate = reader.GetDateTime("winlostdate", DateTime.Now);

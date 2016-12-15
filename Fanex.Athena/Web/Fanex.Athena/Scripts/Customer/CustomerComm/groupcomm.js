@@ -247,8 +247,7 @@ var GroupComm = (function ($) {
             $('#IsResetDefault').val(true);
             $('form').submit();
         },
-        /* jshint ignore:start */
-        initCommParam: function () {
+        initCommParam: function () { // jshint ignore:line
             var sbComm1 = parseInt($('#DdlSBComm1').val());
             var sbComm2 = parseInt($('#DdlSBComm2').val());
             var sbComm3 = parseInt($('#DdlSBComm3').val());

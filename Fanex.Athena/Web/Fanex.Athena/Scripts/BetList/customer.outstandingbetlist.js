@@ -26,7 +26,9 @@ var OutstandingBetList = (function ($) {
                     : (betlistName === "betlist"
                             ? Site.getSingleResource("BetList")
                             : Site.getSingleResource("DailyStatement"));
-                $('.ui-dialog-title', window.parent.document).html(title);
+
+                var $popupContainer = $(window.frameElement).closest(".ui-dialog");
+                $('.ui-dialog-title', $popupContainer).html(title);
 
                 var currentcurrency = QueryString.getParam(location.href, "currencyname");
                 var url = location.href;

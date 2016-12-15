@@ -2930,4 +2930,16 @@
   <data name="YouAreNotAllowToAccessThisPage" xml:space="preserve">
     <value>You are not allowed to access this page !!!</value>
   </data>
+  <data name="ProductFW" xml:space="preserve">
+    <value>Fishing World</value>
+    <comment>#66737</comment>
+  </data>
+  <data name="DisableFishingWorld" xml:space="preserve">
+    <value>Disable Fishing World</value>
+    <comment>#66737</comment>
+  </data>
+  <data name="EnableFishingWorld" xml:space="preserve">
+    <value>Enable Fishing World</value>
+    <comment>#66737</comment>
+  </data>
 </root>
