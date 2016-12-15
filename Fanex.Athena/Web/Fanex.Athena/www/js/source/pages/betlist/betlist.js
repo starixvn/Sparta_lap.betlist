@@ -57,7 +57,7 @@
             window.showVoidbridgeResult = _me.viewVoidbridgeResult;
             window.showTodayRunningBetsDetails = _me.showAllBetDetails;
             window.showColossusBetsDetails = _me.showColossusBetsDetails;
-			window.showGlobalGaming = _me.showGlobalGamingDetails;
+            window.showGlobalGaming = _me.showGlobalGamingDetails;
         });
 
         var _me = {
@@ -268,6 +268,8 @@
             },
 
             bindData: function (response) {
+                $("#BetListGrid").jqGrid('GridUnload');
+
                 if (response === null || response.Main.length === 0) {
                     jqGridAdditional.setNoInfo();
                     return;
@@ -305,7 +307,6 @@
                     _me.gridComplete(this);
                 };
 
-                $("#BetListGrid").jqGrid('GridUnload');
                 $("#BetListGrid").jqGrid(gridOption);
             },
 
