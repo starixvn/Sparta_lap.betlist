@@ -82,7 +82,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("Forecast/GetMatchListByLeague?leagueid=1")
+                .stubRequest("NewHandicapOverUnderForecast/GetMatchListByLeague?leagueid=1")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -100,7 +100,7 @@
         });
 
         it("ajax request should be called with correct url", function () {
-            expect(request.url).toBe("Forecast/GetMatchListByLeague?leagueid=1");
+            expect(request.url).toBe("NewHandicapOverUnderForecast/GetMatchListByLeague?leagueid=1");
         });
         it("'#DdlMatchId' should be contain correct responsed text", function () {
             expect($ddlmatch).toContainHtml("<option>Test</option>");
