@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -799,14 +799,14 @@
     <Content Include="www\js\source\common\popup.js" />
     <Content Include="www\js\source\common\querystring.js" />
     <Content Include="www\js\source\common\site.js" />
-    <Content Include="www\js\source\components\betlist\betlist.js" />
-    <Content Include="www\js\source\components\betlist\betlist.option.js" />
-    <Content Include="www\js\source\components\betlist\commonbetlist.js" />
-    <Content Include="www\js\source\components\betlist\main-betlistrunning.multiplebettypes.js" />
-    <Content Include="www\js\source\components\betlist\main-betlistrunning.js" />
-    <Content Include="www\js\source\components\betlist\main-simple.js" />
-    <Content Include="www\js\source\components\betlist\betlistrunning.js" />
-    <Content Include="www\js\source\components\betlist\betlistrunning.multiplebettypes.js" />
+    <Content Include="www\js\source\pages\betlist\betlist.js" />
+    <Content Include="www\js\source\pages\betlist\betlist.option.js" />
+    <Content Include="www\js\source\pages\betlist\commonbetlist.js" />
+    <Content Include="www\js\source\pages\betlist\main-betlistrunning.multiplebettypes.js" />
+    <Content Include="www\js\source\pages\betlist\main-betlistrunning.js" />
+    <Content Include="www\js\source\pages\betlist\main-simple.js" />
+    <Content Include="www\js\source\pages\betlist\betlistrunning.js" />
+    <Content Include="www\js\source\pages\betlist\betlistrunning.multiplebettypes.js" />
     <Content Include="www\js\source\extensions\jquery.extension.js" />
     <Content Include="www\js\source\extensions\prototype.js" />
     <Content Include="www\js\source\lib\bignumber.js" />
