@@ -1,15 +1,27 @@
-﻿.page-results .result-content {
-    border: solid 1px #d6d6d6;
+﻿@import "../../scss/abstracts/_variables.scss";
+
+$colorBorderTable: #d6d6d6;
+$bgLeagueNameRow: #D1DAE1;
+$bgLiveRow: #FEDDCC;
+$colorAddIcon: #08B22D;
+
+.page-results .result-content {
+    border: solid 1px $colorBorderTable;
 }
 
 .header-content, .body-content, .footer-content {
     .table {
-        border-right: 1px solid #d6d6d6;
+        border-right: 1px solid $colorBorderTable;
 
         th, td {
             &:first-child {
                 border-left: none;
             }
+        }
+
+        th {
+            background: $bgHeaderTable;
+            color: $white;
         }
     }
 }
@@ -34,7 +46,7 @@
     > thead, > tbody {
         tr {
             &.live {
-                background-color: #ffddcc;
+                background-color: $bgLiveRow;
             }
 
             td, th {
@@ -42,7 +54,12 @@
             }
 
             > td {
-                background: #fff;
+                background: $white;
+            }
+
+            &.league-name td {
+                background: $bgLeagueNameRow;
+                font-weight: bold;
             }
         }
     }
@@ -54,13 +71,20 @@
 
         .icon-plus {
             margin-left: 5px;
-            padding: 0 5px;
-            color: #fff;
-            background: #6492b6;
+            padding: 0 3px;
+            background: $white;
+            color: $colorAddIcon;
+            border: 1px solid $colorAddIcon;
+            line-height: 15px;
 
             &:before {
                 content: "\ea0a";
                 vertical-align: middle;
+            }
+
+            &:hover {
+                background: $colorAddIcon;
+                color: $white;
             }
         }
 

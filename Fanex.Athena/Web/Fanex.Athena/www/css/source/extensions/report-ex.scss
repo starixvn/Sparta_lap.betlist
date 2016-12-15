@@ -20,6 +20,12 @@
             margin-bottom: 10px;
         }
     }
+
+    @media only screen and (min-width: 993px) {
+        .button-block {
+            width: 10% !important;
+        }
+    }
 }
 
 .page-results {
@@ -163,7 +169,7 @@
     cursor: pointer;
 }
 
-.negative-number{
+.negative-number {
     color: #ff0000;
 }
 

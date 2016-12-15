@@ -5,8 +5,8 @@
     left: calc(50% - 32px);
     z-index: 10001;
 
-    .circle{
-        background-color:transparent;
+    .circle {
+        background-color: transparent;
     }
 }
 
@@ -24,23 +24,27 @@
     z-index: 10000;
 }
 
-.nav-wrapper{
-    .right{
-        #profile{
+.nav-wrapper {
+    .right {
+        #profile {
             width: 16.5rem !important;
         }
     }
 }
 
-.wrapper{
+.wrapper {
     position: relative;
     overflow-y: auto;
 }
 
-.collapsible-body{
+.collapsible-body {
     border-bottom: none;
 }
 
 input[type=text]::-ms-clear {
     display: none;
+}
+
+.text-bold {
+    font-weight: bold;
 }
