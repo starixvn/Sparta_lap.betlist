@@ -138,6 +138,10 @@
         }
 
         tbody {
+            tr td {
+                text-align: center;
+            }
+
             .cl-group-name {
                 color: #1d3968;
                 background: #ccc;
