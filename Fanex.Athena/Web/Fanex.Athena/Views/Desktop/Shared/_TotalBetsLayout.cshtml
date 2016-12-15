@@ -11,6 +11,12 @@
     @RenderSection("pagejs", required: false)
 }
 
-@RenderSection("Filter", required: false)
+<div class="page-form">
+    @RenderSection("Filter", required: false)
+</div>
 
-@RenderSection("Content", required: false)
+<div class="page-results">
+    <div id="reportContent" class="result-content">
+        @RenderBody()
+    </div>
+</div>

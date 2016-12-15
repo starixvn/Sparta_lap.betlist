@@ -33,7 +33,8 @@ var cssPaths = {
 
     totalbetlayout: [
         ...cssReportCommon,
-        "./www/css/source/pages/totalbet/totalbet.scss"
+        "./www/css/source/pages/totalbet/totalbet.scss",
+        "./www/css/source/components/refreshcountdown/refreshcountdown.scss"
     ],
 
     colossusbetdetail: ["./www/css/source/pages/common.scss", "./www/css/source/components/betlist/colossusbetdetail.scss"],
@@ -45,7 +46,7 @@ var cssPaths = {
     livereport: [...cssReportCommon, ...cssDateRangePickerPath, "./www/css/source/components/monthpicker/monpickr.scss", "./www/css/source/pages/report/livereport.scss"],
     licenseewinloss: ["./www/css/source/pages/report/licenseewinloss.scss", ...cssDateRangePickerPath],
 
-    ahforecast: [...cssReportCommon, "./www/css/source/pages/forecast/forecast.ah.scss"]
+    ahforecast: [...cssReportCommon, "./www/css/source/components/refreshcountdown/refreshcountdown.scss", "./www/css/source/pages/forecast/forecast.ah.scss",]
 };
 
 var scriptPaths = {

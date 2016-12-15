@@ -1,5 +1,5 @@
-﻿define(['jquery', 'common/site', 'common/querystring', '../totalbetsbase', 'common/popup'],
-    function ($, Site, QueryString, Totalbets, Popup) {
+﻿define(['jquery', 'common/site', 'common/querystring', '../totalbetsbase', 'common/popup', 'components/refreshcountdown'],
+    function ($, Site, QueryString, Totalbets, Popup, RefreshCountDown) {
     "use strict";
 
     var _me = {
@@ -11,6 +11,8 @@
                 resourceName: "TotalBetsHdpOu",
                 title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("HandicapOverUnderLive")
             });
+
+            RefreshCountDown.initEvent();
         },
         initEvent: function () {
             $("#SubmitButton").on("click", function () {

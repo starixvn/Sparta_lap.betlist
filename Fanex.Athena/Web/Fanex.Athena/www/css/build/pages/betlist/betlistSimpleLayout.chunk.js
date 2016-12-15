@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([3],{
 =======
 webpackJsonp([4],{
@@ -136,3 +137,6 @@ webpackJsonp([3],{0:function(n,o,c){c(21),c(25),c(27),c(29),c(31),c(33),c(35),c(
 =======
 //# sourceMappingURL=betlistSimpleLayout.chunk.js.map
 >>>>>>> e7e0530... #67998 - Add blockUI for livereport
+=======
+webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(39),n.exports=c(41)},21:function(n,o){},23:21,25:21,27:21,29:21,31:21,33:21,39:21,41:21});
+>>>>>>> 78c4435... #67998 - Add refresh count down to filter

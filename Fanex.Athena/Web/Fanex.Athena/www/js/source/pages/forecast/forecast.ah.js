@@ -12,8 +12,10 @@
             currencyid = $('#forecast-table').attr('data-currencyid');
             currencyName = $('#forecast-table').attr('data-currencyname');
 
-            RefreshCountDown.initialize();
             _me.initEvent();
+            RefreshCountDown.isForecastAH = true;
+            RefreshCountDown.initialize();
+            RefreshCountDown.initEvent();
         },
         initEvent: function () {
             $('#reportContent').on('click', '.forecast-link', function () {

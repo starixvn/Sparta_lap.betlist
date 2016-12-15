@@ -1255,6 +1255,7 @@
     <Content Include="www\css\source\pages\totalbet\totalbet.scss" />
     <Content Include="www\css\source\pages\forecast\forecast.ah.scss" />
     <Content Include="www\js\source\pages\forecast\forecast.ah.js" />
+    <Content Include="www\css\source\components\refreshcountdown\refreshcountdown.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

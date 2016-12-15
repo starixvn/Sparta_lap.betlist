@@ -6,12 +6,8 @@
     var defaultCountDown = 0;
 
     var _me = {
+        isForecastAH: false,
         initialize: function () {
-            // Open count down menu
-            $('.button-select').on('click', function () {
-                _me.initMenu();
-            });
-
             // Select countdown
             $('.menu-item').on('click', function () {
                 var selectedCountDown = parseInt($(this).attr('data-count-down'));
@@ -39,15 +35,6 @@
                 _me.setCountDown(defaultCountDown, true);
             }
         },
-        initMenu: function () {
-            var isVisible = $('#countdown-menu').css('display') !== 'none';
-            if (isVisible) {
-                $('#countdown-menu').hide();
-            }
-            else {
-                $('#countdown-menu').show();
-            }
-        },
         setCountDown: function (countDown, isSetToCookie) {
             var countDownInt = parseInt(countDown);
             if (isSetToCookie) {
@@ -55,12 +42,11 @@
             }
             curCountDown = countDownInt;
             _me.setMenuStatus();
-            $('#countdown-menu').hide();
             _me.tick();
         },
         setMenuStatus: function () {
             var index = curCountDown;
-            $('#countdown-menu div').removeClass('menu-selected');
+            $('#countdown-menu .menu-item').removeClass('menu-selected');
             $('#option-' + index).addClass('menu-selected');
         },
         tick: function () {
@@ -76,14 +62,14 @@
         },
         refresh: function () {
             var oldScrollTop;
-            if ($(".data-content").length) {
-                oldScrollTop = $(".data-content")[0].scrollTop;
+            if ($(".body-content").length) {
+                oldScrollTop = $(".body-content")[0].scrollTop;
             }
 
             if (countDownTimer != null) {
                 clearTimeout(countDownTimer);
             }
-            document.getElementById('count').innerHTML = "<span class='timer-loading'>loading</span>";
+            document.getElementById('count').innerHTML = "loading";
 
             // Get param before load data
             var url = _me.calculateUrl();
@@ -91,25 +77,23 @@
             // Set up ajax no cache
             $.ajaxSetup({ cache: false });
 
-            $('#Refresh-Content').load(url, { noncache: new Date().getTime() }, function () {
+            $('#reportContent').load(url, {
+                noncache: new Date().getTime() }, function () {
                 Site.unBlockUI();
                 _me.initEvent();
-
-                // Remove white space between html tag (fix bug wrong ui displaying on IE9).
-                var expr = new RegExp('>[ \t\r\n\v\f]*<', 'g');
-                $('#Refresh-Content').html($('#Refresh-Content').html().replace(expr, '><'));
 
                 // Currency constraint
                 Site.currencyConstraint();
 
                 // Re init countdown event with forecast AH
-                if (typeof (Forecast) !== 'undefined') {
+                if (_me.isForecastAH) {
                     _me.initialize();
+                    $('.dropdown-button').dropdown();
                 }
 
                 // Scrollbar still kept current position
-                if ($(".data-content").length) {
-                    $(".data-content").scrollTop(oldScrollTop);
+                if ($(".body-content").length) {
+                    $(".body-content").scrollTop(oldScrollTop);
                 }
                 $(window).resize();
             });

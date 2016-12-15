@@ -1,45 +1,44 @@
 ﻿@model Fanex.Athena.Model.TotalBet.ViewModel.HandicapOverUnderViewModel
-<div class="page-form">
-    @using (Html.BeginForm("Index", "HandicapOverUnderTotalBet", FormMethod.Post, new { @id = "HandicapOUForm" }))
-    {
-        @Html.AntiForgeryToken()
 
-        <div class="row">
-            @*// -----------------------------Refresh countdown------------------------ //*@
-            <div class="col l1 m1 s12">
-                @RazorHelperDesktop.TimerCountDown("handicap", 15)
-            </div>
+@using (Html.BeginForm("Index", "HandicapOverUnderTotalBet", FormMethod.Post, new { @id = "HandicapOUForm" }))
+{
+    @Html.AntiForgeryToken()
 
-            @*// ----------------------------Type of licensee---------------------------//*@
-            @if (Model.LicenseeTypeList.Count > 0)
-            {
-                <div class="col l2 m2 s12 input-field">
-                    @RazorHelperDesktop.LicenseeType(Model.LicenseeTypeList, "select licenseetype", Model.Param.LicenseeType)
-                    <label>@ViewResources.Type</label>
-                </div>
-            }
-
-            @*// -----------------------------Currency-----------------------------------//*@
+    <div class="row">
+        @*// ----------------------------Type of licensee---------------------------//*@
+        @if (Model.LicenseeTypeList.Count > 0)
+        {
             <div class="col l2 m2 s12 input-field">
-                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select currencylist", Model.Param.CurrencyId)
-                <label>@ViewResources.Currency</label>
+                @RazorHelperDesktop.LicenseeType(Model.LicenseeTypeList, "select licenseetype", Model.Param.LicenseeType)
+                <label>@ViewResources.Type</label>
             </div>
+        }
 
-            @*// -----------------------------Base Currency-----------------------------------//*@
-            <div class="col l2 m2 s12 input-field">
-                @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
-                <label>@ViewResources.Based</label>
-            </div>
-
-            <div class="col l2 m2 s12 button-block">
-                <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
-            </div>
+        @*// -----------------------------Currency-----------------------------------//*@
+        <div class="col l2 m2 s12 input-field">
+            @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select currencylist", Model.Param.CurrencyId)
+            <label>@ViewResources.Currency</label>
         </div>
+
+        @*// -----------------------------Base Currency-----------------------------------//*@
+        <div class="col l2 m2 s12 input-field">
+            @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+            <label>@ViewResources.Based</label>
+        </div>
+
+        <div class="col l1 m2 s12 button-block">
+            <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+        </div>
+
+        @*// -----------------------------Refresh countdown------------------------ //*@
+        <div class="col l1 m1 s12 button-block">
+            @RazorHelperDesktop.TimerCountDown("handicap", 15)
+        </div>
+    </div>
 
         <div class="row">
             <div class="col right icon-block">
                 <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
             </div>
         </div>
-    }
-</div>
+}

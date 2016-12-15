@@ -167,20 +167,20 @@ if (toDate != null)
 {
     <input type="hidden" id="count-down-of" name="@name" data-default-value="@start" />
     <div class="timer-countdown">
-        <div id="count" class="button-refresh">
-        </div>
-        <div class="button-select">
-        </div>
+        <a href="javascript:;" class="right-align button-refresh">
+            <span class="center-align" id="count"></span>
+            <i class="icon icon-refresh"></i>
+        </a>
+
+        <a href="javascript:;" class="dropdown-button button-select" data-activates="countdown-menu"><i class="icon icon-menu-down"></i></a>
     </div>
-    <div id="countdown-menu" class="countdown-menu" style="display: none">
+    <ul id="countdown-menu" class="countdown-menu dropdown-content">
         @for (var i = 1; i <= 5; i++)
         {
-            <div id="option-@(start)" data-count-down="@start" class="menu-item">
-                @start sec
-            </div>
+            <li id="option-@(start)" data-count-down="@start" class="menu-item"><a href="javascript:;" class="menu-item-text">@start sec</a></li>
             start += 15;
         }
-    </div>
+    </ul>
 }
 
 @helper LicenseeType(IList<string> licenseeTypes, string className = "", string selected = "", bool addMoreAllOption = true)
