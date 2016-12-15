@@ -89,7 +89,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.15.6.1-beta\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.15.6.1\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.ColossusBets, Version=1.0.1.7, Culture=neutral, processorArchitecture=MSIL">
@@ -97,11 +97,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.Core, Version=2.15.6.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.15.6.1-beta\lib\net40\Fanex.BetList.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.15.6.1\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.GlobalGaming, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.GlobalGaming.1.0.0.3-beta\lib\net40\Fanex.BetList.GlobalGaming.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.GlobalGaming.1.0.0.3\lib\net40\Fanex.BetList.GlobalGaming.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.Microgaming, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
@@ -127,7 +127,7 @@
       <HintPath>..\..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Result.Core, Version=2.0.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.6.0-beta\lib\net40\Fanex.Result.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.6.0\lib\net40\Fanex.Result.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.AllBetCasino, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
@@ -135,7 +135,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.Base, Version=2.0.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.6.0-beta\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.6.0\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.LiveCasino, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
