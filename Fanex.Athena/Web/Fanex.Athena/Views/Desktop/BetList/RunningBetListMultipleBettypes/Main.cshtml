@@ -1,0 +1,39 @@
+﻿@{
+
+    var formatTitle = "{0} {1} {2} - {3}";
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets, ViewBag.ReportTitle);
+
+    Layout = "~/Views/Desktop/Shared/_BetListLayout.cshtml";
+}
+
+@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
+@section pagejs {
+    <script src="@Url.ContentLink("/www/js/build/pages/betlist/betlistrunningmultiplebettypes.chunk.js")" type="text/javascript"></script>
+}
+@*@section ContentTitle
+{
+    @{
+        if (ViewBag.IsMixParlay == true || ViewBag.IsSystemParlay == true)
+        {
+            <span id="mixparlay_link" class="@(ViewBag.IsMixParlay == true ? "inactive-switch-link" : "active-switch-link")">@ViewResources.MixParlay</span>
+            <span>|</span>
+            <span id="systemparlay_link" class="@(ViewBag.IsSystemParlay == true ? "inactive-switch-link" : "active-switch-link")">@ViewResources.SystemParlay</span>
+        }
+        else
+        {
+            @ViewBag.ReportTitle
+        }
+    }
+}*@
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/Desktop/BetList/RunningBetListMultipleBettypes/Filter.cshtml");
+    }
+}
+
+<div id="popupSystemParlay"></div>
+<input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
+<input type="hidden" id="IsShowSumStake" value="1" />
+<input type="hidden" id="title" value="@ViewBag.ReportTitle" />
+<input type="hidden" id="userGuideName" value="@ViewBag.UserGuideName" />

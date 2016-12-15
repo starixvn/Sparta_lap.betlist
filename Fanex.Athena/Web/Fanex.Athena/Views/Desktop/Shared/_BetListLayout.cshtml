@@ -12,17 +12,19 @@
     @RenderSection("pagejs", required: false)
 }
 <div class="report-container">
-    @RenderSection("ContentFilter", required: false)
-    <div class="page-results">
-        <div class="content-main" id="report-container">
-            <div class="theme_jqGrid">
-                <div id="pager1">
+    <div class="betlist-container">
+        @RenderSection("ContentFilter", required: false)
+        <div class="page-results">
+            <div class="content-main" id="report-container">
+                <div class="theme_jqGrid">
+                    <div id="pager1">
+                    </div>
+                    <table id="BetListGrid"></table>
+                    <div id="pager2">
+                    </div>
                 </div>
-                <table id="BetListGrid"></table>
-                <div id="pager2">
-                </div>
+                @RenderBody()
             </div>
-            @RenderBody()
         </div>
     </div>
 </div>

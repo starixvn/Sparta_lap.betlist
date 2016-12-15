@@ -24,6 +24,7 @@ var commonConfigs = {
         [pathConfig.scriptPaths.build + "/pages/betlist/betlist"]: [pathConfig.scriptPaths.betlist],
         [pathConfig.scriptPaths.build + "/pages/betlist/betlistsimple"]: [pathConfig.scriptPaths.betlistsimple],
         [pathConfig.scriptPaths.build + "/pages/betlist/betlistrunning"]: [pathConfig.scriptPaths.betlistrunning],
+        [pathConfig.scriptPaths.build + "/pages/betlist/betlistrunningmultiplebettypes"]: [pathConfig.scriptPaths.betlistrunningmultiplebettypes],
         [pathConfig.scriptPaths.build + "/pages/handicapoverunder/handicapoverunder"]: [pathConfig.scriptPaths.handicapoverunder],
         [pathConfig.scriptPaths.build + "/pages/forecast/ahforecast"]: [pathConfig.scriptPaths.ahforecast],
 

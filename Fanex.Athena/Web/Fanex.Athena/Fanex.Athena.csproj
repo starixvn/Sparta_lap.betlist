@@ -802,9 +802,11 @@
     <Content Include="www\js\source\components\betlist\betlist.js" />
     <Content Include="www\js\source\components\betlist\betlist.option.js" />
     <Content Include="www\js\source\components\betlist\commonbetlist.js" />
-    <Content Include="www\js\source\components\betlist\main-runningbetlist.js" />
+    <Content Include="www\js\source\components\betlist\main-betlistrunning.multiplebettypes.js" />
+    <Content Include="www\js\source\components\betlist\main-betlistrunning.js" />
     <Content Include="www\js\source\components\betlist\main-simple.js" />
     <Content Include="www\js\source\components\betlist\betlistrunning.js" />
+    <Content Include="www\js\source\components\betlist\betlistrunning.multiplebettypes.js" />
     <Content Include="www\js\source\extensions\jquery.extension.js" />
     <Content Include="www\js\source\extensions\prototype.js" />
     <Content Include="www\js\source\lib\bignumber.js" />
@@ -1233,6 +1235,8 @@
     <Content Include="Views\Desktop\Shared\_BetListLayout.cshtml" />
     <Content Include="Views\Desktop\BetList\RunningBetList\Filter.cshtml" />
     <Content Include="Views\Desktop\BetList\RunningBetList\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\RunningBetListMultipleBettypes\Filter.cshtml" />
+    <Content Include="Views\Desktop\BetList\RunningBetListMultipleBettypes\Main.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />

@@ -4,10 +4,10 @@ define(
     ['jquery', 'common/site', 'common/querystring', './betlist'],
     function ($, Site, QueryString, BetList) {
 
-        var RunningBetList = {
+        var _me = {
             initialize: function () {
-                RunningBetList.initEvent();
-                RunningBetList.submit();
+                _me.initEvent();
+                _me.submit();
                 Site.addUserGuide({
                     resourceName: $('#userGuideName').val(),
                     title: Site.getSingleResource("TotalBets") + " - " + $('#title').val()
@@ -16,7 +16,7 @@ define(
 
             initEvent: function () {
                 $('#SubmitButton').click(function () {
-                    RunningBetList.submit();
+                    _me.submit();
                 });
             },
 
@@ -44,5 +44,5 @@ define(
             }
         };
 
-        return RunningBetList;
+        return _me;
     });

@@ -60,7 +60,8 @@ var scriptPaths = {
     licenseewinloss: "./www/js/source/pages/report/licenseewinloss/main.js",
     betlist: "./www/js/source/components/betlist/betlist.js",
     betlistsimple: "./www/js/source/components/betlist/main-simple.js",
-    betlistrunning: "./www/js/source/components/betlist/main-runningbetlist.js",
+    betlistrunning: "./www/js/source/components/betlist/main-betlistrunning.js",
+    betlistrunningmultiplebettypes: "./www/js/source/components/betlist/main-betlistrunning.multiplebettypes.js",
 
     handicapoverunder: "./www/js/source/pages/totalbet/handicapoverunder/main.js",
     ahforecast: "./www/js/source/pages/forecast/forecast.ah.main.js",
