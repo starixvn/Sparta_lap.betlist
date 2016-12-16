@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.TotalBets + " - " + ViewResources.OddEven + " - " + ViewResources.OneXTwo;
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Desktop/Shared/_TotalBetsLayout.cshtml";
+}
+@section css
+{
+    @*<link href="@Url.ContentLinkNew("/www/css/build/pages/forecast/ahforecast.css")" rel="stylesheet" />*@
+}
+@section js
+{
+    @*<script src="@Url.ContentLinkNew("/www/js/build/pages/forecast/ahforecast.chunk.js")"></script>*@
+}
+
+@section Filter
+{
+    @{
+        Html.RenderPartial("~/Views/Desktop/Forecast/Forecast1X2/Filter.cshtml");
+    }
+}
+
+@{
+    Html.RenderPartial("~/Views/Desktop/Forecast/Forecast1X2/Content.cshtml");
+}

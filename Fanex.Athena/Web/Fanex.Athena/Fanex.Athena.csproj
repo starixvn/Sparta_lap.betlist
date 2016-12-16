@@ -864,6 +864,8 @@
     <Content Include="www\js\source\pages\totalbet\handicapoverunder\main.js" />
     <Content Include="www\js\source\pages\totalbet\moneyline\main.js" />
     <Content Include="www\js\source\pages\totalbet\moneyline\moneyline.js" />
+    <Content Include="www\js\source\pages\totalbet\oddevendrawnodraw\main.js" />
+    <Content Include="www\js\source\pages\totalbet\oddevendrawnodraw\oddevendrawnodraw.js" />
     <Content Include="www\js\source\pages\totalbet\totalbetsbase.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\js\tests\common\popup-spec.js" />
@@ -1265,6 +1267,14 @@
     <Content Include="Views\Desktop\TotalBets\MoneyLine\Filter.cshtml" />
     <Content Include="Views\Desktop\TotalBets\MoneyLine\Content.cshtml" />
     <Content Include="Views\Desktop\TotalBets\MoneyLine\ContentData.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\OddEvenDrawNoDraw\Main.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\OddEvenDrawNoDraw\Filter.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\OddEvenDrawNoDraw\Content.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\OddEvenDrawNoDraw\ContentData.cshtml" />
+    <Content Include="Views\Desktop\Forecast\Forecast1X2\Main.cshtml" />
+    <Content Include="Views\Desktop\Forecast\Forecast1X2\Content.cshtml" />
+    <Content Include="Views\Desktop\Forecast\Forecast1X2\Filter.cshtml" />
+    <Content Include="Views\Desktop\Forecast\Forecast1X2\ContentData.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />

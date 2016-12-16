@@ -35,6 +35,10 @@ $colorAddIcon: #08B22D;
 
 .col-child {
     width: 10%;
+
+    &.small{
+        width: 7%;
+    }
 }
 
 .table {

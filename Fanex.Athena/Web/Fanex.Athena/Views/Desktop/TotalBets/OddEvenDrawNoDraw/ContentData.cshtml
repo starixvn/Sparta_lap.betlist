@@ -1,0 +1,102 @@
+﻿@using System.Linq
+@model Fanex.Athena.Model.TotalBet.ViewModel.OddEvenDrawNoDrawViewModel
+@{
+    var leagueList = Model.MainData.GroupBy(x => new { x.LeagueId, x.LeagueName, x.LiveIndicator })
+                            .Select(x => x.Key)
+                            .OrderBy(x => x.LeagueName)
+                            .OrderByDescending(x => x.LiveIndicator)
+                            .ToList();
+    var index = 1;
+}
+
+@foreach (var league in leagueList)
+{
+    // Render League name
+    <tr>
+        <td class="league-name" colspan="8">
+            @league.LeagueName
+        </td>
+    </tr>
+    var matchOfLeague = Model.MainData
+                            .Where(x => x.LeagueId == league.LeagueId && x.LiveIndicator == league.LiveIndicator)
+                            .OrderBy(x => x.HomeTeamName).ToList();
+
+    // Render Match League
+    foreach (var match in matchOfLeague)
+    {
+        <tr class="@(match.LiveIndicator == 1 ? "live" : string.Empty)">
+            <td class="center-align">
+                @(index++)
+            </td>
+            <td class="center-align">
+                @if (match.LiveIndicator == 1)
+                {
+                    <span>@match.LiveHomeScore - @match.LiveAwayScore</span>
+                    <br />
+                    <i class="live-notice">@ViewResources.Live!</i>
+                }
+                else
+                {
+                    @Html.Raw(match.ShowTime)
+                }
+            </td>
+            <td>
+                @match.HomeTeamName -vs- @match.AwayTeamName
+            </td>
+            <!--Render Fulltime Odd/Even + 1 X 2 + DND -->
+            <!--OddEvenValue-->
+            <td class="right-align">
+                @if (match.BetCountOddEven != 0)
+                {
+                    <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
+                        @RazorHelper.NegativeFormat(match.OddEvenFt, true, false)
+                    </a>
+                }
+            </td>
+            <!--/OddEvenValue-->
+            <!--OneXTwoValue-->
+            <td class="right-align">
+                @if (match.BetCountOneXTwo != 0)
+                {
+                    <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
+                        @RazorHelper.DecFormat(match.OneXTwoFt, true)
+                    </a>
+                    <a class="icon-plus button-add" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;"></a>
+                }
+            </td>
+            <!--/OneXTwoValue-->
+            <!--DrawNoDrawValue-->
+            <td class="right-align">
+                @if (match.BetCountDrawNoDraw != 0)
+                {
+                    <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
+                        @RazorHelper.NegativeFormat(match.DrawNoDraw, true, false)
+                    </a>
+                }
+            </td>
+            <!--/DrawNoDrawValue-->
+            <!--Render 1st Half Odd/Even + 1 X 2 + DND -->
+            <!--OddEvenFirstHalfValue-->
+            <td class="right-align">
+                @if (match.BetCountOddEven1StHalf != 0)
+                {
+                    <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@(match.Bettype == 2 ? 12 : match.Bettype)" href="javascript:;">
+                        @RazorHelper.NegativeFormat(match.OddEvenFirstHalf, true, false)
+                    </a>
+                }
+            </td>
+            <!--/OddEvenFirstHalfValue-->
+            <!--OneXTwoFirstHalfValue-->
+            <td class="right-align">
+                @if (match.BetCountOneXTow1StHalf != 0)
+                {
+                    <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@(match.Bettype == 5 ? 15 : match.Bettype)" href="javascript:;">
+                        @RazorHelper.DecFormat(match.OneXTwoFirstHalf, true)
+                    </a>
+                    <a class="icon-plus button-add" data-match-id="@match.MatchId" data-bet-type="@(match.Bettype == 5 ? 15 : match.Bettype)" href="javascript:;"></a>
+                }
+            </td>
+            <!--/OneXTwoFirstHalfValue-->
+        </tr>
+    }
+}
