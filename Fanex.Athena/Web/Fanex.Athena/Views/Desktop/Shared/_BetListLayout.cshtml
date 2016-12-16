@@ -12,6 +12,10 @@
     @RenderSection("pagejs", required: false)
 }
 <div class="report-container">
+    @if (IsSectionDefined("ContentTitle"))
+    {
+        @RenderSection("ContentTitle", required: false)
+    }
     <div class="page-form">
         @RenderSection("ContentFilter", required: false)
     </div>

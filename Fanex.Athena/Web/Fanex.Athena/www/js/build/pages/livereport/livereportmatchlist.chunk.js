@@ -6,28 +6,40 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([17],{
 =======
 webpackJsonp([24],{
 >>>>>>> e7e0530... #67998 - Add blockUI for livereport
+=======
+webpackJsonp([25],{
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	module.exports = __webpack_require__(214);
 =======
 	module.exports = __webpack_require__(226);
 >>>>>>> e7e0530... #67998 - Add blockUI for livereport
+=======
+	module.exports = __webpack_require__(232);
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 
 
 /***/ },
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ 213:
 =======
 /***/ 225:
 >>>>>>> e7e0530... #67998 - Add blockUI for livereport
+=======
+/***/ 231:
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {
@@ -84,6 +96,7 @@ webpackJsonp([24],{
 /***/ },
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ 214:
 /***/ function(module, exports, __webpack_require__) {
 
@@ -94,6 +107,12 @@ webpackJsonp([24],{
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(227)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchList) {
 >>>>>>> e7e0530... #67998 - Add blockUI for livereport
+=======
+/***/ 232:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(233)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchList) {
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	    "use strict";
 	    $(MatchList.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -101,6 +120,7 @@ webpackJsonp([24],{
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 215:
 /***/ function(module, exports, __webpack_require__) {
@@ -112,6 +132,12 @@ webpackJsonp([24],{
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8), __webpack_require__(7), __webpack_require__(225)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
 >>>>>>> e7e0530... #67998 - Add blockUI for livereport
+=======
+/***/ 233:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8), __webpack_require__(7), __webpack_require__(231)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	    "use strict";
 	
 	    function initialize() {
@@ -161,6 +187,7 @@ webpackJsonp([24],{
 
 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 //# sourceMappingURL=livereportmatchlist.chunk.js.map
 =======
 webpackJsonp([18],{0:function(t,e,a){t.exports=a(214)},213:function(t,e,a){var r,n;r=[a(8)],n=function(t){"use strict";function e(e,a){return e=t.setParam(e,"totalrows",a.BetCount),e=t.setParam(e,"sumwinlost",a.CustomerWinLoss),e=t.setParam(e,"sumplayercomm",a.CustomerComm),e=t.setParam(e,"sumlicenseewl",a.LicenseeWinLoss),e=t.setParam(e,"sumcomm",a.LicenseeComm),e=t.setParam(e,"sumturnover",a.TurnOver),e=t.setParam(e,"sumamtdueto3rd",a.AmountDue)}function a(t,e){t=Number(t);var a=[];return t>0?180===t||186===t?a.push("VS"):162===t?a.push("LC"):("SB"!==e&&"ALL"!==e||a.push("SB"),"BA"!==e&&"ALL"!==e||a.push("BA")):"ALL"===e?a=["SB","BA","NG","RB","LC","VS","CS","BG"]:a.push(e),a}return{setSumParams:e,getMatchListProductOption:a}}.apply(e,r),!(void 0!==n&&(t.exports=n))},214:function(t,e,a){var r,n;(function(i){r=[a(215)],n=function(t){"use strict";i(t.initialize)}.apply(e,r),!(void 0!==n&&(t.exports=n))}).call(e,a(1))},215:function(t,e,a){var r,n;(function(i){r=[a(8),a(7),a(213)],n=function(t,e,a){"use strict";function r(){e.initialize(),n()}function n(){i("body").on("click",".match-detail-link",function(){o(this)})}function o(r){var n=e.resolveClientUrl("LiveReportBetList/Match"),o=i("#CurrencyName").attr("data-original"),s=i(r).attr("data-drill-down");s=i.parseJSON(s),n=e.setLicenseeOptionOriginalParam(n),n=e.setDateRangeOriginalParam(n),n=t.setParam(n,"CurrencyName",o),n=t.setParam(n,"MatchId",s.MatchId),n=t.setParam(n,"HomeId",s.HomeId),n=t.setParam(n,"AwayId",s.AwayId),n=t.setParam(n,"BetType",s.BetType),n=t.setParam(n,"LiveIndicator",s.LiveIndicator),n=a.setSumParams(n,s);var u=a.getMatchListProductOption(i("#SportId").val(),i("#ProductCode").val());i(u).each(function(t,a){n=e.setProductOptionParam(n,t,a.toUpperCase(),!0)}),e.blockUI(),e.redirect(n)}return{initialize:r}}.apply(e,r),!(void 0!==n&&(t.exports=n))}).call(e,a(1))}});
@@ -186,3 +213,6 @@ webpackJsonp([25],{0:function(t,e,a){t.exports=a(230)},229:function(t,e,a){var r
 =======
 webpackJsonp([25],{0:function(t,e,a){t.exports=a(232)},231:function(t,e,a){var r,n;r=[a(8)],n=function(t){"use strict";function e(e,a){return e=t.setParam(e,"totalrows",a.BetCount),e=t.setParam(e,"sumwinlost",a.CustomerWinLoss),e=t.setParam(e,"sumplayercomm",a.CustomerComm),e=t.setParam(e,"sumlicenseewl",a.LicenseeWinLoss),e=t.setParam(e,"sumcomm",a.LicenseeComm),e=t.setParam(e,"sumturnover",a.TurnOver),e=t.setParam(e,"sumamtdueto3rd",a.AmountDue)}function a(t,e){t=Number(t);var a=[];return t>0?180===t||186===t?a.push("VS"):162===t?a.push("LC"):("SB"!==e&&"ALL"!==e||a.push("SB"),"BA"!==e&&"ALL"!==e||a.push("BA")):"ALL"===e?a=["SB","BA","NG","RB","LC","VS","CS","BG"]:a.push(e),a}return{setSumParams:e,getMatchListProductOption:a}}.apply(e,r),!(void 0!==n&&(t.exports=n))},232:function(t,e,a){var r,n;(function(i){r=[a(233)],n=function(t){"use strict";i(t.initialize)}.apply(e,r),!(void 0!==n&&(t.exports=n))}).call(e,a(1))},233:function(t,e,a){var r,n;(function(i){r=[a(8),a(7),a(231)],n=function(t,e,a){"use strict";function r(){e.initialize(),n()}function n(){i("body").on("click",".match-detail-link",function(){o(this)})}function o(r){var n=e.resolveClientUrl("LiveReportBetList/Match"),o=i("#CurrencyName").attr("data-original"),s=i(r).attr("data-drill-down");s=i.parseJSON(s),n=e.setLicenseeOptionOriginalParam(n),n=e.setDateRangeOriginalParam(n),n=t.setParam(n,"CurrencyName",o),n=t.setParam(n,"MatchId",s.MatchId),n=t.setParam(n,"HomeId",s.HomeId),n=t.setParam(n,"AwayId",s.AwayId),n=t.setParam(n,"BetType",s.BetType),n=t.setParam(n,"LiveIndicator",s.LiveIndicator),n=a.setSumParams(n,s);var u=a.getMatchListProductOption(i("#SportId").val(),i("#ProductCode").val());i(u).each(function(t,a){n=e.setProductOptionParam(n,t,a.toUpperCase(),!0)}),e.blockUI(),e.redirect(n)}return{initialize:r}}.apply(e,r),!(void 0!==n&&(t.exports=n))}).call(e,a(1))}});
 >>>>>>> b682d91... #67998 - Update css for bet list report
+=======
+//# sourceMappingURL=livereportmatchlist.chunk.js.map
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist

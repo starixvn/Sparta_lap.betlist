@@ -4,28 +4,40 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([11],{
 =======
 webpackJsonp([14],{
 >>>>>>> e7e0530... #67998 - Add blockUI for livereport
+=======
+webpackJsonp([14],{
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	module.exports = __webpack_require__(71);
 =======
 	module.exports = __webpack_require__(75);
 >>>>>>> e7e0530... #67998 - Add blockUI for livereport
+=======
+	module.exports = __webpack_require__(79);
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 
 
 /***/ },
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ 71:
 =======
 /***/ 75:
 >>>>>>> e7e0530... #67998 - Add blockUI for livereport
+=======
+/***/ 79:
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
@@ -33,6 +45,7 @@ webpackJsonp([14],{
 /***/ }
 
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 //# sourceMappingURL=error.chunk.js.map
 =======
@@ -53,3 +66,6 @@ webpackJsonp([14],{0:function(n,o,c){n.exports=c(77)},77:function(n,o){}});
 =======
 webpackJsonp([14],{0:function(n,o,c){n.exports=c(79)},79:function(n,o){}});
 >>>>>>> b682d91... #67998 - Update css for bet list report
+=======
+//# sourceMappingURL=error.chunk.js.map
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist

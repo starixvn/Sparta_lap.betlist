@@ -7,11 +7,19 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([16],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(211);
+=======
+webpackJsonp([24],[
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(229);
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 
 
 /***/ },
@@ -97,6 +105,7 @@ webpackJsonp([16],[
 /* 80 */,
 /* 81 */,
 /* 82 */,
+<<<<<<< HEAD
 /* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -17501,6 +17510,13 @@ webpackJsonp([23],[
 /* 81 */,
 /* 82 */,
 /* 83 */
+=======
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
@@ -19299,7 +19315,11 @@ webpackJsonp([23],[
 	                module && module.exports) {
 	            try {
 	                oldLocale = globalLocale._abbr;
+<<<<<<< HEAD
 	                __webpack_require__(85)("./" + name);
+=======
+	                __webpack_require__(89)("./" + name);
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	                // because defineLocale currently also sets the global locale, we
 	                // want to undo that for lazy loaded locales
 	                locale_locales__getSetGlobalLocale(oldLocale);
@@ -21737,10 +21757,17 @@ webpackJsonp([23],[
 	    return _moment;
 	
 	}));
+<<<<<<< HEAD
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(84)(module)))
 
 /***/ },
 /* 84 */
+=======
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(88)(module)))
+
+/***/ },
+/* 88 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -21756,6 +21783,7 @@ webpackJsonp([23],[
 
 
 /***/ },
+<<<<<<< HEAD
 /* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -21968,6 +21996,220 @@ webpackJsonp([23],[
 		"./zh-hk.js": 188,
 		"./zh-tw": 189,
 		"./zh-tw.js": 189
+=======
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./af": 90,
+		"./af.js": 90,
+		"./ar": 91,
+		"./ar-ly": 92,
+		"./ar-ly.js": 92,
+		"./ar-ma": 93,
+		"./ar-ma.js": 93,
+		"./ar-sa": 94,
+		"./ar-sa.js": 94,
+		"./ar-tn": 95,
+		"./ar-tn.js": 95,
+		"./ar.js": 91,
+		"./az": 96,
+		"./az.js": 96,
+		"./be": 97,
+		"./be.js": 97,
+		"./bg": 98,
+		"./bg.js": 98,
+		"./bn": 99,
+		"./bn.js": 99,
+		"./bo": 100,
+		"./bo.js": 100,
+		"./br": 101,
+		"./br.js": 101,
+		"./bs": 102,
+		"./bs.js": 102,
+		"./ca": 103,
+		"./ca.js": 103,
+		"./cs": 104,
+		"./cs.js": 104,
+		"./cv": 105,
+		"./cv.js": 105,
+		"./cy": 106,
+		"./cy.js": 106,
+		"./da": 107,
+		"./da.js": 107,
+		"./de": 108,
+		"./de-at": 109,
+		"./de-at.js": 109,
+		"./de.js": 108,
+		"./dv": 110,
+		"./dv.js": 110,
+		"./el": 111,
+		"./el.js": 111,
+		"./en-au": 112,
+		"./en-au.js": 112,
+		"./en-ca": 113,
+		"./en-ca.js": 113,
+		"./en-gb": 114,
+		"./en-gb.js": 114,
+		"./en-ie": 115,
+		"./en-ie.js": 115,
+		"./en-nz": 116,
+		"./en-nz.js": 116,
+		"./eo": 117,
+		"./eo.js": 117,
+		"./es": 118,
+		"./es-do": 119,
+		"./es-do.js": 119,
+		"./es.js": 118,
+		"./et": 120,
+		"./et.js": 120,
+		"./eu": 121,
+		"./eu.js": 121,
+		"./fa": 122,
+		"./fa.js": 122,
+		"./fi": 123,
+		"./fi.js": 123,
+		"./fo": 124,
+		"./fo.js": 124,
+		"./fr": 125,
+		"./fr-ca": 126,
+		"./fr-ca.js": 126,
+		"./fr-ch": 127,
+		"./fr-ch.js": 127,
+		"./fr.js": 125,
+		"./fy": 128,
+		"./fy.js": 128,
+		"./gd": 129,
+		"./gd.js": 129,
+		"./gl": 130,
+		"./gl.js": 130,
+		"./he": 131,
+		"./he.js": 131,
+		"./hi": 132,
+		"./hi.js": 132,
+		"./hr": 133,
+		"./hr.js": 133,
+		"./hu": 134,
+		"./hu.js": 134,
+		"./hy-am": 135,
+		"./hy-am.js": 135,
+		"./id": 136,
+		"./id.js": 136,
+		"./is": 137,
+		"./is.js": 137,
+		"./it": 138,
+		"./it.js": 138,
+		"./ja": 139,
+		"./ja.js": 139,
+		"./jv": 140,
+		"./jv.js": 140,
+		"./ka": 141,
+		"./ka.js": 141,
+		"./kk": 142,
+		"./kk.js": 142,
+		"./km": 143,
+		"./km.js": 143,
+		"./ko": 144,
+		"./ko.js": 144,
+		"./ky": 145,
+		"./ky.js": 145,
+		"./lb": 146,
+		"./lb.js": 146,
+		"./lo": 147,
+		"./lo.js": 147,
+		"./lt": 148,
+		"./lt.js": 148,
+		"./lv": 149,
+		"./lv.js": 149,
+		"./me": 150,
+		"./me.js": 150,
+		"./mi": 151,
+		"./mi.js": 151,
+		"./mk": 152,
+		"./mk.js": 152,
+		"./ml": 153,
+		"./ml.js": 153,
+		"./mr": 154,
+		"./mr.js": 154,
+		"./ms": 155,
+		"./ms-my": 156,
+		"./ms-my.js": 156,
+		"./ms.js": 155,
+		"./my": 157,
+		"./my.js": 157,
+		"./nb": 158,
+		"./nb.js": 158,
+		"./ne": 159,
+		"./ne.js": 159,
+		"./nl": 160,
+		"./nl.js": 160,
+		"./nn": 161,
+		"./nn.js": 161,
+		"./pa-in": 162,
+		"./pa-in.js": 162,
+		"./pl": 163,
+		"./pl.js": 163,
+		"./pt": 164,
+		"./pt-br": 165,
+		"./pt-br.js": 165,
+		"./pt.js": 164,
+		"./ro": 166,
+		"./ro.js": 166,
+		"./ru": 167,
+		"./ru.js": 167,
+		"./se": 168,
+		"./se.js": 168,
+		"./si": 169,
+		"./si.js": 169,
+		"./sk": 170,
+		"./sk.js": 170,
+		"./sl": 171,
+		"./sl.js": 171,
+		"./sq": 172,
+		"./sq.js": 172,
+		"./sr": 173,
+		"./sr-cyrl": 174,
+		"./sr-cyrl.js": 174,
+		"./sr.js": 173,
+		"./ss": 175,
+		"./ss.js": 175,
+		"./sv": 176,
+		"./sv.js": 176,
+		"./sw": 177,
+		"./sw.js": 177,
+		"./ta": 178,
+		"./ta.js": 178,
+		"./te": 179,
+		"./te.js": 179,
+		"./th": 180,
+		"./th.js": 180,
+		"./tl-ph": 181,
+		"./tl-ph.js": 181,
+		"./tlh": 182,
+		"./tlh.js": 182,
+		"./tr": 183,
+		"./tr.js": 183,
+		"./tzl": 184,
+		"./tzl.js": 184,
+		"./tzm": 185,
+		"./tzm-latn": 186,
+		"./tzm-latn.js": 186,
+		"./tzm.js": 185,
+		"./uk": 187,
+		"./uk.js": 187,
+		"./uz": 188,
+		"./uz.js": 188,
+		"./vi": 189,
+		"./vi.js": 189,
+		"./x-pseudo": 190,
+		"./x-pseudo.js": 190,
+		"./zh-cn": 191,
+		"./zh-cn.js": 191,
+		"./zh-hk": 192,
+		"./zh-hk.js": 192,
+		"./zh-tw": 193,
+		"./zh-tw.js": 193
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -21980,11 +22222,19 @@ webpackJsonp([23],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
+<<<<<<< HEAD
 	webpackContext.id = 85;
 
 
 /***/ },
 /* 86 */
+=======
+	webpackContext.id = 89;
+
+
+/***/ },
+/* 90 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -21992,7 +22242,11 @@ webpackJsonp([23],[
 	//! author : Werner Mollentze : https://github.com/wernerm
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -22061,7 +22315,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 87 */
+=======
+/* 91 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -22071,7 +22329,11 @@ webpackJsonp([23],[
 	//! author : forabi https://github.com/forabi
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -22202,7 +22464,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 88 */
+=======
+/* 92 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -22210,7 +22476,11 @@ webpackJsonp([23],[
 	//! author : Ali Hmer: https://github.com/kikoanis
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -22328,7 +22598,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 89 */
+=======
+/* 93 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -22337,7 +22611,11 @@ webpackJsonp([23],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -22392,7 +22670,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 90 */
+=======
+/* 94 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -22400,7 +22682,11 @@ webpackJsonp([23],[
 	//! author : Suhail Alkowaileet : https://github.com/xsoh
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -22500,7 +22786,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 91 */
+=======
+/* 95 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -22508,7 +22798,11 @@ webpackJsonp([23],[
 	//! author : Nader Toukabri : https://github.com/naderio
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -22563,7 +22857,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 92 */
+=======
+/* 96 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -22571,7 +22869,11 @@ webpackJsonp([23],[
 	//! author : topchiyev : https://github.com/topchiyev
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -22672,7 +22974,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 93 */
+=======
+/* 97 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -22682,7 +22988,11 @@ webpackJsonp([23],[
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -22810,7 +23120,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 94 */
+=======
+/* 98 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -22818,7 +23132,11 @@ webpackJsonp([23],[
 	//! author : Krasen Borisov : https://github.com/kraz
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -22904,7 +23222,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 95 */
+=======
+/* 99 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -22912,7 +23234,11 @@ webpackJsonp([23],[
 	//! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -23027,7 +23353,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 96 */
+=======
+/* 100 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -23035,7 +23365,11 @@ webpackJsonp([23],[
 	//! author : Thupten N. Chakrishar : https://github.com/vajradog
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -23150,7 +23484,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 97 */
+=======
+/* 101 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -23158,7 +23496,11 @@ webpackJsonp([23],[
 	//! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -23262,7 +23604,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 98 */
+=======
+/* 102 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -23271,7 +23617,11 @@ webpackJsonp([23],[
 	//! based on (hr) translation by Bojan Marković
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -23409,7 +23759,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 99 */
+=======
+/* 103 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -23417,7 +23771,11 @@ webpackJsonp([23],[
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -23494,7 +23852,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 100 */
+=======
+/* 104 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -23502,7 +23864,11 @@ webpackJsonp([23],[
 	//! author : petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -23670,7 +24036,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 101 */
+=======
+/* 105 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -23678,7 +24048,11 @@ webpackJsonp([23],[
 	//! author : Anatoly Mironov : https://github.com/mirontoli
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -23737,7 +24111,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 102 */
+=======
+/* 106 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -23746,7 +24124,11 @@ webpackJsonp([23],[
 	//! author : https://github.com/ryangreaves
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -23822,7 +24204,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 103 */
+=======
+/* 107 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -23830,7 +24216,11 @@ webpackJsonp([23],[
 	//! author : Ulrik Nielsen : https://github.com/mrbase
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -23886,7 +24276,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 104 */
+=======
+/* 108 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -23896,7 +24290,11 @@ webpackJsonp([23],[
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -23968,7 +24366,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 105 */
+=======
+/* 109 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -23979,7 +24381,11 @@ webpackJsonp([23],[
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -24051,7 +24457,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 106 */
+=======
+/* 110 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -24059,7 +24469,11 @@ webpackJsonp([23],[
 	//! author : Jawish Hameed : https://github.com/jawish
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -24154,7 +24568,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 107 */
+=======
+/* 111 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -24162,7 +24580,11 @@ webpackJsonp([23],[
 	//! author : Aggelos Karalias : https://github.com/mehiel
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -24256,7 +24678,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 108 */
+=======
+/* 112 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -24264,7 +24690,11 @@ webpackJsonp([23],[
 	//! author : Jared Morse : https://github.com/jarcoal
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -24327,7 +24757,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 109 */
+=======
+/* 113 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -24335,7 +24769,11 @@ webpackJsonp([23],[
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -24394,7 +24832,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 110 */
+=======
+/* 114 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -24402,7 +24844,11 @@ webpackJsonp([23],[
 	//! author : Chris Gedrim : https://github.com/chrisgedrim
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -24465,7 +24911,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 111 */
+=======
+/* 115 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -24473,7 +24923,11 @@ webpackJsonp([23],[
 	//! author : Chris Cartlidge : https://github.com/chriscartlidge
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -24536,7 +24990,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 112 */
+=======
+/* 116 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -24544,7 +25002,11 @@ webpackJsonp([23],[
 	//! author : Luke McGregor : https://github.com/lukemcgregor
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -24607,7 +25069,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 113 */
+=======
+/* 117 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -24617,7 +25083,11 @@ webpackJsonp([23],[
 	//!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -24684,7 +25154,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 114 */
+=======
+/* 118 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -24692,7 +25166,11 @@ webpackJsonp([23],[
 	//! author : Julio Napurí : https://github.com/julionc
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -24769,14 +25247,22 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 115 */
+=======
+/* 119 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : Spanish (Dominican Republic) [es-do]
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -24853,7 +25339,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 116 */
+=======
+/* 120 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -24862,7 +25352,11 @@ webpackJsonp([23],[
 	//! improvements : Illimar Tambek : https://github.com/ragulka
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -24937,7 +25431,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 117 */
+=======
+/* 121 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -24945,7 +25443,11 @@ webpackJsonp([23],[
 	//! author : Eneko Illarramendi : https://github.com/eillarra
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -25007,7 +25509,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 118 */
+=======
+/* 122 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -25015,7 +25521,11 @@ webpackJsonp([23],[
 	//! author : Ebrahim Byagowi : https://github.com/ebraminio
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -25117,7 +25627,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 119 */
+=======
+/* 123 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -25125,7 +25639,11 @@ webpackJsonp([23],[
 	//! author : Tarmo Aidantausta : https://github.com/bleadof
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -25228,7 +25746,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 120 */
+=======
+/* 124 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -25236,7 +25758,11 @@ webpackJsonp([23],[
 	//! author : Ragnar Johannesen : https://github.com/ragnar123
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -25292,7 +25818,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 121 */
+=======
+/* 125 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -25300,7 +25830,11 @@ webpackJsonp([23],[
 	//! author : John Fischer : https://github.com/jfroffice
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -25360,7 +25894,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 122 */
+=======
+/* 126 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -25368,7 +25906,11 @@ webpackJsonp([23],[
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -25424,7 +25966,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 123 */
+=======
+/* 127 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -25432,7 +25978,11 @@ webpackJsonp([23],[
 	//! author : Gaspard Bucher : https://github.com/gaspard
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -25492,7 +26042,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 124 */
+=======
+/* 128 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -25500,7 +26054,11 @@ webpackJsonp([23],[
 	//! author : Robin van der Vliet : https://github.com/robin0van0der0v
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -25569,7 +26127,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 125 */
+=======
+/* 129 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -25577,7 +26139,11 @@ webpackJsonp([23],[
 	//! author : Jon Ashdown : https://github.com/jonashdown
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -25649,7 +26215,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 126 */
+=======
+/* 130 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -25657,7 +26227,11 @@ webpackJsonp([23],[
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -25730,7 +26304,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 127 */
+=======
+/* 131 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -25740,7 +26318,11 @@ webpackJsonp([23],[
 	//! author : Tal Ater : https://github.com/TalAter
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -25833,7 +26415,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 128 */
+=======
+/* 132 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -25841,7 +26427,11 @@ webpackJsonp([23],[
 	//! author : Mayank Singhal : https://github.com/mayanksinghal
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -25961,7 +26551,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 129 */
+=======
+/* 133 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -25969,7 +26563,11 @@ webpackJsonp([23],[
 	//! author : Bojan Marković : https://github.com/bmarkovic
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -26110,7 +26708,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 130 */
+=======
+/* 134 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -26118,7 +26720,11 @@ webpackJsonp([23],[
 	//! author : Adam Brunner : https://github.com/adambrunner
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -26223,7 +26829,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 131 */
+=======
+/* 135 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -26231,7 +26841,11 @@ webpackJsonp([23],[
 	//! author : Armendarabyan : https://github.com/armendarabyan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -26322,7 +26936,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 132 */
+=======
+/* 136 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -26331,7 +26949,11 @@ webpackJsonp([23],[
 	//! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -26409,7 +27031,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 133 */
+=======
+/* 137 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -26417,7 +27043,11 @@ webpackJsonp([23],[
 	//! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -26540,7 +27170,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 134 */
+=======
+/* 138 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -26549,7 +27183,11 @@ webpackJsonp([23],[
 	//! author: Mattia Larentis: https://github.com/nostalgiaz
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -26614,7 +27252,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 135 */
+=======
+/* 139 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -26622,7 +27264,11 @@ webpackJsonp([23],[
 	//! author : LI Long : https://github.com/baryon
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -26694,7 +27340,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 136 */
+=======
+/* 140 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -26703,7 +27353,11 @@ webpackJsonp([23],[
 	//! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -26781,7 +27435,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 137 */
+=======
+/* 141 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -26789,7 +27447,11 @@ webpackJsonp([23],[
 	//! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -26874,7 +27536,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 138 */
+=======
+/* 142 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -26882,7 +27548,11 @@ webpackJsonp([23],[
 	//! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -26965,7 +27635,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 139 */
+=======
+/* 143 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -26973,7 +27647,11 @@ webpackJsonp([23],[
 	//! author : Kruy Vanna : https://github.com/kruyvanna
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -27027,7 +27705,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 140 */
+=======
+/* 144 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -27036,7 +27718,11 @@ webpackJsonp([23],[
 	//! author : Jeeeyul Lee <jeeeyul@gmail.com>
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -27096,7 +27782,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 141 */
+=======
+/* 145 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -27104,7 +27794,11 @@ webpackJsonp([23],[
 	//! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -27188,7 +27882,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 142 */
+=======
+/* 146 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -27197,7 +27895,11 @@ webpackJsonp([23],[
 	//! author : David Raison : https://github.com/kwisatz
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -27329,7 +28031,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 143 */
+=======
+/* 147 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -27337,7 +28043,11 @@ webpackJsonp([23],[
 	//! author : Ryan Hart : https://github.com/ryanhart2
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -27403,7 +28113,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 144 */
+=======
+/* 148 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -27411,7 +28125,11 @@ webpackJsonp([23],[
 	//! author : Mindaugas Mozūras : https://github.com/mmozuras
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -27524,7 +28242,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 145 */
+=======
+/* 149 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -27533,7 +28255,11 @@ webpackJsonp([23],[
 	//! author : Jānis Elmeris : https://github.com/JanisE
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -27625,7 +28351,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 146 */
+=======
+/* 150 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -27633,7 +28363,11 @@ webpackJsonp([23],[
 	//! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -27740,7 +28474,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 147 */
+=======
+/* 151 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -27748,7 +28486,11 @@ webpackJsonp([23],[
 	//! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -27808,7 +28550,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 148 */
+=======
+/* 152 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -27816,7 +28562,11 @@ webpackJsonp([23],[
 	//! author : Borislav Mickov : https://github.com/B0k0
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -27902,7 +28652,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 149 */
+=======
+/* 153 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -27910,7 +28664,11 @@ webpackJsonp([23],[
 	//! author : Floyd Pink : https://github.com/floydpink
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -27987,7 +28745,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 150 */
+=======
+/* 154 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -27996,7 +28758,11 @@ webpackJsonp([23],[
 	//! author : Vivek Athalye : https://github.com/vnathalye
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -28150,7 +28916,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 151 */
+=======
+/* 155 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -28158,7 +28928,11 @@ webpackJsonp([23],[
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -28236,7 +29010,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 152 */
+=======
+/* 156 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -28245,7 +29023,11 @@ webpackJsonp([23],[
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -28323,7 +29105,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 153 */
+=======
+/* 157 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -28333,7 +29119,11 @@ webpackJsonp([23],[
 	//! author : Tin Aung Lin : https://github.com/thanyawzinmin
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -28422,7 +29212,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 154 */
+=======
+/* 158 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -28431,7 +29225,11 @@ webpackJsonp([23],[
 	//!           Sigurd Gartmann : https://github.com/sigurdga
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -28489,7 +29287,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 155 */
+=======
+/* 159 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -28497,7 +29299,11 @@ webpackJsonp([23],[
 	//! author : suvash : https://github.com/suvash
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -28616,7 +29422,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 156 */
+=======
+/* 160 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -28625,7 +29435,11 @@ webpackJsonp([23],[
 	//! author : Jacob Middag : https://github.com/middagj
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -28706,7 +29520,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 157 */
+=======
+/* 161 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -28714,7 +29532,11 @@ webpackJsonp([23],[
 	//! author : https://github.com/mechuwind
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -28770,7 +29592,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 158 */
+=======
+/* 162 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -28778,7 +29604,11 @@ webpackJsonp([23],[
 	//! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -28898,7 +29728,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 159 */
+=======
+/* 163 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -28906,7 +29740,11 @@ webpackJsonp([23],[
 	//! author : Rafal Hirsz : https://github.com/evoL
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -29007,7 +29845,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 160 */
+=======
+/* 164 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29015,7 +29857,11 @@ webpackJsonp([23],[
 	//! author : Jefferson : https://github.com/jalex79
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -29076,7 +29922,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 161 */
+=======
+/* 165 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29084,7 +29934,11 @@ webpackJsonp([23],[
 	//! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -29141,7 +29995,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 162 */
+=======
+/* 166 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29150,7 +30008,11 @@ webpackJsonp([23],[
 	//! author : Valentin Agachi : https://github.com/avaly
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -29220,7 +30082,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 163 */
+=======
+/* 167 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29230,7 +30096,11 @@ webpackJsonp([23],[
 	//! author : Коренберг Марк : https://github.com/socketpair
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -29407,7 +30277,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 164 */
+=======
+/* 168 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29415,7 +30289,11 @@ webpackJsonp([23],[
 	//! authors : Bård Rolstad Henriksen : https://github.com/karamell
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -29472,7 +30350,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 165 */
+=======
+/* 169 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29480,7 +30362,11 @@ webpackJsonp([23],[
 	//! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -29547,7 +30433,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 166 */
+=======
+/* 170 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29556,7 +30446,11 @@ webpackJsonp([23],[
 	//! based on work of petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -29701,7 +30595,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 167 */
+=======
+/* 171 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29709,7 +30607,11 @@ webpackJsonp([23],[
 	//! author : Robert Sedovšek : https://github.com/sedovsek
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -29867,7 +30769,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 168 */
+=======
+/* 172 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29877,7 +30783,11 @@ webpackJsonp([23],[
 	//! author : Oerd Cukalla : https://github.com/oerd
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -29941,7 +30851,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 169 */
+=======
+/* 173 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29949,7 +30863,11 @@ webpackJsonp([23],[
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30055,7 +30973,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 170 */
+=======
+/* 174 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30063,7 +30985,11 @@ webpackJsonp([23],[
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30169,7 +31095,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 171 */
+=======
+/* 175 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30177,7 +31107,11 @@ webpackJsonp([23],[
 	//! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30262,7 +31196,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 172 */
+=======
+/* 176 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30270,7 +31208,11 @@ webpackJsonp([23],[
 	//! author : Jens Alm : https://github.com/ulmus
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30335,7 +31277,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 173 */
+=======
+/* 177 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30343,7 +31289,11 @@ webpackJsonp([23],[
 	//! author : Fahad Kassim : https://github.com/fadsel
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30398,7 +31348,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 174 */
+=======
+/* 178 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30406,7 +31360,11 @@ webpackJsonp([23],[
 	//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30531,7 +31489,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 175 */
+=======
+/* 179 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30539,7 +31501,11 @@ webpackJsonp([23],[
 	//! author : Krishna Chaitanya Thota : https://github.com/kcthota
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30624,7 +31590,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 176 */
+=======
+/* 180 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30632,7 +31602,11 @@ webpackJsonp([23],[
 	//! author : Kridsada Thanabulpong : https://github.com/sirn
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30695,7 +31669,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 177 */
+=======
+/* 181 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30703,7 +31681,11 @@ webpackJsonp([23],[
 	//! author : Dan Hagman : https://github.com/hagmandan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30761,7 +31743,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 178 */
+=======
+/* 182 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30769,7 +31755,11 @@ webpackJsonp([23],[
 	//! author : Dominika Kruk : https://github.com/amaranthrose
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30885,7 +31875,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 179 */
+=======
+/* 183 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30894,7 +31888,11 @@ webpackJsonp([23],[
 	//!           Burak Yiğit Kaya: https://github.com/BYK
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30979,7 +31977,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 180 */
+=======
+/* 184 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30988,7 +31990,11 @@ webpackJsonp([23],[
 	//! author : Iustì Canun
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31074,7 +32080,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 181 */
+=======
+/* 185 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31082,7 +32092,11 @@ webpackJsonp([23],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31136,7 +32150,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 182 */
+=======
+/* 186 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31144,7 +32162,11 @@ webpackJsonp([23],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31198,7 +32220,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 183 */
+=======
+/* 187 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31207,7 +32233,11 @@ webpackJsonp([23],[
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31348,7 +32378,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 184 */
+=======
+/* 188 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31356,7 +32390,11 @@ webpackJsonp([23],[
 	//! author : Sardor Muminov : https://github.com/muminoff
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31410,7 +32448,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 185 */
+=======
+/* 189 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31418,7 +32460,11 @@ webpackJsonp([23],[
 	//! author : Bang Nguyen : https://github.com/bangnk
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31493,7 +32539,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 186 */
+=======
+/* 190 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31501,7 +32551,11 @@ webpackJsonp([23],[
 	//! author : Andrew Hood : https://github.com/andrewhood125
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31565,7 +32619,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 187 */
+=======
+/* 191 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31574,7 +32632,11 @@ webpackJsonp([23],[
 	//! author : Zeno Zeng : https://github.com/zenozeng
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31696,7 +32758,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 188 */
+=======
+/* 192 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31706,7 +32772,11 @@ webpackJsonp([23],[
 	//! author : Konstantin : https://github.com/skfd
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31805,7 +32875,11 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 189 */
+=======
+/* 193 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31814,7 +32888,11 @@ webpackJsonp([23],[
 	//! author : Chris Lam : https://github.com/hehachris
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31913,10 +32991,13 @@ webpackJsonp([23],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 190 */,
 /* 191 */,
 /* 192 */,
 /* 193 */,
+=======
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /* 194 */,
 /* 195 */,
 /* 196 */,
@@ -31942,10 +33023,23 @@ webpackJsonp([23],[
 /* 216 */,
 /* 217 */,
 /* 218 */,
+<<<<<<< HEAD
 /* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(83), __webpack_require__(220), __webpack_require__(221)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, moment) {
+=======
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(87), __webpack_require__(226), __webpack_require__(227)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, moment) {
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	        "use strict";
 	
 	    var _historyDate = new Date($("#HistoryDate").val());
@@ -32049,7 +33143,11 @@ webpackJsonp([23],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+<<<<<<< HEAD
 /* 220 */
+=======
+/* 226 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32063,7 +33161,11 @@ webpackJsonp([23],[
 	(function (root, factory) {
 	    if (true) {
 	        // AMD. Make globaly available as well
+<<<<<<< HEAD
 	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(83), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
+=======
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(87), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	            return (root.daterangepicker = factory(moment, jquery));
 	        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof module === 'object' && module.exports) {
@@ -33673,7 +34775,11 @@ webpackJsonp([23],[
 
 
 /***/ },
+<<<<<<< HEAD
 /* 221 */
+=======
+/* 227 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -34483,21 +35589,36 @@ webpackJsonp([23],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
+<<<<<<< HEAD
 /* 222 */,
 /* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(224)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveReport) {
+=======
+/* 228 */,
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(230)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveReport) {
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	    "use strict";
 	    $(LiveReport.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
+<<<<<<< HEAD
 /* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(219), __webpack_require__(225)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, PluginHelper, Helper) {
+=======
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(225), __webpack_require__(231)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, PluginHelper, Helper) {
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	        "use strict";
 	
 	        function initialize() {
@@ -34660,7 +35781,11 @@ webpackJsonp([23],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+<<<<<<< HEAD
 /* 225 */
+=======
+/* 231 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {
@@ -34716,6 +35841,7 @@ webpackJsonp([23],[
 
 /***/ }
 ]);
+<<<<<<< HEAD
 //# sourceMappingURL=livereport.chunk.js.map
 >>>>>>> 7932771... #67998 - Add blockUI for livereport
 <<<<<<< HEAD
@@ -34737,3 +35863,6 @@ t+=a.second()!=_||m?m?'<option value="'+_+'" disabled="disabled" class="disabled
 monthsShort:"янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек".split("_"),weekdays:"Якшанба_Душанба_Сешанба_Чоршанба_Пайшанба_Жума_Шанба".split("_"),weekdaysShort:"Якш_Душ_Сеш_Чор_Пай_Жум_Шан".split("_"),weekdaysMin:"Як_Ду_Се_Чо_Па_Жу_Ша".split("_"),longDateFormat:{LT:"HH:mm",LTS:"HH:mm:ss",L:"DD/MM/YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY HH:mm",LLLL:"D MMMM YYYY, dddd HH:mm"},calendar:{sameDay:"[Бугун соат] LT [да]",nextDay:"[Эртага] LT [да]",nextWeek:"dddd [куни соат] LT [да]",lastDay:"[Кеча соат] LT [да]",lastWeek:"[Утган] dddd [куни соат] LT [да]",sameElse:"L"},relativeTime:{future:"Якин %s ичида",past:"Бир неча %s олдин",s:"фурсат",m:"бир дакика",mm:"%d дакика",h:"бир соат",hh:"%d соат",d:"бир кун",dd:"%d кун",M:"бир ой",MM:"%d ой",y:"бир йил",yy:"%d йил"},week:{dow:1,doy:7}});return t})},function(e,t,a){!function(e,t){t(a(87))}(this,function(e){"use strict";var t=e.defineLocale("vi",{months:"tháng 1_tháng 2_tháng 3_tháng 4_tháng 5_tháng 6_tháng 7_tháng 8_tháng 9_tháng 10_tháng 11_tháng 12".split("_"),monthsShort:"Th01_Th02_Th03_Th04_Th05_Th06_Th07_Th08_Th09_Th10_Th11_Th12".split("_"),monthsParseExact:!0,weekdays:"chủ nhật_thứ hai_thứ ba_thứ tư_thứ năm_thứ sáu_thứ bảy".split("_"),weekdaysShort:"CN_T2_T3_T4_T5_T6_T7".split("_"),weekdaysMin:"CN_T2_T3_T4_T5_T6_T7".split("_"),weekdaysParseExact:!0,meridiemParse:/sa|ch/i,isPM:function(e){return/^ch$/i.test(e)},meridiem:function(e,t,a){return e<12?a?"sa":"SA":a?"ch":"CH"},longDateFormat:{LT:"HH:mm",LTS:"HH:mm:ss",L:"DD/MM/YYYY",LL:"D MMMM [năm] YYYY",LLL:"D MMMM [năm] YYYY HH:mm",LLLL:"dddd, D MMMM [năm] YYYY HH:mm",l:"DD/M/YYYY",ll:"D MMM YYYY",lll:"D MMM YYYY HH:mm",llll:"ddd, D MMM YYYY HH:mm"},calendar:{sameDay:"[Hôm nay lúc] LT",nextDay:"[Ngày mai lúc] LT",nextWeek:"dddd [tuần tới lúc] LT",lastDay:"[Hôm qua lúc] LT",lastWeek:"dddd [tuần rồi lúc] LT",sameElse:"L"},relativeTime:{future:"%s tới",past:"%s trước",s:"vài giây",m:"một phút",mm:"%d phút",h:"một giờ",hh:"%d giờ",d:"một ngày",dd:"%d ngày",M:"một tháng",MM:"%d tháng",y:"một năm",yy:"%d năm"},ordinalParse:/\d{1,2}/,ordinal:function(e){return e},week:{dow:1,doy:4}});return t})},function(e,t,a){!function(e,t){t(a(87))}(this,function(e){"use strict";var t=e.defineLocale("x-pseudo",{months:"J~áñúá~rý_F~ébrú~árý_~Márc~h_Áp~ríl_~Máý_~Júñé~_Júl~ý_Áú~gúst~_Sép~témb~ér_Ó~ctób~ér_Ñ~óvém~bér_~Décé~mbér".split("_"),monthsShort:"J~áñ_~Féb_~Már_~Ápr_~Máý_~Júñ_~Júl_~Áúg_~Sép_~Óct_~Ñóv_~Déc".split("_"),monthsParseExact:!0,weekdays:"S~úñdá~ý_Mó~ñdáý~_Túé~sdáý~_Wéd~ñésd~áý_T~húrs~dáý_~Fríd~áý_S~átúr~dáý".split("_"),weekdaysShort:"S~úñ_~Móñ_~Túé_~Wéd_~Thú_~Frí_~Sát".split("_"),weekdaysMin:"S~ú_Mó~_Tú_~Wé_T~h_Fr~_Sá".split("_"),weekdaysParseExact:!0,longDateFormat:{LT:"HH:mm",L:"DD/MM/YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY HH:mm",LLLL:"dddd, D MMMM YYYY HH:mm"},calendar:{sameDay:"[T~ódá~ý át] LT",nextDay:"[T~ómó~rró~w át] LT",nextWeek:"dddd [át] LT",lastDay:"[Ý~ést~érdá~ý át] LT",lastWeek:"[L~ást] dddd [át] LT",sameElse:"L"},relativeTime:{future:"í~ñ %s",past:"%s á~gó",s:"á ~féw ~sécó~ñds",m:"á ~míñ~úté",mm:"%d m~íñú~tés",h:"á~ñ hó~úr",hh:"%d h~óúrs",d:"á ~dáý",dd:"%d d~áýs",M:"á ~móñ~th",MM:"%d m~óñt~hs",y:"á ~ýéár",yy:"%d ý~éárs"},ordinalParse:/\d{1,2}(th|st|nd|rd)/,ordinal:function(e){var t=e%10,a=1===~~(e%100/10)?"th":1===t?"st":2===t?"nd":3===t?"rd":"th";return e+a},week:{dow:1,doy:4}});return t})},function(e,t,a){!function(e,t){t(a(87))}(this,function(e){"use strict";var t=e.defineLocale("zh-cn",{months:"一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"),monthsShort:"1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),weekdays:"星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"),weekdaysShort:"周日_周一_周二_周三_周四_周五_周六".split("_"),weekdaysMin:"日_一_二_三_四_五_六".split("_"),longDateFormat:{LT:"Ah点mm分",LTS:"Ah点m分s秒",L:"YYYY-MM-DD",LL:"YYYY年MMMD日",LLL:"YYYY年MMMD日Ah点mm分",LLLL:"YYYY年MMMD日ddddAh点mm分",l:"YYYY-MM-DD",ll:"YYYY年MMMD日",lll:"YYYY年MMMD日Ah点mm分",llll:"YYYY年MMMD日ddddAh点mm分"},meridiemParse:/凌晨|早上|上午|中午|下午|晚上/,meridiemHour:function(e,t){return 12===e&&(e=0),"凌晨"===t||"早上"===t||"上午"===t?e:"下午"===t||"晚上"===t?e+12:e>=11?e:e+12},meridiem:function(e,t,a){var n=100*e+t;return n<600?"凌晨":n<900?"早上":n<1130?"上午":n<1230?"中午":n<1800?"下午":"晚上"},calendar:{sameDay:function(){return 0===this.minutes()?"[今天]Ah[点整]":"[今天]LT"},nextDay:function(){return 0===this.minutes()?"[明天]Ah[点整]":"[明天]LT"},lastDay:function(){return 0===this.minutes()?"[昨天]Ah[点整]":"[昨天]LT"},nextWeek:function(){var t,a;return t=e().startOf("week"),a=this.diff(t,"days")>=7?"[下]":"[本]",0===this.minutes()?a+"dddAh点整":a+"dddAh点mm"},lastWeek:function(){var t,a;return t=e().startOf("week"),a=this.unix()<t.unix()?"[上]":"[本]",0===this.minutes()?a+"dddAh点整":a+"dddAh点mm"},sameElse:"LL"},ordinalParse:/\d{1,2}(日|月|周)/,ordinal:function(e,t){switch(t){case"d":case"D":case"DDD":return e+"日";case"M":return e+"月";case"w":case"W":return e+"周";default:return e}},relativeTime:{future:"%s内",past:"%s前",s:"几秒",m:"1 分钟",mm:"%d 分钟",h:"1 小时",hh:"%d 小时",d:"1 天",dd:"%d 天",M:"1 个月",MM:"%d 个月",y:"1 年",yy:"%d 年"},week:{dow:1,doy:4}});return t})},function(e,t,a){!function(e,t){t(a(87))}(this,function(e){"use strict";var t=e.defineLocale("zh-hk",{months:"一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"),monthsShort:"1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),weekdays:"星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"),weekdaysShort:"週日_週一_週二_週三_週四_週五_週六".split("_"),weekdaysMin:"日_一_二_三_四_五_六".split("_"),longDateFormat:{LT:"Ah點mm分",LTS:"Ah點m分s秒",L:"YYYY年MMMD日",LL:"YYYY年MMMD日",LLL:"YYYY年MMMD日Ah點mm分",LLLL:"YYYY年MMMD日ddddAh點mm分",l:"YYYY年MMMD日",ll:"YYYY年MMMD日",lll:"YYYY年MMMD日Ah點mm分",llll:"YYYY年MMMD日ddddAh點mm分"},meridiemParse:/凌晨|早上|上午|中午|下午|晚上/,meridiemHour:function(e,t){return 12===e&&(e=0),"凌晨"===t||"早上"===t||"上午"===t?e:"中午"===t?e>=11?e:e+12:"下午"===t||"晚上"===t?e+12:void 0},meridiem:function(e,t,a){var n=100*e+t;return n<600?"凌晨":n<900?"早上":n<1130?"上午":n<1230?"中午":n<1800?"下午":"晚上"},calendar:{sameDay:"[今天]LT",nextDay:"[明天]LT",nextWeek:"[下]ddddLT",lastDay:"[昨天]LT",lastWeek:"[上]ddddLT",sameElse:"L"},ordinalParse:/\d{1,2}(日|月|週)/,ordinal:function(e,t){switch(t){case"d":case"D":case"DDD":return e+"日";case"M":return e+"月";case"w":case"W":return e+"週";default:return e}},relativeTime:{future:"%s內",past:"%s前",s:"幾秒",m:"1 分鐘",mm:"%d 分鐘",h:"1 小時",hh:"%d 小時",d:"1 天",dd:"%d 天",M:"1 個月",MM:"%d 個月",y:"1 年",yy:"%d 年"}});return t})},function(e,t,a){!function(e,t){t(a(87))}(this,function(e){"use strict";var t=e.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"),monthsShort:"1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),weekdays:"星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"),weekdaysShort:"週日_週一_週二_週三_週四_週五_週六".split("_"),weekdaysMin:"日_一_二_三_四_五_六".split("_"),longDateFormat:{LT:"Ah點mm分",LTS:"Ah點m分s秒",L:"YYYY年MMMD日",LL:"YYYY年MMMD日",LLL:"YYYY年MMMD日Ah點mm分",LLLL:"YYYY年MMMD日ddddAh點mm分",l:"YYYY年MMMD日",ll:"YYYY年MMMD日",lll:"YYYY年MMMD日Ah點mm分",llll:"YYYY年MMMD日ddddAh點mm分"},meridiemParse:/凌晨|早上|上午|中午|下午|晚上/,meridiemHour:function(e,t){return 12===e&&(e=0),"凌晨"===t||"早上"===t||"上午"===t?e:"中午"===t?e>=11?e:e+12:"下午"===t||"晚上"===t?e+12:void 0},meridiem:function(e,t,a){var n=100*e+t;return n<600?"凌晨":n<900?"早上":n<1130?"上午":n<1230?"中午":n<1800?"下午":"晚上"},calendar:{sameDay:"[今天]LT",nextDay:"[明天]LT",nextWeek:"[下]ddddLT",lastDay:"[昨天]LT",lastWeek:"[上]ddddLT",sameElse:"L"},ordinalParse:/\d{1,2}(日|月|週)/,ordinal:function(e,t){switch(t){case"d":case"D":case"DDD":return e+"日";case"M":return e+"月";case"w":case"W":return e+"週";default:return e}},relativeTime:{future:"%s內",past:"%s前",s:"幾秒",m:"1 分鐘",mm:"%d 分鐘",h:"1 小時",hh:"%d 小時",d:"1 天",dd:"%d 天",M:"1 個月",MM:"%d 個月",y:"1 年",yy:"%d 年"}});return t})},,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,function(e,t,a){var n,s;n=[a(1),a(7),a(87),a(226),a(227)],s=function(e,t,a){"use strict";function n(){function n(e,t){i.val(e.format("MM/DD/YYYY")),r.val(t.format("MM/DD/YYYY")),s.val(e.format("MM/DD/YYYY")+" - "+t.format("MM/DD/YYYY"))}var s=e("#DateRange"),i=e("#FromDate"),r=e("#ToDate"),o=a(i.attr("data-original-from"),"MM/DD/YYYY"),d=a(r.attr("data-original-to"),"MM/DD/YYYY"),_=a(s.attr("data-today"),"MM/DD/YYYY"),l={};l[t.getSingleResource("Today")]=[_,_],l[t.getSingleResource("Yesterday")]=[_.clone().subtract(1,"days"),_.clone().subtract(1,"days")],l[t.getSingleResource("Currentweek")]=[_.clone().startOf("week"),_],l[t.getSingleResource("Lastweek")]=[_.clone().subtract(1,"week").startOf("week"),_.clone().subtract(1,"week").endOf("week")],l[t.getSingleResource("Currentmonth")]=[_.clone().startOf("month"),_],l[t.getSingleResource("Lastmonth")]=[_.clone().subtract(1,"month").startOf("month"),_.clone().subtract(1,"month").endOf("month")],l[t.getSingleResource("Sincelastmonth")]=[_.clone().subtract(1,"month").startOf("month"),_];var u=[t.getSingleResource("Su"),t.getSingleResource("Mo"),t.getSingleResource("Tu"),t.getSingleResource("We"),t.getSingleResource("Th"),t.getSingleResource("Fr"),t.getSingleResource("Sa")],m=[t.getSingleResource("Jan"),t.getSingleResource("Feb"),t.getSingleResource("Mar"),t.getSingleResource("Apr"),t.getSingleResource("May"),t.getSingleResource("Jun"),t.getSingleResource("Jul"),t.getSingleResource("Aug"),t.getSingleResource("Sep"),t.getSingleResource("Oct"),t.getSingleResource("Nov"),t.getSingleResource("Dec")],h={format:"MM/DD/YYYY",applyLabel:t.getSingleResource("OK"),cancelLabel:t.getSingleResource("Cancel"),customRangeLabel:t.getSingleResource("DateRange"),daysOfWeek:u,monthNames:m};s.daterangepicker({startDate:o,endDate:d,minDate:a(s.attr("data-mindate"),"MM/DD/YYYY"),maxDate:a(s.attr("data-maxdate"),"MM/DD/YYYY"),ranges:l,locale:h,showDropdowns:!0,linkedCalendars:!1,alwaysShowCalendars:!0},n),s.on("apply.daterangepicker",function(e,t){n(t.startDate,t.endDate)}),e(".date-range").on("click",".icon-calendar",function(){s.data("daterangepicker").toggle()}),n(o,d)}function s(){var t=new Date(e("#FromDate").val()),a=new Date(e("#ToDate").val());e("#month-picker").monPickr({minDate:i,showDateRange:!0,fromDayId:"fDay",toDayId:"tDay",format:"MM/dd/yyyy",month:t,fromDay:t.getDate(),toDay:a.getDate(),afterChangeMonth:function(){e("#FromDate").val(e("#month-picker").monPickr("getFromDate","MM/dd/yyyy")),e("#ToDate").val(e("#month-picker").monPickr("getToDate","MM/dd/yyyy"))},afterChangeDay:function(){e("#FromDate").val(e("#month-picker").monPickr("getFromDate","MM/dd/yyyy")),e("#ToDate").val(e("#month-picker").monPickr("getToDate","MM/dd/yyyy"))}})}var i=new Date(e("#HistoryDate").val());return{initDateRangePicker:n,initMonthPicker:s}}.apply(t,n),!(void 0!==s&&(e.exports=s))},function(e,t,a){var n,s;!function(i,r){n=[a(87),a(1)],s=function(e,t){return i.daterangepicker=r(e,t)}.apply(t,n),!(void 0!==s&&(e.exports=s))}(this,function(e,t){var a=function(a,n,s){if(this.parentEl="body",this.element=t(a),this.startDate=e().startOf("day"),this.endDate=e().endOf("day"),this.minDate=!1,this.maxDate=!1,this.dateLimit=!1,this.autoApply=!1,this.singleDatePicker=!1,this.showDropdowns=!1,this.showWeekNumbers=!1,this.showISOWeekNumbers=!1,this.showCustomRangeLabel=!0,this.timePicker=!1,this.timePicker24Hour=!1,this.timePickerIncrement=1,this.timePickerSeconds=!1,this.linkedCalendars=!0,this.autoUpdateInput=!0,this.alwaysShowCalendars=!1,this.ranges={},this.opens="right",this.element.hasClass("pull-right")&&(this.opens="left"),this.drops="down",this.element.hasClass("dropup")&&(this.drops="up"),this.buttonClasses="btn btn-sm",this.applyClass="btn-success",this.cancelClass="btn-default",this.locale={direction:"ltr",format:"MM/DD/YYYY",separator:" - ",applyLabel:"Apply",cancelLabel:"Cancel",weekLabel:"W",customRangeLabel:"Custom Range",daysOfWeek:e.weekdaysMin(),monthNames:e.monthsShort(),firstDay:e.localeData().firstDayOfWeek()},this.callback=function(){},this.isShowing=!1,this.leftCalendar={},this.rightCalendar={},"object"==typeof n&&null!==n||(n={}),n=t.extend(this.element.data(),n),"string"==typeof n.template||n.template instanceof t||(n.template='<div class="daterangepicker dropdown-menu"><div class="calendar left"><div class="daterangepicker_input"><input class="input-mini form-control" type="text" name="daterangepicker_start" value="" /><i class="fa fa-calendar glyphicon glyphicon-calendar"></i><div class="calendar-time"><div></div><i class="fa fa-clock-o glyphicon glyphicon-time"></i></div></div><div class="calendar-table"></div></div><div class="calendar right"><div class="daterangepicker_input"><input class="input-mini form-control" type="text" name="daterangepicker_end" value="" /><i class="fa fa-calendar glyphicon glyphicon-calendar"></i><div class="calendar-time"><div></div><i class="fa fa-clock-o glyphicon glyphicon-time"></i></div></div><div class="calendar-table"></div></div><div class="ranges"><div class="range_inputs"><button class="applyBtn" disabled="disabled" type="button"></button> <button class="cancelBtn" type="button"></button></div></div></div>'),this.parentEl=t(n.parentEl&&t(n.parentEl).length?n.parentEl:this.parentEl),this.container=t(n.template).appendTo(this.parentEl),"object"==typeof n.locale&&("string"==typeof n.locale.direction&&(this.locale.direction=n.locale.direction),"string"==typeof n.locale.format&&(this.locale.format=n.locale.format),"string"==typeof n.locale.separator&&(this.locale.separator=n.locale.separator),"object"==typeof n.locale.daysOfWeek&&(this.locale.daysOfWeek=n.locale.daysOfWeek.slice()),"object"==typeof n.locale.monthNames&&(this.locale.monthNames=n.locale.monthNames.slice()),"number"==typeof n.locale.firstDay&&(this.locale.firstDay=n.locale.firstDay),"string"==typeof n.locale.applyLabel&&(this.locale.applyLabel=n.locale.applyLabel),"string"==typeof n.locale.cancelLabel&&(this.locale.cancelLabel=n.locale.cancelLabel),"string"==typeof n.locale.weekLabel&&(this.locale.weekLabel=n.locale.weekLabel),"string"==typeof n.locale.customRangeLabel&&(this.locale.customRangeLabel=n.locale.customRangeLabel)),this.container.addClass(this.locale.direction),"string"==typeof n.startDate&&(this.startDate=e(n.startDate,this.locale.format)),"string"==typeof n.endDate&&(this.endDate=e(n.endDate,this.locale.format)),"string"==typeof n.minDate&&(this.minDate=e(n.minDate,this.locale.format)),"string"==typeof n.maxDate&&(this.maxDate=e(n.maxDate,this.locale.format)),"object"==typeof n.startDate&&(this.startDate=e(n.startDate)),"object"==typeof n.endDate&&(this.endDate=e(n.endDate)),"object"==typeof n.minDate&&(this.minDate=e(n.minDate)),"object"==typeof n.maxDate&&(this.maxDate=e(n.maxDate)),this.minDate&&this.startDate.isBefore(this.minDate)&&(this.startDate=this.minDate.clone()),this.maxDate&&this.endDate.isAfter(this.maxDate)&&(this.endDate=this.maxDate.clone()),"string"==typeof n.applyClass&&(this.applyClass=n.applyClass),"string"==typeof n.cancelClass&&(this.cancelClass=n.cancelClass),"object"==typeof n.dateLimit&&(this.dateLimit=n.dateLimit),"string"==typeof n.opens&&(this.opens=n.opens),"string"==typeof n.drops&&(this.drops=n.drops),"boolean"==typeof n.showWeekNumbers&&(this.showWeekNumbers=n.showWeekNumbers),"boolean"==typeof n.showISOWeekNumbers&&(this.showISOWeekNumbers=n.showISOWeekNumbers),"string"==typeof n.buttonClasses&&(this.buttonClasses=n.buttonClasses),"object"==typeof n.buttonClasses&&(this.buttonClasses=n.buttonClasses.join(" ")),"boolean"==typeof n.showDropdowns&&(this.showDropdowns=n.showDropdowns),"boolean"==typeof n.showCustomRangeLabel&&(this.showCustomRangeLabel=n.showCustomRangeLabel),"boolean"==typeof n.singleDatePicker&&(this.singleDatePicker=n.singleDatePicker,this.singleDatePicker&&(this.endDate=this.startDate.clone())),"boolean"==typeof n.timePicker&&(this.timePicker=n.timePicker),"boolean"==typeof n.timePickerSeconds&&(this.timePickerSeconds=n.timePickerSeconds),"number"==typeof n.timePickerIncrement&&(this.timePickerIncrement=n.timePickerIncrement),"boolean"==typeof n.timePicker24Hour&&(this.timePicker24Hour=n.timePicker24Hour),"boolean"==typeof n.autoApply&&(this.autoApply=n.autoApply),"boolean"==typeof n.autoUpdateInput&&(this.autoUpdateInput=n.autoUpdateInput),"boolean"==typeof n.linkedCalendars&&(this.linkedCalendars=n.linkedCalendars),"function"==typeof n.isInvalidDate&&(this.isInvalidDate=n.isInvalidDate),"function"==typeof n.isCustomDate&&(this.isCustomDate=n.isCustomDate),"boolean"==typeof n.alwaysShowCalendars&&(this.alwaysShowCalendars=n.alwaysShowCalendars),0!=this.locale.firstDay)for(var i=this.locale.firstDay;i>0;)this.locale.daysOfWeek.push(this.locale.daysOfWeek.shift()),i--;var r,o,d;if("undefined"==typeof n.startDate&&"undefined"==typeof n.endDate&&t(this.element).is("input[type=text]")){var _=t(this.element).val(),l=_.split(this.locale.separator);r=o=null,2==l.length?(r=e(l[0],this.locale.format),o=e(l[1],this.locale.format)):this.singleDatePicker&&""!==_&&(r=e(_,this.locale.format),o=e(_,this.locale.format)),null!==r&&null!==o&&(this.setStartDate(r),this.setEndDate(o))}if("object"==typeof n.ranges){for(d in n.ranges){r="string"==typeof n.ranges[d][0]?e(n.ranges[d][0],this.locale.format):e(n.ranges[d][0]),o="string"==typeof n.ranges[d][1]?e(n.ranges[d][1],this.locale.format):e(n.ranges[d][1]),this.minDate&&r.isBefore(this.minDate)&&(r=this.minDate.clone());var u=this.maxDate;if(this.dateLimit&&u&&r.clone().add(this.dateLimit).isAfter(u)&&(u=r.clone().add(this.dateLimit)),u&&o.isAfter(u)&&(o=u.clone()),!(this.minDate&&o.isBefore(this.minDate,this.timepicker?"minute":"day")||u&&r.isAfter(u,this.timepicker?"minute":"day"))){var m=document.createElement("textarea");m.innerHTML=d;var h=m.value;this.ranges[h]=[r,o]}}var c="<ul>";for(d in this.ranges)c+='<li data-range-key="'+d+'">'+d+"</li>";this.showCustomRangeLabel&&(c+='<li data-range-key="'+this.locale.customRangeLabel+'">'+this.locale.customRangeLabel+"</li>"),c+="</ul>",this.container.find(".ranges").prepend(c)}"function"==typeof s&&(this.callback=s),this.timePicker||(this.startDate=this.startDate.startOf("day"),this.endDate=this.endDate.endOf("day"),this.container.find(".calendar-time").hide()),this.timePicker&&this.autoApply&&(this.autoApply=!1),this.autoApply&&"object"!=typeof n.ranges?this.container.find(".ranges").hide():this.autoApply&&this.container.find(".applyBtn, .cancelBtn").addClass("hide"),this.singleDatePicker&&(this.container.addClass("single"),this.container.find(".calendar.left").addClass("single"),this.container.find(".calendar.left").show(),this.container.find(".calendar.right").hide(),this.container.find(".daterangepicker_input input, .daterangepicker_input > i").hide(),this.timePicker?this.container.find(".ranges ul").hide():this.container.find(".ranges").hide()),("undefined"==typeof n.ranges&&!this.singleDatePicker||this.alwaysShowCalendars)&&this.container.addClass("show-calendar"),this.container.addClass("opens"+this.opens),"undefined"!=typeof n.ranges&&"right"==this.opens&&this.container.find(".ranges").prependTo(this.container.find(".calendar.left").parent()),this.container.find(".applyBtn, .cancelBtn").addClass(this.buttonClasses),this.applyClass.length&&this.container.find(".applyBtn").addClass(this.applyClass),this.cancelClass.length&&this.container.find(".cancelBtn").addClass(this.cancelClass),this.container.find(".applyBtn").html(this.locale.applyLabel),this.container.find(".cancelBtn").html(this.locale.cancelLabel),this.container.find(".calendar").on("click.daterangepicker",".prev",t.proxy(this.clickPrev,this)).on("click.daterangepicker",".next",t.proxy(this.clickNext,this)).on("mousedown.daterangepicker","td.available",t.proxy(this.clickDate,this)).on("mouseenter.daterangepicker","td.available",t.proxy(this.hoverDate,this)).on("mouseleave.daterangepicker","td.available",t.proxy(this.updateFormInputs,this)).on("change.daterangepicker","select.yearselect",t.proxy(this.monthOrYearChanged,this)).on("change.daterangepicker","select.monthselect",t.proxy(this.monthOrYearChanged,this)).on("change.daterangepicker","select.hourselect,select.minuteselect,select.secondselect,select.ampmselect",t.proxy(this.timeChanged,this)).on("click.daterangepicker",".daterangepicker_input input",t.proxy(this.showCalendars,this)).on("focus.daterangepicker",".daterangepicker_input input",t.proxy(this.formInputsFocused,this)).on("blur.daterangepicker",".daterangepicker_input input",t.proxy(this.formInputsBlurred,this)).on("change.daterangepicker",".daterangepicker_input input",t.proxy(this.formInputsChanged,this)),this.container.find(".ranges").on("click.daterangepicker","button.applyBtn",t.proxy(this.clickApply,this)).on("click.daterangepicker","button.cancelBtn",t.proxy(this.clickCancel,this)).on("click.daterangepicker","li",t.proxy(this.clickRange,this)).on("mouseenter.daterangepicker","li",t.proxy(this.hoverRange,this)).on("mouseleave.daterangepicker","li",t.proxy(this.updateFormInputs,this)),this.element.is("input")||this.element.is("button")?this.element.on({"click.daterangepicker":t.proxy(this.show,this),"focus.daterangepicker":t.proxy(this.show,this),"keyup.daterangepicker":t.proxy(this.elementChanged,this),"keydown.daterangepicker":t.proxy(this.keydown,this)}):this.element.on("click.daterangepicker",t.proxy(this.toggle,this)),this.element.is("input")&&!this.singleDatePicker&&this.autoUpdateInput?(this.element.val(this.startDate.format(this.locale.format)+this.locale.separator+this.endDate.format(this.locale.format)),this.element.trigger("change")):this.element.is("input")&&this.autoUpdateInput&&(this.element.val(this.startDate.format(this.locale.format)),this.element.trigger("change"))};return a.prototype={constructor:a,setStartDate:function(t){"string"==typeof t&&(this.startDate=e(t,this.locale.format)),"object"==typeof t&&(this.startDate=e(t)),this.timePicker||(this.startDate=this.startDate.startOf("day")),this.timePicker&&this.timePickerIncrement&&this.startDate.minute(Math.round(this.startDate.minute()/this.timePickerIncrement)*this.timePickerIncrement),this.minDate&&this.startDate.isBefore(this.minDate)&&(this.startDate=this.minDate,this.timePicker&&this.timePickerIncrement&&this.startDate.minute(Math.round(this.startDate.minute()/this.timePickerIncrement)*this.timePickerIncrement)),this.maxDate&&this.startDate.isAfter(this.maxDate)&&(this.startDate=this.maxDate,this.timePicker&&this.timePickerIncrement&&this.startDate.minute(Math.floor(this.startDate.minute()/this.timePickerIncrement)*this.timePickerIncrement)),this.isShowing||this.updateElement(),this.updateMonthsInView()},setEndDate:function(t){"string"==typeof t&&(this.endDate=e(t,this.locale.format)),"object"==typeof t&&(this.endDate=e(t)),this.timePicker||(this.endDate=this.endDate.endOf("day")),this.timePicker&&this.timePickerIncrement&&this.endDate.minute(Math.round(this.endDate.minute()/this.timePickerIncrement)*this.timePickerIncrement),this.endDate.isBefore(this.startDate)&&(this.endDate=this.startDate.clone()),this.maxDate&&this.endDate.isAfter(this.maxDate)&&(this.endDate=this.maxDate),this.dateLimit&&this.startDate.clone().add(this.dateLimit).isBefore(this.endDate)&&(this.endDate=this.startDate.clone().add(this.dateLimit)),this.previousRightTime=this.endDate.clone(),this.isShowing||this.updateElement(),this.updateMonthsInView()},isInvalidDate:function(){return!1},isCustomDate:function(){return!1},updateView:function(){this.timePicker&&(this.renderTimePicker("left"),this.renderTimePicker("right"),this.endDate?this.container.find(".right .calendar-time select").removeAttr("disabled").removeClass("disabled"):this.container.find(".right .calendar-time select").attr("disabled","disabled").addClass("disabled")),this.endDate?(this.container.find('input[name="daterangepicker_end"]').removeClass("active"),this.container.find('input[name="daterangepicker_start"]').addClass("active")):(this.container.find('input[name="daterangepicker_end"]').addClass("active"),this.container.find('input[name="daterangepicker_start"]').removeClass("active")),this.updateMonthsInView(),this.updateCalendars(),this.updateFormInputs()},updateMonthsInView:function(){if(this.endDate){if(!this.singleDatePicker&&this.leftCalendar.month&&this.rightCalendar.month&&(this.startDate.format("YYYY-MM")==this.leftCalendar.month.format("YYYY-MM")||this.startDate.format("YYYY-MM")==this.rightCalendar.month.format("YYYY-MM"))&&(this.endDate.format("YYYY-MM")==this.leftCalendar.month.format("YYYY-MM")||this.endDate.format("YYYY-MM")==this.rightCalendar.month.format("YYYY-MM")))return;this.leftCalendar.month=this.startDate.clone().date(2),this.linkedCalendars||this.endDate.month()==this.startDate.month()&&this.endDate.year()==this.startDate.year()?this.rightCalendar.month=this.startDate.clone().date(2).add(1,"month"):this.rightCalendar.month=this.endDate.clone().date(2)}else this.leftCalendar.month.format("YYYY-MM")!=this.startDate.format("YYYY-MM")&&this.rightCalendar.month.format("YYYY-MM")!=this.startDate.format("YYYY-MM")&&(this.leftCalendar.month=this.startDate.clone().date(2),this.rightCalendar.month=this.startDate.clone().date(2).add(1,"month"));this.maxDate&&this.linkedCalendars&&!this.singleDatePicker&&this.rightCalendar.month>this.maxDate&&(this.rightCalendar.month=this.maxDate.clone().date(2),this.leftCalendar.month=this.maxDate.clone().date(2).subtract(1,"month"))},updateCalendars:function(){if(this.timePicker){var e,t,a;if(this.endDate){if(e=parseInt(this.container.find(".left .hourselect").val(),10),t=parseInt(this.container.find(".left .minuteselect").val(),10),a=this.timePickerSeconds?parseInt(this.container.find(".left .secondselect").val(),10):0,!this.timePicker24Hour){var n=this.container.find(".left .ampmselect").val();"PM"===n&&e<12&&(e+=12),"AM"===n&&12===e&&(e=0)}}else if(e=parseInt(this.container.find(".right .hourselect").val(),10),t=parseInt(this.container.find(".right .minuteselect").val(),10),a=this.timePickerSeconds?parseInt(this.container.find(".right .secondselect").val(),10):0,!this.timePicker24Hour){var n=this.container.find(".right .ampmselect").val();"PM"===n&&e<12&&(e+=12),"AM"===n&&12===e&&(e=0)}this.leftCalendar.month.hour(e).minute(t).second(a),this.rightCalendar.month.hour(e).minute(t).second(a)}this.renderCalendar("left"),this.renderCalendar("right"),this.container.find(".ranges li").removeClass("active"),null!=this.endDate&&this.calculateChosenLabel()},renderCalendar:function(a){var n="left"==a?this.leftCalendar:this.rightCalendar,s=n.month.month(),i=n.month.year(),r=n.month.hour(),o=n.month.minute(),d=n.month.second(),_=e([i,s]).daysInMonth(),l=e([i,s,1]),u=e([i,s,_]),m=e(l).subtract(1,"month").month(),h=e(l).subtract(1,"month").year(),c=e([h,m]).daysInMonth(),M=l.day(),n=[];n.firstDay=l,n.lastDay=u;for(var f=0;f<6;f++)n[f]=[];var y=c-M+this.locale.firstDay+1;y>c&&(y-=7),M==this.locale.firstDay&&(y=c-6);for(var p,L,Y=e([h,m,y,12,o,d]),f=0,p=0,L=0;f<42;f++,p++,Y=e(Y).add(24,"hour"))f>0&&p%7===0&&(p=0,L++),n[L][p]=Y.clone().hour(r).minute(o).second(d),Y.hour(12),this.minDate&&n[L][p].format("YYYY-MM-DD")==this.minDate.format("YYYY-MM-DD")&&n[L][p].isBefore(this.minDate)&&"left"==a&&(n[L][p]=this.minDate.clone()),this.maxDate&&n[L][p].format("YYYY-MM-DD")==this.maxDate.format("YYYY-MM-DD")&&n[L][p].isAfter(this.maxDate)&&"right"==a&&(n[L][p]=this.maxDate.clone());"left"==a?this.leftCalendar.calendar=n:this.rightCalendar.calendar=n;var D="left"==a?this.minDate:this.startDate,k=this.maxDate,g=("left"==a?this.startDate:this.endDate,"ltr"==this.locale.direction?{left:"chevron-left",right:"chevron-right"}:{left:"chevron-right",right:"chevron-left"}),v='<table class="table-condensed">';v+="<thead>",v+="<tr>",(this.showWeekNumbers||this.showISOWeekNumbers)&&(v+="<th></th>"),v+=D&&!D.isBefore(n.firstDay)||this.linkedCalendars&&"left"!=a?"<th></th>":'<th class="prev available"><i class="fa fa-'+g.left+" glyphicon glyphicon-"+g.left+'"></i></th>';var w=this.locale.monthNames[n[1][1].month()]+n[1][1].format(" YYYY");if(this.showDropdowns){for(var T=n[1][1].month(),b=n[1][1].year(),S=k&&k.year()||b+5,H=D&&D.year()||b-50,j=b==H,x=b==S,P='<select class="monthselect">',W=0;W<12;W++)P+=(!j||W>=D.month())&&(!x||W<=k.month())?"<option value='"+W+"'"+(W===T?" selected='selected'":"")+">"+this.locale.monthNames[W]+"</option>":"<option value='"+W+"'"+(W===T?" selected='selected'":"")+" disabled='disabled'>"+this.locale.monthNames[W]+"</option>";P+="</select>";for(var C='<select class="yearselect">',F=H;F<=S;F++)C+='<option value="'+F+'"'+(F===b?' selected="selected"':"")+">"+F+"</option>";C+="</select>",w=P+C}if(v+='<th colspan="5" class="month">'+w+"</th>",v+=k&&!k.isAfter(n.lastDay)||this.linkedCalendars&&"right"!=a&&!this.singleDatePicker?"<th></th>":'<th class="next available"><i class="fa fa-'+g.right+" glyphicon glyphicon-"+g.right+'"></i></th>',v+="</tr>",v+="<tr>",(this.showWeekNumbers||this.showISOWeekNumbers)&&(v+='<th class="week">'+this.locale.weekLabel+"</th>"),t.each(this.locale.daysOfWeek,function(e,t){v+="<th>"+t+"</th>"}),v+="</tr>",v+="</thead>",v+="<tbody>",null==this.endDate&&this.dateLimit){var A=this.startDate.clone().add(this.dateLimit).endOf("day");k&&!A.isBefore(k)||(k=A)}for(var L=0;L<6;L++){v+="<tr>",this.showWeekNumbers?v+='<td class="week">'+n[L][0].week()+"</td>":this.showISOWeekNumbers&&(v+='<td class="week">'+n[L][0].isoWeek()+"</td>");for(var p=0;p<7;p++){var E=[];n[L][p].isSame(new Date,"day")&&E.push("today"),n[L][p].isoWeekday()>5&&E.push("weekend"),n[L][p].month()!=n[1][1].month()&&E.push("off"),this.minDate&&n[L][p].isBefore(this.minDate,"day")&&E.push("off","disabled"),k&&n[L][p].isAfter(k,"day")&&E.push("off","disabled"),this.isInvalidDate(n[L][p])&&E.push("off","disabled"),n[L][p].format("YYYY-MM-DD")==this.startDate.format("YYYY-MM-DD")&&E.push("active","start-date"),null!=this.endDate&&n[L][p].format("YYYY-MM-DD")==this.endDate.format("YYYY-MM-DD")&&E.push("active","end-date"),null!=this.endDate&&n[L][p]>this.startDate&&n[L][p]<this.endDate&&E.push("in-range");var O=this.isCustomDate(n[L][p]);O!==!1&&("string"==typeof O?E.push(O):Array.prototype.push.apply(E,O));for(var z="",I=!1,f=0;f<E.length;f++)z+=E[f]+" ","disabled"==E[f]&&(I=!0);I||(z+="available"),v+='<td class="'+z.replace(/^\s+|\s+$/g,"")+'" data-title="r'+L+"c"+p+'">'+n[L][p].date()+"</td>"}v+="</tr>"}v+="</tbody>",v+="</table>",this.container.find(".calendar."+a+" .calendar-table").html(v)},renderTimePicker:function(e){if("right"!=e||this.endDate){var t,a,n,s=this.maxDate;if(!this.dateLimit||this.maxDate&&!this.startDate.clone().add(this.dateLimit).isAfter(this.maxDate)||(s=this.startDate.clone().add(this.dateLimit)),"left"==e)a=this.startDate.clone(),n=this.minDate;else if("right"==e){a=this.endDate.clone(),n=this.startDate;var i=this.container.find(".calendar.right .calendar-time div");if(!this.endDate&&""!=i.html()&&(a.hour(i.find(".hourselect option:selected").val()||a.hour()),a.minute(i.find(".minuteselect option:selected").val()||a.minute()),a.second(i.find(".secondselect option:selected").val()||a.second()),!this.timePicker24Hour)){var r=i.find(".ampmselect option:selected").val();"PM"===r&&a.hour()<12&&a.hour(a.hour()+12),"AM"===r&&12===a.hour()&&a.hour(0)}a.isBefore(this.startDate)&&(a=this.startDate.clone()),s&&a.isAfter(s)&&(a=s.clone())}t='<select class="hourselect">';for(var o=this.timePicker24Hour?0:1,d=this.timePicker24Hour?23:12,_=o;_<=d;_++){var l=_;this.timePicker24Hour||(l=a.hour()>=12?12==_?12:_+12:12==_?0:_);var u=a.clone().hour(l),m=!1;n&&u.minute(59).isBefore(n)&&(m=!0),s&&u.minute(0).isAfter(s)&&(m=!0),t+=l!=a.hour()||m?m?'<option value="'+_+'" disabled="disabled" class="disabled">'+_+"</option>":'<option value="'+_+'">'+_+"</option>":'<option value="'+_+'" selected="selected">'+_+"</option>"}t+="</select> ",t+=': <select class="minuteselect">';for(var _=0;_<60;_+=this.timePickerIncrement){var h=_<10?"0"+_:_,u=a.clone().minute(_),m=!1;n&&u.second(59).isBefore(n)&&(m=!0),s&&u.second(0).isAfter(s)&&(m=!0),t+=a.minute()!=_||m?m?'<option value="'+_+'" disabled="disabled" class="disabled">'+h+"</option>":'<option value="'+_+'">'+h+"</option>":'<option value="'+_+'" selected="selected">'+h+"</option>"}if(t+="</select> ",this.timePickerSeconds){t+=': <select class="secondselect">';for(var _=0;_<60;_++){var h=_<10?"0"+_:_,u=a.clone().second(_),m=!1;n&&u.isBefore(n)&&(m=!0),s&&u.isAfter(s)&&(m=!0),
 t+=a.second()!=_||m?m?'<option value="'+_+'" disabled="disabled" class="disabled">'+h+"</option>":'<option value="'+_+'">'+h+"</option>":'<option value="'+_+'" selected="selected">'+h+"</option>"}t+="</select> "}if(!this.timePicker24Hour){t+='<select class="ampmselect">';var c="",M="";n&&a.clone().hour(12).minute(0).second(0).isBefore(n)&&(c=' disabled="disabled" class="disabled"'),s&&a.clone().hour(0).minute(0).second(0).isAfter(s)&&(M=' disabled="disabled" class="disabled"'),t+=a.hour()>=12?'<option value="AM"'+c+'>AM</option><option value="PM" selected="selected"'+M+">PM</option>":'<option value="AM" selected="selected"'+c+'>AM</option><option value="PM"'+M+">PM</option>",t+="</select>"}this.container.find(".calendar."+e+" .calendar-time div").html(t)}},updateFormInputs:function(){this.container.find("input[name=daterangepicker_start]").is(":focus")||this.container.find("input[name=daterangepicker_end]").is(":focus")||(this.container.find("input[name=daterangepicker_start]").val(this.startDate.format(this.locale.format)),this.endDate&&this.container.find("input[name=daterangepicker_end]").val(this.endDate.format(this.locale.format)),this.singleDatePicker||this.endDate&&(this.startDate.isBefore(this.endDate)||this.startDate.isSame(this.endDate))?this.container.find("button.applyBtn").removeAttr("disabled"):this.container.find("button.applyBtn").attr("disabled","disabled"))},move:function(){var e,a={top:0,left:0},n=t(window).width();this.parentEl.is("body")||(a={top:this.parentEl.offset().top-this.parentEl.scrollTop(),left:this.parentEl.offset().left-this.parentEl.scrollLeft()},n=this.parentEl[0].clientWidth+this.parentEl.offset().left),e="up"==this.drops?this.element.offset().top-this.container.outerHeight()-a.top:this.element.offset().top+this.element.outerHeight()-a.top,this.container["up"==this.drops?"addClass":"removeClass"]("dropup"),"left"==this.opens?(this.container.css({top:e,right:n-this.element.offset().left-this.element.outerWidth(),left:"auto"}),this.container.offset().left<0&&this.container.css({right:"auto",left:9})):"center"==this.opens?(this.container.css({top:e,left:this.element.offset().left-a.left+this.element.outerWidth()/2-this.container.outerWidth()/2,right:"auto"}),this.container.offset().left<0&&this.container.css({right:"auto",left:9})):(this.container.css({top:e,left:this.element.offset().left-a.left,right:"auto"}),this.container.offset().left+this.container.outerWidth()>t(window).width()&&this.container.css({left:"auto",right:0}))},show:function(e){this.isShowing||(this._outsideClickProxy=t.proxy(function(e){this.outsideClick(e)},this),t(document).on("mousedown.daterangepicker",this._outsideClickProxy).on("touchend.daterangepicker",this._outsideClickProxy).on("click.daterangepicker","[data-toggle=dropdown]",this._outsideClickProxy).on("focusin.daterangepicker",this._outsideClickProxy),t(window).on("resize.daterangepicker",t.proxy(function(e){this.move(e)},this)),this.oldStartDate=this.startDate.clone(),this.oldEndDate=this.endDate.clone(),this.previousRightTime=this.endDate.clone(),this.updateView(),this.container.show(),this.move(),this.element.trigger("show.daterangepicker",this),this.isShowing=!0)},hide:function(e){this.isShowing&&(this.endDate||(this.startDate=this.oldStartDate.clone(),this.endDate=this.oldEndDate.clone()),this.startDate.isSame(this.oldStartDate)&&this.endDate.isSame(this.oldEndDate)||this.callback(this.startDate,this.endDate,this.chosenLabel),this.updateElement(),t(document).off(".daterangepicker"),t(window).off(".daterangepicker"),this.container.hide(),this.element.trigger("hide.daterangepicker",this),this.isShowing=!1)},toggle:function(e){this.isShowing?this.hide():this.show()},outsideClick:function(e){var a=t(e.target);"focusin"==e.type||a.closest(this.element).length||a.closest(this.container).length||a.closest(".calendar-table").length||(this.hide(),this.element.trigger("outsideClick.daterangepicker",this))},showCalendars:function(){this.container.addClass("show-calendar"),this.move(),this.element.trigger("showCalendar.daterangepicker",this)},hideCalendars:function(){this.container.removeClass("show-calendar"),this.element.trigger("hideCalendar.daterangepicker",this)},hoverRange:function(e){if(!this.container.find("input[name=daterangepicker_start]").is(":focus")&&!this.container.find("input[name=daterangepicker_end]").is(":focus")){var t=e.target.getAttribute("data-range-key");if(t==this.locale.customRangeLabel)this.updateView();else{var a=this.ranges[t];this.container.find("input[name=daterangepicker_start]").val(a[0].format(this.locale.format)),this.container.find("input[name=daterangepicker_end]").val(a[1].format(this.locale.format))}}},clickRange:function(e){var t=e.target.getAttribute("data-range-key");if(this.chosenLabel=t,t==this.locale.customRangeLabel)this.showCalendars();else{var a=this.ranges[t];this.startDate=a[0],this.endDate=a[1],this.timePicker||(this.startDate.startOf("day"),this.endDate.endOf("day")),this.alwaysShowCalendars||this.hideCalendars(),this.clickApply()}},clickPrev:function(e){var a=t(e.target).parents(".calendar");a.hasClass("left")?(this.leftCalendar.month.subtract(1,"month"),this.linkedCalendars&&this.rightCalendar.month.subtract(1,"month")):this.rightCalendar.month.subtract(1,"month"),this.updateCalendars()},clickNext:function(e){var a=t(e.target).parents(".calendar");a.hasClass("left")?this.leftCalendar.month.add(1,"month"):(this.rightCalendar.month.add(1,"month"),this.linkedCalendars&&this.leftCalendar.month.add(1,"month")),this.updateCalendars()},hoverDate:function(e){if(t(e.target).hasClass("available")){var a=t(e.target).attr("data-title"),n=a.substr(1,1),s=a.substr(3,1),i=t(e.target).parents(".calendar"),r=i.hasClass("left")?this.leftCalendar.calendar[n][s]:this.rightCalendar.calendar[n][s];this.endDate&&!this.container.find("input[name=daterangepicker_start]").is(":focus")?this.container.find("input[name=daterangepicker_start]").val(r.format(this.locale.format)):this.endDate||this.container.find("input[name=daterangepicker_end]").is(":focus")||this.container.find("input[name=daterangepicker_end]").val(r.format(this.locale.format));var o=this.leftCalendar,d=this.rightCalendar,_=this.startDate;this.endDate||this.container.find(".calendar td").each(function(e,a){if(!t(a).hasClass("week")){var n=t(a).attr("data-title"),s=n.substr(1,1),i=n.substr(3,1),l=t(a).parents(".calendar"),u=l.hasClass("left")?o.calendar[s][i]:d.calendar[s][i];u.isAfter(_)&&u.isBefore(r)||u.isSame(r,"day")?t(a).addClass("in-range"):t(a).removeClass("in-range")}})}},clickDate:function(e){if(t(e.target).hasClass("available")){var a=t(e.target).attr("data-title"),n=a.substr(1,1),s=a.substr(3,1),i=t(e.target).parents(".calendar"),r=i.hasClass("left")?this.leftCalendar.calendar[n][s]:this.rightCalendar.calendar[n][s];if(this.endDate||r.isBefore(this.startDate,"day")){if(this.timePicker){var o=parseInt(this.container.find(".left .hourselect").val(),10);if(!this.timePicker24Hour){var d=this.container.find(".left .ampmselect").val();"PM"===d&&o<12&&(o+=12),"AM"===d&&12===o&&(o=0)}var _=parseInt(this.container.find(".left .minuteselect").val(),10),l=this.timePickerSeconds?parseInt(this.container.find(".left .secondselect").val(),10):0;r=r.clone().hour(o).minute(_).second(l)}this.endDate=null,this.setStartDate(r.clone())}else if(!this.endDate&&r.isBefore(this.startDate))this.setEndDate(this.startDate.clone());else{if(this.timePicker){var o=parseInt(this.container.find(".right .hourselect").val(),10);if(!this.timePicker24Hour){var d=this.container.find(".right .ampmselect").val();"PM"===d&&o<12&&(o+=12),"AM"===d&&12===o&&(o=0)}var _=parseInt(this.container.find(".right .minuteselect").val(),10),l=this.timePickerSeconds?parseInt(this.container.find(".right .secondselect").val(),10):0;r=r.clone().hour(o).minute(_).second(l)}this.setEndDate(r.clone()),this.autoApply&&(this.calculateChosenLabel(),this.clickApply())}this.singleDatePicker&&(this.setEndDate(this.startDate),this.timePicker||this.clickApply()),this.updateView(),e.stopPropagation()}},calculateChosenLabel:function(){var e=!0,t=0;for(var a in this.ranges){if(this.timePicker){if(this.startDate.isSame(this.ranges[a][0])&&this.endDate.isSame(this.ranges[a][1])){e=!1,this.chosenLabel=this.container.find(".ranges li:eq("+t+")").addClass("active").html();break}}else if(this.startDate.format("YYYY-MM-DD")==this.ranges[a][0].format("YYYY-MM-DD")&&this.endDate.format("YYYY-MM-DD")==this.ranges[a][1].format("YYYY-MM-DD")){e=!1,this.chosenLabel=this.container.find(".ranges li:eq("+t+")").addClass("active").html();break}t++}e&&this.showCustomRangeLabel&&(this.chosenLabel=this.container.find(".ranges li:last").addClass("active").html(),this.showCalendars())},clickApply:function(e){this.hide(),this.element.trigger("apply.daterangepicker",this)},clickCancel:function(e){this.startDate=this.oldStartDate,this.endDate=this.oldEndDate,this.hide(),this.element.trigger("cancel.daterangepicker",this)},monthOrYearChanged:function(e){var a=t(e.target).closest(".calendar").hasClass("left"),n=a?"left":"right",s=this.container.find(".calendar."+n),i=parseInt(s.find(".monthselect").val(),10),r=s.find(".yearselect").val();a||(r<this.startDate.year()||r==this.startDate.year()&&i<this.startDate.month())&&(i=this.startDate.month(),r=this.startDate.year()),this.minDate&&(r<this.minDate.year()||r==this.minDate.year()&&i<this.minDate.month())&&(i=this.minDate.month(),r=this.minDate.year()),this.maxDate&&(r>this.maxDate.year()||r==this.maxDate.year()&&i>this.maxDate.month())&&(i=this.maxDate.month(),r=this.maxDate.year()),a?(this.leftCalendar.month.month(i).year(r),this.linkedCalendars&&(this.rightCalendar.month=this.leftCalendar.month.clone().add(1,"month"))):(this.rightCalendar.month.month(i).year(r),this.linkedCalendars&&(this.leftCalendar.month=this.rightCalendar.month.clone().subtract(1,"month"))),this.updateCalendars()},timeChanged:function(e){var a=t(e.target).closest(".calendar"),n=a.hasClass("left"),s=parseInt(a.find(".hourselect").val(),10),i=parseInt(a.find(".minuteselect").val(),10),r=this.timePickerSeconds?parseInt(a.find(".secondselect").val(),10):0;if(!this.timePicker24Hour){var o=a.find(".ampmselect").val();"PM"===o&&s<12&&(s+=12),"AM"===o&&12===s&&(s=0)}if(n){var d=this.startDate.clone();d.hour(s),d.minute(i),d.second(r),this.setStartDate(d),this.singleDatePicker?this.endDate=this.startDate.clone():this.endDate&&this.endDate.format("YYYY-MM-DD")==d.format("YYYY-MM-DD")&&this.endDate.isBefore(d)&&this.setEndDate(d.clone())}else if(this.endDate){var _=this.endDate.clone();_.hour(s),_.minute(i),_.second(r),this.setEndDate(_)}this.updateCalendars(),this.updateFormInputs(),this.renderTimePicker("left"),this.renderTimePicker("right")},formInputsChanged:function(a){var n=t(a.target).closest(".calendar").hasClass("right"),s=e(this.container.find('input[name="daterangepicker_start"]').val(),this.locale.format),i=e(this.container.find('input[name="daterangepicker_end"]').val(),this.locale.format);s.isValid()&&i.isValid()&&(n&&i.isBefore(s)&&(s=i.clone()),this.setStartDate(s),this.setEndDate(i),n?this.container.find('input[name="daterangepicker_start"]').val(this.startDate.format(this.locale.format)):this.container.find('input[name="daterangepicker_end"]').val(this.endDate.format(this.locale.format))),this.updateView()},formInputsFocused:function(e){this.container.find('input[name="daterangepicker_start"], input[name="daterangepicker_end"]').removeClass("active"),t(e.target).addClass("active");var a=t(e.target).closest(".calendar").hasClass("right");a&&(this.endDate=null,this.setStartDate(this.startDate.clone()),this.updateView())},formInputsBlurred:function(t){if(!this.endDate){var a=this.container.find('input[name="daterangepicker_end"]').val(),n=e(a,this.locale.format);n.isValid()&&(this.setEndDate(n),this.updateView())}},elementChanged:function(){if(this.element.is("input")&&this.element.val().length&&!(this.element.val().length<this.locale.format.length)){var t=this.element.val().split(this.locale.separator),a=null,n=null;2===t.length&&(a=e(t[0],this.locale.format),n=e(t[1],this.locale.format)),(this.singleDatePicker||null===a||null===n)&&(a=e(this.element.val(),this.locale.format),n=a),a.isValid()&&n.isValid()&&(this.setStartDate(a),this.setEndDate(n),this.updateView())}},keydown:function(e){9!==e.keyCode&&13!==e.keyCode||this.hide()},updateElement:function(){this.element.is("input")&&!this.singleDatePicker&&this.autoUpdateInput?(this.element.val(this.startDate.format(this.locale.format)+this.locale.separator+this.endDate.format(this.locale.format)),this.element.trigger("change")):this.element.is("input")&&this.autoUpdateInput&&(this.element.val(this.startDate.format(this.locale.format)),this.element.trigger("change"))},remove:function(){this.container.remove(),this.element.off(".daterangepicker"),this.element.removeData()}},t.fn.daterangepicker=function(e,n){return this.each(function(){var s=t(this);s.data("daterangepicker")&&s.data("daterangepicker").remove(),s.data("daterangepicker",new a(s,e,n))}),this},a})},function(e,t,a){var n,s;(function(i){n=[a(7)],s=function(e){!function(t){var a={error:t.noop};Date.prototype.toStringFormat=function(t){function a(e){var t=parseInt(e);return s[t]||e}function n(e){var t=parseInt(e);return i[t]||e}var s=e.getResources(["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]),i=e.getResources(["January","February","March","April","May","June","July","August","September","October","November","December"]),r=this.getFullYear(),o=this.getMonth(),d=this.getDate(),_=t;return _=_.replace(/yyyy/g,r),_=_.replace(/yy/g,r.toString().substr(2)),_=_.replace(/MMMM/g,n(o)),_=_.replace(/MMM/g,a(o)),_=_.replace(/MM/g,o<9?"0"+(o+1):o+1),_=_.replace(/dd/g,d<10?"0"+d:d)};var n=function(e,t){var n=Math.ceil(e)==Math.floor(e);return t&&!n&&a.error('Oops! "'+e+'" is an invalid Integer'),n},s=function(e,t){var s=new Date(e),i=n(s.getDate())&&n(s.getMonth())&&n(s.getFullYear());return t&&!i&&a.error('Oops! "'+e+'" is an invalid Date'),i},i=null,r=null,o=null,d=null,_=null,l=null,u=null,m=function(e){var n=t(e).data("monPickr");return n?n:(a.error("Oops! No data of monPickr is available"),null)},h=function(e,t,a,n){var s=e.getFullYear(),i=e.getMonth(),r=t.getFullYear(),o=t.getMonth(),d=a<s||a==s&&n<i,_=a>r||a==r&&n>o;return!d&&!_},c=function(e,t,a,n,s){var i=(new Date(a,n,k(e,a,n)),new Date(a,n,g(t,a,n))),s=new Date(s.getFullYear(),s.getMonth(),s.getDate());return e<=s&&s<=i},M=function(e,t,a){var n=new Date(t,a+1,1),s=new Date(t,a-1,1);h(e.minDate,e.maxDate,n.getFullYear(),n.getMonth())?e.btnNext.removeClass("disable"):e.btnNext.addClass("disable"),h(e.minDate,e.maxDate,s.getFullYear(),s.getMonth())?e.btnPrev.removeClass("disable"):e.btnPrev.addClass("disable")},f=function(e,t,a){e.year=t,e.month=a},y=function(e){e.lblSelectedMonth.html(new Date(e.year,e.month,1).toStringFormat(e.monthFormat))},p=function(e,n,s){if("function"==typeof e.beforeChangeMonth?e.beforeChangeMonth():a.error("Oops! beforeChangeMonth event's handler (which has type \""+typeof e.beforeChangeMonth+'") is not a function'),e.dropDown.find(".monthWrap a[month].selected").removeClass("selected"),e.dropDown.find(".monthWrap[year="+n+"] a[month="+(s+1)+"]:first").addClass("selected"),f(e,n,s),y(e),e.dropDown.find(".monthWrap.selected").attr("year")!=n&&(v(e),w(e,n),e.dropDown.find(".year a.selected:first").parent().addClass("selected")),e.showDateRange){var i=k(e.minDate,e.year,e.month),r=g(e.maxDate,e.year,e.month);D(e,e.ddlFromDate,i,!0),D(e,e.ddlToDate,r,!1);var o=function(e){var a=t(this),n=e+1;n<i||r<n?a.hide():a.show()};e.ddlFromDate.dropDown.find("li").each(o),e.ddlToDate.dropDown.find("li").each(o)}M(e,n,s),"function"==typeof e.afterChangeMonth?e.afterChangeMonth():a.error("Oops! afterChangeMonth event's handler (which has type \""+typeof e.afterChangeMonth+'") is not a function')},L=function(e,t,a){a?(e.fromDay=parseInt(t,10),e.fromDate=new Date(e.year,e.month,t)):(e.toDay=parseInt(t,10),e.toDate=new Date(e.year,e.month,t))},Y=function(e,t){e.find(".selectedDay").html(t)},D=function(e,t,n,s){"function"==typeof e.beforeChangeDay?e.beforeChangeDay():a.error("Oops! beforeChangeDay event's handler (which has type \""+typeof e.beforeChangeDay+'") is not a function'),Y(t,n),L(e,n,s),"function"==typeof e.afterChangeDay?e.afterChangeDay():a.error("Oops! afterChangeDay event's handler (which has type \""+typeof e.afterChangeDay+'") is not a function')},k=function(e,t,a){var n=new Date(t,a,1),s=new Date(e.getFullYear(),e.getMonth(),e.getDate());return s>n?s.getDate():1},g=function(e,t,a){var n=new Date(t,a+1,0),s=new Date(e.getFullYear(),e.getMonth(),e.getDate());return n>s?s.getDate():n.getDate()},v=function(e){var t=e.dropDown.find(".monthWrap.selected").eq(0);e.dropDown.is(":hidden")?t.hide():t.slideUp(e.showYearSpeed),t.removeClass("selected"),e.dropDown.find(".year .selected").eq(0).removeClass("selected").parent().removeClass("selected")},w=function(e,t){var a=e.dropDown.find(".monthWrap[year="+t+"]").eq(0);a.prev(".year").find("a[year]").eq(0).addClass("selected"),a.addClass("selected").slideDown(e.showYearSpeed)},T=function(e,t){t.dropDown.slideDown(e.showDropDownSpeed)},b=function(e,t){t.dropDown.slideUp(e.showDropDownSpeed)},S={init:function(e){if(e=e||{},t.isFunction(e.log)&&(a.error=e.log),!this.length)return void a.error('Oops! DOM element "'+this.selector+'" does not exist');if(!e.today||s(e.today,!0)){i=e.today?new Date(e.today):new Date,r=i.getFullYear(),o=i.getMonth(),d=i.getDate(),_=new Date(r,0,1),l=new Date(r,o,1),u=new Date(r,o+1,0);var n=t.extend({minDate:_,maxDate:i,month:i,showDateRange:!1,fromDay:l.getDate(),toDay:i.getDate(),fromDayId:null,toDayId:null,expandYearOnhover:!1,expandDayOnhover:!1,showYearSpeed:110,showDropDownSpeed:10,disabled:!1,sortDesc:!1,monthFormat:"MMM yyyy",nextText:"Next Month",prevText:"Previous Month",monPickrText:"Show/hide Month Picker",zIndex:9999,beforeChangeMonth:function(){},afterChangeMonth:function(){},beforeChangeDay:function(){},afterChangeDay:function(){}},e);if(s(n.minDate,!0)&&s(n.maxDate,!0)&&(n.minDate=new Date(n.minDate),n.maxDate=new Date(n.maxDate),s(n.month,!0))){n.month=new Date(n.month);var m=n.month.getFullYear(),f=n.month.getMonth();if(!h(n.minDate,n.maxDate,m,f))return void a.error("Oops! Selected month ("+n.month.toStringFormat("MM/yyyy")+") is out of range ("+n.minDate.toStringFormat("MM/yyyy")+" ~ "+n.maxDate.toStringFormat("MM/yyyy")+")");var L=new Date(m,f,n.fromDay),Y=new Date(m,f,n.toDay);return c(n.minDate,n.maxDate,m,f,L)?c(n.minDate,n.maxDate,m,f,Y)?this.each(function(){var e=t(this),s=e.data("monPickr");s||(e.data("monPickr",{target:e,minDate:n.minDate,maxDate:n.maxDate,originalYear:n.year,originalMonth:n.month,year:n.month.getFullYear(),month:n.month.getMonth(),showDateRange:n.showDateRange,originalFromDay:n.fromDay,originalToDay:n.toDay,fromDay:n.fromDay,toDay:n.toDay,fromDate:L,toDate:Y,fromDayId:n.fromDayId,toDayId:n.toDayId,expandYearOnhover:n.expandYearOnhover,expandDayOnhover:n.expandDayOnhover,showYearSpeed:n.showYearSpeed,showDropDownSpeed:n.showDropDownSpeed,disabled:n.disabled,sortDesc:n.sortDesc,monthFormat:n.monthFormat,nextText:n.nextText,prevText:n.prevText,monPickrText:n.monPickrText,zIndex:n.zIndex,beforeChangeMonth:n.beforeChangeMonth,afterChangeMonth:n.afterChangeMonth,beforeChangeDay:n.beforeChangeDay,afterChangeDay:n.afterChangeDay}),s=e.data("monPickr")),e.addClass("monPickr"),s.btnPrev=t('<a href="javascript:;" class="prev" title="'+s.prevText+'"><b>&lsaquo;</b></a>'),s.btnNext=t('<a href="javascript:;" class="next" title="'+s.nextText+'"><b>&rsaquo;</b></a>'),s.lblSelectedMonth=t('<span class="selectedMonth" title="'+s.monPickrText+'"></span>'),y(s),e.append(s.btnPrev,s.lblSelectedMonth,s.btnNext),e.wrap('<div class="monPickrWrap" style="z-index: '+s.zIndex+'" />'),s.wrap=e.parents(".monPickrWrap"),s.wrap.wrap('<div class="monPickrWrapParent" style="position: relative" />').css({position:"absolute"}).parent().width(s.wrap.outerWidth()).height(s.wrap.outerHeight()),s.dropDown=t('<div class="monPickrDropDown" />');var i,r,o=s.minDate.getFullYear(),d=s.minDate.getMonth(),_=s.minDate.getFullYear(),l=s.minDate.getMonth(),u=s.maxDate.getFullYear(),c=s.maxDate.getMonth();if(i='<ul class="monPickrDropDownInner">',s.sortDesc)for(o=s.maxDate.getFullYear(),d=s.maxDate.getMonth();o>_||o==_&&d>=l;){for(r=o==s.year?"selected":"",r+=s.expandYearOnhover?" hover":"",i+='<li class="year '+r+'"><a year="'+o+'" class="'+r+'" href="javascript:;">'+o+"</a></li>",i+=o==s.year?'<li class="monthWrap selected" year="'+o+'" style="display: list-item"><ul>':'<li class="monthWrap" year="'+o+'"><ul>';(o>_||o==_&&d>=l)&&d>=0;)r=o==s.year&&d==s.month?'class="selected"':"",i+='<li><a month="'+(d+1)+'" '+r+' href="javascript:;">'+new Date(o,d).toStringFormat("MMMM")+"</a><li>",d--;i+="</ul></li>",o--,d=11}else for(;o<u||o==u&&d<=c;){for(r=o==s.year?"selected":"",r+=s.expandYearOnhover?" hover":"",i+='<li class="year '+r+'"><a year="'+o+'" class="'+r+'" href="javascript:;">'+o+"</a></li>",i+=o==s.year?'<li class="monthWrap selected" year="'+o+'" style="display: list-item"><ul>':'<li class="monthWrap" year="'+o+'"><ul>';(o<u||o==u&&d<=c)&&d<12;)r=o==s.year&&d==s.month?'class="selected"':"",i+='<li><a month="'+(d+1)+'" '+r+' href="javascript:;">'+new Date(o,d).toStringFormat("MMMM")+"</a><li>",d++;i+="</ul></li>",o++,d=0}i+="</ul>",s.dropDown.append(i),e.after(s.dropDown),M(s,m,f),s.wrap.on("click",function(e){t(e.target).hasClass("selectedMonth")&&(s.dropDown.is(":hidden")?T(s,s):b(s,s)),e.stopPropagation()}),t("html").on("click",function(){b(s,s)});var S=s.expandYearOnhover?"mouseenter":"click";if(s.dropDown.on(S,".year a",function(){var e=t(this),a=e.attr("year"),n=0==e.hasClass("selected");switch(S){case"mouseenter":n&&(v(s),w(s,a));break;case"click":v(s),n&&w(s,a),s.dropDown.find(".year a.selected:first").parent().addClass("selected")}}),s.dropDown.on("click",".monthWrap a[month]",function(){var e=t(this);p(s,e.parents(".monthWrap").attr("year"),e.attr("month")-1),b(s,s)}),s.btnNext.on("click",function(){var e=s.month+1,t=s.year;e>11&&(e=0,t++),h(s.minDate,s.maxDate,t,e)&&p(s,t,e)}),s.btnPrev.on("click",function(){var e=s.month-1,t=s.year;e<0&&(e=11,t--),h(s.minDate,s.maxDate,t,e)&&p(s,t,e)}),s.showDateRange){var H=function(e,n,s,i){if(n=t("#"+s),n.length>0){n.addClass("dayPickr").append('<span class="selectedDay">'+i+"</span>").append('<a class="darr" href="javascript:;"><b>v</b></a>').wrap('<div class="selectedDayWrap" style="z-index: '+e.zIndex+'" />'),n.wrap=n.parents(".selectedDayWrap").wrap('<div class="selectedDayWrapParent" style="position: relative" />').css({position:"absolute"}),n.wrap.parent().width(n.wrap.outerWidth()).height(n.wrap.outerHeight()),n.dropDown=t('<div class="dayPickrDropDown" />');var o,d=1,_=k(e.minDate,e.year,e.month),l=g(e.maxDate,e.year,e.month);for(o="<ul>";d<=31;)r=d<_||d>l?'style="display: none"':"",o+="<li "+r+'><a href="javascript:;">'+d+"</a></li>",d++;return o+="</ul>",n.dropDown.append(o),n.after(n.dropDown),n}a.error("Oops! fromDayId ("+e.fromDayId+") or toDayId ("+e.toDayId+") does not exist")};s.ddlFromDate=H(s,s.ddlFromDate,s.fromDayId,s.fromDay),s.ddlToDate=H(s,s.ddlToDate,s.toDayId,s.toDay);var j=s.expandDayOnhover?"hover":"click",x=function(e){if(s.isClosingDropDown)return void(s.isClosingDropDown=!1);var t=e.data.target;t.dropDown.is(":hidden")?T(s,t):b(s,t),e.stopPropagation()};s.ddlFromDate.wrap.on(j,{target:s.ddlFromDate},x),s.ddlToDate.wrap.on(j,{target:s.ddlToDate},x),s.expandDayOnhover||t("html").on("click",function(){b(s,s.ddlFromDate),b(s,s.ddlToDate)});var P=function(e){var a=t(this),n=a.find("a").html();s.expandDayOnhover&&(s.isClosingDropDown=!0),a.parents(".dayPickrDropDown").hide(),D(s,e.data.target,n,e.data.isFromDay),e.stopPropagation()};s.ddlFromDate.dropDown.on("click","li",{target:s.ddlFromDate,isFromDay:!0},P),s.ddlToDate.dropDown.on("click","li",{target:s.ddlToDate,isFromDay:!1},P)}}):void a.error("Oops! toDate ("+Y.toStringFormat("MMM dd, yyyy")+") is out of range"):void a.error("Oops! fromDate ("+L.toStringFormat("MMM dd, yyyy")+") is out of range")}}},getMonth:function(e){var t=m(this);return t?void 0!=e?(e=e.length>0?e:t.monthFormat,new Date(t.year,t.month).toStringFormat(e)):t.month+1:null},setMonth:function(e){var t=m(this);if(t){var s,i,r=e;"object"!=(typeof e).toLowerCase()&&(r=new Date(r)),s=r.getFullYear(),i=r.getMonth(),n(s)&&n(i)?h(t.minDate,t.maxDate,s,i)?p(t,s,i):a.error("Oops! Can't set month because input ("+e.toString()+") is out of range ("+t.minDate.toStringFormat("MMM yyyy")+" ~ "+t.maxDate.toStringFormat("MMM yyyy")+")"):a.error("Oops! Can't set month because of invalid input ("+e.toString()+")")}},getFromDate:function(e){var t=m(this);return t?void 0!=e?(e=e.length>0?e:t.monthFormat,t.fromDate.toStringFormat(e)):t.fromDate:null},getToDate:function(e){var t=m(this);return t?void 0!=e?(e=e.length>0?e:t.monthFormat,t.toDate.toStringFormat(e)):t.toDate:null},setFromDay:function(e){var t=m(this);if(t){var s=new Date(t.year,t.month,e);n(e)&&c(t.minDate,t.maxDate,t.year,t.month,s)?D(t,t.ddlFromDate,e,!0):a.error("Oops! input value ("+e+") is invalid")}},setToDay:function(e){var t=m(this);if(t){var s=new Date(t.year,t.month,e);n(e)&&c(t.minDate,t.maxDate,t.year,t.month,s)?D(t,t.ddlToDate,e,!1):a.error("Oops! input value ("+e+") is invalid")}},reset:function(){var e=m(this);e&&p(e,e.originalYear,e.originalMonth)}};t.fn.monPickr=function(e){return S[e]?S[e].apply(this,Array.prototype.slice.call(arguments,1)):"object"!=typeof e&&e?void a.error('Oops! Method "'+e+'" does not exist on jQuery.monPickr'):S.init.apply(this,arguments)}}(i)}.apply(t,n),!(void 0!==s&&(e.exports=s))}).call(t,a(1))},,function(e,t,a){var n,s;(function(i){n=[a(230)],s=function(e){"use strict";i(e.initialize)}.apply(t,n),!(void 0!==s&&(e.exports=s))}).call(t,a(1))},function(e,t,a){var n,s;n=[a(1),a(8),a(7),a(225),a(231)],s=function(e,t,a,n,s){"use strict";function i(){a.initialize(),r(),n.initDateRangePicker(),n.initMonthPicker(),a.addUserGuide({resourceName:"LiveReport",title:a.getSingleResource("LiveReport")})}function r(){e("#switchreport").click(function(){var t=e(this).attr("data-history-mode");"False"===t?a.redirect(a.resolveClientUrl("LiveReport?isViewedHistory=True")):a.redirect(a.resolveClientUrl("LiveReport?isViewedHistory=False"))}),window.onbeforeunload=function(){e("ProductCode").val("")},e("body").on("click",".product-detail-link",function(){o(this)}),e("body").on("click",".sport-detailt-link",function(){_(this)}),e("#exporttoexcel").click(function(){e("#IsExportExcel").val(!0),e("#livereport").submit(),e("#IsExportExcel").val(!1)}),e("#btnSubmit").click(function(){a.blockUI(),e("#livereport").submit()})}function o(t){var n=e(t).attr("data-product-code"),s={productCode:n,FromDate:e("#FromDate").attr("data-original-from").toString("MM/dd/yyyy"),ToDate:e("#ToDate").attr("data-original-to").toString("MM/dd/yyyy"),BaseCurrency:e("#BaseCurrency").attr("data-original"),LiveIndicator:e("#LiveIndicator").attr("data-original")};s=a.setLicenseeOptionOriginalParam(s);var i=e(t).parent().hasClass("selected");i||(e("a.product-detail-link").parent().removeClass("selected"),e(t).parent().addClass("selected"),e.ajax({type:"POST",data:s,dataType:"json",url:a.resolveClientUrl("LiveReport/Detail"),success:function(){},beforeSend:a.blockUI(),complete:function(t){4===t.readyState&&(e("#ProductCode").val(s.productCode),e("#detail-content").html(t.responseText)),a.unBlockUI()}}))}function d(n,i,r){n=a.setLicenseeOptionOriginalParam(n),n=t.setParam(n,"fromdate",e("#FromDate").attr("data-original-from")),n=t.setParam(n,"todate",e("#ToDate").attr("data-original-to")),n=t.setParam(n,"LiveIndicator",e("#LiveIndicator").attr("data-original")),n=s.setSumParams(n,i),n=t.setParam(n,"showsb",!1),n=t.setParam(n,"showba",!1),e(r).each(function(e,s){n=a.setProductOptionParam(n,e,s.toUpperCase(),!0),n=t.setParam(n,"show"+s,!0)}),a.blockUI(),a.redirect(n)}function _(n){var i=e(n).attr("data-drill-down"),r=e.parseJSON(i),o=e("#ProductCode").val(),_=s.getMatchListProductOption(r.SportId,o),l={Key101:"LiveReportBetList/MixParlay?bettype=9",Key102:"LiveReportBetList/MixParlay?bettype=29",Key103:"LiveReportBetList/Outright",Key161:"LiveReportBetList/NumberGame",Key151:"LiveReportBetList/Racing?SportType=151",Key152:"LiveReportBetList/Racing?SportType=152",Key153:"LiveReportBetList/Racing?SportType=153",Key181:"LiveReportBetList/Racing?SportType=181",Key182:"LiveReportBetList/Racing?SportType=182",Key183:"LiveReportBetList/Racing?SportType=183",Key184:"LiveReportBetList/Racing?SportType=184",Key185:"LiveReportBetList/Racing?SportType=185"},u=l["Key"+r.SportId],m=null!==u&&void 0!==u;u=null===u||void 0===u?a.resolveClientUrl("LiveReport/MatchList"):a.resolveClientUrl(u),m?d(u,r.TotalValue,_):(u=a.setLicenseeOptionOriginalParam(u),u=t.setParam(u,"SportId",r.SportId),u=t.setParam(u,"ProductCode",o),u=t.setParam(u,"FromDate",e("#FromDate").attr("data-original-from")),u=t.setParam(u,"ToDate",e("#ToDate").attr("data-original-to")),u=t.setParam(u,"showsb",!0),u=t.setParam(u,"showba",!1),u=t.setParam(u,"LiveIndicator",e("#LiveIndicator").attr("data-original")),e(_).each(function(e,n){u=a.setProductOptionParam(u,e,n,!0),u=t.setParam(u,"show"+n,!0)}),a.blockUI(),a.redirect(u))}return{initialize:i}}.apply(t,n),!(void 0!==s&&(e.exports=s))},function(e,t,a){var n,s;n=[a(8)],s=function(e){"use strict";function t(t,a){return t=e.setParam(t,"totalrows",a.BetCount),t=e.setParam(t,"sumwinlost",a.CustomerWinLoss),t=e.setParam(t,"sumplayercomm",a.CustomerComm),t=e.setParam(t,"sumlicenseewl",a.LicenseeWinLoss),t=e.setParam(t,"sumcomm",a.LicenseeComm),t=e.setParam(t,"sumturnover",a.TurnOver),t=e.setParam(t,"sumamtdueto3rd",a.AmountDue)}function a(e,t){e=Number(e);var a=[];return e>0?180===e||186===e?a.push("VS"):162===e?a.push("LC"):("SB"!==t&&"ALL"!==t||a.push("SB"),"BA"!==t&&"ALL"!==t||a.push("BA")):"ALL"===t?a=["SB","BA","NG","RB","LC","VS","CS","BG"]:a.push(t),a}return{setSumParams:t,getMatchListProductOption:a}}.apply(t,n),!(void 0!==s&&(e.exports=s))}]);
 >>>>>>> dbb9f0c... #67998 - Update css for Handicap/Over Under/Live report
+=======
+//# sourceMappingURL=livereport.chunk.js.map
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist

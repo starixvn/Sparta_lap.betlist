@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([15],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
@@ -25213,6 +25214,13 @@ webpackJsonp([22],[
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(214);
+=======
+webpackJsonp([23],[
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(220);
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 
 
 /***/ },
@@ -25298,7 +25306,15 @@ webpackJsonp([22],[
 /* 80 */,
 /* 81 */,
 /* 82 */,
+<<<<<<< HEAD
 /* 83 */
+=======
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
@@ -27097,7 +27113,11 @@ webpackJsonp([22],[
 	                module && module.exports) {
 	            try {
 	                oldLocale = globalLocale._abbr;
+<<<<<<< HEAD
 	                __webpack_require__(85)("./" + name);
+=======
+	                __webpack_require__(89)("./" + name);
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	                // because defineLocale currently also sets the global locale, we
 	                // want to undo that for lazy loaded locales
 	                locale_locales__getSetGlobalLocale(oldLocale);
@@ -29535,10 +29555,17 @@ webpackJsonp([22],[
 	    return _moment;
 	
 	}));
+<<<<<<< HEAD
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(84)(module)))
 
 /***/ },
 /* 84 */
+=======
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(88)(module)))
+
+/***/ },
+/* 88 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -29554,6 +29581,7 @@ webpackJsonp([22],[
 
 
 /***/ },
+<<<<<<< HEAD
 /* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -29766,6 +29794,220 @@ webpackJsonp([22],[
 		"./zh-hk.js": 188,
 		"./zh-tw": 189,
 		"./zh-tw.js": 189
+=======
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./af": 90,
+		"./af.js": 90,
+		"./ar": 91,
+		"./ar-ly": 92,
+		"./ar-ly.js": 92,
+		"./ar-ma": 93,
+		"./ar-ma.js": 93,
+		"./ar-sa": 94,
+		"./ar-sa.js": 94,
+		"./ar-tn": 95,
+		"./ar-tn.js": 95,
+		"./ar.js": 91,
+		"./az": 96,
+		"./az.js": 96,
+		"./be": 97,
+		"./be.js": 97,
+		"./bg": 98,
+		"./bg.js": 98,
+		"./bn": 99,
+		"./bn.js": 99,
+		"./bo": 100,
+		"./bo.js": 100,
+		"./br": 101,
+		"./br.js": 101,
+		"./bs": 102,
+		"./bs.js": 102,
+		"./ca": 103,
+		"./ca.js": 103,
+		"./cs": 104,
+		"./cs.js": 104,
+		"./cv": 105,
+		"./cv.js": 105,
+		"./cy": 106,
+		"./cy.js": 106,
+		"./da": 107,
+		"./da.js": 107,
+		"./de": 108,
+		"./de-at": 109,
+		"./de-at.js": 109,
+		"./de.js": 108,
+		"./dv": 110,
+		"./dv.js": 110,
+		"./el": 111,
+		"./el.js": 111,
+		"./en-au": 112,
+		"./en-au.js": 112,
+		"./en-ca": 113,
+		"./en-ca.js": 113,
+		"./en-gb": 114,
+		"./en-gb.js": 114,
+		"./en-ie": 115,
+		"./en-ie.js": 115,
+		"./en-nz": 116,
+		"./en-nz.js": 116,
+		"./eo": 117,
+		"./eo.js": 117,
+		"./es": 118,
+		"./es-do": 119,
+		"./es-do.js": 119,
+		"./es.js": 118,
+		"./et": 120,
+		"./et.js": 120,
+		"./eu": 121,
+		"./eu.js": 121,
+		"./fa": 122,
+		"./fa.js": 122,
+		"./fi": 123,
+		"./fi.js": 123,
+		"./fo": 124,
+		"./fo.js": 124,
+		"./fr": 125,
+		"./fr-ca": 126,
+		"./fr-ca.js": 126,
+		"./fr-ch": 127,
+		"./fr-ch.js": 127,
+		"./fr.js": 125,
+		"./fy": 128,
+		"./fy.js": 128,
+		"./gd": 129,
+		"./gd.js": 129,
+		"./gl": 130,
+		"./gl.js": 130,
+		"./he": 131,
+		"./he.js": 131,
+		"./hi": 132,
+		"./hi.js": 132,
+		"./hr": 133,
+		"./hr.js": 133,
+		"./hu": 134,
+		"./hu.js": 134,
+		"./hy-am": 135,
+		"./hy-am.js": 135,
+		"./id": 136,
+		"./id.js": 136,
+		"./is": 137,
+		"./is.js": 137,
+		"./it": 138,
+		"./it.js": 138,
+		"./ja": 139,
+		"./ja.js": 139,
+		"./jv": 140,
+		"./jv.js": 140,
+		"./ka": 141,
+		"./ka.js": 141,
+		"./kk": 142,
+		"./kk.js": 142,
+		"./km": 143,
+		"./km.js": 143,
+		"./ko": 144,
+		"./ko.js": 144,
+		"./ky": 145,
+		"./ky.js": 145,
+		"./lb": 146,
+		"./lb.js": 146,
+		"./lo": 147,
+		"./lo.js": 147,
+		"./lt": 148,
+		"./lt.js": 148,
+		"./lv": 149,
+		"./lv.js": 149,
+		"./me": 150,
+		"./me.js": 150,
+		"./mi": 151,
+		"./mi.js": 151,
+		"./mk": 152,
+		"./mk.js": 152,
+		"./ml": 153,
+		"./ml.js": 153,
+		"./mr": 154,
+		"./mr.js": 154,
+		"./ms": 155,
+		"./ms-my": 156,
+		"./ms-my.js": 156,
+		"./ms.js": 155,
+		"./my": 157,
+		"./my.js": 157,
+		"./nb": 158,
+		"./nb.js": 158,
+		"./ne": 159,
+		"./ne.js": 159,
+		"./nl": 160,
+		"./nl.js": 160,
+		"./nn": 161,
+		"./nn.js": 161,
+		"./pa-in": 162,
+		"./pa-in.js": 162,
+		"./pl": 163,
+		"./pl.js": 163,
+		"./pt": 164,
+		"./pt-br": 165,
+		"./pt-br.js": 165,
+		"./pt.js": 164,
+		"./ro": 166,
+		"./ro.js": 166,
+		"./ru": 167,
+		"./ru.js": 167,
+		"./se": 168,
+		"./se.js": 168,
+		"./si": 169,
+		"./si.js": 169,
+		"./sk": 170,
+		"./sk.js": 170,
+		"./sl": 171,
+		"./sl.js": 171,
+		"./sq": 172,
+		"./sq.js": 172,
+		"./sr": 173,
+		"./sr-cyrl": 174,
+		"./sr-cyrl.js": 174,
+		"./sr.js": 173,
+		"./ss": 175,
+		"./ss.js": 175,
+		"./sv": 176,
+		"./sv.js": 176,
+		"./sw": 177,
+		"./sw.js": 177,
+		"./ta": 178,
+		"./ta.js": 178,
+		"./te": 179,
+		"./te.js": 179,
+		"./th": 180,
+		"./th.js": 180,
+		"./tl-ph": 181,
+		"./tl-ph.js": 181,
+		"./tlh": 182,
+		"./tlh.js": 182,
+		"./tr": 183,
+		"./tr.js": 183,
+		"./tzl": 184,
+		"./tzl.js": 184,
+		"./tzm": 185,
+		"./tzm-latn": 186,
+		"./tzm-latn.js": 186,
+		"./tzm.js": 185,
+		"./uk": 187,
+		"./uk.js": 187,
+		"./uz": 188,
+		"./uz.js": 188,
+		"./vi": 189,
+		"./vi.js": 189,
+		"./x-pseudo": 190,
+		"./x-pseudo.js": 190,
+		"./zh-cn": 191,
+		"./zh-cn.js": 191,
+		"./zh-hk": 192,
+		"./zh-hk.js": 192,
+		"./zh-tw": 193,
+		"./zh-tw.js": 193
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -29778,11 +30020,19 @@ webpackJsonp([22],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
+<<<<<<< HEAD
 	webpackContext.id = 85;
 
 
 /***/ },
 /* 86 */
+=======
+	webpackContext.id = 89;
+
+
+/***/ },
+/* 90 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29790,7 +30040,11 @@ webpackJsonp([22],[
 	//! author : Werner Mollentze : https://github.com/wernerm
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -29859,7 +30113,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 87 */
+=======
+/* 91 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29869,7 +30127,11 @@ webpackJsonp([22],[
 	//! author : forabi https://github.com/forabi
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30000,7 +30262,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 88 */
+=======
+/* 92 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30008,7 +30274,11 @@ webpackJsonp([22],[
 	//! author : Ali Hmer: https://github.com/kikoanis
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30126,7 +30396,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 89 */
+=======
+/* 93 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30135,7 +30409,11 @@ webpackJsonp([22],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30190,7 +30468,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 90 */
+=======
+/* 94 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30198,7 +30480,11 @@ webpackJsonp([22],[
 	//! author : Suhail Alkowaileet : https://github.com/xsoh
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30298,7 +30584,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 91 */
+=======
+/* 95 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30306,7 +30596,11 @@ webpackJsonp([22],[
 	//! author : Nader Toukabri : https://github.com/naderio
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30361,7 +30655,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 92 */
+=======
+/* 96 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30369,7 +30667,11 @@ webpackJsonp([22],[
 	//! author : topchiyev : https://github.com/topchiyev
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30470,7 +30772,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 93 */
+=======
+/* 97 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30480,7 +30786,11 @@ webpackJsonp([22],[
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30608,7 +30918,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 94 */
+=======
+/* 98 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30616,7 +30930,11 @@ webpackJsonp([22],[
 	//! author : Krasen Borisov : https://github.com/kraz
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30702,7 +31020,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 95 */
+=======
+/* 99 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30710,7 +31032,11 @@ webpackJsonp([22],[
 	//! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30825,7 +31151,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 96 */
+=======
+/* 100 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30833,7 +31163,11 @@ webpackJsonp([22],[
 	//! author : Thupten N. Chakrishar : https://github.com/vajradog
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -30948,7 +31282,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 97 */
+=======
+/* 101 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -30956,7 +31294,11 @@ webpackJsonp([22],[
 	//! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31060,7 +31402,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 98 */
+=======
+/* 102 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31069,7 +31415,11 @@ webpackJsonp([22],[
 	//! based on (hr) translation by Bojan Marković
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31207,7 +31557,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 99 */
+=======
+/* 103 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31215,7 +31569,11 @@ webpackJsonp([22],[
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31292,7 +31650,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 100 */
+=======
+/* 104 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31300,7 +31662,11 @@ webpackJsonp([22],[
 	//! author : petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31468,7 +31834,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 101 */
+=======
+/* 105 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31476,7 +31846,11 @@ webpackJsonp([22],[
 	//! author : Anatoly Mironov : https://github.com/mirontoli
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31535,7 +31909,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 102 */
+=======
+/* 106 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31544,7 +31922,11 @@ webpackJsonp([22],[
 	//! author : https://github.com/ryangreaves
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31620,7 +32002,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 103 */
+=======
+/* 107 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31628,7 +32014,11 @@ webpackJsonp([22],[
 	//! author : Ulrik Nielsen : https://github.com/mrbase
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31684,7 +32074,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 104 */
+=======
+/* 108 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31694,7 +32088,11 @@ webpackJsonp([22],[
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31766,7 +32164,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 105 */
+=======
+/* 109 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31777,7 +32179,11 @@ webpackJsonp([22],[
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31849,7 +32255,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 106 */
+=======
+/* 110 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31857,7 +32267,11 @@ webpackJsonp([22],[
 	//! author : Jawish Hameed : https://github.com/jawish
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -31952,7 +32366,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 107 */
+=======
+/* 111 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -31960,7 +32378,11 @@ webpackJsonp([22],[
 	//! author : Aggelos Karalias : https://github.com/mehiel
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -32054,7 +32476,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 108 */
+=======
+/* 112 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -32062,7 +32488,11 @@ webpackJsonp([22],[
 	//! author : Jared Morse : https://github.com/jarcoal
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -32125,7 +32555,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 109 */
+=======
+/* 113 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -32133,7 +32567,11 @@ webpackJsonp([22],[
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -32192,7 +32630,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 110 */
+=======
+/* 114 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -32200,7 +32642,11 @@ webpackJsonp([22],[
 	//! author : Chris Gedrim : https://github.com/chrisgedrim
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -32263,7 +32709,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 111 */
+=======
+/* 115 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -32271,7 +32721,11 @@ webpackJsonp([22],[
 	//! author : Chris Cartlidge : https://github.com/chriscartlidge
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -32334,7 +32788,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 112 */
+=======
+/* 116 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -32342,7 +32800,11 @@ webpackJsonp([22],[
 	//! author : Luke McGregor : https://github.com/lukemcgregor
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -32405,7 +32867,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 113 */
+=======
+/* 117 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -32415,7 +32881,11 @@ webpackJsonp([22],[
 	//!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -32482,7 +32952,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 114 */
+=======
+/* 118 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -32490,7 +32964,11 @@ webpackJsonp([22],[
 	//! author : Julio Napurí : https://github.com/julionc
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -32567,14 +33045,22 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 115 */
+=======
+/* 119 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : Spanish (Dominican Republic) [es-do]
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -32651,7 +33137,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 116 */
+=======
+/* 120 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -32660,7 +33150,11 @@ webpackJsonp([22],[
 	//! improvements : Illimar Tambek : https://github.com/ragulka
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -32735,7 +33229,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 117 */
+=======
+/* 121 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -32743,7 +33241,11 @@ webpackJsonp([22],[
 	//! author : Eneko Illarramendi : https://github.com/eillarra
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -32805,7 +33307,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 118 */
+=======
+/* 122 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -32813,7 +33319,11 @@ webpackJsonp([22],[
 	//! author : Ebrahim Byagowi : https://github.com/ebraminio
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -32915,7 +33425,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 119 */
+=======
+/* 123 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -32923,7 +33437,11 @@ webpackJsonp([22],[
 	//! author : Tarmo Aidantausta : https://github.com/bleadof
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -33026,7 +33544,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 120 */
+=======
+/* 124 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -33034,7 +33556,11 @@ webpackJsonp([22],[
 	//! author : Ragnar Johannesen : https://github.com/ragnar123
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -33090,7 +33616,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 121 */
+=======
+/* 125 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -33098,7 +33628,11 @@ webpackJsonp([22],[
 	//! author : John Fischer : https://github.com/jfroffice
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -33158,7 +33692,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 122 */
+=======
+/* 126 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -33166,7 +33704,11 @@ webpackJsonp([22],[
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -33222,7 +33764,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 123 */
+=======
+/* 127 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -33230,7 +33776,11 @@ webpackJsonp([22],[
 	//! author : Gaspard Bucher : https://github.com/gaspard
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -33290,7 +33840,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 124 */
+=======
+/* 128 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -33298,7 +33852,11 @@ webpackJsonp([22],[
 	//! author : Robin van der Vliet : https://github.com/robin0van0der0v
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -33367,7 +33925,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 125 */
+=======
+/* 129 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -33375,7 +33937,11 @@ webpackJsonp([22],[
 	//! author : Jon Ashdown : https://github.com/jonashdown
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -33447,7 +34013,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 126 */
+=======
+/* 130 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -33455,7 +34025,11 @@ webpackJsonp([22],[
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -33528,7 +34102,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 127 */
+=======
+/* 131 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -33538,7 +34116,11 @@ webpackJsonp([22],[
 	//! author : Tal Ater : https://github.com/TalAter
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -33631,7 +34213,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 128 */
+=======
+/* 132 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -33639,7 +34225,11 @@ webpackJsonp([22],[
 	//! author : Mayank Singhal : https://github.com/mayanksinghal
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -33759,7 +34349,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 129 */
+=======
+/* 133 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -33767,7 +34361,11 @@ webpackJsonp([22],[
 	//! author : Bojan Marković : https://github.com/bmarkovic
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -33908,7 +34506,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 130 */
+=======
+/* 134 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -33916,7 +34518,11 @@ webpackJsonp([22],[
 	//! author : Adam Brunner : https://github.com/adambrunner
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -34021,7 +34627,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 131 */
+=======
+/* 135 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -34029,7 +34639,11 @@ webpackJsonp([22],[
 	//! author : Armendarabyan : https://github.com/armendarabyan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -34120,7 +34734,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 132 */
+=======
+/* 136 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -34129,7 +34747,11 @@ webpackJsonp([22],[
 	//! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -34207,7 +34829,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 133 */
+=======
+/* 137 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -34215,7 +34841,11 @@ webpackJsonp([22],[
 	//! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -34338,7 +34968,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 134 */
+=======
+/* 138 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -34347,7 +34981,11 @@ webpackJsonp([22],[
 	//! author: Mattia Larentis: https://github.com/nostalgiaz
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -34412,7 +35050,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 135 */
+=======
+/* 139 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -34420,7 +35062,11 @@ webpackJsonp([22],[
 	//! author : LI Long : https://github.com/baryon
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -34492,7 +35138,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 136 */
+=======
+/* 140 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -34501,7 +35151,11 @@ webpackJsonp([22],[
 	//! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -34579,7 +35233,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 137 */
+=======
+/* 141 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -34587,7 +35245,11 @@ webpackJsonp([22],[
 	//! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -34672,7 +35334,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 138 */
+=======
+/* 142 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -34680,7 +35346,11 @@ webpackJsonp([22],[
 	//! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -34763,7 +35433,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 139 */
+=======
+/* 143 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -34771,7 +35445,11 @@ webpackJsonp([22],[
 	//! author : Kruy Vanna : https://github.com/kruyvanna
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -34825,7 +35503,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 140 */
+=======
+/* 144 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -34834,7 +35516,11 @@ webpackJsonp([22],[
 	//! author : Jeeeyul Lee <jeeeyul@gmail.com>
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -34894,7 +35580,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 141 */
+=======
+/* 145 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -34902,7 +35592,11 @@ webpackJsonp([22],[
 	//! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -34986,7 +35680,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 142 */
+=======
+/* 146 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -34995,7 +35693,11 @@ webpackJsonp([22],[
 	//! author : David Raison : https://github.com/kwisatz
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -35127,7 +35829,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 143 */
+=======
+/* 147 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -35135,7 +35841,11 @@ webpackJsonp([22],[
 	//! author : Ryan Hart : https://github.com/ryanhart2
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -35201,7 +35911,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 144 */
+=======
+/* 148 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -35209,7 +35923,11 @@ webpackJsonp([22],[
 	//! author : Mindaugas Mozūras : https://github.com/mmozuras
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -35322,7 +36040,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 145 */
+=======
+/* 149 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -35331,7 +36053,11 @@ webpackJsonp([22],[
 	//! author : Jānis Elmeris : https://github.com/JanisE
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -35423,7 +36149,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 146 */
+=======
+/* 150 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -35431,7 +36161,11 @@ webpackJsonp([22],[
 	//! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -35538,7 +36272,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 147 */
+=======
+/* 151 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -35546,7 +36284,11 @@ webpackJsonp([22],[
 	//! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -35606,7 +36348,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 148 */
+=======
+/* 152 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -35614,7 +36360,11 @@ webpackJsonp([22],[
 	//! author : Borislav Mickov : https://github.com/B0k0
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -35700,7 +36450,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 149 */
+=======
+/* 153 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -35708,7 +36462,11 @@ webpackJsonp([22],[
 	//! author : Floyd Pink : https://github.com/floydpink
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -35785,7 +36543,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 150 */
+=======
+/* 154 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -35794,7 +36556,11 @@ webpackJsonp([22],[
 	//! author : Vivek Athalye : https://github.com/vnathalye
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -35948,7 +36714,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 151 */
+=======
+/* 155 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -35956,7 +36726,11 @@ webpackJsonp([22],[
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -36034,7 +36808,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 152 */
+=======
+/* 156 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -36043,7 +36821,11 @@ webpackJsonp([22],[
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -36121,7 +36903,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 153 */
+=======
+/* 157 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -36131,7 +36917,11 @@ webpackJsonp([22],[
 	//! author : Tin Aung Lin : https://github.com/thanyawzinmin
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -36220,7 +37010,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 154 */
+=======
+/* 158 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -36229,7 +37023,11 @@ webpackJsonp([22],[
 	//!           Sigurd Gartmann : https://github.com/sigurdga
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -36287,7 +37085,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 155 */
+=======
+/* 159 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -36295,7 +37097,11 @@ webpackJsonp([22],[
 	//! author : suvash : https://github.com/suvash
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -36414,7 +37220,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 156 */
+=======
+/* 160 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -36423,7 +37233,11 @@ webpackJsonp([22],[
 	//! author : Jacob Middag : https://github.com/middagj
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -36504,7 +37318,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 157 */
+=======
+/* 161 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -36512,7 +37330,11 @@ webpackJsonp([22],[
 	//! author : https://github.com/mechuwind
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -36568,7 +37390,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 158 */
+=======
+/* 162 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -36576,7 +37402,11 @@ webpackJsonp([22],[
 	//! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -36696,7 +37526,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 159 */
+=======
+/* 163 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -36704,7 +37538,11 @@ webpackJsonp([22],[
 	//! author : Rafal Hirsz : https://github.com/evoL
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -36805,7 +37643,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 160 */
+=======
+/* 164 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -36813,7 +37655,11 @@ webpackJsonp([22],[
 	//! author : Jefferson : https://github.com/jalex79
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -36874,7 +37720,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 161 */
+=======
+/* 165 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -36882,7 +37732,11 @@ webpackJsonp([22],[
 	//! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -36939,7 +37793,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 162 */
+=======
+/* 166 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -36948,7 +37806,11 @@ webpackJsonp([22],[
 	//! author : Valentin Agachi : https://github.com/avaly
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -37018,7 +37880,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 163 */
+=======
+/* 167 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -37028,7 +37894,11 @@ webpackJsonp([22],[
 	//! author : Коренберг Марк : https://github.com/socketpair
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -37205,7 +38075,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 164 */
+=======
+/* 168 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -37213,7 +38087,11 @@ webpackJsonp([22],[
 	//! authors : Bård Rolstad Henriksen : https://github.com/karamell
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -37270,7 +38148,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 165 */
+=======
+/* 169 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -37278,7 +38160,11 @@ webpackJsonp([22],[
 	//! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -37345,7 +38231,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 166 */
+=======
+/* 170 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -37354,7 +38244,11 @@ webpackJsonp([22],[
 	//! based on work of petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -37499,7 +38393,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 167 */
+=======
+/* 171 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -37507,7 +38405,11 @@ webpackJsonp([22],[
 	//! author : Robert Sedovšek : https://github.com/sedovsek
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -37665,7 +38567,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 168 */
+=======
+/* 172 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -37675,7 +38581,11 @@ webpackJsonp([22],[
 	//! author : Oerd Cukalla : https://github.com/oerd
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -37739,7 +38649,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 169 */
+=======
+/* 173 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -37747,7 +38661,11 @@ webpackJsonp([22],[
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -37853,7 +38771,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 170 */
+=======
+/* 174 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -37861,7 +38783,11 @@ webpackJsonp([22],[
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -37967,7 +38893,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 171 */
+=======
+/* 175 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -37975,7 +38905,11 @@ webpackJsonp([22],[
 	//! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -38060,7 +38994,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 172 */
+=======
+/* 176 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -38068,7 +39006,11 @@ webpackJsonp([22],[
 	//! author : Jens Alm : https://github.com/ulmus
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -38133,7 +39075,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 173 */
+=======
+/* 177 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -38141,7 +39087,11 @@ webpackJsonp([22],[
 	//! author : Fahad Kassim : https://github.com/fadsel
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -38196,7 +39146,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 174 */
+=======
+/* 178 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -38204,7 +39158,11 @@ webpackJsonp([22],[
 	//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -38329,7 +39287,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 175 */
+=======
+/* 179 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -38337,7 +39299,11 @@ webpackJsonp([22],[
 	//! author : Krishna Chaitanya Thota : https://github.com/kcthota
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -38422,7 +39388,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 176 */
+=======
+/* 180 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -38430,7 +39400,11 @@ webpackJsonp([22],[
 	//! author : Kridsada Thanabulpong : https://github.com/sirn
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -38493,7 +39467,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 177 */
+=======
+/* 181 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -38501,7 +39479,11 @@ webpackJsonp([22],[
 	//! author : Dan Hagman : https://github.com/hagmandan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -38559,7 +39541,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 178 */
+=======
+/* 182 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -38567,7 +39553,11 @@ webpackJsonp([22],[
 	//! author : Dominika Kruk : https://github.com/amaranthrose
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -38683,7 +39673,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 179 */
+=======
+/* 183 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -38692,7 +39686,11 @@ webpackJsonp([22],[
 	//!           Burak Yiğit Kaya: https://github.com/BYK
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -38777,7 +39775,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 180 */
+=======
+/* 184 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -38786,7 +39788,11 @@ webpackJsonp([22],[
 	//! author : Iustì Canun
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -38872,7 +39878,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 181 */
+=======
+/* 185 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -38880,7 +39890,11 @@ webpackJsonp([22],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -38934,7 +39948,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 182 */
+=======
+/* 186 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -38942,7 +39960,11 @@ webpackJsonp([22],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -38996,7 +40018,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 183 */
+=======
+/* 187 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -39005,7 +40031,11 @@ webpackJsonp([22],[
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -39146,7 +40176,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 184 */
+=======
+/* 188 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -39154,7 +40188,11 @@ webpackJsonp([22],[
 	//! author : Sardor Muminov : https://github.com/muminoff
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -39208,7 +40246,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 185 */
+=======
+/* 189 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -39216,7 +40258,11 @@ webpackJsonp([22],[
 	//! author : Bang Nguyen : https://github.com/bangnk
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -39291,7 +40337,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 186 */
+=======
+/* 190 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -39299,7 +40349,11 @@ webpackJsonp([22],[
 	//! author : Andrew Hood : https://github.com/andrewhood125
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -39363,7 +40417,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 187 */
+=======
+/* 191 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -39372,7 +40430,11 @@ webpackJsonp([22],[
 	//! author : Zeno Zeng : https://github.com/zenozeng
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -39494,7 +40556,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 188 */
+=======
+/* 192 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -39504,7 +40570,11 @@ webpackJsonp([22],[
 	//! author : Konstantin : https://github.com/skfd
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -39603,7 +40673,11 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 189 */
+=======
+/* 193 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -39612,7 +40686,11 @@ webpackJsonp([22],[
 	//! author : Chris Lam : https://github.com/hehachris
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(83)) :
+=======
+	    true ? factory(__webpack_require__(87)) :
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -39711,12 +40789,20 @@ webpackJsonp([22],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 190 */
+=======
+/* 194 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
 	///
+<<<<<<< HEAD
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(191)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+=======
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(195)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	    "use strict";
 	    var jqGridAdditional = (function () {
 	        return {
@@ -40097,7 +41183,11 @@ webpackJsonp([22],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+<<<<<<< HEAD
 /* 191 */
+=======
+/* 195 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/MikeMcl/bignumber.js/LICENCE */
@@ -42840,8 +43930,13 @@ webpackJsonp([22],[
 
 
 /***/ },
+<<<<<<< HEAD
 /* 192 */,
 /* 193 */
+=======
+/* 196 */,
+/* 197 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
@@ -43018,7 +44113,11 @@ webpackJsonp([22],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
+<<<<<<< HEAD
 /* 194 */
+=======
+/* 198 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* 
@@ -43368,10 +44467,13 @@ webpackJsonp([22],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
+<<<<<<< HEAD
 /* 195 */,
 /* 196 */,
 /* 197 */,
 /* 198 */,
+=======
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /* 199 */,
 /* 200 */,
 /* 201 */,
@@ -43387,10 +44489,23 @@ webpackJsonp([22],[
 /* 211 */,
 /* 212 */,
 /* 213 */,
+<<<<<<< HEAD
 /* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(215)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
+=======
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(221)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	    "use strict";
 	    $(function () {
 	        LicenseeWinLoss.initialize();
@@ -43406,12 +44521,21 @@ webpackJsonp([22],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
+<<<<<<< HEAD
 /* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(216), __webpack_require__(217),
 	        __webpack_require__(190), __webpack_require__(219), __webpack_require__(83), __webpack_require__(9),
 	        __webpack_require__(193), __webpack_require__(194), __webpack_require__(4), __webpack_require__(222), __webpack_require__(218)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, PluginHelper, moment, Popup) {
+=======
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(222), __webpack_require__(223),
+	        __webpack_require__(194), __webpack_require__(225), __webpack_require__(87), __webpack_require__(9),
+	        __webpack_require__(197), __webpack_require__(198), __webpack_require__(4), __webpack_require__(228), __webpack_require__(224)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, PluginHelper, moment, Popup) {
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	        "use strict";
 	        var REPORT_BY_MONTHLY = 2;
 	
@@ -43902,7 +45026,11 @@ webpackJsonp([22],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+<<<<<<< HEAD
 /* 216 */
+=======
+/* 222 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site*/
@@ -43995,7 +45123,11 @@ webpackJsonp([22],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+<<<<<<< HEAD
 /* 217 */
+=======
+/* 223 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
@@ -44005,7 +45137,11 @@ webpackJsonp([22],[
 	*/
 	
 	
+<<<<<<< HEAD
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(190), __webpack_require__(218)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
+=======
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(194), __webpack_require__(224)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	        "use strict";
 	        var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA"];
 	        var IGNORED_TURNOVER_PRODUCTS = ["BT"];
@@ -44794,7 +45930,11 @@ webpackJsonp([22],[
 
 
 /***/ },
+<<<<<<< HEAD
 /* 218 */
+=======
+/* 224 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports) {
 
 	/*--------------------------------------------------------------------------
@@ -47532,10 +48672,17 @@ webpackJsonp([22],[
 	})()
 
 /***/ },
+<<<<<<< HEAD
 /* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(83), __webpack_require__(220), __webpack_require__(221)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, moment) {
+=======
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(87), __webpack_require__(226), __webpack_require__(227)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, moment) {
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	        "use strict";
 	
 	    var _historyDate = new Date($("#HistoryDate").val());
@@ -47639,7 +48786,11 @@ webpackJsonp([22],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+<<<<<<< HEAD
 /* 220 */
+=======
+/* 226 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -47653,7 +48804,11 @@ webpackJsonp([22],[
 	(function (root, factory) {
 	    if (true) {
 	        // AMD. Make globaly available as well
+<<<<<<< HEAD
 	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(83), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
+=======
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(87), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 	            return (root.daterangepicker = factory(moment, jquery));
 	        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof module === 'object' && module.exports) {
@@ -49263,7 +50418,11 @@ webpackJsonp([22],[
 
 
 /***/ },
+<<<<<<< HEAD
 /* 221 */
+=======
+/* 227 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -50073,7 +51232,11 @@ webpackJsonp([22],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
+<<<<<<< HEAD
 /* 222 */
+=======
+/* 228 */
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -50313,6 +51476,7 @@ webpackJsonp([22],[
 
 /***/ }
 ]);
+<<<<<<< HEAD
 //# sourceMappingURL=licenseewinloss.chunk.js.map
 >>>>>>> 7932771... #67998 - Add blockUI for livereport
 <<<<<<< HEAD
@@ -50351,3 +51515,6 @@ return this.each(function(){var n=t(this);n.data("daterangepicker")&&n.data("dat
 =======
 return this.each(function(){var n=t(this);n.data("daterangepicker")&&n.data("daterangepicker").remove(),n.data("daterangepicker",new r(n,e,i))}),this},r})},function(e,t,r){var i,n;(function(a){i=[r(7)],n=function(e){!function(t){var r={error:t.noop};Date.prototype.toStringFormat=function(t){function r(e){var t=parseInt(e);return n[t]||e}function i(e){var t=parseInt(e);return a[t]||e}var n=e.getResources(["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]),a=e.getResources(["January","February","March","April","May","June","July","August","September","October","November","December"]),s=this.getFullYear(),o=this.getMonth(),d=this.getDate(),l=t;return l=l.replace(/yyyy/g,s),l=l.replace(/yy/g,s.toString().substr(2)),l=l.replace(/MMMM/g,i(o)),l=l.replace(/MMM/g,r(o)),l=l.replace(/MM/g,o<9?"0"+(o+1):o+1),l=l.replace(/dd/g,d<10?"0"+d:d)};var i=function(e,t){var i=Math.ceil(e)==Math.floor(e);return t&&!i&&r.error('Oops! "'+e+'" is an invalid Integer'),i},n=function(e,t){var n=new Date(e),a=i(n.getDate())&&i(n.getMonth())&&i(n.getFullYear());return t&&!a&&r.error('Oops! "'+e+'" is an invalid Date'),a},a=null,s=null,o=null,d=null,l=null,u=null,c=null,h=function(e){var i=t(e).data("monPickr");return i?i:(r.error("Oops! No data of monPickr is available"),null)},m=function(e,t,r,i){var n=e.getFullYear(),a=e.getMonth(),s=t.getFullYear(),o=t.getMonth(),d=r<n||r==n&&i<a,l=r>s||r==s&&i>o;return!d&&!l},p=function(e,t,r,i,n){var a=(new Date(r,i,D(e,r,i)),new Date(r,i,w(t,r,i))),n=new Date(n.getFullYear(),n.getMonth(),n.getDate());return e<=n&&n<=a},f=function(e,t,r){var i=new Date(t,r+1,1),n=new Date(t,r-1,1);m(e.minDate,e.maxDate,i.getFullYear(),i.getMonth())?e.btnNext.removeClass("disable"):e.btnNext.addClass("disable"),m(e.minDate,e.maxDate,n.getFullYear(),n.getMonth())?e.btnPrev.removeClass("disable"):e.btnPrev.addClass("disable")},_=function(e,t,r){e.year=t,e.month=r},g=function(e){e.lblSelectedMonth.html(new Date(e.year,e.month,1).toStringFormat(e.monthFormat))},y=function(e,i,n){if("function"==typeof e.beforeChangeMonth?e.beforeChangeMonth():r.error("Oops! beforeChangeMonth event's handler (which has type \""+typeof e.beforeChangeMonth+'") is not a function'),e.dropDown.find(".monthWrap a[month].selected").removeClass("selected"),e.dropDown.find(".monthWrap[year="+i+"] a[month="+(n+1)+"]:first").addClass("selected"),_(e,i,n),g(e),e.dropDown.find(".monthWrap.selected").attr("year")!=i&&(L(e),Y(e,i),e.dropDown.find(".year a.selected:first").parent().addClass("selected")),e.showDateRange){var a=D(e.minDate,e.year,e.month),s=w(e.maxDate,e.year,e.month);b(e,e.ddlFromDate,a,!0),b(e,e.ddlToDate,s,!1);var o=function(e){var r=t(this),i=e+1;i<a||s<i?r.hide():r.show()};e.ddlFromDate.dropDown.find("li").each(o),e.ddlToDate.dropDown.find("li").each(o)}f(e,i,n),"function"==typeof e.afterChangeMonth?e.afterChangeMonth():r.error("Oops! afterChangeMonth event's handler (which has type \""+typeof e.afterChangeMonth+'") is not a function')},M=function(e,t,r){r?(e.fromDay=parseInt(t,10),e.fromDate=new Date(e.year,e.month,t)):(e.toDay=parseInt(t,10),e.toDate=new Date(e.year,e.month,t))},v=function(e,t){e.find(".selectedDay").html(t)},b=function(e,t,i,n){"function"==typeof e.beforeChangeDay?e.beforeChangeDay():r.error("Oops! beforeChangeDay event's handler (which has type \""+typeof e.beforeChangeDay+'") is not a function'),v(t,i),M(e,i,n),"function"==typeof e.afterChangeDay?e.afterChangeDay():r.error("Oops! afterChangeDay event's handler (which has type \""+typeof e.afterChangeDay+'") is not a function')},D=function(e,t,r){var i=new Date(t,r,1),n=new Date(e.getFullYear(),e.getMonth(),e.getDate());return n>i?n.getDate():1},w=function(e,t,r){var i=new Date(t,r+1,0),n=new Date(e.getFullYear(),e.getMonth(),e.getDate());return i>n?n.getDate():i.getDate()},L=function(e){var t=e.dropDown.find(".monthWrap.selected").eq(0);e.dropDown.is(":hidden")?t.hide():t.slideUp(e.showYearSpeed),t.removeClass("selected"),e.dropDown.find(".year .selected").eq(0).removeClass("selected").parent().removeClass("selected")},Y=function(e,t){var r=e.dropDown.find(".monthWrap[year="+t+"]").eq(0);r.prev(".year").find("a[year]").eq(0).addClass("selected"),r.addClass("selected").slideDown(e.showYearSpeed)},k=function(e,t){t.dropDown.slideDown(e.showDropDownSpeed)},j=function(e,t){t.dropDown.slideUp(e.showDropDownSpeed)},x={init:function(e){if(e=e||{},t.isFunction(e.log)&&(r.error=e.log),!this.length)return void r.error('Oops! DOM element "'+this.selector+'" does not exist');if(!e.today||n(e.today,!0)){a=e.today?new Date(e.today):new Date,s=a.getFullYear(),o=a.getMonth(),d=a.getDate(),l=new Date(s,0,1),u=new Date(s,o,1),c=new Date(s,o+1,0);var i=t.extend({minDate:l,maxDate:a,month:a,showDateRange:!1,fromDay:u.getDate(),toDay:a.getDate(),fromDayId:null,toDayId:null,expandYearOnhover:!1,expandDayOnhover:!1,showYearSpeed:110,showDropDownSpeed:10,disabled:!1,sortDesc:!1,monthFormat:"MMM yyyy",nextText:"Next Month",prevText:"Previous Month",monPickrText:"Show/hide Month Picker",zIndex:9999,beforeChangeMonth:function(){},afterChangeMonth:function(){},beforeChangeDay:function(){},afterChangeDay:function(){}},e);if(n(i.minDate,!0)&&n(i.maxDate,!0)&&(i.minDate=new Date(i.minDate),i.maxDate=new Date(i.maxDate),n(i.month,!0))){i.month=new Date(i.month);var h=i.month.getFullYear(),_=i.month.getMonth();if(!m(i.minDate,i.maxDate,h,_))return void r.error("Oops! Selected month ("+i.month.toStringFormat("MM/yyyy")+") is out of range ("+i.minDate.toStringFormat("MM/yyyy")+" ~ "+i.maxDate.toStringFormat("MM/yyyy")+")");var M=new Date(h,_,i.fromDay),v=new Date(h,_,i.toDay);return p(i.minDate,i.maxDate,h,_,M)?p(i.minDate,i.maxDate,h,_,v)?this.each(function(){var e=t(this),n=e.data("monPickr");n||(e.data("monPickr",{target:e,minDate:i.minDate,maxDate:i.maxDate,originalYear:i.year,originalMonth:i.month,year:i.month.getFullYear(),month:i.month.getMonth(),showDateRange:i.showDateRange,originalFromDay:i.fromDay,originalToDay:i.toDay,fromDay:i.fromDay,toDay:i.toDay,fromDate:M,toDate:v,fromDayId:i.fromDayId,toDayId:i.toDayId,expandYearOnhover:i.expandYearOnhover,expandDayOnhover:i.expandDayOnhover,showYearSpeed:i.showYearSpeed,showDropDownSpeed:i.showDropDownSpeed,disabled:i.disabled,sortDesc:i.sortDesc,monthFormat:i.monthFormat,nextText:i.nextText,prevText:i.prevText,monPickrText:i.monPickrText,zIndex:i.zIndex,beforeChangeMonth:i.beforeChangeMonth,afterChangeMonth:i.afterChangeMonth,beforeChangeDay:i.beforeChangeDay,afterChangeDay:i.afterChangeDay}),n=e.data("monPickr")),e.addClass("monPickr"),n.btnPrev=t('<a href="javascript:;" class="prev" title="'+n.prevText+'"><b>&lsaquo;</b></a>'),n.btnNext=t('<a href="javascript:;" class="next" title="'+n.nextText+'"><b>&rsaquo;</b></a>'),n.lblSelectedMonth=t('<span class="selectedMonth" title="'+n.monPickrText+'"></span>'),g(n),e.append(n.btnPrev,n.lblSelectedMonth,n.btnNext),e.wrap('<div class="monPickrWrap" style="z-index: '+n.zIndex+'" />'),n.wrap=e.parents(".monPickrWrap"),n.wrap.wrap('<div class="monPickrWrapParent" style="position: relative" />').css({position:"absolute"}).parent().width(n.wrap.outerWidth()).height(n.wrap.outerHeight()),n.dropDown=t('<div class="monPickrDropDown" />');var a,s,o=n.minDate.getFullYear(),d=n.minDate.getMonth(),l=n.minDate.getFullYear(),u=n.minDate.getMonth(),c=n.maxDate.getFullYear(),p=n.maxDate.getMonth();if(a='<ul class="monPickrDropDownInner">',n.sortDesc)for(o=n.maxDate.getFullYear(),d=n.maxDate.getMonth();o>l||o==l&&d>=u;){for(s=o==n.year?"selected":"",s+=n.expandYearOnhover?" hover":"",a+='<li class="year '+s+'"><a year="'+o+'" class="'+s+'" href="javascript:;">'+o+"</a></li>",a+=o==n.year?'<li class="monthWrap selected" year="'+o+'" style="display: list-item"><ul>':'<li class="monthWrap" year="'+o+'"><ul>';(o>l||o==l&&d>=u)&&d>=0;)s=o==n.year&&d==n.month?'class="selected"':"",a+='<li><a month="'+(d+1)+'" '+s+' href="javascript:;">'+new Date(o,d).toStringFormat("MMMM")+"</a><li>",d--;a+="</ul></li>",o--,d=11}else for(;o<c||o==c&&d<=p;){for(s=o==n.year?"selected":"",s+=n.expandYearOnhover?" hover":"",a+='<li class="year '+s+'"><a year="'+o+'" class="'+s+'" href="javascript:;">'+o+"</a></li>",a+=o==n.year?'<li class="monthWrap selected" year="'+o+'" style="display: list-item"><ul>':'<li class="monthWrap" year="'+o+'"><ul>';(o<c||o==c&&d<=p)&&d<12;)s=o==n.year&&d==n.month?'class="selected"':"",a+='<li><a month="'+(d+1)+'" '+s+' href="javascript:;">'+new Date(o,d).toStringFormat("MMMM")+"</a><li>",d++;a+="</ul></li>",o++,d=0}a+="</ul>",n.dropDown.append(a),e.after(n.dropDown),f(n,h,_),n.wrap.on("click",function(e){t(e.target).hasClass("selectedMonth")&&(n.dropDown.is(":hidden")?k(n,n):j(n,n)),e.stopPropagation()}),t("html").on("click",function(){j(n,n)});var x=n.expandYearOnhover?"mouseenter":"click";if(n.dropDown.on(x,".year a",function(){var e=t(this),r=e.attr("year"),i=0==e.hasClass("selected");switch(x){case"mouseenter":i&&(L(n),Y(n,r));break;case"click":L(n),i&&Y(n,r),n.dropDown.find(".year a.selected:first").parent().addClass("selected")}}),n.dropDown.on("click",".monthWrap a[month]",function(){var e=t(this);y(n,e.parents(".monthWrap").attr("year"),e.attr("month")-1),j(n,n)}),n.btnNext.on("click",function(){var e=n.month+1,t=n.year;e>11&&(e=0,t++),m(n.minDate,n.maxDate,t,e)&&y(n,t,e)}),n.btnPrev.on("click",function(){var e=n.month-1,t=n.year;e<0&&(e=11,t--),m(n.minDate,n.maxDate,t,e)&&y(n,t,e)}),n.showDateRange){var T=function(e,i,n,a){if(i=t("#"+n),i.length>0){i.addClass("dayPickr").append('<span class="selectedDay">'+a+"</span>").append('<a class="darr" href="javascript:;"><b>v</b></a>').wrap('<div class="selectedDayWrap" style="z-index: '+e.zIndex+'" />'),i.wrap=i.parents(".selectedDayWrap").wrap('<div class="selectedDayWrapParent" style="position: relative" />').css({position:"absolute"}),i.wrap.parent().width(i.wrap.outerWidth()).height(i.wrap.outerHeight()),i.dropDown=t('<div class="dayPickrDropDown" />');var o,d=1,l=D(e.minDate,e.year,e.month),u=w(e.maxDate,e.year,e.month);for(o="<ul>";d<=31;)s=d<l||d>u?'style="display: none"':"",o+="<li "+s+'><a href="javascript:;">'+d+"</a></li>",d++;return o+="</ul>",i.dropDown.append(o),i.after(i.dropDown),i}r.error("Oops! fromDayId ("+e.fromDayId+") or toDayId ("+e.toDayId+") does not exist")};n.ddlFromDate=T(n,n.ddlFromDate,n.fromDayId,n.fromDay),n.ddlToDate=T(n,n.ddlToDate,n.toDayId,n.toDay);var S=n.expandDayOnhover?"hover":"click",C=function(e){if(n.isClosingDropDown)return void(n.isClosingDropDown=!1);var t=e.data.target;t.dropDown.is(":hidden")?k(n,t):j(n,t),e.stopPropagation()};n.ddlFromDate.wrap.on(S,{target:n.ddlFromDate},C),n.ddlToDate.wrap.on(S,{target:n.ddlToDate},C),n.expandDayOnhover||t("html").on("click",function(){j(n,n.ddlFromDate),j(n,n.ddlToDate)});var H=function(e){var r=t(this),i=r.find("a").html();n.expandDayOnhover&&(n.isClosingDropDown=!0),r.parents(".dayPickrDropDown").hide(),b(n,e.data.target,i,e.data.isFromDay),e.stopPropagation()};n.ddlFromDate.dropDown.on("click","li",{target:n.ddlFromDate,isFromDay:!0},H),n.ddlToDate.dropDown.on("click","li",{target:n.ddlToDate,isFromDay:!1},H)}}):void r.error("Oops! toDate ("+v.toStringFormat("MMM dd, yyyy")+") is out of range"):void r.error("Oops! fromDate ("+M.toStringFormat("MMM dd, yyyy")+") is out of range")}}},getMonth:function(e){var t=h(this);return t?void 0!=e?(e=e.length>0?e:t.monthFormat,new Date(t.year,t.month).toStringFormat(e)):t.month+1:null},setMonth:function(e){var t=h(this);if(t){var n,a,s=e;"object"!=(typeof e).toLowerCase()&&(s=new Date(s)),n=s.getFullYear(),a=s.getMonth(),i(n)&&i(a)?m(t.minDate,t.maxDate,n,a)?y(t,n,a):r.error("Oops! Can't set month because input ("+e.toString()+") is out of range ("+t.minDate.toStringFormat("MMM yyyy")+" ~ "+t.maxDate.toStringFormat("MMM yyyy")+")"):r.error("Oops! Can't set month because of invalid input ("+e.toString()+")")}},getFromDate:function(e){var t=h(this);return t?void 0!=e?(e=e.length>0?e:t.monthFormat,t.fromDate.toStringFormat(e)):t.fromDate:null},getToDate:function(e){var t=h(this);return t?void 0!=e?(e=e.length>0?e:t.monthFormat,t.toDate.toStringFormat(e)):t.toDate:null},setFromDay:function(e){var t=h(this);if(t){var n=new Date(t.year,t.month,e);i(e)&&p(t.minDate,t.maxDate,t.year,t.month,n)?b(t,t.ddlFromDate,e,!0):r.error("Oops! input value ("+e+") is invalid")}},setToDay:function(e){var t=h(this);if(t){var n=new Date(t.year,t.month,e);i(e)&&p(t.minDate,t.maxDate,t.year,t.month,n)?b(t,t.ddlToDate,e,!1):r.error("Oops! input value ("+e+") is invalid")}},reset:function(){var e=h(this);e&&y(e,e.originalYear,e.originalMonth)}};t.fn.monPickr=function(e){return x[e]?x[e].apply(this,Array.prototype.slice.call(arguments,1)):"object"!=typeof e&&e?void r.error('Oops! Method "'+e+'" does not exist on jQuery.monPickr'):x.init.apply(this,arguments)}}(a)}.apply(t,i),!(void 0!==n&&(e.exports=n))}).call(t,r(1))},function(e,t,r){(function(e){"use strict";!function(t){t.fn.checkboxgroup=function(){var e=this.first(),r=this.slice(1);return e.prop("checked",r.filter(":checked").length>=r.length),e.change(function(){var e=t(this).is(":checked");r.prop("checked",e)}),r.change(function(){t(this).is(":checked")?e.prop("checked",r.filter(":checked").length>=r.length):e.prop("checked",!1)}),this},t.fn.showHide=function(e){return e?this.show():this.hide(),this},e.fn.serializeObject=function(){var e={},r=this.serializeArray();return t.each(r,function(){void 0!==e[this.name]?(e[this.name].push||(e[this.name]=[e[this.name]]),e[this.name].push(this.value||"")):e[this.name]=this.value||""}),e},t.fn.getStyleObject=function(){var e=this.get(0);if(e){var t,r={};if(window.getComputedStyle){var i=function(e,t){return t.toUpperCase()};t=window.getComputedStyle(e,null);for(var n=0,a=t.length;n<a;n++){var s=t[n],o=s.replace(/\-([a-z])/,i),d=t.getPropertyValue(s);r[o]=d}return r}try{if(e.currentStyle){t=e.currentStyle;for(var l in t)r[l]=t[l];return r}if(t===e.style){for(var u in t)"function"!=typeof t[u]&&(r[u]=t[u]);return r}}catch(c){}return r}},e.fn.tableRowSpan=function(e,r){function i(e,i){for(var n,a,s,o=1,d=e.rows.length-1,l=0;l<=d;l++){var u=e.rows[l],c=u.cells[i];if(c){s=u.cells[r];var h=null!=n&&t(c).html()===t(n).html();h&&l<d?(o++,t(c).hide(),void 0!==r&&t(s).hide()):h&&l===d?(t(c).hide(),o++,t(n).attr("rowSpan",o),n=c,void 0!==r&&(t(s).hide(),t(a).attr("rowSpan",o),a=s),o=1):(void 0!==r&&(t(a).attr("rowSpan",o),a=s),t(n).attr("rowSpan",o),n=c,o=1),n=null==n?c:n,void 0!==r&&(a=null==a?s:a)}}}if(!(void 0!==r&&t.inArray(r,e)>-1))return this.each(function(){for(var t=0;t<e.length;t++)i(this,e[t])})},e.fn.numbericTextBox=function(e,r){var i=function(e){e=e.toString();for(var t=/(-?\d+)(\d{3})/;t.test(e);)e=e.replace(t,"$1,$2");return e};return this.each(function(n,a){t(a).keydown(function(e){46===e.keyCode||8===e.keyCode||9===e.keyCode||27===e.keyCode||13===e.keyCode||65===e.keyCode&&e.ctrlKey===!0||e.keyCode>=35&&e.keyCode<=39||(e.shiftKey||(e.keyCode<48||e.keyCode>57)&&(e.keyCode<96||e.keyCode>105))&&e.preventDefault()}).keyup(function(t){var n=t.target,a=n.value;a=a.replace(/,/g,"");var s=a<e||a>r;s&&(n.value=n.value.slice(0,-1),a=n.value.replace(/,/g,"")),n.value=i(a)})}),this}}(e),e.extend({format:function(){var t=arguments[0],r=e.grep(arguments,function(e,t){return t>0});for(var i in r)t=t.replace("{"+i+"}",r[i]);return t}})}).call(t,r(1))}]);
 >>>>>>> dbb9f0c... #67998 - Update css for Handicap/Over Under/Live report
+=======
+//# sourceMappingURL=licenseewinloss.chunk.js.map
+>>>>>>> 795e18d... #67998 - Implement mix parlay betlist
