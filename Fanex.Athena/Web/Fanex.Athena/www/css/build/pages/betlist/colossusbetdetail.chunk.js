@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([4],{
 =======
 webpackJsonp([5],{
@@ -10,11 +11,15 @@ webpackJsonp([5],{
 =======
 webpackJsonp([5],{
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
+=======
+webpackJsonp([5],{
+>>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(21);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	module.exports = __webpack_require__(41);
@@ -24,6 +29,9 @@ webpackJsonp([5],{
 =======
 	module.exports = __webpack_require__(47);
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
+=======
+	module.exports = __webpack_require__(47);
+>>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 
 
 /***/ },
@@ -37,6 +45,7 @@ webpackJsonp([5],{
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ 41:
 =======
 /***/ 45:
@@ -44,6 +53,9 @@ webpackJsonp([5],{
 =======
 /***/ 47:
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
+=======
+/***/ 47:
+>>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
@@ -51,6 +63,7 @@ webpackJsonp([5],{
 /***/ }
 
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 //# sourceMappingURL=colossusbetdetail.chunk.js.map
 =======
@@ -65,3 +78,6 @@ webpackJsonp([5],{0:function(n,o,c){c(21),n.exports=c(47)},21:function(n,o){},47
 =======
 webpackJsonp([5],{0:function(n,o,c){c(21),n.exports=c(47)},21:function(n,o){},47:21});
 >>>>>>> fd0081f... #67998 - Update resize function of totalbetsbase.js, restructure some js files, add block body part for popup
+=======
+//# sourceMappingURL=colossusbetdetail.chunk.js.map
+>>>>>>> 90fefe1... #67998 - Separate webpack js build folders

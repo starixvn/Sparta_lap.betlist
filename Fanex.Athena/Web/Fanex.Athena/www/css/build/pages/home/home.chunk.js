@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([6],{
 =======
 webpackJsonp([8],{
@@ -10,10 +11,14 @@ webpackJsonp([8],{
 =======
 webpackJsonp([8],{
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
+=======
+webpackJsonp([8],{
+>>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	__webpack_require__(45);
@@ -27,15 +32,21 @@ webpackJsonp([8],{
 	module.exports = __webpack_require__(57);
 >>>>>>> e7e0530... #67998 - Add blockUI for livereport
 =======
+=======
+>>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 	__webpack_require__(55);
 	__webpack_require__(57);
 	__webpack_require__(59);
 	module.exports = __webpack_require__(61);
+<<<<<<< HEAD
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
+=======
+>>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 45:
@@ -45,12 +56,16 @@ webpackJsonp([8],{
 =======
 /***/ 55:
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
+=======
+/***/ 55:
+>>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 47:
@@ -60,12 +75,16 @@ webpackJsonp([8],{
 =======
 /***/ 57:
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
+=======
+/***/ 57:
+>>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 49:
@@ -75,12 +94,16 @@ webpackJsonp([8],{
 =======
 /***/ 59:
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
+=======
+/***/ 59:
+>>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 /***/ 51:
@@ -90,6 +113,9 @@ webpackJsonp([8],{
 =======
 /***/ 61:
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
+=======
+/***/ 61:
+>>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
@@ -97,6 +123,7 @@ webpackJsonp([8],{
 /***/ }
 
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 //# sourceMappingURL=home.chunk.js.map
@@ -115,3 +142,6 @@ webpackJsonp([8],{0:function(n,o,c){c(55),c(57),c(59),n.exports=c(61)},55:functi
 =======
 webpackJsonp([8],{0:function(n,o,c){c(55),c(57),c(59),n.exports=c(61)},55:function(n,o){},57:55,59:55,61:55});
 >>>>>>> fd0081f... #67998 - Update resize function of totalbetsbase.js, restructure some js files, add block body part for popup
+=======
+//# sourceMappingURL=home.chunk.js.map
+>>>>>>> 90fefe1... #67998 - Separate webpack js build folders
