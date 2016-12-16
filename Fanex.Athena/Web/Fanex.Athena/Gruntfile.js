@@ -36,7 +36,8 @@ module.exports = function(grunt) {
 	},
 	webpack: {
 		dev: webpackDevelopment,
-		pro: webpackProduction
+		pro: webpackProduction,
+		both: [webpackDevelopment, webpackProduction]
 	}
   });
 

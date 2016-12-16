@@ -774,6 +774,7 @@
     <Content Include="www\js\build\dev\pages\livereport\livereport.chunk.js" />
     <Content Include="www\js\build\dev\pages\livereport\livereportmatchlist.chunk.js" />
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js" />
+    <Content Include="www\js\build\pro\common.chunk.js" />
     <Content Include="www\js\build\pro\language.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlist.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistrunning.chunk.js" />
