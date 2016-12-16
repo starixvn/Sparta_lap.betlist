@@ -13,15 +13,10 @@ $colorAddIcon: #08B22D;
     .table {
         border-right: 1px solid $colorBorderTable;
 
-        th, td {
+        td {
             &:first-child {
                 border-left: none;
             }
-        }
-
-        th {
-            background: $bgHeaderTable;
-            color: $white;
         }
     }
 }
@@ -38,7 +33,7 @@ $colorAddIcon: #08B22D;
     width: 40%;
 }
 
-.col-half-large {
+.col-child {
     width: 10%;
 }
 
@@ -46,7 +41,7 @@ $colorAddIcon: #08B22D;
     > thead, > tbody {
         tr {
             td, th {
-                padding: 5px 8px;
+                padding: 4px 5px;
             }
 
             > td {
@@ -111,6 +106,23 @@ $colorAddIcon: #08B22D;
     overflow-x: hidden;
 }
 
+.header-content {
+    .table {
+        th {
+            background: $bgHeaderTable;
+            color: $white;
+
+            &:first-child {
+                border-left: none;
+            }
+
+            &.col-last {
+                border-right-color: $colorBorderTable !important;
+            }
+        }
+    }
+}
+
 .header-content, .footer-content {
     padding-right: 17px;
 }
@@ -128,8 +140,14 @@ $colorAddIcon: #08B22D;
                 font-weight: bold;
                 border-bottom: none;
 
-                > span {
+                > .total-cell {
                     margin-right: 27px;
+                }
+
+                &.no-margin {
+                    > .total-cell {
+                        margin-right: 0;
+                    }
                 }
             }
         }

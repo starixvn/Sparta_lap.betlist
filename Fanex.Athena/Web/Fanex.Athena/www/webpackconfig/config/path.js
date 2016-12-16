@@ -66,6 +66,7 @@ var scriptPaths = {
 
     handicapoverunder: "./www/js/source/pages/totalbet/handicapoverunder/main.js",
     ahforecast: "./www/js/source/pages/forecast/forecast.ah.main.js",
+    moneyline: "./www/js/source/pages/totalbet/moneyline/main.js"
 };
 
 module.exports = {

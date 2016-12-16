@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -768,12 +768,13 @@
     <Content Include="www\js\build\dev\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\ahforecast.chunk.js" />
-    <Content Include="www\js\build\dev\pages\handicapoverunder\handicapoverunder.chunk.js" />
     <Content Include="www\js\build\dev\pages\home\home.chunk.js" />
     <Content Include="www\js\build\dev\pages\licenseewinloss\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\livereport\livereport.chunk.js" />
     <Content Include="www\js\build\dev\pages\livereport\livereportmatchlist.chunk.js" />
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js" />
+    <Content Include="www\js\build\dev\pages\totalbet\handicapoverunder.chunk.js" />
+    <Content Include="www\js\build\dev\pages\totalbet\moneyline.chunk.js" />
     <Content Include="www\js\build\pro\common.chunk.js" />
     <Content Include="www\js\build\pro\language.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlist.chunk.js" />
@@ -781,12 +782,13 @@
     <Content Include="www\js\build\pro\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\pro\pages\forecast\ahforecast.chunk.js" />
-    <Content Include="www\js\build\pro\pages\handicapoverunder\handicapoverunder.chunk.js" />
     <Content Include="www\js\build\pro\pages\home\home.chunk.js" />
     <Content Include="www\js\build\pro\pages\licenseewinloss\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\livereport\livereport.chunk.js" />
     <Content Include="www\js\build\pro\pages\livereport\livereportmatchlist.chunk.js" />
     <Content Include="www\js\build\pro\pages\signin\signin.chunk.js" />
+    <Content Include="www\js\build\pro\pages\totalbet\handicapoverunder.chunk.js" />
+    <Content Include="www\js\build\pro\pages\totalbet\moneyline.chunk.js" />
     <Content Include="www\js\source\common\languages\ViewResources.js">
       <DependentUpon>ViewResources.tt</DependentUpon>
     </Content>
@@ -860,6 +862,8 @@
     <Content Include="www\js\source\pages\signin\signin.js" />
     <Content Include="www\js\source\pages\totalbet\handicapoverunder\handicapoverunder.js" />
     <Content Include="www\js\source\pages\totalbet\handicapoverunder\main.js" />
+    <Content Include="www\js\source\pages\totalbet\moneyline\main.js" />
+    <Content Include="www\js\source\pages\totalbet\moneyline\moneyline.js" />
     <Content Include="www\js\source\pages\totalbet\totalbetsbase.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\js\tests\common\popup-spec.js" />
@@ -1257,6 +1261,10 @@
     <Content Include="Views\Desktop\BetList\RunningBetListMultipleBettypes\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\CorrectScoreBetList\Filter.cshtml" />
     <Content Include="Views\Desktop\BetList\CorrectScoreBetList\Main.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\MoneyLine\Main.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\MoneyLine\Filter.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\MoneyLine\Content.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\MoneyLine\ContentData.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1283,13 +1291,14 @@
     <Content Include="www\js\build\dev\pages\betlist\betlistrunningmultiplebettypes.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\betlist\betlistsimple.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\forecast\ahforecast.chunk.js.map" />
-    <Content Include="www\js\build\dev\pages\handicapoverunder\handicapoverunder.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\home\home.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\licenseewinloss\licenseewinloss.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\livereport\livereport.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\livereport\livereportmatchlist.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js.map" />
     <Content Include="www\js\build\dev\common.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\totalbet\handicapoverunder.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\totalbet\moneyline.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
