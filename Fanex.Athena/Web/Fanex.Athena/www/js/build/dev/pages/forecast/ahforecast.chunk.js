@@ -162,6 +162,10 @@ webpackJsonp([20],{
 	                _me.refresh();
 	            });
 	
+	            if (_me.isForecastAH) {
+	                $('.dropdown-button').dropdown();
+	            }
+	
 	            // Get count down id from filter
 	            countDownId = $('#count-down-of').attr('name');
 	
@@ -195,7 +199,7 @@ webpackJsonp([20],{
 	        tick: function () {
 	            document.getElementById('count').innerHTML = curCountDown;
 	            curCountDown--;
-	            if (countDownTimer != null) {
+	            if (countDownTimer !== null) {
 	                clearTimeout(countDownTimer);
 	            }
 	            countDownTimer = setTimeout(_me.tick, 1000);
@@ -206,10 +210,10 @@ webpackJsonp([20],{
 	        refresh: function () {
 	            var oldScrollTop;
 	            if ($(".body-content").length) {
-	                oldScrollTop = $(".body-content")[0].scrollTop;
+	                oldScrollTop = $(".body-content").scrollTop();
 	            }
 	
-	            if (countDownTimer != null) {
+	            if (countDownTimer !== null) {
 	                clearTimeout(countDownTimer);
 	            }
 	            document.getElementById('count').innerHTML = "loading";
@@ -221,7 +225,8 @@ webpackJsonp([20],{
 	            $.ajaxSetup({ cache: false });
 	
 	            $('#reportContent').load(url, {
-	                noncache: new Date().getTime() }, function () {
+	                noncache: new Date().getTime()
+	            }, function () {
 	                Site.unBlockUI();
 	                _me.initEvent();
 	
@@ -231,14 +236,14 @@ webpackJsonp([20],{
 	                // Re init countdown event with forecast AH
 	                if (_me.isForecastAH) {
 	                    _me.initialize();
-	                    $('.dropdown-button').dropdown();
 	                }
+	
+	                $(window).resize();
 	
 	                // Scrollbar still kept current position
 	                if ($(".body-content").length) {
 	                    $(".body-content").scrollTop(oldScrollTop);
 	                }
-	                $(window).resize();
 	            });
 	
 	            return true;

@@ -4,6 +4,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([4],{
 =======
 webpackJsonp([5],{
@@ -81,3 +82,6 @@ webpackJsonp([5],{0:function(n,o,c){c(21),n.exports=c(47)},21:function(n,o){},47
 =======
 //# sourceMappingURL=colossusbetdetail.chunk.js.map
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+webpackJsonp([5],{0:function(n,o,c){c(21),n.exports=c(47)},21:function(n,o){},47:21});
+>>>>>>> ec524a8... #67998 - Build webpack
