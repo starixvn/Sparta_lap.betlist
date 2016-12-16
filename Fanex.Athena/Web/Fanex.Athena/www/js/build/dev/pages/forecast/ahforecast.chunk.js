@@ -216,7 +216,7 @@ webpackJsonp([21],{
 	            if (countDownTimer !== null) {
 	                clearTimeout(countDownTimer);
 	            }
-	            document.getElementById('count').innerHTML = "loading";
+	            document.getElementById('count').innerHTML = "...";
 	
 	            // Get param before load data
 	            var url = _me.calculateUrl();

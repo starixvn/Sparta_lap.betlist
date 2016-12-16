@@ -1,8 +1,18 @@
-﻿.betlist-popup{
+﻿@import "../../scss/abstracts/_variables.scss";
+
+.betlist-popup {
     padding: 5px 20px;
 }
+
 .betlist-container {
     background: #fff;
+
+    .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th {
+        &, &.ui-th-column {
+            background: $bgHeaderTable;
+            color: $white;
+        }
+    }
 
     .content-title {
         font-weight: bold;
@@ -256,7 +266,6 @@
         color: #755200;
         font-weight: bold;
     }
-
     /*to make line-through for void-parlay-ticket*/
     div.mx-parlay {
         div.void {

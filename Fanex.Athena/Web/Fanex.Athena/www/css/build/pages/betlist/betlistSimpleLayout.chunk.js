@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([3],{
 =======
 webpackJsonp([4],{
@@ -64,6 +65,15 @@ webpackJsonp([4],{
 	__webpack_require__(37);
 	module.exports = __webpack_require__(45);
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(35),c(37),n.exports=c(45)},21:function(n,o){},23:21,25:21,27:21,29:21,31:21,33:21,35:21,37:21,45:21});_(27);
+	__webpack_require__(29);
+	__webpack_require__(31);
+	__webpack_require__(33);
+	__webpack_require__(35);
+	__webpack_require__(37);
+	module.exports = __webpack_require__(45);
+>>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
 
 
 /***/ },
@@ -78,6 +88,7 @@ webpackJsonp([4],{
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ 25:
 =======
 /***/ 23:
@@ -88,12 +99,16 @@ webpackJsonp([4],{
 =======
 /***/ 23:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 23:
+>>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -107,12 +122,16 @@ webpackJsonp([4],{
 =======
 /***/ 25:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 25:
+>>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -126,12 +145,16 @@ webpackJsonp([4],{
 =======
 /***/ 27:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 27:
+>>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -145,12 +168,16 @@ webpackJsonp([4],{
 =======
 /***/ 29:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 29:
+>>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -164,12 +191,16 @@ webpackJsonp([4],{
 =======
 /***/ 31:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 31:
+>>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -183,12 +214,16 @@ webpackJsonp([4],{
 =======
 /***/ 33:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 33:
+>>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -199,6 +234,8 @@ webpackJsonp([4],{
 =======
 =======
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+>>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
 /***/ 35:
 /***/ function(module, exports) {
 
@@ -208,15 +245,19 @@ webpackJsonp([4],{
 
 /***/ 37:
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 =======
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+>>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -230,6 +271,9 @@ webpackJsonp([4],{
 =======
 /***/ 45:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 45:
+>>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
@@ -237,6 +281,7 @@ webpackJsonp([4],{
 /***/ }
 
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -265,3 +310,6 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 =======
 webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(35),c(37),n.exports=c(45)},21:function(n,o){},23:21,25:21,27:21,29:21,31:21,33:21,35:21,37:21,45:21});
 >>>>>>> ec524a8... #67998 - Build webpack
+=======
+//# sourceMappingURL=betlistSimpleLayout.chunk.js.map
+>>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
