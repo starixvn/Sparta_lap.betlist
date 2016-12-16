@@ -369,7 +369,7 @@ webpackJsonp([27],{
 	            RefreshCountDown.initialize();
 	
 	            // Forcast number click
-	            $("#Refresh-Content").on("click", '.forcast-number', function () {
+	            $("#reportContent").on("click", '.forcast-number', function () {
 	                var matchId = $(this).attr("data-match-id");
 	                var betType = $(this).attr("data-bet-type");
 	                _me.viewRunningBetListMatch(matchId, betType);

@@ -21,6 +21,11 @@
             </div>
 
             @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions)
+
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
         </div>
 
         <div class="row">
@@ -69,13 +74,6 @@
 
             <div class="col l2 m2 s12 button-block">
                 <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col right icon-block">
-                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
-                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
             </div>
         </div>
 
