@@ -15,7 +15,7 @@ define(['jquery'], function ($) {
                 onClose: null
             };
 
-            $blockBody = $(".block-body");
+            $blockBody = $(".popup-block-body");
             options = $.extend(defaultOptions, options || {});
             return this.each(function () {
                 var $self = $(this);
@@ -24,7 +24,7 @@ define(['jquery'], function ($) {
                 var $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
-                    $blockBody = $('<div class="block-body" style="display: none"></div>');
+                    $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
 
@@ -94,24 +94,3 @@ define(['jquery'], function ($) {
         }
     };
 });
-
-function keydown(e) {
-    for (var i = keys.length; i--;) {
-        if (e.keyCode === keys[i]) {
-            preventDefault(e);
-            return;
-        }
-    }
-}
-
-function wheel(e) {
-    preventDefault(e);
-}
-
-function disable_scroll() {
-    if (window.addEventListener) {
-        window.addEventListener('DOMMouseScroll', wheel, false);
-    }
-    window.onmousewheel = document.onmousewheel = wheel;
-    document.onkeydown = keydown;
-}

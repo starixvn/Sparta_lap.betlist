@@ -8,7 +8,7 @@
 
             var gridTop = $grid.offset().top;
 
-            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height();
+            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - 20;
             gridHeight = Math.max(150, gridHeight);
             $grid.css("max-height", gridHeight);
         },

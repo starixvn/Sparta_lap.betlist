@@ -45,10 +45,6 @@ $colorAddIcon: #08B22D;
 .table {
     > thead, > tbody {
         tr {
-            &.live {
-                background-color: $bgLiveRow;
-            }
-
             td, th {
                 padding: 5px 8px;
             }
@@ -60,6 +56,10 @@ $colorAddIcon: #08B22D;
             &.league-name td {
                 background: $bgLeagueNameRow;
                 font-weight: bold;
+            }
+
+            &.live > td {
+                background-color: $bgLiveRow;
             }
         }
     }

@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -818,14 +818,14 @@
     <Content Include="www\js\source\lib\jqgrid\jquery.jqgrid.additional.js" />
     <Content Include="www\js\source\lib\jqgrid\jquery.jqGrid.en.js" />
     <Content Include="www\js\source\lib\jqgrid\jquery.jqGrid.min.js" />
-    <Content Include="www\js\source\lib\jquery.flatpopup.js" />
+    <Content Include="www\js\source\components\jquery.flatpopup.js" />
     <Content Include="www\js\source\lib\jquery.monthpicker.js" />
     <Content Include="www\js\source\lib\jquery.multiselect.js" />
     <Content Include="www\js\source\lib\jquery.tiny-draggable.js" />
     <Content Include="www\js\source\lib\linq.js" />
-    <Content Include="www\js\source\lib\navbar.js" />
+    <Content Include="www\js\source\components\navbar.js" />
     <Content Include="www\js\source\components\refreshcountdown.js" />
-    <Content Include="www\js\source\lib\sidebar.js" />
+    <Content Include="www\js\source\components\sidebar.js" />
     <Content Include="www\js\source\pages\forecast\forecast.ah.main.js" />
     <Content Include="www\js\source\pages\home\home.js" />
     <Content Include="www\js\source\pages\home\main.js" />
@@ -843,7 +843,6 @@
     <Content Include="www\js\source\pages\report\report.js" />
     <Content Include="www\js\source\pages\signin\main.js" />
     <Content Include="www\js\source\pages\signin\signin.js" />
-    <Content Include="www\js\source\components\forecastpopup.js" />
     <Content Include="www\js\source\pages\totalbet\handicapoverunder\handicapoverunder.js" />
     <Content Include="www\js\source\pages\totalbet\handicapoverunder\main.js" />
     <Content Include="www\js\source\pages\totalbet\totalbetsbase.js" />

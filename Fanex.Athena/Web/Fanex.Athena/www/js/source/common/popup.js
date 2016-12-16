@@ -1,4 +1,4 @@
-﻿define(['jquery', 'lib/jquery.flatpopup'], function ($) {
+﻿define(['jquery', 'components/jquery.flatpopup'], function ($) {
     "use strict";
 
     function onClosePopupWithIframe(){

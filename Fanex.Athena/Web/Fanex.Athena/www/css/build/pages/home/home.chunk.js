@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([6],{
 =======
 webpackJsonp([8],{
@@ -111,3 +112,6 @@ webpackJsonp([8],{0:function(n,o,c){c(55),c(57),c(59),n.exports=c(61)},55:functi
 =======
 //# sourceMappingURL=home.chunk.js.map
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
+=======
+webpackJsonp([8],{0:function(n,o,c){c(55),c(57),c(59),n.exports=c(61)},55:function(n,o){},57:55,59:55,61:55});
+>>>>>>> fd0081f... #67998 - Update resize function of totalbetsbase.js, restructure some js files, add block body part for popup
