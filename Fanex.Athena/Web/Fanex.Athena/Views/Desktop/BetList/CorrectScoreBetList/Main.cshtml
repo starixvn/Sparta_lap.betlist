@@ -1,0 +1,24 @@
+﻿@{
+    var formatTitle = "{0} {1} {2} - {3}";
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.TotalBets, ViewResources.CorrectScore);
+    Layout = "~/Views/Desktop/Shared/_BetListLayout.cshtml";
+}
+@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
+
+@section pagejs {
+    <script src="@Url.ContentLinkNew("/www/js/build/pages/betlist/betlistcorrectscore.chunk.js")"></script>
+}
+@{
+    var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
+    var isAppModeSelf = userSession == null ? true : userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Self;
+}
+
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/Desktop/BetList/CorrectScoreBetList/Filter.cshtml");
+    }
+}
+
+<input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
+<input type="hidden" id="IsShowSumStake" value="1" />

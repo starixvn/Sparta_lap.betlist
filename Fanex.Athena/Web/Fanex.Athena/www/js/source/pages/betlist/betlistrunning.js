@@ -1,5 +1,4 @@
-﻿/*global Site, QueryString, BetList */
-"use strict";
+﻿"use strict";
 define(
     ['jquery', 'common/site', 'common/querystring', './betlist'],
     function ($, Site, QueryString, BetList) {

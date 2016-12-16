@@ -26,6 +26,7 @@ function generateConfig(environment) {
             [pathConfig.scriptPaths.build + "/" + environment + "/pages/betlist/betlistsimple"]: [pathConfig.scriptPaths.betlistsimple],
             [pathConfig.scriptPaths.build + "/" + environment + "/pages/betlist/betlistrunning"]: [pathConfig.scriptPaths.betlistrunning],
             [pathConfig.scriptPaths.build + "/" + environment + "/pages/betlist/betlistrunningmultiplebettypes"]: [pathConfig.scriptPaths.betlistrunningmultiplebettypes],
+            [pathConfig.scriptPaths.build + "/" + environment + "/pages/betlist/betlistcorrectscore"]: [pathConfig.scriptPaths.betlistcorrectscore],
             [pathConfig.scriptPaths.build + "/" + environment + "/pages/handicapoverunder/handicapoverunder"]: [pathConfig.scriptPaths.handicapoverunder],
             [pathConfig.scriptPaths.build + "/" + environment + "/pages/forecast/ahforecast"]: [pathConfig.scriptPaths.ahforecast],
 
