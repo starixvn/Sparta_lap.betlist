@@ -730,6 +730,7 @@
     <Content Include="www\css\build\images\logo-text.png" />
     <Content Include="www\css\build\images\logo.png" />
     <Content Include="www\css\build\main.css" />
+    <Content Include="www\css\build\pages\betlist\betlistLayout.css" />
     <Content Include="www\css\build\pages\betlist\betlistResult.css" />
     <Content Include="www\css\build\pages\betlist\betlistSimpleLayout.css" />
     <Content Include="www\css\build\pages\betlist\colossusbetdetail.css" />
@@ -763,6 +764,9 @@
     <Content Include="www\js\build\common.chunk.js" />
     <Content Include="www\js\build\language.chunk.js" />
     <Content Include="www\js\build\pages\betlist\betlist.chunk.js" />
+    <Content Include="www\js\build\pages\betlist\betlistrunning.chunk.js" />
+    <Content Include="www\js\build\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
+    <Content Include="www\js\build\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\pages\forecast\ahforecast.chunk.js" />
     <Content Include="www\js\build\pages\handicapoverunder\handicapoverunder.chunk.js" />
     <Content Include="www\js\build\pages\home\home.chunk.js" />
@@ -1257,6 +1261,10 @@
     <Content Include="www\js\source\pages\forecast\forecast.ah.js" />
     <Content Include="www\css\source\components\refreshcountdown\refreshcountdown.scss" />
     <Content Include="www\css\source\extensions\popup-ex.scss" />
+    <Content Include="www\js\build\pages\betlist\betlistrunningmultiplebettypes.chunk.js.map" />
+    <Content Include="www\js\build\pages\betlist\betlistsimple.chunk.js.map" />
+    <Content Include="www\js\build\pages\betlist\betlist.chunk.js.map" />
+    <Content Include="www\js\build\pages\betlist\betlistrunning.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
