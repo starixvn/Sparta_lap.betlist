@@ -1,9 +1,9 @@
-webpackJsonp([27],{
+webpackJsonp([28],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(269);
+	module.exports = __webpack_require__(272);
 
 
 /***/ },
@@ -270,10 +270,72 @@ webpackJsonp([27],{
 
 /***/ },
 
-/***/ 269:
+/***/ 271:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(270)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HandicapOU) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(209)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
+	    var _me = {
+	        resizeGrid: function () {
+	            var $grid = $(".body-content");
+	            if ($grid.length === 0) {
+	                return;
+	            }
+	
+	            var gridTop = $grid.offset().top;
+	
+	            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - 20;
+	            gridHeight = Math.max(150, gridHeight);
+	            $grid.css("max-height", gridHeight);
+	        },
+	        initEvent: function () {
+	            // Init refresh countdown
+	            RefreshCountDown.initialize();
+	
+	            // Forcast number click
+	            $("#reportContent").on("click", '.forcast-number', function () {
+	                var matchId = $(this).attr("data-match-id");
+	                var betType = $(this).attr("data-bet-type");
+	                _me.viewRunningBetListMatch(matchId, betType);
+	            });
+	
+	            $(document).ajaxComplete(function () {
+	                _me.resizeGrid();
+	            });
+	        },
+	        viewRunningBetListMatch: function (matchId, betType) {
+	            var url = Site.resolveClientUrl("RunningMatchBetList/Index");
+	            url = Site.setLicenseeOptionOriginalParam(url);
+	            url = QueryString.setParam(url, "matchid", matchId);
+	            url = QueryString.setParam(url, "bettype", betType);
+	            url = QueryString.setParam(url, "isShowSumStake", true);
+	
+	            Site.redirect(url);
+	        },
+	        viewRunningBetListMultiBettype: function (matchId, betType) {
+	            var url = Site.resolveClientUrl("RunningBettypesOfMatchBetList/Index");
+	            url = Site.setLicenseeOptionOriginalParam(url);
+	            url = QueryString.setParam(url, "matchid", matchId);
+	            url = QueryString.setParam(url, "multiplebettype", betType);
+	            url = QueryString.setParam(url, "isShowSumStake", true);
+	
+	            Site.redirect(url);
+	        },
+	        initialize: function () {
+	            Site.unBlockUI();
+	            this.initEvent();
+	            _me.resizeGrid();
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 272:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(273)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HandicapOU) {
 	    "use strict";
 	    $(HandicapOU.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -281,7 +343,7 @@ webpackJsonp([27],{
 
 /***/ },
 
-/***/ 270:
+/***/ 273:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(271), __webpack_require__(9), __webpack_require__(209)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Totalbets, Popup, RefreshCountDown) {
@@ -339,68 +401,6 @@ webpackJsonp([27],{
 	        submit: function () {
 	            Site.blockUI();
 	            $("#HandicapOUForm").submit();
-	        }
-	    };
-	
-	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ },
-
-/***/ 271:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(209)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
-	    var _me = {
-	        resizeGrid: function () {
-	            var $grid = $(".body-content");
-	            if ($grid.length === 0) {
-	                return;
-	            }
-	
-	            var gridTop = $grid.offset().top;
-	
-	            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - 20;
-	            gridHeight = Math.max(150, gridHeight);
-	            $grid.css("max-height", gridHeight);
-	        },
-	        initEvent: function () {
-	            // Init refresh countdown
-	            RefreshCountDown.initialize();
-	
-	            // Forcast number click
-	            $("#reportContent").on("click", '.forcast-number', function () {
-	                var matchId = $(this).attr("data-match-id");
-	                var betType = $(this).attr("data-bet-type");
-	                _me.viewRunningBetListMatch(matchId, betType);
-	            });
-	
-	            $(document).ajaxComplete(function () {
-	                _me.resizeGrid();
-	            });
-	        },
-	        viewRunningBetListMatch: function (matchId, betType) {
-	            var url = Site.resolveClientUrl("RunningMatchBetList/Index");
-	            url = Site.setLicenseeOptionOriginalParam(url);
-	            url = QueryString.setParam(url, "matchid", matchId);
-	            url = QueryString.setParam(url, "bettype", betType);
-	            url = QueryString.setParam(url, "isShowSumStake", true);
-	
-	            Site.redirect(url);
-	        },
-	        viewRunningBetListMultiBettype: function (matchId, betType) {
-	            var url = Site.resolveClientUrl("RunningBettypesOfMatchBetList/Index");
-	            url = Site.setLicenseeOptionOriginalParam(url);
-	            url = QueryString.setParam(url, "matchid", matchId);
-	            url = QueryString.setParam(url, "multiplebettype", betType);
-	            url = QueryString.setParam(url, "isShowSumStake", true);
-	
-	            Site.redirect(url);
-	        },
-	        initialize: function () {
-	            Site.unBlockUI();
-	            this.initEvent();
-	            _me.resizeGrid();
 	        }
 	    };
 	

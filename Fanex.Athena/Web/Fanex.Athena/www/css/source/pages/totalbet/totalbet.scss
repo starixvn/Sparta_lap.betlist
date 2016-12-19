@@ -70,15 +70,16 @@ $colorAddIcon: #08B22D;
 
         .icon-plus {
             margin-left: 5px;
-            padding: 1px 3px;
+            padding: 0 2px;
             background: $white;
             color: $colorAddIcon;
             border: 1px solid $colorAddIcon;
             font-size: 1rem;
-            line-height: 14px;
+            line-height: 13px;
 
             &:before {
                 content: "\ea0a";
+                vertical-align: middle;
             }
 
             &:hover {

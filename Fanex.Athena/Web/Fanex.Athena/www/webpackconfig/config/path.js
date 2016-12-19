@@ -69,7 +69,8 @@ var scriptPaths = {
     moneyline: "./www/js/source/pages/totalbet/moneyline/main.js",
     oddevendrawnodraw: "./www/js/source/pages/totalbet/oddevendrawnodraw/main.js",
     totalgoal: "./www/js/source/pages/totalbet/totalgoal/main.js",
-    outright: "./www/js/source/pages/totalbet/outright/main.js"
+    outright: "./www/js/source/pages/totalbet/outright/main.js",
+    halftimefulltime: "./www/js/source/pages/totalbet/halftimefulltime/main.js"
 };
 
 module.exports = {
