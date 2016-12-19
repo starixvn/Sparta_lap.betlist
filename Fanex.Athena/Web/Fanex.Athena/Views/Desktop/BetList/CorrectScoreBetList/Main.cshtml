@@ -6,7 +6,7 @@
 @model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 
 @section pagejs {
-    <script src="@Url.ContentLinkNew("/www/js/build/pages/betlist/betlistcorrectscore.chunk.js")"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/betlist/betlistcorrectscore.chunk.js")"></script>
 }
 @{
     var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;

@@ -11,8 +11,8 @@
 
     <title>@ViewBag.Title</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="@Url.ContentLinkNew("/www/css/build/main.css")" rel="stylesheet" />
-    <link href="@Url.ContentLinkNew("/www/css/build/pages/home/home.css")" rel="stylesheet" />
+    <link href="@Url.ContentLinkByEnv("/www/css/build/main.css")" rel="stylesheet" />
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/home/home.css")" rel="stylesheet" />
 </head>
 <body>
     <input type="hidden" id="HasRecheckIn" value="@ViewBag.HasRecheckIn" />
@@ -35,7 +35,7 @@
     <main class="main">
         <iframe id="mainFrame" name="main" data-src="@(Util.RootPath + ViewBag.DefaultReportUrl)" frameborder="0" scrolling="auto"></iframe>
     </main>
-    <script src="@Url.ContentLinkNew("/www/js/build/common.chunk.js")"></script>
-    <script src="@Url.ContentLinkNew("/www/js/build/pages/home/home.chunk.js")"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/common.chunk.js")"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/home/home.chunk.js")"></script>
 </body>
 </html>

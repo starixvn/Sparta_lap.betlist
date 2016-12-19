@@ -5,10 +5,10 @@
     Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
 }
 @section pagecss {
-    <link href="@Url.ContentLinkNew("/www/css/build/pages/reports/licenseewinloss.css")" rel="stylesheet" />
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/licenseewinloss.css")" rel="stylesheet" />
 }
 @section pagejs { 
-    <script src="@Url.ContentLinkNew("/www/js/build/pages/licenseewinloss/licenseewinloss.chunk.js")"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/licenseewinloss/licenseewinloss.chunk.js")"></script>
 }
 
 @section Filter
