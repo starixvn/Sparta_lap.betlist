@@ -1,9 +1,60 @@
-﻿<!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
+﻿@model Fanex.Athena.Model.TotalBet.ViewModel.OutrightViewModel
 
-    </body>
-</html>
+@helper RenderFirstRow()
+{
+    <tr class="first-row">
+        <td class="col-small"></td>
+        <td class="col-large"></td>
+        <td class="col-child"></td>
+        <td class="col-child"></td>
+    </tr>
+}
+
+@if (Model.MainData.Count == 0)
+{
+    <p class="no-info-row">@ViewResources.NoInfo</p>
+}
+else
+{
+    <div class="header-content">
+        <table class="table">
+            <thead>
+                @RenderFirstRow()
+
+                <tr>
+                    <th>#</th>
+                    <th>@ViewResources.Team</th>
+                    <th>@ViewResources.Balance</th>
+                    <th class="col-last">@ViewResources.Forecast</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div class="body-content">
+        <table class="table">
+            <tbody>
+                @RenderFirstRow()
+                @{ Html.RenderPartial("~/Views/Desktop/TotalBets/Outright/ContentData.cshtml"); }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer-content">
+        <table class="table">
+            <tbody>
+                @RenderFirstRow()
+
+                <tr class="total total-footer">
+                    <td class="right-align total-label" colspan="2">
+                        @ViewResources.Total
+                    </td>
+                    <td class="right-align no-margin">
+                        @RazorHelperDesktop.DecFormat(Model.MainData.Sum(x => x.Balance), true)
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+                    }

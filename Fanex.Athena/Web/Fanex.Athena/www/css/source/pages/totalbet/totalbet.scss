@@ -36,7 +36,7 @@ $colorAddIcon: #08B22D;
 .col-child {
     width: 10%;
 
-    &.small{
+    &.small {
         width: 7%;
     }
 }
@@ -119,10 +119,10 @@ $colorAddIcon: #08B22D;
             &:first-child {
                 border-left: none;
             }
+        }
 
-            &.col-last {
-                border-right-color: $colorBorderTable !important;
-            }
+        > thead > tr > th.col-last {
+            border-right-color: $colorBorderTable !important;
         }
     }
 }

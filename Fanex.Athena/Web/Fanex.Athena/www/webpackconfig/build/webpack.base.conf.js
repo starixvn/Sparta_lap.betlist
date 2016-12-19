@@ -32,6 +32,7 @@ function generateConfig(environment) {
             [pathConfig.scriptPaths.build + "/" + environment + "/pages/totalbet/moneyline"]: [pathConfig.scriptPaths.moneyline],
             [pathConfig.scriptPaths.build + "/" + environment + "/pages/totalbet/oddevendrawnodraw"]: [pathConfig.scriptPaths.oddevendrawnodraw],
             [pathConfig.scriptPaths.build + "/" + environment + "/pages/totalbet/totalgoal"]: [pathConfig.scriptPaths.totalgoal],
+            [pathConfig.scriptPaths.build + "/" +environment + "/pages/totalbet/outright"]: [pathConfig.scriptPaths.outright],
 
             [pathConfig.cssPaths.build + "/pages/reports/reportjqgridlayout"]: pathConfig.cssPaths.reportjqgridlayout,
             [pathConfig.cssPaths.build + "/pages/reports/livereport"]: pathConfig.cssPaths.livereport,

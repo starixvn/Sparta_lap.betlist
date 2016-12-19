@@ -776,6 +776,7 @@
     <Content Include="www\js\build\dev\pages\totalbet\handicapoverunder.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\moneyline.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\oddevendrawnodraw.chunk.js" />
+    <Content Include="www\js\build\dev\pages\totalbet\outright.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\totalgoal.chunk.js" />
     <Content Include="www\js\build\pro\common.chunk.js" />
     <Content Include="www\js\build\pro\language.chunk.js" />
@@ -792,6 +793,7 @@
     <Content Include="www\js\build\pro\pages\totalbet\handicapoverunder.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\moneyline.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\oddevendrawnodraw.chunk.js" />
+    <Content Include="www\js\build\pro\pages\totalbet\outright.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\totalgoal.chunk.js" />
     <Content Include="www\js\source\common\languages\ViewResources.js">
       <DependentUpon>ViewResources.tt</DependentUpon>
@@ -870,6 +872,8 @@
     <Content Include="www\js\source\pages\totalbet\moneyline\moneyline.js" />
     <Content Include="www\js\source\pages\totalbet\oddevendrawnodraw\main.js" />
     <Content Include="www\js\source\pages\totalbet\oddevendrawnodraw\oddevendrawnodraw.js" />
+    <Content Include="www\js\source\pages\totalbet\outright\main.js" />
+    <Content Include="www\js\source\pages\totalbet\outright\outright.js" />
     <Content Include="www\js\source\pages\totalbet\totalbetsbase.js" />
     <Content Include="www\js\source\pages\totalbet\totalgoal\main.js" />
     <Content Include="www\js\source\pages\totalbet\totalgoal\totalgoal.js" />
@@ -1325,6 +1329,7 @@
     <Content Include="www\js\build\dev\pages\totalbet\moneyline.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\oddevendrawnodraw.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\totalgoal.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\totalbet\outright.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

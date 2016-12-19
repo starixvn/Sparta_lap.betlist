@@ -1,9 +1,39 @@
-﻿<!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
+﻿@using System.Linq
+@model Fanex.Athena.Model.TotalBet.ViewModel.OutrightViewModel
+@{
+    var leagueList = Model.MainData.GroupBy(x => new { x.LeagueId, x.LeagueName })
+                            .Select(x => x.Key)
+                            .OrderBy(x => x.LeagueName)
+                            .Distinct()
+                            .ToList();
+    var index = 1;
+}
+@foreach (var league in leagueList)
+{
+    <tr class="league-name">
+        <td colspan="4">
+            @league.LeagueName.ToUpper()
+        </td>
+    </tr>
+    var matchOfLeague = Model.MainData.Where(x => x.LeagueId == league.LeagueId)
+                                .OrderBy(x => x.TeamName).ToList();
 
-    </body>
-</html>
+    foreach (var team in matchOfLeague)
+    {
+        <tr>
+            <td class="center-align">
+                @(index++)
+            </td>
+            <td>
+                <a class="team" data-match-id="@team.MatchId" href="javascript:;">@team.TeamName</a>
+            </td>
+
+            <td class="right-align">
+                @RazorHelperDesktop.DecFormat(team.Balance, true)
+            </td>
+            <td class="right-align text-bold">
+                @RazorHelperDesktop.PositiveFormat(team.Forecast, true, false)
+            </td>
+        </tr>
+    }
+}

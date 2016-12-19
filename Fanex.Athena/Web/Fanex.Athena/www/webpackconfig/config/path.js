@@ -68,7 +68,8 @@ var scriptPaths = {
     ahforecast: "./www/js/source/pages/forecast/forecast.ah.main.js",
     moneyline: "./www/js/source/pages/totalbet/moneyline/main.js",
     oddevendrawnodraw: "./www/js/source/pages/totalbet/oddevendrawnodraw/main.js",
-    totalgoal: "./www/js/source/pages/totalbet/totalgoal/main.js"
+    totalgoal: "./www/js/source/pages/totalbet/totalgoal/main.js",
+    outright: "./www/js/source/pages/totalbet/outright/main.js"
 };
 
 module.exports = {
