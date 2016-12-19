@@ -775,6 +775,8 @@
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\handicapoverunder.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\moneyline.chunk.js" />
+    <Content Include="www\js\build\dev\pages\totalbet\oddevendrawnodraw.chunk.js" />
+    <Content Include="www\js\build\dev\pages\totalbet\totalgoal.chunk.js" />
     <Content Include="www\js\build\pro\common.chunk.js" />
     <Content Include="www\js\build\pro\language.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlist.chunk.js" />
@@ -789,6 +791,8 @@
     <Content Include="www\js\build\pro\pages\signin\signin.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\handicapoverunder.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\moneyline.chunk.js" />
+    <Content Include="www\js\build\pro\pages\totalbet\oddevendrawnodraw.chunk.js" />
+    <Content Include="www\js\build\pro\pages\totalbet\totalgoal.chunk.js" />
     <Content Include="www\js\source\common\languages\ViewResources.js">
       <DependentUpon>ViewResources.tt</DependentUpon>
     </Content>
@@ -867,6 +871,8 @@
     <Content Include="www\js\source\pages\totalbet\oddevendrawnodraw\main.js" />
     <Content Include="www\js\source\pages\totalbet\oddevendrawnodraw\oddevendrawnodraw.js" />
     <Content Include="www\js\source\pages\totalbet\totalbetsbase.js" />
+    <Content Include="www\js\source\pages\totalbet\totalgoal\main.js" />
+    <Content Include="www\js\source\pages\totalbet\totalgoal\totalgoal.js" />
     <Content Include="www\js\source\vendors\materialize\materialize.js" />
     <Content Include="www\js\tests\common\popup-spec.js" />
     <Content Include="www\js\tests\common\querystring-spec.js" />
@@ -1275,6 +1281,10 @@
     <Content Include="Views\Desktop\Forecast\Forecast1X2\Content.cshtml" />
     <Content Include="Views\Desktop\Forecast\Forecast1X2\Filter.cshtml" />
     <Content Include="Views\Desktop\Forecast\Forecast1X2\ContentData.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\TotalGoal\Main.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\TotalGoal\Filter.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\TotalGoal\Content.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\TotalGoal\ContentData.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1309,6 +1319,8 @@
     <Content Include="www\js\build\dev\common.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\handicapoverunder.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\moneyline.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\totalbet\oddevendrawnodraw.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\totalbet\totalgoal.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

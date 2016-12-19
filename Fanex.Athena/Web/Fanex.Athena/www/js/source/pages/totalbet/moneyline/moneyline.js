@@ -1,4 +1,6 @@
 ﻿define(['jquery', 'common/site', '../totalbetsbase', 'components/refreshcountdown'], function ($, Site, Totalbets, RefreshCountDown) {
+    "use strict";
+
     var _me = {
         initialize: function () {
             Site.initialize();

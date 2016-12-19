@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.TotalBets + " - " + ViewResources.TotalGoal;
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Desktop/Shared/_TotalBetsLayout.cshtml";
+}
+
+@section pagejs {
+    <script src="@Url.ContentLinkNew("/www/js/build/pages/totalbet/totalgoal.chunk.js")" type="text/javascript"></script>
+}
+
+@section Filter
+{
+    @{
+        Html.RenderPartial("~/Views/Desktop/TotalBets/TotalGoal/Filter.cshtml");
+    }
+}
+
+@{
+    Html.RenderPartial("~/Views/Desktop/TotalBets/TotalGoal/Content.cshtml");
+}

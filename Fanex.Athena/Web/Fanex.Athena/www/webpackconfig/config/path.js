@@ -45,7 +45,7 @@ var cssPaths = {
     livereport: [...cssReportCommon, ...cssDateRangePickerPath, "./www/css/source/components/monthpicker/monpickr.scss", "./www/css/source/pages/report/livereport.scss"],
     licenseewinloss: ["./www/css/source/pages/report/licenseewinloss.scss", ...cssDateRangePickerPath],
 
-    ahforecast: [...cssReportCommon, "./www/css/source/components/refreshcountdown/refreshcountdown.scss", "./www/css/source/pages/forecast/forecast.ah.scss", ]
+    ahforecast: [...cssReportCommon, "./www/css/source/components/refreshcountdown/refreshcountdown.scss", "./www/css/source/pages/forecast/forecast.ah.scss" ]
 };
 
 var scriptPaths = {
@@ -67,7 +67,8 @@ var scriptPaths = {
     handicapoverunder: "./www/js/source/pages/totalbet/handicapoverunder/main.js",
     ahforecast: "./www/js/source/pages/forecast/forecast.ah.main.js",
     moneyline: "./www/js/source/pages/totalbet/moneyline/main.js",
-    oddevendrawnodraw: "./www/js/source/pages/totalbet/oddevendrawnodraw/main.js"
+    oddevendrawnodraw: "./www/js/source/pages/totalbet/oddevendrawnodraw/main.js",
+    totalgoal: "./www/js/source/pages/totalbet/totalgoal/main.js"
 };
 
 module.exports = {

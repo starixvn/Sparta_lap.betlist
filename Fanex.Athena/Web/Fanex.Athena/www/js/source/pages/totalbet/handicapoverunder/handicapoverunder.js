@@ -1,6 +1,10 @@
 ﻿define(['jquery', 'common/site', 'common/querystring', '../totalbetsbase', 'common/popup', 'components/refreshcountdown'],
     function ($, Site, QueryString, Totalbets, Popup, RefreshCountDown) {
-    "use strict";
+        "use strict";
+
+        $(function () {
+            window.viewNewForecast = _me.viewNewForecast;
+        });
 
     var _me = {
         initialize: function () {

@@ -243,3 +243,11 @@ if (toDate != null)
             <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
     }
 }
+
+@helper PositiveFormatExt(decimal? value)
+{
+    if ((value.HasValue))
+    {
+        @PositiveFormat(Convert.ToDecimal(value), true, false);
+    }
+}
