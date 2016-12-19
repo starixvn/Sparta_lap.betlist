@@ -185,7 +185,7 @@ namespace Fanex.Athena.Excel.Customer
             Justification = "Reviewed. Suppression is OK here.")]
         private void AssignSheetData(ISheet sheet)
         {
-            int rowCount = _exportData.DataList.Count;
+            var rowCount = _exportData.DataList.Count;
             var startNumOfRow = (_exportData.Param.PageIndex - 1) * _exportData.Param.PageSize;
             startNumOfRow += 1;
             for (int index = 0; index < rowCount; index++)
@@ -194,7 +194,7 @@ namespace Fanex.Athena.Excel.Customer
                 var itemType = item.GetType();
                 var rowIndex = index + RowContentTemplate;
                 var numofRow = index + startNumOfRow;
-                IRow row = sheet.CopyRow(_templateSheet, RowContentTemplate, rowIndex);
+                var row = sheet.CopyRow(_templateSheet, RowContentTemplate, rowIndex);
                 /*group columns*/
                 if (_exportData.IsAllowedCustomerCommission && _showedGridColumns.Contains(GROUP))
                 {
@@ -365,11 +365,6 @@ namespace Fanex.Athena.Excel.Customer
         private void RemoveTemplate()
         {
             this.Workbook.RemoveSheet("Template");
-        }
-
-        private void Write(Stream stream)
-        {
-            this.Workbook.Write(stream);
         }
 
         private void SetTextRowValue(ISheet sheet, int sourceRowIndex, int destRowIndex, int columnCount, string value)
