@@ -70,7 +70,8 @@ var scriptPaths = {
     oddevendrawnodraw: "./www/js/source/pages/totalbet/oddevendrawnodraw/main.js",
     totalgoal: "./www/js/source/pages/totalbet/totalgoal/main.js",
     outright: "./www/js/source/pages/totalbet/outright/main.js",
-    halftimefulltime: "./www/js/source/pages/totalbet/halftimefulltime/main.js"
+    halftimefulltime: "./www/js/source/pages/totalbet/halftimefulltime/main.js",
+    firstgoallastgoal: "./www/js/source/pages/totalbet/firstgoallastgoal/main.js"
 };
 
 module.exports = {

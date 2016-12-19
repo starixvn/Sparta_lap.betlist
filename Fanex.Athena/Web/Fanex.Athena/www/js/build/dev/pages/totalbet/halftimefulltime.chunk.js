@@ -1,9 +1,9 @@
-webpackJsonp([27],{
+webpackJsonp([28],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(269);
+	module.exports = __webpack_require__(272);
 
 
 /***/ },
@@ -270,57 +270,6 @@ webpackJsonp([27],{
 
 /***/ },
 
-/***/ 269:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(270)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HalfTimeFullTime) {
-	    "use strict";
-	
-	    $(HalfTimeFullTime.initialize);
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ },
-
-/***/ 270:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(271), __webpack_require__(209)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
-	    "use strict";
-	
-	    var _me = {
-	        initialize: function () {
-	            Site.initialize();
-	            Totalbets.initialize();
-	            _me.initEvent();
-	            Site.addUserGuide({
-	                resourceName: "TotalBetsHTFT",
-	                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("HTFT")
-	            });
-	
-	            RefreshCountDown.initEvent();
-	        },
-	        initEvent: function () {
-	            $("#SubmitButton").on("click", function () {
-	                _me.submit();
-	            });
-	
-	            $('#reportContent').on('click', '.team', function () {
-	                var matchId = $(this).attr("data-match-id");
-	                Totalbets.viewRunningBetListMatch(matchId, 16);
-	            });
-	        },
-	        submit: function () {
-	            Site.blockUI();
-	            $("#HalfTimeFullTimeForm").submit();
-	        }
-	    };
-	
-	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ },
-
 /***/ 271:
 /***/ function(module, exports, __webpack_require__) {
 
@@ -375,6 +324,57 @@ webpackJsonp([27],{
 	            Site.unBlockUI();
 	            this.initEvent();
 	            _me.resizeGrid();
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 272:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(273)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HalfTimeFullTime) {
+	    "use strict";
+	
+	    $(HalfTimeFullTime.initialize);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+
+/***/ 273:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(271), __webpack_require__(209)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
+	    "use strict";
+	
+	    var _me = {
+	        initialize: function () {
+	            Site.initialize();
+	            Totalbets.initialize();
+	            _me.initEvent();
+	            Site.addUserGuide({
+	                resourceName: "TotalBetsHTFT",
+	                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("HTFT")
+	            });
+	
+	            RefreshCountDown.initEvent();
+	        },
+	        initEvent: function () {
+	            $("#SubmitButton").on("click", function () {
+	                _me.submit();
+	            });
+	
+	            $('#reportContent').on('click', '.team', function () {
+	                var matchId = $(this).attr("data-match-id");
+	                Totalbets.viewRunningBetListMatch(matchId, 16);
+	            });
+	        },
+	        submit: function () {
+	            Site.blockUI();
+	            $("#HalfTimeFullTimeForm").submit();
 	        }
 	    };
 	

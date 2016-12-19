@@ -773,6 +773,7 @@
     <Content Include="www\js\build\dev\pages\livereport\livereport.chunk.js" />
     <Content Include="www\js\build\dev\pages\livereport\livereportmatchlist.chunk.js" />
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js" />
+    <Content Include="www\js\build\dev\pages\totalbet\firstgoallastgoal.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\halftimefulltime.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\handicapoverunder.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\moneyline.chunk.js" />
@@ -791,6 +792,7 @@
     <Content Include="www\js\build\pro\pages\livereport\livereport.chunk.js" />
     <Content Include="www\js\build\pro\pages\livereport\livereportmatchlist.chunk.js" />
     <Content Include="www\js\build\pro\pages\signin\signin.chunk.js" />
+    <Content Include="www\js\build\pro\pages\totalbet\firstgoallastgoal.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\halftimefulltime.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\handicapoverunder.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\moneyline.chunk.js" />
@@ -868,6 +870,8 @@
     <Content Include="www\js\source\pages\report\report.js" />
     <Content Include="www\js\source\pages\signin\main.js" />
     <Content Include="www\js\source\pages\signin\signin.js" />
+    <Content Include="www\js\source\pages\totalbet\firstgoallastgoal\firstgoallastgoal.js" />
+    <Content Include="www\js\source\pages\totalbet\firstgoallastgoal\main.js" />
     <Content Include="www\js\source\pages\totalbet\halftimefulltime\halftimefulltime.js" />
     <Content Include="www\js\source\pages\totalbet\halftimefulltime\main.js" />
     <Content Include="www\js\source\pages\totalbet\handicapoverunder\handicapoverunder.js" />
@@ -1301,6 +1305,10 @@
     <Content Include="Views\Desktop\TotalBets\HalfTimeFullTime\Filter.cshtml" />
     <Content Include="Views\Desktop\TotalBets\HalfTimeFullTime\Content.cshtml" />
     <Content Include="Views\Desktop\TotalBets\HalfTimeFullTime\ContentData.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\FirstGoalLastGoal\Main.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\FirstGoalLastGoal\Filter.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\FirstGoalLastGoal\Content.cshtml" />
+    <Content Include="Views\Desktop\TotalBets\FirstGoalLastGoal\ContentData.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1339,6 +1347,7 @@
     <Content Include="www\js\build\dev\pages\totalbet\totalgoal.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\outright.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\halftimefulltime.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\totalbet\firstgoallastgoal.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

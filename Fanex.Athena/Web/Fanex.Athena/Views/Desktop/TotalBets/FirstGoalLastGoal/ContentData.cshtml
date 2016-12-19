@@ -1,0 +1,82 @@
+﻿@using System.Linq
+@model Fanex.Athena.Model.TotalBet.ViewModel.FirstGoalLastGoalViewModel
+@{
+    var leagueList = Model.MainData.GroupBy(x => new { x.LeagueId, x.LeagueName })
+                            .Select(x => x.Key)
+                            .OrderBy(x => x.LeagueName)
+                            .Distinct()
+                            .ToList();
+    var index = 1;
+}
+@foreach (var league in leagueList)
+{
+    // Render League name
+    <tr class="league-name">
+        <td colspan="9">
+           @league.LeagueName.ToUpper()
+        </td>
+    </tr>
+
+    var matchOfLeague = Model.MainData.Where(x => x.LeagueId == league.LeagueId)
+                                                  .OrderBy(x => x.HomeTeamName)
+                                                  .ToList();
+
+    foreach (var team in matchOfLeague)
+    {
+        <tr>
+            <td class="center-align" rowspan="2">
+                @(index++)
+            </td>
+            <td rowspan="2">
+                @Html.Raw(team.ShowTime)
+            </td>
+            <td>
+                <a class="team" data-match-id="@team.MatchId" href="javascript:;">@team.HomeTeamName</a>
+            </td>
+
+            <!--Render Fulltime-->
+            <td class="right-align text-bold">
+                @RazorHelperDesktop.PositiveFormat(team.HomeFirstGoal, true, false)
+            </td>
+            <td class="right-align text-bold">
+                @RazorHelperDesktop.PositiveFormat(team.HomeLastGoal, true, false)
+            </td>
+            <td class="right-align text-bold" rowspan="2">
+                @RazorHelperDesktop.PositiveFormat(team.NoGoal, true, false)
+            </td>
+
+            <!--Render 1st Half-->
+            <td class="right-align text-bold">
+                @RazorHelperDesktop.PositiveFormatExt(team.HomeFirstHalfFirstGoal)
+            </td>
+            <td class="right-align text-bold">
+                @RazorHelperDesktop.PositiveFormatExt(team.HomeFirstHalfLastGoal)
+            </td>
+            <td class="right-align text-bold" rowspan="2">
+                @RazorHelperDesktop.PositiveFormatExt(team.FirstHalfNoGoal)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <a class="team" data-match-id="@team.MatchId" href="javascript:;">@team.AwayTeamName</a>
+            </td>
+
+            <!--Render Fulltime-->
+            <td class="right-align text-bold">
+                @RazorHelperDesktop.PositiveFormat(team.AwayFirstGoal, true, false)
+            </td>
+            <td class="right-align text-bold">
+                @RazorHelperDesktop.PositiveFormat(team.AwayLastGoal, true, false)
+            </td>
+
+            <!--Render 1st Half-->
+            <td class="right-align text-bold">
+                @RazorHelperDesktop.PositiveFormatExt(team.AwayFirstHalfFirstGoal)
+            </td>
+            <td class="right-align text-bold">
+                @RazorHelperDesktop.PositiveFormatExt(team.AwayFirstHalfLastGoal)
+            </td>
+        </tr>
+    }
+}
