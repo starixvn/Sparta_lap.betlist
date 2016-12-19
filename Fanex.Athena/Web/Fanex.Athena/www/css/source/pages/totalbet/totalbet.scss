@@ -22,11 +22,11 @@ $colorAddIcon: #08B22D;
 }
 
 .col-small {
-    width: 50px;
+    width: 5%;
 }
 
 .col-medium {
-    width: 120px;
+    width: 15%;
 }
 
 .col-large {
@@ -70,15 +70,15 @@ $colorAddIcon: #08B22D;
 
         .icon-plus {
             margin-left: 5px;
-            padding: 0 2px;
+            padding: 1px 3px;
             background: $white;
             color: $colorAddIcon;
             border: 1px solid $colorAddIcon;
-            line-height: 13px;
+            font-size: 1rem;
+            line-height: 14px;
 
             &:before {
                 content: "\ea0a";
-                vertical-align: middle;
             }
 
             &:hover {
