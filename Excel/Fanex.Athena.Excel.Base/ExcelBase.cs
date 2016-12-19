@@ -59,7 +59,7 @@ namespace Fanex.Athena.Excel.Base
             {
                 for (int j = 0; j < 255; j++)
                 {
-                    ICell cell = sheet.GetCell(i, j);
+                    var cell = sheet.GetCell(i, j);
                     if (cell != null)
                     {
                         cell.SetCellValue(string.Empty);
@@ -70,7 +70,7 @@ namespace Fanex.Athena.Excel.Base
             // Hide row
             foreach (int i in rowIndex)
             {
-                IRow row = sheet.GetRow(i);
+                var row = sheet.GetRow(i);
                 if (row != null)
                 {
                     row.ZeroHeight = true;
@@ -86,14 +86,14 @@ namespace Fanex.Athena.Excel.Base
         protected static void HideColumn(ISheet sheet, params int[] columnIndex)
         {
             // Clear content
-            int firstRowNum = sheet.FirstRowNum;
-            int lastRowNum = sheet.LastRowNum;
+            var firstRowNum = sheet.FirstRowNum;
+            var lastRowNum = sheet.LastRowNum;
 
             for (int i = firstRowNum; i <= lastRowNum; i++)
             {
                 foreach (int j in columnIndex)
                 {
-                    ICell cell = sheet.GetCell(i, j);
+                    var cell = sheet.GetCell(i, j);
                     if (cell != null)
                     {
                         cell.SetCellValue(string.Empty);

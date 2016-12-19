@@ -9,9 +9,6 @@
 
 namespace Fanex.Athena.Excel.Customer
 {
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.IO;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Extension.Helper;
@@ -19,6 +16,9 @@ namespace Fanex.Athena.Excel.Customer
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using Resources;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.IO;
 
     /// <summary>
     /// TODO: Update summary.
@@ -99,12 +99,6 @@ namespace Fanex.Athena.Excel.Customer
 
         public HSSFWorkbook Workbook { get; set; }
 
-        public void Export(Stream stream)
-        {
-            Export();
-            Write(stream);
-        }
-
         public void Export()
         {
             LoadTemplate();
@@ -121,7 +115,7 @@ namespace Fanex.Athena.Excel.Customer
         /// <param name="startRowIndex">The starting row index of sheet.</param>
         private static void ClearTemplate(ISheet sheet, int startRowIndex)
         {
-            int lastRowNum = sheet.LastRowNum;
+            var lastRowNum = sheet.LastRowNum;
             for (int i = startRowIndex; i <= lastRowNum; i++)
             {
                 sheet.DeleteRow(i);
@@ -133,7 +127,7 @@ namespace Fanex.Athena.Excel.Customer
         /// </summary>
         private void AssignData()
         {
-            ISheet sheet = Workbook.CloneSheet("Template", "Data");
+            var sheet = Workbook.CloneSheet("Template", "Data");
 
             AssignHeader(sheet);
             AssignTitle(sheet);
@@ -155,7 +149,7 @@ namespace Fanex.Athena.Excel.Customer
         /// <param name="sheet">The current sheet.</param>
         private void AssignHeader(ISheet sheet)
         {
-            IRow row = sheet.CopyRow(_templateSheet, RowHeaderTemplate, RowHeaderTemplate);
+            var row = sheet.CopyRow(_templateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
             for (int i = 0; i < _headerTexts.Count; i++)
             {
@@ -380,7 +374,7 @@ namespace Fanex.Athena.Excel.Customer
 
         private void SetTextRowValue(ISheet sheet, int sourceRowIndex, int destRowIndex, int columnCount, string value)
         {
-            IRow row = sheet.CopyRow(_templateSheet, sourceRowIndex, destRowIndex);
+            var row = sheet.CopyRow(_templateSheet, sourceRowIndex, destRowIndex);
             sheet.MergeCells(destRowIndex, 0, destRowIndex, columnCount - 1);
             row.Cells[0].SetCellValue(value);
         }
