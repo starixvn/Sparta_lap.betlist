@@ -73,7 +73,8 @@ var scriptPaths = {
     outright: "./www/js/source/pages/totalbet/outright/main.js",
     halftimefulltime: "./www/js/source/pages/totalbet/halftimefulltime/main.js",
     firstgoallastgoal: "./www/js/source/pages/totalbet/firstgoallastgoal/main.js",
-    homedrawawaynobet: "./www/js/source/pages/totalbet/homedrawawaynobet/main.js"
+    homedrawawaynobet: "./www/js/source/pages/totalbet/homedrawawaynobet/main.js",
+    forecastonextwo: "./www/js/source/pages/forecast/forecast.onextwo.main.js"
 };
 
 module.exports = {

@@ -770,6 +770,7 @@
     <Content Include="www\js\build\dev\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\ahforecast.chunk.js" />
+    <Content Include="www\js\build\dev\pages\forecast\forecastonextwo.chunk.js" />
     <Content Include="www\js\build\dev\pages\home\home.chunk.js" />
     <Content Include="www\js\build\dev\pages\licenseewinloss\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\livereport\livereport.chunk.js" />
@@ -791,6 +792,7 @@
     <Content Include="www\js\build\pro\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\pro\pages\forecast\ahforecast.chunk.js" />
+    <Content Include="www\js\build\pro\pages\forecast\forecastonextwo.chunk.js" />
     <Content Include="www\js\build\pro\pages\home\home.chunk.js" />
     <Content Include="www\js\build\pro\pages\licenseewinloss\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\livereport\livereport.chunk.js" />
@@ -859,6 +861,7 @@
     <Content Include="www\js\source\components\refreshcountdown.js" />
     <Content Include="www\js\source\components\sidebar.js" />
     <Content Include="www\js\source\pages\forecast\forecast.ah.main.js" />
+    <Content Include="www\js\source\pages\forecast\forecast.onextwo.main.js" />
     <Content Include="www\js\source\pages\home\home.js" />
     <Content Include="www\js\source\pages\home\main.js" />
     <Content Include="www\js\source\pages\home\recheckin.js" />
@@ -1363,6 +1366,8 @@
     <Content Include="www\css\source\pages\totalbet\mixparlay.scss" />
     <Content Include="www\js\build\dev\pages\betlist\betlistcorrectscore.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\homedrawawaynobet.chunk.js.map" />
+    <Content Include="www\js\source\pages\forecast\forecast.onextwo.js" />
+    <Content Include="www\js\build\dev\pages\forecast\forecastonextwo.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
