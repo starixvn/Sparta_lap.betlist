@@ -1,0 +1,19 @@
+﻿.timer {
+    margin: 10px 15px;
+}
+
+.form-popup {
+    .timer-countdown {
+        line-height: 25px;
+    }
+}
+
+.table {
+    > tbody {
+        > tr > td {
+            .icon-plus {
+                margin: 0;
+            }
+        }
+    }
+}

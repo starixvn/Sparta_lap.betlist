@@ -46,7 +46,11 @@ var cssPaths = {
     licenseewinloss: ["./www/css/source/pages/report/licenseewinloss.scss", ...cssDateRangePickerPath],
 
     ahforecast: [...cssReportCommon, "./www/css/source/components/refreshcountdown/refreshcountdown.scss", "./www/css/source/pages/forecast/forecast.ah.scss"],
-    mixparlay: ["./www/css/source/pages/totalbet/mixparlay.scss"]
+    mixparlay: ["./www/css/source/pages/totalbet/mixparlay.scss"],
+    forecastonextwo: [
+        ...cssReportCommon,
+        "./www/css/source/pages/totalbet/totalbet.scss", "./www/css/source/components/refreshcountdown/refreshcountdown.scss", "./www/css/source/pages/forecast/forecastonextwo.scss"
+    ]
 };
 
 var scriptPaths = {

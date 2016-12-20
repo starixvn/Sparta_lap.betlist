@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 {"version":3,"sources":["webpack:///./www/css/source/pages/utility/error.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/pages/utility/error.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n/*****************\n ** WEBPACK FOOTER\n ** ./www/css/source/pages/utility/error.scss\n ** module id = 71\n ** module chunks = 11\n **/"],"sourceRoot":""}
 =======
 {"version":3,"sources":["webpack:///./www/css/source/pages/utility/error.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/pages/utility/error.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n/*****************\n ** WEBPACK FOOTER\n ** ./www/css/source/pages/utility/error.scss\n ** module id = 75\n ** module chunks = 14\n **/"],"sourceRoot":""}
@@ -15,3 +16,6 @@
 =======
 {"version":3,"sources":["webpack:///./www/css/source/pages/utility/error.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/pages/utility/error.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n/*****************\n ** WEBPACK FOOTER\n ** ./www/css/source/pages/utility/error.scss\n ** module id = 81\n ** module chunks = 15\n **/"],"sourceRoot":""}
 >>>>>>> ce7df35... #67998 - Finish Mix parlay report
+=======
+{"version":3,"sources":["webpack:///./www/css/source/pages/utility/error.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/pages/utility/error.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n/*****************\n ** WEBPACK FOOTER\n ** ./www/css/source/pages/utility/error.scss\n ** module id = 83\n ** module chunks = 16\n **/"],"sourceRoot":""}
+>>>>>>> 88e2eaa... #67998 - Add popup in Odd/Even + 1x2 + DND report

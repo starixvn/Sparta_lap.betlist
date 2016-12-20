@@ -5,6 +5,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([6],{
 =======
 webpackJsonp([8],{
@@ -43,10 +44,17 @@ webpackJsonp([8],{
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 =======
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+webpackJsonp([9],{0:function(n,o,c){c(59),c(61),c(63),n.exports=c(65)},59:function(n,o){},61:59,63:59,65:59});
+	__webpack_require__(61);
+	__webpack_require__(63);
+	module.exports = __webpack_require__(65);
+>>>>>>> 88e2eaa... #67998 - Add popup in Odd/Even + 1x2 + DND report
 
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -60,12 +68,16 @@ webpackJsonp([8],{
 =======
 /***/ 55:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 59:
+>>>>>>> 88e2eaa... #67998 - Add popup in Odd/Even + 1x2 + DND report
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -79,12 +91,16 @@ webpackJsonp([8],{
 =======
 /***/ 57:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 61:
+>>>>>>> 88e2eaa... #67998 - Add popup in Odd/Even + 1x2 + DND report
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -98,12 +114,16 @@ webpackJsonp([8],{
 =======
 /***/ 59:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 63:
+>>>>>>> 88e2eaa... #67998 - Add popup in Odd/Even + 1x2 + DND report
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -117,6 +137,9 @@ webpackJsonp([8],{
 =======
 /***/ 61:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 65:
+>>>>>>> 88e2eaa... #67998 - Add popup in Odd/Even + 1x2 + DND report
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
@@ -124,6 +147,7 @@ webpackJsonp([8],{
 /***/ }
 
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -149,3 +173,6 @@ webpackJsonp([8],{0:function(n,o,c){c(55),c(57),c(59),n.exports=c(61)},55:functi
 =======
 webpackJsonp([8],{0:function(n,o,c){c(55),c(57),c(59),n.exports=c(61)},55:function(n,o){},57:55,59:55,61:55});
 >>>>>>> ec524a8... #67998 - Build webpack
+=======
+//# sourceMappingURL=home.chunk.js.map
+>>>>>>> 88e2eaa... #67998 - Add popup in Odd/Even + 1x2 + DND report

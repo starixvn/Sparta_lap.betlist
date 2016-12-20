@@ -1,6 +1,8 @@
 ﻿define(['jquery', 'common/site', 'common/querystring', 'components/refreshcountdown', 'common/popup'], function ($, Site, QueryString, RefreshCountDown, Popup) {
 	"use strict";
 
+	var isPopup;
+
 	var _me = {
 		resizeGrid: function () {
 			var $grid = $(".body-content");
@@ -15,6 +17,13 @@
 		},
 		initialize: function () {
 		    Site.initialize();
+
+		    isPopup = $('#IsPopUp').val() === "true";
+		    if (isPopup) {
+		        $("body").css("background", "#fff");
+		        _me.resizePopup();
+		    }
+
 			_me.initEvent();
 			_me.resizeGrid();
 			Site.addUserGuide({
@@ -49,7 +58,6 @@
 			url = QueryString.setParam(url, "matchid", matchId);
 			url = QueryString.setParam(url, "bettype", betType);
 
-			var isPopup = $('#IsPopUp').val() === "true";
 			if (isPopup) {
 				var popH = Math.min(parent.innerHeight - 100, 650), popW = 900;
 				Popup.updateCurrentPopup(url, { width: popW, height: popH, title: Site.getSingleResource("BetList") });
@@ -66,6 +74,11 @@
 		submit: function () {
 			Site.blockUI();
 			$("#ForecastOneXTwoForm").submit();
+		},
+		resizePopup: function () {
+		    var popH = Math.min(parent.innerHeight - 100, 600), popW = 700;
+		    var title = Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("OneXTwo");
+		    Popup.updateCurrentPopup(null, { width: popW, height: popH, title: title });
 		}
 	};
 

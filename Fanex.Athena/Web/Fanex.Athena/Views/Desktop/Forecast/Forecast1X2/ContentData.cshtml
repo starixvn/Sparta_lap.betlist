@@ -34,17 +34,17 @@
         <tr>
             <td class="center-align">@ViewResources.FullTime</td>
             <td class="center-align"><a class="icon-plus button-add" data-match-id="@match.MatchId" data-bettype="5" href="javascript:;"></a></td>
-            <td class="text-bold">@RazorHelperDesktop.PositiveFormat(match.HomeWinLoss, true, false)</td>
-            <td class="text-bold">@RazorHelperDesktop.PositiveFormat(match.DrawWinLoss, true, false)</td>
-            <td class="text-bold">@RazorHelperDesktop.PositiveFormat(match.AwayWinLoss, true, false)</td>
+            <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HomeWinLoss, true, false)</td>
+            <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.DrawWinLoss, true, false)</td>
+            <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.AwayWinLoss, true, false)</td>
         </tr>
     }
 
     <tr>
         <td class="center-align">@ViewResources.HalfTime</td>
         <td class="center-align"><a class="icon-plus button-add" data-match-id="@match.MatchId" data-bettype="@bettype" href="javascript:;"></a></td>
-        <td class="text-bold">@RazorHelperDesktop.PositiveFormat(match.HalfTimeHomeWinLoss, true, false)</td>
-        <td class="text-bold">@RazorHelperDesktop.PositiveFormat(match.HalfTImeDrawWinLoss, true, false)</td>
-        <td class="text-bold">@RazorHelperDesktop.PositiveFormat(match.HalfTimeAwayWinLoss, true, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HalfTimeHomeWinLoss, true, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HalfTImeDrawWinLoss, true, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HalfTimeAwayWinLoss, true, false)</td>
     </tr>
 }

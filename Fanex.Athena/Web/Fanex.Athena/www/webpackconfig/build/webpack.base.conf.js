@@ -54,6 +54,7 @@ function generateConfig(environment) {
 
             [pathConfig.cssPaths.build + "/pages/totalbet/totalbetlayout"]: pathConfig.cssPaths.totalbetlayout,
             [pathConfig.cssPaths.build + "/pages/forecast/ahforecast"]: pathConfig.cssPaths.ahforecast,
+            [pathConfig.cssPaths.build + "/pages/forecast/forecastonextwo"]: pathConfig.cssPaths.forecastonextwo,
             [pathConfig.cssPaths.build + "/pages/totalbet/mixparlay"]: pathConfig.cssPaths.mixparlay
         },
         output: {

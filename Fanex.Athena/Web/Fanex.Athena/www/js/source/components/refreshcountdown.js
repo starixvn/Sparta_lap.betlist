@@ -81,6 +81,7 @@
             // Set up ajax no cache
             $.ajaxSetup({ cache: false });
 
+            Site.blockUI();
             $('#reportContent').load(url, {
                 noncache: new Date().getTime()
             }, function () {

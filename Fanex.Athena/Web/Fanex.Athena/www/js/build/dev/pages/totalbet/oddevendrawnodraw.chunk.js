@@ -1,17 +1,17 @@
-webpackJsonp([34],{
+webpackJsonp([35],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(284);
+	module.exports = __webpack_require__(286);
 
 
 /***/ },
 
-/***/ 211:
+/***/ 213:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(212)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(214)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
 	    var curCountDown = 0;
 	    var countDownTimer = null;
 	    var cookieName = null;
@@ -94,6 +94,7 @@ webpackJsonp([34],{
 	            // Set up ajax no cache
 	            $.ajaxSetup({ cache: false });
 	
+	            Site.blockUI();
 	            $('#reportContent').load(url, {
 	                noncache: new Date().getTime()
 	            }, function () {
@@ -149,7 +150,7 @@ webpackJsonp([34],{
 
 /***/ },
 
-/***/ 212:
+/***/ 214:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -270,10 +271,10 @@ webpackJsonp([34],{
 
 /***/ },
 
-/***/ 275:
+/***/ 277:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(211)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(213)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
 	    var _me = {
 	        resizeGrid: function () {
 	            var $grid = $(".body-content");
@@ -332,10 +333,10 @@ webpackJsonp([34],{
 
 /***/ },
 
-/***/ 284:
+/***/ 286:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(285)], __WEBPACK_AMD_DEFINE_RESULT__ = function (OddEvenDND) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(287)], __WEBPACK_AMD_DEFINE_RESULT__ = function (OddEvenDND) {
 	    "use strict";
 	
 	    $(OddEvenDND.initialize);
@@ -344,10 +345,10 @@ webpackJsonp([34],{
 
 /***/ },
 
-/***/ 285:
+/***/ 287:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(275), __webpack_require__(9), __webpack_require__(211)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, Popup, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(277), __webpack_require__(9), __webpack_require__(213)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, Popup, RefreshCountDown) {
 	    "use strict";
 	
 	    var _me = {
@@ -367,7 +368,7 @@ webpackJsonp([34],{
 	                _me.submit();
 	            });
 	
-	            $("#Refresh-Content").on("click", '.button-add', function () {
+	            $("#reportContent").on("click", '.button-add', function () {
 	                var matchId = $(this).attr("data-match-id");
 	                var betType = $(this).attr("data-bet-type");
 	                _me.viewForecast1X2(matchId, betType);

@@ -18,7 +18,7 @@
                 _me.submit();
             });
 
-            $("#Refresh-Content").on("click", '.button-add', function () {
+            $("#reportContent").on("click", '.button-add', function () {
                 var matchId = $(this).attr("data-match-id");
                 var betType = $(this).attr("data-bet-type");
                 _me.viewForecast1X2(matchId, betType);

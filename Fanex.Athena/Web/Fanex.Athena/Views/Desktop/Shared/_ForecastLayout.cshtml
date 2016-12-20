@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+}
+@section css
+{
+    @RenderSection("pagecss", required: false)
+}
+@section js
+{
+    @RenderSection("pagejs", required: false)
+}
+
+@RenderSection("Filter", required: false)
+
+<div class="page-results">
+    <div id="reportContent" class="result-content">
+        @RenderBody()
+    </div>
+</div>

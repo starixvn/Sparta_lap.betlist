@@ -1,17 +1,17 @@
-webpackJsonp([23],{
+webpackJsonp([24],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(213);
+	module.exports = __webpack_require__(215);
 
 
 /***/ },
 
-/***/ 211:
+/***/ 213:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(212)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(214)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
 	    var curCountDown = 0;
 	    var countDownTimer = null;
 	    var cookieName = null;
@@ -94,6 +94,7 @@ webpackJsonp([23],{
 	            // Set up ajax no cache
 	            $.ajaxSetup({ cache: false });
 	
+	            Site.blockUI();
 	            $('#reportContent').load(url, {
 	                noncache: new Date().getTime()
 	            }, function () {
@@ -149,7 +150,7 @@ webpackJsonp([23],{
 
 /***/ },
 
-/***/ 212:
+/***/ 214:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -270,10 +271,10 @@ webpackJsonp([23],{
 
 /***/ },
 
-/***/ 213:
+/***/ 215:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(214)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ForecastOneXTwo) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(216)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ForecastOneXTwo) {
 	    "use strict";
 	
 	    $(ForecastOneXTwo.initialize);
@@ -282,11 +283,13 @@ webpackJsonp([23],{
 
 /***/ },
 
-/***/ 214:
+/***/ 216:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(211), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown, Popup) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(213), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown, Popup) {
 		"use strict";
+	
+		var isPopup;
 	
 		var _me = {
 			resizeGrid: function () {
@@ -302,6 +305,13 @@ webpackJsonp([23],{
 			},
 			initialize: function () {
 			    Site.initialize();
+	
+			    isPopup = $('#IsPopUp').val() === "true";
+			    if (isPopup) {
+			        $("body").css("background", "#fff");
+			        _me.resizePopup();
+			    }
+	
 				_me.initEvent();
 				_me.resizeGrid();
 				Site.addUserGuide({
@@ -336,7 +346,6 @@ webpackJsonp([23],{
 				url = QueryString.setParam(url, "matchid", matchId);
 				url = QueryString.setParam(url, "bettype", betType);
 	
-				var isPopup = $('#IsPopUp').val() === "true";
 				if (isPopup) {
 					var popH = Math.min(parent.innerHeight - 100, 650), popW = 900;
 					Popup.updateCurrentPopup(url, { width: popW, height: popH, title: Site.getSingleResource("BetList") });
@@ -353,6 +362,11 @@ webpackJsonp([23],{
 			submit: function () {
 				Site.blockUI();
 				$("#ForecastOneXTwoForm").submit();
+			},
+			resizePopup: function () {
+			    var popH = Math.min(parent.innerHeight - 100, 600), popW = 700;
+			    var title = Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("OneXTwo");
+			    Popup.updateCurrentPopup(null, { width: popW, height: popH, title: title });
 			}
 		};
 	
