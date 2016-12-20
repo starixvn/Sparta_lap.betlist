@@ -18992,7 +18992,7 @@ webpackJsonp([22],[
 /* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(90), __webpack_require__(210)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, BetList, CommonBetList) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(90), __webpack_require__(210)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetList, CommonBetList) {
 	    "use strict";
 	
 	    if (!window._IsInJsTestingMode) {
@@ -19001,6 +19001,7 @@ webpackJsonp([22],[
 	        });
 	    }
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 /* 210 */

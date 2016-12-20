@@ -1,4 +1,4 @@
-﻿define(['jquery', './betlist', './commonbetlist'], function ($, BetList, CommonBetList) {
+﻿define(['./betlist', './commonbetlist'], function (BetList, CommonBetList) {
     "use strict";
 
     if (!window._IsInJsTestingMode) {

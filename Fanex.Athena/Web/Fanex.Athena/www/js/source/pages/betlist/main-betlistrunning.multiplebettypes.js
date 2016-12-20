@@ -1,4 +1,4 @@
-﻿define(['jquery', './betlistrunning.multiplebettypes'], function ($, BetListRunningMultipleBettypes) {
+﻿define(['./betlistrunning.multiplebettypes'], function (BetListRunningMultipleBettypes) {
     "use strict";
 
     $(function () {

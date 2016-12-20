@@ -16,6 +16,10 @@ define(
                 $('#SubmitButton').click(function () {
                     _me.submit();
                 });
+
+                $('#ExportToExcel').click(function () {
+                    $('#CorrectScoreBetListForm').submit();
+                });
             },
 
             submit: function () {

@@ -33,7 +33,7 @@ define(['jquery'], function ($) {
                     $self.attr("id", options.id);
                     $self.children().wrapAll("<div class='wrapContent'></div>");
                     $self.hide()
-                         .prepend('<div class="title-bar popup-title"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="#"><i class="icon-close"></i></a></div>')
+                         .prepend('<div class="title-bar popup-title"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="javascript:;"><i class="icon-close"></i></a></div>')
 
                     $self.find('a.popup-close').on('click', function () {
                         if (options.onClose) {

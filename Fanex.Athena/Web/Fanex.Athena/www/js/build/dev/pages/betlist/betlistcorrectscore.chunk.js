@@ -18986,13 +18986,14 @@ webpackJsonp([19],[
 /* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(204)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, BetListCorrectScore) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(204)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListCorrectScore) {
 	    "use strict";
 	
 	    $(function () {
 	        BetListCorrectScore.initialize();
 	    });
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 /* 204 */
@@ -19013,6 +19014,10 @@ webpackJsonp([19],[
 	            initEvent: function () {
 	                $('#SubmitButton').click(function () {
 	                    _me.submit();
+	                });
+	
+	                $('#ExportToExcel').click(function () {
+	                    $('#CorrectScoreBetListForm').submit();
 	                });
 	            },
 	
