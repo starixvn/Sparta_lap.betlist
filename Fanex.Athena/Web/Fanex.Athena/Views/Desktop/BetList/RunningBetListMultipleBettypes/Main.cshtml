@@ -7,17 +7,25 @@
 }
 
 @model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
+
+@section pagecss{
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/totalbet/mixparlay.css")" rel="stylesheet" />
+}
 @section pagejs {
     <script src="@Url.ContentLinkByEnv("/www/js/build/pages/betlist/betlistrunningmultiplebettypes.chunk.js")" type="text/javascript"></script>
 }
 @section ContentTitle
     {
-     @{
+    @{
         if (ViewBag.IsMixParlay == true || ViewBag.IsSystemParlay == true)
         {
-            <span id="mixparlay_link" class="@(ViewBag.IsMixParlay == true ? "inactive-switch-link" : "active-switch-link")">@ViewResources.MixParlay</span>
-                <span>|</span>
-                <span id="systemparlay_link" class="@(ViewBag.IsSystemParlay == true ? "inactive-switch-link" : "active-switch-link")">@ViewResources.SystemParlay</span>
+            <a href="javascript:;" id="mixparlay_link" class="center-align parlay-tab @(ViewBag.IsMixParlay == true ? "active" : string.Empty)">
+                @ViewResources.MixParlay
+            </a>
+
+            <a href="javascript:;" id="systemparlay_link" class="center-align parlay-tab @(ViewBag.IsSystemParlay == true ? "active" : string.Empty)">
+                @ViewResources.SystemParlay
+            </a>
         }
     }
 }

@@ -752,6 +752,7 @@
     <Content Include="www\css\build\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\pages\reports\livereport.css" />
     <Content Include="www\css\build\pages\reports\reportjqgridlayout.css" />
+    <Content Include="www\css\build\pages\totalbet\mixparlay.css" />
     <Content Include="www\css\build\pages\totalbet\totalbetlayout.css" />
     <Content Include="www\css\build\pages\utility\error.css" />
     <Content Include="www\css\source\components\betlist\AGCasino.css" />
@@ -1354,6 +1355,7 @@
     <Content Include="www\js\build\dev\pages\totalbet\outright.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\halftimefulltime.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\firstgoallastgoal.chunk.js.map" />
+    <Content Include="www\css\source\pages\totalbet\mixparlay.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

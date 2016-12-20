@@ -1,5 +1,4 @@
-﻿@using System.Web.Optimization
-@{
+﻿@{
     Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
 }
 @section css
@@ -14,7 +13,9 @@
 <div class="report-container">
     @if (IsSectionDefined("ContentTitle"))
     {
-        @RenderSection("ContentTitle", required: false)
+        <div class="page-tab">
+            @RenderSection("ContentTitle", required: false)
+        </div>
     }
     <div class="page-form">
         @RenderSection("ContentFilter", required: false)
