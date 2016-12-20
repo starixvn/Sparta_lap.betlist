@@ -251,3 +251,9 @@ if (toDate != null)
         @PositiveFormat(Convert.ToDecimal(value), true, false);
     }
 }
+
+@helper ViewBaseCurrency(string currencyName, string basedCurrencyName)
+{
+    @(string.IsNullOrEmpty(basedCurrencyName) ? string.Format(ViewResources.Viewin, currencyName) : string.Format(ViewResources.Viewin, basedCurrencyName.ToUpper()))
+
+}

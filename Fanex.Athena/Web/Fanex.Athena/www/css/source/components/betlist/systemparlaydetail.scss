@@ -1,6 +1,6 @@
 ﻿@import "../../scss/abstracts/_variables.scss";
 
-body{
+body {
     background: $white;
 }
 
@@ -27,30 +27,21 @@ body{
     .system-parlay-detail {
         td {
             border: 1px solid #d6d6d6;
-            color: #404040;
             padding: 2px 5px;
             background: $white;
+            text-align: right;
         }
     }
 
-    .system-parlay-outstanding {
+    .system-parlay-outstanding td {
         background-color: #F8F1A0;
     }
 
-    .system-parlay-subtotal {
+    .system-parlay-subtotal td {
         background-color: #FFA07A;
     }
 
-    .system-parlay-total {
+    .system-parlay-total td {
         background-color: #B2DFEF;
-    }
-
-    .system-parlay-outstanding,
-    .system-parlay-subtotal,
-    .system-parlay-total {
-        td {
-            font-weight: bold;
-            text-align: right;
-        }
     }
 }

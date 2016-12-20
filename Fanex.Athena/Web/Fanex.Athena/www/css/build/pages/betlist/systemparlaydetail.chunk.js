@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([5],{
 =======
 webpackJsonp([6],{
@@ -117,3 +118,6 @@ webpackJsonp([6],{0:function(n,o,c){c(21),n.exports=c(49)},21:function(n,o){},49
 =======
 //# sourceMappingURL=systemparlaydetail.chunk.js.map
 >>>>>>> ce7df35... #67998 - Finish Mix parlay report
+=======
+webpackJsonp([6],{0:function(n,o,c){c(21),c(23),c(25),n.exports=c(49)},21:function(n,o){},23:21,25:21,49:21});
+>>>>>>> 2b4a603... #67998 - Add RunningBettypesOfMatchBetList, update System Parlay Detail popup

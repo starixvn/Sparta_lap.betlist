@@ -765,6 +765,7 @@
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlist.chunk.js" />
+    <Content Include="www\js\build\dev\pages\betlist\betlistcorrectscore.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistrunning.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistsimple.chunk.js" />
@@ -777,6 +778,7 @@
     <Content Include="www\js\build\dev\pages\totalbet\firstgoallastgoal.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\halftimefulltime.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\handicapoverunder.chunk.js" />
+    <Content Include="www\js\build\dev\pages\totalbet\homedrawawaynobet.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\moneyline.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\oddevendrawnodraw.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\outright.chunk.js" />
@@ -784,6 +786,7 @@
     <Content Include="www\js\build\pro\common.chunk.js" />
     <Content Include="www\js\build\pro\language.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlist.chunk.js" />
+    <Content Include="www\js\build\pro\pages\betlist\betlistcorrectscore.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistrunning.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistsimple.chunk.js" />
@@ -796,6 +799,7 @@
     <Content Include="www\js\build\pro\pages\totalbet\firstgoallastgoal.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\halftimefulltime.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\handicapoverunder.chunk.js" />
+    <Content Include="www\js\build\pro\pages\totalbet\homedrawawaynobet.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\moneyline.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\oddevendrawnodraw.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\outright.chunk.js" />
@@ -1316,6 +1320,7 @@
     <Content Include="Views\Desktop\TotalBets\HomeDrawAwayNoBet\Filter.cshtml" />
     <Content Include="Views\Desktop\TotalBets\HomeDrawAwayNoBet\Content.cshtml" />
     <Content Include="Views\Desktop\TotalBets\HomeDrawAwayNoBet\ContentData.cshtml" />
+    <Content Include="Views\Desktop\BetList\RunningBettypesOfMatchBetList\Main.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1356,6 +1361,8 @@
     <Content Include="www\js\build\dev\pages\totalbet\halftimefulltime.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\firstgoallastgoal.chunk.js.map" />
     <Content Include="www\css\source\pages\totalbet\mixparlay.scss" />
+    <Content Include="www\js\build\dev\pages\betlist\betlistcorrectscore.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\totalbet\homedrawawaynobet.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
