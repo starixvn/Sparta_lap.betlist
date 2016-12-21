@@ -40,7 +40,10 @@ namespace Fanex.Athena
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
             /*Web API*/
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new CompressHandler());
+            using (var compressHandler = new CompressHandler())
+            {
+                GlobalConfiguration.Configuration.MessageHandlers.Add(compressHandler);
+            }
             GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
             GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
@@ -76,7 +79,7 @@ namespace Fanex.Athena
         public void Application_Error(object sender, EventArgs e)
         {
             // Code that runs when an unhandled error occurs
-            Exception exception = Server.GetLastError().GetBaseException();
+            var exception = Server.GetLastError().GetBaseException();
             if (exception is HttpAntiForgeryException)
             {
                 return;
