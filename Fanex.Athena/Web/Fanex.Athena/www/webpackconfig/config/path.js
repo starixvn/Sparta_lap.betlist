@@ -6,7 +6,10 @@ var cssCommonPath = "./www/css/source/";
 
 var cssDateRangePickerPath = ["bootstrap-daterangepicker/daterangepicker.css", "./www/css/source/components/daterangepicker/daterangepicker-ex.scss"];
 var jqgridPath = ["./www/css/source/components/jqgrid/jqgrid.css", "./www/css/source/extensions/jqgrid-ex.scss"];
-var cssReportCommon = ["./www/css/source/pages/common.scss", "./www/css/source/extensions/report-ex.scss", "./www/css/source/components/flatpopup/flatpopup.scss"];
+var cssReportCommon = [
+    "./www/css/source/scss/layout/filter.scss", "./www/css/source/scss/layout/content.scss", "./www/css/source/pages/common.scss",
+    "./www/css/source/extensions/report-ex.scss", "./www/css/source/components/flatpopup/flatpopup.scss"
+];
 var cssBetlistCommon = [
     ...cssReportCommon, ...jqgridPath,
     "./www/css/source/components/betlist/betlist.scss", "./www/css/source/components/betlist/Microgaming.css",
@@ -16,8 +19,11 @@ var cssBetlistCommon = [
 var cssPaths = {
     build: "www/css/build",
 
-    home: ["malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css", "./www/css/source/scss/layout/navbar.scss", "./www/css/source/scss/layout/sidebar.scss", "./www/css/source/extensions/home.scss"],
-    main: ["./www/css/source/vendors/materialize/materialize.css", "./www/css/source/main.scss", "./www/css/source/extensions/main-ex.scss"],
+    home: [
+        "./www/css/source/extensions/home.scss", "./www/css/source/main.scss", "malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
+        "./www/css/source/scss/layout/navbar.scss", "./www/css/source/scss/layout/sidebar.scss"
+    ],
+    main: ["./www/css/source/main.scss", "./www/css/source/extensions/main-ex.scss"],
     error: ["./www/css/source/pages/utility/error.scss"],
 
     reportjqgridlayout: [

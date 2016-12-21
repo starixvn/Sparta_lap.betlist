@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([8],{
 =======
 webpackJsonp([10],{
@@ -131,3 +132,6 @@ webpackJsonp([10],{0:function(n,o,c){c(67),c(69),n.exports=c(71)},67:function(n,
 =======
 webpackJsonp([11],{0:function(n,o,c){c(71),c(73),n.exports=c(75)},71:function(n,o){},73:71,75:71});
 >>>>>>> 88e2eaa... #67998 - Add popup in Odd/Even + 1x2 + DND report
+=======
+webpackJsonp([11],{0:function(n,o,c){c(73),c(75),n.exports=c(77)},73:function(n,o){},75:73,77:73});
+>>>>>>> e45c5e2... #67998 - Update css prototype

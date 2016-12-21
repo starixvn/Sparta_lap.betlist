@@ -100,12 +100,6 @@ main {
     min-height: 30px;
 }
 
-.icon-block {
-    @media (max-width: 600px) {
-        margin-top: 1rem;
-    }
-}
-
 .tipsy {
     .tipsy-inner {
         background-color: #000;

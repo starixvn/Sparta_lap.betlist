@@ -10,6 +10,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([10],{
 =======
 webpackJsonp([12],{
@@ -259,3 +260,6 @@ webpackJsonp([13],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(39),n.expor
 =======
 webpackJsonp([13],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(39),n.exports=c(41)},21:function(n,o){},23:21,25:21,27:21,29:21,39:21,41:21});
 >>>>>>> 678b479... #67998 - Update height when resizing window for all reports in total bets and 1x2
+=======
+webpackJsonp([13],{0:function(n,o,c){c(27),c(29),c(31),c(33),c(35),c(37),c(39),c(49),n.exports=c(51)},27:function(n,o){},29:27,31:27,33:27,35:27,37:27,39:27,49:27,51:27});
+>>>>>>> e45c5e2... #67998 - Update css prototype
