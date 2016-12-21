@@ -232,17 +232,25 @@
 
 .col-medium {
     width: 15%;
+
+    &.small {
+        width: 10%;
+    }
 }
 
 .col-large {
     width: 40%;
+
+    &.small{
+        width: 35%;
+    }
 }
 
 .col-child {
     width: 10%;
 
     &.small {
-        width: 7%;
+        width: 6%;
     }
 }
 

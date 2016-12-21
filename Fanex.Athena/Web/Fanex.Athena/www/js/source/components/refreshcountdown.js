@@ -87,7 +87,7 @@
             }, function () {
                 Site.unBlockUI();
                 _me.initEvent();
-
+                
                 // Currency constraint
                 Site.currencyConstraint();
 

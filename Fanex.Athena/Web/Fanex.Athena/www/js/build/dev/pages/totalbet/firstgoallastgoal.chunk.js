@@ -100,7 +100,7 @@ webpackJsonp([30],{
 	            }, function () {
 	                Site.unBlockUI();
 	                _me.initEvent();
-	
+	                
 	                // Currency constraint
 	                Site.currencyConstraint();
 	
@@ -338,7 +338,7 @@ webpackJsonp([30],{
 	
 	            var gridTop = $grid.offset().top;
 	
-	            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - 20;
+	            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - 25;
 	            gridHeight = Math.max(150, gridHeight);
 	            $grid.css("max-height", gridHeight);
 	        },
