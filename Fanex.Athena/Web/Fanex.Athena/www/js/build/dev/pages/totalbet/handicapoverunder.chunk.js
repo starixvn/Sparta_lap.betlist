@@ -302,6 +302,14 @@ webpackJsonp([32],{
 	            $(document).ajaxComplete(function () {
 	                _me.resizeGrid();
 	            });
+	
+	            $(window).on("resize", function () {
+	                _me.resizeGrid();
+	            });
+	
+	            $(window).on("unload", function () {
+	                $(window).off("resize");
+	            });
 	        },
 	        viewRunningBetListMatch: function (matchId, betType) {
 	            var url = Site.resolveClientUrl("RunningMatchBetList/Index");
@@ -375,12 +383,6 @@ webpackJsonp([32],{
 	                var matchId = $(this).attr("data-match-id");
 	                var betType = $(this).attr("data-bet-type");
 	                _me.viewForecast(matchId, betType);
-	            });
-	
-	            $(window).on("resize", Totalbets.resizeGrid);
-	
-	            $(window).on("unload", function () {
-	                $(window).off("resize");
 	            });
 	        },
 	        viewNewForecast: function (leagueId, matchId, currencyId, baseCurrency) {

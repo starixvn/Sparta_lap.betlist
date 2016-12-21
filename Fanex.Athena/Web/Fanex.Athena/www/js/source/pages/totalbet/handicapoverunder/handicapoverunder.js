@@ -28,12 +28,6 @@
                 var betType = $(this).attr("data-bet-type");
                 _me.viewForecast(matchId, betType);
             });
-
-            $(window).on("resize", Totalbets.resizeGrid);
-
-            $(window).on("unload", function () {
-                $(window).off("resize");
-            });
         },
         viewNewForecast: function (leagueId, matchId, currencyId, baseCurrency) {
             var url = Site.resolveClientUrl("NewHandicapOverUnderForecast/Index");

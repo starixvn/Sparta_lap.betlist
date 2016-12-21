@@ -51,6 +51,14 @@
 			$('#SubmitButton').on('click', function () {
 				_me.submit();
 			});
+
+			$(window).on("resize", function () {
+			    _me.resizeGrid();
+			});
+
+			$(window).on("unload", function () {
+			    $(window).off("resize");
+			});
 		},
 		openForecast: function (matchId, betType) {
 			var url = Site.resolveClientUrl("RunningMatchBetList/Index");

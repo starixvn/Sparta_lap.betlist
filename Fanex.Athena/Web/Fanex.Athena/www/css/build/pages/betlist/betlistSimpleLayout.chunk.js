@@ -10,6 +10,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([3],{
 =======
 webpackJsonp([4],{
@@ -375,3 +376,6 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 =======
 //# sourceMappingURL=betlistSimpleLayout.chunk.js.map
 >>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
+=======
+webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(35),c(37),n.exports=c(45)},21:function(n,o){},23:21,25:21,27:21,29:21,31:21,33:21,35:21,37:21,45:21});
+>>>>>>> 678b479... #67998 - Update height when resizing window for all reports in total bets and 1x2

@@ -302,6 +302,14 @@ webpackJsonp([31],{
 	            $(document).ajaxComplete(function () {
 	                _me.resizeGrid();
 	            });
+	
+	            $(window).on("resize", function () {
+	                _me.resizeGrid();
+	            });
+	
+	            $(window).on("unload", function () {
+	                $(window).off("resize");
+	            });
 	        },
 	        viewRunningBetListMatch: function (matchId, betType) {
 	            var url = Site.resolveClientUrl("RunningMatchBetList/Index");
