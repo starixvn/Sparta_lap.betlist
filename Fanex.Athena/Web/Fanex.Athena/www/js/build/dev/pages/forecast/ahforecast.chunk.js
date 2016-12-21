@@ -259,7 +259,7 @@ webpackJsonp([23],{
 	            var homeName = $("#HomeTeamId").val();
 	            var awayName = $("#AwayTeamId").val();
 	
-	            var url = location.href;
+	            var url = Site.getCurrentUrl();
 	            url = Site.setLicenseeOptionOriginalParam(url);
 	            url = QueryString.setParam(url, "LeagueId", leagueId);
 	            url = QueryString.setParam(url, "MatchId", matchId);

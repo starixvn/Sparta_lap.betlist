@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([10],{
 =======
 webpackJsonp([12],{
@@ -17,10 +18,14 @@ webpackJsonp([12],{
 =======
 webpackJsonp([12],{
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+webpackJsonp([13],{
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -36,11 +41,14 @@ webpackJsonp([12],{
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 =======
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 	__webpack_require__(21);
 	__webpack_require__(23);
 	__webpack_require__(25);
 	__webpack_require__(27);
 	__webpack_require__(29);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	__webpack_require__(35);
@@ -54,6 +62,10 @@ webpackJsonp([12],{
 	__webpack_require__(39);
 	module.exports = __webpack_require__(41);
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+	__webpack_require__(39);
+	module.exports = __webpack_require__(41);
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 
 
 /***/ },
@@ -68,6 +80,7 @@ webpackJsonp([12],{
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ 25:
 =======
 /***/ 23:
@@ -78,12 +91,16 @@ webpackJsonp([12],{
 =======
 /***/ 23:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 23:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -97,12 +114,16 @@ webpackJsonp([12],{
 =======
 /***/ 25:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 25:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -116,12 +137,16 @@ webpackJsonp([12],{
 =======
 /***/ 27:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 27:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -135,12 +160,16 @@ webpackJsonp([12],{
 =======
 /***/ 29:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 29:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -154,12 +183,16 @@ webpackJsonp([12],{
 =======
 /***/ 39:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 39:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -173,6 +206,9 @@ webpackJsonp([12],{
 =======
 /***/ 41:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 41:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
@@ -180,6 +216,7 @@ webpackJsonp([12],{
 /***/ }
 
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -211,3 +248,6 @@ webpackJsonp([12],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(39),n.expor
 =======
 webpackJsonp([13],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(39),n.exports=c(41)},21:function(n,o){},23:21,25:21,27:21,29:21,39:21,41:21});
 >>>>>>> 88e2eaa... #67998 - Add popup in Odd/Even + 1x2 + DND report
+=======
+//# sourceMappingURL=reportjqgridlayout.chunk.js.map
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide

@@ -8,6 +8,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([3],{
 =======
 webpackJsonp([4],{
@@ -18,10 +19,14 @@ webpackJsonp([4],{
 =======
 webpackJsonp([4],{
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+webpackJsonp([4],{
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -42,10 +47,16 @@ webpackJsonp([4],{
 	__webpack_require__(23);
 	__webpack_require__(25);
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+	__webpack_require__(21);
+	__webpack_require__(23);
+	__webpack_require__(25);
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 	__webpack_require__(27);
 	__webpack_require__(29);
 	__webpack_require__(31);
 	__webpack_require__(33);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -75,6 +86,11 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 	__webpack_require__(37);
 	module.exports = __webpack_require__(45);
 >>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
+=======
+	__webpack_require__(35);
+	__webpack_require__(37);
+	module.exports = __webpack_require__(45);
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 
 
 /***/ },
@@ -90,6 +106,7 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ 25:
 =======
 /***/ 23:
@@ -103,12 +120,16 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 =======
 /***/ 23:
 >>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
+=======
+/***/ 23:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -126,12 +147,16 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 =======
 /***/ 25:
 >>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
+=======
+/***/ 25:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -149,12 +174,16 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 =======
 /***/ 27:
 >>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
+=======
+/***/ 27:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -172,12 +201,16 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 =======
 /***/ 29:
 >>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
+=======
+/***/ 29:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -195,12 +228,16 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 =======
 /***/ 31:
 >>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
+=======
+/***/ 31:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -218,12 +255,16 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 =======
 /***/ 33:
 >>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
+=======
+/***/ 33:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -237,6 +278,8 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 =======
 >>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
+=======
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ 35:
 /***/ function(module, exports) {
 
@@ -247,17 +290,21 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 /***/ 37:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 =======
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 =======
 >>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
+=======
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -275,6 +322,9 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 =======
 /***/ 45:
 >>>>>>> ba188bf... #67998 - Update refresh count down, background color for bet list table header
+=======
+/***/ 45:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
@@ -282,6 +332,7 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 /***/ }
 
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -317,3 +368,6 @@ webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(
 =======
 webpackJsonp([4],{0:function(n,o,c){c(21),c(23),c(25),c(27),c(29),c(31),c(33),c(35),c(37),n.exports=c(45)},21:function(n,o){},23:21,25:21,27:21,29:21,31:21,33:21,35:21,37:21,45:21});
 >>>>>>> c6fc72a... #67998 - Add OddEvenDrawNoDraw report
+=======
+//# sourceMappingURL=betlistSimpleLayout.chunk.js.map
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide

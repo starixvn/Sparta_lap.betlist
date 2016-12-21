@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([5],{
 =======
 webpackJsonp([6],{
@@ -20,11 +21,15 @@ webpackJsonp([6],{
 =======
 webpackJsonp([6],{
 >>>>>>> ce7df35... #67998 - Finish Mix parlay report
+=======
+webpackJsonp([6],{
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(21);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -44,6 +49,11 @@ webpackJsonp([6],{
 	__webpack_require__(25);
 	module.exports = __webpack_require__(49);
 >>>>>>> ce7df35... #67998 - Finish Mix parlay report
+=======
+	__webpack_require__(23);
+	__webpack_require__(25);
+	module.exports = __webpack_require__(49);
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 
 
 /***/ },
@@ -59,6 +69,7 @@ webpackJsonp([6],{
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ 43:
 =======
 /***/ 47:
@@ -70,6 +81,8 @@ webpackJsonp([6],{
 /***/ 49:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
 =======
+=======
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ 23:
 /***/ function(module, exports) {
 
@@ -85,7 +98,10 @@ webpackJsonp([6],{
 /***/ },
 
 /***/ 49:
+<<<<<<< HEAD
 >>>>>>> ce7df35... #67998 - Finish Mix parlay report
+=======
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
@@ -93,6 +109,7 @@ webpackJsonp([6],{
 /***/ }
 
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -121,3 +138,6 @@ webpackJsonp([6],{0:function(n,o,c){c(21),n.exports=c(49)},21:function(n,o){},49
 =======
 webpackJsonp([6],{0:function(n,o,c){c(21),c(23),c(25),n.exports=c(49)},21:function(n,o){},23:21,25:21,49:21});
 >>>>>>> 2b4a603... #67998 - Add RunningBettypesOfMatchBetList, update System Parlay Detail popup
+=======
+//# sourceMappingURL=systemparlaydetail.chunk.js.map
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide

@@ -479,7 +479,15 @@
   width: 10%; }
   .col-child.small {
     width: 7%; }
+<<<<<<< HEAD
 >>>>>>> b48865a... #67998 - Fix bug exporting excel in total bets reports
+=======
+
+#UserGuidePopup ul li {
+  list-style-type: disc; }
+  #UserGuidePopup ul li ul li {
+    list-style-type: circle; }
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 .popup-block-body {
   background: transparent;
   border: none;

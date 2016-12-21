@@ -276,6 +276,11 @@
   width: 10%; }
   .col-child.small {
     width: 7%; }
+
+#UserGuidePopup ul li {
+  list-style-type: disc; }
+  #UserGuidePopup ul li ul li {
+    list-style-type: circle; }
 .popup-block-body {
   background: transparent;
   border: none;
@@ -393,6 +398,17 @@
   .header-content .table td:first-child, .body-content .table td:first-child, .footer-content .table td:first-child {
     border-left: none; }
 
+.icon-plus {
+  padding: 0 2px;
+  background: #fff;
+  color: #08B22D;
+  border: 1px solid #08B22D;
+  font-size: 1rem;
+  line-height: 13px; }
+  .icon-plus:before {
+    content: "\EA0A";
+    vertical-align: middle; }
+
 .table > thead tr td, .table > thead tr th, .table > tbody tr td, .table > tbody tr th {
   padding: 4px 5px; }
 
@@ -411,15 +427,7 @@
 
 .table td .icon-plus {
   margin-left: 5px;
-  padding: 0 2px;
-  background: #fff;
-  color: #08B22D;
-  border: 1px solid #08B22D;
-  font-size: 1rem;
-  line-height: 13px; }
-  .table td .icon-plus:before {
-    content: "\EA0A";
-    vertical-align: middle; }
+  color: #08B22D; }
   .table td .icon-plus:hover {
     background: #08B22D;
     color: #fff; }

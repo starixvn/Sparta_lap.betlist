@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([6],{
 =======
 webpackJsonp([8],{
@@ -176,3 +177,6 @@ webpackJsonp([8],{0:function(n,o,c){c(55),c(57),c(59),n.exports=c(61)},55:functi
 =======
 //# sourceMappingURL=home.chunk.js.map
 >>>>>>> 88e2eaa... #67998 - Add popup in Odd/Even + 1x2 + DND report
+=======
+webpackJsonp([9],{0:function(n,o,c){c(59),c(61),c(63),n.exports=c(65)},59:function(n,o){},61:59,63:59,65:59});
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide

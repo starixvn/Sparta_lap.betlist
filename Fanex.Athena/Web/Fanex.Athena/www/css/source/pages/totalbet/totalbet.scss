@@ -21,6 +21,20 @@ $colorAddIcon: #08B22D;
     }
 }
 
+.icon-plus {
+    padding: 0 2px;
+    background: $white;
+    color: $colorAddIcon;
+    border: 1px solid $colorAddIcon;
+    font-size: 1rem;
+    line-height: 13px;
+
+    &:before {
+        content: "\ea0a";
+        vertical-align: middle;
+    }
+}
+
 .table {
     > thead, > tbody {
         tr {
@@ -50,17 +64,7 @@ $colorAddIcon: #08B22D;
 
         .icon-plus {
             margin-left: 5px;
-            padding: 0 2px;
-            background: $white;
             color: $colorAddIcon;
-            border: 1px solid $colorAddIcon;
-            font-size: 1rem;
-            line-height: 13px;
-
-            &:before {
-                content: "\ea0a";
-                vertical-align: middle;
-            }
 
             &:hover {
                 background: $colorAddIcon;

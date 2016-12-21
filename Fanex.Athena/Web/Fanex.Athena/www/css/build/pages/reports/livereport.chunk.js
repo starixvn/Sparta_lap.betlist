@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 webpackJsonp([9],{
 =======
 webpackJsonp([11],{
@@ -17,11 +18,15 @@ webpackJsonp([11],{
 =======
 webpackJsonp([11],{
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+webpackJsonp([12],{
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(21);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -52,6 +57,14 @@ webpackJsonp([11],{
 >>>>>>> 795e18d... #67998 - Implement mix parlay betlist
 =======
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+	__webpack_require__(23);
+	__webpack_require__(25);
+	__webpack_require__(73);
+	__webpack_require__(75);
+	__webpack_require__(77);
+	module.exports = __webpack_require__(79);
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 
 
 /***/ },
@@ -66,6 +79,7 @@ webpackJsonp([11],{
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ 25:
 =======
 /***/ 23:
@@ -76,12 +90,16 @@ webpackJsonp([11],{
 =======
 /***/ 23:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 23:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -95,12 +113,16 @@ webpackJsonp([11],{
 =======
 /***/ 25:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 25:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -114,12 +136,16 @@ webpackJsonp([11],{
 =======
 /***/ 69:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 73:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -133,12 +159,16 @@ webpackJsonp([11],{
 =======
 /***/ 71:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 75:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -152,12 +182,16 @@ webpackJsonp([11],{
 =======
 /***/ 73:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 77:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -171,6 +205,9 @@ webpackJsonp([11],{
 =======
 /***/ 75:
 >>>>>>> 90fefe1... #67998 - Separate webpack js build folders
+=======
+/***/ 79:
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
@@ -178,6 +215,7 @@ webpackJsonp([11],{
 /***/ }
 
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -209,3 +247,6 @@ webpackJsonp([11],{0:function(n,o,c){c(21),c(23),c(25),c(69),c(71),c(73),n.expor
 =======
 webpackJsonp([12],{0:function(n,o,c){c(21),c(23),c(25),c(73),c(75),c(77),n.exports=c(79)},21:function(n,o){},23:21,25:21,73:21,75:21,77:21,79:21});
 >>>>>>> 88e2eaa... #67998 - Add popup in Odd/Even + 1x2 + DND report
+=======
+//# sourceMappingURL=livereport.chunk.js.map
+>>>>>>> 1e242ba... #67998 - Fix bug display unordered list in user guide
