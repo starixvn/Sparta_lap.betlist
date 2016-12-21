@@ -5,6 +5,8 @@ $bgLeagueNameRow: #D1DAE1;
 $bgLiveRow: #FEDDCC;
 $colorAddIcon: #08B22D;
 
+$paddingRightContainer: 17px;
+
 .page-results .result-content {
     border: solid 1px $colorBorderTable;
 }
@@ -91,8 +93,12 @@ $colorAddIcon: #08B22D;
 }
 
 .body-content {
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
+
+    &.hasScroll{
+        padding-right: $paddingRightContainer;
+    }
 }
 
 .header-content {
@@ -113,7 +119,7 @@ $colorAddIcon: #08B22D;
 }
 
 .header-content, .footer-content {
-    padding-right: 17px;
+    padding-right: $paddingRightContainer;
 }
 
 .forcast-number, .icon-plus {

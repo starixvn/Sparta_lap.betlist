@@ -287,6 +287,10 @@ webpackJsonp([31],{
 	            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - 25;
 	            gridHeight = Math.max(150, gridHeight);
 	            $grid.css("max-height", gridHeight);
+	
+	            if (!$grid.hasVerticalScrollBar()) {
+	                $grid.addClass("hasScroll");
+	            }
 	        },
 	        initEvent: function () {
 	            // Init refresh countdown
@@ -329,10 +333,18 @@ webpackJsonp([31],{
 	
 	            Site.redirect(url);
 	        },
+	
+	        registerCheckVisibleScrollbar: function () {
+	            $.fn.hasVerticalScrollBar = function () {
+	                return this.get(0).scrollHeight > this.height();
+	            }
+	        },
+	
 	        initialize: function () {
-	            Site.unBlockUI();
-	            this.initEvent();
+	            _me.registerCheckVisibleScrollbar();
+	            _me.initEvent();
 	            _me.resizeGrid();
+	            Site.unBlockUI();
 	        }
 	    };
 	
