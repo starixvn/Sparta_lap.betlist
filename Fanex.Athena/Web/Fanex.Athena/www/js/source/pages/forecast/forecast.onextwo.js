@@ -70,12 +70,15 @@
 		},
 		openForecast: function (matchId, betType) {
 			var url = Site.resolveClientUrl("RunningMatchBetList/Index");
-			url = _me.getBetListUrl(url, matchId, betType);
 
 			if (isPopup) {
+			    url = _me.getBetListUrl(url, matchId, betType);
 				var popH = Math.min(parent.innerHeight - 100, 650), popW = 900;
 				Popup.updateCurrentPopup(url, { width: popW, height: popH, title: Site.getSingleResource("BetList") });
 			} else {
+			    url = Site.setLicenseeOptionOriginalParam(url);
+			    url = QueryString.setParam(url, "matchid", matchId);
+			    url = QueryString.setParam(url, "bettype", betType);
 				Site.redirect(url);
 			}
 		},
