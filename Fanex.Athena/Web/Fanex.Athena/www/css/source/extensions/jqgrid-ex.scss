@@ -169,6 +169,7 @@ $colorDisabledPgButton: $colorLightGray;
                     &.ui-state-disabled {
                         .ui-icon {
                             color: $colorDisabledPgButton;
+                            cursor: default;
                         }
                     }
                 }

@@ -762,7 +762,6 @@
     <Content Include="www\css\source\components\jqgrid\jqgrid.css" />
     <Content Include="www\css\source\components\multiselect\jquery.multiselect.css" />
     <Content Include="www\css\source\pages\login.css" />
-    <Content Include="www\css\source\vendors\materialize\materialize.css" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlist.chunk.js" />

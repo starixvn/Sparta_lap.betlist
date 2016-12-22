@@ -345,6 +345,9 @@ webpackJsonp([30],{
 	            if (!$grid.hasVerticalScrollBar()) {
 	                $grid.addClass("hasScroll");
 	            }
+	            else {
+	                $grid.find("table").width($grid.width() - 17);
+	            }
 	        },
 	        initEvent: function () {
 	            // Init refresh countdown

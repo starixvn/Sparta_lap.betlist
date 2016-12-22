@@ -1,6 +1,6 @@
 ﻿@import "../../scss/abstracts/_variables.scss";
 
-$colorDisabledText: #b99f9f;
+$colorDisabledText: #6c8da6;
 $bgDisabledTab: transparent;
 $colorActiveText: $white;
 $bgActiveTab: $bgHeaderTable;
@@ -27,6 +27,7 @@ $bgActiveTab: $bgHeaderTable;
             color: $colorActiveText;
             background: $bgActiveTab;
             font-weight: bold;
+            border: none;
         }
     }
 }
