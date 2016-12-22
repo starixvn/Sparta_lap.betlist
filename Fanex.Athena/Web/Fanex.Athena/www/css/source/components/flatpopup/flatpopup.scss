@@ -1,7 +1,11 @@
-﻿.popup-block-body {
+﻿@import "../../scss/abstracts/_variables.scss";
+
+$colorTextForRule: #515151;
+
+.popup-block-body {
     background: transparent;
     border: none;
-    background-color: #ffffff;
+    background-color: $white;
     position: fixed;
     opacity: 0.7;
     filter: alpha(opacity=70);
@@ -13,7 +17,7 @@
 }
 
 .flat-popup {
-    background: #fff;
+    background: $white;
     box-shadow: 0 0 10px #ccc;
     position: absolute;
     z-index: 99999;
@@ -25,13 +29,13 @@
         position: relative;
 
         .txt-title {
-            color: #fff;
+            color: $white;
             font-size: 12px;
             font-weight: bold;
         }
 
         .popup-close {
-            color: #fff;
+            color: $white;
             display: block;
             height: 10px;
             width: 10px;
@@ -52,7 +56,7 @@
             padding: 8px 10px;
 
             ul, div {
-                color: #515151;
+                color: $colorTextForRule;
                 font-size: 12px;
                 line-height: 20px;
                 margin: 0;
@@ -60,7 +64,7 @@
             }
 
             h4 {
-                color: #515151;
+                color: $colorTextForRule;
                 font-size: 12px;
                 margin: 0 0 5px;
             }
