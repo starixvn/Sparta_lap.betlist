@@ -45,45 +45,45 @@
             <!--Render Fulltime Money Line-->
             <td class="right-align">
                 <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="20" href="javascript:;">
-                    @RazorHelperDesktop.NegativeFormat(match.TotalHomeFt, true, false)
+                    @RazorHelperDesktop.DecFormat(match.TotalHomeFt, false)
                 </a>
             </td>
             <td class="right-align">
                 <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="20" href="javascript:;">
-                    @RazorHelperDesktop.NegativeFormat(match.TotalAwayFt, true, false)
+                    @RazorHelperDesktop.DecFormat(match.TotalAwayFt, false)
                 </a>
             </td>
             <td class="right-align">
                 <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="20" href="javascript:;">
-                    @RazorHelperDesktop.NegativeFormat(match.ForecastHomeFt, true, false)
+                    @RazorHelperDesktop.PositiveFormat(match.ForecastHomeFt, false)
                 </a>
             </td>
             <td class="right-align">
                 <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="20" href="javascript:;">
-                    @RazorHelperDesktop.NegativeFormat(match.ForecastAwayFt, true, false)
+                    @RazorHelperDesktop.PositiveFormat(match.ForecastAwayFt, false)
                 </a>
             </td>
 
             <!--Render 1st Half Money Line-->
             <td class="right-align">
                 <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="21" href="javascript:;">
-                    @RazorHelperDesktop.NegativeFormat(match.TotalHomeFirstHalf, true, false)
+                    @RazorHelperDesktop.DecFormat(match.TotalHomeFirstHalf, false)
                 </a>
             </td>
             <td class="right-align">
                 <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="21" href="javascript:;">
-                    @RazorHelperDesktop.NegativeFormat(match.TotalAwayFirstHalf, true, false)
+                    @RazorHelperDesktop.PositiveFormat(match.TotalAwayFirstHalf, false)
                 </a>
             </td>
             <td class="right-align">
                 <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="21" href="javascript:;">
-                    @RazorHelperDesktop.NegativeFormat(match.ForecastHomeFirstHalf, true, false)
+                    @RazorHelperDesktop.DecFormat(match.ForecastHomeFirstHalf, false)
                 </a>
             </td>
 
             <td class="right-align">
                 <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="21" href="javascript:;">
-                    @RazorHelperDesktop.NegativeFormat(match.ForecastAwayFirstHalf, true, false)
+                    @RazorHelperDesktop.PositiveFormat(match.ForecastAwayFirstHalf, false)
                 </a>
             </td>
         </tr>

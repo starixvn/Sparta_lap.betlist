@@ -302,6 +302,13 @@ webpackJsonp([24],{
 				var gridHeight = window.innerHeight - gridTop - 25;
 				gridHeight = Math.max(150, gridHeight);
 				$grid.css("max-height", gridHeight);
+	
+				if (!$grid.hasVerticalScrollBar()) {
+				    $grid.addClass("hasScroll");
+				}
+				else {
+				    $grid.find("table").width($grid.width() - 17);
+				}
 			},
 			initialize: function () {
 			    Site.initialize();
