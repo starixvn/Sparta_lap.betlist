@@ -32,10 +32,10 @@ $colorDisabledPgButton: $colorLightGray;
                         &.ui-th-column, &.ui-th-column-header {
                             vertical-align: middle;
                             text-align: center;
-                            background: $colorBorderTable;
+                            background: $bgHeaderTableLevel1;
                             border: 1px solid $white;
                             color: #314453;
-                            font-weight: 600;
+                            font-weight: normal;
                             padding: 4px 5px;
 
                             &:first-child {

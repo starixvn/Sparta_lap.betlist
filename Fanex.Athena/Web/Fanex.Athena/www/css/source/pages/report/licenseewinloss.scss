@@ -1,4 +1,6 @@
-﻿.header-button {
+﻿@import "../../scss/abstracts/_variables.scss";
+
+.header-button {
     margin: 0;
     height: 16px;
     width: 16px;
@@ -28,5 +30,12 @@
     &:hover {
         background: lighten(#6492b6, 5%);
         box-shadow: none;
+    }
+}
+
+.ui-jqgrid .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th {
+    &.ui-th-column-header, &.ui-th-column {
+        background: $bgHeaderTableLevel2;
+        color: $white;
     }
 }
