@@ -358,9 +358,7 @@ webpackJsonp([24],{
 			},
 			openForecast: function (matchId, betType) {
 				var url = Site.resolveClientUrl("RunningMatchBetList/Index");
-				url = Site.setLicenseeOptionOriginalParam(url);
-				url = QueryString.setParam(url, "matchid", matchId);
-				url = QueryString.setParam(url, "bettype", betType);
+				url = _me.getBetListUrl(url, matchId, betType);
 	
 				if (isPopup) {
 					var popH = Math.min(parent.innerHeight - 100, 650), popW = 900;
@@ -368,6 +366,19 @@ webpackJsonp([24],{
 				} else {
 					Site.redirect(url);
 				}
+			},
+			getBetListUrl: function (url, matchId, betType) {
+			    var licenseeType = $("#LicenseeType-Hidden").val();
+			    var currencyId = $("#CurrencyId-Hidden").val();
+			    var baseCurrency = $("#BaseCurrency-Hidden").val();
+	
+			    url = QueryString.setParam(url, "LicenseeType", licenseeType);
+			    url = QueryString.setParam(url, "CurrencyId", currencyId);
+			    url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
+			    url = QueryString.setParam(url, "matchid", matchId);
+			    url = QueryString.setParam(url, "bettype", betType);
+	
+			    return url;
 			},
 			loadSelectedLeague: function (leagueId) {
 				var url = Site.resolveClientUrl("OneXTwoForecast/Index");

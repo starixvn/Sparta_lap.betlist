@@ -8,10 +8,6 @@
 @section pagejs {
     <script src="@Url.ContentLinkByEnv("/www/js/build/pages/betlist/betlistcorrectscore.chunk.js")"></script>
 }
-@{
-    var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
-    var isAppModeSelf = userSession == null ? true : userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Self;
-}
 
 @section ContentFilter
 {
