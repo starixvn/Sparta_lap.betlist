@@ -182,7 +182,7 @@ var jqGridAdditional = (function () {
             var productOptions = $.parseJSON(productOptionJson);
             var temp = caption || Site.getSingleResource("LicenseeW_L");
             var productTemp = "";
-            var productAds = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB", "FW"];
+            var productAds = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
             for (var i = 0; i < productOptions.length; i++) {
                 if ($.inArray(productOptions[i].Code, productAds) > -1 && Site.asBool(productOptions[i].Status)) {
                     productTemp += productTemp.length === 0 ? productOptions[i].Code : ", " + productOptions[i].Code;

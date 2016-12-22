@@ -6,6 +6,8 @@ showAGCasinoDetails, showRnGCasinoDetails, showVoidBridgeDetails, showVoidbridge
 var BetList = (function ($) {
     "use strict";
     var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
+    var MIN_BETTYPE_FASTMARKET = 221;
+    var MAX_BETTYPE_FASTMARKET = 225;
     var SPORT_MICROGAMMING_LC = 203;
     var SPORT_MICROGAMMING_RNG = 205;
     var SPORT_RNG_GAME = 208;
@@ -18,6 +20,10 @@ var BetList = (function ($) {
     var _sortColumnName, _sortOrder;
     var _params, _url;
     var _isShowSumStake;
+
+    function isFastMarket(bettype) {
+        return bettype >= MIN_BETTYPE_FASTMARKET && bettype <= MAX_BETTYPE_FASTMARKET;
+    }
 
     return {
         resizeGrid: function () {
@@ -468,7 +474,7 @@ var BetList = (function ($) {
                     ? BetList.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
                     : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
 
-                var height = isParlay ? 450 : 150;
+                var height = isParlay ? 450 : (isFastMarket(bettype) ? 250 : 150);
                 var width = 750;
                 var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
                          width + '" height="' + height + '" src="' + url + '" ></iframe></div>';

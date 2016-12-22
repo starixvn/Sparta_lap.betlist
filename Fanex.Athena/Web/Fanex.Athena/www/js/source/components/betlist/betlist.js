@@ -4,6 +4,8 @@
     function ($, Site, QueryString, jqGridAdditional, BetListOption, moment, Popup) {
         "use strict";
         var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
+        var MIN_BETTYPE_FASTMARKET = 221;
+        var MAX_BETTYPE_FASTMARKET = 225;
         var SPORT_MICROGAMMING_LC = 203;
         var SPORT_MICROGAMMING_RNG = 205;
         var SPORT_RNG_GAME = 208;
@@ -25,6 +27,10 @@
         function showResultPopUp(url, option) {
             option.id = "betlist-popup-result";
             Popup.openBetListPopup(url, option);
+        }
+
+        function isFastMarket(bettype) {
+            return bettype >= MIN_BETTYPE_FASTMARKET && bettype <= MAX_BETTYPE_FASTMARKET;
         }
 
         $(function () {
@@ -407,7 +413,7 @@
                         ? _me.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
                         : _me.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
 
-                    var height = isParlay ? 450 : 150;
+                    var height = isParlay ? 450 : (isFastMarket(bettype) ? 250 : 150);
                     var width = 750;
 
                     showResultPopUp(url, { width: width + 25, height: height + 70, title: title });

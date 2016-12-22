@@ -8,6 +8,8 @@ namespace Fanex.Athena.Service.Report
 {
     using System;
     using System.Collections.Generic;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -21,19 +23,17 @@ namespace Fanex.Athena.Service.Report
     [System.CLSCompliant(false)]
     public class ResultService : IResultService
     {
+        private readonly IBalanceUpService _balanceUpService;
+
         private readonly IResultDataAccess _dataAccess;
 
         public ResultService()
         {
-            this._dataAccess = new ResultDataAccess();
+            _balanceUpService = new BalanceUpService();
+            this._dataAccess = new ResultDataAccess(_balanceUpService.BalanceUpInfo);
         }
 
-        /// <summary>
-        /// Get out right data.
-        /// </summary>
-        /// <param name="metal">The metal model.</param>
-        /// <returns>The out right data list.</returns>
-        public IList<Outright> GetOutRight(Model.Report.MetaModel.ResultMetalModel metal)
+        public IList<Outright> GetOutRight(ResultMetalModel metal)
         {
             return this._dataAccess.GetOutRight(metal);
         }

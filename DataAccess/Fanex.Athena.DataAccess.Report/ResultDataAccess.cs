@@ -15,6 +15,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -27,15 +28,16 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
+    using Model.Core.DTO.Configuration;
 
     [System.CLSCompliant(false)]
-    public class ResultDataAccess : IResultDataAccess
+    public class ResultDataAccess : BaseDataAccess, IResultDataAccess
     {
-        /// <summary>
-        /// Get out right.
-        /// </summary>
-        /// <param name="metal">Meta model value.</param>
-        /// <returns>The result value.</returns>
+        public ResultDataAccess(BalanceUp balanceUp)
+            : base(balanceUp)
+        {
+        }
+
         public IList<Outright> GetOutRight(ResultMetalModel metal)
         {
             const string UspName = "Lrf_Result_Outright";
@@ -93,6 +95,7 @@ namespace Fanex.Athena.DataAccess.Report
                 {
                     db.AddInParameter("eventdate", DbType.DateTime, dateValue);
                     db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
+                    db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
                     using (var reader = db.ExecuteReader())
                     {
                         var data = new List<Sport>();
@@ -125,7 +128,8 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 eventdate = dateValue,
                 sporttype = sportId,
-                isshowall = true
+                isshowall = true,
+                movebetsday = this.BalanceUp.MoveBetsDay
             };
 
             try
@@ -408,7 +412,8 @@ namespace Fanex.Athena.DataAccess.Report
                 fromdate = metalModel.FromDate,
                 sporttype = metalModel.SportId,
                 leagueid = metalModel.LeagueId,
-                isshowall = true
+                isshowall = true,
+                movebetsday = this.BalanceUp.MoveBetsDay
             };
 
             try
@@ -482,14 +487,17 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 while (reader.Read())
                 {
+                    var resultStatusId = reader["ResultStatusID"];
+                    var settlementStatusId = reader["SettlementStatusID"];
+
                     gameDetails.Add(new GameDetail
                     {
                         MatchId = int.Parse(reader["matchid"].ToString()),
                         ResourceId = reader["ResourceId"].ToString(),
                         HomeValue = reader["HomeValue"].ToString(),
                         AwayValue = reader["AwayValue"].ToString(),
-                        ResultStatusID = int.Parse(reader["ResultStatusID"].ToString()),
-                        SettlementStatusID = int.Parse(reader["SettlementStatusID"].ToString()),
+                        ResultStatusID = resultStatusId == DBNull.Value ? 0 : int.Parse(resultStatusId.ToString()),
+                        SettlementStatusID = settlementStatusId == DBNull.Value ? 0 : int.Parse(settlementStatusId.ToString()),
                         OtherInfo = reader["OtherInfo"].ToString()
                     });
                 }
