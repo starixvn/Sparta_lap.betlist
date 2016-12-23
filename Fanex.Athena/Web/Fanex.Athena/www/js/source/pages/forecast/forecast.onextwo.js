@@ -1,4 +1,4 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'components/refreshcountdown', 'common/popup'], function ($, Site, QueryString, RefreshCountDown, Popup) {
+﻿define(['jquery', 'common/site', 'common/querystring', 'components/refreshcountdown', 'common/popup', 'extensions/jquery.extension'], function ($, Site, QueryString, RefreshCountDown, Popup) {
 	"use strict";
 
 	var isPopup;
@@ -23,7 +23,6 @@
 			}
 		},
 		initialize: function () {
-		    _me.registerCheckVisibleScrollbar();
 		    Site.initialize();
 
 		    isPopup = $('#IsPopUp').val() === "true";
@@ -109,12 +108,7 @@
 		    var popH = Math.min(parent.innerHeight - 100, 600), popW = 700;
 		    var title = Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("OneXTwo");
 		    Popup.updateCurrentPopup(null, { width: popW, height: popH, title: title });
-		},
-		registerCheckVisibleScrollbar: function () {
-		    $.fn.hasVerticalScrollBar = function () {
-		        return this.get(0).scrollHeight > this.height();
-		    }
-		},
+		}
 	};
 
 	return _me;

@@ -12,7 +12,8 @@
             { pattern: 'www/js/source/**/*.js', included: false },
             { pattern: 'www/js/tests/global.js', included: false },
 
-            { pattern: 'www/js/tests/pages/**/*-spec.js', included: false },
+            { pattern: 'www/js/tests/extensions/**/*-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/**/*-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {
@@ -20,11 +21,12 @@
         },
         exclude: [
         ],
-        port: 9875,
+        port: 9874,
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
         browsers: ['PhantomJS', 'Chrome'],
+        reporters: ['progress', 'kjhtml'],
         singleRun: false,
         concurrency: Infinity,
         phantomjsLauncher: {

@@ -1,4 +1,4 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'components/refreshcountdown'], function ($, Site, QueryString, RefreshCountDown) {
+﻿define(['jquery', 'common/site', 'common/querystring', 'components/refreshcountdown', 'extensions/jquery.extension'], function ($, Site, QueryString, RefreshCountDown) {
     var _me = {
         resizeGrid: function () {
             var $grid = $(".body-content");
@@ -59,14 +59,7 @@
             Site.redirect(url);
         },
 
-        registerCheckVisibleScrollbar: function () {
-            $.fn.hasVerticalScrollBar = function () {
-                return this.get(0).scrollHeight > this.height();
-            }
-        },
-
         initialize: function () {
-            _me.registerCheckVisibleScrollbar();
             _me.initEvent();
             _me.resizeGrid();
             Site.unBlockUI();

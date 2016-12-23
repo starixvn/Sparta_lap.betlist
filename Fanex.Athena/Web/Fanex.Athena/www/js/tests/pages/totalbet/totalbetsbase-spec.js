@@ -12,9 +12,7 @@
 
             describe("body content has vertical scrollbar", function () {
                 beforeAll(function () {
-                    $.fn.hasVerticalScrollBar = function () {
-                        return true;
-                    }
+                    spyOn($.fn, "hasVerticalScrollBar").and.returnValue(true);
                 });
 
                 it(".body-content should have correct height value", function () {
@@ -45,9 +43,7 @@
 
             describe("body content do not has vertical scrollbar", function () {
                 beforeAll(function () {
-                    $.fn.hasVerticalScrollBar = function () {
-                        return false;
-                    }
+                    spyOn($.fn, "hasVerticalScrollBar").and.returnValue(false);
                 });
 
                 it(".body-content should contain class 'hasScroll'", function () {
@@ -129,46 +125,14 @@
             });
         });
 
-        describe("TotalBet.registerCheckVisibleScrollbar()", function () {
-            beforeEach(function () {
-                setFixtures('<div class="body-content"></div>');
-                TotalBet.registerCheckVisibleScrollbar();
-            });
-
-            it("value of hasVerticalScrollBar jquery function is 'true' when scrollHeight > height", function () {
-                var $bodyContent = $(".body-content").width(20).height(300);
-                var text = "hello world";
-                for (var i = 0; i < 10; i++) {
-                    text += text;
-                }
-                $bodyContent.text(text);
-
-                var result = $bodyContent.hasVerticalScrollBar();
-
-                expect(result).toBe(true);
-            });
-
-            it("value is jquery function 'false' when scrollHeight < height", function () {
-                var $bodyContent = $(".body-content").width(20).height(300);
-                var text = "hello world";
-                $bodyContent.text(text);
-
-                var result = $bodyContent.hasVerticalScrollBar();
-
-                expect(result).toBe(false);
-            });
-        });
-
         describe("TotalBet.initialize()", function () {
             it("functions should be called", function () {
-                spyOn(TotalBet, "registerCheckVisibleScrollbar");
                 spyOn(TotalBet, "initEvent");
                 spyOn(TotalBet, "resizeGrid");
                 spyOn(Site, "unBlockUI");
 
                 TotalBet.initialize();
 
-                expect(TotalBet.registerCheckVisibleScrollbar).toHaveBeenCalled();
                 expect(TotalBet.initEvent).toHaveBeenCalled();
                 expect(TotalBet.resizeGrid).toHaveBeenCalled();
                 expect(Site.unBlockUI).toHaveBeenCalled();
