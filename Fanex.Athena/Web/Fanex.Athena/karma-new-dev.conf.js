@@ -12,8 +12,7 @@
             { pattern: 'www/js/source/**/*.js', included: false },
             { pattern: 'www/js/tests/global.js', included: false },
 
-            { pattern: 'www/js/tests/extensions/**/*-spec.js', included: false },
-            //{ pattern: 'www/js/tests/pages/**/*-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/totalbet/firstgoallastgoal/*-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {
