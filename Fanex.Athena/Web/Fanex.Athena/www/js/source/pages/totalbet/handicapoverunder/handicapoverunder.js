@@ -2,9 +2,11 @@
     function ($, Site, QueryString, Totalbets, Popup, RefreshCountDown) {
         "use strict";
 
-        $(function () {
-            window.viewNewForecast = _me.viewNewForecast;
-        });
+        if (!window._IsInJsTestingMode) {
+            $(function () {
+                window.viewNewForecast = _me.viewNewForecast;
+            });
+        }
 
     var _me = {
         initialize: function () {
