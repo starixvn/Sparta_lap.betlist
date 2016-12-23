@@ -1,4 +1,4 @@
-﻿define(['jquery', 'components/betlist/betlist.option'], function ($, BetListOption) {
+﻿define(['jquery', 'pages/betlist/betlist.option'], function ($, BetListOption) {
 	describe("BetListOption", function () {
 		describe("gridOption", function () {
 			it("gridOption.rowNum should be 50", function () {

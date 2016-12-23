@@ -20,10 +20,8 @@
             }
         },
         initEvent: function () {
-            // Init refresh countdown
             RefreshCountDown.initialize();
 
-            // Forcast number click
             $("#reportContent").on("click", '.forcast-number', function () {
                 var matchId = $(this).attr("data-match-id");
                 var betType = $(this).attr("data-bet-type");

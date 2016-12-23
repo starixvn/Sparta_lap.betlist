@@ -1,4 +1,4 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'components/betlist/betlist', 'components/betlist/commonbetlist', 'global'],
+﻿define(['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'pages/betlist/commonbetlist', 'global'],
     function ($, Site, QueryString, BetList, CommonBetList, GlobalSetting) {
         describe("CommonBetList", function () {
             beforeEach(function () {

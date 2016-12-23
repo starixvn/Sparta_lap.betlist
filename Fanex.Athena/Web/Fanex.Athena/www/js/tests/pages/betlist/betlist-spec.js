@@ -1,5 +1,5 @@
 ﻿define(
-    ['jquery', 'common/site', 'common/querystring', 'lib/jqgrid/jquery.jqgrid.additional', 'components/betlist/betlist.option', 'common/popup', 'components/betlist/betlist', 'global'],
+    ['jquery', 'common/site', 'common/querystring', 'lib/jqgrid/jquery.jqgrid.additional', 'pages/betlist/betlist.option', 'common/popup', 'pages/betlist/betlist', 'global'],
     function ($, Site, QueryString, jqGridAdditional, BetListOption, Popup, BetList, GlobalSetting) {
         describe("BetList", function () {
             beforeEach(function () {

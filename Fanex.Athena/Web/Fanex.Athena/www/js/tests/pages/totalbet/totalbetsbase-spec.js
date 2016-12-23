@@ -2,18 +2,177 @@
     describe("TotalBet", function () {
         describe("resizeGrid()", function () {
             beforeEach(function () {
-                setFixtures('<div class="body-content" style="width: 300px; height: 500px; top: 20px; position:relative;"></div>');
-                setFixtures('<div class="footer-content" style="width: 300px; height: 100px;"></div>');
+                setFixtures(
+                    '<div class="body-content" style="width: 300px; height: 500px; position:relative;"></div>' +
+                    '<div class="footer-content" style="width: 300px; height: 100px;"></div>'
+                );
+                window.innerHeight = 300;
+                spyOn($.fn, "offset").and.returnValue({ top: 20 });
             });
 
-            it(".body-content should have correct height vaue", function () {
-                spyOn(window, "innerHeight").and.returnValue(300);
+            describe("body content has vertical scrollbar", function () {
+                beforeAll(function () {
+                    $.fn.hasVerticalScrollBar = function () {
+                        return true;
+                    }
+                });
 
-                TotalBet.resizeGrid();
-                var bodyHeight = $(".body-content").css("max-height");
+                it(".body-content should have correct height value", function () {
+                    TotalBet.resizeGrid();
 
-                expect(bodyHeight).toBe("190px");
+                    var bodyHeight = $(".body-content").css("max-height");
+
+                    expect(bodyHeight).toBe("155px");
+                });
+
+                it("table in '.body-content' should has correct width", function () {
+                    $(".body-content").append("<table></table>");
+                    TotalBet.resizeGrid();
+
+                    var tableWidth = $(".body-content").find("table").width();
+
+                    expect(tableWidth).toBe(283);
+                });
+
+                it(".body-content should not contain class 'hasScroll'", function () {
+                    TotalBet.resizeGrid();
+
+                    var containHasScrollClass = $(".body-content").hasClass("hasScroll");
+
+                    expect(containHasScrollClass).toBe(false);
+                });
             });
-        })
+
+            describe("body content do not has vertical scrollbar", function () {
+                beforeAll(function () {
+                    $.fn.hasVerticalScrollBar = function () {
+                        return false;
+                    }
+                });
+
+                it(".body-content should contain class 'hasScroll'", function () {
+                    TotalBet.resizeGrid();
+
+                    var containHasScrollClass = $(".body-content").hasClass("hasScroll");
+
+                    expect(containHasScrollClass).toBe(true);
+                });
+            });
+        });
+
+        describe("initEvent()", function () {
+            beforeEach(function () {
+                setFixtures(
+                    '<div id="reportContent">' + 
+                    '<div class="body-content"><table><tr><td class="forcast-number" data-match-id="1" data-bet-type="2">100.00</td></tr></table></div>' +
+                    '</div>'
+                );
+
+                spyOn(RefreshCountDown, "initialize");
+                spyOn(TotalBet, "viewRunningBetListMatch");
+                spyOn(TotalBet, "resizeGrid");
+                spyOn($.fn, "off");
+
+                TotalBet.initialize();
+            });
+
+            it("RefreshCountDown.initialize() should be called", function () {
+                expect(RefreshCountDown.initialize).toHaveBeenCalled();
+            });
+
+            it("TotalBet.viewRunningBetListMatch(matchId, betType) should be called with correct parameters", function () {
+                $(".forcast-number").click();
+
+                expect(TotalBet.viewRunningBetListMatch).toHaveBeenCalledWith("1", "2");
+            });
+
+            it("TotalBet.resizeGrid() should be called when ajaxComplete event fire", function () {
+                $(document).ajaxComplete();
+
+                expect(TotalBet.resizeGrid).toHaveBeenCalled();
+            });
+
+            it("TotalBet.resizeGrid() should be called when window resizing event fire", function () {
+                $(window).resize();
+
+                expect(TotalBet.resizeGrid).toHaveBeenCalled();
+            });
+
+            it(".off() function of jquery should be called with correct parameter when window unloading event fire", function () {
+                $(window).unload();
+
+                expect($.fn.off).toHaveBeenCalledWith("resize");
+            });
+        });
+
+        describe("TotalBet.viewRunningBetListMatch(matchId, betType)", function () {
+            it("Site.redirect(url) should be called with correct parameter", function () {
+                spyOn(Site, "redirect");
+                spyOn(Site, "setLicenseeOptionOriginalParam").and.returnValue("RunningMatchBetList/Index?licenseetype=normal&currencyid=1&basecurrency=all");
+                var expectedUrl = "RunningMatchBetList/Index?licenseetype=normal&currencyid=1&basecurrency=all&matchid=1&bettype=2&isshowsumstake=true";
+
+                TotalBet.viewRunningBetListMatch(1, 2);
+
+                expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
+            });
+        });
+
+        describe("TotalBet.viewRunningBetListMultiBettype(matchId, betType)", function () {
+            it("Site.redirect(url) should be called with correct parameter", function () {
+                spyOn(Site, "redirect");
+                spyOn(Site, "setLicenseeOptionOriginalParam").and.returnValue("RunningBettypesOfMatchBetList/Index?licenseetype=normal&currencyid=1&basecurrency=all");
+                var expectedUrl = "RunningBettypesOfMatchBetList/Index?licenseetype=normal&currencyid=1&basecurrency=all&matchid=1&multiplebettype=2&isshowsumstake=true";
+
+                TotalBet.viewRunningBetListMultiBettype(1, 2);
+
+                expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
+            });
+        });
+
+        describe("TotalBet.registerCheckVisibleScrollbar()", function () {
+            beforeEach(function () {
+                setFixtures('<div class="body-content"></div>');
+                TotalBet.registerCheckVisibleScrollbar();
+            });
+
+            it("value of hasVerticalScrollBar jquery function is 'true' when scrollHeight > height", function () {
+                var $bodyContent = $(".body-content").width(20).height(300);
+                var text = "hello world";
+                for (var i = 0; i < 10; i++) {
+                    text += text;
+                }
+                $bodyContent.text(text);
+
+                var result = $bodyContent.hasVerticalScrollBar();
+
+                expect(result).toBe(true);
+            });
+
+            it("value is jquery function 'false' when scrollHeight < height", function () {
+                var $bodyContent = $(".body-content").width(20).height(300);
+                var text = "hello world";
+                $bodyContent.text(text);
+
+                var result = $bodyContent.hasVerticalScrollBar();
+
+                expect(result).toBe(false);
+            });
+        });
+
+        describe("TotalBet.initialize()", function () {
+            it("functions should be called", function () {
+                spyOn(TotalBet, "registerCheckVisibleScrollbar");
+                spyOn(TotalBet, "initEvent");
+                spyOn(TotalBet, "resizeGrid");
+                spyOn(Site, "unBlockUI");
+
+                TotalBet.initialize();
+
+                expect(TotalBet.registerCheckVisibleScrollbar).toHaveBeenCalled();
+                expect(TotalBet.initEvent).toHaveBeenCalled();
+                expect(TotalBet.resizeGrid).toHaveBeenCalled();
+                expect(Site.unBlockUI).toHaveBeenCalled();
+            });
+        });
     });
 });

@@ -714,6 +714,7 @@
     <Content Include="Content\Plugin\ColorPicker\images\transparent.png" />
     <Content Include="Content\Plugin\ColorPicker\images\checked-light.png" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
+    <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\logo-text.svg" />
@@ -899,8 +900,8 @@
     <Content Include="www\js\tests\common\popup-spec.js" />
     <Content Include="www\js\tests\common\querystring-spec.js" />
     <Content Include="www\js\tests\common\site-spec.js" />
-    <Content Include="www\js\tests\components\betlist\betlist-spec.js" />
-    <Content Include="www\js\tests\components\betlist\commonbetlist-spec.js" />
+    <Content Include="www\js\tests\pages\betlist\betlist-spec.js" />
+    <Content Include="www\js\tests\pages\betlist\commonbetlist-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss.option-spec.js" />
     <Content Include="www\js\tests\pages\report\livereport\livereport-spec.js" />
@@ -1336,7 +1337,7 @@
     <Content Include="www\css\source\components\betlist\systemparlaydetail.scss" />
     <Content Include="www\css\source\scss\layout\navbar.scss" />
     <Content Include="www\css\source\scss\layout\sidebar.scss" />
-    <Content Include="www\js\tests\components\betlist\betlist.option-spec.js" />
+    <Content Include="www\js\tests\pages\betlist\betlist.option-spec.js" />
     <Content Include="www\css\source\pages\utility\error.scss" />
     <Content Include="Views\Customer\BetSetting\FishingWorld.cshtml" />
     <Content Include="Views\BetList\GlobalGamingDetail\Main.cshtml" />
@@ -5169,6 +5170,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
+    <Folder Include="www\js\tests\components\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
