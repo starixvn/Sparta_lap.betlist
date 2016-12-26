@@ -11,12 +11,9 @@
 }
 
 .block-body {
-    background: transparent;
+    background: rgba(0, 0, 0, 0.7) no-repeat;
     border: none;
-    background-color: #fff;
     position: fixed;
-    opacity: 0.7;
-    filter: alpha(opacity=70);
     top: 0;
     left: 0;
     width: 100%;
@@ -39,4 +36,13 @@ input[type=text]::-ms-clear {
 
 .text-bold {
     font-weight: bold;
+}
+
+
+.icon-excel {
+    background: url("images/excel-icon.svg") no-repeat;
+    width: 18px;
+    height: 20px;
+    cursor: pointer;
+    margin-top: 3px;
 }

@@ -1,15 +1,14 @@
 ﻿@import "../../scss/abstracts/_variables.scss";
 
 $colorTextForRule: #515151;
-$colorTextTitle: #F35C20;
+$colorTextTitle: $white;
+$bgTitlebar: $bgHeaderTableLevel1;
 
 .popup-block-body {
     background: transparent;
     border: none;
-    background-color: #000;
+    background: rgba(0, 0, 0, 0.7) no-repeat;
     position: fixed;
-    opacity: 0.7;
-    filter: alpha(opacity=70);
     top: 0;
     left: 0;
     width: 100%;
@@ -24,15 +23,13 @@ $colorTextTitle: #F35C20;
     -webkit-background-clip: padding-box; /* for Safari */
     background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
     .title-bar {
-        margin: 10px 15px 0 15px;
+        background-color: $bgTitlebar;
+        padding: 8.5px 15px;
         position: relative;
-        border-bottom: 1px solid #BFBDBF;
-        padding-bottom: 10px;
 
         .txt-title {
             color: $colorTextTitle;
             font-size: 14px;
-            font-weight: bold;
             text-transform: uppercase;
             display: inline-block;
         }
@@ -49,6 +46,7 @@ $colorTextTitle: #F35C20;
 
     .wrapContent {
         overflow-y: auto;
+        height: calc(100% - 38px); // 38 is height of title bar
 
         h1, h2, h3, h4, h5, h6 {
             font-weight: bold;

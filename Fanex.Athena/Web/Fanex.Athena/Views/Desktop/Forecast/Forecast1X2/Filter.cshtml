@@ -4,17 +4,13 @@
 {
     @Html.AntiForgeryToken()
 
-    // ----------------------------- Hidden field -----------------------------//
-    <div>
-        @Html.Hidden("IsPopUp", Model.Param.IsPopUp.ToString())
+    if (Model.Param.IsPopUp)
+    {
+        @Html.Hidden("IsPopUp", "true")
         @Html.Hidden("CurrencyId-Hidden", Model.Param.CurrencyId)
         @Html.Hidden("LicenseeType-Hidden", Model.Param.LicenseeType)
         @Html.Hidden("BaseCurrency-Hidden", Model.Param.BaseCurrency)
-        @Html.Hidden("IsConvert-Hidden", Model.Param.IsConvert.ToString())
-    </div>
 
-    if (Model.Param.IsPopUp)
-    {
         <div class="timer form-popup">
             @RazorHelperDesktop.TimerCountDown("forecastonextwo", 15)
         </div>

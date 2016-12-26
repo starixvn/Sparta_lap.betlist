@@ -21462,7 +21462,6 @@
 	
 	                $self.width(options.width);
 	                $self.height(options.height);
-	                $self.find(".wrapContent").height(options.height - 40);
 	
 	                if (options.onOpen) {
 	                    options.onOpen.apply($self);

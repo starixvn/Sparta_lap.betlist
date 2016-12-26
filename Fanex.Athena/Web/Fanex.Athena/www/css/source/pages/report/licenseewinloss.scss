@@ -1,22 +1,23 @@
 ﻿@import "../../scss/abstracts/_variables.scss";
 
+$bgheaderButton: #2c3d4b;
+
 .header-button {
     margin: 0;
     height: 16px;
     width: 16px;
-    line-height: 16px;
     border-radius: 2px;
     padding: 0;
     margin-left: 10px;
-    background: #6492b6;
+    background: $bgheaderButton;
     box-shadow: none;
 
     .btn-icon {
-        line-height: inherit;
         display: block;
         transform: rotate(-90deg);
         font-size: 7px;
-        color: #fff;
+        color: $white;
+        font-weight: bold;
         height: 100%;
         line-height: 16px;
     }
@@ -28,7 +29,7 @@
     }
 
     &:hover {
-        background: lighten(#6492b6, 5%);
+        background: lighten($bgheaderButton, 5%);
         box-shadow: none;
     }
 }

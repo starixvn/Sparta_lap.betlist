@@ -718,7 +718,6 @@
     <Content Include="karma-new.conf.js" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\logo-text.svg" />
-    <Content Include="www\assets\images\logo.svg" />
     <Content Include="www\assets\images\robot.jpg" />
     <Content Include="www\css\build\fonts\flags\flags\cn.svg" />
     <Content Include="www\css\build\fonts\flags\flags\gb.svg" />
@@ -726,11 +725,9 @@
     <Content Include="www\css\build\fonts\flags\flags\tw.svg" />
     <Content Include="www\css\build\fonts\font-icon\fonts\icomoon.svg" />
     <Content Include="www\css\build\home.css" />
-    <Content Include="www\css\build\images\15.jpg" />
     <Content Include="www\css\build\images\bg-login.jpg" />
+    <Content Include="www\css\build\images\excel-icon.svg" />
     <Content Include="www\css\build\images\ic-calendar.png" />
-    <Content Include="www\css\build\images\logo-text.png" />
-    <Content Include="www\css\build\images\logo.png" />
     <Content Include="www\css\build\main.css" />
     <Content Include="www\css\build\pages\betlist\betlistLayout.css" />
     <Content Include="www\css\build\pages\betlist\betlistResult.css" />
