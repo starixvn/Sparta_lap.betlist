@@ -12,7 +12,7 @@
             { pattern: 'www/js/source/**/*.js', included: false },
             { pattern: 'www/js/tests/global.js', included: false },
 
-            { pattern: 'www/js/tests/pages/totalbet/moneyline/*-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/totalbet/totalgoal/*-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {
@@ -24,9 +24,9 @@
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
-        browsers: ['PhantomJS', 'Chrome'],
+        browsers: ['PhantomJS'],
         reporters: ['progress', 'kjhtml'],
-        singleRun: false,
+        singleRun: true,
         concurrency: Infinity,
         phantomjsLauncher: {
             // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)

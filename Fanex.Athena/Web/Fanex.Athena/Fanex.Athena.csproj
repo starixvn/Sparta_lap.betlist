@@ -913,7 +913,10 @@
     <Content Include="www\js\tests\pages\totalbet\handicapoverunder\handicapoverunder-spec.js" />
     <Content Include="www\js\tests\pages\totalbet\homedrawawaynobet\homedrawawaynobet-spec.js" />
     <Content Include="www\js\tests\pages\totalbet\moneyline\moneyline-spec.js" />
+    <Content Include="www\js\tests\pages\totalbet\oddevendrawnodraw\oddevendrawnodraw-spec.js" />
+    <Content Include="www\js\tests\pages\totalbet\outright\outright-spec.js" />
     <Content Include="www\js\tests\pages\totalbet\totalbetsbase-spec.js" />
+    <Content Include="www\js\tests\pages\totalbet\totalgoal\totalgoal-spec.js" />
     <Content Include="www\js\tests\test-main.js" />
     <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\Filter.cshtml" />
     <Content Include="Views\Desktop\TotalBets\HandicapOverUnder\Content.cshtml" />

@@ -4,7 +4,7 @@
             describe("initialize()", function () {
                 beforeEach(function () {
                     spyOn(Site, "initialize");
-                    spyOn(Site, "getSingleResource").and.callFake(function (name) { return name });
+                    spyOn(Site, "getSingleResource").and.callFake(function (name) { return name; });
                     spyOn(Site, "addUserGuide");
                     spyOn(Totalbets, "initialize");
                     spyOn(HalfTimeFullTime, "initEvent");
@@ -43,14 +43,12 @@
                 });
 
                 it("Totalbets.viewRunningBetListMatch(matchId, betType) should be called with correct parameters when '.team' fired click event", function () {
-                    setFixtures('<div id="reportContent"><div class="team"></div></div>');
-                    var $team = $(".team");
-                    $team.attr("data-match-id", 1);
+                    setFixtures('<div id="reportContent"><div class="team" data-match-id="1"></div></div>');
                     HalfTimeFullTime.initEvent();
 
                     spyOn(Totalbets, "viewRunningBetListMatch");
 
-                    $team.click();
+                    $(".team").click();
 
                     expect(Totalbets.viewRunningBetListMatch).toHaveBeenCalledWith("1", 16);
                 });
