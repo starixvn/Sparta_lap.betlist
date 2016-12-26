@@ -676,6 +676,10 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             return window.location.href;
         }
 
+        function getLocation() {
+            return window.location;
+        }
+
         function setMultiSelectForDropDownList(dropDownListId, dataSource, valueField, textField, checkField) {
             var data = $.parseJSON(dataSource);
             var length = data.length;
@@ -763,6 +767,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             isInteger: isInteger,
             redirect: redirect,
             getCurrentUrl: getCurrentUrl,
+            getLocation: getLocation,
             setMultiSelectForDropDownList: setMultiSelectForDropDownList
         };
     });

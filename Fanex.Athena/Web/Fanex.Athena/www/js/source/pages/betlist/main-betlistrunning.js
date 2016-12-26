@@ -3,6 +3,5 @@
 
     $(function () {
         BetListRunning.initialize();
-        BetListRunning.exportToExcel();
     });
 });
