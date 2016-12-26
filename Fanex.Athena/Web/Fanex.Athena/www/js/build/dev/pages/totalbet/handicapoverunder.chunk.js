@@ -608,10 +608,6 @@ webpackJsonp([32],{
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(279), __webpack_require__(9), __webpack_require__(215)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Totalbets, Popup, RefreshCountDown) {
 	        "use strict";
 	
-	        $(function () {
-	            window.viewNewForecast = _me.viewNewForecast;
-	        });
-	
 	    var _me = {
 	        initialize: function () {
 	            Site.initialize();
@@ -623,6 +619,8 @@ webpackJsonp([32],{
 	            });
 	
 	            RefreshCountDown.initEvent();
+	
+	            _me.registerGlobalFunctions();
 	        },
 	        initEvent: function () {
 	            $("#SubmitButton").on("click", function () {
@@ -654,6 +652,9 @@ webpackJsonp([32],{
 	        submit: function () {
 	            Site.blockUI();
 	            $("#HandicapOUForm").submit();
+	        },
+	        registerGlobalFunctions: function () {
+	            window.viewNewForecast = _me.viewNewForecast;
 	        }
 	    };
 	

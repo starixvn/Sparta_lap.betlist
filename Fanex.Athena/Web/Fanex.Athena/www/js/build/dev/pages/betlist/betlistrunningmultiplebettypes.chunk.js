@@ -133,35 +133,6 @@ webpackJsonp([21],[
 	            return bettype >= MIN_BETTYPE_FASTMARKET && bettype <= MAX_BETTYPE_FASTMARKET;
 	        }
 	
-	        if (!window._IsInJsTestingMode) {
-	            $(function () {
-	                window.ViewResult = _me.viewResult;
-	
-	                window.showMP = function (transId) {
-	                    var divEvent = $('#divEvent_' + transId);
-	                    divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
-	                    _me.showMixParlayDetail(transId, divEvent);
-	                };
-	
-	                window.showCombMP = function (transId, index) {
-	                    var divEvent = $('#divEvent_' + transId + "" + index);
-	                    divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
-	                    _me.showMixParlayDetail(transId, divEvent);
-	                };
-	
-	                window.showNewCombMP = _me.showNewParlayDetail;
-	                window.showCombMPDetail = _me.showSystemParlayDetail;
-	                window.showMicroGamingRnGBetsDetails = _me.showMicroGamingRnGBetsDetails;
-	                window.showAGCasinoDetails = _me.showAGCasinoDetails;
-	                window.showRnGCasinoDetails = _me.showRnGCasinoDetails;
-	                window.showVoidBridgeDetails = _me.showVoidBridgeDetails;
-	                window.showVoidbridgeResult = _me.viewVoidbridgeResult;
-	                window.showTodayRunningBetsDetails = _me.showAllBetDetails;
-	                window.showColossusBetsDetails = _me.showColossusBetsDetails;
-	                window.showGlobalGaming = _me.showGlobalGamingDetails;
-	            });
-	        }
-	
 	        var _me = {
 	            getSortParams: function () {
 	                if (!_sortColumnName) {
@@ -185,6 +156,8 @@ webpackJsonp([21],[
 	
 	                _sortColumnName = _sortColumnName || $("#SortBy").val();
 	                _sortOrder = _sortOrder || $("#SortOrder").val();
+	
+	                _me.registerBetListGlobalFunctions();
 	            },
 	
 	            updateSortColumn: function () {
@@ -760,6 +733,33 @@ webpackJsonp([21],[
 	
 	                url += urlParam;
 	                window.location = url;
+	            },
+	
+	            registerBetListGlobalFunctions: function () {
+	                window.ViewResult = _me.viewResult;
+	
+	                window.showMP = function (transId) {
+	                    var divEvent = $('#divEvent_' + transId);
+	                    divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+	                    _me.showMixParlayDetail(transId, divEvent);
+	                };
+	
+	                window.showCombMP = function (transId, index) {
+	                    var divEvent = $('#divEvent_' + transId + "" + index);
+	                    divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+	                    _me.showMixParlayDetail(transId, divEvent);
+	                };
+	
+	                window.showNewCombMP = _me.showNewParlayDetail;
+	                window.showCombMPDetail = _me.showSystemParlayDetail;
+	                window.showMicroGamingRnGBetsDetails = _me.showMicroGamingRnGBetsDetails;
+	                window.showAGCasinoDetails = _me.showAGCasinoDetails;
+	                window.showRnGCasinoDetails = _me.showRnGCasinoDetails;
+	                window.showVoidBridgeDetails = _me.showVoidBridgeDetails;
+	                window.showVoidbridgeResult = _me.viewVoidbridgeResult;
+	                window.showTodayRunningBetsDetails = _me.showAllBetDetails;
+	                window.showColossusBetsDetails = _me.showColossusBetsDetails;
+	                window.showGlobalGaming = _me.showGlobalGamingDetails;
 	            }
 	        };
 	
@@ -19039,22 +19039,6 @@ webpackJsonp([21],[
 	                var url = Site.resolveClientUrl('api/RunningBettypesBetList/' + actionName);
 	
 	                BetList.loadData(params, url);
-	            },
-	
-	            showCombMPDetail: function (transId, refNo, betId, custId, betTeam, baseCurrency) {
-	                if (Number(custId) === 0) {
-	                    return;
-	                }
-	                var url = Site.resolveClientUrl("_BetList/Popup/ViewSystemParlay.aspx");
-	                url = QueryString.setParam(url, "transid", transId);
-	                url = QueryString.setParam(url, "refno", refNo);
-	                url = QueryString.setParam(url, "betteam", betTeam);
-	                url = QueryString.setParam(url, "betid", betId);
-	                url = QueryString.setParam(url, "custid", custId);
-	                url = QueryString.setParam(url, "basecurrency", baseCurrency);
-	
-	                Site.blockUI();
-	                $("#popupSystemParlay").load(url).dialog();
 	            },
 	
 	            exportToExcel: function () {

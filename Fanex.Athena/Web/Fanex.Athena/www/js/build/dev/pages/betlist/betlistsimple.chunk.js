@@ -133,35 +133,6 @@ webpackJsonp([22],[
 	            return bettype >= MIN_BETTYPE_FASTMARKET && bettype <= MAX_BETTYPE_FASTMARKET;
 	        }
 	
-	        if (!window._IsInJsTestingMode) {
-	            $(function () {
-	                window.ViewResult = _me.viewResult;
-	
-	                window.showMP = function (transId) {
-	                    var divEvent = $('#divEvent_' + transId);
-	                    divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
-	                    _me.showMixParlayDetail(transId, divEvent);
-	                };
-	
-	                window.showCombMP = function (transId, index) {
-	                    var divEvent = $('#divEvent_' + transId + "" + index);
-	                    divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
-	                    _me.showMixParlayDetail(transId, divEvent);
-	                };
-	
-	                window.showNewCombMP = _me.showNewParlayDetail;
-	                window.showCombMPDetail = _me.showSystemParlayDetail;
-	                window.showMicroGamingRnGBetsDetails = _me.showMicroGamingRnGBetsDetails;
-	                window.showAGCasinoDetails = _me.showAGCasinoDetails;
-	                window.showRnGCasinoDetails = _me.showRnGCasinoDetails;
-	                window.showVoidBridgeDetails = _me.showVoidBridgeDetails;
-	                window.showVoidbridgeResult = _me.viewVoidbridgeResult;
-	                window.showTodayRunningBetsDetails = _me.showAllBetDetails;
-	                window.showColossusBetsDetails = _me.showColossusBetsDetails;
-	                window.showGlobalGaming = _me.showGlobalGamingDetails;
-	            });
-	        }
-	
 	        var _me = {
 	            getSortParams: function () {
 	                if (!_sortColumnName) {
@@ -185,6 +156,8 @@ webpackJsonp([22],[
 	
 	                _sortColumnName = _sortColumnName || $("#SortBy").val();
 	                _sortOrder = _sortOrder || $("#SortOrder").val();
+	
+	                _me.registerBetListGlobalFunctions();
 	            },
 	
 	            updateSortColumn: function () {
@@ -760,6 +733,33 @@ webpackJsonp([22],[
 	
 	                url += urlParam;
 	                window.location = url;
+	            },
+	
+	            registerBetListGlobalFunctions: function () {
+	                window.ViewResult = _me.viewResult;
+	
+	                window.showMP = function (transId) {
+	                    var divEvent = $('#divEvent_' + transId);
+	                    divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+	                    _me.showMixParlayDetail(transId, divEvent);
+	                };
+	
+	                window.showCombMP = function (transId, index) {
+	                    var divEvent = $('#divEvent_' + transId + "" + index);
+	                    divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
+	                    _me.showMixParlayDetail(transId, divEvent);
+	                };
+	
+	                window.showNewCombMP = _me.showNewParlayDetail;
+	                window.showCombMPDetail = _me.showSystemParlayDetail;
+	                window.showMicroGamingRnGBetsDetails = _me.showMicroGamingRnGBetsDetails;
+	                window.showAGCasinoDetails = _me.showAGCasinoDetails;
+	                window.showRnGCasinoDetails = _me.showRnGCasinoDetails;
+	                window.showVoidBridgeDetails = _me.showVoidBridgeDetails;
+	                window.showVoidbridgeResult = _me.viewVoidbridgeResult;
+	                window.showTodayRunningBetsDetails = _me.showAllBetDetails;
+	                window.showColossusBetsDetails = _me.showColossusBetsDetails;
+	                window.showGlobalGaming = _me.showGlobalGamingDetails;
 	            }
 	        };
 	
@@ -18999,11 +18999,9 @@ webpackJsonp([22],[
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(92), __webpack_require__(212)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetList, CommonBetList) {
 	    "use strict";
 	
-	    if (!window._IsInJsTestingMode) {
-	        $(window).on("load", function () {
-	            CommonBetList.initialize();
-	        });
-	    }
+	    $(window).on("load", function () {
+	        CommonBetList.initialize();
+	    });
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 

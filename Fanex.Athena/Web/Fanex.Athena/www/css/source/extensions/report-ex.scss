@@ -1,4 +1,6 @@
-﻿.page-form {
+﻿@import "../scss/abstracts/_variables.scss";
+
+.page-form {
     .input-field {
         input[type=radio] + label {
             left: 0;
@@ -170,7 +172,7 @@
 }
 
 .negative-number, .positive-number {
-    color: #ff0000;
+    color: $colorPositiveNumber;
 }
 
 .highlight, .table > tbody > tr > td.highlight {
@@ -221,6 +223,12 @@
     background-color: #6790b0;
 }
 
+table {
+    td, th {
+        border-radius: 0;
+    }
+}
+
 //----- Table Column Width -----//
 .col-small {
     width: 5%;
@@ -241,7 +249,7 @@
 .col-large {
     width: 40%;
 
-    &.small{
+    &.small {
         width: 35%;
     }
 }

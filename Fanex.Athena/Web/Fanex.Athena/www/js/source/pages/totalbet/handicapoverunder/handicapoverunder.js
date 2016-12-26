@@ -2,12 +2,6 @@
     function ($, Site, QueryString, Totalbets, Popup, RefreshCountDown) {
         "use strict";
 
-        if (!window._IsInJsTestingMode) {
-            $(function () {
-                window.viewNewForecast = _me.viewNewForecast;
-            });
-        }
-
     var _me = {
         initialize: function () {
             Site.initialize();
@@ -19,6 +13,8 @@
             });
 
             RefreshCountDown.initEvent();
+
+            _me.registerGlobalFunctions();
         },
         initEvent: function () {
             $("#SubmitButton").on("click", function () {
@@ -50,6 +46,9 @@
         submit: function () {
             Site.blockUI();
             $("#HandicapOUForm").submit();
+        },
+        registerGlobalFunctions: function () {
+            window.viewNewForecast = _me.viewNewForecast;
         }
     };
 
