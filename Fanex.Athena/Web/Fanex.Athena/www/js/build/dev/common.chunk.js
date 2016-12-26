@@ -21156,6 +21156,10 @@
 	            return window.location.href;
 	        }
 	
+	        function getLocation() {
+	            return window.location;
+	        }
+	
 	        function setMultiSelectForDropDownList(dropDownListId, dataSource, valueField, textField, checkField) {
 	            var data = $.parseJSON(dataSource);
 	            var length = data.length;
@@ -21243,6 +21247,7 @@
 	            isInteger: isInteger,
 	            redirect: redirect,
 	            getCurrentUrl: getCurrentUrl,
+	            getLocation: getLocation,
 	            setMultiSelectForDropDownList: setMultiSelectForDropDownList
 	        };
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));

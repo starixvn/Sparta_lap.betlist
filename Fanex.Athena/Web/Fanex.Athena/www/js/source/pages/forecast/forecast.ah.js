@@ -13,7 +13,7 @@
             currencyName = $('#forecast-table').attr('data-currencyname');
 
             _me.initEvent();
-            RefreshCountDown.isForecastAH = true;
+
             RefreshCountDown.initialize();
             RefreshCountDown.initEvent();
         },

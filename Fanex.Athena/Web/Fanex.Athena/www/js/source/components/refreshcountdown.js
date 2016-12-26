@@ -6,7 +6,6 @@
     var defaultCountDown = 0;
 
     var _me = {
-        isForecastAH: false,
         initialize: function () {
             // Select countdown
             $('.menu-item').on('click', function () {
@@ -18,10 +17,6 @@
             $('.button-refresh').on('click', function () {
                 _me.refresh();
             });
-
-            if (_me.isForecastAH) {
-                $('.dropdown-button').dropdown();
-            }
 
             // Get count down id from filter
             countDownId = $('#count-down-of').attr('name');
@@ -90,11 +85,6 @@
                 
                 // Currency constraint
                 Site.currencyConstraint();
-
-                // Re init countdown event with forecast AH
-                if (_me.isForecastAH) {
-                    _me.initialize();
-                }
 
                 $(window).resize();
 

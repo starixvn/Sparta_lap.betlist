@@ -18997,7 +18997,6 @@ webpackJsonp([20],[
 	
 	    $(function () {
 	        BetListRunning.initialize();
-	        BetListRunning.exportToExcel();
 	    });
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
@@ -19023,20 +19022,8 @@ webpackJsonp([20],[
 	                $('#SubmitButton').click(function () {
 	                    _me.submit();
 	                });
-	            },
-	
-	            submit: function () {
-	                BetList.initialize();
-	                var actionName = window.location.pathname.split('/').pop();
-	                var url = Site.resolveClientUrl('api/RunningBetList/' + actionName);
-	                var params = Site.setLicenseeOptionParam();
-	
-	                BetList.loadData(params, url);
-	            },
-	
-	            exportToExcel: function () {
 	                $("#ExportToExcel").click(function () {
-	                    var url = window.location.href;
+	                    var url = Site.getCurrentUrl();
 	                    url = Site.setLicenseeOptionParam(url);
 	                    url = QueryString.setParam(url, "IsExportExcel", true);
 	                    var sortParams = BetList.getSortParams();
@@ -19046,6 +19033,15 @@ webpackJsonp([20],[
 	                    }
 	                    Site.redirect(url);
 	                });
+	            },
+	
+	            submit: function () {
+	                BetList.initialize();
+	                var actionName = Site.getLocation().pathname.split('/').pop();
+	                var url = Site.resolveClientUrl('api/RunningBetList/' + actionName);
+	                var params = Site.setLicenseeOptionParam();
+	
+	                BetList.loadData(params, url);
 	            }
 	        };
 	

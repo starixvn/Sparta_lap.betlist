@@ -106,6 +106,7 @@ $paddingRightContainer: 17px;
         th {
             background: $bgHeaderTableLevel1;
             color: $white;
+            border-top: none;
 
             &:first-child {
                 border-left: none;
