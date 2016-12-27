@@ -201,8 +201,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
         function addUserGuide(options) {
             var defaultOptions = {
                 buttonSelector: "#UserGuide",
-                id: "UserGuidePopup",
-                modal: false
+                id: "UserGuidePopup"
             };
             options = $.extend(defaultOptions, options);
             options.title = options.title || "";

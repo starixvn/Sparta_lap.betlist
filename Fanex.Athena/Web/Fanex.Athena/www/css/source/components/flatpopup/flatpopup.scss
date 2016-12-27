@@ -41,6 +41,10 @@ $bgTitlebar: $bgHeaderTableLevel1;
             .icon-close{
                 font-size: 18px;
             }
+
+            &:hover {
+                color: $white;
+            }
         }
     }
 
