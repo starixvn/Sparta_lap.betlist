@@ -1,9 +1,9 @@
 ﻿define(
-    ['jquery', 'common/site', 'common/querystring', 'lib/jqgrid/jquery.jqgrid.additional', 'pages/betlist/betlist.option', 'common/popup', 'pages/betlist/betlist', 'global'],
-    function ($, Site, QueryString, jqGridAdditional, BetListOption, Popup, BetList, GlobalSetting) {
+    ['jquery', 'common/site', 'common/querystring', 'lib/jqgrid/jquery.jqgrid.additional', 'pages/betlist/betlist.option', 'common/popup', 'pages/betlist/betlist', 'test-helper'],
+    function ($, Site, QueryString, jqGridAdditional, BetListOption, Popup, BetList, TestHelper) {
         describe("BetList", function () {
             beforeEach(function () {
-                GlobalSetting.initGlobalSetting();
+                TestHelper.initGlobalSetting();
                 appendSetFixtures('<input id="SortBy" value="Foo" />');
                 appendSetFixtures('<input id="SortOrder" value="asc" />');
                 BetList.initialize();

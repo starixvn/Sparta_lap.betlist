@@ -1,8 +1,8 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'pages/betlist/betlistcorrectscore', 'global'],
-    function ($, Site, QueryString, BetList, BetListCorrectScore, GlobalSetting) {
+﻿define(['jquery', 'common/site', 'pages/betlist/betlist', 'pages/betlist/betlistcorrectscore', 'test-helper'],
+    function ($, Site, BetList, BetListCorrectScore, TestHelper) {
         describe("CorrectScoreBetList", function () {
             beforeAll(function () {
-                GlobalSetting.initGlobalSetting();
+                TestHelper.initGlobalSetting();
                 
                 spyOn(BetList, "initialize");
                 spyOn(BetList, "loadData");
@@ -51,6 +51,8 @@
                 it("form submit() should be called when #ExportToExcel is clicked.", function () {
                     setFixtures('<form id="CorrectScoreBetListForm"></form><input id="ExportToExcel" type="button" />');
                     
+                    $('#CorrectScoreBetListForm').submit(function () { return false; });
+
                     var spyEvent = spyOnEvent($('#CorrectScoreBetListForm'), 'submit');
 
                     BetListCorrectScore.initEvent();

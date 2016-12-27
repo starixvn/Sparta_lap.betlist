@@ -899,14 +899,16 @@
     <Content Include="www\js\tests\common\site-spec.js" />
     <Content Include="www\js\tests\extensions\jquery.extension-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlist-spec.js" />
+    <Content Include="www\js\tests\pages\betlist\betlistrunning.multiplebettypes-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistrunning-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistcorrectscore-spec.js" />
     <Content Include="www\js\tests\pages\betlist\commonbetlist-spec.js" />
+    <Content Include="www\js\tests\pages\forecast\forecast.ah-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss.option-spec.js" />
     <Content Include="www\js\tests\pages\report\livereport\livereport-spec.js" />
     <Content Include="www\js\tests\pages\report\livereport\helper-spec.js" />
-    <Content Include="www\js\tests\global.js" />
+    <Content Include="www\js\tests\test-helper.js" />
     <Content Include="www\js\tests\pages\totalbet\firstgoallastgoal\firstgoallastgoal-spec.js" />
     <Content Include="www\js\tests\pages\totalbet\halftimefulltime\halftimefulltime-spec.js" />
     <Content Include="www\js\tests\pages\totalbet\handicapoverunder\handicapoverunder-spec.js" />

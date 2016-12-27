@@ -1,9 +1,8 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'pages/betlist/betlistrunning', 'global'],
-    function ($, Site, QueryString, BetList, BetListRunning, GlobalSetting) {
+﻿define(['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'pages/betlist/betlistrunning', 'test-helper'],
+    function ($, Site, QueryString, BetList, BetListRunning, TestHelper) {
         describe("BetListRunning", function () {
             beforeAll(function () {
-                GlobalSetting.initGlobalSetting();
-                
+                TestHelper.initGlobalSetting();
                 spyOn(BetList, "initialize");
                 spyOn(BetList, "loadData");
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {
@@ -56,11 +55,17 @@
                     spyOn(Site, "getCurrentUrl").and.callFake(function () {
                         return "localhost";
                     });
+                    spyOn(BetList, "getSortParams").and.callFake(function () {
+                        return {
+                            SortBy: "Column1",
+                            SortOrder: "abc"
+                        };
+                    });
 
                     BetListRunning.initEvent();
                     $("#ExportToExcel").click();
 
-                    expect(Site.redirect).toHaveBeenCalledWith("localhost?licenseetype=&currencyname=&isexportexcel=true");
+                    expect(Site.redirect).toHaveBeenCalledWith("localhost?licenseetype=&currencyname=&isexportexcel=true&sortby=Column1&sortorder=abc");
                 });
             });
 

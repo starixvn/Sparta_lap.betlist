@@ -10,9 +10,14 @@
             { pattern: "node_modules/bootstrap-daterangepicker/*.js", included: false },
             { pattern: "node_modules/malihu-custom-scrollbar-plugin/*.js", included: false },
             { pattern: 'www/js/source/**/*.js', included: false },
-            { pattern: 'www/js/tests/global.js', included: false },
+            { pattern: 'www/js/tests/test-helper.js', included: false },
 
+            { pattern: 'www/js/tests/pages/betlist/betlist-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/betlist/betlist.option-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/betlist/betlistcorrectscore-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/betlist/betlistrunning-spec.js', included: false },
             { pattern: 'www/js/tests/pages/betlist/betlistrunning.multiplebettypes-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/betlist/commonbetlist-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {
@@ -25,12 +30,12 @@
         logLevel: config.LOG_INFO,
         autoWatch: true,
         browsers: ['PhantomJS'],
-        reporters: ['progress', 'kjhtml'],
+     //   reporters: ['progress', 'kjhtml'],
         singleRun: true,
         concurrency: Infinity,
         phantomjsLauncher: {
             // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
-            exitOnResourceError: true
+          //  exitOnResourceError: true
         }
     });
 };

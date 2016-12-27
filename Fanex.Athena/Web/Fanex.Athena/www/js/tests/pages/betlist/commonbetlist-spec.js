@@ -1,9 +1,9 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'pages/betlist/commonbetlist', 'global'],
-    function ($, Site, QueryString, BetList, CommonBetList, GlobalSetting) {
+﻿define(['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'pages/betlist/commonbetlist', 'test-helper'],
+    function ($, Site, QueryString, BetList, CommonBetList, TestHelper) {
         describe("CommonBetList", function () {
             beforeEach(function () {
-                GlobalSetting.initGlobalSetting();
-                appendSetFixtures('<input id="ApiUrl" value="Test/Index" />');
+                TestHelper.initGlobalSetting();
+                setFixtures('<input id="ApiUrl" value="Test/Index" />');
                 appendSetFixtures('<input id="IsServerPaging" value="1" />');
 
                 spyOn(Site, "initialize");
@@ -11,11 +11,6 @@
                 spyOn(BetList, "initialize");
                 spyOn(BetList, "loadDataPaging");
                 spyOn(QueryString, "getQueryString").and.returnValue("fromdate=1/1/2016&todate=10/5/2016&pagesize=50&pageindex=2");
-            });
-
-            afterEach(function () {
-                $("#ApiUrl").remove();
-                $("#IsServerPaging").remove();
             });
 
             describe("initialize()", function () {
