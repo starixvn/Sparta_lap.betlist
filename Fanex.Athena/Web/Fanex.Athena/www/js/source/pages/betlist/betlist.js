@@ -660,7 +660,11 @@
                 window.showTodayRunningBetsDetails = _me.showAllBetDetails;
                 window.showColossusBetsDetails = _me.showColossusBetsDetails;
                 window.showGlobalGaming = _me.showGlobalGamingDetails;
-                window.BetList.ViewCasinoHandHistory = _me.ViewCasinoHandHistory;
+
+                var betList = {
+                    ViewCasinoHandHistory: _me.ViewCasinoHandHistory
+                };
+                window.BetList = betList;
             }
         };
 
