@@ -1,4 +1,5 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'common/popup', 'components/refreshcountdown'], function ($, Site, QueryString, Popup, RefreshCountDown) {
+﻿define(['jquery', 'common/site', 'common/querystring', 'common/popup', 'components/refreshcountdown'],
+    function ($, Site, QueryString, Popup, RefreshCountDown) {
     var matchid, baseCurrency, licenseetype, currencyid, currencyName;
 
     var _me = {

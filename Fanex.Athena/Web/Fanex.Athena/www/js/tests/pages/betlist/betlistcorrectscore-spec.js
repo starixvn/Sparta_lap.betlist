@@ -1,9 +1,7 @@
-﻿define(['jquery', 'common/site', 'pages/betlist/betlist', 'pages/betlist/betlistcorrectscore', 'test-helper'],
+﻿define(['jquery', 'common/site', 'pages/betlist/betlist', 'pages/betlist/betlistcorrectscore'],
     function ($, Site, BetList, BetListCorrectScore, TestHelper) {
         describe("CorrectScoreBetList", function () {
             beforeAll(function () {
-                TestHelper.initGlobalSetting();
-                
                 spyOn(BetList, "initialize");
                 spyOn(BetList, "loadData");
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {

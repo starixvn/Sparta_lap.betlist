@@ -1,8 +1,7 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'pages/betlist/betlistrunning', 'test-helper'],
-    function ($, Site, QueryString, BetList, BetListRunning, TestHelper) {
+﻿define(['jquery', 'common/site', 'pages/betlist/betlist', 'pages/betlist/betlistrunning'],
+    function ($, Site, BetList, BetListRunning, TestHelper) {
         describe("BetListRunning", function () {
             beforeAll(function () {
-                TestHelper.initGlobalSetting();
                 spyOn(BetList, "initialize");
                 spyOn(BetList, "loadData");
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {

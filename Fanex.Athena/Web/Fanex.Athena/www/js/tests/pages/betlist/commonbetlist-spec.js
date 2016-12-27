@@ -1,8 +1,7 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'pages/betlist/commonbetlist', 'test-helper'],
+﻿define(['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'pages/betlist/commonbetlist'],
     function ($, Site, QueryString, BetList, CommonBetList, TestHelper) {
         describe("CommonBetList", function () {
             beforeEach(function () {
-                TestHelper.initGlobalSetting();
                 setFixtures('<input id="ApiUrl" value="Test/Index" />');
                 appendSetFixtures('<input id="IsServerPaging" value="1" />');
 

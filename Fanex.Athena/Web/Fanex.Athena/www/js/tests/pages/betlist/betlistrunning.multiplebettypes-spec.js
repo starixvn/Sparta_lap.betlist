@@ -1,9 +1,7 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'pages/betlist/betlistrunning.multiplebettypes', 'test-helper'],
-    function ($, Site, QueryString, BetList, BetListRunningBettypes, TestHelper) {
+﻿define(['jquery', 'common/site', 'pages/betlist/betlist', 'pages/betlist/betlistrunning.multiplebettypes'],
+    function ($, Site, BetList, BetListRunningBettypes, TestHelper) {
         describe("BetListRunningBettypes", function () {
-            beforeAll(function () {
-                TestHelper.initGlobalSetting();
-                
+            beforeAll(function () {                
                 spyOn(BetList, "initialize");
                 spyOn(BetList, "loadData");
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {
