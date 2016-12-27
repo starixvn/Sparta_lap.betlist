@@ -1,8 +1,7 @@
-﻿define(['jquery', 'test-helper', 'common/site', 'components/refreshcountdown', 'common/popup', 'pages/forecast/forecast.ah'],
-    function ($, TestHelper, Site, RefreshCountDown, Popup, ForecastAh) {
+﻿define(['jquery', 'common/site', 'components/refreshcountdown', 'common/popup', 'pages/forecast/forecast.ah'],
+    function ($, Site, RefreshCountDown, Popup, ForecastAh) {
         describe("ForecastAh", function () {
             beforeAll(function () {
-             //   TestHelper.initGlobalSetting();
                 spyOn(Site, "initialize");
                 spyOn(ForecastAh, "resizePopup");
                 spyOn(RefreshCountDown, "initialize");
@@ -83,7 +82,6 @@
             describe("loadForecast(selectedScore, bettype)", function () {
                 var SELECTED_SCORE = 1;
                 var BETTYPE = 2;
-                var request;
                 
                 beforeEach(function (done) {
                     setFixtures('<div id="reportContent"></div>');
@@ -97,7 +95,6 @@
                         });
                     ForecastAh.loadForecast(SELECTED_SCORE, BETTYPE);
 
-                    request = jasmine.Ajax.requests.mostRecent();
                     setTimeout(done, 10);
                 });
 

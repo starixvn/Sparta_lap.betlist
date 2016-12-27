@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<testsuite name="PhantomJS 2.1.1 (Windows 8 0.0.0)" package="" timestamp="2016-12-27T02:44:50" id="0" hostname="CP103-JOSEPH" tests="236" errors="1" failures="0" time="0.505">
+<testsuite name="PhantomJS 2.1.1 (Windows 8 0.0.0)" package="" timestamp="2016-12-27T07:44:04" id="0" hostname="CP103-JOSEPH" tests="245" errors="0" failures="0" time="0.608">
   <properties>
     <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1"/>
   </properties>
@@ -7,102 +7,247 @@
   <testcase name="QueryString getQueryString(url) return empty string if the url does not contain '?' character" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
   <testcase name="QueryString getQueryString(url) throw exception if the url param is not passed" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
   <testcase name="QueryString getQueryString(url) throw exception if the url param is not a string" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
-  <testcase name="QueryString getRawUrl(url) return the raw url from an url" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
+  <testcase name="QueryString getRawUrl(url) return the raw url from an url" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
   <testcase name="QueryString getRawUrl(url) return the url param if it does not contain '?' character" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
-  <testcase name="QueryString setParam(url, name, value) add new value to a query string if it does not exist" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
+  <testcase name="QueryString setParam(url, name, value) add new value to a query string if it does not exist" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
   <testcase name="QueryString setParam(url, name, value) update value in a query string if it exists" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
   <testcase name="QueryString setParam(url, name, value) remove null value" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
-  <testcase name="QueryString getParam(url, name) return a correct value if it exists" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
+  <testcase name="QueryString getParam(url, name) return a correct value if it exists" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
   <testcase name="QueryString getParam(url, name) return a null if it does not exist" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).QueryString"/>
   <testcase name="$.fn.hasVerticalScrollBar() value of hasVerticalScrollBar jquery function is 'true' when scrollHeight > height" time="0.006" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).$.fn.hasVerticalScrollBar()"/>
-  <testcase name="$.fn.hasVerticalScrollBar() value is jquery function 'false' when scrollHeight &lt; height" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).$.fn.hasVerticalScrollBar()"/>
+  <testcase name="$.fn.hasVerticalScrollBar() value is jquery function 'false' when scrollHeight &lt; height" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).$.fn.hasVerticalScrollBar()"/>
   <testcase name="helper.js setSumParams(url, totalValue) setSumParams(url, totalValue) should return correct value" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).helper.js"/>
   <testcase name="helper.js getMatchListProductOption(sportId, productCode) sportId greater than 0 Result should return with ['VS'] when sportType equal 180 or 186" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).helper.js"/>
-  <testcase name="helper.js getMatchListProductOption(sportId, productCode) sportId greater than 0 Result should return with ['LC'] when sportType equal 162" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).helper.js"/>
+  <testcase name="helper.js getMatchListProductOption(sportId, productCode) sportId greater than 0 Result should return with ['LC'] when sportType equal 162" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).helper.js"/>
   <testcase name="helper.js getMatchListProductOption(sportId, productCode) sportId greater than 0 Result should return with ['SB', 'BA'] when sportType not in 180,186,162" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).helper.js"/>
   <testcase name="helper.js getMatchListProductOption(sportId, productCode) sportId less than or equal 0 Result should return with ['SB', 'BA', 'NG', 'RB', 'LC', 'VS', 'CS', 'BG'] when productCode equal ALL" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).helper.js"/>
   <testcase name="helper.js getMatchListProductOption(sportId, productCode) sportId less than or equal 0 Result should return with ['RB'] when productCode not equal ALL" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).helper.js"/>
-  <testcase name="PopUp openPopup(element, option) flatpopup jquery plugin should be called with correct parameters" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).PopUp"/>
+  <testcase name="PopUp openPopup(element, option) flatpopup jquery plugin should be called with correct parameters" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).PopUp"/>
   <testcase name="PopUp openPopupWithIframe(url, option) Bet List popup should be called with correct url" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).PopUp"/>
   <testcase name="Site getLicenseeId() return a value from input#LicenseeId" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
-  <testcase name="Site asNull(text) return null if the param 'text' is an empty string" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
+  <testcase name="Site asNull(text) return null if the param 'text' is an empty string" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
   <testcase name="Site blockUI() div.block-body and div.loading will be display" time="0.008" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
-  <testcase name="Site setLicenseeOptionParam(urlOrParams) return an url with query string if 'urlOrParams' is a string" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
-  <testcase name="Site setLicenseeOptionParam(urlOrParams) return an object with query string if 'urlOrParams' is an object" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
+  <testcase name="Site setLicenseeOptionParam(urlOrParams) return an url with query string if 'urlOrParams' is a string" time="0.003" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
+  <testcase name="Site setLicenseeOptionParam(urlOrParams) return an object with query string if 'urlOrParams' is an object" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
   <testcase name="Site setLicenseeOptionOriginalParam(urlOrParams) build an url from 'data-original' attributes of html tags" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
   <testcase name="Site updateOriginalLicenseeOption() update values of html tags to 'data-original' attributes" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
-  <testcase name="Site setProductOptionParam(url, counter, productCode, status) build an url with production options" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
-  <testcase name="Site initBlockUI() .block-body should be display when clicking on .blockui element." time="0.007" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
+  <testcase name="Site setProductOptionParam(url, counter, productCode, status) build an url with production options" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
+  <testcase name="Site initBlockUI() .block-body should be display when clicking on .blockui element." time="0.006" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
   <testcase name="Site asBool() convert a string 'TRUE' to true (boolean)" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
-  <testcase name="Site asBool() convert a string '123' to false (boolean)" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
+  <testcase name="Site asBool() convert a string '123' to false (boolean)" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
   <testcase name="Site asBool() convert a number 123 to true (boolean)" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
   <testcase name="Site asBool() convert an object to true (boolean)" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
-  <testcase name="Site asBool() convert null to false (boolean)" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
-  <testcase name="Site getSingleResource(enghlishName) get correct value from resource" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
+  <testcase name="Site asBool() convert null to false (boolean)" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
+  <testcase name="Site getSingleResource(enghlishName) get correct value from resource" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
   <testcase name="Site getSingleResource(enghlishName) get key value when resource not contain" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
   <testcase name="Site getResources(arrayText) return correct array text" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
-  <testcase name="Site isNumber(text) return true when pass text is integer" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
+  <testcase name="Site isNumber(text) return true when pass text is integer" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
   <testcase name="Site isNumber(text) return true when pass text is digit string" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
   <testcase name="Site isNumber(text) return true when pass text is float" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
   <testcase name="Site isNumber(text) return false when pass text is not digit" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
   <testcase name="Site isNumber(text) return false when we don't pass text value" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Site"/>
-  <testcase name="jqGridAdditional DECIMAL_FORMAT_OPTIONS Initial value of DECIMAL_FORMAT_OPTIONS should be correct" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
-  <testcase name="jqGridAdditional updateGridHeight() max-height css value of '.ui-jqgrid-bdiv' in jqgrid should be correct" time="0.004" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
-  <testcase name="jqGridAdditional updateGridWidth(grid) 'setGridParam' function of jqgrid should be called with correct parameter" time="0.005" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
+  <testcase name="jqGridAdditional DECIMAL_FORMAT_OPTIONS Initial value of DECIMAL_FORMAT_OPTIONS should be correct" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
+  <testcase name="jqGridAdditional updateGridHeight() max-height css value of '.ui-jqgrid-bdiv' in jqgrid should be correct" time="0.003" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
+  <testcase name="jqGridAdditional updateGridWidth(grid) 'setGridParam' function of jqgrid should be called with correct parameter" time="0.004" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
   <testcase name="jqGridAdditional updateGridWidth(grid) 'setGridWidth' function of jqgrid should be called with correct parameter" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
   <testcase name="jqGridAdditional updateGridWidth(grid) Width of grid should be correct" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
   <testcase name="jqGridAdditional formatInteger(value) format number by adding commas" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
   <testcase name="jqGridAdditional formatInteger(value) format number (as string) by adding commas" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
   <testcase name="jqGridAdditional excludeCol(colName, colModel, excludedCol) return a column model object after excluding some columns" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
-  <testcase name="jqGridAdditional getLicenseeWLNote(productOptionJson, caption) return a note string for valid products" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
-  <testcase name="jqGridAdditional rowSpanSetting(rowId, val, rawObject) when RowSpan &lt; 0, returns ' style=&quot;display:none;&quot; '" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
+  <testcase name="jqGridAdditional getLicenseeWLNote(productOptionJson, caption) return a note string for valid products" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
+  <testcase name="jqGridAdditional rowSpanSetting(rowId, val, rawObject) when RowSpan &lt; 0, returns ' style=&quot;display:none;&quot; '" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
   <testcase name="jqGridAdditional rowSpanSetting(rowId, val, rawObject) when RowSpan = 0, returns ''" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
   <testcase name="jqGridAdditional rowSpanSetting(rowId, val, rawObject) when RowSpan > 1, returns ' rowspan=&quot;{RowSpan}&quot;'" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
-  <testcase name="jqGridAdditional setNoInfo(message) div.ui-jqgrid-sdiv should be hidden" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
+  <testcase name="jqGridAdditional setNoInfo(message) div.ui-jqgrid-sdiv should be hidden" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
   <testcase name="jqGridAdditional setNoInfo(message) first td contains text of param 'message'" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
   <testcase name="jqGridAdditional setNoInfoWithColspan(columnModel, message) div.ui-jqgrid-sdiv should be hidden" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
   <testcase name="jqGridAdditional setNoInfoWithColspan(columnModel, message) table.ui-jqgrid-htable should not contains a td.hide" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
   <testcase name="jqGridAdditional setNoInfoWithColspan(columnModel, message) first td contains text of 'NoInfo' (from resource)" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).jqGridAdditional"/>
   <testcase name="BetListOption gridOption gridOption.rowNum should be 50" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListOption"/>
   <testcase name="BetListOption gridOption gridOption.rowList should be a correct array" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListOption"/>
-  <testcase name="BetListOption columnModel columnModel.length should be 11" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListOption"/>
+  <testcase name="BetListOption columnModel columnModel.length should be 11" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListOption"/>
   <testcase name="BetListOption columnModel first column name should be 'Index'" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListOption"/>
   <testcase name="BetListOption columnModel last column name should be 'Status'" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListOption"/>
   <testcase name="BetListOption columnNames should be a correct array" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListOption"/>
   <testcase name="BetListOption maxHeight should be 720" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListOption"/>
-  <testcase name="BetList getSortParams() should return sorting data stored in inputs" time="0.004" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList loadData(params, url) should return sorting data stored in inputs" time="0.018" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList loadData(params, url) BetList.bindData() should be called with expected param" time="0.013" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList getSortParams() should return sorting data stored in inputs" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList loadData(params, url) should return sorting data stored in inputs" time="0.016" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList loadData(params, url) BetList.bindData() should be called with expected param" time="0.012" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
   <testcase name="BetList loadData(params, url) BetList.setLeagueTitle() should be called with expected param" time="0.012" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
   <testcase name="BetList loadDataPaging(url) should call .jqGrid('GridUnload')" time="0.003" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
   <testcase name="BetList loadDataPaging(url) should call .jqGrid() with a selector '#BetListGrid'" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList bindData(url) gridOption.colNames should be a valid array" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList getMixParlayResultUrl(refno, winlostdate, bettype) should return an url with correct parameters" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList bindData(url) gridOption.colNames should be a valid array" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList getMixParlayResultUrl(refno, winlostdate, bettype) should return an url with correct parameters" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
   <testcase name="BetList getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid) should return an url with correct parameters" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
   <testcase name="BetList getMicrogamingResultUrl(gameid, custid) should return an url with correct parameters" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList setLeagueTitle(leagueName) '.league-name-title' should contain resource 'BetList' as default" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList setLeagueTitle(leagueName) '.league-name-title' should contain the text passed as paramter" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList setLeagueTitle(leagueName) '.league-name-title' should contain resource 'BetList' as default" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList setLeagueTitle(leagueName) '.league-name-title' should contain the text passed as paramter" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
   <testcase name="BetList showMicrogamingResultPopup(title, gameid, custid) .dialog() should be called with correct parameters" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList viewResult(matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) BetList.showMicrogamingResultPopup() should be called if sporttype is Microgaming" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList viewResult(matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) BetList.showMicrogamingResultPopup() should be called if sporttype is Microgaming" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
   <testcase name="BetList viewResult(matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) BetList.getMixParlayResultUrl() should be called if bettype is MixParlay" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
   <testcase name="BetList viewResult(matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) BetList.getSportBookResultUrl() should be called if bettype is NOT MixParlay" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
   <testcase name="BetList viewResult(matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid) $.fn.dialog() should be called if sporttype is NOT Microgaming" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList showMixParlayDetail(transId, divEvent) 'divEvent' element is visible 'divEvent' element should be hide" time="0.003" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList showMixParlayDetail(transId, divEvent) 'divEvent' element is visible 'divEvent' element should be hide" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
   <testcase name="BetList showMixParlayDetail(transId, divEvent) 'divEvent' element is visible 'divEvent' element shoult not contain any child." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList showMixParlayDetail(transId, divEvent) 'divEvent' element is hidden request url should be correct" time="0.109" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList showMixParlayDetail(transId, divEvent) 'divEvent' element is hidden 'divEvent' element should be visible" time="0.109" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList showMixParlayDetail(transId, divEvent) 'divEvent' element is hidden 'divEvent' element should contain correct html" time="0.113" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList showSystemParlayDetail(transId, refNo, betId, custId, betTeam, baseCurrency) Popup.openPopupWithIframe(url, options) should be called with correct parameters" time="0.004" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList showMicroGamingRnGBetsDetails(transId, winlostDate, custId, transType) Popup.openPopupWithIframe(url, options) should be called with correct parameters" time="0.011" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList showAGCasinoDetails(transId, winlostDate, custId, transType) Popup.openPopupWithIframe(url, options) should be called with correct parameters" time="0.005" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList ValidProducts() should return false if #ProductList does not contain checked input" time="0.004" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList ValidProducts() Popup.openPopupWithIframe(url, options) should be called if #ProductList does not contain checked input" time="0.004" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="BetList ValidProducts() should return true if #ProductList contain a checked input" time="0.004" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
-  <testcase name="CorrectScoreBetList initialize() initEvent() should be called." time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CorrectScoreBetList"/>
+  <testcase name="BetList showMixParlayDetail(transId, divEvent) 'divEvent' element is hidden request url should be correct" time="0.104" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList showMixParlayDetail(transId, divEvent) 'divEvent' element is hidden 'divEvent' element should be visible" time="0.11" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList showMixParlayDetail(transId, divEvent) 'divEvent' element is hidden 'divEvent' element should contain correct html" time="0.112" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList showSystemParlayDetail(transId, refNo, betId, custId, betTeam, baseCurrency) Popup.openPopupWithIframe(url, options) should be called with correct parameters" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList showMicroGamingRnGBetsDetails(transId, winlostDate, custId, transType) Popup.openPopupWithIframe(url, options) should be called with correct parameters" time="0.004" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList showAGCasinoDetails(transId, winlostDate, custId, transType) Popup.openPopupWithIframe(url, options) should be called with correct parameters" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList ValidProducts() should return false if #ProductList does not contain checked input" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList ValidProducts() Popup.openPopupWithIframe(url, options) should be called if #ProductList does not contain checked input" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="BetList ValidProducts() should return true if #ProductList contain a checked input" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetList"/>
+  <testcase name="CorrectScoreBetList initialize() initEvent() should be called." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CorrectScoreBetList"/>
   <testcase name="CorrectScoreBetList initialize() submit() should be called." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CorrectScoreBetList"/>
   <testcase name="CorrectScoreBetList initialize() Site.addUserGuide() should be called with correct parameters." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CorrectScoreBetList"/>
   <testcase name="CorrectScoreBetList initEvent() submit() should be called when #SubmitButton is clicked." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CorrectScoreBetList"/>
   <testcase name="CorrectScoreBetList initEvent() form submit() should be called when #ExportToExcel is clicked." time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CorrectScoreBetList"/>
+  <testcase name="CorrectScoreBetList submit() BetList.initialize() should be called." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CorrectScoreBetList"/>
+  <testcase name="CorrectScoreBetList submit() BetList.loadData() should be called." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CorrectScoreBetList"/>
+  <testcase name="BetListRunning initialize() initEvent() should be called." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunning"/>
+  <testcase name="BetListRunning initialize() submit() should be called." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunning"/>
+  <testcase name="BetListRunning initialize() Site.addUserGuide() should be called with correct parameters." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunning"/>
+  <testcase name="BetListRunning initEvent() submit() should be called when #SubmitButton is clicked." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunning"/>
+  <testcase name="BetListRunning initEvent() Site.redirect() should be called with correct url when #ExportToExcel is clicked." time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunning"/>
+  <testcase name="BetListRunning submit() BetList.initialize() should be called." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunning"/>
+  <testcase name="BetListRunning submit() BetList.loadData() should be called with correct parameter." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunning"/>
+  <testcase name="BetListRunningBettypes initialize() initEvent() should be called." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunningBettypes"/>
+  <testcase name="BetListRunningBettypes initialize() submit() should be called." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunningBettypes"/>
+  <testcase name="BetListRunningBettypes initialize() Site.addUserGuide() should be called with correct parameters." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunningBettypes"/>
+  <testcase name="BetListRunningBettypes initEvent() submit() should be called when #SubmitButton is clicked." time="0.005" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunningBettypes"/>
+  <testcase name="BetListRunningBettypes initEvent() Site.redirect() should be called with correct url when #mixparlay_link is clicked" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunningBettypes"/>
+  <testcase name="BetListRunningBettypes initEvent() Site.redirect() should be called with correct url when #systemparlay_link is clicked" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunningBettypes"/>
+  <testcase name="BetListRunningBettypes initEvent() Site.redirect() should be called with correct url when #ExportToExcel is clicked." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunningBettypes"/>
+  <testcase name="BetListRunningBettypes submit() BetList.initialize() should be called." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunningBettypes"/>
+  <testcase name="BetListRunningBettypes submit() BetList.loadData() should be called with correct parameter." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).BetListRunningBettypes"/>
+  <testcase name="CommonBetList initialize() '.content-filter' should be removed" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CommonBetList"/>
+  <testcase name="CommonBetList initialize() BetList.loadDataPaging(url) should be called with correct parameters when 'IsServerPaging' value is 0" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CommonBetList"/>
+  <testcase name="CommonBetList initialize() BetList.loadData(params, url) should be called with correct parameters when 'IsServerPaging' value is 1" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CommonBetList"/>
+  <testcase name="CommonBetList exportToExcel() window.alert should be called when totalRows > MAXIMUM_EXCEL_ROWS" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CommonBetList"/>
+  <testcase name="CommonBetList exportToExcel() url to export excel should be correct with no sort param" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CommonBetList"/>
+  <testcase name="CommonBetList exportToExcel() url to export excel should be correct with sort param" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).CommonBetList"/>
+  <testcase name="ForecastAh initialize() initEvent() should be called." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).ForecastAh"/>
+  <testcase name="ForecastAh initEvent() loadForecast() should be called with correct params when .forecast-link is clicked." time="0.005" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).ForecastAh"/>
+  <testcase name="ForecastAh initEvent() loadForecast() should be called with correct params when .view-forecast-link is clicked." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).ForecastAh"/>
+  <testcase name="ForecastAh initEvent() viewBetlist() should be called with correct params when .view-betlist is clicked." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).ForecastAh"/>
+  <testcase name="ForecastAh initEvent() viewBetlist() should be called when #txtCurrentscore raises event keyup with keyCode = 13." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).ForecastAh"/>
+  <testcase name="ForecastAh initEvent() setCurrentScore() should be called when #btnCurrentscore is clicked." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).ForecastAh"/>
+  <testcase name="ForecastAh loadForecast(selectedScore, bettype) #reportContent should have html value returned from ajax." time="0.012" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).ForecastAh"/>
+  <testcase name="ForecastAh viewBetlist(bettype) Popup.updateCurrentPopup() should be called with correct params." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).ForecastAh"/>
+  <testcase name="ForecastAh setCurrentScore() loadForecast() should be called with correct params." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).ForecastAh"/>
+  <testcase name="LicenseeWinLossOption LicenseeWinLossOption rowNum should be correct." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLossOption"/>
+  <testcase name="LicenseeWinLossOption LicenseeWinLossOption totalColspan should be a correct array." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLossOption"/>
+  <testcase name="LicenseeWinLossOption LicenseeWinLossOption rowList should be a correct array." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLossOption"/>
+  <testcase name="LicenseeWinLossOption LicenseeWinLossOption urlData should be a correct url." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLossOption"/>
+  <testcase name="LicenseeWinLossOption LicenseeWinLossOption nonePagingSize should be correct." time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLossOption"/>
+  <testcase name="LicenseeWinLossOption getColName(productOptions) gridOption.colNames should be correct." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLossOption"/>
+  <testcase name="LicenseeWinLossOption getColModel(level, reportBy, productOptions) columnModels.length should equal with columnNames.length." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLossOption"/>
+  <testcase name="LicenseeWinLossOption getTotalColModel(level, productOptions) totalColumnModels.length should equal with columnNames.length." time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLossOption"/>
+  <testcase name="TotalBet resizeGrid() body content has vertical scrollbar .body-content should have correct height value" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalBet"/>
+  <testcase name="TotalBet resizeGrid() body content has vertical scrollbar table in '.body-content' should has correct width" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalBet"/>
+  <testcase name="TotalBet resizeGrid() body content has vertical scrollbar .body-content should not contain class 'hasScroll'" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalBet"/>
+  <testcase name="TotalBet resizeGrid() body content do not has vertical scrollbar .body-content should contain class 'hasScroll'" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalBet"/>
+  <testcase name="TotalBet initEvent() RefreshCountDown.initialize() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalBet"/>
+  <testcase name="TotalBet initEvent() TotalBet.viewRunningBetListMatch(matchId, betType) should be called with correct parameters" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalBet"/>
+  <testcase name="TotalBet initEvent() TotalBet.resizeGrid() should be called when ajaxComplete event fire" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalBet"/>
+  <testcase name="TotalBet initEvent() TotalBet.resizeGrid() should be called when window resizing event fire" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalBet"/>
+  <testcase name="TotalBet initEvent() .off() function of jquery should be called with correct parameter when window unloading event fire" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalBet"/>
+  <testcase name="TotalBet TotalBet.viewRunningBetListMatch(matchId, betType) Site.redirect(url) should be called with correct parameter" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalBet"/>
+  <testcase name="TotalBet TotalBet.viewRunningBetListMultiBettype(matchId, betType) Site.redirect(url) should be called with correct parameter" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalBet"/>
+  <testcase name="TotalBet TotalBet.initialize() functions should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalBet"/>
+  <testcase name="FirstGoalLastGoal initialize() Site.initialize() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).FirstGoalLastGoal"/>
+  <testcase name="FirstGoalLastGoal initialize() Totalbets.initialize() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).FirstGoalLastGoal"/>
+  <testcase name="FirstGoalLastGoal initialize() FirstGoalLastGoal.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).FirstGoalLastGoal"/>
+  <testcase name="FirstGoalLastGoal initialize() Site.addUserGuide() should be called with correct parameters" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).FirstGoalLastGoal"/>
+  <testcase name="FirstGoalLastGoal initialize() RefreshCountDown.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).FirstGoalLastGoal"/>
+  <testcase name="FirstGoalLastGoal initEvent() FirstGoalLastGoal.submit() should be called when '#SubmitButton' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).FirstGoalLastGoal"/>
+  <testcase name="FirstGoalLastGoal initEvent() Totalbets.viewRunningBetListMultiBettype(matchId, bettypeParameter) should be called with correct parameters when '.team' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).FirstGoalLastGoal"/>
+  <testcase name="FirstGoalLastGoal submit() Site.blockUI() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).FirstGoalLastGoal"/>
+  <testcase name="FirstGoalLastGoal submit() submit function of jquery should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).FirstGoalLastGoal"/>
+  <testcase name="HalfTimeFullTime initialize() Site.initialize() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HalfTimeFullTime"/>
+  <testcase name="HalfTimeFullTime initialize() Totalbets.initialize() should be called" time="0.004" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HalfTimeFullTime"/>
+  <testcase name="HalfTimeFullTime initialize() HalfTimeFullTime.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HalfTimeFullTime"/>
+  <testcase name="HalfTimeFullTime initialize() Site.addUserGuide() should be called with correct parameters" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HalfTimeFullTime"/>
+  <testcase name="HalfTimeFullTime initialize() RefreshCountDown.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HalfTimeFullTime"/>
+  <testcase name="HalfTimeFullTime initEvent() HalfTimeFullTime.submit() should be called when '#SubmitButton' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HalfTimeFullTime"/>
+  <testcase name="HalfTimeFullTime initEvent() Totalbets.viewRunningBetListMatch(matchId, betType) should be called with correct parameters when '.team' fired click event" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HalfTimeFullTime"/>
+  <testcase name="HalfTimeFullTime submit() Site.blockUI() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HalfTimeFullTime"/>
+  <testcase name="HalfTimeFullTime submit() submit function of jquery should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HalfTimeFullTime"/>
+  <testcase name="HandicapOU initialize() Site.initialize() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HandicapOU"/>
+  <testcase name="HandicapOU initialize() Totalbets.initialize() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HandicapOU"/>
+  <testcase name="HandicapOU initialize() HandicapOU.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HandicapOU"/>
+  <testcase name="HandicapOU initialize() Site.addUserGuide() should be called with correct parameters" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HandicapOU"/>
+  <testcase name="HandicapOU initialize() RefreshCountDown.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HandicapOU"/>
+  <testcase name="HandicapOU initEvent() HandicapOU.submit() should be called when '#SubmitButton' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HandicapOU"/>
+  <testcase name="HandicapOU initEvent() HandicapOU.viewForecast(matchId, betType) should be called with correct parameters when '.button-add' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HandicapOU"/>
+  <testcase name="HandicapOU viewNewForecast(leagueId, matchId, currencyId, baseCurrency) Site.redirect(url) should be called with correct parameter" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HandicapOU"/>
+  <testcase name="HandicapOU viewForecast(matchId, betType) Popup.openPopupWithIframe(url, option) should be called with correct parameters" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HandicapOU"/>
+  <testcase name="HandicapOU submit() Site.blockUI() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HandicapOU"/>
+  <testcase name="HandicapOU submit() submit function of jquery should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HandicapOU"/>
+  <testcase name="HomeDrawAwayNoBet initialize() Site.initialize() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HomeDrawAwayNoBet"/>
+  <testcase name="HomeDrawAwayNoBet initialize() Totalbets.initialize() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HomeDrawAwayNoBet"/>
+  <testcase name="HomeDrawAwayNoBet initialize() HomeDrawAwayNoBet.initEvent() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HomeDrawAwayNoBet"/>
+  <testcase name="HomeDrawAwayNoBet initialize() Site.addUserGuide() should be called with correct parameters" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HomeDrawAwayNoBet"/>
+  <testcase name="HomeDrawAwayNoBet initialize() RefreshCountDown.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HomeDrawAwayNoBet"/>
+  <testcase name="HomeDrawAwayNoBet initEvent() HomeDrawAwayNoBet.submit() should be called when '#SubmitButton' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HomeDrawAwayNoBet"/>
+  <testcase name="HomeDrawAwayNoBet initEvent() Totalbets.viewRunningBetListMatch(matchId, bettypeParameter) should be called with correct parameters when '.team' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HomeDrawAwayNoBet"/>
+  <testcase name="HomeDrawAwayNoBet submit() Site.blockUI() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HomeDrawAwayNoBet"/>
+  <testcase name="HomeDrawAwayNoBet submit() submit function of jquery should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).HomeDrawAwayNoBet"/>
+  <testcase name="MoneyLine initialize() Site.initialize() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).MoneyLine"/>
+  <testcase name="MoneyLine initialize() Totalbets.initialize() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).MoneyLine"/>
+  <testcase name="MoneyLine initialize() MoneyLine.initEvent() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).MoneyLine"/>
+  <testcase name="MoneyLine initialize() Site.addUserGuide() should be called with correct parameters" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).MoneyLine"/>
+  <testcase name="MoneyLine initialize() RefreshCountDown.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).MoneyLine"/>
+  <testcase name="MoneyLine initEvent() MoneyLine.submit() should be called when '#SubmitButton' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).MoneyLine"/>
+  <testcase name="MoneyLine submit() Site.blockUI() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).MoneyLine"/>
+  <testcase name="MoneyLine submit() submit function of jquery should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).MoneyLine"/>
+  <testcase name="OddEvenDND initialize() Site.initialize() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).OddEvenDND"/>
+  <testcase name="OddEvenDND initialize() Totalbets.initialize() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).OddEvenDND"/>
+  <testcase name="OddEvenDND initialize() OddEvenDND.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).OddEvenDND"/>
+  <testcase name="OddEvenDND initialize() Site.addUserGuide() should be called with correct parameters" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).OddEvenDND"/>
+  <testcase name="OddEvenDND initialize() RefreshCountDown.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).OddEvenDND"/>
+  <testcase name="OddEvenDND initEvent() OddEvenDND.submit() should be called when '#SubmitButton' fired click event" time="0.005" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).OddEvenDND"/>
+  <testcase name="OddEvenDND initEvent() OddEvenDND.viewForecast1X2(matchId, betType) should be called with correct parameters when '.button-add' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).OddEvenDND"/>
+  <testcase name="OddEvenDND viewForecast1X2(matchId, betType) Popup.openPopupWithIframe(url, option) should be called with correct parameters" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).OddEvenDND"/>
+  <testcase name="OddEvenDND submit() Site.blockUI() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).OddEvenDND"/>
+  <testcase name="OddEvenDND submit() submit function of jquery should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).OddEvenDND"/>
+  <testcase name="Outright initialize() Site.initialize() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Outright"/>
+  <testcase name="Outright initialize() Totalbets.initialize() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Outright"/>
+  <testcase name="Outright initialize() Outright.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Outright"/>
+  <testcase name="Outright initialize() Site.addUserGuide() should be called with correct parameters" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Outright"/>
+  <testcase name="Outright initialize() RefreshCountDown.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Outright"/>
+  <testcase name="Outright initEvent() Outright.submit() should be called when '#SubmitButton' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Outright"/>
+  <testcase name="Outright initEvent() Totalbets.viewRunningBetListMatch(matchId, betType) should be called with correct parameters when '.team' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Outright"/>
+  <testcase name="Outright submit() Site.blockUI() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Outright"/>
+  <testcase name="Outright submit() submit function of jquery should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).Outright"/>
+  <testcase name="TotalGoal initialize() Site.initialize() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalGoal"/>
+  <testcase name="TotalGoal initialize() Totalbets.initialize() should be called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalGoal"/>
+  <testcase name="TotalGoal initialize() TotalGoal.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalGoal"/>
+  <testcase name="TotalGoal initialize() Site.addUserGuide() should be called with correct parameters" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalGoal"/>
+  <testcase name="TotalGoal initialize() RefreshCountDown.initEvent() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalGoal"/>
+  <testcase name="TotalGoal initEvent() TotalGoal.submit() should be called when '#SubmitButton' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalGoal"/>
+  <testcase name="TotalGoal initEvent() Totalbets.viewRunningBetListMultiBettype(matchId, bettypeParameter) should be called with correct parameters when '.team' fired click event" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalGoal"/>
+  <testcase name="TotalGoal submit() Site.blockUI() should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalGoal"/>
+  <testcase name="TotalGoal submit() submit function of jquery should be called" time="0" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).TotalGoal"/>
+  <testcase name="LicenseeWinLoss initialize() LicenseeWinLossOption.licenseeId should be assigned data from #drillDownLicenseeId." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss initialize() initEvent() should be call when initialize() is called" time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss initialize() Site.addUserGuide() should be call when initialize() is called with correct params." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss initEvent() #IsExportExcel should have value 'false' when #SubmitButton is clicked." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss initEvent() #LicenseeWinLossForm.submit() should be called if #ExportToExcel is clicked." time="0.005" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss initEvent() #LicenseeWinLoss.goBack() should be called with correct param when .level-link is clicked." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss initEvent() LicenseeWinLoss.openBetlistPopUp(datadrilldown) should be called if .bet-list-link is clicked." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss setExcelUrl(level, currencyId, custId, fdate, tdate, currencyName) All input fields should have correct value." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss renderBreadCrumb(level) .breadCrumbHolder should be hide if param level is 0." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss renderBreadCrumb(level) .level0 should show if param level > 0." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss renderBreadCrumb(level) .level2 should be hide if param level = 1." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss renderBreadCrumb(level) .level2 should show if param level = 2." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss setReportTitle(currencyId, fromdate, todate) setReportTitle() should assign correct content to .report-title." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="LicenseeWinLoss goBack(level) LicenseeWinLossOption.urlExcelData should be updated to correct value." time="0.001" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).LicenseeWinLoss"/>
+  <testcase name="livereport.js when clicking on #switchreport Site.redirect() is called with correct url when click" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).livereport.js"/>
+  <testcase name="livereport.js view product detail ajax should be called with correct url and parameters when '.product-detail-link' is clicked" time="0.013" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).livereport.js"/>
+  <testcase name="livereport.js view sport detail Site.redirect() is called with correct url when clicking on sportid = 1" time="0.007" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).livereport.js"/>
+  <testcase name="livereport.js view sport detail Site.redirect() is called with correct url when clicking on sportid = 161" time="0.002" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).livereport.js"/>
   <system-out>
     <![CDATA[
 ]]>
