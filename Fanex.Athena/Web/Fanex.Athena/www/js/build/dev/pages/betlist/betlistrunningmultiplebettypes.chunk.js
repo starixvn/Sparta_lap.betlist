@@ -15201,9 +15201,10 @@ webpackJsonp([21],[
 	                }
 	
 	                var gridTop = $bdiv.offset().top;
-	                var pagingHeight = $(".paging:visible").length > 0 ? $(".paging:visible").height() : 0;
-	                var gridHeight = window.innerHeight - gridTop - $(".ui-jqgrid-sdiv:visible").height()
-	                            - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - 30;
+	                var pagingHeight = $(".paging:visible").length ? $(".paging:visible").height() : 0;
+	                var footerHeight = $(".ui-jqgrid-sdiv:visible").length ? $(".ui-jqgrid-sdiv:visible").height() : 0;
+	
+	                var gridHeight = window.innerHeight - gridTop - footerHeight - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - 30;
 	                gridHeight = Math.max(120, gridHeight);
 	
 	                $bdiv.css("max-height", gridHeight);
