@@ -12,7 +12,7 @@
             { pattern: 'www/js/source/**/*.js', included: false },
             { pattern: 'www/js/tests/global.js', included: false },
 
-            { pattern: 'www/js/tests/pages/totalbet/totalgoal/*-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/betlist/betlistrunning.multiplebettypes-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {

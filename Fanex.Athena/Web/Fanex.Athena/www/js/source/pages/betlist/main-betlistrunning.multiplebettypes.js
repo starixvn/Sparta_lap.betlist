@@ -3,6 +3,5 @@
 
     $(function () {
         BetListRunningMultipleBettypes.initialize();
-        BetListRunningMultipleBettypes.exportToExcel();
     });
 });

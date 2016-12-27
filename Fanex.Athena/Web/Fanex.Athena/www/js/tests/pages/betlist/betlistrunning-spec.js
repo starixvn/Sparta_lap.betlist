@@ -50,7 +50,7 @@
                     expect(BetListRunning.submit).toHaveBeenCalled();
                 });
 
-                it("Site.redirect() should be called with correct url.", function () {
+                it("Site.redirect() should be called with correct url when #ExportToExcel is clicked.", function () {
                     setFixtures('<input id="ExportToExcel" type="button" />');
                     spyOn(Site, "redirect");
                     spyOn(Site, "getCurrentUrl").and.callFake(function () {

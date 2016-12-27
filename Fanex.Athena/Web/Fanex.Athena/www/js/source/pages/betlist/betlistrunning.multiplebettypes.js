@@ -22,20 +22,8 @@ define(
                 $('#systemparlay_link').click(function () {
                     Site.redirect(Site.resolveClientUrl('RunningBettypesBetList/SystemParlay'));
                 });
-            },
-
-            submit: function () {
-                BetList.initialize();
-                var actionName = window.location.pathname.split('/').pop();
-                var params = Site.setLicenseeOptionParam();
-                var url = Site.resolveClientUrl('api/RunningBettypesBetList/' + actionName);
-
-                BetList.loadData(params, url);
-            },
-
-            exportToExcel: function () {
                 $("#ExportToExcel").click(function () {
-                    var url = window.location.href;
+                    var url = Site.getCurrentUrl();
                     url = Site.setLicenseeOptionParam(url);
                     url = QueryString.setParam(url, "IsExportExcel", true);
                     var sortParams = BetList.getSortParams();
@@ -45,6 +33,15 @@ define(
                     }
                     Site.redirect(url);
                 });
+            },
+
+            submit: function () {
+                BetList.initialize();
+                var actionName = Site.getLocation().pathname.split('/').pop();
+                var params = Site.setLicenseeOptionParam();
+                var url = Site.resolveClientUrl('api/RunningBettypesBetList/' + actionName);
+
+                BetList.loadData(params, url);
             }
         };
 
