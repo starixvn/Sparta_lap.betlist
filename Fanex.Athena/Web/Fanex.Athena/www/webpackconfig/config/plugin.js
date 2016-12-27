@@ -8,13 +8,21 @@ function generatePlugins(environment) {
     var commonPlugins = [
         new CleanWebpackPlugin([cssRootPath], {
             root: process.cwd(),
-            exclude: ['fonts', 'images', 'pages']
+            exclude: ['fonts', 'images', 'dev', 'pro']
         }),
-        new CleanWebpackPlugin([`${cssRootPath}/pages`], {
+        new CleanWebpackPlugin([`${cssRootPath}/dev/pages`], {
             root: process.cwd(),
             exclude: ['betlist']
         }),
-        new CleanWebpackPlugin([`${cssRootPath}/pages/betlist`], {
+        new CleanWebpackPlugin([`${cssRootPath}/pro/pages`], {
+            root: process.cwd(),
+            exclude: ['betlist']
+        }),
+        new CleanWebpackPlugin([`${cssRootPath}/dev/pages/betlist`], {
+            root: process.cwd(),
+            exclude: ['images']
+        }),
+        new CleanWebpackPlugin([`${cssRootPath}/pro/pages/betlist`], {
             root: process.cwd(),
             exclude: ['images']
         }),
