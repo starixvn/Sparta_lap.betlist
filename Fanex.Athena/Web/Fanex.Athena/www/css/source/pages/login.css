@@ -22,7 +22,7 @@ body, html {
     height: 20px; }
 
 .page-login .page {
-  background-image: url("../../images/bg-login.jpg");
+  background-image: url("../../../images/bg-login.jpg");
   background-size: cover;
   background-position: center;
   background-color: #020922;
