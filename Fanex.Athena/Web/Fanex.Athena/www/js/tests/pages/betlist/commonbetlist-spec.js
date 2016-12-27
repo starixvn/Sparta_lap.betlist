@@ -1,5 +1,5 @@
 ﻿define(['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'pages/betlist/commonbetlist'],
-    function ($, Site, QueryString, BetList, CommonBetList, TestHelper) {
+    function ($, Site, QueryString, BetList, CommonBetList) {
         describe("CommonBetList", function () {
             beforeEach(function () {
                 setFixtures('<input id="ApiUrl" value="Test/Index" />');

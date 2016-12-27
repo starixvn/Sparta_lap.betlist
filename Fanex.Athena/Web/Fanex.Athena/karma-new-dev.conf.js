@@ -12,12 +12,13 @@
             { pattern: 'www/js/source/**/*.js', included: false },
             { pattern: 'www/js/tests/test-helper.js', included: false },
 
-            { pattern: 'www/js/tests/pages/betlist/betlist-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/betlist/betlist.option-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/betlist/betlistcorrectscore-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/betlist/betlistrunning-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/betlist/betlistrunning.multiplebettypes-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/betlist/commonbetlist-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/betlist/betlist-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/betlist/betlist.option-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/betlist/betlistcorrectscore-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/betlist/betlistrunning-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/betlist/betlistrunning.multiplebettypes-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/betlist/commonbetlist-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/forecast/forecast.ah-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {

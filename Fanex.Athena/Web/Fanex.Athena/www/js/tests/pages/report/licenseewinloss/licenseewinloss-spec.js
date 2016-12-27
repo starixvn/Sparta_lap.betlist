@@ -80,7 +80,7 @@
                     expect(LicenseeWinLoss.goBack).toHaveBeenCalledWith(3);
                 });
 
-                xit("LicenseeWinLoss.openBetlistPopUp(datadrilldown) should be called if .bet-list-link is clicked.", function () {
+                it("LicenseeWinLoss.openBetlistPopUp(datadrilldown) should be called if .bet-list-link is clicked.", function () {
                     setFixtures('<div class="bet-list-link"></div>');
 
                     spyOn(LicenseeWinLoss, "openBetlistPopUp");

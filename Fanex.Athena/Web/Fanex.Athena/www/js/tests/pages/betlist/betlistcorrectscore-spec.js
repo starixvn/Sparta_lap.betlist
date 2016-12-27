@@ -1,5 +1,5 @@
 ﻿define(['jquery', 'common/site', 'pages/betlist/betlist', 'pages/betlist/betlistcorrectscore'],
-    function ($, Site, BetList, BetListCorrectScore, TestHelper) {
+    function ($, Site, BetList, BetListCorrectScore) {
         describe("CorrectScoreBetList", function () {
             beforeAll(function () {
                 spyOn(BetList, "initialize");

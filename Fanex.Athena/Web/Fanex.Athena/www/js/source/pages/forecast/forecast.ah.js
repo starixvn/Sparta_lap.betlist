@@ -1,17 +1,17 @@
 ﻿define(['jquery', 'common/site', 'common/querystring', 'common/popup', 'components/refreshcountdown'],
     function ($, Site, QueryString, Popup, RefreshCountDown) {
-    var matchid, baseCurrency, licenseetype, currencyid, currencyName;
+    var _matchid, _baseCurrency, _licenseetype, _currencyid, _currencyName;
 
     var _me = {
         initialize: function () {
             Site.initialize();
             _me.resizePopup();
 
-            matchid = $('#forecast-table').attr('data-match-id');
-            baseCurrency = $('#forecast-table').attr('data-basecurrency');
-            licenseetype = $('#forecast-table').attr('data-licenseetype');
-            currencyid = $('#forecast-table').attr('data-currencyid');
-            currencyName = $('#forecast-table').attr('data-currencyname');
+            _matchid = $('#forecast-table').attr('data-match-id');
+            _baseCurrency = $('#forecast-table').attr('data-basecurrency');
+            _licenseetype = $('#forecast-table').attr('data-licenseetype');
+            _currencyid = $('#forecast-table').attr('data-currencyid');
+            _currencyName = $('#forecast-table').attr('data-currencyname');
 
             _me.initEvent();
 
@@ -52,16 +52,15 @@
         },
 
         loadForecast: function (selectedScore, bettype) {
-            var url = Site.resolveClientUrl("AhForecast/Index?matchid=" + matchid + '&bettype=' + bettype);
-            url = QueryString.setParam(url, "basecurrency", baseCurrency);
-            url = QueryString.setParam(url, "LicenseeType", licenseetype);
-            url = QueryString.setParam(url, "CurrencyId", currencyid);
+            var url = Site.resolveClientUrl("AhForecast/Index?matchid=" + _matchid + '&bettype=' + bettype);
+            url = QueryString.setParam(url, "basecurrency", _baseCurrency);
+            url = QueryString.setParam(url, "LicenseeType", _licenseetype);
+            url = QueryString.setParam(url, "CurrencyId", _currencyid);
             if (selectedScore !== null) {
                 url = QueryString.setParam(url, "CurrentScore", selectedScore);
             }
             $("#BetType").val(bettype);
             $("#CurrentScore").val(selectedScore);
-
             $.ajax({
                 url: url,
                 beforeSend: function () {
@@ -82,12 +81,12 @@
 
         viewBetlist: function (bettype) {
             var url = Site.resolveClientUrl("RunningMatchBetList/Index");
-            url = QueryString.setParam(url, "matchid", matchid);
+            url = QueryString.setParam(url, "matchid", _matchid);
             url = QueryString.setParam(url, "bettype", bettype);
-            url = QueryString.setParam(url, "basecurrency", baseCurrency);
-            url = QueryString.setParam(url, "currencyid", currencyid);
-            url = QueryString.setParam(url, "currencyname", currencyName);
-            url = QueryString.setParam(url, "licenseetype", licenseetype);
+            url = QueryString.setParam(url, "basecurrency", _baseCurrency);
+            url = QueryString.setParam(url, "currencyid", _currencyid);
+            url = QueryString.setParam(url, "currencyname", _currencyName);
+            url = QueryString.setParam(url, "licenseetype", _licenseetype);
 
             var popH = Math.min(parent.innerHeight - 100, 700), popW = 960;
 
