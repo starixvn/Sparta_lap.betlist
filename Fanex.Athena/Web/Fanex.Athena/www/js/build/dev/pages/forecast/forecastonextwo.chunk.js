@@ -279,7 +279,7 @@ webpackJsonp([24],{
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(215), __webpack_require__(9), __webpack_require__(219)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown, Popup) {
 		"use strict";
 	
-		var isPopup;
+		var _isPopup;
 	
 		var _me = {
 			resizeGrid: function () {
@@ -303,8 +303,8 @@ webpackJsonp([24],{
 			initialize: function () {
 			    Site.initialize();
 	
-			    isPopup = $('#IsPopUp').val() === "true";
-			    if (isPopup) {
+			    _isPopup = $('#IsPopUp').val() === "true";
+			    if (_isPopup) {
 			        $("body").css("background", "#fff");
 			        _me.resizePopup();
 			    }
@@ -348,7 +348,7 @@ webpackJsonp([24],{
 			openForecast: function (matchId, betType) {
 				var url = Site.resolveClientUrl("RunningMatchBetList/Index");
 	
-				if (isPopup) {
+				if (_isPopup) {
 				    url = _me.getBetListUrl(url, matchId, betType);
 					var popH = Math.min(parent.innerHeight - 100, 650), popW = 900;
 					Popup.updateCurrentPopup(url, { width: popW, height: popH, title: Site.getSingleResource("BetList") });
