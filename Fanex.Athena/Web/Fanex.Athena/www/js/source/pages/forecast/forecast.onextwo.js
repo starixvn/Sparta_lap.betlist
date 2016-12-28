@@ -45,8 +45,7 @@
 		},
 		initEvent: function () {
 			$('.league-list').on('change', function () {
-				var leagueId = $(this).val();
-				_me.loadSelectedLeague(leagueId);
+			    _me.submit();
 			});
 
 			$('#reportContent').on('click', '.button-add', function () {
@@ -93,12 +92,6 @@
 		    url = QueryString.setParam(url, "bettype", betType);
 
 		    return url;
-		},
-		loadSelectedLeague: function (leagueId) {
-			var url = Site.resolveClientUrl("OneXTwoForecast/Index");
-			url = Site.setLicenseeOptionOriginalParam(url);
-			url = QueryString.setParam(url, "LeagueId", leagueId);
-			_me.submit();
 		},
 		submit: function () {
 			Site.blockUI();
