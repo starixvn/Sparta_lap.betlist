@@ -20,22 +20,20 @@ webpackJsonp([36],{
 	
 	    var _me = {
 	        initialize: function () {
-	            // Select countdown
 	            $('.menu-item').on('click', function () {
 	                var selectedCountDown = parseInt($(this).attr('data-count-down'));
 	                _me.setCountDown(selectedCountDown, true);
 	            });
 	
-	            // Refresh button click
 	            $('.button-refresh').on('click', function () {
 	                _me.refresh();
 	            });
 	
-	            // Get count down id from filter
-	            countDownId = $('#count-down-of').attr('name');
+	            var $hiddenCountdown = $('#count-down-of');
+	            countDownId = $hiddenCountdown.attr('name');
 	
 	            // Get default count down
-	            defaultCountDown = parseInt($('#count-down-of').attr('data-default-value'));
+	            defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'));
 	        },
 	        initEvent: function () {
 	            cookieName = "RefeshCountDown" + countDownId;
