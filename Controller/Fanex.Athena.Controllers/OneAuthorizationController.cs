@@ -37,13 +37,13 @@
         [AllowAnonymous]
         [HttpGet]
         [Route("Auth/CreateSession")]
+        [OutputCache(Duration = 0, NoStore = true)]
         public RedirectResult CreateSession(string token)
         {
             if (_maintenanceService.IsUnderMaintenance())
             {
                 return Redirect(Url.Content("~/Utility/UnderMaintenance?notReload=true"));
             }
-
             var returnUrl = "~/Utility/OneTokenRestriction?code=";
             var errMsg = string.Empty;
             if (!string.IsNullOrWhiteSpace(token))

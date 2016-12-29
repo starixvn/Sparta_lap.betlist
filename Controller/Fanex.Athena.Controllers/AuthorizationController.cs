@@ -88,6 +88,7 @@ namespace Fanex.Athena.Controllers
         [HandleAntiForgeryError]
         [HttpPost]
         [CustomValidateAntiForgery]
+        [OutputCache(Duration = 0, NoStore = true)]
         [SuppressMessage(
           "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
@@ -143,6 +144,8 @@ namespace Fanex.Athena.Controllers
                         user.Username,
                         user.IsInternal,
                         user.Licensee.Id);
+
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
                     FormsAuthentication.SetAuthCookie(user.Username, false);
 
                     if (user.IsInRole(UserRole.Admin.ToString()))
