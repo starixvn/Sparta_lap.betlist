@@ -44,6 +44,7 @@
             {
                 return Redirect(Url.Content("~/Utility/UnderMaintenance?notReload=true"));
             }
+
             var returnUrl = "~/Utility/OneTokenRestriction?code=";
             var errMsg = string.Empty;
             if (!string.IsNullOrWhiteSpace(token))
