@@ -4,14 +4,14 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Fanex.Athena.Web.RouterConfig;
+    using Extension.Utility;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using Web.RouterConfig;
 
     [TestFixture]
     public class BaseControllerTest

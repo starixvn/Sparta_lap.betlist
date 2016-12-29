@@ -21,7 +21,7 @@ namespace Fanex.Athena.Controllers
     /// <summary>
     /// Base controller.
     /// </summary>
-    [Authorize]
+    [CustomAuthorize]
     [XFrameOption]
     public class BaseController : Controller
     {
