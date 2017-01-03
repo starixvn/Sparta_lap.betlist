@@ -90,6 +90,7 @@
 		    url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
 		    url = QueryString.setParam(url, "matchid", matchId);
 		    url = QueryString.setParam(url, "bettype", betType);
+		    url = QueryString.setParam(url, "currencyname", QueryString.getParam(Site.getCurrentUrl(), "currencyname"));
 
 		    return url;
 		},
