@@ -28,8 +28,7 @@
 
 footer{
     background: #CBCBCB;
-    position: absolute;
-    left: 260px;
+    position: fixed;
     bottom: 0;
-    width: calc(100% - 260px);
+    width: 100%;
 }

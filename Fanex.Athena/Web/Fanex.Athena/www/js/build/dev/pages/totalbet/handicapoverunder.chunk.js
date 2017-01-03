@@ -515,8 +515,9 @@ webpackJsonp([32],{
 	            }
 	
 	            var gridTop = $grid.offset().top;
+	            var footerSite = 18;
 	
-	            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - 25;
+	            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - footerSite - 10;
 	            gridHeight = Math.max(150, gridHeight);
 	            $grid.css("max-height", gridHeight);
 	

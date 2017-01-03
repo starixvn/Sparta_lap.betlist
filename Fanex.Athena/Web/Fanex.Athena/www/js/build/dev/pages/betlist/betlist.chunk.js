@@ -15208,8 +15208,9 @@ webpackJsonp([18],[
 	                var gridTop = $bdiv.offset().top;
 	                var pagingHeight = $(".paging:visible").length ? $(".paging:visible").height() : 0;
 	                var footerHeight = $(".ui-jqgrid-sdiv:visible").length ? $(".ui-jqgrid-sdiv:visible").height() : 0;
+	                var footerSite = 18;
 	
-	                var gridHeight = window.innerHeight - gridTop - footerHeight - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - 30;
+	                var gridHeight = window.innerHeight - gridTop - footerHeight - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - footerSite - 15;
 	                gridHeight = Math.max(120, gridHeight);
 	
 	                $bdiv.css("max-height", gridHeight);
