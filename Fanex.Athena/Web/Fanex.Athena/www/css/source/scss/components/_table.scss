@@ -1,6 +1,8 @@
-﻿.table {
+﻿@import "../abstracts/_variables.scss";
+
+.table {
     a {
-        color: #1c5fc3;
+        color: $colorHyperlink;
         text-decoration: none;
 
         &:hover, &:focus, &:active {
@@ -15,29 +17,19 @@
                 text-align: center;
                 background: #d1dae1;
                 border: 1px solid #ffffff;
+                border-top: 1px solid $colorBorderTable;
                 color: #314453;
-                font-weight: 600;
+                font-weight: 500;
                 padding: 2px 5px;
+                border-radius: 0;
 
                 &:first-child {
-                    border-left-color: #d1dae1 !important;
+                    border-left-color: $colorBorderTable !important;
                 }
 
                 &:last-child {
-                    border-right-color: #d1dae1 !important;
+                    border-right-color: $colorBorderTable !important;
                 }
-            }
-
-            &:nth-child(2) th {
-                &:last-child {
-                    border-right-color: #fff !important;
-                }
-            }
-        }
-
-        &:first-child {
-            > tr:first-child > th {
-                border: 1px solid #ffffff;
             }
         }
     }

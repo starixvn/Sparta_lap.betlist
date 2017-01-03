@@ -88,6 +88,7 @@ namespace Fanex.Athena.Controllers
         [HandleAntiForgeryError]
         [HttpPost]
         [CustomValidateAntiForgery]
+        [OutputCache(Duration = 0, NoStore = true)]
         [SuppressMessage(
           "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
@@ -143,6 +144,8 @@ namespace Fanex.Athena.Controllers
                         user.Username,
                         user.IsInternal,
                         user.Licensee.Id);
+
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
                     FormsAuthentication.SetAuthCookie(user.Username, false);
 
                     if (user.IsInRole(UserRole.Admin.ToString()))
@@ -173,24 +176,23 @@ namespace Fanex.Athena.Controllers
         [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
         public ActionResult RecheckIn()
         {
-            var userSession = SessionService.UserSession;
-            var currentLoginId = 0;
-
-            if (int.TryParse(Request["onid"], out currentLoginId) == false || currentLoginId == 0 || !Request.IsAuthenticated || userSession == null)
-            {
-                return Json(RecheckInResult(ErrorType.AccessDenied, ViewResources.AccessDeniedMsg), JsonRequestBehavior.AllowGet);
-            }
-
-            if (currentLoginId != userSession.OnUserId)
-            {
-                return Json(RecheckInResult(ErrorType.SessionOverride, ViewResources.SessionLoggedMsg), JsonRequestBehavior.AllowGet);
-            }
-
             if (_maintenanceService.IsUnderMaintenance())
             {
                 var time = _maintenanceService.GetUnderMaintenanceTime();
                 var message = string.Format(ViewResources.UndermaintenanceMsg, time.From, time.To);
                 return Json(RecheckInResult(ErrorType.UnderMaintenance, message), JsonRequestBehavior.AllowGet);
+            }
+
+            var userSession = SessionService.UserSession;
+            var currentLoginId = Request["onid"];
+            if (!Request.IsAuthenticated || string.IsNullOrEmpty(currentLoginId) || userSession == null)
+            {
+                return Json(RecheckInResult(ErrorType.AccessDenied, ViewResources.InvalidRequestOrNotAuthorizedMsg), JsonRequestBehavior.AllowGet);
+            }
+
+            if (currentLoginId != userSession.OnUserId.ToString())
+            {
+                return Json(RecheckInResult(ErrorType.SessionOverride, ViewResources.SessionLoggedMsg), JsonRequestBehavior.AllowGet);
             }
 
             var isKickout = _userService.RecheckIn(userSession.OnUserId);

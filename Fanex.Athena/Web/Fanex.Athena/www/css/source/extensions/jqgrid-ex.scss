@@ -1,8 +1,11 @@
 ﻿@import "../scss/abstracts/_variables.scss";
 
+$colorLightGray: #ccc;
+$colorDisabledPgButton: $colorLightGray;
+
 .theme_jqGrid {
     a {
-        color: #1c5fc3;
+        color: $colorHyperlink;
         text-decoration: none;
 
         &:hover, &:focus, &:active {
@@ -17,10 +20,11 @@
 
         .ui-jqgrid-view {
             font-size: $font-size;
-            border: 1px solid #d1dae1;
+            border: 1px solid $colorBorderTable;
         }
 
         .ui-jqgrid-htable {
+            border-right: 1px solid $colorBorderTable;
             thead {
                 border: none;
 
@@ -29,18 +33,15 @@
                         &.ui-th-column, &.ui-th-column-header {
                             vertical-align: middle;
                             text-align: center;
-                            background: #d1dae1;
-                            border: 1px solid #fff;
+                            border-left: 1px solid $white;
+                            border-bottom: 1px solid $colorBorderTable;
+                            background: $bgHeaderTableLevel1;
                             color: #314453;
-                            font-weight: 600;
+                            font-weight: normal;
                             padding: 4px 5px;
 
                             &:first-child {
-                                border-left-color: #d1dae1 !important;
-                            }
-
-                            &:last-child {
-                                border-right-color: #d1dae1 !important;
+                                border-left-color: $colorBorderTable !important;
                             }
                         }
 
@@ -51,19 +52,10 @@
                     }
 
                     &:nth-child(2) th {
-                        &:last-child {
-                            border-right-color: #fff !important;
-                        }
-
                         &:first-child {
                             border-left: none;
                         }
                     }
-                }
-
-                > tr.jqg-second-row-header > th {
-                    border: 1px solid #ffffff;
-                    border-top: 1px solid #ffffff !important;
                 }
             }
         }
@@ -72,7 +64,7 @@
             tr {
                 &, &.footrow {
                     td {
-                        border: 1px solid #d6d6d6;
+                        border: 1px solid $colorBorderTable;
                         color: #404040;
                         padding: 4px 5px;
 
@@ -111,20 +103,13 @@
 
                 tr.footrow {
                     > td {
-                        border-bottom: 0 none;
+                        border: 1px solid $colorBorderTable;
+                        border-bottom: none;
+
+                        &:first-child {
+                            border-left-color: $colorBorderTable;
+                        }
                     }
-                }
-
-                .grandTotal {
-                    background-color: #fff;
-                    border-color: #fff !important;
-                    color: #545454 !important;
-                }
-
-                .total-eur {
-                    background-color: #ffb391;
-                    border-color: #fff !important;
-                    color: #545454 !important;
                 }
             }
 
@@ -137,9 +122,9 @@
         .ui-jqgrid-pager {
             font-size: 1.1rem;
             background-color: #EFF3F8 !important;
-            border-left: 1px solid #d1dae1 !important;
-            border-right: 1px solid #d1dae1 !important;
-            border-bottom: 1px solid #d1dae1 !important;
+            border-left: 1px solid $colorBorderTable !important;
+            border-right: 1px solid $colorBorderTable !important;
+            border-bottom: 1px solid $colorBorderTable !important;
 
             .ui-icon {
                 font-family: 'icomoon' !important;
@@ -161,6 +146,13 @@
 
                     &:hover {
                         padding: 1px;
+                    }
+
+                    &.ui-state-disabled {
+                        .ui-icon {
+                            color: $colorDisabledPgButton;
+                            cursor: default;
+                        }
                     }
                 }
 
@@ -195,7 +187,7 @@
                     text-align: center;
 
                     &, &:focus {
-                        background: white;
+                        background: $white;
                         border: 1px solid #e2d6d6;
                         box-shadow: none;
                     }

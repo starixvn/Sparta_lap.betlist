@@ -160,3 +160,100 @@ if (toDate != null)
         <input type="hidden" id="productsData" value="@productOptions.ToJson()" />
     </div>
 }
+
+<!--Total bets-->
+<!--Timer countdown control-->
+@helper TimerCountDown(string name, int start)
+{
+    <input type="hidden" id="count-down-of" name="@name" data-default-value="@start" />
+    <div class="timer-countdown">
+        <a href="javascript:;" class="right-align button-refresh">
+            <span class="center-align" id="count"></span>
+            <i class="icon icon-refresh"></i>
+        </a>
+
+        <a href="javascript:;" class="dropdown-button button-select" data-activates="countdown-menu"><i class="icon icon-menu-down"></i></a>
+    </div>
+    <ul id="countdown-menu" class="countdown-menu dropdown-content">
+        @for (var i = 1; i <= 5; i++)
+        {
+            <li id="option-@(start)" data-count-down="@start" class="menu-item"><a href="javascript:;" class="menu-item-text">@start sec</a></li>
+            start += 15;
+        }
+    </ul>
+}
+
+@helper LicenseeType(IList<string> licenseeTypes, string className = "", string selected = "", bool addMoreAllOption = true)
+{
+    var items = licenseeTypes
+     .Select(c => new System.Web.WebPages.Html.SelectListItem
+     {
+         Value = c,
+         Text = c,
+         Selected = selected == c
+     }).ToList();
+    if (addMoreAllOption)
+    {
+        items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+        {
+            Text = ViewResources.All.ToUpper(),
+            Value = "",
+            Selected = string.IsNullOrEmpty(selected) || selected == "0"
+        });
+    }
+    <select name="LicenseeType" id="LicenseeType" class="@className" data-original="@selected">
+        @foreach (var item in items)
+        {
+            <option value="@item.Value" @(item.Selected ? "selected=selected" : "")>@item.Text</option>
+        }
+    </select>
+}
+
+@helper NegativeFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
+{
+    if (value != 0)
+    {
+        <span @(value < 0 ? "class=negative-number" : string.Empty)>@value.ToString("#,##0.00")</span>
+    }
+    else
+    {
+        <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
+    }
+}
+
+@helper DecFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
+{
+    if (isDisplayZero)
+    {
+        <span class="total-cell">@value.ToString((value != 0 || isFormatZero) ? "#,##0.00" : "0")</span>
+    }
+    else
+    {
+        <span>@(value == 0 ? string.Empty : value.ToString("#,##0.00"))</span>
+    }
+}
+@helper PositiveFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
+{
+    if (value != 0)
+    {
+            <span @(value > 0 ? "class=positive-number" : string.Empty)>@value.ToString("#,##0.00")</span>
+    }
+    else
+    {
+            <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
+    }
+}
+
+@helper PositiveFormatExt(decimal? value)
+{
+    if ((value.HasValue))
+    {
+        @PositiveFormat(Convert.ToDecimal(value), true, false);
+    }
+}
+
+@helper ViewBaseCurrency(string currencyName, string basedCurrencyName)
+{
+    @(string.IsNullOrEmpty(basedCurrencyName) ? string.Format(ViewResources.Viewin, currencyName) : string.Format(ViewResources.Viewin, basedCurrencyName.ToUpper()))
+
+}

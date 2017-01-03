@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Web.Mvc;
+    using Base.UnitTests;
     using Fanex.Athena.Resources;
     using NSubstitute;
     using NUnit.Framework;

@@ -1,4 +1,6 @@
-﻿.page-form {
+﻿@import "../scss/abstracts/_variables.scss";
+
+.page-form {
     .input-field {
         input[type=radio] + label {
             left: 0;
@@ -20,6 +22,12 @@
             margin-bottom: 10px;
         }
     }
+
+    @media only screen and (min-width: 993px) {
+        .button-block {
+            width: 10% !important;
+        }
+    }
 }
 
 .page-results {
@@ -27,18 +35,6 @@
         box-shadow: none;
         border: 0;
         margin: 0.5rem 0 1rem 0;
-
-        .panel-heading {
-            min-height: 3rem;
-            line-height: 3rem;
-
-            i {
-                width: 2rem;
-                line-height: 3rem;
-                display: block;
-                text-align: center;
-            }
-        }
     }
 }
 
@@ -51,8 +47,8 @@
     }
 
     > a.ui-multiselect {
-        height: 3.5rem;
-        line-height: 3.5rem;
+        height: 2.5rem;
+        line-height: 2.5rem;
         border: none;
         border-bottom: 1px solid #ccc;
         cursor: pointer;
@@ -72,10 +68,10 @@
 
             &:before {
                 content: "\E916";
-                color: #282d38;
+                color: #4d6273;
                 font-size: 18px;
                 position: absolute;
-                top: 14px;
+                top: 7px;
                 right: -5px;
                 line-height: 1;
             }
@@ -175,8 +171,8 @@
     cursor: pointer;
 }
 
-.negative-number{
-    color: #ff0000;
+.negative-number, .positive-number {
+    color: $colorPositiveNumber;
 }
 
 .highlight, .table > tbody > tr > td.highlight {
@@ -225,4 +221,54 @@
 
 [type="radio"].with-gap:checked + label:after {
     background-color: #6790b0;
+}
+
+table {
+    td, th {
+        border-radius: 0;
+    }
+}
+
+//----- Table Column Width -----//
+.col-small {
+    width: 5%;
+}
+
+.col-extra-small {
+    width: 2%;
+}
+
+.col-medium {
+    width: 15%;
+
+    &.small {
+        width: 10%;
+    }
+}
+
+.col-large {
+    width: 40%;
+
+    &.small {
+        width: 35%;
+    }
+}
+
+.col-child {
+    width: 10%;
+
+    &.small {
+        width: 6%;
+    }
+}
+
+//----- User Guide -----//
+#UserGuidePopup {
+    ul li {
+        list-style-type: disc;
+
+        ul li {
+            list-style-type: circle;
+        }
+    }
 }

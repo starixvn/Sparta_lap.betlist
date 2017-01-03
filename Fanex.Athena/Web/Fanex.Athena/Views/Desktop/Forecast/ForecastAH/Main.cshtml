@@ -1,0 +1,23 @@
+﻿@{
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Desktop/Shared/_ForecastLayout.cshtml";
+}
+@section pagecss
+{
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/forecast/ahforecast.css")" rel="stylesheet" />
+}
+@section pagejs
+{
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/forecast/ahforecast.chunk.js")"></script>
+}
+
+@section Filter
+{
+    <div class="timer">
+        @RazorHelperDesktop.TimerCountDown("forecastah", 15)
+    </div>
+}
+<div id="reportContent">
+    @{
+        Html.RenderPartial("~/Views/Desktop/Forecast/ForecastAH/Content.cshtml");
+    }
+</div>

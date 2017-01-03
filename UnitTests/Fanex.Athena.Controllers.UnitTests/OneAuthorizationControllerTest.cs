@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System;
+    using Base.UnitTests;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Logging;

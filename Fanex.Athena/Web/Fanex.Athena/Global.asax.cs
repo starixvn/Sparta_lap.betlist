@@ -6,6 +6,13 @@
 
 namespace Fanex.Athena
 {
+    using Api.Base.Attributes;
+    using Api.Base.Logger;
+    using CasinoSetting;
+    using Data.Configuration;
+    using Fanex.Athena.Service.Core.Helpers;
+    using Fanex.Athena.Web.ActionFilter;
+    using Fanex.Athena.Web.RouterConfig;
     using System;
     using System.Configuration;
     using System.Web;
@@ -15,14 +22,6 @@ namespace Fanex.Athena
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using Api.Base.Attributes;
-    using Api.Base.Logger;
-    using CasinoSetting;
-    using Data.Configuration;
-    using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Service.Core.Helpers;
-    using Fanex.Athena.Web.ActionFilter;
-    using Fanex.Athena.Web.RouterConfig;
 
     public class MvcApplication : HttpApplication
     {
@@ -76,7 +75,7 @@ namespace Fanex.Athena
         public void Application_Error(object sender, EventArgs e)
         {
             // Code that runs when an unhandled error occurs
-            Exception exception = Server.GetLastError().GetBaseException();
+            var exception = Server.GetLastError().GetBaseException();
             if (exception is HttpAntiForgeryException)
             {
                 return;

@@ -8,29 +8,24 @@ namespace Fanex.Athena.Service.TotalBet
 {
     using System.Collections.Generic;
     using DataAccess.TotalBet;
+    using DataAccess.TotalBet.Interfaces;
     using Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// Total Goal Service class.
-    /// </summary>
     public class TotalGoalService : ITotalGoalService
     {
-        #region Fields
-
-        private readonly TotalGoalDataAccess _totalGoalDataAccess;
-
-        #endregion Fields
-
-        #region Constructor
+        private readonly ITotalGoalDataAccess _totalGoalDataAccess;
 
         public TotalGoalService()
         {
             _totalGoalDataAccess = new TotalGoalDataAccess();
         }
 
-        #endregion Constructor
+        public TotalGoalService(ITotalGoalDataAccess totalGoalDataAccess)
+        {
+            _totalGoalDataAccess = totalGoalDataAccess;
+        }
 
         public IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel, out TotalGoal totalData)
         {

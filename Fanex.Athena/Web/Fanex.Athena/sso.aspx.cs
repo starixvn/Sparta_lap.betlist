@@ -13,7 +13,7 @@ public partial class sso : System.Web.UI.Page
     protected override void OnLoad(EventArgs e)
     {
         var _maintenanceService = new MaintenanceService();
-
+        Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
         if (_maintenanceService.IsUnderMaintenance())
         {
             Response.Redirect("~/Utility/UnderMaintenance");

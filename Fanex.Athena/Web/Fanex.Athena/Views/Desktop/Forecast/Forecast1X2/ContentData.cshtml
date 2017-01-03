@@ -1,0 +1,50 @@
+﻿@model Fanex.Athena.Model.Forecast.ViewModel.ForecastOneXTwoViewModel
+@{
+    var mainData = Model.MainData.OrderBy(x => x.HomeTeamName);
+}
+@foreach (var match in mainData)
+{
+    <!--Render team-->
+    <tr class="league-name">
+        <td colspan="5">
+            @match.HomeTeamName -vs- @match.AwayTeamName
+        </td>
+    </tr>
+
+    <tr>
+        <td class="center-align" colspan="2">
+            @if (match.LiveIndicator)
+                {
+                <span>@match.LiveHomeScore - @match.LiveAwayScore</span>
+                <i class="live-notice">@ViewResources.Live!</i>
+            }
+            else
+            {
+                @Html.Raw(match.ShowTime)
+            }
+        </td>
+        <td class="center-align text-bold">1</td>
+        <td class="center-align text-bold highlight">X</td>
+        <td class="center-align text-bold">2</td>
+    </tr>
+
+    var bettype = match.IsExtra == true ? "167" : "15";
+    if (!match.IsExtra)
+    {
+        <tr>
+            <td class="center-align">@ViewResources.FullTime</td>
+            <td class="center-align"><a class="icon-plus button-add" data-match-id="@match.MatchId" data-bettype="5" href="javascript:;"></a></td>
+            <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HomeWinLoss, true, false)</td>
+            <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.DrawWinLoss, true, false)</td>
+            <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.AwayWinLoss, true, false)</td>
+        </tr>
+    }
+
+    <tr>
+        <td class="center-align">@ViewResources.HalfTime</td>
+        <td class="center-align"><a class="icon-plus button-add" data-match-id="@match.MatchId" data-bettype="@bettype" href="javascript:;"></a></td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HalfTimeHomeWinLoss, true, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HalfTImeDrawWinLoss, true, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HalfTimeAwayWinLoss, true, false)</td>
+    </tr>
+}

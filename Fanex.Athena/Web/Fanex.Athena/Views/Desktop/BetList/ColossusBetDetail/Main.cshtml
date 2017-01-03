@@ -3,7 +3,7 @@
     Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
 }
 @section css{
-    <link href="@Url.ContentLink("/www/css/build/pages/betlist/colossusbetdetail.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/betlist/colossusbetdetail.css")" rel="stylesheet" type="text/css" />
 }
 @model Fanex.Athena.Model.BetList.ViewModel.ColossusBetDetailViewModel
 <div class="content-wrapper">

@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+}
+@section css
+{
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/totalbet/totalbetlayout.css")" rel="stylesheet" />
+    @RenderSection("pagecss", required: false)
+}
+@section js
+{
+    @RenderSection("pagejs", required: false)
+}
+
+<div class="page-form">
+    @RenderSection("Filter", required: false)
+</div>
+
+<div class="page-results">
+    <div id="reportContent" class="result-content">
+        @RenderBody()
+    </div>
+</div>

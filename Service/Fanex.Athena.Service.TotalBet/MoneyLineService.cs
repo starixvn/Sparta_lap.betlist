@@ -8,29 +8,24 @@ namespace Fanex.Athena.Service.TotalBet
 {
     using System.Collections.Generic;
     using DataAccess.TotalBet;
+    using DataAccess.TotalBet.Interfaces;
     using Interfaces;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// Money live service class.
-    /// </summary>
     public class MoneyLineService : IMoneyLineService
     {
-        #region Fields
-
-        private readonly MoneyLineDataAccess _moneyLineDataAccess;
-
-        #endregion Fields
-
-        #region Constructor
+        private readonly IMoneyLineDataAccess _moneyLineDataAccess;
 
         public MoneyLineService()
         {
             _moneyLineDataAccess = new MoneyLineDataAccess();
         }
 
-        #endregion Constructor
+        public MoneyLineService(IMoneyLineDataAccess moneyLineDataAccess)
+        {
+            _moneyLineDataAccess = moneyLineDataAccess;
+        }
 
         public IList<MoneyLine> GetMoneyLineDataList(MoneyLineMetaModel metaModel, out MoneyLine totalData)
         {

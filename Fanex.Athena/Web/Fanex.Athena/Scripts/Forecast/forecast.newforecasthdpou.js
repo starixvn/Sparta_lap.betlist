@@ -44,7 +44,7 @@ var NewForecastHdpOu = (function ($) {
             }
         },
         loadMatchList: function (leagueId) {
-            var url = Site.resolveClientUrl("Forecast/GetMatchListByLeague");
+            var url = Site.resolveClientUrl("NewHandicapOverUnderForecast/GetMatchListByLeague");
             url = QueryString.setParam(url, "LeagueId", leagueId);
 
             $.ajax({

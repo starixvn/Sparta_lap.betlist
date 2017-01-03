@@ -39,12 +39,12 @@ namespace Fanex.Athena.Web.RouterConfig
         {
             if (content == null)
             {
-                throw new ArgumentNullException("content");
+                throw new ArgumentNullException(nameof(content));
             }
 
             if (encodingType == null)
             {
-                throw new ArgumentNullException("encodingType");
+                throw new ArgumentNullException(nameof(encodingType));
             }
 
             this._originalContent = content;
@@ -52,7 +52,7 @@ namespace Fanex.Athena.Web.RouterConfig
 
             if (this._encodingType != "GZIP" && this._encodingType != "DEFLATE")
             {
-                throw new InvalidOperationException(string.Format("Encoding '{0}' is not supported. Only supports gzip or deflate encoding.", this._encodingType));
+                throw new InvalidOperationException($"Encoding '{this._encodingType}' is not supported. Only supports gzip or deflate encoding.");
             }
 
             // copy the headers from the original content

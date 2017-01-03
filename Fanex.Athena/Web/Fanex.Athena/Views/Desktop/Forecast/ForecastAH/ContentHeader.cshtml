@@ -1,0 +1,22 @@
+﻿@model Fanex.Athena.Model.Forecast.DTO.ForecastAH.ForecastAH
+<table class="table">
+    <thead>
+        <tr class="first-row">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th colspan="4">@ViewResources.Team</th>
+            <th>@ViewResources.Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="center-align text-bold" colspan="4">@Model.HomeTeamName -vs- @Model.AwayTeamName</td>
+            <td class="center-align text-bold">@Model.LiveHomeScore : @Model.LiveAwayScore</td>
+        </tr>
+    </tbody>
+</table>

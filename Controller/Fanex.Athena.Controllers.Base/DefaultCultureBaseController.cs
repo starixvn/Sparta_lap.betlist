@@ -9,13 +9,14 @@
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
+    using Web.ActionFilter;
 
     #endregion Using
 
     /// <summary>
     /// Base controller.
     /// </summary>
-    [Authorize]
+    [CustomAuthorize]
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     public class DefaultCultureBaseController : Controller

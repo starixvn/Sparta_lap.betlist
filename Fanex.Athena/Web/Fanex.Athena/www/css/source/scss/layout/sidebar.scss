@@ -64,6 +64,7 @@
 
                 > .collapsible-header {
                     color: #f05b1f;
+                    font-weight: bold;
 
                     i.icon-arrow {
                         transform: rotate(0);
@@ -79,7 +80,7 @@
 
             li {
                 padding: 0 0 0 20px;
-                line-height: 35px;
+                line-height: 30px;
 
                 a {
                     display: inline-block;

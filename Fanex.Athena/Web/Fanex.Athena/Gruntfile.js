@@ -27,6 +27,9 @@ module.exports = function(grunt) {
 		  singleRun: true,
 		  browsers: ['PhantomJS'],
 		  logLevel: 'ERROR'*/
+	  },
+	  unit2dev: {
+	      configFile: 'karma-new-dev.conf.js'
 	  }
 	},
 	jshint: {
@@ -36,7 +39,8 @@ module.exports = function(grunt) {
 	},
 	webpack: {
 		dev: webpackDevelopment,
-		pro: webpackProduction
+		pro: webpackProduction,
+		both: [webpackDevelopment, webpackProduction]
 	}
   });
 

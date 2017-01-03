@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers
 {
     using System;
     using System.IO;
+    using System.Web;
     using System.Web.Mvc;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
@@ -109,6 +110,7 @@ namespace Fanex.Athena.Controllers
                 return string.Empty;
             }
 
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.SetCookie(new System.Web.HttpCookie(IsFirstLoadCookieKey, "0"));
 
             var moveBet = _moveBetService.GetMoveBet();

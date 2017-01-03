@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Account
     using System.Linq;
     using System.Text;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.MetaModel.Account;
@@ -48,6 +49,20 @@ namespace Fanex.Athena.Controllers.Account
             this._functionService = new FunctionService();
             this._userService = new UserService();
             _currencyService = new CurrencyService();
+        }
+
+        public AccountController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IFunctionService functionService,
+            IUserService userService,
+            ICurrencyService currencyService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _functionService = functionService;
+            _userService = userService;
+            _currencyService = currencyService;
         }
 
         #region Actions

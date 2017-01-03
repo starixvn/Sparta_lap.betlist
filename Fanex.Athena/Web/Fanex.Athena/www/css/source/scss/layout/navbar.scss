@@ -31,7 +31,6 @@ header {
 
 .logo {
     padding-left: 15px;
-    padding-right: 15px;
     height: 64px;
     line-height: 64px;
     float: left;
@@ -48,17 +47,13 @@ header {
     .logo-text {
         display: inline-block;
         margin-left: 10px;
-
-        img {
-            max-width: 129px;
-        }
     }
 
     .icon-hambuger {
         display: inline-block;
-        width: 3rem;
+        width: 5rem;
         text-align: center;
-        margin-left: 21px;
+        margin-left: 13px;
     }
 
     .lines {
@@ -181,13 +176,12 @@ header {
         }
 
         .profile-items {
-            width: 15rem !important;
+            width: 17rem !important;
             top: 64px !important;
 
             .icon {
                 font-size: 14px;
-                // padding-left: 15px;
-                padding-right: 10px;
+                padding-left: 10px;
                 vertical-align: middle;
             }
         }

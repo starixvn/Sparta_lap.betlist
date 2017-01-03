@@ -4,20 +4,20 @@
 }
 @section css
 {
-    <link href="@Url.ContentLink("/www/css/build/pages/betlist/betlistSimpleLayout.css")" rel="stylesheet" />
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/betlist/betlistSimpleLayout.css")" rel="stylesheet" />
     @RenderSection("pagecss", required: false)
 }
 @section js
 {
-    <script src="@Url.ContentLink("/www/js/build/pages/betlist/betlist.chunk.js")"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/betlist/betlistsimple.chunk.js")"></script>
     
     @RenderSection("pagejs", required: false)
 }
 
-<div class="betlist-container">
+<div class="betlist-container betlist-popup">
     <div class="content-title">
         @RenderSection("ContentTitle", required: false)
-        <div class="export-excel">
+        <div class="right">
             @RenderSection("BackButton", required: false)
             @if (ViewBag.HideExportExcel != true)
             {

@@ -14,8 +14,8 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <!-- Style for page -->
-    <link href="~/www/css/build/main.css" rel="stylesheet" />
-    <link href="~/www/css/build/pages/login/login.css" rel="stylesheet" />
+    <link href="@Url.ContentLinkByEnv("/www/css/build/main.css")" rel="stylesheet" />
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/login/login.css")" rel="stylesheet" />
 
     <script type="text/javascript">
         var _page =
@@ -79,7 +79,7 @@
     <input type="hidden" id="captchaUrl" value="@Url.Content("~/Authorization/Captcha")" />
     @Html.Hidden("LogInTokenTemp", loginToken)
 
-    <script src="@Url.ContentLink("/www/js/build/common.chunk.js")" type="text/javascript"></script>
-    <script src="@Url.ContentLink("/www/js/build/pages/signin/signin.chunk.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/common.chunk.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/signin/signin.chunk.js")" type="text/javascript"></script>
 </body>
 </html>

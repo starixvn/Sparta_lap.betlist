@@ -11,17 +11,17 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.MetaModel;
+    using Service.Core.Common;
+    using Service.Core.Users;
 
     /// <summary>
     /// Base controller.
     /// </summary>
-    [Authorize]
+    [CustomAuthorize]
     [XFrameOption]
     public class BaseController : Controller
     {

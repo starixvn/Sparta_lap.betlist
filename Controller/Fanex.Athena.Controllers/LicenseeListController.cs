@@ -56,7 +56,7 @@
         {
             SessionService.UpdateLiceseeSession(licenseeId);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index), "Home");
         }
     }
 }

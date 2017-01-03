@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.TotalBets +
+    " - " + ViewResources.HandicapOverUnderLive;
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Desktop/Shared/_TotalBetsLayout.cshtml";
+}
+
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/totalbet/handicapoverunder.chunk.js")" type="text/javascript"></script>
+}
+
+@section Filter
+{
+    @{
+        Html.RenderPartial("~/Views/Desktop/TotalBets/HandicapOverUnder/Filter.cshtml");
+    }
+}
+
+@{
+    Html.RenderPartial("~/Views/Desktop/TotalBets/HandicapOverUnder/Content.cshtml");
+}

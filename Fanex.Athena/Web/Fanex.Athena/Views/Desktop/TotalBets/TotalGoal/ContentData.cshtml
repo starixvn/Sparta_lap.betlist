@@ -1,0 +1,45 @@
+﻿@using System.Linq
+@model Fanex.Athena.Model.TotalBet.ViewModel.TotalGoalViewModel
+@{
+    var index = 1;
+    var listMatch = Model.MainData.OrderBy(x => x.HomeTeamName).ToList();
+}
+@foreach (var match in listMatch)
+{
+    <tr>
+        <td class="center-align">
+            @(index++)
+        </td>
+        <td>
+            <a data-leagueid="@match.LeagueId" data-match-id="@match.MatchId" class="team" href="javascript:;">@match.HomeTeamName</a>
+        </td>
+        <td>
+            @match.AwayTeamName
+        </td>
+
+        <!--Render Fulltime-->
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.Total01, true, false)
+        </td>
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.Total23, true, false)
+        </td>
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.Total46, true, false)
+        </td>
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.Total7Over, true, false)
+        </td>
+
+        <!--Render 1st Half-->
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormatExt(match.TotalFirstHalf01)
+        </td>
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormatExt(match.TotalFirstHalf23)
+        </td>
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormatExt(match.Total4Over)
+        </td>
+    </tr>
+}

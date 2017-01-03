@@ -10,10 +10,13 @@
 namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.TotalBet;
     using Service.TotalBet.Interfaces;
 
@@ -25,6 +28,16 @@ namespace Fanex.Athena.Controllers.TotalBets
         public HomeDrawAwayNoBetTotalBetController()
         {
             _homeDrawAwayNoBetService = new HomeDrawAwayNoBetService();
+        }
+
+        public HomeDrawAwayNoBetTotalBetController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IHomeDrawAwayNoBetService homeDrawAwayNoBetService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _homeDrawAwayNoBetService = homeDrawAwayNoBetService;
         }
 
         [HttpGet]

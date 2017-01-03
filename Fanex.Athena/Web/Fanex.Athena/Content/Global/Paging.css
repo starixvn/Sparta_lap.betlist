@@ -69,8 +69,6 @@ span.pagingSeperator
 {
     border-left: 1px solid #888;
     filter: alpha(opacity=35);
-    -moz-opacity: .35;
-    -khtml-opacity: 0.35;
     opacity: 0.35;
     margin: 1px 4px 1px 4px;
     width: 1px;

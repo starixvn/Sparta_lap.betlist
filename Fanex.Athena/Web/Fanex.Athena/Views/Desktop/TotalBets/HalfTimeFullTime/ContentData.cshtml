@@ -1,0 +1,56 @@
+﻿@using System.Linq
+@model Fanex.Athena.Model.TotalBet.ViewModel.HalfTimeFullTimeViewModel
+@{
+    var index = 1;
+}
+@foreach (var match in Model.MainData)
+{
+    <tr>
+        <td class="center-align">
+            @(index++)
+        </td>
+        <td>
+            <a data-match-id="@match.MatchId" class="team" href="javascript:;">@match.HomeTeamName</a>
+        </td>
+        <td>
+            @match.AwayTeamName
+        </td>
+
+        <!--HH-->
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.HomeHome, true, false)
+        </td>
+        <!--HD-->
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.HomeDraw, true, false)
+        </td>
+        <!--HA-->
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.HomeAway, true, false)
+        </td>
+        <!--DH-->
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.DrawHome, true, false)
+        </td>
+        <!--DD-->
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.DrawDraw, true, false)
+        </td>
+        <!--DA-->
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.DrawAway, true, false)
+        </td>
+        <!--AH-->
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.AwayHome, true, false)
+        </td>
+        <!--AD-->
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.AwayDraw, true, false)
+        </td>
+        <!--AA-->
+        <td class="right-align text-bold">
+            @RazorHelperDesktop.PositiveFormat(match.AwayAway, true, false)
+        </td>
+    </tr>
+}

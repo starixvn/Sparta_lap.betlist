@@ -1,4 +1,5 @@
-﻿.licensees-block {
+﻿@import '../vendors/materialize/_materialize-home.scss';
+.licensees-block {
     padding: 0 1rem;
 }
 
@@ -23,4 +24,12 @@
     .logo-image {
         vertical-align: top;
     }
+}
+
+footer{
+    background: #CBCBCB;
+    position: absolute;
+    left: 260px;
+    bottom: 0;
+    width: calc(100% - 260px);
 }

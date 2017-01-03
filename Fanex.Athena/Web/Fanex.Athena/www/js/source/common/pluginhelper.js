@@ -1,26 +1,8 @@
-﻿define(["jquery", "common/site", "moment", "bootstrap-daterangepicker", "lib/jquery.monthpicker", "vendor-materialize"],
+﻿define(["jquery", "common/site", "moment", "bootstrap-daterangepicker", "lib/jquery.monthpicker"],
     function ($, Site, moment) {
         "use strict";
 
     var _historyDate = new Date($("#HistoryDate").val());
-
-    function initMaterialSelect() {
-        $('select.select').not('.disabled').material_select(function () { // jshint ignore:line
-            $('input.select-dropdown').trigger('close');
-        });
-
-        /*Hack for IE*/
-        var onMouseDown = function (e) {
-            $('input.select-dropdown').not($(e.target).find('input.select-dropdown')).trigger('close');
-            $('#grid-products-multiselect').multiSelect('hideMe');
-            // preventing the default still allows the scroll, but blocks the blur.
-            // We're inside the scrollbar if the clientX is >= the clientWidth.
-            if (e.clientX >= e.target.clientWidth || e.clientY >= e.target.clientHeight) {
-                e.preventDefault();
-            }
-        };
-        $('select.initialized').siblings('input.select-dropdown').on('mousedown', onMouseDown);
-    }
 
     function initDateRangePicker() {
         var $dateRange = $('#DateRange');
@@ -115,7 +97,6 @@
     }
 
     return {
-        initMaterialSelect: initMaterialSelect,
         initDateRangePicker: initDateRangePicker,
         initMonthPicker: initMonthPicker
     };

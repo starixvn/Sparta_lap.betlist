@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+}
+@section css
+{
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/betlist/betlistLayout.css")" rel="stylesheet" />
+    @RenderSection("pagecss", required: false)
+}
+@section js
+{
+    @RenderSection("pagejs", required: false)
+}
+<div class="report-container">
+    @if (IsSectionDefined("ContentTitle"))
+    {
+        <div class="page-tab">
+            @RenderSection("ContentTitle", required: false)
+        </div>
+    }
+    <div class="page-form">
+        @RenderSection("ContentFilter", required: false)
+    </div>
+    <div class="page-results">
+        <div class="betlist-container" id="report-container">
+            <div class="theme_jqGrid">
+                <div id="pager1">
+                </div>
+                <table id="BetListGrid"></table>
+                <div id="pager2">
+                </div>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+﻿@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
+
+<div class="row">
+    @if (Model.LicenseeTypeList.Count > 0)
+    {
+        <div class="input-field col l2 m3 s12">
+            @RazorHelperDesktop.LicenseeType(Model.LicenseeTypeList, "select", Model.Param.LicenseeType, true)
+            <label>@ViewResources.Type</label>
+        </div>
+    }
+
+    <div class="input-field col l2 m3 s12">
+        @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, false)
+        <label>@ViewResources.Currency</label>
+    </div>
+
+    <div class="input-field col l2 m3 s12">
+        @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
+        <label>@ViewResources.Based</label>
+    </div>
+    <div class="col l2 m2 s12 button-block">
+        <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+    </div>
+    <div class="col right icon-block">
+        <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+        <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+    </div>
+    <input type="hidden" name="LicenseeId" id="LicenseeId" value="@Model.Param.LicenseeId" />
+</div>

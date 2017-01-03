@@ -1,0 +1,75 @@
+﻿@using System.Linq
+@model Fanex.Athena.Model.TotalBet.ViewModel.HomeDrawAwayNoBetViewModel
+@{
+    var leagueList = Model.MainData.GroupBy(x => new { x.LeagueId, x.LeagueName, x.LiveIndicator })
+                            .Select(x => x.Key)
+                            .OrderBy(x => x.LeagueName)
+                            .OrderByDescending(x => x.LiveIndicator)
+                            .ToList();
+
+    var index = 1;
+}
+@foreach (var league in leagueList)
+{
+    <tr class="league-name">
+        <td class="league" colspan="6">
+            @league.LeagueName
+        </td>
+    </tr>
+
+    var matchOfLeague = Model.MainData
+                            .Where(x => x.LeagueId == league.LeagueId && x.LiveIndicator == league.LiveIndicator)
+                            .ToList();
+
+    foreach (var match in matchOfLeague)
+    {
+        <tr class="@(match.LiveIndicator == 1 ? "live" : string.Empty)">
+            <td class="center-align">
+                @(index++)
+            </td>
+            <td class="center-align">
+                @if (match.LiveIndicator == 1)
+                {
+                    <span>@match.LiveHomeScore - @match.LiveAwayScore</span>
+                    <br />
+                    <i class="live-notice">@ViewResources.Live!</i>
+                }
+                else
+                {
+                    @Html.Raw(match.ShowTime)
+                }
+            </td>
+            <td>
+                @match.HomeTeamName -vs- @match.AwayTeamName
+            </td>
+
+            <!--Home No Bet-->
+            <td class="right-align text-bold">
+                @if (match.BetCountHomeNoBet != 0)
+                {
+                    <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="121" href="javascript:;">
+                        @RazorHelperDesktop.NegativeFormat(match.HomeNoBet, true, false)
+                    </a>
+                }
+            </td>
+            <!--Draw No Bet-->
+            <td class="right-align text-bold">
+                @if (match.BetCountDrawNoBet != 0)
+                {
+                    <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="25" href="javascript:;">
+                        @RazorHelperDesktop.NegativeFormat(match.DrawNoBet, true, false)
+                    </a>
+                }
+            </td>
+            <!--Away No Bet-->
+            <td class="right-align text-bold">
+                @if (match.BetCountAwayNoBet != 0)
+                {
+                    <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="122" href="javascript:;">
+                        @RazorHelperDesktop.NegativeFormat(match.AwayNoBet, true, false)
+                    </a>
+                }
+            </td>
+        </tr>
+    }
+}

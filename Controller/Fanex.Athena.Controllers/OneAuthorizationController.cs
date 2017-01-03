@@ -37,6 +37,7 @@
         [AllowAnonymous]
         [HttpGet]
         [Route("Auth/CreateSession")]
+        [OutputCache(Duration = 0, NoStore = true)]
         public RedirectResult CreateSession(string token)
         {
             if (_maintenanceService.IsUnderMaintenance())

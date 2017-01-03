@@ -24,7 +24,7 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
     public class LastBetsMonitoringBetListController : ReadonlyBaseController
     {
-        private ISportTypeService _sportTypeService;
+        private readonly ISportTypeService _sportTypeService;
 
         public LastBetsMonitoringBetListController()
         {

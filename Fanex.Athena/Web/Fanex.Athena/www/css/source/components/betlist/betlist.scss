@@ -1,8 +1,17 @@
-﻿body{
-    background: #fff;
+﻿@import "../../scss/abstracts/_variables.scss";
+
+.betlist-popup {
+    padding: 5px 15px;
 }
+
 .betlist-container {
-    padding: 5px 20px;
+    background: #fff;
+
+    .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th {
+        &, &.ui-th-column {
+            color: $white;
+        }
+    }
 
     .content-title {
         font-weight: bold;
@@ -227,19 +236,9 @@
         color: rgb(2, 69, 132);
     }
 
-    .export-excel {
-        overflow: auto;
-        float: right;
-    }
-
-    div.history-link {
-        background: url("images/undo.png") no-repeat scroll center center #FFEFDE;
-        cursor: pointer;
-        float: left;
-        height: 22px;
-        margin-right: 10px;
-        margin-top: -2px;
-        width: 22px;
+    .icon-back {
+        color: #555;
+        font-size: 1.8rem;
     }
     /* Link */
     span.inactive-switch-link {
@@ -266,7 +265,6 @@
         color: #755200;
         font-weight: bold;
     }
-
     /*to make line-through for void-parlay-ticket*/
     div.mx-parlay {
         div.void {
