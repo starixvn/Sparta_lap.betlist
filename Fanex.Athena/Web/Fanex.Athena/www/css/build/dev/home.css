@@ -3798,6 +3798,13 @@ select:disabled {
 /*Hack for IE*/
 .logo .logo-image {
   vertical-align: top; }
+
+footer {
+  background: #CBCBCB;
+  position: absolute;
+  left: 260px;
+  bottom: 0;
+  width: calc(100% - 260px); }
 .materialize-red {
   background-color: #e51c23 !important; }
 
@@ -7941,7 +7948,7 @@ main {
   width: 100%;
   position: absolute;
   top: 64px;
-  bottom: 0;
+  bottom: 10px;
   transition: 0.3s ease all; }
   @media (max-width: 500px) {
     main {

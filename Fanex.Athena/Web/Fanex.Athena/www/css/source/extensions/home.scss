@@ -25,3 +25,11 @@
         vertical-align: top;
     }
 }
+
+footer{
+    background: #CBCBCB;
+    position: absolute;
+    left: 260px;
+    bottom: 0;
+    width: calc(100% - 260px);
+}
