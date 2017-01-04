@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -792,6 +792,7 @@
     <Content Include="www\css\build\pro\pages\betlist\systemparlaydetail.css" />
     <Content Include="www\css\build\pro\pages\forecast\ahforecast.css" />
     <Content Include="www\css\build\pro\pages\forecast\forecastonextwo.css" />
+    <Content Include="www\css\build\pro\pages\forecast\newforecast.css" />
     <Content Include="www\css\build\pro\pages\login\login.css" />
     <Content Include="www\css\build\pro\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\pro\pages\reports\livereport.css" />
@@ -814,6 +815,7 @@
     <Content Include="www\js\build\dev\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\ahforecast.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\forecastonextwo.chunk.js" />
+    <Content Include="www\js\build\dev\pages\forecast\newforecasthdpou.chunk.js" />
     <Content Include="www\js\build\dev\pages\home\home.chunk.js" />
     <Content Include="www\js\build\dev\pages\licenseewinloss\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\livereport\livereport.chunk.js" />
@@ -836,6 +838,7 @@
     <Content Include="www\js\build\pro\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\pro\pages\forecast\ahforecast.chunk.js" />
     <Content Include="www\js\build\pro\pages\forecast\forecastonextwo.chunk.js" />
+    <Content Include="www\js\build\pro\pages\forecast\newforecasthdpou.chunk.js" />
     <Content Include="www\js\build\pro\pages\home\home.chunk.js" />
     <Content Include="www\js\build\pro\pages\licenseewinloss\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\livereport\livereport.chunk.js" />
@@ -1516,6 +1519,7 @@
     <Content Include="www\css\source\vendors\materialize\_materialize-content.scss" />
     <Content Include="www\css\source\pages\forecast\newforecast.scss" />
     <Content Include="www\js\source\pages\forecast\forecast.newforecasthdpou.main.js" />
+    <Content Include="www\js\build\dev\pages\forecast\newforecasthdpou.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
