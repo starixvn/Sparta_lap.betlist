@@ -34,7 +34,8 @@ var cssPaths = {
 
     ahforecast: [...cssReportCommon, "./www/css/source/pages/forecast/forecast.ah.scss"],
     mixparlay: ["./www/css/source/pages/totalbet/mixparlay.scss"],
-    forecastonextwo: [...cssReportCommon, "./www/css/source/pages/forecast/forecastonextwo.scss"]
+    forecastonextwo: [...cssReportCommon, "./www/css/source/pages/forecast/forecastonextwo.scss"],
+    newforecast: [...cssReportCommon, "./www/css/source/pages/forecast/newforecast.scss"]
 };
 
 var scriptPaths = {
@@ -62,7 +63,8 @@ var scriptPaths = {
     halftimefulltime: "./www/js/source/pages/totalbet/halftimefulltime/main.js",
     firstgoallastgoal: "./www/js/source/pages/totalbet/firstgoallastgoal/main.js",
     homedrawawaynobet: "./www/js/source/pages/totalbet/homedrawawaynobet/main.js",
-    forecastonextwo: "./www/js/source/pages/forecast/forecast.onextwo.main.js"
+    forecastonextwo: "./www/js/source/pages/forecast/forecast.onextwo.main.js",
+    newforecasthdpou: "./www/js/source/pages/forecast/forecast.newforecasthdpou.main.js"
 };
 
 module.exports = {

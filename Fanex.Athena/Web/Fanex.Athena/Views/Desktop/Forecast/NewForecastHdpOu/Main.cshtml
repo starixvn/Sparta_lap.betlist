@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Forecast + " - " + ViewResources.HandicapOverUnderLive;
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Desktop/Shared/_ForecastLayout.cshtml";
+}
+
+@section pagecss
+{
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/forecast/newforecast.css")" rel="stylesheet" />
+}
+@section pagejs
+{
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/forecast/newforecasthdpou.chunk.js")"></script>
+}
+
+@section Filter{
+    @{
+        Html.RenderPartial("~/Views/Desktop/Forecast/NewForecastHdpOu/Filter.cshtml");
+    }
+}
+@{
+    Html.RenderPartial("~/Views/Desktop/Forecast/NewForecastHdpOu/Content.cshtml");
+}

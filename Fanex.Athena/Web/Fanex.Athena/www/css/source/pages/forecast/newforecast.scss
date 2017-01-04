@@ -1,0 +1,17 @@
+﻿@import '../totalbet/totalbet';
+
+$colorTextMatch: #545454;
+
+.match{
+    color: $colorTextMatch;
+    padding: 1.5rem;
+}
+.match-infor{
+    display: inline-block;
+    font-size: 1.6rem;
+    margin: 0 10px;
+}
+
+.v-line{
+    margin: 0 10px;
+}

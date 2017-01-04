@@ -1,0 +1,96 @@
+﻿@model Fanex.Athena.Model.Forecast.ViewModel.NewForecastHdpOuViewModel
+
+@using (Html.BeginForm("Index", "NewHandicapOverUnderForecast", FormMethod.Post, new { @id = "NewForecastHdpOuForm" }))
+{
+    @Html.AntiForgeryToken()
+    // ----------------------------- Hidden field -----------------------------//
+    <div>
+        @Html.Hidden("CurrencyId-Hidden", Model.Param.CurrencyId)
+        @Html.Hidden("LicenseeType-Hidden", Model.Param.LicenseeType)
+        @Html.Hidden("IsConvert-Hidden", Model.Param.IsConvert)
+        @Html.Hidden("IsShowFh", Model.Param.IsShowFH)
+        @Html.Hidden("IsShowFt", Model.Param.IsShowFT)
+        @Html.Hidden("LeagueId", Model.Param.LeagueId)
+        @Html.Hidden("MatchId", Model.Param.MatchId)
+        <input type="hidden" id="AwayTeamId" name="AwayTeamId" value="@Model.Param.AwayTeamId" />
+        <input type="hidden" id="HomeTeamId" name="HomeTeamId" value="@Model.Param.HomeTeamId" />
+    </div>
+
+    var leagueSelectedListItem = Model.LeagueList.Select(l => new SelectListItem
+    {
+        Text = l.LeagueName,
+        Value = l.LeagueId.ToString(),
+        Selected = l.LeagueId == Model.Param.LeagueId
+    });
+    var matchSelectedListItem = Model.MatchList.Select(m => new SelectListItem
+    {
+        Text = m.MatchName,
+        Value = m.MatchId.ToString(),
+        Selected = m.MatchId == Model.Param.MatchId
+    });
+
+    <div class="page-form">
+        <div class="row">
+            @if (Model.LeagueList.Count > 0)
+            {
+                <div class="col l4 m6 s12 input-field">
+                    @Html.DropDownList("DdlLeagueId", leagueSelectedListItem, new { @class = "league-list", @data_original = Model.Param.LeagueId })
+                    <label>@ViewResources.League</label>
+                </div>
+                <div class="col l4 m6 s12 input-field">
+                    @Html.DropDownList("DdlMatchId", matchSelectedListItem, new { @class = "match-list", @data_original = Model.Param.MatchId })
+                    <label>@ViewResources.Match</label>
+                </div>
+            }
+        </div>
+
+        <div class="row">
+            @*// -----------------------------Currency-----------------------------------//*@
+            <div class="col l2 m1 s12 input-field">
+                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select CurrencyId", Model.Param.CurrencyId)
+                <label>@ViewResources.Currency</label>
+            </div>
+
+            @*// -----------------------------Base Currency-----------------------------------//*@
+            <div class="col l2 m1 s12 input-field">
+                @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
+                <label>@ViewResources.Based</label>
+            </div>
+
+            <div class="col l1 m2 s12 button-block">
+                <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+            </div>
+
+            @*// -----------------------------Refresh countdown------------------------ //*@
+            <div class="col l1 m2 s12 button-block">
+                @RazorHelperDesktop.TimerCountDown("Newforecast", 15)
+            </div>
+
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.LeagueList.Count > 0)
+{
+    <div class="page-form match">
+        <div class="row">
+            <div class="match-infor team">
+                <span class="home-team red-text">@Model.Param.HomeTeamName vs.</span> <span class="away-team">@Model.Param.AwayTeamName</span>
+            </div>
+            <div class="match-infor text-bold v-line">|</div>
+            <div class="match-infor score">
+                @ViewResources.Score
+                <span class="green-text text-darken-3">@Model.HeaderInfo.HomeScore : @Model.HeaderInfo.AwayScore</span>
+            </div>
+            <div class="match-infor time">
+                @ViewResources.Time
+                <span class="green-text text-darken-3">
+                    @Model.HeaderInfo.KickOffDateString
+                </span>
+            </div>
+        </div>
+    </div>
+}

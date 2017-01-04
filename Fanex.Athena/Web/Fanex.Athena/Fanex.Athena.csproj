@@ -748,6 +748,8 @@
     <Content Include="www\css\build\dev\pages\forecast\ahforecast.css" />
     <Content Include="www\css\build\dev\pages\forecast\forecastonextwo.chunk.js" />
     <Content Include="www\css\build\dev\pages\forecast\forecastonextwo.css" />
+    <Content Include="www\css\build\dev\pages\forecast\newforecast.chunk.js" />
+    <Content Include="www\css\build\dev\pages\forecast\newforecast.css" />
     <Content Include="www\css\build\dev\pages\login\login.chunk.js" />
     <Content Include="www\css\build\dev\pages\login\login.css" />
     <Content Include="www\css\build\dev\pages\reports\licenseewinloss.chunk.js" />
@@ -903,6 +905,7 @@
     <Content Include="www\js\source\components\sidebar.js" />
     <Content Include="www\js\source\pages\forecast\forecast.ah.main.js" />
     <Content Include="www\js\source\pages\forecast\forecast.onextwo.main.js" />
+    <Content Include="www\js\source\pages\forecast\forecast.newforecasthdpou.js" />
     <Content Include="www\js\source\pages\home\home.js" />
     <Content Include="www\js\source\pages\home\main.js" />
     <Content Include="www\js\source\pages\home\recheckin.js" />
@@ -1417,6 +1420,13 @@
     <Content Include="Views\Desktop\Forecast\ForecastHDPOU\ContentData.cshtml" />
     <Content Include="Views\Desktop\Forecast\ForecastHDPOU\Filter.cshtml" />
     <Content Include="Views\Desktop\Forecast\ForecastHDPOU\Main.cshtml" />
+    <Content Include="Views\Desktop\Forecast\NewForecastHdpOu\Main.cshtml" />
+    <Content Include="Views\Desktop\Forecast\NewForecastHdpOu\Filter.cshtml" />
+    <Content Include="Views\Desktop\Forecast\NewForecastHdpOu\Content.cshtml" />
+    <Content Include="www\css\build\dev\pages\forecast\newforecast.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\forecast\newforecast.css.map" />
+    <Content Include="Views\Desktop\Forecast\NewForecastHdpOu\Content.ForecastItem.cshtml" />
+    <Content Include="Views\Desktop\Forecast\NewForecastHdpOu\MatchOptionList.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1504,6 +1514,8 @@
     <Content Include="www\css\source\vendors\materialize\components\_waves.scss" />
     <Content Include="www\css\source\vendors\materialize\_materialize-home.scss" />
     <Content Include="www\css\source\vendors\materialize\_materialize-content.scss" />
+    <Content Include="www\css\source\pages\forecast\newforecast.scss" />
+    <Content Include="www\js\source\pages\forecast\forecast.newforecasthdpou.main.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
