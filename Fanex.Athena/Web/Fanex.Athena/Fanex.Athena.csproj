@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -1413,6 +1413,10 @@
     <Content Include="www\css\build\dev\pages\totalbet\totalbetlayout.css.map" />
     <Content Include="www\css\build\dev\pages\utility\error.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\utility\error.css.map" />
+    <Content Include="Views\Desktop\Forecast\ForecastHDPOU\Content.cshtml" />
+    <Content Include="Views\Desktop\Forecast\ForecastHDPOU\ContentData.cshtml" />
+    <Content Include="Views\Desktop\Forecast\ForecastHDPOU\Filter.cshtml" />
+    <Content Include="Views\Desktop\Forecast\ForecastHDPOU\Main.cshtml" />
     <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />

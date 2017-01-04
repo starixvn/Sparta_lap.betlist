@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.TotalBets + " - " + ViewResources.OddEven + " - " + ViewResources.OneXTwo;
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Desktop/Shared/_ForecastLayout.cshtml";
+}
+@section pagecss
+{
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/forecast/forecastonextwo.css")" rel="stylesheet" />
+}
+@section pagejs
+{
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/forecast/forecastonextwo.chunk.js")"></script>
+}
+
+@section Filter{
+    @{
+        Html.RenderPartial("~/Views/Desktop/Forecast/ForecastHDPOU/Filter.cshtml");
+    }
+}
+@{
+    Html.RenderPartial("~/Views/Desktop/Forecast/ForecastHDPOU/Content.cshtml");
+}
