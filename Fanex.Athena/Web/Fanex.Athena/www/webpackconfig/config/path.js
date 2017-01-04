@@ -64,6 +64,7 @@ var scriptPaths = {
     firstgoallastgoal: "./www/js/source/pages/totalbet/firstgoallastgoal/main.js",
     homedrawawaynobet: "./www/js/source/pages/totalbet/homedrawawaynobet/main.js",
     forecastonextwo: "./www/js/source/pages/forecast/forecast.onextwo.main.js",
+    forecasthdpou: "./www/js/source/pages/forecast/forecast.handicapoverunder.main.js"
     newforecasthdpou: "./www/js/source/pages/forecast/forecast.newforecasthdpou.main.js"
 };
 

@@ -37,6 +37,7 @@ function generateConfig(environment) {
             [`${pathConfig.scriptPaths.build}/${environment}/pages/totalbet/firstgoallastgoal`]: [pathConfig.scriptPaths.firstgoallastgoal],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/totalbet/homedrawawaynobet`]: [pathConfig.scriptPaths.homedrawawaynobet],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/forecast/forecastonextwo`]: [pathConfig.scriptPaths.forecastonextwo],
+            [`${pathConfig.scriptPaths.build}/${environment}/pages/forecast/forecasthdpou`]: [pathConfig.scriptPaths.forecasthdpou],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/forecast/newforecasthdpou`]: [pathConfig.scriptPaths.newforecasthdpou],
 
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,

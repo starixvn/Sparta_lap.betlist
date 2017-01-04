@@ -907,6 +907,8 @@
     <Content Include="www\js\source\components\refreshcountdown.js" />
     <Content Include="www\js\source\components\sidebar.js" />
     <Content Include="www\js\source\pages\forecast\forecast.ah.main.js" />
+    <Content Include="www\js\source\pages\forecast\forecast.handicapoverunder.main.js" />
+    <Content Include="www\js\source\pages\forecast\forecast.handicapoverunder.js" />
     <Content Include="www\js\source\pages\forecast\forecast.onextwo.main.js" />
     <Content Include="www\js\source\pages\forecast\forecast.newforecasthdpou.js" />
     <Content Include="www\js\source\pages\home\home.js" />
