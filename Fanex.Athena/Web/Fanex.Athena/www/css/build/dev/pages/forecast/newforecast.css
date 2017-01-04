@@ -576,10 +576,23 @@ table td, table th {
 
 .match-infor {
   display: inline-block;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   margin: 0 10px; }
 
 .v-line {
   margin: 0 10px; }
+
+.table-detail {
+  display: inline-block;
+  width: calc(50% - 3px); }
+  .table-detail .table > thead > tr > th {
+    text-align: left;
+    font-weight: bold; }
+
+.table-title {
+  color: #2c2c2c; }
+
+.panel-title {
+  cursor: pointer; }
 
 /*# sourceMappingURL=newforecast.css.map*/

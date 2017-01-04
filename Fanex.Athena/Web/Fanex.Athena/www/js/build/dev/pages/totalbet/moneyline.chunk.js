@@ -1,9 +1,9 @@
-webpackJsonp([36],{
+webpackJsonp([37],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(262);
+	module.exports = __webpack_require__(264);
 
 
 /***/ },
@@ -503,7 +503,7 @@ webpackJsonp([36],{
 
 /***/ },
 
-/***/ 255:
+/***/ 257:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(189), __webpack_require__(193)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
@@ -580,10 +580,10 @@ webpackJsonp([36],{
 
 /***/ },
 
-/***/ 262:
+/***/ 264:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(263)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MoneyLine) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(265)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MoneyLine) {
 	    "use strict";
 	
 	    $(MoneyLine.initialize);
@@ -592,10 +592,10 @@ webpackJsonp([36],{
 
 /***/ },
 
-/***/ 263:
+/***/ 265:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(255), __webpack_require__(189)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(257), __webpack_require__(189)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
 	    "use strict";
 	
 	    var _me = {

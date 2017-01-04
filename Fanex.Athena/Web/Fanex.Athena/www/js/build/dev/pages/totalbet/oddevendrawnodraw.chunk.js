@@ -1,9 +1,9 @@
-webpackJsonp([37],{
+webpackJsonp([38],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(264);
+	module.exports = __webpack_require__(266);
 
 
 /***/ },
@@ -503,7 +503,7 @@ webpackJsonp([37],{
 
 /***/ },
 
-/***/ 255:
+/***/ 257:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(189), __webpack_require__(193)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
@@ -580,10 +580,10 @@ webpackJsonp([37],{
 
 /***/ },
 
-/***/ 264:
+/***/ 266:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(265)], __WEBPACK_AMD_DEFINE_RESULT__ = function (OddEvenDND) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(267)], __WEBPACK_AMD_DEFINE_RESULT__ = function (OddEvenDND) {
 	    "use strict";
 	
 	    $(OddEvenDND.initialize);
@@ -592,10 +592,10 @@ webpackJsonp([37],{
 
 /***/ },
 
-/***/ 265:
+/***/ 267:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(255), __webpack_require__(9), __webpack_require__(189)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, Popup, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(257), __webpack_require__(9), __webpack_require__(189)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, Popup, RefreshCountDown) {
 	    "use strict";
 	
 	    var _me = {

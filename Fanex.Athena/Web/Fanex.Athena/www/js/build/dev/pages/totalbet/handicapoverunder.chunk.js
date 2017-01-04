@@ -1,9 +1,9 @@
-webpackJsonp([34],{
+webpackJsonp([35],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(258);
+	module.exports = __webpack_require__(260);
 
 
 /***/ },
@@ -503,7 +503,7 @@ webpackJsonp([34],{
 
 /***/ },
 
-/***/ 255:
+/***/ 257:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(189), __webpack_require__(193)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
@@ -580,10 +580,10 @@ webpackJsonp([34],{
 
 /***/ },
 
-/***/ 258:
+/***/ 260:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(259)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HandicapOU) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(261)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HandicapOU) {
 	    "use strict";
 	    $(HandicapOU.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -591,10 +591,10 @@ webpackJsonp([34],{
 
 /***/ },
 
-/***/ 259:
+/***/ 261:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(255), __webpack_require__(9), __webpack_require__(189)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Totalbets, Popup, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(257), __webpack_require__(9), __webpack_require__(189)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Totalbets, Popup, RefreshCountDown) {
 	        "use strict";
 	
 	    var _me = {

@@ -1,5 +1,4 @@
 ﻿define(['jquery', 'common/site', 'common/querystring', 'components/refreshcountdown'], function ($, Site, QueryString, RefreshCountDown) {
-
     var _me = {
         initialize: function () {
             Site.initialize();
@@ -14,7 +13,7 @@
             RefreshCountDown.initEvent();
         },
         initEvent: function () {
-            $('.league-list').on('change', function () {
+            $('#DdlLeagueId').on('change', function () {
                 var leagueId = $(this).val();
                 _me.loadMatchList(leagueId);
             });
@@ -69,6 +68,10 @@
                     } else {
                         $('#SubmitButton').removeAttr('disabled');
                     }
+
+                    $("#DdlMatchId").material_select(function() { // jshint ignore:line
+                        $('input.select-dropdown').trigger('close');
+                    });
                 },
                 type: "POST",
                 async: true,

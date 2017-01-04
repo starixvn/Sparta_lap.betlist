@@ -2,16 +2,35 @@
 
 $colorTextMatch: #545454;
 
-.match{
+.match {
     color: $colorTextMatch;
     padding: 1.5rem;
 }
-.match-infor{
+
+.match-infor {
     display: inline-block;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     margin: 0 10px;
 }
 
-.v-line{
+.v-line {
     margin: 0 10px;
+}
+
+.table-detail {
+    display: inline-block;
+    width: calc(50% - 3px);
+
+    .table > thead > tr > th {
+        text-align: left;
+        font-weight: bold;
+    }
+}
+
+.table-title {
+    color: $black;
+}
+
+.panel-title {
+    cursor: pointer;
 }
