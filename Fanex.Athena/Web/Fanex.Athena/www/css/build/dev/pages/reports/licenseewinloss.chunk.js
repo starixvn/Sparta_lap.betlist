@@ -3,28 +3,12 @@ webpackJsonp([11],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(73);
-	__webpack_require__(75);
-	module.exports = __webpack_require__(77);
+	module.exports = __webpack_require__(47);
 
 
 /***/ },
 
-/***/ 73:
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 75:
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 77:
+/***/ 47:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

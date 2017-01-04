@@ -1,4 +1,7 @@
-﻿.panel-body {
+﻿@import '../../components/monthpicker/monpickr';
+@import '../../components/daterangepicker/daterangepicker-ex';
+
+.panel-body {
     padding-bottom: 1.5rem;
 }
 
