@@ -51,15 +51,6 @@
                     });
 
                     <div class="col l3 m4 s12 input-field">
-                        @*<select class="select league-list" id="LeagueId" name="LeagueId">
-                            @{
-                                var selectedLeague = Model.Param.LeagueId == 0 ? 0 : Model.Param.LeagueId;
-                            }
-                            @foreach (var league in Model.LeagueList)
-                            {
-                                <option @(league.LeagueId == selectedLeague ? "selected=selected" : "") value="@league.LeagueId">@league.LeagueName</option>
-                            }
-                        </select>*@
                         @Html.DropDownList("LeagueId", leagueSelectedListItem, new { @class = "select league-list", @data_original = Model.Param.LeagueId })
                         <label>@ViewResources.League</label>
                     </div>
