@@ -573,9 +573,9 @@ table td, table th {
 .page-results .result-content {
   border: none; }
 
-.collapsible {
+.content-data {
   padding-bottom: 15px; }
-  .collapsible-header {
+  .content-data .collapsible-header {
     border-bottom: 1px solid #fff; }
 
 .content-detail {
