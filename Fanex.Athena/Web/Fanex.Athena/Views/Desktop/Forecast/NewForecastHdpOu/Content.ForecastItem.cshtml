@@ -4,7 +4,6 @@
     var totalList = (IList<NewForecastHdpOuTotalItem>)ViewBag.TotalList;
     var detailHdpList = (IList<NewForecastHdpOuDetailItem>)ViewBag.DetailHdpList;
     var detailOuList = (IList<NewForecastHdpOuDetailItem>)ViewBag.DetailOuList;
-    var isExpand = (bool)ViewBag.IsExpand;
     var blockId = (int)ViewBag.BlockId;
     var isFullTime = (bool)ViewBag.IsFullTime;
     var statusElement = isFullTime ? "IsShowFt" : "IsShowFh";
@@ -25,8 +24,8 @@
 
 <ul class="collapsible" data-collapsible="expandable">
     <li>
-        <div class="collapsible-header panel-heading active">
-            <p class="panel-title center-align" data-block-id="@ViewBag.BlockId">
+        <div class="collapsible-header panel-heading active" data-status="@statusElement" data-id="@ViewBag.BlockId">
+            <p class="panel-title center-align">
                 @ViewBag.HeaderText<i class="right icon-arrow"></i>
             </p>
         </div>

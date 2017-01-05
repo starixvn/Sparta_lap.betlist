@@ -573,8 +573,15 @@ table td, table th {
 .page-results .result-content {
   border: none; }
 
+.collapsible {
+  padding-bottom: 15px; }
+  .collapsible-header {
+    border-bottom: 1px solid #fff; }
+
 .content-detail {
-  margin-top: 10px; }
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden; }
 
 .match {
   color: #545454;

@@ -1,4 +1,6 @@
 ﻿define(['jquery', 'common/site', 'common/querystring', 'components/refreshcountdown'], function ($, Site, QueryString, RefreshCountDown) {
+    var _hiddenContents = [];
+
     var _me = {
         initialize: function () {
             Site.initialize();
@@ -18,7 +20,7 @@
                 _me.loadMatchList(leagueId);
             });
 
-            $('.bet-list-link').on("click", function () {
+            $('#reportContent').on("click", ".bet-list-link", function () {
                 var $this = $(this);
                 var betChoice = $this.data("betchoice");
                 var param = $this.data("param");
@@ -31,23 +33,9 @@
             $("#SubmitButton").on("click", function () {
                 _me.submit();
             });
-        },
-        collapseExpand: function (context, statusElement) {
-            var dataBlockId = $(context).attr("data-block-id");
 
-            // is expanded
-            if ($(context).hasClass('expand-icon')) {
-                $('#content-area-' + dataBlockId).slideUp();
-                $(context).removeClass('expand-icon');
-                $(context).addClass('collapse-icon');
-                $('#' + statusElement).val(false);
-            }
-            else {
-                $('#content-area-' + dataBlockId).slideDown();
-                $(context).removeClass('collapse-icon');
-                $(context).addClass('expand-icon');
-                $('#' + statusElement).val(true);
-            }
+            _me.registerCollapsible();
+            _me.initCollapseContent();
         },
         loadMatchList: function (leagueId) {
             var url = Site.resolveClientUrl("NewHandicapOverUnderForecast/GetMatchListByLeague");
@@ -69,9 +57,10 @@
                         $('#SubmitButton').removeAttr('disabled');
                     }
 
-                    $ddlMatchList.material_select(function() { // jshint ignore:line
+                    $ddlMatchList.material_select(function () { // jshint ignore:line
                         $('input.select-dropdown').trigger('close');
                     });
+                    _me.registerCollapsible();
                 },
                 type: "POST",
                 async: true,
@@ -114,6 +103,35 @@
             ).join(',');
 
             window.open(url, '_blank', '' + ',' + formatter);
+        },
+
+        registerCollapsible: function () {
+            $('.collapsible').collapsible({
+                accordion: false,
+                onOpen: function (element) {
+                    element.each(function () {
+                        var statusElement = $(this).data("status");
+                        $('#' + statusElement).val(true);
+                    });
+                },
+                onClose: function (element) {
+                    console.log(element);
+                    if (_hiddenContents.indexOf(element) === -1) {
+                        _hiddenContents.push(element);
+                    }
+
+                    element.each(function () {
+                        var statusElement = $(this).data("status");
+                        $('#' + statusElement).val(false);
+                    });
+                }
+            });
+        },
+
+        initCollapseContent: function () {
+            _hiddenContents.each(function () {
+                $(this).find(".collapsible-header").trigger("click");
+            });
         }
     };
 

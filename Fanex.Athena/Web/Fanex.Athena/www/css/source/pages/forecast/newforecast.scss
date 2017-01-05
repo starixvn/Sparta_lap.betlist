@@ -8,8 +8,18 @@ $colorTextMatch: #545454;
     }
 }
 
+.collapsible{
+    padding-bottom: 15px;
+
+    &-header{
+        border-bottom: 1px solid $white;
+    }
+}
+
 .content-detail {
     margin-top: 10px;
+    position: relative;
+    overflow: hidden;
 }
 
 .match {

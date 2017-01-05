@@ -84,9 +84,6 @@ webpackJsonp([27],{
 	            // Get param before load data
 	            var url = _me.calculateUrl();
 	
-	            // Set up ajax no cache
-	            $.ajaxSetup({ cache: false });
-	
 	            Site.blockUI();
 	            $('#reportContent').load(url, {
 	                noncache: new Date().getTime()
@@ -128,8 +125,8 @@ webpackJsonp([27],{
 	
 	            url = QueryString.setParam(url, "HomeTeamId", homeName);
 	            url = QueryString.setParam(url, "AwayTeamId", awayName);
-	
-	            return url;
+	            
+	            return encodeURI(url);
 	        }
 	    };
 	
@@ -275,6 +272,8 @@ webpackJsonp([27],{
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(189)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
+	    var _hiddenContents = [];
+	
 	    var _me = {
 	        initialize: function () {
 	            Site.initialize();
@@ -294,7 +293,7 @@ webpackJsonp([27],{
 	                _me.loadMatchList(leagueId);
 	            });
 	
-	            $('.bet-list-link').on("click", function () {
+	            $('#reportContent').on("click", ".bet-list-link", function () {
 	                var $this = $(this);
 	                var betChoice = $this.data("betchoice");
 	                var param = $this.data("param");
@@ -307,23 +306,9 @@ webpackJsonp([27],{
 	            $("#SubmitButton").on("click", function () {
 	                _me.submit();
 	            });
-	        },
-	        collapseExpand: function (context, statusElement) {
-	            var dataBlockId = $(context).attr("data-block-id");
 	
-	            // is expanded
-	            if ($(context).hasClass('expand-icon')) {
-	                $('#content-area-' + dataBlockId).slideUp();
-	                $(context).removeClass('expand-icon');
-	                $(context).addClass('collapse-icon');
-	                $('#' + statusElement).val(false);
-	            }
-	            else {
-	                $('#content-area-' + dataBlockId).slideDown();
-	                $(context).removeClass('collapse-icon');
-	                $(context).addClass('expand-icon');
-	                $('#' + statusElement).val(true);
-	            }
+	            _me.registerCollapsible();
+	            _me.initCollapseContent();
 	        },
 	        loadMatchList: function (leagueId) {
 	            var url = Site.resolveClientUrl("NewHandicapOverUnderForecast/GetMatchListByLeague");
@@ -345,9 +330,10 @@ webpackJsonp([27],{
 	                        $('#SubmitButton').removeAttr('disabled');
 	                    }
 	
-	                    $ddlMatchList.material_select(function() { // jshint ignore:line
+	                    $ddlMatchList.material_select(function () { // jshint ignore:line
 	                        $('input.select-dropdown').trigger('close');
 	                    });
+	                    _me.registerCollapsible();
 	                },
 	                type: "POST",
 	                async: true,
@@ -390,6 +376,35 @@ webpackJsonp([27],{
 	            ).join(',');
 	
 	            window.open(url, '_blank', '' + ',' + formatter);
+	        },
+	
+	        registerCollapsible: function () {
+	            $('.collapsible').collapsible({
+	                accordion: false,
+	                onOpen: function (element) {
+	                    element.each(function () {
+	                        var statusElement = $(this).data("status");
+	                        $('#' + statusElement).val(true);
+	                    });
+	                },
+	                onClose: function (element) {
+	                    console.log(element);
+	                    if (_hiddenContents.indexOf(element) === -1) {
+	                        _hiddenContents.push(element);
+	                    }
+	
+	                    element.each(function () {
+	                        var statusElement = $(this).data("status");
+	                        $('#' + statusElement).val(false);
+	                    });
+	                }
+	            });
+	        },
+	
+	        initCollapseContent: function () {
+	            _hiddenContents.each(function () {
+	                $(this).find(".collapsible-header").trigger("click");
+	            });
 	        }
 	    };
 	
