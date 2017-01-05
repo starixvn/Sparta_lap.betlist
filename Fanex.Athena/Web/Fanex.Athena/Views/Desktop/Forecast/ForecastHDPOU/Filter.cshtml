@@ -4,44 +4,31 @@
 {
     @Html.AntiForgeryToken()
 
-    if (Model.Param.IsPopUp)
-    {
-        @Html.Hidden("IsPopUp", "true")
-        @Html.Hidden("CurrencyId-Hidden", Model.Param.CurrencyId)
-        @Html.Hidden("LicenseeType-Hidden", Model.Param.LicenseeType)
-        @Html.Hidden("BaseCurrency-Hidden", Model.Param.BaseCurrency)
-
-        <div class="timer form-popup">
-            @RazorHelperDesktop.TimerCountDown("forecasthpdou", 15)
-        </div>
-    }
-    else
-    {
-        <div class="page-form">
-            <div class="row">
-                @*// ----------------------------Type of licensee---------------------------//*@
-                @if (Model.LicenseeTypeList.Count > 0)
-                    {
-                    <div class="col l2 m2 s12 input-field">
-                        @RazorHelperDesktop.LicenseeType(Model.LicenseeTypeList, "select licenseetype", Model.Param.LicenseeType)
-                        <label>@ViewResources.Type</label>
-                    </div>
-                }
-
-                @*// -----------------------------Currency-----------------------------------//*@
-                <div class="col l2 m1 s12 input-field">
-                    @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select currencylist", Model.Param.CurrencyId)
-                    <label>@ViewResources.Currency</label>
+    <div class="page-form">
+        <div class="row">
+            @*// ----------------------------Type of licensee---------------------------//*@
+            @if (Model.LicenseeTypeList.Count > 0)
+            {
+                <div class="col l2 m2 s12 input-field">
+                    @RazorHelperDesktop.LicenseeType(Model.LicenseeTypeList, "select licenseetype", Model.Param.LicenseeType)
+                    <label>@ViewResources.Type</label>
                 </div>
+            }
 
-                @*// -----------------------------Base Currency-----------------------------------//*@
-                <div class="col l2 m1 s12 input-field">
-                    @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
-                    <label>@ViewResources.Based</label>
-                </div>
+            @*// -----------------------------Currency-----------------------------------//*@
+            <div class="col l2 m1 s12 input-field">
+                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select currencylist", Model.Param.CurrencyId)
+                <label>@ViewResources.Currency</label>
+            </div>
 
-                @*// -----------------------------League List-----------------------------------//*@
-                @if (Model.Param.LeagueId != 0)
+            @*// -----------------------------Base Currency-----------------------------------//*@
+            <div class="col l2 m1 s12 input-field">
+                @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
+                <label>@ViewResources.Based</label>
+            </div>
+
+            @*// -----------------------------League List-----------------------------------//*@
+            @if (Model.Param.LeagueId != 0)
                 {
                     var leagueSelectedListItem = Model.LeagueList.Select(l => new SelectListItem
                     {
@@ -50,25 +37,24 @@
                         Selected = l.LeagueId == Model.Param.LeagueId
                     });
 
-                    <div class="col l3 m4 s12 input-field">
-                        @Html.DropDownList("LeagueId", leagueSelectedListItem, new { @class = "select league-list", @data_original = Model.Param.LeagueId })
-                        <label>@ViewResources.League</label>
-                    </div>
-                }
-
-                <div class="col l1 m2 s12 button-block">
-                    <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+                <div class="col l3 m4 s12 input-field">
+                    @Html.DropDownList("LeagueId", leagueSelectedListItem, new { @class = "select league-list", @data_original = Model.Param.LeagueId })
+                    <label>@ViewResources.League</label>
                 </div>
+            }
 
-                @*// -----------------------------Refresh countdown------------------------ //*@
-                <div class="col l1 m2 s12 button-block">
-                    @RazorHelperDesktop.TimerCountDown("forecasthpdou", 15)
-                </div>
+            <div class="col l1 m2 s12 button-block">
+                <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+            </div>
 
-                <div class="col right icon-block">
-                    <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
-                </div>
+            @*// -----------------------------Refresh countdown------------------------ //*@
+            <div class="col l1 m2 s12 button-block">
+                @RazorHelperDesktop.TimerCountDown("forecasthpdou", 15)
+            </div>
+
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
             </div>
         </div>
-    }
+    </div>
 }
