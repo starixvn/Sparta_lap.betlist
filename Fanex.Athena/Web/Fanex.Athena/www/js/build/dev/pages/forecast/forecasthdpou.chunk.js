@@ -308,20 +308,18 @@ webpackJsonp([25],{
 	                });
 	            },
 	            initEvent: function () {
-	                // League change
 	                $('.league-list').on('change', function () {
 	                    var leagueId = $(this).val();
 	                    _me.loadSelectedLeague(leagueId);
+	                    return false;
 	                });
 	
-	                // Forecast button click
 	                $('#reportContent').on('click', '.button-add', function () {
 	                    var matchId = $(this).attr('data-match-id');
 	                    var betType = parseInt($(this).attr('data-bettype'));
 	                    _me.openForecast(matchId, betType);
 	                });
 	
-	                // Submit button click
 	                $("#SubmitButton").on("click", function () {
 	                    _me.submit();
 	                    return false;
@@ -343,43 +341,36 @@ webpackJsonp([25],{
 	
 	                Popup.openPopupWithIframe(url, { width: popW, height: popH, title: Site.getSingleResource("Forecast"), id: "forecast-dialog" });
 	            },
-	            loadSelectedLeague: function (leagueId) {
-	                var url = Site.resolveClientUrl("HandicapOverUnderForecast/Index");
-	                url = Site.setLicenseeOptionOriginalParam(url);
-	                url = QueryString.setParam(url, "LeagueId", leagueId);
-	
+	            loadData: function(url, data){
 	                $.ajax({
-	                    url: url,
+	                    url: url || Site.resolveClientUrl("HandicapOverUnderForecast/Index"),
+	                    data: data,
 	                    beforeSend: function () {
 	                        Site.blockUI();
 	                    },
 	                    success: function (data) {
+	                        $('#reportContent').html(data);
+	                        _me.resizeGrid();
 	                        Site.unBlockUI();
-	                        $('#Refresh-Content').html(data);
 	                    },
 	                    type: "POST",
 	                    async: true,
 	                    dataType: "html"
 	                });
 	            },
+	            loadSelectedLeague: function (leagueId) {
+	                var url = Site.resolveClientUrl("HandicapOverUnderForecast/Index");
+	                url = Site.setLicenseeOptionOriginalParam(url);
+	                url = QueryString.setParam(url, "LeagueId", leagueId);
+	
+	                _me.loadData(url);
+	            },
 	            submit: function () {
 	                Site.blockUI();
 	                var data = $('#ForecastHandicapOverUnderForm').serializeObject();
 	                Site.updateOriginalLicenseeOption();
 	
-	                $.ajax({
-	                    data: data,
-	                    url: Site.resolveClientUrl("HandicapOverUnderForecast/Index"),
-	                    type: "POST",
-	                    beforeSend: function () {
-	
-	                    },
-	                    success: function (data) {
-	                        $('#reportContent').html(data);
-	                        _me.resizeGrid();
-	                        Site.unBlockUI();
-	                    }
-	                });
+	                _me.loadData(null, data);
 	            }
 	        };
 	

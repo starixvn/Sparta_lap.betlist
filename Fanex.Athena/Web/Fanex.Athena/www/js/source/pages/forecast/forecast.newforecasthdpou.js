@@ -35,7 +35,6 @@
             });
 
             _me.registerCollapsible();
-            _me.initCollapseContent();
         },
         loadMatchList: function (leagueId) {
             var url = Site.resolveClientUrl("NewHandicapOverUnderForecast/GetMatchListByLeague");
@@ -61,6 +60,7 @@
                         $('input.select-dropdown').trigger('close');
                     });
                     _me.registerCollapsible();
+                    _me.initCollapsibleContent();
                 },
                 type: "POST",
                 async: true,
@@ -109,10 +109,8 @@
             $('.collapsible').collapsible({
                 accordion: false,
                 onOpen: function (element) {
-                    element.each(function () {
-                        var statusElement = $(this).data("status");
-                        $('#' + statusElement).val(true);
-                    });
+                    var statusElement = $(element).data("status");
+                    $('#' + statusElement).val(true);
                 },
                 onClose: function (element) {
                     console.log(element);
@@ -120,15 +118,13 @@
                         _hiddenContents.push(element);
                     }
 
-                    element.each(function () {
-                        var statusElement = $(this).data("status");
-                        $('#' + statusElement).val(false);
-                    });
+                    var statusElement = $(element).data("status");
+                    $('#' + statusElement).val(false);
                 }
             });
         },
 
-        initCollapseContent: function () {
+        initCollapsibleContent: function () {
             _hiddenContents.each(function () {
                 $(this).find(".collapsible-header").trigger("click");
             });
