@@ -570,6 +570,12 @@ table td, table th {
     .footer-content .table > tbody .total-footer > td.no-margin > .total-cell {
       margin-right: 0; }
 
+.page-results .result-content {
+  border: none; }
+
+.content-detail {
+  margin-top: 10px; }
+
 .match {
   color: #545454;
   padding: 1.5rem; }
@@ -582,10 +588,10 @@ table td, table th {
 .v-line {
   margin: 0 10px; }
 
-.table-detail {
+.table-detail-container {
   display: inline-block;
   width: calc(50% - 3px); }
-  .table-detail .table > thead > tr > th {
+  .table-detail-container .table > thead > tr > th {
     text-align: left;
     font-weight: bold; }
 

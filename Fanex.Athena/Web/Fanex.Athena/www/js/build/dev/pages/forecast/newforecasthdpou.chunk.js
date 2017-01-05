@@ -333,19 +333,19 @@ webpackJsonp([27],{
 	                url: url,
 	                beforeSend: function () {
 	                    Site.blockUI();
-	                    $('#DdlMatchId').html('Loading...');
 	                },
 	                success: function (data) {
 	                    Site.unBlockUI();
-	                    $('#DdlMatchId').html(data);
-	                    var matchId = $('#DdlMatchId').val();
+	                    var $ddlMatchList = $('#DdlMatchId');
+	                    $ddlMatchList.html(data);
+	                    var matchId = $ddlMatchList.val();
 	                    if (matchId === undefined) {
 	                        $('#SubmitButton').prop('disabled', true);
 	                    } else {
 	                        $('#SubmitButton').removeAttr('disabled');
 	                    }
 	
-	                    $("#DdlMatchId").material_select(function() { // jshint ignore:line
+	                    $ddlMatchList.material_select(function() { // jshint ignore:line
 	                        $('input.select-dropdown').trigger('close');
 	                    });
 	                },

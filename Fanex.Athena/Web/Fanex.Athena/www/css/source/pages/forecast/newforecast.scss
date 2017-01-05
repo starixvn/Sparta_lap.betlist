@@ -2,6 +2,16 @@
 
 $colorTextMatch: #545454;
 
+.page-results {
+    .result-content {
+        border: none;
+    }
+}
+
+.content-detail {
+    margin-top: 10px;
+}
+
 .match {
     color: $colorTextMatch;
     padding: 1.5rem;
@@ -17,7 +27,7 @@ $colorTextMatch: #545454;
     margin: 0 10px;
 }
 
-.table-detail {
+.table-detail-container {
     display: inline-block;
     width: calc(50% - 3px);
 
