@@ -125,9 +125,13 @@
         },
 
         initCollapsibleContent: function () {
-            _hiddenContents.each(function () {
-                $(this).find(".collapsible-header").trigger("click");
-            });
+            if ($('#IsShowFh').val() === "false") {
+                $("#contentType-1").trigger("click");
+            }
+
+            if ($('#IsShowFt').val() === "false") {
+                $("#contentType-3").trigger("click");
+            }
         }
     };
 
