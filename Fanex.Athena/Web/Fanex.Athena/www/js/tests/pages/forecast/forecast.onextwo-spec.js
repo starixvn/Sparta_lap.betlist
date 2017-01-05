@@ -1,8 +1,7 @@
-﻿define(['jquery', 'test-helper', 'common/site', 'components/refreshcountdown', 'common/popup', 'pages/forecast/forecast.onextwo'],
-    function ($, TestHelper, Site, RefreshCountDown, Popup, ForecastOneXTwo) {
+﻿define(['jquery', 'common/site', 'components/refreshcountdown', 'common/popup', 'pages/forecast/forecast.onextwo'],
+    function ($, Site, RefreshCountDown, Popup, ForecastOneXTwo) {
         describe("ForecastOneXTwo", function () {
             beforeAll(function () {
-                //   TestHelper.initGlobalSetting();
                 spyOn(Site, "initialize");
                 spyOn(ForecastOneXTwo, "resizePopup");
                 spyOn(RefreshCountDown, "initialize");
