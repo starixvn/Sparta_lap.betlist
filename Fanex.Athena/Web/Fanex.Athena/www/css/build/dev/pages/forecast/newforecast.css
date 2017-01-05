@@ -578,7 +578,7 @@ table td, table th {
 
 .match {
   color: #545454;
-  padding: 1.5rem; }
+  padding: 1rem 0.5rem; }
 
 .match-infor {
   display: inline-block;

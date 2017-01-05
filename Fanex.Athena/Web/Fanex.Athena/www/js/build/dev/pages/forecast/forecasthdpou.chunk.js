@@ -378,11 +378,11 @@ webpackJsonp([25],{
 	
 	                    },
 	                    success: function (data) {
-	                        $('#Refresh-Content').html(data);
+	                        $('#reportContent').html(data);
+	                        _me.resizeGrid();
 	                        Site.unBlockUI();
 	                    }
 	                });
-	
 	            }
 	        };
 	
