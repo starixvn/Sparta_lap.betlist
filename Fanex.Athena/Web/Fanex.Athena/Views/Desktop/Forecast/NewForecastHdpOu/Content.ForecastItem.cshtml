@@ -4,6 +4,7 @@
     var totalList = (IList<NewForecastHdpOuTotalItem>)ViewBag.TotalList;
     var detailHdpList = (IList<NewForecastHdpOuDetailItem>)ViewBag.DetailHdpList;
     var detailOuList = (IList<NewForecastHdpOuDetailItem>)ViewBag.DetailOuList;
+    var isExpand = (bool)ViewBag.IsExpand;
     var blockId = (int)ViewBag.BlockId;
     var isFullTime = (bool)ViewBag.IsFullTime;
     var statusElement = isFullTime ? "IsShowFt" : "IsShowFh";
@@ -22,164 +23,162 @@
     }.ToJson();
 }
 
-<ul class="collapsible" data-collapsible="expandable">
-    <li>
-        <div class="collapsible-header panel-heading active" data-status="@statusElement" id="contentType-@ViewBag.BlockId">
-            <p class="panel-title center-align">
-                @ViewBag.HeaderText<i class="right icon-arrow"></i>
-            </p>
+<div class="content-data">
+    <div class="collapsible-header panel-heading @(isExpand ? "active" : string.Empty)" data-status="@statusElement" data-content-id="@ViewBag.BlockId">
+        <p class="panel-title center-align">
+            @ViewBag.HeaderText<i class="right icon-arrow"></i>
+        </p>
+    </div>
+
+    <div class="collapsible-body @(isExpand ? string.Empty: "hide")" id="contentType-@ViewBag.BlockId">
+        <div class="panel-body">
+            <div class="table-title"><p class="center-align">@ViewResources.Total @ViewResources.Turnover</p></div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>@ViewResources.TicketNo</th>
+                        <th>@ViewResources.Home</th>
+                        <th>@ViewResources.Away</th>
+                        <th>@ViewResources.Over</th>
+                        <th>@ViewResources.Under</th>
+                        <th>@ViewResources.Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in totalList)
+                    {
+                        <tr>
+                            <td class="center-align">
+                                @item.TicketNo
+                            </td>
+                            <td class="right-align">
+                                <a href="javascript:;" title="@title" class="bet-list-link" data-betchoice="Home" data-param="@drillParam" data-bettype="@hdpBettype">
+                                    @item.TotalTurnoverHome.ToStringExt()
+                                </a>
+                            </td>
+                            <td class="right-align">
+                                <a href="javascript:;" title="@title" class="bet-list-link" data-betchoice="Away" data-param="@drillParam" data-bettype="@hdpBettype">
+                                    @item.TotalTurnoverAway.ToStringExt()
+                                </a>
+                            </td>
+                            <td class="right-align">
+                                <a href="javascript:;" title="@title" class="bet-list-link" data-betchoice="Over" data-param="@drillParam" data-bettype="@ouBettype">
+                                    @item.TotalTurnoverOver.ToStringExt()
+                                </a>
+                            </td>
+                            <td class="right-align">
+                                <a href="javascript:;" title="@title" class="bet-list-link" data-betchoice="Under" data-param="@drillParam" data-bettype="@ouBettype">
+                                    @item.TotalTurnoverUnder.ToStringExt()
+                                </a>
+                            </td>
+                            <td class="right-align">
+                                <a href="javascript:;" title="@title" class="bet-list-link" data-betchoice="@betChoiceAll" data-param="@drillParam" data-bettype="0">
+                                    @((item.TotalTurnoverHome + item.TotalTurnoverAway + item.TotalTurnoverOver + item.TotalTurnoverUnder).ToStringExt())
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
 
-        <div class="collapsible-body">
-            <div class="panel-body" id="content-area-@ViewBag.BlockId">
-                <div class="table-title"><p class="center-align">@ViewResources.Total @ViewResources.Turnover</p></div>
-
+        <div class="panel-body content-detail">
+            @*//-------------Handicap-------------//*@
+            <div class="table-detail-container left">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>@ViewResources.TicketNo</th>
-                            <th>@ViewResources.Home</th>
-                            <th>@ViewResources.Away</th>
-                            <th>@ViewResources.Over</th>
-                            <th>@ViewResources.Under</th>
-                            <th>@ViewResources.Total</th>
+                            <th colspan="4">@ViewResources.Handicap</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        @foreach (var item in totalList)
-                    {
-                    <tr>
-                        <td class="center-align">
-                            @item.TicketNo
-                        </td>
-                        <td class="right-align">
-                            <a href="javascript:;" title="@title" class="bet-list-link" data-betchoice="Home" data-param="@drillParam" data-bettype="@hdpBettype">
-                                @item.TotalTurnoverHome.ToStringExt()
-                            </a>
-                        </td>
-                        <td class="right-align">
-                            <a href="javascript:;" title="@title" class="bet-list-link" data-betchoice="Away" data-param="@drillParam" data-bettype="@hdpBettype">
-                                @item.TotalTurnoverAway.ToStringExt()
-                            </a>
-                        </td>
-                        <td class="right-align">
-                            <a href="javascript:;" title="@title" class="bet-list-link" data-betchoice="Over" data-param="@drillParam" data-bettype="@ouBettype">
-                                @item.TotalTurnoverOver.ToStringExt()
-                            </a>
-                        </td>
-                        <td class="right-align">
-                            <a href="javascript:;" title="@title" class="bet-list-link" data-betchoice="Under" data-param="@drillParam" data-bettype="@ouBettype">
-                                @item.TotalTurnoverUnder.ToStringExt()
-                            </a>
-                        </td>
-                        <td class="right-align">
-                            <a href="javascript:;" title="@title" class="bet-list-link" data-betchoice="@betChoiceAll" data-param="@drillParam" data-bettype="0">
-                                @((item.TotalTurnoverHome + item.TotalTurnoverAway + item.TotalTurnoverOver + item.TotalTurnoverUnder).ToStringExt())
-                            </a>
-                        </td>
-                    </tr>
-                    }
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="panel-body content-detail">
-                @*//-------------Handicap-------------//*@
-                <div class="table-detail-container left">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th colspan="4">@ViewResources.Handicap</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @if (detailHdpList.Count == 0)
+                        @if (detailHdpList.Count == 0)
                         {
-                        <tr>
-                            <td colspan="4" class="center-align">
-                                @ViewResources.NoInfo
-                            </td>
-                        </tr>
+                            <tr>
+                                <td colspan="4" class="center-align">
+                                    @ViewResources.NoInfo
+                                </td>
+                            </tr>
                         }
                         else
                         {
                             foreach (var detail in detailHdpList)
                             {
-                        <tr>
-                            <td>
-                                <span class="home">
-                                    @Model.Param.HomeTeamName
-                                </span>
-                                <a href="javascript:;" class="choice text-bold bet-list-link" data-betchoice="Home" data-param="@drillParam" data-bettype="@hdpBettype" data-handicap="@detail.Hdp">
-                                    @(detail.Hdp > 0 ? "+" : "")@detail.Hdp.ToStringExt()
-                                </a>
-                            </td>
-                            <td class="right-align">
-                                @RazorHelperDesktop.HighlightNegativeFormat(detail.HomeWinLoss)
-                            </td>
-                            <td>
-                                <span class="away">
-                                    @Model.Param.AwayTeamName
-                                </span>
-                                <a href="javascript:;" class="choice text-bold bet-list-link" data-betchoice="Away" data-param="@drillParam" data-bettype="@hdpBettype" data-handicap="@detail.Hdp">
-                                    @(detail.Hdp < 0 ? "+" : "")@((-detail.Hdp).ToStringExt())
-                                </a>
-                            </td>
-                            <td class="right-align">
-                                @RazorHelperDesktop.HighlightNegativeFormat(detail.AwayWinLoss)
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <span class="home">
+                                        @Model.Param.HomeTeamName
+                                    </span>
+                                    <a href="javascript:;" class="choice text-bold bet-list-link" data-betchoice="Home" data-param="@drillParam" data-bettype="@hdpBettype" data-handicap="@detail.Hdp">
+                                        @(detail.Hdp > 0 ? "+" : "")@detail.Hdp.ToStringExt()
+                                    </a>
+                                </td>
+                                <td class="right-align">
+                                    @RazorHelperDesktop.HighlightNegativeFormat(detail.HomeWinLoss)
+                                </td>
+                                <td>
+                                    <span class="away">
+                                        @Model.Param.AwayTeamName
+                                    </span>
+                                    <a href="javascript:;" class="choice text-bold bet-list-link" data-betchoice="Away" data-param="@drillParam" data-bettype="@hdpBettype" data-handicap="@detail.Hdp">
+                                        @(detail.Hdp < 0 ? "+" : "")@((-detail.Hdp).ToStringExt())
+                                    </a>
+                                </td>
+                                <td class="right-align">
+                                    @RazorHelperDesktop.HighlightNegativeFormat(detail.AwayWinLoss)
+                                </td>
+                            </tr>
                             }
                         }
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
+            </div>
 
-                @*//-------------Over/Under-------------//*@
-                <div class="table-detail-container right">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th colspan="4">@ViewResources.OverUnder</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @if (detailOuList.Count == 0)
-                        {
+            @*//-------------Over/Under-------------//*@
+            <div class="table-detail-container right">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td colspan="4" class="center-align">
-                                @ViewResources.NoInfo
-                            </td>
+                            <th colspan="4">@ViewResources.OverUnder</th>
                         </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (detailOuList.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="4" class="center-align">
+                                    @ViewResources.NoInfo
+                                </td>
+                            </tr>
                         }
                         else
                         {
                             foreach (var detail in detailOuList)
                             {
-                        <tr>
-                            <td>
-                                <span class="over">@ViewResources.Over </span>
-                                <span class="text-bold choice">@detail.Hdp.ToStringExt()</span>
-                            </td>
-                            <td class="right-align">
-                                @RazorHelperDesktop.HighlightNegativeFormat(detail.HomeWinLoss)
-                            </td>
-                            <td>
-                                <span class="under">@ViewResources.Under </span>
-                                <span class="text-bold choice">@detail.Hdp.ToStringExt()</span>
-                            </td>
-                            <td class="right-align">
-                                @RazorHelperDesktop.HighlightNegativeFormat(detail.AwayWinLoss)
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <span class="over">@ViewResources.Over </span>
+                                    <span class="text-bold choice">@detail.Hdp.ToStringExt()</span>
+                                </td>
+                                <td class="right-align">
+                                    @RazorHelperDesktop.HighlightNegativeFormat(detail.HomeWinLoss)
+                                </td>
+                                <td>
+                                    <span class="under">@ViewResources.Under </span>
+                                    <span class="text-bold choice">@detail.Hdp.ToStringExt()</span>
+                                </td>
+                                <td class="right-align">
+                                    @RazorHelperDesktop.HighlightNegativeFormat(detail.AwayWinLoss)
+                                </td>
+                            </tr>
                             }
                         }
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </li>
-</ul>
+    </div>
+</div>

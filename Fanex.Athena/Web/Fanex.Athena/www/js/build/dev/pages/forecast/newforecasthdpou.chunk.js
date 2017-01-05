@@ -303,11 +303,42 @@ webpackJsonp([27],{
 	                _me.openBetlist(betChoice, param, bettype, handicap);
 	            });
 	
+	            $('#reportContent').on("click", ".collapsible-header", function () {
+	                _me.collapseExpand(this);
+	            });
+	
 	            $("#SubmitButton").on("click", function () {
 	                _me.submit();
 	            });
+	        },
+	        collapseExpand: function (context) {
+	            var $this = $(context);
+	            var statusElement = $this.data("status");
+	            var dataBlockId = $this.data("content-id");
+	            var $bodyContent = $('#contentType-' + dataBlockId);
 	
-	            _me.registerCollapsible();
+	            // is expanding
+	            if ($this.hasClass('active')) {
+	                $bodyContent.stop(true, false).slideUp({
+	                    duration: 350, easing: "easeOutQuart", queue: false, complete: function () {
+	                        $(this).css('height', '');
+	                    }
+	                });
+	
+	                $this.removeClass('active');
+	                $('#' + statusElement).val(false);
+	            }
+	            else {
+	                $bodyContent.removeClass('hide');
+	                $bodyContent.stop(true, false).slideDown({
+	                    duration: 350, easing: "easeOutQuart", queue: false, complete: function () {
+	                        $(this).css('height', '');
+	                    }
+	                });
+	
+	                $this.addClass('active');
+	                $('#' + statusElement).val(true);
+	            }
 	        },
 	        loadMatchList: function (leagueId) {
 	            var url = Site.resolveClientUrl("NewHandicapOverUnderForecast/GetMatchListByLeague");
@@ -332,8 +363,6 @@ webpackJsonp([27],{
 	                    $ddlMatchList.material_select(function () { // jshint ignore:line
 	                        $('input.select-dropdown').trigger('close');
 	                    });
-	                    _me.registerCollapsible();
-	                    _me.initCollapsibleContent();
 	                },
 	                type: "POST",
 	                async: true,
@@ -373,38 +402,9 @@ webpackJsonp([27],{
 	                "left=0",
 	                "height=" + popH,
 	                "width=" + popW
-	            ).join(',');
+	        ).join(',');
 	
 	            window.open(url, '_blank', '' + ',' + formatter);
-	        },
-	
-	        registerCollapsible: function () {
-	            $('.collapsible').collapsible({
-	                accordion: false,
-	                onOpen: function (element) {
-	                    var statusElement = $(element).data("status");
-	                    $('#' + statusElement).val(true);
-	                },
-	                onClose: function (element) {
-	                    console.log(element);
-	                    if (_hiddenContents.indexOf(element) === -1) {
-	                        _hiddenContents.push(element);
-	                    }
-	
-	                    var statusElement = $(element).data("status");
-	                    $('#' + statusElement).val(false);
-	                }
-	            });
-	        },
-	
-	        initCollapsibleContent: function () {
-	            if ($('#IsShowFh').val() === "false") {
-	                $("#contentType-1").trigger("click");
-	            }
-	
-	            if ($('#IsShowFt').val() === "false") {
-	                $("#contentType-3").trigger("click");
-	            }
 	        }
 	    };
 	
