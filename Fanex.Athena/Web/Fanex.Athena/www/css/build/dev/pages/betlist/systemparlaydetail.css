@@ -224,90 +224,6 @@
   border: 0;
   margin: 0.5rem 0 1rem 0; }
 
-.multiselect-container {
-  min-width: 250px; }
-  .multiselect-container > label {
-    position: absolute;
-    top: -14px; }
-  .multiselect-container > a.ui-multiselect {
-    height: 2.5rem;
-    line-height: 2.5rem;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
-    position: relative;
-    border-radius: 0;
-    width: 100% !important;
-    margin: 0 0 10px 0; }
-    .multiselect-container > a.ui-multiselect > input {
-      width: 100% !important;
-      height: 100% !important;
-      cursor: pointer; }
-    .multiselect-container > a.ui-multiselect .ui-multiselect-icon {
-      font-family: 'icomoon' !important; }
-      .multiselect-container > a.ui-multiselect .ui-multiselect-icon:before {
-        content: "\E916";
-        color: #4d6273;
-        font-size: 18px;
-        position: absolute;
-        top: 7px;
-        right: -5px;
-        line-height: 1; }
-
-.breadCrumbHolder {
-  display: none; }
-  .breadCrumbHolder .level {
-    display: none; }
-
-.breadcrumb {
-  text-align: center;
-  display: inline-block;
-  overflow: hidden; }
-  .breadcrumb > a {
-    text-decoration: none;
-    outline: none;
-    display: block;
-    float: left;
-    font-size: 12px;
-    line-height: 30px;
-    color: #fff;
-    padding: 0 10px 0 25px;
-    position: relative; }
-    .breadcrumb > a:first-child {
-      padding-left: 10px; }
-      .breadcrumb > a:first-child::before {
-        left: 14px; }
-    .breadcrumb > a:last-child {
-      padding-right: 20px; }
-      .breadcrumb > a:last-child::after {
-        content: none; }
-    .breadcrumb > a::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: -16px;
-      width: 30px;
-      height: 30px;
-      transform: scale(0.8) rotate(45deg);
-      z-index: 1;
-      border-right: 3px solid #ca1e58;
-      border-top: 3px solid #ca1e58;
-      border-radius: 0 5px 0 50px; }
-  .breadcrumb.flat a, .breadcrumb.flat a::after {
-    background: #fff;
-    color: #4C6375; }
-  .breadcrumb.flat a::before {
-    background: #fff;
-    box-shadow: 0 0 0 1px #ec407a; }
-  .breadcrumb.flat a:hover, .breadcrumb.flat a.active {
-    color: #fff; }
-    .breadcrumb.flat a:hover, .breadcrumb.flat a:hover::after, .breadcrumb.flat a.active, .breadcrumb.flat a.active::after {
-      background: #4C6375; }
-    .breadcrumb.flat a:hover::before, .breadcrumb.flat a.active::before {
-      color: #4C6375; }
-  .breadcrumb.flat a.active:hover {
-    background: #4C6375; }
-
 .calendar .icon-calendar {
   color: #4c6375;
   font-size: 17px;
@@ -440,6 +356,69 @@ table td, table th {
       background-color: #ebeaea;
       height: 1px;
       margin: 0 10px; }
+
+@-webkit-keyframes ball-beat {
+  50% {
+    opacity: 0.2;
+    -webkit-transform: scale(0.75);
+    transform: scale(0.75); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1); } }
+
+@-moz-keyframes ball-beat {
+  50% {
+    opacity: 0.2;
+    -webkit-transform: scale(0.75);
+    transform: scale(0.75); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1); } }
+
+@keyframes ball-beat {
+  50% {
+    opacity: 0.2;
+    -webkit-transform: scale(0.75);
+    transform: scale(0.75); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1); } }
+
+.ball-beat > .icon-ball {
+  background-color: #4C6375;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  margin: 2px;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  display: inline-block;
+  -webkit-animation: ball-beat 1s 0s infinite linear;
+  animation: ball-beat 1s 0s infinite linear; }
+
+.ball-beat > .icon-ball:nth-child(2n-1) {
+  -webkit-animation-delay: -0.5s !important;
+  animation-delay: -0.5s !important; }
+
+.loading {
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: calc(50% - 34.5px);
+  z-index: 10001; }
+
+.block-body {
+  background: rgba(255, 255, 255, 0.7) no-repeat;
+  border: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000; }
 
 body {
   background: #fff; }

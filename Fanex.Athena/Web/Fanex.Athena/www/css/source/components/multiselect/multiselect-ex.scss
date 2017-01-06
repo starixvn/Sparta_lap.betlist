@@ -1,5 +1,45 @@
-﻿@import "../scss/abstracts/_variables.scss";
-@import "../components/multiselect/jquery.multiselect";
+﻿@import "../../scss/abstracts/_variables";
+
+.multiselect-container {
+    min-width: 250px;
+
+    > label {
+        position: absolute;
+        top: -14px;
+    }
+
+    > a.ui-multiselect {
+        height: 2.5rem;
+        line-height: 2.5rem;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
+        position: relative;
+        border-radius: 0;
+        width: 100% !important;
+        margin: 0 0 10px 0;
+
+        > input {
+            width: 100% !important;
+            height: 100% !important;
+            cursor: pointer;
+        }
+
+        .ui-multiselect-icon {
+            font-family: 'icomoon' !important;
+
+            &:before {
+                content: "\E916";
+                color: #4d6273;
+                font-size: 18px;
+                position: absolute;
+                top: 7px;
+                right: -5px;
+                line-height: 1;
+            }
+        }
+    }
+}
 
 .ui-multiselect-shadow {
     box-shadow: 0 1px 12px rgba(0,0,0,.175);

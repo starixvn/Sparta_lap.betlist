@@ -6,12 +6,12 @@ var cssPaths = {
     build: "www/css/build",
 
     home: ["./www/css/source/pages/home/home.scss"],
-    main: ["./www/css/source/extensions/main-ex.scss"],
+    main: ["./www/css/source/main.scss"],
     error: ["./www/css/source/pages/utility/error.scss"],
 
     reportjqgridlayout: ["./www/css/source/pages/common/reportjqgridlayout.main.scss"],
     betlistLayout: ["./www/css/source/pages/betlist/betlistcommon.main.scss"],
-    betlistSimpleLayout: ["./www/css/source/pages/betlist/betlistcommon.main.scss"],
+    betlistSimpleLayout: ["./www/css/source/pages/betlist/betlistcommon.main.scss", "./www/css/source/extensions/popup-ex.scss"],
 
     totalbetlayout: ["./www/css/source/pages/totalbet/totalbet.scss"],
 

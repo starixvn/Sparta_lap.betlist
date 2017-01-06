@@ -1287,7 +1287,6 @@
     <Content Include="www\css\build\fonts\montserrat\Montserrat-Bold.ttf" />
     <Content Include="www\css\build\fonts\montserrat\Montserrat-Hairline.woff" />
     <Content Include="www\css\build\fonts\montserrat\Montserrat-Regular.ttf" />
-    <Content Include="www\css\source\extensions\main-ex.scss" />
     <Content Include="www\css\source\components\flatpopup\flatpopup.scss" />
     <Content Include="www\css\source\components\monthpicker\monpickr.scss" />
     <Content Include="www\css\source\pages\home\home.scss" />
@@ -1299,10 +1298,10 @@
     <Content Include="Views\Desktop\Report\LiveReport\MatchList\Content.Header.cshtml" />
     <Content Include="Views\Desktop\Shared\_Report.jqGridLayout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="www\css\source\extensions\jqgrid-ex.scss" />
+    <Content Include="www\css\source\components\jqgrid\jqgrid-ex.scss" />
     <Content Include="www\css\source\extensions\report-ex.scss" />
     <Content Include="www\css\source\pages\report\licenseewinloss.scss" />
-    <Content Include="www\css\source\extensions\multiselect-ex.scss" />
+    <Content Include="www\css\source\components\multiselect\multiselect-ex.scss" />
     <Content Include="www\js\tests\lib\jqgrid\jquery.jqgrid.additional-spec.js" />
     <Content Include="www\css\source\pages\common.scss" />
     <Content Include="www\css\source\scss\abstracts\_variables.scss" />
@@ -1437,6 +1436,10 @@
     <Content Include="Views\Desktop\Forecast\NewForecastHdpOu\MatchOptionList.cshtml" />
     <Content Include="Views\Desktop\BetList\NewForecastBetlist\Main.cshtml" />
     <Content Include="www\css\source\pages\betlist\betlistcommon.main.scss" />
+    <Content Include="www\css\source\components\jqgrid\jqgrid.main.scss" />
+    <Content Include="www\css\source\components\multiselect\multiselect.main.scss" />
+    <Content Include="www\css\source\components\breadcrumb\breadcrumb.scss" />
+    <Content Include="www\css\source\components\loader\loader.scss" />
     <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
