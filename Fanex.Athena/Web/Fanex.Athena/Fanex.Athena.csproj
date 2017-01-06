@@ -1440,6 +1440,11 @@
     <Content Include="www\css\source\components\multiselect\multiselect.main.scss" />
     <Content Include="www\css\source\components\breadcrumb\breadcrumb.scss" />
     <Content Include="www\css\source\components\loader\loader.scss" />
+    <Content Include="Views\Desktop\BetList\LiveReport\Match.cshtml" />
+    <Content Include="Views\Desktop\BetList\LiveReport\MixParlay.cshtml" />
+    <Content Include="Views\Desktop\BetList\LiveReport\Outright.cshtml" />
+    <Content Include="Views\Desktop\BetList\LiveReport\NumberGame.cshtml" />
+    <Content Include="Views\Desktop\BetList\LiveReport\Racing.cshtml" />
     <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
