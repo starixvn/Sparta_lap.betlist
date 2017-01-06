@@ -1,13 +1,13 @@
-﻿@import '../vendors/materialize/_materialize-home';
+﻿@import '../../vendors/materialize/_materialize-home';
 
-@import '../scss/fonts/font-icon/style.scss';
-@import '../scss/fonts/montserrat/style.scss';
-@import '../scss/fonts/flags/flags-icon';
-@import '../scss/base/common';
+@import '../../scss/fonts/font-icon/style';
+@import '../../scss/fonts/montserrat/style';
+@import '../../scss/fonts/flags/flags-icon';
+@import '../../scss/base/common';
 
-@import '../../../../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar';
-@import '../scss/layout/navbar';
-@import '../scss/layout/sidebar';
+@import '../../../../../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar';
+@import '../../scss/layout/navbar';
+@import '../../scss/layout/sidebar';
 
 .licensees-block {
     padding: 0 1rem;

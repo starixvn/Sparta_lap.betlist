@@ -30,7 +30,7 @@
         </p>
     </div>
 
-    <div class="collapsible-body @(isExpand ? string.Empty: "hide")" id="contentType-@ViewBag.BlockId">
+    <div class="collapsible-body" @Html.Raw((isExpand ? string.Empty: "style=\"display: none;\"")) id="contentType-@ViewBag.BlockId">
         <div class="panel-body">
             <div class="table-title"><p class="center-align">@ViewResources.Total @ViewResources.Turnover</p></div>
 

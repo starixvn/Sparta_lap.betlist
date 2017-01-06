@@ -376,6 +376,7 @@ table td, table th {
   list-style-type: disc; }
   #UserGuidePopup ul li ul li {
     list-style-type: circle; }
+
 .popup-block-body {
   background: transparent;
   border: none;
@@ -439,6 +440,7 @@ table td, table th {
       background-color: #ebeaea;
       height: 1px;
       margin: 0 10px; }
+
 .ui-jqgrid {
   position: relative; }
 
@@ -1188,6 +1190,7 @@ tr.ui-search-toolbar select {
     padding: 2px;
     min-width: 65px;
     border: 1px solid #e2d6d6; }
+
 /* Corner radius */
 .ui-multiselect-corner-all {
   -moz-border-radius-topleft: 2px;

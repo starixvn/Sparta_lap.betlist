@@ -800,12 +800,12 @@
     <Content Include="www\css\build\pro\pages\totalbet\mixparlay.css" />
     <Content Include="www\css\build\pro\pages\totalbet\totalbetlayout.css" />
     <Content Include="www\css\build\pro\pages\utility\error.css" />
-    <Content Include="www\css\source\components\betlist\AGCasino.css" />
-    <Content Include="www\css\source\components\betlist\Allbet.css" />
-    <Content Include="www\css\source\components\betlist\Microgaming.css" />
+    <Content Include="www\css\source\pages\betlist\AGCasino.css" />
+    <Content Include="www\css\source\pages\betlist\Allbet.css" />
+    <Content Include="www\css\source\pages\betlist\Microgaming.css" />
     <Content Include="www\css\source\components\jqgrid\jqgrid.css" />
     <Content Include="www\css\source\components\multiselect\jquery.multiselect.css" />
-    <Content Include="www\css\source\pages\login.css" />
+    <Content Include="www\css\source\pages\login\login.css" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlist.chunk.js" />
@@ -1280,7 +1280,7 @@
     <Content Include="Views\Desktop\Menu\Index.cshtml" />
     <Content Include="www\css\source\components\daterangepicker\daterangepicker-ex.scss" />
     <Content Include="Views\Desktop\Authorization\SignIn.cshtml" />
-    <Content Include="www\css\source\extensions\login-ex.scss" />
+    <Content Include="www\css\source\pages\login\login-ex.scss" />
     <Content Include="www\css\build\fonts\font-icon\fonts\icomoon.eot" />
     <Content Include="www\css\build\fonts\font-icon\fonts\icomoon.ttf" />
     <Content Include="www\css\build\fonts\font-icon\fonts\icomoon.woff" />
@@ -1290,7 +1290,7 @@
     <Content Include="www\css\source\extensions\main-ex.scss" />
     <Content Include="www\css\source\components\flatpopup\flatpopup.scss" />
     <Content Include="www\css\source\components\monthpicker\monpickr.scss" />
-    <Content Include="www\css\source\extensions\home.scss" />
+    <Content Include="www\css\source\pages\home\home.scss" />
     <Content Include="Views\Desktop\Report\LicenseeWinLoss\Content.cshtml" />
     <Content Include="Views\Desktop\Report\LicenseeWinLoss\Filter.cshtml" />
     <Content Include="Views\Desktop\Report\LicenseeWinLoss\Main.cshtml" />
@@ -1309,12 +1309,12 @@
     <Content Include="www\css\source\pages\report\livereport.scss" />
     <Content Include="Views\Desktop\Shared\_BetListSimpleLayout.cshtml" />
     <Content Include="Views\Desktop\BetList\LicenseeWl\Main.cshtml" />
-    <Content Include="www\css\source\components\betlist\betlist.scss" />
+    <Content Include="www\css\source\pages\betlist\betlist.scss" />
     <Content Include="Views\Desktop\Report\Result\Popup\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\RngCasinoDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\AGCasinoDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\ColossusBetDetail\Main.cshtml" />
-    <Content Include="www\css\source\components\betlist\colossusbetdetail.scss" />
+    <Content Include="www\css\source\pages\betlist\colossusbetdetail.scss" />
     <Content Include="Views\Desktop\BetList\MicroGamingRngDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\SystemParlayDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\VoidbridgeDetail\Main.cshtml" />
@@ -1436,7 +1436,8 @@
     <Content Include="Views\Desktop\Forecast\NewForecastHdpOu\Content.ForecastItem.cshtml" />
     <Content Include="Views\Desktop\Forecast\NewForecastHdpOu\MatchOptionList.cshtml" />
     <Content Include="Views\Desktop\BetList\NewForecastBetlist\Main.cshtml" />
-    <None Include="www\css\source\components\betlist\result\betlist.result.scss" />
+    <Content Include="www\css\source\pages\betlist\betlistcommon.main.scss" />
+    <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
     <Content Include="www\css\source\scss\components\_table.scss" />
@@ -1444,7 +1445,7 @@
     <Content Include="www\css\source\scss\fonts\flags\_flags-icon.scss" />
     <Content Include="www\css\source\scss\fonts\font-icon\_style.scss" />
     <Content Include="www\css\source\scss\fonts\montserrat\_style.scss" />
-    <Content Include="www\css\source\components\betlist\systemparlaydetail.scss" />
+    <Content Include="www\css\source\pages\betlist\systemparlaydetail.scss" />
     <Content Include="www\css\source\scss\layout\navbar.scss" />
     <Content Include="www\css\source\scss\layout\sidebar.scss" />
     <Content Include="www\js\tests\pages\betlist\betlist.option-spec.js" />
@@ -1527,6 +1528,8 @@
     <Content Include="www\js\source\pages\forecast\forecast.newforecasthdpou.main.js" />
     <Content Include="www\js\build\dev\pages\forecast\newforecasthdpou.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\forecast\forecasthdpou.chunk.js.map" />
+    <Content Include="www\css\source\pages\common\reportcommon.main.scss" />
+    <Content Include="www\css\source\pages\common\reportjqgridlayout.main.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
