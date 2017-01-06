@@ -21663,10 +21663,6 @@
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	    "use strict";
 	
-	    function onClosePopupWithIframe(){
-	        $("#popupFrame").attr('src', "about:blank");
-	    }
-	
 	    var _me = {
 	        openPopup: function (element, option) {
 	            return $(element).flatPopup(option);
@@ -21674,14 +21670,12 @@
 	
 	        openPopupWithIframe: function (url, option) {
 	            var $popUp = $("#" + option.id);
-	            if ($popUp.length > 0) {
-	                $("#popupFrame").attr('src', url);
-	            } else {
-	                $popUp = $('<div id="' + option.id + '" class="popup-frame"><iframe id="popupFrame" src="' + url + '" ></iframe></div>');
+	            var iframe = '<iframe id="popupFrame" src="' + url + '" ></iframe>';
+	            if ($popUp.length === 0) {
+	                $popUp = $('<div id="' + option.id + '" class="popup-frame">' + iframe + '</div>');
 	            }
-	
-	            if(!option.onClose){
-	                option.onClose = onClosePopupWithIframe;
+	            else {
+	                $popUp.append(iframe);
 	            }
 	
 	            return $popUp.flatPopup(option);
@@ -21709,10 +21703,6 @@
 	
 	            if (option.title !== "") {
 	                $popUp.find(".txt-title").html(option.title);
-	            }
-	
-	            if(!option.onClose){
-	                option.onClose = onClosePopupWithIframe;
 	            }
 	
 	            return $popUp.flatPopup(option);
@@ -21747,8 +21737,6 @@
 	            options = $.extend(defaultOptions, options || {});
 	            return this.each(function () {
 	                var $self = $(this);
-	                $self.addClass("flat-popup");
-	
 	                var $container = $(options.container);
 	
 	                if (options.modal && $blockBody.length === 0) {
@@ -21759,19 +21747,27 @@
 	                var isNew = $container.find("#" + options.id).length === 0;
 	                if (isNew) {
 	                    $self.attr("id", options.id);
+	                    $self.addClass("flat-popup");
 	                    $self.children().wrapAll("<div class='wrapContent'></div>");
 	                    $self.hide()
-	                         .prepend('<div class="title-bar popup-title"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="javascript:;"><i class="icon-close"></i></a></div>')
+	                         .prepend('<div class="title-bar popup-title"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="javascript:;"><i class="icon-close"></i></a></div>');
 	
 	                    $self.find('a.popup-close').on('click', function () {
 	                        if (options.onClose) {
 	                            options.onClose.apply($self);
 	                        }
 	
+	                        if ($self.find("iframe").length > 0) {
+	                            $self.find(".wrapContent").empty();
+	                        }
 	                        _methods.hide.apply($self);
 	                    });
 	
 	                    $container.append($self);
+	                }
+	                else {
+	                    var $wrapContent = $self.find(".wrapContent");
+	                    $wrapContent.append($self.children().not(".popup-title"));
 	                }
 	
 	                $self.width(options.width);
@@ -21808,7 +21804,7 @@
 	            $blockBody.hide();
 	            return false;
 	        }
-	    }
+	    };
 	
 	    $.fn.flatPopup = function (methodOrOptions) {
 	        if (_methods[methodOrOptions]) {
