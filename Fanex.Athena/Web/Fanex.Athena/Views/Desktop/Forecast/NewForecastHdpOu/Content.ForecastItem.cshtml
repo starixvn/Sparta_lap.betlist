@@ -23,6 +23,16 @@
     }.ToJson();
 }
 
+@helper RenderFirstRow()
+{
+    <tr class="first-row">
+        <td class="col-medium"></td>
+        <td class="col-child small"></td>
+        <td class="col-medium"></td>
+        <td class="col-child small"></td>
+    </tr>
+}
+
 <div class="content-data">
     <div class="collapsible-header panel-heading @(isExpand ? "active" : string.Empty)" data-status="@statusElement" data-content-id="@ViewBag.BlockId">
         <p class="panel-title center-align">
@@ -88,6 +98,7 @@
             <div class="table-detail-container left">
                 <table class="table">
                     <thead>
+                        @RenderFirstRow()
                         <tr>
                             <th colspan="4">@ViewResources.Handicap</th>
                         </tr>
@@ -140,6 +151,7 @@
             <div class="table-detail-container right">
                 <table class="table">
                     <thead>
+                        @RenderFirstRow()
                         <tr>
                             <th colspan="4">@ViewResources.OverUnder</th>
                         </tr>
