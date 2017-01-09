@@ -20,7 +20,7 @@
 
                     var bodyHeight = $(".body-content").css("max-height");
 
-                    expect(bodyHeight).toBe("155px");
+                    expect(bodyHeight).toBe("152px");
                 });
 
                 it("table in '.body-content' should has correct width", function () {

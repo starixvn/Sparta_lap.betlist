@@ -37,7 +37,7 @@
 	                jqGridAdditional.updateGridHeight();
 	                var cssMaxHeight = $('.ui-jqgrid-bdiv').css('max-height');
 
-	                expect(cssMaxHeight).toEqual('910px');
+	                expect(cssMaxHeight).toEqual('907px');
 	            });
 	        });
 

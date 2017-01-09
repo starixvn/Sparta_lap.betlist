@@ -56,7 +56,6 @@
                 $('#' + statusElement).val(false);
             }
             else {
-                $bodyContent.removeClass('hide');
                 $bodyContent.stop(true, false).slideDown({
                     duration: 350, easing: "easeOutQuart", queue: false, complete: function () {
                         $(this).css('height', '');
