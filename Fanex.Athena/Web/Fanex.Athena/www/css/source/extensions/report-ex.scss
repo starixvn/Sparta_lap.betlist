@@ -2,6 +2,7 @@
 @import "../pages/common";
 @import "../scss/layout/filter";
 @import "../scss/layout/content";
+@import "../components/select2/select2.main";
 
 .page-form {
     .input-field {
@@ -56,27 +57,6 @@
 }
 
 //---------------------- Form input style customize ----------------------//
-
-//----- Select dropdown -----//
-.select-wrapper {
-    input.select-dropdown {
-        font-size: 13px;
-    }
-
-    span.caret {
-        font-family: 'icomoon' !important;
-        color: transparent !important;
-
-        &:before {
-            content: "\E916";
-            color: #282d38;
-            font-size: 18px;
-            position: absolute;
-            top: -6px;
-            right: -5px;
-        }
-    }
-}
 
 //----- Radio button -----//
 .input-field input[type="radio"] + label {

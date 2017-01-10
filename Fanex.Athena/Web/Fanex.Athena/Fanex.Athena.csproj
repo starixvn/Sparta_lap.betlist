@@ -800,6 +800,7 @@
     <Content Include="www\css\build\pro\pages\totalbet\mixparlay.css" />
     <Content Include="www\css\build\pro\pages\totalbet\totalbetlayout.css" />
     <Content Include="www\css\build\pro\pages\utility\error.css" />
+    <Content Include="www\css\source\components\select2\select2.min.css" />
     <Content Include="www\css\source\pages\betlist\AGCasino.css" />
     <Content Include="www\css\source\pages\betlist\Allbet.css" />
     <Content Include="www\css\source\pages\betlist\Microgaming.css" />
@@ -883,6 +884,7 @@
     <Content Include="www\js\source\common\popup.js" />
     <Content Include="www\js\source\common\querystring.js" />
     <Content Include="www\js\source\common\site.js" />
+    <Content Include="www\js\source\lib\select2.js" />
     <Content Include="www\js\source\pages\betlist\betlist.js" />
     <Content Include="www\js\source\pages\betlist\betlist.option.js" />
     <Content Include="www\js\source\pages\betlist\commonbetlist.js" />
@@ -1446,6 +1448,8 @@
     <Content Include="Views\Desktop\BetList\LiveReport\Outright.cshtml" />
     <Content Include="Views\Desktop\BetList\LiveReport\NumberGame.cshtml" />
     <Content Include="Views\Desktop\BetList\LiveReport\Racing.cshtml" />
+    <Content Include="www\css\source\components\select2\select2.main.scss" />
+    <Content Include="www\css\source\components\select2\select2-ex.scss" />
     <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />

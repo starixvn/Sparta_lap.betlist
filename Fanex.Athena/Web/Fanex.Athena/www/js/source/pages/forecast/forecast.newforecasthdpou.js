@@ -85,10 +85,6 @@
                     } else {
                         $('#SubmitButton').removeAttr('disabled');
                     }
-
-                    $ddlMatchList.material_select(function () { // jshint ignore:line
-                        $('input.select-dropdown').trigger('close');
-                    });
                 },
                 type: "POST",
                 async: true,

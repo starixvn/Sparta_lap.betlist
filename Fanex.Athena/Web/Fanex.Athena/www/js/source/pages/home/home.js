@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomplete"], function (Site, Recheckin) {
+define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomplete", "lib/select2"], function (Site, Recheckin) {
     var $searchBox;
     var _autocomplete;
 
@@ -40,8 +40,9 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomp
             changeLanguage($(this));
         });
 
-        $('#ddlLicensee').on('click', '.licenseeItem', function () {
-            var licenseeId = $(this).attr('licenseeId');
+        $("#ddlLicensee").select2()
+        .on('change', function () {
+            var licenseeId = $(this).val();
             top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
         });
 
@@ -70,15 +71,6 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomp
             $(window.frames["main"]).click(function () {
                 $('.dropdown-button').dropdown('close');
             });
-        });
-
-        //prevent close dropdown when scrolling
-        $("#ddlLicensee").on("mouseup pointerup", function () {
-            $("#ddlLicensee .mCSB_scrollTools").removeClass("mCSB_scrollTools_onDrag");
-        }).on("click", function (e) {
-            if ($(e.target).parents(".mCSB_scrollTools").length || $(".dropdown-menu .mCSB_scrollTools").hasClass("mCSB_scrollTools_onDrag")) {
-                e.stopPropagation();
-            }
         });
     }
 
