@@ -147,11 +147,6 @@ namespace Fanex.Athena.Controllers
                     break;
             }
 
-            if (string.IsNullOrEmpty(errorStr))
-            {
-                errorStr = ViewResources.HttpError_Default;
-            }
-
             ViewBag.Message = errorStr;
             return View("~/Views/Desktop/Utility/Error.cshtml");
         }
