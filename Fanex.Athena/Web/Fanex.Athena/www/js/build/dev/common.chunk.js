@@ -20855,16 +20855,17 @@
 	            return toDate.getMonth() - fromDate.getMonth() + (12 * (toDate.getFullYear() - fromDate.getFullYear())) + 1;
 	        }
 	
-	        function initMaterialSelect() {
+	        function initSelectElements() {
 	            $('select.select').not('#CurrencyId').select2({
 	                minimumResultsForSearch: Infinity
 	            });
 	
-	            $('#CurrencyId').select2();
+	            $('select#CurrencyId').select2();
 	        }
 	
 	        function initialize() {
 	            REQUEST_VERIFICATION_TOKEN = $("input[name=__RequestVerificationToken]").val();
+	            initSelectElements();
 	            currencyConstraint();
 	            initEvent();
 	            _historyDate = new Date($("#HistoryDate").val());
@@ -20877,7 +20878,6 @@
 	            initBlockUI();
 	            addNoticationPopup();
 	            overrideInnerSize();
-	            initMaterialSelect();
 	        }
 	        function initEvent() {
 	            $(window).resize(overrideInnerSize);
@@ -21223,7 +21223,7 @@
 	                $baseCurrency.val(basedCurrency);
 	            }
 	
-	            $('#BaseCurrency').select2({
+	            $("select#BaseCurrency").select2({
 	                minimumResultsForSearch: Infinity
 	            });
 	        }
