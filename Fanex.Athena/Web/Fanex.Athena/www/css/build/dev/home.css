@@ -6414,7 +6414,8 @@ header nav {
   padding: 0 1rem;
   width: 150px; }
   .licensees-block .select-licensee {
-    display: inline-block; }
+    display: inline-block;
+    width: 100%; }
 
 .select2-container--open .select2-dropdown--below {
   margin-top: 17px; }
