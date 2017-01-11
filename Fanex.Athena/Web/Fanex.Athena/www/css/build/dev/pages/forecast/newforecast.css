@@ -89,7 +89,7 @@
       border-color: #ccc;
       font-size: 1.3rem;
       color: #2c2c2c;
-      margin-bottom: 15px; }
+      margin-bottom: 10px; }
       .page-form .input-field input[type=text][readonly="readonly"] {
         border-bottom: 1px solid #ccc; }
         .page-form .input-field input[type=text][readonly="readonly"] + label {
@@ -114,23 +114,6 @@
   .page-form .dropdown-content li > a, .page-form .dropdown-content li > span {
     font-size: 1.3rem;
     color: #2c2c2c; }
-  .page-form .select-wrapper input.select-dropdown {
-    height: 2.5rem;
-    line-height: 2.5rem;
-    border-color: #ccc;
-    font-size: 1.3rem;
-    color: #2c2c2c;
-    margin-bottom: 15px; }
-  .page-form .select-wrapper span.caret {
-    font-family: 'icomoon' !important;
-    color: transparent; }
-    .page-form .select-wrapper span.caret:before {
-      content: "\E916";
-      color: #4d6273;
-      font-size: 18px;
-      position: absolute;
-      top: -14px;
-      right: -5px; }
 
 .table a {
   color: #147ccc;
@@ -781,7 +764,8 @@
   top: -14px; }
 
 .input-field .select2-container {
-  width: 100% !important; }
+  width: 100% !important;
+  margin-bottom: 10px; }
 
 .input-field .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
   border-bottom-color: #4d6273; }
@@ -1091,7 +1075,7 @@ table td, table th {
       border-color: #ccc;
       font-size: 1.3rem;
       color: #2c2c2c;
-      margin-bottom: 15px; }
+      margin-bottom: 10px; }
       .page-form .input-field input[type=text][readonly="readonly"] {
         border-bottom: 1px solid #ccc; }
         .page-form .input-field input[type=text][readonly="readonly"] + label {
@@ -1116,23 +1100,6 @@ table td, table th {
   .page-form .dropdown-content li > a, .page-form .dropdown-content li > span {
     font-size: 1.3rem;
     color: #2c2c2c; }
-  .page-form .select-wrapper input.select-dropdown {
-    height: 2.5rem;
-    line-height: 2.5rem;
-    border-color: #ccc;
-    font-size: 1.3rem;
-    color: #2c2c2c;
-    margin-bottom: 15px; }
-  .page-form .select-wrapper span.caret {
-    font-family: 'icomoon' !important;
-    color: transparent; }
-    .page-form .select-wrapper span.caret:before {
-      content: "\E916";
-      color: #4d6273;
-      font-size: 18px;
-      position: absolute;
-      top: -14px;
-      right: -5px; }
 
 .table a {
   color: #147ccc;
@@ -1783,7 +1750,8 @@ table td, table th {
   top: -14px; }
 
 .input-field .select2-container {
-  width: 100% !important; }
+  width: 100% !important;
+  margin-bottom: 10px; }
 
 .input-field .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
   border-bottom-color: #4d6273; }
