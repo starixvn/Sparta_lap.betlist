@@ -70,6 +70,7 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomp
         $("#mainFrame").on("load", function () {
             $(window.frames["main"]).click(function () {
                 $('.dropdown-button').dropdown('close');
+                $('#ddlLicensee').select2("close");
             });
         });
     }

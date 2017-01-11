@@ -216,7 +216,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                             }
                         });
                 } else {
-                    $popup.show();
+                    $popup.flatPopup("show");
                 }
             });
         }

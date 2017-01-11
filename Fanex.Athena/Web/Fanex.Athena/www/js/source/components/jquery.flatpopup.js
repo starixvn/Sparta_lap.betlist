@@ -1,6 +1,7 @@
 ﻿"use strict";
 define(['jquery'], function ($) {
     var $blockBody;
+    var DEFAULT_MODAL = true;
 
     var _methods = {
         init: function (options) {
@@ -10,7 +11,7 @@ define(['jquery'], function ($) {
                 id: "popup-content",
                 title: "&nbsp;",
                 container: "body",
-                modal: true,
+                modal: DEFAULT_MODAL,
                 onOpen: null,
                 onClose: null
             };
@@ -74,7 +75,7 @@ define(['jquery'], function ($) {
                 'left': left + "px"
             });
 
-            if (modal) {
+            if (modal === true || modal === undefined) {
                 $blockBody.show();
             }
 

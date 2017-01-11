@@ -1099,6 +1099,7 @@ webpackJsonp([28],{
 	        $("#mainFrame").on("load", function () {
 	            $(window.frames["main"]).click(function () {
 	                $('.dropdown-button').dropdown('close');
+	                $('#ddlLicensee').select2("close");
 	            });
 	        });
 	    }
