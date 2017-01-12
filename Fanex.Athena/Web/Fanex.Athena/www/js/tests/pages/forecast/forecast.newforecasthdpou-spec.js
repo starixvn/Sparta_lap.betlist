@@ -186,7 +186,6 @@
             describe("loadMatchList(leagueId)", function () {
                 var request;
                 beforeEach(function (done) {
-                    spyOn($.fn, "material_select");
                     setFixtures(
                         '<select id="DdlMatchId"></select>' +
                         '<button id="SubmitButton" disabled="disabled"></button>'
