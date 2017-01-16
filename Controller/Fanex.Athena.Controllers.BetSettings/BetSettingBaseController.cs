@@ -109,7 +109,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private static void DisableBetSettingProduct(IEnumerable<BetSettingProduct> products, int productId)
         {
-            var product = products.Where(x => x.IsEnable && x.ProductId == productId).FirstOrDefault();
+            var product = products.FirstOrDefault(x => x.IsEnable && x.ProductId == productId);
             if (product != null)
             {
                 product.IsEnable = false;

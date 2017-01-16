@@ -61,7 +61,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
                                                  ProductName = DataHelper.GetProductName(Converter.ToString2(reader["productprefix"])),
                                                  ProductCode = Converter.ToString2(reader["productprefix"]),
                                                  AllowCommission = Converter.ToBool(reader["comm"]),
-                                                 AllowWinloss = Converter.ToBool(reader["winloss"])
+                                                 AllowWinloss = Converter.ToBool(reader["winloss"]),
+                                                 IsOfferedSingleWallet = Converter.ToBool(reader["IsOfferedSingleWallet"])
                                              });
                         }
                     }

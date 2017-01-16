@@ -2496,4 +2496,7 @@
   <data name="SmartSite" xml:space="preserve">
     <value>行动装置版</value>
   </data>
+  <data name="DataAreAvailableUpToYesterday" xml:space="preserve">
+    <value>只能取得到昨天為止的資料</value>
+  </data>
 </root>

@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.Report
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
 
-            var productAccess = ProductService.GetProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.Turnover);
@@ -87,7 +87,7 @@ namespace Fanex.Athena.Controllers.Report
                 DataList = dataList,
                 TotalData = turnoverService.SumTotalData(dataList),
                 Param = metaModel,
-                ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.Turnover),
+                ProductAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.Turnover),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 LicenseeTypeList = licenseeSession.LicenseeType,
                 CurrencyList = GetCurrenciesForTurnoverReport(licenseeSession.LicenseeId),
@@ -103,7 +103,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var templatePath = Server.MapPath("~/App_Data/Template/Reports/Turnover.xls");
 
-            var productAccess = ProductService.GetProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, FunctionNames.Turnover);
+            var productAccess = ProductService.GetSingleWalletProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, FunctionNames.Turnover);
 
             var convertingOption = new ConvertingOption
             {

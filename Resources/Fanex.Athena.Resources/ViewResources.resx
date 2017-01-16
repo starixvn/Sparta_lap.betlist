@@ -2942,4 +2942,7 @@
     <value>Enable Fishing World</value>
     <comment>#66737</comment>
   </data>
+  <data name="DataAreAvailableUpToYesterday" xml:space="preserve">
+    <value>Data are available up to yesterday.</value>
+  </data>
 </root>

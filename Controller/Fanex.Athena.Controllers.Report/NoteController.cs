@@ -51,6 +51,8 @@ namespace Fanex.Athena.Controllers.Report
                 MoveBetsDate = balanceUpInfo.MoveBetsDay,
                 ProductList = productList,
                 IsHistory = isHistory,
+
+
             };
 
             var viewPath = string.Format("~/Views/Note/{0}.cshtml", viewName);
