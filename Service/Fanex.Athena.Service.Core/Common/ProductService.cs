@@ -99,6 +99,7 @@ namespace Fanex.Athena.Service.Core.Common
                 : originalProducts;
             return new ProductAccess(productList);
         }
+
         public ProductAccess GetSingleWalletProductAccess(int licenseeId, string languageCode, string functionConfigKey = null)
         {
             var allowedProducts = GetAllowedProducts(functionConfigKey);
@@ -109,6 +110,7 @@ namespace Fanex.Athena.Service.Core.Common
                 : originalProducts;
             return new ProductAccess(productList);
         }
+
         public ProductAccess GetProductAccessForActiveCustomerSummary(int licenseeId, string languageCode)
         {
             const string FilterFunctionName = "ActiveCustomerSummary";
