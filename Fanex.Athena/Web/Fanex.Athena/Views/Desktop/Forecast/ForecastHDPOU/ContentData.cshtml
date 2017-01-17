@@ -1,0 +1,55 @@
+﻿@model Fanex.Athena.Model.Forecast.ViewModel.ForecastHdpOuViewModel
+@{
+    var mainData = Model.MainData.OrderBy(x => x.HomeTeamName);
+}
+@foreach (var match in mainData)
+{
+    <!--Render team-->
+    <tr class="league-name">
+        <td colspan="8">
+            @match.HomeTeamName -vs- @match.AwayTeamName
+        </td>
+    </tr>
+
+    <tr>
+        <td class="center-align" colspan="2">
+            @if (match.LiveIndicator)
+                {
+                <span>@match.LiveHomeScore - @match.LiveAwayScore</span>
+                <i class="live-notice">@ViewResources.Live!</i>
+            }
+            else
+            {
+                @Html.Raw(match.ShowTime)
+            }
+        </td>
+        <td class="center-align text-bold">@match.OffsetHdpMinus1</td>
+        <td class="center-align text-bold highlight">@match.OffsetHdp</td>
+        <td class="center-align text-bold">@match.OffsetHdpPlus1</td>
+        <td class="center-align text-bold">@match.OffsetOuPlus2</td>
+        <td class="center-align text-bold">@match.OffsetOuPlus1</td>
+        <td class="center-align text-bold highlight">@match.OffsetOu</td>
+    </tr>
+
+    <tr>
+        <td class="center-align">@ViewResources.FullTime</td>
+        <td class="center-align"><a class="icon-plus button-add" data-match-id="@match.MatchId" data-bettype="1" href="javascript:;"></a></td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HandicapMinus1, true, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.Handicap, true, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HandicapPlus1, true, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.OverUnderPlus2, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.OverUnderPlus1, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.OverUnder, false)</td>
+    </tr>
+
+    <tr>
+        <td class="center-align">@ViewResources.HalfTime</td>
+        <td class="center-align"><a class="icon-plus button-add" data-match-id="@match.MatchId" data-bettype="7" href="javascript:;"></a></td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HtHandicapMinus1, true, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HtHandicap, true, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HtHandicapPlus1, true, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HtOverUnderPlus2, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HtOverUnderPlus1, false)</td>
+        <td class="center-align text-bold">@RazorHelperDesktop.PositiveFormat(match.HtOverUnder, false)</td>
+    </tr>
+}

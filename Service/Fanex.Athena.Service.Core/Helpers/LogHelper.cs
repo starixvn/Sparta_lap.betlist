@@ -55,6 +55,7 @@ namespace Fanex.Athena.Service.Core.Helpers
             builder.AppendLine("DOMAIN: " + request.Headers["Host"])
                    .AppendLine("FORM: " + string.Join("~", request.Form))
                    .AppendLine("Url: " + request.RawUrl)
+                   .AppendLine("Referrer: " + request.UrlReferrer)
                    .AppendLine("QUERYSTRING: " + string.Join("~", request.QueryString))
                    .AppendLine("Browser:" + request.Browser.Type.ToString())
                    .AppendLine("BrowserVer:" + request.Browser.Version.ToString())

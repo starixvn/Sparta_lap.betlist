@@ -30,16 +30,11 @@
             window.onbeforeunload = function () {
                 $("ProductCode").val("");
             };
-            /**************/
-            /*date-range*/
 
-            /*drill down*/
-            /* sumary detail*/
             $("body").on("click", ".product-detail-link", function () {
                 viewProductDetail(this);
             });
-            /* sumary detail*/
-            /* detail*/
+
             $("body").on("click", ".sport-detailt-link", function () {
                 viewSportDetail(this);
             });

@@ -1,0 +1,55 @@
+﻿@import '../../vendors/materialize/_materialize-home';
+
+@import '../../scss/fonts/font-icon/style';
+@import '../../scss/fonts/montserrat/style';
+@import '../../scss/fonts/flags/flags-icon';
+@import '../../scss/base/common';
+
+@import '../../../../../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar';
+@import '../../scss/layout/navbar';
+@import '../../scss/layout/sidebar';
+@import '../../components/select2/select2.main';
+
+.licensees-block {
+    padding: 0 1rem;
+    width: 150px;
+
+    .select-licensee {
+        display: inline-block;
+        width: 100%;
+    }
+}
+
+.select2-container--open .select2-dropdown--below {
+    margin-top: 17px;
+}
+
+.dropdown-header {
+    max-height: 400px;
+}
+
+.dropdown-content {
+    opacity: 1;
+    top: 50px;
+    width: 20rem;
+
+    .ac-item {
+        &.ac-hover {
+            background: #eee;
+        }
+    }
+}
+
+/*Hack for IE*/
+.logo {
+    .logo-image {
+        vertical-align: top;
+    }
+}
+
+footer {
+    background: #CBCBCB;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+}
+@model Fanex.Athena.Model.Forecast.ViewModel.NewForecastHdpOuViewModel
+
+@{
+    var firstHalfType = 1; // 1st Half Handicap/Over Under
+    var fulltimeType = 3;  // Full Time Handicap / Over Under
+    var firstHalfTotal = Model.MainData.TotalItemList.Where(x => x.Type == firstHalfType);
+    var fullTimeTotal = Model.MainData.TotalItemList.Where(x => x.Type == fulltimeType);
+    var firstHalfHdpDetail = Model.MainData.DetailItemList.Where(x => x.Bettype == 7);
+    var firstHalfOuDetail = Model.MainData.DetailItemList.Where(x => x.Bettype == 8);
+    var fullTimeHdpDetail = Model.MainData.DetailItemList.Where(x => x.Bettype == 1);
+    var fullTimeOuDetail = Model.MainData.DetailItemList.Where(x => x.Bettype == 3);
+}
+
+@if (Model.MainData.TotalItemList.Count == 0)
+{
+    <p class="no-info-row">@ViewResources.NoInfo</p>
+}
+@if (firstHalfTotal.Count() > 0)
+{
+    ViewBag.BlockId = firstHalfType;
+    ViewBag.TotalList = firstHalfTotal.ToList();
+    ViewBag.DetailHdpList = firstHalfHdpDetail.ToList();
+    ViewBag.DetailOuList = firstHalfOuDetail.ToList();
+    ViewBag.HeaderText = ViewResources.lbl1st + " " + ViewResources.Half.ToUpper();
+    ViewBag.IsFullTime = false;
+    ViewBag.IsExpand = Model.Param.IsShowFH;
+
+    Html.RenderPartial("~/Views/Desktop/Forecast/NewForecastHdpOu/Content.ForecastItem.cshtml");
+}
+@if (fullTimeTotal.Count() > 0)
+{
+    ViewBag.BlockId = fulltimeType;
+    ViewBag.TotalList = fullTimeTotal.ToList();
+    ViewBag.DetailHdpList = fullTimeHdpDetail.ToList();
+    ViewBag.DetailOuList = fullTimeOuDetail.ToList();
+    ViewBag.HeaderText = ViewResources.Full.ToUpper() + " " + ViewResources.Time.ToUpper();
+    ViewBag.IsFullTime = true;
+    ViewBag.IsExpand = Model.Param.IsShowFT;
+
+    Html.RenderPartial("~/Views/Desktop/Forecast/NewForecastHdpOu/Content.ForecastItem.cshtml");
+}

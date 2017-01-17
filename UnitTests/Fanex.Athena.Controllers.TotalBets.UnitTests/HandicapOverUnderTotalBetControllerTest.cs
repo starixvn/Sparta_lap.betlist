@@ -69,6 +69,25 @@
         }
 
         [Test]
+        public void Index_InvalidCurrency_ReturnCorrectViewName()
+        {
+            // Arrange
+            using (var controller = CreateController())
+            {
+                var metaModel = new HandicapOverUnderMetaModel
+                {
+                    CurrencyId = 0
+                };
+
+                // Action
+                var viewResult = controller.Index(metaModel) as ViewResult;
+
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HandicapOverUnder/Main.cshtml"));
+            }
+        }
+
+        [Test]
         public void Index_InvalidCurrency_ViewNameIsAccessDenied()
         {
             // Arrange
@@ -84,6 +103,46 @@
 
                 // Assert
                 Assert.That(viewResult.Url, Is.EqualTo("~/Utility/AccessDenied"));
+            }
+        }
+
+        [Test]
+        public void Index_LicenseeIdNOTInLicenseeOfferNewForecastSetting_ReturNormalLicenseeView()
+        {
+            // Arrange
+            using (var controller = CreateController())
+            {
+                AppSettings.GetValue("LicenseeOfferNewForecast").Returns("1001");
+                var metaModel = new HandicapOverUnderMetaModel
+                {
+                    CurrencyId = 0
+                };
+
+                // Action
+                var viewResult = controller.Index(metaModel) as ViewResult;
+
+                // Assert
+                Assert.That(viewResult.ViewBag.LicenseeView, Is.EqualTo("ContentData.cshtml"));
+            }
+        }
+
+        [Test]
+        public void Index_LicenseeIdInLicenseeOfferNewForecastSetting_ReturnBodogLicenseeView()
+        {
+            // Arrange
+            using (var controller = CreateController())
+            {
+                AppSettings.GetValue("LicenseeOfferNewForecast").Returns("100");
+                var metaModel = new HandicapOverUnderMetaModel
+                {
+                    CurrencyId = 0
+                };
+
+                // Action
+                var viewResult = controller.Index(metaModel) as ViewResult;
+
+                // Assert
+                Assert.That(viewResult.ViewBag.LicenseeView, Is.EqualTo("ContentDataBodog.cshtml"));
             }
         }
 

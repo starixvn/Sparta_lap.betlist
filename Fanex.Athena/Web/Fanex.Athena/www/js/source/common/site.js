@@ -1,5 +1,5 @@
 ﻿/*global _language_en_US*/
-define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "lib/jquery.multiselect", "extensions/prototype"],
+define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "lib/jquery.multiselect", "extensions/prototype", "lib/select2"],
     function ($, QueryString, Popup) {// jshint ignore:line
         "use strict";
         var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
@@ -65,26 +65,17 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             return toDate.getMonth() - fromDate.getMonth() + (12 * (toDate.getFullYear() - fromDate.getFullYear())) + 1;
         }
 
-        function initMaterialSelect() {
-            $('select.select').not('.disabled').material_select(function () { // jshint ignore:line
-                $('input.select-dropdown').trigger('close');
+        function initSelectElements() {
+            $('select.select').not('#CurrencyId').select2({
+                minimumResultsForSearch: Infinity
             });
 
-            /*Hack for IE*/
-            var onMouseDown = function (e) {
-                $('input.select-dropdown').not($(e.target).find('input.select-dropdown')).trigger('close');
-                $('#grid-products-multiselect').multiSelect('hideMe');
-                // preventing the default still allows the scroll, but blocks the blur.
-                // We're inside the scrollbar if the clientX is >= the clientWidth.
-                if (e.clientX >= e.target.clientWidth || e.clientY >= e.target.clientHeight) {
-                    e.preventDefault();
-                }
-            };
-            $('select.initialized').siblings('input.select-dropdown').on('mousedown', onMouseDown);
+            $('select#CurrencyId').select2();
         }
 
         function initialize() {
             REQUEST_VERIFICATION_TOKEN = $("input[name=__RequestVerificationToken]").val();
+            initSelectElements();
             currencyConstraint();
             initEvent();
             _historyDate = new Date($("#HistoryDate").val());
@@ -97,7 +88,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             initBlockUI();
             addNoticationPopup();
             overrideInnerSize();
-            initMaterialSelect();
         }
         function initEvent() {
             $(window).resize(overrideInnerSize);
@@ -226,7 +216,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                             }
                         });
                 } else {
-                    $popup.show();
+                    $popup.flatPopup("show");
                 }
             });
         }
@@ -442,8 +432,9 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                 basedCurrency = basedCurrency === undefined ? "" : basedCurrency;
                 $baseCurrency.val(basedCurrency);
             }
-            $("select#BaseCurrency").material_select(function () { // jshint ignore:line
-                $('input.select-dropdown').trigger('close');
+
+            $("select#BaseCurrency").select2({
+                minimumResultsForSearch: Infinity
             });
         }
 

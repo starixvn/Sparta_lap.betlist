@@ -1,10 +1,6 @@
 ﻿define(['jquery', 'components/jquery.flatpopup'], function ($) {
     "use strict";
 
-    function onClosePopupWithIframe(){
-        $("#popupFrame").attr('src', "about:blank");
-    }
-
     var _me = {
         openPopup: function (element, option) {
             return $(element).flatPopup(option);
@@ -12,14 +8,12 @@
 
         openPopupWithIframe: function (url, option) {
             var $popUp = $("#" + option.id);
-            if ($popUp.length > 0) {
-                $("#popupFrame").attr('src', url);
-            } else {
-                $popUp = $('<div id="' + option.id + '" class="popup-frame"><iframe id="popupFrame" src="' + url + '" ></iframe></div>');
+            var iframe = '<iframe id="popupFrame" src="' + url + '" ></iframe>';
+            if ($popUp.length === 0) {
+                $popUp = $('<div id="' + option.id + '" class="popup-frame">' + iframe + '</div>');
             }
-
-            if(!option.onClose){
-                option.onClose = onClosePopupWithIframe;
+            else {
+                $popUp.append(iframe);
             }
 
             return $popUp.flatPopup(option);
@@ -47,10 +41,6 @@
 
             if (option.title !== "") {
                 $popUp.find(".txt-title").html(option.title);
-            }
-
-            if(!option.onClose){
-                option.onClose = onClosePopupWithIframe;
             }
 
             return $popUp.flatPopup(option);

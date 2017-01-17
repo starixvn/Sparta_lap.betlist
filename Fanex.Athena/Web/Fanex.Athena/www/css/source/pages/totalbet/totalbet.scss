@@ -1,4 +1,6 @@
-﻿@import "../../scss/abstracts/_variables.scss";
+﻿@import "../../scss/abstracts/_variables";
+@import "../common/reportcommon.main";
+@import "../../components/refreshcountdown/refreshcountdown";
 
 $colorBorderTable: #d6d6d6;
 $bgLeagueNameRow: #D1DAE1;

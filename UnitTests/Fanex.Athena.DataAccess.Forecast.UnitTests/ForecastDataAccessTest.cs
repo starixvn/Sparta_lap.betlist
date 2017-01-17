@@ -1,9 +1,9 @@
 ﻿namespace Fanex.Athena.DataAccess.Forecast.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using Data;
+    using Fanex.Athena.DataAccess.Core.Extensions;
     using Forecast;
     using Model.Core.DTO.Common;
     using Model.Forecast.DTO.Forecast1X2;
@@ -163,12 +163,13 @@
                 ShowTime = "ShowTimeTest",
                 IsNeutral = true
             };
-            ConfifureReaderForGetForecastOneXTwoByLeagueMethod(_reader, expected);
+            ConfifureReaderForGetForecastOneXTwoByLeagueMethod(_reader, expected, false);
 
             // Action
             var result = _dataAccess.GetForecastOneXTwoByLeague(metaModel)[0];
 
             // Assert
+            Assert.That(result.IsExtra, Is.False);
             Assert.That(result.MatchId, Is.EqualTo(expected.MatchId));
             Assert.That(result.HomeId, Is.EqualTo(expected.HomeId));
             Assert.That(result.AwayId, Is.EqualTo(expected.AwayId));
@@ -177,6 +178,35 @@
             Assert.That(result.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
             Assert.That(result.ShowTime, Is.EqualTo(expected.ShowTime));
             Assert.That(result.IsNeutral, Is.EqualTo(expected.IsNeutral));
+        }
+
+        [Test]
+        public void GetForecastOneXTwoByLeague_HasExtraColumn_DataReturnedCorrectly()
+        {
+            // Arrange
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Forecast1x2_SelByLeague")).Returns(_objectDb);
+            var metaModel = new ForecastOneXTwoMetaModel();
+            var expected = new ForecastOneXTwo
+            {
+                MatchId = 1,
+                HomeId = 2,
+                AwayId = 3,
+                LiveIndicator = true,
+                LiveHomeScore = 4,
+                LiveAwayScore = 5,
+                ShowTime = "ShowTimeTest",
+                IsNeutral = true
+            };
+            ConfifureReaderForGetForecastOneXTwoByLeagueMethod(_reader, expected, true);
+
+            // Action
+            var result = _dataAccess.GetForecastOneXTwoByLeague(metaModel)[0];
+
+            // Assert
+            Assert.That(result.IsExtra, Is.True);
+            Assert.That(result.HalfTimeHomeWinLoss, Is.EqualTo(expected.HalfTimeHomeWinLoss));
+            Assert.That(result.HalfTImeDrawWinLoss, Is.EqualTo(expected.HalfTImeDrawWinLoss));
+            Assert.That(result.HalfTimeAwayWinLoss, Is.EqualTo(expected.HalfTimeAwayWinLoss));
         }
 
         [Test]
@@ -410,7 +440,7 @@
             reader["WinLost_0_HTOU"].Returns(expected.HtOverUnder);
         }
 
-        private void ConfifureReaderForGetForecastOneXTwoByLeagueMethod(IDataReader reader, ForecastOneXTwo expected)
+        private void ConfifureReaderForGetForecastOneXTwoByLeagueMethod(IDataReader reader, ForecastOneXTwo expected, bool hasExtraColumn)
         {
             reader.Read().Returns(true, false);
 
@@ -430,7 +460,16 @@
             reader["ht_dl"].Returns(expected.HalfTImeDrawWinLoss);
             reader["ht_al"].Returns(expected.HalfTimeAwayWinLoss);
 
-            reader["isExtra"].Returns(1);
+            reader["isExtra"].Returns(hasExtraColumn ? 1 : 0);
+
+            if (hasExtraColumn)
+            {
+                reader.FieldCount.Returns(1);
+                reader.GetName(0).Returns("IsExtra");
+                reader["x_hl"].Returns(expected.HalfTimeHomeWinLoss);
+                reader["x_dl"].Returns(expected.HalfTImeDrawWinLoss);
+                reader["x_al"].Returns(expected.HalfTimeAwayWinLoss);
+            }
         }
     }
 }

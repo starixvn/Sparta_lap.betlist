@@ -1,17 +1,17 @@
-webpackJsonp([30],{
+webpackJsonp([33],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(277);
+	module.exports = __webpack_require__(244);
 
 
 /***/ },
 
-/***/ 215:
+/***/ 178:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(216)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(179)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
 	    var curCountDown = 0;
 	    var countDownTimer = null;
 	    var cookieName = null;
@@ -84,9 +84,6 @@ webpackJsonp([30],{
 	            // Get param before load data
 	            var url = _me.calculateUrl();
 	
-	            // Set up ajax no cache
-	            $.ajaxSetup({ cache: false });
-	
 	            Site.blockUI();
 	            $('#reportContent').load(url, {
 	                noncache: new Date().getTime()
@@ -128,8 +125,8 @@ webpackJsonp([30],{
 	
 	            url = QueryString.setParam(url, "HomeTeamId", homeName);
 	            url = QueryString.setParam(url, "AwayTeamId", awayName);
-	
-	            return url;
+	            
+	            return encodeURI(url);
 	        }
 	    };
 	
@@ -138,7 +135,7 @@ webpackJsonp([30],{
 
 /***/ },
 
-/***/ 216:
+/***/ 179:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -259,7 +256,7 @@ webpackJsonp([30],{
 
 /***/ },
 
-/***/ 219:
+/***/ 182:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -503,10 +500,10 @@ webpackJsonp([30],{
 
 /***/ },
 
-/***/ 277:
+/***/ 244:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(278)], __WEBPACK_AMD_DEFINE_RESULT__ = function (FirstGoalLastGoal) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function (FirstGoalLastGoal) {
 	    "use strict";
 	
 	    $(FirstGoalLastGoal.initialize);
@@ -515,10 +512,10 @@ webpackJsonp([30],{
 
 /***/ },
 
-/***/ 278:
+/***/ 245:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(279), __webpack_require__(215)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(246), __webpack_require__(178)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
 	    "use strict";
 	
 	    var _me = {
@@ -557,10 +554,10 @@ webpackJsonp([30],{
 
 /***/ },
 
-/***/ 279:
+/***/ 246:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(215), __webpack_require__(219)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(178), __webpack_require__(182)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
 	    var _me = {
 	        resizeGrid: function () {
 	            var $grid = $(".body-content");
@@ -569,8 +566,9 @@ webpackJsonp([30],{
 	            }
 	
 	            var gridTop = $grid.offset().top;
+	            var footerSite = 18;
 	
-	            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - 25;
+	            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - footerSite - 10;
 	            gridHeight = Math.max(150, gridHeight);
 	            $grid.css("max-height", gridHeight);
 	

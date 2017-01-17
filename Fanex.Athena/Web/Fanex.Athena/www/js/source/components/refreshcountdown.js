@@ -71,9 +71,6 @@
             // Get param before load data
             var url = _me.calculateUrl();
 
-            // Set up ajax no cache
-            $.ajaxSetup({ cache: false });
-
             Site.blockUI();
             $('#reportContent').load(url, {
                 noncache: new Date().getTime()
@@ -115,8 +112,8 @@
 
             url = QueryString.setParam(url, "HomeTeamId", homeName);
             url = QueryString.setParam(url, "AwayTeamId", awayName);
-
-            return url;
+            
+            return encodeURI(url);
         }
     };
 

@@ -38,7 +38,7 @@ main {
     width: 100%;
     position: absolute;
     top: 64px;
-    bottom: 10px;
+    bottom: 18px;
     transition: 0.3s ease all;
 
     @media (max-width: 500px) {
@@ -120,64 +120,4 @@ main {
     .tipsy-arrow-w {
         border-right-color: #000;
     }
-}
-
-@-webkit-keyframes ball-beat {
-    50% {
-        opacity: 0.2;
-        -webkit-transform: scale(0.75);
-        transform: scale(0.75);
-    }
-
-    100% {
-        opacity: 1;
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-}
-
-@-moz-keyframes ball-beat {
-    50% {
-        opacity: 0.2;
-        -webkit-transform: scale(0.75);
-        transform: scale(0.75);
-    }
-
-    100% {
-        opacity: 1;
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-}
-
-@keyframes ball-beat {
-    50% {
-        opacity: 0.2;
-        -webkit-transform: scale(0.75);
-        transform: scale(0.75);
-    }
-
-    100% {
-        opacity: 1;
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-}
-
-.ball-beat > .icon-ball {
-    background-color: #4C6375;
-    width: 15px;
-    height: 15px;
-    border-radius: 100%;
-    margin: 2px;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    display: inline-block;
-    -webkit-animation: ball-beat 1s 0s infinite linear;
-    animation: ball-beat 1s 0s infinite linear;
-}
-
-.ball-beat > .icon-ball:nth-child(2n-1) {
-    -webkit-animation-delay: -0.5s !important;
-    animation-delay: -0.5s !important;
 }

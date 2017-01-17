@@ -41,7 +41,7 @@
             border-color: #ccc;
             font-size: 1.3rem;
             color: $black;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
 
             &[readonly="readonly"] {
                 border-bottom: 1px solid #ccc;
@@ -87,31 +87,6 @@
         a, span {
             font-size: 1.3rem;
             color: $black;
-        }
-    }
-
-    .select-wrapper {
-        input.select-dropdown {
-            height: 2.5rem;
-            line-height: 2.5rem;
-            border-color: #ccc;
-            font-size: 1.3rem;
-            color: $black;
-            margin-bottom: 15px;
-        }
-
-        span.caret {
-            font-family: 'icomoon' !important;
-            color: transparent;
-
-            &:before {
-                content: "\e916";
-                color: #4d6273;
-                font-size: 18px;
-                position: absolute;
-                top: -14px;
-                right: -5px;
-            }
         }
     }
 }

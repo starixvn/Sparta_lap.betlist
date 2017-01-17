@@ -375,6 +375,19 @@ header {
             position: relative;
             z-index: 2;
 
+            .dropdown-button {
+                display: inline-block;
+                height: 28px;
+                vertical-align: middle;
+                line-height: 28px;
+                border-bottom: 1px solid rgba(255,255,255,0.8);
+
+                .icon-menu-down {
+                    height: 28px;
+                    line-height: 28px;
+                }
+            }
+
             .language-items {
                 width: 15rem !important;
                 top: 64px !important;

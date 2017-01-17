@@ -1,4 +1,8 @@
-﻿.panel-body {
+﻿@import '../common/reportcommon.main';
+@import '../../components/monthpicker/monpickr';
+@import '../../components/daterangepicker/daterangepicker-ex';
+
+.panel-body {
     padding-bottom: 1.5rem;
 }
 

@@ -140,7 +140,7 @@ var RefreshCountDown = (function ($) {
             url = QueryString.setParam(url, "HomeTeamId", homeName);
             url = QueryString.setParam(url, "AwayTeamId", awayName);
 
-            return url;
+            return encodeURI(url);
         }
     };
 })(jQuery);

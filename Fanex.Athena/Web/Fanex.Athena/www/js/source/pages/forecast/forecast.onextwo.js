@@ -11,7 +11,8 @@
 			}
 
 			var gridTop = $grid.offset().top;
-			var gridHeight = window.innerHeight - gridTop - 25;
+			var footerSite = 18;
+			var gridHeight = window.innerHeight - gridTop - footerSite - 10;
 			gridHeight = Math.max(150, gridHeight);
 			$grid.css("max-height", gridHeight);
 

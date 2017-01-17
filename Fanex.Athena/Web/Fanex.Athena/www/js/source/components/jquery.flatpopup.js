@@ -1,6 +1,7 @@
 ﻿"use strict";
 define(['jquery'], function ($) {
     var $blockBody;
+    var DEFAULT_MODAL = true;
 
     var _methods = {
         init: function (options) {
@@ -10,7 +11,7 @@ define(['jquery'], function ($) {
                 id: "popup-content",
                 title: "&nbsp;",
                 container: "body",
-                modal: true,
+                modal: DEFAULT_MODAL,
                 onOpen: null,
                 onClose: null
             };
@@ -19,8 +20,6 @@ define(['jquery'], function ($) {
             options = $.extend(defaultOptions, options || {});
             return this.each(function () {
                 var $self = $(this);
-                $self.addClass("flat-popup");
-
                 var $container = $(options.container);
 
                 if (options.modal && $blockBody.length === 0) {
@@ -31,19 +30,27 @@ define(['jquery'], function ($) {
                 var isNew = $container.find("#" + options.id).length === 0;
                 if (isNew) {
                     $self.attr("id", options.id);
+                    $self.addClass("flat-popup");
                     $self.children().wrapAll("<div class='wrapContent'></div>");
                     $self.hide()
-                         .prepend('<div class="title-bar popup-title"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="javascript:;"><i class="icon-close"></i></a></div>')
+                         .prepend('<div class="title-bar popup-title"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="javascript:;"><i class="icon-close"></i></a></div>');
 
                     $self.find('a.popup-close').on('click', function () {
                         if (options.onClose) {
                             options.onClose.apply($self);
                         }
 
+                        if ($self.find("iframe").length > 0) {
+                            $self.find(".wrapContent").empty();
+                        }
                         _methods.hide.apply($self);
                     });
 
                     $container.append($self);
+                }
+                else {
+                    var $wrapContent = $self.find(".wrapContent");
+                    $wrapContent.append($self.children().not(".popup-title"));
                 }
 
                 $self.width(options.width);
@@ -68,7 +75,7 @@ define(['jquery'], function ($) {
                 'left': left + "px"
             });
 
-            if (modal) {
+            if (modal === true || modal === undefined) {
                 $blockBody.show();
             }
 
@@ -80,7 +87,7 @@ define(['jquery'], function ($) {
             $blockBody.hide();
             return false;
         }
-    }
+    };
 
     $.fn.flatPopup = function (methodOrOptions) {
         if (_methods[methodOrOptions]) {
