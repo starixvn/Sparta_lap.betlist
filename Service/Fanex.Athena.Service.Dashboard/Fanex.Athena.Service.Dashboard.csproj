@@ -40,8 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ITurnoverByPlatformService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TurnoverService.cs" />
+    <Compile Include="TurnoverByPlatformService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Dashboard\Fanex.Athena.DataAccess.Dashboard.csproj">
+      <Project>{96B29EAC-D1B3-42C6-A930-518D6AD33630}</Project>
+      <Name>Fanex.Athena.DataAccess.Dashboard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Dashboard\Fanex.Athena.Model.Dashboard.csproj">
+      <Project>{1E08C4C9-3BA9-407B-90FC-168A2FAF35D0}</Project>
+      <Name>Fanex.Athena.Model.Dashboard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Service.Report\Fanex.Athena.Service.Report.csproj">
+      <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
+      <Name>Fanex.Athena.Service.Report</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

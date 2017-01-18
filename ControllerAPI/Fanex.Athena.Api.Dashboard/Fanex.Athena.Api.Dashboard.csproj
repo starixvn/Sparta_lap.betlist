@@ -63,6 +63,16 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Dashboard\Fanex.Athena.Model.Dashboard.csproj">
+      <Project>{1E08C4C9-3BA9-407B-90FC-168A2FAF35D0}</Project>
+      <Name>Fanex.Athena.Model.Dashboard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Dashboard\Fanex.Athena.Service.Dashboard.csproj">
+      <Project>{2AB6D6E9-7C2E-4AF6-BC7C-AEF5E04DA943}</Project>
+      <Name>Fanex.Athena.Service.Dashboard</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
