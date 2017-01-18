@@ -4,7 +4,7 @@
     using System.Linq;
     using Fanex.Athena.Model.Dashboard.DTO;
 
-    public class TurnoverViewModel
+    public class TurnoverByPlatformViewModel
     {
         public IList<Platform> Data { get; set; }
 

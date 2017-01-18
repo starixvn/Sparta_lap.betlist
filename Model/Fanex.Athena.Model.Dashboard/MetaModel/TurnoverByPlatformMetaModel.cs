@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.Model.Dashboard.MetaModel
 {
-    public class TurnoverMetaModel
+    public class TurnoverByPlatformMetaModel
     {
     }
 }
