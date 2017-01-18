@@ -4,6 +4,7 @@
     using Fanex.Athena.Model.Dashboard.ViewModel;
     using Fanex.Athena.Service.Dashboard;
     using Fanex.Athena.Service.Dashboard.Interfaces;
+    using Model.Dashboard.MetaModel;
 
     public class TurnoverByPlatformController : ApiController
     {
@@ -19,9 +20,9 @@
         }
 
         [HttpGet]
-        public TurnoverByPlatformViewModel GetData()
+        public TurnoverByPlatformViewModel GetData(DashboardBaseModel metaModel)
         {
-            return _turnoverByPlatformService.GetData();
+            return _turnoverByPlatformService.GetData(metaModel);
         }
     }
 }

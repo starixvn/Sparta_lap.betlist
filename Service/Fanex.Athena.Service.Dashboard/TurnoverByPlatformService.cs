@@ -3,6 +3,7 @@
     using DataAccess.Dashboard;
     using DataAccess.Dashboard.Interfaces;
     using Fanex.Athena.Service.Dashboard.Interfaces;
+    using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
 
     public class TurnoverByPlatformService : ITurnoverByPlatformService
@@ -15,14 +16,14 @@
 
         public TurnoverByPlatformService(ITurnoverByPlatformDataAccess turnoverByPlatformDataAccess)
         {
-            this._turnoverByPlatformDataAccess = turnoverByPlatformDataAccess ?? new TurnoverByPlatformDataAccess();
+            _turnoverByPlatformDataAccess = turnoverByPlatformDataAccess ?? new TurnoverByPlatformDataAccess();
         }
 
-        public TurnoverByPlatformViewModel GetData()
+        public TurnoverByPlatformViewModel GetData(DashboardBaseModel metaModel)
         {
             return new TurnoverByPlatformViewModel
             {
-                Data = _turnoverByPlatformDataAccess.GetData()
+                Data = _turnoverByPlatformDataAccess.GetData(metaModel)
             };
         }
     }

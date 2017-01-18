@@ -3,10 +3,11 @@
     using System.Collections.Generic;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.DTO;
+    using Model.Dashboard.MetaModel;
 
     public class TurnoverByPlatformDataAccess : ITurnoverByPlatformDataAccess
     {
-        public IList<Platform> GetData()
+        public IList<Platform> GetData(DashboardBaseModel metaModel)
         {
             return new List<Platform>
             {

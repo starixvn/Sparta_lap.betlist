@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ITodayDepositService.cs" />
     <Compile Include="Interfaces\ITurnoverByPlatformService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TodayDepositService.cs" />
     <Compile Include="TurnoverByPlatformService.cs" />
   </ItemGroup>
   <ItemGroup>
