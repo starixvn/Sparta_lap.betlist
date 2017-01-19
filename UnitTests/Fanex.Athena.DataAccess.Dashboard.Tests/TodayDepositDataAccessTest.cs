@@ -8,7 +8,7 @@ namespace Fanex.Athena.DataAccess.Dashboard.Tests
     [TestFixture]
     public class TodayDepositDataAccessTest
     {
-        private ITodayDepositDataAccess _todayDepositDataAccess;
+        private ISimpleWidgetDataAccess _todayDepositDataAccess;
 
         [OneTimeSetUp]
         public void SetUp()

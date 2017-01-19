@@ -6,15 +6,15 @@
     using Fanex.Athena.Model.Dashboard.ViewModel;
     using Fanex.Athena.Service.Dashboard.Interfaces;
 
-    public class SportsbookWalletService : ISportsbookWalletService
+    public class SportsbookWalletService : ISimpleWidgetService
     {
-        private readonly ISportsbookWalletDataAccess _sportsbookWalletDataAccess;
+        private readonly ISimpleWidgetDataAccess _sportsbookWalletDataAccess;
 
         public SportsbookWalletService() : this(null)
         {
         }
 
-        public SportsbookWalletService(ISportsbookWalletDataAccess sportsbookWalletDataAccess)
+        public SportsbookWalletService(ISimpleWidgetDataAccess sportsbookWalletDataAccess)
         {
             _sportsbookWalletDataAccess = sportsbookWalletDataAccess ?? new SportsbookWalletDataAccess();
         }

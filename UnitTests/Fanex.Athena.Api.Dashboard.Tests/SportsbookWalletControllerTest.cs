@@ -10,13 +10,13 @@
     [TestFixture]
     public class SportsbookWalletControllerTest
     {
-        private ISportsbookWalletService _sportsbookWalletService;
+        private ISimpleWidgetService _sportsbookWalletService;
         private SportsbookWalletController _sportsbookWalletController;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _sportsbookWalletService = Substitute.For<ISportsbookWalletService>();
+            _sportsbookWalletService = Substitute.For<ISimpleWidgetService>();
             _sportsbookWalletController = new SportsbookWalletController(_sportsbookWalletService);
         }
 

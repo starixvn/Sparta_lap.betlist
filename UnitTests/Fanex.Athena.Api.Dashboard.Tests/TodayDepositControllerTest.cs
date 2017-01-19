@@ -9,13 +9,13 @@
     [TestFixture]
     public class TodayDepositControllerTest
     {
-        private ITodayDepositService _todayDepositService;
+        private ISimpleWidgetService _todayDepositService;
         private TodayDepositController _todayDepositController;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _todayDepositService = Substitute.For<ITodayDepositService>();
+            _todayDepositService = Substitute.For<ISimpleWidgetService>();
             _todayDepositController = new TodayDepositController(_todayDepositService);
         }
 

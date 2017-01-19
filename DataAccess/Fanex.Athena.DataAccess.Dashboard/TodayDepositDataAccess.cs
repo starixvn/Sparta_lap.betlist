@@ -4,7 +4,7 @@ using Fanex.Athena.Model.Dashboard.ViewModel;
 
 namespace Fanex.Athena.DataAccess.Dashboard
 {
-    public class TodayDepositDataAccess : ITodayDepositDataAccess
+    public class TodayDepositDataAccess : ISimpleWidgetDataAccess
     {
         public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
         {

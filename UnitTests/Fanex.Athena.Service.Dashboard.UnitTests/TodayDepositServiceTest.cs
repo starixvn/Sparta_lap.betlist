@@ -10,13 +10,13 @@
     [TestFixture]
     public class TodayDepositServiceTest
     {
-        private ITodayDepositDataAccess _todayDepositDataAccess;
-        private ITodayDepositService _todayDepositService;
+        private ISimpleWidgetDataAccess _todayDepositDataAccess;
+        private ISimpleWidgetService _todayDepositService;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _todayDepositDataAccess = Substitute.For<ITodayDepositDataAccess>();
+            _todayDepositDataAccess = Substitute.For<ISimpleWidgetDataAccess>();
             _todayDepositService = new TodayDepositService(_todayDepositDataAccess);
         }
 

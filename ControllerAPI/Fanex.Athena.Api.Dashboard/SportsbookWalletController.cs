@@ -8,13 +8,13 @@
 
     public class SportsbookWalletController : ApiController
     {
-        private readonly ISportsbookWalletService _sportsbookWalletService;
+        private readonly ISimpleWidgetService _sportsbookWalletService;
 
         public SportsbookWalletController() : this(null)
         {
         }
 
-        public SportsbookWalletController(ISportsbookWalletService sportsbookWalletService)
+        public SportsbookWalletController(ISimpleWidgetService sportsbookWalletService)
         {
             _sportsbookWalletService = sportsbookWalletService ?? new SportsbookWalletService();
         }

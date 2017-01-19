@@ -10,13 +10,13 @@
     [TestFixture]
     public class SportsbookWalletServiceTest
     {
-        private ISportsbookWalletDataAccess _sportsbookWalletDataAccess;
-        private ISportsbookWalletService _sportsbookWalletService;
+        private ISimpleWidgetDataAccess _sportsbookWalletDataAccess;
+        private ISimpleWidgetService _sportsbookWalletService;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _sportsbookWalletDataAccess = Substitute.For<ISportsbookWalletDataAccess>();
+            _sportsbookWalletDataAccess = Substitute.For<ISimpleWidgetDataAccess>();
             _sportsbookWalletService = new SportsbookWalletService(_sportsbookWalletDataAccess);
         }
 

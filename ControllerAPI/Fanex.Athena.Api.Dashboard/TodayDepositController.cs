@@ -8,13 +8,13 @@
 
     public class TodayDepositController : ApiController
     {
-        private readonly ITodayDepositService _todayDepositService;
+        private readonly ISimpleWidgetService _todayDepositService;
 
         public TodayDepositController() : this(null)
         {
         }
 
-        public TodayDepositController(ITodayDepositService todayDepositService)
+        public TodayDepositController(ISimpleWidgetService todayDepositService)
         {
             this._todayDepositService = todayDepositService ?? new TodayDepositService();
         }

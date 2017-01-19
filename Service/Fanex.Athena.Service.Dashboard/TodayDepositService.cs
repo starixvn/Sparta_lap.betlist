@@ -6,15 +6,15 @@
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
 
-    public class TodayDepositService : ITodayDepositService
+    public class TodayDepositService : ISimpleWidgetService
     {
-        private readonly ITodayDepositDataAccess _todayDepositDataAccess;
+        private readonly ISimpleWidgetDataAccess _todayDepositDataAccess;
 
         public TodayDepositService()
         {
         }
 
-        public TodayDepositService(ITodayDepositDataAccess todayDepositDataAccess)
+        public TodayDepositService(ISimpleWidgetDataAccess todayDepositDataAccess)
         {
             _todayDepositDataAccess = todayDepositDataAccess ?? new TodayDepositDataAccess();
         }

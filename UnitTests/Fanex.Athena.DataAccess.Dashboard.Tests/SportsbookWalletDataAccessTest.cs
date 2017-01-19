@@ -7,7 +7,7 @@
 
     public class SportsbookWalletDataAccessTest
     {
-        private ISportsbookWalletDataAccess _sportsbookWalletDataAccess;
+        private ISimpleWidgetDataAccess _sportsbookWalletDataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
