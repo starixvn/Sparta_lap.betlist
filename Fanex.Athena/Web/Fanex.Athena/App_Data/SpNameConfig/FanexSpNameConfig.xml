@@ -1,7 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT" SpName="Lrf_LicenseeProduct3rdSel" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,UAT" SpName="Lrf_LicenseeProduct3rdSel_active" EnvironmentText="_xtest"></SpNameConfig>
-
 </Root>
