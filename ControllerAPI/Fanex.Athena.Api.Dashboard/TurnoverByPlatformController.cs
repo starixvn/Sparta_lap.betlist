@@ -20,7 +20,7 @@
         }
 
         [HttpGet]
-        public TurnoverByPlatformViewModel GetData(DashboardBaseModel metaModel)
+        public TurnoverByPlatformViewModel Index(DashboardBaseModel metaModel)
         {
             return _turnoverByPlatformService.GetData(metaModel);
         }

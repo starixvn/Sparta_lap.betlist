@@ -8,7 +8,7 @@
     {
         public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
         {
-            return new SimpleWidgetViewModel { Value = 15700000M };
+            return new SimpleWidgetViewModel { Value = 1570000M };
         }
     }
 }
