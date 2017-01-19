@@ -80,6 +80,8 @@ namespace Fanex.Athena.Model.Core.DTO.Common
 
         public bool AllowWinloss { get; set; }
 
+        public bool IsOfferedSingleWallet { get; set; }
+
         /// <summary>
         /// Bet type validation - check if bet type is correct with product.
         /// </summary>

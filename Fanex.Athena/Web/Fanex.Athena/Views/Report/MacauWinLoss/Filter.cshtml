@@ -5,82 +5,91 @@
     <!--grid_26-->
     <form id="ThirdPartyWinLossForm" name="ThirdPartyWinLossForm" method="post" action="">
         @Html.AntiForgeryToken()
-    <div class="grid_3 filter-label">
-        <label>@ViewResources.ViewDataInMonth</label>
-    </div>
-    <div class="grid_8 filter-input month-picker">
-        <div id="DateControl">
+        <div class="grid_3 filter-label">
+            <label>@ViewResources.ViewDataInMonth</label>
         </div>
-        <div id="MonthPickerFromDay">
-        </div>
-        <div id="MonthPickerToDay">
-        </div>
-    </div>
-    <div>
-        <input type="hidden" id="FromDay" name="FromDay" value="@Model.Param.FromDate.Day" />
-        <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDate.Day" />
-        <input type="hidden" id="Month" name="Month" value="@Model.Param.FromDate.Month" />
-        <input type="hidden" id="Year" name="Year" value="@Model.Param.FromDate.Year" />
-        @Html.Hidden("ProductId", Model.Param.ProductId)
-        @Html.Hidden("ProductCode", Model.Param.ProductCode)
-        @Html.Hidden("ProductName", Model.Param.ProductName)
-        @{
-            var appSettings = new AppSettings();
-            var minDate = appSettings.HistoryDate;
-        }
-        <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
-    </div>
-    <div class="grid_3 filter-label new-line">
-        <label>
-            @ViewResources.Currency
-        </label>
-    </div>
-    <div class="grid_3 filter-input">
-        @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true)
-    </div>
-    <div class="grid_4 filter-label">
-        <label for="IsExcludedTestData">
-            @ViewResources.ExcludeTestData
-        </label>
-    </div>
-    <div class="grid_5 filter-input option-list">
-        <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
-    </div>
-    <div class="grid_2 note-group">
-        <div>
-            <div class="userguide-icon" id="UserGuide" style="display: none" title="@ViewResources.UserGuide">
+        <div class="grid_8 filter-input month-picker">
+            <div id="DateControl">
+            </div>
+            <div id="MonthPickerFromDay">
+            </div>
+            <div id="MonthPickerToDay">
             </div>
         </div>
         <div>
-            <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
-               type="image" id="ExportToExcel" name="exporttoexcel"
-               title="@ViewResources.ExportToExcel" class="hand" />
+            <input type="hidden" id="FromDay" name="FromDay" value="@Model.Param.FromDate.Day" />
+            <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDate.Day" />
+            <input type="hidden" id="Month" name="Month" value="@Model.Param.FromDate.Month" />
+            <input type="hidden" id="Year" name="Year" value="@Model.Param.FromDate.Year" />
+            @Html.Hidden("ProductId", Model.Param.ProductId)
+            @Html.Hidden("ProductCode", Model.Param.ProductCode)
+            @Html.Hidden("ProductName", Model.Param.ProductName)
+            @{
+                var appSettings = new AppSettings();
+                var minDate = appSettings.HistoryDate;
+            }
+            <input type="hidden" id="MinDate" value="@minDate.ToString("yyyy/M/d")" />
         </div>
-    </div>
-    @if (Model.Param.IsAllowReportby == true)
-    {
         <div class="grid_3 filter-label new-line">
             <label>
-                @ViewResources.ReportBy
-            </label>
-        </div>    
-        <div class="grid_5 filter-input option-list">
-            <input type="radio" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="reportby" id="reportbydaily"/>
-            <label for="reportbydaily">
-                @ViewResources.Daily
-            </label>
-            <input type="radio" class="report-by-monthly" value="2" @(Model.Param.ReportBy == ReportByType.Monthly ? "checked=checked" : "") name="reportby" id="reportbymonthly" />
-            <label for="reportbymonthly">
-                @ViewResources.Monthly
+                @ViewResources.Currency
             </label>
         </div>
-    }
-    <div class="grid_3 filter-label new-line">
-        &nbsp;</div>
-    <div class="grid_2 filter-input" id="control-container">
-        <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
-    </div>
-    @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+        <div class="grid_3 filter-input">
+            @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true)
+        </div>
+        <div class="grid_4 filter-label">
+            <label for="IsExcludedTestData">
+                @ViewResources.ExcludeTestData
+            </label>
+        </div>
+        <div class="grid_5 filter-input option-list">
+            <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
+        </div>
+        <div class="grid_2 note-group">
+            <div>
+                <div class="userguide-icon" id="UserGuide" style="display: none" title="@ViewResources.UserGuide">
+                </div>
+            </div>
+            <div>
+                <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+                       type="image" id="ExportToExcel" name="exporttoexcel"
+                       title="@ViewResources.ExportToExcel" class="hand" />
+            </div>
+        </div>
+        @if (Model.Param.IsAllowReportby == true)
+        {
+            <div class="grid_3 filter-label new-line">
+                <label>
+                    @ViewResources.ReportBy
+                </label>
+            </div>
+            <div class="grid_5 filter-input option-list">
+                <input type="radio" value="1" @(Model.Param.ReportBy == ReportByType.Daily ? "checked=checked" : "") name="reportby" id="reportbydaily" />
+                <label for="reportbydaily">
+                    @ViewResources.Daily
+                </label>
+                <input type="radio" class="report-by-monthly" value="2" @(Model.Param.ReportBy == ReportByType.Monthly ? "checked=checked" : "") name="reportby" id="reportbymonthly" />
+                <label for="reportbymonthly">
+                    @ViewResources.Monthly
+                </label>
+            </div>
+        }
+        <div class="grid_3 filter-label new-line">
+            &nbsp;
+        </div>
+        <div class="grid_12 filter-input" style="height: 35px;">
+            <div class="note-message">
+                @ViewResources.DataAreAvailableUpToYesterday
+            </div>
+        </div>
+        <div class="grid_3 filter-label new-line">
+            &nbsp;
+        </div>
+        <div class="grid_2 filter-input" id="control-container">
+            <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+        </div>
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
     </form>
     @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
     <input type="hidden" id="FromDate" name="FromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />

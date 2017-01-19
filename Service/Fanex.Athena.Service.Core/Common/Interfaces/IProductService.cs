@@ -35,6 +35,8 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
 
         ProductAccess GetProductAccessForActiveCustomerSummary(int licenseeId, string languageCode);
 
+        ProductAccess GetSingleWalletProductAccess(int licenseeId, string languageCode, string functionConfigKey = null);
+
         /// <summary>
         ///     Check if the member's currency is allowed in SA Tote.
         /// </summary>

@@ -27,7 +27,7 @@ namespace Fanex.Athena.Controllers.Report
             var userSession = SessionService.UserSession;
             var licenseeId = licenseeSession.LicenseeId;
             var metaModel = new PlatformWinLossMetaModel { LicenseeId = licenseeId };
-            var productAccess = ProductService.GetProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 licenseeId,
                 userSession.Language,
                 FunctionNames.PlatformWinloss);

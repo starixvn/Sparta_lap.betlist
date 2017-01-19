@@ -44,7 +44,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var productAccess = ProductService.GetProductAccess(
+            var productAccess = ProductService.GetSingleWalletProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.MatchWinLoss);
@@ -116,7 +116,7 @@ namespace Fanex.Athena.Controllers.Report
 
             var total = GetTotal(reportData);
             var grandTotal = GetGrandTotal(reportDataOutrightParlay, total);
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
+            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
             var model = new MatchWinLossViewModel
             {
                 Param = metaModel,
@@ -148,7 +148,7 @@ namespace Fanex.Athena.Controllers.Report
             var matchWinLossService = new MatchWinLossService();
             var reportData = matchWinLossService.GetDetailDataList(metaModel);
 
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
+            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
 
             var model = new MatchWinLossViewModel
             {
@@ -171,7 +171,7 @@ namespace Fanex.Athena.Controllers.Report
             var templatePath = Server.MapPath(@"~/App_Data/Template/Reports/MatchWinLoss.xls");
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
+            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
             var showingOption = new ShowingOption
             {
                 BAVisible = productAccess.IsAllowBA,

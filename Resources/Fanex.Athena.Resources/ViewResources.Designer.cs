@@ -1771,6 +1771,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data are available up to yesterday..
+        /// </summary>
+        public static string DataAreAvailableUpToYesterday {
+            get {
+                return ResourceManager.GetString("DataAreAvailableUpToYesterday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data Warehouse.
         /// </summary>
         public static string DataWareHouse {
