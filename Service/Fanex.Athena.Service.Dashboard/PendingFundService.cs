@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Dashboard
 {
+    using DataAccess.Dashboard;
     using DataAccess.Dashboard.Interfaces;
     using Fanex.Athena.Model.Dashboard.MetaModel;
     using Fanex.Athena.Model.Dashboard.ViewModel;
@@ -15,7 +16,7 @@
 
         public PendingFundService(ISimpleWidgetDataAccess pendingFundDataAccess)
         {
-            _pendingFundDataAccess = pendingFundDataAccess;
+            _pendingFundDataAccess = pendingFundDataAccess ?? new PendingFundDataAccess();
         }
 
         public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)

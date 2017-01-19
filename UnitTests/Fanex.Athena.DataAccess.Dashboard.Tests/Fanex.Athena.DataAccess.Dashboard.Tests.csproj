@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="PendingFundDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegisteredCustomerDataAccessTest.cs" />
     <Compile Include="SportsbookWalletDataAccessTest.cs" />
     <Compile Include="TodayDepositDataAccessTest.cs" />
     <Compile Include="TodayWithdrawalDataAccessTest.cs" />
