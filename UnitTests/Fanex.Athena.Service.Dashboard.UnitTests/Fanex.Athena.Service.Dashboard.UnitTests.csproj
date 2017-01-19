@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PendingFundServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SportsbookWalletServiceTest.cs" />
     <Compile Include="TodayDepositServiceTest.cs" />

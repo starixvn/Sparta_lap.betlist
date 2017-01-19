@@ -40,9 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ISimpleWidgetDataAccess.cs" />
     <Compile Include="Interfaces\ISportsbookWalletDataAccess.cs" />
     <Compile Include="Interfaces\ITodayDepositDataAccess.cs" />
     <Compile Include="Interfaces\ITurnoverByPlatformDataAccess.cs" />
+    <Compile Include="PendingFundDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SportsbookWalletDataAccess.cs" />
     <Compile Include="TodayDepositDataAccess.cs" />
