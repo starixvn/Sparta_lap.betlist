@@ -8,18 +8,18 @@
     [TestFixture]
     public class PendingFundDataAccessTest
     {
-        private ISimpleWidgetDataAccess _pendingFundDataAccessDataAccess;
+        private ISimpleWidgetDataAccess _pendingFundDataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _pendingFundDataAccessDataAccess = new PendingFundDataAccess();
+            _pendingFundDataAccess = new PendingFundDataAccess();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _pendingFundDataAccessDataAccess = null;
+            _pendingFundDataAccess = null;
         }
 
         [Test]
@@ -30,7 +30,7 @@
             var metaModel = new DashboardBaseModel();
 
             // Action
-            var result = _pendingFundDataAccessDataAccess.GetData(metaModel);
+            var result = _pendingFundDataAccess.GetData(metaModel);
 
             // Assert
             Assert.That(result.Value, Is.EqualTo(expected.Value));
