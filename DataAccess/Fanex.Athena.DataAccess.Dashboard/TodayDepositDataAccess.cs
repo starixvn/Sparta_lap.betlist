@@ -6,9 +6,9 @@ namespace Fanex.Athena.DataAccess.Dashboard
 {
     public class TodayDepositDataAccess : ITodayDepositDataAccess
     {
-        public TodayDepositViewModel GetData(DashboardBaseModel metaModel)
+        public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
         {
-            return new TodayDepositViewModel { Value = 2500000M };
+            return new SimpleWidgetViewModel { Value = 2500000M };
         }
     }
 }

@@ -176,6 +176,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.Dashboard"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Dashboard", "DataAccess\Fanex.Athena.DataAccess.Dashboard\Fanex.Athena.DataAccess.Dashboard.csproj", "{96B29EAC-D1B3-42C6-A930-518D6AD33630}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Dashboard.UnitTests", "UnitTests\Fanex.Athena.Service.Dashboard.UnitTests\Fanex.Athena.Service.Dashboard.UnitTests.csproj", "{A449E548-C6B7-432E-B9EE-44D570617F67}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ControllerAPI", "ControllerAPI", "{8124F11D-CD42-4473-AE75-80290172BE0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.Dashboard.Tests", "UnitTests\Fanex.Athena.Api.Dashboard.Tests\Fanex.Athena.Api.Dashboard.Tests.csproj", "{23989B95-84C8-436C-AD5B-EC8C5B928BFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1016,6 +1022,30 @@ Global
 		{96B29EAC-D1B3-42C6-A930-518D6AD33630}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{96B29EAC-D1B3-42C6-A930-518D6AD33630}.Release|x86.ActiveCfg = Release|Any CPU
 		{96B29EAC-D1B3-42C6-A930-518D6AD33630}.Release|x86.Build.0 = Release|Any CPU
+		{A449E548-C6B7-432E-B9EE-44D570617F67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A449E548-C6B7-432E-B9EE-44D570617F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A449E548-C6B7-432E-B9EE-44D570617F67}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A449E548-C6B7-432E-B9EE-44D570617F67}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A449E548-C6B7-432E-B9EE-44D570617F67}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A449E548-C6B7-432E-B9EE-44D570617F67}.Debug|x86.Build.0 = Debug|Any CPU
+		{A449E548-C6B7-432E-B9EE-44D570617F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A449E548-C6B7-432E-B9EE-44D570617F67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A449E548-C6B7-432E-B9EE-44D570617F67}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A449E548-C6B7-432E-B9EE-44D570617F67}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A449E548-C6B7-432E-B9EE-44D570617F67}.Release|x86.ActiveCfg = Release|Any CPU
+		{A449E548-C6B7-432E-B9EE-44D570617F67}.Release|x86.Build.0 = Release|Any CPU
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC}.Debug|x86.Build.0 = Debug|Any CPU
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC}.Release|x86.ActiveCfg = Release|Any CPU
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1094,6 +1124,9 @@ Global
 		{2AB6D6E9-7C2E-4AF6-BC7C-AEF5E04DA943} = {195AD258-DE51-497C-BA3B-1645AE32CAB6}
 		{0FD46119-9F38-4C3A-BA06-719CF00D75D8} = {4D6B663E-04A8-4993-B33F-A445428FA349}
 		{96B29EAC-D1B3-42C6-A930-518D6AD33630} = {D72107B8-4765-4E3D-A86D-36BD7E0D9109}
+		{A449E548-C6B7-432E-B9EE-44D570617F67} = {8A922757-8C4B-44C0-9D3E-9B68E6AE956B}
+		{8124F11D-CD42-4473-AE75-80290172BE0A} = {6AD8D3FB-0047-432F-ACAC-D67093176088}
+		{23989B95-84C8-436C-AD5B-EC8C5B928BFC} = {8124F11D-CD42-4473-AE75-80290172BE0A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35

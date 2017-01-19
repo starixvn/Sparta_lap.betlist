@@ -43,7 +43,7 @@
     <Compile Include="DTO\Platform.cs" />
     <Compile Include="MetaModel\DashboardBaseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\TodayDepositViewModel.cs" />
+    <Compile Include="ViewModel\SimpleWidgetViewModel.cs" />
     <Compile Include="ViewModel\TurnoverByPlatformViewModel.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -5,6 +5,6 @@
 
     public interface ITodayDepositService
     {
-        TodayDepositViewModel GetData(DashboardBaseModel metaModel);
+        SimpleWidgetViewModel GetData(DashboardBaseModel metaModel);
     }
 }

@@ -19,7 +19,7 @@
             _todayDepositDataAccess = todayDepositDataAccess ?? new TodayDepositDataAccess();
         }
 
-        public TodayDepositViewModel GetData(DashboardBaseModel metaModel)
+        public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
         {
             return _todayDepositDataAccess.GetData(metaModel);
         }

@@ -19,7 +19,7 @@
             this._todayDepositService = todayDepositService ?? new TodayDepositService();
         }
 
-        public TodayDepositViewModel GetData(DashboardBaseModel metaModel)
+        public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
         {
             return _todayDepositService.GetData(metaModel);
         }

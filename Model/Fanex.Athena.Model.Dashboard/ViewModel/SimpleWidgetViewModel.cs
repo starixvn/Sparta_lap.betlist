@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.Model.Dashboard.ViewModel
 {
-    public class TodayDepositViewModel
+    public class SimpleWidgetViewModel
     {
         public decimal Value { get; set; }
     }
