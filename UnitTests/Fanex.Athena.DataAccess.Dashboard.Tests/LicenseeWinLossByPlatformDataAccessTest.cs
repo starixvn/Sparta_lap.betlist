@@ -1,0 +1,60 @@
+﻿namespace Fanex.Athena.DataAccess.Dashboard.Tests
+{
+    using System.Collections.Generic;
+    using Interfaces;
+    using Model.Dashboard.DTO;
+    using Model.Dashboard.MetaModel;
+    using Model.Dashboard.ViewModel;
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class LicenseeWinLossByPlatformDataAccessTest
+    {
+        private IWidgetByPlatformDataAccess _licenseeWinLossByPlatformDataAccess;
+
+        [OneTimeSetUp]
+        public void SetUp()
+        {
+            _licenseeWinLossByPlatformDataAccess = new LicenseeWinLossByPlatformDataAccess();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            _licenseeWinLossByPlatformDataAccess = null;
+        }
+
+        [Test]
+        public void GetData_WhenCall_ReturnCorrectData()
+        {
+            // Arrange
+            var expected = new WidgetByPlatformViewModel
+            {
+                Data = new List<Platform>
+                {
+                    new Platform { Name = "Asia", Value = 100M },
+                    new Platform { Name = "China", Value = 300M },
+                    new Platform { Name = "WAP", Value = 800M },
+                    new Platform { Name = "Smartsite", Value = 700M },
+                    new Platform { Name = "Others", Value = 1700M }
+                }
+            };
+            var metaModel = new DashboardBaseModel();
+
+            // Action
+            var result = _licenseeWinLossByPlatformDataAccess.GetData(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Data.Count, Is.EqualTo(5));
+                Assert.That(result.Data[0].Name, Is.EqualTo(expected.Data[0].Name));
+                Assert.That(result.Data[0].Value, Is.EqualTo(expected.Data[0].Value));
+                Assert.That(result.Data[2].Name, Is.EqualTo(expected.Data[2].Name));
+                Assert.That(result.Data[2].Value, Is.EqualTo(expected.Data[2].Value));
+                Assert.That(result.Data[4].Name, Is.EqualTo(expected.Data[4].Name));
+                Assert.That(result.Data[4].Value, Is.EqualTo(expected.Data[4].Value));
+            });
+        }
+    }
+}

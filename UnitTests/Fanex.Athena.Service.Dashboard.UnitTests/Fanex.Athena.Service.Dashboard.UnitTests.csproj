@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="LicenseeWinLossByPlatformServiceTest.cs" />
     <Compile Include="PendingFundServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisteredCustomerServiceTest.cs" />
