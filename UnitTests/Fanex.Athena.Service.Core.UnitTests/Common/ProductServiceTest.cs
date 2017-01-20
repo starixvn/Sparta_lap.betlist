@@ -19,7 +19,7 @@
         private IXDocumentWrapper _xmlWrapper;
         private IProductService _productService;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _appSettings = Substitute.For<IAppSettings>();
@@ -31,7 +31,7 @@
             _appSettings.GetValue("FunctionAllowedProductFile").Returns(@"xml_file_path");
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             _appSettings = null;
@@ -91,8 +91,8 @@
             // Arrange
             var expectedResult = new List<Product>
             {
-                new Product { ProductID = 100, ProductCode = "SB" },
-                new Product { ProductID = 200, ProductCode = "ABC" },
+                new Product { ProductID = 100, ProductCode = "SB", IsOfferedSingleWallet = true },
+                new Product { ProductID = 200, ProductCode = "ABC", IsOfferedSingleWallet = true },
             };
 
             const int LicenseeId = 1;

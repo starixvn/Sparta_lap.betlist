@@ -45,7 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\RegisteredCustomerViewModel.cs" />
     <Compile Include="ViewModel\SimpleWidgetViewModel.cs" />
-    <Compile Include="ViewModel\TurnoverByPlatformViewModel.cs" />
+    <Compile Include="ViewModel\WidgetByPlatformViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

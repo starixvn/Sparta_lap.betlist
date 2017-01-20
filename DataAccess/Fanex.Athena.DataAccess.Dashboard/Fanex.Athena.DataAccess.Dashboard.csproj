@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IRegisteredCustomerDataAccess.cs" />
     <Compile Include="Interfaces\ISimpleWidgetDataAccess.cs" />
-    <Compile Include="Interfaces\ITurnoverByPlatformDataAccess.cs" />
+    <Compile Include="Interfaces\IWidgetByPlatformDataAccess.cs" />
     <Compile Include="PendingFundDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisteredCustomerDataAccess.cs" />

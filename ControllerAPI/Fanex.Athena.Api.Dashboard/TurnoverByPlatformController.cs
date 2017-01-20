@@ -8,19 +8,19 @@
 
     public class TurnoverByPlatformController : ApiController
     {
-        private readonly ITurnoverByPlatformService _turnoverByPlatformService;
+        private readonly IWidgetByPlatformService _turnoverByPlatformService;
 
         public TurnoverByPlatformController() : this(null)
         {
         }
 
-        public TurnoverByPlatformController(ITurnoverByPlatformService turnoverByPlatformService)
+        public TurnoverByPlatformController(IWidgetByPlatformService turnoverByPlatformService)
         {
             this._turnoverByPlatformService = turnoverByPlatformService ?? new TurnoverByPlatformService();
         }
 
         [HttpGet]
-        public TurnoverByPlatformViewModel Index(DashboardBaseModel metaModel)
+        public WidgetByPlatformViewModel Index(DashboardBaseModel metaModel)
         {
             return _turnoverByPlatformService.GetData(metaModel);
         }

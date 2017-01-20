@@ -4,12 +4,13 @@
     using Interfaces;
     using Model.Dashboard.DTO;
     using Model.Dashboard.MetaModel;
+    using Model.Dashboard.ViewModel;
     using NUnit.Framework;
 
     [TestFixture]
     public class TurnoverByPlatformDataAccessTest
     {
-        private ITurnoverByPlatformDataAccess _turnoverByPlatformDataAccess;
+        private IWidgetByPlatformDataAccess _turnoverByPlatformDataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
@@ -27,13 +28,16 @@
         public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expected = new List<Platform>
+            var expected = new WidgetByPlatformViewModel
             {
-                new Platform { Name = "Asia", Value = 100M },
-                new Platform { Name = "China", Value = 300M },
-                new Platform { Name = "WAP", Value = 800M },
-                new Platform { Name = "Smartsite", Value = 700M },
-                new Platform { Name = "Others", Value = 1700M }
+                Data = new List<Platform>
+                {
+                    new Platform { Name = "Asia", Value = 100M },
+                    new Platform { Name = "China", Value = 300M },
+                    new Platform { Name = "WAP", Value = 800M },
+                    new Platform { Name = "Smartsite", Value = 700M },
+                    new Platform { Name = "Others", Value = 1700M }
+                }
             };
             var metaModel = new DashboardBaseModel();
 
@@ -43,13 +47,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Count, Is.EqualTo(5));
-                Assert.That(result[0].Name, Is.EqualTo(expected[0].Name));
-                Assert.That(result[0].Value, Is.EqualTo(expected[0].Value));
-                Assert.That(result[2].Name, Is.EqualTo(expected[2].Name));
-                Assert.That(result[2].Value, Is.EqualTo(expected[2].Value));
-                Assert.That(result[4].Name, Is.EqualTo(expected[4].Name));
-                Assert.That(result[4].Value, Is.EqualTo(expected[4].Value));
+                Assert.That(result.Data.Count, Is.EqualTo(5));
+                Assert.That(result.Data[0].Name, Is.EqualTo(expected.Data[0].Name));
+                Assert.That(result.Data[0].Value, Is.EqualTo(expected.Data[0].Value));
+                Assert.That(result.Data[2].Name, Is.EqualTo(expected.Data[2].Name));
+                Assert.That(result.Data[2].Value, Is.EqualTo(expected.Data[2].Value));
+                Assert.That(result.Data[4].Name, Is.EqualTo(expected.Data[4].Name));
+                Assert.That(result.Data[4].Value, Is.EqualTo(expected.Data[4].Value));
             });
         }
     }

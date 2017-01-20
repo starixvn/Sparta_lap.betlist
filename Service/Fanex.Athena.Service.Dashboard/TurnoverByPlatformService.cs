@@ -6,25 +6,22 @@
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
 
-    public class TurnoverByPlatformService : ITurnoverByPlatformService
+    public class TurnoverByPlatformService : IWidgetByPlatformService
     {
-        private readonly ITurnoverByPlatformDataAccess _turnoverByPlatformDataAccess;
+        private readonly IWidgetByPlatformDataAccess _turnoverByPlatformDataAccess;
 
         public TurnoverByPlatformService() : this(null)
         {
         }
 
-        public TurnoverByPlatformService(ITurnoverByPlatformDataAccess turnoverByPlatformDataAccess)
+        public TurnoverByPlatformService(IWidgetByPlatformDataAccess turnoverByPlatformDataAccess)
         {
             _turnoverByPlatformDataAccess = turnoverByPlatformDataAccess ?? new TurnoverByPlatformDataAccess();
         }
 
-        public TurnoverByPlatformViewModel GetData(DashboardBaseModel metaModel)
+        public WidgetByPlatformViewModel GetData(DashboardBaseModel metaModel)
         {
-            return new TurnoverByPlatformViewModel
-            {
-                Data = _turnoverByPlatformDataAccess.GetData(metaModel)
-            };
+            return _turnoverByPlatformDataAccess.GetData(metaModel);
         }
     }
 }

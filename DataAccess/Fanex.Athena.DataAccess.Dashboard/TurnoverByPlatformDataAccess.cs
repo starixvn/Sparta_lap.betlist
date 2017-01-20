@@ -4,18 +4,22 @@
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.DTO;
     using Model.Dashboard.MetaModel;
+    using Model.Dashboard.ViewModel;
 
-    public class TurnoverByPlatformDataAccess : ITurnoverByPlatformDataAccess
+    public class TurnoverByPlatformDataAccess : IWidgetByPlatformDataAccess
     {
-        public IList<Platform> GetData(DashboardBaseModel metaModel)
+        public WidgetByPlatformViewModel GetData(DashboardBaseModel metaModel)
         {
-            return new List<Platform>
+            return new WidgetByPlatformViewModel
             {
-                new Platform { Name = "Asia", Value = 100M },
-                new Platform { Name = "China", Value = 300M },
-                new Platform { Name = "WAP", Value = 800M },
-                new Platform { Name = "Smartsite", Value = 700M },
-                new Platform { Name = "Others", Value = 1700M }
+                Data = new List<Platform>
+                {
+                    new Platform { Name = "Asia", Value = 100M },
+                    new Platform { Name = "China", Value = 300M },
+                    new Platform { Name = "WAP", Value = 800M },
+                    new Platform { Name = "Smartsite", Value = 700M },
+                    new Platform { Name = "Others", Value = 1700M }
+                }
             };
         }
     }

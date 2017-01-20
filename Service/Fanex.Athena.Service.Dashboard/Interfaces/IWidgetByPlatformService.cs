@@ -3,8 +3,8 @@
     using Fanex.Athena.Model.Dashboard.ViewModel;
     using Model.Dashboard.MetaModel;
 
-    public interface ITurnoverByPlatformService
+    public interface IWidgetByPlatformService
     {
-        TurnoverByPlatformViewModel GetData(DashboardBaseModel metaModel);
+        WidgetByPlatformViewModel GetData(DashboardBaseModel metaModel);
     }
 }

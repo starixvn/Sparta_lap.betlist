@@ -11,13 +11,13 @@
     [TestFixture]
     public class TurnoverByPlatformControllerTest
     {
-        private ITurnoverByPlatformService _turnoverByPlatformService;
+        private IWidgetByPlatformService _turnoverByPlatformService;
         private TurnoverByPlatformController _turnoverByPlatformController;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _turnoverByPlatformService = Substitute.For<ITurnoverByPlatformService>();
+            _turnoverByPlatformService = Substitute.For<IWidgetByPlatformService>();
             _turnoverByPlatformController = new TurnoverByPlatformController(_turnoverByPlatformService);
         }
 
@@ -32,7 +32,7 @@
         public void Index_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expected = new TurnoverByPlatformViewModel
+            var expected = new WidgetByPlatformViewModel
             {
                 Data = new List<Platform>
                 {
