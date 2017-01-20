@@ -19,7 +19,7 @@
         private IXDocumentWrapper _xmlWrapper;
         private IProductService _productService;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             _appSettings = Substitute.For<IAppSettings>();
@@ -31,7 +31,7 @@
             _appSettings.GetValue("FunctionAllowedProductFile").Returns(@"xml_file_path");
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _appSettings = null;
