@@ -3,10 +3,6 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-// <history>
-//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
-// </history>
-// -----------------------------------------------------------------------
 
 namespace Fanex.Athena.DataAccess.TotalBet
 {
@@ -16,7 +12,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
@@ -111,7 +106,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
         /// <param name="baseCurrency">Base currency.</param>
         /// <returns>Total goal data.</returns>
         private static TotalGoal ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
-        {           
+        {
             if (reader.Read())
             {
                 var total01Column = DataHelper.GetCurrencyColumnName("total01", isConvert, baseCurrency);
@@ -125,7 +120,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
                 return new TotalGoal
                 {
                     Total01 = reader.ToDecimal(total01Column) + reader.ToDecimal(total23Column) + reader.ToDecimal(total46Column) + reader.ToDecimal(total07OverColumn),
-                    TotalFirstHalf01 = reader.ToDecimal(totalFirst01Column) + reader.ToDecimal(totalFirst23Column) + reader.ToDecimal(total04OverColumn)               
+                    TotalFirstHalf01 = reader.ToDecimal(totalFirst01Column) + reader.ToDecimal(totalFirst23Column) + reader.ToDecimal(total04OverColumn)
                 };
             }
 

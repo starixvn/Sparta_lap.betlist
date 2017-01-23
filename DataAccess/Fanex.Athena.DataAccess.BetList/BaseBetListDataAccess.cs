@@ -3,20 +3,16 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-// <history>
-//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
-// </history>
-// -----------------------------------------------------------------------
 
 namespace Fanex.Athena.DataAccess.BetList
 {
+    using System;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using DataAccess.Core.Utilities;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
-    using System;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// TODO: Update summary.
