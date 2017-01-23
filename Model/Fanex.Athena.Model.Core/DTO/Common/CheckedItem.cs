@@ -3,9 +3,6 @@
 // Copyright (coffee) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Alex.Nguyen" date="">Created</change>
-// </history>
 
 namespace Fanex.Athena.Model.Core.DTO.Common
 {

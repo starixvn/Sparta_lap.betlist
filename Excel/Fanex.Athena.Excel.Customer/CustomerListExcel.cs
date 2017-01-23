@@ -3,9 +3,6 @@
 // Copyright (coffee) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Alex.Nguyen" date="11/13/2013">Created</change>
-// </history>
 
 namespace Fanex.Athena.Excel.Customer
 {

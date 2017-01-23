@@ -4,9 +4,6 @@
 // </copyright>
 
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Dave.Bui" date="2012.4.11">Created</change>
-// </history>
 
 namespace Fanex.Athena.Api.BetList
 {

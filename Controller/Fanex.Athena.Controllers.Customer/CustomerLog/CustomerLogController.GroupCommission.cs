@@ -3,9 +3,6 @@
 // Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Shadow.Nguyen" date="2013.1.25">Created</change>
-// </history>
 
 namespace Fanex.Athena.Controllers.Customer.CustomerLog
 {
