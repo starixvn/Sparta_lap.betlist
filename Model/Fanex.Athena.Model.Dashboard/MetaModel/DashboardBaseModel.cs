@@ -4,6 +4,10 @@
 
     public class DashboardBaseModel
     {
+        public int LicenseeId { get; set; }
+
+        public int UserId { get; set; }
+
         public int CurrencyId { get; set; }
 
         public string BaseCurrency { get; set; }

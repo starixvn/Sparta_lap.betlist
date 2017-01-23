@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseDashboardApiController.cs" />
     <Compile Include="LicenseeWinLossByPlatformController.cs" />
     <Compile Include="PendingFundController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,6 +78,10 @@
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Dashboard\Fanex.Athena.Service.Dashboard.csproj">
       <Project>{2AB6D6E9-7C2E-4AF6-BC7C-AEF5E04DA943}</Project>
       <Name>Fanex.Athena.Service.Dashboard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Api.Base\Fanex.Athena.Api.Base.csproj">
+      <Project>{16D39D7B-00C0-4CC3-82F5-44BBDEE7AE51}</Project>
+      <Name>Fanex.Athena.Api.Base</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

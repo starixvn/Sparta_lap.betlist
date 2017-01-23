@@ -1,12 +1,13 @@
-﻿using System.Web.Http;
-using Fanex.Athena.Model.Dashboard.MetaModel;
-using Fanex.Athena.Model.Dashboard.ViewModel;
-using Fanex.Athena.Service.Dashboard;
-using Fanex.Athena.Service.Dashboard.Interfaces;
-
-namespace Fanex.Athena.Api.Dashboard
+﻿namespace Fanex.Athena.Api.Dashboard
 {
-    public class LicenseeWinLossByPlatformController : ApiController
+    using Fanex.Athena.Api.Base.Attributes;
+    using Fanex.Athena.Model.Dashboard.MetaModel;
+    using Fanex.Athena.Model.Dashboard.ViewModel;
+    using Fanex.Athena.Service.Dashboard;
+    using Fanex.Athena.Service.Dashboard.Interfaces;
+
+    [ApiOneAuthorization]
+    public class LicenseeWinLossByPlatformController : BaseDashboardApiController
     {
         private readonly IWidgetByPlatformService _licenseeWinLossByPlatformService;
 
@@ -19,9 +20,9 @@ namespace Fanex.Athena.Api.Dashboard
             this._licenseeWinLossByPlatformService = licenseeWinLossByPlatformService ?? new LicenseeWinLossByPlatformService();
         }
 
-        [HttpGet]
         public WidgetByPlatformViewModel Index(DashboardBaseModel metaModel)
         {
+            AssignAuthProperties(metaModel);
             return _licenseeWinLossByPlatformService.GetData(metaModel);
         }
     }
