@@ -6,7 +6,7 @@
     using Fanex.Athena.Service.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
 
-    public class TurnoverByPlatformController : ApiController
+    public class TurnoverByPlatformController : BaseDashboardApiController
     {
         private readonly IWidgetByPlatformService _turnoverByPlatformService;
 

@@ -6,7 +6,7 @@
     using Service.Dashboard;
     using Service.Dashboard.Interfaces;
 
-    public class TodayDepositController : ApiController
+    public class TodayDepositController : BaseDashboardApiController
     {
         private readonly ISimpleWidgetService _todayDepositService;
 

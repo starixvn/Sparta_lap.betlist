@@ -6,7 +6,7 @@
     using Service.Dashboard;
     using Service.Dashboard.Interfaces;
 
-    public class TodayWithdrawalController : ApiController
+    public class TodayWithdrawalController : BaseDashboardApiController
     {
         private readonly ISimpleWidgetService _todayWithdrawalService;
 

@@ -6,7 +6,7 @@
     using Service.Dashboard;
     using Service.Dashboard.Interfaces;
 
-    public class SportsbookWalletController : ApiController
+    public class SportsbookWalletController : BaseDashboardApiController
     {
         private readonly ISimpleWidgetService _sportsbookWalletService;
 

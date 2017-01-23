@@ -6,7 +6,7 @@
     using Service.Dashboard;
     using Service.Dashboard.Interfaces;
 
-    public class PendingFundController : ApiController
+    public class PendingFundController : BaseDashboardApiController
     {
         private readonly ISimpleWidgetService _pendingFundService;
 

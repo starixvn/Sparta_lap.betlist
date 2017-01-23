@@ -6,7 +6,7 @@
     using Service.Dashboard;
     using Service.Dashboard.Interfaces;
 
-    public class RegisteredCustomerController : ApiController
+    public class RegisteredCustomerController : BaseDashboardApiController
     {
         private readonly IRegisteredCustomerService _registeredCustomerService;
 
