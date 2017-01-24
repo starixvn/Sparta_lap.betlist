@@ -78,7 +78,6 @@
     <Compile Include="LicenseeWinLossByPlatformControllerTest.cs" />
     <Compile Include="PendingFundControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegisteredCustomerControllerTest.cs" />
     <Compile Include="SportsbookWalletControllerTest.cs" />
     <Compile Include="TodayDepositControllerTest.cs" />
     <Compile Include="TodayWithdrawalControllerTest.cs" />

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Web.Http;
     using Base.Attributes;
+    using Model.Core.DataDomain;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
 
@@ -20,10 +21,14 @@
             _currencyService = currencyService ?? new CurrencyService();
         }
 
-        [HttpPost]
-        public IDictionary<string, int> GetCurrencyList()
+        public object GetCurrencyList()
         {
-            return _currencyService.GetCurrencyMapByUser(this.LicenseeId, this.UserId);
+            var currencyList = _currencyService.GetCurrencyMapByUser(this.LicenseeId, this.UserId);
+            return new
+            {
+                CurrentList = currencyList,
+                BaseCurrencyList = SystemConstants.BaseCurrencyList
+            };
         }
     }
 }
