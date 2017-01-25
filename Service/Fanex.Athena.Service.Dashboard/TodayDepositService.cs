@@ -12,6 +12,7 @@
 
         public TodayDepositService()
         {
+            _todayDepositDataAccess = new TodayDepositDataAccess();
         }
 
         public TodayDepositService(ISimpleWidgetDataAccess todayDepositDataAccess)

@@ -31,11 +31,10 @@
         {
             // Arrange
             var expected = new SimpleWidgetViewModel { Value = 2500000M };
-            var metaModel = new DashboardBaseModel();
-            _todayDepositService.GetData(metaModel).Returns(expected);
+            _todayDepositService.GetData(Arg.Any<DashboardBaseModel>()).Returns(expected);
 
             // Action
-            var result = _todayDepositController.Index(metaModel);
+            var result = _todayDepositController.GetData(new DashboardBaseModel());
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

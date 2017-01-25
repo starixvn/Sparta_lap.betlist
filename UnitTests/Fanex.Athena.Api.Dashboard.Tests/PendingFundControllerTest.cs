@@ -35,7 +35,7 @@
             _pendingFundService.GetData(metaModel).Returns(expected);
 
             // Action
-            var result = _pendingFundController.Index(metaModel);
+            var result = _pendingFundController.GetData(metaModel);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

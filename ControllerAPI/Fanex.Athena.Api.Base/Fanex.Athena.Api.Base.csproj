@@ -145,7 +145,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\AllowCrossSiteJsonAttribute.cs" />
     <Compile Include="Attributes\ApiFunctionAuthorizationAttribute.cs" />
     <Compile Include="Attributes\ApiOneAuthorizationAttribute.cs" />
     <Compile Include="Attributes\CustomApiAuthorizeAttribute.cs" />

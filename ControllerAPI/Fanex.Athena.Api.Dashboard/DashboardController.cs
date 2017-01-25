@@ -1,16 +1,10 @@
 ﻿namespace Fanex.Athena.Api.Dashboard
 {
     using System.Linq;
-    using System.Web.Http;
-    using System.Web.Http.Cors;
-    using Base.Attributes;
     using Model.Core.DataDomain;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
 
-    [AllowAnonymous]
-    [ApiOneAuthorization]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DashboardController : BaseDashboardApiController
     {
         private readonly ICurrencyService _currencyService;

@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Api.Dashboard
 {
-    using System.Web.Http;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
     using Service.Dashboard;
@@ -19,8 +18,7 @@
             _pendingFundService = pendingFundService ?? new PendingFundService();
         }
 
-        [HttpPost]
-        public SimpleWidgetViewModel Index(DashboardBaseModel metaModel)
+        public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
         {
             return _pendingFundService.GetData(metaModel);
         }
