@@ -6,13 +6,6 @@
 
 namespace Fanex.Athena
 {
-    using Api.Base.Attributes;
-    using Api.Base.Logger;
-    using CasinoSetting;
-    using Data.Configuration;
-    using Fanex.Athena.Service.Core.Helpers;
-    using Fanex.Athena.Web.ActionFilter;
-    using Fanex.Athena.Web.RouterConfig;
     using System;
     using System.Configuration;
     using System.Web;
@@ -22,6 +15,13 @@ namespace Fanex.Athena
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using Api.Base.Attributes;
+    using Api.Base.Logger;
+    using CasinoSetting;
+    using Data.Configuration;
+    using Fanex.Athena.Service.Core.Helpers;
+    using Fanex.Athena.Web.ActionFilter;
+    using Fanex.Athena.Web.RouterConfig;
 
     public class MvcApplication : HttpApplication
     {
@@ -39,6 +39,7 @@ namespace Fanex.Athena
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
             /*Web API*/
+            GlobalConfiguration.Configuration.EnableCors();
             GlobalConfiguration.Configuration.MessageHandlers.Add(new CompressHandler());
             GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);

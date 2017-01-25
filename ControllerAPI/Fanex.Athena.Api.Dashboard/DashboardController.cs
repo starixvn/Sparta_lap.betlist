@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Api.Dashboard
 {
-    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
-    using Base;
+    using System.Web.Http.Cors;
     using Base.Attributes;
     using Model.Core.DataDomain;
     using Service.Core.Common;
@@ -10,8 +10,7 @@
 
     [AllowAnonymous]
     [ApiOneAuthorization]
-    [AllowCrossSiteJson]
-    [XFrameOptionApi]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DashboardController : BaseDashboardApiController
     {
         private readonly ICurrencyService _currencyService;
@@ -30,7 +29,7 @@
             var currencyList = _currencyService.GetCurrencyMapByUser(this.LicenseeId, this.UserId);
             return new
             {
-                CurrentList = currencyList,
+                CurrencyList = currencyList.ToArray(),
                 BaseCurrencyList = SystemConstants.BaseCurrencyList
             };
         }

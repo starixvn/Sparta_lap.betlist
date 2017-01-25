@@ -4,19 +4,19 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using System.Net.Http.Headers;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
     using Fanex.Athena.Service.Core.Users;
     using Resources;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class ApiOneAuthorizationAttribute : FilterAttribute, IAuthorizationFilter
     {
-        private const string KeyName = "AuthToken";
+        private const string KeyName = "X-Auth-Token";
 
         private readonly IOneAuthenticationService _oneAuthenticationService;
 
@@ -42,13 +42,14 @@
             try
             {
                 var headers = actionContext.Request.Headers;
-                if (!IsAjaxRequest(headers) || !headers.Contains(KeyName))
+                var tokenParam = actionContext.Request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key.Equals(KeyName, StringComparison.OrdinalIgnoreCase));
+
+                if (tokenParam.Key == null)
                 {
                     return UnauthorizeAccessHandlerAsync(actionContext);
                 }
 
-                var tokenString = headers.GetValues(KeyName).FirstOrDefault();
-                var token = _oneAuthenticationService.GetTokenInfo(tokenString);
+                var token = _oneAuthenticationService.GetTokenInfo(tokenParam.Value);
 
                 if (token == null || string.IsNullOrWhiteSpace(token.SiteName) || token.UserSEQ <= 0)
                 {
@@ -63,18 +64,13 @@
 
                 actionContext.ActionArguments["licenseeid"] = licensee.Id;
                 actionContext.ActionArguments["userid"] = token.UserSEQ;
-
                 return continuation?.Invoke();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                LogHelper.WriteError(exception);
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
-        }
-
-        private static bool IsAjaxRequest(HttpRequestHeaders headers)
-        {
-            return headers.Contains("X-Requested-With") && headers.GetValues("X-Requested-With").FirstOrDefault() == "XMLHttpRequest";
         }
 
         private static Task<HttpResponseMessage> UnauthorizeAccessHandlerAsync(HttpActionContext actionContext)
