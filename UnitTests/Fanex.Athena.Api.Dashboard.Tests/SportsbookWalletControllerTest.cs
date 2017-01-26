@@ -36,7 +36,7 @@
             _sportsbookWalletService.GetData(metaModel).Returns(expected);
 
             // Action
-            var result = _sportsbookWalletController.Index(metaModel);
+            var result = _sportsbookWalletController.GetData(metaModel);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

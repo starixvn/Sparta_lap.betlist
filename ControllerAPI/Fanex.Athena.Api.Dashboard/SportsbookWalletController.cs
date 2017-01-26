@@ -19,8 +19,7 @@
             _sportsbookWalletService = sportsbookWalletService ?? new SportsbookWalletService();
         }
 
-        [HttpPost]
-        public SimpleWidgetViewModel Index(DashboardBaseModel metaModel)
+        public SimpleWidgetViewModel GetData([FromUri] DashboardBaseModel metaModel)
         {
             return _sportsbookWalletService.GetData(metaModel);
         }

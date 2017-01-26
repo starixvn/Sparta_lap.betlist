@@ -19,9 +19,9 @@
             _todayWithdrawalService = todayWithdrawal ?? new TodayWithdrawalService();
         }
 
-        [HttpPost]
-        public SimpleWidgetViewModel Index(DashboardBaseModel metaModel)
+        public SimpleWidgetViewModel GetData([FromUri] DashboardBaseModel metaModel)
         {
+            AssignAuthProperties(metaModel);
             return _todayWithdrawalService.GetData(metaModel);
         }
     }

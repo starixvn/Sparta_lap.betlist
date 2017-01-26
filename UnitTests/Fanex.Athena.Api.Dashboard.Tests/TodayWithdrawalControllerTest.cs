@@ -35,7 +35,7 @@
             _todayWithdrawalService.GetData(metaModel).Returns(expected);
 
             // Action
-            var result = _todayWithdrawalController.Index(metaModel);
+            var result = _todayWithdrawalController.GetData(metaModel);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
