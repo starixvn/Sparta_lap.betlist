@@ -20,8 +20,9 @@
         }
 
         [HttpGet]
-        public WidgetByPlatformViewModel Index(DashboardBaseModel metaModel)
+        public WidgetByPlatformViewModel GetData([FromUri] DashboardBaseModel metaModel)
         {
+            AssignAuthProperties(metaModel);
             return _turnoverByPlatformService.GetData(metaModel);
         }
     }

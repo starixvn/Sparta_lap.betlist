@@ -21,6 +21,7 @@
 
         public SimpleWidgetViewModel GetData([FromUri] DashboardBaseModel metaModel)
         {
+            AssignAuthProperties(metaModel);
             return _sportsbookWalletService.GetData(metaModel);
         }
     }

@@ -47,7 +47,7 @@
             _turnoverByPlatformService.GetData(metaModel).Returns(expected);
 
             // Action
-            var result = _turnoverByPlatformController.Index(metaModel);
+            var result = _turnoverByPlatformController.GetData(metaModel);
 
             // Assert
             Assert.Multiple(() =>
