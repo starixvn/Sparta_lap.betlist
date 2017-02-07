@@ -1,13 +1,11 @@
 ﻿namespace Fanex.Athena.Api.Dashboard
 {
     using System.Web.Http;
-    using Fanex.Athena.Api.Base.Attributes;
     using Fanex.Athena.Model.Dashboard.MetaModel;
     using Fanex.Athena.Model.Dashboard.ViewModel;
     using Fanex.Athena.Service.Dashboard;
     using Fanex.Athena.Service.Dashboard.Interfaces;
 
-    [ApiOneAuthorization]
     public class LicenseeWinLossByPlatformController : BaseDashboardApiController
     {
         private readonly IWidgetByPlatformService _licenseeWinLossByPlatformService;
