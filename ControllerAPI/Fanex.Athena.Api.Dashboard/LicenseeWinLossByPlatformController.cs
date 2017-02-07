@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Dashboard
 {
+    using System.Web.Http;
     using Fanex.Athena.Api.Base.Attributes;
     using Fanex.Athena.Model.Dashboard.MetaModel;
     using Fanex.Athena.Model.Dashboard.ViewModel;
@@ -20,7 +21,8 @@
             this._licenseeWinLossByPlatformService = licenseeWinLossByPlatformService ?? new LicenseeWinLossByPlatformService();
         }
 
-        public WidgetByPlatformViewModel Index(DashboardBaseModel metaModel)
+        [HttpGet]
+        public WidgetByPlatformViewModel GetData([FromUri] DashboardBaseModel metaModel)
         {
             AssignAuthProperties(metaModel);
             return _licenseeWinLossByPlatformService.GetData(metaModel);

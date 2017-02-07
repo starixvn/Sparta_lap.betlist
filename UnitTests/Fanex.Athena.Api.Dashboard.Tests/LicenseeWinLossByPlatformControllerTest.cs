@@ -47,7 +47,7 @@
             _licenseeWinLossByPlatformService.GetData(metaModel).Returns(expected);
 
             // Action
-            var result = _licenseeWinLossByPlatformController.Index(metaModel);
+            var result = _licenseeWinLossByPlatformController.GetData(metaModel);
 
             // Assert
             Assert.Multiple(() =>
