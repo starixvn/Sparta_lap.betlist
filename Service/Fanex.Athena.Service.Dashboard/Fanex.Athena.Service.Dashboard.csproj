@@ -61,10 +61,17 @@
       <Project>{1E08C4C9-3BA9-407B-90FC-168A2FAF35D0}</Project>
       <Name>Fanex.Athena.Model.Dashboard</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
+      <Project>{FCFD7434-085B-4C93-848F-E1CBCEDCC5A0}</Project>
+      <Name>Fanex.Athena.Service.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Service.Report\Fanex.Athena.Service.Report.csproj">
       <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
       <Name>Fanex.Athena.Service.Report</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

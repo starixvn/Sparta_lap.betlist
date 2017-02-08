@@ -17,5 +17,7 @@
         public DateTime ToDate { get; set; }
 
         public string SelectedWidgetString { get; set; }
+
+        public DateTime MoveBetsDay { get; set; }
     }
 }

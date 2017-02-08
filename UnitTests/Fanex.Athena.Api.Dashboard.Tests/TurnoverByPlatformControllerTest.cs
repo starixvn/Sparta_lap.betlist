@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Dashboard.Tests
 {
     using System.Collections.Generic;
-    using Model.Dashboard.DTO;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
     using NSubstitute;
@@ -34,13 +33,13 @@
             // Arrange
             var expected = new WidgetByPlatformViewModel
             {
-                Data = new List<Platform>
+                Data = new List<KeyValuePair<string, decimal>>
                 {
-                    new Platform { Name = "Asia", Value = 100M },
-                    new Platform { Name = "China", Value = 300M },
-                    new Platform { Name = "WAP", Value = 800M },
-                    new Platform { Name = "Smartsite", Value = 700M },
-                    new Platform { Name = "Others", Value = 1700M }
+                   new KeyValuePair<string, decimal>("Asia", 100M),
+                   new KeyValuePair<string, decimal>("China", 300M),
+                   new KeyValuePair<string, decimal>("WAP", 800M),
+                   new KeyValuePair<string, decimal>("Smartsite", 700M),
+                   new KeyValuePair<string, decimal>("Others", 1700M)
                 }
             };
             var metaModel = new DashboardBaseModel();
@@ -53,11 +52,11 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.Data.Count, Is.EqualTo(5));
-                Assert.That(result.Data[0].Name, Is.EqualTo(expected.Data[0].Name));
+                Assert.That(result.Data[0].Key, Is.EqualTo(expected.Data[0].Key));
                 Assert.That(result.Data[0].Value, Is.EqualTo(expected.Data[0].Value));
-                Assert.That(result.Data[2].Name, Is.EqualTo(expected.Data[2].Name));
+                Assert.That(result.Data[2].Key, Is.EqualTo(expected.Data[2].Key));
                 Assert.That(result.Data[2].Value, Is.EqualTo(expected.Data[2].Value));
-                Assert.That(result.Data[4].Name, Is.EqualTo(expected.Data[4].Name));
+                Assert.That(result.Data[4].Key, Is.EqualTo(expected.Data[4].Key));
                 Assert.That(result.Data[4].Value, Is.EqualTo(expected.Data[4].Value));
             });
         }
