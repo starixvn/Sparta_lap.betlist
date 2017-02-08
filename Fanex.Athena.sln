@@ -182,7 +182,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ControllerAPI", "Controller
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.Dashboard.Tests", "UnitTests\Fanex.Athena.Api.Dashboard.Tests\Fanex.Athena.Api.Dashboard.Tests.csproj", "{23989B95-84C8-436C-AD5B-EC8C5B928BFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Dashboard.Tests", "UnitTests\Fanex.Athena.DataAccess.Dashboard.Tests\Fanex.Athena.DataAccess.Dashboard.Tests.csproj", "{C35589B1-0739-4133-B809-3E8160FBFC64}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.DataAccess.Dashboard.UnitTests", "UnitTests\Fanex.Athena.DataAccess.Dashboard.Tests\Fanex.Athena.DataAccess.Dashboard.UnitTests.csproj", "{C35589B1-0739-4133-B809-3E8160FBFC64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

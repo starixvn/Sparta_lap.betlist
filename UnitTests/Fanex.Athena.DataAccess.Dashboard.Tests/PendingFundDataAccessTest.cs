@@ -1,19 +1,18 @@
 ﻿namespace Fanex.Athena.DataAccess.Dashboard.Tests
 {
-    using Interfaces;
     using Model.Dashboard.MetaModel;
-    using Model.Dashboard.ViewModel;
+    using NSubstitute;
     using NUnit.Framework;
 
     [TestFixture]
     public class PendingFundDataAccessTest
     {
-        private ISimpleWidgetDataAccess _pendingFundDataAccess;
+        private PendingFundDataAccess _pendingFundDataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _pendingFundDataAccess = new PendingFundDataAccess();
+            _pendingFundDataAccess = Substitute.ForPartsOf<PendingFundDataAccess>();
         }
 
         [OneTimeTearDown]
@@ -27,7 +26,16 @@
         {
             // Arrange
             var expected = 250000M;
-            var metaModel = new DashboardBaseModel();
+
+            var reader = _pendingFundDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseePendingFunds"))
+                .ExecuteReader(Arg.Any<object>());
+            reader.Read().Returns(true, false);
+            reader["PendingFundEUR"].Returns(expected);
+
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = "EUR"
+            };
 
             // Action
             var result = _pendingFundDataAccess.GetData(metaModel);

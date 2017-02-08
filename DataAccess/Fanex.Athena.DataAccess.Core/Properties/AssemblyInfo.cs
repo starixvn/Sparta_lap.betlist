@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.TotalBet.UnitTests")]
 [assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Warehouse.UnitTests")]
 [assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Report.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.DataAccess.Dashboard.UnitTests")]
 [assembly: System.CLSCompliant(true)]
 
 // General Information about an assembly is controlled through the following 

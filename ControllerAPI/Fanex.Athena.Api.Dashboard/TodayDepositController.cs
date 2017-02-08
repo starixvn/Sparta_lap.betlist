@@ -3,7 +3,6 @@
     using System;
     using System.Web.Http;
     using Model.Dashboard.MetaModel;
-    using Model.Dashboard.ViewModel;
     using Service.Dashboard;
     using Service.Dashboard.Interfaces;
 

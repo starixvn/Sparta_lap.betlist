@@ -53,6 +53,10 @@
     <Compile Include="TurnoverByPlatformService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
+      <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
+      <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Dashboard\Fanex.Athena.DataAccess.Dashboard.csproj">
       <Project>{96B29EAC-D1B3-42C6-A930-518D6AD33630}</Project>
       <Name>Fanex.Athena.DataAccess.Dashboard</Name>

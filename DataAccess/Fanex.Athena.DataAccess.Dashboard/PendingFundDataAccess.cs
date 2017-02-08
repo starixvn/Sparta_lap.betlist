@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Dashboard
 {
+    using Core;
     using Core.Exception;
     using Data;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
@@ -7,14 +8,14 @@
     using Logging;
     using Model.Dashboard.MetaModel;
 
-    public class PendingFundDataAccess : ISimpleWidgetDataAccess
+    public class PendingFundDataAccess : BaseDataAccess, ISimpleWidgetDataAccess
     {
         public decimal GetData(DashboardBaseModel metaModel)
         {
             const string UspName = "Lrf_GetLicenseePendingFunds";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     var param = new
                     {
