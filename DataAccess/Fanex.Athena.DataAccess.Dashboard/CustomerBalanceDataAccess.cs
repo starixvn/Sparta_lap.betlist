@@ -6,9 +6,9 @@
 
     public class CustomerBalanceDataAccess : ISimpleWidgetDataAccess
     {
-        public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
+        public decimal GetData(DashboardBaseModel metaModel)
         {
-            return new SimpleWidgetViewModel { Value = 1570000M };
+            return 1570000M;
         }
     }
 }

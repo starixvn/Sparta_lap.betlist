@@ -19,7 +19,7 @@
             _todayWithdrawalDataAccess = todayWithdrawalDataAccess ?? new TodayWithdrawalDataAccess();
         }
 
-        public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
+        public decimal GetData(DashboardBaseModel metaModel)
         {
             return _todayWithdrawalDataAccess.GetData(metaModel);
         }

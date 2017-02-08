@@ -31,7 +31,7 @@
         public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expected = new SimpleWidgetViewModel { Value = 2500000M };
+            var expected = 2500000M;
             var metaModel = new DashboardBaseModel();
             _todayDepositDataAccess.GetData(metaModel).Returns(expected);
 

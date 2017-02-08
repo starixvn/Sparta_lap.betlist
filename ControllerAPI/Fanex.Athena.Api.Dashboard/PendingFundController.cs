@@ -19,7 +19,7 @@
             _pendingFundService = pendingFundService ?? new PendingFundService();
         }
 
-        public SimpleWidgetViewModel GetData([FromUri] DashboardBaseModel metaModel)
+        public decimal GetData([FromUri] DashboardBaseModel metaModel)
         {
             return _pendingFundService.GetData(metaModel);
         }

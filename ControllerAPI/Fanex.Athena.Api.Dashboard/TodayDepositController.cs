@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Dashboard
 {
+    using System;
     using System.Web.Http;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
@@ -19,9 +20,10 @@
             this._todayDepositService = todayDepositService ?? new TodayDepositService();
         }
 
-        public SimpleWidgetViewModel GetData([FromUri] DashboardBaseModel metaModel)
+        public decimal GetData([FromUri] DashboardBaseModel metaModel)
         {
             AssignAuthProperties(metaModel);
+            metaModel.FromDate = DateTime.Now.Date.AddMonths(-1);
             return _todayDepositService.GetData(metaModel);
         }
     }

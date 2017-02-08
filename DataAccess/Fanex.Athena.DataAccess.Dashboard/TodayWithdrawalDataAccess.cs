@@ -1,14 +1,40 @@
 ﻿namespace Fanex.Athena.DataAccess.Dashboard
 {
+    using Core.Exception;
+    using Data;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
+    using Fanex.Common.Extensions;
+    using Logging;
     using Model.Dashboard.MetaModel;
-    using Model.Dashboard.ViewModel;
 
     public class TodayWithdrawalDataAccess : ISimpleWidgetDataAccess
     {
-        public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
+        public decimal GetData(DashboardBaseModel metaModel)
         {
-            return new SimpleWidgetViewModel { Value = 500000M };
+            const string UspName = "Lrf_GetLicenseeTodayWithdrawal";
+            try
+            {
+                using (var db = new ObjectDb(UspName))
+                {
+                    var param = new
+                    {
+                        LicenseeID = metaModel.LicenseeId,
+                        UserID = metaModel.UserId,
+                        CurrencyID = metaModel.CurrencyId,
+                        Today = metaModel.FromDate
+                    };
+
+                    using (var reader = db.ExecuteReader(param))
+                    {
+                        return reader.Read() ? reader.ToDecimal("Withdrawal" + metaModel.BaseCurrency) : 0;
+                    }
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, metaModel);
+            }
         }
     }
 }

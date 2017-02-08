@@ -19,7 +19,7 @@
             _customerBalanceDataAccess = customerBalanceDataAccess ?? new CustomerBalanceDataAccess();
         }
 
-        public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
+        public decimal GetData(DashboardBaseModel metaModel)
         {
             return _customerBalanceDataAccess.GetData(metaModel);
         }

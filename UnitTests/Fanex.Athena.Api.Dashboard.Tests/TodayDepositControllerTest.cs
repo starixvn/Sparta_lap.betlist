@@ -30,7 +30,7 @@
         public void Index_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expected = new SimpleWidgetViewModel { Value = 2500000M };
+            var expected = 2500000M;
             _todayDepositService.GetData(Arg.Any<DashboardBaseModel>()).Returns(expected);
 
             // Action

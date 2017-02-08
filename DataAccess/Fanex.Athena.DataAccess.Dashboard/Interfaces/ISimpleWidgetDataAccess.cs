@@ -5,6 +5,6 @@
 
     public interface ISimpleWidgetDataAccess
     {
-        SimpleWidgetViewModel GetData(DashboardBaseModel metaModel);
+        decimal GetData(DashboardBaseModel metaModel);
     }
 }

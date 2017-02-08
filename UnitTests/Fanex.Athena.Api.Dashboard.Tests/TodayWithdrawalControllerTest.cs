@@ -30,7 +30,7 @@
         public void Index_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expected = new SimpleWidgetViewModel { Value = 500000M };
+            var expected = 500000M;
             var metaModel = new DashboardBaseModel();
             _todayWithdrawalService.GetData(metaModel).Returns(expected);
 

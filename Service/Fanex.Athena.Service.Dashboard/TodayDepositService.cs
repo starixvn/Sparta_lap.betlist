@@ -20,7 +20,7 @@
             _todayDepositDataAccess = todayDepositDataAccess ?? new TodayDepositDataAccess();
         }
 
-        public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
+        public decimal GetData(DashboardBaseModel metaModel)
         {
             return _todayDepositDataAccess.GetData(metaModel);
         }

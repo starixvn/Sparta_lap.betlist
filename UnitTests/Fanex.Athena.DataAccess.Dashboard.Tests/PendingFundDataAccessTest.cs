@@ -26,14 +26,14 @@
         public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expected = new SimpleWidgetViewModel { Value = 250000M };
+            var expected = 250000M;
             var metaModel = new DashboardBaseModel();
 
             // Action
             var result = _pendingFundDataAccess.GetData(metaModel);
 
             // Assert
-            Assert.That(result.Value, Is.EqualTo(expected.Value));
+            Assert.That(result, Is.EqualTo(expected));
         }
     }
 }

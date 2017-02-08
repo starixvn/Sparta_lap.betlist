@@ -19,7 +19,7 @@
             _pendingFundDataAccess = pendingFundDataAccess ?? new PendingFundDataAccess();
         }
 
-        public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
+        public decimal GetData(DashboardBaseModel metaModel)
         {
             return _pendingFundDataAccess.GetData(metaModel);
         }

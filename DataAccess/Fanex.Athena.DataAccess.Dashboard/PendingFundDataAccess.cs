@@ -6,9 +6,9 @@
 
     public class PendingFundDataAccess : ISimpleWidgetDataAccess
     {
-        public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
+        public decimal GetData(DashboardBaseModel metaModel)
         {
-            return new SimpleWidgetViewModel { Value = 250000M };
+            return 250000M;
         }
     }
 }

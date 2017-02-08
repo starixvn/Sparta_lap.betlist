@@ -19,7 +19,7 @@
             _customerBalanceService = customerBalanceService ?? new CustomerBalanceService();
         }
 
-        public SimpleWidgetViewModel GetData([FromUri] DashboardBaseModel metaModel)
+        public decimal GetData([FromUri] DashboardBaseModel metaModel)
         {
             AssignAuthProperties(metaModel);
             return _customerBalanceService.GetData(metaModel);
