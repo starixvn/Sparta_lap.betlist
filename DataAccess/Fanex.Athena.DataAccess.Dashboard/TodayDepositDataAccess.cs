@@ -21,7 +21,7 @@
                         LicenseeID = metaModel.LicenseeId,
                         UserID = metaModel.UserId,
                         CurrencyID = metaModel.CurrencyId,
-                        Today = metaModel.FromDate
+                        ReportDate = metaModel.FromDate
                     };
 
                     using (var reader = db.ExecuteReader(param))
