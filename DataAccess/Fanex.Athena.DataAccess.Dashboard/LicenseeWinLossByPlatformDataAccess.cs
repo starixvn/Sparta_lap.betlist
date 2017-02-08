@@ -15,7 +15,7 @@
     {
         public WidgetByPlatformViewModel GetData(DashboardBaseModel metaModel)
         {
-            const string UspName = "Lrf_GetLicenseeTurnoverByPlatform";
+            const string UspName = "Lrf_GetLicenseeWLByPlatform";
             try
             {
                 using (var db = new ObjectDb(UspName))
@@ -45,7 +45,7 @@
 
         private static WidgetByPlatformViewModel ReadData(IDataReader reader, string baseCurrency)
         {
-            var turnoverColumn = "Turnover" + baseCurrency;
+            var turnoverColumn = "LicenseeWL" + baseCurrency;
 
             var dataList = new List<KeyValuePair<string, decimal>>();
             var total = 0m;

@@ -32,7 +32,7 @@
             AssignAuthProperties(metaModel);
             var now = DateTime.Now.Date.AddMonths(-1);
             metaModel.FromDate = new DateTime(now.Year, now.Month, 1);
-            metaModel.ToDate = now;
+            metaModel.ToDate = DateTime.Now.Date;
             metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
             return _turnoverByPlatformService.GetData(metaModel);
         }
