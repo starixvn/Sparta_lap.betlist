@@ -5,19 +5,24 @@
     using Model.Dashboard.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Configuration.Interfaces;
     using Service.Dashboard.Interfaces;
 
     [TestFixture]
     public class LicenseeWinLossByPlatformControllerTest
     {
         private IWidgetByPlatformService _licenseeWinLossByPlatformService;
+
+        private IBalanceUpService _balanceUpService;
+
         private LicenseeWinLossByPlatformController _licenseeWinLossByPlatformController;
 
         [OneTimeSetUp]
         public void SetUp()
         {
+            _balanceUpService = Substitute.For<IBalanceUpService>();
             _licenseeWinLossByPlatformService = Substitute.For<IWidgetByPlatformService>();
-            _licenseeWinLossByPlatformController = new LicenseeWinLossByPlatformController(_licenseeWinLossByPlatformService);
+            _licenseeWinLossByPlatformController = new LicenseeWinLossByPlatformController(_licenseeWinLossByPlatformService, _balanceUpService);
         }
 
         [OneTimeTearDown]

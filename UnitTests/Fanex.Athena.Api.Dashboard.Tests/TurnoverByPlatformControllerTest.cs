@@ -5,19 +5,24 @@
     using Model.Dashboard.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Configuration.Interfaces;
     using Service.Dashboard.Interfaces;
 
     [TestFixture]
     public class TurnoverByPlatformControllerTest
     {
         private IWidgetByPlatformService _turnoverByPlatformService;
+
+        private IBalanceUpService _balanceUpService;
+
         private TurnoverByPlatformController _turnoverByPlatformController;
 
         [OneTimeSetUp]
         public void SetUp()
         {
+            _balanceUpService = Substitute.For<IBalanceUpService>();
             _turnoverByPlatformService = Substitute.For<IWidgetByPlatformService>();
-            _turnoverByPlatformController = new TurnoverByPlatformController(_turnoverByPlatformService);
+            _turnoverByPlatformController = new TurnoverByPlatformController(_turnoverByPlatformService, _balanceUpService);
         }
 
         [OneTimeTearDown]

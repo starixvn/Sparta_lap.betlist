@@ -15,14 +15,15 @@
 
         private readonly IBalanceUpService _balanceUpService;
 
-        public TurnoverByPlatformController() : this(null)
+        public TurnoverByPlatformController() : this(null, null)
         {
             _balanceUpService = new BalanceUpService();
         }
 
-        public TurnoverByPlatformController(IWidgetByPlatformService turnoverByPlatformService)
+        public TurnoverByPlatformController(IWidgetByPlatformService turnoverByPlatformService, IBalanceUpService balanceUpService)
         {
             this._turnoverByPlatformService = turnoverByPlatformService ?? new TurnoverByPlatformService();
+            this._balanceUpService = balanceUpService ?? new BalanceUpService();
         }
 
         [HttpGet]
