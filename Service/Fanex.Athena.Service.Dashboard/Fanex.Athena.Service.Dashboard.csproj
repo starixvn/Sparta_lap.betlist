@@ -47,7 +47,7 @@
     <Compile Include="PendingFundService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisteredCustomerService.cs" />
-    <Compile Include="SportsbookWalletService.cs" />
+    <Compile Include="CustomerBalanceService.cs" />
     <Compile Include="TodayDepositService.cs" />
     <Compile Include="TodayWithdrawalService.cs" />
     <Compile Include="TurnoverByPlatformService.cs" />

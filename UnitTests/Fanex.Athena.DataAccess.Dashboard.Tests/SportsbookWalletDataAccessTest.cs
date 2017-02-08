@@ -12,7 +12,7 @@
         [OneTimeSetUp]
         public void SetUp()
         {
-            _sportsbookWalletDataAccess = new SportsbookWalletDataAccess();
+            _sportsbookWalletDataAccess = new CustomerBalanceDataAccess();
         }
 
         [OneTimeTearDown]

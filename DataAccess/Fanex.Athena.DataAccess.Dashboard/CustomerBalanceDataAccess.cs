@@ -4,7 +4,7 @@
     using Fanex.Athena.Model.Dashboard.MetaModel;
     using Fanex.Athena.Model.Dashboard.ViewModel;
 
-    public class SportsbookWalletDataAccess : ISimpleWidgetDataAccess
+    public class CustomerBalanceDataAccess : ISimpleWidgetDataAccess
     {
         public SimpleWidgetViewModel GetData(DashboardBaseModel metaModel)
         {

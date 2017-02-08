@@ -17,7 +17,7 @@
         public void SetUp()
         {
             _sportsbookWalletDataAccess = Substitute.For<ISimpleWidgetDataAccess>();
-            _sportsbookWalletService = new SportsbookWalletService(_sportsbookWalletDataAccess);
+            _sportsbookWalletService = new CustomerBalanceService(_sportsbookWalletDataAccess);
         }
 
         [OneTimeTearDown]
