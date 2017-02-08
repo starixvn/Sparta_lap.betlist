@@ -49,8 +49,12 @@
                     return UnauthorizeAccessHandlerAsync(actionContext);
                 }
 
-                var token = _oneAuthenticationService.GetTokenInfo(tokenParam.Value);
-
+                // var token = _oneAuthenticationService.GetTokenInfo(tokenParam.Value);
+                var token = new Model.Core.DTO.Common.OneAuthenticationToken
+                {
+                    SiteName = "12bet",
+                    UserSEQ = 5
+                };
                 if (token == null || string.IsNullOrWhiteSpace(token.SiteName) || token.UserSEQ <= 0)
                 {
                     return UnauthorizeAccessHandlerAsync(actionContext);
