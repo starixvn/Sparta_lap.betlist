@@ -2496,6 +2496,6 @@
     <value>行動裝置版</value>
   </data>
   <data name="DataAreAvailableUpToYesterday" xml:space="preserve">
-    <value>只能取得到昨天为止的资料</value>
+    <value>在每天3:30AM(GMT-4) 過後，報告會顯示前一天的數據</value>
   </data>
 </root>

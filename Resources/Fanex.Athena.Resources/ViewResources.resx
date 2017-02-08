@@ -2943,6 +2943,6 @@
     <comment>#66737</comment>
   </data>
   <data name="DataAreAvailableUpToYesterday" xml:space="preserve">
-    <value>Data are available up to yesterday.</value>
+    <value>After 3:30AM(GMT-4), the report will show yesterday's data.</value>
   </data>
 </root>
