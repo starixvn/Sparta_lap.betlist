@@ -1771,7 +1771,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data are available up to yesterday..
+        ///   Looks up a localized string similar to After 3:30AM(GMT-4), the report will show yesterday&apos;s data..
         /// </summary>
         public static string DataAreAvailableUpToYesterday {
             get {
