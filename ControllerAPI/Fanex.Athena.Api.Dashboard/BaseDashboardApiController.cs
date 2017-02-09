@@ -29,7 +29,6 @@
         protected void AssignAuthProperties(DashboardBaseModel model)
         {
             model.LicenseeId = this.LicenseeId;
-            model.UserId = this.UserId;
         }
     }
 }

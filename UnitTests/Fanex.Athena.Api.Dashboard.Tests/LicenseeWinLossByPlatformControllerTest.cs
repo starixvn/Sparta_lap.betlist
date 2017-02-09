@@ -2,12 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Web.Http.Controllers;
-    using Model.Core.DTO.Configuration;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Configuration.Interfaces;
     using Service.Dashboard.Interfaces;
 
     [TestFixture]
@@ -15,16 +13,13 @@
     {
         private IWidgetByPlatformService _licenseeWinLossByPlatformService;
 
-        private IBalanceUpService _balanceUpService;
-
         private LicenseeWinLossByPlatformController _licenseeWinLossByPlatformController;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _balanceUpService = Substitute.For<IBalanceUpService>();
             _licenseeWinLossByPlatformService = Substitute.For<IWidgetByPlatformService>();
-            _licenseeWinLossByPlatformController = new LicenseeWinLossByPlatformController(_licenseeWinLossByPlatformService, _balanceUpService);
+            _licenseeWinLossByPlatformController = new LicenseeWinLossByPlatformController(_licenseeWinLossByPlatformService);
         }
 
         [OneTimeTearDown]
@@ -51,7 +46,6 @@
             };
             var metaModel = new DashboardBaseModel();
             _licenseeWinLossByPlatformService.GetData(metaModel).Returns(expected);
-            _balanceUpService.BalanceUpInfo.Returns(new BalanceUp { MoveBetsDay = new System.DateTime(2017, 1, 1) });
 
             var mockActionContext = new HttpActionContext
             {

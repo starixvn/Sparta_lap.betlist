@@ -6,8 +6,6 @@
     {
         public int LicenseeId { get; set; }
 
-        public int UserId { get; set; }
-
         public int CurrencyId { get; set; }
 
         public string BaseCurrency { get; set; }
@@ -17,7 +15,5 @@
         public DateTime ToDate { get; set; }
 
         public string SelectedWidgetString { get; set; }
-
-        public DateTime MoveBetsDay { get; set; }
     }
 }

@@ -13,17 +13,13 @@
     {
         private readonly IWidgetByPlatformService _licenseeWinLossByPlatformService;
 
-        private readonly IBalanceUpService _balanceUpService;
-
-        public LicenseeWinLossByPlatformController() : this(null, null)
+        public LicenseeWinLossByPlatformController() : this(null)
         {
-            _balanceUpService = new BalanceUpService();
         }
 
-        public LicenseeWinLossByPlatformController(IWidgetByPlatformService licenseeWinLossByPlatformService, IBalanceUpService balanceUpService)
+        public LicenseeWinLossByPlatformController(IWidgetByPlatformService licenseeWinLossByPlatformService)
         {
             this._licenseeWinLossByPlatformService = licenseeWinLossByPlatformService ?? new LicenseeWinLossByPlatformService();
-            this._balanceUpService = balanceUpService ?? new BalanceUpService();
         }
 
         [HttpGet]
@@ -33,7 +29,6 @@
             var now = DateTime.Now.Date.AddMonths(-1);
             metaModel.FromDate = new DateTime(now.Year, now.Month, 1);
             metaModel.ToDate = DateTime.Now.Date;
-            metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
             return _licenseeWinLossByPlatformService.GetData(metaModel);
         }
     }

@@ -24,11 +24,9 @@
                     var param = new
                     {
                         LicenseeID = metaModel.LicenseeId,
-                        UserID = metaModel.UserId,
                         CurrencyID = metaModel.CurrencyId,
                         FromDate = metaModel.FromDate,
-                        ToDate = metaModel.ToDate,
-                        MoveBetsDay = metaModel.MoveBetsDay
+                        ToDate = metaModel.ToDate
                     };
 
                     using (var reader = db.ExecuteReader(param))
