@@ -1,20 +1,20 @@
 ﻿namespace Fanex.Athena.DataAccess.Dashboard.Tests
 {
     using System.Collections.Generic;
-    using Interfaces;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
+    using NSubstitute;
     using NUnit.Framework;
 
     [TestFixture]
     public class TurnoverByPlatformDataAccessTest
     {
-        private IWidgetByPlatformDataAccess _turnoverByPlatformDataAccess;
+        private TurnoverByPlatformDataAccess _turnoverByPlatformDataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _turnoverByPlatformDataAccess = new TurnoverByPlatformDataAccess();
+            _turnoverByPlatformDataAccess = Substitute.ForPartsOf<TurnoverByPlatformDataAccess>();
         }
 
         [OneTimeTearDown]
@@ -27,6 +27,9 @@
         public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange
+            var reader = _turnoverByPlatformDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseeTurnoverByPlatform"))
+                .ExecuteReader(Arg.Any<object>());
+
             var expected = new WidgetByPlatformViewModel
             {
                 Data = new List<KeyValuePair<string, decimal>>
@@ -38,7 +41,10 @@
                     new KeyValuePair<string, decimal>("Others", 1700M)
                 }
             };
-            var metaModel = new DashboardBaseModel();
+            var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
+            reader.Read().Returns(true, false);
+            reader["PlatformType"].Returns(1);
+            reader["TurnoverEUR"].Returns(100M);
 
             // Action
             var result = _turnoverByPlatformDataAccess.GetData(metaModel);
@@ -46,13 +52,10 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Data.Count, Is.EqualTo(5));
+                Assert.That(result.Data.Count, Is.EqualTo(1));
+                Assert.That(result.Total, Is.EqualTo(100M));
                 Assert.That(result.Data[0].Key, Is.EqualTo(expected.Data[0].Key));
                 Assert.That(result.Data[0].Value, Is.EqualTo(expected.Data[0].Value));
-                Assert.That(result.Data[2].Key, Is.EqualTo(expected.Data[2].Key));
-                Assert.That(result.Data[2].Value, Is.EqualTo(expected.Data[2].Value));
-                Assert.That(result.Data[4].Key, Is.EqualTo(expected.Data[4].Key));
-                Assert.That(result.Data[4].Value, Is.EqualTo(expected.Data[4].Value));
             });
         }
     }

@@ -1,19 +1,18 @@
 ﻿namespace Fanex.Athena.DataAccess.Dashboard.Tests
 {
-    using Interfaces;
     using Model.Dashboard.MetaModel;
-    using Model.Dashboard.ViewModel;
+    using NSubstitute;
     using NUnit.Framework;
 
     [TestFixture]
     public class TodayWithdrawalDataAccessTest
     {
-        private ISimpleWidgetDataAccess _todayWithDrawalDataAccess;
+        private TodayWithdrawalDataAccess _todayWithDrawalDataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _todayWithDrawalDataAccess = new TodayWithdrawalDataAccess();
+            _todayWithDrawalDataAccess = Substitute.ForPartsOf<TodayWithdrawalDataAccess>();
         }
 
         [OneTimeTearDown]
@@ -27,7 +26,12 @@
         {
             // Arrange
             var expected = 500000M;
-            var metaModel = new DashboardBaseModel();
+            var reader = _todayWithDrawalDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseeTodayWithdrawal"))
+                .ExecuteReader(Arg.Any<object>());
+            reader.Read().Returns(true, false);
+            reader["WithdrawalEUR"].Returns(expected);
+
+            var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
 
             // Action
             var result = _todayWithDrawalDataAccess.GetData(metaModel);

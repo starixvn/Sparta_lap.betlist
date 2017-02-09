@@ -1,6 +1,5 @@
-﻿using Fanex.Athena.DataAccess.Dashboard.Interfaces;
-using Fanex.Athena.Model.Dashboard.MetaModel;
-using Fanex.Athena.Model.Dashboard.ViewModel;
+﻿using Fanex.Athena.Model.Dashboard.MetaModel;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace Fanex.Athena.DataAccess.Dashboard.Tests
@@ -8,12 +7,12 @@ namespace Fanex.Athena.DataAccess.Dashboard.Tests
     [TestFixture]
     public class TodayDepositDataAccessTest
     {
-        private ISimpleWidgetDataAccess _todayDepositDataAccess;
+        private TodayDepositDataAccess _todayDepositDataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _todayDepositDataAccess = new TodayDepositDataAccess();
+            _todayDepositDataAccess = Substitute.ForPartsOf<TodayDepositDataAccess>();
         }
 
         [OneTimeTearDown]
@@ -27,7 +26,12 @@ namespace Fanex.Athena.DataAccess.Dashboard.Tests
         {
             // Arrange
             var expected = 2500000M;
-            var metaModel = new DashboardBaseModel();
+            var reader = _todayDepositDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseeTodayDeposit"))
+                .ExecuteReader(Arg.Any<object>());
+            reader.Read().Returns(true, false);
+            reader["DepositEUR"].Returns(expected);
+
+            var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
 
             // Action
             var result = _todayDepositDataAccess.GetData(metaModel);

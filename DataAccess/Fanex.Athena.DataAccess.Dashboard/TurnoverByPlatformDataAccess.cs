@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core;
     using Core.Exception;
     using Data;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
@@ -11,14 +12,14 @@
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
 
-    public class TurnoverByPlatformDataAccess : IWidgetByPlatformDataAccess
+    public class TurnoverByPlatformDataAccess : BaseDataAccess, IWidgetByPlatformDataAccess
     {
         public WidgetByPlatformViewModel GetData(DashboardBaseModel metaModel)
         {
             const string UspName = "Lrf_GetLicenseeTurnoverByPlatform";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     var param = new
                     {

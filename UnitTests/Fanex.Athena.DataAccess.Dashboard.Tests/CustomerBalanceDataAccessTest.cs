@@ -1,24 +1,23 @@
 ﻿namespace Fanex.Athena.DataAccess.Dashboard.Tests
 {
-    using Fanex.Athena.DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
-    using Model.Dashboard.ViewModel;
+    using NSubstitute;
     using NUnit.Framework;
 
-    public class SportsbookWalletDataAccessTest
+    public class CustomerBalanceDataAccessTest
     {
-        private ISimpleWidgetDataAccess _sportsbookWalletDataAccess;
+        private CustomerBalanceDataAccess _customerBalanceDataAccess;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _sportsbookWalletDataAccess = new CustomerBalanceDataAccess();
+            _customerBalanceDataAccess = Substitute.ForPartsOf<CustomerBalanceDataAccess>();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _sportsbookWalletDataAccess = null;
+            _customerBalanceDataAccess = null;
         }
 
         [Test]
@@ -26,10 +25,11 @@
         {
             // Arrange
             var expected = 1570000M;
-            var metaModel = new DashboardBaseModel();
+            _customerBalanceDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetCustomerBalance"))
+                .ExecuteScalar(Arg.Any<object>()).Returns(expected);
 
             // Action
-            var result = _sportsbookWalletDataAccess.GetData(metaModel);
+            var result = _customerBalanceDataAccess.GetData(new DashboardBaseModel());
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
