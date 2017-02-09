@@ -113,6 +113,10 @@
       <Project>{0FD46119-9F38-4C3A-BA06-719CF00D75D8}</Project>
       <Name>Fanex.Athena.Api.Dashboard</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
+      <Project>{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}</Project>
+      <Name>Fanex.Athena.Model.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Dashboard\Fanex.Athena.Model.Dashboard.csproj">
       <Project>{1E08C4C9-3BA9-407B-90FC-168A2FAF35D0}</Project>
       <Name>Fanex.Athena.Model.Dashboard</Name>

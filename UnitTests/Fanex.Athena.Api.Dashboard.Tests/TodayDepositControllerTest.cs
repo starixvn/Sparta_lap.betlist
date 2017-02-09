@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Dashboard.Tests
 {
+    using System.Web.Http.Controllers;
     using Model.Dashboard.MetaModel;
-    using Model.Dashboard.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Dashboard.Interfaces;
@@ -32,6 +32,13 @@
             // Arrange
             var expected = 2500000M;
             _todayDepositService.GetData(Arg.Any<DashboardBaseModel>()).Returns(expected);
+
+            var mockActionContext = new HttpActionContext
+            {
+                ControllerContext = new HttpControllerContext(),
+                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
+            };
+            _todayDepositController.ActionContext = mockActionContext;
 
             // Action
             var result = _todayDepositController.GetData(new DashboardBaseModel());

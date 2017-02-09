@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Dashboard.Tests
 {
     using Model.Dashboard.MetaModel;
-    using Model.Dashboard.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Dashboard.Interfaces;
@@ -27,7 +26,7 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectData()
+        public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expected = 1570000M;

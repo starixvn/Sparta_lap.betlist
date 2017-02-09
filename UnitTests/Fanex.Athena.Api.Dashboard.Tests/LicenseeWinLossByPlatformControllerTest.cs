@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Api.Dashboard.Tests
 {
     using System.Collections.Generic;
+    using System.Web.Http.Controllers;
+    using Model.Core.DTO.Configuration;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
     using NSubstitute;
@@ -33,7 +35,7 @@
         }
 
         [Test]
-        public void Index_WhenCall_ReturnCorrectData()
+        public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange
             var expected = new WidgetByPlatformViewModel
@@ -49,6 +51,14 @@
             };
             var metaModel = new DashboardBaseModel();
             _licenseeWinLossByPlatformService.GetData(metaModel).Returns(expected);
+            _balanceUpService.BalanceUpInfo.Returns(new BalanceUp { MoveBetsDay = new System.DateTime(2017, 1, 1) });
+
+            var mockActionContext = new HttpActionContext
+            {
+                ControllerContext = new HttpControllerContext(),
+                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
+            };
+            _licenseeWinLossByPlatformController.ActionContext = mockActionContext;
 
             // Action
             var result = _licenseeWinLossByPlatformController.GetData(metaModel);
