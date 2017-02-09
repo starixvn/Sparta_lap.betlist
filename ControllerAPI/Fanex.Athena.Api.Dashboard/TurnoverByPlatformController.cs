@@ -24,9 +24,9 @@
         public WidgetByPlatformViewModel GetData([FromUri] DashboardBaseModel metaModel)
         {
             AssignAuthProperties(metaModel);
-            var now = DateTime.Now.Date.AddMonths(-1);
+            var now = DateTime.Now.Date;
             metaModel.FromDate = new DateTime(now.Year, now.Month, 1);
-            metaModel.ToDate = DateTime.Now.Date;
+            metaModel.ToDate = now;
             return _turnoverByPlatformService.GetData(metaModel);
         }
     }

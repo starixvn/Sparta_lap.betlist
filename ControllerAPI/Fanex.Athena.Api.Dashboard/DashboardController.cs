@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Dashboard
 {
+    using System.Collections.Generic;
     using System.Linq;
-    using Model.Core.DataDomain;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
 
@@ -21,10 +21,11 @@
         public object GetCurrencyList()
         {
             var currencyList = _currencyService.GetCurrencyMapByUser(this.LicenseeId, this.UserId);
+
             return new
             {
                 CurrencyList = currencyList.ToArray(),
-                BaseCurrencyList = SystemConstants.BaseCurrencyList
+                BaseCurrencyList = new List<string> { "EUR", "USD", "GBP", "MYR", "CNY" }
             };
         }
     }

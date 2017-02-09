@@ -22,7 +22,7 @@
         public decimal GetData([FromUri] DashboardBaseModel metaModel)
         {
             AssignAuthProperties(metaModel);
-            metaModel.FromDate = DateTime.Now.Date.AddMonths(-1);
+            metaModel.FromDate = DateTime.Now.Date;
             return _todayDepositService.GetData(metaModel);
         }
     }
