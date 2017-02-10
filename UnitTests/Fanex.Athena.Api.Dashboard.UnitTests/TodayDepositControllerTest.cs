@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Api.Dashboard.Tests
+﻿namespace Fanex.Athena.Api.Dashboard.UnitTests
 {
     using System.Web.Http.Controllers;
     using Model.Dashboard.MetaModel;

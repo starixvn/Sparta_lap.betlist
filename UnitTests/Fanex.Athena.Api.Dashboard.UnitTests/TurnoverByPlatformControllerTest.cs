@@ -1,13 +1,11 @@
-﻿namespace Fanex.Athena.Api.Dashboard.Tests
+﻿namespace Fanex.Athena.Api.Dashboard.UnitTests
 {
     using System.Collections.Generic;
     using System.Web.Http.Controllers;
-    using Model.Core.DTO.Configuration;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Configuration.Interfaces;
     using Service.Dashboard.Interfaces;
 
     [TestFixture]
@@ -15,16 +13,13 @@
     {
         private IWidgetByPlatformService _turnoverByPlatformService;
 
-        private IBalanceUpService _balanceUpService;
-
         private TurnoverByPlatformController _turnoverByPlatformController;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _balanceUpService = Substitute.For<IBalanceUpService>();
             _turnoverByPlatformService = Substitute.For<IWidgetByPlatformService>();
-            _turnoverByPlatformController = Substitute.ForPartsOf<TurnoverByPlatformController>(_turnoverByPlatformService, _balanceUpService);
+            _turnoverByPlatformController = Substitute.ForPartsOf<TurnoverByPlatformController>(_turnoverByPlatformService);
         }
 
         [OneTimeTearDown]
@@ -51,7 +46,6 @@
             };
             var metaModel = new DashboardBaseModel();
             _turnoverByPlatformService.GetData(metaModel).Returns(expected);
-            _balanceUpService.BalanceUpInfo.Returns(new BalanceUp { MoveBetsDay = new System.DateTime(2017, 1, 1) });
 
             var mockActionContext = new HttpActionContext
             {

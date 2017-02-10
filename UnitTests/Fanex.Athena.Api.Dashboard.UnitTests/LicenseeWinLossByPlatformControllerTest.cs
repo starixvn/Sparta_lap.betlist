@@ -1,7 +1,8 @@
-﻿namespace Fanex.Athena.Api.Dashboard.Tests
+﻿namespace Fanex.Athena.Api.Dashboard.UnitTests
 {
     using System.Collections.Generic;
     using System.Web.Http.Controllers;
+    using Dashboard;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
     using NSubstitute;
