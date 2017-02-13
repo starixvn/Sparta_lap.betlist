@@ -24,6 +24,37 @@
         }
 
         [Test]
+        public void GetData_WhenCall_PassCorectData()
+        {
+            // Arrange
+            object passedParam = null;
+            var reader = _turnoverByPlatformDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseeTurnoverByPlatform"))
+                .ExecuteReader(Arg.Do<object>(x => passedParam = x));
+
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = "EUR",
+                LicenseeId = 1,
+                CurrencyId = 2,
+                FromDate = new System.DateTime(2017, 1, 1),
+                ToDate = new System.DateTime(2017, 2, 15)
+            };
+            reader.Read().Returns(true, false);
+            reader["PlatformType"].Returns(1);
+            reader["TurnoverEUR"].Returns(100M);
+
+            // Action
+            _turnoverByPlatformDataAccess.GetData(metaModel);
+            var type = passedParam.GetType();
+
+            // Assert
+            Assert.That(type.GetProperty("LicenseeID").GetValue(passedParam, null), Is.EqualTo(metaModel.LicenseeId));
+            Assert.That(type.GetProperty("CurrencyID").GetValue(passedParam, null), Is.EqualTo(metaModel.CurrencyId));
+            Assert.That(type.GetProperty("FromDate").GetValue(passedParam, null), Is.EqualTo(metaModel.FromDate));
+            Assert.That(type.GetProperty("ToDate").GetValue(passedParam, null), Is.EqualTo(metaModel.ToDate));
+        }
+
+        [Test]
         public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange

@@ -22,6 +22,27 @@ namespace Fanex.Athena.DataAccess.Dashboard.Tests
         }
 
         [Test]
+        public void GetData_WhenCall_PassCorectParam()
+        {
+            // Arrange
+            var metaModel = new DashboardBaseModel { LicenseeId = 1, CurrencyId = 2, BaseCurrency = "EUR", FromDate = new System.DateTime(2017, 1, 1) };
+            object passedParam = null;
+            var reader = _todayDepositDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseeTodayDeposit"))
+                .ExecuteReader(Arg.Do<object>(x => passedParam = x));
+            reader.Read().Returns(true, false);
+            reader["DepositEUR"].Returns(0M);
+
+            // Action
+            _todayDepositDataAccess.GetData(metaModel);
+            var type = passedParam.GetType();
+
+            // Assert
+            Assert.That(type.GetProperty("LicenseeID").GetValue(passedParam, null), Is.EqualTo(metaModel.LicenseeId));
+            Assert.That(type.GetProperty("CurrencyID").GetValue(passedParam, null), Is.EqualTo(metaModel.CurrencyId));
+            Assert.That(type.GetProperty("ReportDate").GetValue(passedParam, null), Is.EqualTo(metaModel.FromDate));
+        }
+
+        [Test]
         public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange
