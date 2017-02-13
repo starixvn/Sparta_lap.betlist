@@ -8,7 +8,6 @@
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
     using Fanex.Common.Extensions;
     using Logging;
-    using Model.Core.DataDomain;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
 
@@ -51,7 +50,7 @@
             while (reader.Read())
             {
                 var platformType = reader.ToInt("PlatformType");
-                var key = PlatformType.GetPlatformName(platformType);
+                var key = PlatformKey.GetPlatformName(platformType);
                 var value = reader.ToDecimal(turnoverColumn);
                 total += value;
                 dataList.Add(new KeyValuePair<string, decimal>(key, value));
