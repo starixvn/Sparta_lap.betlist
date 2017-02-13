@@ -27,6 +27,29 @@
         }
 
         [Test]
+        public void Index_WhenCall_PassCorrectParam()
+        {
+            // Arrange
+            var expected = 2500000M;
+            var metaModel = new DashboardBaseModel { BaseCurrency = "EUR", CurrencyId = 1, SelectedWidgetString = "TodayDeposit" };
+            _todayDepositService.GetData(metaModel).Returns(expected);
+
+            var mockActionContext = new HttpActionContext
+            {
+                ControllerContext = new HttpControllerContext(),
+                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
+            };
+            _todayDepositController.ActionContext = mockActionContext;
+
+            // Action
+            _todayDepositController.GetData(metaModel);
+
+            // Assert
+            Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
+            _todayDepositService.Received().GetData(metaModel);
+        }
+
+        [Test]
         public void Index_WhenCall_ReturnCorrectData()
         {
             // Arrange

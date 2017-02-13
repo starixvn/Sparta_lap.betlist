@@ -22,6 +22,26 @@
         }
 
         [Test]
+        public void GetData_WhenCall_PassCorrectParam()
+        {
+            // Arrange
+            var metaModel = new DashboardBaseModel { LicenseeId = 1, CurrencyId = 2, BaseCurrency = "EUR" };
+            object passedParam = null;
+            var reader = _pendingFundDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseePendingFunds"))
+                .ExecuteReader(Arg.Do<object>(x => passedParam = x));
+            reader.Read().Returns(true, false);
+            reader["PendingFundEUR"].Returns(0M);
+
+            // Action
+            _pendingFundDataAccess.GetData(metaModel);
+            var type = passedParam.GetType();
+
+            // Assert
+            Assert.That(type.GetProperty("LicenseeID").GetValue(passedParam, null), Is.EqualTo(metaModel.LicenseeId));
+            Assert.That(type.GetProperty("CurrencyID").GetValue(passedParam, null), Is.EqualTo(metaModel.CurrencyId));
+        }
+
+        [Test]
         public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange

@@ -83,7 +83,6 @@
     <Compile Include="LicenseeWinLossByPlatformDataAccess.cs" />
     <Compile Include="PendingFundDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegisteredCustomerDataAccess.cs" />
     <Compile Include="CustomerBalanceDataAccess.cs" />
     <Compile Include="TodayDepositDataAccess.cs" />
     <Compile Include="TodayWithdrawalDataAccess.cs" />

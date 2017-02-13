@@ -30,6 +30,28 @@
         }
 
         [Test]
+        public void GetData_WhenCall_PassCorrectParameter()
+        {
+            // Arrange
+            var expected = new WidgetByPlatformViewModel();
+            var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
+            _turnoverByPlatformService.GetData(metaModel).Returns(expected);
+            var mockActionContext = new HttpActionContext
+            {
+                ControllerContext = new HttpControllerContext(),
+                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
+            };
+            _turnoverByPlatformController.ActionContext = mockActionContext;
+
+            // Action
+            _turnoverByPlatformController.GetData(metaModel);
+
+            // Assert
+            Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
+            _turnoverByPlatformService.Received().GetData(metaModel);
+        }
+
+        [Test]
         public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange

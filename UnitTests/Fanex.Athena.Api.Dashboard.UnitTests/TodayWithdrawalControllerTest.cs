@@ -27,6 +27,29 @@
         }
 
         [Test]
+        public void GetData_WhenCall_PassCorrectParam()
+        {
+            // Arrange
+            var expected = 500000M;
+            var metaModel = new DashboardBaseModel { BaseCurrency = "EUR", CurrencyId = 1, SelectedWidgetString = "PendingFund" };
+            _todayWithdrawalService.GetData(metaModel).Returns(expected);
+
+            var mockActionContext = new HttpActionContext
+            {
+                ControllerContext = new HttpControllerContext(),
+                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
+            };
+            _todayWithdrawalController.ActionContext = mockActionContext;
+
+            // Action
+            _todayWithdrawalController.GetData(metaModel);
+
+            // Assert
+            Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
+            _todayWithdrawalService.Received().GetData(metaModel);
+        }
+
+        [Test]
         public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange

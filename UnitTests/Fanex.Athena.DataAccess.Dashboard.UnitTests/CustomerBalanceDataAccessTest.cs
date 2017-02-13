@@ -21,6 +21,25 @@
         }
 
         [Test]
+        public void GetData_WhenCall_PassCorrectParam()
+        {
+            // Arrange
+            var metaModel = new DashboardBaseModel { LicenseeId = 1, CurrencyId = 2, FromDate = new System.DateTime(2017, 1, 1) };
+            object passedParam = null;
+            _customerBalanceDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetCustomerBalance"))
+                .ExecuteScalar(Arg.Do<object>(x => passedParam = x)).Returns(0M);
+
+            // Action
+            _customerBalanceDataAccess.GetData(metaModel);
+            var type = passedParam.GetType();
+
+            // Assert
+            Assert.That(type.GetProperty("LicenseeID").GetValue(passedParam, null), Is.EqualTo(metaModel.LicenseeId));
+            Assert.That(type.GetProperty("CurrencyID").GetValue(passedParam, null), Is.EqualTo(metaModel.CurrencyId));
+            Assert.That(type.GetProperty("ReportDate").GetValue(passedParam, null), Is.EqualTo(metaModel.FromDate));
+        }
+
+        [Test]
         public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange
