@@ -46,7 +46,6 @@
     <Compile Include="LicenseeWinLossByPlatformService.cs" />
     <Compile Include="PendingFundService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegisteredCustomerService.cs" />
     <Compile Include="CustomerBalanceService.cs" />
     <Compile Include="TodayDepositService.cs" />
     <Compile Include="TodayWithdrawalService.cs" />
