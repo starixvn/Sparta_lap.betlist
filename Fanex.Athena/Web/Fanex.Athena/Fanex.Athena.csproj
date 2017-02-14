@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -899,8 +899,10 @@
     <Content Include="www\js\source\lib\select2.js" />
     <Content Include="www\js\source\pages\betlist\betlist.js" />
     <Content Include="www\js\source\pages\betlist\betlist.option.js" />
+    <Content Include="www\js\source\pages\betlist\betlistcancelledbets.js" />
     <Content Include="www\js\source\pages\betlist\commonbetlist.js" />
     <Content Include="www\js\source\pages\betlist\betlistcorrectscore.js" />
+    <Content Include="www\js\source\pages\betlist\main-betlistcancelledbets.js" />
     <Content Include="www\js\source\pages\betlist\main-betlistcorrectscore.js" />
     <Content Include="www\js\source\pages\betlist\main-betlistrunning.multiplebettypes.js" />
     <Content Include="www\js\source\pages\betlist\main-betlistrunning.js" />
@@ -1462,6 +1464,8 @@
     <Content Include="Views\Desktop\BetList\LiveReport\Racing.cshtml" />
     <Content Include="www\css\source\components\select2\select2.main.scss" />
     <Content Include="www\css\source\components\select2\select2-ex.scss" />
+    <Content Include="Views\Desktop\BetList\CancelledBetsBetList\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\CancelledBetsBetList\Filter.cshtml" />
     <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />

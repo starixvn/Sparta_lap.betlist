@@ -45,6 +45,7 @@ var scriptPaths = {
     betlistrunning: "./www/js/source/pages/betlist/main-betlistrunning.js",
     betlistrunningmultiplebettypes: "./www/js/source/pages/betlist/main-betlistrunning.multiplebettypes.js",
     betlistcorrectscore: "./www/js/source/pages/betlist/main-betlistcorrectscore.js",
+    betlistcancelledbets: "./www/js/source/pages/betlist/main-betlistcancelledbets.js",
 
     handicapoverunder: "./www/js/source/pages/totalbet/handicapoverunder/main.js",
     ahforecast: "./www/js/source/pages/forecast/forecast.ah.main.js",

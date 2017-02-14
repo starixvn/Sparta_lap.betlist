@@ -39,6 +39,7 @@ function generateConfig(environment) {
             [`${pathConfig.scriptPaths.build}/${environment}/pages/forecast/forecastonextwo`]: [pathConfig.scriptPaths.forecastonextwo],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/forecast/forecasthdpou`]: [pathConfig.scriptPaths.forecasthdpou],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/forecast/newforecasthdpou`]: [pathConfig.scriptPaths.newforecasthdpou],
+            [`${pathConfig.scriptPaths.build}/${environment}/pages/betlist/betlistcancelledbets`]: [pathConfig.scriptPaths.betlistcancelledbets],
 
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/livereport`]: pathConfig.cssPaths.livereport,

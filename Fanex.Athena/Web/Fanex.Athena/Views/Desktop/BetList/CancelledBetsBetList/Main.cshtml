@@ -1,0 +1,20 @@
+﻿@{
+    var formatTitle = "{0} {1} {2} - {3}";
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.Report, ViewResources.CancelledBets);
+    Layout = "~/Views/Desktop/Shared/_BetListLayout.cshtml";
+}
+
+@model Fanex.Athena.Model.BetList.ViewModel.CancelledBetsBetListViewModel
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/betlist/betlistcancelledbets.chunk.js")" type="text/javascript"></script>
+}
+
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/Desktop/BetList/CancelledBetsBetList/Filter.cshtml");
+    }
+}
+@{
+    <input type="hidden" id="HiddenColumnList" value="winloss,licenseewl" />
+}
