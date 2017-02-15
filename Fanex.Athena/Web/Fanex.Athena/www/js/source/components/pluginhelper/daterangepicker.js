@@ -1,11 +1,10 @@
-﻿define(["jquery", "common/site", "moment", "bootstrap-daterangepicker", "lib/jquery.monthpicker"],
+﻿define(["jquery", "common/site", "moment", "bootstrap-daterangepicker"],
     function ($, Site, moment) {
         "use strict";
 
-        var _historyDate = new Date($("#HistoryDate").val());
         var _daysOfWeek, _monthNames;
 
-        function initResourceForDataPicker() {
+        function initCommonTextResource() {
             if (!_daysOfWeek || !_monthNames) {
                 _daysOfWeek = [
                     Site.getSingleResource('Su'), Site.getSingleResource('Mo'), Site.getSingleResource('Tu'), Site.getSingleResource('We'),
@@ -45,7 +44,7 @@
             ranges[Site.getSingleResource('Lastmonth')] = [now.clone().subtract(1, 'month').startOf('month'), now.clone().subtract(1, 'month').endOf('month')];
             ranges[Site.getSingleResource('Sincelastmonth')] = [now.clone().subtract(1, 'month').startOf('month'), now];
 
-            initResourceForDataPicker();
+            initCommonTextResource();
             var locale = {
                 format: 'MM/DD/YYYY',
                 applyLabel: Site.getSingleResource('OK'),
@@ -80,7 +79,7 @@
 
         function initSingleDatePicker(idElement) {
             var $picker = $("#" + idElement);
-            initResourceForDataPicker();
+            initCommonTextResource();
             var locale = {
                 format: 'MM/DD/YYYY',
                 daysOfWeek: _daysOfWeek,
@@ -98,33 +97,8 @@
             });
         }
 
-        function initMonthPicker() {
-            var fromdate = new Date($('#FromDate').val());
-            var todate = new Date($('#ToDate').val());
-
-            $('#month-picker').monPickr({
-                minDate: _historyDate,
-                showDateRange: true,
-                fromDayId: 'fDay',
-                toDayId: 'tDay',
-                format: 'MM/dd/yyyy',
-                month: fromdate,
-                fromDay: fromdate.getDate(),
-                toDay: todate.getDate(),
-                afterChangeMonth: function () {
-                    $('#FromDate').val($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy"));
-                    $('#ToDate').val($("#month-picker").monPickr("getToDate", "MM/dd/yyyy"));
-                },
-                afterChangeDay: function () {
-                    $('#FromDate').val($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy"));
-                    $('#ToDate').val($("#month-picker").monPickr("getToDate", "MM/dd/yyyy"));
-                }
-            });
-        }
-
         return {
             initDateRangePicker: initDateRangePicker,
-            initSingleDatePicker: initSingleDatePicker,
-            initMonthPicker: initMonthPicker
+            initSingleDatePicker: initSingleDatePicker
         };
     });

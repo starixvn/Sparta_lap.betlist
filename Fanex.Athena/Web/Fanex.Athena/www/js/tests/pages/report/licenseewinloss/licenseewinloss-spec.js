@@ -1,5 +1,5 @@
-﻿define(['jquery', 'common/site', 'common/pluginhelper', "pages/report/licenseewinloss/licenseewinloss.option", 'pages/report/licenseewinloss/licenseewinloss'],
-    function ($, Site, PluginHelper, LicenseeWinLossOption, LicenseeWinLoss) {
+﻿define(['jquery', 'common/site', 'components/pluginhelper/daterangepicker', "pages/report/licenseewinloss/licenseewinloss.option", 'pages/report/licenseewinloss/licenseewinloss'],
+    function ($, Site, DatePicker, LicenseeWinLossOption, LicenseeWinLoss) {
         describe("LicenseeWinLoss", function () {
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {
@@ -9,8 +9,7 @@
                     return url;
                 });
                 spyOn(Site, "setMultiSelectForDropDownList");
-                spyOn(PluginHelper, "initDateRangePicker");
-                spyOn(PluginHelper, "initMonthPicker");
+                spyOn(DatePicker, "initDateRangePicker");
             });
 
             describe("initialize()", function () {

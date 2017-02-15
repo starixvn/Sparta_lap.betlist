@@ -20,7 +20,7 @@
             //{ pattern: 'www/js/tests/pages/betlist/commonbetlist-spec.js', included: false },
             //{ pattern: 'www/js/tests/components/refreshcountdown-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/forecast/forecast.onextwo-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/forecast/forecast.newforecasthdpou-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/betlist/betlist-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {

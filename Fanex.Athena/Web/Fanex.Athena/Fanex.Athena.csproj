@@ -896,10 +896,11 @@
       <DependentUpon>ViewResources.tt</DependentUpon>
     </Content>
     <Content Include="www\js\source\common\languages\ViewResources1.txt" />
-    <Content Include="www\js\source\common\pluginhelper.js" />
     <Content Include="www\js\source\common\popup.js" />
     <Content Include="www\js\source\common\querystring.js" />
     <Content Include="www\js\source\common\site.js" />
+    <Content Include="www\js\source\components\pluginhelper\daterangepicker.js" />
+    <Content Include="www\js\source\components\pluginhelper\monthpicker.js" />
     <Content Include="www\js\source\lib\select2.js" />
     <Content Include="www\js\source\pages\betlist\betlist.js" />
     <Content Include="www\js\source\pages\betlist\betlist.option.js" />

@@ -2,7 +2,7 @@ webpackJsonp([33],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(209);
+	module.exports = __webpack_require__(208);
 
 
 /***/ },
@@ -14490,13 +14490,12 @@ webpackJsonp([33],[
 /* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(58), __webpack_require__(177), __webpack_require__(178)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, moment) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(58), __webpack_require__(177)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, moment) {
 	        "use strict";
 	
-	        var _historyDate = new Date($("#HistoryDate").val());
 	        var _daysOfWeek, _monthNames;
 	
-	        function initResourceForDataPicker() {
+	        function initCommonTextResource() {
 	            if (!_daysOfWeek || !_monthNames) {
 	                _daysOfWeek = [
 	                    Site.getSingleResource('Su'), Site.getSingleResource('Mo'), Site.getSingleResource('Tu'), Site.getSingleResource('We'),
@@ -14536,7 +14535,7 @@ webpackJsonp([33],[
 	            ranges[Site.getSingleResource('Lastmonth')] = [now.clone().subtract(1, 'month').startOf('month'), now.clone().subtract(1, 'month').endOf('month')];
 	            ranges[Site.getSingleResource('Sincelastmonth')] = [now.clone().subtract(1, 'month').startOf('month'), now];
 	
-	            initResourceForDataPicker();
+	            initCommonTextResource();
 	            var locale = {
 	                format: 'MM/DD/YYYY',
 	                applyLabel: Site.getSingleResource('OK'),
@@ -14571,7 +14570,7 @@ webpackJsonp([33],[
 	
 	        function initSingleDatePicker(idElement) {
 	            var $picker = $("#" + idElement);
-	            initResourceForDataPicker();
+	            initCommonTextResource();
 	            var locale = {
 	                format: 'MM/DD/YYYY',
 	                daysOfWeek: _daysOfWeek,
@@ -14589,34 +14588,9 @@ webpackJsonp([33],[
 	            });
 	        }
 	
-	        function initMonthPicker() {
-	            var fromdate = new Date($('#FromDate').val());
-	            var todate = new Date($('#ToDate').val());
-	
-	            $('#month-picker').monPickr({
-	                minDate: _historyDate,
-	                showDateRange: true,
-	                fromDayId: 'fDay',
-	                toDayId: 'tDay',
-	                format: 'MM/dd/yyyy',
-	                month: fromdate,
-	                fromDay: fromdate.getDate(),
-	                toDay: todate.getDate(),
-	                afterChangeMonth: function () {
-	                    $('#FromDate').val($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy"));
-	                    $('#ToDate').val($("#month-picker").monPickr("getToDate", "MM/dd/yyyy"));
-	                },
-	                afterChangeDay: function () {
-	                    $('#FromDate').val($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy"));
-	                    $('#ToDate').val($("#month-picker").monPickr("getToDate", "MM/dd/yyyy"));
-	                }
-	            });
-	        }
-	
 	        return {
 	            initDateRangePicker: initDateRangePicker,
-	            initSingleDatePicker: initSingleDatePicker,
-	            initMonthPicker: initMonthPicker
+	            initSingleDatePicker: initSingleDatePicker
 	        };
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
@@ -16245,7 +16219,250 @@ webpackJsonp([33],[
 
 
 /***/ },
-/* 178 */
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(209)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveReport) {
+	    "use strict";
+	    $(LiveReport.initialize);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+/* 209 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(176), __webpack_require__(210), __webpack_require__(212)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, DatePicker, MonthPicker, Helper) {
+	        "use strict";
+	
+	        function initialize() {
+	            Site.initialize();
+	            initEvent();
+	            DatePicker.initDateRangePicker();
+	            MonthPicker.initMonthPicker();
+	            Site.addUserGuide({
+	                resourceName: "LiveReport",
+	                title: Site.getSingleResource("LiveReport")
+	            });
+	        }
+	
+	        function initEvent() {
+	            $("#switchreport").click(function () {
+	                var mod = $(this).attr("data-history-mode");
+	                if (mod === "False") {
+	                    Site.redirect(Site.resolveClientUrl("LiveReport?isViewedHistory=True"));
+	                }
+	                else {
+	                    Site.redirect(Site.resolveClientUrl("LiveReport?isViewedHistory=False"));
+	                }
+	            });
+	
+	            /*back button*/
+	            /*-affect the action excel*/
+	            window.onbeforeunload = function () {
+	                $("ProductCode").val("");
+	            };
+	
+	            $("body").on("click", ".product-detail-link", function () {
+	                viewProductDetail(this);
+	            });
+	
+	            $("body").on("click", ".sport-detailt-link", function () {
+	                viewSportDetail(this);
+	            });
+	
+	            $('#exporttoexcel').click(function () {
+	                $('#IsExportExcel').val(true);
+	                $('#livereport').submit();
+	                $('#IsExportExcel').val(false);
+	            });
+	
+	            $('#btnSubmit').click(function () {
+	                Site.blockUI();
+	                $('#livereport').submit();
+	            });
+	        }
+	
+	        function viewProductDetail(target) {
+	            var productCode = $(target).attr("data-product-code");
+	            var data = {
+	                productCode: productCode,
+	                FromDate: $("#FromDate").attr('data-original-from').toString("MM/dd/yyyy"),
+	                ToDate: $("#ToDate").attr('data-original-to').toString("MM/dd/yyyy"),
+	                BaseCurrency: $("#BaseCurrency").attr('data-original'),
+	                LiveIndicator: $("#LiveIndicator").attr('data-original')
+	            };
+	            data = Site.setLicenseeOptionOriginalParam(data);
+	            var isSelected = $(target).parent().hasClass("selected");
+	            if (isSelected) { return; }
+	
+	            $("a.product-detail-link").parent().removeClass("selected");
+	            $(target).parent().addClass("selected");
+	
+	            $.ajax({
+	                type: "POST",
+	                data: data,
+	                dataType: "json",
+	                url: Site.resolveClientUrl("LiveReport/Detail"),
+	                success: function () {
+	                },
+	                beforeSend: Site.blockUI(),
+	                complete: function (jqXHR) {
+	                    if (jqXHR.readyState === 4) {
+	                        $("#ProductCode").val(data.productCode);
+	                        $("#detail-content").html(jqXHR.responseText);
+	                    }
+	                    Site.unBlockUI();
+	                }
+	            });
+	        }
+	
+	        function viewBetList(url, totalValue, productOptions) {
+	            url = Site.setLicenseeOptionOriginalParam(url);
+	            url = QueryString.setParam(url, "fromdate", $("#FromDate").attr('data-original-from'));
+	            url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original-to'));
+	            url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
+	            url = Helper.setSumParams(url, totalValue);
+	            // [Jacob] Cheat for live report mix parlay, must send
+	            url = QueryString.setParam(url, "showsb", false);
+	            url = QueryString.setParam(url, "showba", false);
+	            $(productOptions).each(function (index, element) {
+	                url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);
+	                url = QueryString.setParam(url, "show" + element, true);
+	            });
+	
+	            Site.blockUI();
+	            Site.redirect(url);
+	        }
+	
+	        function viewSportDetail(target) {
+	            var data = $(target).attr("data-drill-down");
+	            var jsonData = $.parseJSON(data);
+	            var productCode = $("#ProductCode").val();
+	            var productOptions = Helper.getMatchListProductOption(jsonData.SportId, productCode);
+	            var urlMap = {
+	                Key101: "LiveReportBetList/MixParlay?bettype=9",
+	                Key102: "LiveReportBetList/MixParlay?bettype=29",
+	                Key103: "LiveReportBetList/Outright",
+	                Key161: "LiveReportBetList/NumberGame",
+	                Key151: "LiveReportBetList/Racing?SportType=151",
+	                Key152: "LiveReportBetList/Racing?SportType=152",
+	                Key153: "LiveReportBetList/Racing?SportType=153",
+	                Key181: "LiveReportBetList/Racing?SportType=181",
+	                Key182: "LiveReportBetList/Racing?SportType=182",
+	                Key183: "LiveReportBetList/Racing?SportType=183",
+	                Key184: "LiveReportBetList/Racing?SportType=184",
+	                Key185: "LiveReportBetList/Racing?SportType=185"
+	            };
+	
+	            var url = urlMap["Key" + jsonData.SportId];
+	            var showBetList = url !== null && url !== undefined;
+	            url = url === null || url === undefined
+	                    ? Site.resolveClientUrl("LiveReport/MatchList")
+	                    : Site.resolveClientUrl(url);
+	            if (showBetList) {
+	                viewBetList(url, jsonData.TotalValue, productOptions);
+	            }
+	            else {
+	                // Match List
+	                url = Site.setLicenseeOptionOriginalParam(url);
+	                url = QueryString.setParam(url, "SportId", jsonData.SportId);
+	                url = QueryString.setParam(url, "ProductCode", productCode);
+	                url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original-from'));
+	                url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original-to'));
+	                url = QueryString.setParam(url, "showsb", true);
+	                url = QueryString.setParam(url, "showba", false);
+	                url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
+	
+	                $(productOptions).each(function (index, element) {
+	                    url = Site.setProductOptionParam(url, index, element, true);
+	                    url = QueryString.setParam(url, "show" + element, true);
+	                });
+	
+	                Site.blockUI();
+	                Site.redirect(url);
+	            }
+	        }
+	
+	        return {
+	            initialize: initialize
+	        };
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 210 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(211)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	        "use strict";
+	
+	        var _historyDate = new Date($("#HistoryDate").val());
+	
+	        function initMonthPicker() {
+	            var $picker = $('#month-picker');
+	            var $fromDate = $('#FromDate');
+	            var $todate = $('#ToDate');
+	
+	            var fromdate = new Date($fromDate.val());
+	            var todate = new Date($todate.val());
+	
+	            $picker.monPickr({
+	                minDate: _historyDate,
+	                showDateRange: true,
+	                fromDayId: 'fDay',
+	                toDayId: 'tDay',
+	                format: 'MM/dd/yyyy',
+	                month: fromdate,
+	                fromDay: fromdate.getDate(),
+	                toDay: todate.getDate(),
+	                afterChangeMonth: function () {
+	                    $fromDate.val($picker.monPickr("getFromDate", "MM/dd/yyyy"));
+	                    $todate.val($picker.monPickr("getToDate", "MM/dd/yyyy"));
+	                },
+	                afterChangeDay: function () {
+	                    $fromDate.val($picker.monPickr("getFromDate", "MM/dd/yyyy"));
+	                    $todate.val($picker.monPickr("getToDate", "MM/dd/yyyy"));
+	                }
+	            });
+	        }
+	
+	        return {
+	            initMonthPicker: initMonthPicker
+	        };
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -17055,208 +17272,7 @@ webpackJsonp([33],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 179 */,
-/* 180 */,
-/* 181 */,
-/* 182 */,
-/* 183 */,
-/* 184 */,
-/* 185 */,
-/* 186 */,
-/* 187 */,
-/* 188 */,
-/* 189 */,
-/* 190 */,
-/* 191 */,
-/* 192 */,
-/* 193 */,
-/* 194 */,
-/* 195 */,
-/* 196 */,
-/* 197 */,
-/* 198 */,
-/* 199 */,
-/* 200 */,
-/* 201 */,
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */,
-/* 209 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(210)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveReport) {
-	    "use strict";
-	    $(LiveReport.initialize);
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ },
-/* 210 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(176), __webpack_require__(211)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, PluginHelper, Helper) {
-	        "use strict";
-	
-	        function initialize() {
-	            Site.initialize();
-	            initEvent();
-	            PluginHelper.initDateRangePicker();
-	            PluginHelper.initMonthPicker();
-	            Site.addUserGuide({
-	                resourceName: "LiveReport",
-	                title: Site.getSingleResource("LiveReport")
-	            });
-	        }
-	
-	        function initEvent() {
-	            $("#switchreport").click(function () {
-	                var mod = $(this).attr("data-history-mode");
-	                if (mod === "False") {
-	                    Site.redirect(Site.resolveClientUrl("LiveReport?isViewedHistory=True"));
-	                }
-	                else {
-	                    Site.redirect(Site.resolveClientUrl("LiveReport?isViewedHistory=False"));
-	                }
-	            });
-	
-	            /*back button*/
-	            /*-affect the action excel*/
-	            window.onbeforeunload = function () {
-	                $("ProductCode").val("");
-	            };
-	
-	            $("body").on("click", ".product-detail-link", function () {
-	                viewProductDetail(this);
-	            });
-	
-	            $("body").on("click", ".sport-detailt-link", function () {
-	                viewSportDetail(this);
-	            });
-	
-	            $('#exporttoexcel').click(function () {
-	                $('#IsExportExcel').val(true);
-	                $('#livereport').submit();
-	                $('#IsExportExcel').val(false);
-	            });
-	
-	            $('#btnSubmit').click(function () {
-	                Site.blockUI();
-	                $('#livereport').submit();
-	            });
-	        }
-	
-	        function viewProductDetail(target) {
-	            var productCode = $(target).attr("data-product-code");
-	            var data = {
-	                productCode: productCode,
-	                FromDate: $("#FromDate").attr('data-original-from').toString("MM/dd/yyyy"),
-	                ToDate: $("#ToDate").attr('data-original-to').toString("MM/dd/yyyy"),
-	                BaseCurrency: $("#BaseCurrency").attr('data-original'),
-	                LiveIndicator: $("#LiveIndicator").attr('data-original')
-	            };
-	            data = Site.setLicenseeOptionOriginalParam(data);
-	            var isSelected = $(target).parent().hasClass("selected");
-	            if (isSelected) { return; }
-	
-	            $("a.product-detail-link").parent().removeClass("selected");
-	            $(target).parent().addClass("selected");
-	
-	            $.ajax({
-	                type: "POST",
-	                data: data,
-	                dataType: "json",
-	                url: Site.resolveClientUrl("LiveReport/Detail"),
-	                success: function () {
-	                },
-	                beforeSend: Site.blockUI(),
-	                complete: function (jqXHR) {
-	                    if (jqXHR.readyState === 4) {
-	                        $("#ProductCode").val(data.productCode);
-	                        $("#detail-content").html(jqXHR.responseText);
-	                    }
-	                    Site.unBlockUI();
-	                }
-	            });
-	        }
-	
-	        function viewBetList(url, totalValue, productOptions) {
-	            url = Site.setLicenseeOptionOriginalParam(url);
-	            url = QueryString.setParam(url, "fromdate", $("#FromDate").attr('data-original-from'));
-	            url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original-to'));
-	            url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
-	            url = Helper.setSumParams(url, totalValue);
-	            // [Jacob] Cheat for live report mix parlay, must send
-	            url = QueryString.setParam(url, "showsb", false);
-	            url = QueryString.setParam(url, "showba", false);
-	            $(productOptions).each(function (index, element) {
-	                url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);
-	                url = QueryString.setParam(url, "show" + element, true);
-	            });
-	
-	            Site.blockUI();
-	            Site.redirect(url);
-	        }
-	
-	        function viewSportDetail(target) {
-	            var data = $(target).attr("data-drill-down");
-	            var jsonData = $.parseJSON(data);
-	            var productCode = $("#ProductCode").val();
-	            var productOptions = Helper.getMatchListProductOption(jsonData.SportId, productCode);
-	            var urlMap = {
-	                Key101: "LiveReportBetList/MixParlay?bettype=9",
-	                Key102: "LiveReportBetList/MixParlay?bettype=29",
-	                Key103: "LiveReportBetList/Outright",
-	                Key161: "LiveReportBetList/NumberGame",
-	                Key151: "LiveReportBetList/Racing?SportType=151",
-	                Key152: "LiveReportBetList/Racing?SportType=152",
-	                Key153: "LiveReportBetList/Racing?SportType=153",
-	                Key181: "LiveReportBetList/Racing?SportType=181",
-	                Key182: "LiveReportBetList/Racing?SportType=182",
-	                Key183: "LiveReportBetList/Racing?SportType=183",
-	                Key184: "LiveReportBetList/Racing?SportType=184",
-	                Key185: "LiveReportBetList/Racing?SportType=185"
-	            };
-	
-	            var url = urlMap["Key" + jsonData.SportId];
-	            var showBetList = url !== null && url !== undefined;
-	            url = url === null || url === undefined
-	                    ? Site.resolveClientUrl("LiveReport/MatchList")
-	                    : Site.resolveClientUrl(url);
-	            if (showBetList) {
-	                viewBetList(url, jsonData.TotalValue, productOptions);
-	            }
-	            else {
-	                // Match List
-	                url = Site.setLicenseeOptionOriginalParam(url);
-	                url = QueryString.setParam(url, "SportId", jsonData.SportId);
-	                url = QueryString.setParam(url, "ProductCode", productCode);
-	                url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original-from'));
-	                url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original-to'));
-	                url = QueryString.setParam(url, "showsb", true);
-	                url = QueryString.setParam(url, "showba", false);
-	                url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
-	
-	                $(productOptions).each(function (index, element) {
-	                    url = Site.setProductOptionParam(url, index, element, true);
-	                    url = QueryString.setParam(url, "show" + element, true);
-	                });
-	
-	                Site.blockUI();
-	                Site.redirect(url);
-	            }
-	        }
-	
-	        return {
-	            initialize: initialize
-	        };
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ },
-/* 211 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {

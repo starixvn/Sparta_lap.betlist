@@ -1,5 +1,5 @@
 ﻿"use strict";
-define(['jquery', 'common/site', 'common/querystring', './betlist', 'common/pluginhelper'], function ($, Site, QueryString, BetList, Plugin) {
+define(['jquery', 'common/site', 'common/querystring', './betlist', 'components/pluginhelper/daterangepicker'], function ($, Site, QueryString, BetList, DatePicker) {
     window.serverPaging = true; // used in betlist.js
     var KEENOCEAN_LICENSEEID = 96;
 
@@ -24,7 +24,7 @@ define(['jquery', 'common/site', 'common/querystring', './betlist', 'common/plug
                 resourceName: "DailyBetList",
                 title: Site.getSingleResource("DailyBetList")
             });
-            Plugin.initSingleDatePicker("Date");
+            DatePicker.initSingleDatePicker("Date");
         },
 
         initEvent: function () {

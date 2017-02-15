@@ -2,7 +2,7 @@ webpackJsonp([24],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(179);
+	module.exports = __webpack_require__(178);
 
 
 /***/ },
@@ -18967,11 +18967,10 @@ webpackJsonp([24],[
 /* 175 */,
 /* 176 */,
 /* 177 */,
-/* 178 */,
-/* 179 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(180)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListRunning) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(179)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListRunning) {
 	    "use strict";
 	
 	    $(function () {
@@ -18981,7 +18980,7 @@ webpackJsonp([24],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 180 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";

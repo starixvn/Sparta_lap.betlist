@@ -2,7 +2,7 @@ webpackJsonp([25],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(181);
+	module.exports = __webpack_require__(180);
 
 
 /***/ },
@@ -18969,11 +18969,10 @@ webpackJsonp([25],[
 /* 177 */,
 /* 178 */,
 /* 179 */,
-/* 180 */,
-/* 181 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(182)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListRunningMultipleBettypes) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(181)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListRunningMultipleBettypes) {
 	    "use strict";
 	
 	    $(function () {
@@ -18983,7 +18982,7 @@ webpackJsonp([25],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 182 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />

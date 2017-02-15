@@ -1,5 +1,5 @@
-﻿define(['jquery', 'common/site', 'pages/report/livereport/livereport', 'pages/report/livereport/helper', 'moment', "common/pluginhelper"],
-    function ($, Site, LiveReport, Helper, moment, PluginHelper) {
+﻿define(['jquery', 'common/site', 'pages/report/livereport/livereport', 'pages/report/livereport/helper', 'moment', "components/pluginhelper/daterangepicker", "components/pluginhelper/monthpicker"],
+    function ($, Site, LiveReport, Helper, moment, DatePicker, MonthPicker) {
 
     describe("livereport.js", function () {
         beforeAll(function () {
@@ -12,8 +12,8 @@
                 return url;
             });
 
-            spyOn(PluginHelper, "initDateRangePicker");
-            spyOn(PluginHelper, "initMonthPicker");
+            spyOn(DatePicker, "initDateRangePicker");
+            spyOn(MonthPicker, "initMonthPicker");
 
             setFixtures('<input id="HistoryDate" value="1/1/2016" />');
         });
