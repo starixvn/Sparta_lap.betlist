@@ -29,7 +29,8 @@ var cssPaths = {
     forecastonextwo: ["./www/css/source/pages/forecast/forecastonextwo.scss"],
     newforecast: ["./www/css/source/pages/forecast/newforecast.scss"],
 
-    betlistdaily: ["./www/css/source/pages/betlist/betlistdaily.scss"]
+    betlistdaily: ["./www/css/source/pages/betlist/betlistdaily.scss"],
+    settledmatchcount: ["./www/css/source/pages/report/settledmatchcount.scss"],
 };
 
 var scriptPaths = {
@@ -61,7 +62,9 @@ var scriptPaths = {
     homedrawawaynobet: "./www/js/source/pages/totalbet/homedrawawaynobet/main.js",
     forecastonextwo: "./www/js/source/pages/forecast/forecast.onextwo.main.js",
     forecasthdpou: "./www/js/source/pages/forecast/forecast.handicapoverunder.main.js",
-    newforecasthdpou: "./www/js/source/pages/forecast/forecast.newforecasthdpou.main.js"
+    newforecasthdpou: "./www/js/source/pages/forecast/forecast.newforecasthdpou.main.js",
+
+    settledmatchcount: "./www/js/source/pages/report/settledmatchcount/main-settledmatchcount.js"
 };
 
 module.exports = {

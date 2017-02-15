@@ -1,0 +1,12 @@
+﻿@import "../../scss/abstracts/_variables.scss";
+@import "../common";
+@import "../../scss/layout/filter";
+@import "../../scss/layout/content";
+
+.icon-block{
+    bottom: 0;
+}
+.table > thead > tr > th {
+    background: $bgHeaderTableLevel1;
+    color: $white;
+}

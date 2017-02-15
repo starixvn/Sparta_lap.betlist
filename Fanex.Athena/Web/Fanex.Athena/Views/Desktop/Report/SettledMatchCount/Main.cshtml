@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.SettledMatchCount;
+    Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
+}
+
+@section pagecss {
+<link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/settledmatchcount.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/report/settledmatchcount.chunk.js")"></script>
+}
+
+@section Filter{
+    <div class="page-form">
+        <div class="icon-block">
+            <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+        </div>
+    </div>
+}
+
+@section Content{
+    <div class="page-results">
+        <div class="result-content">
+            <div class="main-content">
+                <table class="table table-bordered">
+                    <thead>
+                        @{ Html.RenderPartial("~/Views/Desktop/Report/SettledMatchCount/ContentHeader.cshtml"); }
+                    </thead>
+
+                    <tbody>
+                        @{ Html.RenderPartial("~/Views/Desktop/Report/SettledMatchCount/ContentData.cshtml"); }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

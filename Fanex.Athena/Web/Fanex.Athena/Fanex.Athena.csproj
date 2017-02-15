@@ -950,6 +950,8 @@
     <Content Include="www\js\source\pages\report\licenseewinloss\licenseewinloss.option.js" />
     <Content Include="www\js\source\pages\report\licenseewinloss\main.js" />
     <Content Include="www\js\source\pages\report\report.js" />
+    <Content Include="www\js\source\pages\report\settledmatchcount\main-settledmatchcount.js" />
+    <Content Include="www\js\source\pages\report\settledmatchcount\settledmatchcount.js" />
     <Content Include="www\js\source\pages\signin\main.js" />
     <Content Include="www\js\source\pages\signin\signin.js" />
     <Content Include="www\js\source\pages\totalbet\firstgoallastgoal\firstgoallastgoal.js" />
@@ -1476,6 +1478,9 @@
     <Content Include="Views\Desktop\BetList\DailyBetList\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\DailyBetList\Filter.cshtml" />
     <Content Include="www\css\source\pages\betlist\betlistdaily.scss" />
+    <Content Include="Views\Desktop\Report\SettledMatchCount\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\SettledMatchCount\ContentHeader.cshtml" />
+    <Content Include="Views\Desktop\Report\SettledMatchCount\ContentData.cshtml" />
     <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1571,6 +1576,7 @@
     <Content Include="www\css\source\pages\common\reportjqgridlayout.main.scss" />
     <Content Include="www\js\build\dev\pages\betlist\betlistcancelledbets.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\betlist\betlistdaily.chunk.js.map" />
+    <Content Include="www\css\source\pages\report\settledmatchcount.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
