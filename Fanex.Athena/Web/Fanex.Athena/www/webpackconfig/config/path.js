@@ -27,7 +27,9 @@ var cssPaths = {
     ahforecast: ["./www/css/source/pages/forecast/forecast.ah.scss"],
     mixparlay: ["./www/css/source/pages/totalbet/mixparlay.scss"],
     forecastonextwo: ["./www/css/source/pages/forecast/forecastonextwo.scss"],
-    newforecast: ["./www/css/source/pages/forecast/newforecast.scss"]
+    newforecast: ["./www/css/source/pages/forecast/newforecast.scss"],
+
+    betlistdaily: ["./www/css/source/pages/betlist/betlistdaily.scss"]
 };
 
 var scriptPaths = {
@@ -46,6 +48,7 @@ var scriptPaths = {
     betlistrunningmultiplebettypes: "./www/js/source/pages/betlist/main-betlistrunning.multiplebettypes.js",
     betlistcorrectscore: "./www/js/source/pages/betlist/main-betlistcorrectscore.js",
     betlistcancelledbets: "./www/js/source/pages/betlist/main-betlistcancelledbets.js",
+    betlistdaily: "./www/js/source/pages/betlist/main-betlistdaily.js",
 
     handicapoverunder: "./www/js/source/pages/totalbet/handicapoverunder/main.js",
     ahforecast: "./www/js/source/pages/forecast/forecast.ah.main.js",

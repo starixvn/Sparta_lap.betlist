@@ -40,6 +40,7 @@ function generateConfig(environment) {
             [`${pathConfig.scriptPaths.build}/${environment}/pages/forecast/forecasthdpou`]: [pathConfig.scriptPaths.forecasthdpou],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/forecast/newforecasthdpou`]: [pathConfig.scriptPaths.newforecasthdpou],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/betlist/betlistcancelledbets`]: [pathConfig.scriptPaths.betlistcancelledbets],
+            [`${pathConfig.scriptPaths.build}/${environment}/pages/betlist/betlistdaily`]: [pathConfig.scriptPaths.betlistdaily],
 
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/livereport`]: pathConfig.cssPaths.livereport,
@@ -59,7 +60,8 @@ function generateConfig(environment) {
             [`${pathConfig.cssPaths.build}/${environment}/pages/forecast/ahforecast`]: pathConfig.cssPaths.ahforecast,
             [`${pathConfig.cssPaths.build}/${environment}/pages/forecast/forecastonextwo`]: pathConfig.cssPaths.forecastonextwo,
             [`${pathConfig.cssPaths.build}/${environment}/pages/totalbet/mixparlay`]: pathConfig.cssPaths.mixparlay,
-            [`${pathConfig.cssPaths.build}/${environment}/pages/forecast/newforecast`]: pathConfig.cssPaths.newforecast
+            [`${pathConfig.cssPaths.build}/${environment}/pages/forecast/newforecast`]: pathConfig.cssPaths.newforecast,
+            [`${pathConfig.cssPaths.build }/${environment}/pages/betlist/betlistdaily`]: pathConfig.cssPaths.betlistdaily
         },
         output: {
             path: pathConfig.projectRoot,

@@ -37,7 +37,7 @@ define(
             },
 
             exportToExcel: function () {
-                var url = window.location.href;
+                var url = Site.getCurrentUrl();
                 url = Site.setLicenseeOptionParam(url);
                 url = QueryString.setParam(url, "custId", $("#CustId").val());
                 $('#IsExportExcel').val(true);

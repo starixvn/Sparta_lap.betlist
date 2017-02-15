@@ -15,6 +15,14 @@
     <span class="icon icon-calendar"></span>
 }
 
+@helper SingleDatePicker(DateTime date, DateTime minDate, DateTime maxDate, string id = "FromDate", string className = "") {
+    <input type="text" readonly="readonly"
+           data-original="@date.ToString("MM/dd/yyyy")" data-mindate="@minDate.ToString("MM/dd/yyyy")" data-maxdate="@maxDate.ToString("MM/dd/yyyy")" 
+           name="@(id)" id="@(id)" class="@(className)" />
+    <label>@ViewResources.Date</label>
+    <span class="icon icon-calendar"></span>
+}
+
 @helper CurrencyList(IDictionary<string, int> currencyList,
 string className = "", int selected = 0,
 bool addMoreAllOption = true,
