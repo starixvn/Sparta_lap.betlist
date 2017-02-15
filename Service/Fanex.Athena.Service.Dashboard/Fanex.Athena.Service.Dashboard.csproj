@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IRegisteredCustomerService.cs" />
     <Compile Include="Interfaces\ISimpleWidgetService.cs" />
     <Compile Include="Interfaces\IWidgetByPlatformService.cs" />
     <Compile Include="LicenseeWinLossByPlatformService.cs" />

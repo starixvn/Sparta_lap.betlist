@@ -77,7 +77,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IRegisteredCustomerDataAccess.cs" />
     <Compile Include="Interfaces\ISimpleWidgetDataAccess.cs" />
     <Compile Include="Interfaces\IWidgetByPlatformDataAccess.cs" />
     <Compile Include="LicenseeWinLossByPlatformDataAccess.cs" />
