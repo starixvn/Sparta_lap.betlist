@@ -91,8 +91,8 @@
             // Arrange
             var expectedResult = new List<Product>
             {
-                new Product { ProductID = 100, ProductCode = "SB" },
-                new Product { ProductID = 200, ProductCode = "ABC" },
+                new Product { ProductID = 100, ProductCode = "SB", IsOfferedSingleWallet = true },
+                new Product { ProductID = 200, ProductCode = "ABC", IsOfferedSingleWallet = true },
             };
 
             const int LicenseeId = 1;

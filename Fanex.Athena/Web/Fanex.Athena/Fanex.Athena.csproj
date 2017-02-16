@@ -293,6 +293,10 @@
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
@@ -302,6 +306,10 @@
     </Reference>
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -5210,6 +5218,10 @@
     <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api.CustomerLog\Fanex.Athena.Api.CustomerLog.csproj">
       <Project>{a765275a-f566-4122-8e8e-47defab7b56b}</Project>
       <Name>Fanex.Athena.Api.CustomerLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api.Dashboard\Fanex.Athena.Api.Dashboard.csproj">
+      <Project>{0fd46119-9f38-4c3a-ba06-719cf00d75d8}</Project>
+      <Name>Fanex.Athena.Api.Dashboard</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api.Report\Fanex.Athena.Api.Report.csproj">
       <Project>{8efb14a8-0a10-4095-a857-c6496e830458}</Project>

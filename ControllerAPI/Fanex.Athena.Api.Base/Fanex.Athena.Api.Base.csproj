@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\ApiFunctionAuthorizationAttribute.cs" />
+    <Compile Include="Attributes\ApiOneAuthorizationAttribute.cs" />
     <Compile Include="Attributes\CustomApiAuthorizeAttribute.cs" />
     <Compile Include="Attributes\XFrameOptionApiAttribute .cs" />
     <Compile Include="BaseApiController.cs" />
@@ -160,6 +161,10 @@
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Dashboard\Fanex.Athena.Model.Dashboard.csproj">
+      <Project>{1E08C4C9-3BA9-407B-90FC-168A2FAF35D0}</Project>
+      <Name>Fanex.Athena.Model.Dashboard</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
       <Project>{17B0022C-4902-4C61-908A-5DB81568DC3A}</Project>
