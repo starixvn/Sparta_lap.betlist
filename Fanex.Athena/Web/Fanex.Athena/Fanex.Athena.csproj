@@ -764,6 +764,8 @@
     <Content Include="www\css\build\dev\pages\forecast\newforecast.css" />
     <Content Include="www\css\build\dev\pages\login\login.chunk.js" />
     <Content Include="www\css\build\dev\pages\login\login.css" />
+    <Content Include="www\css\build\dev\pages\reports\balance.chunk.js" />
+    <Content Include="www\css\build\dev\pages\reports\balance.css" />
     <Content Include="www\css\build\dev\pages\reports\licenseewinloss.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\livereport.chunk.js" />
@@ -808,6 +810,7 @@
     <Content Include="www\css\build\pro\pages\forecast\forecastonextwo.css" />
     <Content Include="www\css\build\pro\pages\forecast\newforecast.css" />
     <Content Include="www\css\build\pro\pages\login\login.css" />
+    <Content Include="www\css\build\pro\pages\reports\balance.css" />
     <Content Include="www\css\build\pro\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\pro\pages\reports\livereport.css" />
     <Content Include="www\css\build\pro\pages\reports\reportjqgridlayout.css" />
@@ -836,6 +839,7 @@
     <Content Include="www\js\build\dev\pages\forecast\forecastonextwo.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\newforecasthdpou.chunk.js" />
     <Content Include="www\js\build\dev\pages\home\home.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\balance.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\livereportmatchlist.chunk.js" />
@@ -863,6 +867,7 @@
     <Content Include="www\js\build\pro\pages\forecast\forecastonextwo.chunk.js" />
     <Content Include="www\js\build\pro\pages\forecast\newforecasthdpou.chunk.js" />
     <Content Include="www\js\build\pro\pages\home\home.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\balance.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\livereportmatchlist.chunk.js" />
@@ -944,6 +949,8 @@
     <Content Include="www\js\source\pages\home\home.js" />
     <Content Include="www\js\source\pages\home\main.js" />
     <Content Include="www\js\source\pages\home\recheckin.js" />
+    <Content Include="www\js\source\pages\report\balance\balance.js" />
+    <Content Include="www\js\source\pages\report\balance\main-balance.js" />
     <Content Include="www\js\source\pages\report\livereport\helper.js" />
     <Content Include="www\js\source\pages\report\livereport\livereport.js" />
     <Content Include="www\js\source\pages\report\livereport\livereportmatchlist.js" />
@@ -1489,6 +1496,15 @@
     <Content Include="Views\Desktop\Report\SettledMatchCount\ContentData.cshtml" />
     <Content Include="www\css\build\dev\pages\reports\settledmatchcount.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\settledmatchcount.css.map" />
+    <Content Include="Views\Desktop\Report\Balance\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\Balance\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\Balance\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\Balance\Content.Header.cshtml" />
+    <Content Include="Views\Desktop\Report\Balance\ContentData.cshtml" />
+    <Content Include="Views\Desktop\Report\Balance\ContentData.CustomerInfo.cshtml" />
+    <Content Include="Views\Desktop\Report\Balance\ContentData.BalanceNote.cshtml" />
+    <Content Include="www\css\build\dev\pages\reports\balance.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\reports\balance.css.map" />
     <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1586,6 +1602,8 @@
     <Content Include="www\js\build\dev\pages\reports\livereport.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\livereportmatchlist.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\settledmatchcount.chunk.js.map" />
+    <Content Include="www\css\source\pages\report\balance.scss" />
+    <Content Include="www\js\build\dev\pages\reports\balance.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

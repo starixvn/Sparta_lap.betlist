@@ -265,3 +265,32 @@ if (toDate != null)
     @(string.IsNullOrEmpty(basedCurrencyName) ? string.Format(ViewResources.Viewin, currencyName) : string.Format(ViewResources.Viewin, basedCurrencyName.ToUpper()))
 
 }
+
+@helper MonthDropDownList(int selectedMonth)
+{
+    <select class="select" id="Month">
+        <option @(selectedMonth == 1 ? "selected = selected" : string.Empty) value="0">@ViewResources.January</option>
+        <option @(selectedMonth == 2 ? "selected = selected" : string.Empty) value="1">@ViewResources.February</option>
+        <option @(selectedMonth == 3 ? "selected = selected" : string.Empty) value="2">@ViewResources.March</option>
+        <option @(selectedMonth == 4 ? "selected = selected" : string.Empty) value="3">@ViewResources.April</option>
+        <option @(selectedMonth == 5 ? "selected = selected" : string.Empty) value="4">@ViewResources.May</option>
+        <option @(selectedMonth == 6 ? "selected = selected" : string.Empty) value="5">@ViewResources.June</option>
+        <option @(selectedMonth == 7 ? "selected = selected" : string.Empty) value="6">@ViewResources.July</option>
+        <option @(selectedMonth == 8 ? "selected = selected" : string.Empty) value="7">@ViewResources.August</option>
+        <option @(selectedMonth == 9 ? "selected = selected" : string.Empty) value="8">@ViewResources.September</option>
+        <option @(selectedMonth == 10 ? "selected = selected" : string.Empty) value="9">@ViewResources.October</option>
+        <option @(selectedMonth == 11 ? "selected = selected" : string.Empty) value="10">@ViewResources.November</option>
+        <option @(selectedMonth == 12 ? "selected = selected" : string.Empty) value="11">@ViewResources.December</option>
+    </select>
+}
+
+@helper YearDropDownList(int selectedYear, int itemCount)
+{
+    var currentYear = DateTime.Now.Year;
+    <select class="select" id="Year">
+        @for (int i = currentYear; i > currentYear - itemCount && i >= 2012; i--)
+        {
+            <option @(selectedYear == i ? "selected = selected" : string.Empty) value="@i.ToString()">@i.ToString()</option>
+        }
+    </select>
+}

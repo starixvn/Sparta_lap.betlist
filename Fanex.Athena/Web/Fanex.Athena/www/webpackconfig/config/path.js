@@ -31,6 +31,7 @@ var cssPaths = {
 
     betlistdaily: ["./www/css/source/pages/betlist/betlistdaily.scss"],
     settledmatchcount: ["./www/css/source/pages/report/settledmatchcount.scss"],
+    balance: ["./www/css/source/pages/report/balance.scss"],
 };
 
 var scriptPaths = {
@@ -64,7 +65,8 @@ var scriptPaths = {
     forecasthdpou: "./www/js/source/pages/forecast/forecast.handicapoverunder.main.js",
     newforecasthdpou: "./www/js/source/pages/forecast/forecast.newforecasthdpou.main.js",
 
-    settledmatchcount: "./www/js/source/pages/report/settledmatchcount/main-settledmatchcount.js"
+    settledmatchcount: "./www/js/source/pages/report/settledmatchcount/main-settledmatchcount.js",
+    balance: "./www/js/source/pages/report/balance/main-balance.js"
 };
 
 module.exports = {
