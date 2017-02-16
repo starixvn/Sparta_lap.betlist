@@ -836,10 +836,10 @@
     <Content Include="www\js\build\dev\pages\forecast\forecastonextwo.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\newforecasthdpou.chunk.js" />
     <Content Include="www\js\build\dev\pages\home\home.chunk.js" />
-    <Content Include="www\js\build\dev\pages\licenseewinloss\licenseewinloss.chunk.js" />
-    <Content Include="www\js\build\dev\pages\livereport\livereport.chunk.js" />
-    <Content Include="www\js\build\dev\pages\livereport\livereportmatchlist.chunk.js" />
-    <Content Include="www\js\build\dev\pages\report\settledmatchcount.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\licenseewinloss.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\livereport.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\livereportmatchlist.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\settledmatchcount.chunk.js" />
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\firstgoallastgoal.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\halftimefulltime.chunk.js" />
@@ -863,10 +863,10 @@
     <Content Include="www\js\build\pro\pages\forecast\forecastonextwo.chunk.js" />
     <Content Include="www\js\build\pro\pages\forecast\newforecasthdpou.chunk.js" />
     <Content Include="www\js\build\pro\pages\home\home.chunk.js" />
-    <Content Include="www\js\build\pro\pages\licenseewinloss\licenseewinloss.chunk.js" />
-    <Content Include="www\js\build\pro\pages\livereport\livereport.chunk.js" />
-    <Content Include="www\js\build\pro\pages\livereport\livereportmatchlist.chunk.js" />
-    <Content Include="www\js\build\pro\pages\report\settledmatchcount.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\licenseewinloss.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\livereport.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\livereportmatchlist.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\settledmatchcount.chunk.js" />
     <Content Include="www\js\build\pro\pages\signin\signin.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\firstgoallastgoal.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\halftimefulltime.chunk.js" />
@@ -1516,9 +1516,6 @@
     <Content Include="www\js\build\dev\pages\betlist\betlistsimple.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\forecast\ahforecast.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\home\home.chunk.js.map" />
-    <Content Include="www\js\build\dev\pages\licenseewinloss\licenseewinloss.chunk.js.map" />
-    <Content Include="www\js\build\dev\pages\livereport\livereport.chunk.js.map" />
-    <Content Include="www\js\build\dev\pages\livereport\livereportmatchlist.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js.map" />
     <Content Include="www\js\build\dev\common.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\handicapoverunder.chunk.js.map" />
@@ -1585,7 +1582,10 @@
     <Content Include="www\js\build\dev\pages\betlist\betlistcancelledbets.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\betlist\betlistdaily.chunk.js.map" />
     <Content Include="www\css\source\pages\report\settledmatchcount.scss" />
-    <Content Include="www\js\build\dev\pages\report\settledmatchcount.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\reports\licenseewinloss.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\reports\livereport.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\reports\livereportmatchlist.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\reports\settledmatchcount.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

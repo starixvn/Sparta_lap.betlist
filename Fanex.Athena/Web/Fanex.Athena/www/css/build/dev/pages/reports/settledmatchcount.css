@@ -18,6 +18,70 @@
   padding: 5px;
   background: #fff; }
 
+.popup-block-body {
+  background: transparent;
+  border: none;
+  background: rgba(0, 0, 0, 0.7) no-repeat;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000; }
+
+.flat-popup {
+  background: #fff;
+  position: absolute;
+  z-index: 99999;
+  -webkit-background-clip: padding-box;
+  /* for Safari */
+  background-clip: padding-box;
+  /* for IE9+, Firefox 4+, Opera, Chrome */ }
+  .flat-popup .title-bar {
+    background-color: #4C6375;
+    padding: 8.5px 15px;
+    position: relative; }
+    .flat-popup .title-bar .txt-title {
+      color: #fff;
+      font-size: 14px;
+      text-transform: uppercase;
+      display: inline-block; }
+    .flat-popup .title-bar .popup-close {
+      color: #BFBDBF;
+      float: right; }
+      .flat-popup .title-bar .popup-close .icon-close {
+        font-size: 18px; }
+      .flat-popup .title-bar .popup-close:hover {
+        color: #fff; }
+  .flat-popup .wrapContent {
+    overflow-y: auto;
+    height: calc(100% - 38px); }
+    .flat-popup .wrapContent h1, .flat-popup .wrapContent h2, .flat-popup .wrapContent h3, .flat-popup .wrapContent h4, .flat-popup .wrapContent h5, .flat-popup .wrapContent h6 {
+      font-weight: bold; }
+    .flat-popup .wrapContent .rule {
+      padding: 8px 10px; }
+      .flat-popup .wrapContent .rule ul, .flat-popup .wrapContent .rule div {
+        color: #515151;
+        font-size: 12px;
+        line-height: 20px;
+        margin: 0;
+        padding-left: 15px; }
+      .flat-popup .wrapContent .rule h4 {
+        color: #515151;
+        font-size: 12px;
+        margin: 0 0 5px; }
+      .flat-popup .wrapContent .rule .newline {
+        padding-top: 12px; }
+      .flat-popup .wrapContent .rule:last-child {
+        border-bottom: medium none; }
+    .flat-popup .wrapContent .line {
+      border: none;
+      overflow: auto;
+      width: auto;
+      background-color: #ebeaea;
+      height: 1px;
+      margin: 0 10px; }
+
 .button-block {
   margin-top: 0.5rem; }
   @media (max-width: 600px) {

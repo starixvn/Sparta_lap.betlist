@@ -19,9 +19,9 @@ function generateConfig(environment) {
             [`${pathConfig.scriptPaths.build}/${environment}/language`]: pathConfig.scriptPaths.language,
             [`${pathConfig.scriptPaths.build}/${environment}/pages/home/home`]: pathConfig.scriptPaths.home,
             [`${pathConfig.scriptPaths.build}/${environment}/pages/signin/signin`]: pathConfig.scriptPaths.signin,
-            [`${pathConfig.scriptPaths.build}/${environment}/pages/livereport/livereport`]: [pathConfig.scriptPaths.livereport],
-            [`${pathConfig.scriptPaths.build}/${environment}/pages/livereport/livereportmatchlist`]: [pathConfig.scriptPaths.livereportmatchlist],
-            [`${pathConfig.scriptPaths.build}/${environment}/pages/licenseewinloss/licenseewinloss`]: [pathConfig.scriptPaths.licenseewinloss],
+            [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/livereport`]: [pathConfig.scriptPaths.livereport],
+            [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/livereportmatchlist`]: [pathConfig.scriptPaths.livereportmatchlist],
+            [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/licenseewinloss`]: [pathConfig.scriptPaths.licenseewinloss],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/betlist/betlist`]: [pathConfig.scriptPaths.betlist],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/betlist/betlistsimple`]: [pathConfig.scriptPaths.betlistsimple],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/betlist/betlistrunning`]: [pathConfig.scriptPaths.betlistrunning],
@@ -41,7 +41,7 @@ function generateConfig(environment) {
             [`${pathConfig.scriptPaths.build}/${environment}/pages/forecast/newforecasthdpou`]: [pathConfig.scriptPaths.newforecasthdpou],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/betlist/betlistcancelledbets`]: [pathConfig.scriptPaths.betlistcancelledbets],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/betlist/betlistdaily`]: [pathConfig.scriptPaths.betlistdaily],
-            [`${pathConfig.scriptPaths.build}/${environment}/pages/report/settledmatchcount`]: [pathConfig.scriptPaths.settledmatchcount],
+            [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/settledmatchcount`]: [pathConfig.scriptPaths.settledmatchcount],
             
 
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
