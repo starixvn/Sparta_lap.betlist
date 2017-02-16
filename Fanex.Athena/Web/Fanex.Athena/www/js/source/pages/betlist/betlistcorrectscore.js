@@ -1,7 +1,7 @@
 ﻿"use strict";
 define(
-    ['jquery', 'common/site', 'common/querystring', './betlist'],
-    function ($, Site, QueryString, BetList) {
+    ['jquery', 'common/site', './betlist'],
+    function ($, Site, BetList) {
         var _me = {
             initialize: function () {
                 _me.initEvent();

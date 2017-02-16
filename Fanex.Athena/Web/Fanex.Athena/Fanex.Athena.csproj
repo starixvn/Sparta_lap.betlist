@@ -770,6 +770,8 @@
     <Content Include="www\css\build\dev\pages\reports\livereport.css" />
     <Content Include="www\css\build\dev\pages\reports\reportjqgridlayout.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\reportjqgridlayout.css" />
+    <Content Include="www\css\build\dev\pages\reports\settledmatchcount.chunk.js" />
+    <Content Include="www\css\build\dev\pages\reports\settledmatchcount.css" />
     <Content Include="www\css\build\dev\pages\totalbet\mixparlay.chunk.js" />
     <Content Include="www\css\build\dev\pages\totalbet\mixparlay.css" />
     <Content Include="www\css\build\dev\pages\totalbet\totalbetlayout.chunk.js" />
@@ -809,6 +811,7 @@
     <Content Include="www\css\build\pro\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\pro\pages\reports\livereport.css" />
     <Content Include="www\css\build\pro\pages\reports\reportjqgridlayout.css" />
+    <Content Include="www\css\build\pro\pages\reports\settledmatchcount.css" />
     <Content Include="www\css\build\pro\pages\totalbet\mixparlay.css" />
     <Content Include="www\css\build\pro\pages\totalbet\totalbetlayout.css" />
     <Content Include="www\css\build\pro\pages\utility\error.css" />
@@ -836,6 +839,7 @@
     <Content Include="www\js\build\dev\pages\licenseewinloss\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\livereport\livereport.chunk.js" />
     <Content Include="www\js\build\dev\pages\livereport\livereportmatchlist.chunk.js" />
+    <Content Include="www\js\build\dev\pages\report\settledmatchcount.chunk.js" />
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\firstgoallastgoal.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\halftimefulltime.chunk.js" />
@@ -862,6 +866,7 @@
     <Content Include="www\js\build\pro\pages\licenseewinloss\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\livereport\livereport.chunk.js" />
     <Content Include="www\js\build\pro\pages\livereport\livereportmatchlist.chunk.js" />
+    <Content Include="www\js\build\pro\pages\report\settledmatchcount.chunk.js" />
     <Content Include="www\js\build\pro\pages\signin\signin.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\firstgoallastgoal.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\halftimefulltime.chunk.js" />
@@ -978,6 +983,7 @@
     <Content Include="www\js\tests\components\refreshcountdown-spec.js" />
     <Content Include="www\js\tests\extensions\jquery.extension-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlist-spec.js" />
+    <Content Include="www\js\tests\pages\betlist\betlistcancelledbets-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistrunning.multiplebettypes-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistrunning-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistcorrectscore-spec.js" />
@@ -1481,6 +1487,8 @@
     <Content Include="Views\Desktop\Report\SettledMatchCount\Main.cshtml" />
     <Content Include="Views\Desktop\Report\SettledMatchCount\ContentHeader.cshtml" />
     <Content Include="Views\Desktop\Report\SettledMatchCount\ContentData.cshtml" />
+    <Content Include="www\css\build\dev\pages\reports\settledmatchcount.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\reports\settledmatchcount.css.map" />
     <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1577,6 +1585,7 @@
     <Content Include="www\js\build\dev\pages\betlist\betlistcancelledbets.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\betlist\betlistdaily.chunk.js.map" />
     <Content Include="www\css\source\pages\report\settledmatchcount.scss" />
+    <Content Include="www\js\build\dev\pages\report\settledmatchcount.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

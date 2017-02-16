@@ -64,7 +64,7 @@ function generateConfig(environment) {
             [`${pathConfig.cssPaths.build}/${environment}/pages/totalbet/mixparlay`]: pathConfig.cssPaths.mixparlay,
             [`${pathConfig.cssPaths.build}/${environment}/pages/forecast/newforecast`]: pathConfig.cssPaths.newforecast,
             [`${pathConfig.cssPaths.build }/${environment}/pages/betlist/betlistdaily`]: pathConfig.cssPaths.betlistdaily,
-            [`${pathConfig.cssPaths.build}/${environment}/pages/reports/settledmatchcount`]: pathConfig.cssPaths.settledmatchcount,
+            [`${pathConfig.cssPaths.build}/${environment}/pages/reports/settledmatchcount`]: pathConfig.cssPaths.settledmatchcount
             
         },
         output: {
