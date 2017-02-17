@@ -43,6 +43,7 @@ function generateConfig(environment) {
             [`${pathConfig.scriptPaths.build}/${environment}/pages/betlist/betlistdaily`]: [pathConfig.scriptPaths.betlistdaily],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/settledmatchcount`]: [pathConfig.scriptPaths.settledmatchcount],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/balance`]: [pathConfig.scriptPaths.balance],
+            [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/weeklylivematch`]: [pathConfig.scriptPaths.weeklylivematch],
             
 
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
@@ -67,6 +68,7 @@ function generateConfig(environment) {
             [`${pathConfig.cssPaths.build }/${environment}/pages/betlist/betlistdaily`]: pathConfig.cssPaths.betlistdaily,
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/settledmatchcount`]: pathConfig.cssPaths.settledmatchcount,
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/balance`]: pathConfig.cssPaths.balance,
+            [`${pathConfig.cssPaths.build}/${environment}/pages/reports/weeklylivematch`]: pathConfig.cssPaths.weeklylivematch
         },
         output: {
             path: pathConfig.projectRoot,

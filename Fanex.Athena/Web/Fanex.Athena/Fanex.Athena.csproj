@@ -774,6 +774,8 @@
     <Content Include="www\css\build\dev\pages\reports\reportjqgridlayout.css" />
     <Content Include="www\css\build\dev\pages\reports\settledmatchcount.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\settledmatchcount.css" />
+    <Content Include="www\css\build\dev\pages\reports\weeklylivematch.chunk.js" />
+    <Content Include="www\css\build\dev\pages\reports\weeklylivematch.css" />
     <Content Include="www\css\build\dev\pages\totalbet\mixparlay.chunk.js" />
     <Content Include="www\css\build\dev\pages\totalbet\mixparlay.css" />
     <Content Include="www\css\build\dev\pages\totalbet\totalbetlayout.chunk.js" />
@@ -815,6 +817,7 @@
     <Content Include="www\css\build\pro\pages\reports\livereport.css" />
     <Content Include="www\css\build\pro\pages\reports\reportjqgridlayout.css" />
     <Content Include="www\css\build\pro\pages\reports\settledmatchcount.css" />
+    <Content Include="www\css\build\pro\pages\reports\weeklylivematch.css" />
     <Content Include="www\css\build\pro\pages\totalbet\mixparlay.css" />
     <Content Include="www\css\build\pro\pages\totalbet\totalbetlayout.css" />
     <Content Include="www\css\build\pro\pages\utility\error.css" />
@@ -844,6 +847,7 @@
     <Content Include="www\js\build\dev\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\livereportmatchlist.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\settledmatchcount.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\weeklylivematch.chunk.js" />
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\firstgoallastgoal.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\halftimefulltime.chunk.js" />
@@ -872,6 +876,7 @@
     <Content Include="www\js\build\pro\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\livereportmatchlist.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\settledmatchcount.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\weeklylivematch.chunk.js" />
     <Content Include="www\js\build\pro\pages\signin\signin.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\firstgoallastgoal.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\halftimefulltime.chunk.js" />
@@ -964,6 +969,9 @@
     <Content Include="www\js\source\pages\report\report.js" />
     <Content Include="www\js\source\pages\report\settledmatchcount\main-settledmatchcount.js" />
     <Content Include="www\js\source\pages\report\settledmatchcount\settledmatchcount.js" />
+    <Content Include="www\js\source\pages\report\weeklylivematch\main-weeklylivematch.js" />
+    <Content Include="www\js\source\pages\report\weeklylivematch\weeklylivematch.js" />
+    <Content Include="www\js\source\pages\report\weeklylivematch\weeklylivematch.option.js" />
     <Content Include="www\js\source\pages\signin\main.js" />
     <Content Include="www\js\source\pages\signin\signin.js" />
     <Content Include="www\js\source\pages\totalbet\firstgoallastgoal\firstgoallastgoal.js" />
@@ -1505,6 +1513,11 @@
     <Content Include="Views\Desktop\Report\Balance\ContentData.BalanceNote.cshtml" />
     <Content Include="www\css\build\dev\pages\reports\balance.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\balance.css.map" />
+    <Content Include="Views\Desktop\Report\WeeklyLiveMatch\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\WeeklyLiveMatch\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\WeeklyLiveMatch\Content.cshtml" />
+    <Content Include="www\css\build\dev\pages\reports\weeklylivematch.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\reports\weeklylivematch.css.map" />
     <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1604,6 +1617,8 @@
     <Content Include="www\js\build\dev\pages\reports\settledmatchcount.chunk.js.map" />
     <Content Include="www\css\source\pages\report\balance.scss" />
     <Content Include="www\js\build\dev\pages\reports\balance.chunk.js.map" />
+    <Content Include="www\css\source\pages\report\weeklylivematch.scss" />
+    <Content Include="www\js\build\dev\pages\reports\weeklylivematch.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
