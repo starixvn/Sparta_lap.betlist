@@ -735,6 +735,8 @@
     <Content Include="www\css\build\dev\home.css" />
     <Content Include="www\css\build\dev\main.chunk.js" />
     <Content Include="www\css\build\dev\main.css" />
+    <Content Include="www\css\build\dev\pages\betlist\betlistdaily.chunk.js" />
+    <Content Include="www\css\build\dev\pages\betlist\betlistdaily.css" />
     <Content Include="www\css\build\dev\pages\betlist\betlistLayout.chunk.js" />
     <Content Include="www\css\build\dev\pages\betlist\betlistLayout.css" />
     <Content Include="www\css\build\dev\pages\betlist\betlistResult.chunk.js" />
@@ -792,6 +794,7 @@
     <Content Include="www\css\build\images\ic-calendar.png" />
     <Content Include="www\css\build\pro\home.css" />
     <Content Include="www\css\build\pro\main.css" />
+    <Content Include="www\css\build\pro\pages\betlist\betlistdaily.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistLayout.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistResult.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistSimpleLayout.css" />
@@ -1518,6 +1521,8 @@
     <Content Include="Views\Desktop\Report\WeeklyLiveMatch\Content.cshtml" />
     <Content Include="www\css\build\dev\pages\reports\weeklylivematch.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\weeklylivematch.css.map" />
+    <Content Include="www\css\build\dev\pages\betlist\betlistdaily.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\betlist\betlistdaily.css.map" />
     <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />

@@ -7,3 +7,29 @@
 .suspended {
     color: #D45F12;
 }
+
+.balance-note {
+    padding-top: 1.5rem;
+    ul {
+        padding-top: 0.5rem;
+        li {
+            line-height: 2rem;
+
+            &:before {
+                content: "";
+                width: 0.6rem;
+                height: 0.6rem;
+                background-color: #F9494D;
+                float: left;
+                margin-right: 1rem;
+                margin-top: 0.7rem;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .panel-title {
+        font-weight: bold;
+        font-size: 13px;
+    }
+}
