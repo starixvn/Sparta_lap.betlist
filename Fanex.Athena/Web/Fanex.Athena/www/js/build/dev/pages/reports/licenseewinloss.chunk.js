@@ -18140,7 +18140,7 @@ webpackJsonp([36],[
 	            }
 	        }
 	
-	        function initDateRangePicker() {
+	        function initDateRangePicker(firstDayOfWeekIsMonday) {
 	            var $dateRange = $('#DateRange');
 	
 	            var $from = $('#FromDate');
@@ -18172,7 +18172,8 @@ webpackJsonp([36],[
 	                cancelLabel: Site.getSingleResource('Cancel'),
 	                customRangeLabel: Site.getSingleResource('DateRange'),
 	                daysOfWeek: _daysOfWeek,
-	                monthNames: _monthNames
+	                monthNames: _monthNames,
+	                firstDay: firstDayOfWeekIsMonday ? 1 : 0
 	            };
 	
 	            $dateRange.daterangepicker({
@@ -18215,6 +18216,10 @@ webpackJsonp([36],[
 	                locale: locale,
 	                singleDatePicker: true,
 	                showDropdowns: true
+	            });
+	
+	            $('.single-date').on("click", ".icon-calendar", function () {
+	                $picker.data('daterangepicker').toggle();
 	            });
 	        }
 	

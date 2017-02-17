@@ -63,7 +63,8 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                         return 'stop';
                     };
 
-                    DatePicker.initDateRangePicker();
+                    var firstDayOfWeekIsMonday = true;
+                    DatePicker.initDateRangePicker(firstDayOfWeekIsMonday);
                 },
 
                 initEvent: function () {
@@ -165,12 +166,12 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                 },
 
                 setTotalRow: function(){
-                    var totalText = Site.getSingleResource("Total");
-                    var $footerTable = $('.ui-jqgrid-ftable');
-                    var $firstCell = $footerTable.find('.footrow').find('td:eq(0)');
+                    var $totalRow = $('.ui-jqgrid-ftable').find('.footrow');
+                    $totalRow.addClass('total');
+                    var $firstCell = $totalRow.find('td:eq(0)');
                     var $secondCell = $firstCell.next();
                     $secondCell.hide();
-                    $firstCell.attr('colspan', 2).html(totalText);
+                    $firstCell.attr('colspan', 2).html(Site.getSingleResource("Total"));
                 },
 
                 resizeGrid: function () {

@@ -18140,7 +18140,7 @@ webpackJsonp([40],[
 	            }
 	        }
 	
-	        function initDateRangePicker() {
+	        function initDateRangePicker(firstDayOfWeekIsMonday) {
 	            var $dateRange = $('#DateRange');
 	
 	            var $from = $('#FromDate');
@@ -18172,7 +18172,8 @@ webpackJsonp([40],[
 	                cancelLabel: Site.getSingleResource('Cancel'),
 	                customRangeLabel: Site.getSingleResource('DateRange'),
 	                daysOfWeek: _daysOfWeek,
-	                monthNames: _monthNames
+	                monthNames: _monthNames,
+	                firstDay: firstDayOfWeekIsMonday ? 1 : 0
 	            };
 	
 	            $dateRange.daterangepicker({
@@ -18215,6 +18216,10 @@ webpackJsonp([40],[
 	                locale: locale,
 	                singleDatePicker: true,
 	                showDropdowns: true
+	            });
+	
+	            $('.single-date').on("click", ".icon-calendar", function () {
+	                $picker.data('daterangepicker').toggle();
 	            });
 	        }
 	
@@ -22955,7 +22960,8 @@ webpackJsonp([40],[
 	                        return 'stop';
 	                    };
 	
-	                    DatePicker.initDateRangePicker();
+	                    var firstDayOfWeekIsMonday = true;
+	                    DatePicker.initDateRangePicker(firstDayOfWeekIsMonday);
 	                },
 	
 	                initEvent: function () {
@@ -23057,12 +23063,12 @@ webpackJsonp([40],[
 	                },
 	
 	                setTotalRow: function(){
-	                    var totalText = Site.getSingleResource("Total");
-	                    var $footerTable = $('.ui-jqgrid-ftable');
-	                    var $firstCell = $footerTable.find('.footrow').find('td:eq(0)');
+	                    var $totalRow = $('.ui-jqgrid-ftable').find('.footrow');
+	                    $totalRow.addClass('total');
+	                    var $firstCell = $totalRow.find('td:eq(0)');
 	                    var $secondCell = $firstCell.next();
 	                    $secondCell.hide();
-	                    $firstCell.attr('colspan', 2).html(totalText);
+	                    $firstCell.attr('colspan', 2).html(Site.getSingleResource("Total"));
 	                },
 	
 	                resizeGrid: function () {

@@ -2195,4 +2195,7 @@ ul.ui-multiselect-checkboxes {
   margin: 0;
   margin-right: 10px; }
 
+tr.total td {
+  background: #ffb391; }
+
 /*# sourceMappingURL=reportjqgridlayout.css.map*/
