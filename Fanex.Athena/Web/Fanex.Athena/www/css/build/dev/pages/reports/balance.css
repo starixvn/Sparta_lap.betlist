@@ -990,23 +990,22 @@ table td, table th {
 .suspended {
   color: #D45F12; }
 
-.balance-note {
-  padding-top: 1.5rem; }
-  .balance-note ul {
-    padding-top: 0.5rem; }
-    .balance-note ul li {
-      line-height: 2rem; }
-      .balance-note ul li:before {
-        content: "";
-        width: 0.6rem;
-        height: 0.6rem;
-        background-color: #F9494D;
-        float: left;
-        margin-right: 1rem;
-        margin-top: 0.7rem;
-        border-radius: 50%; }
-  .balance-note .panel-title {
-    font-weight: bold;
-    font-size: 13px; }
+.balance-note ul {
+  padding-top: 0.5rem; }
+  .balance-note ul li {
+    line-height: 2rem; }
+    .balance-note ul li:before {
+      content: "";
+      width: 0.6rem;
+      height: 0.6rem;
+      background-color: #F9494D;
+      float: left;
+      margin-right: 1rem;
+      margin-top: 0.7rem;
+      border-radius: 50%; }
+
+.balance-note .panel-title {
+  font-weight: bold;
+  font-size: 13px; }
 
 /*# sourceMappingURL=balance.css.map*/

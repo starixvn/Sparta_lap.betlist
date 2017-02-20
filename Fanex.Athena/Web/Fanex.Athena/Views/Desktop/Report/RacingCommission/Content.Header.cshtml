@@ -1,0 +1,18 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.RacingCommissionViewModel
+
+<tr>
+    <th rowspan="2">#</th>
+    <th rowspan="2">@ViewResources.ExternalId</th>
+    <th colspan="4">@ViewResources.Tote</th>
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <th rowspan="2">@ViewResources.CustomerCommission</th>
+    }
+</tr>
+
+<tr>
+    <th>@ViewResources.Win</th>
+    <th>@ViewResources.Place</th>
+    <th>@ViewResources.WinPlace</th>
+    <th>@ViewResources.Total</th>
+</tr>

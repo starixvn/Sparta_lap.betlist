@@ -1,0 +1,51 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.RacingCommissionViewModel
+
+<div class="page-form">
+    @using (Html.BeginForm("Index", "RacingCommissionReport", FormMethod.Post, new { @id = "ReportForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        //-----------------------------Hidden Field-------------------------------//
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+        @Html.Hidden("BalanceUpDay", Model.Param.BalanceUpDay)
+        @Html.Hidden("SortDirection", Model.Param.SortDirection)
+        @Html.Hidden("SortColumn", Model.Param.SortColumn)
+        @Html.Hidden("RowCount", Model.RacingCommissionList == null ? 0 : Model.RacingCommissionList.Count)
+
+        <div class="row">
+            <div class="input-field input col l3 m3 s12 calendar date-range">
+                @RazorHelperDesktop.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, Model.Param.BalanceUpDay, DateTime.Today)
+            </div>
+
+            @*// ----------------------------Type of licensee---------------------------//*@
+            @if (Model.Param.LicenseeId == 1)
+            {
+                <div class="col l2 m2 s12 input-field">
+                    @RazorHelperDesktop.LicenseeType(Model.LicenseeTypeList, "select", Model.Param.LicenseeType)
+                    <label>@ViewResources.Type</label>
+                </div>
+            }
+
+            @*// -----------------------------Currency-----------------------------------//*@
+            <div class="col l2 m2 s12 input-field">
+                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
+                <label>@ViewResources.Currency</label>
+            </div>
+
+            @*// -----------------------------Base Currency-----------------------------------//*@
+            <div class="col l2 m2 s12 input-field">
+                @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
+                <label>@ViewResources.Based</label>
+            </div>
+
+            <div class="col l2 m2 s12 button-block">
+                <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+            </div>
+
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
+        </div>
+    }
+</div>

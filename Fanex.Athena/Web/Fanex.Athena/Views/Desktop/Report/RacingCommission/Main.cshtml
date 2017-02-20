@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report + " - " + ViewResources.RacingCommission;
+    Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
+}
+
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/racingcommission.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/racingcommission.chunk.js")"></script>
+}
+
+@section Filter
+{
+    @{ Html.RenderPartial("~/Views/Desktop/Report/RacingCommission/Filter.cshtml"); }
+}
+@section Content{
+    @if (!Model.ShowEmptyContent)
+    {
+        Html.RenderPartial("~/Views/Desktop/Report/RacingCommission/Content.cshtml");
+    }
+}
