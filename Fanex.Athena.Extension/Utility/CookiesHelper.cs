@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Extension.Utility
 {
+    using System;
     using System.Web;
 
     /// <summary>
@@ -29,15 +30,14 @@ namespace Fanex.Athena.Extension.Utility
             return string.Empty;
         }
 
-        /// <summary>
-        /// Set new or Update cookie.
-        /// </summary>
-        /// <param name="name">The cookie name.</param>
-        /// <param name="value">The value.</param>
         public static void SetCookies(string name, string value)
         {
             var cookie = new HttpCookie(name, value);
-            HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+            var cache = HttpContext.Current.Response.Cache;
+            cache.SetNoStore();
+            cache.SetExpires(DateTime.Now.AddMinutes(-1));
+            cache.SetCacheability(HttpCacheability.NoCache);
             HttpContext.Current.Response.Cookies.Remove(name);
             HttpContext.Current.Response.SetCookie(cookie);
         }

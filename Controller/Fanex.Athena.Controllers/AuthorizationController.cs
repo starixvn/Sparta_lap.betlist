@@ -20,6 +20,7 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using System.Web.UI;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -48,11 +49,13 @@ namespace Fanex.Athena.Controllers
 
         private readonly IUserService _userService;
         private readonly IMaintenanceService _maintenanceService;
+        private readonly IFormsAuthenticationService _formAuthenticationService;
 
         public AuthorizationController()
         {
             _userService = new UserService();
             _maintenanceService = new MaintenanceService();
+            _formAuthenticationService = new FormsAuthenticationService();
         }
 
         /// <summary>
@@ -62,6 +65,7 @@ namespace Fanex.Athena.Controllers
         [CheckUMFilter]
         [AllowAnonymous]
         [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult SignIn()
         {
             var requestHost = Request.Url.AbsoluteUri;
@@ -88,7 +92,7 @@ namespace Fanex.Athena.Controllers
         [HandleAntiForgeryError]
         [HttpPost]
         [CustomValidateAntiForgery]
-        [OutputCache(Duration = 0, NoStore = true)]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         [SuppressMessage(
           "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
@@ -145,8 +149,7 @@ namespace Fanex.Athena.Controllers
                         user.IsInternal,
                         user.Licensee.Id);
 
-                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                    FormsAuthentication.SetAuthCookie(user.Username, false);
+                    _formAuthenticationService.SetAuthCookie(user.Username, false);
 
                     if (user.IsInRole(UserRole.Admin.ToString()))
                     {
@@ -243,6 +246,7 @@ namespace Fanex.Athena.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public string GetUserSalt(string userName)
         {
             var user = _userService.GetByUsername(userName);
@@ -256,6 +260,7 @@ namespace Fanex.Athena.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult SignOut()
         {
             var userSession = SessionService.UserSession;
@@ -272,6 +277,7 @@ namespace Fanex.Athena.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult InternalSignOut()
         {
             var userSession = SessionService.UserSession;
@@ -306,6 +312,7 @@ namespace Fanex.Athena.Controllers
 
         [HttpPost]
         [CustomValidateAntiForgery]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult ChangePassword(string oldPassword, string newPassword)
         {
             if (string.IsNullOrEmpty(oldPassword) || !Util.IsPasswordValid(newPassword))
@@ -374,10 +381,18 @@ namespace Fanex.Athena.Controllers
 
         private void ClearCookies()
         {
+            var cache = Response.Cache;
+            cache.SetNoStore();
+            cache.SetExpires(DateTime.Now.AddMinutes(-1));
+            cache.SetCacheability(HttpCacheability.NoCache);
             var cookies = Request.Cookies.AllKeys;
             foreach (string cookie in cookies)
             {
-                Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
+                var item = new HttpCookie(cookie)
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                };
+                Response.Cookies.Add(item);
             }
         }
 
@@ -401,8 +416,8 @@ namespace Fanex.Athena.Controllers
 
                 for (int i = 0; i < 50; i++)
                 {
-                    int x = random.Next(bmp.Width);
-                    int y = random.Next(bmp.Height);
+                    var x = random.Next(bmp.Width);
+                    var y = random.Next(bmp.Height);
                     bmp.SetPixel(x, y, Color.FromArgb(random.Next()));
                 }
 

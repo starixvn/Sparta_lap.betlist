@@ -110,7 +110,10 @@ namespace Fanex.Athena.Controllers
                 return string.Empty;
             }
 
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            var cache = Response.Cache;
+            cache.SetNoStore();
+            cache.SetExpires(DateTime.Now.AddMinutes(-1));
+            cache.SetCacheability(HttpCacheability.NoCache);
             Response.SetCookie(new System.Web.HttpCookie(IsFirstLoadCookieKey, "0"));
 
             var moveBet = _moveBetService.GetMoveBet();

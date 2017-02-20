@@ -10,21 +10,9 @@
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class BaseDashboardApiController : ApiController
     {
-        protected int LicenseeId
-        {
-            get
-            {
-                return (int)ActionContext.ActionArguments["licenseeid"];
-            }
-        }
+        protected int LicenseeId => (int)ActionContext.ActionArguments["licenseeid"];
 
-        protected int UserId
-        {
-            get
-            {
-                return (int)ActionContext.ActionArguments["userid"];
-            }
-        }
+        protected int UserId => (int)ActionContext.ActionArguments["userid"];
 
         protected void AssignAuthProperties(DashboardBaseModel model)
         {
