@@ -772,6 +772,8 @@
     <Content Include="www\css\build\dev\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\livereport.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\livereport.css" />
+    <Content Include="www\css\build\dev\pages\reports\racingcommission.chunk.js" />
+    <Content Include="www\css\build\dev\pages\reports\racingcommission.css" />
     <Content Include="www\css\build\dev\pages\reports\reportjqgridlayout.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\reportjqgridlayout.css" />
     <Content Include="www\css\build\dev\pages\reports\settledmatchcount.chunk.js" />
@@ -818,6 +820,7 @@
     <Content Include="www\css\build\pro\pages\reports\balance.css" />
     <Content Include="www\css\build\pro\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\pro\pages\reports\livereport.css" />
+    <Content Include="www\css\build\pro\pages\reports\racingcommission.css" />
     <Content Include="www\css\build\pro\pages\reports\reportjqgridlayout.css" />
     <Content Include="www\css\build\pro\pages\reports\settledmatchcount.css" />
     <Content Include="www\css\build\pro\pages\reports\weeklylivematch.css" />
@@ -849,6 +852,7 @@
     <Content Include="www\js\build\dev\pages\reports\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\livereportmatchlist.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\racingcommission.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\settledmatchcount.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\weeklylivematch.chunk.js" />
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js" />
@@ -878,6 +882,7 @@
     <Content Include="www\js\build\pro\pages\reports\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\livereportmatchlist.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\racingcommission.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\settledmatchcount.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\weeklylivematch.chunk.js" />
     <Content Include="www\js\build\pro\pages\signin\signin.chunk.js" />
@@ -969,6 +974,8 @@
     <Content Include="www\js\source\pages\report\licenseewinloss\licenseewinloss.js" />
     <Content Include="www\js\source\pages\report\licenseewinloss\licenseewinloss.option.js" />
     <Content Include="www\js\source\pages\report\licenseewinloss\main.js" />
+    <Content Include="www\js\source\pages\report\racingcommission\main-racingcommission.js" />
+    <Content Include="www\js\source\pages\report\racingcommission\racingcommission.js" />
     <Content Include="www\js\source\pages\report\report.js" />
     <Content Include="www\js\source\pages\report\settledmatchcount\main-settledmatchcount.js" />
     <Content Include="www\js\source\pages\report\settledmatchcount\settledmatchcount.js" />
@@ -1529,6 +1536,10 @@
     <Content Include="Views\Desktop\Report\RacingCommission\Content.Header.cshtml" />
     <Content Include="Views\Desktop\Report\RacingCommission\Content.Data.cshtml" />
     <Content Include="Views\Desktop\Report\RacingCommission\Content.Total.cshtml" />
+    <Content Include="www\css\source\components\scrollabletable\scrollabletable.scss" />
+    <Content Include="Views\Desktop\BetList\RacingCommission\Main.cshtml" />
+    <Content Include="www\css\build\dev\pages\reports\racingcommission.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\reports\racingcommission.css.map" />
     <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />
@@ -1630,6 +1641,8 @@
     <Content Include="www\js\build\dev\pages\reports\balance.chunk.js.map" />
     <Content Include="www\css\source\pages\report\weeklylivematch.scss" />
     <Content Include="www\js\build\dev\pages\reports\weeklylivematch.chunk.js.map" />
+    <Content Include="www\css\source\pages\report\racingcommission.scss" />
+    <Content Include="www\js\build\dev\pages\reports\racingcommission.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

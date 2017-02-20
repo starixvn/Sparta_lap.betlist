@@ -294,3 +294,20 @@ if (toDate != null)
         }
     </select>
 }
+
+@helper TruncateWithTip(String value, Int32 maxLength, bool hasSpanReturn = false)
+{
+    if (value.Length > maxLength)
+    {
+        <span title="@value.Replace("'", "&#39;")">@HttpUtility.HtmlEncode(value.Substring(0, maxLength - 2) + "..")</span>
+
+    }
+    else if (hasSpanReturn)
+    {
+        <span>@HttpUtility.HtmlEncode(value)</span>
+    }
+    else
+    {
+        @value
+    }
+}

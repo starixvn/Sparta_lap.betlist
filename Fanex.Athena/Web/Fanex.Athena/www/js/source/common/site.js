@@ -463,30 +463,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                         var sortClass = $("#SortDirection").val() === "DESC" ? "sort-desc" : "sort-asc";
                         var sortSpan = $("<span></span");
                         sortSpan.addClass(sortClass);
-                        var left = 0;
-                        var top = 0;
-                        if (headerDiv.hasClass("row2")) {
-                            top = (headerDiv.height() - sortSpan.height()) / 2;
-                            sortSpan.css({
-                                top: top,
-                                right: 0
-                            });
-                        }
-                        else if ($(".grid-header-two-line", headerDiv).length > 0) {
-                            left = (headerDiv.width() - sortSpan.width()) / 2;
-                            sortSpan.css({
-                                top: 19,
-                                right: 0
-                            });
-                        }
-                        else {
-                            left = (headerDiv.width() - sortSpan.width()) / 2 + 35;
-                            sortSpan.css({
-                                top: 19,
-                                right: 0
-                            });
-                        }
-
                         sortSpan.appendTo(headerDiv);
                     }
 

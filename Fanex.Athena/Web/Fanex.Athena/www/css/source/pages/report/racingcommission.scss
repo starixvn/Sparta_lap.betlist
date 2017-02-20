@@ -1,0 +1,17 @@
+﻿@import '../common/reportcommon.main';
+@import '../../components/scrollabletable/scrollabletable';
+@import '../../components/daterangepicker/daterangepicker-ex';
+
+.header-content {
+    .table {
+        th {
+            background: $bgHeaderTableLevel2;
+            color: $black;
+            font-weight: bold;
+        }
+    }
+}
+
+.sort-heading{
+    cursor: pointer;
+}

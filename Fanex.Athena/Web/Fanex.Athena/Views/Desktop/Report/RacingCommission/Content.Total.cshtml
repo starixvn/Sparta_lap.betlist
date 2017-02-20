@@ -1,9 +1,18 @@
-﻿<!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
+﻿@model Fanex.Athena.Model.Report.ViewModel.RacingCommissionViewModel
 
-    </body>
-</html>
+<tr class="total total-footer">
+    <td colspan="3" class="center-align">
+        @(string.IsNullOrEmpty(Model.Param.BaseCurrency)
+                ? ViewResources.Total + " in " + Model.Param.CurrencyName
+                : ViewResources.Total + " in " + Model.Param.BaseCurrency.ToUpper())
+    </td>
+
+    <td class="right-align">@Model.Total.ToteWin.ToStringExt()</td>
+    <td class="right-align">@Model.Total.TotePlace.ToStringExt()</td>
+    <td class="right-align">@Model.Total.ToteWinPlace.ToStringExt()</td>
+    <td class="right-align">@Model.Total.ToteTotal.ToStringExt()</td>
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <td class="right-align">@Model.Total.CustomerCommission.ToStringExt()</td>
+    }
+</tr>

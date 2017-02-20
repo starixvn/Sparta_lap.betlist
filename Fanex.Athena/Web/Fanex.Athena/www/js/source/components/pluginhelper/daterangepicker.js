@@ -19,7 +19,7 @@
             }
         }
 
-        function initDateRangePicker(firstDayOfWeekIsMonday) {
+        function initDateRangePicker(firstDayOfWeekIsMonday, rangeOption) {
             var $dateRange = $('#DateRange');
 
             var $from = $('#FromDate');
@@ -44,6 +44,15 @@
             ranges[Site.getSingleResource('Lastmonth')] = [now.clone().subtract(1, 'month').startOf('month'), now.clone().subtract(1, 'month').endOf('month')];
             ranges[Site.getSingleResource('Sincelastmonth')] = [now.clone().subtract(1, 'month').startOf('month'), now];
 
+            var customRanges = {};
+            var hasRangeOption = rangeOption && rangeOption.length > 0;
+            if (hasRangeOption) {
+                for (var i = 0; i < rangeOption.length; i++) {
+                    var rangeLabel = Site.getSingleResource(rangeOption[i]);
+                    customRanges[rangeLabel] = ranges[rangeLabel];
+                }
+            }
+
             initCommonTextResource();
             var locale = {
                 format: 'MM/DD/YYYY',
@@ -60,7 +69,7 @@
                 endDate: end,
                 minDate: moment($dateRange.attr('data-mindate'), "MM/DD/YYYY"),
                 maxDate: moment($dateRange.attr('data-maxdate'), "MM/DD/YYYY"),
-                ranges: ranges,
+                ranges: hasRangeOption ? customRanges : ranges,
                 locale: locale,
                 showDropdowns: true,
                 linkedCalendars: false,

@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/colossusbetdetail","8":"www/css/build/dev/pages/betlist/systemparlaydetail","9":"www/css/build/dev/pages/forecast/ahforecast","10":"www/css/build/dev/pages/forecast/forecastonextwo","11":"www/css/build/dev/pages/forecast/newforecast","12":"www/css/build/dev/pages/login/login","13":"www/css/build/dev/pages/reports/balance","14":"www/css/build/dev/pages/reports/licenseewinloss","15":"www/css/build/dev/pages/reports/livereport","16":"www/css/build/dev/pages/reports/reportjqgridlayout","17":"www/css/build/dev/pages/reports/settledmatchcount","18":"www/css/build/dev/pages/reports/weeklylivematch","19":"www/css/build/dev/pages/totalbet/mixparlay","20":"www/css/build/dev/pages/totalbet/totalbetlayout","21":"www/css/build/dev/pages/utility/error","22":"www/js/build/dev/language","23":"www/js/build/dev/pages/betlist/betlist","24":"www/js/build/dev/pages/betlist/betlistcancelledbets","25":"www/js/build/dev/pages/betlist/betlistcorrectscore","26":"www/js/build/dev/pages/betlist/betlistdaily","27":"www/js/build/dev/pages/betlist/betlistrunning","28":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","29":"www/js/build/dev/pages/betlist/betlistsimple","30":"www/js/build/dev/pages/forecast/ahforecast","31":"www/js/build/dev/pages/forecast/forecasthdpou","32":"www/js/build/dev/pages/forecast/forecastonextwo","33":"www/js/build/dev/pages/forecast/newforecasthdpou","34":"www/js/build/dev/pages/home/home","35":"www/js/build/dev/pages/reports/balance","36":"www/js/build/dev/pages/reports/licenseewinloss","37":"www/js/build/dev/pages/reports/livereport","38":"www/js/build/dev/pages/reports/livereportmatchlist","39":"www/js/build/dev/pages/reports/settledmatchcount","40":"www/js/build/dev/pages/reports/weeklylivematch","41":"www/js/build/dev/pages/signin/signin","42":"www/js/build/dev/pages/totalbet/firstgoallastgoal","43":"www/js/build/dev/pages/totalbet/halftimefulltime","44":"www/js/build/dev/pages/totalbet/handicapoverunder","45":"www/js/build/dev/pages/totalbet/homedrawawaynobet","46":"www/js/build/dev/pages/totalbet/moneyline","47":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","48":"www/js/build/dev/pages/totalbet/outright","49":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/colossusbetdetail","8":"www/css/build/dev/pages/betlist/systemparlaydetail","9":"www/css/build/dev/pages/forecast/ahforecast","10":"www/css/build/dev/pages/forecast/forecastonextwo","11":"www/css/build/dev/pages/forecast/newforecast","12":"www/css/build/dev/pages/login/login","13":"www/css/build/dev/pages/reports/balance","14":"www/css/build/dev/pages/reports/licenseewinloss","15":"www/css/build/dev/pages/reports/livereport","16":"www/css/build/dev/pages/reports/racingcommission","17":"www/css/build/dev/pages/reports/reportjqgridlayout","18":"www/css/build/dev/pages/reports/settledmatchcount","19":"www/css/build/dev/pages/reports/weeklylivematch","20":"www/css/build/dev/pages/totalbet/mixparlay","21":"www/css/build/dev/pages/totalbet/totalbetlayout","22":"www/css/build/dev/pages/utility/error","23":"www/js/build/dev/language","24":"www/js/build/dev/pages/betlist/betlist","25":"www/js/build/dev/pages/betlist/betlistcancelledbets","26":"www/js/build/dev/pages/betlist/betlistcorrectscore","27":"www/js/build/dev/pages/betlist/betlistdaily","28":"www/js/build/dev/pages/betlist/betlistrunning","29":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","30":"www/js/build/dev/pages/betlist/betlistsimple","31":"www/js/build/dev/pages/forecast/ahforecast","32":"www/js/build/dev/pages/forecast/forecasthdpou","33":"www/js/build/dev/pages/forecast/forecastonextwo","34":"www/js/build/dev/pages/forecast/newforecasthdpou","35":"www/js/build/dev/pages/home/home","36":"www/js/build/dev/pages/reports/balance","37":"www/js/build/dev/pages/reports/licenseewinloss","38":"www/js/build/dev/pages/reports/livereport","39":"www/js/build/dev/pages/reports/livereportmatchlist","40":"www/js/build/dev/pages/reports/racingcommission","41":"www/js/build/dev/pages/reports/settledmatchcount","42":"www/js/build/dev/pages/reports/weeklylivematch","43":"www/js/build/dev/pages/signin/signin","44":"www/js/build/dev/pages/totalbet/firstgoallastgoal","45":"www/js/build/dev/pages/totalbet/halftimefulltime","46":"www/js/build/dev/pages/totalbet/handicapoverunder","47":"www/js/build/dev/pages/totalbet/homedrawawaynobet","48":"www/js/build/dev/pages/totalbet/moneyline","49":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","50":"www/js/build/dev/pages/totalbet/outright","51":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -14651,30 +14651,6 @@
 	                        var sortClass = $("#SortDirection").val() === "DESC" ? "sort-desc" : "sort-asc";
 	                        var sortSpan = $("<span></span");
 	                        sortSpan.addClass(sortClass);
-	                        var left = 0;
-	                        var top = 0;
-	                        if (headerDiv.hasClass("row2")) {
-	                            top = (headerDiv.height() - sortSpan.height()) / 2;
-	                            sortSpan.css({
-	                                top: top,
-	                                right: 0
-	                            });
-	                        }
-	                        else if ($(".grid-header-two-line", headerDiv).length > 0) {
-	                            left = (headerDiv.width() - sortSpan.width()) / 2;
-	                            sortSpan.css({
-	                                top: 19,
-	                                right: 0
-	                            });
-	                        }
-	                        else {
-	                            left = (headerDiv.width() - sortSpan.width()) / 2 + 35;
-	                            sortSpan.css({
-	                                top: 19,
-	                                right: 0
-	                            });
-	                        }
-	
 	                        sortSpan.appendTo(headerDiv);
 	                    }
 	

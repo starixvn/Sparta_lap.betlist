@@ -5,10 +5,10 @@
 @foreach (var item in Model.RacingCommissionList)
 {
     <tr>
-        <td class="center-align">@index++</td>
+        <td class="center-align">@(index++)</td>
         <td>
-            <a href="javascript;;" data-cust-id="@item.CustID" data-system-id="@item.SystemID" data-external-id="@item.ExternalID">
-                @RazorHelper.TruncateWithTip(item.ExternalID, 16)
+            <a href="javascript:;" class="bet-list-link" data-cust-id="@item.CustID" data-system-id="@item.SystemID" data-external-id="@item.ExternalID">
+                @RazorHelperDesktop.TruncateWithTip(item.ExternalID, 16)
             </a>
         </td>
         <td>@item.SystemID</td>
