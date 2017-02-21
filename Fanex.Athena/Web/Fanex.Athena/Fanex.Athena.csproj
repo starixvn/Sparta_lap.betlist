@@ -922,8 +922,10 @@
     <Content Include="www\js\source\common\popup.js" />
     <Content Include="www\js\source\common\querystring.js" />
     <Content Include="www\js\source\common\site.js" />
+    <Content Include="www\js\source\components\paging.js" />
     <Content Include="www\js\source\components\pluginhelper\daterangepicker.js" />
     <Content Include="www\js\source\components\pluginhelper\monthpicker.js" />
+    <Content Include="www\js\source\components\scrollabletable.js" />
     <Content Include="www\js\source\lib\select2.js" />
     <Content Include="www\js\source\pages\betlist\betlist.js" />
     <Content Include="www\js\source\pages\betlist\betlist.option.js" />
@@ -1540,6 +1542,7 @@
     <Content Include="Views\Desktop\BetList\RacingCommission\Main.cshtml" />
     <Content Include="www\css\build\dev\pages\reports\racingcommission.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\racingcommission.css.map" />
+    <Content Include="www\css\source\components\paging\paging.scss" />
     <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />

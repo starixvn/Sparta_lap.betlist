@@ -109,8 +109,7 @@ selectedBasedCurrency = selectedBasedCurrency.ToLower();
 
 @helper HighlightNegativeFormat(decimal value, bool isHiglight = true)
 {
-    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative-number'") : new HtmlString(""))>
-        @value.ToStringExt()</span>
+    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative-number'") : new HtmlString(""))>@value.ToStringExt()</span>
 }
 
 @helper ViewLiveStatus(int liveStatus)
@@ -309,5 +308,42 @@ if (toDate != null)
     else
     {
         @value
+    }
+}
+
+<!--Example:@RazorHelper.Paging("WarehouseWinLossForm", 5000, 1)-->
+@helper Paging(string formId, int NoOfItems, int currentIndex = 1, int pageSize = 1000, string method = "POST")
+{
+    var noOfPage = NoOfItems / pageSize + (NoOfItems % pageSize == 0 ? 0 : 1);
+    var pagingVisible = NoOfItems > 1000;
+    if (pagingVisible)
+    {
+            <div class="pagingContainer center-align">
+                <a href="javascript:;" class="icon pagingFirst @(currentIndex == 1 ? "pagingDisable" : string.Empty)"></a>
+                <a href="javascript:;" class="icon pagingPrev @(currentIndex == 1 ? "pagingDisable" : string.Empty)"></a>
+                <span class="pagingSeperator"></span>
+                <div class="paging-info">
+                    @ViewResources.Page
+                    <input type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="@currentIndex" />
+                    @ViewResources.of @noOfPage
+                </div>
+                <span class="pagingSeperator"></span>
+                <a href="javascript:;" class="icon pagingNext @(currentIndex == noOfPage ? "pagingDisable" : string.Empty)"></a>
+                <a href="javascript:;" class="icon pagingLast @(currentIndex == noOfPage ? "pagingDisable" : string.Empty)"></a>
+
+                <select class="pageSizeSelected">
+                    @for (var i = 1000; i <= 2000; i += 1000)
+                    {
+                        <option value="@i" @(pageSize == i ? "selected=selected" : string.Empty)>
+                            @i
+                        </option>
+                    }
+                </select>
+
+                <input type="hidden" name="PageSize" value="@pageSize" />
+                <input type="hidden" name="Method" value="@method" />
+                <input type="hidden" name="FormName" value="@formId" />
+                <input type="hidden" name="NoOfPage" value="@noOfPage" />
+            </div>
     }
 }

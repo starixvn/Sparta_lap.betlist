@@ -1,25 +1,6 @@
-﻿define(["jquery", "common/site", "common/querystring", "components/pluginhelper/daterangepicker", "extensions/jquery.extension"], function ($, Site, QueryString, DatePicker) {
+﻿define(["jquery", "common/site", "common/querystring", "components/pluginhelper/daterangepicker", "components/paging", "components/scrollabletable", "extensions/jquery.extension"],
+    function ($, Site, QueryString, DatePicker, Paging, GridHelper) {
     var _me = {
-        resizeGrid: function () {
-            var $grid = $(".body-content");
-            if ($grid.length === 0) {
-                return;
-            }
-
-            var gridTop = $grid.offset().top;
-            var footerSite = 18;
-
-            var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - footerSite - 10;
-            gridHeight = Math.max(150, gridHeight);
-            $grid.css("max-height", gridHeight);
-
-            if (!$grid.hasVerticalScrollBar()) {
-                $grid.addClass("noScroll");
-            }
-            else {
-                $grid.find("table").width($grid.width() - 17);
-            }
-        },
         initialize: function () {
             Site.initialize();
             _me.initEvent();
@@ -29,7 +10,8 @@
                 title: Site.getSingleResource("RacingCommission")
             });
             _me.initDateRangePicker();
-            _me.resizeGrid();
+            GridHelper.resizeGrid();
+            Paging.initialize();
         },
         initDateRangePicker: function(){
             var ranges = ["Today", "Yesterday", "Currentweek"];

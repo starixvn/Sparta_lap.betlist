@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="body-content">
-                    <table class="table">
+                    <table class="table table-bordered">
                         <tbody>
                             @RenderFirstRow()
                             @{ Html.RenderPartial("~/Views/Desktop/Report/RacingCommission/Content.Data.cshtml"); }
@@ -55,6 +55,10 @@
                             @{ Html.RenderPartial("~/Views/Desktop/Report/RacingCommission/Content.Total.cshtml"); }
                         </tbody>
                     </table>
+                </div>
+
+                <div class="paging-content">
+                    @RazorHelperDesktop.Paging("ReportForm", Model.Total.TotalRows, Model.Param.PageIndex, Model.Param.PageSize)
                 </div>
             }
         </div>
