@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -834,6 +834,7 @@
     <Content Include="www\css\source\components\jqgrid\jqgrid.css" />
     <Content Include="www\css\source\components\multiselect\jquery.multiselect.css" />
     <Content Include="www\css\source\pages\login\login.css" />
+    <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlist.chunk.js" />
@@ -981,6 +982,9 @@
     <Content Include="www\js\source\pages\report\report.js" />
     <Content Include="www\js\source\pages\report\settledmatchcount\main-settledmatchcount.js" />
     <Content Include="www\js\source\pages\report\settledmatchcount\settledmatchcount.js" />
+    <Content Include="www\js\source\pages\report\turnover\main.js" />
+    <Content Include="www\js\source\pages\report\turnover\turnover.js" />
+    <Content Include="www\js\source\pages\report\turnover\turnover.option.js" />
     <Content Include="www\js\source\pages\report\weeklylivematch\main-weeklylivematch.js" />
     <Content Include="www\js\source\pages\report\weeklylivematch\weeklylivematch.js" />
     <Content Include="www\js\source\pages\report\weeklylivematch\weeklylivematch.option.js" />
@@ -1543,6 +1547,9 @@
     <Content Include="www\css\build\dev\pages\reports\racingcommission.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\racingcommission.css.map" />
     <Content Include="www\css\source\components\paging\paging.scss" />
+    <Content Include="Views\Desktop\Report\Turnover\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\Turnover\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\Turnover\Main.cshtml" />
     <None Include="www\css\source\pages\betlist\result\betlist.result.scss" />
     <Content Include="www\css\source\scss\base\_common.scss" />
     <Content Include="www\css\source\scss\components\_button.scss" />

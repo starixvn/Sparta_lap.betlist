@@ -33,7 +33,8 @@ var cssPaths = {
     settledmatchcount: ["./www/css/source/pages/report/settledmatchcount.scss"],
     balance: ["./www/css/source/pages/report/balance.scss"],
     weeklylivematch: ["./www/css/source/pages/report/weeklylivematch.scss"],
-    racingcommission: ["./www/css/source/pages/report/racingcommission.scss"]
+    racingcommission: ["./www/css/source/pages/report/racingcommission.scss"],
+    turnover: ["./www/css/source/pages/report/turnover.scss"],
 };
 
 var scriptPaths = {
@@ -70,7 +71,8 @@ var scriptPaths = {
     settledmatchcount: "./www/js/source/pages/report/settledmatchcount/main-settledmatchcount.js",
     balance: "./www/js/source/pages/report/balance/main-balance.js",
     weeklylivematch: "./www/js/source/pages/report/weeklylivematch/main-weeklylivematch.js",
-    racingcommission: "./www/js/source/pages/report/racingcommission/main-racingcommission.js"
+    racingcommission: "./www/js/source/pages/report/racingcommission/main-racingcommission.js",
+    turnover: "./www/js/source/pages/report/turnover/main.js",
 };
 
 module.exports = {

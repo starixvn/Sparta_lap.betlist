@@ -4,7 +4,6 @@
 *  "0" for master,"1" for agent and "2" for member
 */
 
-
 define(
     ["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "lib/linq"],
     function ($, QueryString, Site, jqGridAdditional) {
