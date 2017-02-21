@@ -1,9 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
-  
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelMatchResult" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelMatchResultParlay" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Result_MatchSelByLeague" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Result_MatchSelByLeague_Detail" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
