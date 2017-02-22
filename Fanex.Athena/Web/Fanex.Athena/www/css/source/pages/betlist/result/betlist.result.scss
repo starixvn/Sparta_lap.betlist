@@ -3,7 +3,7 @@
 body{
     background: #fff;
 }
-.betlist-result-container {
+.result-container {
     padding: 10px;
 
     /* Fast Markets */
@@ -87,7 +87,6 @@ body{
 
     .fn-rs-content-scroll {
         border: 1px solid #cbc9ca;
-        max-height: 740px;
         -ms-overflow-y: auto;
         overflow-y: auto;
         -ms-overflow-x: hidden;

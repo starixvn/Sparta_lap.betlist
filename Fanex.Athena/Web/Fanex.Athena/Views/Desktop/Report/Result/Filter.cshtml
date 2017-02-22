@@ -6,7 +6,11 @@
         @Html.AntiForgeryToken()
 
         <div class="row">
-            <div class="input-field input col l3 m3 s12 calendar date-range">
+            <div class="col l2 m2 s12 input-field calendar single-date" id="singleDate">
+                @RazorHelperDesktop.SingleDatePicker(Model.Param.FromDate, Model.Param.BalanceUpDay.Value, DateTime.Today, "Date")
+            </div>
+
+            <div class="input-field input col l3 m3 s12 calendar date-range" id="dateRange" style="display: none;">
                 @RazorHelperDesktop.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, Model.Param.BalanceUpDay.Value, DateTime.Today)
             </div>
 
@@ -15,16 +19,20 @@
             </div>
 
             <div class="col l2 m2 s12 input-field">
-                <a href="javascript:;" class="center-align label label-default">@DateTime.Today.ToString("MM/dd/yyyy")</a>
-                <a href="javascript:;" class="center-align label label-default">@DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy")</a>
+                <a href="javascript:;" class="center-align label label-default" id="submitToday" data-date="@DateTime.Today.ToString("MM/dd/yyyy")">
+                    @DateTime.Today.ToString("MM/dd/yyyy")
+                </a>
+                <a href="javascript:;" class="center-align label label-default" id="submitYesterday" data-date="@DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy")">
+                    @DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy")
+                </a>
             </div>
 
             <div class="col l2 m2 s12 input-field">
-                <a href="javascript:;" class="center-align label label-default">@ViewResources.Normal</a>
-                <a href="javascript:;" class="center-align label label-default" data-isOutright="1">@ViewResources.Outright</a>
+                <a href="javascript:;" class="center-align label label-default disabled" id="submitNormal">@ViewResources.Normal</a>
+                <a href="javascript:;" class="center-align label label-default" id="submitOutright" data-isOutright="0">@ViewResources.Outright</a>
                 @if (ViewBag.IsAllowedKeno)
                 {
-                    <a href="javascript:;" class="center-align label label-default">@ViewResources.ProductKN</a>
+                    <a href="javascript:;" class="center-align label label-default" id="submitKeno">@ViewResources.ProductKN</a>
                 }
             </div>
 
@@ -33,13 +41,13 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="sportAndLeagueFilter" style="visibility: hidden;">
             <div class="col l2 m2 s12 input-field">
-                <select id="sport"></select>
+                <select class="select" id="ddlSport"></select>
                 <label>@ViewResources.Sport</label>
             </div>
-            <div class="col l2 m2 s12 input-field">
-                <select id="league" style="width: 300px;">
+            <div class="col l3 m3 s12 input-field">
+                <select class="select" id="ddlLeague">
                     <option value="0" selected="selected">*..::*@ViewResources.ShowAllLeagues*::..*</option>
                 </select>
                 <label>@ViewResources.League</label>

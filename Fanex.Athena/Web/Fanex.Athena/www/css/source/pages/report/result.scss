@@ -1,3 +1,19 @@
 ﻿@import '../common/reportcommon.main';
 @import '../../components/daterangepicker/daterangepicker-ex';
 @import '../../components/label/label';
+
+.result-container {
+    padding: 0;
+
+    .noScroll, .fn-rs-content-header {
+        padding-right: 17px;
+    }
+}
+
+.disabled {
+    background-color: transparent !important;
+    color: #b3b3b3 !important;
+    cursor: default;
+    pointer-events: none;
+    box-shadow: none;
+}

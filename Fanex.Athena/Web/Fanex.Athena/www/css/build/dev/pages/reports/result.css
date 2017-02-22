@@ -1373,9 +1373,24 @@ table td, table th {
     border: 1px solid #6c8da6;
     color: #6c8da6;
     background: transparent; }
-  .label.active {
-    color: #fff;
-    background: #4C6375;
-    border: none; }
+    .label-default:hover {
+      color: #fff;
+      background: #4C6375; }
+    .label-default.active {
+      color: #fff;
+      background: #4C6375;
+      border: none; }
+
+.result-container {
+  padding: 0; }
+  .result-container .noScroll, .result-container .fn-rs-content-header {
+    padding-right: 17px; }
+
+.disabled {
+  background-color: transparent !important;
+  color: #b3b3b3 !important;
+  cursor: default;
+  pointer-events: none;
+  box-shadow: none; }
 
 /*# sourceMappingURL=result.css.map*/

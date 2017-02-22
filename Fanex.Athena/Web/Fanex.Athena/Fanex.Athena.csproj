@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -780,6 +780,8 @@
     <Content Include="www\css\build\dev\pages\reports\result.css" />
     <Content Include="www\css\build\dev\pages\reports\settledmatchcount.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\settledmatchcount.css" />
+    <Content Include="www\css\build\dev\pages\reports\turnover.chunk.js" />
+    <Content Include="www\css\build\dev\pages\reports\turnover.css" />
     <Content Include="www\css\build\dev\pages\reports\weeklylivematch.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\weeklylivematch.css" />
     <Content Include="www\css\build\dev\pages\totalbet\mixparlay.chunk.js" />
@@ -826,6 +828,7 @@
     <Content Include="www\css\build\pro\pages\reports\reportjqgridlayout.css" />
     <Content Include="www\css\build\pro\pages\reports\result.css" />
     <Content Include="www\css\build\pro\pages\reports\settledmatchcount.css" />
+    <Content Include="www\css\build\pro\pages\reports\turnover.css" />
     <Content Include="www\css\build\pro\pages\reports\weeklylivematch.css" />
     <Content Include="www\css\build\pro\pages\totalbet\mixparlay.css" />
     <Content Include="www\css\build\pro\pages\totalbet\totalbetlayout.css" />
@@ -837,6 +840,8 @@
     <Content Include="www\css\source\components\jqgrid\jqgrid.css" />
     <Content Include="www\css\source\components\multiselect\jquery.multiselect.css" />
     <Content Include="www\css\source\pages\login\login.css" />
+    <Content Include="www\css\build\dev\pages\reports\turnover.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\reports\turnover.css.map" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
@@ -857,7 +862,9 @@
     <Content Include="www\js\build\dev\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\livereportmatchlist.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\racingcommission.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\result.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\settledmatchcount.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\turnover.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\weeklylivematch.chunk.js" />
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\firstgoallastgoal.chunk.js" />
@@ -887,7 +894,9 @@
     <Content Include="www\js\build\pro\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\livereportmatchlist.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\racingcommission.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\result.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\settledmatchcount.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\turnover.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\weeklylivematch.chunk.js" />
     <Content Include="www\js\build\pro\pages\signin\signin.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\firstgoallastgoal.chunk.js" />
@@ -1665,6 +1674,8 @@
     <Content Include="www\css\source\pages\report\racingcommission.scss" />
     <Content Include="www\js\build\dev\pages\reports\racingcommission.chunk.js.map" />
     <Content Include="www\css\source\pages\report\result.scss" />
+    <Content Include="www\js\build\dev\pages\reports\result.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\reports\turnover.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

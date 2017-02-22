@@ -1,5 +1,9 @@
-﻿$colorDefault: #6c8da6;
+﻿@import '../../scss/abstracts/_variables';
+
+$colorDefault: #6c8da6;
 $bgActive: #4C6375;
+$colorActiveText: $white;
+$bgActiveTab: $bgHeaderTableLevel1;
 
 .label {
     display: inline-block;
@@ -12,11 +16,16 @@ $bgActive: #4C6375;
         border: 1px solid $colorDefault;
         color: $colorDefault;
         background: transparent;
-    }
 
-    &.active {
-        color: #fff;
-        background: $bgActive;
-        border: none;
+        &:hover{
+            color: $colorActiveText;
+            background: $bgActive;
+        }
+
+        &.active{
+            color: $colorActiveText;
+            background: $bgActive;
+            border: none;
+        }
     }
 }

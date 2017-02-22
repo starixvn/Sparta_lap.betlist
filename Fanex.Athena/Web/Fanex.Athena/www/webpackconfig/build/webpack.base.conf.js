@@ -46,6 +46,7 @@ function generateConfig(environment) {
             [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/weeklylivematch`]: [pathConfig.scriptPaths.weeklylivematch],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/racingcommission`]: [pathConfig.scriptPaths.racingcommission],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/turnover`]: [pathConfig.scriptPaths.turnover],
+            [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/result`]: [pathConfig.scriptPaths.result],
             
 
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,

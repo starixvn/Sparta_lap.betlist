@@ -74,6 +74,7 @@ var scriptPaths = {
     weeklylivematch: "./www/js/source/pages/report/weeklylivematch/main-weeklylivematch.js",
     racingcommission: "./www/js/source/pages/report/racingcommission/main-racingcommission.js",
     turnover: "./www/js/source/pages/report/turnover/main.js",
+    result: "./www/js/source/pages/report/result/main-result.js"
 };
 
 module.exports = {
