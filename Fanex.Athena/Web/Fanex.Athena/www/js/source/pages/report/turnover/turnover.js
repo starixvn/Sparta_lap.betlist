@@ -1,8 +1,8 @@
 ﻿define(
     ["jquery", "common/querystring", "common/site", "../report", "./turnover.option",
-        "lib/jqgrid/jquery.jqgrid.additional", "components/pluginhelper/daterangepicker", "moment", "common/popup","components/pluginhelper/monthpicker",
+        "lib/jqgrid/jquery.jqgrid.additional", "moment", "common/popup","components/pluginhelper/monthpicker",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extensions/jquery.extension", "lib/linq"],
-    function ($, QueryString, Site, Report, TurnoverOption, jqGridAdditional, DatePicker, moment, Popup, MonthPicker) {
+    function ($, QueryString, Site, Report, TurnoverOption, jqGridAdditional, moment, Popup, MonthPicker) {
         "use strict";
     var ajaxRequest = null;
     var _fromDate, _toDate, _currencyName, _currencyId;
@@ -89,6 +89,7 @@
             }
         },
         setReportTitle: function () {
+            return;
             var titlePattern = Site.getSingleResource('Turnover');
             var title = null;
             var username = $('#Username').val().trim();
@@ -128,23 +129,20 @@
             } else {
                 $("#product-null").addClass("hide");
             }
-
+            
             Site.blockUI();
 
             var mainForm = $("#TurnoverForm");
             var postdata = mainForm.serializeObject();
-            _fromDate = new Date(postdata.Year, postdata.Month - 1, postdata.FromDay);
-            _toDate = new Date(postdata.Year, postdata.Month - 1, postdata.ToDay);
             _currencyName = $("#CurrencyName").val().toUpperCase();
             _currencyId = $("#CurrencyId").val();
-
+            
             if (postdata.Username === _me.defaultUserName) {
                 postdata.Username = undefined;
             }
 
             postdata.BaseCurrency = postdata.BaseCurrency.toUpperCase();
-            postdata.FromDate = _fromDate.toDateString();
-            postdata.ToDate = _toDate.toDateString();
+           
             var option =
             {
                 type: "POST",

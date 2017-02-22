@@ -1,45 +1,20 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Extension.Helper
-@model Fanex.Athena.Model.Report.ViewModel.TurnoverViewModel
+﻿@model Fanex.Athena.Model.Report.ViewModel.TurnoverViewModel
 @{
     var isDataAvailable = Model.DataList != null && Model.DataList.Count > 0;
 }
-<div class="theme_jqGrid">
-    <div class="container_26 new-line" style="width:@(ViewBag.FilterWidth + 12)@("px");">
-        <div class="grid_26">
-            <div class="report-title hide" style="width:@ViewBag.TitleWidth@("px");">
-                @{ 
-                    var currencyName = @Model.Param.IsConvert ? @Model.Param.BaseCurrency : @Model.CurrencyList.FirstOrDefault(a => a.Value == Model.Param.CurrencyId).Key;
-                    var formatTitle = "{0}, {1} - {2}";
-                    var formatTitleUserName = "{0}, {1} - {2} {3} ({4})";
-                }
-                @if (Model.Param.Username.IsEmpty())
-                {
-                    var currencyTitle =string.Format(ViewResources.Viewin, Model.Param.IsConvert
-                        ? Model.Param.BaseCurrency.ToUpper()
-                        : currencyName.ToUpper());
-                
-                    @(string.Format(formatTitle,
-                                ViewResources.Turnover,
-                                RazorHelper.TitleDateTime(Model.Param.FromDate, Model.Param.ToDate),
-                                currencyTitle))
-                }
-                else
-                {
-                    @(string.Format(formatTitleUserName,
-                                ViewResources.Turnover,
-                                RazorHelper.TitleDateTime(Model.Param.FromDate, Model.Param.ToDate),
-                                ViewResources.Customer,
-                                Model.Param.Username,
-                                currencyName))
-                }
+<div class="page-results">
+    <div class="result-content">
+        <div class="panel-heading active hide">
+            <div class="panel-title">
+                <span class="report-title"></span>
             </div>
-            <div class="report-content " style="width:@(ViewBag.WrapperWidth)px;">
-                <div style="width: 100%">
+        </div>
+        <div class="main-content">
+            <div class="panel-body">
+                <div class="theme_jqGrid">
                     <table id="ReportGrid">
                         <tr>
-                            <td>
-                            </td>
+                            <td></td>
                         </tr>
                     </table>
                     <div id="ppdata">
