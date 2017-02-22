@@ -1,17 +1,17 @@
-webpackJsonp([41],{
+webpackJsonp([42],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(229);
+	module.exports = __webpack_require__(231);
 
 
 /***/ },
 
-/***/ 229:
+/***/ 231:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(230)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SettledMatchCount) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(232)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SettledMatchCount) {
 	    "use strict";
 	
 	    $(SettledMatchCount.initialize);
@@ -20,7 +20,7 @@ webpackJsonp([41],{
 
 /***/ },
 
-/***/ 230:
+/***/ 232:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";

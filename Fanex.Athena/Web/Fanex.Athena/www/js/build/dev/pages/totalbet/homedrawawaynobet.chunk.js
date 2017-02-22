@@ -1,17 +1,17 @@
-webpackJsonp([47],{
+webpackJsonp([48],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(277);
+	module.exports = __webpack_require__(279);
 
 
 /***/ },
 
-/***/ 194:
+/***/ 196:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(195)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(197)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
 	    var curCountDown = 0;
 	    var countDownTimer = null;
 	    var cookieName = null;
@@ -135,7 +135,7 @@ webpackJsonp([47],{
 
 /***/ },
 
-/***/ 195:
+/***/ 197:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -256,7 +256,7 @@ webpackJsonp([47],{
 
 /***/ },
 
-/***/ 198:
+/***/ 200:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -500,10 +500,10 @@ webpackJsonp([47],{
 
 /***/ },
 
-/***/ 272:
+/***/ 274:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(194), __webpack_require__(198)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(196), __webpack_require__(200)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
 	    var _me = {
 	        resizeGrid: function () {
 	            var $grid = $(".body-content");
@@ -577,10 +577,10 @@ webpackJsonp([47],{
 
 /***/ },
 
-/***/ 277:
+/***/ 279:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(278)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HomeDrawAwayNoBet) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(280)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HomeDrawAwayNoBet) {
 	    "use strict";
 	
 	    $(HomeDrawAwayNoBet.initialize);
@@ -589,10 +589,10 @@ webpackJsonp([47],{
 
 /***/ },
 
-/***/ 278:
+/***/ 280:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(272), __webpack_require__(194)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(274), __webpack_require__(196)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
 	    "use strict";
 	
 	    var _me = {

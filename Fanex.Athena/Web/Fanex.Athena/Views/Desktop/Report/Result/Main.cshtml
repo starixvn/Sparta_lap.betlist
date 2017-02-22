@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Result;
+    Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
+}
+@section pagecss{
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/betlist/betlistResult.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/result.css")" rel="stylesheet" />
+}
+@section pagejs{
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/result.chunk.js")"></script>
+}
+
+@section Filter{
+    @{ Html.RenderPartial("~/Views/Desktop/Report/Result/Filter.cshtml"); }
+}
+@section Content{
+    @{ Html.RenderPartial("~/Views/Desktop/Report/Result/Content.cshtml"); }
+}

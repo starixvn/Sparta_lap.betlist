@@ -35,6 +35,7 @@ var cssPaths = {
     weeklylivematch: ["./www/css/source/pages/report/weeklylivematch.scss"],
     racingcommission: ["./www/css/source/pages/report/racingcommission.scss"],
     turnover: ["./www/css/source/pages/report/turnover.scss"],
+    result: ["./www/css/source/pages/report/result.scss"]
 };
 
 var scriptPaths = {

@@ -1,0 +1,22 @@
+﻿$colorDefault: #6c8da6;
+$bgActive: #4C6375;
+
+.label {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 3px;
+    margin-right: 12px;
+    font-size: 14px;
+
+    &-default {
+        border: 1px solid $colorDefault;
+        color: $colorDefault;
+        background: transparent;
+    }
+
+    &.active {
+        color: #fff;
+        background: $bgActive;
+        border: none;
+    }
+}

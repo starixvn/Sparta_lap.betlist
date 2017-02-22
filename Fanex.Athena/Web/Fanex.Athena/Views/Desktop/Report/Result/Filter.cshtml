@@ -1,0 +1,49 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.ResultReportViewModel
+
+<div class="page-form">
+    @using (Html.BeginForm("Result", "Report", FormMethod.Post, new { @id = "ResultPage" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="input-field input col l3 m3 s12 calendar date-range">
+                @RazorHelperDesktop.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, Model.Param.BalanceUpDay.Value, DateTime.Today)
+            </div>
+
+            <div class="col l2 m2 s12 button-block">
+                <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+            </div>
+
+            <div class="col l2 m2 s12 input-field">
+                <a href="javascript:;" class="center-align label label-default">@DateTime.Today.ToString("MM/dd/yyyy")</a>
+                <a href="javascript:;" class="center-align label label-default">@DateTime.Now.AddDays(-1).ToString("MM/dd/yyyy")</a>
+            </div>
+
+            <div class="col l2 m2 s12 input-field">
+                <a href="javascript:;" class="center-align label label-default">@ViewResources.Normal</a>
+                <a href="javascript:;" class="center-align label label-default" data-isOutright="1">@ViewResources.Outright</a>
+                @if (ViewBag.IsAllowedKeno)
+                {
+                    <a href="javascript:;" class="center-align label label-default">@ViewResources.ProductKN</a>
+                }
+            </div>
+
+            <div class="col right icon-block">
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col l2 m2 s12 input-field">
+                <select id="sport"></select>
+                <label>@ViewResources.Sport</label>
+            </div>
+            <div class="col l2 m2 s12 input-field">
+                <select id="league" style="width: 300px;">
+                    <option value="0" selected="selected">*..::*@ViewResources.ShowAllLeagues*::..*</option>
+                </select>
+                <label>@ViewResources.League</label>
+            </div>
+        </div>
+    }
+</div>

@@ -73,6 +73,7 @@ function generateConfig(environment) {
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/weeklylivematch`]: pathConfig.cssPaths.weeklylivematch,
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/racingcommission`]: pathConfig.cssPaths.racingcommission,
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/turnover`]: pathConfig.cssPaths.turnover,
+            [`${pathConfig.cssPaths.build}/${environment}/pages/reports/result`]: pathConfig.cssPaths.result
         },
         output: {
             path: pathConfig.projectRoot,
