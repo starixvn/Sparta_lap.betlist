@@ -2,6 +2,7 @@
 @import '../../components/scrollabletable/scrollabletable';
 @import '../../components/daterangepicker/daterangepicker-ex';
 @import '../../components/paging/paging';
+@import '../../components/sortableheader/sortableheader';
 
 .header-content {
     .table {
@@ -9,10 +10,12 @@
             background: $bgHeaderTableLevel2;
             color: $black;
             font-weight: bold;
+
+            .sort-heading {
+                color: $black;
+                font-weight: bold;
+                position: relative;
+            }
         }
     }
-}
-
-.sort-heading{
-    cursor: pointer;
 }

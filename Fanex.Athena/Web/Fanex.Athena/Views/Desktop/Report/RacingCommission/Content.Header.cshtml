@@ -2,18 +2,32 @@
 
 <tr>
     <th rowspan="2">#</th>
-    <th rowspan="2" class="sort-heading" data-column-name="ExternalID">@ViewResources.ExternalId</th>
-    <th rowspan="2" class="sort-heading" data-column-name="SystemID">@ViewResources.SystemId</th>
+    <th rowspan="2" class="sortable">
+        <a class="sort-heading" data-column-name="ExternalID">@ViewResources.ExternalId</a>
+    </th>
+    <th rowspan="2" class="sortable">
+        <a class="sort-heading" data-column-name="SystemID">@ViewResources.SystemId</a>
+    </th>
     <th colspan="4">@ViewResources.Tote</th>
     @if (Model.IsAllowedCustomerCommission)
     {
-        <th rowspan="2" class="sort-heading" data-column-name="CustomerCommission">@ViewResources.CustomerCommission</th>
+        <th rowspan="2" class="sortable">
+            <a class="sort-heading" data-column-name="CustomerCommission">@ViewResources.CustomerCommission</a>
+        </th>
     }
 </tr>
 
 <tr>
-    <th class="sort-heading" data-column-name="ToteWin">@ViewResources.Win</th>
-    <th class="sort-heading" data-column-name="TotePlace">@ViewResources.Place</th>
-    <th class="sort-heading" data-column-name="ToteWinPlace">@ViewResources.WinPlace</th>
-    <th class="sort-heading" data-column-name="ToteTotal">@ViewResources.Total</th>
+    <th class="sortable">
+        <a class="sort-heading" data-column-name="ToteWin">@ViewResources.Win</a>
+    </th>
+    <th class="sortable">
+        <a class="sort-heading" data-column-name="TotePlace">@ViewResources.Place</a>
+    </th>
+    <th class="sortable">
+        <a class="sort-heading" data-column-name="ToteWinPlace">@ViewResources.WinPlace</a>
+    </th>
+    <th class="sortable">
+        <a class="sort-heading" data-column-name="ToteTotal">@ViewResources.Total</a>
+    </th>
 </tr>

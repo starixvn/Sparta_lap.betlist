@@ -1468,12 +1468,33 @@ table td, table th {
     min-width: 65px;
     border: 1px solid #e2d6d6; }
 
+.sortable {
+  cursor: pointer; }
+  .sortable:hover .sort-heading {
+    text-decoration: underline; }
+  .sortable .sorted-heading {
+    text-decoration: underline; }
+
+.sort-icon {
+  position: absolute;
+  top: calc(50% - 2.5px);
+  right: -15px;
+  width: 0px;
+  height: 0px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent; }
+  .sort-icon-asc {
+    border-bottom: 5px solid #000; }
+  .sort-icon-desc {
+    border-top: 5px solid #000; }
+
 .header-content .table th {
   background: #9eb4c3;
   color: #2c2c2c;
   font-weight: bold; }
-
-.sort-heading {
-  cursor: pointer; }
+  .header-content .table th .sort-heading {
+    color: #2c2c2c;
+    font-weight: bold;
+    position: relative; }
 
 /*# sourceMappingURL=racingcommission.css.map*/

@@ -14639,24 +14639,24 @@
 	
 	        function createSortingIcon(sortHandler) {
 	            if ($("#RowCount").val() <= 1) {
-	                $("#header-content .sort-heading").removeClass("sort-heading");
+	                $("#header-content .sortable").removeClass("sort-heading");
 	            }
 	            else {
-	                $("#header-content .sort-heading").each(function (index, element) {
-	                    var headerDiv = $(element);
-	                    var sortColumn = headerDiv.attr("data-column-name");
+	                $("#header-content .sortable").each(function (index, element) {
+	                    var $sortHeader = $(element).find(".sort-heading");
+	                    var sortColumn = $sortHeader.attr("data-column-name");
 	                    if (sortColumn === $("#SortColumn").val()) {
-	                        headerDiv.addClass("sorted-heading");
+	                        $sortHeader.addClass("sorted-heading");
 	
-	                        var sortClass = $("#SortDirection").val() === "DESC" ? "sort-desc" : "sort-asc";
-	                        var sortSpan = $("<span></span");
+	                        var sortClass = $("#SortDirection").val() === "DESC" ? "sort-icon-desc" : "sort-icon-asc";
+	                        var sortSpan = $("<span class='sort-icon'></span");
 	                        sortSpan.addClass(sortClass);
-	                        sortSpan.appendTo(headerDiv);
+	                        sortSpan.appendTo($sortHeader);
 	                    }
 	
 	                    $(element).click(function () {
-	                        sortReport($(element).attr("data-column-name"));
-	                        sortHandler($(element).attr("data-column-name"));
+	                        sortReport($sortHeader.attr("data-column-name"));
+	                        sortHandler($sortHeader.attr("data-column-name"));
 	                    });
 	                });
 	            }
