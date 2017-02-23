@@ -227,8 +227,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             },
 
             initEvent: function () {
-                var $submitOutright = $("#submitOutright"),
-                    $submitButton = $("#SubmitButton");
+                var $submitOutright = $("#submitOutright");
 
                 $("#resultContent").on("click", ".detail-link", function () {
                     var url = Site.resolveClientUrl("ResultReport/ResultDetail")
@@ -319,8 +318,8 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                     getReportData();
                 });
 
-                if ($("submitKeno").length) {
-                    $("submitKeno").click(function () {
+                if ($("#submitKeno").length) {
+                    $("#submitKeno").click(function () {
                         showKeno();
                     });
                 }

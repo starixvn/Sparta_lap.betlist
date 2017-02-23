@@ -16804,8 +16804,7 @@ webpackJsonp([43],[
 	            },
 	
 	            initEvent: function () {
-	                var $submitOutright = $("#submitOutright"),
-	                    $submitButton = $("#SubmitButton");
+	                var $submitOutright = $("#submitOutright");
 	
 	                $("#resultContent").on("click", ".detail-link", function () {
 	                    var url = Site.resolveClientUrl("ResultReport/ResultDetail")
@@ -16896,8 +16895,8 @@ webpackJsonp([43],[
 	                    getReportData();
 	                });
 	
-	                if ($("submitKeno").length) {
-	                    $("submitKeno").click(function () {
+	                if ($("#submitKeno").length) {
+	                    $("#submitKeno").click(function () {
 	                        showKeno();
 	                    });
 	                }

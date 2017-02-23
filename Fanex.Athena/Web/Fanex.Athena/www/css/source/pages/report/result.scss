@@ -2,6 +2,12 @@
 @import '../../components/daterangepicker/daterangepicker-ex';
 @import '../../components/label/label';
 
+$colorDisabled: #b3b3b3;
+
+body{
+    background: #f5f7fa;
+}
+
 .result-container {
     padding: 0;
 
@@ -10,10 +16,13 @@
     }
 }
 
-.disabled {
-    background-color: transparent !important;
-    color: #b3b3b3 !important;
-    cursor: default;
-    pointer-events: none;
-    box-shadow: none;
+.label{
+    &-default.disabled {
+        background-color: transparent !important;
+        color: $colorDisabled !important;
+        border-color: $colorDisabled !important; 
+        cursor: default;
+        pointer-events: none;
+        box-shadow: none;
+    }
 }

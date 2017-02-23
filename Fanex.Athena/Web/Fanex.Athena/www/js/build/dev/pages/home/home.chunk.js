@@ -1092,8 +1092,15 @@ webpackJsonp([37],{
 	        });
 	
 	        $('.collapsible2').on("click.menuevent", ".collapsible-body  a", function () {
-	            document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + $(this).text();
-	            $("#page-title").text($(this).text());
+	            var $currentMenuItem = $(this);
+	            document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + $currentMenuItem.text();
+	
+	            var isCancelledBetListMenu = $currentMenuItem.prop("id") === "MenuItem36";
+	            if (isCancelledBetListMenu) {
+	                $("#page-title").text(Site.getSingleResource("CancelledBetsTitle"));
+	                return;
+	            }
+	            $("#page-title").text($currentMenuItem.text());
 	        });
 	
 	        $("#mainFrame").on("load", function () {

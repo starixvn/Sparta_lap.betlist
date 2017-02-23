@@ -18959,6 +18959,7 @@ webpackJsonp([27],[
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(69)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, BetList) {
 	        var _me = {
 	            initialize: function () {
+	                Site.initialize();
 	                _me.initEvent();
 	                _me.submit();
 	                Site.addUserGuide({
@@ -18982,8 +18983,6 @@ webpackJsonp([27],[
 	                });
 	            },
 	            submit: function () {
-	                BetList.initialize();
-	
 	                var params = { custId: $("#CustId").val() };
 	                params = Site.setLicenseeOptionParam(params);
 	

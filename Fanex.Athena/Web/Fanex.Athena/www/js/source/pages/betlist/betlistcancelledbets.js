@@ -4,6 +4,7 @@ define(
     function ($, Site, QueryString, BetList) {
         var _me = {
             initialize: function () {
+                Site.initialize();
                 _me.initEvent();
                 _me.submit();
                 Site.addUserGuide({
@@ -27,8 +28,6 @@ define(
                 });
             },
             submit: function () {
-                BetList.initialize();
-
                 var params = { custId: $("#CustId").val() };
                 params = Site.setLicenseeOptionParam(params);
 

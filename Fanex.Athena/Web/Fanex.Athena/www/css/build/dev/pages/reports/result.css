@@ -1381,14 +1381,18 @@ table td, table th {
       background: #4C6375;
       border: none; }
 
+body {
+  background: #f5f7fa; }
+
 .result-container {
   padding: 0; }
   .result-container .noScroll, .result-container .fn-rs-content-header {
     padding-right: 17px; }
 
-.disabled {
+.label-default.disabled {
   background-color: transparent !important;
   color: #b3b3b3 !important;
+  border-color: #b3b3b3 !important;
   cursor: default;
   pointer-events: none;
   box-shadow: none; }
