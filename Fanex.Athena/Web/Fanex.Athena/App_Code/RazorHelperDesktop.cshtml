@@ -23,6 +23,25 @@
     <span class="icon icon-calendar"></span>
 }
 
+@helper MonthPicker(DateTime fromDate, DateTime toDate) {
+    <div class="input-field input col l2 m2 s6 month-picker">
+        <div id="month-picker"></div>
+        <input name="FromDate" id="FromDate" type="hidden" data-original-from="@fromDate.ToString("MM/dd/yyyy")" value="@fromDate.ToString("MM/dd/yyyy")" />
+        <input name="ToDate" id="ToDate" type="hidden" data-original-to="@toDate.ToString("MM/dd/yyyy")" value="@toDate.ToString("MM/dd/yyyy")" />
+        <label class="active">@ViewResources.ViewDataInMonth</label>
+    </div>
+    <div class="input-field input col l1 m1 s3">
+        <label class="active">@ViewResources.From</label>
+        <div id="fDay">
+        </div>
+    </div>
+    <div class="input-field input col l1 m1 s3">
+        <label class="active">@ViewResources.To</label>
+        <div id="tDay">
+        </div>
+    </div>
+}
+
 @helper CurrencyList(IDictionary<string, int> currencyList,
 string className = "", int selected = 0,
 bool addMoreAllOption = true,
@@ -145,11 +164,11 @@ if (toDate != null)
     @(string.Format(ViewResources.Viewin, converter ? BaseCurrency.ToUpper() : CurrencyName))
 }
 
-@helper RenderProductFilter(IEnumerable<ProductOption> productOptions)
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int colLg = 2, int colMd = 4)
 {
     var Url = new UrlHelper(Context.Request.RequestContext);
     var i = 0;
-    <div class="input-field col l2 m4 s12 multiselect-container" id="ProductList">
+    <div class="input-field col l@(colLg) m@(colMd) s12 multiselect-container" id="ProductList">
         <select id="grid-products-multiselect" name="grid-products-multiselect"></select>
         <label>
             @ViewResources.Product

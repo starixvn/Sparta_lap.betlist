@@ -21671,7 +21671,7 @@ webpackJsonp([45],[
 	                    $this.wrap('<div class="monPickrWrap" style="z-index: ' + data.zIndex + '" />');
 	                    data.wrap = $this.parents('.monPickrWrap');
 	                    data.wrap.wrap('<div class="monPickrWrapParent" style="position: relative" />')
-	                        .css({ 'position': 'absolute' }).parent().width(data.wrap.outerWidth()).height(data.wrap.outerHeight());
+	                        .css({ 'position': 'absolute' }).parent().height(data.wrap.outerHeight());
 	
 	                    data.dropDown = $('<div class="monPickrDropDown" />');
 	
@@ -21871,7 +21871,7 @@ webpackJsonp([45],[
 	                                dayPickr.wrap = dayPickr.parents('.selectedDayWrap')
 	                                    .wrap('<div class="selectedDayWrapParent" style="position: relative" />')
 	                                    .css({ 'position': 'absolute' });
-	                                dayPickr.wrap.parent().width(dayPickr.wrap.outerWidth()).height(dayPickr.wrap.outerHeight());
+	                                dayPickr.wrap.parent().height(dayPickr.wrap.outerHeight());
 	                                dayPickr.dropDown = $('<div class="dayPickrDropDown" />');
 	
 	                                var currentDay = 1,

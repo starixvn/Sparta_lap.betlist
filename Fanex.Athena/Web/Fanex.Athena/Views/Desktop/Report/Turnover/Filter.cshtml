@@ -13,22 +13,8 @@
         @Html.Hidden("IsAllowedCasinoTransfer", Model.IsAllowedCasinoTransfer)
         @Html.Hidden("IsAllowBa", Model.ProductAccess.IsAllowBA)
         <div class="row">
-            <div class="input-field input col month-picker">
-                <div id="month-picker"></div>
-                <input name="FromDate" id="FromDate" type="hidden" data-original-from="@Model.Param.FromDate.ToString("MM/dd/yyyy")" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
-                <input name="ToDate" id="ToDate" type="hidden" data-original-to="@Model.Param.ToDate.ToString("MM/dd/yyyy")" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />
-                <label for="DateRange" class="active">@ViewResources.ViewDataInMonth</label>
-            </div>
-            <div class="input-field input col">
-                <label class="active">@ViewResources.From</label>
-                <div id="fDay">
-                </div>
-            </div>
-            <div class="input-field input col">
-                <label class="active">@ViewResources.To</label>
-                <div id="tDay">
-                </div>
-            </div>
+            @RazorHelperDesktop.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
+
             @if (Model.LicenseeTypeList.Count > 0)
             {
                 <div class="input-field col l2 m3 s12">
@@ -36,18 +22,18 @@
                     <label>@ViewResources.Type</label>
                 </div>
             }
-            <div class="input-field col l1 m2 s12">
+            <div class="input-field col l2 m3 s12">
                 @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "currency", Model.Param.CurrencyId, false, true)
                 <label>@ViewResources.Currency</label>
             </div>
         </div>
         <div class="row">
-            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions)
-
             <div class="input-field col l2 m3 s12">
                 @Html.TextBox("Username", Model.Param.Username)
                 <label>@ViewResources.Username</label>
             </div>
+
+            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions)
             
             <div class="input-field input col l2 m3 s12">
                 <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludeTest == true ? "checked=checked" : "") name="IsExcludeTest" id="IsExcludeTest0" />

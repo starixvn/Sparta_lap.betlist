@@ -779,6 +779,27 @@
   .input-field .select2-container--default .select2-selection--single .select2-selection__arrow b {
     border-top-color: #4d6273; }
 
+.input-field input[type="radio"] + label {
+  padding-left: 20px !important; }
+
+[type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+  border-color: #6790b0; }
+
+[type="radio"]:not(:checked) + label:before, [type="radio"]:not(:checked) + label:after {
+  border-color: #6790b0; }
+
+[type="radio"].with-gap:checked + label:after {
+  background-color: #6790b0; }
+
+[type="radio"]:not(:checked) + label,
+[type="radio"]:checked + label {
+  height: 20px;
+  line-height: 20px; }
+
+[type="radio"] + label:before,
+[type="radio"] + label:after {
+  margin: 0; }
+
 .page-form .input-field input[type=radio] + label {
   left: 0;
   padding-right: 10px;
@@ -812,21 +833,6 @@
 
 .highlight, .table > tbody > tr > td.highlight {
   background-color: #F8F1A0; }
-
-.input-field input[type="radio"] + label {
-  padding-left: 20px !important; }
-
-[type="radio"] + label:before, [type="radio"] + label:after {
-  margin: 4px 0; }
-
-[type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
-  border-color: #6790b0; }
-
-[type="radio"]:not(:checked) + label:before, [type="radio"]:not(:checked) + label:after {
-  border-color: #6790b0; }
-
-[type="radio"].with-gap:checked + label:after {
-  background-color: #6790b0; }
 
 table td, table th {
   border-radius: 0; }

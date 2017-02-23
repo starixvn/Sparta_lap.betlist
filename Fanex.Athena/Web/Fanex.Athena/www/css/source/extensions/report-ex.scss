@@ -3,6 +3,7 @@
 @import "../scss/layout/filter";
 @import "../scss/layout/content";
 @import "../components/select2/select2.main";
+@import "../scss/components/radio-button";
 
 .page-form {
     .input-field {
@@ -57,27 +58,6 @@
 }
 
 //---------------------- Form input style customize ----------------------//
-
-//----- Radio button -----//
-.input-field input[type="radio"] + label {
-    padding-left: 20px !important;
-}
-
-[type="radio"] + label:before, [type="radio"] + label:after {
-    margin: 4px 0;
-}
-
-[type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
-    border-color: #6790b0;
-}
-
-[type="radio"]:not(:checked) + label:before, [type="radio"]:not(:checked) + label:after {
-    border-color: #6790b0;
-}
-
-[type="radio"].with-gap:checked + label:after {
-    background-color: #6790b0;
-}
 
 table {
     td, th {
