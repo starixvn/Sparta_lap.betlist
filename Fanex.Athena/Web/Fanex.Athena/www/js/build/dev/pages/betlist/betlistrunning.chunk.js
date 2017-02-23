@@ -742,6 +742,12 @@ webpackJsonp([30],[
 	                    ViewCasinoHandHistory: _me.ViewCasinoHandHistory
 	                };
 	                window.BetList = betList;
+	            },
+	
+	            resizeGrid: function () {
+	                var grid = $("#BetListGrid");
+	                jqGridAdditional.updateGridHeight();
+	                jqGridAdditional.updateGridWidth(grid);
 	            }
 	        };
 	
@@ -18982,6 +18988,7 @@ webpackJsonp([30],[
 	                $('#SubmitButton').click(function () {
 	                    _me.submit();
 	                });
+	
 	                $("#ExportToExcel").click(function () {
 	                    var url = Site.getCurrentUrl();
 	                    url = Site.setLicenseeOptionParam(url);
@@ -18992,6 +18999,14 @@ webpackJsonp([30],[
 	                        url = QueryString.setParam(url, "SortOrder", sortParams.SortOrder);
 	                    }
 	                    Site.redirect(url);
+	                });
+	
+	                $(window).on("resize", function () {
+	                    BetList.resizeGrid();
+	                });
+	
+	                $(window).on("unload", function () {
+	                    $(window).off("resize");
 	                });
 	            },
 	

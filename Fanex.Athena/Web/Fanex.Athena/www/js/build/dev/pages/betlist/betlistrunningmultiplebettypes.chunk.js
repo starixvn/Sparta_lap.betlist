@@ -742,6 +742,12 @@ webpackJsonp([31],[
 	                    ViewCasinoHandHistory: _me.ViewCasinoHandHistory
 	                };
 	                window.BetList = betList;
+	            },
+	
+	            resizeGrid: function () {
+	                var grid = $("#BetListGrid");
+	                jqGridAdditional.updateGridHeight();
+	                jqGridAdditional.updateGridWidth(grid);
 	            }
 	        };
 	
@@ -18983,12 +18989,15 @@ webpackJsonp([31],[
 	
 	            initEvent: function () {
 	                $('#SubmitButton').click(_me.submit);
+	
 	                $('#mixparlay_link').click(function () {
 	                    Site.redirect(Site.resolveClientUrl('RunningBettypesBetList/MixParlay'));
 	                });
+	
 	                $('#systemparlay_link').click(function () {
 	                    Site.redirect(Site.resolveClientUrl('RunningBettypesBetList/SystemParlay'));
 	                });
+	
 	                $("#ExportToExcel").click(function () {
 	                    var url = Site.getCurrentUrl();
 	                    url = Site.setLicenseeOptionParam(url);
@@ -18999,6 +19008,14 @@ webpackJsonp([31],[
 	                        url = QueryString.setParam(url, "SortOrder", sortParams.SortOrder);
 	                    }
 	                    Site.redirect(url);
+	                });
+	
+	                $(window).on("resize", function () {
+	                    BetList.resizeGrid();
+	                });
+	
+	                $(window).on("unload", function () {
+	                    $(window).off("resize");
 	                });
 	            },
 	

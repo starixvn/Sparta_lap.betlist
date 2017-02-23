@@ -665,6 +665,12 @@
                     ViewCasinoHandHistory: _me.ViewCasinoHandHistory
                 };
                 window.BetList = betList;
+            },
+
+            resizeGrid: function () {
+                var grid = $("#BetListGrid");
+                jqGridAdditional.updateGridHeight();
+                jqGridAdditional.updateGridWidth(grid);
             }
         };
 

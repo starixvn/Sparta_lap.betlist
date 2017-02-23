@@ -16583,6 +16583,14 @@ webpackJsonp([42],[
 	                var externalId = $this.attr("data-external-id");
 	                _me.viewRacingBetList(custId, systemId, externalId);
 	            });
+	
+	            $(window).on("resize", function () {
+	                GridHelper.resizeGrid();
+	            });
+	
+	            $(window).on("unload", function () {
+	                $(window).off("resize");
+	            });
 	        },
 	
 	        viewRacingBetList: function (custid, systemId, externalId) {

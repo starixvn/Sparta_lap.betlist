@@ -742,6 +742,12 @@ webpackJsonp([28],[
 	                    ViewCasinoHandHistory: _me.ViewCasinoHandHistory
 	                };
 	                window.BetList = betList;
+	            },
+	
+	            resizeGrid: function () {
+	                var grid = $("#BetListGrid");
+	                jqGridAdditional.updateGridHeight();
+	                jqGridAdditional.updateGridWidth(grid);
 	            }
 	        };
 	
@@ -18978,6 +18984,14 @@ webpackJsonp([28],[
 	
 	                $('#ExportToExcel').click(function () {
 	                    $('#CorrectScoreBetListForm').submit();
+	                });
+	
+	                $(window).on("resize", function () {
+	                    BetList.resizeGrid();
+	                });
+	
+	                $(window).on("unload", function () {
+	                    $(window).off("resize");
 	                });
 	            },
 	

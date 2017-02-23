@@ -20,6 +20,14 @@ define(
                 $('#ExportToExcel').click(function () {
                     $('#CorrectScoreBetListForm').submit();
                 });
+
+                $(window).on("resize", function () {
+                    BetList.resizeGrid();
+                });
+
+                $(window).on("unload", function () {
+                    $(window).off("resize");
+                });
             },
 
             submit: function () {

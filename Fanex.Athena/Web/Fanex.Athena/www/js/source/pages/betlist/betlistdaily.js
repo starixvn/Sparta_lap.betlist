@@ -39,6 +39,14 @@ define(['jquery', 'common/site', 'common/querystring', './betlist', 'components/
             $("#CurrencyId").change(function () {
                 showOrHideExcelIcon();
             });
+
+            $(window).on("resize", function () {
+                BetList.resizeGrid();
+            });
+
+            $(window).on("unload", function () {
+                $(window).off("resize");
+            });
         },
 
         submit: function () {

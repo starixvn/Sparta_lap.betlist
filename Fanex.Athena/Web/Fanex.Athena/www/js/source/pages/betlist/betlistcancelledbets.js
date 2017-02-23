@@ -26,6 +26,14 @@ define(
                 $("#ExportToExcel").click(function () {
                     _me.exportToExcel();
                 });
+
+                $(window).on("resize", function () {
+                    BetList.resizeGrid();
+                });
+
+                $(window).on("unload", function () {
+                    $(window).off("resize");
+                });
             },
             submit: function () {
                 var params = { custId: $("#CustId").val() };
