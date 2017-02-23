@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
+    using System;
     using System.Web;
     using System.Web.Mvc;
-    using System.Web.Routing;
     using Base.UnitTests;
     using Fanex.Athena.Resources;
     using NSubstitute;
@@ -26,6 +26,38 @@
             _maintenanceService = null;
         }
 
+        [Test]
+        public void SessionIsAlive_WhenCall_ReturnCorrectData()
+        {
+            // Arrange
+            FakeBaseControllerDependency();
+            using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
+            {
+                controller.ControllerContext = this.ControllerContext;
+
+                // Action
+                var result = controller.SessionIsAlive() as JsonResult;
+
+                // Assert
+                Assert.That(result.Data, Is.True);
+            }
+        }
+
+        [Test]
+        public void AccessDenied_WhenCall_ReturnCorrectViewName()
+        {
+            // Arrange
+            FakeBaseControllerDependency();
+            using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
+            {
+                // Action
+                var viewResult = controller.AccessDenied() as ViewResult;
+
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Utility/AccessDenied.cshtml"));
+            }
+        }
+
         [TestCase(-1)]
         [TestCase(null)]
         [TestCase(20)]
@@ -33,7 +65,7 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            using (var controller = new UtilityController(LangService, _maintenanceService))
+            using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
             {
                 controller.ControllerContext = this.ControllerContext;
                 var expectedMsg = ViewResources.OneTokenRestrictionDefaultMsg;
@@ -57,7 +89,7 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            using (var controller = new UtilityController(LangService, _maintenanceService))
+            using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
             {
                 ControllerContext = ControllerContext;
 
@@ -74,7 +106,7 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            using (var controller = new UtilityController(LangService, _maintenanceService))
+            using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
             {
                 controller.ControllerContext = this.ControllerContext;
                 var maintenanceInfo = new UnderMaintenanceTime(true, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
@@ -94,7 +126,7 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            using (var controller = new UtilityController(LangService, _maintenanceService))
+            using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
             {
                 controller.ControllerContext = ControllerContext;
                 var maintenanceInfo = new UnderMaintenanceTime(false, "11-14-2016 05:00:00", "11-14-2016 07:00:00");
@@ -109,6 +141,8 @@
             }
         }
 
+        [TestCase(null, "InvalidRequestMsg")]
+        [TestCase("0", "InvalidRequestMsg")]
         [TestCase("1", "SSOLinkIncorrectMsg")]
         [TestCase("2", "DisableSSOMsg")]
         [TestCase("100", "SSOLinkExpiredMsg")]
@@ -121,7 +155,7 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            using (var controller = new UtilityController(LangService, _maintenanceService))
+            using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
             {
                 controller.ControllerContext = ControllerContext;
                 controller.ControllerContext.HttpContext.Request.QueryString.Returns(HttpUtility.ParseQueryString($"code={code}"));
@@ -134,6 +168,48 @@
             }
         }
 
+        [Test]
+        public void LocationRestriction_IsInternalUrl_RedirectToSignInPage()
+        {
+            // Arrange
+            FakeBaseControllerDependency();
+            AppSettings.GetValue("internaldomain").Returns("internal");
+            using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
+            {
+                controller.ControllerContext = this.ControllerContext;
+                controller.ControllerContext.HttpContext.Request.Url.Returns(new Uri("http://internal.com"));
+
+
+                // Action
+                var result = controller.LocationRestriction() as RedirectToRouteResult;
+
+                // Assert
+                Assert.That(result.RouteValues["action"], Is.EqualTo("SignIn"));
+                Assert.That(result.RouteValues["controller"], Is.EqualTo("Authorization"));
+            }
+        }
+
+        [Test]
+        public void LocationRestriction_NotInternalUrl_ReturnViewLocationRestriction()
+        {
+            // Arrange
+            FakeBaseControllerDependency();
+            AppSettings.GetValue("internaldomain").Returns("abc");
+            using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
+            {
+                controller.ControllerContext = this.ControllerContext;
+                controller.ControllerContext.HttpContext.Request.Url.Returns(new Uri("http://internal.com"));
+
+
+                // Action
+                var result = controller.LocationRestriction() as ViewResult;
+
+                // Assert
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Utility/LocationRestriction.cshtml"));
+            }
+        }
+
+        [TestCase(null, "HttpError_Default")]
         [TestCase("400", "InvalidRequestMsg")]
         [TestCase("403", "HttpError_403")]
         [TestCase("404", "HttpError_404")]
@@ -142,7 +218,7 @@
         {
             // Arrange
             FakeBaseControllerDependency();
-            using (var controller = new UtilityController(LangService, _maintenanceService))
+            using (var controller = new UtilityController(AppSettings, LangService, _maintenanceService))
             {
                 controller.ControllerContext = ControllerContext;
                 controller.ControllerContext.HttpContext.Request.QueryString.Returns(HttpUtility.ParseQueryString($"err={code}"));

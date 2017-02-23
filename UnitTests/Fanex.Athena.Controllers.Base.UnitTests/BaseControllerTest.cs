@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Controllers.Base.UnitTests
 {
     using System.Collections.Generic;
+    using System.Security.Principal;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -34,6 +35,11 @@
 
             var httpContext = Substitute.For<HttpContextBase>();
             httpContext.Request.ApplicationPath.Returns("/");
+
+            var fakeIdentity = new GenericIdentity("User");
+            var principal = new GenericPrincipal(fakeIdentity, null);
+
+            httpContext.User.Returns(principal);
 
             ControllerContext = Substitute.For<ControllerContext>();
             ControllerContext.HttpContext = httpContext;

@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers
     using System.Configuration;
     using System.Web.Mvc;
     using System.Web.Security;
+    using Extension.Utility;
     using Model.Core.DataDomain;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
@@ -22,18 +23,22 @@ namespace Fanex.Athena.Controllers
     [AllowAnonymous]
     public class UtilityController : Controller
     {
+        private readonly IAppSettings _appSettings;
+
         private readonly ILanguageService _languageService;
 
         private readonly IMaintenanceService _maintenanceService;
 
         public UtilityController() : base()
         {
+            _appSettings = new AppSettings();
             _languageService = new LanguageService();
             _maintenanceService = new MaintenanceService();
         }
 
-        internal UtilityController(ILanguageService languageService, IMaintenanceService maintenanceService)
+        internal UtilityController(IAppSettings appSettings, ILanguageService languageService, IMaintenanceService maintenanceService)
         {
+            _appSettings = appSettings ?? new AppSettings();
             _languageService = languageService ?? new LanguageService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
@@ -109,7 +114,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult LocationRestriction()
         {
             var requestHost = Request.Url.AbsoluteUri;
-            var isInternalDomain = requestHost.Contains(ConfigurationManager.AppSettings["internaldomain"]);
+            var isInternalDomain = requestHost.Contains(_appSettings.GetValue("internaldomain"));
 
             return isInternalDomain ? (ActionResult)RedirectToAction("SignIn", "Authorization") : View("~/Views/Desktop/Utility/LocationRestriction.cshtml");
         }
