@@ -179,7 +179,6 @@
                 controller.ControllerContext = this.ControllerContext;
                 controller.ControllerContext.HttpContext.Request.Url.Returns(new Uri("http://internal.com"));
 
-
                 // Action
                 var result = controller.LocationRestriction() as RedirectToRouteResult;
 
@@ -199,7 +198,6 @@
             {
                 controller.ControllerContext = this.ControllerContext;
                 controller.ControllerContext.HttpContext.Request.Url.Returns(new Uri("http://internal.com"));
-
 
                 // Action
                 var result = controller.LocationRestriction() as ViewResult;

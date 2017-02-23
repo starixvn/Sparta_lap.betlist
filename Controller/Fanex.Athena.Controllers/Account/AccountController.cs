@@ -186,11 +186,6 @@ namespace Fanex.Athena.Controllers.Account
             return View("~/Views/Account/ResetPassword.cshtml", model);
         }
 
-        /// <summary>
-        /// Reset password.
-        /// </summary>
-        /// <param name="model">The account metal model.</param>
-        /// <returns>The JSON result.</returns>
         [SuppressMessage(
           "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
@@ -260,14 +255,10 @@ namespace Fanex.Athena.Controllers.Account
 
         #region Edit Permission
 
-        /// <summary>
-        /// Permission page.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         public ActionResult PermissionPage()
         {
-            int userId; // user is being editted
+            int userId;
             if (int.TryParse(Request.Params["UserId"], out userId) && ValidatePermissionRestriction(userId))
             {
                 var user = _userService.GetUserInfo(SessionService.LicenseeSession.LicenseeId, userId);
@@ -283,14 +274,10 @@ namespace Fanex.Athena.Controllers.Account
             return this.Redirect("~/Utility/AccessDenied");
         }
 
-        /// <summary>
-        /// Edit permission.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         public ActionResult EditPermission()
         {
-            int userId; // user is being editted
+            int userId; 
             if (int.TryParse(Request.Params["UserId"], out userId) && userId > 0 && ValidatePermissionRestriction(userId))
             {
                 var licenseeSession = SessionService.LicenseeSession;
@@ -317,11 +304,6 @@ namespace Fanex.Athena.Controllers.Account
             return this.Redirect("~/Utility/AccessDenied");
         }
 
-        /// <summary>
-        /// Edit permission.
-        /// </summary>
-        /// <param name="model">The permission metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [CustomValidateAntiForgery]
         public ActionResult EditPermission(EditPermissionMetaModel model)
@@ -365,15 +347,10 @@ namespace Fanex.Athena.Controllers.Account
 
         #endregion Edit Permission
 
-        #region Restrict Currency
+        #region Assign Currency
 
-        /// <summary>
-        /// Assign currency.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <returns>Action result.</returns>
         [HttpGet]
-        public ActionResult AssignCurrency(int userId = 0)
+        public ActionResult AssignCurrency(int userId)
         {
             if (!AppSettings.EnableAssignCurrency)
             {
@@ -395,11 +372,6 @@ namespace Fanex.Athena.Controllers.Account
             return Redirect("~/Utility/AccessDenied");
         }
 
-        /// <summary>
-        /// Assign Currencies to user.
-        /// </summary>
-        /// <param name="model">The currency metal model.</param>
-        /// <returns>The action result.</returns>
         [SuppressMessage(
            "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
@@ -460,28 +432,24 @@ namespace Fanex.Athena.Controllers.Account
             return Json(result);
         }
 
-        #endregion Restrict Currency
+        #endregion Assign Currency
 
         #endregion Actions
 
         #region Validations
 
-        /// <summary>
-        /// Validate password.
-        /// </summary>
-        /// <param name="password">The password.</param>
-        /// <returns>True or false.</returns>
         [SuppressMessage(
           "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         private static bool ValidatePassword(string password)
         {
-            password = password.ToLower();
-            if (password.Length < 6)
+            if (string.IsNullOrWhiteSpace(password) || password.Length < 6)
             {
                 return false;
             }
+
+            password = password.ToLower();
 
             var bvalid = false;
             var j3 = -1;

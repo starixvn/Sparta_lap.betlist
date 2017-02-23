@@ -17,6 +17,10 @@
     [TestFixture]
     public class BaseControllerTest
     {
+        protected const int SessionLicenseeId = 100;
+
+        protected const int SessionUserId = 1;
+
         protected UrlHelper Url { get; set; }
 
         protected ControllerContext ControllerContext { get; set; }
@@ -68,7 +72,7 @@
             {
                 CurrencyList = new Dictionary<string, int> { { "UUS", 1 } },
                 ViewType = ClientViewType.None,
-                UserId = 1,
+                UserId = SessionUserId,
                 Language = "en-Us",
                 UserName = "alex.vn",
                 OnUserId = 1,
@@ -78,7 +82,7 @@
             SessionService.LicenseeSession.Returns(new LicenseeSession
             {
                 CurrencyName = new List<string> { "UUS" },
-                LicenseeId = 100,
+                LicenseeId = SessionLicenseeId,
                 LicenseeName = "Spondemo",
                 LicenseeType = new List<string>()
             });
