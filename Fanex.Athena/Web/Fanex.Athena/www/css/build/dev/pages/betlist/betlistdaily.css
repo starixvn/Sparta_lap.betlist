@@ -377,10 +377,10 @@
     background: #4c6375;
     border: 0; }
 
-.daterangepicker.show-calendar .single.left {
+.single-date .daterangepicker.show-calendar .single.left {
   border: 1px solid #c2cbd2; }
 
-.daterangepicker .calendar {
+.single-date .daterangepicker .calendar {
   margin: 0; }
 
 /*# sourceMappingURL=betlistdaily.css.map*/

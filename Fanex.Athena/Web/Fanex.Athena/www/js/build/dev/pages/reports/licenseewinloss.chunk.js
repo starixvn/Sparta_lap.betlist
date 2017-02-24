@@ -18214,7 +18214,7 @@ webpackJsonp([39],[
 	            setRangeDate(start, end);
 	        }
 	
-	        function initSingleDatePicker(idElement) {
+	        function initSingleDatePicker(idElement, parentElement) {
 	            var $picker = $("#" + idElement);
 	            initCommonTextResource();
 	            var locale = {
@@ -18230,7 +18230,8 @@ webpackJsonp([39],[
 	                maxDate: moment($picker.attr('data-maxdate'), "MM/DD/YYYY"),
 	                locale: locale,
 	                singleDatePicker: true,
-	                showDropdowns: true
+	                showDropdowns: true,
+	                parentEl: parentElement && parentElement !== "" ? parentElement : ".single-date"
 	            });
 	
 	            $('.single-date').on("click", ".icon-calendar", function () {
@@ -18238,9 +18239,27 @@ webpackJsonp([39],[
 	            });
 	        }
 	
+	        function setValueForDateRange(startDate, endDate) {
+	            if (startDate) {
+	                $('#DateRange').data('daterangepicker').setStartDate(startDate);
+	                $('#FromDate').val(startDate);
+	            }
+	
+	            if (endDate) {
+	                $('#DateRange').data('daterangepicker').setEndDate(endDate);
+	                $('#ToDate').val(startDate);
+	            }
+	        }
+	
+	        function setValueForSingleDate($element, dateValue) {
+	            $element.val(dateValue);
+	        }
+	
 	        return {
 	            initDateRangePicker: initDateRangePicker,
-	            initSingleDatePicker: initSingleDatePicker
+	            initSingleDatePicker: initSingleDatePicker,
+	            setValueForDateRange: setValueForDateRange,
+	            setValueForSingleDate: setValueForSingleDate
 	        };
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 

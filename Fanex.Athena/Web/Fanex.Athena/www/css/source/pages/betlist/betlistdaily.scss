@@ -1,11 +1,2 @@
 ﻿@import '../../components/daterangepicker/daterangepicker-ex';
-
-.daterangepicker{
-    &.show-calendar .single.left{
-        border: 1px solid #c2cbd2;
-    }
-
-    .calendar {
-        margin: 0;
-    }
-}
+@import '../../components/daterangepicker/singledatepicker';

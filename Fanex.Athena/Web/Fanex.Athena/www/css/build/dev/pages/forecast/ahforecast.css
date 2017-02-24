@@ -22,8 +22,7 @@
   margin-top: 0.5rem; }
   @media (max-width: 600px) {
     .button-block {
-      margin-top: 0;
-      margin-bottom: 1.5rem; } }
+      margin-top: 0; } }
 
 .btn {
   color: #2c2c2c;
@@ -836,6 +835,10 @@
 
 table td, table th {
   border-radius: 0; }
+
+table tbody tr.row-group-level1 {
+  background: #D1DAE1;
+  font-weight: bold; }
 
 .col-small {
   width: 5%; }

@@ -5,6 +5,8 @@
 @import "../components/select2/select2.main";
 @import "../scss/components/radio-button";
 
+$bgRowGroupLevel1: #D1DAE1;
+
 .page-form {
     .input-field {
         input[type=radio] + label {
@@ -62,6 +64,15 @@
 table {
     td, th {
         border-radius: 0;
+    }
+
+    tbody{
+        tr{
+            &.row-group-level1{
+                background: $bgRowGroupLevel1;
+                font-weight: bold;
+            }
+        }
     }
 }
 

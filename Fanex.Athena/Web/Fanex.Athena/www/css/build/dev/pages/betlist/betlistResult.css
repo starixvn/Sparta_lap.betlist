@@ -34,10 +34,9 @@ body {
   .result-container table > thead > tr > th {
     vertical-align: middle;
     text-align: center;
-    background: #d1dae1;
-    border: 1px solid #ffffff;
-    color: #314453;
-    font-weight: 600;
+    background: #4C6375;
+    border: 1px solid #d1dae1;
+    color: #fff !important;
     padding: 4px 5px; }
     .result-container table > thead > tr > th:first-child {
       border-left-color: #d1dae1 !important; }
@@ -46,7 +45,7 @@ body {
   .result-container table > thead > tr:nth-child(2) th:last-child {
     border-right-color: #fff !important; }
   .result-container table > thead:first-child > tr:first-child > th {
-    border: 1px solid #ffffff; }
+    border: 1px solid #d1dae1; }
   .result-container table > tbody tr td {
     border: 1px solid #d6d6d6;
     color: #404040;
@@ -104,17 +103,14 @@ body {
     background: #ccc;
     vertical-align: middle;
     font-weight: bold;
-    line-height: 7px;
-    height: 21px;
     text-align: center; }
   .result-container table.fn-rs tbody .cl-league {
-    background: url("images/bg_header03.jpg") repeat-x scroll center top #dae6ed;
+    background: #D1DAE1;
     vertical-align: middle;
     border: 0;
     font-weight: bold;
     text-align: left;
-    line-height: 7px;
-    height: 21px; }
+    padding-left: 15px; }
   .result-container table.fn-rs tbody .cl-team {
     text-align: left; }
   .result-container table.fn-rs tbody .cl-match-mt {

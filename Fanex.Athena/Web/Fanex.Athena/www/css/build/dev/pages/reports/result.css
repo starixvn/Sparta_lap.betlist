@@ -22,8 +22,7 @@
   margin-top: 0.5rem; }
   @media (max-width: 600px) {
     .button-block {
-      margin-top: 0;
-      margin-bottom: 1.5rem; } }
+      margin-top: 0; } }
 
 .btn {
   color: #2c2c2c;
@@ -837,6 +836,10 @@
 table td, table th {
   border-radius: 0; }
 
+table tbody tr.row-group-level1 {
+  background: #D1DAE1;
+  font-weight: bold; }
+
 .col-small {
   width: 5%; }
 
@@ -1371,13 +1374,16 @@ table td, table th {
 
 .label {
   display: inline-block;
-  padding: 5px 12px;
+  padding: 3px 8px;
   border-radius: 3px;
-  margin-right: 12px;
-  font-size: 14px; }
+  margin-right: 10px;
+  font-size: 12px;
+  margin-bottom: 10px; }
+  .label:last-child {
+    margin-right: 0; }
   .label-default {
-    border: 1px solid #6c8da6;
-    color: #6c8da6;
+    border: 1px solid #4C6375;
+    color: #4C6375;
     background: transparent; }
     .label-default:hover {
       color: #fff;
@@ -1386,21 +1392,59 @@ table td, table th {
       color: #fff;
       background: #4C6375;
       border: none; }
+  .label-primary {
+    color: #fff;
+    background: #4C6375;
+    border: none; }
+    .label-primary:hover {
+      color: #fff;
+      background: #9eb4c3; }
+    .label-primary.active {
+      color: #fff;
+      background: #9eb4c3; }
+
+ul.list {
+  padding-top: 0.5rem;
+  margin-bottom: 10px; }
+  ul.list li {
+    line-height: 2rem; }
+    ul.list li:before {
+      content: "";
+      width: 0.6rem;
+      height: 0.6rem;
+      background-color: #F9494D;
+      float: left;
+      margin-right: 1rem;
+      margin-top: 0.7rem;
+      border-radius: 50%; }
+
+.single-date .daterangepicker.show-calendar .single.left {
+  border: 1px solid #c2cbd2; }
+
+.single-date .daterangepicker .calendar {
+  margin: 0; }
 
 body {
   background: #f5f7fa; }
+
+.date-submit {
+  min-width: 210px; }
+
+.icon-block {
+  bottom: 12px;
+  right: 15px; }
+
+.label {
+  margin-right: 8px; }
+
+.result-note {
+  border-bottom: 1px solid #ccc;
+  padding-top: 0;
+  padding-bottom: 10px; }
 
 .result-container {
   padding: 0; }
   .result-container .noScroll, .result-container .fn-rs-content-header {
     padding-right: 17px; }
-
-.label-default.disabled {
-  background-color: transparent !important;
-  color: #b3b3b3 !important;
-  border-color: #b3b3b3 !important;
-  cursor: default;
-  pointer-events: none;
-  box-shadow: none; }
 
 /*# sourceMappingURL=result.css.map*/

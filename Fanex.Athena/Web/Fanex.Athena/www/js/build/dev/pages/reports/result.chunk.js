@@ -14590,7 +14590,7 @@ webpackJsonp([43],[
 	            setRangeDate(start, end);
 	        }
 	
-	        function initSingleDatePicker(idElement) {
+	        function initSingleDatePicker(idElement, parentElement) {
 	            var $picker = $("#" + idElement);
 	            initCommonTextResource();
 	            var locale = {
@@ -14606,7 +14606,8 @@ webpackJsonp([43],[
 	                maxDate: moment($picker.attr('data-maxdate'), "MM/DD/YYYY"),
 	                locale: locale,
 	                singleDatePicker: true,
-	                showDropdowns: true
+	                showDropdowns: true,
+	                parentEl: parentElement && parentElement !== "" ? parentElement : ".single-date"
 	            });
 	
 	            $('.single-date').on("click", ".icon-calendar", function () {
@@ -14614,9 +14615,27 @@ webpackJsonp([43],[
 	            });
 	        }
 	
+	        function setValueForDateRange(startDate, endDate) {
+	            if (startDate) {
+	                $('#DateRange').data('daterangepicker').setStartDate(startDate);
+	                $('#FromDate').val(startDate);
+	            }
+	
+	            if (endDate) {
+	                $('#DateRange').data('daterangepicker').setEndDate(endDate);
+	                $('#ToDate').val(startDate);
+	            }
+	        }
+	
+	        function setValueForSingleDate($element, dateValue) {
+	            $element.val(dateValue);
+	        }
+	
 	        return {
 	            initDateRangePicker: initDateRangePicker,
-	            initSingleDatePicker: initSingleDatePicker
+	            initSingleDatePicker: initSingleDatePicker,
+	            setValueForDateRange: setValueForDateRange,
+	            setValueForSingleDate: setValueForSingleDate
 	        };
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
@@ -16596,17 +16615,19 @@ webpackJsonp([43],[
 	            LeagueId: 0
 	        };
 	
+	        var ACTIVE_CLASS = "active";
+	
 	        function showOutRight(isShow) {
 	            if (isShow) {
 	                $("#singleDate").hide();
 	                $("#dateRange").show();
-	                $("#submitOutright").addClass("disabled");
-	                $("#submitNormal").removeClass("disabled");
+	                $("#submitOutright").addClass(ACTIVE_CLASS);
+	                $("#submitNormal").removeClass(ACTIVE_CLASS);
 	            } else {
 	                $("#dateRange").hide();
 	                $("#singleDate").show();
-	                $("#submitOutright").removeClass("disabled");
-	                $("#submitNormal").addClass("disabled");
+	                $("#submitOutright").removeClass(ACTIVE_CLASS);
+	                $("#submitNormal").addClass(ACTIVE_CLASS);
 	            }
 	            $("#submitOutright").attr("data-isOutright", isShow ? "1" : "0");
 	        }
@@ -16744,13 +16765,13 @@ webpackJsonp([43],[
 	            url += "&SportId=" + param.SportId;
 	            url += "&LeagueId=" + param.LeagueId;
 	            url += "&IsExportExcel=" + param.IsExportExcel;
-	            $('#iframe').attr('src', url);
-	            $('#iframe').load();
+	
+	            $('#iframeForExportExcel').attr('src', url);
 	        }
 	
 	        function clearExcelExport() {
 	            param.IsExportExcel = false;
-	            $('#iframe').attr('src', "");
+	            $('#iframeForExportExcel').attr('src', "");
 	        }
 	
 	        function getReportData() {
@@ -16794,6 +16815,10 @@ webpackJsonp([43],[
 	            }
 	        }
 	
+	        function canSubmit(element) {
+	            return !$(element).hasClass(ACTIVE_CLASS);
+	        }
+	
 	        var _me = {
 	            initialize: function () {
 	                Site.initialize();
@@ -16815,13 +16840,20 @@ webpackJsonp([43],[
 	                });
 	
 	                $submitOutright.click(function () {
-	                    showOutRight(true);
-	                    $("#SubmitButton").trigger("click");
+	                    if (canSubmit(this)) {
+	                        showOutRight(true);
+	                        var startDate = $("#Date").val();
+	                        DatePicker.setValueForDateRange(startDate);
+	                        $("#SubmitButton").trigger("click");
+	                    }
 	                });
 	
 	                $("#submitNormal").click(function () {
-	                    showOutRight(false);
-	                    $("#SubmitButton").trigger("click");
+	                    if (canSubmit(this)) {
+	                        showOutRight(false);
+	                        DatePicker.setValueForSingleDate($("#Date"), $('#FromDate').val());
+	                        $("#SubmitButton").trigger("click");
+	                    }
 	                });
 	
 	                $("#SubmitButton").click(function () {
@@ -16869,7 +16901,6 @@ webpackJsonp([43],[
 	
 	                $("#ExportToExcel").click(function (e) {
 	                    e.preventDefault();
-	
 	                    var isShowOutright = $submitOutright.attr("data-isoutright") === "1";
 	                    setDateParam(isShowOutright);
 	

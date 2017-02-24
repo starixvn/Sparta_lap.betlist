@@ -1,4 +1,5 @@
 ﻿@import '../common/reportcommon.main';
+@import '../../components/list/list';
 
 .closed {
     color: #FF0000;
@@ -9,24 +10,6 @@
 }
 
 .balance-note {
-    ul {
-        padding-top: 0.5rem;
-        li {
-            line-height: 2rem;
-
-            &:before {
-                content: "";
-                width: 0.6rem;
-                height: 0.6rem;
-                background-color: #F9494D;
-                float: left;
-                margin-right: 1rem;
-                margin-top: 0.7rem;
-                border-radius: 50%;
-            }
-        }
-    }
-
     .panel-title {
         font-weight: bold;
         font-size: 13px;

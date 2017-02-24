@@ -87,7 +87,7 @@
             setRangeDate(start, end);
         }
 
-        function initSingleDatePicker(idElement) {
+        function initSingleDatePicker(idElement, parentElement) {
             var $picker = $("#" + idElement);
             initCommonTextResource();
             var locale = {
@@ -103,7 +103,8 @@
                 maxDate: moment($picker.attr('data-maxdate'), "MM/DD/YYYY"),
                 locale: locale,
                 singleDatePicker: true,
-                showDropdowns: true
+                showDropdowns: true,
+                parentEl: parentElement && parentElement !== "" ? parentElement : ".single-date"
             });
 
             $('.single-date').on("click", ".icon-calendar", function () {
@@ -111,8 +112,26 @@
             });
         }
 
+        function setValueForDateRange(startDate, endDate) {
+            if (startDate) {
+                $('#DateRange').data('daterangepicker').setStartDate(startDate);
+                $('#FromDate').val(startDate);
+            }
+
+            if (endDate) {
+                $('#DateRange').data('daterangepicker').setEndDate(endDate);
+                $('#ToDate').val(startDate);
+            }
+        }
+
+        function setValueForSingleDate($element, dateValue) {
+            $element.val(dateValue);
+        }
+
         return {
             initDateRangePicker: initDateRangePicker,
-            initSingleDatePicker: initSingleDatePicker
+            initSingleDatePicker: initSingleDatePicker,
+            setValueForDateRange: setValueForDateRange,
+            setValueForSingleDate: setValueForSingleDate
         };
     });

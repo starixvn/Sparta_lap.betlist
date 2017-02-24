@@ -1,4 +1,7 @@
-﻿@import '../../../pages/common';
+﻿@import '../../../scss/abstracts/variables';
+@import '../../../pages/common';
+
+$bgRowGroupLevel1: #D1DAE1;
 
 body{
     background: #fff;
@@ -26,10 +29,9 @@ body{
                 > th {
                     vertical-align: middle;
                     text-align: center;
-                    background: #d1dae1;
-                    border: 1px solid #ffffff;
-                    color: #314453;
-                    font-weight: 600;
+                    background: $bgHeaderTableLevel1;
+                    border: 1px solid $colorBorderTable;
+                    color: $white !important;
                     padding: 4px 5px;
 
                     &:first-child {
@@ -50,7 +52,7 @@ body{
 
             &:first-child {
                 > tr:first-child > th {
-                    border: 1px solid #ffffff;
+                    border: 1px solid $colorBorderTable;
                 }
             }
         }
@@ -153,19 +155,16 @@ body{
                 background: #ccc;
                 vertical-align: middle;
                 font-weight: bold;
-                line-height: 7px;
-                height: 21px;
                 text-align: center;
             }
 
             .cl-league {
-                background: url("images/bg_header03.jpg") repeat-x scroll center top #dae6ed;
+                background: $bgRowGroupLevel1;
                 vertical-align: middle;
                 border: 0;
                 font-weight: bold;
                 text-align: left;
-                line-height: 7px;
-                height: 21px;
+                padding-left: 15px;
             }
 
             .cl-team {

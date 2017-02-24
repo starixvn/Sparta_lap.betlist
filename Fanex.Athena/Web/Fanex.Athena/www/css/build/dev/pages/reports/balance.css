@@ -22,8 +22,7 @@
   margin-top: 0.5rem; }
   @media (max-width: 600px) {
     .button-block {
-      margin-top: 0;
-      margin-bottom: 1.5rem; } }
+      margin-top: 0; } }
 
 .btn {
   color: #2c2c2c;
@@ -837,6 +836,10 @@
 table td, table th {
   border-radius: 0; }
 
+table tbody tr.row-group-level1 {
+  background: #D1DAE1;
+  font-weight: bold; }
+
 .col-small {
   width: 5%; }
 
@@ -990,17 +993,12 @@ table td, table th {
   height: 100%;
   z-index: 10000; }
 
-.closed {
-  color: #FF0000; }
-
-.suspended {
-  color: #D45F12; }
-
-.balance-note ul {
-  padding-top: 0.5rem; }
-  .balance-note ul li {
+ul.list {
+  padding-top: 0.5rem;
+  margin-bottom: 10px; }
+  ul.list li {
     line-height: 2rem; }
-    .balance-note ul li:before {
+    ul.list li:before {
       content: "";
       width: 0.6rem;
       height: 0.6rem;
@@ -1009,6 +1007,12 @@ table td, table th {
       margin-right: 1rem;
       margin-top: 0.7rem;
       border-radius: 50%; }
+
+.closed {
+  color: #FF0000; }
+
+.suspended {
+  color: #D45F12; }
 
 .balance-note .panel-title {
   font-weight: bold;

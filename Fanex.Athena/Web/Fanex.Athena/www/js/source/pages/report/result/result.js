@@ -19,17 +19,19 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             LeagueId: 0
         };
 
+        var ACTIVE_CLASS = "active";
+
         function showOutRight(isShow) {
             if (isShow) {
                 $("#singleDate").hide();
                 $("#dateRange").show();
-                $("#submitOutright").addClass("disabled");
-                $("#submitNormal").removeClass("disabled");
+                $("#submitOutright").addClass(ACTIVE_CLASS);
+                $("#submitNormal").removeClass(ACTIVE_CLASS);
             } else {
                 $("#dateRange").hide();
                 $("#singleDate").show();
-                $("#submitOutright").removeClass("disabled");
-                $("#submitNormal").addClass("disabled");
+                $("#submitOutright").removeClass(ACTIVE_CLASS);
+                $("#submitNormal").addClass(ACTIVE_CLASS);
             }
             $("#submitOutright").attr("data-isOutright", isShow ? "1" : "0");
         }
@@ -167,13 +169,13 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             url += "&SportId=" + param.SportId;
             url += "&LeagueId=" + param.LeagueId;
             url += "&IsExportExcel=" + param.IsExportExcel;
-            $('#iframe').attr('src', url);
-            $('#iframe').load();
+
+            $('#iframeForExportExcel').attr('src', url);
         }
 
         function clearExcelExport() {
             param.IsExportExcel = false;
-            $('#iframe').attr('src', "");
+            $('#iframeForExportExcel').attr('src', "");
         }
 
         function getReportData() {
@@ -217,6 +219,10 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
             }
         }
 
+        function canSubmit(element) {
+            return !$(element).hasClass(ACTIVE_CLASS);
+        }
+
         var _me = {
             initialize: function () {
                 Site.initialize();
@@ -238,13 +244,20 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                 });
 
                 $submitOutright.click(function () {
-                    showOutRight(true);
-                    $("#SubmitButton").trigger("click");
+                    if (canSubmit(this)) {
+                        showOutRight(true);
+                        var startDate = $("#Date").val();
+                        DatePicker.setValueForDateRange(startDate);
+                        $("#SubmitButton").trigger("click");
+                    }
                 });
 
                 $("#submitNormal").click(function () {
-                    showOutRight(false);
-                    $("#SubmitButton").trigger("click");
+                    if (canSubmit(this)) {
+                        showOutRight(false);
+                        DatePicker.setValueForSingleDate($("#Date"), $('#FromDate').val());
+                        $("#SubmitButton").trigger("click");
+                    }
                 });
 
                 $("#SubmitButton").click(function () {
@@ -292,7 +305,6 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
 
                 $("#ExportToExcel").click(function (e) {
                     e.preventDefault();
-
                     var isShowOutright = $submitOutright.attr("data-isoutright") === "1";
                     setDateParam(isShowOutright);
 
