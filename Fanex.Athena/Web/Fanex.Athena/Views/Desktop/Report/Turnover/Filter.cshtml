@@ -53,6 +53,10 @@
             </div>
         </div>
         <div>
+            <input type="hidden" id="FromDay" name="FromDay" value="@Model.Param.FromDay" />
+            <input type="hidden" id="ToDay" name="ToDay" value="@Model.Param.ToDay" />
+            <input type="hidden" id="Month" name="Month" value="@Model.Param.Month" />
+            <input type="hidden" id="Year" name="Year" value="@Model.Param.Year" />
             <input type="hidden" id="IsExportExcel" name="IsExportExcel" value="@Model.Param.IsExportExcel" />
             @{
                 var beginOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);

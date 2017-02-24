@@ -1,12 +1,18 @@
 ﻿@import '../../components/monthpicker/monpickr';
 
-.currency
-{
-    width: 140px;
-}
-
-.default-username
-{
+.default-username {
     color: #F19D49;
     font-style: italic;
+}
+
+.theme_jqGrid {
+    .ui-jqgrid {
+        .ui-jqgrid-htable {
+            thead tr th {
+                &.ui-th-column, &.ui-th-column-header {
+                    color: #fff;
+                }
+            }
+        }
+    }
 }

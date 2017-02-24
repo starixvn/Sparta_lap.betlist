@@ -21238,7 +21238,7 @@ webpackJsonp([45],[
 	
 	        var _historyDate = new Date($("#HistoryDate").val());
 	
-	        function initMonthPicker() {
+	        function initMonthPicker(option) {
 	            var $picker = $('#month-picker');
 	            var $fromDate = $('#FromDate');
 	            var $todate = $('#ToDate');
@@ -21246,7 +21246,7 @@ webpackJsonp([45],[
 	            var fromdate = new Date($fromDate.val());
 	            var todate = new Date($todate.val());
 	
-	            $picker.monPickr({
+	            var defaultOption = {
 	                minDate: _historyDate,
 	                showDateRange: true,
 	                fromDayId: 'fDay',
@@ -21263,7 +21263,13 @@ webpackJsonp([45],[
 	                    $fromDate.val($picker.monPickr("getFromDate", "MM/dd/yyyy"));
 	                    $todate.val($picker.monPickr("getToDate", "MM/dd/yyyy"));
 	                }
-	            });
+	            };
+	
+	            if (option) {
+	                $.extend(defaultOption, option);
+	            }
+	
+	            $picker.monPickr(defaultOption);
 	        }
 	
 	        return {
@@ -22140,6 +22146,19 @@ webpackJsonp([45],[
 	                title: Site.getSingleResource("Turnover")
 	            });
 	        },
+	
+	        initMonthPicker: function(){
+	            var option = {
+	                afterChangeMonth: function () {
+	                    $('#Year').val(new Date($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy")).getFullYear());
+	                    $('#Month').val(new Date($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy")).getMonth() + 1);
+	                },
+	                afterChangeDay: function () {
+	                    $('#FromDay').val(new Date($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy")).getDate());
+	                    $('#ToDay').val(new Date($("#month-picker").monPickr("getToDate", "MM/dd/yyyy")).getDate());
+	                }
+	            }
+	        },
 	        
 	        initEvent: function () {
 	            $('#Username').focus(function () {
@@ -22216,8 +22235,7 @@ webpackJsonp([45],[
 	                    "0": Site.getSingleResource('AllCurrencies')
 	                };
 	
-	            var currencyName = currencyTextList[_currencyId] === undefined
-	            ? $('#CurrencyId option[value="' + _currencyId + '"]').text().trim() : currencyTextList[_currencyId];
+	            var currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId] : $('#CurrencyId option[value="' + _currencyId + '"]').text().trim();
 	            var dateString = _fromDate.toString("MM/dd/yyyy") + ' → ' + _toDate.toString("MM/dd/yyyy");
 	            currencyName = currencyName.toUpperCase();
 	            if (username === '' || username === _me.defaultUserName) {
@@ -22229,13 +22247,24 @@ webpackJsonp([45],[
 	                title = $.format(titlePattern, dateString, Site.getSingleResource('Customer'), username, currencyName);
 	            }
 	
-	            $("div.report-title").html(title);
+	            $(".report-title").html(title);
+	            $(".panel-heading").removeClass("hide");
 	        },
 	        ajaxComplete: function (response) {
 	            if (response != null) {
 	                _me.setReportTitle();
 	                _me.bindData(response);
 	            }
+	        },
+	
+	        setDateParam: function(){
+	            _fromDate = new Date($("#FromDate").val());
+	            _toDate = new Date($("#ToDate").val());
+	
+	            $("#FromDay").val(_fromDate.getDate());
+	            $("#ToDay").val(_toDate.getDate());
+	            $("#Month").val(_fromDate.getMonth() + 1);
+	            $("#Year").val(_fromDate.getFullYear());
 	        },
 	
 	        submit: function () {
@@ -22247,11 +22276,12 @@ webpackJsonp([45],[
 	            
 	            Site.blockUI();
 	
-	            var mainForm = $("#TurnoverForm");
-	            var postdata = mainForm.serializeObject();
+	            _me.setDateParam();
 	            _currencyName = $("#CurrencyName").val().toUpperCase();
 	            _currencyId = $("#CurrencyId").val();
-	            
+	
+	            var mainForm = $("#TurnoverForm");
+	            var postdata = mainForm.serializeObject();
 	            if (postdata.Username === _me.defaultUserName) {
 	                postdata.Username = undefined;
 	            }
@@ -22288,20 +22318,19 @@ webpackJsonp([45],[
 	
 	        bindData: function (response) {
 	            jqGridAdditional.clearGrid("ReportGrid");
-	            var reportGrid = $("#ReportGrid");
 	            var numOfRow = response.Data.length;
+	            if (response === null || numOfRow === 0) {
+	                jqGridAdditional.setNoInfo();
+	                return;
+	            }
+	            
+	            var reportGrid = $("#ReportGrid");
 	            var gridOption = TurnoverOption.getGridOption();
 	            gridOption.data = response.Data;
 	            gridOption.gridComplete = function () {
-	                // jqGridAdditional.gridComplete(this, gridOption, 1);
-	                if (response == null || numOfRow === 0) {
-	                    jqGridAdditional.setNoInfo(gridOption.colModel);
-	                    $("tr.no-info-row td:first").css("text-align", "left").css("padding-left", window.innerWidth / 2 - 50);
-	                }
-	                else {
-	                    _me.bindTotal(response.TotalData);
-	                    $("#footer").html($(".ui-jqgrid-ftable").html());
-	                }
+	                jqGridAdditional.gridComplete();
+	                _me.bindTotal(response.TotalData);
+	                $("#footer").html($(".ui-jqgrid-ftable").html());
 	
 	                var groupHeaders = [{
 	                    startColumnName: "TurnoverBA",
@@ -22323,6 +22352,7 @@ webpackJsonp([45],[
 	                    groupHeaders: groupHeaders
 	                });
 	
+	                _me.resizeGrid();
 	                Site.unBlockUI();
 	            };
 	
@@ -22339,8 +22369,13 @@ webpackJsonp([45],[
 	            jqGridAdditional.assignTotal(totalData, columnModel);
 	            jqGridAdditional.setGroupFooters(colspan, 0, 0);
 	            var $tr = $(".ui-jqgrid-sdiv table tr");
-	            $tr.find("td").css("background-color", "#b2dfef");
 	            $tr.find("td[aria-describedby=ReportGrid_OpeningBalance], td[aria-describedby=ReportGrid_ClosingBalance]").css("text-align", "center").html("-");
+	        },
+	
+	        resizeGrid: function () {
+	            var reportGrid = $("#ReportGrid");
+	            jqGridAdditional.updateGridHeight();
+	            jqGridAdditional.updateGridWidth(reportGrid);
 	        }
 	    };
 	
@@ -22571,9 +22606,9 @@ webpackJsonp([45],[
 	            data: [],
 	            height: 'auto',
 	            viewrecords: true,
-	            //  autowidth: true,
+	            autowidth: false,
 	            forceFit: false,
-	            //   shrinkToFit: true,
+	            shrinkToFit: true,
 	            minWidth: 800,
 	            loadtext: 'loading...',
 	            loadui: 'disable',

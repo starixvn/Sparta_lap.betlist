@@ -16475,7 +16475,7 @@ webpackJsonp([40],[
 	
 	        var _historyDate = new Date($("#HistoryDate").val());
 	
-	        function initMonthPicker() {
+	        function initMonthPicker(option) {
 	            var $picker = $('#month-picker');
 	            var $fromDate = $('#FromDate');
 	            var $todate = $('#ToDate');
@@ -16483,7 +16483,7 @@ webpackJsonp([40],[
 	            var fromdate = new Date($fromDate.val());
 	            var todate = new Date($todate.val());
 	
-	            $picker.monPickr({
+	            var defaultOption = {
 	                minDate: _historyDate,
 	                showDateRange: true,
 	                fromDayId: 'fDay',
@@ -16500,7 +16500,13 @@ webpackJsonp([40],[
 	                    $fromDate.val($picker.monPickr("getFromDate", "MM/dd/yyyy"));
 	                    $todate.val($picker.monPickr("getToDate", "MM/dd/yyyy"));
 	                }
-	            });
+	            };
+	
+	            if (option) {
+	                $.extend(defaultOption, option);
+	            }
+	
+	            $picker.monPickr(defaultOption);
 	        }
 	
 	        return {

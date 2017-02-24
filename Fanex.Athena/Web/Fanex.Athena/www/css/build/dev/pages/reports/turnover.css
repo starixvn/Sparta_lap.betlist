@@ -161,11 +161,11 @@
         color: #000;
         cursor: default; }
 
-.currency {
-  width: 140px; }
-
 .default-username {
   color: #F19D49;
   font-style: italic; }
+
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column, .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column-header {
+  color: #fff; }
 
 /*# sourceMappingURL=turnover.css.map*/
