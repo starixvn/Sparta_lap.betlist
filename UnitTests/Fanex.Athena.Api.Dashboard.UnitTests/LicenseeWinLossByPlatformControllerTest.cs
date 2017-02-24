@@ -14,20 +14,16 @@
     {
         private IWidgetByPlatformService _licenseeWinLossByPlatformService;
 
-        private LicenseeWinLossByPlatformController _licenseeWinLossByPlatformController;
-
         [OneTimeSetUp]
         public void SetUp()
         {
             _licenseeWinLossByPlatformService = Substitute.For<IWidgetByPlatformService>();
-            _licenseeWinLossByPlatformController = new LicenseeWinLossByPlatformController(_licenseeWinLossByPlatformService);
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
             _licenseeWinLossByPlatformService = null;
-            _licenseeWinLossByPlatformController = null;
         }
 
         [Test]
@@ -38,19 +34,15 @@
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR", CurrencyId = 1, SelectedWidgetString = "PendingFund" };
             _licenseeWinLossByPlatformService.GetData(metaModel).Returns(expected);
 
-            var mockActionContext = new HttpActionContext
+            using (var controller = CreateController())
             {
-                ControllerContext = new HttpControllerContext(),
-                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
-            };
-            _licenseeWinLossByPlatformController.ActionContext = mockActionContext;
+                // Action
+                controller.GetData(metaModel);
 
-            // Action
-            _licenseeWinLossByPlatformController.GetData(metaModel);
-
-            // Assert
-            Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
-            _licenseeWinLossByPlatformService.Received().GetData(metaModel);
+                // Assert
+                Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
+                _licenseeWinLossByPlatformService.Received().GetData(metaModel);
+            }
         }
 
         [Test]
@@ -71,27 +63,37 @@
             var metaModel = new DashboardBaseModel();
             _licenseeWinLossByPlatformService.GetData(metaModel).Returns(expected);
 
+            using (var controller = CreateController())
+            {
+                // Action
+                var result = controller.GetData(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(result.Data.Count, Is.EqualTo(5));
+                    Assert.That(result.Data[0].Key, Is.EqualTo(expected.Data[0].Key));
+                    Assert.That(result.Data[0].Value, Is.EqualTo(expected.Data[0].Value));
+                    Assert.That(result.Data[2].Key, Is.EqualTo(expected.Data[2].Key));
+                    Assert.That(result.Data[2].Value, Is.EqualTo(expected.Data[2].Value));
+                    Assert.That(result.Data[4].Key, Is.EqualTo(expected.Data[4].Key));
+                    Assert.That(result.Data[4].Value, Is.EqualTo(expected.Data[4].Value));
+                });
+            }
+        }
+
+        private LicenseeWinLossByPlatformController CreateController()
+        {
+            var controller = new LicenseeWinLossByPlatformController(_licenseeWinLossByPlatformService);
             var mockActionContext = new HttpActionContext
             {
                 ControllerContext = new HttpControllerContext(),
                 ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
             };
-            _licenseeWinLossByPlatformController.ActionContext = mockActionContext;
 
-            // Action
-            var result = _licenseeWinLossByPlatformController.GetData(metaModel);
+            controller.ActionContext = mockActionContext;
 
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Data.Count, Is.EqualTo(5));
-                Assert.That(result.Data[0].Key, Is.EqualTo(expected.Data[0].Key));
-                Assert.That(result.Data[0].Value, Is.EqualTo(expected.Data[0].Value));
-                Assert.That(result.Data[2].Key, Is.EqualTo(expected.Data[2].Key));
-                Assert.That(result.Data[2].Value, Is.EqualTo(expected.Data[2].Value));
-                Assert.That(result.Data[4].Key, Is.EqualTo(expected.Data[4].Key));
-                Assert.That(result.Data[4].Value, Is.EqualTo(expected.Data[4].Value));
-            });
+            return controller;
         }
     }
 }

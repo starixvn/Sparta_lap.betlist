@@ -10,20 +10,17 @@
     public class TodayWithdrawalControllerTest
     {
         private ISimpleWidgetService _todayWithdrawalService;
-        private TodayWithdrawalController _todayWithdrawalController;
 
         [OneTimeSetUp]
         public void Setup()
         {
             _todayWithdrawalService = Substitute.For<ISimpleWidgetService>();
-            _todayWithdrawalController = new TodayWithdrawalController(_todayWithdrawalService);
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
             _todayWithdrawalService = null;
-            _todayWithdrawalController = null;
         }
 
         [Test]
@@ -33,20 +30,15 @@
             var expected = 500000M;
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR", CurrencyId = 1, SelectedWidgetString = "PendingFund" };
             _todayWithdrawalService.GetData(metaModel).Returns(expected);
-
-            var mockActionContext = new HttpActionContext
+            using (var controller = CreateController())
             {
-                ControllerContext = new HttpControllerContext(),
-                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
-            };
-            _todayWithdrawalController.ActionContext = mockActionContext;
+                // Action
+                controller.GetData(metaModel);
 
-            // Action
-            _todayWithdrawalController.GetData(metaModel);
-
-            // Assert
-            Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
-            _todayWithdrawalService.Received().GetData(metaModel);
+                // Assert
+                Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
+                _todayWithdrawalService.Received().GetData(metaModel);
+            }
         }
 
         [Test]
@@ -57,18 +49,28 @@
             var metaModel = new DashboardBaseModel();
             _todayWithdrawalService.GetData(metaModel).Returns(expected);
 
+            using (var controller = CreateController())
+            {
+                // Action
+                var result = controller.GetData(metaModel);
+
+                // Assert
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+        private TodayWithdrawalController CreateController()
+        {
+            var controller = new TodayWithdrawalController(_todayWithdrawalService);
             var mockActionContext = new HttpActionContext
             {
                 ControllerContext = new HttpControllerContext(),
                 ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
             };
-            _todayWithdrawalController.ActionContext = mockActionContext;
 
-            // Action
-            var result = _todayWithdrawalController.GetData(metaModel);
+            controller.ActionContext = mockActionContext;
 
-            // Assert
-            Assert.That(result, Is.EqualTo(expected));
+            return controller;
         }
     }
 }

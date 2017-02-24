@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Account;
     using Base.UnitTests;
@@ -11,6 +12,7 @@
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
 
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Reviewed.")]
     [TestFixture]
     public partial class AccountControllerTest : BaseControllerTest
     {
@@ -42,11 +44,6 @@
             _functionService = null;
             _userService = null;
             _currencyService = null;
-            if (_controller != null)
-            {
-                _controller.Dispose();
-                _controller = null;
-            }
         }
 
         [SetUp]
@@ -69,7 +66,6 @@
             if (_controller != null)
             {
                 _controller.Dispose();
-                _controller = null;
             }
         }
 
