@@ -16,5 +16,10 @@
             HttpContext.Current.Response.Cookies.Remove(FormsAuthentication.FormsCookieName);
             FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
         }
+
+        public void SignOut()
+        {
+            FormsAuthentication.SignOut();
+        }
     }
 }

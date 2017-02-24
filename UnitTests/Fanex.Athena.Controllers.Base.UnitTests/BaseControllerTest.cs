@@ -24,6 +24,8 @@
 
         protected const int SessionUserId = 1;
 
+        protected const int SessionOnUserId = 999;
+
         protected UrlHelper Url { get; set; }
 
         protected ControllerContext ControllerContext { get; set; }
@@ -78,7 +80,7 @@
                 UserId = SessionUserId,
                 Language = "en-Us",
                 UserName = "alex.vn",
-                OnUserId = 1,
+                OnUserId = SessionOnUserId,
                 FunctionIdList = new List<int>()
             });
 

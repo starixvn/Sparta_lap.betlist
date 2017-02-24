@@ -217,7 +217,7 @@ namespace Fanex.Athena.Controllers
             {
                 errorCode = ErrorType.KickedOut;
                 errorMsg = ViewResources.SessionLoggedMsg;
-                FormsAuthentication.SignOut();
+                _formAuthenticationService.SignOut();
             }
 
             return Json(RecheckInResult(errorCode, errorMsg), JsonRequestBehavior.AllowGet);
