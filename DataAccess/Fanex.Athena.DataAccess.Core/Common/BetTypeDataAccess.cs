@@ -12,9 +12,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.Helper;
-    using Fanex.Athena.Model.Core.MetaModel.Product;
-    using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
 
@@ -62,41 +59,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
 
             return results;
-        }
-
-        /// <summary>
-        /// Get all bet type.
-        /// </summary>
-        /// <param name="productOptions">Product option value.</param>
-        /// <returns>The result value.</returns>
-        public IDictionary<string, int> GetAllBettypes(IList<ProductOption> productOptions)
-        {
-            const string UspName = "Lrf_BetTypesGetAll";
-            var result = new Dictionary<string, int>();
-
-            using (var db = this.GetObjectDb(UspName))
-            {
-                foreach (var item in productOptions)
-                {
-                    db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
-                }
-
-                using (var reader = db.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var bettypeId = reader.ToInt("Bettype");
-                        var bettypeName = CacheRef.GetBettype(bettypeId);
-
-                        if (!result.ContainsKey(reader.ToString("BettypeName")))
-                        {
-                            result.Add(bettypeName, bettypeId);
-                        }
-                    }
-                }
-            }
-
-            return result;
         }
     }
 }

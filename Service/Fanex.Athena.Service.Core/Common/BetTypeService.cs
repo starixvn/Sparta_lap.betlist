@@ -12,7 +12,6 @@ namespace Fanex.Athena.Service.Core.Common
     using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.MetaModel.Product;
     using Fanex.Athena.Service.Core.Common.Interfaces;
 
     /// <summary>
@@ -30,11 +29,6 @@ namespace Fanex.Athena.Service.Core.Common
         public BetTypeService(IBetTypeDataAccess betTypeDataAccess)
         {
             _betTypeDataAccess = betTypeDataAccess;
-        }
-
-        public IDictionary<string, int> GetAllBettypes(IList<ProductOption> productOptions)
-        {
-            return _betTypeDataAccess.GetAllBettypes(productOptions);
         }
 
         /// <summary>
