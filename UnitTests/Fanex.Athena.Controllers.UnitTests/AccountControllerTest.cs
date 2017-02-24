@@ -29,13 +29,6 @@
             _functionService = Substitute.For<IFunctionService>();
             _userService = Substitute.For<IUserService>();
             _currencyService = Substitute.For<ICurrencyService>();
-            _controller = new AccountController(
-                LangService,
-                SessionService,
-                AppSettings,
-                _functionService,
-                _userService,
-                _currencyService);
         }
 
         [OneTimeTearDown]

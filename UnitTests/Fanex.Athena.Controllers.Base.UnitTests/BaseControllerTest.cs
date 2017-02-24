@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.Base.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Security.Principal;
     using System.Web;
@@ -17,6 +18,8 @@
     [TestFixture]
     public class BaseControllerTest
     {
+        protected const string TestingRequestUrl = "http://unit-test-mode";
+
         protected const int SessionLicenseeId = 100;
 
         protected const int SessionUserId = 1;
@@ -39,7 +42,7 @@
 
             var httpContext = Substitute.For<HttpContextBase>();
             httpContext.Request.ApplicationPath.Returns("/");
-
+            httpContext.Request.Url.Returns(new Uri(TestingRequestUrl));
             var fakeIdentity = new GenericIdentity("User");
             var principal = new GenericPrincipal(fakeIdentity, null);
 

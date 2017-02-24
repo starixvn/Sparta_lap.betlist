@@ -126,6 +126,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AuthorizationControllerTest.SignIn.cs" />
+    <Compile Include="AuthorizationControllerTest.cs" />
     <Compile Include="AccountControllerTest.cs" />
     <Compile Include="AccountControllerTest.AssignCurrency.cs" />
     <Compile Include="AccountControllerTest.EditPermission.cs" />

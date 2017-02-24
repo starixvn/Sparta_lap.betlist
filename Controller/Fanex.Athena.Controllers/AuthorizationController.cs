@@ -33,10 +33,8 @@ namespace Fanex.Athena.Controllers
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
     using Resources;
+    using Service.Core.Common.Interfaces;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class AuthorizationController : BaseController
     {
         #region Constant
@@ -47,6 +45,7 @@ namespace Fanex.Athena.Controllers
 
         #endregion Constant
 
+        private readonly IAppSettings _appSettings;
         private readonly IUserService _userService;
         private readonly IMaintenanceService _maintenanceService;
         private readonly IFormsAuthenticationService _formAuthenticationService;
@@ -58,10 +57,22 @@ namespace Fanex.Athena.Controllers
             _formAuthenticationService = new FormsAuthenticationService();
         }
 
-        /// <summary>
-        /// The sign-in page.
-        /// </summary>
-        /// <returns>The sign in page.</returns>
+        public AuthorizationController(
+            IAppSettings appSettings,
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IMaintenanceService maintenanceService,
+            IUserService userService,
+            IFormsAuthenticationService formAuthenticationService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _appSettings = appSetting;
+            _maintenanceService = maintenanceService;
+            _userService = userService;
+            _formAuthenticationService = formAuthenticationService;
+        }
+
         [CheckUMFilter]
         [AllowAnonymous]
         [HttpGet]
