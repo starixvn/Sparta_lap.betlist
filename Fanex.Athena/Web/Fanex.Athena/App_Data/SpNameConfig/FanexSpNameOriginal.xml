@@ -25,7 +25,6 @@
     <Setting Key="Lrf_LicenseeUserFunctionsDel" SpName="Lrf_LicenseeUserFunctionsDel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeUserFunctionsIns" SpName="Lrf_LicenseeUserFunctionsIns" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelCheckBelonging" SpName="Lrf_CustomerSelCheckBelonging" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_GetNumberOfOnlineUsers" SpName="Lrf_GetNumberOfOnlineUsers" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeProductSel" SpName="Lrf_LicenseeProductSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeSelBySiteName" SpName="Lrf_LicenseeSelBySiteName" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet">
       <Mapping DataField="LicenseeID" ObjectProperty="Id"/>

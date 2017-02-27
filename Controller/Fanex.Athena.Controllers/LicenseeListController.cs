@@ -45,13 +45,12 @@
             else
             {
                 var licenseeList = _licenseeService.GetByUser(userSession.UserId);
-                // Admin, but not assinged to handle any licensees
+
                 if (licenseeList.Count <= 0)
                 {
                     return RedirectToAction("SignIn", "Authorization");
                 }
 
-                // Admin user handle only one licensee
                 if (licenseeList.Count == 1)
                 {
                     return RedirectToHome(licenseeList[0].Id);

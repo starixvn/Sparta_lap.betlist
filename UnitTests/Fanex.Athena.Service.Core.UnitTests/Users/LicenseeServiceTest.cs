@@ -102,19 +102,5 @@
             // Assert
             Assert.That(result[0].Id, Is.EqualTo(expectedResult[0].Id));
         }
-
-        [Test]
-        public void GetNumberOfOnlineUser_WhenCall_ReturnDataFromDataAccess()
-        {
-            // Arrange
-            var expectedResult = "999";
-            _licenseeDataAccess.GetNumberOfOnlineUser().Returns(expectedResult);
-
-            // Action
-            var result = _licenseeService.GetNumberOfOnlineUser();
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
-        }
     }
 }

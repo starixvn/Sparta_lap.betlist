@@ -10,13 +10,9 @@
 namespace Fanex.Athena.Service.Core.Users.Interfaces
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
 
-    /// <summary>
-    ///     The i licensee service.
-    /// </summary>
     public interface ILicenseeService
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
@@ -28,10 +24,6 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
         IList<Licensee> GetByUser(int userId);
 
         IList<LicenseeCustomer> GetCustByLicensee(int licenseeId);
-
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
-            Justification = "Reviewed. Suppression is OK here.")]
-        string GetNumberOfOnlineUser();
 
         Licensee GetLicenseeByName(string licenseeName);
     }

@@ -196,34 +196,6 @@
         }
 
         [Test]
-        public void GetNumberOfOnlineUser_WhenCall_ExecuteScalarMethodIsCalled()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetNumberOfOnlineUsers")).Returns(_objectDb);
-
-            // Action
-            _dataAccess.GetNumberOfOnlineUser();
-
-            // Assert
-            _objectDb.Received().ExecuteScalar();
-        }
-
-        [Test]
-        public void GetNumberOfOnlineUser_WhenCall_ValueReturnedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetNumberOfOnlineUsers")).Returns(_objectDb);
-            var expected = "ResultTest";
-            _objectDb.ExecuteScalar().Returns(expected);
-
-            // Action
-            var result = _dataAccess.GetNumberOfOnlineUser();
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expected));
-        }
-
-        [Test]
         public void GetLicenseeByName_WhenCall_ValueReturnedCorrectly()
         {
             // Arrange

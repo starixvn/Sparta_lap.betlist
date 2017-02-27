@@ -2,6 +2,7 @@
 {
     using System.Web.Mvc;
     using Base.UnitTests;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
@@ -57,6 +58,57 @@
 
                 // Assert
                 Assert.That(result.ViewName, Is.EqualTo("~/Views/Home/Index.cshtml"));
+            }
+        }
+
+        [Test]
+        public void IndexIpad_ValidSessionUser_ReturnCorrectView()
+        {
+            // Arrange
+            _moveBetService.GetMoveBet().Returns(new MoveBet());
+            using (var controller = CreateController())
+            {
+                controller.ControllerContext.HttpContext.Response.IsRequestBeingRedirected.Returns(false);
+
+                // Action
+                var result = controller.IndexIpad() as ViewResult;
+
+                // Assert
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Home/IndexIpad.cshtml"));
+            }
+        }
+
+        [Test]
+        public void SwitchView_WhenCall_AssignViewTypeToUserSessionAndRedirectToHome()
+        {
+            // Arrange
+            SessionService.UserSession.ViewType = ClientViewType.None;
+            
+            using (var controller = CreateController())
+            {
+                // Action
+                var result = controller.SwitchView(ClientViewType.Desktop) as RedirectToRouteResult;
+
+                // Assert
+                Assert.That(SessionService.UserSession.ViewType, Is.EqualTo(ClientViewType.Desktop));
+                Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+                Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+            }
+        }
+
+        [Test]
+        public void NumOfOnlineUser_WhenCall_ectToHome()
+        {
+            // Arrange
+            using (var controller = CreateController())
+            {
+                // Action
+                var result = controller.SwitchView(ClientViewType.Desktop) as RedirectToRouteResult;
+
+                // Assert
+                Assert.That(SessionService.UserSession.ViewType, Is.EqualTo(ClientViewType.Desktop));
+                Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+                Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
             }
         }
 

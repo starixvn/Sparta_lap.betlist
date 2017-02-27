@@ -13,7 +13,6 @@ namespace Fanex.Athena.Controllers
     using Extension.Utility;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
@@ -60,31 +59,6 @@ namespace Fanex.Athena.Controllers
         {
             SessionService.UserSession.ViewType = type;
             return RedirectToAction(nameof(Index), "Home");
-        }
-
-        /// <summary>
-        /// Get number online user.
-        /// </summary>
-        /// <returns>The amount online users.</returns>
-        [HttpGet]
-        [AllowAnonymous]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-#pragma warning disable CC0091 // Use static method
-        public string NumOfOnlineUser()
-#pragma warning restore CC0091 // Use static method
-        {
-            var result = string.Empty;
-            try
-            {
-                ILicenseeService licenseeService = new LicenseeService();
-                result = licenseeService.GetNumberOfOnlineUser();
-            }
-            catch (Exception exception)
-            {
-                result = "Error!" + exception.Message;
-            }
-
-            return result;
         }
 
         /// <summary>

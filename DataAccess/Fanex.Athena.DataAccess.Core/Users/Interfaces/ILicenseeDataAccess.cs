@@ -28,10 +28,6 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 
         IList<LicenseeCustomer> GetCustByLicensee(int licenseeId);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
-            Justification = "Reviewed. Suppression is OK here.")]
-        string GetNumberOfOnlineUser();
-
         Licensee GetLicenseeByName(string licenseeName);
     }
 }
