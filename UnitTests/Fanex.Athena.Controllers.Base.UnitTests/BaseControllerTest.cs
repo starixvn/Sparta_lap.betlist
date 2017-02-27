@@ -20,6 +20,8 @@
     {
         protected const string TestingRequestUrl = "http://unit-test-mode";
 
+        protected const string SesssionUserName = "alex.vn";
+
         protected const int SessionLicenseeId = 100;
 
         protected const int SessionUserId = 1;
@@ -45,6 +47,8 @@
             var httpContext = Substitute.For<HttpContextBase>();
             httpContext.Request.ApplicationPath.Returns("/");
             httpContext.Request.Url.Returns(new Uri(TestingRequestUrl));
+            httpContext.Request.Cookies.Returns(new HttpCookieCollection());
+            httpContext.Response.Cookies.Returns(new HttpCookieCollection());
             var fakeIdentity = new GenericIdentity("User");
             var principal = new GenericPrincipal(fakeIdentity, null);
 
@@ -76,10 +80,10 @@
             SessionService.UserSession.Returns(new UserSession
             {
                 CurrencyList = new Dictionary<string, int> { { "UUS", 1 } },
-                ViewType = ClientViewType.None,
+                ViewType = ClientViewType.Default,
                 UserId = SessionUserId,
                 Language = "en-Us",
-                UserName = "alex.vn",
+                UserName = SesssionUserName,
                 OnUserId = SessionOnUserId,
                 FunctionIdList = new List<int>()
             });

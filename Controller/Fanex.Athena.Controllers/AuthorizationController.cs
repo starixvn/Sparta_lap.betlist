@@ -181,10 +181,6 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Authorization/SignIn.cshtml");
         }
 
-        /// <summary>
-        /// Check current user login and clear current authentication if another session using this user id to login.
-        /// </summary>
-        /// <returns>The JSON data with error code and error message.</returns>
         [HttpGet]
         [AllowAnonymous]
         [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
@@ -223,10 +219,6 @@ namespace Fanex.Athena.Controllers
             return Json(RecheckInResult(errorCode, errorMsg), JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Generate captcha.
-        /// </summary>
-        /// <returns>Return the image.</returns>
         [AllowAnonymous]
         public FileContentResult Captcha()
         {
@@ -237,9 +229,8 @@ namespace Fanex.Athena.Controllers
             var code = CreateRandomCaptchaCode();
 
             SessionService.CaptchaCode = code;
+            var userSession = SessionService.UserSession;
             FileContentResult img = null;
-            var sessionService = new SessionService();
-            var userSession = sessionService.UserSession;
             var viewType = userSession != null && userSession.ViewType != ClientViewType.None ? userSession.ViewType :
                         (ClientViewType)int.Parse(AppSettings.GetValue(nameof(ClientViewType)));
 
@@ -274,15 +265,7 @@ namespace Fanex.Athena.Controllers
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult SignOut()
         {
-            var userSession = SessionService.UserSession;
-            if (userSession != null)
-            {
-                _userService.Logout(userSession.OnUserId);
-            }
-
-            Session.Clear();
-            ClearCookies();
-            FormsAuthentication.SignOut();
+            DoSignOut();
             return RedirectToAction("LocationRestriction", "Utility");
         }
 
@@ -291,15 +274,7 @@ namespace Fanex.Athena.Controllers
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult InternalSignOut()
         {
-            var userSession = SessionService.UserSession;
-            if (userSession != null)
-            {
-                _userService.Logout(userSession.OnUserId);
-            }
-
-            Session.Clear();
-            ClearCookies();
-            FormsAuthentication.SignOut();
+            DoSignOut();
             return RedirectToAction("OneTokenRestriction?code=100", "Utility");
         }
 
@@ -382,6 +357,19 @@ namespace Fanex.Athena.Controllers
             }
 
             return randomNumber.ToString();
+        }
+
+        private void DoSignOut()
+        {
+            var userSession = SessionService.UserSession;
+            if (userSession != null)
+            {
+                _userService.Logout(userSession.OnUserId);
+            }
+
+            Session.Clear();
+            ClearCookies();
+            _formAuthenticationService.SignOut();
         }
 
         private void SetErrorForView(int errorCode, string errorMsg)
