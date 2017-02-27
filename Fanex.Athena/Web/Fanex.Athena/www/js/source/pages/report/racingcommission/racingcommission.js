@@ -1,4 +1,4 @@
-﻿define(["jquery", "common/site", "common/querystring", "components/pluginhelper/daterangepicker", "components/paging", "components/scrollabletable", "extensions/jquery.extension"],
+﻿define(["jquery", "common/site", "common/querystring", "components/pluginhelper/daterangepicker", "components/paging", "components/scrollablegrid", "extensions/jquery.extension"],
     function ($, Site, QueryString, DatePicker, Paging, GridHelper) {
     var _me = {
         initialize: function () {

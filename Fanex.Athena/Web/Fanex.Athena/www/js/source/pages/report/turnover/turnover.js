@@ -238,9 +238,6 @@
 
             // Show the grid
             reportGrid.jqGrid(gridOption);
-
-            //set rowspan for footer row
-            $("table.ui-jqgrid-ftable").tableRowSpan([TurnoverOption.currencyIndex]);
         },
 
         bindTotal: function (totalData) {
