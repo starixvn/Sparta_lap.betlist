@@ -66,7 +66,7 @@
     var adjustmentColumn = {
         name: 'Adjustment',
         index: 'Adjustment',
-        width: 70,
+        width: 75,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -107,7 +107,7 @@
     var pendingFundsColumn = {
         name: 'PendingFunds',
         index: 'PendingFunds',
-        width: 90,
+        width: 80,
         align: 'right',
         sortable: false,
         resizable: false,

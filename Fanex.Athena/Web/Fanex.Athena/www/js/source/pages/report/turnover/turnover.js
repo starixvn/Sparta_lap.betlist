@@ -1,19 +1,20 @@
 ﻿define(
     ["jquery", "common/querystring", "common/site", "../report", "./turnover.option",
         "lib/jqgrid/jquery.jqgrid.additional", "moment", "common/popup","components/pluginhelper/monthpicker",
-        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extensions/jquery.extension", "lib/linq"],
+        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extensions/jquery.extension", "lib/linq", "materialize-autocomplete"],
     function ($, QueryString, Site, Report, TurnoverOption, jqGridAdditional, moment, Popup, MonthPicker) {
         "use strict";
     var ajaxRequest = null;
     var _fromDate, _toDate, _currencyName, _currencyId;
+    var _autocomplete, $autoCompleteTarget;
+
     var _me = {
         defaultUserName: "",
         initialize: function () {
             Site.initialize();
-            _me.defaultUserName = Site.getSingleResource('ExternalIdOrSystemId');
             _me.initEvent();
-           // _me.initAutoComplete();
-            _me.setDefaultUsername();
+            $autoCompleteTarget = $('#Username');
+            _me.initAutoComplete();
             MonthPicker.initMonthPicker();
 
             TurnoverOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
@@ -25,34 +26,16 @@
                 title: Site.getSingleResource("Turnover")
             });
         },
-
-        initMonthPicker: function(){
-            var option = {
-                afterChangeMonth: function () {
-                    $('#Year').val(new Date($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy")).getFullYear());
-                    $('#Month').val(new Date($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy")).getMonth() + 1);
-                },
-                afterChangeDay: function () {
-                    $('#FromDay').val(new Date($("#month-picker").monPickr("getFromDate", "MM/dd/yyyy")).getDate());
-                    $('#ToDay').val(new Date($("#month-picker").monPickr("getToDate", "MM/dd/yyyy")).getDate());
-                }
-            }
-        },
         
         initEvent: function () {
-            $('#Username').focus(function () {
-                _me.setUsernameOnFocus();
-            });
-
-            $('#Username').blur(function () {
-                _me.setDefaultUsername();
-            });
             $("#TurnoverForm input").keypress(function (e) {
                 if (e.keyCode === 13) {
                     $('#IsExportExcel').val(false);
                     _me.submit();
+                    _autocomplete.$dropdown.html('').hide();
                 }
             });
+
             $("#SubmitButton").click(function () {
                 $('#IsExportExcel').val(false);
                 _me.submit();
@@ -68,41 +51,61 @@
                 return false;
             });
 
-            $("#data-content").scroll(function () {
-                $('#header-content').scrollLeft($('#data-content').scrollLeft());
-                $('#total-content').scrollLeft($('#data-content').scrollLeft());
+            $(window).on("resize", function () {
+                _me.resizeGrid();
+                _me.updateWidthOfAutoCompleteDropdown();
+            });
+
+            $(window).on("unload", function () {
+                $(window).unbind("resize");
+            });
+
+            $('body').click(function () {
+                _autocomplete.$dropdown.html('').hide();
             });
         },
 
-        initAutoComplete: function () {
-            var txtUserName = $('#Username');
-            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
-            if (txtUserName.length > 0) {
-                txtUserName.autocomplete({ serviceUrl: serUrl, minChars: 2 });
+        initAutoComplete: function () {            
+            _autocomplete = $autoCompleteTarget.materialize_autocomplete({ // jshint ignore:line
+                ignoreCase: false,
+                multiple: {
+                    enable: false
+                },
+                dropdown: {
+                    el: '#suggestionDropdown'
+                },
+                getData: function (value, callback) {
+                    var url = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0&query=" + value);
+
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: url,
+                        success: function (response) {
+                            var suggestions = response.suggestions;
+
+                            if (suggestions && suggestions.length > 0) {
+                                var data = suggestions.map(function (item) {
+                                    return { id: item, text: item };
+                                });
+
+                                callback(value, data);
+                            }
+                        }
+                    });
+                }
+            });
+
+            _me.updateWidthOfAutoCompleteDropdown();
+        },
+
+        updateWidthOfAutoCompleteDropdown: function () {
+            if ($("#suggestionDropdown").width() !== $autoCompleteTarget.width()) {
+                $("#suggestionDropdown").width($autoCompleteTarget.width());
             }
         },
 
-        setDefaultUsername: function () {
-            var username = $('#Username').val();
-
-            if (username === '' || username === _me.defaultUserName) {
-                $('#Username').val(_me.defaultUserName);
-                $('#Username').attr('class', 'default-username');
-            }
-            else {
-                $('#Username').attr('class', '');
-            }
-        },
-
-        setUsernameOnFocus: function () {
-            var username = $('#Username').val();
-            if (username === _me.defaultUserName) {
-                $('#Username').val('');
-                $('#Username').removeAttr('class');
-            }
-        },
         setReportTitle: function () {
-            return;
             var titlePattern = Site.getSingleResource('Turnover');
             var title = null;
             var username = $('#Username').val().trim();
@@ -115,9 +118,9 @@
                 };
 
             var currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId] : $('#CurrencyId option[value="' + _currencyId + '"]').text().trim();
-            var dateString = _fromDate.toString("MM/dd/yyyy") + ' → ' + _toDate.toString("MM/dd/yyyy");
+            var dateString = moment(_fromDate).format("MM/DD/YYYY") + ' → ' + moment(_toDate).format("MM/DD/YYYY");
             currencyName = currencyName.toUpperCase();
-            if (username === '' || username === _me.defaultUserName) {
+            if (username === _me.defaultUserName) {
                 titlePattern += ", {0} - {1}";
                 var currencyStr = Site.getSingleResource("Viewin").replace("{0}", currencyName);
                 title = $.format(titlePattern, dateString, currencyStr);
@@ -130,7 +133,7 @@
             $(".panel-heading").removeClass("hide");
         },
         ajaxComplete: function (response) {
-            if (response != null) {
+            if (response !== null) {
                 _me.setReportTitle();
                 _me.bindData(response);
             }
@@ -176,18 +179,17 @@
                 cache: false,
                 url: Site.resolveClientUrl(TurnoverOption.urlData),
                 success: function (response) {
-                    $("#BackLink").hide();
                     _me.ajaxComplete(response);
                 },
                 beforeSend: function () {
                     Site.blockUI();
                 },
-                complete: function (/*jqXhr, textStatus*/) {
+                complete: function () {
                     $(".report-title").show();
                     Site.unBlockUI();
                 }
             };
-            if (ajaxRequest != null) {
+            if (ajaxRequest !== null) {
                 ajaxRequest.abort();
             }
             ajaxRequest = $.ajax(option);
@@ -209,7 +211,6 @@
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete();
                 _me.bindTotal(response.TotalData);
-                $("#footer").html($(".ui-jqgrid-ftable").html());
 
                 var groupHeaders = [{
                     startColumnName: "TurnoverBA",

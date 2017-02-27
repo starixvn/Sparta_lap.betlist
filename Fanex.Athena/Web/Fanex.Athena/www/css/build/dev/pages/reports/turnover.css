@@ -161,11 +161,15 @@
         color: #000;
         cursor: default; }
 
-.default-username {
-  color: #F19D49;
-  font-style: italic; }
+.dropdown-content {
+  opacity: 1;
+  top: 25px; }
 
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column, .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column-header {
-  color: #fff; }
+  background: #9eb4c3;
+  font-weight: bold; }
+
+.theme_jqGrid .grandTotal {
+  background: #FFB391; }
 
 /*# sourceMappingURL=turnover.css.map*/

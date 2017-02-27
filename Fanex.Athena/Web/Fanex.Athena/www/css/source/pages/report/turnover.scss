@@ -1,8 +1,9 @@
-﻿@import '../../components/monthpicker/monpickr';
+﻿@import '../../scss/abstracts/variables';
+@import '../../components/monthpicker/monpickr';
 
-.default-username {
-    color: #F19D49;
-    font-style: italic;
+.dropdown-content {
+    opacity: 1;
+    top: 25px;
 }
 
 .theme_jqGrid {
@@ -10,9 +11,14 @@
         .ui-jqgrid-htable {
             thead tr th {
                 &.ui-th-column, &.ui-th-column-header {
-                    color: #fff;
+                    background: $bgHeaderTableLevel2;
+                    font-weight: bold;
                 }
             }
         }
+    }
+
+    .grandTotal {
+        background: $bgTotalLevel3;
     }
 }
