@@ -127,6 +127,16 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                     _me.getReportData();
                 });
 
+                $(window).on("resize", function () {
+                    if ($(".fn-rs-content-scroll").length > 0) {
+                        GridHelper.resizeGrid($(".fn-rs-content-scroll"));
+                    }
+                });
+
+                $(window).on("unload", function () {
+                    $(window).off("resize");
+                });
+
                 if ($("#submitKeno").length) {
                     $("#submitKeno").click(function () {
                         _me.showKeno();
@@ -237,7 +247,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                             $("#resultContent").html(response);
 
                             if ($(".fn-rs-content-scroll").length > 0) {
-                                GridHelper.updateHeight($(".fn-rs-content-scroll"));
+                                GridHelper.resizeGrid($(".fn-rs-content-scroll"));
                             }
                         } else {
                             $("#noInfoRow").show();

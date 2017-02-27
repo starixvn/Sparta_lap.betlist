@@ -22642,7 +22642,7 @@ webpackJsonp([45],[
 	            });
 	
 	            $(window).on("unload", function () {
-	                $(window).unbind("resize");
+	                $(window).off("resize");
 	            });
 	
 	            $('body').click(function () {
@@ -22883,7 +22883,7 @@ webpackJsonp([45],[
 	    var depositColumn = {
 	        name: 'Deposit',
 	        index: 'Deposit',
-	        width: 90,
+	        width: 100,
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,
@@ -22894,7 +22894,7 @@ webpackJsonp([45],[
 	        name: 'Withdrawal',
 	        index: 'Withdrawal',
 	        resizable: false,
-	        width: 85,
+	        width: 100,
 	        align: 'right',
 	        sortable: false,
 	        formatter: 'currency',
@@ -22904,7 +22904,7 @@ webpackJsonp([45],[
 	    var bonusColumn = {
 	        name: 'Bonus',
 	        index: 'Bonus',
-	        width: 60,
+	        width: 85,
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,
@@ -22924,7 +22924,7 @@ webpackJsonp([45],[
 	    var turnoverColumn = {
 	        name: 'Turnover',
 	        index: 'Turnover',
-	        width: 90,
+	        width: 120,
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,
@@ -22934,7 +22934,7 @@ webpackJsonp([45],[
 	    var drawGameColumn = {
 	        name: 'DrawGame',
 	        index: 'DrawGame',
-	        width: 90,
+	        width: 100,
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,
@@ -22944,7 +22944,7 @@ webpackJsonp([45],[
 	    var netTurnoverColumn = {
 	        name: 'NetTurnover',
 	        index: 'NetTurnover',
-	        width: 85,
+	        width: 120,
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,
@@ -22955,7 +22955,7 @@ webpackJsonp([45],[
 	    var pendingFundsColumn = {
 	        name: 'PendingFunds',
 	        index: 'PendingFunds',
-	        width: 80,
+	        width: 70,
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,
@@ -22964,7 +22964,7 @@ webpackJsonp([45],[
 	    var winLossColumn = {
 	        name: 'WinLoss',
 	        index: 'WinLoss',
-	        width: 90,
+	        width: 100,
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,
@@ -22982,7 +22982,7 @@ webpackJsonp([45],[
 	    var winlossCommColumn = {
 	        name: 'WinLossComm',
 	        index: 'WinLossComm',
-	        width: 90,
+	        width: 100,
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,
@@ -23037,7 +23037,7 @@ webpackJsonp([45],[
 	    var amountDueToBAColumn = {
 	        name: 'AmountDueToBA',
 	        index: 'AmountDueToBA',
-	        width: 90,
+	        width: 70,
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,

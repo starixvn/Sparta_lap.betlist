@@ -35,7 +35,7 @@
     var depositColumn = {
         name: 'Deposit',
         index: 'Deposit',
-        width: 90,
+        width: 100,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -46,7 +46,7 @@
         name: 'Withdrawal',
         index: 'Withdrawal',
         resizable: false,
-        width: 85,
+        width: 100,
         align: 'right',
         sortable: false,
         formatter: 'currency',
@@ -56,7 +56,7 @@
     var bonusColumn = {
         name: 'Bonus',
         index: 'Bonus',
-        width: 60,
+        width: 85,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -76,7 +76,7 @@
     var turnoverColumn = {
         name: 'Turnover',
         index: 'Turnover',
-        width: 90,
+        width: 120,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -86,7 +86,7 @@
     var drawGameColumn = {
         name: 'DrawGame',
         index: 'DrawGame',
-        width: 90,
+        width: 100,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -96,7 +96,7 @@
     var netTurnoverColumn = {
         name: 'NetTurnover',
         index: 'NetTurnover',
-        width: 85,
+        width: 120,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -107,7 +107,7 @@
     var pendingFundsColumn = {
         name: 'PendingFunds',
         index: 'PendingFunds',
-        width: 80,
+        width: 70,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -116,7 +116,7 @@
     var winLossColumn = {
         name: 'WinLoss',
         index: 'WinLoss',
-        width: 90,
+        width: 100,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -134,7 +134,7 @@
     var winlossCommColumn = {
         name: 'WinLossComm',
         index: 'WinLossComm',
-        width: 90,
+        width: 100,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -189,7 +189,7 @@
     var amountDueToBAColumn = {
         name: 'AmountDueToBA',
         index: 'AmountDueToBA',
-        width: 90,
+        width: 70,
         align: 'right',
         sortable: false,
         resizable: false,

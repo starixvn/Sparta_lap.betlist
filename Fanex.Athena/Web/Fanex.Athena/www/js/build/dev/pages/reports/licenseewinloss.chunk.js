@@ -18161,12 +18161,15 @@ webpackJsonp([39],[
 	            }
 	
 	            var now = moment($dateRange.attr('data-today'), "MM/DD/YYYY");
+	            var isoDayOfWeek = firstDayOfWeekIsMonday ? 1 : 7; // 1.Monday  7.Sunday
+	            var startDayOfWeek = now.clone().startOf('week').isoWeekday(isoDayOfWeek);
+	            var startDayOfLastWeek = now.clone().subtract(1, 'week').startOf('week').isoWeekday(isoDayOfWeek);
 	
 	            var ranges = {};
 	            ranges[Site.getSingleResource('Today')] = [now, now];
 	            ranges[Site.getSingleResource('Yesterday')] = [now.clone().subtract(1, 'days'), now.clone().subtract(1, 'days')];
-	            ranges[Site.getSingleResource('Currentweek')] = [now.clone().startOf('week'), now];
-	            ranges[Site.getSingleResource('Lastweek')] = [now.clone().subtract(1, 'week').startOf('week'), now.clone().subtract(1, 'week').endOf('week')];
+	            ranges[Site.getSingleResource('Currentweek')] = [startDayOfWeek, now];
+	            ranges[Site.getSingleResource('Lastweek')] = [startDayOfLastWeek, startDayOfLastWeek.clone().add(6, 'days')];
 	            ranges[Site.getSingleResource('Currentmonth')] = [now.clone().startOf('month'), now];
 	            ranges[Site.getSingleResource('Lastmonth')] = [now.clone().subtract(1, 'month').startOf('month'), now.clone().subtract(1, 'month').endOf('month')];
 	            ranges[Site.getSingleResource('Sincelastmonth')] = [now.clone().subtract(1, 'month').startOf('month'), now];

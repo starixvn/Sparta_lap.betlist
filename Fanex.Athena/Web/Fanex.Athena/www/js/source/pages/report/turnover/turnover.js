@@ -57,7 +57,7 @@
             });
 
             $(window).on("unload", function () {
-                $(window).unbind("resize");
+                $(window).off("resize");
             });
 
             $('body').click(function () {
