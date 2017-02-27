@@ -10,17 +10,16 @@ namespace Fanex.Athena.Controllers
     using System.IO;
     using System.Web;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
+    using Service.Core.Common.Interfaces;
     using Web.ActionFilter;
 
-    /// <summary>
-    /// Home controller.
-    /// </summary>
     [CheckUMFilter]
     public class HomeController : BaseController
     {
@@ -31,6 +30,16 @@ namespace Fanex.Athena.Controllers
         public HomeController()
         {
             _moveBetService = new MoveBetService();
+        }
+
+        public HomeController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IMoveBetService moveBetService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _moveBetService = moveBetService;
         }
 
         [AuthorizeRestriction(AppMode.Self)]

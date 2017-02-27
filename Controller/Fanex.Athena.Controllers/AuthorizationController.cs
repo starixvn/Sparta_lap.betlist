@@ -45,7 +45,6 @@ namespace Fanex.Athena.Controllers
 
         #endregion Constant
 
-        private readonly IAppSettings _appSettings;
         private readonly IUserService _userService;
         private readonly IMaintenanceService _maintenanceService;
         private readonly IFormsAuthenticationService _formAuthenticationService;
@@ -58,7 +57,6 @@ namespace Fanex.Athena.Controllers
         }
 
         public AuthorizationController(
-            IAppSettings appSettings,
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
@@ -67,7 +65,6 @@ namespace Fanex.Athena.Controllers
             IFormsAuthenticationService formAuthenticationService)
             : base(languageService, sessionService, appSetting)
         {
-            _appSettings = appSetting;
             _maintenanceService = maintenanceService;
             _userService = userService;
             _formAuthenticationService = formAuthenticationService;

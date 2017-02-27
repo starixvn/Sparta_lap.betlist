@@ -62,7 +62,7 @@
             {
                 UserSalt = "xxx"
             });
-            
+
             using (var controller = CreateController())
             {
                 // Action
@@ -185,7 +185,6 @@
         private AuthorizationController CreateController()
         {
             var controller = new AuthorizationController(
-                AppSettings,
                 LangService,
                 SessionService,
                 AppSettings,
