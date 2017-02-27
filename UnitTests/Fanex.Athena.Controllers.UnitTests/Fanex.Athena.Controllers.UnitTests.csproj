@@ -126,8 +126,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="LicenseeListControllerTest.cs" />
     <Compile Include="HomeControllerTest.cs" />
+    <Compile Include="LicenseeListControllerTest.cs" />
+    <Compile Include="MenuControllerTest.cs" />
     <Compile Include="AuthorizationControllerTest.RecheckIn.cs" />
     <Compile Include="AuthorizationControllerTest.SignIn.cs" />
     <Compile Include="AuthorizationControllerTest.cs" />
