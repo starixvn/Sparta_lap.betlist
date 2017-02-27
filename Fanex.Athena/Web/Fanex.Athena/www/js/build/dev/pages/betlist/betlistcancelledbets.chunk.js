@@ -18966,6 +18966,7 @@ webpackJsonp([27],[
 	        var _me = {
 	            initialize: function () {
 	                Site.initialize();
+	                BetList.initialize();
 	                _me.initEvent();
 	                _me.submit();
 	                Site.addUserGuide({
