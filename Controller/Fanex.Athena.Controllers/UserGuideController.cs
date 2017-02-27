@@ -8,12 +8,27 @@ namespace Fanex.Athena.Controllers
 {
     using System.IO;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     public class UserGuideController : ReadonlyBaseController
     {
         private const string CustomerListResourceName = "CustomerList";
+
+        public UserGuideController()
+        {
+        }
+
+        public UserGuideController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting)
+            : base(languageService, sessionService, appSetting)
+        {
+        }
 
         [AjaxRequest]
         public ActionResult Index(string resourceName)
@@ -47,7 +62,7 @@ namespace Fanex.Athena.Controllers
             return filePath;
         }
 
-        private string GetFileContent(string resourceName)
+        protected internal virtual string GetFileContent(string resourceName)
         {
             var language = SessionService.UserSession.Language;
 

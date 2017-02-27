@@ -49,6 +49,7 @@
             httpContext.Request.Url.Returns(new Uri(TestingRequestUrl));
             httpContext.Request.Cookies.Returns(new HttpCookieCollection());
             httpContext.Response.Cookies.Returns(new HttpCookieCollection());
+            httpContext.Server.MapPath(Arg.Any<string>()).Returns(x => (string)x[0]);
             var fakeIdentity = new GenericIdentity("User");
             var principal = new GenericPrincipal(fakeIdentity, null);
 
