@@ -397,39 +397,19 @@ namespace Fanex.Athena.Controllers
 
         private FileContentResult CreateCaptchaForNewViewType(string code)
         {
-            var iwidth = (code.Length * 12) + 10;
-            using (var mem = new MemoryStream())
-            using (var bmp = new Bitmap(iwidth, 25))
-            using (var gfx = Graphics.FromImage((Image)bmp))
-            {
-                var random = new Random();
-
-                var fonts = new[] { "Tahoma", "Arial" };
-
-                var f = new Font(fonts[random.Next(0, fonts.Length - 1)], 11, FontStyle.Bold);
-                Brush b = new SolidBrush(Color.Black);
-                gfx.Clear(Color.LightGray);
-
-                gfx.DrawString(code, f, b, random.Next(2, 12), random.Next(-1, 1));
-                gfx.DrawRectangle(new Pen(Color.LightGray), 0, 0, bmp.Width - 1, bmp.Height - 1);
-
-                for (int i = 0; i < 50; i++)
-                {
-                    var x = random.Next(bmp.Width);
-                    var y = random.Next(bmp.Height);
-                    bmp.SetPixel(x, y, Color.FromArgb(random.Next()));
-                }
-
-                bmp.Save(mem, ImageFormat.Png);
-                return this.File(mem.GetBuffer(), "image/png");
-            }
+            return CreateCaptcha(code, 25, Color.Black, Color.LightGray, Color.LightGray);
         }
 
         private FileContentResult CreateCaptchaForOldViewType(string code)
         {
+            return CreateCaptcha(code, 20, Color.White, Color.DimGray, Color.Black);
+        }
+
+        private FileContentResult CreateCaptcha(string code, int height, Color brushColor, Color backgroundColor, Color penColor)
+        {
             var iwidth = (code.Length * 12) + 10;
             using (var mem = new MemoryStream())
-            using (var bmp = new Bitmap(iwidth, 20))
+            using (var bmp = new Bitmap(iwidth, height))
             using (var gfx = Graphics.FromImage((Image)bmp))
             {
                 var random = new Random();
@@ -437,11 +417,11 @@ namespace Fanex.Athena.Controllers
                 var fonts = new[] { "Tahoma", "Arial" };
 
                 var f = new Font(fonts[random.Next(0, fonts.Length - 1)], 11, FontStyle.Bold);
-                Brush b = new SolidBrush(Color.White);
-                gfx.Clear(Color.DimGray);
+                Brush b = new SolidBrush(brushColor);
+                gfx.Clear(backgroundColor);
 
                 gfx.DrawString(code, f, b, random.Next(2, 12), random.Next(-1, 1));
-                gfx.DrawRectangle(new Pen(Color.Black), 0, 0, bmp.Width - 1, bmp.Height - 1);
+                gfx.DrawRectangle(new Pen(penColor), 0, 0, bmp.Width - 1, bmp.Height - 1);
 
                 for (int i = 0; i < 50; i++)
                 {
