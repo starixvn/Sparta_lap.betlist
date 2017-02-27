@@ -4,11 +4,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+
 namespace Fanex.Athena.Model.Core.DTO.Users
 {
-    /// <summary>
-    /// CurrencyUser class.
-    /// </summary>
     public class CurrencyUser
     {
         public CurrencyUser()
@@ -21,5 +20,7 @@ namespace Fanex.Athena.Model.Core.DTO.Users
         public string CurrencyName { get; set; }
 
         public bool IsActive { get; set; }
+
+        public IEnumerable<int> AgentIdList { get; set; }
     }
 }

@@ -107,14 +107,27 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
                     using (var reader = db.ExecuteReader())
                     {
+                        var previousCurrencyId = 0;
+                        var agentIdList = new List<int>();
                         while (reader.Read())
                         {
-                            currencyList.Add(new CurrencyUser
+                            var currencyId = reader.ToInt("Currency");
+                            if (previousCurrencyId != currencyId)
                             {
-                                CurrencyId = reader.ToInt("Currency"),
-                                CurrencyName = reader.ToString("CurrencyName"),
-                                IsActive = reader.ToBool("IsActive")
-                            });
+                                agentIdList = new List<int>();
+                                var currencyUser = new CurrencyUser
+                                {
+                                    CurrencyId = reader.ToInt("Currency"),
+                                    CurrencyName = reader.ToString("CurrencyName"),
+                                    IsActive = reader.ToBool("IsActive"),
+                                    AgentIdList = agentIdList
+                                };
+
+                                currencyList.Add(currencyUser);
+                            }
+
+                            previousCurrencyId = currencyId;
+                            agentIdList.Add(reader.ToInt("AgentId"));
                         }
                     }
                 }
