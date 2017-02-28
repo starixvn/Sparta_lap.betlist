@@ -31,8 +31,7 @@ namespace Fanex.Athena.Controllers.Report
             var metaModel = new CustomerWinLossMetaModel
             {
                 LicenseeId = licenseeSession.LicenseeId,
-                DrawFilter = DrawFilterType.Normal,
-                IsExcludedTestData = true
+                DrawFilter = DrawFilterType.Normal
             };
 
             SetConvetedUSDCurrencyName(metaModel);
@@ -70,8 +69,7 @@ namespace Fanex.Athena.Controllers.Report
             var historyParam = new CustomerWinLossHistoryMetaModel
             {
                 LicenseeId = licenseeSession.LicenseeId,
-                DrawFilter = DrawFilterType.Normal,
-                IsExcludedTestData = true
+                DrawFilter = DrawFilterType.Normal
             };
 
             SetConvetedUSDCurrencyName(historyParam);
@@ -109,6 +107,7 @@ namespace Fanex.Athena.Controllers.Report
 
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
+            metaModel.AgentListXml = this.GenerateAgentListXml(metaModel.CurrencyId);
             CustomerWinLoss totalData;
             int totalRows;
             var custWinlossService = new CustomerWinlossService();
@@ -144,7 +143,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
             metaModel.FromDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.FromDay);
             metaModel.ToDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.ToDay);
-
+            metaModel.AgentListXml = this.GenerateAgentListXml(metaModel.CurrencyId);
             CustomerWinLoss totalData;
             int totalRows;
             var custWinlossService = new CustomerWinlossService();

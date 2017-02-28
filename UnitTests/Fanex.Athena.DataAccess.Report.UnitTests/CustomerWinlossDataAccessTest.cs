@@ -67,8 +67,6 @@
             _dataAccess.GetDataList(_metaModel, out totalData, out totalRow);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
             _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
             _objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
@@ -76,8 +74,7 @@
             _objectDb.Received().AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
             _objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
             _objectDb.Received().AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
-            _objectDb.Received().AddInParameter("currencyid", DbType.Int32, _metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("excludetest", DbType.Int32, _metaModel.IsExcludedTestData);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
         }
