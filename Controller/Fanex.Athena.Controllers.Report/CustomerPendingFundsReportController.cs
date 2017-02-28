@@ -74,9 +74,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
-
+            metaModel.AgentListXml = this.GenerateAgentListXml(metaModel.CurrencyId);
             var totalData = new CustPendingFunds();
             var totalRows = 0;
 

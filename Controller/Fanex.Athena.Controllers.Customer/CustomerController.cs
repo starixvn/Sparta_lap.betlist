@@ -69,12 +69,6 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Action
 
-        /// <summary>
-        /// The customer list report.
-        /// </summary>
-        /// <param name="userName">The user name.</param>
-        /// <param name="groupId">The group id.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         public ActionResult CustomerList(string userName = "", int groupId = -1)
         {
@@ -108,7 +102,7 @@ namespace Fanex.Athena.Controllers.Customer
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+
             metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
             metaModel.Username = metaModel.Username == ViewResources.ExternalIdOrSystemId ? string.Empty : metaModel.Username;
             metaModel.AgentListXml = this.GenerateAgentListXml(metaModel.CurrencyId);

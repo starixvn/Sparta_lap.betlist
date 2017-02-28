@@ -650,7 +650,6 @@ var CustomerList = (function ($) {
                 }
             }
 
-            data.LicenseeType = Site.asNull($("#LicenseeType").val());
             data.PageIndex = _pagingOption.pageindex;
             data.PageSize = _pagingOption.pagesize;
             data.CurrencyId = $("#CurrencyId").val();
@@ -669,7 +668,6 @@ var CustomerList = (function ($) {
 
             $("#excelParam").val(JSON.stringify(data));
 
-            $("#LicenseeType").attr('data-original', data.LicenseeType);
             $("#CurrencyId").attr('data-original', data.CurrencyId);
             $("#BaseCurrency").attr('data-original', data.BaseCurrency);
 
