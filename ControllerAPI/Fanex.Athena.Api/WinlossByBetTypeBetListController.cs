@@ -30,7 +30,7 @@
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (currencyId != 0 && !currencyList.Values.Contains(currencyId))
+            if (currencyId != 0 && !currencyList.ContainsKey(currencyId))
             {
                 return null;
             }

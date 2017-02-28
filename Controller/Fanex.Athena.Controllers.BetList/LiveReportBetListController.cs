@@ -25,7 +25,7 @@
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     const string UspKey = "Lrf_BetList_LiveReport_SelWinlossByMatch";
                     var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0
@@ -56,7 +56,7 @@
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     const string UspKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
                     var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0
@@ -88,7 +88,7 @@
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     const string UspKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
 
@@ -117,7 +117,7 @@
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     const string UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
 
@@ -149,7 +149,7 @@
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     var currencyName = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
                     var title = ViewResources.BetList

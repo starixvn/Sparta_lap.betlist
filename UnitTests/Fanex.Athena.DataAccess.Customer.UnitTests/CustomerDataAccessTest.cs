@@ -42,7 +42,7 @@
             // Assert
             _objectDb.Received().AddInParameter("userid", DbType.Int32, userId);
             _objectDb.Received().AddInParameter("username", DbType.String, userName);
-            _objectDb.Received().AddInParameter("agentlist", DbType.Int32, string.Empty);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, string.Empty);
         }
 
         [Test]

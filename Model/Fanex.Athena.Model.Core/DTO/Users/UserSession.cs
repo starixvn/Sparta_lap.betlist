@@ -49,7 +49,7 @@ namespace Fanex.Athena.Model.Core.DTO.Users
 
         public IList<PortalSystemFunction> PortalFunctionList { get; set; }
 
-        public IDictionary<string, int> CurrencyList { get; set; }
+        public IDictionary<int, string> CurrencyList { get; set; }
 
         public string DefaultReportUrl { get; set; }
 

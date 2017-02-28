@@ -30,7 +30,7 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (metaModel.CurrencyId != 0 && !currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 return null;
             }

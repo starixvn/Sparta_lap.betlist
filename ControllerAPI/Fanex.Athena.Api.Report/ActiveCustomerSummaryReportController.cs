@@ -97,12 +97,12 @@ namespace Fanex.Athena.Api.Report
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
-            var currencyName = currencyList.SingleOrDefault(i => i.Value == metaModel.CurrencyId);
+            var currencyName = currencyList.SingleOrDefault(i => i.Key == metaModel.CurrencyId);
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currencyName.Key
+                CurrencyName = currencyName.Value
             };
 
             var excelModel = new ActiveCustomerViewModel

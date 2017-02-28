@@ -52,7 +52,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var currencies = SessionService.UserSession.CurrencyList;
-            if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_CorrectScore";
                 metaModel = CreateDefaultMetaModel(metaModel);

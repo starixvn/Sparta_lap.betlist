@@ -15,6 +15,6 @@ namespace Fanex.Athena.Model.TotalBet.ViewModel
     {
         public IList<string> LicenseeTypeList { get; set; }
 
-        public IDictionary<string, int> CurrencyList { get; set; }
+        public IDictionary<int, string> CurrencyList { get; set; }
     }
 }

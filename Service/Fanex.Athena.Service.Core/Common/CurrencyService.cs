@@ -42,14 +42,7 @@ namespace Fanex.Athena.Service.Core.Common
             return _currencyDataAccess.GetCurrencies(licenseeId);
         }
 
-        /// <summary>
-        ///  Only get active currency.
-        /// Having caching.
-        /// </summary>
-        /// <param name="licenseeId">The licensee identity.</param>
-        /// <param name="userId">The user identity.</param>
-        /// <returns>The currency dictionary.</returns>
-        public IDictionary<string, int> GetCurrencyMapByUser(int licenseeId, int userId)
+        public IDictionary<int, string> GetActiveCurrenciesByUser(int licenseeId, int userId)
         {
             var currencies = GetCurrenciesByUser(licenseeId, userId);
             if (licenseeId == LicenseeIdentityDefinition.KeenOcean)
@@ -59,8 +52,8 @@ namespace Fanex.Athena.Service.Core.Common
 
             return currencies
                 .Where(i => i.IsActive)
-                .Select(p => new { p.CurrencyName, p.CurrencyId })
-                .ToDictionary(kvp => kvp.CurrencyName, kvp => kvp.CurrencyId);
+                .Select(p => new { p.CurrencyId, p.CurrencyName })
+                .ToDictionary(kvp => kvp.CurrencyId, kvp => kvp.CurrencyName);
         }
 
         /// <summary>

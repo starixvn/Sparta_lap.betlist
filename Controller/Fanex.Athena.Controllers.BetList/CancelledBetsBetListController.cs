@@ -110,7 +110,7 @@ namespace Fanex.Athena.Controllers.BetList
         private ActionResult Excel(BetListMetaModel metaModel)
         {
             if (metaModel.CurrencyId == BaseCurrencyType.All ||
-                SessionService.UserSession.CurrencyList.Values.Contains(metaModel.CurrencyId))
+                SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_SelDeleted";
 

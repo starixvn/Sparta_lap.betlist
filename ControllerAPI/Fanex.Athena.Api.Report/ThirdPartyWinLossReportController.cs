@@ -73,10 +73,10 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        private static string GetExcelFileName(ThirdPartyWinLossMetaModel metaModel, ref KeyValuePair<string, int> currency, string productCodeExport)
+        private static string GetExcelFileName(ThirdPartyWinLossMetaModel metaModel, ref KeyValuePair<int, string> currency, string productCodeExport)
         {
             var fromDate = $"{(metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate)}:ddMMMyyyy";
-            var currencyName = currency.Value == 0 ? "All" : currency.Key;
+            var currencyName = currency.Key == 0 ? "All" : currency.Value;
 
             var exportedFileName = $"{productCodeExport}WinLoss_{fromDate}_{currencyName}.xls";
             return exportedFileName;
@@ -89,7 +89,7 @@ namespace Fanex.Athena.Api.Report
         {
             var userSession = SessionService.UserSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ThirdPartyWinLoss.xls");
-            var currency = userSession.CurrencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
+            var currency = userSession.CurrencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
 
             // Use product code of Vegas Games to Macau
             var productCodeExport = metaModel.ProductCode == "VG" ? "MC" : metaModel.ProductCode;
@@ -100,7 +100,7 @@ namespace Fanex.Athena.Api.Report
             {
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currency.Key
+                CurrencyName = currency.Value
             };
 
             if (metaModel.DrillDownLevel > 0 && metaModel.CurrencyId > 0)

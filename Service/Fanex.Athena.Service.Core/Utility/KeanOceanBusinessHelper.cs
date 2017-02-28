@@ -34,17 +34,17 @@
             }
         }
 
-        public static bool VerifyKeanOceanCurrencyRequest(IDictionary<string, int> currenyList, int licenseeId, int selectedCurrencyId)
+        public static bool VerifyKeanOceanCurrencyRequest(IDictionary<int, string> currenyList, int licenseeId, int selectedCurrencyId)
         {
-            return currenyList.Values.Any(i => i == selectedCurrencyId) || (
+            return currenyList.ContainsKey(selectedCurrencyId) || (
                 licenseeId == LicenseeIdentityDefinition.KeenOcean && selectedCurrencyId == CurrencyType.Cny);
         }
 
-        public static void AddHKDCurrencyForTurnOverReport(IDictionary<string, int> currenyList, int licenseeId)
+        public static void AddHKDCurrencyForTurnOverReport(IDictionary<int, string> currenyList, int licenseeId)
         {
-            if (licenseeId == LicenseeIdentityDefinition.KeenOcean && !currenyList.Keys.Contains("CNY"))
+            if (licenseeId == LicenseeIdentityDefinition.KeenOcean && !currenyList.Values.Contains("CNY"))
             {
-                currenyList.Add("CNY", CurrencyType.Hkd);
+                currenyList.Add(CurrencyType.Hkd, "CNY");
             }
         }
     }

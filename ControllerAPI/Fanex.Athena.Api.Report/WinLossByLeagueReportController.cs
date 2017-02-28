@@ -61,13 +61,13 @@ namespace Fanex.Athena.Api.Report
             var templatePath = HttpContext.Current.Server.MapPath("~/App_Data/Template/Reports/WinLossByLeagues.xls");
 
             var currencyList = SessionService.UserSession.CurrencyList;
-            var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.Level == 0 ? metaModel.CurrencyId : metaModel.CurrencyId));
+            var currency = currencyList.SingleOrDefault(i => i.Key == (metaModel.Level == 0 ? metaModel.CurrencyId : metaModel.CurrencyId));
 
             var convertingOption = new ConvertingOption
             {
                 IsConvert = false,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currencyName.Key
+                CurrencyName = currency.Value
             };
 
             var viewModel = new WinLossByLeagueViewModel

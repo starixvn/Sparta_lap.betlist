@@ -4,7 +4,7 @@
     var licSession = sessionService.LicenseeSession;
     var userCurrencies = userSession == null || userSession.CurrencyList == null ?
         new Dictionary<string, string>() :
-        userSession.CurrencyList.ToDictionary(x => x.Value.ToString(), x => x.Key);
+        userSession.CurrencyList.ToDictionary(x => x.Key.ToString(), x => x.Value);
 
     var hasCustComm = licSession != null && licSession.IsAllowedCustomerComm;
     var isParasiticMode = userSession != null && userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Parasitic;

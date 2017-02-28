@@ -86,7 +86,7 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
             metaModel.CurrencyName = metaModel.CurrencyName.ToUpper();
             const string ViewPathTemplate = "~/Views/RNGCasino/RNGCasinoDetail/Group{0}.cshtml";
             var group = GetGroupByGameTypeId(metaModel.GameTypeId);
-            var model = metaModel.IsValid && (metaModel.CurrencyId == 0 || this.SessionService.UserSession.CurrencyList.Values.Contains(metaModel.CurrencyId))
+            var model = metaModel.IsValid && (metaModel.CurrencyId == 0 || this.SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
                 ? this._rgnCasinoService.GetRNGCasinoResultDetail(metaModel)
                 : new CasinoHandHistoryDetailViewModel();
 
@@ -262,7 +262,7 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
         {
             metaModel.BaseCurrency = metaModel.BaseCurrency ?? string.Empty;
             return metaModel.IsValid() && (metaModel.CurrencyId == BaseCurrencyType.All ||
-                this.SessionService.UserSession.CurrencyList.Values.Contains(metaModel.CurrencyId))
+                this.SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
                 ? this._rgnCasinoService.GetRNGCasinoResult(metaModel)
                 : new List<RNGCasinoResult>();
         }

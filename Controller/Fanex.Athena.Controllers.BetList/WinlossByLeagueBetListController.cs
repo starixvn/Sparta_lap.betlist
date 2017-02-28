@@ -36,7 +36,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var currencyList = this.SessionService.UserSession.CurrencyList;
 
-            if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 return this.Excel(metaModel);
             }

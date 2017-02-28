@@ -97,7 +97,7 @@ namespace Fanex.Athena.Controllers.Report
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
             var currencyName = userSession.CurrencyList
-                .Where(i => i.Value == metaModel.CurrencyId).Select(i => i.Key).SingleOrDefault();
+                .Where(i => i.Key == metaModel.CurrencyId).Select(i => i.Value).SingleOrDefault();
 
             var totalData = new CustTurnover();
             var totalRow = 0;

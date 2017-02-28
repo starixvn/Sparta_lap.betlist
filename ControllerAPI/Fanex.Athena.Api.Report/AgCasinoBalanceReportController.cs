@@ -66,12 +66,12 @@ namespace Fanex.Athena.Api.Report
 
             var currencyList = userSession.CurrencyList;
 
-            var currencyName = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
+            var currencyName = currencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currencyName.Key
+                CurrencyName = currencyName.Value
             };
 
             // Update metalModel Value

@@ -20,7 +20,7 @@
 
         public object GetCurrencyList()
         {
-            var currencyList = _currencyService.GetCurrencyMapByUser(this.LicenseeId, this.UserId);
+            var currencyList = _currencyService.GetActiveCurrenciesByUser(this.LicenseeId, this.UserId);
 
             return new
             {

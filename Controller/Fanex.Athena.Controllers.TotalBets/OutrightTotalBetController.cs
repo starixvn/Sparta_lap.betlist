@@ -72,7 +72,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             metaModel.UserId = userSession.UserId;
             var currencies = userSession.CurrencyList;
 
-            if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 var dataList = _outrightService.GetOutrightDataList(metaModel);
                 var model = new OutrightViewModel

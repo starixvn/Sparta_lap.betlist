@@ -9,9 +9,6 @@ namespace Fanex.Athena.Model.Core.ViewModel
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
 
-    /// <summary>
-    /// BaseViewModel class.
-    /// </summary>
     public class BaseViewModel
     {
         public IList<string> LicenseeTypeList { get; set; }
@@ -20,7 +17,7 @@ namespace Fanex.Athena.Model.Core.ViewModel
 
         public ProductAccess ProductAccess { get; set; }
 
-        public IDictionary<string, int> CurrencyList { get; set; }
+        public IDictionary<int, string> CurrencyList { get; set; }
 
         public bool ShowEmptyContent { get; set; }
     }

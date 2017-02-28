@@ -73,7 +73,7 @@ namespace Fanex.Athena.Controllers.TotalBets
             var currencies = userSession.CurrencyList;
             metaModel.UserId = userSession.UserId;
 
-            if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 TotalGoal totalData;
                 var dataList = _totalGoalService.GetTotalGoalDataList(metaModel, out totalData);

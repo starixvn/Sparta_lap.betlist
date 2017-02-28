@@ -120,7 +120,7 @@ namespace Fanex.Athena.Controllers.Report
 
             viewModel.Param.CurrencyName = viewModel.Param.IsConvert ?
                 viewModel.Param.BaseCurrency
-                : viewModel.CurrencyList.FirstOrDefault(a => a.Value == viewModel.Param.CurrencyId).Key;
+                : viewModel.CurrencyList.FirstOrDefault(a => a.Key == viewModel.Param.CurrencyId).Value;
 
             var turnoverExcel = new TurnoverExcel(templatePath, FileName, convertingOption, showingOption, viewModel) { LicenseeId = viewModel.Param.LicenseeId };
 
@@ -129,7 +129,7 @@ namespace Fanex.Athena.Controllers.Report
             return new ExcelResult(turnoverExcel.Workbook, FileName);
         }
 
-        private IDictionary<string, int> GetCurrenciesForTurnoverReport(int licenseeId)
+        private IDictionary<int, string> GetCurrenciesForTurnoverReport(int licenseeId)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
             KeanOceanBusinessHelper.AddHKDCurrencyForTurnOverReport(currencyList, licenseeId);

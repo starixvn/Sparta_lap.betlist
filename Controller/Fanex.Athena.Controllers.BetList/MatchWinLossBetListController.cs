@@ -36,7 +36,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     var uspKey = IsRacing(metaModel.BetType)
                         ? "Lrf_BetList_MatchWL_Racing"
@@ -59,7 +59,7 @@ namespace Fanex.Athena.Controllers.BetList
             if (metaModel.IsExportExcel)
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     const string UspKey = "Lrf_BetList_MatchWL_Parlay";
                     metaModel.IsServerPaging = true;
@@ -82,7 +82,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     const string UspKey = "Lrf_BetList_MatchWL_Outright";
                     return Excel(metaModel, UspKey);

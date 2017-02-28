@@ -68,16 +68,16 @@ namespace Fanex.Athena.Api.Report
 
             var currencyList = userSession.CurrencyList;
 
-            var currency = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
+            var currency = currencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
             var exportedFileName = string.Format(
                 "AGWinLoss_{0:ddMMMyyyy}_{1}.xls",
                 metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate,
-                currency.Value == 0 ? "All" : currency.Key);
+                currency.Key == 0 ? "All" : currency.Value);
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currency.Key
+                CurrencyName = currency.Value
             };
 
             // Update metalModel Value

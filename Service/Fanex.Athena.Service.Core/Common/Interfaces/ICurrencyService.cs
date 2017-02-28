@@ -34,12 +34,6 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
         /// <returns>The result info.</returns>
         IResultInfo AssignCurrenciesByUser(AssignCurrencyMetaModel request);
 
-        /// <summary>
-        /// Get currency by user id.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="userId">The user id.</param>
-        /// <returns>The currencies.</returns>
-        IDictionary<string, int> GetCurrencyMapByUser(int licenseeId, int userId);
+        IDictionary<int, string> GetActiveCurrenciesByUser(int licenseeId, int userId);
     }
 }

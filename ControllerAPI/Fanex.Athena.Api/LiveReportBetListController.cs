@@ -31,7 +31,7 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (metaModel.CurrencyId != 0 && !currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 return null;
             }
@@ -50,7 +50,7 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 metaModel.UserId = userSession.UserId;
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -86,7 +86,7 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (currencyId == 0 || currencyList.Values.Contains(currencyId))
+            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
                 var metaModel = new LiveReportBetListMetaModel
@@ -136,7 +136,7 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (currencyId == 0 || currencyList.Values.Contains(currencyId))
+            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
                 var productOptions = new HashSet<ProductOption>
@@ -203,7 +203,7 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (currencyId == 0 || currencyList.Values.Contains(currencyId))
+            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
             {
                 var metaModel = new LiveReportBetListMetaModel
                 {

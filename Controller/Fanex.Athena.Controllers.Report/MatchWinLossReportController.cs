@@ -86,7 +86,7 @@ namespace Fanex.Athena.Controllers.Report
 
             if (metaModel.IsExportExcel)
             {
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
                 {
                     return Excel(metaModel);
                 }

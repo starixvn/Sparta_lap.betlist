@@ -52,23 +52,23 @@
         }
 
         [Test]
-        public void GetCurrencyMapByUser_WhenCall_ReturnActiveCurrencyUserList()
+        public void GetActiveCurrenciesByUser_WhenCall_ReturnActiveCurrencyUserList()
         {
             // Arrange
             var expectedResult = new List<CurrencyUser>
             {
-                new CurrencyUser { CurrencyName = "USD", IsActive = true },
-                new CurrencyUser { CurrencyName = "UUS", IsActive = false }
+                new CurrencyUser { CurrencyId = 1, IsActive = true },
+                new CurrencyUser { CurrencyId = 2, IsActive = false }
             };
 
             _currencyDataAccess.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(expectedResult);
 
             // Action
-            var result = _currencyService.GetCurrencyMapByUser(0, 0);
+            var result = _currencyService.GetActiveCurrenciesByUser(0, 0);
 
             // Assert
-            Assert.That(result, Contains.Key("USD"));
-            Assert.That(result, Does.Not.Contains("UUS"));
+            Assert.That(result, Contains.Key(1));
+            Assert.That(result, Does.Not.Contains(2));
         }
 
         [Test]
@@ -86,11 +86,11 @@
             _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(expectedResult);
 
             // Action
-            var result = _currencyService.GetCurrencyMapByUser(LicenseeId, UserId);
+            var result = _currencyService.GetActiveCurrenciesByUser(LicenseeId, UserId);
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(1));
-            Assert.That(result["CNY"], Is.EqualTo(CurrencyType.Hkd));
+            Assert.That(result[CurrencyType.Hkd], Is.EqualTo("CNY"));
         }
 
         [Test]

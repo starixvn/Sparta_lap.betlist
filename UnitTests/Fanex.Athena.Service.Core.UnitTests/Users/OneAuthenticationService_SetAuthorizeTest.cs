@@ -58,7 +58,7 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
 
-            _currencyService.GetCurrencyMapByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(new Dictionary<string, int>());
+            _currencyService.GetActiveCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(new Dictionary<int, string>());
 
             _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
 
@@ -79,7 +79,7 @@
             var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo" };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
-            _currencyService.GetCurrencyMapByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(FakeCurrencyListMapByUser());
+            _currencyService.GetActiveCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(FakeCurrencyListMapByUser());
             _licenseeService.GetCustByLicensee(Arg.Any<int>()).Returns(new List<LicenseeCustomer>());
             _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
 
@@ -110,7 +110,7 @@
             var expectedAgents = new List<LicenseeCustomer> { new LicenseeCustomer() };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
-            _currencyService.GetCurrencyMapByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(FakeCurrencyListMapByUser());
+            _currencyService.GetActiveCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(FakeCurrencyListMapByUser());
             _licenseeService.GetCustByLicensee(Arg.Any<int>()).Returns(expectedAgents);
 
             _sessionService.When(x => x.CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>()))
@@ -179,7 +179,7 @@
             };
         }
 
-        private static bool VerifyUserSession(UserSession userSession, IDictionary<string, int> currency, OneAuthenticationToken tokenInfo)
+        private static bool VerifyUserSession(UserSession userSession, IDictionary<int, string> currency, OneAuthenticationToken tokenInfo)
         {
             var lang = Util.MapLanguages.Where(i => i.Value.Equals(tokenInfo.Language))
                        .Select(i => i.Key).DefaultIfEmpty<string>("en-Us").FirstOrDefault();
@@ -190,9 +190,9 @@
                 && userSession.Language == lang && userSession.FunctionIdList.Count == 0;
         }
 
-        private static IDictionary<string, int> FakeCurrencyListMapByUser()
+        private static IDictionary<int, string> FakeCurrencyListMapByUser()
         {
-            return new Dictionary<string, int> { { "UUS", 1 } };
+            return new Dictionary<int, string>() { { 1, "UUS" } };
         }
 
         private static string GetJsonSystemFunctionList()

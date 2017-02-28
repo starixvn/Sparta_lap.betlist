@@ -165,7 +165,7 @@
 
         protected internal virtual IResultInfo SetAuthorize(Licensee licensee, string languageCode, OneAuthenticationToken tokenInfo)
         {
-            var currencyOfLicensee = _currencyService.GetCurrencyMapByUser(licensee.Id, tokenInfo.UserSEQ);
+            var currencyOfLicensee = _currencyService.GetActiveCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ);
 
             if (currencyOfLicensee.Count <= 0)
             {
@@ -234,7 +234,7 @@
             string languageCode,
             OneAuthenticationToken tokenInfo,
             Licensee licenseeInfo,
-            IDictionary<string, int> currencyOfUser,
+            IDictionary<int, string> currencyOfUser,
             IList<LicenseeCustomer> agentList)
         {
             var licSession = new LicenseeSession

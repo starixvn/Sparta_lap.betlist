@@ -73,17 +73,17 @@ namespace Fanex.Athena.Api.Report
         {
             var userSession = SessionService.UserSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ColossusBetsWinLoss.xls");
-            var currency = userSession.CurrencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
+            var currency = userSession.CurrencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
 
             var exportedFileName = string.Format(
                 "ColossusBetsWinLoss_{0:ddMMMyyyy}_{1}.xls",
                 metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate,
-                currency.Value == 0 ? "All" : currency.Key);
+                currency.Key == 0 ? "All" : currency.Value);
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currency.Key
+                CurrencyName = currency.Value
             };
 
             if (metaModel.DrillDownLevel > 0 && metaModel.CurrencyId > 0)
