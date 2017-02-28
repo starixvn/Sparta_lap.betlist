@@ -1019,6 +1019,7 @@
     <Content Include="www\js\tests\extensions\jquery.extension-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlist-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistcancelledbets-spec.js" />
+    <Content Include="www\js\tests\pages\betlist\betlistdaily-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistrunning.multiplebettypes-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistrunning-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistcorrectscore-spec.js" />
@@ -1031,7 +1032,6 @@
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss.option-spec.js" />
     <Content Include="www\js\tests\pages\report\livereport\livereport-spec.js" />
     <Content Include="www\js\tests\pages\report\livereport\helper-spec.js" />
-    <Content Include="www\js\tests\test-helper.js" />
     <Content Include="www\js\tests\pages\totalbet\firstgoallastgoal\firstgoallastgoal-spec.js" />
     <Content Include="www\js\tests\pages\totalbet\halftimefulltime\halftimefulltime-spec.js" />
     <Content Include="www\js\tests\pages\totalbet\handicapoverunder\handicapoverunder-spec.js" />

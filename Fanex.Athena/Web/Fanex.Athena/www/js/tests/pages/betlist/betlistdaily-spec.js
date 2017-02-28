@@ -1,0 +1,136 @@
+﻿define(
+    ['jquery', 'common/site', 'common/querystring', 'pages/betlist/betlist', 'components/pluginhelper/daterangepicker', 'pages/betlist/betlistdaily'],
+    function ($, Site, QueryString, BetList, DatePicker, BetListDaily) {
+        describe("BetListDaily", function () {
+            beforeAll(function () {
+                spyOn(Site, "getSingleResource").and.callFake(function (text) {
+                    return text;
+                });
+
+                spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
+                    return url;
+                });
+            });
+
+            describe("initialize()", function () {
+                beforeEach(function () {
+                    spyOn(Site, "initialize");
+                    spyOn(BetListDaily, "initEvent");
+                    spyOn(Site, "getLicenseeId").and.returnValue(1);
+                    spyOn(Site, "addUserGuide");
+                    spyOn(DatePicker, "initSingleDatePicker");
+
+                    BetListDaily.initialize();
+                });
+
+                it("Site.initialize() should be called", function () {
+                    expect(Site.initialize).toHaveBeenCalled();
+                });
+
+                it("BetListDaily.initEvent() should be called", function () {
+                    expect(BetListDaily.initEvent).toHaveBeenCalled();
+                });
+
+                it("Site.addUserGuide(option) should be called with correct parameter", function () {
+                    expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "DailyBetList", title: "DailyBetList" });
+                });
+
+                it("DatePicker.initSingleDatePicker() should be called with correct parameter", function () {
+                    expect(DatePicker.initSingleDatePicker).toHaveBeenCalledWith("Date");
+                });
+            });
+
+            describe("initEvent()", function () {
+                beforeEach(function () {
+                    setFixtures('<div id="SubmitButton" style="height: 10px; width: 10px;"></div>' +
+                        '<div id="ExportToExcel" style="height: 10px; width: 10px;"></div>' +
+                        '<input id="CurrencyId" value="1" />'
+                        );
+
+                    BetListDaily.initEvent();
+                });
+
+                it("BetListDaily.submit() should be called when '#SubmitButton' fired click event", function () {
+                    spyOn(BetListDaily, "submit");
+
+                    $("#SubmitButton").click();
+
+                    expect(BetListDaily.submit).toHaveBeenCalled();
+                });
+
+                it("BetListDaily.exportToExcel() should be called when '#ExportToExcel' fired click event", function () {
+                    spyOn(BetListDaily, "exportToExcel");
+
+                    $("#ExportToExcel").click();
+
+                    expect(BetListDaily.exportToExcel).toHaveBeenCalled();
+                });
+
+                describe("'#CurrencyId' fire change event", function () {
+                    it("'#ExportToExcel' should be showed when licensee is KeenOcean (96)", function () {
+                        spyOn(Site, "getLicenseeId").and.returnValue(96);
+
+                        $("#CurrencyId").change();
+
+                        expect($("#ExportToExcel")).toBeVisible();
+                    });
+
+                    it("'#ExportToExcel' should be showed when we select specific currencyId value and licensee is not KeenOcean (96)", function () {
+                        spyOn(Site, "getLicenseeId").and.returnValue(2);
+
+                        $("#CurrencyId").change();
+
+                        expect($("#ExportToExcel")).toBeVisible();
+                    });
+
+                    it("'#ExportToExcel' should be hidden when we select all currency and licensee is not KeenOcean (96)", function () {
+                        spyOn(Site, "getLicenseeId").and.returnValue(2);
+                        $("#CurrencyId").val(0);
+
+                        $("#CurrencyId").change();
+
+                        expect($("#ExportToExcel")).not.toBeVisible();
+                    });
+                });
+            });
+
+            describe("submit()", function () {
+                it("BetList.loadDataPaging(url) should be called with correct parameter", function () {
+                    setFixtures('<input id="ProductCode" value="2" />' +
+                        '<input id="DailyBetListStatus" value="won" />' +
+                        '<input id="Date" value="03/28/2017" />'
+                        );
+                    spyOn(Site, "initialize");
+                    spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR" });
+                    spyOn(BetList, "loadDataPaging");
+                    var expectedUrl = "api/DailyBetList/index?currencyid=1&basecurrency=EUR&productcode=2&status=won&date=03/28/2017";
+
+                    BetListDaily.submit();
+
+                    expect(BetList.loadDataPaging).toHaveBeenCalledWith(expectedUrl);
+                });
+            });
+
+            describe("exportToExcel()", function () {
+                it("Site.redirect(url) should be called with correct parameter", function () {
+                    setFixtures('<input id="ProductCode" value="2" />' +
+                        '<input id="DailyBetListStatus" value="won" />' +
+                        '<input id="Date" value="03/28/2017" />'
+                        );
+                    spyOn(Site, "redirect");
+                    spyOn(Site, "getCurrentUrl").and.returnValue("localhost");
+                    spyOn($.fn, "getGridParam").and.callFake(function (param) { if (param === "rowNum") { return 10; } return null; });
+                    //spyOn($.fn, "getGridParam").and.returnValue(10);
+                    spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR" });
+                    spyOn(BetList, "getSortParams").and.returnValue({ SortBy: "test-column", SortOrder: "asc" });
+
+                    var expectedUrl = "localhost?currencyid=1&basecurrency=EUR&isexportexcel=true&date=03/28/2017&productcode=2&dailybetliststatus=won&" +
+                        "pageindex=1&pagesize=10&sortby=test-column&sortorder=asc";
+
+                    BetListDaily.exportToExcel();
+
+                    expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
+                });
+            });
+        });
+    });
