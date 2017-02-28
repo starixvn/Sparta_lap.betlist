@@ -15,14 +15,11 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
 
     #endregion Using
 
-    /// <summary>
-    /// Interface ICustomerDataAccess contains all method relates to customer.
-    /// </summary>
     public interface ICustomerDataAccess
     {
         #region Read
 
-        IEnumerable<string> SearchCustomers(int userId, string userName, int licenseeId, string licenseeType, int currencyId);
+        IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
             Justification = "Reviewed. Suppression is OK here.")]

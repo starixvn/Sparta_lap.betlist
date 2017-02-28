@@ -561,20 +561,13 @@ namespace Fanex.Athena.Controllers.Customer
             return Json(result);
         }
 
-        /// <summary>
-        /// Search customers.
-        /// </summary>
-        /// <param name="licenseeType">The licensee type.</param>
-        /// <param name="currencyId">The currency id.</param>
-        /// <param name="query">The query string.</param>
-        /// <returns>The action result.</returns>
         [AjaxRequest]
         [HttpGet]
         public JsonResult SearchCustomer(string licenseeType, int currencyId, string query)
         {
             query = query.Trim();
-            var licenseeSession = SessionService.LicenseeSession;
-            var customerNames = _customerService.SearchCustomers(SessionService.UserSession.UserId, query, licenseeSession.LicenseeId, licenseeType, currencyId);
+
+            var customerNames = _customerService.SearchCustomers(SessionService.UserSession.UserId, query, string.Empty);
 
             var searchResult = new
             {

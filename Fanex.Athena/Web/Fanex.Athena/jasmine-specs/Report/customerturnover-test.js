@@ -204,7 +204,7 @@
             CustTurnover.initAutoComplete();
 
             expect($.fn.autocomplete).toHaveBeenCalledWith({
-                serviceUrl: 'CustomerAPI/SearchCustomer?licenseeType=&currencyId=0',
+                serviceUrl: 'CustomerAPI/SearchCustomer',
                 minChars: 2
             });
         });

@@ -66,9 +66,9 @@ namespace Fanex.Athena.Service.Customer
 
         #region Read
 
-        public IEnumerable<string> SearchCustomers(int userId, string userName, int licenseeId, string licenseeType, int currencyId)
+        public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
         {
-            return _customerDataAccess.SearchCustomers(userId, userName, licenseeId, licenseeType, currencyId);
+            return _customerDataAccess.SearchCustomers(userId, userName, agentListXml);
         }
 
         /// <summary>

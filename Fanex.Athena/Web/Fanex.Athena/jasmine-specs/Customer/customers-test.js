@@ -214,7 +214,7 @@
         });
 
         it("autocomplete function of jquery should be called with correct param", function () {
-            expect($.fn.autocomplete).toHaveBeenCalledWith({ serviceUrl: "CustomerAPI/SearchCustomer?licenseeType=&currencyId=0", minChars: 2 });
+            expect($.fn.autocomplete).toHaveBeenCalledWith({ serviceUrl: "CustomerAPI/SearchCustomer", minChars: 2 });
         });
 
         it("CustomerList.setDefaultUsername() should be called", function () {

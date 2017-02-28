@@ -24,24 +24,19 @@ namespace Fanex.Athena.DataAccess.Customer
     using Fanex.Logging;
     using Resources;
 
-    /// <summary>
-    /// Class CustomerDataAccess contains all method relates to customer.
-    /// </summary>
     public class CustomerDataAccess : BaseDataAccess, ICustomerDataAccess
     {
         #region Read
 
-        public IEnumerable<string> SearchCustomers(int userId, string userName, int licenseeId, string licenseeType, int currencyId)
+        public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
         {
             try
             {
                 using (var db = this.GetObjectDb("Lrf_CustomerSelUserSearch"))
                 {
-                    db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
                     db.AddInParameter("userid", DbType.Int32, userId);
-                    db.AddInParameter("licenseetype", DbType.String, licenseeType);
-                    db.AddInParameter("currencyid", DbType.Int32, currencyId);
                     db.AddInParameter("username", DbType.String, userName);
+                    db.AddInParameter("AgentList", DbType.String, userName);
 
                     return db.Query<string>();
                 }
