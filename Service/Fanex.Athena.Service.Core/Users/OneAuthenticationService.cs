@@ -165,9 +165,9 @@
 
         protected internal virtual IResultInfo SetAuthorize(Licensee licensee, string languageCode, OneAuthenticationToken tokenInfo)
         {
-            var currencyOfLicensee = _currencyService.GetActiveCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ);
+            var currencyOfLicensee = _currencyService.GetCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ);
 
-            if (currencyOfLicensee.Count <= 0)
+            if (currencyOfLicensee.Count() <= 0)
             {
                 return new ResultInfo
                 {
@@ -186,7 +186,7 @@
                 };
             }
 
-            CreateSession(languageCode, tokenInfo, licensee, currencyOfLicensee, agentList);
+            CreateSession(languageCode, tokenInfo, licensee, agentList);
             var authName = $"{tokenInfo.VendorID}_{tokenInfo.SiteName}_{tokenInfo.UserID}";
             _formsAuthenticationService.SetAuthCookie(authName, false);
 
@@ -234,7 +234,6 @@
             string languageCode,
             OneAuthenticationToken tokenInfo,
             Licensee licenseeInfo,
-            IDictionary<int, string> currencyOfUser,
             IList<LicenseeCustomer> agentList)
         {
             var licSession = new LicenseeSession
@@ -260,7 +259,6 @@
                 FunctionIdList = new List<int>(),
                 PortalFunctionList = GetFunctionList(),
                 Language = languageCode,
-                CurrencyList = currencyOfUser,
                 DefaultReportUrl = "BalanceReport",
                 ApplicationMode = AppMode.Parasitic,
                 VendorID = tokenInfo.VendorID,

@@ -19,6 +19,7 @@ namespace Fanex.Athena.Service.Core.Users
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Utility;
 
     public class SessionService : ISessionService
     {
@@ -89,6 +90,13 @@ namespace Fanex.Athena.Service.Core.Users
             set { HttpContext.Current.Session[CaptchaCodeKey] = value; }
         }
 
+        public void CreateNewSession(UserSession userSession, LicenseeSession licenseeSession)
+        {
+            UserSession = userSession;
+            LicenseeSession = licenseeSession;
+            AssignCurrenciesToUserSession(this.UserSession, licenseeSession.LicenseeId);
+        }
+
         public void CreateNewSession(
             int userId,
             int onuserId,
@@ -117,7 +125,7 @@ namespace Fanex.Athena.Service.Core.Users
             var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
             if (licenseeId > 0 && selectedLicensee != null)
             {
-                this.UserSession.CurrencyList = _currencyService.GetActiveCurrenciesByUser(licenseeId, userId);
+                AssignCurrenciesToUserSession(this.UserSession, licenseeId);
                 var licenseeSession = new LicenseeSession();
                 AssignDataForLicenseeSession(licenseeSession, selectedLicensee);
                 licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;
@@ -127,21 +135,22 @@ namespace Fanex.Athena.Service.Core.Users
 
         public void UpdateLiceseeSession(int licenseeId)
         {
-            var currentUserSession = this.UserSession;
-            var licenseeList = _licenseeService.GetByUser(currentUserSession.UserId);
+            var userSession = this.UserSession;
+            var licenseeList = _licenseeService.GetByUser(userSession.UserId);
 
-            if (currentUserSession != null && licenseeId > 0)
+            if (userSession != null && licenseeId > 0)
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
 
                 this.LicenseeSession = new LicenseeSession();
                 AssignDataForLicenseeSession(this.LicenseeSession, selectedLicensee);
 
-                var functionList = _functionService.GetUserFunctionList(licenseeId, currentUserSession.UserId);
+                var functionList = _functionService.GetUserFunctionList(licenseeId, userSession.UserId);
                 var functionIdList = functionList.Select(f => f.FunctionId).ToList();
-                currentUserSession.CurrencyList = _currencyService.GetActiveCurrenciesByUser(licenseeId, currentUserSession.UserId);
-                currentUserSession.FunctionIdList = functionIdList;
-                currentUserSession.DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList);
+                userSession.FunctionIdList = functionIdList;
+                userSession.DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList);
+
+                AssignCurrenciesToUserSession(userSession, licenseeId);
             }
         }
 
@@ -168,12 +177,6 @@ namespace Fanex.Athena.Service.Core.Users
             return user.ApplicationMode == AppMode.Parasitic ?
                     user.PortalFunctionList != null && user.PortalFunctionList.Any(i => i.FunctionKey == PermissionKeys.CustomerInfoSpecialBA)
                     : user.FunctionIdList != null && user.FunctionIdList.Contains((int)FunctionType.SpecialBA);
-        }
-
-        public void CreateNewSession(UserSession user, LicenseeSession lic)
-        {
-            UserSession = user;
-            LicenseeSession = lic;
         }
 
         private static string GetDefaultReportUrl(IList<int> functionIdList, IList<Function> functionList)
@@ -204,6 +207,29 @@ namespace Fanex.Athena.Service.Core.Users
             licenseeSession.CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList();
             licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;
             licenseeSession.IsEnableBA = selectedLicensee.IsEnableBA;
+        }
+
+        private void AssignCurrenciesToUserSession(UserSession userSession, int licenseeId)
+        {
+            var currencyUserList = _currencyService.GetCurrenciesByUser(licenseeId, userSession.UserId);
+
+            if (licenseeId == LicenseeIdentityDefinition.KeenOcean)
+            {
+                currencyUserList = KeanOceanBusinessHelper.ModifyCurrenciesForKeenOcean(currencyUserList);
+            }
+
+            var currencyList = currencyUserList
+                .Where(x => x.IsActive)
+                .Select(x => new { x.CurrencyId, x.CurrencyName })
+                .ToDictionary(x => x.CurrencyId, x => x.CurrencyName);
+
+            var currencyAgentList = currencyUserList
+                .Where(x => x.IsActive)
+                .Select(x => new { x.CurrencyId, x.AgentIdList })
+                .ToDictionary(x => x.CurrencyId, x => x.AgentIdList);
+
+            userSession.CurrencyList = currencyList;
+            userSession.CurrencyAgentList = currencyAgentList;
         }
     }
 

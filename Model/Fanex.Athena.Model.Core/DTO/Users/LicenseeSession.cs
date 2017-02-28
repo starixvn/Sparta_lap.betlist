@@ -9,9 +9,6 @@ namespace Fanex.Athena.Model.Core.DTO.Users
     using System;
     using System.Collections.Generic;
 
-    /// <summary>
-    /// LicenseeSession class.
-    /// </summary>
     [Serializable]
     public class LicenseeSession
     {

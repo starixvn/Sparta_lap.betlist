@@ -41,15 +41,13 @@ namespace Fanex.Athena.Model.Core.DTO.Users
 
         public bool IsInternal { get; set; }
 
-        /// <summary>
-        /// Gets or sets function List of current licensee.
-        /// </summary>
-        /// <value>The currency List.</value>
         public IList<int> FunctionIdList { get; set; }
 
         public IList<PortalSystemFunction> PortalFunctionList { get; set; }
 
         public IDictionary<int, string> CurrencyList { get; set; }
+
+        public IDictionary<int, IEnumerable<int>> CurrencyAgentList { get; set; }
 
         public string DefaultReportUrl { get; set; }
 

@@ -12,7 +12,7 @@
     /// </summary>
     public static class KeanOceanBusinessHelper
     {
-        public static IList<CurrencyUser> ModifyCurrenciesForKeenOcean(IList<CurrencyUser> currencies)
+        public static IEnumerable<CurrencyUser> ModifyCurrenciesForKeenOcean(IEnumerable<CurrencyUser> currencies)
         {
             currencies = currencies.Where(x => x.CurrencyId != CurrencyType.Cny).ToList();
 
@@ -25,7 +25,7 @@
             return currencies;
         }
 
-        public static void KeepHKDCurrencyName(IList<CurrencyUser> currencies)
+        public static void KeepHKDCurrencyName(IEnumerable<CurrencyUser> currencies)
         {
             var currency = currencies.FirstOrDefault(x => x.CurrencyId == CurrencyType.Hkd);
             if (currency != null)

@@ -9,11 +9,9 @@
 
 namespace Fanex.Athena.Service.Core.Users.Interfaces
 {
+    using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Users;
 
-    /// <summary>
-    ///     The i session service.
-    /// </summary>
     public interface ISessionService
     {
         #region Public Properties
