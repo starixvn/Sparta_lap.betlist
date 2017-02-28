@@ -6,6 +6,7 @@
                 appendSetFixtures('<input id="IsServerPaging" value="1" />');
 
                 spyOn(Site, "initialize");
+                spyOn(Site, "resolveClientUrl").and.callFake(function (url) { return url; });
                 spyOn(Site, "getCurrentUrl").and.returnValue("http://localhost");
                 spyOn(BetList, "initialize");
                 spyOn(BetList, "loadDataPaging");
@@ -19,14 +20,14 @@
                     expect($('.content-filter')).not.toExist();
                 });
 
-                it("BetList.loadDataPaging(url) should be called with correct parameters when 'IsServerPaging' value is 0", function () {
+                it("BetList.loadDataPaging(url) should be called with correct parameters when 'IsServerPaging' value is 1", function () {
                     CommonBetList.initialize();
                     var url = "Test/Index?fromdate=1/1/2016&todate=10/5/2016&pagesize=50&pageindex=2";
 
                     expect(BetList.loadDataPaging).toHaveBeenCalledWith(url);
                 });
 
-                it("BetList.loadData(params, url) should be called with correct parameters when 'IsServerPaging' value is 1", function () {
+                it("BetList.loadData(params, url) should be called with correct parameters when 'IsServerPaging' value is 0", function () {
                     spyOn(BetList, "loadData");
                     $("#IsServerPaging").val(0);
                     spyOn($, "parseJSON").and.returnValue({ FromDateString: "1/1/2016", ToDateString: "10/5/2016", DateString: "12/1/2016" });
@@ -58,6 +59,7 @@
                         }
                     });
 
+                    spyOn(Site, "getSingleResource").and.callFake(function (resourceKey) { return resourceKey; });
                     spyOn(Site, "redirect");
 
                     CommonBetList.initialize();

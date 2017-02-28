@@ -14,6 +14,7 @@
 
             spyOn(DatePicker, "initDateRangePicker");
             spyOn(MonthPicker, "initMonthPicker");
+            spyOn($.fn, "select2");
 
             setFixtures('<input id="HistoryDate" value="1/1/2016" />');
         });

@@ -22,8 +22,13 @@
                     spyOn(BetListCancelledBets, "initEvent");
                     spyOn(BetListCancelledBets, "submit");
                     spyOn(Site, "addUserGuide");
+                    spyOn(BetList, "registerBetListGlobalFunctions");
 
                     BetListCancelledBets.initialize();
+                });
+
+                it("BetList.registerBetListGlobalFunctions() should be called.", function () {
+                    expect(BetList.registerBetListGlobalFunctions).toHaveBeenCalled();
                 });
 
                 it("initEvent() should be called.", function () {
@@ -77,16 +82,10 @@
             describe("submit()", function () {
                 beforeEach(function () {
                     setFixtures('<input id="CustId" type="text" value="1" />');
-
-                    spyOn(BetList, "initialize");
                     spyOn(BetList, "loadData");
                     BetListCancelledBets.submit();
                 });
-
-                it("BetList.initialize() should be called", function () {
-                    expect(BetList.initialize).toHaveBeenCalled();
-                });
-
+                
                 it("Site.setLicenseeOptionParam(option) should be called with correct parameter", function () {
                     expect(Site.setLicenseeOptionParam).toHaveBeenCalled();
                 });

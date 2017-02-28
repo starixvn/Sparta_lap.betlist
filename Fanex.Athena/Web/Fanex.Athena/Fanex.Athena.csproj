@@ -804,15 +804,12 @@
     <Content Include="www\css\build\pro\pages\betlist\colossusbetdetail.css" />
     <Content Include="www\css\build\pro\pages\betlist\images\1F.gif" />
     <Content Include="www\css\build\pro\pages\betlist\images\1L.gif" />
-    <Content Include="www\css\build\pro\pages\betlist\images\ajax-loader.gif" />
-    <Content Include="www\css\build\pro\pages\betlist\images\bg_header03.jpg" />
     <Content Include="www\css\build\pro\pages\betlist\images\firstGoal.gif" />
     <Content Include="www\css\build\pro\pages\betlist\images\goal-icon.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\lastGoal.gif" />
     <Content Include="www\css\build\pro\pages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\q_Icon_2.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\tab_topbg.gif" />
-    <Content Include="www\css\build\pro\pages\betlist\images\undo.png" />
     <Content Include="www\css\build\pro\pages\betlist\systemparlaydetail.css" />
     <Content Include="www\css\build\pro\pages\forecast\ahforecast.css" />
     <Content Include="www\css\build\pro\pages\forecast\forecastonextwo.css" />
