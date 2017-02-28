@@ -10,9 +10,8 @@
             { pattern: "node_modules/bootstrap-daterangepicker/*.js", included: false },
             { pattern: "node_modules/malihu-custom-scrollbar-plugin/*.js", included: false },
             { pattern: 'www/js/source/**/*.js', included: false },
-            { pattern: 'www/js/tests/test-helper.js', included: false },
 
-            //{ pattern: 'www/js/tests/pages/betlist/betlist-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/betlist/betlist-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/betlist/betlist.option-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/betlist/betlistcorrectscore-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/betlist/betlistrunning-spec.js', included: false },
@@ -20,7 +19,7 @@
             //{ pattern: 'www/js/tests/pages/betlist/commonbetlist-spec.js', included: false },
             //{ pattern: 'www/js/tests/components/refreshcountdown-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/forecast/forecast.onextwo-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/report/livereport/livereport-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/report/livereport/livereport-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {

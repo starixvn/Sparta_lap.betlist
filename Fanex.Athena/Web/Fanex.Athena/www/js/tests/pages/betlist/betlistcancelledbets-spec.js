@@ -22,9 +22,14 @@
                     spyOn(BetListCancelledBets, "initEvent");
                     spyOn(BetListCancelledBets, "submit");
                     spyOn(Site, "addUserGuide");
+                    spyOn(Site, "initialize");
                     spyOn(BetList, "registerBetListGlobalFunctions");
 
                     BetListCancelledBets.initialize();
+                });
+
+                it("Site.initialize() should be called.", function () {
+                    expect(Site.initialize).toHaveBeenCalled();
                 });
 
                 it("BetList.registerBetListGlobalFunctions() should be called.", function () {

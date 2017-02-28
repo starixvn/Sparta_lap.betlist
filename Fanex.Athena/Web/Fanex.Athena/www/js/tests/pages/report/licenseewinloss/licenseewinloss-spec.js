@@ -8,11 +8,18 @@
                 spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
                     return url;
                 });
+                spyOn(Site, "initialize");
                 spyOn(Site, "setMultiSelectForDropDownList");
                 spyOn(DatePicker, "initDateRangePicker");
             });
 
             describe("initialize()", function () {
+                it("Site.initialize() should be called", function () {
+                    LicenseeWinLoss.initialize();
+
+                    expect(Site.initialize).toHaveBeenCalled();
+                });
+
                 it("LicenseeWinLossOption.licenseeId should be assigned data from #drillDownLicenseeId.", function () {
                     var $input = setFixtures('<input id="drillDownLicenseeId" value="1">');
 

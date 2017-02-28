@@ -1,11 +1,18 @@
 ﻿define(
-    ['jquery', 'common/site', 'common/querystring', 'lib/jqgrid/jquery.jqgrid.additional', 'pages/betlist/betlist.option', 'common/popup', 'pages/betlist/betlist', 'test-helper'],
-    function ($, Site, QueryString, jqGridAdditional, BetListOption, Popup, BetList, TestHelper) {
+    ['jquery', 'common/site', 'common/querystring', 'lib/jqgrid/jquery.jqgrid.additional', 'pages/betlist/betlist.option', 'common/popup', 'pages/betlist/betlist'],
+    function ($, Site, QueryString, jqGridAdditional, BetListOption, Popup, BetList) {
         describe("BetList", function () {
+
             beforeEach(function () {
-                TestHelper.initGlobalSetting();
                 appendSetFixtures('<input id="SortBy" value="Foo" />');
                 appendSetFixtures('<input id="SortOrder" value="asc" />');
+                spyOn(Site, "initialize");
+                spyOn(Site, "getSingleResource").and.callFake(function (text) {
+                    return text;
+                });
+                spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
+                    return url;
+                });
                 BetList.initialize();
             });
 
@@ -68,6 +75,7 @@
                 beforeEach(function () {
                     appendSetFixtures('<div id="HiddenColumnList"></div>');
                     spyOn($.fn, 'jqGrid');
+                    spyOn(BetList, "getGridOption").and.returnValue({ rowNum: 2 });
                     BetList.loadDataPaging('');
                 });
 
@@ -85,12 +93,24 @@
             });
 
             describe("bindData(url)", function () {
-                it("gridOption.colNames should be a valid array", function () {
+                it("Parameter is valid when calling jqgrid", function () {
+                    spyOn(BetList, "getGridOption").and.returnValue({ rowNum: 2, rowList: [5] });
+                    spyOn(jqGridAdditional, "formatDecimal").and.callFake(function (value) { return value; });
+                    spyOn(jqGridAdditional, "formatLicenseeWl").and.callFake(function (value) { return value; });
+
                     var gridOption;
-                    appendSetFixtures('<div id="HiddenColumnList"></div>');
+                    appendSetFixtures('<div id="HiddenColumnList"></div> <input id="IsShowSumStake" value="1" />');
+                    var totalData = { SumWinLoss: 10, SumLicenseeWl: 15, SumBetEffective: 0, SumStake: 100 };
                     spyOn($.fn, 'jqGrid').and.callFake(function (param) { gridOption = param; });
-                    BetList.bindData({ Main: {}, Total: {}, IsShowTotal: true, LeagueName: "Test league" });
-                    expect(gridOption.colNames).toEqual(["#", "ExternalId", "SystemId", "TransTime", "Choice", "Odds", "Stake", "WinLoss", "EffectiveBettingValue", "LicenseeWL/Comm", "Status"]);
+
+                    BetList.initialize();
+                    BetList.bindData({ Main: { Value: "Test Value" }, Total: totalData, IsShowTotal: true, LeagueName: "Test league" });
+                    
+                    expect(gridOption.rowNum).toBe(5);
+                    expect(gridOption.data).toEqual({ Value: "Test Value" });
+                    expect(gridOption.userData).toEqual({ WinLoss: 10, LicenseeWL: 15, BetEffective: 0, Stake: 100 });
+                    expect(gridOption.userDataOnFooter).toBe(true);
+                    expect(gridOption.footerrow).toBe(true);
                 });
             });
 
@@ -291,9 +311,9 @@
 
                 it("Popup.openPopupWithIframe(url, options) should be called if #ProductList does not contain checked input", function () {
                     BetList.ValidProducts();
-                    var dialogForm = '<div title="LrfNotification">AlertChooseProductMsg</div>';
+                    var dialogForm = '<div title="LrfNotification"><p class="notification">AlertChooseProductMsg</p></div>';
 
-                    expect(Popup.openPopup).toHaveBeenCalledWith(dialogForm, { width: 350, height: 200, title: 'LrfNotification' });
+                    expect(Popup.openPopup).toHaveBeenCalledWith(dialogForm, { width: 350, height: 120, title: 'LrfNotification', className: "popup-notification" });
                 });
 
                 it("should return true if #ProductList contain a checked input", function () {
