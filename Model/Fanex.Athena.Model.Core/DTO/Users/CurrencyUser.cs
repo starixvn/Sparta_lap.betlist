@@ -21,6 +21,8 @@ namespace Fanex.Athena.Model.Core.DTO.Users
 
         public bool IsActive { get; set; }
 
+        public int AgentId { get; set; }
+
         public IEnumerable<int> AgentIdList { get; set; }
     }
 }

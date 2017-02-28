@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
+    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using Core.Common;
@@ -134,22 +135,18 @@
         }
 
         [Test]
-        public void GetCurrenciesByUser_WhenCall_ParametersPassedCorrectly1()
+        public void GetCurrenciesByUser_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            const int LicenseeId = 1;
-            const int UserId = 2;
-            var reader = Substitute.For<IDataReader>();
-            reader.Read().Returns(true, true, false);
-            reader["Currency"].Returns(20);
-            reader["CurrencyName"].Returns("UUS");
-            reader["IsActive"].Returns(true);
-            reader["AgentId"].Returns(999);
-
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicenseeUser")).ExecuteReader().Returns(reader);
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicenseeUser")).Query<CurrencyUser>()
+                .Returns(new List<CurrencyUser>
+                {
+                    new CurrencyUser { CurrencyId = 1, AgentId = 100 },
+                    new CurrencyUser { CurrencyId = 1, AgentId = 200 }
+                });
 
             // Action
-            var currencyList = _dataAccess.GetCurrenciesByUser(LicenseeId, UserId);
+            var currencyList = _dataAccess.GetCurrenciesByUser(0, 0);
 
             // Assert
             Assert.That(currencyList.Count, Is.EqualTo(1));

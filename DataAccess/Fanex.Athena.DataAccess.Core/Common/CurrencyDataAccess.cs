@@ -8,12 +8,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
-    using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
     using Model.Core.MetaModel.Account;
@@ -96,7 +96,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
         public IList<CurrencyUser> GetCurrenciesByUser(int licenseeId, int userId)
         {
             const string UspName = "Lrf_SelCurrencyByLicenseeUser";
-            IList<CurrencyUser> currencyList = new List<CurrencyUser>();
 
             try
             {
@@ -105,34 +104,15 @@ namespace Fanex.Athena.DataAccess.Core.Common
                     db.AddInParameter("UserID", DbType.Int32, userId);
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
 
-                    using (var reader = db.ExecuteReader())
+                    var currencyList = db.Query<CurrencyUser>();
+                    return currencyList.GroupBy(x => x.CurrencyId).Select(x => new CurrencyUser
                     {
-                        var previousCurrencyId = 0;
-                        var agentIdList = new List<int>();
-                        while (reader.Read())
-                        {
-                            var currencyId = reader.ToInt("Currency");
-                            if (previousCurrencyId != currencyId)
-                            {
-                                agentIdList = new List<int>();
-                                var currencyUser = new CurrencyUser
-                                {
-                                    CurrencyId = currencyId,
-                                    CurrencyName = reader.ToString("CurrencyName"),
-                                    IsActive = reader.ToBool("IsActive"),
-                                    AgentIdList = agentIdList
-                                };
-
-                                currencyList.Add(currencyUser);
-                            }
-
-                            previousCurrencyId = currencyId;
-                            agentIdList.Add(reader.ToInt("AgentId"));
-                        }
-                    }
+                        CurrencyId = x.Key,
+                        CurrencyName = x.First().CurrencyName,
+                        IsActive = x.First().IsActive,
+                        AgentIdList = x.Select(y => y.AgentId).ToList()
+                    }).ToList();
                 }
-
-                return currencyList;
             }
             catch (ObjectDbException sqlException)
             {
