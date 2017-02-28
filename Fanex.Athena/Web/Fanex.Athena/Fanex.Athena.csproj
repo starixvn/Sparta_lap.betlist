@@ -747,15 +747,12 @@
     <Content Include="www\css\build\dev\pages\betlist\colossusbetdetail.css" />
     <Content Include="www\css\build\dev\pages\betlist\images\1F.gif" />
     <Content Include="www\css\build\dev\pages\betlist\images\1L.gif" />
-    <Content Include="www\css\build\dev\pages\betlist\images\ajax-loader.gif" />
-    <Content Include="www\css\build\dev\pages\betlist\images\bg_header03.jpg" />
     <Content Include="www\css\build\dev\pages\betlist\images\firstGoal.gif" />
     <Content Include="www\css\build\dev\pages\betlist\images\goal-icon.png" />
     <Content Include="www\css\build\dev\pages\betlist\images\lastGoal.gif" />
     <Content Include="www\css\build\dev\pages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\build\dev\pages\betlist\images\q_Icon_2.png" />
     <Content Include="www\css\build\dev\pages\betlist\images\tab_topbg.gif" />
-    <Content Include="www\css\build\dev\pages\betlist\images\undo.png" />
     <Content Include="www\css\build\dev\pages\betlist\systemparlaydetail.chunk.js" />
     <Content Include="www\css\build\dev\pages\betlist\systemparlaydetail.css" />
     <Content Include="www\css\build\dev\pages\forecast\ahforecast.chunk.js" />

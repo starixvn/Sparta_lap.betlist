@@ -87,7 +87,7 @@
     }
 
     .firstGoal {
-        background: url("images/firstGoal.gif") no-repeat scroll center center transparent;
+        background: url("images/goal-icon.png") no-repeat 0 0;
         display: inline;
         height: 10px;
         padding: 0 4px;
@@ -95,7 +95,7 @@
     }
 
     .lastGoal {
-        background: url("images/lastGoal.gif") no-repeat scroll center center transparent;
+        background: url("images/goal-icon.png") no-repeat -18px 0;
         display: inline;
         height: 10px;
         padding: 0 4px;
@@ -103,7 +103,7 @@
     }
 
     .fhFirstGoal {
-        background: url(Images/1F.gif) no-repeat scroll center center transparent;
+        background: url("images/goal-icon.png") no-repeat -36px 0;
         display: inline;
         height: 10px;
         padding: 0 4px;
@@ -111,7 +111,7 @@
     }
 
     .fhLastGoal {
-        background: url(Images/1L.gif) no-repeat scroll center center transparent;
+        background: url("images/goal-icon.png") no-repeat no-repeat -54px 0;
         display: inline;
         height: 10px;
         padding: 0 4px;

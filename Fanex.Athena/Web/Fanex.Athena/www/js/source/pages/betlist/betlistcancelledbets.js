@@ -5,7 +5,7 @@ define(
         var _me = {
             initialize: function () {
                 Site.initialize();
-                BetList.initialize();
+                BetList.registerBetListGlobalFunctions();
                 _me.initEvent();
                 _me.submit();
                 Site.addUserGuide({

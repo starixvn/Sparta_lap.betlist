@@ -137,13 +137,13 @@ body {
       height: 14px;
       display: inline-block; }
       .result-container table.fn-rs tbody .cl-match div.first-goal {
-        background: url("images/goal-icon.png") no-repeat -9px -32px; }
+        background: url("images/goal-icon.png") no-repeat 0 0; }
       .result-container table.fn-rs tbody .cl-match div.last-goal {
-        background: url("images/goal-icon.png") no-repeat -9px -16px; }
+        background: url("images/goal-icon.png") no-repeat -18px 0; }
       .result-container table.fn-rs tbody .cl-match div.first-half-first-goal {
-        background: url("images/goal-icon.png") no-repeat -9px -65px; }
+        background: url("images/goal-icon.png") no-repeat -36px 0; }
       .result-container table.fn-rs tbody .cl-match div.first-half-last-goal {
-        background: url("images/goal-icon.png") no-repeat no-repeat -9px -83px; }
+        background: url("images/goal-icon.png") no-repeat no-repeat -54px 0; }
       .result-container table.fn-rs tbody .cl-match div.home, .result-container table.fn-rs tbody .cl-match div.away {
         width: 100%;
         display: inline-block;
