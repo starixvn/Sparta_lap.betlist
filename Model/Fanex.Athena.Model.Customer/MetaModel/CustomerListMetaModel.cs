@@ -11,9 +11,6 @@ namespace Fanex.Athena.Model.Customer.MetaModel
     using Core.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
 
-    /// <summary>
-    /// CustomerListMetaModel class.
-    /// </summary>
     [Serializable]
     public class CustomerListMetaModel : BaseMetaModel
     {

@@ -57,7 +57,7 @@ namespace Fanex.Athena.Controllers
             get { return _appSettings; }
         }
 
-        protected string GenerateCurrencyAgentXml(int currencyId = 0)
+        protected string GenerateAgentListXml(int currencyId = 0)
         {
             var result = new StringBuilder("<ROOT>");
             var currencyAgentList = SessionService.UserSession.CurrencyAgentList;

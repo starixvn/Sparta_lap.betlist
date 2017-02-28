@@ -65,8 +65,6 @@ namespace Fanex.Athena.DataAccess.Customer
                 using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("UserID", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                     db.AddInParameter("username", DbType.String, metaModel.Username);
                     db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
                     db.AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
@@ -74,6 +72,7 @@ namespace Fanex.Athena.DataAccess.Customer
                     db.AddInParameter("CustStatus", DbType.String, metaModel.CustStatus ?? string.Empty);
                     db.AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
                     db.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddOutParameter("TotalRows", DbType.Int32, 4);
 
                     AddOddsGroupParam(db, metaModel);

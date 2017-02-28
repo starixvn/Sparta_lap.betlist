@@ -3,4 +3,10 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_SelCurrencyByLicenseeUser" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerSelUserSearch" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_WinLoss" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_CustomerBalance" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_CustomerTurnOver" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_ActiveMember" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerSel" EnvironmentText="_xpre"></SpNameConfig>
 </Root>

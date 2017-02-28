@@ -102,11 +102,6 @@ namespace Fanex.Athena.Controllers.Customer
             return View("~/Views/Customer/Customers.cshtml", model);
         }
 
-        /// <summary>
-        /// The customer list report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
@@ -116,7 +111,7 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
             metaModel.Username = metaModel.Username == ViewResources.ExternalIdOrSystemId ? string.Empty : metaModel.Username;
-
+            metaModel.AgentListXml = this.GenerateAgentListXml(metaModel.CurrencyId);
             var totalRows = 0;
             var dataList = _customerService.Search(metaModel, ref totalRows);
             return new JsonResult

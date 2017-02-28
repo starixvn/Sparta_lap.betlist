@@ -71,12 +71,6 @@ namespace Fanex.Athena.Service.Customer
             return _customerDataAccess.SearchCustomers(userId, userName, agentListXml);
         }
 
-        /// <summary>
-        /// Advance search customer.
-        /// </summary>
-        /// <param name="metaModel">Meta model contains the filter such as: BA type, special level type, ...</param>
-        /// <param name="totalRows">The total rows.</param>
-        /// <returns>The customer list.</returns>
         public IList<CustomerDTO> Search(CustomerListMetaModel metaModel, ref int totalRows)
         {
             return _customerDataAccess.Search(metaModel, ref totalRows);

@@ -10,16 +10,6 @@
 <div class="grid_26 content-filter">
     @using (Html.BeginForm("CustomerList", "Customer", FormMethod.Post, new { @id = "CustomerForm" }))
     {
-        //-----------------------------Type of licensee---------------------------//
-        if (Model.LicenseeTypeList.Count > 0)
-        {
-        <div class="grid_2 filter-label">
-            <label>@ViewResources.Type</label>
-        </div>
-        <div class="grid_2 filter-input">
-            @RazorHelper.LicenseeType(Model.LicenseeTypeList, "licenseetype", Model.Param.LicenseeType)
-        </div>
-        }
         <div class="grid_2 filter-label">
             <label>@ViewResources.Currency</label>
         </div>
