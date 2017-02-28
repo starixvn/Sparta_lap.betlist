@@ -86,36 +86,28 @@
         text-align: right;
     }
 
-    .firstGoal {
-        background: url("images/goal-icon.png") no-repeat 0 0;
+    .firstGoal, .lastGoal, .fhFirstGoal, .fhLastGoal{
         display: inline;
         height: 10px;
-        padding: 0 4px;
+        padding: 0 6px;
         width: 14px;
+        vertical-align: middle;
+    }
+
+    .firstGoal {
+        background: url("images/goal-icon.png") no-repeat 0 0;
     }
 
     .lastGoal {
         background: url("images/goal-icon.png") no-repeat -18px 0;
-        display: inline;
-        height: 10px;
-        padding: 0 4px;
-        width: 14px;
     }
 
     .fhFirstGoal {
         background: url("images/goal-icon.png") no-repeat -36px 0;
-        display: inline;
-        height: 10px;
-        padding: 0 4px;
-        width: 14px;
     }
 
     .fhLastGoal {
         background: url("images/goal-icon.png") no-repeat no-repeat -54px 0;
-        display: inline;
-        height: 10px;
-        padding: 0 4px;
-        width: 14px;
     }
 
     .match {

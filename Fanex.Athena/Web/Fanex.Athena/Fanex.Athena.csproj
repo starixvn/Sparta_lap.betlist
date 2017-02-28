@@ -745,11 +745,7 @@
     <Content Include="www\css\build\dev\pages\betlist\betlistSimpleLayout.css" />
     <Content Include="www\css\build\dev\pages\betlist\colossusbetdetail.chunk.js" />
     <Content Include="www\css\build\dev\pages\betlist\colossusbetdetail.css" />
-    <Content Include="www\css\build\dev\pages\betlist\images\1F.gif" />
-    <Content Include="www\css\build\dev\pages\betlist\images\1L.gif" />
-    <Content Include="www\css\build\dev\pages\betlist\images\firstGoal.gif" />
     <Content Include="www\css\build\dev\pages\betlist\images\goal-icon.png" />
-    <Content Include="www\css\build\dev\pages\betlist\images\lastGoal.gif" />
     <Content Include="www\css\build\dev\pages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\build\dev\pages\betlist\images\q_Icon_2.png" />
     <Content Include="www\css\build\dev\pages\betlist\images\tab_topbg.gif" />
@@ -802,11 +798,7 @@
     <Content Include="www\css\build\pro\pages\betlist\betlistResult.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistSimpleLayout.css" />
     <Content Include="www\css\build\pro\pages\betlist\colossusbetdetail.css" />
-    <Content Include="www\css\build\pro\pages\betlist\images\1F.gif" />
-    <Content Include="www\css\build\pro\pages\betlist\images\1L.gif" />
-    <Content Include="www\css\build\pro\pages\betlist\images\firstGoal.gif" />
     <Content Include="www\css\build\pro\pages\betlist\images\goal-icon.png" />
-    <Content Include="www\css\build\pro\pages\betlist\images\lastGoal.gif" />
     <Content Include="www\css\build\pro\pages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\q_Icon_2.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\tab_topbg.gif" />
@@ -839,6 +831,7 @@
     <Content Include="www\css\source\components\sortableheader\sortableheader.scss" />
     <Content Include="www\css\source\components\list\_list.scss" />
     <Content Include="www\css\source\components\daterangepicker\_singledatepicker.scss" />
+    <Content Include="www\css\source\components\popupnotification\_popupnotification.scss" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />

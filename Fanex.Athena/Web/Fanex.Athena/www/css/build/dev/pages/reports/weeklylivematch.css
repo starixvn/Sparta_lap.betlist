@@ -377,6 +377,11 @@
     background: #4c6375;
     border: 0; }
 
+.popup-notification .notification {
+  font-size: 14px;
+  text-align: center;
+  padding: 20px; }
+
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column {
   color: #fff; }
 

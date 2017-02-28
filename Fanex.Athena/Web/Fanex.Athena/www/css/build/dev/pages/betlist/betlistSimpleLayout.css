@@ -1801,30 +1801,20 @@ tr.ui-search-toolbar select {
     color: #003399;
     font-weight: 600;
     text-align: right; }
+  .betlist-container .firstGoal, .betlist-container .lastGoal, .betlist-container .fhFirstGoal, .betlist-container .fhLastGoal {
+    display: inline;
+    height: 10px;
+    padding: 0 6px;
+    width: 14px;
+    vertical-align: middle; }
   .betlist-container .firstGoal {
-    background: url("images/goal-icon.png") no-repeat 0 0;
-    display: inline;
-    height: 10px;
-    padding: 0 4px;
-    width: 14px; }
+    background: url("images/goal-icon.png") no-repeat 0 0; }
   .betlist-container .lastGoal {
-    background: url("images/goal-icon.png") no-repeat -18px 0;
-    display: inline;
-    height: 10px;
-    padding: 0 4px;
-    width: 14px; }
+    background: url("images/goal-icon.png") no-repeat -18px 0; }
   .betlist-container .fhFirstGoal {
-    background: url("images/goal-icon.png") no-repeat -36px 0;
-    display: inline;
-    height: 10px;
-    padding: 0 4px;
-    width: 14px; }
+    background: url("images/goal-icon.png") no-repeat -36px 0; }
   .betlist-container .fhLastGoal {
-    background: url("images/goal-icon.png") no-repeat no-repeat -54px 0;
-    display: inline;
-    height: 10px;
-    padding: 0 4px;
-    width: 14px; }
+    background: url("images/goal-icon.png") no-repeat no-repeat -54px 0; }
   .betlist-container .match {
     color: #000000;
     font-weight: normal;

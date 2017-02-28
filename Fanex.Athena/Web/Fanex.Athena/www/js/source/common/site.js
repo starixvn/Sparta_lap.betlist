@@ -160,7 +160,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                 });
             }
 
-            $("form").submit(function () {
+            $("form").on("submit", function () {
                 if (isValidRange() === false) {
                     showMessaegBox(errorMessage);
                     return false;
@@ -170,7 +170,10 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             });
         }
         function showMessaegBox(message) {
-            $('<div title="' + getSingleResource("LrfNotification") + '">' + message + '!</div>').dialog();
+            var title = getSingleResource("LrfNotification");
+            var dialogForm = '<div title="' + title + '"><p class="notification">' + message + '!</p></div>';
+
+            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
         }
         function getLicenseeId() {
             if (!_licenseeId) {

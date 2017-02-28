@@ -14348,7 +14348,7 @@
 	                });
 	            }
 	
-	            $("form").submit(function () {
+	            $("form").on("submit", function () {
 	                if (isValidRange() === false) {
 	                    showMessaegBox(errorMessage);
 	                    return false;
@@ -14358,7 +14358,10 @@
 	            });
 	        }
 	        function showMessaegBox(message) {
-	            $('<div title="' + getSingleResource("LrfNotification") + '">' + message + '!</div>').dialog();
+	            var title = getSingleResource("LrfNotification");
+	            var dialogForm = '<div title="' + title + '"><p class="notification">' + message + '!</p></div>';
+	
+	            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
 	        }
 	        function getLicenseeId() {
 	            if (!_licenseeId) {
@@ -15092,6 +15095,7 @@
 	                width: 640,
 	                height: 480,
 	                id: "popup-content",
+	                className: "",
 	                title: "&nbsp;",
 	                container: "body",
 	                modal: DEFAULT_MODAL,
@@ -15110,10 +15114,10 @@
 	                    $container.append($blockBody);
 	                }
 	
-	                var isNew = $container.find("#" + options.id).length === 0;
+	                var isNew = $("#" + options.id).length === 0;
 	                if (isNew) {
 	                    $self.attr("id", options.id);
-	                    $self.addClass("flat-popup");
+	                    $self.addClass("flat-popup " + options.className);
 	                    $self.children().wrapAll("<div class='wrapContent'></div>");
 	                    $self.hide()
 	                         .prepend('<div class="title-bar popup-title"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="javascript:;"><i class="icon-close"></i></a></div>');
@@ -15132,6 +15136,7 @@
 	                    $container.append($self);
 	                }
 	                else {
+	                    $self = $("#" + options.id);
 	                    var $wrapContent = $self.find(".wrapContent");
 	                    $wrapContent.append($self.children().not(".popup-title"));
 	                }

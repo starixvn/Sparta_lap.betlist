@@ -209,6 +209,8 @@ body{
                     width: 14px;
                     height: 14px;
                     display: inline-block;
+                    padding: 0 8px;
+                    vertical-align: middle;
 
                     &.first-goal {
                         background: url("images/goal-icon.png") no-repeat 0 0;

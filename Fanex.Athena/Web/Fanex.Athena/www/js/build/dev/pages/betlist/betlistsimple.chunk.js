@@ -696,9 +696,8 @@ webpackJsonp([32],[
 	                if ($("#ProductList input:checked").length === 0) {
 	                    temp = false;
 	                    var title = Site.getSingleResource("LrfNotification");
-	                    var dialogForm = '<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>';
-	
-	                    Popup.openPopup(dialogForm, { width: 350, height: 200, title: title });
+	                    var dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource("AlertChooseProductMsg") + '</p></div>';
+	                    Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
 	                }
 	
 	                return temp;
