@@ -36,7 +36,7 @@ namespace Fanex.Athena.DataAccess.Customer
                 {
                     db.AddInParameter("userid", DbType.Int32, userId);
                     db.AddInParameter("username", DbType.String, userName);
-                    db.AddInParameter("AgentList", DbType.String, userName);
+                    db.AddInParameter("AgentList", DbType.String, agentListXml);
 
                     return db.Query<string>();
                 }

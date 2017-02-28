@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -56,6 +57,27 @@ namespace Fanex.Athena.Controllers
             get { return _appSettings; }
         }
 
+        protected string GenerateCurrencyAgentXml(int currencyId = 0)
+        {
+            var result = new StringBuilder("<ROOT>");
+            var currencyAgentList = SessionService.UserSession.CurrencyAgentList;
+            if (currencyId == 0)
+            {
+                foreach (var currency in currencyAgentList)
+                {
+                    result.Append(GenerateAgentXmlBody(currency.Key, currency.Value));
+                }
+            }
+            else if (currencyAgentList.ContainsKey(currencyId))
+            {
+                var agentList = currencyAgentList.Where(x => x.Key == currencyId).FirstOrDefault().Value;
+                result.Append(GenerateAgentXmlBody(currencyId, agentList));
+            }
+
+            result.Append("</ROOT>");
+            return result.ToString();
+        }
+
         protected void SetConvetedUSDCurrencyId(BaseMetaModel metaModel)
         {
             metaModel.CurrencyId = GetBaseUsdLicensees().Contains(metaModel.LicenseeId.ToString())
@@ -95,6 +117,17 @@ namespace Fanex.Athena.Controllers
 
             var viewByOption = ClientViewHelper.GetViewPath(viewName, option);
             return base.View(viewByOption, masterName, model);
+        }
+
+        private static StringBuilder GenerateAgentXmlBody(int currencyId, IEnumerable<int> agentList)
+        {
+            var result = new StringBuilder();
+            foreach (var agentId in agentList)
+            {
+                result.AppendFormat("<Agent AgentId=\"{0}\" Currency=\"{1}\"/>", agentId, currencyId);
+            }
+
+            return result;
         }
 
         private IEnumerable<string> GetBaseUsdLicensees()

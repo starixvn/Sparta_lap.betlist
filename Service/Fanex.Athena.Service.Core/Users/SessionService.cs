@@ -26,9 +26,6 @@ namespace Fanex.Athena.Service.Core.Users
         private const int ReportBalanceId = 42;
         private const string ReportBalanceUrl = "BalanceReport";
 
-        /// <summary>
-        ///     The licensee session key.
-        /// </summary>
         private const string LicenseeSessionKey = "LicenseeSessionKey";
 
         private const string UserSessionKey = "UserSessionKey";
@@ -195,8 +192,6 @@ namespace Fanex.Athena.Service.Core.Users
 
         private void AssignDataForLicenseeSession(LicenseeSession licenseeSession, Licensee selectedLicensee)
         {
-            var agentList = _licenseeService.GetCustByLicensee(selectedLicensee.Id);
-
             licenseeSession.LicenseeId = selectedLicensee.Id;
             licenseeSession.LicenseeName = selectedLicensee.Name;
             licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;

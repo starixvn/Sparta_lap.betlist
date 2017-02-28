@@ -10,9 +10,6 @@ namespace Fanex.Athena.Model.Core.DTO.Users
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DataDomain;
 
-    /// <summary>
-    /// UserSession class.
-    /// </summary>
     [Serializable]
     public class UserSession
     {

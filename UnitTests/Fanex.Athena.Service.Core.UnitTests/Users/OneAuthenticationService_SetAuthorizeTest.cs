@@ -5,10 +5,8 @@
     using System.Web;
     using Core.Common.Interfaces;
     using Core.Users.Interfaces;
-    using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
-    using Model.Core.DataDomain;
     using Model.Core.DTO;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -139,7 +137,6 @@
             Assert.AreEqual(1, sessionCounter);
             Assert.AreEqual(1, cookieCounter);
             Assert.False(string.IsNullOrEmpty(result.ExtendedData));
-            Assert.True(VerifyUserSession(user, expectedCurrency, tokenInfo));
             Assert.True(VeryfiLicSession(lic, expectedAgents, expectedLicInfo, tokenInfo));
         }
 
@@ -176,17 +173,6 @@
                 ResellerId = 1,
                 ResellerName = "test"
             };
-        }
-
-        private static bool VerifyUserSession(UserSession userSession, IList<CurrencyUser> currencyUserList, OneAuthenticationToken tokenInfo)
-        {
-            var lang = Util.MapLanguages.Where(i => i.Value.Equals(tokenInfo.Language))
-                       .Select(i => i.Key).DefaultIfEmpty<string>("en-Us").FirstOrDefault();
-            return userSession != null && userSession.UserId == tokenInfo.UserSEQ &&
-                userSession.VendorID == tokenInfo.VendorID && userSession.VendorIdentityID == tokenInfo.UserID
-                && userSession.IsInternal && userSession.ApplicationMode == AppMode.Parasitic
-                && userSession.PortalFunctionList.Count > 0 && userSession.CurrencyList.Count == currencyUserList.Count
-                && userSession.Language == lang && userSession.FunctionIdList.Count == 0;
         }
 
         private IList<CurrencyUser> FakeCurrencyListMapByUser()

@@ -176,17 +176,7 @@
                 };
             }
 
-            var agentList = _licenseeService.GetCustByLicensee(licensee.Id);
-            if (agentList.Count <= 0)
-            {
-                return new ResultInfo
-                {
-                    Code = OneAuthorizationErrorCode.LicenseeIsNotExisted,
-                    Message = ViewResources.LicenseeIsNotExisted
-                };
-            }
-
-            CreateSession(languageCode, tokenInfo, licensee, agentList);
+            CreateSession(languageCode, tokenInfo, licensee);
             var authName = $"{tokenInfo.VendorID}_{tokenInfo.SiteName}_{tokenInfo.UserID}";
             _formsAuthenticationService.SetAuthCookie(authName, false);
 
@@ -233,8 +223,7 @@
         private void CreateSession(
             string languageCode,
             OneAuthenticationToken tokenInfo,
-            Licensee licenseeInfo,
-            IList<LicenseeCustomer> agentList)
+            Licensee licenseeInfo)
         {
             var licSession = new LicenseeSession
             {

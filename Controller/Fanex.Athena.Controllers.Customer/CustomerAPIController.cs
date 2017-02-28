@@ -567,7 +567,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             query = query.Trim();
 
-            var customerNames = _customerService.SearchCustomers(SessionService.UserSession.UserId, query, string.Empty);
+            var customerNames = _customerService.SearchCustomers(SessionService.UserSession.UserId, query, this.GenerateCurrencyAgentXml());
 
             var searchResult = new
             {
