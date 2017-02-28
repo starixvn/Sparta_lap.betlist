@@ -117,7 +117,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                                 agentIdList = new List<int>();
                                 var currencyUser = new CurrencyUser
                                 {
-                                    CurrencyId = reader.ToInt("Currency"),
+                                    CurrencyId = currencyId,
                                     CurrencyName = reader.ToString("CurrencyName"),
                                     IsActive = reader.ToBool("IsActive"),
                                     AgentIdList = agentIdList

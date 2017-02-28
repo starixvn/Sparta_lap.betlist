@@ -109,7 +109,6 @@ namespace Fanex.Athena.Service.Core.Users
                 IsInternal = isInternal,
                 FunctionIdList = functionIdList,
                 Language = language,
-                CurrencyList = _currencyService.GetCurrencyMapByUser(licenseeId, userId),
                 DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList),
                 ApplicationMode = AppMode.Self
             };
@@ -118,6 +117,7 @@ namespace Fanex.Athena.Service.Core.Users
             var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
             if (licenseeId > 0 && selectedLicensee != null)
             {
+                this.UserSession.CurrencyList = _currencyService.GetCurrencyMapByUser(licenseeId, userId);
                 var licenseeSession = new LicenseeSession();
                 AssignDataForLicenseeSession(licenseeSession, selectedLicensee);
                 licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;

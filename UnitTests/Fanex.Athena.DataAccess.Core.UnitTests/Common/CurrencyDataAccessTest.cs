@@ -1,9 +1,9 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
     using System.Data;
+    using System.Linq;
     using Core.Common;
     using Data;
-    using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Account;
     using NSubstitute;
@@ -131,6 +131,29 @@
             // Assert
             _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
             _objectDb.Received().AddInParameter("UserID", DbType.Int32, UserId);
+        }
+
+        [Test]
+        public void GetCurrenciesByUser_WhenCall_ParametersPassedCorrectly1()
+        {
+            // Arrange
+            const int LicenseeId = 1;
+            const int UserId = 2;
+            var reader = Substitute.For<IDataReader>();
+            reader.Read().Returns(true, true, false);
+            reader["Currency"].Returns(20);
+            reader["CurrencyName"].Returns("UUS");
+            reader["IsActive"].Returns(true);
+            reader["AgentId"].Returns(999);
+
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicenseeUser")).ExecuteReader().Returns(reader);
+
+            // Action
+            var currencyList = _dataAccess.GetCurrenciesByUser(LicenseeId, UserId);
+
+            // Assert
+            Assert.That(currencyList.Count, Is.EqualTo(1));
+            Assert.That(currencyList[0].AgentIdList.Count(), Is.EqualTo(2));
         }
     }
 }
