@@ -23,7 +23,6 @@ namespace Fanex.Athena.Api.BetList
         public dynamic Index(
             int page,
             int rows,
-            string licenseeType,
             int currencyId,
             string currencyName,
             string baseCurrency,
@@ -37,7 +36,6 @@ namespace Fanex.Athena.Api.BetList
 
             var metaModel = new BetListMetaModel
             {
-                LicenseeType = licenseeType,
                 CurrencyId = currencyId,
                 CurrencyName = currencyName,
                 BaseCurrency = baseCurrency ?? string.Empty,

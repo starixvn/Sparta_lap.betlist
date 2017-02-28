@@ -32,9 +32,6 @@ namespace Fanex.Athena.Model.Core.MetaModel
 
         public int UserId { get; set; }
 
-        [DefaultValue("")]
-        public string LicenseeType { get; set; }
-
         public int CurrencyId { get; set; }
 
         [DefaultValue("")]

@@ -224,7 +224,6 @@ namespace Fanex.Athena.Controllers.Customer
             {
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                 IsAllowedUserEditComm = SessionService.IsAllowedEditCommission(userSession),
                 IsAllowedUserChangeBA = SessionService.IsAllowedSpecialBA(userSession),

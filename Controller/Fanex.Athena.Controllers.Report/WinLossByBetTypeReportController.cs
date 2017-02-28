@@ -45,7 +45,6 @@ namespace Fanex.Athena.Controllers.Report
                 BalanceUpdate = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = userSession.CurrencyList,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
             };
 
@@ -75,7 +74,6 @@ namespace Fanex.Athena.Controllers.Report
                 BalanceUpdate = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = userSession.CurrencyList,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 ColumnCount = GetColumnCount(productAccess, licenseeSession.IsAllowedCustomerComm),
                 Total = total

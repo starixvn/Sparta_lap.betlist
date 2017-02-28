@@ -64,7 +64,6 @@ namespace Fanex.Athena.Controllers.Forecast
                 Param = metaModel,
                 MainData = forecastHdpOuByLeague,
                 LeagueList = leagueList,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 CurrencyList = SessionService.UserSession.CurrencyList
             };
         }

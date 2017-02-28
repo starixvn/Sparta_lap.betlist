@@ -65,7 +65,6 @@
             _dataAccess.GetForecastHandicap(metaModel, userId);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
             _objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
             _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
@@ -85,7 +84,6 @@
             _dataAccess.GetForecastOverUnder(metaModel, userId);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
             _objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
             _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
@@ -104,7 +102,6 @@
             _dataAccess.GetForecastRunningLeague(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("CurrencyId", DbType.Int32, 0);
             _objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
             _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
@@ -139,7 +136,6 @@
             _dataAccess.GetForecastOneXTwoByLeague(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
             _objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
             _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
@@ -221,7 +217,6 @@
             _dataAccess.GetForecastOneXTwoByMatch(metaModel, userId);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
             _objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
             _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);

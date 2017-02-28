@@ -74,7 +74,6 @@ namespace Fanex.Athena.Controllers.TotalBets
                 {
                     Param = metaModel,
                     MainData = dataList,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
                     CurrencyList = currencies,
                     TotalRunningStake = totalData.HomeHome + totalData.HomeDraw + totalData.HomeAway + totalData.DrawHome +
                                         totalData.DrawDraw + totalData.DrawAway + totalData.AwayHome + totalData.AwayAway

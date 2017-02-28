@@ -57,7 +57,6 @@ namespace Fanex.Athena.Controllers.Report
                 DataList = new List<CustPendingFunds>(),
                 TotalData = new CustPendingFunds(),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
@@ -84,7 +83,6 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CustomerPendingFundsViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = ProductService.GetSingleWalletProductAccess(metaModel.LicenseeId, userSession.Language, FunctionNames.CustomerPendingFunds),
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel,

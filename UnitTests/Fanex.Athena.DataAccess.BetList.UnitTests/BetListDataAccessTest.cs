@@ -192,7 +192,6 @@
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
             _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
         }
 
         [Test]
@@ -333,7 +332,6 @@
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
             _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, _metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("leagueid", DbType.Int32, _metaModel.LeagueId);
             _objectDb.Received().AddInParameter("raceNo", DbType.String, _metaModel.RaceNo);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
@@ -419,7 +417,6 @@
             _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, _metaModel.CurrencyId);
             _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
             _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
@@ -440,7 +437,6 @@
             _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, _metaModel.CurrencyId);
             _objectDb.Received().AddInParameter("bettype", DbType.String, _metaModel.MultipleBettype);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
             _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
@@ -585,7 +581,6 @@
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
             _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, _metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("Bettype", DbType.Int32, _metaModel.BetType);
             _objectDb.Received().AddInParameter("LeagueId", DbType.Int32, _metaModel.LeagueId);
             _objectDb.Received().AddInParameter("RaceNo", DbType.String, _metaModel.RaceNo);
@@ -628,7 +623,6 @@
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
             _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, _metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
             _objectDb.Received().AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
             _objectDb.Received().AddInParameter("liveindicator", DbType.Int32, _metaModel.LiveIndicator.Value);
@@ -671,7 +665,6 @@
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
             _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, _metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
             _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
             _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
@@ -714,7 +707,6 @@
             _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
             _objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, _metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
             _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
             _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
@@ -939,7 +931,6 @@
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
             _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, _metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
             _objectDb.Received().AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
@@ -977,7 +968,6 @@
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
             _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, _metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
             _objectDb.Received().AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
@@ -1001,7 +991,6 @@
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
             _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, _metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("bettype", DbType.String, _metaModel.MultipleBettype);
             _objectDb.Received().AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
@@ -1025,7 +1014,6 @@
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
             _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, _metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
             _objectDb.Received().AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
@@ -1091,7 +1079,6 @@
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
             _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
             _objectDb.Received().AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, _metaModel.CurrencyId);
             _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
             _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
@@ -1154,7 +1141,6 @@
                 LicenseeId = 2,
                 UserId = 3,
                 CurrencyId = 4,
-                LicenseeType = "LicenseeTypeTest",
                 ProductOptions = productOptions,
                 SortBy = "SortByTest",
                 SortOrder = "SortOrderTest",

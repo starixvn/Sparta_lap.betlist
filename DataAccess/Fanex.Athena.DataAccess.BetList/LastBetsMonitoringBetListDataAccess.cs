@@ -29,7 +29,6 @@ namespace Fanex.Athena.DataAccess.BetList
                 {
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                     db.AddInParameter("BetType", DbType.String, metaModel.BetType);
                     db.AddInParameter("Currency", DbType.String, metaModel.Currency);
                     db.AddInParameter("SpecialLevel", DbType.String, metaModel.Level);

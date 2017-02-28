@@ -45,10 +45,6 @@ namespace Fanex.Athena.DataAccess.Report
                 db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                 db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);
                 db.AddInParameter("username", DbType.String, metaModel.Username);
-                if (!string.IsNullOrEmpty(metaModel.LicenseeType))
-                {
-                    db.AddInParameter("licenseetype", DbType.String, metaModel.LicenseeType);
-                }
 
                 using (var reader = db.ExecuteReader())
                 {

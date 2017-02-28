@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Model.Core.DTO.Users
 {
     using System;
-    using System.Collections.Generic;
 
     [Serializable]
     public class LicenseeSession
@@ -15,10 +14,6 @@ namespace Fanex.Athena.Model.Core.DTO.Users
         public int LicenseeId { get; set; }
 
         public string LicenseeName { get; set; }
-
-        public IList<string> LicenseeType { get; set; }
-
-        public IList<string> CurrencyName { get; set; }
 
         public bool IsAllowedCustomerComm { get; set; }
 

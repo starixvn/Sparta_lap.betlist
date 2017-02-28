@@ -563,7 +563,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         [AjaxRequest]
         [HttpGet]
-        public JsonResult SearchCustomer(string licenseeType, int currencyId, string query)
+        public JsonResult SearchCustomer(string query)
         {
             query = query.Trim();
 

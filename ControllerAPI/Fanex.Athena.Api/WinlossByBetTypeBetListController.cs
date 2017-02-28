@@ -17,7 +17,6 @@
         public dynamic Index(
             int page,
             int rows,
-            string licenseeType,
             int currencyId,
             string currencyName,
             string baseCurrency,
@@ -38,7 +37,6 @@
             var metaModel = new BetListMetaModel
             {
                 LicenseeId = SessionService.LicenseeSession.LicenseeId,
-                LicenseeType = licenseeType,
                 CurrencyId = currencyId,
                 CurrencyName = currencyName,
                 BaseCurrency = baseCurrency ?? string.Empty,

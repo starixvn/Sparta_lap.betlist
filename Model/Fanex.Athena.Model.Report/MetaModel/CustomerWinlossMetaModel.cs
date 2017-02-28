@@ -23,7 +23,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public CustomerWinLossMetaModel(IAppSettings appSetting)
             : base(appSetting)
         {
-            LicenseeType = string.Empty;
             FromDate = DateTime.Today;
             ToDate = DateTime.Today;
             PageIndex = 1;

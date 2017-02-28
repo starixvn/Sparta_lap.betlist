@@ -29,7 +29,6 @@ namespace Fanex.Athena.DataAccess.BetList
                 {
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrWhiteSpace(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
                     db.AddInParameter("CurrencyId", DbType.String, metaModel.CurrencyId.ToString());
                     return db.Query<CustomerCancelBetItem>().ToList();
                 }

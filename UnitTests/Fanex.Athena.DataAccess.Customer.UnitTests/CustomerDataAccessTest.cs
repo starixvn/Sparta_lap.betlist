@@ -60,7 +60,6 @@
             _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
             _objectDb.Received().AddInParameter("UserID", DbType.Int32, metaModel.UserId);
             _objectDb.Received().AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("username", DbType.String, metaModel.Username);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             _objectDb.Received().AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);

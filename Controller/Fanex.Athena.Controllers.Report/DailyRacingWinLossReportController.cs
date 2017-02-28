@@ -37,7 +37,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
             };
@@ -60,7 +59,6 @@ namespace Fanex.Athena.Controllers.Report
             var model = new DailyRacingWinLossViewModel
             {
                 Param = metaModel,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 DailyRacingWinLossData = dailyRacingWlData

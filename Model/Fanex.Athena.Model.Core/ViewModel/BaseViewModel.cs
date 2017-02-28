@@ -11,8 +11,6 @@ namespace Fanex.Athena.Model.Core.ViewModel
 
     public class BaseViewModel
     {
-        public IList<string> LicenseeTypeList { get; set; }
-
         public bool IsAllowedCustomerCommission { get; set; }
 
         public ProductAccess ProductAccess { get; set; }

@@ -41,7 +41,6 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 LicenseeID = metaModel.LicenseeId,
                 metaModel.UserId,
-                metaModel.LicenseeType,
                 metaModel.CurrencyId,
                 metaModel.FromDate,
                 metaModel.ToDate,

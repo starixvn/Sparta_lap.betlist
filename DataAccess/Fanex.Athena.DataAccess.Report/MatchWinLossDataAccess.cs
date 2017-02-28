@@ -50,7 +50,6 @@ namespace Fanex.Athena.DataAccess.Report
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                     db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
@@ -87,7 +86,6 @@ namespace Fanex.Athena.DataAccess.Report
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                     db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.Date);
@@ -124,7 +122,6 @@ namespace Fanex.Athena.DataAccess.Report
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                     db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                     db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
@@ -167,7 +164,6 @@ namespace Fanex.Athena.DataAccess.Report
 
                     db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                     db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);

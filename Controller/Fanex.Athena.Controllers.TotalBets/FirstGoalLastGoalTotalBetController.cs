@@ -74,7 +74,6 @@ namespace Fanex.Athena.Controllers.TotalBets
                 {
                     Param = metaModel,
                     MainData = dataList,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
                     CurrencyList = currencies,
                     TotalData = totalData
                 };

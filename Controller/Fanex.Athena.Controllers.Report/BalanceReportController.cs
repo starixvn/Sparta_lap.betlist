@@ -53,7 +53,6 @@ namespace Fanex.Athena.Controllers.Report
                 Param = metaModel,
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                 CurrencyList = userSession.CurrencyList,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
             };
 

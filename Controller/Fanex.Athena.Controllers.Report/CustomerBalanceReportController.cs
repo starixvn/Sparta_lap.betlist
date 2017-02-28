@@ -55,7 +55,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
@@ -88,7 +87,6 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CustomerBalanceViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel

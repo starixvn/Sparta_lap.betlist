@@ -76,7 +76,6 @@ namespace Fanex.Athena.Controllers.Forecast
 
             model.Param = metaModel;
             model.LeagueList = leagueList;
-            model.LicenseeTypeList = licenseeSession.LicenseeType;
             model.CurrencyList = userSession.CurrencyList;
 
             return model;

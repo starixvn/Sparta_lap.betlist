@@ -32,7 +32,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             var uspParams = new
             {
                 LicenseeId = metaModel.LicenseeId,
-                LicenseeType = metaModel.LicenseeType,
                 CurrencyId = metaModel.CurrencyId,
                 PageSize = metaModel.PageSize,
                 PageIndex = metaModel.PageIndex,

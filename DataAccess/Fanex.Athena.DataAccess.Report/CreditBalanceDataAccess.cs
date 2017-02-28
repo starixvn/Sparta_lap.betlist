@@ -36,7 +36,6 @@ namespace Fanex.Athena.DataAccess.Report
                 metaModel.LicenseeId,
                 metaModel.UserId,
                 metaModel.CurrencyId,
-                metaModel.LicenseeType,
                 metaModel.MoveBetsDay,
                 metaModel.FromDate,
                 metaModel.ToDate,

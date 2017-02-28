@@ -62,7 +62,6 @@ namespace Fanex.Athena.DataAccess.Forecast
             const string UspName = "Lrf_Forecast_SelHDP";
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                 db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                 db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
@@ -85,7 +84,6 @@ namespace Fanex.Athena.DataAccess.Forecast
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                 db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                 db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
@@ -112,7 +110,6 @@ namespace Fanex.Athena.DataAccess.Forecast
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, 0);
                 db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                 db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
@@ -141,7 +138,6 @@ namespace Fanex.Athena.DataAccess.Forecast
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                 db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                 db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
@@ -166,7 +162,6 @@ namespace Fanex.Athena.DataAccess.Forecast
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                 db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                 db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                 db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
@@ -197,7 +192,6 @@ namespace Fanex.Athena.DataAccess.Forecast
             {
                 LicenseeId = metaModel.LicenseeId,
                 UserId = metaModel.UserId,
-                LicenseeType = metaModel.LicenseeType,
                 CurrencyId = metaModel.CurrencyId,
                 LeagueId = metaModel.LeagueId,
                 Baseoffsethdp = 0,

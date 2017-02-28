@@ -239,12 +239,6 @@
             var licSession = new LicenseeSession
             {
                 LicenseeId = licenseeInfo.Id,
-                LicenseeType = agentList
-                                        .Where(s => !string.IsNullOrEmpty(s.Description))
-                                        .Select(s => s.Description)
-                                        .Distinct()
-                                        .ToList(),
-                CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList(),
                 IsAllowedCustomerComm = licenseeInfo.IsAllowedCustomerComm,
                 IsEnableBA = licenseeInfo.IsEnableBA,
                 LicenseeName = licenseeInfo.Name

@@ -34,10 +34,6 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                 db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                if (!string.IsNullOrEmpty(metaModel.LicenseeType))
-                {
-                    db.AddInParameter("licenseetype", DbType.String, metaModel.LicenseeType);
-                }
 
                 db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
                 db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);

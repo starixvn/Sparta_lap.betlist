@@ -91,10 +91,8 @@
 
             SessionService.LicenseeSession.Returns(new LicenseeSession
             {
-                CurrencyName = new List<string> { "UUS" },
                 LicenseeId = SessionLicenseeId,
-                LicenseeName = "Spondemo",
-                LicenseeType = new List<string>()
+                LicenseeName = "Spondemo"
             });
 
             AppSettings = Substitute.For<IAppSettings>();

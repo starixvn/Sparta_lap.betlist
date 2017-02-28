@@ -73,7 +73,6 @@ namespace Fanex.Athena.Api.BetList
         public dynamic MixParlay(
             int page,
             int rows,
-            string licenseeType,
             int currencyId,
             string baseCurrency,
             int betType,
@@ -106,7 +105,6 @@ namespace Fanex.Athena.Api.BetList
 
                 var metaModel = new BetListMetaModel
                 {
-                    LicenseeType = licenseeType,
                     LicenseeId = SessionService.LicenseeSession.LicenseeId,
                     UserId = userSession.UserId,
                     CurrencyId = currencyId,

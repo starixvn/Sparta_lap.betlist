@@ -59,7 +59,6 @@ namespace Fanex.Athena.Controllers.Report
                 Param = metaModel,
                 ProductAccess = productAccess,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 CurrencyList = GetCurrenciesForTurnoverReport(licenseeSession.LicenseeId),
                 IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
             };
@@ -89,7 +88,6 @@ namespace Fanex.Athena.Controllers.Report
                 Param = metaModel,
                 ProductAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.Turnover),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 CurrencyList = GetCurrenciesForTurnoverReport(licenseeSession.LicenseeId),
                 IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1
             };

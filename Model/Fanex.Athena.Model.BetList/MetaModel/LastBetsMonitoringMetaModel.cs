@@ -6,9 +6,6 @@
 
 namespace Fanex.Athena.Model.BetList.MetaModel
 {
-    /// <summary>
-    /// LastBetsMonitoringMetaModel class.
-    /// </summary>
     public class LastBetsMonitoringMetaModel
     {
         public LastBetsMonitoringMetaModel()
@@ -17,8 +14,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
         }
 
         public int LicenseeId { get; set; }
-
-        public string LicenseeType { get; set; }
 
         public int SportId { get; set; }
 

@@ -199,12 +199,6 @@ namespace Fanex.Athena.Service.Core.Users
 
             licenseeSession.LicenseeId = selectedLicensee.Id;
             licenseeSession.LicenseeName = selectedLicensee.Name;
-            licenseeSession.LicenseeType = agentList
-                                        .Where(s => !string.IsNullOrEmpty(s.Description))
-                                        .Select(s => s.Description)
-                                        .Distinct()
-                                        .ToList();
-            licenseeSession.CurrencyName = agentList.Select(s => s.CurrencyName).Distinct().ToList();
             licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;
             licenseeSession.IsEnableBA = selectedLicensee.IsEnableBA;
         }

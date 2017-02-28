@@ -67,7 +67,6 @@ namespace Fanex.Athena.DataAccess.Customer
                     db.AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("UserID", DbType.Int32, metaModel.UserId);
                     db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-                    db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                     db.AddInParameter("username", DbType.String, metaModel.Username);
                     db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
                     db.AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);

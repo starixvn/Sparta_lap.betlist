@@ -13,7 +13,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
     {
         public CustomerPendingFundsMetaModel()
         {
-            LicenseeType = string.Empty;
             PageIndex = 1;
             PageSize = 1000;
             SortDirection = "ASC";

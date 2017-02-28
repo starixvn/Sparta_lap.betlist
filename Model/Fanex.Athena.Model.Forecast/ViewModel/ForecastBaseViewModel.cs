@@ -10,8 +10,6 @@ namespace Fanex.Athena.Model.Forecast.ViewModel
 
     public class ForecastBaseViewModel
     {
-        public IList<string> LicenseeTypeList { get; set; }
-
         public IDictionary<int, string> CurrencyList { get; set; }
     }
 }

@@ -41,7 +41,6 @@
             // Assert
             _objectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("BetType", DbType.String, metaModel.BetType);
             _objectDb.Received().AddInParameter("Currency", DbType.String, metaModel.Currency);
             _objectDb.Received().AddInParameter("SpecialLevel", DbType.String, metaModel.Level);
@@ -78,7 +77,6 @@
             {
                 UserId = 1,
                 LicenseeId = 2,
-                LicenseeType = "LicenseeTypeTest",
                 BetType = "BetTypeTest",
                 Currency = "CurrencyTest",
                 Level = "LevelTest",

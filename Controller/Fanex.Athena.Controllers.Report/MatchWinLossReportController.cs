@@ -62,7 +62,6 @@ namespace Fanex.Athena.Controllers.Report
                 ShowEmptyContent = true,
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
@@ -125,8 +124,6 @@ namespace Fanex.Athena.Controllers.Report
                 SpecialBetTypeResult = reportDataOutrightParlay,
 
                 CurrencyList = currencies,
-                LicenseeTypeList = licenseeSession.LicenseeType,
-
                 ProductAccess = productAccess,
                 ColumnCount = GetColumnCount(productAccess, licenseeSession.IsAllowedCustomerComm),
                 Total = total,
@@ -154,7 +151,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 MainResult = reportData,
                 ProductAccess = productAccess,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 

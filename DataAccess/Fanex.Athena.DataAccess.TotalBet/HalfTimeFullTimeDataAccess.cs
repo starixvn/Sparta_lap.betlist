@@ -20,19 +20,12 @@ namespace Fanex.Athena.DataAccess.TotalBet
     /// </summary>
     public class HalfTimeFullTimeDataAccess : BaseDataAccess, IHalfTimeFullTimeDataAccess
     {
-        /// <summary>
-        /// Get HalfTime FullTime data list.
-        /// </summary>
-        /// <param name="metaModel">HT/FT MetaModel value.</param>
-        /// <param name="totalData">HalfTimeFullTime value.</param>
-        /// <returns>A list of HT/FT.</returns>
         public IList<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel, out HalfTimeFullTime totalData)
         {
             const string SpName = "Lrf_TotalBets_Sel16";
             var uspParams = new
             {
                 LicenseeId = metaModel.LicenseeId,
-                LicenseeType = metaModel.LicenseeType,
                 CurrencyId = metaModel.CurrencyId,
                 PageSize = metaModel.PageSize,
                 PageIndex = metaModel.PageIndex,

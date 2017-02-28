@@ -150,8 +150,7 @@
                                         .Distinct()
                                         .ToList();
             var curName = expectedAgents.Select(s => s.CurrencyName).Distinct().ToList();
-            return lic.LicenseeId == expectedLicInfo.Id && lic.CurrencyName.Count == curName.Count
-                 && lic.LicenseeType.Count == licType.Count && lic.LicenseeName == expectedLicInfo.Name
+            return lic.LicenseeId == expectedLicInfo.Id && lic.LicenseeName == expectedLicInfo.Name
                  && lic.IsEnableBA == expectedLicInfo.IsEnableBA && lic.IsAllowedCustomerComm == expectedLicInfo.IsAllowedCustomerComm;
         }
 

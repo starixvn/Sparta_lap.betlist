@@ -38,7 +38,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
             };
@@ -70,7 +69,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 RacingCommissionList = reportData,
                 Param = metaModel,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 Total = total,

@@ -53,7 +53,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
@@ -92,7 +91,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 CurrencyList = userSession.CurrencyList,
                 HistoryParam = historyParam,
@@ -121,7 +119,6 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CustomerWinLossViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language),
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
@@ -158,7 +155,6 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CustomerWinLossViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language),
                 CurrencyList = userSession.CurrencyList,
                 HistoryParam = metaModel,

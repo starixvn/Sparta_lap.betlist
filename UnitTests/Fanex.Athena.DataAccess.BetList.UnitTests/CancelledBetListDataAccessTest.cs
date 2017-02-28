@@ -41,7 +41,6 @@
             // Assert
             _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             _objectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("CurrencyId", DbType.String, metaModel.CurrencyId.ToString());
         }
 
@@ -66,7 +65,6 @@
             {
                 LicenseeId = 1,
                 UserId = 2,
-                LicenseeType = "LicenseeTypeTest",
                 CurrencyId = 3
             };
         }
