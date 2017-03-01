@@ -19,6 +19,7 @@
     using Newtonsoft.Json;
     using Resources;
     using User.Common;
+    using Utility;
 
     public class OneAuthenticationService : IOneAuthenticationService
     {
@@ -95,45 +96,9 @@
             }
 
             tokenInfo.UserSEQ = int.Parse(userCheckingResult.ExtendedData);
-            //// CheckAndSyncCurrency(licensee.Id, tokenInfo, currentContext.Request.UserHostAddress);
             return SetAuthorize(licensee, language, tokenInfo);
         }
 
-        /*
-        private void CheckAndSyncCurrency(int licenseeId, OneAuthenticationToken tokenInfo, string ip)
-        {
-             * var currentCurrencyRestriction = _currencyService.GetCurrenciesByUser(licenseeId, tokenInfo.UserSEQ);
-             var currencyRestriction = currentCurrencyRestriction;// new List<CurrencyUser>();//get from token
-
-             var result = from t in currencyRestriction
-                          from c in currentCurrencyRestriction
-                          where t.CurrencyId == c.CurrencyId
-                          select c;
-             if (result.Count() != currentCurrencyRestriction.Count)
-             {
-                 // convert currencies into xml
-                 const string XmlPattern = "<currencies>{0}</currencies>";
-                 const string XmlElementPattern = "<currency currencyid=\"{0}\" status=\"{1}\"></currency>";
-                 var xmlElementBuilder = new StringBuilder();
-
-                 foreach (var currency in currentCurrencyRestriction)
-                 {
-                     xmlElementBuilder.Append(string.Format(
-                         XmlElementPattern,
-                         currency.CurrencyId,
-                         currencyRestriction.Any(i => i.CurrencyId == currency.CurrencyId) ? 1 : 0));
-                 }
-
-                 _currencyService.AssignCurrenciesByUser(new Model.Core.MetaModel.Account.AssignCurrencyMetaModel
-                 {
-                     LicenseeId = licenseeId,
-                     CurrencyList = string.Format(XmlPattern, xmlElementBuilder),
-                     ModifyBy = tokenInfo.UserSEQ,
-                     IP = ip
-                 });
-             }
-        }
-        */
 
         public OneAuthenticationToken GetTokenInfo(string token)
         {
@@ -176,7 +141,7 @@
                 };
             }
 
-            CreateSession(languageCode, tokenInfo, licensee);
+            CreateSession(languageCode, tokenInfo, licensee, currencyOfLicensee);
             var authName = $"{tokenInfo.VendorID}_{tokenInfo.SiteName}_{tokenInfo.UserID}";
             _formsAuthenticationService.SetAuthCookie(authName, false);
 
@@ -223,7 +188,8 @@
         private void CreateSession(
             string languageCode,
             OneAuthenticationToken tokenInfo,
-            Licensee licenseeInfo)
+            Licensee licenseeInfo,
+            IEnumerable<CurrencyUser> currencyByUser)
         {
             var licSession = new LicenseeSession
             {
@@ -246,12 +212,18 @@
                 ApplicationMode = AppMode.Parasitic,
                 VendorID = tokenInfo.VendorID,
                 VendorIdentityID = tokenInfo.UserID,
-                ViewType = ClientViewType.Desktop
+                ViewType = ClientViewType.Desktop,
             };
+
+            AssignCurrenciesToUserSession(userSerssion, currencyByUser, licenseeInfo.Id);
 
             _sessionService.CreateNewSession(userSerssion, licSession);
         }
 
+        /// <summary>
+        /// This function will be removed when integrating permission part with LAP.
+        /// </summary>
+        /// <returns>Return the list portal function.</returns>
         private IList<PortalSystemFunction> GetFunctionList()
         {
             const string FunctionFilePath = "~/App_Data/PortalSystemFunction.json";
@@ -264,6 +236,33 @@
             }
 
             return result == null ? new List<PortalSystemFunction>() : result;
+        }
+
+        /// <summary>
+        /// This function will be removed when integrating permission part with LAP.
+        /// </summary>
+        /// <param name="userSession">The currency user session.</param>
+        /// <param name="currencyUserList">The currency of user .</param>
+        /// <param name="licenseeId">The licensee ID.</param>
+        private static void AssignCurrenciesToUserSession(UserSession userSession, IEnumerable<CurrencyUser> currencyUserList, int licenseeId)
+        {
+            if (licenseeId == LicenseeIdentityDefinition.KeenOcean)
+            {
+                currencyUserList = KeanOceanBusinessHelper.ModifyCurrenciesForKeenOcean(currencyUserList);
+            }
+
+            var currencyList = currencyUserList
+                .Where(x => x.IsActive)
+                .Select(x => new { x.CurrencyId, x.CurrencyName })
+                .ToDictionary(x => x.CurrencyId, x => x.CurrencyName);
+
+            var currencyAgentList = currencyUserList
+                .Where(x => x.IsActive)
+                .Select(x => new { x.CurrencyId, x.AgentIdList })
+                .ToDictionary(x => x.CurrencyId, x => x.AgentIdList);
+
+            userSession.CurrencyList = currencyList;
+            userSession.CurrencyAgentList = currencyAgentList;
         }
     }
 }

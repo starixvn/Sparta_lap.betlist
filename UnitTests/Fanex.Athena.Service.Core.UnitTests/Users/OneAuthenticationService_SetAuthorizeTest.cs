@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web;
     using Core.Common.Interfaces;
     using Core.Users.Interfaces;
@@ -116,16 +115,11 @@
             Assert.AreEqual(1, sessionCounter);
             Assert.AreEqual(1, cookieCounter);
             Assert.False(string.IsNullOrEmpty(result.ExtendedData));
-            Assert.True(VeryfiLicSession(lic, expectedAgents, expectedLicInfo, tokenInfo));
+            Assert.True(VeryfiLicSession(lic, expectedLicInfo, tokenInfo));
         }
 
-        private static bool VeryfiLicSession(LicenseeSession lic, List<LicenseeCustomer> expectedAgents, Licensee expectedLicInfo, OneAuthenticationToken tokenInfo)
+        private static bool VeryfiLicSession(LicenseeSession lic, Licensee expectedLicInfo, OneAuthenticationToken tokenInfo)
         {
-            var licType = expectedAgents.Where(s => !string.IsNullOrEmpty(s.Description))
-                                        .Select(s => s.Description)
-                                        .Distinct()
-                                        .ToList();
-            var curName = expectedAgents.Select(s => s.CurrencyName).Distinct().ToList();
             return lic.LicenseeId == expectedLicInfo.Id && lic.LicenseeName == expectedLicInfo.Name
                  && lic.IsEnableBA == expectedLicInfo.IsEnableBA && lic.IsAllowedCustomerComm == expectedLicInfo.IsAllowedCustomerComm;
         }
@@ -154,9 +148,9 @@
             };
         }
 
-        private IList<CurrencyUser> FakeCurrencyListMapByUser()
+        private static IList<CurrencyUser> FakeCurrencyListMapByUser()
         {
-            return new List<CurrencyUser>()
+            return new List<CurrencyUser>
             {
                 new CurrencyUser
                 {

@@ -45,24 +45,19 @@
             _dataAccess.GetCurrencies(LicenseeId);
 
             // Assert
-            _objectDb.ReceivedWithAnyArgs().ExecuteReader(null);
+            _objectDb.ReceivedWithAnyArgs().Query<CurrencyUser>(null);
         }
 
         [Test]
         public void GetCurrencies_WhenCall_DataReturnCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicensee")).Returns(_objectDb);
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-            _reader.Read().Returns(true, false);
-
-            var expected = new CurrencyUser
-            {
-                CurrencyId = 1,
-                CurrencyName = "Currency Test"
-            };
-            _reader.GetInt32(Arg.Any<int>()).Returns(expected.CurrencyId);
-            _reader.GetString(Arg.Any<int>()).Returns(expected.CurrencyName);
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicensee")).Query<CurrencyUser>()
+                .Returns(new List<CurrencyUser>
+                {
+                    new CurrencyUser { CurrencyId = 1, AgentId = 100 },
+                    new CurrencyUser { CurrencyId = 1, AgentId = 200 }
+                });
 
             const int LicenseeId = 1;
 
@@ -70,8 +65,8 @@
             var result = _dataAccess.GetCurrencies(LicenseeId);
 
             // Assert
-            Assert.That(result[0].CurrencyId, Is.EqualTo(expected.CurrencyId));
-            Assert.That(result[0].CurrencyName, Is.EqualTo(expected.CurrencyName));
+            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result[0].AgentIdList.Count(), Is.EqualTo(2));
         }
 
         [Test]

@@ -231,14 +231,7 @@ namespace Fanex.Athena.Controllers
             var viewType = userSession != null && userSession.ViewType != ClientViewType.None ? userSession.ViewType :
                         (ClientViewType)int.Parse(AppSettings.GetValue(nameof(ClientViewType)));
 
-            if (viewType == ClientViewType.Desktop)
-            {
-                img = CreateCaptchaForNewViewType(code);
-            }
-            else
-            {
-                img = CreateCaptchaForOldViewType(code);
-            }
+            img = viewType == ClientViewType.Desktop ? CreateCaptchaForNewViewType(code) : CreateCaptchaForOldViewType(code);
 
             return File(img.FileContents, img.ContentType);
         }

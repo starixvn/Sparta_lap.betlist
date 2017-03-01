@@ -31,9 +31,9 @@ namespace Fanex.Athena.Service.Core.Users
 
         private const string UserSessionKey = "UserSessionKey";
         private const string CaptchaCodeKey = "CaptchaCodeKey";
-        private IFunctionService _functionService;
-        private ILicenseeService _licenseeService;
-        private ICurrencyService _currencyService;
+        private readonly IFunctionService _functionService;
+        private readonly ILicenseeService _licenseeService;
+        private readonly ICurrencyService _currencyService;
 
         public SessionService()
         {
@@ -61,11 +61,6 @@ namespace Fanex.Athena.Service.Core.Users
                 var temp = HttpContext.Current.Session[LicenseeSessionKey];
                 return temp != null ? (LicenseeSession)temp : null;
             }
-
-            private set
-            {
-                HttpContext.Current.Session[LicenseeSessionKey] = value;
-            }
         }
 
         public UserSession UserSession
@@ -74,11 +69,6 @@ namespace Fanex.Athena.Service.Core.Users
             {
                 var temp = HttpContext.Current.Session[UserSessionKey];
                 return temp != null ? (UserSession)temp : null;
-            }
-
-            private set
-            {
-                HttpContext.Current.Session[UserSessionKey] = value;
             }
         }
 
@@ -90,9 +80,8 @@ namespace Fanex.Athena.Service.Core.Users
 
         public void CreateNewSession(UserSession userSession, LicenseeSession licenseeSession)
         {
-            UserSession = userSession;
-            LicenseeSession = licenseeSession;
-            AssignCurrenciesToUserSession(this.UserSession, licenseeSession.LicenseeId);
+            HttpContext.Current.Session[UserSessionKey] = userSession;
+            HttpContext.Current.Session[LicenseeSessionKey] = licenseeSession;
         }
 
         public void CreateNewSession(
@@ -119,15 +108,12 @@ namespace Fanex.Athena.Service.Core.Users
                 ApplicationMode = AppMode.Self
             };
 
-            this.UserSession = userSession;
+            AssignCurrenciesToUserSession(userSession, licenseeId);
             var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
             if (licenseeId > 0 && selectedLicensee != null)
             {
-                AssignCurrenciesToUserSession(this.UserSession, licenseeId);
-                var licenseeSession = new LicenseeSession();
-                AssignDataForLicenseeSession(licenseeSession, selectedLicensee);
-                licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;
-                this.LicenseeSession = licenseeSession;
+                var licenseeSession = GenerateLicenseeInfo(selectedLicensee);
+                this.CreateNewSession(userSession, licenseeSession);
             }
         }
 
@@ -139,24 +125,26 @@ namespace Fanex.Athena.Service.Core.Users
             if (userSession != null && licenseeId > 0)
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
-
-                this.LicenseeSession = new LicenseeSession();
-                AssignDataForLicenseeSession(this.LicenseeSession, selectedLicensee);
-
                 var functionList = _functionService.GetUserFunctionList(licenseeId, userSession.UserId);
                 var functionIdList = functionList.Select(f => f.FunctionId).ToList();
+
                 userSession.FunctionIdList = functionIdList;
                 userSession.DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList);
 
                 AssignCurrenciesToUserSession(userSession, licenseeId);
+
+                this.CreateNewSession(userSession, GenerateLicenseeInfo(selectedLicensee));
             }
         }
 
         public bool UpdateLanguage(string languageCode)
         {
-            if (!string.IsNullOrEmpty(languageCode))
+            var userSession = this.UserSession;
+
+            if (userSession != null && !string.IsNullOrEmpty(languageCode))
             {
-                UserSession.Language = languageCode;
+                userSession.Language = languageCode;
+                HttpContext.Current.Session[UserSessionKey] = userSession;
                 return true;
             }
 
@@ -190,7 +178,7 @@ namespace Fanex.Athena.Service.Core.Users
             }
             else if (currencyAgentList.ContainsKey(currencyId))
             {
-                var agentList = currencyAgentList.Single(x => x.Key == currencyId).Value;
+                var agentList = currencyAgentList.SingleOrDefault(x => x.Key == currencyId).Value;
                 result.Append(GenerateAgentXmlBody(currencyId, agentList));
             }
 
@@ -223,12 +211,15 @@ namespace Fanex.Athena.Service.Core.Users
             return ReportBalanceUrl;
         }
 
-        private void AssignDataForLicenseeSession(LicenseeSession licenseeSession, Licensee selectedLicensee)
+        private static LicenseeSession GenerateLicenseeInfo(Licensee selectedLicensee)
         {
-            licenseeSession.LicenseeId = selectedLicensee.Id;
-            licenseeSession.LicenseeName = selectedLicensee.Name;
-            licenseeSession.IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm;
-            licenseeSession.IsEnableBA = selectedLicensee.IsEnableBA;
+            return new LicenseeSession
+            {
+                LicenseeId = selectedLicensee.Id,
+                LicenseeName = selectedLicensee.Name,
+                IsAllowedCustomerComm = selectedLicensee.IsAllowedCustomerComm,
+                IsEnableBA = selectedLicensee.IsEnableBA
+            };
         }
 
         private void AssignCurrenciesToUserSession(UserSession userSession, int licenseeId)

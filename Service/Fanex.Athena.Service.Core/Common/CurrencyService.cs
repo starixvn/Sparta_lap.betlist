@@ -33,10 +33,7 @@ namespace Fanex.Athena.Service.Core.Common
             return _currencyDataAccess.GetCurrencies(licenseeId);
         }
 
-        public IEnumerable<CurrencyUser> GetCurrenciesByUser(int licenseeId, int userId)
-        {
-            return _currencyDataAccess.GetCurrenciesByUser(licenseeId, userId);
-        }
+        public IEnumerable<CurrencyUser> GetCurrenciesByUser(int licenseeId, int userId) => _currencyDataAccess.GetCurrenciesByUser(licenseeId, userId);
 
         public IResultInfo AssignCurrenciesByUser(AssignCurrencyMetaModel request)
         {

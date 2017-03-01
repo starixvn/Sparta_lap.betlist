@@ -277,7 +277,7 @@ namespace Fanex.Athena.Controllers.Account
         [HttpGet]
         public ActionResult EditPermission()
         {
-            int userId; 
+            int userId;
             if (int.TryParse(Request.Params["UserId"], out userId) && userId > 0 && ValidatePermissionRestriction(userId))
             {
                 var licenseeSession = SessionService.LicenseeSession;

@@ -29,23 +29,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 var entityList = new List<CurrencyUser>();
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    using (var reader = db.ExecuteReader(uspParams))
-                    {
-                        while (reader.Read())
-                        {
-                            var currency = new CurrencyUser
-                            {
-                                CurrencyId = reader.GetInt32(reader.GetOrdinal("Currency")),
-                                CurrencyName = reader.GetString(reader.GetOrdinal("CurrencyName")),
-                                IsActive = true
-                            };
-
-                            entityList.Add(currency);
-                        }
-                    }
+                    return BindCurrencyUser(db);
                 }
-
-                return entityList;
             }
             catch (ObjectDbException sqlException)
             {
@@ -104,14 +89,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                     db.AddInParameter("UserID", DbType.Int32, userId);
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
 
-                    var currencyList = db.Query<CurrencyUser>();
-                    return currencyList.GroupBy(x => x.CurrencyId).Select(x => new CurrencyUser
-                    {
-                        CurrencyId = x.Key,
-                        CurrencyName = x.First().CurrencyName,
-                        IsActive = x.First().IsActive,
-                        AgentIdList = x.Select(y => y.AgentId).ToList()
-                    }).ToList();
+                    return BindCurrencyUser(db);
                 }
             }
             catch (ObjectDbException sqlException)
@@ -119,6 +97,18 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
+        }
+
+        private static IList<CurrencyUser> BindCurrencyUser(IObjectDb db)
+        {
+            var currencyList = db.Query<CurrencyUser>();
+            return currencyList.GroupBy(x => x.CurrencyId).Select(x => new CurrencyUser
+            {
+                CurrencyId = x.Key,
+                CurrencyName = x.First().CurrencyName,
+                IsActive = x.First().IsActive,
+                AgentIdList = x.Select(y => y.AgentId).ToList()
+            }).ToList();
         }
     }
 }

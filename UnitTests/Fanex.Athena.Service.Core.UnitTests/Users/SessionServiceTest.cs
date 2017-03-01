@@ -16,6 +16,12 @@
     {
         private const int DefaultUserId = 1;
 
+        private static readonly Licensee DefaultLicensee = new Licensee
+        {
+            Id = 1,
+            Name = "12bet"
+        };
+
         private IFunctionService _functionService;
         private ILicenseeService _licenseeService;
         private ICurrencyService _currencyService;
@@ -26,6 +32,8 @@
         {
             _functionService = Substitute.For<IFunctionService>();
             _licenseeService = Substitute.For<ILicenseeService>();
+            var licenseeList = new List<Licensee> { DefaultLicensee };
+            _licenseeService.GetByUser(DefaultUserId).Returns<IList<Licensee>>(i => licenseeList);
             _currencyService = Substitute.For<ICurrencyService>();
             _sessionService = new SessionService(_functionService, _licenseeService, _currencyService);
         }
@@ -123,15 +131,15 @@
             HttpContext.Current = httpContext;
         }
 
-        private void CreateDefaultNewSession(int licenseeId = 0)
+        private void CreateDefaultNewSession(int licenseeId = 1)
         {
             MockHttpContext();
             const int UserId = 1;
-            const int OnuserId = 2;
+            const int OnUserId = 2;
             const string UserName = "user1";
             const bool IsInternal = false;
 
-            _sessionService.CreateNewSession(UserId, OnuserId, UserName, IsInternal, licenseeId);
+            _sessionService.CreateNewSession(UserId, OnUserId, UserName, IsInternal, licenseeId);
         }
     }
 }
