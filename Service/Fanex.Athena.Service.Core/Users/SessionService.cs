@@ -110,11 +110,9 @@ namespace Fanex.Athena.Service.Core.Users
 
             AssignCurrenciesToUserSession(userSession, licenseeId);
             var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
-            if (licenseeId > 0 && selectedLicensee != null)
-            {
-                var licenseeSession = GenerateLicenseeInfo(selectedLicensee);
-                this.CreateNewSession(userSession, licenseeSession);
-            }
+            var licenseeSession = licenseeId > 0 && selectedLicensee != null ? GenerateLicenseeInfo(selectedLicensee) : null;
+
+            this.CreateNewSession(userSession, licenseeSession);
         }
 
         public void UpdateLiceseeSession(int licenseeId)
