@@ -51,14 +51,11 @@
             _dataAccess.GetDataList(_metaModel, ref totalData, ref totalRow);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
-            _objectDb.Received().AddInParameter("currencyid", DbType.Int32, _metaModel.CurrencyId);
             _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
             _objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
             _objectDb.Received().AddInParameter("topcount", DbType.Int32, _metaModel.TopCount);
             _objectDb.Received().AddInParameter("orderitem", DbType.Byte, _metaModel.OrderItem);
-            _objectDb.Received().AddInParameter("excludetest", DbType.Boolean, _metaModel.IsExcludeTest);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
             _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);

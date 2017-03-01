@@ -14,20 +14,9 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
 
-    /// <summary>
-    /// Customer balance.
-    /// </summary>
     public class CustomerBalanceDataAccess : BaseDataAccess, ICustBalanceDataAccess
     {
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="totalData">Total data value.</param>
-        /// <param name="totalRow">Total rows value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public IList<CustBalance> GetDataList(CustomerBalanceMetaModel metaModel, ref CustBalance totalData, ref int totalRow)
@@ -35,16 +24,13 @@ namespace Fanex.Athena.DataAccess.Report
             IList<CustBalance> result = new List<CustBalance>();
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerBalance"))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-                db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
                 db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                 db.AddInParameter("topcount", DbType.Int32, metaModel.TopCount);
                 db.AddInParameter("orderitem", DbType.Byte, metaModel.OrderItem);
-                db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);
                 db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
                 db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
 
                 foreach (var item in metaModel.ProductOptions)
                 {

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ICustBalanceService.cs" company="">
+// <copyright file="ICustomerBalanceService.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -10,7 +10,7 @@ namespace Fanex.Athena.Service.Report.Interfaces
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
 
-    public interface ICustBalanceService
+    public interface ICustomerBalanceService
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", 
             Justification = "Reviewed. Suppression is OK here.")]

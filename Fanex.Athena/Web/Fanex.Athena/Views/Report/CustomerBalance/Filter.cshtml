@@ -12,26 +12,11 @@
           
         <div class="new-line">
         </div>
-        if (Model.LicenseeTypeList.Count > 0)
-        {
         <div class="grid_3 filter-label">
-            <label>@ViewResources.LicenseeType</label>
-        </div>
-        <div class="grid_3 filter-input">
-            @RazorHelper.LicenseeType(Model.LicenseeTypeList, "", Model.Param.LicenseeType)
-        </div>
-        }
-        <div class="grid_@(Model.LicenseeTypeList.Count > 0 ? "2" : "3") filter-label">
             <label>@ViewResources.Currency</label>
         </div>
-        <div class="grid_3 filter-input">
+        <div class="grid_2 filter-input">
             @RazorHelper.CurrencyList(Model.CurrencyList, "", Model.Param.CurrencyId, false)
-        </div>
-        <div class="grid_3 filter-label">
-            <label for="IsExcludeTest">@ViewResources.ExcludeTestData</label>
-        </div>
-        <div class="grid_1 filter-input">
-            @Html.CheckBox("IsExcludeTest", Model.Param.IsExcludeTest)
         </div>
         <div class="grid_2 note-group">
             <div>
@@ -44,7 +29,7 @@
                title="@ViewResources.ExportToExcel" class="hand" />
             </div>
         </div>
-        <div class="grid_3 filter-label new-line">
+        <div class="grid_3 filter-label">
             <label>@ViewResources.SelectTop</label>
         </div>
         <div class="grid_3 filter-input">

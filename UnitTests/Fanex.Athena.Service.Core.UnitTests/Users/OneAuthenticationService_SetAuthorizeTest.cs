@@ -71,27 +71,6 @@
         }
 
         [Test]
-        public void SignIn_SetAuthorize_ReturnErrorLicenseDoesNotHaveAgent()
-        {
-            // Arrange
-            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo" };
-            var fakeHttpContext = Substitute.For<HttpContextBase>();
-            fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
-            _currencyService.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(FakeCurrencyListMapByUser());
-            _licenseeService.GetCustByLicensee(Arg.Any<int>()).Returns(new List<LicenseeCustomer>());
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
-
-            var expectedResult = new ResultInfo { Code = 200, Message = "Licensee Has not agent" };
-
-            // Action
-            var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
-
-            // Assert
-            Assert.AreEqual(expectedResult.IsSuccessful, result.IsSuccessful);
-            Assert.AreEqual(expectedResult.Code, result.Code);
-        }
-
-        [Test]
         public void SignIn_SetAuthorize_ReturnRightResultInfo()
         {
             // Arrange

@@ -9,4 +9,5 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_CustomerTurnOver" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_ActiveMember" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerSel" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LicWinloss" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
