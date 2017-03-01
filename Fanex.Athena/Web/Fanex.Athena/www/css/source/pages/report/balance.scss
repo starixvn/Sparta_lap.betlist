@@ -1,4 +1,5 @@
-﻿@import '../common/reportcommon.main';
+﻿@import '../../scss/abstracts/variables';
+@import '../common/reportcommon.main';
 @import '../../components/list/list';
 
 .closed {
@@ -7,6 +8,11 @@
 
 .suspended {
     color: #D45F12;
+}
+
+.table > thead > tr > th{
+    background: $bgHeaderTableLevel2;
+    font-weight: bold;
 }
 
 .balance-note {

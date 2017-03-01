@@ -1014,6 +1014,10 @@ ul.list {
 .suspended {
   color: #D45F12; }
 
+.table > thead > tr > th {
+  background: #9eb4c3;
+  font-weight: bold; }
+
 .balance-note .panel-title {
   font-weight: bold;
   font-size: 13px; }
