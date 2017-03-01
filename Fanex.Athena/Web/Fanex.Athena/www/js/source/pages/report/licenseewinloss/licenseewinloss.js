@@ -404,20 +404,7 @@
                 reportGrid.jqGrid(gridOption);
 
                 if (!_removeSorting) {
-                    reportGrid.closest("div.ui-jqgrid-view")
-                        .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
-                        .each(function (index, element) {
-                            var $this = $(element);
-                            $this.find("span.s-ico").remove();
-
-                            if (element.id.indexOf(_sortColumnName) > -1) {
-                                var sortClass = "sort-" + _sortOrder;
-                                var sortSpan = $("<span style='display: inline; margin: 2px 0px 0px 2px'></span");
-                                sortSpan.addClass(sortClass);
-                                $this.append(sortSpan);
-                                $this.addClass("sorted-heading");
-                            }
-                        });
+                    jqGridAdditional.addSortableHeader(reportGrid, _sortColumnName, _sortOrder);
                 }
 
                 LicenseeWinLossOption.setGroupHeaderColumns(reportGrid, productOptions);

@@ -148,25 +148,13 @@ webpackJsonp([28],[
 	            },
 	
 	            gridComplete: function (grid) {
+	                var $grid = $(grid);
 	                // add sort icon
 	                var sortCol = _sortColumnName === "Winlost" ? "WinLoss" : _sortColumnName;
 	                sortCol = _sortColumnName === "nickname" ? "ExternalId" : sortCol;
 	                sortCol = _sortColumnName === "UserName" ? "SystemId" : sortCol;
 	                if (sortCol) {
-	                    $(grid).closest(".ui-jqgrid-view")
-	                        .find(".ui-jqgrid-sortable")
-	                        .each(function (index, element) {
-	                            var $this = $(element);
-	                            $this.find(".s-ico").remove();
-	
-	                            if (element.id.indexOf(sortCol) > -1) {
-	                                var sortClass = "sort-" + _sortOrder;
-	                                var sortSpan = $("<span style='display: inline; margin: 2px 0px 0px 2px'></span");
-	                                sortSpan.addClass(sortClass);
-	                                $this.append(sortSpan);
-	                                $this.addClass("sorted-heading");
-	                            }
-	                        });
+	                    jqGridAdditional.addSortableHeader($grid, sortCol, _sortOrder);
 	                }
 	                // Resize
 	                jqGridAdditional.gridComplete();
@@ -180,8 +168,8 @@ webpackJsonp([28],[
 	                $("#pager2").show();
 	
 	                // fix cursor on non-sortable columns
-	                var cm = $(grid)[0].p.colModel;
-	                $.each($(grid)[0].grid.headers, function (index, value) {
+	                var cm = $grid[0].p.colModel;
+	                $.each($grid[0].grid.headers, function (index, value) {
 	                    var cmi = cm[index];
 	                    if (cmi.sortable) {
 	                        $('.ui-jqgrid-sortable', value.el).css({ cursor: "pointer" });
@@ -15517,6 +15505,23 @@ webpackJsonp([28],[
 	                        footerTable.parent().parent().addClass("jqgrid-footer-scroll-hacking");
 	                    }
 	                }
+	            },
+	
+	            addSortableHeader: function ($grid, sortColumn, sortOrder, isLightText) {
+	                $grid.closest(".ui-jqgrid-view")
+	                        .find(".ui-jqgrid-sortable")
+	                        .each(function (index, element) {
+	                            var $this = $(element);
+	                            $this.find(".s-ico").remove();
+	
+	                            if (element.id.indexOf(sortColumn) > -1) {
+	                                var sortClass = "sort-icon-" + sortOrder + (isLightText ? " light" : "");
+	                                var sortSpan = $("<span class='sort-icon'></span>");
+	                                sortSpan.addClass(sortClass);
+	                                $this.append(sortSpan);
+	                                $this.addClass("sortable sort-heading sorted-heading");
+	                            }
+	                        });
 	            }
 	        };
 	    })();

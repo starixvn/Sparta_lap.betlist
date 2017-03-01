@@ -140,6 +140,7 @@
                         setFixtures('<div id="ReportGrid"></div>');
                         spyOn(WeeklyLiveMatchOption, "getGridOption").and.returnValue({});
                         spyOn(WeeklyLiveMatch, "setTotalRow");
+                        spyOn(jqGridAdditional, "addSortableHeader");
 
                         response = {
                             Data: [{ Cell: [1, "Soccer", 0, 0] }],
@@ -193,6 +194,14 @@
                         WeeklyLiveMatch.bindData(response);
 
                         expect(WeeklyLiveMatch.setTotalRow).toHaveBeenCalled();
+                    });
+
+                    it("jqGridAdditional.addSortableHeader($grid, sortColumn, sortOrder, isLightText) should be called with correct parameters", function () {
+                        spyOn($.fn, "jqGrid");
+
+                        WeeklyLiveMatch.bindData(response);
+
+                        expect(jqGridAdditional.addSortableHeader).toHaveBeenCalledWith($("#ReportGrid"), null, null, true);
                     });
 
                     describe("jqGridAdditional.gridComplete()", function () {

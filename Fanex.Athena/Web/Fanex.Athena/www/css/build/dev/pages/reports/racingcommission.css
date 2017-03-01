@@ -1475,21 +1475,23 @@ table tbody tr.row-group-level1 {
   cursor: pointer; }
   .sortable:hover .sort-heading {
     text-decoration: underline; }
-  .sortable .sorted-heading {
-    text-decoration: underline; }
+
+.sorted-heading {
+  text-decoration: underline; }
 
 .sort-icon {
-  position: absolute;
-  top: calc(50% - 2.5px);
-  right: -15px;
-  width: 0px;
-  height: 0px;
+  display: inline-block;
+  margin-left: 4px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent; }
   .sort-icon-asc {
-    border-bottom: 5px solid #000; }
+    border-bottom: 5px solid #2c3d4b; }
+    .sort-icon-asc.light {
+      border-bottom-color: #fff; }
   .sort-icon-desc {
-    border-top: 5px solid #000; }
+    border-top: 5px solid #2c3d4b; }
+    .sort-icon-desc.light {
+      border-top-color: #fff; }
 
 .header-content .table th {
   background: #9eb4c3;

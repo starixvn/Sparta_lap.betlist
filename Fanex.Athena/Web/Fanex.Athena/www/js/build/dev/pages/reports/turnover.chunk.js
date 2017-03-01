@@ -14838,6 +14838,23 @@ webpackJsonp([45],[
 	                        footerTable.parent().parent().addClass("jqgrid-footer-scroll-hacking");
 	                    }
 	                }
+	            },
+	
+	            addSortableHeader: function ($grid, sortColumn, sortOrder, isLightText) {
+	                $grid.closest(".ui-jqgrid-view")
+	                        .find(".ui-jqgrid-sortable")
+	                        .each(function (index, element) {
+	                            var $this = $(element);
+	                            $this.find(".s-ico").remove();
+	
+	                            if (element.id.indexOf(sortColumn) > -1) {
+	                                var sortClass = "sort-icon-" + sortOrder + (isLightText ? " light" : "");
+	                                var sortSpan = $("<span class='sort-icon'></span>");
+	                                sortSpan.addClass(sortClass);
+	                                $this.append(sortSpan);
+	                                $this.addClass("sortable sort-heading sorted-heading");
+	                            }
+	                        });
 	            }
 	        };
 	    })();

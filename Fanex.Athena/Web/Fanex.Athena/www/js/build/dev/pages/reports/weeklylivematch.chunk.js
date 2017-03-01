@@ -14838,6 +14838,23 @@ webpackJsonp([46],[
 	                        footerTable.parent().parent().addClass("jqgrid-footer-scroll-hacking");
 	                    }
 	                }
+	            },
+	
+	            addSortableHeader: function ($grid, sortColumn, sortOrder, isLightText) {
+	                $grid.closest(".ui-jqgrid-view")
+	                        .find(".ui-jqgrid-sortable")
+	                        .each(function (index, element) {
+	                            var $this = $(element);
+	                            $this.find(".s-ico").remove();
+	
+	                            if (element.id.indexOf(sortColumn) > -1) {
+	                                var sortClass = "sort-icon-" + sortOrder + (isLightText ? " light" : "");
+	                                var sortSpan = $("<span class='sort-icon'></span>");
+	                                sortSpan.addClass(sortClass);
+	                                $this.append(sortSpan);
+	                                $this.addClass("sortable sort-heading sorted-heading");
+	                            }
+	                        });
 	            }
 	        };
 	    })();
@@ -23087,20 +23104,7 @@ webpackJsonp([46],[
 	
 	                    _me.setTotalRow();
 	
-	                    reportGrid.closest(".ui-jqgrid-view")
-	                        .find(".ui-jqgrid-hdiv .ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column > .ui-jqgrid-sortable")
-	                        .each(function (index, element) {
-	                            var $this = $(element);
-	                            $this.find(".s-ico").remove();
-	
-	                            if (element.id.indexOf(_sortColumn) > -1) {
-	                                var sortClass = "sort-" + _sortDirection;
-	                                var sortSpan = $("<span style='display: inline; margin: 2px 0px 0px 2px'></span");
-	                                sortSpan.addClass(sortClass);
-	                                $this.append(sortSpan);
-	                                $this.addClass("sorted-heading");
-	                            }
-	                        });
+	                    jqGridAdditional.addSortableHeader(reportGrid, _sortColumn, _sortDirection, true);
 	                },
 	
 	                setTotalRow: function(){

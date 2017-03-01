@@ -464,7 +464,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                         $sortHeader.addClass("sorted-heading");
 
                         var sortClass = $("#SortDirection").val() === "DESC" ? "sort-icon-desc" : "sort-icon-asc";
-                        var sortSpan = $("<span class='sort-icon'></span");
+                        var sortSpan = $("<span class='sort-icon'></span>");
                         sortSpan.addClass(sortClass);
                         sortSpan.appendTo($sortHeader);
                     }

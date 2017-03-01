@@ -144,20 +144,7 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
 
                     _me.setTotalRow();
 
-                    reportGrid.closest(".ui-jqgrid-view")
-                        .find(".ui-jqgrid-hdiv .ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column > .ui-jqgrid-sortable")
-                        .each(function (index, element) {
-                            var $this = $(element);
-                            $this.find(".s-ico").remove();
-
-                            if (element.id.indexOf(_sortColumn) > -1) {
-                                var sortClass = "sort-" + _sortDirection;
-                                var sortSpan = $("<span style='display: inline; margin: 2px 0px 0px 2px'></span");
-                                sortSpan.addClass(sortClass);
-                                $this.append(sortSpan);
-                                $this.addClass("sorted-heading");
-                            }
-                        });
+                    jqGridAdditional.addSortableHeader(reportGrid, _sortColumn, _sortDirection, true);
                 },
 
                 setTotalRow: function(){
