@@ -1,4 +1,4 @@
-﻿define(['jquery', 'common/site'], function ($, Site) {
+﻿define(['jquery', 'common/site', 'lib/select2'], function ($, Site) {
     describe("Site", function () {
         describe("getLicenseeId()", function () {
             it("return a value from input#LicenseeId", function () {
