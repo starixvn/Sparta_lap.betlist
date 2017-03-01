@@ -5,20 +5,12 @@
         @Html.AntiForgeryToken()
     @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate,
                         new DateTime(2015, 1, 1), DateTime.Today.AddDays(-1), "date-range", "date-range", 2, 3, 2, 3, false)
-    <div class="new-line">
-    </div>
     <div class="grid_2 filter-label">
         <label>
             @ViewResources.Currency</label>
     </div>
     <div class="grid_3 filter-input">
         @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, false)
-    </div>
-    <div class="grid_4 filter-label">
-        <label for="IsExcludeTest">@ViewResources.ExcludeTestData</label>
-    </div>
-    <div class="grid_1 filter-input">
-        @Html.CheckBox("IsExcludeTest", Model.Param.IsExcludeTest)
     </div>
     <div class="grid_5 userguide-group">
         <div>

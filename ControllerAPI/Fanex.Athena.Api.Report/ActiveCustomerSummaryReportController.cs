@@ -122,8 +122,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (IsValidRequest(metaModel))
             {
-                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.UserId = SessionService.UserSession.UserId;
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
                 int totalCustomer;
                 var dataList = _activeCustomerService.GetActiveCustomers(metaModel, out totalCustomer);
