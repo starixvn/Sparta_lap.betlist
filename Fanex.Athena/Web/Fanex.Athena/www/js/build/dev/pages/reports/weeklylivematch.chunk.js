@@ -22953,7 +22953,6 @@ webpackJsonp([46],[
 	            var _cacheData = null;
 	            var _sortColumn = null;
 	            var _sortDirection = null;
-	            var _submitData = {};
 	
 	            function sortData(arrayData) {
 	                var columnIndex = SPORT_COLUMN_INDEX;
@@ -22999,7 +22998,7 @@ webpackJsonp([46],[
 	                            }
 	                            _cacheData.Data = sortData(_cacheData.Data);
 	
-	                            _me.bindData(_submitData.FromDate, _submitData.ToDate, _cacheData);
+	                            _me.bindData(_cacheData);
 	
 	                            Site.unBlockUI();
 	                        }, 100);
@@ -23043,11 +23042,7 @@ webpackJsonp([46],[
 	                        url: Site.resolveClientUrl(WeeklyLiveMatchOption.urlData),
 	                        success: function (response) {
 	                            _cacheData = response;
-	                            _submitData = {
-	                                FromDate: data.FromDate,
-	                                ToDate: data.ToDate
-	                            };
-	                            _me.bindData(data.FromDate, data.ToDate, response);
+	                            _me.bindData(response);
 	                        },
 	                        beforeSend: Site.blockUI,
 	                        complete: Site.unBlockUI
@@ -23061,7 +23056,7 @@ webpackJsonp([46],[
 	                    return true;
 	                },
 	
-	                bindData: function (fromDate, toDate, response) {
+	                bindData: function (response) {
 	                    jqGridAdditional.clearGrid("ReportGrid");
 	                    var numOfRow = response.Data.length;
 	                    if (response === null || numOfRow === 0) {
