@@ -9,13 +9,10 @@
 
 namespace Fanex.Athena.Service.Core.Users.Interfaces
 {
-    using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Users;
 
     public interface ISessionService
     {
-        #region Public Properties
-
         string CaptchaCode { get; set; }
 
         LicenseeSession LicenseeSession { get; }
@@ -40,7 +37,7 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
 
         bool UpdateLanguage(string languageCode);
 
-        #endregion Public Properties
+        string GenerateAgentListXml(int currencyId = 0);
 
         bool IsAllowedEditCommission(UserSession user);
 

@@ -15,9 +15,6 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public partial class ReportAPIController : DefaultCultureBaseController
     {
         [HttpPost]
@@ -47,6 +44,7 @@ namespace Fanex.Athena.Controllers.Report
 
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             if (metaModel != null && metaModel.IsValid)
             {

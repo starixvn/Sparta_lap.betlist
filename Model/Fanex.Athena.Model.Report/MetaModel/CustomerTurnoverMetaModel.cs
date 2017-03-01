@@ -12,10 +12,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
 
-    /// <summary>
-    /// CustomerTurnoverMetaModel class.
-    /// </summary>
-    public class CustomerTurnoverMetaModel
+    public class CustomerTurnoverMetaModel : BaseReportMetaModel
     {
         public CustomerTurnoverMetaModel()
         {
@@ -29,22 +26,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
             SportProducts = new List<SportProductItem>();
             Bettypes = new List<CheckedItem>();
         }
-
-        public int LicenseeId { get; set; }
-
-        public int UserId { get; set; }
-
-        public int CurrencyId { get; set; }
-
-        public bool IsExportExcel { get; set; }
-
-        public int PageSize { get; set; }
-
-        public int PageIndex { get; set; }
-
-        public DateTime FromDate { get; set; }
-
-        public DateTime ToDate { get; set; }
 
         public IList<SportProductItem> SportProducts { get; set; }
 
@@ -62,7 +43,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         public bool ShowDraw { get; set; }
 
-        public bool IsValid
+        public override bool IsValid
         {
             get
             {

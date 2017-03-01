@@ -81,6 +81,7 @@ namespace Fanex.Athena.Controllers.Report
             var metaModel = JsonConvert.DeserializeObject<CustomerTurnoverMetaModel>(excelParam);
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             if (metaModel == null || !metaModel.IsValid)
             {
                 Response.Redirect("~/Utility/Error?errCode=400");
@@ -89,6 +90,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.IsExportExcel = true;
+
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerTurnover.xls");
             var formatDateTime = metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
 

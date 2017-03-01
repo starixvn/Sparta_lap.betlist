@@ -12,6 +12,7 @@ namespace Fanex.Athena.Service.Core.Users
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Web;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Common;
@@ -174,6 +175,38 @@ namespace Fanex.Athena.Service.Core.Users
             return user.ApplicationMode == AppMode.Parasitic ?
                     user.PortalFunctionList != null && user.PortalFunctionList.Any(i => i.FunctionKey == PermissionKeys.CustomerInfoSpecialBA)
                     : user.FunctionIdList != null && user.FunctionIdList.Contains((int)FunctionType.SpecialBA);
+        }
+
+        public string GenerateAgentListXml(int currencyId = 0)
+        {
+            var result = new StringBuilder("<ROOT>");
+            var currencyAgentList = this.UserSession.CurrencyAgentList;
+            if (currencyId == 0)
+            {
+                foreach (var currency in currencyAgentList)
+                {
+                    result.Append(GenerateAgentXmlBody(currency.Key, currency.Value));
+                }
+            }
+            else if (currencyAgentList.ContainsKey(currencyId))
+            {
+                var agentList = currencyAgentList.Where(x => x.Key == currencyId).FirstOrDefault().Value;
+                result.Append(GenerateAgentXmlBody(currencyId, agentList));
+            }
+
+            result.Append("</ROOT>");
+            return result.ToString();
+        }
+
+        private static StringBuilder GenerateAgentXmlBody(int currencyId, IEnumerable<int> agentList)
+        {
+            var result = new StringBuilder();
+            foreach (var agentId in agentList)
+            {
+                result.AppendFormat("<Agent AgentId=\"{0}\" Currency=\"{1}\"/>", agentId, currencyId);
+            }
+
+            return result;
         }
 
         private static string GetDefaultReportUrl(IList<int> functionIdList, IList<Function> functionList)

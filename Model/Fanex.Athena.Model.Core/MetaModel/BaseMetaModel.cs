@@ -13,11 +13,7 @@ namespace Fanex.Athena.Model.Core.MetaModel
     [Serializable]
     public class BaseMetaModel
     {
-        #region Private
-
         private string _baseCurrency = string.Empty;
-
-        #endregion Private
 
         public BaseMetaModel()
         {

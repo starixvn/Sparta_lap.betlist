@@ -105,7 +105,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
             metaModel.Username = metaModel.Username == ViewResources.ExternalIdOrSystemId ? string.Empty : metaModel.Username;
-            metaModel.AgentListXml = this.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var totalRows = 0;
             var dataList = _customerService.Search(metaModel, ref totalRows);
             return new JsonResult

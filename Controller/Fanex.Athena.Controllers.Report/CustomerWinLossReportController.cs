@@ -105,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            metaModel.AgentListXml = this.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             CustomerWinLoss totalData;
             int totalRows;
             var custWinlossService = new CustomerWinlossService();
@@ -141,7 +141,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
             metaModel.FromDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.FromDay);
             metaModel.ToDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.ToDay);
-            metaModel.AgentListXml = this.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             CustomerWinLoss totalData;
             int totalRows;
             var custWinlossService = new CustomerWinlossService();
