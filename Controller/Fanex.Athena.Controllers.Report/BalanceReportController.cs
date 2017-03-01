@@ -15,13 +15,18 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Service.Report.Interfaces;
 
-    /// <summary>
-    ///     Credit Balance controller.
-    /// </summary>
     [FunctionAuthorization(PermissionKeys.ReportBalance)]
     public class BalanceReportController : ReportBaseController
     {
+        private readonly ICreditBalanceService _creditBalanceService;
+
+        public BalanceReportController()
+        {
+            _creditBalanceService = new CreditBalanceService();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -40,12 +45,11 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
             metaModel.MoveBetsDay = BalanceUpService.BalanceUpInfo.MoveBetsDay;
-            var creditBalanceService = new CreditBalanceService();
-            var reportData = creditBalanceService.GetReportData(metaModel);
+            var reportData = _creditBalanceService.GetReportData(metaModel);
 
             var viewData = new BalanceViewModel
             {

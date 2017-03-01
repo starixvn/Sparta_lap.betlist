@@ -1,6 +1,4 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Model.Core.MetaModel.Product
-@model Fanex.Athena.Model.Report.ViewModel.BalanceViewModel
+﻿@model Fanex.Athena.Model.Report.ViewModel.BalanceViewModel
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("Index", "BalanceReport", FormMethod.Post, new { @id = "BalanceForm" }))
     {
@@ -10,16 +8,6 @@
         @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
         @Html.Hidden("FromDate", Model.Param.FromDate)
         @Html.Hidden("ToDate", Model.Param.ToDate)
-        //-----------------------------Type of licensee---------------------------//
-        if (@Model.LicenseeTypeList.Count > 0)
-        {
-        <div class="grid_2 filter-label">
-            <label>@ViewResources.Type</label>
-        </div>
-        <div class="grid_3 filter-input">
-            @RazorHelper.LicenseeType(Model.LicenseeTypeList, "licenseetype", Model.Param.LicenseeType, true)
-        </div>
-        }
 
         //-----------------------------Currency-----------------------------------//
         <div class="grid_2 filter-label">
@@ -30,11 +18,11 @@
                 @RazorHelper.CurrencyList(Model.CurrencyList, "CurrencyId", Model.Param.CurrencyId)
             }
         </div>
-        <div class="grid_3 filter-label">
+        <div class="grid_2 filter-label">
             <label>@ViewResources.Based </label>
         </div>
     
-        <div class="grid_1 filter-input">
+        <div class="grid_2 filter-input">
             @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
         </div>
     
