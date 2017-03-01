@@ -27,14 +27,6 @@
     <div class="grid_3 filter-input">
         @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true)
     </div>
-    <div class="grid_4 filter-label">
-        <label for="IsExcludedTestData">
-            @ViewResources.ExcludeTestData
-        </label>
-    </div>
-    <div class="grid_5 filter-input option-list">
-        <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
-    </div>
     <div class="grid_2 note-group">
         <div>
             <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
@@ -46,7 +38,7 @@
                title="@ViewResources.ExportToExcel" class="hand" />
         </div>
     </div>
-    <div class="grid_3 filter-label new-line">
+    <div class="grid_2 filter-label">
             <label>
                 @ViewResources.ReportBy
             </label>

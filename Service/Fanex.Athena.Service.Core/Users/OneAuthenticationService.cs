@@ -99,7 +99,6 @@
             return SetAuthorize(licensee, language, tokenInfo);
         }
 
-
         public OneAuthenticationToken GetTokenInfo(string token)
         {
             var oneBookService = new OneBookSecurityWrapper();
@@ -149,6 +148,33 @@
             {
                 ExtendedData = tokenInfo.ActionLink
             };
+        }
+
+        /// <summary>
+        /// This function will be removed when integrating permission part with LAP.
+        /// </summary>
+        /// <param name="userSession">The currency user session.</param>
+        /// <param name="currencyUserList">The currency of user .</param>
+        /// <param name="licenseeId">The licensee ID.</param>
+        private static void AssignCurrenciesToUserSession(UserSession userSession, IEnumerable<CurrencyUser> currencyUserList, int licenseeId)
+        {
+            if (licenseeId == LicenseeIdentityDefinition.KeenOcean)
+            {
+                currencyUserList = KeanOceanBusinessHelper.ModifyCurrenciesForKeenOcean(currencyUserList);
+            }
+
+            var currencyList = currencyUserList
+                .Where(x => x.IsActive)
+                .Select(x => new { x.CurrencyId, x.CurrencyName })
+                .ToDictionary(x => x.CurrencyId, x => x.CurrencyName);
+
+            var currencyAgentList = currencyUserList
+                .Where(x => x.IsActive)
+                .Select(x => new { x.CurrencyId, x.AgentIdList })
+                .ToDictionary(x => x.CurrencyId, x => x.AgentIdList);
+
+            userSession.CurrencyList = currencyList;
+            userSession.CurrencyAgentList = currencyAgentList;
         }
 
         private IResultInfo CheckAndSyncUserInfo(Licensee licensee, string userName)
@@ -236,33 +262,6 @@
             }
 
             return result == null ? new List<PortalSystemFunction>() : result;
-        }
-
-        /// <summary>
-        /// This function will be removed when integrating permission part with LAP.
-        /// </summary>
-        /// <param name="userSession">The currency user session.</param>
-        /// <param name="currencyUserList">The currency of user .</param>
-        /// <param name="licenseeId">The licensee ID.</param>
-        private static void AssignCurrenciesToUserSession(UserSession userSession, IEnumerable<CurrencyUser> currencyUserList, int licenseeId)
-        {
-            if (licenseeId == LicenseeIdentityDefinition.KeenOcean)
-            {
-                currencyUserList = KeanOceanBusinessHelper.ModifyCurrenciesForKeenOcean(currencyUserList);
-            }
-
-            var currencyList = currencyUserList
-                .Where(x => x.IsActive)
-                .Select(x => new { x.CurrencyId, x.CurrencyName })
-                .ToDictionary(x => x.CurrencyId, x => x.CurrencyName);
-
-            var currencyAgentList = currencyUserList
-                .Where(x => x.IsActive)
-                .Select(x => new { x.CurrencyId, x.AgentIdList })
-                .ToDictionary(x => x.CurrencyId, x => x.AgentIdList);
-
-            userSession.CurrencyList = currencyList;
-            userSession.CurrencyAgentList = currencyAgentList;
         }
     }
 }
