@@ -1,8 +1,8 @@
 ﻿define(
-    ["jquery", "common/querystring", "common/site", "../report", "./turnover.option",
-        "lib/jqgrid/jquery.jqgrid.additional", "moment", "common/popup","components/pluginhelper/monthpicker",
-        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extensions/jquery.extension", "lib/linq", "materialize-autocomplete"],
-    function ($, QueryString, Site, Report, TurnoverOption, jqGridAdditional, moment, Popup, MonthPicker) {
+    ["jquery", "common/site", "./turnover.option",
+        "lib/jqgrid/jquery.jqgrid.additional", "moment", "components/pluginhelper/monthpicker",
+        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "materialize-autocomplete"],
+    function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker) {
         "use strict";
     var ajaxRequest = null;
     var _fromDate, _toDate, _currencyName, _currencyId;

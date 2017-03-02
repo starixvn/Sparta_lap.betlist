@@ -20201,7 +20201,7 @@ webpackJsonp([39],[
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(219), __webpack_require__(220),
 	        __webpack_require__(177), __webpack_require__(188), __webpack_require__(70), __webpack_require__(9),
-	        __webpack_require__(180), __webpack_require__(181), __webpack_require__(4), __webpack_require__(202), __webpack_require__(221)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup) {
+	        __webpack_require__(180), __webpack_require__(181), __webpack_require__(202), __webpack_require__(221)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup) {
 	        "use strict";
 	        var REPORT_BY_MONTHLY = 2;
 	

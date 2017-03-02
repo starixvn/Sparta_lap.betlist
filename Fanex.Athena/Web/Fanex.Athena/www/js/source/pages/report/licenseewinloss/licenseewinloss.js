@@ -1,7 +1,7 @@
 ﻿define(
     ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option",
         "lib/jqgrid/jquery.jqgrid.additional", "components/pluginhelper/daterangepicker", "moment", "common/popup",
-        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extensions/jquery.extension", "lib/linq"],
+        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq"],
     function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
