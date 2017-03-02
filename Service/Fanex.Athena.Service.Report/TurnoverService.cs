@@ -14,9 +14,6 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
 
-    /// <summary>
-    /// Turnover service class.
-    /// </summary>
     public class TurnoverService : ITurnoverService
     {
         private readonly ITurnoverDataAccess _turnoverDataAccess;
@@ -26,11 +23,6 @@ namespace Fanex.Athena.Service.Report
             _turnoverDataAccess = new TurnoverDataAccess();
         }
 
-        /// <summary>
-        /// Get turnover data.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The data list.</returns>
         public IList<TurnoverDTO> GetDataList(TurnoverMetaModel metaModel)
         {
             return metaModel.IsValid
@@ -38,11 +30,6 @@ namespace Fanex.Athena.Service.Report
                        : new List<TurnoverDTO>();
         }
 
-        /// <summary>
-        /// Calculate summary data.
-        /// </summary>
-        /// <param name="dataList">The original data.</param>
-        /// <returns>The summary data.</returns>
         public TurnoverDTO SumTotalData(IList<TurnoverDTO> dataList)
         {
             var resultTotal = new TurnoverDTO();

@@ -13,9 +13,6 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DataDomain;
     using Resources;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public partial class ReportAPIController : DefaultCultureBaseController
     {
         [HttpPost]
@@ -23,11 +20,7 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult Turnover(TurnoverMetaModel metaModel)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
-
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) ||
                 metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;

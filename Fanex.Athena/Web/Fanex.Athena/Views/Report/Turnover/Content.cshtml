@@ -9,7 +9,7 @@
         <div class="grid_26">
             <div class="report-title hide" style="width:@ViewBag.TitleWidth@("px");">
                 @{ 
-                    var currencyName = @Model.Param.IsConvert ? @Model.Param.BaseCurrency : @Model.CurrencyList.FirstOrDefault(a => a.Value == Model.Param.CurrencyId).Key;
+                    var currencyName = @Model.Param.IsConvert ? @Model.Param.BaseCurrency : @Model.CurrencyList.FirstOrDefault(a => a.Key == Model.Param.CurrencyId).Value;
                     var formatTitle = "{0}, {1} - {2}";
                     var formatTitleUserName = "{0}, {1} - {2} {3} ({4})";
                 }

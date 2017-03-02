@@ -21,10 +21,18 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Service.Core.Utility;
+    using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportTurnover)]
     public class TurnoverReportController : ReportBaseController
     {
+        private readonly ITurnoverService _turnoverService;
+
+        public TurnoverReportController()
+        {
+            _turnoverService = new TurnoverService();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -73,18 +81,16 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
-
             metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) ||
                 metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
-            var turnoverService = new TurnoverService();
-            var dataList = turnoverService.GetDataList(metaModel);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+
+            var dataList = _turnoverService.GetDataList(metaModel);
 
             var model = new TurnoverViewModel
             {
                 DataList = dataList,
-                TotalData = turnoverService.SumTotalData(dataList),
+                TotalData = _turnoverService.SumTotalData(dataList),
                 Param = metaModel,
                 ProductAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.Turnover),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,

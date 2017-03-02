@@ -2,7 +2,6 @@
     Layout = null;
     var appSettings = new AppSettings();
 }
-@using Fanex.Athena.Model.Report.ViewModel
 @model Fanex.Athena.Model.Report.ViewModel.TurnoverViewModel
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("Turnover", "Report", FormMethod.Post, new { @id = "TurnoverForm" }))
@@ -25,12 +24,6 @@
             <div id="MonthPickerToDay">
             </div>
         </div>
-        <div class="grid_3 filter-label">
-            <label for="IsExcludeTest">@ViewResources.ExcludeTestData</label>
-        </div>
-        <div class="grid_1 filter-input">
-            @Html.CheckBox("IsExcludeTest", Model.Param.IsExcludeTest)
-        </div>
         <div class="grid_2 note-group">
             <div>
                 <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
@@ -42,23 +35,11 @@
                title="@ViewResources.ExportToExcel" class="hand" />
             </div>
         </div>   
-        <div class="new-line">
-        </div>
-        if (Model.LicenseeTypeList.Count > 0)
-        {
-        <div class="grid_3 filter-label">
-            <label>@ViewResources.LicenseeType</label>
-        </div>
-        <div class="grid_4 filter-input">
-            @RazorHelper.LicenseeType(Model.LicenseeTypeList, "licensee-type", Model.Param.LicenseeType)
-        </div>
-        }
-        <div class="grid_@(Model.LicenseeTypeList.Count > 0 ? 2 : 3) filter-label">
+        <div class="grid_2 filter-label">
             <label>@ViewResources.Currency</label>
         </div>
         <div class="grid_4 filter-input">
-            @RazorHelper.CurrencyList(Model.CurrencyList,
-        Model.LicenseeTypeList.Count > 0 ? "currency" : "licensee-type", Model.Param.CurrencyId, false, true)
+            @RazorHelper.CurrencyList(Model.CurrencyList, "currency", Model.Param.CurrencyId, false, true)
         </div>
         <div class="grid_3 filter-label new-line">
             <label>@ViewResources.Username</label>
