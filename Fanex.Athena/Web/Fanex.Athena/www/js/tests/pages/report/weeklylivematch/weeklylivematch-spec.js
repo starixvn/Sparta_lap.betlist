@@ -79,7 +79,7 @@
                         jasmine.Ajax.install();
 
                         jasmine.Ajax
-                            .stubRequest(/api\/WeeklyLiveMatchReport\/index/)
+                            .stubRequest("api/WeeklyLiveMatchReport/index")
                             .andReturn({
                                 'status': 200,
                                 'contentType': 'application/json',

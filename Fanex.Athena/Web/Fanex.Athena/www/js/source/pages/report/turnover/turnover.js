@@ -151,12 +151,8 @@
 
         submit: function () {
             if ($("#ProductList .childCheckbox:checked").length === 0) {
-                return $("#product-null").removeClass("hide");
-            } else {
-                $("#product-null").addClass("hide");
+                return;
             }
-            
-            Site.blockUI();
 
             _me.setDateParam();
             _currencyName = $("#CurrencyName").val().toUpperCase();
@@ -185,7 +181,6 @@
                     Site.blockUI();
                 },
                 complete: function () {
-                    $(".report-title").show();
                     Site.unBlockUI();
                 }
             };
