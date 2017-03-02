@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            if (metaModel != null && metaModel.IsValid)
+            if (metaModel.IsValid)
             {
                 data = GetData(metaModel, out total, out totalRow);
             }
