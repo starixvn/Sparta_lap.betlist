@@ -1672,6 +1672,7 @@
     <Content Include="www\js\build\dev\pages\reports\result.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\turnover.chunk.js.map" />
     <Content Include="www\css\source\scss\components\_radio-button.scss" />
+    <Content Include="www\js\tests\pages\report\turnover\turnover.option-spec.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

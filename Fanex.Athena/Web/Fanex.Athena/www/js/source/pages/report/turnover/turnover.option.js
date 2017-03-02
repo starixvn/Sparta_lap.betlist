@@ -1,5 +1,5 @@
 ﻿define(
-    ["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "lib/linq"],
+    ["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
     function ($, QueryString, Site, jqGridAdditional) {
     "use strict";
 
