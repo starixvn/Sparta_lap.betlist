@@ -9,9 +9,6 @@ namespace Fanex.Athena.Service.Core.Common
     using Fanex.Caching;
     using Newtonsoft.Json;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public static class CacheService
     {
         private const int TIMEOUT = 900; // 15 minutes.

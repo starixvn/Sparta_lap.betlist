@@ -33,6 +33,11 @@ namespace Fanex.Athena.Service.BetList
             _lastBetsMonitoringBetListDataAccess = new LastBetsMonitoringBetListDataAccess();
         }
 
+        public LastBetsMonitoringBetListService(ILastBetsMonitoringBetListDataAccess lastBetsMonitoringBetListDataAccess)
+        {
+            _lastBetsMonitoringBetListDataAccess = lastBetsMonitoringBetListDataAccess;
+        }
+
         public TicketResult GetLastBetsMonitoringData(LastBetsMonitoringMetaModel metaModel)
         {
             var ticketResult = this._lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(metaModel);
