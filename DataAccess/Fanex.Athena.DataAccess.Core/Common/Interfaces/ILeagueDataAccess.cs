@@ -10,11 +10,8 @@ namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public interface ILeagueDataAccess
     {
-        IList<League> GetLeaguesBySport(LeagueMetaModel metaModel);  
+        IEnumerable<League> GetLeaguesBySport(LeagueMetaModel metaModel);
     }
 }

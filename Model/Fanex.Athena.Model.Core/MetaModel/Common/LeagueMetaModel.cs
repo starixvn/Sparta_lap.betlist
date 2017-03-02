@@ -8,14 +8,13 @@ namespace Fanex.Athena.Model.Report.MetaModel
 {
     using System;
 
-    /// <summary>
-    /// LeagueMetaModel class.
-    /// </summary>
     public class LeagueMetaModel
     {
         public LeagueMetaModel()
         {
         }
+
+        public string AgentListXml { get; set; }
 
         public int CurrencyId { get; set; }
 

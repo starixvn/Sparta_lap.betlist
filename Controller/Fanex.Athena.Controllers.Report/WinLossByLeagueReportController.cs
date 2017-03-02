@@ -66,7 +66,8 @@ namespace Fanex.Athena.Controllers.Report
                                 LicenseeId = licenseeSession.LicenseeId,
                                 UserId = userSession.UserId,
                                 FromDate = metaModel.FromDate,
-                                ToDate = metaModel.ToDate
+                                ToDate = metaModel.ToDate,
+                                AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId)
                             });
 
             var firstLeague = leagues.FirstOrDefault();
@@ -94,6 +95,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             return Json(
                 _leagueService.GetLeaguesBySport(metaModel)
                 .Select(x => new { Key = x.LeagueId, Value = x.LeagueName }));

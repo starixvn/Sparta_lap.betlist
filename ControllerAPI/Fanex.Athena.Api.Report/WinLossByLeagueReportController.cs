@@ -41,7 +41,20 @@ namespace Fanex.Athena.Api.Report
         [HttpPost]
         public dynamic Index([FromBody] WinLossByLeagueMetaModel metaModel)
         {
-            return ProcessRequest(metaModel);
+            if (!IsValidRequest(metaModel))
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
+            }
+
+            WinLossByLeague grandTotal;
+            var totalrows = 0;
+            var dataList = GetData(metaModel, out grandTotal, ref totalrows);
+            return new
+            {
+                TotalRows = totalrows,
+                Data = dataList,
+                Total = grandTotal
+            };
         }
 
         [HttpPost]
@@ -102,8 +115,7 @@ namespace Fanex.Athena.Api.Report
 
         private IEnumerable<WinLossByLeague> GetData(WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalrows)
         {
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.MoveBetsDay = _balanceUpService.BalanceUpInfo.MoveBetsDay;
             metaModel.BalanceUpDay = _balanceUpService.BalanceUpInfo.BalanceUpDay;
 
@@ -119,24 +131,6 @@ namespace Fanex.Athena.Api.Report
             }
 
             return dataList;
-        }
-
-        private dynamic ProcessRequest(WinLossByLeagueMetaModel metaModel)
-        {
-            if (!IsValidRequest(metaModel))
-            {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
-            }
-
-            WinLossByLeague grandTotal;
-            var totalrows = 0;
-            var dataList = GetData(metaModel, out grandTotal, ref totalrows);
-            return new
-            {
-                TotalRows = totalrows,
-                Data = dataList,
-                Total = grandTotal
-            };
         }
     }
 }

@@ -22,9 +22,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    /// Win loss by product data access.
-    /// </summary>
     public class WinLossByLeagueDataAccess : BaseDataAccess, IWinLossByLeagueDataAccess
     {
         public WinLossByLeagueDataAccess(BalanceUp balanceUp)
@@ -44,9 +41,6 @@ namespace Fanex.Athena.DataAccess.Report
                     var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status);
                     var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status);
 
-                    db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
                     db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                     db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                     db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);
@@ -59,6 +53,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
                     db.AddInParameter("showsb", DbType.Boolean, showSb);
                     db.AddInParameter("showba", DbType.Boolean, showBa);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -73,13 +68,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get win loss by product customer.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="grandTotal">Grand total object.</param>
-        /// <param name="totalRows">Total rows.</param>
-        /// <returns>The result value.</returns>
         public IEnumerable<WinLossByLeague> GetWinlossByLeagueCustomers(
             WinLossByLeagueMetaModel metaModel, out WinLossByLeague grandTotal, ref int totalRows)
         {
