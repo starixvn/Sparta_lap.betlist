@@ -79,9 +79,6 @@ namespace Fanex.Athena.DataAccess.Report
                     var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status);
                     var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status);
 
-                    db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
                     db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                     db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
                     db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);
@@ -95,6 +92,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("showba", DbType.Boolean, showBa);
                     db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
                     db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
+                    db.AddInParameter("AgentList", DbType.DateTime, metaModel.AgentListXml);
                     db.AddOutParameter("totalrows", DbType.Int32, int.MaxValue);
 
                     IEnumerable<WinLossByLeague> dataList = null;
