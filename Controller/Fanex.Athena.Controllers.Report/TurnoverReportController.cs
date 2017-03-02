@@ -83,7 +83,7 @@ namespace Fanex.Athena.Controllers.Report
 
             metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) ||
                 metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
             var dataList = _turnoverService.GetDataList(metaModel);
 

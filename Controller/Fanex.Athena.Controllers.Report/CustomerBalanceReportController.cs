@@ -114,7 +114,7 @@ namespace Fanex.Athena.Controllers.Report
                 return View("~/Views/Report/CustomerBalance/Main.cshtml", model);
             }
 
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
             if (isExportedExcel != null)
             {
                 metaModel.PageSize = PageSizeExcel;

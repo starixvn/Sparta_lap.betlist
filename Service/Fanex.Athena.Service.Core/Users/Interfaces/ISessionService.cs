@@ -37,7 +37,7 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
 
         bool UpdateLanguage(string languageCode);
 
-        string GenerateAgentListXml(int currencyId = 0);
+        string GenerateAgentListXml(int currencyId = 0, bool isExcludeTestData = false);
 
         bool IsAllowedEditCommission(UserSession user);
 

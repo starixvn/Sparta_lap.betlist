@@ -56,6 +56,14 @@
         <div class="new-line">
         </div>
         @RazorHelper.RenderProductFilter(modelParam.ProductOptions, 2)
+        <div class="grid_3 filter-label">
+            <label for="IsExcludedTestData">
+                @ViewResources.ExcludeTestData
+            </label>
+        </div>
+        <div class="grid_5 filter-input option-list">
+            <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
+        </div>
 @*End Row 3*@
 @*Row 4 - Note*@
 

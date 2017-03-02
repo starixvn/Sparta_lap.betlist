@@ -20,7 +20,7 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult Turnover(TurnoverMetaModel metaModel)
         {
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
             metaModel.Username = string.IsNullOrWhiteSpace(metaModel.Username) ||
                 metaModel.Username.Trim() == ViewResources.ExternalIdOrSystemId ? null : metaModel.Username;

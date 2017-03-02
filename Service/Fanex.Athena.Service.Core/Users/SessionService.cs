@@ -25,6 +25,7 @@ namespace Fanex.Athena.Service.Core.Users
     public class SessionService : ISessionService
     {
         private const int ReportBalanceId = 42;
+
         private const string ReportBalanceUrl = "BalanceReport";
 
         private const string LicenseeSessionKey = "LicenseeSessionKey";
@@ -163,10 +164,15 @@ namespace Fanex.Athena.Service.Core.Users
                     : user.FunctionIdList != null && user.FunctionIdList.Contains((int)FunctionType.SpecialBA);
         }
 
-        public string GenerateAgentListXml(int currencyId = 0)
+        public string GenerateAgentListXml(int currencyId = 0, bool isExcludeTestData = false)
         {
             var result = new StringBuilder("<ROOT>");
             var currencyAgentList = this.UserSession.CurrencyAgentList;
+            if (isExcludeTestData)
+            {
+                currencyAgentList = currencyAgentList.Where(x => x.Key != CurrencyType.Uus).ToDictionary(x => x.Key, x => x.Value);
+            }
+
             if (currencyId == 0)
             {
                 foreach (var currency in currencyAgentList)

@@ -28,6 +28,12 @@
         <div class="grid_3 filter-input">
             @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true)
         </div>
+        <div class="grid_3 filter-label">
+            <label for="IsExcludeTest">@ViewResources.ExcludeTestData</label>
+        </div>
+        <div class="grid_1 filter-input">
+            @Html.CheckBox("IsExcludeTest", Model.Param.IsExcludeTest)
+        </div>
         <div class="grid_2 note-group">
             <div>
                 <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">

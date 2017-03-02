@@ -10,9 +10,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
 
-    /// <summary>
-    /// CustomerWinLossMetaModel class.
-    /// </summary>
     public class CustomerWinLossMetaModel : BaseReportMetaModel
     {
         public CustomerWinLossMetaModel()
@@ -31,6 +28,8 @@ namespace Fanex.Athena.Model.Report.MetaModel
             SortColumn = "ExternalId";
             DrawFilter = DrawFilterType.Normal;
         }
+
+        public bool IsExcludedTestData { get; set; }
 
         public int DrawFilter { get; set; }
 

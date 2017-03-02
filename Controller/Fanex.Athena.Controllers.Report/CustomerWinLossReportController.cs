@@ -31,7 +31,8 @@ namespace Fanex.Athena.Controllers.Report
             var metaModel = new CustomerWinLossMetaModel
             {
                 LicenseeId = licenseeSession.LicenseeId,
-                DrawFilter = DrawFilterType.Normal
+                DrawFilter = DrawFilterType.Normal,
+                IsExcludedTestData = true
             };
 
             SetConvetedUSDCurrencyName(metaModel);
@@ -69,7 +70,8 @@ namespace Fanex.Athena.Controllers.Report
             var historyParam = new CustomerWinLossHistoryMetaModel
             {
                 LicenseeId = licenseeSession.LicenseeId,
-                DrawFilter = DrawFilterType.Normal
+                DrawFilter = DrawFilterType.Normal,
+                IsExcludedTestData = true
             };
 
             SetConvetedUSDCurrencyName(historyParam);
@@ -105,7 +107,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
             CustomerWinLoss totalData;
             int totalRows;
             var custWinlossService = new CustomerWinlossService();
@@ -141,7 +143,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
             metaModel.FromDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.FromDay);
             metaModel.ToDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.ToDay);
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
             CustomerWinLoss totalData;
             int totalRows;
             var custWinlossService = new CustomerWinlossService();

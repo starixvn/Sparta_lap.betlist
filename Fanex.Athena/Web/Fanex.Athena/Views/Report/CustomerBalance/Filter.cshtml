@@ -1,5 +1,4 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@model Fanex.Athena.Model.Report.ViewModel.CustomerBalanceViewModel
+﻿@model Fanex.Athena.Model.Report.ViewModel.CustomerBalanceViewModel
 @{ 
     var appSettings = new AppSettings();
 }
@@ -9,7 +8,12 @@
         @Html.AntiForgeryToken()
         var minDate = DateTime.Now.AddMonths(-18).AddDays(1 - DateTime.Now.Day);
         @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, appSettings.MaxDate, "", "", 3, 3, 2, 3)
-          
+        <div class="grid_3 filter-label">
+            <label for="IsExcludeTest">@ViewResources.ExcludeTestData</label>
+        </div>
+        <div class="grid_1 filter-input">
+            @Html.CheckBox("IsExcludeTest", Model.Param.IsExcludeTest)
+        </div>
         <div class="new-line">
         </div>
         <div class="grid_3 filter-label">
@@ -18,6 +22,7 @@
         <div class="grid_2 filter-input">
             @RazorHelper.CurrencyList(Model.CurrencyList, "", Model.Param.CurrencyId, false)
         </div>
+        
         <div class="grid_2 note-group">
             <div>
                 <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
