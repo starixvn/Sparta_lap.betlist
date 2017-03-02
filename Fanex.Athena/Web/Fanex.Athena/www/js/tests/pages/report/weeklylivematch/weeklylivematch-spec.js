@@ -76,6 +76,16 @@
                 describe("submit()", function () {
                     var request;
                     beforeEach(function (done) {
+                        jasmine.Ajax.install();
+
+                        jasmine.Ajax
+                            .stubRequest(/api\/WeeklyLiveMatchReport\/index/)
+                            .andReturn({
+                                'status': 200,
+                                'contentType': 'application/json',
+                                'responseText': '{ "Data": [{"Cell": [1, "Soccer", 0, 0]}], "NumberOfWeeks": 2, "TotalData": [5,8], "WeekHeaders": ["01 Feb - 05 Feb 2017", "06 Feb - 12 Feb 2017"] }'
+                            });
+
                         spyOn($.fn, "serializeObject").and.returnValue({ FromDate: "03/01/2017", ToDate: "03/31/2017" });
                         spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
                             return url;
@@ -84,16 +94,6 @@
                         spyOn(Site, "blockUI");
                         spyOn(Site, "unBlockUI");
                         spyOn(WeeklyLiveMatch, "bindData");
-
-                        jasmine.Ajax.install();
-
-                        jasmine.Ajax
-                            .stubRequest('api/WeeklyLiveMatchReport/index')
-                            .andReturn({
-                                'status': 200,
-                                'contentType': 'application/json',
-                                'responseText': '{ "Data": [{Cell: [1, "Soccer", 0, 0]}], "NumberOfWeeks": 2, "TotalData": [5,8], "WeekHeaders": ["01 Feb - 05 Feb 2017", "06 Feb - 12 Feb 2017"] }'
-                            });
 
                         WeeklyLiveMatch.submit();
                         request = jasmine.Ajax.requests.mostRecent();
@@ -121,7 +121,7 @@
                         expect(Site.unBlockUI).toHaveBeenCalled();
                     });
 
-                    xit("WeeklyLiveMatch.bindData(response) should be called with correct parameter", function (done) {
+                    it("WeeklyLiveMatch.bindData(response) should be called with correct parameter", function () {
                         var expectedResponse = {
                             Data: [{ Cell: [1, "Soccer", 0, 0] }],
                             NumberOfWeeks: 2,

@@ -57,33 +57,35 @@
                 beforeEach(function () {
                     setFixtures('<button id="ExportToExcel"></button>' +
                         '<button id="SubmitButton"></button>' +
-                        '<div class="body-content"><a class="bet-list-link"></a></div>' +
+                        '<div class="body-content"><a class="bet-list-link" data-cust-id="1" data-system-id="2" data-external-id="3"></a></div>' +
                         '<input id="IsExportExcel" value="false" />' +
                         '<input id="SortColumn" value="Column1" />' +
                         '<input id="SortDirection" value="DESC" />' +
-                        '<form id="ReportForm"></form>' +
-                        '<div class="body-content"><a class="bet-list-link" data-cust-id="1" data-system-id="2" data-external-id="3"></a></div>'
+                        '<form id="ReportForm"></form>'
                         );
+                    $("body").off();
 
                     RacingCommission.initEvent();
                 });
 
+                afterEach(function () {
+                    $(".body-content").remove();
+                    $("body").off();
+                });
+
                 describe("'#ExportToExcel' fire click event", function () {
-                    it("'#IsExportExcel' should has value is true", function () {
-                        var spyEvent = spyOnEvent($('#ReportForm'), 'submit');
+                    var spyEvent;
+                    beforeEach(function () {
+                        spyEvent = spyOnEvent($('#ReportForm'), 'submit');
                         $('#ReportForm').submit(function () { return false; });
 
                         $("#ExportToExcel").click();
-
+                    });
+                    it("'#IsExportExcel' should has value is true", function () {
                         expect($('#IsExportExcel').val()).toBe("true");
                     });
 
                     it("'#ReportForm' should trigger submit event", function () {
-                        var spyEvent = spyOnEvent($('#ReportForm'), 'submit');
-                        $('#ReportForm').submit(function () { return false; });
-
-                        $("#ExportToExcel").click();
-
                         expect(spyEvent).toHaveBeenTriggered();
                     });
                 });
@@ -115,7 +117,7 @@
                 it("RacingCommission.viewRacingBetList(custid, systemId, externalId) should be called with correct parameter when '.bet-list-link' fire click event", function () {
                     spyOn(RacingCommission, "viewRacingBetList");
 
-                    $(".bet-list-link").click();
+                    $(".body-content").find(".bet-list-link").click();
 
                     expect(RacingCommission.viewRacingBetList).toHaveBeenCalledWith("1", "2", "3");
                 });
@@ -139,12 +141,12 @@
 
             describe("viewRacingBetList(custid, systemId, externalId)", function () {
                 beforeEach(function () {
-                    setFixtures('<input id="FromDate" value="03/01/2017" /> <input id="ToDate" value="03/31/2017" />')
+                    setFixtures('<input id="FromDate" value="03/01/2017" /> <input id="ToDate" value="03/31/2017" />');
                     spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
                         return url;
                     });
 
-                    spyOn(Site, "setLicenseeOptionOriginalParam").and.callFake(function (url) { return url + "?basecurrency=1" });
+                    spyOn(Site, "setLicenseeOptionOriginalParam").and.callFake(function (url) { return url + "?basecurrency=1"; });
                     spyOn(Site, "blockUI");
                     spyOn(Site, "redirect");
 

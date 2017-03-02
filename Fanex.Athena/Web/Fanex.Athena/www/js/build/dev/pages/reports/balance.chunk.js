@@ -25,30 +25,12 @@ webpackJsonp([38],{
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
-	    function setHistoryDateConstraint() {
-	        var historyDate = Site.getHistoryDate();
-	        var historyMonth = historyDate.getMonth();
-	        var $month = $("#Month");
-	
-	        if (parseInt($("#Year").val()) === historyDate.getFullYear()) {
-	            if ($month.val() < historyMonth) {
-	                $month.val(historyMonth);
-	            }
-	
-	            $month.find("option").filter(function () {
-	                return this.value < historyMonth;
-	            }).hide().prop("disabled", true);
-	        } else {
-	            $month.children().show().prop("disabled", false);
-	        }
-	    }
-	
 	    var _me = {
 	        initialize: function () {
 	            Site.initialize();
 	            _me.initializeParam();
 	            _me.initEvent();
-	            setHistoryDateConstraint();
+	            _me.setHistoryDateConstraint();
 	        },
 	
 	        initEvent: function () {
@@ -59,13 +41,32 @@ webpackJsonp([38],{
 	            });
 	
 	            $("#Year").change(function () {
-	                setHistoryDateConstraint();
+	                _me.setHistoryDateConstraint();
 	            });
 	
 	            $('#SubmitButton').click(function () {
 	                _me.submit();
 	            });
 	        },
+	
+	        setHistoryDateConstraint: function(){
+	            var historyDate = Site.getHistoryDate();
+	            var historyMonth = historyDate.getMonth();
+	            var $month = $("#Month");
+	
+	            if (parseInt($("#Year").val()) === historyDate.getFullYear()) {
+	                if ($month.val() < historyMonth) {
+	                    $month.val(historyMonth);
+	                }
+	
+	                $month.find("option").filter(function () {
+	                    return this.value < historyMonth;
+	                }).hide().prop("disabled", true);
+	            } else {
+	                $month.children().show().prop("disabled", false);
+	            }
+	        },
+	
 	        initializeParam: function () {
 	            var month = $("#Month").val();
 	            var year = $("#Year").val();

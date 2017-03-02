@@ -50,7 +50,11 @@
 
             describe("initEvent()", function () {
                 beforeEach(function () {
-                    $("body").off("click", "**");
+                    $("body").off();
+                });
+
+                afterEach(function () {
+                    $("body").off();
                 });
 
                 it("#IsExportExcel should have value 'false' when #SubmitButton is clicked.", function () {
