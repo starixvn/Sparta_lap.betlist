@@ -15,6 +15,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.MetaModel.Product;
     using Model.Core.DataDomain;
+
     #endregion Using
 
     [ApiFunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
@@ -34,8 +35,7 @@ namespace Fanex.Athena.Api.BetList
                 return null;
             }
 
-            metaModel.UserId = userSession.UserId;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.IsServerPaging = true;
 
             var uspKey = IsRacing(metaModel.BetType)
@@ -58,8 +58,7 @@ namespace Fanex.Athena.Api.BetList
 
             if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
             {
-                metaModel.UserId = userSession.UserId;
-                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 metaModel.IsServerPaging = true;
 
                 const string UspKey = "Lrf_BetList_MatchWL_Outright";
@@ -115,7 +114,8 @@ namespace Fanex.Athena.Api.BetList
                     ToDate = toDate.Date,
                     SortBy = sortBy,
                     SortOrder = sortOrder,
-                    IsServerPaging = true
+                    IsServerPaging = true,
+                    AgentListXml = SessionService.GenerateAgentListXml(currencyId)
                 };
 
                 return GetPagingBetListResult(metaModel, UspKey, page, rows);

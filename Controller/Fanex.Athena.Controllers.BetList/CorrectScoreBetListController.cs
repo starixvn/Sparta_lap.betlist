@@ -55,7 +55,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 const string UspKey = "Lrf_BetList_CorrectScore";
                 metaModel = CreateDefaultMetaModel(metaModel);
-
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
 
                 var showingOption = new ShowingOption

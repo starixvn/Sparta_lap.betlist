@@ -45,7 +45,8 @@
                 UserId = userSession.UserId,
                 BetType = bettype,
                 SortBy = sortBy,
-                SortOrder = sortOrder
+                SortOrder = sortOrder,
+                AgentListXml = SessionService.GenerateAgentListXml(currencyId)
             };
 
             const string UspKey = "Lrf_BetList_SelWinLossByBetType";

@@ -18,24 +18,17 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.TotalBetCorrectScore)]
     public class CorrectScoreBetListController : ApiBetListBaseController
     {
-        /// <summary>
-        /// Get data for correct score bet list.
-        /// [Used in TOTAL BETS].
-        /// </summary>
-        /// <param name="metaModel">Meta model.</param>
-        /// <returns>Return bet list result list.</returns>
         [HttpPost]
         public dynamic Index(BetListMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
+            var currencyList = SessionService.UserSession.CurrencyList;
 
             if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            metaModel.UserId = userSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             const string UspKey = "Lrf_BetList_CorrectScore";
 
             return GetBetListResult(metaModel, UspKey);

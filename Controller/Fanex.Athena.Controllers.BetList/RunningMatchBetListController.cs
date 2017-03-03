@@ -24,11 +24,6 @@ namespace Fanex.Athena.Controllers.BetList
 
     public class RunningMatchBetListController : BetListBaseController
     {
-        /// <summary>
-        /// Action Get for Running bet list of match.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
@@ -40,6 +35,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                     return Excel(metaModel);
                 }
 

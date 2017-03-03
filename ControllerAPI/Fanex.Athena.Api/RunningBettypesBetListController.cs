@@ -72,8 +72,7 @@ namespace Fanex.Athena.Api.BetList
                 return null;
             }
 
-            metaModel.UserId = userSession.UserId;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             const string UspKey = "Lrf_BetList_SelRunningByBettypeList";
             return GetBetListResult(metaModel, UspKey);

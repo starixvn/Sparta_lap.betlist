@@ -9,7 +9,6 @@ namespace Fanex.Athena.Api.BetList
     #region Using
 
     using System.Web.Http;
-    using Base.Attributes;
     using Fanex.Athena.Model.BetList.MetaModel;
 
     #endregion Using
@@ -35,8 +34,7 @@ namespace Fanex.Athena.Api.BetList
                 return null;
             }
 
-            metaModel.UserId = userSession.UserId;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             string uspKey = "Lrf_BetList_Forecast_SelByMatch";
             return GetBetListResult(metaModel, uspKey);

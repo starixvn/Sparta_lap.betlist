@@ -47,7 +47,17 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_TotalBets_Sel25" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Forecast_Sel1X2" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_TotalBets_Sel430" EnvironmentText="_xpre"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaaaaa" EnvironmentText="_xpre"></SpNameConfig>
+  <!--<SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Monitor_BetlistSel_New" EnvironmentText="_xpre"></SpNameConfig>-->
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_MatchWL_Bettype" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_MatchWL_Outright" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_MatchWL_Parlay" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_MatchWL_Racing" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_WinlostByLeague_Mem" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinLossByBetType" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinLossRacingByDate_Mem" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinlostRacing" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaaaaa" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaaaaa" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaaaaa" EnvironmentText="_xpre"></SpNameConfig>

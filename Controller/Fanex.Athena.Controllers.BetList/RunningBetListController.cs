@@ -19,6 +19,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Web.ActionFilter;
+
     #endregion Using
 
     /// <summary>
@@ -64,7 +65,6 @@ namespace Fanex.Athena.Controllers.BetList
 
         private ActionResult ProcessRequest(BetListMetaModel metaModel)
         {
-            var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel = CreateDefaultMetaModel(metaModel);
             var currencies = userSession.CurrencyList;
@@ -73,6 +73,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
                 {
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                     return Excel(metaModel);
                 }
 
@@ -87,7 +88,7 @@ namespace Fanex.Athena.Controllers.BetList
                 Param = metaModel,
                 CurrencyList = currencies,
                 ProductAccess = this.ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
-                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
+                IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
             return View("~/Views/BetList/RunningBetList/Main.cshtml", model);

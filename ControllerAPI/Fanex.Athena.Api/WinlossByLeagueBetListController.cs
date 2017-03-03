@@ -29,8 +29,7 @@ namespace Fanex.Athena.Api.BetList
                 return null;
             }
 
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
             return GetBetListResult(metaModel, UspKey);

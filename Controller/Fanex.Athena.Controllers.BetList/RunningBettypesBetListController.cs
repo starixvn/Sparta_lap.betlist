@@ -91,6 +91,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
                 {
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                     return Excel(metaModel);
                 }
 

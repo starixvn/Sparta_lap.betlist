@@ -37,6 +37,7 @@
                 currencyList.ContainsKey(metaModel.CurrencyId) &&
                 metaModel.FromDate.Date == metaModel.ToDate.Date)
             {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return this.Excel(metaModel);
             }
 
