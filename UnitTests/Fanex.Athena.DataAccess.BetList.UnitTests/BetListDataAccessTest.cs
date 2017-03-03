@@ -362,10 +362,8 @@
             _dataAccess.GetBetListData(_metaModel, uspKey);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-            _objectDb.Received().AddInParameter("currencyid", DbType.Int32, _metaModel.CurrencyId);
             _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
             _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
             _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);

@@ -2,7 +2,6 @@
 // <copyright file="HSSFCellExtension.cs" company="" >
 //  Copyright (c) . All rights reserved.
 // </copyright>
-// --------------------------------------------------------------------------
 
 namespace Fanex.Athena.Excel.Base.Extension
 {
