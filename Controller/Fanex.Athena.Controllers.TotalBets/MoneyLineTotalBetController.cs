@@ -62,13 +62,12 @@ namespace Fanex.Athena.Controllers.TotalBets
         private ActionResult GetView(MoneyLineMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            var licenseeSession = SessionService.LicenseeSession;
-            metaModel.UserId = userSession.UserId;
             var currencies = userSession.CurrencyList;
 
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 MoneyLine totalData;
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 var dataList = _moneyLineService.GetMoneyLineDataList(metaModel, out totalData);
 
                 var model = new MoneyLineViewModel
