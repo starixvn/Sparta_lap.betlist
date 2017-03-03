@@ -3,6 +3,25 @@
         basePath: '',
         frameworks: ['jasmine-jquery', 'jasmine', 'requirejs'],
         files: [
+            //'bower_components/jasmine-ajax/lib/mock-ajax.js',
+            //{ pattern: "node_modules/squirejs/src/Squire.js", included: false },
+            //{ pattern: "node_modules/hammerjs/hammer.js", included: false },
+            //{ pattern: "node_modules/moment/**/*.js", included: false },
+            //{ pattern: "node_modules/bootstrap-daterangepicker/*.js", included: false },
+            //{ pattern: "node_modules/materialize-autocomplete/**/*.js", included: false },
+            //{ pattern: 'www/js/source/**/*.js', included: false },
+
+            ////{ pattern: 'www/js/tests/pages/betlist/betlist-spec.js', included: false },
+            ////{ pattern: 'www/js/tests/pages/betlist/betlist.option-spec.js', included: false },
+            ////{ pattern: 'www/js/tests/pages/betlist/betlistcorrectscore-spec.js', included: false },
+            ////{ pattern: 'www/js/tests/pages/betlist/betlistrunning-spec.js', included: false },
+            ////{ pattern: 'www/js/tests/pages/betlist/betlistrunning.multiplebettypes-spec.js', included: false },
+            ////{ pattern: 'www/js/tests/pages/betlist/commonbetlist-spec.js', included: false },
+            ////{ pattern: 'www/js/tests/components/refreshcountdown-spec.js', included: false },
+            ////{ pattern: 'www/js/tests/pages/forecast/forecast.onextwo-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/report/result/result-spec.js', included: false },
+            //'www/js/tests/test-main.js'
+
             'bower_components/jasmine-ajax/lib/mock-ajax.js',
             { pattern: "node_modules/squirejs/src/Squire.js", included: false },
             { pattern: "node_modules/hammerjs/hammer.js", included: false },
@@ -11,15 +30,12 @@
             { pattern: "node_modules/materialize-autocomplete/**/*.js", included: false },
             { pattern: 'www/js/source/**/*.js', included: false },
 
-            //{ pattern: 'www/js/tests/pages/betlist/betlist-spec.js', included: false },
-            //{ pattern: 'www/js/tests/pages/betlist/betlist.option-spec.js', included: false },
-            //{ pattern: 'www/js/tests/pages/betlist/betlistcorrectscore-spec.js', included: false },
-            //{ pattern: 'www/js/tests/pages/betlist/betlistrunning-spec.js', included: false },
-            //{ pattern: 'www/js/tests/pages/betlist/betlistrunning.multiplebettypes-spec.js', included: false },
-            //{ pattern: 'www/js/tests/pages/betlist/commonbetlist-spec.js', included: false },
-            //{ pattern: 'www/js/tests/components/refreshcountdown-spec.js', included: false },
-            //{ pattern: 'www/js/tests/pages/forecast/forecast.onextwo-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/report/turnover/turnover-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/report/weeklylivematch/**/*-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/report/turnover/**/*-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/report/settledmatchcount/**/*-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/report/racingcommission/**/*-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/report/balance/**/*-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/report/result/**/*-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {

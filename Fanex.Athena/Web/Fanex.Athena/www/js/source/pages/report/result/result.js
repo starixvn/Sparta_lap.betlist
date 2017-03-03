@@ -45,7 +45,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                         _me.showOutRight(true);
                         var startDate = $("#Date").val();
                         DatePicker.setValueForDateRange(startDate);
-                        $("#SubmitButton").trigger("click");
+                        _me.submit();
                     }
                 });
 
@@ -53,21 +53,12 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                     if (_me.canSubmit(this)) {
                         _me.showOutRight(false);
                         DatePicker.setValueForSingleDate($("#Date"), $('#FromDate').val());
-                        $("#SubmitButton").trigger("click");
+                        _me.submit();
                     }
                 });
 
                 $("#SubmitButton").click(function () {
-                    _me.clearExcelExport();
-                    _me.clearResult();
-                    var isShowOutright = $submitOutright.attr("data-isoutright") === "1";
-                    _me.setDateParam(isShowOutright);
-
-                    param.IsExportExcel = false;
-                    param.IsOutRight = isShowOutright;
-                    param.SportId = 0;
-                    param.LeagueId = 0;
-                    _me.getData();
+                    _me.submit();
                 });
 
                 $("#submitToday").click(function () {
@@ -142,6 +133,19 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                         _me.showKeno();
                     });
                 }
+            },
+
+            submit: function(){
+                _me.clearExcelExport();
+                _me.clearResult();
+                var isShowOutright = $("#submitOutright").attr("data-isoutright") === "1";
+                _me.setDateParam(isShowOutright);
+
+                param.IsExportExcel = false;
+                param.IsOutRight = isShowOutright;
+                param.SportId = 0;
+                param.LeagueId = 0;
+                _me.getData();
             },
 
             showKeno: function () {
