@@ -12,7 +12,6 @@ namespace Fanex.Athena.DataAccess.Forecast
     using System.Linq;
     using Core;
     using Core.Extensions;
-    using Data;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
     using Fanex.Athena.Model.Forecast.ViewModel;
     using Fanex.Common;
@@ -51,20 +50,12 @@ namespace Fanex.Athena.DataAccess.Forecast
             }
         }
 
-        /// <summary>
-        /// Get Forecast Handicap.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <returns>A table of forecast handicap.</returns>
         public DataTable GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
         {
             const string UspName = "Lrf_Forecast_SelHDP";
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
                 db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
                 var dataset = db.ExecuteDataSet();
@@ -72,21 +63,13 @@ namespace Fanex.Athena.DataAccess.Forecast
             }
         }
 
-        /// <summary>
-        /// Get Forecast Over/Under.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <returns>A table of forecast over under.</returns>
         public DataTable GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId)
         {
             const string UspName = "Lrf_Forecast_SelOU";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
                 db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
                 var dataset = db.ExecuteDataSet();

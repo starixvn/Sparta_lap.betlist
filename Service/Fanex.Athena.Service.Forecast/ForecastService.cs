@@ -53,12 +53,6 @@ namespace Fanex.Athena.Service.Forecast
             return _forecastDataAccess.GetForecastTopOddsByMatch(matchId, betType);
         }
 
-        /// <summary>
-        /// Get forecast handicap.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="userId">The user id.</param>
-        /// <returns>The forecast handicap data.</returns>
         public ForecastValue GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
         {
             var forecastHandicapTable = _forecastDataAccess.GetForecastHandicap(metaModel, userId);
@@ -110,12 +104,6 @@ namespace Fanex.Athena.Service.Forecast
             return forecastResult;
         }
 
-        /// <summary>
-        /// Get forecast over under.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="userId">The user id.</param>
-        /// <returns>The forecast over under data.</returns>
         public ForecastValue GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId)
         {
             var overUnderTable = _forecastDataAccess.GetForecastOverUnder(metaModel, userId);
