@@ -92,7 +92,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("showba", DbType.Boolean, showBa);
                     db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
                     db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
-                    db.AddInParameter("AgentList", DbType.DateTime, metaModel.AgentListXml);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddOutParameter("totalrows", DbType.Int32, int.MaxValue);
 
                     IEnumerable<WinLossByLeague> dataList = null;
