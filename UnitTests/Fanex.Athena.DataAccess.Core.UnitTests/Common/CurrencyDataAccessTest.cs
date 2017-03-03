@@ -23,6 +23,7 @@
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<CurrencyDataAccess>();
+            _dataAccess.When(x => x.GetObjectDb(Arg.Any<string>())).DoNotCallBase();
             _reader = Substitute.For<IDataReader>();
         }
 
@@ -133,7 +134,7 @@
         public void GetCurrenciesByUser_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicenseeUser")).Query<CurrencyUser>()
+            _dataAccess.GetObjectDb("Lrf_SelCurrencyByLicenseeUser").Query<CurrencyUser>()
                 .Returns(new List<CurrencyUser>
                 {
                     new CurrencyUser { CurrencyId = 1, AgentId = 100 },

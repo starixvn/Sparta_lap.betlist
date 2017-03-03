@@ -15,6 +15,7 @@
         public void SetUp()
         {
             _licenseeWinLossByPlatformDataAccess = Substitute.ForPartsOf<LicenseeWinLossByPlatformDataAccess>();
+            _licenseeWinLossByPlatformDataAccess.When(x => x.GetObjectDb(Arg.Any<string>())).DoNotCallBase();
         }
 
         [OneTimeTearDown]

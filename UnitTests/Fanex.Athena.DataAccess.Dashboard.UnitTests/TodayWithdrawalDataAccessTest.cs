@@ -13,6 +13,7 @@
         public void SetUp()
         {
             _todayWithDrawalDataAccess = Substitute.ForPartsOf<TodayWithdrawalDataAccess>();
+            _todayWithDrawalDataAccess.When(x => x.GetObjectDb(Arg.Any<string>())).DoNotCallBase();
         }
 
         [OneTimeTearDown]

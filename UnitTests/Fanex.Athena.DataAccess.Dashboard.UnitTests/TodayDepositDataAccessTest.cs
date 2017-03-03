@@ -13,6 +13,7 @@ namespace Fanex.Athena.DataAccess.Dashboard.Tests
         public void SetUp()
         {
             _todayDepositDataAccess = Substitute.ForPartsOf<TodayDepositDataAccess>();
+            _todayDepositDataAccess.When(x => x.GetObjectDb(Arg.Any<string>())).DoNotCallBase();
         }
 
         [OneTimeTearDown]

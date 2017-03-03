@@ -15,6 +15,7 @@
         public void SetUp()
         {
             _turnoverByPlatformDataAccess = Substitute.ForPartsOf<TurnoverByPlatformDataAccess>();
+            _turnoverByPlatformDataAccess.When(x => x.GetObjectDb(Arg.Any<string>())).DoNotCallBase();
         }
 
         [OneTimeTearDown]
@@ -28,7 +29,7 @@
         {
             // Arrange
             object passedParam = null;
-            var reader = _turnoverByPlatformDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetLicenseeTurnoverByPlatform"))
+            var reader = _turnoverByPlatformDataAccess.GetObjectDb("Lrf_GetLicenseeTurnoverByPlatform")
                 .ExecuteReader(Arg.Do<object>(x => passedParam = x));
 
             var metaModel = new DashboardBaseModel

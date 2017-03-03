@@ -168,7 +168,7 @@ namespace Fanex.Athena.Service.Core.Users
         {
             var result = new StringBuilder("<ROOT>");
             var currencyAgentList = this.UserSession.CurrencyAgentList;
-            if (isExcludeTestData)
+            if (isExcludeTestData && currencyAgentList.ContainsKey(CurrencyType.Uus))
             {
                 currencyAgentList = currencyAgentList.Where(x => x.Key != CurrencyType.Uus).ToDictionary(x => x.Key, x => x.Value);
             }

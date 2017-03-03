@@ -12,6 +12,7 @@
         public void SetUp()
         {
             _customerBalanceDataAccess = Substitute.ForPartsOf<CustomerBalanceDataAccess>();
+            _customerBalanceDataAccess.When(x => x.GetObjectDb(Arg.Any<string>())).DoNotCallBase();
         }
 
         [OneTimeTearDown]
