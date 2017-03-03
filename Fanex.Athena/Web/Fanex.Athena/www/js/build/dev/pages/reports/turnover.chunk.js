@@ -19891,7 +19891,7 @@ webpackJsonp([45],[
 	                };
 	
 	            var currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId] : $('#CurrencyId option[value="' + _currencyId + '"]').text().trim();
-	            var dateString = moment(_fromDate).format("MM/DD/YYYY") + ' → ' + moment(_toDate).format("MM/DD/YYYY");
+	            var dateString = _fromDate.format("MM/DD/YYYY") + ' → ' + _toDate.format("MM/DD/YYYY");
 	            currencyName = currencyName.toUpperCase();
 	            if (username === _me.defaultUserName) {
 	                titlePattern += ", {0} - {1}";
@@ -19913,13 +19913,13 @@ webpackJsonp([45],[
 	        },
 	
 	        setDateParam: function(){
-	            _fromDate = new Date($("#FromDate").val());
-	            _toDate = new Date($("#ToDate").val());
+	            _fromDate = moment($("#FromDate").val(), "MM/DD/YYYY");
+	            _toDate = moment($("#ToDate").val(), "MM/DD/YYYY");
 	
-	            $("#FromDay").val(_fromDate.getDate());
-	            $("#ToDay").val(_toDate.getDate());
-	            $("#Month").val(_fromDate.getMonth() + 1);
-	            $("#Year").val(_fromDate.getFullYear());
+	            $("#FromDay").val(_fromDate.date());
+	            $("#ToDay").val(_toDate.date());
+	            $("#Month").val(_fromDate.month() + 1);
+	            $("#Year").val(_fromDate.year());
 	        },
 	
 	        submit: function () {

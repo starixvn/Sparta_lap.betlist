@@ -207,7 +207,7 @@
                         jasmine.Ajax.install();
 
                         jasmine.Ajax
-                            .stubRequest(/CustomerAPI\/SearchCustomer?licenseeType=&currencyId=0&query=a/)
+                            .stubRequest(/.*CustomerAPI\/SearchCustomer\?licenseeType\=\&currencyId\=0\&query=a.*/)
                             .andReturn({
                                 'status': 200,
                                 'contentType': 'application/json',
@@ -230,7 +230,7 @@
                         expect(request.url.indexOf(url) > -1).toBe(true);
                     });
 
-                    xit("callback function should be called with correct parameter", function () {
+                    it("callback function should be called with correct parameter", function () {
                         expect(callback).toHaveBeenCalledWith("a", [{ id: "abc", text: "abc" }, { id: "asd", text: "asd" }]);
                     });
                 });
