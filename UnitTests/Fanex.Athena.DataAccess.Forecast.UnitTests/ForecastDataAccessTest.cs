@@ -208,15 +208,12 @@
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Forecast_Sel1X2")).Returns(_objectDb);
             var metaModel = new ForecastOneXTwoMetaModel();
-            var userId = 0;
 
             // Action
-            _dataAccess.GetForecastOneXTwoByMatch(metaModel, userId);
+            _dataAccess.GetForecastOneXTwoByMatch(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-            _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
             _objectDb.Received().AddInParameter("betType", DbType.Int32, metaModel.BetType);
         }

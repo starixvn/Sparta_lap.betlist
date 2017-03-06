@@ -133,21 +133,13 @@ namespace Fanex.Athena.DataAccess.Forecast
             }
         }
 
-        /// <summary>
-        /// Get Forecast one x two by match.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <returns>A list of forecast one x two by match..</returns>
-        public IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel, int userId)
+        public IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel)
         {
             const string UspName = "Lrf_Forecast_Sel1X2";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
                 db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
 
@@ -162,11 +154,6 @@ namespace Fanex.Athena.DataAccess.Forecast
 
         #region Forecast HDP OU
 
-        /// <summary>
-        /// Get forecast handicap over under.
-        /// </summary>
-        /// <param name="metaModel">Meta model.</param>
-        /// <returns>List result.</returns>
         public IList<ForecastHandicapOverUnder> GetForecastHandicapOverUnder(ForecastHandicapOverUnderMetaModel metaModel)
         {
             const string UspName = "Lrf_Forecast_SelByLeague";

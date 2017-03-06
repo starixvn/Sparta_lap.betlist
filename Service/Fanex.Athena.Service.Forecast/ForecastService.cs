@@ -144,9 +144,9 @@ namespace Fanex.Athena.Service.Forecast
             return _forecastDataAccess.GetForecastRunningLeague(metaModel);
         }
 
-        public IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel, int userId)
+        public IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel)
         {
-            return _forecastDataAccess.GetForecastOneXTwoByMatch(metaModel, userId);
+            return _forecastDataAccess.GetForecastOneXTwoByMatch(metaModel);
         }
 
         public IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel)

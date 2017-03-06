@@ -52,18 +52,16 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private ForecastOneXTwoViewModel GetViewModel(ForecastOneXTwoMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var licenseeSession = SessionService.LicenseeSession;
             var model = new ForecastOneXTwoViewModel();
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
+
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var leagueList = ForecastService.GetForecastRunningLeague(metaModel);
             var currentLeagueId = metaModel.LeagueId;
 
             if (metaModel.MatchId != 0)
             {
-                var forecastOneXTwoByMatch = ForecastService.GetForecastOneXTwoByMatch(metaModel, userSession.UserId);
+                var forecastOneXTwoByMatch = ForecastService.GetForecastOneXTwoByMatch(metaModel);
                 model.MainData = forecastOneXTwoByMatch;
             }
             else
@@ -76,7 +74,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
             model.Param = metaModel;
             model.LeagueList = leagueList;
-            model.CurrencyList = userSession.CurrencyList;
+            model.CurrencyList = SessionService.UserSession.CurrencyList;
 
             return model;
         }

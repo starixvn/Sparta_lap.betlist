@@ -35,7 +35,7 @@ namespace Fanex.Athena.DataAccess.Forecast.Interfaces
 
         IList<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel);
 
-        IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel, int userId);
+        IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel);
 
         IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel);
 
