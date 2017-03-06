@@ -103,5 +103,34 @@
             // Assert
             Assert.That(result.MainTicketList[0].Odds, Is.EqualTo(expectedValue));
         }
+
+        [TestCase(OddsType.Decimal, -2)]
+        [TestCase(OddsType.Malay, 0.5)]
+        [TestCase(OddsType.American, 0.5)]
+        public void GetLastBetsMonitoringData_WhenCall_OddsIsConvertedToMy(string oddsType, decimal expectedValue)
+        {
+            // Arrange
+            var ticketResult = new TicketResult();
+            ticketResult.MainTicketList.AddRange(new List<LrfTicket>
+            {
+                new LrfTicket
+                {
+                    BetTypeId = 1,
+                    Odds = -2,
+                    OddsType = oddsType
+                }
+            });
+            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
+                .Returns(ticketResult);
+
+            // Action
+            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel
+            {
+                OddsType = "my"
+            });
+
+            // Assert
+            Assert.That(result.MainTicketList[0].Odds, Is.EqualTo(expectedValue));
+        }
     }
 }
