@@ -76,36 +76,64 @@
         });
 
         describe("setHistoryDateConstraint()", function () {
-            beforeEach(function () {
-                spyOn(Site, "getHistoryDate").and.returnValue(new Date(2017, 2, 2));
-                setFixtures('<select id="Month">' +
-                    '<option selected value="0">Jan</option> <option value="1">Feb</option> <option value="2">Mar</option>' +
-                    '</select>' +
-                    '<input id="Year" value="2017" />'
-                    );
-            });
+            describe("historyDate is equal selected of '#Year'", function () {
+                beforeEach(function () {
+                    spyOn(Site, "getHistoryDate").and.returnValue(new Date(2017, 2, 2));
+                    setFixtures('<select id="Month">' +
+                        '<option selected value="0">Jan</option> <option value="1">Feb</option> <option value="2">Mar</option> <option value="3">Apr</option>' +
+                        '</select>' +
+                        '<input id="Year" value="2017" />'
+                        );
+                });
 
-            it("'#Month' dropdown should has selected value is 2", function () {
-                Balance.setHistoryDateConstraint();
+                it("'#Month' dropdown should has selected value is 2", function () {
+                    Balance.setHistoryDateConstraint();
 
-                expect($("#Month").val()).toBe("2");
-            });
+                    expect($("#Month").val()).toBe("2");
+                });
 
-            it("option with value 1,2 in '#Month' should be hidden", function () {
-                Balance.setHistoryDateConstraint();
-                var result = $("#Month").find("option[style$='display: none;']").length;
-                var isLastOptionHidden = $("#Month").find("option[value='2']").css("display") == "none";
+                it("'#Month' dropdown should not change if selected month not lower than history date month", function () {
+                    $("#Month").val("3")
 
-                expect(result).toBe(2);
-                expect(isLastOptionHidden).toBe(false);
-            });
+                    Balance.setHistoryDateConstraint();
 
-            it("option with value 1,2 in '#Month' should be disabled", function () {
-                Balance.setHistoryDateConstraint();
-                var result = $("#Month").find("option:disabled").length;
+                    expect($("#Month").val()).toBe("3");
+                });
 
-                expect(result).toBe(2);
-                expect($("#Month").find("option[value='2']").prop("disabled")).toBe(false);
+                it("option with value 1,2 in '#Month' should be hidden", function () {
+                    Balance.setHistoryDateConstraint();
+                    var result = $("#Month").find("option[style$='display: none;']").length;
+                    var isLastOptionHidden = $("#Month").find("option[value='2']").css("display") == "none";
+
+                    expect(result).toBe(2);
+                    expect(isLastOptionHidden).toBe(false);
+                });
+
+                it("option with value 1,2 in '#Month' should be disabled", function () {
+                    Balance.setHistoryDateConstraint();
+                    var result = $("#Month").find("option:disabled").length;
+
+                    expect(result).toBe(2);
+                    expect($("#Month").find("option[value='2']").prop("disabled")).toBe(false);
+                });
+
+                it("All option of month dropdown list should be disable when current year not equal to history year", function () {
+                    $("#Year").val(2016);
+
+                    Balance.setHistoryDateConstraint();
+                    var hiddenChildren = $("#Month").find("option[style$='display: none;']").length;
+
+                    expect(hiddenChildren).toBe(0);
+                });
+
+                it("All option of month dropdown list should be disable when current year not equal to history year", function () {
+                    $("#Year").val("2016");
+
+                    Balance.setHistoryDateConstraint();
+                    var disabledChildren = $("#Month").find("option").not(":disabled").length;
+
+                    expect(disabledChildren).toBe(4);
+                });
             });
         });
 

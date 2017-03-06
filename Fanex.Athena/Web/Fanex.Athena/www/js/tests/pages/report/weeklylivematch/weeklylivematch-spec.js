@@ -171,7 +171,7 @@
 
                     it("jqGrid function should be called with correct parameter", function () {
                         var gridOption;
-                        spyOn($.fn, "jqGrid").and.callFake(function (option) { gridOption = option });
+                        spyOn($.fn, "jqGrid").and.callFake(function (option) { gridOption = option; });
                         var expectedGridoption = {
                             Data: [{ Cell: [1, "Soccer", 0, 0] }],
                             userData: {
@@ -207,7 +207,7 @@
                     describe("jqGridAdditional.gridComplete()", function () {
                         var gridOption;
                         beforeEach(function () {
-                            spyOn($.fn, "jqGrid").and.callFake(function (option) { gridOption = option });
+                            spyOn($.fn, "jqGrid").and.callFake(function (option) { gridOption = option; });
                             spyOn(jqGridAdditional, "gridComplete");
                             spyOn(WeeklyLiveMatch, "resizeGrid");
                             spyOn(Site, "unBlockUI");
@@ -215,21 +215,21 @@
 
                         it("jqGridAdditional.gridComplete() should be called when gridOption.gridComplete function is triggered", function () {
                             WeeklyLiveMatch.bindData(response);
-                            gridOption.gridComplete()
+                            gridOption.gridComplete();
 
                             expect(jqGridAdditional.gridComplete).toHaveBeenCalled();
                         });
 
                         it("WeeklyLiveMatch.resizeGrid() should be called when gridOption.gridComplete function is triggered", function () {
                             WeeklyLiveMatch.bindData(response);
-                            gridOption.gridComplete()
+                            gridOption.gridComplete();
 
                             expect(WeeklyLiveMatch.resizeGrid).toHaveBeenCalled();
                         });
 
                         it("Site.unBlockUI() should be called when gridOption.gridComplete function is triggered", function () {
                             WeeklyLiveMatch.bindData(response);
-                            gridOption.gridComplete()
+                            gridOption.gridComplete();
 
                             expect(Site.unBlockUI).toHaveBeenCalled();
                         });
@@ -285,6 +285,82 @@
                     });
                     it("jqGridAdditional.updateGridWidth(grid) should be called with correct parameter", function () {
                         expect(jqGridAdditional.updateGridWidth).toHaveBeenCalledWith($("#ReportGrid"));
+                    });
+                });
+
+                describe("Sort function", function () {
+                    var _sortColumn = "Week0", _sortDirection = null;
+                    beforeEach(function () {
+                        jasmine.clock().install();
+                    });
+
+                    afterEach(function () {
+                        jasmine.clock().uninstall();
+                    });
+
+                    describe("gridOption.onSortCol(colName)", function () {
+                        beforeEach(function () {
+                            spyOn(Site, "initialize");
+                            spyOn(WeeklyLiveMatch, "initEvent");
+                            spyOn(Site, "addUserGuide");
+                            spyOn(DatePicker, "initDateRangePicker");
+
+                            WeeklyLiveMatch.initialize();
+
+                            spyOn(Site, "blockUI");
+                            spyOn(Site, "unBlockUI");
+                            spyOn(WeeklyLiveMatch, "bindData");
+                            spyOn(WeeklyLiveMatch, "sortData").and.returnValue({});
+
+                            WeeklyLiveMatchOption.gridOption.onSortCol(_sortColumn);
+                        });
+
+                        it("Site.blockUI() should be called", function () {
+                            expect(Site.blockUI).toHaveBeenCalled();
+                        });
+
+                        describe("setTimeout function", function () {
+                            it("WeeklyLiveMatch.bindData() should be called", function () {
+                                jasmine.clock().tick(101);
+                                expect(WeeklyLiveMatch.bindData).toHaveBeenCalled();
+                            });
+                            it("WeeklyLiveMatch.sortData() should be called", function () {
+                                jasmine.clock().tick(101);
+                                expect(WeeklyLiveMatch.sortData).toHaveBeenCalled();
+                            });
+                            it("Site.unBlockUI() should be called", function () {
+                                jasmine.clock().tick(101);
+                                expect(Site.unBlockUI).toHaveBeenCalled();
+                            });
+                        });
+                    });
+
+                    describe("sortData(arrayData)", function () {
+                        var cellIndex = 2;
+                        var arrayData;
+                        beforeEach(function () {
+                            arrayData = [{ Cell: [1, "SB", 12, 23] }, { Cell: [2, "RC", 20, 15] }];
+                            WeeklyLiveMatchOption.gridOption.onSortCol(_sortColumn);
+                        });
+
+                        it("Array data should be correctly return with ascending sorting", function () {
+                            var result = WeeklyLiveMatch.sortData(arrayData);
+
+                            var expectedResult = [{ Cell: [1, "SB", 12, 23] }, { Cell: [2, "RC", 20, 15] }];
+
+                            expect(result[0].Cell).toEqual(expectedResult[0].Cell);
+                            expect(result[1].Cell).toEqual(expectedResult[1].Cell);
+                        });
+
+                        it("Array data should be correctly return with descending sorting", function () {
+                            jasmine.clock().tick(101);
+                            var result = WeeklyLiveMatch.sortData(arrayData);
+
+                            var expectedResult = [{ Cell: [1, "RC", 20, 15] }, { Cell: [2, "SB", 12, 23] }];
+
+                            expect(result[0].Cell).toEqual(expectedResult[0].Cell);
+                            expect(result[1].Cell).toEqual(expectedResult[1].Cell);
+                        });
                     });
                 });
             });

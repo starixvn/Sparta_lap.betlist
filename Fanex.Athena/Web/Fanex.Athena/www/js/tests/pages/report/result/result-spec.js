@@ -726,26 +726,26 @@
                         '<div id="submitOutright">Submit Outright</div>' +
                         '<div id="submitNormal">Submit Normal</div>'
                         );
+                });
 
-                    it("Elements should have properly attribute when isShow param equal true", function () {
-                        Result.showOutRight(true);
+                it("Elements should have properly attribute when isShow param equal true", function () {
+                    Result.showOutRight(true);
 
-                        expect($("#singleDate")).toBeHidden();
-                        expect($("#dateRange")).toBeVisible();
-                        expect($("#submitOutright").hasClass("active")).toBe(true);
-                        expect($("#submitNormal").hasClass("active")).toBe(false);
-                        expect($("#submitOutright").attr("data-isOutright")).toBe("1");
-                    });
+                    expect($("#singleDate")).toBeHidden();
+                    expect($("#dateRange")).toBeVisible();
+                    expect($("#submitOutright").hasClass("active")).toBe(true);
+                    expect($("#submitNormal").hasClass("active")).toBe(false);
+                    expect($("#submitOutright").attr("data-isOutright")).toBe("1");
+                });
 
-                    it("Elements should have properly attribute when isShow param equal false", function () {
-                        Result.showOutRight(true);
+                it("Elements should have properly attribute when isShow param equal false", function () {
+                    Result.showOutRight(false);
 
-                        expect($("#singleDate")).toBeVisible();
-                        expect($("#dateRange")).toBeHidden();
-                        expect($("#submitOutright").hasClass("active")).toBe(false);
-                        expect($("#submitNormal").hasClass("active")).toBe(true);
-                        expect($("#submitOutright").attr("data-isOutright")).toBe("0");
-                    });
+                    expect($("#singleDate")).toBeVisible();
+                    expect($("#dateRange")).toBeHidden();
+                    expect($("#submitOutright").hasClass("active")).toBe(false);
+                    expect($("#submitNormal").hasClass("active")).toBe(true);
+                    expect($("#submitOutright").attr("data-isOutright")).toBe("0");
                 });
             });
 

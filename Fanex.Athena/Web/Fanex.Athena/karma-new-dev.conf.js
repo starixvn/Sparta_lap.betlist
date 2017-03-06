@@ -33,9 +33,9 @@
             //{ pattern: 'www/js/tests/pages/report/weeklylivematch/**/*-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/report/turnover/**/*-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/report/settledmatchcount/**/*-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/report/racingcommission/**/*-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/report/racingcommission/**/*-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/report/balance/**/*-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/report/result/**/*-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/report/weeklylivematch/weeklylivematch-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {
@@ -49,7 +49,7 @@
         autoWatch: true,
         browsers: ['PhantomJS'],
      //   reporters: ['progress', 'kjhtml'],
-        singleRun: true,
+        singleRun: false,
         concurrency: Infinity,
         phantomjsLauncher: {
             // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)

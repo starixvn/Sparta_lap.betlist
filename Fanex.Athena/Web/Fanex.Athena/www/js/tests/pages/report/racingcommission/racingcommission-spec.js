@@ -166,5 +166,30 @@
                     expect(Site.redirect).toHaveBeenCalledWith(url);
                 });
             });
+
+            describe("submitForm()", function () {
+                var spyEvent;
+                beforeEach(function () {
+                    setFixtures('<input id="IsExportExcel" />' +
+                        '<form id="ReportForm"></form>'
+                        );
+
+                    spyEvent = spyOnEvent($('#ReportForm'), 'submit');
+                    $('#ReportForm').submit(function () { return false; });
+                    spyOn(Site, "blockUI");
+
+                    RacingCommission.submitForm();
+                });
+
+                it("Site.blockUI() should be called", function () {
+                    expect(Site.blockUI).toHaveBeenCalled();
+                });
+                it("'#IsExportExcel' should has correct value", function () {
+                    expect($("#IsExportExcel").val()).toBe("false");
+                });
+                it("'#ReportForm' should trigger submit event", function () {
+                    expect(spyEvent).toHaveBeenTriggered();
+                });
+            });
         });
     });

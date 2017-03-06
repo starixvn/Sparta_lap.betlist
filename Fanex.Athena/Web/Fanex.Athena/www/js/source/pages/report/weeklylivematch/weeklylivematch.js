@@ -11,29 +11,6 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
             var _sortColumn = null;
             var _sortDirection = null;
 
-            function sortData(arrayData) {
-                var columnIndex = SPORT_COLUMN_INDEX;
-                if (_sortColumn.indexOf('Week') === 0) {
-                    columnIndex = Number(_sortColumn.replace('Week', '')) + START_WEEK_COLUMN_INDEX;
-                    arrayData = Enumerable.From(arrayData).OrderBy(function (x) { return x.Cell[SPORT_COLUMN_INDEX]; }).ToArray();
-                }
-
-                for (var i = 0; i < arrayData.length; i++) {
-                    arrayData[i].SortingValue = arrayData[i].Cell[columnIndex];
-                }
-
-                var data = _sortDirection === "asc" ?
-             Enumerable.From(arrayData).OrderBy(function (x) { return x.SortingValue; }).ToArray()
-             : Enumerable.From(arrayData).OrderByDescending(function (x) { return x.SortingValue; }).ToArray();
-
-                // Re-assign Index column.
-                for (var j = 0; j < data.length; j++) {
-                    data[j].Cell[0] = j + 1;
-                }
-
-                return data;
-            }
-
             var _me = {
                 initialize: function () {
                     Site.initialize();
@@ -53,7 +30,7 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                                 _sortDirection = "asc";
                                 _sortColumn = index;
                             }
-                            _cacheData.Data = sortData(_cacheData.Data);
+                            _cacheData.Data = _me.sortData(_cacheData.Data);
 
                             _me.bindData(_cacheData);
 
@@ -64,6 +41,29 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
 
                     var firstDayOfWeekIsMonday = true;
                     DatePicker.initDateRangePicker(firstDayOfWeekIsMonday);
+                },
+
+                sortData: function (arrayData) {
+                    var columnIndex = SPORT_COLUMN_INDEX;
+                    if (_sortColumn.indexOf('Week') === 0) {
+                        columnIndex = Number(_sortColumn.replace('Week', '')) + START_WEEK_COLUMN_INDEX;
+                        arrayData = Enumerable.From(arrayData).OrderBy(function (x) { return x.Cell[SPORT_COLUMN_INDEX]; }).ToArray();
+                    }
+
+                    for (var i = 0; i < arrayData.length; i++) {
+                        arrayData[i].SortingValue = arrayData[i].Cell[columnIndex];
+                    }
+
+                    var data = _sortDirection === "asc" ?
+                 Enumerable.From(arrayData).OrderBy(function (x) { return x.SortingValue; }).ToArray()
+                 : Enumerable.From(arrayData).OrderByDescending(function (x) { return x.SortingValue; }).ToArray();
+
+                    // Re-assign Index column.
+                    for (var j = 0; j < data.length; j++) {
+                        data[j].Cell[0] = j + 1;
+                    }
+
+                    return data;
                 },
 
                 initEvent: function () {
@@ -147,7 +147,7 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                     jqGridAdditional.addSortableHeader(reportGrid, _sortColumn, _sortDirection, true);
                 },
 
-                setTotalRow: function(){
+                setTotalRow: function () {
                     var $totalRow = $('.ui-jqgrid-ftable').find('.footrow');
                     $totalRow.addClass('total');
                     var $firstCell = $totalRow.find('td:eq(0)');

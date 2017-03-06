@@ -82,23 +82,37 @@
                     });
 
                     describe("'#TurnoverForm input' fire keypress event", function () {
-                        beforeEach(function () {
-                            var e = $.Event('keypress', { keyCode: 13, which: 13 });
+                        describe("when keyCode is 13 (Enter)", function () {
+                            beforeEach(function () {
+                                var e = $.Event('keypress', { keyCode: 13, which: 13 });
+                                spyOn(Turnover, "submit");
+
+                                $("#TurnoverForm input").trigger(e);
+                            });
+
+                            it("'#IsExportExcel' has value is false", function () {
+                                expect($("#IsExportExcel").val()).toBe("false");
+                            });
+
+                            it("Turnover.submit() should be called", function () {
+                                expect(Turnover.submit).toHaveBeenCalled();
+                            });
+
+                            it("Dropdown of auto complete should be hidden", function () {
+                                expect($dropdown).toBeHidden();
+                            });
+                        });
+
+                        it("Nothing happen if keyCode not equal 13 (Enter)", function () {
+                            var e = $.Event('keypress', { keyCode: 17, which: 17 });
                             spyOn(Turnover, "submit");
+                            $("#IsExportExcel").val(true);
 
                             $("#TurnoverForm input").trigger(e);
-                        });
 
-                        it("'#IsExportExcel' has value is false", function () {
-                            expect($("#IsExportExcel").val()).toBe("false");
-                        });
-
-                        it("Turnover.submit() should be called", function () {
-                            expect(Turnover.submit).toHaveBeenCalled();
-                        });
-
-                        it("Dropdown of auto complete should be hidden", function () {
-                            expect($dropdown).toBeHidden();
+                            expect(Turnover.submit).not.toHaveBeenCalled();
+                            expect($("#IsExportExcel").val()).not.toBe("false");
+                            expect($dropdown).toBeVisible();
                         });
                     });
 
@@ -201,37 +215,56 @@
 
                 describe("option.getData(value, callback)", function () {
                     var request, callback;
-                    beforeEach(function (done) {
-                        var value = "a";
+                    var value = "a";
+
+                    beforeEach(function () {
                         callback = jasmine.createSpy('callback');
                         jasmine.Ajax.install();
-
-                        jasmine.Ajax
-                            .stubRequest(/.*CustomerAPI\/SearchCustomer\?licenseeType\=\&currencyId\=0\&query=a.*/)
-                            .andReturn({
-                                'status': 200,
-                                'contentType': 'application/json',
-                                'responseText': '{ "suggestions": ["abc", "asd"] }'
-                            });
-
-                        option.getData(value, callback);
-                        request = jasmine.Ajax.requests.mostRecent();
-
-                        setTimeout(done, 10);
                     });
 
                     afterEach(function () {
                         jasmine.Ajax.uninstall();
                     });
 
-                    it("Ajax option should be correct", function () {
+                    it("Ajax option should be correct", function (done) {
+                        jasmine.Ajax.stubRequest(/.*CustomerAPI\/SearchCustomer\?licenseeType\=\&currencyId\=0\&query=a.*/);
+                        option.getData(value, callback);
+                        request = jasmine.Ajax.requests.mostRecent();
+                        setTimeout(done, 10);
+
                         var url = "CustomerAPI/SearchCustomer?licenseeType=&currencyId=0&query=a";
                         expect(request.method).toBe("GET");
                         expect(request.url.indexOf(url) > -1).toBe(true);
                     });
 
-                    it("callback function should be called with correct parameter", function () {
+                    it("callback function should be called with correct parameter", function (done) {
+                        jasmine.Ajax
+                        .stubRequest(/.*CustomerAPI\/SearchCustomer\?licenseeType\=\&currencyId\=0\&query=a.*/)
+                        .andReturn({
+                            'status': 200,
+                            'contentType': 'application/json',
+                            'responseText': '{ "suggestions": ["abc", "asd"] }'
+                        });
+                        option.getData(value, callback);
+                        request = jasmine.Ajax.requests.mostRecent();
+                        setTimeout(done, 10);
+
                         expect(callback).toHaveBeenCalledWith("a", [{ id: "abc", text: "abc" }, { id: "asd", text: "asd" }]);
+                    });
+
+                    it("callback function should be called with correct parameter", function (done) {
+                        jasmine.Ajax
+                        .stubRequest(/.*CustomerAPI\/SearchCustomer\?licenseeType\=\&currencyId\=0\&query=a.*/)
+                        .andReturn({
+                            'status': 200,
+                            'contentType': 'application/json',
+                            'responseText': '{ "suggestions": null }'
+                        });
+                        option.getData(value, callback);
+                        request = jasmine.Ajax.requests.mostRecent();
+                        setTimeout(done, 10);
+
+                        expect(callback).not.toHaveBeenCalled();
                     });
                 });
             });
@@ -346,7 +379,7 @@
 
             describe("submit()", function () {
                 var request;
-                beforeEach(function (done) {
+                beforeEach(function () {
                     setFixtures('<div id="ProductList"><input type="checkbox" checked class="childCheckbox" /></div>' +
                         '<input id="FromDate" value="03/01/2017" /> <input id="ToDate" value="03/31/2017" />' +
                         '<input id="FromDay" /> <input id="ToDay" /> <input id="Month" /> <input id="Year" />' +
@@ -356,11 +389,46 @@
                     spyOn(Site, "blockUI");
                     spyOn(Site, "unBlockUI");
                     spyOn(Turnover, "setDateParam");
-                    spyOn($.fn, "serializeObject").and.returnValue({ Username: "Walter", BaseCurrency: "EUR" });
                     spyOn(Turnover, "ajaxComplete");
 
                     jasmine.Ajax.install();
+                    jasmine.Ajax.stubRequest("reportapi/Turnover");
+                });
 
+                afterEach(function () {
+                    jasmine.Ajax.uninstall();
+                });
+
+                it("Nothing happen when none of product list is selcted", function (done) {
+                    $("#ProductList").html("");
+                    Turnover.submit();
+                    setTimeout(done, 10);
+
+                    expect(Turnover.setDateParam).not.toHaveBeenCalled();
+                });
+
+                it("ajax should be called with correct parameter when '#Username' has input value", function (done) {
+                    spyOn($.fn, "serializeObject").and.returnValue({ Username: "Walter", BaseCurrency: "EUR" });
+                    Turnover.submit();
+                    request = jasmine.Ajax.requests.mostRecent();
+                    setTimeout(done, 10);
+
+                    expect(request.method).toBe("POST");
+                    expect(request.data()).toEqual({ Username: ["Walter"], BaseCurrency: ["EUR"] });
+                    expect(request.url).toBe("reportapi/Turnover");
+                });
+
+                it("ajax should be called with correct parameter when '#Username' has no input value", function (done) {
+                    spyOn($.fn, "serializeObject").and.returnValue({ Username: "", BaseCurrency: "EUR" });
+                    Turnover.submit();
+                    request = jasmine.Ajax.requests.mostRecent();
+                    setTimeout(done, 10);
+
+                    expect(request.data()).toEqual({ BaseCurrency: ["EUR"] });
+                });
+
+                it("Turnover.ajaxComplete(response) should be called with correct parameter", function (done) {
+                    spyOn($.fn, "serializeObject").and.returnValue({ Username: "Walter", BaseCurrency: "EUR" });
                     jasmine.Ajax
                         .stubRequest("reportapi/Turnover")
                         .andReturn({
@@ -370,34 +438,48 @@
                         });
 
                     Turnover.submit();
-                    request = jasmine.Ajax.requests.mostRecent();
-
                     setTimeout(done, 10);
-                });
 
-                afterEach(function () {
-                    jasmine.Ajax.uninstall();
-                });
-
-                it("ajax should be called with correct parameter", function () {
-                    expect(request.method).toBe("POST");
-                    expect(request.data()).toEqual({ Username: ["Walter"], BaseCurrency: ["EUR"] });
-                    expect(request.url).toBe("reportapi/Turnover");
-                });
-
-                it("Turnover.ajaxComplete(response) should be called with correct parameter", function () {
                     expect(Turnover.ajaxComplete).toHaveBeenCalledWith({ Data: ["abc", "asd"] });
                 });
 
-                it("Turnover.setDateParam() should be called", function () {
+                it("Turnover.setDateParam() should be called", function (done) {
+                    spyOn($.fn, "serializeObject").and.returnValue({ Username: "Walter", BaseCurrency: "EUR" });
+                    Turnover.submit();
+                    setTimeout(done, 10);
+
                     expect(Turnover.setDateParam).toHaveBeenCalled();
                 });
 
-                it("Site.blockUI() should be called", function () {
+                it("Site.blockUI() should be called", function (done) {
+                    spyOn($.fn, "serializeObject").and.returnValue({ Username: "Walter", BaseCurrency: "EUR" });
+                    jasmine.Ajax
+                        .stubRequest("reportapi/Turnover")
+                        .andReturn({
+                            'status': 200,
+                            'contentType': 'application/json',
+                            'responseText': '{ "Data": ["abc", "asd"] }'
+                        });
+
+                    Turnover.submit();
+                    setTimeout(done, 10);
+
                     expect(Site.blockUI).toHaveBeenCalled();
                 });
 
-                it("Site.unBlockUI() should be called", function () {
+                it("Site.unBlockUI() should be called", function (done) {
+                    spyOn($.fn, "serializeObject").and.returnValue({ Username: "Walter", BaseCurrency: "EUR" });
+                    jasmine.Ajax
+                        .stubRequest("reportapi/Turnover")
+                        .andReturn({
+                            'status': 200,
+                            'contentType': 'application/json',
+                            'responseText': '{ "Data": ["abc", "asd"] }'
+                        });
+
+                    Turnover.submit();
+                    setTimeout(done, 10);
+
                     expect(Site.unBlockUI).toHaveBeenCalled();
                 });
             });
