@@ -15,28 +15,17 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// First goal/last goal data access.
-    /// </summary>
     public class FirstGoalLastGoalDataAccess : BaseDataAccess, IFirstGoalLastGoalDataAccess
     {
-        /// <summary>
-        /// Get first goal last goal data list.
-        /// </summary>
-        /// <param name="metaModel">FirstGoalLastGoal MetaModel value.</param>
-        /// <param name="totalData">FirstGoalLastGoal value.</param>
-        /// <returns>A list of First goal/last goal.</returns>
         public IList<FirstGoalLastGoal> GetFirstGoalLastGoalDataList(FirstGoalLastGoalMetaModel metaModel, out FirstGoalLastGoal totalData)
         {
             const string SpName = "Lrf_TotalBets_Sel14";
             var uspParams = new
             {
-                LicenseeId = metaModel.LicenseeId,
-                CurrencyId = metaModel.CurrencyId,
+                AgentList = metaModel.AgentListXml,
                 PageSize = metaModel.PageSize,
                 PageIndex = metaModel.PageIndex,
-                TotalRows = metaModel.TotalRows,
-                UserId = metaModel.UserId
+                TotalRows = metaModel.TotalRows
             };
 
             IList<FirstGoalLastGoal> data;
@@ -55,13 +44,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
         #region Utility
 
-        /// <summary>
-        /// Set data to list.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="isConvert">Is Convert value.</param>
-        /// <param name="baseCurrency">Base Currency value.</param>
-        /// <returns>A list of FG/LG.</returns>
         private static IList<FirstGoalLastGoal> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<FirstGoalLastGoal>();
@@ -105,13 +87,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             return dataList;
         }
 
-        /// <summary>
-        /// Read Total Data.
-        /// </summary>
-        /// <param name="reader">Data Reader.</param>
-        /// <param name="isConvert">Boolean isConvert.</param>
-        /// <param name="baseCurrency">Base Currency.</param>
-        /// <returns>First Goal Last Goal.</returns>
         private static FirstGoalLastGoal ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
             if (reader.Read())

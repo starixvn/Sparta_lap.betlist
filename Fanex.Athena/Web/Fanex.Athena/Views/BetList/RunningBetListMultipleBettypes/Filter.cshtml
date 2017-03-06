@@ -1,19 +1,5 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Model.Core.MetaModel.Product
-@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
+﻿@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 @{
-
-    //-----------------------------Type of licensee---------------------------//
-    if (Model.LicenseeTypeList.Count > 0)
-    {
-    <div class="grid_2 filter-label">
-        <label>@ViewResources.Type</label>
-    </div>
-    <div class="grid_3 filter-input">
-        @RazorHelper.LicenseeType(Model.LicenseeTypeList, "", Model.Param.LicenseeType, true)
-    </div>
-    }
-
     //-----------------------------Currency-----------------------------------//
     <div class="grid_2 filter-label">
         <label>

@@ -61,13 +61,11 @@ namespace Fanex.Athena.Controllers.TotalBets
 
         private ActionResult GetView(HalfTimeFullTimeMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var licenseeSession = SessionService.LicenseeSession;
-            metaModel.UserId = userSession.UserId;
-            var currencies = userSession.CurrencyList;
+            var currencies = SessionService.UserSession.CurrencyList;
 
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 HalfTimeFullTime totalData;
                 var dataList = _halfTimeFullTimeService.GetHalfTimeFullTimeDataList(metaModel, out totalData);
                 var model = new HalfTimeFullTimeViewModel

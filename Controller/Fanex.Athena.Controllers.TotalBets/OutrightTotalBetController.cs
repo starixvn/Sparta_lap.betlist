@@ -58,22 +58,13 @@ namespace Fanex.Athena.Controllers.TotalBets
             return this.GetView(metaModel);
         }
 
-        #region Utility
-
-        /// <summary>
-        /// Get the view of Outright.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <returns>The action result.</returns>
         private ActionResult GetView(OutrightMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var licenseeSession = SessionService.LicenseeSession;
-            metaModel.UserId = userSession.UserId;
-            var currencies = userSession.CurrencyList;
+            var currencies = SessionService.UserSession.CurrencyList;
 
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 var dataList = _outrightService.GetOutrightDataList(metaModel);
                 var model = new OutrightViewModel
                 {
@@ -87,7 +78,5 @@ namespace Fanex.Athena.Controllers.TotalBets
 
             return Redirect("~/Utility/AccessDenied");
         }
-
-        #endregion Utility
     }
 }

@@ -15,9 +15,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// Half time/ Full time data access.
-    /// </summary>
     public class HalfTimeFullTimeDataAccess : BaseDataAccess, IHalfTimeFullTimeDataAccess
     {
         public IList<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel, out HalfTimeFullTime totalData)
@@ -25,12 +22,10 @@ namespace Fanex.Athena.DataAccess.TotalBet
             const string SpName = "Lrf_TotalBets_Sel16";
             var uspParams = new
             {
-                LicenseeId = metaModel.LicenseeId,
-                CurrencyId = metaModel.CurrencyId,
+                AgentList = metaModel.AgentListXml,
                 PageSize = metaModel.PageSize,
                 PageIndex = metaModel.PageIndex,
-                TotalRows = metaModel.TotalRows,
-                UserId = metaModel.UserId
+                TotalRows = metaModel.TotalRows
             };
             IList<HalfTimeFullTime> data;
             using (var db = this.GetObjectDb(SpName))
@@ -48,13 +43,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
         #region Utility
 
-        /// <summary>
-        /// Set data to list.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="isConvert">Is Convert value.</param>
-        /// <param name="baseCurrency">Base Currency value.</param>
-        /// <returns>A list of HT/FT.</returns>
         private static IList<HalfTimeFullTime> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<HalfTimeFullTime>();
@@ -94,13 +82,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             return dataList;
         }
 
-        /// <summary>
-        /// Read TotalData.
-        /// </summary>
-        /// <param name="reader">Data Reader class.</param>
-        /// <param name="isConvert">Boolean isConvert.</param>
-        /// <param name="baseCurrency">Base Currency.</param>
-        /// <returns>Half Time Full Time.</returns>
         private static HalfTimeFullTime ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
             if (reader.Read())

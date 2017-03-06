@@ -15,27 +15,17 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// Outright data access.
-    /// </summary>
     public class OutrightDataAccess : BaseDataAccess, IOutrightDataAccess
     {
-        /// <summary>
-        /// Get outright data list.
-        /// </summary>
-        /// <param name="metaModel">Outright MetaModel value.</param>
-        /// <returns>A list of Outright.</returns>
         public IList<Outright> GetOutrightDataList(OutrightMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel10";
             var uspParams = new
             {
-                LicenseeId = metaModel.LicenseeId,
-                CurrencyId = metaModel.CurrencyId,
+                AgentList = metaModel.AgentListXml,
                 PageSize = metaModel.PageSize,
                 PageIndex = metaModel.PageIndex,
-                TotalRows = metaModel.TotalRows,
-                UserId = metaModel.UserId
+                TotalRows = metaModel.TotalRows
             };
 
             using (var db = this.GetObjectDb(SpName))
