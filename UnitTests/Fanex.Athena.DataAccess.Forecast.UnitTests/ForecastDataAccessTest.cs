@@ -83,9 +83,7 @@
             _dataAccess.GetForecastOverUnder(metaModel, userId);
 
             // Assert
-            _objectDb.Received().AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-            _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
             _objectDb.Received().AddInParameter("betType", DbType.Int32, metaModel.BetType);
         }
@@ -136,9 +134,7 @@
             _dataAccess.GetForecastOneXTwoByLeague(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-            _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
         }
 

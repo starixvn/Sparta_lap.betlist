@@ -101,9 +101,7 @@ namespace Fanex.Athena.DataAccess.Forecast
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml); 
                 db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
 
                 using (var reader = db.ExecuteReader())

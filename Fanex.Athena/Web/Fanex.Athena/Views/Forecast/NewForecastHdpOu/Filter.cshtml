@@ -1,12 +1,10 @@
-﻿@using Fanex.Athena.Model.Forecast.ViewModel
-@model Fanex.Athena.Model.Forecast.ViewModel.NewForecastHdpOuViewModel
+﻿@model Fanex.Athena.Model.Forecast.ViewModel.NewForecastHdpOuViewModel
 @using (Html.BeginForm("Index", "NewHandicapOverUnderForecast", FormMethod.Post, new { @id = "NewForecastHdpOuForm" }))
 {
     @Html.AntiForgeryToken()
     // ----------------------------- Hidden field -----------------------------//
     <div>
         @Html.Hidden("CurrencyId-Hidden", Model.Param.CurrencyId)
-        @Html.Hidden("LicenseeType-Hidden", Model.Param.LicenseeType)
         @Html.Hidden("IsConvert-Hidden", Model.Param.IsConvert)
         @Html.Hidden("IsShowFh", Model.Param.IsShowFH)
         @Html.Hidden("IsShowFt", Model.Param.IsShowFT)
@@ -29,7 +27,7 @@
         Value = m.MatchId.ToString(),
         Selected = m.MatchId == Model.Param.MatchId
     });
-    if (Model.LeagueList.Count > 0)
+    if (Model.LeagueList.Count() > 0)
     {
     <div class="grid_2 filter-label left-text" style="width: 45px">@ViewResources.League</div>
     <div class="grid_7 filter-input">
