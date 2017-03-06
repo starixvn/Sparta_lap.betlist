@@ -26,7 +26,7 @@ namespace Fanex.Athena.Controllers.Forecast
             get { return _forecastService; }
         }
 
-        protected static int GetLeagueId(int leagueId, IList<League> leagueList)
+        protected static int GetLeagueId(int leagueId, IEnumerable<League> leagueList)
         {
             if (leagueList.Any(l => l.LeagueId == leagueId))
             {

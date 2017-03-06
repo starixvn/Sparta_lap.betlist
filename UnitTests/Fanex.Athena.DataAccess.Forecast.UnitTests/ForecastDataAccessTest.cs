@@ -1,7 +1,9 @@
 ﻿namespace Fanex.Athena.DataAccess.Forecast.UnitTests
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Data;
     using Forecast;
     using Model.Core.DTO.Common;
@@ -99,9 +101,7 @@
             _dataAccess.GetForecastRunningLeague(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("CurrencyId", DbType.Int32, 0);
-            _objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-            _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("betTypes", DbType.String, metaModel.BetTypeString);
         }
 
@@ -110,16 +110,19 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LeagueSelRunning")).Returns(_objectDb);
-            var metaModel = new ForecastBaseMetaModel();
-            _reader.Read().Returns(true, false);
-            var expected = new League { LeagueId = 1 };
-            _reader["leagueid"].Returns(expected.LeagueId);
+            _objectDb.Query<League>().Returns(new List<League>
+            {
+                new League
+                {
+                    LeagueId = 999
+                }
+            });
 
             // Action
-            var result = _dataAccess.GetForecastRunningLeague(metaModel)[0];
+            var result = _dataAccess.GetForecastRunningLeague(new ForecastBaseMetaModel()).ElementAt(0);
 
             // Assert
-            Assert.That(result.LeagueId, Is.EqualTo(expected.LeagueId));
+            Assert.That(result.LeagueId, Is.EqualTo(999));
         }
 
         [Test]

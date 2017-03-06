@@ -197,11 +197,11 @@
     <Setting Key="Lrf_Forecast_OddsSelTopByMatch" SpName="Lrf_Forecast_OddsSelTopByMatch" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Forecast_SelHDP" SpName="Lrf_Forecast_SelHDP_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Forecast_SelOU" SpName="Lrf_Forecast_SelOU_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_Forecast1x2_SelByLeague" SpName="Lrf_Forecast1x2_SelByLeague" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_LeagueSelRunning" SpName="Lrf_LeagueSelRunning" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_Forecast1x2_SelByLeague" SpName="Lrf_Forecast1x2_SelByLeague_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_LeagueSelRunning" SpName="Lrf_LeagueSelRunning_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Forecast_MatchList" SpName="Lrf_Forecast_MatchList" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Forecast_Sel1X2" SpName="Lrf_Forecast_Sel1X2_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_Forecast_SelByLeague" SpName="Lrf_Forecast_SelByLeague" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_Forecast_SelByLeague" SpName="Lrf_Forecast_SelByLeague_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Forecast_MatchTotalForecast" SpName="Lrf_Forecast_MatchTotalForecast" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
   </Function>
 

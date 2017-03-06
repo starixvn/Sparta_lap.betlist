@@ -11,15 +11,12 @@ namespace Fanex.Athena.Model.Forecast.ViewModel
     using Fanex.Athena.Model.Core.DTO.Common;
     using MetaModel;
 
-    /// <summary>
-    /// ForecastOneXTwoViewModel class.
-    /// </summary>
     public class ForecastOneXTwoViewModel : ForecastBaseViewModel
     {
         public ForecastOneXTwoMetaModel Param { get; set; }
 
         public IList<ForecastOneXTwo> MainData { get; set; }
 
-        public IList<League> LeagueList { get; set; }
+        public IEnumerable<League> LeagueList { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace Fanex.Athena.Service.Forecast.Interfaces
 
         #region Forecast 1 x 2
 
-        IList<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel);
+        IEnumerable<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel);
 
         IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel);
 

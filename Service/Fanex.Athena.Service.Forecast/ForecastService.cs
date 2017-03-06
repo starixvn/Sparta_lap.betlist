@@ -139,7 +139,7 @@ namespace Fanex.Athena.Service.Forecast
 
         #region Forecast 1 x 2
 
-        public IList<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
+        public IEnumerable<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
         {
             return _forecastDataAccess.GetForecastRunningLeague(metaModel);
         }

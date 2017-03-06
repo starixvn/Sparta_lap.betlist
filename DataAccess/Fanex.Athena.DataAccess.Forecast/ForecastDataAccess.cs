@@ -81,40 +81,20 @@ namespace Fanex.Athena.DataAccess.Forecast
 
         #region Forecast 1 x 2
 
-        /// <summary>
-        /// Get Forecast one x two's running league.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <returns>A list of running league.</returns>
-        public IList<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
+        public IEnumerable<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
         {
             const string UspName = "Lrf_LeagueSelRunning";
             var leagues = new List<League>();
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("CurrencyId", DbType.Int32, 0);
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 db.AddInParameter("betTypes", DbType.String, metaModel.BetTypeString);
 
-                using (var reader = db.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        leagues.Add(new League { LeagueId = reader.ToInt("leagueid") });
-                    }
-                }
-
-                return leagues;
+                return db.Query<League>();
             }
         }
 
-        /// <summary>
-        /// Get Forecast one x two by league.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <returns>A list of forecast one x two by league.</returns>
         public IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel)
         {
             const string UspName = "Lrf_Forecast1x2_SelByLeague";
@@ -160,9 +140,7 @@ namespace Fanex.Athena.DataAccess.Forecast
 
             var paramValues = new
             {
-                LicenseeId = metaModel.LicenseeId,
-                UserId = metaModel.UserId,
-                CurrencyId = metaModel.CurrencyId,
+                AgentList = metaModel.AgentListXml,
                 LeagueId = metaModel.LeagueId,
                 Baseoffsethdp = 0,
                 baseoffsetou = 0,

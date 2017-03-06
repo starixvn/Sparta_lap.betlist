@@ -11,15 +11,12 @@ namespace Fanex.Athena.Model.Forecast.ViewModel
     using Fanex.Athena.Model.Core.DTO.Common;
     using MetaModel;
 
-    /// <summary>
-    /// Forecast HDP OU ViewModel class.
-    /// </summary>
     public class ForecastHdpOuViewModel : ForecastBaseViewModel
     {
         public ForecastHandicapOverUnderMetaModel Param { get; set; }
 
         public IList<ForecastHandicapOverUnder> MainData { get; set; }
 
-        public IList<League> LeagueList { get; set; }
+        public IEnumerable<League> LeagueList { get; set; }
     }
 }
