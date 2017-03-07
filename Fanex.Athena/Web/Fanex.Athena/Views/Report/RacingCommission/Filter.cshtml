@@ -1,5 +1,4 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel;
-@model Fanex.Athena.Model.Report.ViewModel.RacingCommissionViewModel
+﻿@model Fanex.Athena.Model.Report.ViewModel.RacingCommissionViewModel
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     @using (Html.BeginForm("Index", "RacingCommissionReport", FormMethod.Post, new { @id = "ReportForm" }))
     {
@@ -18,17 +17,6 @@
         @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, Model.Param.BalanceUpDay, DateTime.Today, "date-range", "date-range", 2, 3, 2, 3, true)
         <div class="new-line">
         </div>
-        if (Model.Param.LicenseeId == 1)
-        {
-            // Type
-        <div class="grid_2 filter-label">
-            <label>@ViewResources.Type</label>
-        </div>
-        <div class="grid_3 filter-input">
-            @RazorHelper.LicenseeType(Model.LicenseeTypeList, "licenseetype", Model.Param.LicenseeType)
-        </div>
-        }
-
         // Currency
         <div class="grid_2 filter-label">
             <label>@ViewResources.Currency</label>
@@ -39,9 +27,10 @@
 
         // Convert
         <div class="grid_2 filter-label">
-            <label for="BaseCurrency">@ViewResources.Based
-            </label>
-        </div>
+            <label for="BaseCurrency">
+                @ViewResources.Based
+        </label>
+    </div>
         <div class="grid_1 filter-input">
             @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
         </div>
@@ -53,16 +42,17 @@
             </div>
             <div>
                 <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
-               type="image" id="ExportToExcel" name="exporttoexcel"
-               title="@ViewResources.ExportToExcel" class="hand" />
+                       type="image" id="ExportToExcel" name="exporttoexcel"
+                       title="@ViewResources.ExportToExcel" class="hand" />
             </div>
         </div>
 
         // Button submit
         <div class="grid_2 filter-label new-line">
-            &nbsp;</div>
-        <div class="grid_2 filter-input">
-            <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+            &nbsp;
         </div>
+            <div class="grid_2 filter-input">
+                <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
+            </div>
     }
 </div>

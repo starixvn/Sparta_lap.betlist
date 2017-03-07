@@ -17,16 +17,6 @@
              appSettings.MaxDate, "date-range", "date-range", 2, 3, 2, 3, true)
         <div class="new-line">
         </div>
-        //-----------------------------Type of licensee---------------------------//
-        if (@Model.LicenseeTypeList.Count > 0)
-        {
-        <div class="grid_2 filter-label">
-            <label>@ViewResources.Type</label>
-        </div>
-        <div class="grid_3 filter-input">
-            @RazorHelper.LicenseeType(Model.LicenseeTypeList, "licenseelist", Model.Param.LicenseeType)
-        </div>
-        }
 
         //-----------------------------Currency-----------------------------------//
         <div class="grid_2 filter-label">

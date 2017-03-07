@@ -18,9 +18,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    ///     Win Loss By Bet Type Data Access.
-    /// </summary>
     public class WinLossByBetTypeDataAccess : BaseDataAccess, IWinLossByBetTypeDataAccess
     {
         public WinLossByBetTypeDataAccess(BalanceUp balanceUp)
@@ -28,15 +25,36 @@ namespace Fanex.Athena.DataAccess.Report
         {
         }
 
-        #region Utility
+        public SortableList<WinLossByBetType> GetDataList(WinLossByBetTypeMetaModel metaModel)
+        {
+            const string UspName = "Lrf_Rpt_WinLossByBettype";
+            var uspParams = new
+            {
+                AgentList = metaModel.AgentListXml,
+                metaModel.FromDate,
+                metaModel.ToDate,
+                BalanceUp.MoveBetsDay,
+                BalanceUp.BalanceUpDay
+            };
 
-        /// <summary>
-        /// Set to list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <returns>The result value.</returns>
-        public static SortableList<WinLossByBetType> SetToList(IDataReader reader, string baseCurrency)
+            try
+            {
+                using (var db = new ObjectDb(UspName))
+                {
+                    using (var reader = db.ExecuteReader(uspParams))
+                    {
+                        return ReadData(reader, metaModel.BaseCurrency);
+                    }
+                }
+            }
+            catch (ObjectDbException sqlException)
+            {
+                LogService.Error(sqlException.Message, sqlException);
+                throw new DataAccessException(sqlException.Message, UspName, uspParams);
+            }
+        }
+
+        private static SortableList<WinLossByBetType> ReadData(IDataReader reader, string baseCurrency)
         {
             var dataList = new SortableList<WinLossByBetType>();
             var turnoverColumn = "Turnover" + baseCurrency;
@@ -51,66 +69,24 @@ namespace Fanex.Athena.DataAccess.Report
 
             while (reader.Read())
             {
-                var winLossByBetType = new WinLossByBetType();
+                var item = new WinLossByBetType();
 
-                winLossByBetType.LiveIndicator = reader.ToBool("liveindicator");
-                winLossByBetType.BetType = reader.ToInt("bettype");
-                winLossByBetType.Turnover = reader.ToDecimal(turnoverColumn);
-                winLossByBetType.CustomerWinLoss = reader.ToDecimal(winlossColumn);
-                winLossByBetType.CustomerComm = reader.ToDecimal(custCommColumn);
-                winLossByBetType.LicenseeWL = reader.ToDecimal(licenseeWlColumn);
-                winLossByBetType.BACommission = reader.ToDecimal(commBaColumn);
-                winLossByBetType.RBComm = reader.ToDecimal(commRbColumn);
-                winLossByBetType.RacingRevenue = reader.ToDecimal(racebookRevenue);
-                winLossByBetType.AmtDueToBA = reader.ToDecimal(amtDueToBaComumn);
-                winLossByBetType.AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn);
+                item.LiveIndicator = reader.ToBool("liveindicator");
+                item.BetType = reader.ToInt("bettype");
+                item.Turnover = reader.ToDecimal(turnoverColumn);
+                item.CustomerWinLoss = reader.ToDecimal(winlossColumn);
+                item.CustomerComm = reader.ToDecimal(custCommColumn);
+                item.LicenseeWL = reader.ToDecimal(licenseeWlColumn);
+                item.BACommission = reader.ToDecimal(commBaColumn);
+                item.RBComm = reader.ToDecimal(commRbColumn);
+                item.RacingRevenue = reader.ToDecimal(racebookRevenue);
+                item.AmtDueToBA = reader.ToDecimal(amtDueToBaComumn);
+                item.AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn);
 
-                dataList.Add(winLossByBetType);
+                dataList.Add(item);
             }
 
             return dataList;
         }
-
-        #endregion Utility
-
-        #region Win Loss By Bet Type Data
-
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="metaModel">Meta value.</param>
-        /// <returns>The result value.</returns>
-        public SortableList<WinLossByBetType> GetDataList(WinLossByBetTypeMetaModel metaModel)
-        {
-            const string UspName = "Lrf_Rpt_WinLossByBettype";
-            var uspParams = new
-            {
-                metaModel.LicenseeId,
-                metaModel.UserId,
-                metaModel.CurrencyId,
-                metaModel.FromDate,
-                metaModel.ToDate,
-                BalanceUp.MoveBetsDay,
-                BalanceUp.BalanceUpDay
-            };
-
-            try
-            {
-                using (var db = new ObjectDb(UspName))
-                {
-                    using (var reader = db.ExecuteReader(uspParams))
-                    {
-                        return SetToList(reader, metaModel.BaseCurrency);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, UspName, uspParams);
-            }
-        }
-
-        #endregion Win Loss By Bet Type Data
     }
 }

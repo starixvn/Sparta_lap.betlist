@@ -24,7 +24,7 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference",
             Justification = "Reviewed. Suppression is OK here.")]
-        SortableList<RacingCommission> SetToList(IDataReader reader, string baseCurrency, ref RacingCommission total);
+        SortableList<RacingCommission> ReadData(IDataReader reader, string baseCurrency, ref RacingCommission total);
 
         #endregion Public Methods and Operators
     }
