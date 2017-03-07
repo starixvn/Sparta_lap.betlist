@@ -238,11 +238,6 @@
                         spyOn(GridHelper, "resizeGrid");
                     });
 
-                    xit("Nothing happen when '.fn-rs-content-scroll' not exist", function () {
-                        $(window).resize();
-                        expect(GridHelper.resizeGrid).toHaveBeenCalled();
-                    });
-
                     it("GridHelper.resizeGrid($element) should be called with correct parameter when '.fn-rs-content-scroll' exist", function () {
                         appendSetFixtures('<div class="fn-rs-content-scroll"></div>');
                         $(window).resize();
