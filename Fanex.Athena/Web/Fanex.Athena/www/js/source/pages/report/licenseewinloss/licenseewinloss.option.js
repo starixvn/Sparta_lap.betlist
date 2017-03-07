@@ -628,7 +628,7 @@ define(
             var isAllowedBetTrade = isProductChecked(productOptions, "BT");
             var isAllowBA = isProductChecked(productOptions, "BA");
             var clear = function (button) {
-                $(button).unbind("click").remove();
+                $(button).off("click").remove();
             };
             //reset licenseWL column
             var curWidth = $("#ReportGrid_TotalLicenseeWLSingle div").width();
