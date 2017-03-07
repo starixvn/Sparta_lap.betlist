@@ -20,9 +20,6 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
-    /// <summary>
-    ///     The licensee win loss service.
-    /// </summary>
     public class WinLossByProductService : IWinLossByProductService
     {
         #region Constants and Fields
@@ -54,18 +51,11 @@ namespace Fanex.Athena.Service.Report
 
         #region IWinLossByProductService Members
 
-        /// <summary>
-        /// Get win loss by products.
-        /// </summary>
-        /// <param name="metaModel">Meta model data.</param>
-        /// <param name="summaryTotal">Summary total.</param>
-        /// <param name="resultInfo">Result information.</param>
-        /// <returns>List of Win loss.</returns>
         public IList<WinLossByProduct> GetWinlossByProducts(
             WinLossByProductMetaModel metaModel,
             out IDictionary<string, IList<WinLossByProduct>> summaryTotal,
             out IResultInfo resultInfo)
-        {            
+        {
             if (metaModel.IsValid)
             {
                 return this._winLossByProductDataAccess.GetWinlossByProducts(metaModel, out summaryTotal, out resultInfo);
@@ -102,11 +92,6 @@ namespace Fanex.Athena.Service.Report
 
         #endregion IWinLossByProductService Members
 
-        /// <summary>
-        /// Get Total win loss.
-        /// </summary>
-        /// <param name="dataList">The data list.</param>
-        /// <returns>The win loss list.</returns>
         public IList<WinLossByProduct> TotalCalc(IList<WinLossByProduct> dataList)
         {
             var temp = from item in dataList

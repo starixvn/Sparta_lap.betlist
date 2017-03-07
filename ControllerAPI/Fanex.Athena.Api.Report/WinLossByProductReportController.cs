@@ -207,23 +207,12 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(winlossByProduct.Workbook, FileName);
         }
 
-        /// <summary>
-        /// Win Loss By Product - Get report data.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Output parameter - report data list.</param>
-        /// <param name="summaryTotal">Output parameter - summary data.</param>
-        /// <param name="resultInfo">Result information.</param>
         private void GetData(
             WinLossByProductMetaModel metaModel,
             out IList<WinLossByProduct> dataList,
             out IDictionary<string, IList<WinLossByProduct>> summaryTotal,
             out IResultInfo resultInfo)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var licenseeId = licenseeSession.LicenseeId;
-            metaModel.LicenseeId = licenseeId;
-
             if (metaModel.Level == 0)
             {
                 dataList = _winlossByProductService.GetWinlossByProducts(metaModel, out summaryTotal, out resultInfo);
@@ -231,20 +220,12 @@ namespace Fanex.Athena.Api.Report
             else
             {
                 resultInfo = new ResultInfo();
-                dataList = licenseeId > 1 || metaModel.Level == 2
+                dataList = SessionService.LicenseeSession.LicenseeId > 1 || metaModel.Level == 2
                                ? _winlossByProductService.GetWinlossByProductCustomers(metaModel, out summaryTotal)
                                : _winlossByProductService.GetWinlossByProductAgents(metaModel, out summaryTotal);
             }
         }
 
-        /// <summary>
-        /// Check if the request is valid or not.
-        /// Check if the session is valid.
-        /// Check if currency and drill down currency is valid.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <returns>Request is valid or not.</returns>
         private bool IsValidRequest(WinLossByProductMetaModel metaModel, int currencyId = 0)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
@@ -253,19 +234,6 @@ namespace Fanex.Athena.Api.Report
                   || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
         }
 
-        /// <summary>
-        ///  Process request.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="fdate">From Date value.</param>
-        /// <param name="tdate">To Date value.</param>
-        /// <param name="level">The Level value.</param>
-        /// <param name="currencyId">Currency Id.</param>
-        /// <param name="custId">Customer Id.</param>
-        /// <param name="memberId">Member Id.</param>
-        /// <param name="systemId">System Id.</param>
-        /// <param name="currencyName">todo: describe currencyName parameter on ProcessRequest</param>
-        /// <returns>Dynamic type.</returns>
         [SuppressMessage(
            "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
@@ -286,8 +254,7 @@ namespace Fanex.Athena.Api.Report
                 throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
             }
 
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
             metaModel.Username = !string.IsNullOrWhiteSpace(metaModel.Username)
                                 && metaModel.Username.Equals(ViewResources.ExternalIdOrSystemId, StringComparison.OrdinalIgnoreCase)
                                 ? string.Empty : metaModel.Username;

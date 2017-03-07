@@ -25,9 +25,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Logging;
     using Model.Core.Helper;
 
-    /// <summary>
-    /// Win loss by product data access.
-    /// </summary>
     public class WinLossByProductDataAccess : BaseDataAccess, IWinLossByProductDataAccess
     {
         public WinLossByProductDataAccess(BalanceUp balanceUp)
@@ -35,15 +32,6 @@ namespace Fanex.Athena.DataAccess.Report
         {
         }
 
-        #region IWinLossByProductDataAccess Members
-
-        /// <summary>
-        /// Get win loss by product.
-        /// </summary>
-        /// <param name="metaModel"> Meta model value.</param>
-        /// <param name="summaryTotal"> Summary total value.</param>
-        /// <param name="resultInfo">Result information.</param>
-        /// <returns>The result value.</returns>
         public IList<WinLossByProduct> GetWinlossByProducts(
             WinLossByProductMetaModel metaModel,
             out IDictionary<string, IList<WinLossByProduct>> summaryTotal,
@@ -79,12 +67,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get win loss by product agent.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
         public IList<WinLossByProduct> GetWinlossByProductAgents(
             WinLossByProductMetaModel metaModel,
             out IDictionary<string, IList<WinLossByProduct>> summaryTotal)
@@ -109,12 +91,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get win loss by product customer.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
         public IList<WinLossByProduct> GetWinlossByProductCustomers(
             WinLossByProductMetaModel metaModel,
             out IDictionary<string, IList<WinLossByProduct>> summaryTotal)
@@ -141,18 +117,8 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        #endregion IWinLossByProductDataAccess Members
-
         #region Private
 
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="drilldown">Drill down value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static IList<WinLossByProduct> GetData(
@@ -239,25 +205,13 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        /// <summary>
-        /// Update USP parameter.
-        /// </summary>
-        /// <param name="db">Database value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="drilldown">Drill down value.</param>
         private void UpdateUspParams(ObjectDb db, WinLossByProductMetaModel metaModel, bool drilldown)
         {
-            var currencyId = drilldown ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
-            currencyId = currencyId < 0 ? 0 : currencyId;
-
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-            db.AddInParameter("currencyid", DbType.Int32, currencyId);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate.Date : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate.Date : metaModel.ToDate.Date);
             db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
-            db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
             db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
 
             foreach (var product in metaModel.ProductOptions)
