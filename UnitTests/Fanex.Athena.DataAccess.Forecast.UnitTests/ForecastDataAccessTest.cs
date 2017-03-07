@@ -296,10 +296,8 @@
             _dataAccess.GetNewForecastData(metaModel, matchInfo);
 
             // Assert
-            _objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-            _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received().AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
             _objectDb.Received().AddOutParameter("HomeScore", DbType.Int32, 4);
             _objectDb.Received().AddOutParameter("AwayScore", DbType.Int32, 4);
             _objectDb.Received().AddOutParameter("MatchTime", DbType.DateTime, 4);

@@ -21,9 +21,6 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Service.Report.Interfaces;
     using Resources;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class MatchWinLossService : IMatchWinLossService
     {
         private const string KICKOFFTIMEFORMATER = "{0:MM/dd/yyyy hh:mm:ss tt}";
@@ -57,11 +54,6 @@ namespace Fanex.Athena.Service.Report
 
         #region IMatchWinLossService Members
 
-        /// <summary>
-        /// Get data for match win-loss.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The match win-loss data list.</returns>
         public IList<MatchWinLoss> GetDataList(MatchWinLossMetaModel metaModel)
         {
             if (!metaModel.IsValid)

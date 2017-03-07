@@ -23,9 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    ///   TODO: Update summary.
-    /// </summary>
     public class MatchWinLossDataAccess : BaseDataAccess, IMatchWinLossDataAccess
     {
         public MatchWinLossDataAccess(BalanceUp balanceUp)
@@ -33,13 +30,6 @@ namespace Fanex.Athena.DataAccess.Report
         {
         }
 
-        #region IMatchWinLossDataAccess Members
-
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public IList<MatchWinLoss> GetDataList(MatchWinLossMetaModel metaModel)
         {
             string uspName = "Lrf_Rpt_MatchWinLoss";
@@ -48,9 +38,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = new ObjectDb(uspName))
                 {
-                    db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
                     foreach (var item in metaModel.ProductOptions)
@@ -71,11 +59,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get detail data set.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public DataSet GetDetailDataSet(MatchWinLossMetaModel metaModel)
         {
             var uspName = "Lrf_Rpt_MatchWinLossDetail";
@@ -84,9 +67,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = new ObjectDb(uspName))
                 {
-                    db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
@@ -107,11 +88,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get detail data list.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public IList<MatchWinLoss> GetDetailDataList(MatchWinLossMetaModel metaModel)
         {
             var uspName = "Lrf_Rpt_MatchWinLossByBettype";
@@ -120,9 +96,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = new ObjectDb(uspName))
                 {
-                    db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
@@ -146,11 +120,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get out right parlay list.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public IList<MatchWinLoss> GetOutrightParlayList(MatchWinLossMetaModel metaModel)
         {
             var uspName = "Lrf_Rpt_MatchWinLossByOutrightParlay";
@@ -162,9 +131,7 @@ namespace Fanex.Athena.DataAccess.Report
                     var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
                     var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status == true);
 
-                    db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
                     db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
                     db.AddInParameter("showsb", DbType.Boolean, showSb);
@@ -183,14 +150,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        #endregion IMatchWinLossDataAccess Members
-
-        /// <summary>
-        /// Set to list.
-        /// </summary>
-        /// <param name="reader">Reader  value.</param>
-        /// <param name="baseCurrency">Base currency  value.</param>
-        /// <returns> The result value.</returns>
         private static IList<MatchWinLoss> SetToList(IDataReader reader, string baseCurrency)
         {
             var turnoverColumn = "Turnover" + baseCurrency;
