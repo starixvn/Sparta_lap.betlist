@@ -18,25 +18,15 @@ namespace Fanex.Athena.DataAccess.Report
     using Model.Report.DTO;
     using Model.Report.MetaModel;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class DailyRacingWinLossDataAccess : BaseDataAccess, IDailyRacingWinLossDataAccess
     {
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public IList<DailyRacingWinLoss> GetDataList(DailyRacingWinLossMetaModel metaModel)
         {
             var uspName = "Lrf_Rpt_WinlostRacing";
 
             var uspParams = new
             {
-                metaModel.LicenseeId,
-                metaModel.UserId,
-                metaModel.CurrencyId,
+                AgentList = metaModel.AgentListXml,
                 WinlostDate = metaModel.Date,
             };
 
@@ -58,13 +48,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Set to list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public IList<DailyRacingWinLoss> SetToList(IDataReader reader, int licenseeId, string baseCurrency)
@@ -91,100 +74,100 @@ namespace Fanex.Athena.DataAccess.Report
 
             while (reader.Read())
             {
-                var dailyRacingWinLoss = new DailyRacingWinLoss();
+                var item = new DailyRacingWinLoss();
 
                 // Common Info
-                dailyRacingWinLoss.Currency = reader.ToInt(currency);
-                dailyRacingWinLoss.LeagueId = reader.ToInt(leagueId);
-                dailyRacingWinLoss.CurrencyName = reader.ToString(currencyName);
-                dailyRacingWinLoss.RaceNo = reader.ToInt(raceColumn);
+                item.Currency = reader.ToInt(currency);
+                item.LeagueId = reader.ToInt(leagueId);
+                item.CurrencyName = reader.ToString(currencyName);
+                item.RaceNo = reader.ToInt(raceColumn);
 
                 // Customer Info
-                dailyRacingWinLoss.WinTO = reader.ToDecimal(winToColumn);
-                dailyRacingWinLoss.PlaceTO = reader.ToDecimal(placeToColumn);
-                dailyRacingWinLoss.WPTO = reader.ToDecimal(winPlaceToColumn);
-                dailyRacingWinLoss.TotalTO = reader.ToDecimal(totalToColumn);
-                dailyRacingWinLoss.DividendWon = reader.ToDecimal(dividendWonColumn);
-                dailyRacingWinLoss.CustomerCommission = reader.ToDecimal(customerCommColumn);
-                dailyRacingWinLoss.CommIncome = reader.ToDecimal(commIncomeColumn);
-                dailyRacingWinLoss.AmountDueToRacing = reader.ToDecimal(amtDueToRacingColumn);
+                item.WinTO = reader.ToDecimal(winToColumn);
+                item.PlaceTO = reader.ToDecimal(placeToColumn);
+                item.WPTO = reader.ToDecimal(winPlaceToColumn);
+                item.TotalTO = reader.ToDecimal(totalToColumn);
+                item.DividendWon = reader.ToDecimal(dividendWonColumn);
+                item.CustomerCommission = reader.ToDecimal(customerCommColumn);
+                item.CommIncome = reader.ToDecimal(commIncomeColumn);
+                item.AmountDueToRacing = reader.ToDecimal(amtDueToRacingColumn);
 
                 // Base MYR
-                dailyRacingWinLoss.WinTOMYR = reader.ToDecimal("WinTOMemMYR");
-                dailyRacingWinLoss.PlaceTOMYR = reader.ToDecimal("PlaceTOMemMYR");
-                dailyRacingWinLoss.WPTOMYR = reader.ToDecimal("WinPlaceTOMemMYR");
-                dailyRacingWinLoss.TotalTOMYR = reader.ToDecimal("TotalTOMemMYR");
-                dailyRacingWinLoss.DividendWonMYR = reader.ToDecimal("DividendWonMemMYR");
-                dailyRacingWinLoss.CustomerCommissionMYR = reader.ToDecimal("PlayerCommInComeLicenseeMYR");
-                dailyRacingWinLoss.CommIncomeMYR = reader.ToDecimal("CommIncomeLicenseeMYR");
-                dailyRacingWinLoss.AmountDueToRacingMYR = reader.ToDecimal("AmountDueToRBMYR");
+                item.WinTOMYR = reader.ToDecimal("WinTOMemMYR");
+                item.PlaceTOMYR = reader.ToDecimal("PlaceTOMemMYR");
+                item.WPTOMYR = reader.ToDecimal("WinPlaceTOMemMYR");
+                item.TotalTOMYR = reader.ToDecimal("TotalTOMemMYR");
+                item.DividendWonMYR = reader.ToDecimal("DividendWonMemMYR");
+                item.CustomerCommissionMYR = reader.ToDecimal("PlayerCommInComeLicenseeMYR");
+                item.CommIncomeMYR = reader.ToDecimal("CommIncomeLicenseeMYR");
+                item.AmountDueToRacingMYR = reader.ToDecimal("AmountDueToRBMYR");
 
                 // Base EUR
-                dailyRacingWinLoss.WinTOEUR = reader.ToDecimal("WinTOMemEUR");
-                dailyRacingWinLoss.PlaceTOEUR = reader.ToDecimal("PlaceTOMemEUR");
-                dailyRacingWinLoss.WPTOEUR = reader.ToDecimal("WinPlaceTOMemEUR");
-                dailyRacingWinLoss.TotalTOEUR = reader.ToDecimal("TotalTOMemEUR");
-                dailyRacingWinLoss.DividendWonEUR = reader.ToDecimal("DividendWonMemEUR");
-                dailyRacingWinLoss.CustomerCommissionEUR = reader.ToDecimal("PlayerCommInComeLicenseeEUR");
-                dailyRacingWinLoss.CommIncomeEUR = reader.ToDecimal("CommIncomeLicenseeEUR");
-                dailyRacingWinLoss.AmountDueToRacingEUR = reader.ToDecimal("AmountDueToRBEUR");
+                item.WinTOEUR = reader.ToDecimal("WinTOMemEUR");
+                item.PlaceTOEUR = reader.ToDecimal("PlaceTOMemEUR");
+                item.WPTOEUR = reader.ToDecimal("WinPlaceTOMemEUR");
+                item.TotalTOEUR = reader.ToDecimal("TotalTOMemEUR");
+                item.DividendWonEUR = reader.ToDecimal("DividendWonMemEUR");
+                item.CustomerCommissionEUR = reader.ToDecimal("PlayerCommInComeLicenseeEUR");
+                item.CommIncomeEUR = reader.ToDecimal("CommIncomeLicenseeEUR");
+                item.AmountDueToRacingEUR = reader.ToDecimal("AmountDueToRBEUR");
 
                 // Base USD, appear since we support base USD
-                dailyRacingWinLoss.WinTOUSD = reader.ToDecimal("WinTOMemUSD");
-                dailyRacingWinLoss.PlaceTOUSD = reader.ToDecimal("PlaceTOMemUSD");
-                dailyRacingWinLoss.WPTOUSD = reader.ToDecimal("WinPlaceTOMemUSD");
-                dailyRacingWinLoss.TotalTOUSD = reader.ToDecimal("TotalTOMemUSD");
-                dailyRacingWinLoss.DividendWonUSD = reader.ToDecimal("DividendWonMemUSD");
-                dailyRacingWinLoss.CustomerCommissionUSD = reader.ToDecimal("PlayerCommInComeLicenseeUSD");
-                dailyRacingWinLoss.CommIncomeUSD = reader.ToDecimal("CommIncomeLicenseeUSD");
-                dailyRacingWinLoss.AmountDueToRacingUSD = reader.ToDecimal("AmountDueToRBUSD");
+                item.WinTOUSD = reader.ToDecimal("WinTOMemUSD");
+                item.PlaceTOUSD = reader.ToDecimal("PlaceTOMemUSD");
+                item.WPTOUSD = reader.ToDecimal("WinPlaceTOMemUSD");
+                item.TotalTOUSD = reader.ToDecimal("TotalTOMemUSD");
+                item.DividendWonUSD = reader.ToDecimal("DividendWonMemUSD");
+                item.CustomerCommissionUSD = reader.ToDecimal("PlayerCommInComeLicenseeUSD");
+                item.CommIncomeUSD = reader.ToDecimal("CommIncomeLicenseeUSD");
+                item.AmountDueToRacingUSD = reader.ToDecimal("AmountDueToRBUSD");
 
                 // Base GBP
-                dailyRacingWinLoss.WinTOGBP = reader.ToDecimal("WinTOMemGBP");
-                dailyRacingWinLoss.PlaceTOGBP = reader.ToDecimal("PlaceTOMemGBP");
-                dailyRacingWinLoss.WPTOGBP = reader.ToDecimal("WinPlaceTOMemGBP");
-                dailyRacingWinLoss.TotalTOGBP = reader.ToDecimal("TotalTOMemGBP");
-                dailyRacingWinLoss.DividendWonGBP = reader.ToDecimal("DividendWonMemGBP");
-                dailyRacingWinLoss.CustomerCommissionGBP = reader.ToDecimal("PlayerCommInComeLicenseeGBP");
-                dailyRacingWinLoss.CommIncomeGBP = reader.ToDecimal("CommIncomeLicenseeGBP");
-                dailyRacingWinLoss.AmountDueToRacingGBP = reader.ToDecimal("AmountDueToRBGBP");
+                item.WinTOGBP = reader.ToDecimal("WinTOMemGBP");
+                item.PlaceTOGBP = reader.ToDecimal("PlaceTOMemGBP");
+                item.WPTOGBP = reader.ToDecimal("WinPlaceTOMemGBP");
+                item.TotalTOGBP = reader.ToDecimal("TotalTOMemGBP");
+                item.DividendWonGBP = reader.ToDecimal("DividendWonMemGBP");
+                item.CustomerCommissionGBP = reader.ToDecimal("PlayerCommInComeLicenseeGBP");
+                item.CommIncomeGBP = reader.ToDecimal("CommIncomeLicenseeGBP");
+                item.AmountDueToRacingGBP = reader.ToDecimal("AmountDueToRBGBP");
 
                 // Licensee Info
-                dailyRacingWinLoss.WinTO12Bet = reader.ToDecimal(winTo12BetColumn);
-                dailyRacingWinLoss.PlaceTO12Bet = reader.ToDecimal(placeTo12BetColumn);
-                dailyRacingWinLoss.WPTO12Bet = reader.ToDecimal(winPlaceTo12BetColumn);
-                dailyRacingWinLoss.TotalTO12Bet = reader.ToDecimal(totalTo12BetColumn);
-                dailyRacingWinLoss.WinLoss12Bet = reader.ToDecimal(winLoss12BetColumn);
+                item.WinTO12Bet = reader.ToDecimal(winTo12BetColumn);
+                item.PlaceTO12Bet = reader.ToDecimal(placeTo12BetColumn);
+                item.WPTO12Bet = reader.ToDecimal(winPlaceTo12BetColumn);
+                item.TotalTO12Bet = reader.ToDecimal(totalTo12BetColumn);
+                item.WinLoss12Bet = reader.ToDecimal(winLoss12BetColumn);
 
                 // Base MYR
-                dailyRacingWinLoss.WinTO12BetMYR = reader.ToDecimal("WinTOLicenseeMYR");
-                dailyRacingWinLoss.PlaceTO12BetMYR = reader.ToDecimal("PlaceTOLicenseeMYR");
-                dailyRacingWinLoss.WPTO12BetMYR = reader.ToDecimal("WinPlaceTOLicenseeMYR");
-                dailyRacingWinLoss.TotalTO12BetMYR = reader.ToDecimal("TotalTOLicenseeMYR");
-                dailyRacingWinLoss.WinLoss12BetMYR = reader.ToDecimal("PTWLLicenseeMYR");
+                item.WinTO12BetMYR = reader.ToDecimal("WinTOLicenseeMYR");
+                item.PlaceTO12BetMYR = reader.ToDecimal("PlaceTOLicenseeMYR");
+                item.WPTO12BetMYR = reader.ToDecimal("WinPlaceTOLicenseeMYR");
+                item.TotalTO12BetMYR = reader.ToDecimal("TotalTOLicenseeMYR");
+                item.WinLoss12BetMYR = reader.ToDecimal("PTWLLicenseeMYR");
 
                 // Base EUR
-                dailyRacingWinLoss.WinTO12BetEUR = reader.ToDecimal("WinTOLicenseeEUR");
-                dailyRacingWinLoss.PlaceTO12BetEUR = reader.ToDecimal("PlaceTOLicenseeEUR");
-                dailyRacingWinLoss.WPTO12BetEUR = reader.ToDecimal("WinPlaceTOLicenseeEUR");
-                dailyRacingWinLoss.TotalTO12BetEUR = reader.ToDecimal("TotalTOLicenseeEUR");
-                dailyRacingWinLoss.WinLoss12BetEUR = reader.ToDecimal("PTWLLicenseeEUR");
+                item.WinTO12BetEUR = reader.ToDecimal("WinTOLicenseeEUR");
+                item.PlaceTO12BetEUR = reader.ToDecimal("PlaceTOLicenseeEUR");
+                item.WPTO12BetEUR = reader.ToDecimal("WinPlaceTOLicenseeEUR");
+                item.TotalTO12BetEUR = reader.ToDecimal("TotalTOLicenseeEUR");
+                item.WinLoss12BetEUR = reader.ToDecimal("PTWLLicenseeEUR");
 
                 // Base USD, appear since we support base USD
-                dailyRacingWinLoss.WinTO12BetUSD = reader.ToDecimal("WinTOLicenseeUSD");
-                dailyRacingWinLoss.PlaceTO12BetUSD = reader.ToDecimal("PlaceTOLicenseeUSD");
-                dailyRacingWinLoss.WPTO12BetUSD = reader.ToDecimal("WinPlaceTOLicenseeUSD");
-                dailyRacingWinLoss.TotalTO12BetUSD = reader.ToDecimal("TotalTOLicenseeUSD");
-                dailyRacingWinLoss.WinLoss12BetUSD = reader.ToDecimal("PTWLLicenseeUSD");
+                item.WinTO12BetUSD = reader.ToDecimal("WinTOLicenseeUSD");
+                item.PlaceTO12BetUSD = reader.ToDecimal("PlaceTOLicenseeUSD");
+                item.WPTO12BetUSD = reader.ToDecimal("WinPlaceTOLicenseeUSD");
+                item.TotalTO12BetUSD = reader.ToDecimal("TotalTOLicenseeUSD");
+                item.WinLoss12BetUSD = reader.ToDecimal("PTWLLicenseeUSD");
 
                 // Base GBP
-                dailyRacingWinLoss.WinTO12BetGBP = reader.ToDecimal("WinTOLicenseeGBP");
-                dailyRacingWinLoss.PlaceTO12BetGBP = reader.ToDecimal("PlaceTOLicenseeGBP");
-                dailyRacingWinLoss.WPTO12BetGBP = reader.ToDecimal("WinPlaceTOLicenseeGBP");
-                dailyRacingWinLoss.TotalTO12BetGBP = reader.ToDecimal("TotalTOLicenseeGBP");
-                dailyRacingWinLoss.WinLoss12BetGBP = reader.ToDecimal("PTWLLicenseeGBP");
+                item.WinTO12BetGBP = reader.ToDecimal("WinTOLicenseeGBP");
+                item.PlaceTO12BetGBP = reader.ToDecimal("PlaceTOLicenseeGBP");
+                item.WPTO12BetGBP = reader.ToDecimal("WinPlaceTOLicenseeGBP");
+                item.TotalTO12BetGBP = reader.ToDecimal("TotalTOLicenseeGBP");
+                item.WinLoss12BetGBP = reader.ToDecimal("PTWLLicenseeGBP");
 
-                dataList.Add(dailyRacingWinLoss);
+                dataList.Add(item);
             }
 
             return dataList;

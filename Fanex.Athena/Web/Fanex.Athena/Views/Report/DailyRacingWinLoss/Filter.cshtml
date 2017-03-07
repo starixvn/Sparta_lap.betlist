@@ -1,5 +1,4 @@
 ﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Model.Report.ViewModel;
 @model DailyRacingWinLossViewModel
            <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
 
@@ -19,13 +18,6 @@
     //-----------------------------Type of licensee---------------------------//
     <div class="new-line">
     </div>
-    if (Model.Param.LicenseeId == 1)
-    {
-    <div class="grid_2 filter-label"><label>@ViewResources.Type</label></div>
-    <div class="grid_3 filter-input">
-        @RazorHelper.LicenseeType(Model.LicenseeTypeList, "licenseetype", Model.Param.LicenseeType)
-    </div>
-    }
 
     <div class="grid_2 filter-label"><label>@ViewResources.Currency</label></div>
     <div class="grid_3 filter-input">

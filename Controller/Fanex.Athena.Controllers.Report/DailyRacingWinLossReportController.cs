@@ -48,10 +48,7 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult Index(DailyRacingWinLossMetaModel metaModel)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString();
             var dailyRacingWinLossService = new DailyRacingWinLossService();
             var dailyRacingWlData = dailyRacingWinLossService.GetDailyRacingWinLossData(metaModel);
@@ -59,8 +56,8 @@ namespace Fanex.Athena.Controllers.Report
             var model = new DailyRacingWinLossViewModel
             {
                 Param = metaModel,
-                CurrencyList = userSession.CurrencyList,
-                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                CurrencyList = SessionService.UserSession.CurrencyList,
+                IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                 DailyRacingWinLossData = dailyRacingWlData
             };
 
