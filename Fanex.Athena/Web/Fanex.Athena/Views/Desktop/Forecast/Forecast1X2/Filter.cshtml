@@ -8,7 +8,6 @@
     {
         @Html.Hidden("IsPopUp", "true")
         @Html.Hidden("CurrencyId-Hidden", Model.Param.CurrencyId)
-        @Html.Hidden("LicenseeType-Hidden", Model.Param.LicenseeType)
         @Html.Hidden("BaseCurrency-Hidden", Model.Param.BaseCurrency)
 
         <div class="timer form-popup">
@@ -19,15 +18,6 @@
     {
         <div class="page-form">
             <div class="row">
-                @*// ----------------------------Type of licensee---------------------------//*@
-                @if (Model.LicenseeTypeList.Count > 0)
-                    {
-                    <div class="col l2 m2 s12 input-field">
-                        @RazorHelperDesktop.LicenseeType(Model.LicenseeTypeList, "select licenseetype", Model.Param.LicenseeType)
-                        <label>@ViewResources.Type</label>
-                    </div>
-                }
-
                 @*// -----------------------------Currency-----------------------------------//*@
                 <div class="col l2 m1 s12 input-field">
                     @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select currencylist", Model.Param.CurrencyId)

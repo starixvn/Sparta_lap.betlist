@@ -6,7 +6,6 @@
     // ----------------------------- Hidden field -----------------------------//
     <div>
         @Html.Hidden("CurrencyId-Hidden", Model.Param.CurrencyId)
-        @Html.Hidden("LicenseeType-Hidden", Model.Param.LicenseeType)
         @Html.Hidden("IsConvert-Hidden", Model.Param.IsConvert)
         @Html.Hidden("IsShowFh", Model.Param.IsShowFH)
         @Html.Hidden("IsShowFt", Model.Param.IsShowFT)
@@ -31,7 +30,7 @@
 
     <div class="page-form">
         <div class="row">
-            @if (Model.LeagueList.Count > 0)
+            @if (Model.LeagueList.Count() > 0)
             {
                 <div class="col l4 m6 s12 input-field">
                     @Html.DropDownList("DdlLeagueId", leagueSelectedListItem, new { @class = "select", @data_original = Model.Param.LeagueId })
@@ -73,7 +72,7 @@
     </div>
 }
 
-@if (Model.LeagueList.Count > 0)
+@if (Model.LeagueList.Count() > 0)
 {
     <div class="page-form match">
         <div class="row">
