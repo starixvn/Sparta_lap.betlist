@@ -475,8 +475,8 @@ namespace Fanex.Athena.DataAccess.BetList
         /// <param name="metaModel">The metal model.</param>
         private static void CreateOutStandingCompletedBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
