@@ -13,8 +13,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
             PageSize = 10;
         }
 
-        public int LicenseeId { get; set; }
-
         public int SportId { get; set; }
 
         public int LeagueId { get; set; }
@@ -45,6 +43,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 
         public int BetFrom { get; set; }
 
-        public int UserId { get; set; }
+        public string AgentListXml { get; set; }
     }
 }

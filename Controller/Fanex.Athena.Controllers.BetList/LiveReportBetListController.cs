@@ -59,6 +59,7 @@
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     const string UspKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                     var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0
                         ? CacheRef.GetTeamName(metaModel.HomeId) + " vs " + CacheRef.GetTeamName(metaModel.AwayId) + "- "
                         : string.Empty;
@@ -91,7 +92,7 @@
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     const string UspKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
-
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                     var title = ViewResources.BetList
 
                         + string.Format(
@@ -120,7 +121,7 @@
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     const string UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
-
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                     var title = ViewResources.BetList
 
                         + string.Format(
@@ -151,6 +152,7 @@
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                     var currencyName = string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
                     var title = ViewResources.BetList
                         + $" - {ViewResources.ProductRB} - {metaModel.FromDate.ToShortDateString()} --> {metaModel.ToDate.ToShortDateString()} - {currencyName}";
@@ -178,6 +180,7 @@
         private ActionResult Excel(BetListMetaModel metaModel, string uspKey, string title)
         {
             // Sum value by page
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
 
             ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);

@@ -385,11 +385,6 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddInParameter("ShowBA", DbType.Boolean, showBa);
         }
 
-        /// <summary>
-        /// Create parameters for fore cast bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateRunningBetListByForeCastMatchParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -603,8 +598,7 @@ namespace Fanex.Athena.DataAccess.BetList
         private static void CreateLiveReportBetListRacingParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSortingParameters(db, metaModel);
-            CreateBetListSiteParameters(db, metaModel);
-            db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
@@ -620,16 +614,10 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddOutParameter("SUMLicenseeWLGBP", DbType.Currency, 8);
         }
 
-        /// <summary>
-        /// Create parameters for parlay bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateLiveReportParlayBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSortingParameters(db, metaModel);
-            CreateBetListSiteParameters(db, metaModel);
-            db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
@@ -646,16 +634,10 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
         }
 
-        /// <summary>
-        /// Create parameters for number game bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreaeteLiveReportNumberGameBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSortingParameters(db, metaModel);
-            CreateBetListSiteParameters(db, metaModel);
-            db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
@@ -663,15 +645,9 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
         }
 
-        /// <summary>
-        /// Create parameters for bet list by match.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateLiveReportBetListByMatchParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            CreateBetListSiteParameters(db, metaModel);
-            db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
@@ -684,15 +660,9 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        /// <summary>
-        /// Create parameters for out right bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateLiveReportOutRightBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            CreateBetListSiteParameters(db, metaModel);
-            db.AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);

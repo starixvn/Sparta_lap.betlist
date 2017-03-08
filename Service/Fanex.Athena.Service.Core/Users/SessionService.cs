@@ -166,6 +166,11 @@ namespace Fanex.Athena.Service.Core.Users
 
         public string GenerateAgentListXml(int currencyId = 0, bool isExcludeTestData = false)
         {
+            return GenerateAgentListXml(new int[] { currencyId }, isExcludeTestData);
+        }
+
+        public string GenerateAgentListXml(IEnumerable<int> currencyIdList, bool isExcludeTestData = false)
+        {
             var result = new StringBuilder("<ROOT>");
             var currencyAgentList = this.UserSession.CurrencyAgentList;
             if (isExcludeTestData && currencyAgentList.ContainsKey(CurrencyType.Uus))
@@ -173,17 +178,22 @@ namespace Fanex.Athena.Service.Core.Users
                 currencyAgentList = currencyAgentList.Where(x => x.Key != CurrencyType.Uus).ToDictionary(x => x.Key, x => x.Value);
             }
 
-            if (currencyId == 0)
+            foreach (var currencyId in currencyIdList)
             {
-                foreach (var currency in currencyAgentList)
+                if (currencyId == 0)
                 {
-                    result.Append(GenerateAgentXmlBody(currency.Key, currency.Value));
+                    foreach (var currency in currencyAgentList)
+                    {
+                        result.Append(GenerateAgentXmlBody(currency.Key, currency.Value));
+                    }
+
+                    break;
                 }
-            }
-            else if (currencyAgentList.ContainsKey(currencyId))
-            {
-                var agentList = currencyAgentList.SingleOrDefault(x => x.Key == currencyId).Value;
-                result.Append(GenerateAgentXmlBody(currencyId, agentList));
+                else if (currencyAgentList.ContainsKey(currencyId))
+                {
+                    var agentList = currencyAgentList.SingleOrDefault(x => x.Key == currencyId).Value;
+                    result.Append(GenerateAgentXmlBody(currencyId, agentList));
+                }
             }
 
             result.Append("</ROOT>");

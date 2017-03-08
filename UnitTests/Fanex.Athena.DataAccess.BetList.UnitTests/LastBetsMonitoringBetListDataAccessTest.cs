@@ -39,8 +39,7 @@
             _dataAccess.GetLastBetsMonitoringData(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("BetType", DbType.String, metaModel.BetType);
             _objectDb.Received().AddInParameter("Currency", DbType.String, metaModel.Currency);
             _objectDb.Received().AddInParameter("SpecialLevel", DbType.String, metaModel.Level);
@@ -75,8 +74,7 @@
         {
             return new LastBetsMonitoringMetaModel
             {
-                UserId = 1,
-                LicenseeId = 2,
+                AgentListXml = "abc",
                 BetType = "BetTypeTest",
                 Currency = "CurrencyTest",
                 Level = "LevelTest",

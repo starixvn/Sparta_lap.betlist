@@ -9,6 +9,7 @@
 
 namespace Fanex.Athena.Service.Core.Users.Interfaces
 {
+    using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Users;
 
     public interface ISessionService
@@ -29,15 +30,13 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
             int licenseeId = 0,
             string language = "en-US");
 
-        /// <summary>
-        ///     Only use for user that have multiple licensee.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
         void UpdateLiceseeSession(int licenseeId);
 
         bool UpdateLanguage(string languageCode);
 
         string GenerateAgentListXml(int currencyId = 0, bool isExcludeTestData = false);
+
+        string GenerateAgentListXml(IEnumerable<int> currencyIdList, bool isExcludeTestData = false);
 
         bool IsAllowedEditCommission(UserSession user);
 
