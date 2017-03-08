@@ -1,17 +1,17 @@
-webpackJsonp([33],{
+webpackJsonp([24],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(196);
+	module.exports = __webpack_require__(176);
 
 
 /***/ },
 
-/***/ 196:
+/***/ 176:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(197)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Forecast) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(177)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Forecast) {
 	    "use strict";
 	
 	    $(Forecast.initialize);
@@ -20,11 +20,11 @@ webpackJsonp([33],{
 
 /***/ },
 
-/***/ 197:
+/***/ 177:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(9), __webpack_require__(198)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Popup, RefreshCountDown) {
-	    var _matchid, _baseCurrency, _licenseetype, _currencyid, _currencyName;
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(9), __webpack_require__(178)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Popup, RefreshCountDown) {
+	    var _matchid, _baseCurrency, _currencyid, _currencyName;
 	
 	    var _me = {
 	        initialize: function () {
@@ -33,7 +33,6 @@ webpackJsonp([33],{
 	
 	            _matchid = $('#forecast-table').attr('data-match-id');
 	            _baseCurrency = $('#forecast-table').attr('data-basecurrency');
-	            _licenseetype = $('#forecast-table').attr('data-licenseetype');
 	            _currencyid = $('#forecast-table').attr('data-currencyid');
 	            _currencyName = $('#forecast-table').attr('data-currencyname');
 	
@@ -78,7 +77,6 @@ webpackJsonp([33],{
 	        loadForecast: function (selectedScore, bettype) {
 	            var url = Site.resolveClientUrl("AhForecast/Index?matchid=" + _matchid + '&bettype=' + bettype);
 	            url = QueryString.setParam(url, "basecurrency", _baseCurrency);
-	            url = QueryString.setParam(url, "LicenseeType", _licenseetype);
 	            url = QueryString.setParam(url, "CurrencyId", _currencyid);
 	            if (selectedScore !== null) {
 	                url = QueryString.setParam(url, "CurrentScore", selectedScore);
@@ -110,7 +108,6 @@ webpackJsonp([33],{
 	            url = QueryString.setParam(url, "basecurrency", _baseCurrency);
 	            url = QueryString.setParam(url, "currencyid", _currencyid);
 	            url = QueryString.setParam(url, "currencyname", _currencyName);
-	            url = QueryString.setParam(url, "licenseetype", _licenseetype);
 	
 	            var popH = Math.min(parent.innerHeight - 100, 700), popW = 960;
 	
@@ -137,10 +134,10 @@ webpackJsonp([33],{
 
 /***/ },
 
-/***/ 198:
+/***/ 178:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(199)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(179)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
 	    var curCountDown = 0;
 	    var countDownTimer = null;
 	    var cookieName = null;
@@ -264,7 +261,7 @@ webpackJsonp([33],{
 
 /***/ },
 
-/***/ 199:
+/***/ 179:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!

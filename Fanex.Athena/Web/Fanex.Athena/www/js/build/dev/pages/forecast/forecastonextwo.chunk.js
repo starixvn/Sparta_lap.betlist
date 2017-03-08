@@ -599,11 +599,9 @@ webpackJsonp([35],{
 				}
 			},
 			getBetListUrl: function (url, matchId, betType) {
-			    var licenseeType = $("#LicenseeType-Hidden").val();
 			    var currencyId = $("#CurrencyId-Hidden").val();
 			    var baseCurrency = $("#BaseCurrency-Hidden").val();
 	
-			    url = QueryString.setParam(url, "LicenseeType", licenseeType);
 			    url = QueryString.setParam(url, "CurrencyId", currencyId);
 			    url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
 			    url = QueryString.setParam(url, "matchid", matchId);
