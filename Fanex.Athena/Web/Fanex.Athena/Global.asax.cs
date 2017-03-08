@@ -17,6 +17,7 @@ namespace Fanex.Athena
     using System.Web.Routing;
     using Api.Base.Attributes;
     using Api.Base.Logger;
+    using HttpCompress;
     using CasinoSetting;
     using Data.Configuration;
     using Fanex.Athena.Service.Core.Helpers;

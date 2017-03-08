@@ -190,12 +190,12 @@
                 && userSession.Language == lang && userSession.FunctionIdList.Count == 0;
         }
 
-        private IDictionary<string, int> FakeCurrencyListMapByUser()
+        private static IDictionary<string, int> FakeCurrencyListMapByUser()
         {
-            return new Dictionary<string, int>() { { "UUS", 1 } };
+            return new Dictionary<string, int> { { "UUS", 1 } };
         }
 
-        private string GetJsonSystemFunctionList()
+        private static string GetJsonSystemFunctionList()
         {
             var items = new List<PortalSystemFunction>
                 {

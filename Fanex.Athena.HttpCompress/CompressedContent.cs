@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Web.RouterConfig
+namespace Fanex.Athena.HttpCompress
 {
     using System;
     using System.Collections.Generic;
