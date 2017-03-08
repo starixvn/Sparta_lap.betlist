@@ -42,14 +42,13 @@ namespace Fanex.Athena.Api.BetList
                 Date = date.Date,
                 FromDate = date.Date,
                 ToDate = date.Date,
-                UserId = SessionService.UserSession.UserId,
                 ProductCode = productCode,
                 DailyBetListStatus = status,
                 SortBy = sortBy,
                 SortOrder = sortOrder,
                 IsServerPaging = true
             };
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             return GetPagingBetListResult(metaModel, UspKey, page, rows);
         }
     }

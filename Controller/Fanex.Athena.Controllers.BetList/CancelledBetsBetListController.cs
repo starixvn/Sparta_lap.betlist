@@ -43,6 +43,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = this.SessionService.UserSession;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var customers = _cancelledBetListService.GetCancelBetCustList(metaModel);
 
             if (customers.Any())
@@ -80,7 +81,7 @@ namespace Fanex.Athena.Controllers.BetList
             var userSession = this.SessionService.UserSession;
 
             metaModel = CreateDefaultMetaModel(metaModel);
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var custList = _cancelledBetListService.GetCancelBetCustList(metaModel);
 
             if (custList.Any())
@@ -111,7 +112,7 @@ namespace Fanex.Athena.Controllers.BetList
                 SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_SelDeleted";
-
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 metaModel = CreateDefaultMetaModel(metaModel);
 
                 var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);

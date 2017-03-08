@@ -65,6 +65,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
 
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.IsServerPaging = true;
             metaModel.PageSize = MaxPageSizeDailyBetlist;
             metaModel.PageIndex = 1;

@@ -45,6 +45,7 @@ namespace Fanex.Athena.Controllers.BetList
         private ActionResult Excel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_PlatformWinLoss_Mem";
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
             var showingOption = new ShowingOption
             {

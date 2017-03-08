@@ -39,9 +39,7 @@
             _dataAccess.GetCancelBetCustList(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
-            _objectDb.Received().AddInParameter("CurrencyId", DbType.String, metaModel.CurrencyId.ToString());
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
 
         [Test]

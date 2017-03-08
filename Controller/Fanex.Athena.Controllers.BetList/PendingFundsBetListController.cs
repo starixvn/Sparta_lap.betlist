@@ -19,6 +19,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Web.ActionFilter;
+
     #endregion Using
 
     [FunctionAuthorization(PermissionKeys.ReportCustomerPendingFunds)]
@@ -44,7 +45,7 @@ namespace Fanex.Athena.Controllers.BetList
                 }
 
                 const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
-
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return this.Excel(metaModel, UspKey);
             }
 
