@@ -33,6 +33,15 @@
             });
 
             describe("getColName(productOptions)", function () {
+                var productOptions;
+                beforeEach(function () {
+                    productOptions = [{ Code: "SB", Name: "Sportsbook", Status: true }, { Code: "KN", Name: "Keno", Status: true }, { Code: "RB", Name: "RB", Status: false }];
+                });
+
+                afterEach(function () {
+                    LicenseeWinLossOption.hasCustomerComm = true;
+                });
+
                 it("gridOption.colNames should be correct.", function () {
                     LicenseeWinLossOption.hasCustomerComm = true;
                     var columnNames = LicenseeWinLossOption.getColName([]);
@@ -40,6 +49,37 @@
                     expect(columnNames).toEqual(['#', 'Date', 'ExternalId', 'SystemId', 'Currency', 'Total', 'Turnover', 'ActualStake', 'BuyBackAmount',
                         'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'Total', 'LicenseeW_L', '@[BetTrade]<br/>@[Commission]', 'BA<br/>@[Commission]',
                         '@[RacingRevenue]', '@[AmtDueToBetTrade]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId']);
+                });
+
+                it("gridOption.colNames should has correct value when we pass data of productOptions", function () {
+                    LicenseeWinLossOption.hasCustomerComm = false;
+                    var columnNames = LicenseeWinLossOption.getColName(productOptions);
+
+                    expect(columnNames.length).toBe(27);
+                    expect(columnNames[5]).toBe("Keno");
+                    expect(columnNames[6]).toBe("Sportsbook");
+                    expect(columnNames[7]).toBe("Total");
+
+                    expect(columnNames[15]).toBe("Keno");
+                    expect(columnNames[16]).toBe("Sportsbook");
+                    expect(columnNames[17]).toBe("Total");
+                });
+
+                it("gridOption.colNames should has correct value when product BA is checked", function () {
+                    productOptions.push({ Code: "BA", Status: true });
+                    var columnNames = LicenseeWinLossOption.getColName(productOptions);
+
+                    expect(columnNames.length).toBe(31);
+                    expect(columnNames[11]).toBe("Sportsbook");
+                    expect(columnNames[12]).toBe("BA");
+                    expect(columnNames[13]).toBe("Total");
+                });
+
+                it("gridOption.colNames should has correct value when product BA is checked", function () {
+                    productOptions.push({ Code: "BT", Status: true });
+                    var columnNames = LicenseeWinLossOption.getColName(productOptions);
+
+                    expect(columnNames.length).toBe(28);
                 });
             });
 
@@ -49,6 +89,178 @@
                     var columnModels = LicenseeWinLossOption.getColModel(1, 2, []);
 
                     expect(columnModels.length).toBe(columnNames.length);
+                });
+
+                describe("When LicenseeWinLossOption.hasCustomerComm = false", function () {
+                    afterEach(function () {
+                        LicenseeWinLossOption.hasCustomerComm = true;
+                    });
+
+                    it("licenseeWlColumn should has column width is 90", function () {
+                        LicenseeWinLossOption.hasCustomerComm = false;
+                        var columnModels = LicenseeWinLossOption.getColModel(0, 1, []);
+                        
+                        expect(columnModels[14].width).toBe(90);
+                    });
+                });
+
+                describe("Bet List link for externalIdColumn", function () {
+                    var columnModels;
+                    beforeEach(function () {
+                        columnModels = LicenseeWinLossOption.getColModel(2, 1, []);
+                    });
+                    it("externalIdColumn should have correct format", function () {
+                        var externalIdColumn = columnModels[2];
+                        var rowObject = {
+                            Date: "2017-03-06T00:00:00",
+                            CurrencyId: 9,
+                            CurrencyName: "AUD",
+                            CustomerId: 6507355,
+                            ExternalId: "DEWSNIP",
+                            SystemId: "12BETAUD01159"
+                        };
+                        var expected = '<a class="bet-list-link" href="javascript:;" ' +
+                            'data-drill-down={"DrillDownFromDate":"2017-03-06T00:00:00","DrillDownToDate":"2017-03-06T00:00:00","DrillDownCurrencyId":9,"DrillDownCurrencyName":"AUD","CustomerId":6507355,"ExternalId":"DEWSNIP","SystemId":"12BETAUD01159"}>ExternalId</a>';
+
+                        var result = externalIdColumn.formatter("ExternalId", null, rowObject);
+
+                        expect(result).toBe(expected);
+                    });
+                });
+
+                describe("DrillDown link for systemIdColumn", function () {
+                    var columnModels;
+                    beforeEach(function () {
+                        columnModels = LicenseeWinLossOption.getColModel(1, 1, []);
+                    });
+                    it("systemIdColumn should have correct format", function () {
+                        var systemIdColumn = columnModels[3];
+                        var rowObject = {
+                            Date: "2017-03-06T00:00:00",
+                            CurrencyId: 9,
+                            CurrencyName: "AUD",
+                            CustomerId: 6507355,
+                            ExternalId: "DEWSNIP",
+                            SystemId: "12BETAUD01159"
+                        };
+                        var expected = '<a class="drilldown" href="javascript:;" onclick="return licenseewinlossDrilldown(2,9,6507355,\'2017-03-06T00:00:00\',\'AUD\');">SystemId</a>';
+
+                        var result = systemIdColumn.formatter("SystemId", null, rowObject);
+
+                        expect(result).toBe(expected);
+                    });
+                });
+
+                describe("DrillDown link for currencyColumn", function () {
+                    var columnModels, currencyColumn, licenseeId;
+                    beforeEach(function () {
+                        columnModels = LicenseeWinLossOption.getColModel(0, 1, []);
+                        currencyColumn = columnModels[4];
+                        licenseeId = LicenseeWinLossOption.licenseeId;
+                    });
+
+                    afterEach(function () {
+                        LicenseeWinLossOption.licenseeId = licenseeId;
+                    });
+                    it("currencyColumn should have correct format", function () {
+                        var rowObject = {
+                            Date: "2017-03-06T00:00:00",
+                            CurrencyId: 9,
+                            CurrencyName: "AUD",
+                            CustomerId: 6507355,
+                            ExternalId: "DEWSNIP",
+                            SystemId: "12BETAUD01159"
+                        };
+                        var expected = '<a class="drilldown" href="javascript:;" onclick="return licenseewinlossDrilldown(2,9,0,\'2017-03-06T00:00:00\',\'AUD\');">Currency</a>';
+
+                        var result = currencyColumn.formatter("Currency", null, rowObject);
+
+                        expect(result).toBe(expected);
+                    });
+                    it("currencyColumn should have correct format", function () {
+                        var rowObject = {
+                            Date: "2017-03-06T00:00:00",
+                            CurrencyId: 9,
+                            CurrencyName: "AUD",
+                            CustomerId: 6507355,
+                            ExternalId: "DEWSNIP",
+                            SystemId: "12BETAUD01159"
+                        };
+                        LicenseeWinLossOption.licenseeId = 1;
+                        var expected = '<a class="drilldown" href="javascript:;" onclick="return licenseewinlossDrilldown(1,9,0,\'2017-03-06T00:00:00\',\'AUD\');">Currency</a>';
+
+                        var result = currencyColumn.formatter("Currency", null, rowObject);
+
+                        expect(result).toBe(expected);
+                    });
+                });
+
+                describe("Add more product columns to grid", function () {
+                    var productOptions;
+                    beforeEach(function () {
+                        productOptions = [{ Code: "SB", Status: true }, { Code: "KN", Status: true }, { Code: "RB", Status: false }];
+                    });
+
+                    afterEach(function () {
+                        productOptions.slice(productOptions.length - 1)
+                    });
+
+                    it("Products should add correctly to Turnover column", function () {
+                        productOptions.push({ Code: "BT", Status: true });
+                        var result = LicenseeWinLossOption.getColModel(0, 2, productOptions);
+
+                        expect(result[5].name).toBe("TurnOverKN");
+                        expect(result[5].index).toBe("TurnOverKN");
+                        expect(result[5].sortable).toBe(true);
+
+                        expect(result[6].name).toBe("TurnOverSB");
+                        expect(result[6].index).toBe("TurnOverSB");
+                        expect(result[6].sortable).toBe(true);
+                    });
+
+                    it("Products should add correctly to LicenseeWinLoss column", function () {
+                        productOptions.push({ Code: "BA", Status: true });
+                        var result = LicenseeWinLossOption.getColModel(0, 2, productOptions);
+
+                        expect(result[19].name).toBe("LicenseeWLKN");
+                        expect(result[19].index).toBe("LicenseeWLKN");
+                        expect(result[19].sortable).toBe(true);
+                        expect(result[19].classes).toBe("highlight");
+
+                        expect(result[20].name).toBe("LicenseeWLSB");
+                        expect(result[20].index).toBe("LicenseeWLSB");
+                        expect(result[20].sortable).toBe(true);
+                        expect(result[20].classes).toBe("highlight");
+                    });
+
+                    it("Products should add correctly to BuyBackAmount column", function () {
+                        productOptions.push({ Code: "BA", Status: true });
+                        var result = LicenseeWinLossOption.getColModel(0, 2, productOptions);
+
+                        expect(result[11].name).toBe("BuyBackAmountSB");
+                        expect(result[11].index).toBe("BuyBackAmountSB");
+                        expect(result[12].name).toBe("BuyBackAmountBA");
+                        expect(result[12].index).toBe("BuyBackAmountBA");
+                        expect(result[13].name).toBe("TotalBuyBackAmount");
+                        expect(result[13].index).toBe("TotalBuyBackAmount");
+                    });
+
+                    it("TotalTurnOver column should be added with correct index", function () {
+                        productOptions.push({ Code: "BA", Status: true });
+                        var result = LicenseeWinLossOption.getColModel(0, 2, productOptions);
+
+                        expect(result[8].name).toBe("TotalTurnOver");
+                        expect(result[8].index).toBe("TotalTurnOver");
+                    });
+
+                    it("TotalLicenseeWL column should be added with correct index", function () {
+                        productOptions.push({ Code: "BA", Status: true });
+                        var result = LicenseeWinLossOption.getColModel(0, 2, productOptions);
+
+                        expect(result[21].name).toBe("TotalLicenseeWL");
+                        expect(result[21].index).toBe("TotalLicenseeWL");
+                        expect(result[21].classes).toBe("highlight");
+                    });
                 });
             });
 
@@ -154,6 +366,10 @@
                     });
                     it("'#btnLicenseeWLCollapse' is not added to LicenseeWLSingle column", function () {
                         expect($("#btnLicenseeWLCollapse").length).toBe(0);
+                    });
+
+                    afterEach(function () {
+                        LicenseeWinLossOption.hasCustomerComm = true;
                     });
                 });
 
@@ -282,9 +498,6 @@
                     });
 
                     describe("When pass column is LicenseeWL or TurnOver", function () {
-                        beforeEach(function () {
-                        });
-
                         it("jqGrid function should be called with correct parameter in the first time with column is LicenseeWL", function () {
                             LicenseeWinLossOption.addProductButton($grid, gridId, gridName, productOptions);
                             LicenseeWinLossOption.toggle(false, "LicenseeWL");
