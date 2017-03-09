@@ -25,9 +25,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
         private const string UspExceptionName = "\n UspName=";
@@ -156,12 +153,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        /// <summary>
-        /// Get Bet List Data.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="uspKey">USP key value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public TicketResult GetBetListData(BetListMetaModel metaModel, string uspKey)
@@ -263,12 +254,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        /// <summary>
-        /// Get Daily Statement Data of Customer.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="allowCustComm">Allow customer commission value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public IList<DailyStatement> GetDailyStatementData(BetListMetaModel metaModel, bool allowCustComm)
@@ -344,15 +329,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        #region Utility
-
-        #region CreateComonBetlistParameter
-
-        /// <summary>
-        /// Create parameters for win loss by league.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateWinlossByLeagueParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
@@ -386,12 +362,6 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddInParameter("Handicap", DbType.Decimal, metaModel.Handicap);
         }
 
-        private static void CreateBetListSiteParameters(IObjectDb db, BetListMetaModel metaModel)
-        {
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-        }
-
         private static void CreateMatchRunningBetLitByBettypeParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -402,11 +372,6 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddInParameter("betteam", DbType.String, metaModel.BetTeam);
         }
 
-        /// <summary>
-        /// Create parameters for racing running bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateMatchRunningBetListOfHRParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -470,11 +435,6 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddInParameter("PlatformType", DbType.Byte, metaModel.PlatformType);
         }
 
-        /// <summary>
-        /// Create parameters for Match parlay bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateMatchWLParlayBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSortingParameters(db, metaModel);
@@ -493,11 +453,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        /// <summary>
-        /// Create parameters for match out right bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateMatchWLOutRightBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -514,11 +469,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        /// <summary>
-        /// Create parameters for match bet list by bet type.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateMatchWLBettypeBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -539,11 +489,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        /// <summary>
-        /// Create parameters for racing bet list by match.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateMatchWLRacingBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -557,11 +502,6 @@ namespace Fanex.Athena.DataAccess.BetList
             CreateBetlistSummaryParameters(db);
         }
 
-        /// <summary>
-        /// Create parameters for racing bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateLiveReportBetListRacingParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSortingParameters(db, metaModel);
@@ -642,11 +582,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        /// <summary>
-        /// Create parameters for licensee win-loss bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateLicenseeWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -750,7 +685,7 @@ namespace Fanex.Athena.DataAccess.BetList
 
         private static void CreateAGCasinoDetailParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml); 
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("refno", DbType.Int64, metaModel.TransId);
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
             db.AddInParameter("transtype", DbType.Int16, metaModel.TransType);
@@ -768,8 +703,6 @@ namespace Fanex.Athena.DataAccess.BetList
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
         }
-
-        #region CommonParam
 
         private static void CreateBetListSortingParameters(IObjectDb db, BetListMetaModel metaModel)
         {
@@ -801,10 +734,6 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
         }
 
-        /// <summary>
-        /// Create summary parameters for  bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
         private static void CreateBetlistSummaryParameters(IObjectDb db)
         {
             db.AddOutParameter("SumWinlost", DbType.Currency, 8);
@@ -839,16 +768,6 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
         }
 
-        #endregion CommonParam
-
-        #endregion CreateComonBetlistParameter
-
-        /// <summary>
-        /// Do not use reflection because of bad performance.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <returns>The result value.</returns>
         private static IEnumerable<ITicketData> ReadLrfReferneceTicket(IDataReader reader, string baseCurrency)
         {
             var stakeColumn = "stake" + baseCurrency;
@@ -869,12 +788,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        /// <summary>
-        /// Create a hash table of parameter.
-        /// </summary>
-        /// <param name="db">The Data Object.</param>
-        /// <param name="uspKey">Store procedure name.</param>
-        /// <param name="metaModel">Meta model value.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static void CreateBetListParameters(IObjectDb db, string uspKey, BetListMetaModel metaModel)
@@ -891,7 +804,5 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator.HasValue ? metaModel.LiveIndicator.Value : -1);
             db.AddInParameter("betteam", DbType.String, metaModel.BetTeam);
         }
-
-        #endregion Utility
     }
 }
