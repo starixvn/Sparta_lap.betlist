@@ -36,8 +36,7 @@ namespace Fanex.Athena.Controllers.BetList
             var balanceUpInfo = this.BalanceUpService.BalanceUpInfo;
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUpInfo.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUpInfo.MoveBetsDay.Date, DateTimeKind.Utc);
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var systemParlayData = this.BetListService.GetSystemParlayDetail(metaModel);
 

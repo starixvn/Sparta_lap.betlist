@@ -68,11 +68,6 @@ namespace Fanex.Athena.DataAccess.BetList
             { "Lrf_BetList_SelWinLossByBetType", (db, metalModel) => CreateWinLossByBetTypeParameters(db, metalModel) }
         };
 
-        /// <summary>
-        /// Get Mix Parlay Detail data.
-        /// </summary>
-        /// <param name="transId">Transaction ID value.</param>
-        /// <returns>The result value.</returns>
         public TicketResult GetMixParlayDetailTicket(long transId)
         {
             const string UspName = "Lrf_BetList_SelParlayDetail";
@@ -96,11 +91,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        /// <summary>
-        /// Get System Parlay Detail data.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         [System.CLSCompliant(false)]
@@ -111,9 +101,8 @@ namespace Fanex.Athena.DataAccess.BetList
             {
                 using (var db = this.GetObjectDb(UspName))
                 {
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("refno", DbType.Int64, metaModel.RefNo);
-                    db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
                     db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
                     db.AddOutParameter("outstanding", DbType.Currency, 8);
@@ -436,14 +425,9 @@ namespace Fanex.Athena.DataAccess.BetList
             CreateBetlistProductOptionParameters(db, metaModel);
         }
 
-        /// <summary>
-        /// Create parameters for daily statement.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateDailyStatementBetListOldParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            CreateBetListSiteParameters(db, metaModel);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
             db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
             db.AddInParameter("transtype", DbType.Int32, metaModel.TransType);
@@ -451,14 +435,9 @@ namespace Fanex.Athena.DataAccess.BetList
             CreateBetlistSummaryParameters(db);
         }
 
-        /// <summary>
-        /// Create parameters for daily statement.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateDailyStatementBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            CreateBetListSiteParameters(db, metaModel);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
             db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
             db.AddInParameter("transtype", DbType.Int32, metaModel.TransType);
@@ -468,11 +447,6 @@ namespace Fanex.Athena.DataAccess.BetList
             CreateBetListErrorParameters(db);
         }
 
-        /// <summary>
-        /// Create parameters for completed outstanding bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateOutStandingCompletedBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
@@ -769,21 +743,17 @@ namespace Fanex.Athena.DataAccess.BetList
 
         private static void CreateMicroGamingRngDetailParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            CreateBetListSiteParameters(db, metaModel);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("refno", DbType.Int64, metaModel.TransId);
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
-            db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
             db.AddInParameter("transtype", DbType.Int16, metaModel.TransType);
         }
 
         private static void CreateAGCasinoDetailParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            CreateBetListSiteParameters(db, metaModel);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml); 
             db.AddInParameter("refno", DbType.Int64, metaModel.TransId);
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
-            db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
             db.AddInParameter("transtype", DbType.Int16, metaModel.TransType);
         }
 

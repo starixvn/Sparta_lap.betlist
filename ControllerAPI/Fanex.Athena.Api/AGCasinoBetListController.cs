@@ -18,8 +18,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Detail(BetListMetaModel metaModel)
         {
-            metaModel.UserId = SessionService.UserSession.UserId;
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             const string UspKey = "Lrf_BetList_LC_Detail";
             return GetBetListResult(metaModel, UspKey);
         }

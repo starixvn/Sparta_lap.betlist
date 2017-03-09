@@ -41,9 +41,7 @@ namespace Fanex.Athena.Controllers.BetList
         [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
         public ActionResult Detail(ColossusBetDetailMetaModel metaModel)
         {
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml();
             var viewModel = _colossusBetBetListService.GetData(metaModel);
 
             var iframeUrl = GetIframeUrl(metaModel.BetCheck, metaModel.CustId);

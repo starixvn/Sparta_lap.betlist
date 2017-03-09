@@ -37,9 +37,9 @@
         private ActionResult ExcelDetail(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_RNG_Detail";
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
-            var excel = new BetListExcel(new ShowingOption { CustomerCommVisible = true }, metaModel.LicenseeId == LicenseeId12Bet, hiddenColumns);
+            var excel = new BetListExcel(new ShowingOption { CustomerCommVisible = true }, SessionService.LicenseeSession.LicenseeId == LicenseeId12Bet, hiddenColumns);
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
             var workbook = excel.Export(ticketResult, _title);
 

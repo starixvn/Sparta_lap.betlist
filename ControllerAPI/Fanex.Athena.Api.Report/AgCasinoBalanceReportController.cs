@@ -49,15 +49,6 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        #region Private Utility
-
-        /// <summary>
-        /// AGCasino win loss - Export excel.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Data list.</param>
-        /// <param name="summaryTotal">Summary data.</param>
-        /// <returns>Http Response Message.</returns>
         private HttpResponseMessage ExportExcel(AgCasinoBalanceMetaModel metaModel, IList<AgCasinoBalance> dataList, IDictionary<string, AgCasinoBalance> summaryTotal)
         {
             var userSession = SessionService.UserSession;
@@ -102,36 +93,26 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        /// <summary>
-        /// Get data for Licensee Win Loss report.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Output parameter: Data List.</param>
-        /// <param name="summaryTotal">Output parameter summary data.</param>
-        /// <param name="totalRows">Total rows.</param>
         private void GetData(
                 AgCasinoBalanceMetaModel metaModel,
                 out SortableList<AgCasinoBalance> dataList,
                 out IDictionary<string, AgCasinoBalance> summaryTotal,
                 out int totalRows)
         {
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(
+                metaModel.DrillDownCurrencyId == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId,
+                metaModel.IsExcludedTestData);
             totalRows = 0;
             dataList = metaModel.DrillDownLevel == 0 ? _agcasinoBalanceService.GetSummaryBalance(metaModel, out summaryTotal) : metaModel.DrillDownLevel == 2
                                ? _agcasinoBalanceService.GetCustomerBalanceDetail(metaModel, out summaryTotal, out totalRows)
                                : _agcasinoBalanceService.GetAgentBalanceDetail(metaModel, out summaryTotal);
         }
 
-        /// <summary>
-        ///  Process request.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <returns>Dynamic object.</returns>
         private dynamic ProcessRequest(AgCasinoBalanceMetaModel metaModel)
         {
             if (IsValidRequest(metaModel, metaModel.DrillDownCurrencyId))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.UserId = SessionService.UserSession.UserId;
 
                 IDictionary<string, AgCasinoBalance> summaryTotal;
                 SortableList<AgCasinoBalance> dataList;
@@ -157,7 +138,5 @@ namespace Fanex.Athena.Api.Report
 
             return GetAgCasinoBalanceEmptyResult();
         }
-
-        #endregion Private Utility
     }
 }

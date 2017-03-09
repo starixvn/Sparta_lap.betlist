@@ -65,8 +65,7 @@
 
             // Assert
             _objectDb.Received().AddInParameter("refno", DbType.Int64, metaModel.RefNo);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
             _objectDb.Received().AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
             _objectDb.Received().AddOutParameter("outstanding", DbType.Currency, 8);
@@ -749,8 +748,7 @@
             _dataAccess.GetBetListData(_metaModel, uspKey);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
             _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
             _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
@@ -788,8 +786,7 @@
             _dataAccess.GetBetListData(_metaModel, uspKey);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
             _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
             _objectDb.Received().AddInParameter("transtype", DbType.Int32, _metaModel.TransType);
@@ -827,8 +824,7 @@
             _dataAccess.GetBetListData(_metaModel, uspKey);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
             _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
             _objectDb.Received().AddInParameter("transtype", DbType.Int32, _metaModel.TransType);
@@ -986,12 +982,9 @@
             _dataAccess.GetBetListData(_metaModel, uspKey);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("refno", DbType.Int64, _metaModel.TransId);
             _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-            _objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _metaModel.MoveBetsDay);
-            _objectDb.Received().AddInParameter("balanceupday", DbType.DateTime, _metaModel.BalanceUpDay);
             _objectDb.Received().AddInParameter("transtype", DbType.Int16, _metaModel.TransType);
         }
 
@@ -1006,12 +999,9 @@
             _dataAccess.GetBetListData(_metaModel, uspKey);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("refno", DbType.Int64, _metaModel.TransId);
             _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-            _objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _metaModel.MoveBetsDay);
-            _objectDb.Received().AddInParameter("balanceupday", DbType.DateTime, _metaModel.BalanceUpDay);
             _objectDb.Received().AddInParameter("transtype", DbType.Int16, _metaModel.TransType);
         }
 
