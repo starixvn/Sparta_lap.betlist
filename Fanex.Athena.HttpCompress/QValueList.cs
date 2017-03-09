@@ -41,16 +41,14 @@
 
         public QValue Find(string name)
         {
-            Predicate<QValue> criteria = delegate (QValue item) { return item.Name.Equals(name, StringComparison.OrdinalIgnoreCase); };
+            Predicate<QValue> criteria = delegate(QValue item) { return item.Name.Equals(name, StringComparison.OrdinalIgnoreCase); };
+
             return Find(criteria);
         }
 
         public QValue FindPreferred(params string[] candidates)
         {
-            Predicate<QValue> criteria = delegate (QValue item)
-            {
-                return IsCandidate(item.Name, candidates) && item.CanAccept;
-            };
+            Predicate<QValue> criteria = delegate(QValue item) { return IsCandidate(item.Name, candidates) && item.CanAccept; };
 
             return Find(criteria);
         }

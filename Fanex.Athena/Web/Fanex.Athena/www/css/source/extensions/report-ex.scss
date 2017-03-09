@@ -66,9 +66,9 @@ table {
         border-radius: 0;
     }
 
-    tbody{
-        tr{
-            &.row-group-level1{
+    tbody {
+        tr {
+            &.row-group-level1 {
                 background: $bgRowGroupLevel1;
                 font-weight: bold;
             }
@@ -116,6 +116,10 @@ table {
 
         ul li {
             list-style-type: circle;
+
+            ul li {
+                list-style-type: square;
+            }
         }
     }
 }

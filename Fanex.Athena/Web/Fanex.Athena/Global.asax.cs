@@ -17,12 +17,12 @@ namespace Fanex.Athena
     using System.Web.Routing;
     using Api.Base.Attributes;
     using Api.Base.Logger;
-    using HttpCompress;
     using CasinoSetting;
     using Data.Configuration;
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
+    using HttpCompress;
 
     public class MvcApplication : HttpApplication
     {
