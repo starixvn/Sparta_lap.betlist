@@ -15,7 +15,7 @@ namespace Fanex.Athena.HttpCompress
     /// <summary>
     /// Compress Handler class.
     /// </summary>
-    public class CompressHandler : DelegatingHandler
+    public class ApiCompressHandler : DelegatingHandler
     {
         /// <summary>
         /// Compress response and send to client.
