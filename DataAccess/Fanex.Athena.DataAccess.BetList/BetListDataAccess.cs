@@ -651,7 +651,6 @@ namespace Fanex.Athena.DataAccess.BetList
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
-            db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetlistBUParameters(db, metaModel);
             CreateBetlistProductOptionParameters(db, metaModel);
