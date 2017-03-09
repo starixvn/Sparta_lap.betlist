@@ -163,7 +163,7 @@ body {
   .result-container table.fn-rs .cl-ko-time {
     width: 100px; }
   .result-container table.fn-rs .cl-s, .result-container table.fn-rs .cl-ot, .result-container table.fn-rs .cl-ei {
-    width: 40px; }
+    width: 7%; }
   .result-container table.fn-rs .cl-totalgames, .result-container table.fn-rs .cl-totalpoint {
     width: 72px;
     color: #0054ff; }
