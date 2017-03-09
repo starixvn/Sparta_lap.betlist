@@ -686,17 +686,11 @@ namespace Fanex.Athena.DataAccess.BetList
             db.AddInParameter("drawfilter", DbType.Int16, metaModel.DrawFilter);
         }
 
-        /// <summary>
-        /// Create parameters for daily win-loss bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateDailyWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             CreateBetListSortingParameters(db, metaModel);
 
             db.AddInParameter("date", DbType.DateTime, metaModel.Date);
-            CreateBetListSiteParameters(db, metaModel);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("product", DbType.String, metaModel.ProductCode);
             db.AddInParameter("status", DbType.String, metaModel.DailyBetListStatus);
@@ -705,11 +699,6 @@ namespace Fanex.Athena.DataAccess.BetList
             CreateBetlistSummaryParameters(db);
         }
 
-        /// <summary>
-        /// Create parameters for daily racing bet list.
-        /// </summary>
-        /// <param name="db">The data object.</param>
-        /// <param name="metaModel">The metal model.</param>
         private static void CreateDailyRacingWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("date", DbType.DateTime, metaModel.Date);
