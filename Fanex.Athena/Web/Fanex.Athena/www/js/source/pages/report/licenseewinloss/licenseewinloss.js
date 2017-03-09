@@ -16,17 +16,6 @@
         var _reportBy = null;
         var _submitData; // cache submit data of level 0.
 
-        function sortData(arrayData) {
-            var data = _sortOrder === "asc" ?
-                 Enumerable.From(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).ToArray()
-                 : Enumerable.From(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).ToArray();
-            for (var i = 0; i < data.length; i++) {
-                data[i].Index = i + 1;
-            }
-
-            return data;
-        }
-
         var _me = {
             getTotalRowCount: function () {
                 return totalRowCount;
@@ -46,7 +35,7 @@
                             _sortColumnName = index;
                         }
 
-                        cacheData[_level].Data = sortData(cacheData[_level].Data);
+                        cacheData[_level].Data = _me.sortData(cacheData[_level].Data);
 
                         _me.bindData(_level, _reportBy, cacheData[_level]);
 
@@ -61,6 +50,17 @@
                 });
                 Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
                 DatePicker.initDateRangePicker();
+            },
+
+            sortData: function (arrayData) {
+                var data = _sortOrder === "asc" ?
+                 Enumerable.From(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).ToArray()
+                 : Enumerable.From(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).ToArray();
+                for (var i = 0; i < data.length; i++) {
+                    data[i].Index = i + 1;
+                }
+
+                return data;
             },
 
             initSetting: function () {

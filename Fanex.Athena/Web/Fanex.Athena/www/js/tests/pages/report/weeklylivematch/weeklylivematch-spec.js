@@ -25,7 +25,7 @@
                         expect(WeeklyLiveMatch.initEvent).toHaveBeenCalled();
                     });
                     it("Site.addUserGuide(option) should be called with correct parameter", function () {
-                        expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "WeeklyLiveMatches", title: "WeeklyLiveMatches", height: 380 });
+                        expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "WeeklyLiveMatches", title: "WeeklyLiveMatches", height: 450 });
                     });
                     it("DatePicker.initDateRangePicker(firstDayOfWeekIsMonday) should be called with correct parameter", function () {
                         expect(DatePicker.initDateRangePicker).toHaveBeenCalledWith(true);
@@ -289,7 +289,7 @@
                 });
 
                 describe("Sort function", function () {
-                    var _sortColumn = "Week0", _sortDirection = null;
+                    var _sortColumn = "Week0";
                     beforeEach(function () {
                         jasmine.clock().install();
                     });
