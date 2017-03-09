@@ -18,7 +18,6 @@ namespace Fanex.Athena.Service.Core.Users
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Helpers;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Utility;
@@ -167,6 +166,11 @@ namespace Fanex.Athena.Service.Core.Users
 
         public string GenerateAgentListXml(int currencyId = 0, bool isExcludeTestData = false)
         {
+            if (currencyId < 0)
+            {
+                currencyId = 0;
+            }
+
             return GenerateAgentListXml(new int[] { currencyId }, isExcludeTestData);
         }
 

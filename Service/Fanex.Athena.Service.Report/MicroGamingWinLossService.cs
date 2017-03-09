@@ -20,9 +20,6 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
-    /// <summary>
-    /// The MicroGaming win loss service.
-    /// </summary>
     public class MicroGamingWinLossService : IMicroGamingWinLossService
     {
         #region Constants and Fields
@@ -43,8 +40,6 @@ namespace Fanex.Athena.Service.Report
 
         #endregion Constructors and Destructors
 
-        #region Public Methods and Operators
-
         public SortableList<MicroGamingWinLoss> GetSummaryWinloss(MicroGamingWinLossMetaModel metaModel, out IDictionary<string, MicroGamingWinLoss> summaryTotal)
         {
             summaryTotal = new Dictionary<string, MicroGamingWinLoss>();
@@ -54,14 +49,6 @@ namespace Fanex.Athena.Service.Report
                 new SortableList<MicroGamingWinLoss>();
         }
 
-        #endregion Public Methods and Operators
-
-        /// <summary>
-        /// Calculate total win-loss.
-        /// Group by currency.
-        /// </summary>
-        /// <param name="dataList">The data list.</param>
-        /// <returns>The total list.</returns>
         public IList<MicroGamingWinLoss> TotalCalc(IList<MicroGamingWinLoss> dataList)
         {
             if (dataList == null || dataList.Count == 0)

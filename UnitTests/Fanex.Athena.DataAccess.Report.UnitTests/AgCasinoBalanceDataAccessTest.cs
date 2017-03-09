@@ -58,7 +58,6 @@
             _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
             _objectDb.Received().AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
-            _objectDb.Received().AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
         }
 
         [Test]

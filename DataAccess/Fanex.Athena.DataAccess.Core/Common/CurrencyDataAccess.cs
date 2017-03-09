@@ -72,12 +72,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
         }
 
-        /// <summary>
-        /// Get currencies by user.
-        /// </summary>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <returns>The result value.</returns>
         public IList<CurrencyUser> GetCurrenciesByUser(int licenseeId, int userId)
         {
             const string UspName = "Lrf_SelCurrencyByLicenseeUser";

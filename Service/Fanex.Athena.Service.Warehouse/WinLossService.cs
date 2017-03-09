@@ -45,19 +45,6 @@ namespace Fanex.Athena.Service.Warehouse
 
         #region Public Methods and Operators
 
-        /// <summary>
-        ///     The get data list.
-        /// </summary>
-        /// <param name="model">
-        ///     The model.
-        /// </param>
-        /// <param name="totalValues">
-        ///     The total values.
-        /// </param>
-        /// The data list.
-        /// <returns>
-        /// The data list.
-        /// </returns>
         public IList<WinLoss> GetDataList(WinLossMetaModel model, ref IDictionary<string, decimal> totalValues)
         {
             var dataList = model.IsValid
@@ -68,15 +55,6 @@ namespace Fanex.Athena.Service.Warehouse
             return dataList.OrderBy(x => x.GroupByString).ToList();
         }
 
-        /// <summary>
-        ///     The get win loss total info.
-        /// </summary>
-        /// <param name="dataList">
-        ///     The data list.
-        /// </param>
-        /// <returns>
-        /// The Total Info.
-        /// </returns>
         public Dictionary<string, decimal> GetWinlossTotalInfo(IList<WinLoss> dataList)
         {
             var totalValues = new Dictionary<string, decimal>

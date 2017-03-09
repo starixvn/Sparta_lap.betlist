@@ -87,8 +87,6 @@ namespace Fanex.Athena.Controllers.Report
                 Response.Redirect("~/Utility/Error?errCode=400");
             }
 
-            metaModel.UserId = userSession.UserId;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.IsExportExcel = true;
 
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerTurnover.xls");

@@ -80,6 +80,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         private void AddParameters(CustomerTurnoverMetaModel metaModel, string languageCode, IObjectDb db)
         {
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
             db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
@@ -99,7 +100,6 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
             db.AddInParameter("Product", DbType.String, metaModel.ProductParameters);
             db.AddInParameter("Bettype", DbType.String, metaModel.BettypeParameters);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Fanex.Athena.Api.Report
             MicroGamingWinLossMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
             IDictionary<string, MicroGamingWinLoss> summaryTotal;
             SortableList<MicroGamingWinLoss> dataList;
 

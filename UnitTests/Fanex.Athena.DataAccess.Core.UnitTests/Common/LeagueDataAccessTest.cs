@@ -20,9 +20,7 @@
             dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelLeagueBySport")).Returns(objectDb);
             var metaModel = new LeagueMetaModel
             {
-                LicenseeId = 1,
-                CurrencyId = 2,
-                UserId = 3,
+                AgentListXml = "hello",
                 SportId = 4,
                 FromDate = new DateTime(2016, 8, 10),
                 ToDate = new DateTime(2016, 8, 11)

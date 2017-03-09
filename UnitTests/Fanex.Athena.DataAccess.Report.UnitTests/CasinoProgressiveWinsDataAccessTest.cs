@@ -61,9 +61,7 @@
             _dataAccess.GetDataList(_metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
-            _objectDb.Received().AddInParameter("currencyid", DbType.Int32, _metaModel.CurrencyId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.FromDate.Date);
             _objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.ToDate.Date);
             _objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, new DateTime(2016, 8, 10));
