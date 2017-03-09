@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
@@ -14,13 +15,11 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
+    using Logging;
     using Model.Core.MetaModel;
     using Service.Core.Common;
     using Service.Core.Users;
 
-    /// <summary>
-    /// Base controller.
-    /// </summary>
     [CustomAuthorize]
     [XFrameOption]
     public class BaseController : Controller
@@ -82,8 +81,16 @@ namespace Fanex.Athena.Controllers
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
-            var currentLanguage = LangService.GetCurrentLanguage();
-            LangService.SetPageCulture(currentLanguage);
+            try
+            {
+                var currentLanguage = LangService.GetCurrentLanguage();
+                LangService.SetPageCulture(currentLanguage);
+            }
+            catch (Exception exception)
+            {
+                LogService.Error(exception.Message, exception);
+                Session.Clear();
+            }
         }
 
         protected override ViewResult View(string viewName, string masterName, object model)

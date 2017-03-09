@@ -153,16 +153,10 @@ namespace Fanex.Athena.DataAccess.Report
 
         private void UpdateUspParams(ObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
-            var currencyId = drilldown ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
-            currencyId = currencyId < 0 ? 0 : currencyId;
-
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml); 
             db.AddInParameter("productid", DbType.Int32, metaModel.ProductId);
-            db.AddInParameter("currency", DbType.Int32, currencyId);
-            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
         }
 
         #endregion Private

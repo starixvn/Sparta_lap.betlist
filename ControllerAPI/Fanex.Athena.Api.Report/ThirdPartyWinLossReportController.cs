@@ -160,13 +160,12 @@ namespace Fanex.Athena.Api.Report
 
             if (IsValidRequest(metaModel, currencyId))
             {
-                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.UserId = userSession.UserId;
                 metaModel.DrillDownCurrencyId = currencyId;
                 metaModel.DrillDownLevel = level;
                 metaModel.DrillDownCustomerId = custId;
                 metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
                 IDictionary<string, ThirdPartyWinLoss> summaryTotal;
                 SortableList<ThirdPartyWinLoss> dataList;
                 GetData(metaModel, out dataList, out summaryTotal);
