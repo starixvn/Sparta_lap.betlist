@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompressedContent.cs" />
-    <Compile Include="CompressHandler.cs" />
+    <Compile Include="ApiCompressHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QValue.cs" />
     <Compile Include="QValueList.cs" />
