@@ -432,6 +432,8 @@
     <Content Include="App_Data\UserGuide\ColossusBetsWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\ColossusBetsWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\ColossusBetsWL\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\WeeklyLiveMatches\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\WeeklyLiveMatches\zh-TW.htm" />
     <Content Include="Content\BetList\Allbet.css" />
     <Content Include="App_Data\Notification\zh-CN.htm" />
     <Content Include="App_Data\Notification\zh-TW.htm" />

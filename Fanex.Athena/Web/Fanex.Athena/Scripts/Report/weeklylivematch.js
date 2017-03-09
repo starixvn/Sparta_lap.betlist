@@ -69,7 +69,7 @@ var WeeklyLiveMatch = (function ($) {
             Site.addUserGuide({
                 resourceName: "WeeklyLiveMatches",
                 title: Site.getSingleResource("WeeklyLiveMatches"),
-                height: 380
+                height: 460
             });
             WeeklyLiveMatchOption.gridOption.onSortCol = function (index/*, columnIndex, sortOrder*/) {
                 Site.blockUI();

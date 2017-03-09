@@ -19,7 +19,7 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                     Site.addUserGuide({
                         resourceName: "WeeklyLiveMatches",
                         title: Site.getSingleResource("WeeklyLiveMatches"),
-                        height: 380
+                        height: 450
                     });
                     WeeklyLiveMatchOption.gridOption.onSortCol = function (index) {
                         Site.blockUI();
