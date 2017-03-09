@@ -146,6 +146,7 @@
                     beforeEach(function () {
                         spyOn(Result, "clearExcelExport");
                         spyOn(Result, "clearResult");
+                        spyOn(Result, "updateDateInput");
                         spyOn(Result, "getData");
 
                         $("#submitToday").click();
@@ -160,12 +161,16 @@
                     it("Result.getData() should be called", function () {
                         expect(Result.getData).toHaveBeenCalled();
                     });
+                    it("Result.updateDateInput(isShowOutRight) should be called with correct parameter", function () {
+                        expect(Result.updateDateInput).toHaveBeenCalledWith(false);
+                    });
                 });
 
                 describe("'#submitYesterday' fire click event", function () {
                     beforeEach(function () {
                         spyOn(Result, "clearExcelExport");
                         spyOn(Result, "clearResult");
+                        spyOn(Result, "updateDateInput");
                         spyOn(Result, "getData");
 
                         $("#submitYesterday").click();
@@ -179,6 +184,9 @@
                     });
                     it("Result.getData() should be called", function () {
                         expect(Result.getData).toHaveBeenCalled();
+                    });
+                    it("Result.updateDateInput(isShowOutRight) should be called with correct parameter", function () {
+                        expect(Result.updateDateInput).toHaveBeenCalledWith(false);
                     });
                 });
 
@@ -758,6 +766,35 @@
                     var canSubmit = Result.canSubmit($("#SubmitButton"));
 
                     expect(canSubmit).toBe(true);
+                });
+            });
+
+            describe("updateDateInput(isShowOutright)", function () {
+                beforeEach(function () {
+                    setFixtures('<div id="submitOutright" data-isoutright="1"></div>' +
+                        '<input id="Date" value="03/03/2017" />' +
+                        '<input id="FromDate" value="03/01/2017" /> <input id="ToDate" value="03/31/2017" />'
+                        );
+                    spyOn(Result, "clearExcelExport");
+                    spyOn(Result, "clearResult");
+                    spyOn(Result, "getData");
+
+                    spyOn(DatePicker, "setValueForDateRange");
+                    spyOn(DatePicker, "setValueForSingleDate");
+                });
+
+                it("DatePicker.setValueForDateRange(startDate, endDate) should be called with correct parameter when isShowOutright is true", function () {
+                    Result.submit();
+                    Result.updateDateInput(true);
+
+                    expect(DatePicker.setValueForDateRange).toHaveBeenCalledWith("03/01/2017", "03/31/2017");
+                });
+                it("DatePicker.setValueForSingleDate($element, value) should be called with correct parameter when isShowOutright is false", function () {
+                    $("#submitOutright").attr("data-isoutright", 0);
+                    Result.submit();
+                    Result.updateDateInput(false);
+
+                    expect(DatePicker.setValueForSingleDate).toHaveBeenCalledWith($("#Date"), "03/03/2017");
                 });
             });
         });

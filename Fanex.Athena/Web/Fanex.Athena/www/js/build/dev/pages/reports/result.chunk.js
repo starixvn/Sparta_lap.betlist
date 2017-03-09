@@ -16679,6 +16679,7 @@ webpackJsonp([43],[
 	                    param.SportId = 0;
 	                    param.LeagueId = 0;
 	
+	                    _me.updateDateInput(isShowOutright);
 	                    _me.getData();
 	                });
 	
@@ -16694,6 +16695,7 @@ webpackJsonp([43],[
 	                    param.SportId = 0;
 	                    param.LeagueId = 0;
 	
+	                    _me.updateDateInput(isShowOutright);
 	                    _me.getData();
 	                });
 	
@@ -16949,6 +16951,15 @@ webpackJsonp([43],[
 	                else {
 	                    param.FromDate = $("#Date").val();
 	                    param.ToDate = $("#Date").val();
+	                }
+	            },
+	
+	            updateDateInput: function (isShowOutright) {
+	                if (isShowOutright) {
+	                    DatePicker.setValueForDateRange(param.FromDate, param.ToDate);
+	                }
+	                else {
+	                    DatePicker.setValueForSingleDate($("#Date"), param.FromDate);
 	                }
 	            },
 	

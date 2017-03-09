@@ -73,6 +73,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                     param.SportId = 0;
                     param.LeagueId = 0;
 
+                    _me.updateDateInput(isShowOutright);
                     _me.getData();
                 });
 
@@ -88,6 +89,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                     param.SportId = 0;
                     param.LeagueId = 0;
 
+                    _me.updateDateInput(isShowOutright);
                     _me.getData();
                 });
 
@@ -343,6 +345,15 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                 else {
                     param.FromDate = $("#Date").val();
                     param.ToDate = $("#Date").val();
+                }
+            },
+
+            updateDateInput: function (isShowOutright) {
+                if (isShowOutright) {
+                    DatePicker.setValueForDateRange(param.FromDate, param.ToDate);
+                }
+                else {
+                    DatePicker.setValueForSingleDate($("#Date"), param.FromDate);
                 }
             },
 
