@@ -68,6 +68,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -85,6 +86,8 @@
     <Compile Include="CustomerBalanceDataAccessTest.cs" />
     <Compile Include="CustomerPendingFundsDataAccessTest.cs" />
     <Compile Include="CustomerTurnoverDataAccessTest.cs" />
+    <Compile Include="LicenseeWinLossDataAccessTest.cs" />
+    <Compile Include="DailyRacingWinLossDataAccessTest.cs" />
     <Compile Include="CustomerWinlossDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

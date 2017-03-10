@@ -41,7 +41,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "Lrf_Rpt_LicWinloss";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
                     UpdateUspParams(db, metaModel, false);
@@ -259,7 +259,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private void UpdateUspParams(ObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
+        private void UpdateUspParams(IObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
         {
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
