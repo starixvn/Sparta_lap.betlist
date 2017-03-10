@@ -1,6 +1,6 @@
 ﻿define(['jquery', 'common/site', 'components/pluginhelper/daterangepicker', "pages/report/licenseewinloss/licenseewinloss.option", 'pages/report/licenseewinloss/licenseewinloss',
-    'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional'],
-    function ($, Site, DatePicker, LicenseeWinLossOption, LicenseeWinLoss, Report, jqGridAdditional) {
+    'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup'],
+    function ($, Site, DatePicker, LicenseeWinLossOption, LicenseeWinLoss, Report, jqGridAdditional, Popup) {
         describe("LicenseeWinLoss", function () {
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {
@@ -57,7 +57,7 @@
                         spyOn(LicenseeWinLoss, "renderBreadCrumb");
 
                         spyOn(Site, "blockUI");
-                        spyOn(LicenseeWinLoss, "sortData").and.callFake(function (data) { return data });
+                        spyOn(LicenseeWinLoss, "sortData").and.callFake(function (data) { return data; });
                         spyOn(LicenseeWinLoss, "bindData");
                         spyOn(LicenseeWinLoss, "setReportTitle");
                         spyOn(Site, "unBlockUI");
@@ -285,71 +285,96 @@
             });
 
             describe("submit()", function () {
-                var request;
-                beforeEach(function (done) {
-                    jasmine.Ajax.install();
+                describe("Products is valid", function () {
+                    var request;
+                    beforeEach(function (done) {
+                        jasmine.Ajax.install();
 
-                    var submitData = {
-                        ProductOptions: "SB, RC",
-                        DrawFilter: 0,
-                        CurrencyId: 1,
-                        ReportBy: 1,
-                        FromDate: "03/01/2017",
-                        ToDate: "03/31/2017",
-                        CurrencyName: "EUR",
-                        IsExcludedTestData: true
-                    };
+                        var submitData = {
+                            ProductOptions: "SB, RC",
+                            DrawFilter: 0,
+                            CurrencyId: 1,
+                            ReportBy: 1,
+                            FromDate: "03/01/2017",
+                            ToDate: "03/31/2017",
+                            CurrencyName: "EUR",
+                            IsExcludedTestData: true
+                        };
 
-                    setFixtures('<form id="licenseewinloss"></form>');
-                    spyOn(Report, "setOriginalProduct");
-                    spyOn(Site, "updateOriginalLicenseeOption");
-                    spyOn(Report, "ValidProducts").and.returnValue(true);
-                    spyOn($.fn, "serializeObject").and.returnValue(submitData);
-                    spyOn(LicenseeWinLoss, "setExcelUrl");
-                    spyOn(LicenseeWinLoss, "ajaxComplete");
-                    spyOn(Site, "blockUI");
-                    spyOn(Site, "unBlockUI");
+                        setFixtures('<form id="licenseewinloss"></form>');
+                        spyOn(Report, "setOriginalProduct");
+                        spyOn(Site, "updateOriginalLicenseeOption");
+                        spyOn(Report, "ValidProducts").and.returnValue(true);
+                        spyOn($.fn, "serializeObject").and.returnValue(submitData);
+                        spyOn(LicenseeWinLoss, "setExcelUrl");
+                        spyOn(LicenseeWinLoss, "ajaxComplete");
+                        spyOn(Site, "blockUI");
+                        spyOn(Site, "unBlockUI");
 
-                    jasmine.Ajax
-                            .stubRequest("api/LicenseeWinLossReport/Index")
-                            .andReturn({
-                                'status': 200,
-                                'contentType': 'application/json',
-                                'responseText': '{ "ProductOptions": "SB,RC" }'
-                            });
+                        jasmine.Ajax
+                                .stubRequest("api/LicenseeWinLossReport/Index")
+                                .andReturn({
+                                    'status': 200,
+                                    'contentType': 'application/json',
+                                    'responseText': '{ "ProductOptions": "SB,RC" }'
+                                });
 
-                    LicenseeWinLoss.submit();
-                    request = jasmine.Ajax.requests.mostRecent();
+                        LicenseeWinLoss.submit();
+                        request = jasmine.Ajax.requests.mostRecent();
 
-                    setTimeout(done, 10);
-                });
-                afterEach(function () {
-                    jasmine.Ajax.uninstall();
+                        setTimeout(done, 10);
+                    });
+                    afterEach(function () {
+                        jasmine.Ajax.uninstall();
+                    });
+
+                    it("request url should be correct", function () {
+                        var expectedUrl = "api/LicenseeWinLossReport/Index";
+
+                        expect(request.url).toBe(expectedUrl);
+                    });
+                    it("Report.setOriginalProduct() should be called", function () {
+                        expect(Report.setOriginalProduct).toHaveBeenCalled();
+                    });
+                    it("Site.updateOriginalLicenseeOption() should be called", function () {
+                        expect(Site.updateOriginalLicenseeOption).toHaveBeenCalled();
+                    });
+                    it("Site.blockUI() should be called", function () {
+                        expect(Site.blockUI).toHaveBeenCalled();
+                    });
+                    it("Site.unBlockUI() should be called", function () {
+                        expect(Site.unBlockUI).toHaveBeenCalled();
+                    });
+                    it("LicenseeWinLoss.setExcelUrl(level, currencyId, custId, fdate, tdate, currencyName) should be called with correct parameters", function () {
+                        expect(LicenseeWinLoss.setExcelUrl).toHaveBeenCalledWith(0, 0, 0, "", "", "");
+                    });
+                    it("LicenseeWinLoss.ajaxComplete(level, response) should be called with correct parameters", function () {
+                        expect(LicenseeWinLoss.ajaxComplete).toHaveBeenCalledWith(0, { ProductOptions: "SB,RC" });
+                    });
                 });
 
-                it("request url should be correct", function () {
-                    var expectedUrl = "api/LicenseeWinLossReport/Index";
+                describe("Product is invalid", function () {
+                    beforeEach(function () {
+                        setFixtures('<form id="licenseewinloss"></form>');
+                        spyOn(Report, "setOriginalProduct");
+                        spyOn(Site, "updateOriginalLicenseeOption");
+                        spyOn(Report, "ValidProducts").and.returnValue(false);
+                        spyOn($.fn, "serializeObject");
+                    });
 
-                    expect(request.url).toBe(expectedUrl);
+                    it("Function return false", function () {
+                        var result = LicenseeWinLoss.submit();
+
+                        expect(result).toBe(false);
+                    });
+
+                    it("serializeObject() function is not called", function () {
+                        LicenseeWinLoss.submit();
+
+                        expect($.fn.serializeObject).not.toHaveBeenCalled();
+                    });
                 });
-                it("Report.setOriginalProduct() should be called", function () {
-                    expect(Report.setOriginalProduct).toHaveBeenCalled();
-                });
-                it("Site.updateOriginalLicenseeOption() should be called", function () {
-                    expect(Site.updateOriginalLicenseeOption).toHaveBeenCalled();
-                });
-                it("Site.blockUI() should be called", function () {
-                    expect(Site.blockUI).toHaveBeenCalled();
-                });
-                it("Site.unBlockUI() should be called", function () {
-                    expect(Site.unBlockUI).toHaveBeenCalled();
-                });
-                it("LicenseeWinLoss.setExcelUrl(level, currencyId, custId, fdate, tdate, currencyName) should be called with correct parameters", function () {
-                    expect(LicenseeWinLoss.setExcelUrl).toHaveBeenCalledWith(0, 0, 0, "", "", "");
-                });
-                it("LicenseeWinLoss.ajaxComplete(level, response) should be called with correct parameters", function () {
-                    expect(LicenseeWinLoss.ajaxComplete).toHaveBeenCalledWith(0, { ProductOptions: "SB,RC" });
-                });
+                
             });
 
             describe("lastDateOfMonth(year, month)", function () {
@@ -359,6 +384,476 @@
                     var result = LicenseeWinLoss.lastDateOfMonth(2017, 2).toDateString();
 
                     expect(result).toBe(expected);
+                });
+            });
+
+            describe("drillDown(level, currencyId, customerId, datetime, currencyName, keepSorting)", function () {
+                var submitData;
+                beforeEach(function () {
+                    submitData = {
+                        ProductOptions: '["SB","RC"]',
+                        DrawFilter: 0,
+                        CurrencyId: 1,
+                        ReportBy: 2,
+                        FromDate: "2017-03-01T00:00:00",
+                        ToDate: "2017-03-31T00:00:00",
+                        CurrencyName: "EUR",
+                        IsExcludedTestData: true
+                    };
+
+                    setFixtures('<form id="licenseewinloss"></form> <input id="BaseCurrency" data-original="EUR" />');
+                    spyOn(Report, "setOriginalProduct");
+                    spyOn(Site, "updateOriginalLicenseeOption");
+                    spyOn(Report, "ValidProducts").and.returnValue(true);
+                    spyOn($.fn, "serializeObject").and.returnValue(submitData);
+                    spyOn(LicenseeWinLoss, "setExcelUrl");
+                    spyOn(LicenseeWinLoss, "ajaxComplete");
+                    spyOn($, "ajax").and.returnValue({ abort: function () { } });
+                });
+                afterEach(function () {
+                    submitData = {
+                        ProductOptions: '["SB","RC"]',
+                        DrawFilter: 0,
+                        CurrencyId: 1,
+                        ReportBy: 2,
+                        FromDate: "2017-03-01T00:00:00",
+                        ToDate: "2017-03-31T00:00:00",
+                        CurrencyName: "EUR",
+                        IsExcludedTestData: true
+                    };
+                });
+
+                it("property data of ajax option should be correct", function () {
+                    LicenseeWinLoss.submit();
+                    var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
+                    ajaxOptionForCreateSubmitData.success(submitData);
+
+                    LicenseeWinLoss.drillDown(1, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                    var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                    var dataOptionResult = $.parseJSON(ajaxOptionForDrillingDown.data);
+
+                    expect(dataOptionResult.ProductOptions).toEqual(["SB", "RC"]);
+                    expect(dataOptionResult.DrawFilter).toBe(submitData.DrawFilter);
+                    expect(dataOptionResult.CurrencyId).toBe(submitData.CurrencyId);
+                    expect(dataOptionResult.ReportBy).toBe(submitData.ReportBy);
+                    expect(new Date(dataOptionResult.FromDate)).toEqual(new Date(submitData.FromDate));
+                    expect(new Date(dataOptionResult.ToDate)).toEqual(new Date(submitData.ToDate));
+                    expect(dataOptionResult.IsExcludedTestData).toBe(submitData.IsExcludedTestData);
+                });
+
+                it("url of ajax option should be correct when month of date param equal with month in FromDate and ToDate", function () {
+                    LicenseeWinLoss.submit();
+                    var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
+                    ajaxOptionForCreateSubmitData.success(submitData);
+
+                    LicenseeWinLoss.drillDown(2, 9, 0, '2017-03-04T00:00:00', 'EUR', true);
+                    var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+
+                    var resultUrl = ajaxOptionForDrillingDown.url;
+                    var expectedUrl = "api/LicenseeWinLossReport/Index?level=2&currencyId=9&custId=0&fdate=03/01/2017&tdate=03/31/2017";
+
+                    expect(resultUrl).toBe(expectedUrl);
+                });
+
+                it("url of ajax option should be correct when ReportBy not equal 2", function () {
+                    submitData.ReportBy = 1;
+                    LicenseeWinLoss.submit();
+                    var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
+                    ajaxOptionForCreateSubmitData.success(submitData);
+
+                    LicenseeWinLoss.drillDown(2, 9, 0, '2017-03-04T00:00:00', 'EUR', true);
+                    var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+
+                    var resultUrl = ajaxOptionForDrillingDown.url;
+                    var expectedUrl = "api/LicenseeWinLossReport/Index?level=2&currencyId=9&custId=0&fdate=03/04/2017&tdate=03/04/2017";
+
+                    expect(resultUrl).toBe(expectedUrl);
+                });
+
+                it("Site.blockUI() should be called with beforeSend function of ajax option", function () {
+                    spyOn(Site, "blockUI");
+                    LicenseeWinLoss.submit();
+                    var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
+                    ajaxOptionForCreateSubmitData.success(submitData);
+
+                    LicenseeWinLoss.drillDown(2, 9, 0, '2017-03-04T00:00:00', 'EUR', true);
+                    var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+
+                    ajaxOptionForDrillingDown.beforeSend();
+
+                    expect(Site.blockUI).toHaveBeenCalled();
+                });
+                it("Site.unBlockUI() should be called with complete function of ajax option", function () {
+                    spyOn(Site, "unBlockUI");
+                    LicenseeWinLoss.submit();
+                    var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
+                    ajaxOptionForCreateSubmitData.success(submitData);
+
+                    LicenseeWinLoss.drillDown(2, 9, 0, '2017-03-04T00:00:00', 'EUR', true);
+                    var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+
+                    ajaxOptionForDrillingDown.complete();
+
+                    expect(Site.unBlockUI).toHaveBeenCalled();
+                });
+
+                describe("success function of ajax option", function () {
+                    it("LicenseeWinLoss.ajaxComplete(level, response) should be called with correct parameter", function () {
+                        LicenseeWinLoss.submit();
+                        var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForCreateSubmitData.success(submitData);
+
+                        LicenseeWinLoss.drillDown(2, 9, 0, '2017-03-04T00:00:00', 'EUR', true);
+                        var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForDrillingDown.success({ Data: [] });
+
+                        expect(LicenseeWinLoss.ajaxComplete.calls.mostRecent().args).toEqual([2, { Data: [] }]);
+                    });
+
+                    it("LicenseeWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate, currencyName) should be called with correct parameter", function () {
+                        LicenseeWinLoss.submit();
+                        var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForCreateSubmitData.success(submitData);
+
+                        LicenseeWinLoss.drillDown(0, 9, 0, '2017-03-04T00:00:00', 'EUR', true);
+                        var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test" }] });
+
+                        var args = LicenseeWinLoss.setExcelUrl.calls.mostRecent().args;
+                        expect(args[0]).toBe(0);
+                        expect(args[1]).toBe(9);
+                        expect(args[2]).toBe(0);
+                        expect(args[3].format("MM/DD/YYYY")).toBe("03/01/2017");
+                        expect(args[4].format("MM/DD/YYYY")).toBe("03/31/2017");
+                        expect(args[5]).toBe("EUR");
+                    });
+
+                    it("LicenseeWinLoss.setReportTitle(currencyId, fdate, tdate, currencyName) should be called with correct parameter", function () {
+                        LicenseeWinLoss.submit();
+                        var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForCreateSubmitData.success(submitData);
+
+                        spyOn(LicenseeWinLoss, "setReportTitle");
+                        LicenseeWinLoss.drillDown(1, 9, 0, '2017-03-04T00:00:00', 'EUR', true);
+                        var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test" }] });
+
+                        var args = LicenseeWinLoss.setReportTitle.calls.mostRecent().args;
+                        expect(args[0]).toBe(1);
+                        expect(args[1].format("MM/DD/YYYY")).toBe("03/01/2017");
+                        expect(args[2].format("MM/DD/YYYY")).toBe("03/31/2017");
+                        expect(args[3]).toBe("EUR");
+                    });
+
+                    it("LicenseeWinLoss.setReportTitle(currencyId, fdate, tdate, currencyName) should be called with correct parameter when level > 0 & currencyId === 0", function () {
+                        submitData.CurrencyId = 0;
+                        LicenseeWinLoss.submit();
+                        var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForCreateSubmitData.success(submitData);
+
+                        spyOn(LicenseeWinLoss, "setReportTitle");
+                        LicenseeWinLoss.drillDown(1, 9, 0, '2017-03-04T00:00:00', 'EUR', true);
+                        var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test" }] });
+
+                        var args = LicenseeWinLoss.setReportTitle.calls.mostRecent().args;
+                        expect(args[0]).toBe(9);
+                        expect(args[1].format("MM/DD/YYYY")).toBe("03/01/2017");
+                        expect(args[2].format("MM/DD/YYYY")).toBe("03/31/2017");
+                        expect(args[3]).toBe("EUR");
+                    });
+                });
+            });
+
+            describe("goBack(level)", function () {
+                var submitData;
+                beforeEach(function () {
+                    submitData = {
+                        ProductOptions: '["SB","RC"]',
+                        DrawFilter: 0,
+                        CurrencyId: 1,
+                        ReportBy: 2,
+                        FromDate: "2017-03-01T00:00:00",
+                        ToDate: "2017-03-31T00:00:00",
+                        CurrencyName: "EUR",
+                        IsExcludedTestData: true
+                    };
+
+                    setFixtures('<form id="licenseewinloss"></form> <input id="BaseCurrency" data-original="EUR" />');
+                    appendSetFixtures('<input name="ReportBy" type="checkbox" checked value="1" />' +
+                        '<input id="CurrencyId" value="1" />' +
+                        '<input id="FromDate" value="03/01/2017" /> <input id="ToDate" value="03/31/2017" />');
+
+                    spyOn(Report, "setOriginalProduct");
+                    spyOn(Site, "updateOriginalLicenseeOption");
+                    spyOn(Report, "ValidProducts").and.returnValue(true);
+                    spyOn($.fn, "serializeObject").and.returnValue(submitData);
+                    spyOn(LicenseeWinLoss, "setExcelUrl");
+                    spyOn(LicenseeWinLoss, "setReportTitle");
+                    spyOn(LicenseeWinLoss, "renderBreadCrumb");
+                    spyOn(LicenseeWinLoss, "bindData");
+                    spyOn($, "ajax").and.returnValue({ abort: function () { } });
+
+                    LicenseeWinLoss.submit();
+                    var ajaxOption = $.ajax.calls.mostRecent().args[0];
+                    ajaxOption.success(submitData);
+                });
+                afterEach(function () {
+                    submitData = {
+                        ProductOptions: '["SB","RC"]',
+                        DrawFilter: 0,
+                        CurrencyId: 1,
+                        ReportBy: 2,
+                        FromDate: "2017-03-01T00:00:00",
+                        ToDate: "2017-03-31T00:00:00",
+                        CurrencyName: "EUR",
+                        IsExcludedTestData: true
+                    };
+                });
+
+                describe("level equal 0", function () {
+                    beforeEach(function () {
+                        LicenseeWinLoss.drillDown(0, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                        var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test Level 0" }] });
+                        LicenseeWinLoss.goBack(0);
+                    });
+
+                    it("LicenseeWinLoss.renderBreadCrumb(level) should be called with correct parameter", function () {
+                        expect(LicenseeWinLoss.renderBreadCrumb).toHaveBeenCalledWith(0);
+                    });
+                    it("LicenseeWinLoss.bindData(level) should be called with correct parameter", function () {
+                        expect(LicenseeWinLoss.bindData).toHaveBeenCalledWith(0, 2, { Data: [{ Name: "Test Level 0" }] });
+                    });
+                    it("LicenseeWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate, currencyName) should be called with correct parameter", function () {
+                        expect(LicenseeWinLoss.setExcelUrl).toHaveBeenCalledWith(0, 0, 0, "", "", "");
+                    });
+                    it("LicenseeWinLoss.setReportTitle(level) should be called with correct parameter", function () {
+                        var args = LicenseeWinLoss.setReportTitle.calls.mostRecent().args;
+                        
+                        expect(args[0]).toBe(1);
+                        expect(args[1].toDateString()).toBe("Wed Mar 01 2017");
+                        expect(args[2].toDateString()).toBe("Fri Mar 31 2017");
+                    });
+                });
+
+                describe("level equal 1", function () {
+                    var urlExcelData = LicenseeWinLossOption.urlExcelData;
+
+                    beforeEach(function () {
+                        LicenseeWinLossOption.urlExcelData = "localhost/Test?level=2";
+                        LicenseeWinLoss.drillDown(1, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                        var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test Level 1" }] });
+                        LicenseeWinLoss.goBack(1);
+                    });
+
+                    afterEach(function () {
+                        LicenseeWinLossOption.urlExcelData = urlExcelData;
+                    });
+
+                    it("LicenseeWinLoss.renderBreadCrumb(level) should be called with correct parameter", function () {
+                        expect(LicenseeWinLoss.renderBreadCrumb).toHaveBeenCalledWith(1);
+                    });
+                    it("LicenseeWinLoss.bindData(level) should be called with correct parameter", function () {
+                        expect(LicenseeWinLoss.bindData).toHaveBeenCalledWith(1, 2, { Data: [{ Name: "Test Level 1" }] });
+                    });
+
+                    it("LicenseeWinLossOption.urlExcelData should be correct", function () {
+                        expect(LicenseeWinLossOption.urlExcelData).toBe("localhost/Test?level=1");
+                    });
+                });
+
+                it("Nothing happen with level param is equal 2", function () {
+                    LicenseeWinLoss.drillDown(2, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                    LicenseeWinLoss.goBack(2);
+
+                    expect(LicenseeWinLoss.renderBreadCrumb.calls.count()).toBe(1);
+                });
+            });
+
+            describe("bindTotal(level, totalData, summaryTotal)", function () {
+                var submitData;
+                beforeEach(function () {
+                    submitData = {
+                        ProductOptions: '["SB","RC"]',
+                        DrawFilter: 0,
+                        CurrencyId: 1,
+                        ReportBy: 2,
+                        FromDate: "2017-03-01T00:00:00",
+                        ToDate: "2017-03-31T00:00:00",
+                        CurrencyName: "EUR",
+                        IsExcludedTestData: true
+                    };
+
+                    setFixtures('<form id="licenseewinloss"></form> <input id="BaseCurrency" data-original="EUR" />');
+
+                    spyOn(Report, "setOriginalProduct");
+                    spyOn(Site, "updateOriginalLicenseeOption");
+                    spyOn(Report, "ValidProducts").and.returnValue(true);
+                    spyOn($.fn, "serializeObject").and.returnValue(submitData);
+                    spyOn(LicenseeWinLoss, "setExcelUrl");
+                    spyOn(LicenseeWinLoss, "ajaxComplete");
+                    spyOn($, "ajax").and.returnValue({ abort: function () { } });
+
+                    LicenseeWinLoss.submit();
+                    var ajaxOption = $.ajax.calls.mostRecent().args[0];
+                    ajaxOption.success(submitData);
+
+                    spyOn(LicenseeWinLossOption, "getTotalColModel").and.returnValue([{ Name: "Col1" }]);
+                    spyOn(jqGridAdditional, "assignTotal");
+                    spyOn(jqGridAdditional, "setGroupFooters");
+                    spyOn(Report, "bindSummaryTotal").and.returnValue(3);
+                    LicenseeWinLoss.bindTotal(1, { Total: [1, 2] }, 3);
+                });
+                afterEach(function () {
+                    submitData = {
+                        ProductOptions: '["SB","RC"]',
+                        DrawFilter: 0,
+                        CurrencyId: 1,
+                        ReportBy: 2,
+                        FromDate: "2017-03-01T00:00:00",
+                        ToDate: "2017-03-31T00:00:00",
+                        CurrencyName: "EUR",
+                        IsExcludedTestData: true
+                    };
+                });
+
+                it("LicenseeWinLossOption.getTotalColModel(level, productOptions) should be called with correct parameter", function () {
+                    expect(LicenseeWinLossOption.getTotalColModel).toHaveBeenCalledWith(1, ["RC", "SB"]);
+                });
+                it("jqGridAdditional.assignTotal(totalData, columnModel) should be called with correct parameter", function () {
+                    expect(jqGridAdditional.assignTotal).toHaveBeenCalledWith({ Total: [1, 2] }, [{ Name: "Col1" }]);
+                });
+                it("Report.bindSummaryTotal(columnModel, summaryTotal) should be called with correct parameter", function () {
+                    expect(Report.bindSummaryTotal).toHaveBeenCalledWith([{ Name: "Col1" }], 3);
+                });
+                it("jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount) should be called with correct parameter", function () {
+                    expect(jqGridAdditional.setGroupFooters).toHaveBeenCalledWith(2, 3, 3);
+                });
+            });
+
+            describe("openBetlistPopUp(dataDrillDown)", function () {
+                var submitData, dataDrilldown;
+                beforeEach(function () {
+                    submitData = {
+                        ProductOptions: '["SB","RC"]',
+                        DrawFilter: 0,
+                        CurrencyId: 1,
+                        ReportBy: 2,
+                        FromDate: "2017-03-01T00:00:00",
+                        ToDate: "2017-03-31T00:00:00",
+                        CurrencyName: "EUR",
+                        IsExcludedTestData: true
+                    };
+
+                    setFixtures('<form id="licenseewinloss"></form> <input id="BaseCurrency" data-original="EUR" />');
+
+                    spyOn(Report, "setOriginalProduct");
+                    spyOn(Site, "updateOriginalLicenseeOption");
+                    spyOn($.fn, "serializeObject").and.returnValue(submitData);
+                    spyOn(Report, "ValidProducts").and.returnValue(true);
+                    spyOn(LicenseeWinLoss, "setExcelUrl");
+                    spyOn(LicenseeWinLoss, "ajaxComplete");
+                    spyOn($, "ajax").and.returnValue({ abort: function () { } });
+                    spyOn(Site, "setProductOptionOriginalParamList").and.callFake(function (url) { return url; });
+                    spyOn(Popup, "openPopupWithIframe");
+                    $(window).height(300);
+
+                    dataDrilldown = '{"DrillDownFromDate":"2017-01-01T00:00:00","DrillDownToDate":"2017-03-20T00:00:00","DrillDownCurrencyId":9,"DrillDownCurrencyName":"AUD",' +
+                        '"CustomerId":6507355,"ExternalId":"DEWSNIP","SystemId":"12BETAUD01159"}';
+                });
+                afterEach(function () {
+                    submitData = {
+                        ProductOptions: '["SB","RC"]',
+                        DrawFilter: 0,
+                        CurrencyId: 1,
+                        ReportBy: 2,
+                        FromDate: "2017-03-01T00:00:00",
+                        ToDate: "2017-03-31T00:00:00",
+                        CurrencyName: "EUR",
+                        IsExcludedTestData: true
+                    };
+                });
+
+                describe("Report by monthly", function () {
+                    it("Popup.openPopupWithIframe(url, option) should be called with correct parameter", function () {
+                        LicenseeWinLoss.submit();
+                        var ajaxOption = $.ajax.calls.mostRecent().args[0];
+                        ajaxOption.success(submitData);
+
+                        LicenseeWinLoss.openBetlistPopUp(dataDrilldown);
+
+                        var url = 'LicenseeWinLossBetList/Index?fromdate=01/01/2017&todate=01/31/2017&excludetest=true&currencyid=9&currencyname=AUD&' +
+                            'drawfilter=0&custid=6507355&systemid=12BETAUD01159&externalid=DEWSNIP&basecurrency=EUR&originalcurrenceid=1&originalcurrencyname=EUR';
+                        var popupOption = { id: "betlist-popup", width: 970, height: 250, title: "Customer Bet List" };
+
+                        var args = Popup.openPopupWithIframe.calls.mostRecent().args;
+                        var optionResult = args[1];
+
+                        expect(args[0]).toBe(url);
+                        expect(optionResult.id).toBe(popupOption.id);
+                        expect(optionResult.width).toBe(popupOption.width);
+                        expect(optionResult.title).toBe(popupOption.title);
+                    });
+
+                    it("Popup.openPopupWithIframe(url, option) should be called with correct parameter when DrillDownDate equal to date in submit data", function () {
+                        submitData.FromDate = "2017-01-10T00:00:00";
+                        submitData.ToDate = "2017-01-15T00:00:00";
+
+                        LicenseeWinLoss.submit();
+                        var ajaxOption = $.ajax.calls.mostRecent().args[0];
+                        ajaxOption.success(submitData);
+
+                        LicenseeWinLoss.openBetlistPopUp(dataDrilldown);
+
+                        var url = 'LicenseeWinLossBetList/Index?fromdate=01/10/2017&todate=01/15/2017&excludetest=true&currencyid=9&currencyname=AUD&' +
+                            'drawfilter=0&custid=6507355&systemid=12BETAUD01159&externalid=DEWSNIP&basecurrency=EUR&originalcurrenceid=1&originalcurrencyname=EUR';
+                        var popupOption = { id: "betlist-popup", width: 970, height: 250, title: "Customer Bet List" };
+
+                        var args = Popup.openPopupWithIframe.calls.mostRecent().args;
+                        var optionResult = args[1];
+
+                        expect(args[0]).toBe(url);
+                        expect(optionResult.id).toBe(popupOption.id);
+                        expect(optionResult.width).toBe(popupOption.width);
+                        expect(optionResult.title).toBe(popupOption.title);
+                    });
+                });
+
+                describe("Report not by monthly", function () {
+                    afterEach(function () {
+                        submitData = {
+                            ProductOptions: '["SB","RC"]',
+                            DrawFilter: 0,
+                            CurrencyId: 1,
+                            ReportBy: 2,
+                            FromDate: "2017-03-01T00:00:00",
+                            ToDate: "2017-03-31T00:00:00",
+                            CurrencyName: "EUR",
+                            IsExcludedTestData: true
+                        };
+                    });
+                    it("Popup.openPopupWithIframe(url, option) should be called with correct parameter", function () {
+                        submitData.ReportBy = 1;
+                        LicenseeWinLoss.submit();
+                        var ajaxOption = $.ajax.calls.mostRecent().args[0];
+                        ajaxOption.success(submitData);
+
+                        LicenseeWinLoss.openBetlistPopUp(dataDrilldown);
+
+                        var url = 'LicenseeWinLossBetList/Index?fromdate=01/01/2017&todate=03/20/2017&excludetest=true&currencyid=9&currencyname=AUD&' +
+                            'drawfilter=0&custid=6507355&systemid=12BETAUD01159&externalid=DEWSNIP&basecurrency=EUR&originalcurrenceid=1&originalcurrencyname=EUR';
+                        var popupOption = { id: "betlist-popup", width: 970, height: 250, title: "Customer Bet List" };
+
+                        var args = Popup.openPopupWithIframe.calls.mostRecent().args;
+                        var optionResult = args[1];
+
+                        expect(args[0]).toBe(url);
+                        expect(optionResult.id).toBe(popupOption.id);
+                        expect(optionResult.width).toBe(popupOption.width);
+                        expect(optionResult.title).toBe(popupOption.title);
+                    });
                 });
             });
 
