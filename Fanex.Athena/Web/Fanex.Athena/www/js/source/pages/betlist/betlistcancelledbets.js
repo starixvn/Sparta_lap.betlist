@@ -21,7 +21,7 @@ define(
 
                 $('#SubmitButton').click(function () {
                     $('#IsExportExcel').val(false);
-                    _me.submit();
+                    $('#CancellerBetsBetListForm').submit();
                 });
 
                 $("#ExportToExcel").click(function () {

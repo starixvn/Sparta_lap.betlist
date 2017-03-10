@@ -63,14 +63,27 @@
                     expect(BetListCancelledBets.submit).toHaveBeenCalled();
                 });
 
-                it("submit() should be called when #SubmitButton is clicked.", function () {
-                    setFixtures('<input id="SubmitButton" type="button" />');
+                it("form submit() function of jquery should be called when #SubmitButton is clicked.", function () {
+                    setFixtures('<input id="SubmitButton" type="button" /> <form id="CancellerBetsBetListForm"></form>');
+                    spyOn(BetListCancelledBets, "submit");
+
+                    BetListCancelledBets.initEvent();
+                    var spyEvent = spyOnEvent($('#CancellerBetsBetListForm'), 'submit');
+                    $('#CancellerBetsBetListForm').submit(function () { return false; });
+
+                    $("#SubmitButton").click();
+
+                    expect(spyEvent).toHaveBeenTriggered();
+                });
+
+                it("'#IsExportExcel' should has value is fale", function () {
+                    setFixtures('<input id="SubmitButton" type="button" /> <input id="IsExportExcel" type="text" />');
                     spyOn(BetListCancelledBets, "submit");
 
                     BetListCancelledBets.initEvent();
                     $("#SubmitButton").click();
 
-                    expect(BetListCancelledBets.submit).toHaveBeenCalled();
+                    expect($("#IsExportExcel").val()).toBe("false");
                 });
 
                 it("exportToExcel() should be called when #ExportToExcel is clicked.", function () {
