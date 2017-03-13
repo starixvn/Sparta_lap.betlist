@@ -2938,7 +2938,20 @@
     <value>Enable Fishing World</value>
     <comment>#66737</comment>
   </data>
-  <data name="DataAreAvailableUpToYesterday" xml:space="preserve">
-    <value>After 3:30AM(GMT-4), the report will show yesterday's data.</value>
+  <data name="GoldDeluxeWinLossGuidelineContent" xml:space="preserve">
+    <value>Any query before 4PM GMT-4 will return the data up to 4PM of the day before. You can filter data up to 3 months per query.</value>
+    <comment>#71725</comment>
+  </data>
+  <data name="MacauWinLossGuidelineContent" xml:space="preserve">
+    <value>Any query before 4PM GMT-4 will return the data up to 4PM of the day before. You can filter data up to 1 month per query.</value>
+    <comment>#71725</comment>
+  </data>
+  <data name="CasinoProgressiveWinsGuidelineContent" xml:space="preserve">
+    <value>This report supports up-to-date data. You can filter data up to 12 months per query.</value>
+    <comment>#71725</comment>
+  </data>
+  <data name="MicrogamingWinLossGuidelineContent" xml:space="preserve">
+    <value>This report supports up-to-date data. You can filter data up to 3 months per query.</value>
+    <comment>#71725</comment>
   </data>
 </root>

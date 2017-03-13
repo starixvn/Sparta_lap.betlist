@@ -1024,6 +1024,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This report supports up-to-date data. You can filter data up to 12 months per query..
+        /// </summary>
+        public static string CasinoProgressiveWinsGuidelineContent {
+            get {
+                return ResourceManager.GetString("CasinoProgressiveWinsGuidelineContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Casino Transfer.
         /// </summary>
         public static string CasinoTransfer {
@@ -1767,15 +1776,6 @@ namespace Fanex.Athena.Resources {
         public static string Data {
             get {
                 return ResourceManager.GetString("Data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to After 3:30AM(GMT-4), the report will show yesterday&apos;s data..
-        /// </summary>
-        public static string DataAreAvailableUpToYesterday {
-            get {
-                return ResourceManager.GetString("DataAreAvailableUpToYesterday", resourceCulture);
             }
         }
         
@@ -2847,6 +2847,15 @@ namespace Fanex.Athena.Resources {
         public static string GoldDeluxeWinLoss {
             get {
                 return ResourceManager.GetString("GoldDeluxeWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Any query before 4PM GMT-4 will return the data up to 4PM of the day before. You can filter data up to 3 months per query..
+        /// </summary>
+        public static string GoldDeluxeWinLossGuidelineContent {
+            get {
+                return ResourceManager.GetString("GoldDeluxeWinLossGuidelineContent", resourceCulture);
             }
         }
         
@@ -4300,6 +4309,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Any query before 4PM GMT-4 will return the data up to 4PM of the day before. You can filter data up to 1 month per query..
+        /// </summary>
+        public static string MacauWinLossGuidelineContent {
+            get {
+                return ResourceManager.GetString("MacauWinLossGuidelineContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
         public static string Main {
@@ -4611,6 +4629,15 @@ namespace Fanex.Athena.Resources {
         public static string MicrogamingWinLoss {
             get {
                 return ResourceManager.GetString("MicrogamingWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This report supports up-to-date data. You can filter data up to 3 months per query..
+        /// </summary>
+        public static string MicrogamingWinLossGuidelineContent {
+            get {
+                return ResourceManager.GetString("MicrogamingWinLossGuidelineContent", resourceCulture);
             }
         }
         
