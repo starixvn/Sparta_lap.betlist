@@ -31,7 +31,7 @@ namespace Fanex.Athena.Service.Report
             this._balanceUpService = new BalanceUpService();
         }
 
-        public IList<LiveReport> GetLiveReportSummary(LiveReportMetalModel model)
+        public IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel model)
         {
             if (model.IsValid)
             {
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Service.Report
         }
 
         public void GetLiveReportSumaryDetail(
-            LiveReportMetalModel model,
+            LiveReportMetaModel model,
             string productCode,
             IList<Product> products,
             out IList<LiveReport> resultBySport,

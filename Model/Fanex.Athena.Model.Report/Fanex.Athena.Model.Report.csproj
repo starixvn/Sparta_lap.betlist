@@ -171,7 +171,7 @@
     <Compile Include="MetaModel\CustomerWinlossMetaModel.cs" />
     <Compile Include="MetaModel\DailyRacingWinLossMetaModel.cs" />
     <Compile Include="MetaModel\LicenseeWinLossMetaModel.cs" />
-    <Compile Include="MetaModel\LiveReportMetalModel.cs" />
+    <Compile Include="MetaModel\LiveReportMetaModel.cs" />
     <Compile Include="MetaModel\MatchWinLossMetaModel.cs" />
     <Compile Include="MetaModel\PlatformWinLossMetaModel.cs" />
     <Compile Include="MetaModel\RacingCommissionMetaModel.cs" />

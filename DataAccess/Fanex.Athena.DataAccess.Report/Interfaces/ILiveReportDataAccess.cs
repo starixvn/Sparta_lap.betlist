@@ -17,12 +17,12 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
     /// </summary>
     public interface ILiveReportDataAccess
     {
-        IList<LiveReport> GetLiveReportSummary(LiveReportMetalModel metaModel, DateTime moveBetsDate);
+        IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel metaModel, DateTime moveBetsDate);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
         void GetLiveReportSummaryDetail(
-            LiveReportMetalModel metaModel,
+            LiveReportMetaModel metaModel,
             DateTime moveBetsDate,
             string productCode,
             IList<Product> products,

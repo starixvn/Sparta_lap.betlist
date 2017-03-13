@@ -29,7 +29,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var balance = BalanceUpService.BalanceUpInfo;
-            var metaModel = new LiveReportMetalModel
+            var metaModel = new LiveReportMetaModel
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
@@ -60,7 +60,7 @@ namespace Fanex.Athena.Controllers.Report
 
         [HttpPost]
         [CustomValidateAntiForgery]
-        public ActionResult Index(LiveReportMetalModel metaModel)
+        public ActionResult Index(LiveReportMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -113,7 +113,7 @@ namespace Fanex.Athena.Controllers.Report
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
-        public ActionResult Detail(LiveReportMetalModel metaModel, string productCode)
+        public ActionResult Detail(LiveReportMetaModel metaModel, string productCode)
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="LiveReportMetalModel.cs" company="">
+// <copyright file="LiveReportMetaModel.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,11 +8,8 @@ namespace Fanex.Athena.Model.Report.MetaModel
 {
     using System;
 
-    /// <summary>
-    /// LiveReportMetalModel class.
-    /// </summary>
     [Serializable]
-    public class LiveReportMetalModel : BaseReportMetaModel
+    public class LiveReportMetaModel : BaseReportMetaModel
     {
         public bool IsViewedHistory { get; set; }
 

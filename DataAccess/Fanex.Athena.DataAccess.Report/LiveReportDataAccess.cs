@@ -23,12 +23,12 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class LiveReportDataAccess : BaseDataAccess, ILiveReportDataAccess
     {
-        public IList<LiveReport> GetLiveReportSummary(LiveReportMetalModel metaModel, DateTime moveBetsDate)
+        public IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel metaModel, DateTime moveBetsDate)
         {
             const string UspName = "Lrf_Rpt_LiveReportSummary";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -69,7 +69,7 @@ namespace Fanex.Athena.DataAccess.Report
         }
 
         public void GetLiveReportSummaryDetail(
-            LiveReportMetalModel metaModel,
+            LiveReportMetaModel metaModel,
             DateTime moveBetsDate,
             string productCode,
             IList<Product> products,
@@ -177,7 +177,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private static IList<LiveReport> GetBySport(LiveReportMetalModel metaModel, DateTime moveBetsDate, string productCode, string currency)
+        private static IList<LiveReport> GetBySport(LiveReportMetaModel metaModel, DateTime moveBetsDate, string productCode, string currency)
         {
             const string UspName = "Lrf_Rpt_LiveReportBySport";
             try
@@ -224,7 +224,7 @@ namespace Fanex.Athena.DataAccess.Report
         }
 
         private static Tuple<IList<LiveReport>, IList<LiveReport>> GetSummaryDetail(
-            LiveReportMetalModel metaModel,
+            LiveReportMetaModel metaModel,
             DateTime moveBetsDate,
             string productCode,
             string currency)

@@ -18,7 +18,7 @@ namespace Fanex.Athena.Model.Report.ViewModel.LiveReports
     [Serializable]
     public class LiveReportViewModel : BaseViewModel
     {
-        public LiveReportMetalModel Param { get; set; }
+        public LiveReportMetaModel Param { get; set; }
 
         public IList<LiveReport> MainResult { get; set; }
 

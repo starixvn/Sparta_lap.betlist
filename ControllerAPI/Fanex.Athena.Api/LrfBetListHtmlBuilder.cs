@@ -59,7 +59,7 @@ namespace Fanex.Athena.Api.BetList
 
             switch (ticket.BetTypeId)
             {
-                case 71:
+                case (int)BetType.CasinoGames:
                     const string CasinoHandTemplate =
                         "<div id='casino-hand-history-{0}' class='result casino-hand-history-link' url-param='{1}' onclick='BetList.ViewCasinoHandHistory({0});'>{2}</div>";
                     return statusNormalText + string.Format(
@@ -68,8 +68,8 @@ namespace Fanex.Athena.Api.BetList
                         GetCasinoHandHistoryParam(ticket, metaModel),
                         ViewResources.Results);
 
-                case 72:
-                case 73:
+                case (int)BetType.P2PGames:
+                case (int)BetType.MiniGames:
                     return statusNormalText;
 
                 default:
