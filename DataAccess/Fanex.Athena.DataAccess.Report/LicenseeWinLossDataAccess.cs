@@ -66,7 +66,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "Lrf_Rpt_LicWinlossDetail";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
                     UpdateUspParams(db, metaModel, true);
@@ -90,7 +90,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "Lrf_Rpt_LicWinlossDetail_Ag";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
