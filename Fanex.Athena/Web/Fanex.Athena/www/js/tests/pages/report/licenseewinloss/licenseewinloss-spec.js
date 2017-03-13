@@ -857,6 +857,116 @@
                 });
             });
 
+            describe("bindData(level, reportBy, response)", function () {
+                var submitData, gridOption;
+                beforeEach(function () {
+                    submitData = {
+                        ProductOptions: '["SB","RC"]',
+                        DrawFilter: 0,
+                        CurrencyId: 1,
+                        ReportBy: 2,
+                        FromDate: "2017-03-01T00:00:00",
+                        ToDate: "2017-03-31T00:00:00",
+                        CurrencyName: "EUR",
+                        IsExcludedTestData: true
+                    };
+
+                    setFixtures('<form id="licenseewinloss"></form> <div id="ReportGrid"></div>');
+
+                    spyOn(Report, "setOriginalProduct");
+                    spyOn(Site, "updateOriginalLicenseeOption");
+                    spyOn($.fn, "serializeObject").and.returnValue(submitData);
+                    spyOn(Report, "ValidProducts").and.returnValue(true);
+                    spyOn(LicenseeWinLoss, "setExcelUrl");
+                    spyOn(LicenseeWinLoss, "ajaxComplete");
+                    spyOn($, "ajax").and.returnValue({ abort: function () { } });
+
+                    spyOn(jqGridAdditional, "clearGrid");
+                    spyOn(jqGridAdditional, "setNoInfo");
+                    spyOn(LicenseeWinLossOption, "getGridOption").and.returnValue({});
+                    spyOn($.fn, "jqGrid").and.callFake(function (option) { gridOption = option; });
+                    spyOn(LicenseeWinLossOption, "setGroupHeaderColumns");
+                    spyOn(LicenseeWinLossOption, "restoreExpanse");
+
+                    LicenseeWinLoss.submit();
+                    var ajaxOption = $.ajax.calls.mostRecent().args[0];
+                    ajaxOption.success(submitData);
+                });
+
+                it("jqGridAdditional.clearGrid(grid) should be called with correct parameter", function () {
+                    LicenseeWinLoss.bindData(0, 2, { Data: [] });
+
+                    expect(jqGridAdditional.clearGrid).toHaveBeenCalledWith("ReportGrid");
+                });
+                it("jqGridAdditional.setNoInfo() should be called", function () {
+                    LicenseeWinLoss.bindData(0, 2, { Data: [] });
+
+                    expect(jqGridAdditional.setNoInfo).toHaveBeenCalled();
+                });
+                it("jqGrid function should be called with correct grid option value", function () {
+                    LicenseeWinLoss.bindData(0, 2, { Data: [1, 2, 3], Total: [1] });
+
+                    expect($.fn.jqGrid).toHaveBeenCalled();
+                    expect(gridOption.rownumbers).toBe(true);
+                    expect(gridOption.data).toEqual([1, 2, 3]);
+                    expect(gridOption.userData).toEqual({});
+                    expect(gridOption.rowNum).toBe(2000);
+                    expect(gridOption.rowList).toEqual([50, 100, 200, 300, 400, 500, 1000, 2000]);
+                    expect(gridOption.rowTotal).toBe(3);
+                    expect(gridOption.pager).toBe("#ppdata");
+                });
+
+                it("getTotalRowCount() should return correct value", function () {
+                    LicenseeWinLoss.bindData(0, 2, { Data: [1, 2, 3], Total: [1] });
+
+                    var result = LicenseeWinLoss.getTotalRowCount();
+
+                    expect(result).toBe(1);
+                });
+
+                describe("gridOption.onPaging(pgButton)", function () {
+                    it("Should return 'stop' when level not equal 2", function () {
+                        LicenseeWinLoss.bindData(0, 2, { Data: [1, 2, 3], Total: [1] });
+
+                        var result = gridOption.onPaging("Test");
+
+                        expect(result).toBe("stop");
+                    });
+
+                    it("Should return 'stop' when numOfRow not greater than LicenseeWinLossOption.pageSize", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+
+                        var result = gridOption.onPaging("Test");
+
+                        expect(result).toBe("stop");
+                    });
+
+                    it("Site.blockUI() should be called when pgButton not has class 'ui-state-disabled'", function () {
+                        var defaultPagesize = LicenseeWinLossOption.pageSize;
+                        appendSetFixtures('<button id="pgButton"></button>');
+                        LicenseeWinLossOption.pageSize = 2;
+                        spyOn(Site, "blockUI");
+
+                        gridOption.onPaging("pgButton");
+                        LicenseeWinLossOption.pageSize = defaultPagesize;
+
+                        expect(Site.blockUI).toHaveBeenCalled();
+                    });
+
+                    it("Site.blockUI() should not be called when pgButton has class 'ui-state-disabled'", function () {
+                        var defaultPagesize = LicenseeWinLossOption.pageSize;
+                        appendSetFixtures('<button id="pgButton" class="ui-state-disabled"></button>');
+                        LicenseeWinLossOption.pageSize = 2;
+                        spyOn(Site, "blockUI");
+
+                        gridOption.onPaging("pgButton");
+                        LicenseeWinLossOption.pageSize = defaultPagesize;
+
+                        expect(Site.blockUI).not.toHaveBeenCalled();
+                    });
+                });
+            });
+
             describe("resizeGrid()", function () {
                 beforeEach(function () {
                     setFixtures('<div id="ReportGrid"></div>');

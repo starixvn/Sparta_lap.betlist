@@ -16,7 +16,7 @@
             var option = {
                 resourceName: "WeeklyLiveMatches",
                 title: Site.getSingleResource("WeeklyLiveMatches"),
-                height: 380
+                height: 460
             };
 
             expect(Site.addUserGuide).toHaveBeenCalledWith(option);

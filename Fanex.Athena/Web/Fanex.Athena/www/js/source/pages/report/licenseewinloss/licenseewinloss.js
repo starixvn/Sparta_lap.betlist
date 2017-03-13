@@ -337,7 +337,7 @@
             bindData: function (level, reportBy, response) {
                 jqGridAdditional.clearGrid("ReportGrid");
                 var numOfRow = response.Data.length;
-                if (response === null || numOfRow === 0) {
+                if (numOfRow === 0) {
                     jqGridAdditional.setNoInfo();
                     return;
                 }
