@@ -65,7 +65,7 @@
                 new SportProductItem()
             };
             var licenseeId = 1;
-            _betTypeDataAccess.GetBettypes(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>()).Returns(expectedResult);
+            _betTypeDataAccess.GetBettypes(licenseeId, Arg.Any<string>(), Arg.Any<string>()).Returns(expectedResult);
 
             // Action
             var result = _betTypeService.GetBettypes(licenseeId, sports, Arg.Any<string>());
@@ -73,6 +73,19 @@
             // Assert
             Assert.That(result[0].ID, Is.EqualTo(expectedResult[0].ID));
             Assert.That(result[1].ID, Is.EqualTo(expectedResult[1].ID));
+        }
+
+        [Test]
+        public void GetBettypes_WhenCall_ReturnEmptyDataList()
+        {
+            // Arrange
+            var licenseeId = 1;
+
+            // Action
+            var result = _betTypeService.GetBettypes(licenseeId, null, Arg.Any<string>());
+
+            // Assert
+            Assert.That(result.Count, Is.EqualTo(0));
         }
     }
 }
