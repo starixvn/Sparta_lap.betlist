@@ -6,8 +6,10 @@
 
 namespace Fanex.Athena.Service.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -53,14 +55,24 @@ namespace Fanex.Athena.Service.Report
             if (model.IsValid)
             {
                 var moveBetsDay = this._balanceUpService.BalanceUpInfo.MoveBetsDay;
-                this._liveReportDataAccess.GetLiveReportSummaryDetail(
-                    model,
-                    moveBetsDay,
-                    productCode,
-                    products,
-                    out resultBySport,
-                    out resultByByCurrency,
-                    out resultByBettype);
+
+                var taskForSport = Task<IList<LiveReport>>.Factory.StartNew(() =>
+                {
+                    return _liveReportDataAccess.GetDetailBySport(model, moveBetsDay, productCode);
+                });
+
+                var taskForCurrencyAndBettype = Task<Tuple<IList<LiveReport>, IList<LiveReportByBetType>>>.Factory.StartNew(() =>
+                {
+                    return _liveReportDataAccess.GetDetailByCurrencyAndBettype(
+                        model,
+                        moveBetsDay,
+                        productCode,
+                        products);
+                });
+
+                resultBySport = taskForSport.Result;
+                resultByByCurrency = taskForCurrencyAndBettype.Result.Item1;
+                resultByBettype = taskForCurrencyAndBettype.Result.Item2;
             }
             else
             {

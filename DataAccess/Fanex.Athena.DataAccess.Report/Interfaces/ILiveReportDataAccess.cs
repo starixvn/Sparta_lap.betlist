@@ -12,23 +12,17 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
     using Fanex.Athena.Model.Report.DTO.LiveReports;
     using Fanex.Athena.Model.Report.MetaModel;
 
-    /// <summary>
-    /// Live report data access interface.
-    /// </summary>
     public interface ILiveReportDataAccess
     {
         IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel metaModel, DateTime moveBetsDate);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        void GetLiveReportSummaryDetail(
+        IList<LiveReport> GetDetailBySport(LiveReportMetaModel metaModel, DateTime moveBetsDate, string productCode);
+
+        Tuple<IList<LiveReport>, IList<LiveReportByBetType>> GetDetailByCurrencyAndBettype(
             LiveReportMetaModel metaModel,
             DateTime moveBetsDate,
             string productCode,
-            IList<Product> products,
-            out IList<LiveReport> resultBySport,
-            out IList<LiveReport> resultByByCurrency,
-            out IList<LiveReportByBetType> resultByBettype);
+            IList<Product> products);
 
         IList<LiveReportWinLossByMatch> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel, DateTime moveBetsDate);
     }
