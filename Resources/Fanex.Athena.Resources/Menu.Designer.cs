@@ -547,15 +547,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Playtech Casino Win Loss.
-        /// </summary>
-        public static string Menu_61 {
-            get {
-                return ResourceManager.GetString("Menu_61", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to AG Casino Win Loss.
         /// </summary>
         public static string Menu_62 {

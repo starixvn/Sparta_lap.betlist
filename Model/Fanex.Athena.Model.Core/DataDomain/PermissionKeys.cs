@@ -53,7 +53,6 @@
         public const string ReportResults = "Results41";
         public const string ReportBalance = "Balance42";
         public const string ReportWinLossByLeague = "WinLossByLeague59";
-        public const string ReportPlaytechCasinoWinLoss = "PlaytechCasinoWinLoss61";
         public const string ReportAGCasinoWinLoss = "AGCasinoWinLoss62";
         public const string ReportAGCasinoBalance = "AGCasinoBalance63";
         public const string ReportActiveCustomerSummary = "ActiveCustomerSummary64";

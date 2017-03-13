@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -5296,13 +5296,6 @@
     <Content Include="Views\Header\Index.cshtml" />
     <Content Include="Views\Customer\BetSetting\Keno.cshtml" />
     <Content Include="Views\Customer\Customers.cshtml" />
-    <Content Include="Views\Report\PlaytechCasino\Filter.cshtml" />
-    <Content Include="Views\Report\PlaytechCasino\Main.cshtml" />
-    <Content Include="Views\Report\PlaytechCasino\Content.cshtml" />
-    <Content Include="Views\Report\PlaytechCasino\Content.Header.cshtml" />
-    <Content Include="Views\Report\PlaytechCasino\Content.Data.cshtml" />
-    <Content Include="Views\Report\PlaytechCasino\Content.Total.cshtml" />
-    <Content Include="Views\Report\PlaytechCasino\Content.Title.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\IndexIpad.cshtml" />
     <Content Include="Views\Utility\SSODenyAccess.cshtml" />

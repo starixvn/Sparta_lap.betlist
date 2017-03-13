@@ -210,7 +210,6 @@
     <Compile Include="CasinoProgressiveWinsService.cs" />
     <Compile Include="MicroGamingWinLossService.cs" />
     <Compile Include="AgCasinoBalanceService.cs" />
-    <Compile Include="PlaytechCasinoService.cs" />
     <Compile Include="ColossusBetsWinLossService.cs" />
     <Compile Include="ThirdPartyWinLossService.cs" />
     <Compile Include="WeeklyLiveMatchService.cs" />
@@ -238,7 +237,6 @@
     <Compile Include="Interfaces\IActiveCustomerService.cs" />
     <Compile Include="Interfaces\IAgCasinoBalanceService.cs" />
     <Compile Include="Interfaces\IAgCasinoWinLossService.cs" />
-    <Compile Include="Interfaces\IPlaytechCasinoService.cs" />
     <Compile Include="Interfaces\IThirdPartyWinLossService.cs" />
     <Compile Include="Interfaces\IWinLossByLeagueService.cs" />
     <Compile Include="Interfaces\IResultService.cs" />

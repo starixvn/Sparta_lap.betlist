@@ -116,7 +116,6 @@
     <Compile Include="MicroGamingWinLossExcel.cs" />
     <Compile Include="AgCasinoBalanceExcel.cs" />
     <Compile Include="PlatformWinLossSummaryExcel.cs" />
-    <Compile Include="PlaytechCasinoExcel.cs" />
     <Compile Include="ColossusBetsWinLossExcel.cs" />
     <Compile Include="ThirdPartyWinLossExcel.cs" />
     <Compile Include="WeeklyLiveMatchExcel.cs" />

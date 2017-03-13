@@ -153,7 +153,6 @@
     <Compile Include="Interfaces\IWeeklyLiveMatchDataAccess.cs" />
     <Compile Include="MicroGamingWinLossDataAccess.cs" />
     <Compile Include="AgCasinoBalanceDataAccess.cs" />
-    <Compile Include="PlaytechCasinoDataAccess.cs" />
     <Compile Include="ColossusBetsWinLossDataAccess.cs" />
     <Compile Include="ThirdPartyWinLossDataAccess.cs" />
     <Compile Include="WeeklyLiveMatchDataAccess.cs" />
@@ -164,7 +163,6 @@
     <Compile Include="Interfaces\IActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="Interfaces\IAgCasinoBalanceDataAccess.cs" />
     <Compile Include="Interfaces\IAgCasinoWinLossDataAccess.cs" />
-    <Compile Include="Interfaces\IPlaytechCasinoDataAccess.cs" />
     <Compile Include="Interfaces\IThirdPartyWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IWinLossByLeagueDataAccess.cs" />
     <Compile Include="Interfaces\IResultDataAccess.cs" />
