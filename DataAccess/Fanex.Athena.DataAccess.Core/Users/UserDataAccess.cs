@@ -358,6 +358,10 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
+            finally
+            {
+                LogService.Info($"Synced user from LAP system - userName={userName}");
+            }
         }
 
         /// <summary>
