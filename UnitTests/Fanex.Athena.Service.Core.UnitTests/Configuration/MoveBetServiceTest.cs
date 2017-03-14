@@ -48,5 +48,28 @@
             // Assert
             Assert.That(result.AvailableWinlostDate, Is.EqualTo(expectedResult.AvailableWinlostDate));
         }
+
+        [Test]
+        public void GetMoveBet_WhenCall_ReturnResultFromAppSetting()
+        {
+            // Arrange
+            var expectedResult = new MoveBet
+            {
+                AvailableWinlostDate = new DateTime(2016, 1, 1),
+                EstimatedTime = new DateTime(2017, 1, 1)
+            };
+            _appSettings.MoveBetDayStart.Returns(new DateTime(2016, 1, 1));
+            _appSettings.MoveBetDayEnd.Returns(new DateTime(2017, 1, 1));
+
+            // Action
+            var result = _moveBetService.GetMoveBet();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.AvailableWinlostDate, Is.EqualTo(expectedResult.AvailableWinlostDate));
+                Assert.That(result.EstimatedTime, Is.EqualTo(expectedResult.EstimatedTime));
+            });
+        }
     }
 }
