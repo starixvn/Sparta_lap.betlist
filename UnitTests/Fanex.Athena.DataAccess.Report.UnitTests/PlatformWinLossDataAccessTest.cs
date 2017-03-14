@@ -87,16 +87,7 @@
                 { "productprefix", "SB" }
             };
 
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
+            MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetSummaryData(_metaModel, out totalData);
@@ -153,16 +144,7 @@
                 { "WinlostUSD", 200 }
             };
 
-            reader[Arg.Any<string>()].Returns(x =>
-            {
-                var paramName = x.ArgAt<string>(0);
-                if (readerDataMapping.ContainsKey(paramName))
-                {
-                    return readerDataMapping[paramName];
-                }
-
-                return string.Empty;
-            });
+            MapReaderData(reader, readerDataMapping);
 
             // Action
             var result = _dataAccess.GetMemberData(_metaModel, out totalData);
@@ -175,6 +157,20 @@
                 Assert.That(result[0].CustomerWinLoss, Is.EqualTo(200));
 
                 Assert.That(totalData.Turnover, Is.EqualTo(100));
+            });
+        }
+
+        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
+        {
+            reader[Arg.Any<string>()].Returns(x =>
+            {
+                var paramName = x.ArgAt<string>(0);
+                if (readerDataMapping.ContainsKey(paramName))
+                {
+                    return readerDataMapping[paramName];
+                }
+
+                return string.Empty;
             });
         }
     }
