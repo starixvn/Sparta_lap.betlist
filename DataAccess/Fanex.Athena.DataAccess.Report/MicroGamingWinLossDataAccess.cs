@@ -34,7 +34,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "LRF_Rpt_MicroGamingWinloss";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
