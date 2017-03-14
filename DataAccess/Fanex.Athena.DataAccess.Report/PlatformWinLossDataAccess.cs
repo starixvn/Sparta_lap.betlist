@@ -32,7 +32,7 @@ namespace Fanex.Athena.DataAccess.Report
             const string UspName = "Lrf_Rpt_PlatformWinloss";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     UpdateUspParams(db, metaModel);
                     using (var reader = db.ExecuteReader())
@@ -53,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Report
             const string UspName = "Lrf_Rpt_PlatformWinlossDetail";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     UpdateUspParams(db, metaModel);
                     using (var reader = db.ExecuteReader())
@@ -207,7 +207,7 @@ namespace Fanex.Athena.DataAccess.Report
             return dataList;
         }
 
-        private void UpdateUspParams(ObjectDb db, PlatformWinLossMetaModel metaModel)
+        private void UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
         {
             db.AddInParameter("PlatformType", DbType.Byte, metaModel.PlatformType);
             db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
