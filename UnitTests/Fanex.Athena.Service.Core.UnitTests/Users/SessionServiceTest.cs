@@ -279,7 +279,7 @@
             };
             _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
-            var expectedResult = $"<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></ROOT>";
+            var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></ROOT>";
 
             // Action
             var result = _sessionService.GenerateAgentListXml(0, true);
@@ -306,7 +306,7 @@
             };
             _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
-            var expectedResult = $"<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></ROOT>";
+            var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></ROOT>";
 
             // Action
             var result = _sessionService.GenerateAgentListXml(-2, true);
@@ -341,7 +341,7 @@
             };
             _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
-            var expectedResult = $"<ROOT><Agent AgentId=\"3\" Currency=\"2\"/></ROOT>";
+            var expectedResult = "<ROOT><Agent AgentId=\"3\" Currency=\"2\"/></ROOT>";
 
             // Action
             var result = _sessionService.GenerateAgentListXml(2, false);
@@ -376,7 +376,7 @@
             };
             _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession();
-            var expectedResult = $"<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/><Agent AgentId=\"3\" Currency=\"2\"/></ROOT>";
+            var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/><Agent AgentId=\"3\" Currency=\"2\"/></ROOT>";
 
             // Action
             var result = _sessionService.GenerateAgentListXml(new int[] { 0, 1, 20 }, false);
@@ -411,7 +411,7 @@
             };
             _currencyService.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
             CreateDefaultNewSession(96);
-            var expectedResult = $"<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/><Agent AgentId=\"3\" Currency=\"66\"/></ROOT>";
+            var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/><Agent AgentId=\"3\" Currency=\"66\"/></ROOT>";
 
             // Action
             var result = _sessionService.GenerateAgentListXml(new int[] { 0, 1 }, false);
