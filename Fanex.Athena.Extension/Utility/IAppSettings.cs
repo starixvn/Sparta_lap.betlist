@@ -37,8 +37,6 @@
 
         bool IsDisableRngCasino { get; }
 
-        bool IsEnablePiwik { get; }
-
         bool IsShowMixedSport { get; }
 
         bool IsTesting { get; }

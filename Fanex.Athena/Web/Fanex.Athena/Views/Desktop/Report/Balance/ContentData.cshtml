@@ -1,0 +1,58 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.BalanceViewModel
+
+@{ var firstRow = 1; }
+
+@foreach (Fanex.Athena.Model.Report.DTO.BalanceDetails balanceDetails in Model.MainData.BalanceList)
+{
+    <tr>
+        <td class="left-align">
+            @if (firstRow == 1)
+            {
+                var culture = System.Globalization.CultureInfo.GetCultureInfo(System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag);
+                @Model.Param.FromDate.ToString("MMMM yyyy", culture)
+                firstRow++;
+            }
+            else
+            {
+                @balanceDetails.BalanceDateString
+            }
+        </td>
+
+        <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.LicWinLoss)</td>
+
+        @if (Model.ProductAccess.IsAllowBT)
+        {
+            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.BetTradeCommission)</td>
+        }
+
+        @if (Model.ProductAccess.IsAllowBA)
+        {
+            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.BACommission)</td>
+        }
+
+        @if (Model.ProductAccess.IsAllowRB)
+        {
+            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.RacingWinLoss)</td>
+        }
+
+        @if (Model.ProductAccess.IsAllowBT)
+        {
+            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.AmtDueToBetTrade)</td>
+        }
+
+        @if (Model.ProductAccess.IsAllowBA)
+        {
+            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.AmtDueToBA)</td>
+        }
+
+        @if (Model.ProductAccess.IsAllowRB)
+        {
+            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.AmtDueToRacing)</td>
+        }
+
+        @if (Model.IsAllowedCustomerCommission)
+        {
+            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.CustomerCommission)</td>
+        }
+    </tr>
+}

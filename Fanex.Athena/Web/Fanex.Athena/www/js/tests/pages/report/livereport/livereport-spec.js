@@ -1,21 +1,43 @@
-﻿define(['jquery', 'common/site', 'pages/report/livereport/livereport', 'pages/report/livereport/helper', 'moment', "common/pluginhelper"],
-    function ($, Site, LiveReport, Helper, moment, PluginHelper) {
+﻿define(['jquery', 'common/site', 'pages/report/livereport/livereport', 'pages/report/livereport/helper', 'moment', "components/pluginhelper/daterangepicker", "components/pluginhelper/monthpicker"],
+    function ($, Site, LiveReport, Helper, moment, DatePicker, MonthPicker) {
 
     describe("livereport.js", function () {
-        beforeAll(function () {
-          //  setFixtures('<a id="FromDate" data-original-from="1/1/2016"></a><a id="ToDate"></a>');
-            
+        beforeAll(function () {            
             spyOn(Site, "getSingleResource").and.callFake(function (text) {
                 return text;
             });
             spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
                 return url;
             });
+            spyOn(Site, "initialize");
+            spyOn(Site, "addUserGuide");
 
-            spyOn(PluginHelper, "initDateRangePicker");
-            spyOn(PluginHelper, "initMonthPicker");
+            spyOn(DatePicker, "initDateRangePicker");
+            spyOn(MonthPicker, "initMonthPicker");
 
             setFixtures('<input id="HistoryDate" value="1/1/2016" />');
+        });
+
+        describe("initialize()", function () {
+            beforeEach(function () {
+                LiveReport.initialize();
+            });
+
+            it("Site.initialize() should be called", function () {
+                expect(Site.initialize).toHaveBeenCalled();
+            });
+
+            it("DatePicker.initDateRangePicker() should be called", function () {
+                expect(DatePicker.initDateRangePicker).toHaveBeenCalled();
+            });
+
+            it("MonthPicker.initMonthPicker() should be called", function () {
+                expect(MonthPicker.initMonthPicker).toHaveBeenCalled();
+            });
+
+            it("Site.addUserGuide(option) should be called", function () {
+                expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "LiveReport", title: "LiveReport"});
+            });
         });
 
         describe("when clicking on #switchreport", function () {

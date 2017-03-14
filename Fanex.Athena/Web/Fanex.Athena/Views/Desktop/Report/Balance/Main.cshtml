@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Balance;
+    Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
+}
+
+@section pagecss{
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/balance.css")" rel="stylesheet" />
+}
+@section pagejs{
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/balance.chunk.js")"></script>
+}
+@section Filter{
+    @{ Html.RenderPartial("~/Views/Desktop/Report/Balance/Filter.cshtml"); }
+}
+@section Content{
+    @{ Html.RenderPartial("~/Views/Desktop/Report/Balance/Content.cshtml"); }
+}

@@ -22,6 +22,7 @@
     <link href="@Url.ContentLinkByEnv("/www/css/build/main.css")" rel="stylesheet" />
 
     @RenderSection("css", required: false)
+    <meta name="description" content="The Risk & Forecast System" />
 </head>
 <body>
     <input type="hidden" id="RootUrl" value="@Url.Content("~/")" />
@@ -53,31 +54,6 @@
     @if (isParasiticMode)
     {
         Html.RenderPartial("~/Views/Desktop/Shared/_SessionScript.cshtml");
-    }
-    @if (appSettings.IsEnablePiwik)
-    {
-        var piwikId = isParasiticMode ? 49 : 5;
-
-        <script type="text/javascript">
-            var _paq = _paq || [];
-            _paq.push(['trackPageView']);
-            _paq.push(['enableLinkTracking']);
-            $(function () {
-                setTimeout(function () {
-                    var u = "https://pw.detecas.com/";
-                    window._paq.push(['setTrackerUrl', u + 'piwik.php']);
-                    window._paq.push(['setSiteId', @piwikId]);
-                    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-                    g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g, s);
-                }, 500);
-            });
-        </script>
-
-        <noscript>
-            <p>
-                <img src="https://pw.detecas.com/piwik.php?rec=1&idsite=@piwikId" style="border: 0;" alt="" />
-            </p>
-        </noscript>
     }
 </body>
 </html>

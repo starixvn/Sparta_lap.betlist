@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.WeeklyLiveMatches;
+    Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
+}
+
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/weeklylivematch.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/weeklylivematch.chunk.js")"></script>
+}
+
+@section Filter
+{
+    @{ Html.RenderPartial("~/Views/Desktop/Report/WeeklyLiveMatch/Filter.cshtml"); }
+}
+
+@section Content
+{
+    @{ Html.RenderPartial("~/Views/Desktop/Report/WeeklyLiveMatch/Content.cshtml"); }
+}
+

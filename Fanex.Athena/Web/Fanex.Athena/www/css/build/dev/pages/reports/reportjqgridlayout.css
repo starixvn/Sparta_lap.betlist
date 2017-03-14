@@ -22,8 +22,7 @@
   margin-top: 0.5rem; }
   @media (max-width: 600px) {
     .button-block {
-      margin-top: 0;
-      margin-bottom: 1.5rem; } }
+      margin-top: 0; } }
 
 .btn {
   color: #2c2c2c;
@@ -779,6 +778,27 @@
   .input-field .select2-container--default .select2-selection--single .select2-selection__arrow b {
     border-top-color: #4d6273; }
 
+.input-field input[type="radio"] + label {
+  padding-left: 20px !important; }
+
+[type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+  border-color: #6790b0; }
+
+[type="radio"]:not(:checked) + label:before, [type="radio"]:not(:checked) + label:after {
+  border-color: #6790b0; }
+
+[type="radio"].with-gap:checked + label:after {
+  background-color: #6790b0; }
+
+[type="radio"]:not(:checked) + label,
+[type="radio"]:checked + label {
+  height: 20px;
+  line-height: 20px; }
+
+[type="radio"] + label:before,
+[type="radio"] + label:after {
+  margin: 0; }
+
 .page-form .input-field input[type=radio] + label {
   left: 0;
   padding-right: 10px;
@@ -813,23 +833,12 @@
 .highlight, .table > tbody > tr > td.highlight {
   background-color: #F8F1A0; }
 
-.input-field input[type="radio"] + label {
-  padding-left: 20px !important; }
-
-[type="radio"] + label:before, [type="radio"] + label:after {
-  margin: 4px 0; }
-
-[type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
-  border-color: #6790b0; }
-
-[type="radio"]:not(:checked) + label:before, [type="radio"]:not(:checked) + label:after {
-  border-color: #6790b0; }
-
-[type="radio"].with-gap:checked + label:after {
-  background-color: #6790b0; }
-
 table td, table th {
   border-radius: 0; }
+
+table tbody tr.row-group-level1 {
+  background: #D1DAE1;
+  font-weight: bold; }
 
 .col-small {
   width: 5%; }
@@ -856,6 +865,8 @@ table td, table th {
   list-style-type: disc; }
   #UserGuidePopup ul li ul li {
     list-style-type: circle; }
+    #UserGuidePopup ul li ul li ul li {
+      list-style-type: square; }
 
 .popup-block-body {
   background: transparent;
@@ -2194,5 +2205,8 @@ ul.ui-multiselect-checkboxes {
 .ui-multiselect-options input {
   margin: 0;
   margin-right: 10px; }
+
+tr.total td {
+  background: #ffb391; }
 
 /*# sourceMappingURL=reportjqgridlayout.css.map*/

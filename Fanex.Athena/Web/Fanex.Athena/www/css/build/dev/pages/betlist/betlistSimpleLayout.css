@@ -22,8 +22,7 @@
   margin-top: 0.5rem; }
   @media (max-width: 600px) {
     .button-block {
-      margin-top: 0;
-      margin-bottom: 1.5rem; } }
+      margin-top: 0; } }
 
 .btn {
   color: #2c2c2c;
@@ -779,6 +778,27 @@
   .input-field .select2-container--default .select2-selection--single .select2-selection__arrow b {
     border-top-color: #4d6273; }
 
+.input-field input[type="radio"] + label {
+  padding-left: 20px !important; }
+
+[type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+  border-color: #6790b0; }
+
+[type="radio"]:not(:checked) + label:before, [type="radio"]:not(:checked) + label:after {
+  border-color: #6790b0; }
+
+[type="radio"].with-gap:checked + label:after {
+  background-color: #6790b0; }
+
+[type="radio"]:not(:checked) + label,
+[type="radio"]:checked + label {
+  height: 20px;
+  line-height: 20px; }
+
+[type="radio"] + label:before,
+[type="radio"] + label:after {
+  margin: 0; }
+
 .page-form .input-field input[type=radio] + label {
   left: 0;
   padding-right: 10px;
@@ -813,23 +833,12 @@
 .highlight, .table > tbody > tr > td.highlight {
   background-color: #F8F1A0; }
 
-.input-field input[type="radio"] + label {
-  padding-left: 20px !important; }
-
-[type="radio"] + label:before, [type="radio"] + label:after {
-  margin: 4px 0; }
-
-[type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
-  border-color: #6790b0; }
-
-[type="radio"]:not(:checked) + label:before, [type="radio"]:not(:checked) + label:after {
-  border-color: #6790b0; }
-
-[type="radio"].with-gap:checked + label:after {
-  background-color: #6790b0; }
-
 table td, table th {
   border-radius: 0; }
+
+table tbody tr.row-group-level1 {
+  background: #D1DAE1;
+  font-weight: bold; }
 
 .col-small {
   width: 5%; }
@@ -856,6 +865,8 @@ table td, table th {
   list-style-type: disc; }
   #UserGuidePopup ul li ul li {
     list-style-type: circle; }
+    #UserGuidePopup ul li ul li ul li {
+      list-style-type: square; }
 
 .popup-block-body {
   background: transparent;
@@ -1792,30 +1803,20 @@ tr.ui-search-toolbar select {
     color: #003399;
     font-weight: 600;
     text-align: right; }
+  .betlist-container .firstGoal, .betlist-container .lastGoal, .betlist-container .fhFirstGoal, .betlist-container .fhLastGoal {
+    display: inline;
+    height: 10px;
+    padding: 0 6px;
+    width: 14px;
+    vertical-align: middle; }
   .betlist-container .firstGoal {
-    background: url("images/firstGoal.gif") no-repeat scroll center center transparent;
-    display: inline;
-    height: 10px;
-    padding: 0 4px;
-    width: 14px; }
+    background: url("images/goal-icon.png") no-repeat 0 0; }
   .betlist-container .lastGoal {
-    background: url("images/lastGoal.gif") no-repeat scroll center center transparent;
-    display: inline;
-    height: 10px;
-    padding: 0 4px;
-    width: 14px; }
+    background: url("images/goal-icon.png") no-repeat -18px 0; }
   .betlist-container .fhFirstGoal {
-    background: url(Images/1F.gif) no-repeat scroll center center transparent;
-    display: inline;
-    height: 10px;
-    padding: 0 4px;
-    width: 14px; }
+    background: url("images/goal-icon.png") no-repeat -36px 0; }
   .betlist-container .fhLastGoal {
-    background: url(Images/1L.gif) no-repeat scroll center center transparent;
-    display: inline;
-    height: 10px;
-    padding: 0 4px;
-    width: 14px; }
+    background: url("images/goal-icon.png") no-repeat no-repeat -54px 0; }
   .betlist-container .match {
     color: #000000;
     font-weight: normal;

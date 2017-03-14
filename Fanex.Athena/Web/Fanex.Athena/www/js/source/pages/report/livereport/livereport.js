@@ -1,13 +1,13 @@
 ﻿define(
-    ["jquery", "common/querystring", "common/site", "common/pluginhelper", "./helper"],
-    function ($, QueryString, Site, PluginHelper, Helper) {
+    ["jquery", "common/querystring", "common/site", "components/pluginhelper/daterangepicker", "components/pluginhelper/monthpicker", "./helper"],
+    function ($, QueryString, Site, DatePicker, MonthPicker, Helper) {
         "use strict";
 
         function initialize() {
             Site.initialize();
             initEvent();
-            PluginHelper.initDateRangePicker();
-            PluginHelper.initMonthPicker();
+            DatePicker.initDateRangePicker();
+            MonthPicker.initMonthPicker();
             Site.addUserGuide({
                 resourceName: "LiveReport",
                 title: Site.getSingleResource("LiveReport")

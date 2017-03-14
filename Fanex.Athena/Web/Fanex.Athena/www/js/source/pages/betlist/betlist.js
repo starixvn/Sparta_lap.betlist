@@ -71,25 +71,13 @@
             },
 
             gridComplete: function (grid) {
+                var $grid = $(grid);
                 // add sort icon
                 var sortCol = _sortColumnName === "Winlost" ? "WinLoss" : _sortColumnName;
                 sortCol = _sortColumnName === "nickname" ? "ExternalId" : sortCol;
                 sortCol = _sortColumnName === "UserName" ? "SystemId" : sortCol;
                 if (sortCol) {
-                    $(grid).closest(".ui-jqgrid-view")
-                        .find(".ui-jqgrid-sortable")
-                        .each(function (index, element) {
-                            var $this = $(element);
-                            $this.find(".s-ico").remove();
-
-                            if (element.id.indexOf(sortCol) > -1) {
-                                var sortClass = "sort-" + _sortOrder;
-                                var sortSpan = $("<span style='display: inline; margin: 2px 0px 0px 2px'></span");
-                                sortSpan.addClass(sortClass);
-                                $this.append(sortSpan);
-                                $this.addClass("sorted-heading");
-                            }
-                        });
+                    jqGridAdditional.addSortableHeader($grid, sortCol, _sortOrder);
                 }
                 // Resize
                 jqGridAdditional.gridComplete();
@@ -103,8 +91,8 @@
                 $("#pager2").show();
 
                 // fix cursor on non-sortable columns
-                var cm = $(grid)[0].p.colModel;
-                $.each($(grid)[0].grid.headers, function (index, value) {
+                var cm = $grid[0].p.colModel;
+                $.each($grid[0].grid.headers, function (index, value) {
                     var cmi = cm[index];
                     if (cmi.sortable) {
                         $('.ui-jqgrid-sortable', value.el).css({ cursor: "pointer" });
@@ -619,9 +607,8 @@
                 if ($("#ProductList input:checked").length === 0) {
                     temp = false;
                     var title = Site.getSingleResource("LrfNotification");
-                    var dialogForm = '<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>';
-
-                    Popup.openPopup(dialogForm, { width: 350, height: 200, title: title });
+                    var dialogForm = '<div title="' + title + '"><p class="notification">' + Site.getSingleResource("AlertChooseProductMsg") + '</p></div>';
+                    Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
                 }
 
                 return temp;
@@ -665,6 +652,12 @@
                     ViewCasinoHandHistory: _me.ViewCasinoHandHistory
                 };
                 window.BetList = betList;
+            },
+
+            resizeGrid: function () {
+                var grid = $("#BetListGrid");
+                jqGridAdditional.updateGridHeight();
+                jqGridAdditional.updateGridWidth(grid);
             }
         };
 

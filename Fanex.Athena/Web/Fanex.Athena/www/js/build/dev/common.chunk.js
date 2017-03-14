@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/colossusbetdetail","7":"www/css/build/dev/pages/betlist/systemparlaydetail","8":"www/css/build/dev/pages/forecast/ahforecast","9":"www/css/build/dev/pages/forecast/forecastonextwo","10":"www/css/build/dev/pages/forecast/newforecast","11":"www/css/build/dev/pages/login/login","12":"www/css/build/dev/pages/reports/licenseewinloss","13":"www/css/build/dev/pages/reports/livereport","14":"www/css/build/dev/pages/reports/reportjqgridlayout","15":"www/css/build/dev/pages/totalbet/mixparlay","16":"www/css/build/dev/pages/totalbet/totalbetlayout","17":"www/css/build/dev/pages/utility/error","18":"www/js/build/dev/language","19":"www/js/build/dev/pages/betlist/betlist","20":"www/js/build/dev/pages/betlist/betlistcorrectscore","21":"www/js/build/dev/pages/betlist/betlistrunning","22":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","23":"www/js/build/dev/pages/betlist/betlistsimple","24":"www/js/build/dev/pages/forecast/ahforecast","25":"www/js/build/dev/pages/forecast/forecasthdpou","26":"www/js/build/dev/pages/forecast/forecastonextwo","27":"www/js/build/dev/pages/forecast/newforecasthdpou","28":"www/js/build/dev/pages/home/home","29":"www/js/build/dev/pages/licenseewinloss/licenseewinloss","30":"www/js/build/dev/pages/livereport/livereport","31":"www/js/build/dev/pages/livereport/livereportmatchlist","32":"www/js/build/dev/pages/signin/signin","33":"www/js/build/dev/pages/totalbet/firstgoallastgoal","34":"www/js/build/dev/pages/totalbet/halftimefulltime","35":"www/js/build/dev/pages/totalbet/handicapoverunder","36":"www/js/build/dev/pages/totalbet/homedrawawaynobet","37":"www/js/build/dev/pages/totalbet/moneyline","38":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","39":"www/js/build/dev/pages/totalbet/outright","40":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/colossusbetdetail","8":"www/css/build/dev/pages/betlist/systemparlaydetail","9":"www/css/build/dev/pages/forecast/ahforecast","10":"www/css/build/dev/pages/forecast/forecastonextwo","11":"www/css/build/dev/pages/forecast/newforecast","12":"www/css/build/dev/pages/login/login","13":"www/css/build/dev/pages/reports/balance","14":"www/css/build/dev/pages/reports/licenseewinloss","15":"www/css/build/dev/pages/reports/livereport","16":"www/css/build/dev/pages/reports/racingcommission","17":"www/css/build/dev/pages/reports/reportjqgridlayout","18":"www/css/build/dev/pages/reports/result","19":"www/css/build/dev/pages/reports/settledmatchcount","20":"www/css/build/dev/pages/reports/turnover","21":"www/css/build/dev/pages/reports/weeklylivematch","22":"www/css/build/dev/pages/totalbet/mixparlay","23":"www/css/build/dev/pages/totalbet/totalbetlayout","24":"www/css/build/dev/pages/utility/error","25":"www/js/build/dev/language","26":"www/js/build/dev/pages/betlist/betlist","27":"www/js/build/dev/pages/betlist/betlistcancelledbets","28":"www/js/build/dev/pages/betlist/betlistcorrectscore","29":"www/js/build/dev/pages/betlist/betlistdaily","30":"www/js/build/dev/pages/betlist/betlistrunning","31":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","32":"www/js/build/dev/pages/betlist/betlistsimple","33":"www/js/build/dev/pages/forecast/ahforecast","34":"www/js/build/dev/pages/forecast/forecasthdpou","35":"www/js/build/dev/pages/forecast/forecastonextwo","36":"www/js/build/dev/pages/forecast/newforecasthdpou","37":"www/js/build/dev/pages/home/home","38":"www/js/build/dev/pages/reports/balance","39":"www/js/build/dev/pages/reports/licenseewinloss","40":"www/js/build/dev/pages/reports/livereport","41":"www/js/build/dev/pages/reports/livereportmatchlist","42":"www/js/build/dev/pages/reports/racingcommission","43":"www/js/build/dev/pages/reports/result","44":"www/js/build/dev/pages/reports/settledmatchcount","45":"www/js/build/dev/pages/reports/turnover","46":"www/js/build/dev/pages/reports/weeklylivematch","47":"www/js/build/dev/pages/signin/signin","48":"www/js/build/dev/pages/totalbet/firstgoallastgoal","49":"www/js/build/dev/pages/totalbet/halftimefulltime","50":"www/js/build/dev/pages/totalbet/handicapoverunder","51":"www/js/build/dev/pages/totalbet/homedrawawaynobet","52":"www/js/build/dev/pages/totalbet/moneyline","53":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","54":"www/js/build/dev/pages/totalbet/outright","55":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -14348,7 +14348,7 @@
 	                });
 	            }
 	
-	            $("form").submit(function () {
+	            $("form").on("submit", function () {
 	                if (isValidRange() === false) {
 	                    showMessaegBox(errorMessage);
 	                    return false;
@@ -14358,7 +14358,10 @@
 	            });
 	        }
 	        function showMessaegBox(message) {
-	            $('<div title="' + getSingleResource("LrfNotification") + '">' + message + '!</div>').dialog();
+	            var title = getSingleResource("LrfNotification");
+	            var dialogForm = '<div title="' + title + '"><p class="notification">' + message + '!</p></div>';
+	
+	            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
 	        }
 	        function getLicenseeId() {
 	            if (!_licenseeId) {
@@ -14639,48 +14642,24 @@
 	
 	        function createSortingIcon(sortHandler) {
 	            if ($("#RowCount").val() <= 1) {
-	                $("#header-content .sort-heading").removeClass("sort-heading");
+	                $("#header-content .sortable").removeClass("sort-heading");
 	            }
 	            else {
-	                $("#header-content .sort-heading").each(function (index, element) {
-	                    var headerDiv = $(element);
-	                    var sortColumn = headerDiv.attr("data-column-name");
+	                $("#header-content .sortable").each(function (index, element) {
+	                    var $sortHeader = $(element).find(".sort-heading");
+	                    var sortColumn = $sortHeader.attr("data-column-name");
 	                    if (sortColumn === $("#SortColumn").val()) {
-	                        headerDiv.addClass("sorted-heading");
+	                        $sortHeader.addClass("sorted-heading");
 	
-	                        var sortClass = $("#SortDirection").val() === "DESC" ? "sort-desc" : "sort-asc";
-	                        var sortSpan = $("<span></span");
+	                        var sortClass = $("#SortDirection").val() === "DESC" ? "sort-icon-desc" : "sort-icon-asc";
+	                        var sortSpan = $("<span class='sort-icon'></span>");
 	                        sortSpan.addClass(sortClass);
-	                        var left = 0;
-	                        var top = 0;
-	                        if (headerDiv.hasClass("row2")) {
-	                            top = (headerDiv.height() - sortSpan.height()) / 2;
-	                            sortSpan.css({
-	                                top: top,
-	                                right: 0
-	                            });
-	                        }
-	                        else if ($(".grid-header-two-line", headerDiv).length > 0) {
-	                            left = (headerDiv.width() - sortSpan.width()) / 2;
-	                            sortSpan.css({
-	                                top: 19,
-	                                right: 0
-	                            });
-	                        }
-	                        else {
-	                            left = (headerDiv.width() - sortSpan.width()) / 2 + 35;
-	                            sortSpan.css({
-	                                top: 19,
-	                                right: 0
-	                            });
-	                        }
-	
-	                        sortSpan.appendTo(headerDiv);
+	                        sortSpan.appendTo($sortHeader);
 	                    }
 	
 	                    $(element).click(function () {
-	                        sortReport($(element).attr("data-column-name"));
-	                        sortHandler($(element).attr("data-column-name"));
+	                        sortReport($sortHeader.attr("data-column-name"));
+	                        sortHandler($sortHeader.attr("data-column-name"));
 	                    });
 	                });
 	            }
@@ -15116,6 +15095,7 @@
 	                width: 640,
 	                height: 480,
 	                id: "popup-content",
+	                className: "",
 	                title: "&nbsp;",
 	                container: "body",
 	                modal: DEFAULT_MODAL,
@@ -15134,10 +15114,10 @@
 	                    $container.append($blockBody);
 	                }
 	
-	                var isNew = $container.find("#" + options.id).length === 0;
+	                var isNew = $("#" + options.id).length === 0;
 	                if (isNew) {
 	                    $self.attr("id", options.id);
-	                    $self.addClass("flat-popup");
+	                    $self.addClass("flat-popup " + options.className);
 	                    $self.children().wrapAll("<div class='wrapContent'></div>");
 	                    $self.hide()
 	                         .prepend('<div class="title-bar popup-title"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="javascript:;"><i class="icon-close"></i></a></div>');
@@ -15156,6 +15136,7 @@
 	                    $container.append($self);
 	                }
 	                else {
+	                    $self = $("#" + options.id);
 	                    var $wrapContent = $self.find(".wrapContent");
 	                    $wrapContent.append($self.children().not(".popup-title"));
 	                }

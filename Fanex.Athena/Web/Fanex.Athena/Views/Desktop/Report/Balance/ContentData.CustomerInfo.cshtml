@@ -1,0 +1,14 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.BalanceViewModel
+
+<tr>
+    <td colspan="8" class="left-align">@ViewResources.CustomerPedingFunds</td>
+    <td class="right-align">@Model.MainData.CustomerPendingFunds.ToStringExt()</td>
+</tr>
+
+<tr>
+    <td colspan="8" class="left-align">@ViewResources.TotalCustomerActiveClosedSuspended</td>
+    <td class="right-align">
+        @Model.MainData.TotalCustomerActive/ <span class="closed">@Model.MainData.TotalCustomerClosed</span>
+        / <span class="suspended">@Model.MainData.TotalCustomerSuspended</span>
+    </td>
+</tr>

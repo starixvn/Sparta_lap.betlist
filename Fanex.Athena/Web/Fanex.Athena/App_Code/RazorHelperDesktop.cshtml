@@ -7,12 +7,39 @@
 @using Fanex.Athena.Resources;
 
 @helper DateRangePicker(DateTime fromDate, DateTime toDate, DateTime minDate, DateTime maxDate) {
-    <input name="DateRange" autocomplete="off" data-mindate="@minDate.ToString("MM/dd/yyyy")" data-maxdate="@maxDate.ToString("MM/dd/yyyy")" data-today="@DateTime.Today.ToString("MM/dd/yyyy")" id="DateRange" class="datepicker" type="text" />
+    <input name="DateRange" id="DateRange" class="datepicker" type="text" readonly="readonly" autocomplete="off"
+           data-mindate="@minDate.ToString("MM/dd/yyyy")" data-maxdate="@maxDate.ToString("MM/dd/yyyy")" data-today="@DateTime.Today.ToString("MM/dd/yyyy")" />
     <input name="FromDate" id="FromDate" type="hidden" data-original-from="@fromDate.ToString("MM/dd/yyyy")" value="@fromDate.ToString("MM/dd/yyyy")" />
     <input name="ToDate" id="ToDate" type="hidden" data-original-to="@toDate.ToString("MM/dd/yyyy")" value="@toDate.ToString("MM/dd/yyyy")" />
 
     <label for="DateRange" class="active">@ViewResources.Date</label>
     <span class="icon icon-calendar"></span>
+}
+
+@helper SingleDatePicker(DateTime date, DateTime minDate, DateTime maxDate, string id = "FromDate", string className = "") {
+    <input name="@(id)" id="@(id)" class="@(className)" type="text" readonly="readonly"  autocomplete="off"
+           data-original="@date.ToString("MM/dd/yyyy")" data-mindate="@minDate.ToString("MM/dd/yyyy")" data-maxdate="@maxDate.ToString("MM/dd/yyyy")" />
+    <label>@ViewResources.Date</label>
+    <span class="icon icon-calendar"></span>
+}
+
+@helper MonthPicker(DateTime fromDate, DateTime toDate) {
+    <div class="input-field input col l2 m2 s6 month-picker">
+        <div id="month-picker"></div>
+        <input name="FromDate" id="FromDate" type="hidden" data-original-from="@fromDate.ToString("MM/dd/yyyy")" value="@fromDate.ToString("MM/dd/yyyy")" />
+        <input name="ToDate" id="ToDate" type="hidden" data-original-to="@toDate.ToString("MM/dd/yyyy")" value="@toDate.ToString("MM/dd/yyyy")" />
+        <label class="active">@ViewResources.ViewDataInMonth</label>
+    </div>
+    <div class="input-field input col l1 m1 s3">
+        <label class="active">@ViewResources.From</label>
+        <div id="fDay">
+        </div>
+    </div>
+    <div class="input-field input col l1 m1 s3">
+        <label class="active">@ViewResources.To</label>
+        <div id="tDay">
+        </div>
+    </div>
 }
 
 @helper CurrencyList(IDictionary<string, int> currencyList,
@@ -101,8 +128,7 @@ selectedBasedCurrency = selectedBasedCurrency.ToLower();
 
 @helper HighlightNegativeFormat(decimal value, bool isHiglight = true)
 {
-    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative-number'") : new HtmlString(""))>
-        @value.ToStringExt()</span>
+    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative-number'") : new HtmlString(""))>@value.ToStringExt()</span>
 }
 
 @helper ViewLiveStatus(int liveStatus)
@@ -138,11 +164,11 @@ if (toDate != null)
     @(string.Format(ViewResources.Viewin, converter ? BaseCurrency.ToUpper() : CurrencyName))
 }
 
-@helper RenderProductFilter(IEnumerable<ProductOption> productOptions)
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int colLg = 2, int colMd = 4)
 {
     var Url = new UrlHelper(Context.Request.RequestContext);
     var i = 0;
-    <div class="input-field col l2 m4 s12 multiselect-container" id="ProductList">
+    <div class="input-field col l@(colLg) m@(colMd) s12 multiselect-container" id="ProductList">
         <select id="grid-products-multiselect" name="grid-products-multiselect"></select>
         <label>
             @ViewResources.Product
@@ -256,4 +282,87 @@ if (toDate != null)
 {
     @(string.IsNullOrEmpty(basedCurrencyName) ? string.Format(ViewResources.Viewin, currencyName) : string.Format(ViewResources.Viewin, basedCurrencyName.ToUpper()))
 
+}
+
+@helper MonthDropDownList(int selectedMonth)
+{
+    <select class="select" id="Month">
+        <option @(selectedMonth == 1 ? "selected = selected" : string.Empty) value="0">@ViewResources.January</option>
+        <option @(selectedMonth == 2 ? "selected = selected" : string.Empty) value="1">@ViewResources.February</option>
+        <option @(selectedMonth == 3 ? "selected = selected" : string.Empty) value="2">@ViewResources.March</option>
+        <option @(selectedMonth == 4 ? "selected = selected" : string.Empty) value="3">@ViewResources.April</option>
+        <option @(selectedMonth == 5 ? "selected = selected" : string.Empty) value="4">@ViewResources.May</option>
+        <option @(selectedMonth == 6 ? "selected = selected" : string.Empty) value="5">@ViewResources.June</option>
+        <option @(selectedMonth == 7 ? "selected = selected" : string.Empty) value="6">@ViewResources.July</option>
+        <option @(selectedMonth == 8 ? "selected = selected" : string.Empty) value="7">@ViewResources.August</option>
+        <option @(selectedMonth == 9 ? "selected = selected" : string.Empty) value="8">@ViewResources.September</option>
+        <option @(selectedMonth == 10 ? "selected = selected" : string.Empty) value="9">@ViewResources.October</option>
+        <option @(selectedMonth == 11 ? "selected = selected" : string.Empty) value="10">@ViewResources.November</option>
+        <option @(selectedMonth == 12 ? "selected = selected" : string.Empty) value="11">@ViewResources.December</option>
+    </select>
+}
+
+@helper YearDropDownList(int selectedYear, int itemCount)
+{
+    var currentYear = DateTime.Now.Year;
+    <select class="select" id="Year">
+        @for (int i = currentYear; i > currentYear - itemCount && i >= 2012; i--)
+        {
+            <option @(selectedYear == i ? "selected = selected" : string.Empty) value="@i.ToString()">@i.ToString()</option>
+        }
+    </select>
+}
+
+@helper TruncateWithTip(String value, Int32 maxLength, bool hasSpanReturn = false)
+{
+    if (value.Length > maxLength)
+    {
+        <span title="@value.Replace("'", "&#39;")">@HttpUtility.HtmlEncode(value.Substring(0, maxLength - 2) + "..")</span>
+
+    }
+    else if (hasSpanReturn)
+    {
+        <span>@HttpUtility.HtmlEncode(value)</span>
+    }
+    else
+    {
+        @value
+    }
+}
+
+<!--Example:@RazorHelper.Paging("WarehouseWinLossForm", 5000, 1)-->
+@helper Paging(string formId, int NoOfItems, int currentIndex = 1, int pageSize = 1000, string method = "POST")
+{
+    var noOfPage = NoOfItems / pageSize + (NoOfItems % pageSize == 0 ? 0 : 1);
+    var pagingVisible = NoOfItems > 1000;
+    if (pagingVisible)
+    {
+            <div class="pagingContainer center-align">
+                <a href="javascript:;" class="icon pagingFirst @(currentIndex == 1 ? "pagingDisable" : string.Empty)"></a>
+                <a href="javascript:;" class="icon pagingPrev @(currentIndex == 1 ? "pagingDisable" : string.Empty)"></a>
+                <span class="pagingSeperator"></span>
+                <div class="paging-info">
+                    @ViewResources.Page
+                    <input type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="@currentIndex" />
+                    @ViewResources.of @noOfPage
+                </div>
+                <span class="pagingSeperator"></span>
+                <a href="javascript:;" class="icon pagingNext @(currentIndex == noOfPage ? "pagingDisable" : string.Empty)"></a>
+                <a href="javascript:;" class="icon pagingLast @(currentIndex == noOfPage ? "pagingDisable" : string.Empty)"></a>
+
+                <select class="pageSizeSelected">
+                    @for (var i = 1000; i <= 2000; i += 1000)
+                    {
+                        <option value="@i" @(pageSize == i ? "selected=selected" : string.Empty)>
+                            @i
+                        </option>
+                    }
+                </select>
+
+                <input type="hidden" name="PageSize" value="@pageSize" />
+                <input type="hidden" name="Method" value="@method" />
+                <input type="hidden" name="FormName" value="@formId" />
+                <input type="hidden" name="NoOfPage" value="@noOfPage" />
+            </div>
+    }
 }

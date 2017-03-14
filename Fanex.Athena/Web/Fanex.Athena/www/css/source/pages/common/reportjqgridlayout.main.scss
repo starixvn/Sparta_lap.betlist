@@ -1,3 +1,9 @@
 ﻿@import 'reportcommon.main';
 @import '../../components/jqgrid/jqgrid.main';
 @import '../../components/multiselect/multiselect.main';
+
+tr {
+    &.total td {
+        background: #ffb391;
+    }
+}

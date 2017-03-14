@@ -22,6 +22,7 @@ namespace Fanex.Athena
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
+    using HttpCompress;
 
     public class MvcApplication : HttpApplication
     {
@@ -40,7 +41,7 @@ namespace Fanex.Athena
             /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
             /*Web API*/
             GlobalConfiguration.Configuration.EnableCors();
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new CompressHandler());
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new ApiCompressHandler());
             GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
             GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());

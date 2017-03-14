@@ -1,4 +1,4 @@
-﻿define(['jquery', 'common/site'], function ($, Site) {
+﻿define(['jquery', 'common/site', 'lib/select2'], function ($, Site) {
     describe("Site", function () {
         describe("getLicenseeId()", function () {
             it("return a value from input#LicenseeId", function () {
@@ -114,6 +114,7 @@
             beforeEach(function () {
                 setFixtures('<input id="PageLanguage" value="_language_en_US" />');
                 window["_language_en_US"] = { "Test": "en-Test" };
+                spyOn($.fn, "select2");
             });
 
             it("get correct value from resource", function () {
@@ -133,6 +134,7 @@
             it("return correct array text", function () {
                 setFixtures('<input id="PageLanguage" value="_language_en_US" />');
                 window["_language_en_US"] = { "Test1": "en-Test1", "Test2": "en-Test2", "Test3": "en-Test3" };
+                spyOn($.fn, "select2");
                 Site.initialize();
                 var arrayText = ["Test1", "Test2", "Test3", "Test4"];
                 var result = Site.getResources(arrayText);

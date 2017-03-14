@@ -4,7 +4,6 @@
 *  "0" for master,"1" for agent and "2" for member
 */
 
-
 define(
     ["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "lib/linq"],
     function ($, QueryString, Site, jqGridAdditional) {
@@ -629,7 +628,7 @@ define(
             var isAllowedBetTrade = isProductChecked(productOptions, "BT");
             var isAllowBA = isProductChecked(productOptions, "BA");
             var clear = function (button) {
-                $(button).unbind("click").remove();
+                $(button).off("click").remove();
             };
             //reset licenseWL column
             var curWidth = $("#ReportGrid_TotalLicenseeWLSingle div").width();

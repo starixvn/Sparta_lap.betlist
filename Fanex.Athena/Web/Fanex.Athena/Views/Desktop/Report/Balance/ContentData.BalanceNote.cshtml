@@ -1,0 +1,39 @@
+﻿@using Fanex.Athena.Model.Core.DTO.Common
+@model Fanex.Athena.Model.Report.ViewModel.BalanceViewModel
+
+@{
+    var ignoredProducts = new string[] { Product.RB, Product.BA, Product.MGCLC, Product.MGCRNG, Product.AGC, Product.GD, Product.VG, Product.BT, Product.AB };
+    var productList = Model.ProductAccess.ProductList
+                    .Where(p => ignoredProducts.Contains(p.ProductCode) == false)
+                    .ToList();
+
+    var productNameText = productList.Count <= 1
+        ? ViewResources.Sportsbook
+        : string.Join(", ", productList.Select(p => p.ProductName));
+
+}
+
+<ul class="list">
+    <li>
+        @ViewResources.LicenseeW_L:&nbsp;@String.Format(ViewResources.Licenseegrossrevenuefor, productNameText)
+    </li>
+    @if (Model.ProductAccess.IsAllowBT)
+    {
+        <li>@ViewResources.BetTradeComissionBalanceNote</li>
+            <li>@ViewResources.AmtDueToBetTradeBalanceNote</li>
+    }
+    <!--BANotes-->
+    @if (Model.ProductAccess.IsAllowBA)
+    {
+        <li>@ViewResources.BAComissionBalanceNote</li>
+            <li>@ViewResources.AmtDueToBABalanceNote</li>
+    }
+    <!--/BANotes-->
+    <!--RacingNotes-->
+    @if (Model.ProductAccess.IsAllowRB)
+    {
+        <li>@ViewResources.RacingRevenueBalanceNote</li>
+            <li>@ViewResources.AmtDueToRacingBalanceNote</li>
+    }
+    <!--/RacingNotes-->
+</ul>

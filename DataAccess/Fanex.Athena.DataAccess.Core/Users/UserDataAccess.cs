@@ -338,7 +338,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
         public IResultInfo SyncUserInfo(string licenseeName, string userName)
         {
             const string UspName = "Lrf_SyncInternalUser";
-            const string DefaultPass = "754A738BF99D986D8716FE00A81BC5CA32916BF6"; // 1234aa
+            const string DefaultPass = "J0NilQZC1ywhNqNu8XMBqIvesaErM+DGia1za8P+tH8=";
             try
             {
                 using (var db = this.GetObjectDb(UspName))
@@ -357,6 +357,10 @@ namespace Fanex.Athena.DataAccess.Core.Users
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
+            }
+            finally
+            {
+                LogService.Info($"Synced user from LAP system - userName={userName}");
             }
         }
 

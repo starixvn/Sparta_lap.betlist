@@ -1,9 +1,12 @@
-﻿@import '../../../pages/common';
+﻿@import '../../../scss/abstracts/variables';
+@import '../../../pages/common';
+
+$bgRowGroupLevel1: #D1DAE1;
 
 body{
     background: #fff;
 }
-.betlist-result-container {
+.result-container {
     padding: 10px;
 
     /* Fast Markets */
@@ -26,10 +29,9 @@ body{
                 > th {
                     vertical-align: middle;
                     text-align: center;
-                    background: #d1dae1;
-                    border: 1px solid #ffffff;
-                    color: #314453;
-                    font-weight: 600;
+                    background: $bgHeaderTableLevel1;
+                    border: 1px solid $colorBorderTable;
+                    color: $white !important;
                     padding: 4px 5px;
 
                     &:first-child {
@@ -50,7 +52,7 @@ body{
 
             &:first-child {
                 > tr:first-child > th {
-                    border: 1px solid #ffffff;
+                    border: 1px solid $colorBorderTable;
                 }
             }
         }
@@ -87,7 +89,6 @@ body{
 
     .fn-rs-content-scroll {
         border: 1px solid #cbc9ca;
-        max-height: 740px;
         -ms-overflow-y: auto;
         overflow-y: auto;
         -ms-overflow-x: hidden;
@@ -154,19 +155,16 @@ body{
                 background: #ccc;
                 vertical-align: middle;
                 font-weight: bold;
-                line-height: 7px;
-                height: 21px;
                 text-align: center;
             }
 
             .cl-league {
-                background: url("images/bg_header03.jpg") repeat-x scroll center top #dae6ed;
+                background: $bgRowGroupLevel1;
                 vertical-align: middle;
                 border: 0;
                 font-weight: bold;
                 text-align: left;
-                line-height: 7px;
-                height: 21px;
+                padding-left: 15px;
             }
 
             .cl-team {
@@ -211,21 +209,23 @@ body{
                     width: 14px;
                     height: 14px;
                     display: inline-block;
+                    padding: 0 8px;
+                    vertical-align: middle;
 
                     &.first-goal {
-                        background: url("images/goal-icon.png") no-repeat -9px -32px;
+                        background: url("images/goal-icon.png") no-repeat 0 0;
                     }
 
                     &.last-goal {
-                        background: url("images/goal-icon.png") no-repeat -9px -16px;
+                        background: url("images/goal-icon.png") no-repeat -18px 0;
                     }
 
                     &.first-half-first-goal {
-                        background: url("images/goal-icon.png") no-repeat -9px -65px;
+                        background: url("images/goal-icon.png") no-repeat -36px 0;
                     }
 
                     &.first-half-last-goal {
-                        background: url("images/goal-icon.png") no-repeat no-repeat -9px -83px;
+                        background: url("images/goal-icon.png") no-repeat no-repeat -54px 0;
                     }
 
                     &.home, &.away {
@@ -258,7 +258,7 @@ body{
         }
 
         .cl-s, .cl-ot, .cl-ei {
-            width: 40px;
+            width: 7%;
         }
 
         .cl-totalgames, .cl-totalpoint {

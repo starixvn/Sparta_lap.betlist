@@ -2746,10 +2746,6 @@
   <data name="Keno" xml:space="preserve">
     <value>Keno</value>
   </data>
-  <data name="PlaytechCasino" xml:space="preserve">
-    <value>Playtech Casino</value>
-    <comment>14488</comment>
-  </data>
   <data name="AGCasino" xml:space="preserve">
     <value>AG Casino</value>
     <comment>#19458</comment>

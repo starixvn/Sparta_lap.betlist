@@ -250,13 +250,5 @@
   {
     "FunctionId": 71,
     "FunctionKey": "ColossusBetsWinLoss71"
-  },
-  {
-    "FunctionId": 66,
-    "FunctionKey": "MacauWinloss66"
-  },
-  {
-    "FunctionId": 69,
-    "FunctionKey": "WeeklyLiveMatches69"
   }
 ]

@@ -1,0 +1,34 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.BalanceViewModel
+
+<tr>
+    <th></th>
+    <th>@ViewResources.LicenseeWinLoss</th>
+    @if (Model.ProductAccess.IsAllowBT)
+    {
+        <th>@ViewResources.BetTradeCommission</th>
+    }
+    @if (Model.ProductAccess.IsAllowBA)
+    {
+        <th>@ViewResources.BACommission</th>
+    }
+    @if (Model.ProductAccess.IsAllowRB)
+    {
+        <th>@ViewResources.RacingRevenue</th>
+    }
+    @if (Model.ProductAccess.IsAllowBT)
+    {
+        <th>@ViewResources.AmtDueToBetTrade</th>
+    }
+    @if (Model.ProductAccess.IsAllowBA)
+    {
+        <th>@ViewResources.AmtDueToBA</th>
+    }
+    @if (Model.ProductAccess.IsAllowRB)
+    {
+        <th>@ViewResources.AmtDueToRacing</th>
+    }
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <th>@ViewResources.CustomerCommission</th>
+    }
+</tr>

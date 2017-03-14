@@ -6,6 +6,9 @@ var cssRootPath = pathConfig.cssPaths.build;
 
 function generatePlugins(environment) {
     var commonPlugins = [
+        new CleanWebpackPlugin([pathConfig.scriptPaths.build], {
+            root: process.cwd()
+        }),
         new CleanWebpackPlugin([cssRootPath], {
             root: process.cwd(),
             exclude: ['fonts', 'images', 'dev', 'pro']

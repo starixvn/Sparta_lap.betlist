@@ -1,0 +1,53 @@
+﻿<div class="page-results">
+    <div class="result-content">
+        @*// ----------------------------Balance Information---------------------------//*@
+        <div class="panel-heading active">
+            <div class="panel-title">
+                @ViewResources.BalanceInformation
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        @{ Html.RenderPartial("~/Views/Desktop/Report/Balance/Content.Header.cshtml"); }
+                    </thead>
+
+                    <tbody>
+                        @{ Html.RenderPartial("~/Views/Desktop/Report/Balance/ContentData.cshtml"); }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        @*// ----------------------------Customer Info---------------------------//*@
+        <div class="panel-heading active">
+            <div class="panel-title">
+                @ViewResources.CustomerInfo
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <tbody>
+                        @{ Html.RenderPartial("~/Views/Desktop/Report/Balance/ContentData.CustomerInfo.cshtml"); }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    @*// ----------------------------Balance Note---------------------------//*@
+    <div class="result-content balance-note">
+        <div class="panel-title">
+            @ViewResources.TermDefinition
+        </div>
+        <div class="main-content">
+            <div class="panel-body">
+                @{ Html.RenderPartial("~/Views/Desktop/Report/Balance/ContentData.BalanceNote.cshtml"); }
+            </div>
+        </div>
+    </div>
+</div>

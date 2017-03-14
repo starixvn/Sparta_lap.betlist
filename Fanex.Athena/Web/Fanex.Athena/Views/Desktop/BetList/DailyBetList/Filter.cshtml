@@ -1,0 +1,58 @@
+﻿@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
+@{
+    var appSettings = new AppSettings();
+
+    <div class="row">
+        @*// ----------------------------Date---------------------------//*@
+        @if (Model.LicenseeTypeList.Count > 0)
+        {
+            <div class="col l2 m2 s12 input-field calendar single-date">
+                @RazorHelperDesktop.SingleDatePicker(Model.Param.Date, Convert.ToDateTime(Model.Param.BalanceUpDay), appSettings.MaxDate, "Date")
+            </div>
+        }
+
+        @*// -----------------------------Currency-----------------------------------//*@
+        <div class="col l2 m2 s12 input-field">
+            @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
+            <label>@ViewResources.Currency</label>
+        </div>
+
+        @*// -----------------------------Base Currency-----------------------------------//*@
+        <div class="col l2 m2 s12 input-field">
+            @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
+            <label>@ViewResources.Based</label>
+        </div>
+
+        <div class="col l2 m2 s12 input-field">
+            <select id="ProductCode" name="ProductCode" class="select">
+                @foreach (var prd in Model.ProductAccess.ProductList)
+                {
+                    <option value="@prd.ProductCode" @(prd.ProductCode == Model.Param.ProductCode ? "selected='selected'" : string.Empty)>
+                        @prd.ProductName
+                    </option>
+                }
+            </select>
+            <label>@ViewResources.Product</label>
+        </div>
+
+        <div class="col l2 m2 s12 input-field">
+            <select id="DailyBetListStatus" name="DailyBetListStatus" class="select">
+                <option value="won" @(Model.Param.DailyBetListStatus == "won" ? "selected='selected'" : string.Empty)>@ViewResources.Won</option>
+                <option value="lose" @(Model.Param.DailyBetListStatus == "lose" ? "selected='selected'" : string.Empty)>@ViewResources.Lose</option>
+                <option value="draw" @(Model.Param.DailyBetListStatus == "draw" ? "selected='selected'" : string.Empty)>@ViewResources.Draw</option>
+            </select>
+            <label>@ViewResources.Status</label>
+        </div>
+
+        <div class="col l1 m2 s12 button-block">
+            <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+        </div>
+
+        <div class="col right icon-block">
+            <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+            <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel" @(Model.Param.CurrencyId == 0 ? "style=display:none" : string.Empty)></i>
+        </div>
+    </div>
+
+    <input type="hidden" name="LicenseeId" id="LicenseeId" value="@Model.Param.LicenseeId" />
+}

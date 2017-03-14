@@ -1,8 +1,8 @@
 ﻿define(
     ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option",
-        "lib/jqgrid/jquery.jqgrid.additional", "common/pluginhelper", "moment", "common/popup",
-        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "vendor-materialize", "extensions/jquery.extension", "lib/linq"],
-    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, PluginHelper, moment, Popup) {
+        "lib/jqgrid/jquery.jqgrid.additional", "components/pluginhelper/daterangepicker", "moment", "common/popup",
+        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq"],
+    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
 
@@ -15,17 +15,6 @@
         var _removeSorting = false;
         var _reportBy = null;
         var _submitData; // cache submit data of level 0.
-
-        function sortData(arrayData) {
-            var data = _sortOrder === "asc" ?
-                 Enumerable.From(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).ToArray()
-                 : Enumerable.From(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).ToArray();
-            for (var i = 0; i < data.length; i++) {
-                data[i].Index = i + 1;
-            }
-
-            return data;
-        }
 
         var _me = {
             getTotalRowCount: function () {
@@ -46,7 +35,7 @@
                             _sortColumnName = index;
                         }
 
-                        cacheData[_level].Data = sortData(cacheData[_level].Data);
+                        cacheData[_level].Data = _me.sortData(cacheData[_level].Data);
 
                         _me.bindData(_level, _reportBy, cacheData[_level]);
 
@@ -60,7 +49,18 @@
                     title: Site.getSingleResource("LicenseeWinLoss")
                 });
                 Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
-                PluginHelper.initDateRangePicker();
+                DatePicker.initDateRangePicker();
+            },
+
+            sortData: function (arrayData) {
+                var data = _sortOrder === "asc" ?
+                 Enumerable.From(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).ToArray()
+                 : Enumerable.From(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).ToArray();
+                for (var i = 0; i < data.length; i++) {
+                    data[i].Index = i + 1;
+                }
+
+                return data;
             },
 
             initSetting: function () {
@@ -337,7 +337,7 @@
             bindData: function (level, reportBy, response) {
                 jqGridAdditional.clearGrid("ReportGrid");
                 var numOfRow = response.Data.length;
-                if (response === null || numOfRow === 0) {
+                if (numOfRow === 0) {
                     jqGridAdditional.setNoInfo();
                     return;
                 }
@@ -404,20 +404,7 @@
                 reportGrid.jqGrid(gridOption);
 
                 if (!_removeSorting) {
-                    reportGrid.closest("div.ui-jqgrid-view")
-                        .find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
-                        .each(function (index, element) {
-                            var $this = $(element);
-                            $this.find("span.s-ico").remove();
-
-                            if (element.id.indexOf(_sortColumnName) > -1) {
-                                var sortClass = "sort-" + _sortOrder;
-                                var sortSpan = $("<span style='display: inline; margin: 2px 0px 0px 2px'></span");
-                                sortSpan.addClass(sortClass);
-                                $this.append(sortSpan);
-                                $this.addClass("sorted-heading");
-                            }
-                        });
+                    jqGridAdditional.addSortableHeader(reportGrid, _sortColumnName, _sortOrder);
                 }
 
                 LicenseeWinLossOption.setGroupHeaderColumns(reportGrid, productOptions);

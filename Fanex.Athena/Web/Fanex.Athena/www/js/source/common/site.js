@@ -160,7 +160,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                 });
             }
 
-            $("form").submit(function () {
+            $("form").on("submit", function () {
                 if (isValidRange() === false) {
                     showMessaegBox(errorMessage);
                     return false;
@@ -170,7 +170,10 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             });
         }
         function showMessaegBox(message) {
-            $('<div title="' + getSingleResource("LrfNotification") + '">' + message + '!</div>').dialog();
+            var title = getSingleResource("LrfNotification");
+            var dialogForm = '<div title="' + title + '"><p class="notification">' + message + '!</p></div>';
+
+            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
         }
         function getLicenseeId() {
             if (!_licenseeId) {
@@ -451,48 +454,24 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
 
         function createSortingIcon(sortHandler) {
             if ($("#RowCount").val() <= 1) {
-                $("#header-content .sort-heading").removeClass("sort-heading");
+                $("#header-content .sortable").removeClass("sort-heading");
             }
             else {
-                $("#header-content .sort-heading").each(function (index, element) {
-                    var headerDiv = $(element);
-                    var sortColumn = headerDiv.attr("data-column-name");
+                $("#header-content .sortable").each(function (index, element) {
+                    var $sortHeader = $(element).find(".sort-heading");
+                    var sortColumn = $sortHeader.attr("data-column-name");
                     if (sortColumn === $("#SortColumn").val()) {
-                        headerDiv.addClass("sorted-heading");
+                        $sortHeader.addClass("sorted-heading");
 
-                        var sortClass = $("#SortDirection").val() === "DESC" ? "sort-desc" : "sort-asc";
-                        var sortSpan = $("<span></span");
+                        var sortClass = $("#SortDirection").val() === "DESC" ? "sort-icon-desc" : "sort-icon-asc";
+                        var sortSpan = $("<span class='sort-icon'></span>");
                         sortSpan.addClass(sortClass);
-                        var left = 0;
-                        var top = 0;
-                        if (headerDiv.hasClass("row2")) {
-                            top = (headerDiv.height() - sortSpan.height()) / 2;
-                            sortSpan.css({
-                                top: top,
-                                right: 0
-                            });
-                        }
-                        else if ($(".grid-header-two-line", headerDiv).length > 0) {
-                            left = (headerDiv.width() - sortSpan.width()) / 2;
-                            sortSpan.css({
-                                top: 19,
-                                right: 0
-                            });
-                        }
-                        else {
-                            left = (headerDiv.width() - sortSpan.width()) / 2 + 35;
-                            sortSpan.css({
-                                top: 19,
-                                right: 0
-                            });
-                        }
-
-                        sortSpan.appendTo(headerDiv);
+                        sortSpan.appendTo($sortHeader);
                     }
 
                     $(element).click(function () {
-                        sortReport($(element).attr("data-column-name"));
-                        sortHandler($(element).attr("data-column-name"));
+                        sortReport($sortHeader.attr("data-column-name"));
+                        sortHandler($sortHeader.attr("data-column-name"));
                     });
                 });
             }

@@ -1,0 +1,12 @@
+﻿@model IList<Fanex.Athena.Model.Report.ViewModel.SettledMatchCountViewModel>
+
+@foreach (Fanex.Athena.Model.Report.ViewModel.SettledMatchCountViewModel item in Model)
+{
+    <tr>
+        <td class="left-align">@item.SportName</td>
+        <td class="right-align">@item.YesterdayEntered</td>
+        <td class="right-align">@item.YesterdayNonEntered</td>
+        <td class="right-align">@item.TodayEntered</td>
+        <td class="right-align">@item.TodayNonEntered</td>
+    </tr>
+}

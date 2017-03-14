@@ -18,9 +18,10 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                 var gridTop = $bdiv.offset().top;
                 var pagingHeight = $(".paging:visible").length ? $(".paging:visible").height() : 0;
                 var footerHeight = $(".ui-jqgrid-sdiv:visible").length ? $(".ui-jqgrid-sdiv:visible").height() : 0;
+                var jqgridPagerHeight = $(".ui-jqgrid-pager:visible").length ? $(".ui-jqgrid-pager:visible").outerHeight(true) : 0;
                 var footerSite = 18;
 
-                var gridHeight = window.innerHeight - gridTop - footerHeight - $(".ui-jqgrid-pager:visible").outerHeight(true) - pagingHeight - footerSite - 15;
+                var gridHeight = window.innerHeight - gridTop - footerHeight - jqgridPagerHeight - pagingHeight - footerSite - 15;
                 gridHeight = Math.max(120, gridHeight);
 
                 $bdiv.css("max-height", gridHeight);
@@ -53,11 +54,6 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
             },
 
             formatInteger: function (value) {
-                /// <summary>
-                ///
-                /// </summary>
-                /// <param name="value"></param>
-                /// <returns type=""></returns>
                 if (value !== undefined && value !== null) {
                     if (value === "NaN") {
                         return "NaN";
@@ -93,13 +89,6 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
             },
 
             excludeCol: function (colName, colModel, excludedCol) {
-                /// <summary>
-                ///
-                /// </summary>
-                /// <param name="colName"></param>
-                /// <param name="colModel"></param>
-                /// <param name="excludedCol"></param>
-                /// <returns type=""></returns>
                 var result =
                 {
                     colName: [],
@@ -169,13 +158,7 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
             },
 
             clearGrid: function (reportId) {
-                /// <summary>
-                /// clear grid
-                /// </summary>
-                /// <param name="grid">ReportGrid</param>
-                /// <param name="pagingElement">ex:ppdata</param>
                 $('#' + reportId).jqGrid('GridUnload');
-                //clear all width attribute
                 $("div.theme_jqGrid > div").css('width', '');
             },
 
@@ -210,11 +193,6 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
             },
 
             assignTotal: function (totalData, columnModel) {
-                /// <summary>
-                /// assing total rows
-                /// </summary>
-                /// <param name="totalData">total row</param>
-                /// <param name="columnModel">the model</param>
                 var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
 
                 if (mainFooter.length >= 0) {
@@ -250,13 +228,6 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
             },
 
             setFooterColumns: function (param, columnNames) {
-                /// <summary>
-                /// 1.Show/Hide
-                /// 2......
-                /// </summary>
-                /// <param name="param"></param>
-                /// <param name="columnNames"></param>
-                //#region Show-Hide
                 var isShow = "showCol" === param;
                 var footers = $("table.ui-jqgrid-ftable tr");
                 if (isShow) {
@@ -269,7 +240,6 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                         $('td[aria-describedby="' + value + '"]', footers).hide();
                     });
                 }
-                //#endregion
             },
 
             setNoInfo: function (message) {
@@ -375,6 +345,23 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                         footerTable.parent().parent().addClass("jqgrid-footer-scroll-hacking");
                     }
                 }
+            },
+
+            addSortableHeader: function ($grid, sortColumn, sortOrder, isLightText) {
+                $grid.closest(".ui-jqgrid-view")
+                        .find(".ui-jqgrid-sortable")
+                        .each(function (index, element) {
+                            var $this = $(element);
+                            $this.find(".s-ico").remove();
+
+                            if (element.id.indexOf(sortColumn) > -1) {
+                                var sortClass = "sort-icon-" + sortOrder + (isLightText ? " light" : "");
+                                var sortSpan = $("<span class='sort-icon'></span>");
+                                sortSpan.addClass(sortClass);
+                                $this.append(sortSpan);
+                                $this.addClass("sortable sort-heading sorted-heading");
+                            }
+                        });
             }
         };
     })();

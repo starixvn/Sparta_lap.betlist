@@ -26,11 +26,6 @@ namespace Fanex.Athena.Extension.Utility
             get { return GetValue("Environment"); }
         }
 
-        public bool IsEnablePiwik
-        {
-            get { return GetValue("IsEnablePiwik") == "1"; }
-        }
-
         public DateTime? MoveBetDayStart
         {
             get

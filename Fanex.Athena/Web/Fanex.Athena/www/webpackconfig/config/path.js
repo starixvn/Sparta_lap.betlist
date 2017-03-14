@@ -27,7 +27,15 @@ var cssPaths = {
     ahforecast: ["./www/css/source/pages/forecast/forecast.ah.scss"],
     mixparlay: ["./www/css/source/pages/totalbet/mixparlay.scss"],
     forecastonextwo: ["./www/css/source/pages/forecast/forecastonextwo.scss"],
-    newforecast: ["./www/css/source/pages/forecast/newforecast.scss"]
+    newforecast: ["./www/css/source/pages/forecast/newforecast.scss"],
+
+    betlistdaily: ["./www/css/source/pages/betlist/betlistdaily.scss"],
+    settledmatchcount: ["./www/css/source/pages/report/settledmatchcount.scss"],
+    balance: ["./www/css/source/pages/report/balance.scss"],
+    weeklylivematch: ["./www/css/source/pages/report/weeklylivematch.scss"],
+    racingcommission: ["./www/css/source/pages/report/racingcommission.scss"],
+    turnover: ["./www/css/source/pages/report/turnover.scss"],
+    result: ["./www/css/source/pages/report/result.scss"]
 };
 
 var scriptPaths = {
@@ -45,6 +53,8 @@ var scriptPaths = {
     betlistrunning: "./www/js/source/pages/betlist/main-betlistrunning.js",
     betlistrunningmultiplebettypes: "./www/js/source/pages/betlist/main-betlistrunning.multiplebettypes.js",
     betlistcorrectscore: "./www/js/source/pages/betlist/main-betlistcorrectscore.js",
+    betlistcancelledbets: "./www/js/source/pages/betlist/main-betlistcancelledbets.js",
+    betlistdaily: "./www/js/source/pages/betlist/main-betlistdaily.js",
 
     handicapoverunder: "./www/js/source/pages/totalbet/handicapoverunder/main.js",
     ahforecast: "./www/js/source/pages/forecast/forecast.ah.main.js",
@@ -57,7 +67,14 @@ var scriptPaths = {
     homedrawawaynobet: "./www/js/source/pages/totalbet/homedrawawaynobet/main.js",
     forecastonextwo: "./www/js/source/pages/forecast/forecast.onextwo.main.js",
     forecasthdpou: "./www/js/source/pages/forecast/forecast.handicapoverunder.main.js",
-    newforecasthdpou: "./www/js/source/pages/forecast/forecast.newforecasthdpou.main.js"
+    newforecasthdpou: "./www/js/source/pages/forecast/forecast.newforecasthdpou.main.js",
+
+    settledmatchcount: "./www/js/source/pages/report/settledmatchcount/main-settledmatchcount.js",
+    balance: "./www/js/source/pages/report/balance/main-balance.js",
+    weeklylivematch: "./www/js/source/pages/report/weeklylivematch/main-weeklylivematch.js",
+    racingcommission: "./www/js/source/pages/report/racingcommission/main-racingcommission.js",
+    turnover: "./www/js/source/pages/report/turnover/main.js",
+    result: "./www/js/source/pages/report/result/main-result.js"
 };
 
 module.exports = {

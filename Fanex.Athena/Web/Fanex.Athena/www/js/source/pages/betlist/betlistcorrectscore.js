@@ -1,7 +1,7 @@
 ﻿"use strict";
 define(
-    ['jquery', 'common/site', 'common/querystring', './betlist'],
-    function ($, Site, QueryString, BetList) {
+    ['jquery', 'common/site', './betlist'],
+    function ($, Site, BetList) {
         var _me = {
             initialize: function () {
                 _me.initEvent();
@@ -19,6 +19,14 @@ define(
 
                 $('#ExportToExcel').click(function () {
                     $('#CorrectScoreBetListForm').submit();
+                });
+
+                $(window).on("resize", function () {
+                    BetList.resizeGrid();
+                });
+
+                $(window).on("unload", function () {
+                    $(window).off("resize");
                 });
             },
 

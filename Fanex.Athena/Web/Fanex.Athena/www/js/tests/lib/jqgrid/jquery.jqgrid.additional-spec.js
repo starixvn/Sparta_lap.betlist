@@ -166,6 +166,44 @@
 	                expect($("table.ui-jqgrid-htable td:first").text()).toBe('NoInfo');
 	            });
 	        });
+
+	        describe("addSortableHeader($grid, sortColumn, sortOrder, isLightText)", function () {
+	            beforeEach(function () {
+	                setFixtures('<div id="grid" class="ui-jqgrid-view">' +
+                        '<table><tr><th><div id="Grid_Date" class="ui-jqgrid-sortable"><span class="s-ico"></span></div></th>' +
+                        '<th><div id="Grid_SystemId" class="ui-jqgrid-sortable"><span class="s-ico"></span></div></th>' +
+                        '</tr></table></div>');
+	            });
+
+	            it("'.s-ico' should be removed", function () {
+	                jqGridAdditional.addSortableHeader($("#grid"), "Date", "asc");
+	                var result = $(".s-ico").length;
+
+	                expect(result).toBe(0);
+	            });
+
+	            it("Date column should has correct child element when sorting on it", function () {
+	                jqGridAdditional.addSortableHeader($("#grid"), "Date", "desc");
+	                var result = $("#Grid_Date").html();
+
+	                expect(result).toBe('<span class="sort-icon sort-icon-desc"></span>');
+	            });
+
+	            it("Date column should has correct child element with light text when sorting on it", function () {
+	                jqGridAdditional.addSortableHeader($("#grid"), "Date", "desc", true);
+	                var result = $("#Grid_Date").html();
+
+	                expect(result).toBe('<span class="sort-icon sort-icon-desc light"></span>');
+	            });
+
+	            it("SystemId column should has correct class name when sorting on it", function () {
+	                jqGridAdditional.addSortableHeader($("#grid"), "SystemId", "asc");
+	                var $column = $("#Grid_SystemId");
+	                var result = $column.hasClass("sortable") || $column.hasClass("sort-heading") || $column.hasClass("sorted-heading");
+
+	                expect(result).toBe(true);
+	            });
+	        });
 	    });
 	}
 );
