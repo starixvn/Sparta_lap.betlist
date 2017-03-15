@@ -5,7 +5,7 @@
 
 <nav class="nav-wrapper">
     <a href="javascript:;" class="logo">
-        <span class="logo-text hide-on-med-and-down"><img src="@Url.Content("~/www/assets/images/logo-text.svg")" /></span>
+        <span class="logo-text hide-on-med-and-down"><img src="@Url.ContentLink("~/www/assets/images/logo-text.svg")" /></span>
         <span class="icon-hambuger toggleMenubar" id="js-toggleMenubar" data-activates="nav-mobile">
             <span class="lines"></span>
         </span>
@@ -17,7 +17,7 @@
         {
             <div class="navbar-avatar">
                 <a class="dropdown-button" href="javascript:void(0)" data-activates="profile">
-                    <img class="avatar" src="@Url.Content("~/www/assets/images/15.jpg")" alt="@Html.Encode(Model.UserName)">
+                    <img class="avatar" src="@Url.ContentLink("~/www/assets/images/15.jpg")" alt="@Html.Encode(Model.UserName)">
                     <span class="name hide-on-med-and-down">@Html.Encode(Model.UserName)</span>
                     <i class="icon icon-menu-down" aria-hidden="true"></i>
                 </a>

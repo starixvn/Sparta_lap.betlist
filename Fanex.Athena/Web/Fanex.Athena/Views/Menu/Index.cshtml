@@ -72,7 +72,7 @@
                                         url="@Url.Content("~/" + subFunction.Url)" href="@Url.Content("~/" + subFunction.Url)" target="main">@Html.Raw(subFunction.Name)</a>
                                     @if (subFunction.IsNew)
                                     {
-                                        <img src="@Url.Content("~/Content/Global/images/new_icon.gif")" alt='NEW' title='NEW' class='new_icon' />
+                                        <img src="@Url.ContentLink("~/Content/Global/images/new_icon.gif")" alt='NEW' title='NEW' class='new_icon' />
                                     }
                                 </td>
                             </tr>
