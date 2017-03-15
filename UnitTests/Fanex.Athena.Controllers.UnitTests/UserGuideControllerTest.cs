@@ -4,14 +4,18 @@
     using Base.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Common.Interfaces;
 
     [TestFixture]
     public partial class UserGuideControllerTest : BaseControllerTest
     {
+        private IProductService _productService;
+
         [OneTimeSetUp]
         public new void FixtureSetUp()
         {
             FakeBaseControllerDependency();
+            _productService = Substitute.For<IProductService>();
         }
 
         [Test]
@@ -52,7 +56,8 @@
             var controller = Substitute.ForPartsOf<UserGuideController>(
                 LangService,
                 SessionService,
-                AppSettings);
+                AppSettings,
+                _productService);
 
             controller.ControllerContext = this.ControllerContext;
 
