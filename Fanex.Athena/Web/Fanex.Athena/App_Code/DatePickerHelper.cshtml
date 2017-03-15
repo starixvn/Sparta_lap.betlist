@@ -34,7 +34,7 @@
                 
                 dateRangePicker = $('#FromDate, #ToDate').daterangepicker({
                     today: '@(today.ToString("MMM d yyyy"))',
-                    buttonImage: '@url.ContentLink("~/Content/Library/start/images/calendar.png")',
+                    buttonImage: '@url.ContentLink("/Content/Library/start/images/calendar.png")',
                     datepickerOptions: {
                         showOtherMonths: true,
                         changeMonth: true,
@@ -71,7 +71,7 @@
                
                 $("#@(id)").datepicker({
                     showOn: "both",
-                    buttonImage: '@url.ContentLink("~/Content/Library/start/images/calendar.png")',
+                    buttonImage: '@url.ContentLink("/Content/Library/start/images/calendar.png")',
                     buttonText: "Show Date Picker",
                     buttonImageOnly: true,
                     showOtherMonths: true,
