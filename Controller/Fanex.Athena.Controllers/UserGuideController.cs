@@ -7,10 +7,12 @@
 namespace Fanex.Athena.Controllers
 {
     using System.IO;
+    using System.Linq;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
+    using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
 
@@ -18,16 +20,26 @@ namespace Fanex.Athena.Controllers
     {
         private const string CustomerListResourceName = "CustomerList";
 
+        private static readonly int[] CasinoProducts = new int[]
+        {
+            ProductTypes.MicroGamingLiveCasino, ProductTypes.MicrogamingRNGCasino, ProductTypes.AllBet, ProductTypes.RngCasino, ProductTypes.Macau
+        };
+
+        private readonly IProductService _productService;
+
         public UserGuideController()
         {
+            _productService = new ProductService();
         }
 
         public UserGuideController(
             ILanguageService languageService,
             ISessionService sessionService,
-            IAppSettings appSetting)
+            IAppSettings appSetting,
+            IProductService productService)
             : base(languageService, sessionService, appSetting)
         {
+            _productService = productService;
         }
 
         [AjaxRequest]
@@ -37,6 +49,10 @@ namespace Fanex.Athena.Controllers
             if (resourceName.Equals(CustomerListResourceName, System.StringComparison.OrdinalIgnoreCase))
             {
                 content = content.Replace("{rooturl}", Url.Content("~"));
+            }
+            else
+            {
+                content = AddCasinoProductList(content);
             }
 
             return View("~/Views/UserGuide/Index.cshtml", null, content);
@@ -73,6 +89,18 @@ namespace Fanex.Athena.Controllers
             {
                 return reader.ReadToEnd();
             }
+        }
+
+        private string AddCasinoProductList(string content)
+        {
+            if (content.Contains("{casino-productlist}"))
+            {
+                var products = _productService.GetProductList(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+                var casinoProducts = products.Where(x => CasinoProducts.Contains(x.ProductID)).Select(x => x.ProductName);
+                content = content.Replace("{casino-productlist}", string.Join<string>(", ", casinoProducts));
+            }
+
+            return content;
         }
     }
 }
