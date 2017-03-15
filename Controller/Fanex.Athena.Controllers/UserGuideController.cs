@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers
 {
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
@@ -22,7 +23,7 @@ namespace Fanex.Athena.Controllers
 
         private static readonly int[] CasinoProducts = new int[]
         {
-            ProductTypes.MicroGamingLiveCasino, ProductTypes.MicrogamingRNGCasino, ProductTypes.AllBet, ProductTypes.RngCasino, ProductTypes.Macau
+            ProductTypes.MicroGamingLiveCasino, ProductTypes.MicrogamingRNGCasino, ProductTypes.AllBet, ProductTypes.RngCasino, ProductTypes.Voidbridge
         };
 
         private readonly IProductService _productService;
@@ -97,7 +98,16 @@ namespace Fanex.Athena.Controllers
             {
                 var products = _productService.GetProductList(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
                 var casinoProducts = products.Where(x => CasinoProducts.Contains(x.ProductID)).Select(x => x.ProductName);
-                content = content.Replace("{casino-productlist}", string.Join<string>(", ", casinoProducts));
+                if (casinoProducts.Any())
+                {
+                    content = content.Replace("{casino-productlist}", string.Join<string>(", ", casinoProducts));
+                    content = content.Replace("{casino-productlist-section}", string.Empty);
+                    content = content.Replace("{/casino-productlist-section}", string.Empty);
+                }
+                else
+                {
+                    content = new Regex(@"\{casino-productlist-section\}.*\{/casino-productlist-section\}").Replace(content, string.Empty);
+                }
             }
 
             return content;
