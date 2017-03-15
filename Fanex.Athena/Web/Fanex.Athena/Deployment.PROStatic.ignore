@@ -1,0 +1,11 @@
+FanexSpName.LOCAL.xml
+FanexSpName.PRO.xml
+FanexSpName.SANDBOX.xml
+FanexSpName.UAT.xml
+\\www\\js\\source
+\\www\\js\\tests
+\\www\\css\\source
+\\www\\webpackconfig
+\\SiteConfig
+\\Jasmine
+\\jasmine-specs
