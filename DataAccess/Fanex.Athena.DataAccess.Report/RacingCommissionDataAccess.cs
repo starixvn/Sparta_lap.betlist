@@ -40,7 +40,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {

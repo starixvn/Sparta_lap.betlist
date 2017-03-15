@@ -46,7 +46,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -87,7 +87,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("eventdate", DbType.DateTime, dateValue);
                     db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
@@ -130,7 +130,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -168,7 +168,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -201,7 +201,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -242,7 +242,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -292,7 +292,7 @@ namespace Fanex.Athena.DataAccess.Report
             };
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -379,7 +379,7 @@ namespace Fanex.Athena.DataAccess.Report
             };
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -414,7 +414,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
@@ -450,7 +450,7 @@ namespace Fanex.Athena.DataAccess.Report
         [System.CLSCompliant(false)]
         public Sportsbook GetSportsbookGameDetail(int matchId)
         {
-            using (var db = new ObjectDb("Lrf_Result_MatchSelByLeague_Detail"))
+            using (var db = this.GetObjectDb("Lrf_Result_MatchSelByLeague_Detail"))
             {
                 db.AddInParameter("matchid", DbType.Int32, matchId);
                 using (var reader = db.ExecuteReader())
