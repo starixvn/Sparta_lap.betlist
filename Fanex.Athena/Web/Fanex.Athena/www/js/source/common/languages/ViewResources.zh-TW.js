@@ -1,4 +1,4 @@
-﻿// Generated at: 12/6/2016 9:59:00 AM
+﻿// Generated at: 3/15/2017 10:59:12 AM
 window._language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -159,6 +159,7 @@ DailyRacingTitle:"每日賽馬賽事輸贏於{1} - {2}",
 DailyRacingWinLoss:"每日賽事佣金",
 DailyStatement:"每日賬目",
 DailyStatementMsg:"Support data up to 4 months only",
+DataAreAvailableUpToYesterday:"在每天3:30AM(GMT-4) 過後，報告會顯示前一天的數據",
 DataWareHouse:"數據倉庫技術",
 Date:"日期",
 DateRange:"日期範圍",

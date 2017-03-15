@@ -1,4 +1,4 @@
-﻿// Generated at: 12/6/2016 9:59:00 AM
+﻿// Generated at: 3/15/2017 10:59:12 AM
 window._language_zh_CN = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -159,6 +159,7 @@ DailyRacingTitle:"每日赛马赛事输赢于{1} - {2}",
 DailyRacingWinLoss:"每日赛事佣金",
 DailyStatement:"每日账目",
 DailyStatementMsg:"Support data up to 4 months only",
+DataAreAvailableUpToYesterday:"在每天3:30 AM（GMT-4）过后，报告会显示前一天的数据",
 DataWareHouse:"数据仓库技术",
 Date:"日期",
 DateRange:"日期范围",
