@@ -1,8 +1,6 @@
 ﻿@using System.Web.Mvc;
 @using Fanex.Athena.Extension.Helper;
-@using Fanex.Athena.Model.Core.DTO.Common
 @using Fanex.Athena.Model.Core.MetaModel.Product;
-@using Fanex.Athena.Web.HtmlExtension;
 @using Fanex.Athena.Model.Core.DataDomain;
 @using Fanex.Athena.Resources;
 
@@ -42,7 +40,7 @@
     </div>
 }
 
-@helper CurrencyList(IDictionary<string, int> currencyList,
+@helper CurrencyList(IDictionary<int, string> currencyList,
 string className = "", int selected = 0,
 bool addMoreAllOption = true,
 bool addBasedOption = false)
