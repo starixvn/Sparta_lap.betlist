@@ -109,7 +109,7 @@
 
             describe("viewBetlist(bettype)", function () {
                 beforeAll(function () {
-                    setFixtures('<div id="forecast-table" data-match-id="1" data-basecurrency="USD" data-licenseetype="2" data-currencyid="20" data-currencyname="UUS"></div>');
+                    setFixtures('<div id="forecast-table" data-match-id="1" data-basecurrency="USD" data-currencyid="20" data-currencyname="UUS"></div>');
                     spyOn(ForecastAh, "initEvent");
                     ForecastAh.initialize();
                 });
@@ -118,8 +118,8 @@
 
                     ForecastAh.viewBetlist(123);
 
-                    expect(Popup.updateCurrentPopup).toHaveBeenCalledWith("RunningMatchBetList/Index?matchid=1&bettype=123&basecurrency=USD&currencyid=20&currencyname=UUS&licenseetype=2",
-                        ({ width: 960, height: 200, title: 'BetList' }));
+                    expect(Popup.updateCurrentPopup).toHaveBeenCalledWith("RunningMatchBetList/Index?matchid=1&bettype=123&basecurrency=USD&currencyid=20&currencyname=UUS",
+                        { width: 960, height: 200, title: 'BetList' });
                 });
             });
 

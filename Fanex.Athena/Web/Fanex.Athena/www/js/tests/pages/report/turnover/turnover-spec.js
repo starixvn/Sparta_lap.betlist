@@ -227,19 +227,19 @@
                     });
 
                     it("Ajax option should be correct", function (done) {
-                        jasmine.Ajax.stubRequest(/.*CustomerAPI\/SearchCustomer\?licenseeType\=\&currencyId\=0\&query=a.*/);
+                        jasmine.Ajax.stubRequest(/.*CustomerAPI\/SearchCustomer\?query=a.*/);
                         option.getData(value, callback);
                         request = jasmine.Ajax.requests.mostRecent();
                         setTimeout(done, 10);
 
-                        var url = "CustomerAPI/SearchCustomer?licenseeType=&currencyId=0&query=a";
+                        var url = "CustomerAPI/SearchCustomer?query=a";
                         expect(request.method).toBe("GET");
                         expect(request.url.indexOf(url) > -1).toBe(true);
                     });
 
                     it("callback function should be called with correct parameter", function (done) {
                         jasmine.Ajax
-                        .stubRequest(/.*CustomerAPI\/SearchCustomer\?licenseeType\=\&currencyId\=0\&query=a.*/)
+                        .stubRequest(/.*CustomerAPI\/SearchCustomer\?query=a.*/)
                         .andReturn({
                             'status': 200,
                             'contentType': 'application/json',
@@ -252,9 +252,9 @@
                         expect(callback).toHaveBeenCalledWith("a", [{ id: "abc", text: "abc" }, { id: "asd", text: "asd" }]);
                     });
 
-                    it("callback function should be called with correct parameter", function (done) {
+                    it("callback function should not be called when data response is null", function (done) {
                         jasmine.Ajax
-                        .stubRequest(/.*CustomerAPI\/SearchCustomer\?licenseeType\=\&currencyId\=0\&query=a.*/)
+                        .stubRequest(/.*CustomerAPI\/SearchCustomer\?query=a.*/)
                         .andReturn({
                             'status': 200,
                             'contentType': 'application/json',

@@ -17,15 +17,6 @@
                 @RazorHelperDesktop.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, Model.Param.BalanceUpDay, DateTime.Today)
             </div>
 
-            @*// ----------------------------Type of licensee---------------------------//*@
-            @if (Model.Param.LicenseeId == 1)
-            {
-                <div class="col l2 m2 s12 input-field">
-                    @RazorHelperDesktop.LicenseeType(Model.LicenseeTypeList, "select", Model.Param.LicenseeType)
-                    <label>@ViewResources.Type</label>
-                </div>
-            }
-
             @*// -----------------------------Currency-----------------------------------//*@
             <div class="col l2 m2 s12 input-field">
                 @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)

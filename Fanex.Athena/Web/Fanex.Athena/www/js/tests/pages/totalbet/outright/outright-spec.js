@@ -4,7 +4,7 @@
             describe("initialize()", function () {
                 beforeEach(function () {
                     spyOn(Site, "initialize");
-                    spyOn(Site, "getSingleResource").and.callFake(function (name) { return name });
+                    spyOn(Site, "getSingleResource").and.callFake(function (name) { return name; });
                     spyOn(Site, "addUserGuide");
                     spyOn(Totalbets, "initialize");
                     spyOn(Outright, "initEvent");

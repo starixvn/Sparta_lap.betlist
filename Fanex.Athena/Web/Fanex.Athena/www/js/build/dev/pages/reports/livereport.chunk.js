@@ -16367,8 +16367,8 @@ webpackJsonp([40],[
 	            var productCode = $(target).attr("data-product-code");
 	            var data = {
 	                productCode: productCode,
-	                FromDate: $("#FromDate").attr('data-original-from').toString("MM/dd/yyyy"),
-	                ToDate: $("#ToDate").attr('data-original-to').toString("MM/dd/yyyy"),
+	                FromDate: $("#FromDate").attr('data-original-from'),
+	                ToDate: $("#ToDate").attr('data-original-to'),
 	                BaseCurrency: $("#BaseCurrency").attr('data-original'),
 	                LiveIndicator: $("#LiveIndicator").attr('data-original')
 	            };

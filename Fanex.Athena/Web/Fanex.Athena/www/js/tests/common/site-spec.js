@@ -28,40 +28,37 @@
 
         describe("setLicenseeOptionParam(urlOrParams)", function () {
             beforeEach(function () {
-                setFixtures('<input id="LicenseeType" value="1" />');
-                appendSetFixtures('<select id="CurrencyId"><option value="1" /><option value="2" /></select>');
-                appendSetFixtures('<input id="BaseCurrency" value="USD" />');
+                setFixtures('<select id="CurrencyId"><option value="1" /><option value="2" /></select> <input id="BaseCurrency" value="USD" />');
             });
 
             it("return an url with query string if 'urlOrParams' is a string", function () {
                 var result = Site.setLicenseeOptionParam("localhost");
-                expect(result).toBe("localhost?licenseetype=1&currencyid=1&currencyname=&basecurrency=USD");
+                expect(result).toBe("localhost?currencyid=1&currencyname=&basecurrency=USD");
             });
 
             it("return an object with query string if 'urlOrParams' is an object", function () {
                 var result = Site.setLicenseeOptionParam({});
-                expect(result).toEqual({ LicenseeType: '1', CurrencyId: '1', CurrencyName: '', BaseCurrency: 'USD' });
+                expect(result).toEqual({ CurrencyId: '1', CurrencyName: '', BaseCurrency: 'USD' });
             });
         });
 
         describe("setLicenseeOptionOriginalParam(urlOrParams)", function () {
             it("build an url from 'data-original' attributes of html tags", function () {
-                setFixtures('<input id="LicenseeType" data-original="1" />');
-                appendSetFixtures('<select id="CurrencyId" data-original="2" />');
-                appendSetFixtures('<input id="BaseCurrency" data-original="USD" />');
+                setFixtures('<select id="CurrencyId" data-original="2" /> <input id="BaseCurrency" data-original="USD" />');
 
                 var result = Site.setLicenseeOptionOriginalParam("localhost");
-                expect(result).toBe("localhost?licenseetype=1&currencyid=2&currencyname=&basecurrency=USD");
+                expect(result).toBe("localhost?currencyid=2&currencyname=&basecurrency=USD");
             });
         });
 
         describe("updateOriginalLicenseeOption()", function () {
             it("update values of html tags to 'data-original' attributes", function () {
-                setFixtures('<input id="LicenseeType" value="1">');
-                appendSetFixtures('<input id="BaseCurrency" value="USD">');
+                setFixtures('<input id="CurrencyId" value="1"> <input id="BaseCurrency" value="USD"> <input id="CurrencyName" value="USD">');
                 Site.updateOriginalLicenseeOption();
-                var result = $("#LicenseeType").attr("data-original") === "1" && $("#BaseCurrency").attr("data-original") === "USD";
-                expect(result).toBe(true);
+
+                expect($("#CurrencyId").attr("data-original")).toBe("1");
+                expect($("#BaseCurrency").attr("data-original")).toBe("USD");
+                expect($("#CurrencyName").attr("data-original")).toBe("USD");
             });
         });
 

@@ -84,19 +84,17 @@
 
                     ForecastOneXTwo.openForecast(123, 456);
 
-                    expect(Site.redirect).toHaveBeenCalledWith("RunningMatchBetList/Index?licenseetype=&currencyname=&matchid=123&bettype=456");
+                    expect(Site.redirect).toHaveBeenCalledWith("RunningMatchBetList/Index?currencyname=&matchid=123&bettype=456");
                 });
             });
 
             describe("getBetListUrl(url, matchId, betType)", function () {
                 it("Popup.updateCurrentPopup() should be called with correct params if it is a popup.", function () {
-                    setFixtures('<input type="text" id="LicenseeType-Hidden" value="1" />');
-                    appendSetFixtures('<input type="text" id="CurrencyId-Hidden" value="2" />');
-                    appendSetFixtures('<input type="text" id="BaseCurrency-Hidden" value="3" />');
+                    setFixtures('<input type="text" id="CurrencyId-Hidden" value="2" /> <input type="text" id="BaseCurrency-Hidden" value="3" />');
 
                     var url = ForecastOneXTwo.getBetListUrl("localhost", 123, 456);
 
-                    expect(url).toBe("localhost?licenseetype=1&currencyid=2&basecurrency=3&matchid=123&bettype=456");
+                    expect(url).toBe("localhost?currencyid=2&basecurrency=3&matchid=123&bettype=456");
                 });
             });
 

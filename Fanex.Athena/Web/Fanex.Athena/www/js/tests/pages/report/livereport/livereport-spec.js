@@ -78,7 +78,7 @@
 
                 setTimeout(done, 10);
                 expect(request.url).toBe('LiveReport/Detail');
-                expect(request.params).toBe('FromDate=1%2F1%2F2016&ToDate=2%2F2%2F2016&LicenseeType=&CurrencyName=');
+                expect(request.params).toBe('FromDate=1%2F1%2F2016&ToDate=2%2F2%2F2016&CurrencyName=');
             });
         });
 
@@ -88,7 +88,7 @@
                 setFixtures("<a class='sport-detailt-link' data-drill-down='{\"SportId\":1}'></a>");
                 LiveReport.initialize();
                 $('.sport-detailt-link').click();
-                expect(Site.redirect).toHaveBeenCalledWith('LiveReport/MatchList?licenseetype=&currencyname=&sportid=1&showsb=true&showba=false');
+                expect(Site.redirect).toHaveBeenCalledWith('LiveReport/MatchList?currencyname=&sportid=1&showsb=true&showba=false');
             });
 
             it("Site.redirect() is called with correct url when clicking on sportid = 161", function () {
@@ -99,7 +99,7 @@
                 setFixtures("<a class='sport-detailt-link' data-drill-down='{\"SportId\":161}'></a>");
                 LiveReport.initialize();
                 $('.sport-detailt-link').click();
-                expect(Site.redirect).toHaveBeenCalledWith('LiveReportBetList/NumberGame?licenseetype=&currencyname=&showsb=false&showba=false');
+                expect(Site.redirect).toHaveBeenCalledWith('LiveReportBetList/NumberGame?currencyname=&showsb=false&showba=false');
             });
         });
     });

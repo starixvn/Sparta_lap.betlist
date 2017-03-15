@@ -15,13 +15,6 @@
         <div class="row">
             @RazorHelperDesktop.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
 
-            @if (Model.LicenseeTypeList.Count > 0)
-            {
-                <div class="input-field col l2 m3 s12">
-                    @RazorHelperDesktop.LicenseeType(Model.LicenseeTypeList, "select", Model.Param.LicenseeType, true)
-                    <label>@ViewResources.Type</label>
-                </div>
-            }
             <div class="input-field col l2 m3 s12">
                 @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "currency", Model.Param.CurrencyId, false, true)
                 <label>@ViewResources.Currency</label>
