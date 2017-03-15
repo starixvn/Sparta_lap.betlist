@@ -834,6 +834,11 @@
     <Content Include="www\css\source\components\list\_list.scss" />
     <Content Include="www\css\source\components\daterangepicker\_singledatepicker.scss" />
     <Content Include="www\css\source\components\popupnotification\_popupnotification.scss" />
+    <Content Include="Deployment.PROStatic.ignore" />
+    <None Include="SiteConfig\Web.AppSettings.PROStatic.config" />
+    <None Include="SiteConfig\Web.ConnectionStrings.PROStatic.config" />
+    <None Include="SiteConfig\Web.PROStatic.config" />
+    <Content Include="SiteConfig\WebConfigTransforms\PROStatic.config" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
