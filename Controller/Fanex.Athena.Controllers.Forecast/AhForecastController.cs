@@ -3,9 +3,6 @@
 // Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Bravo.Tran" date="2013.08.13">Created</change>
-// </history>
 
 namespace Fanex.Athena.Controllers.Forecast
 {

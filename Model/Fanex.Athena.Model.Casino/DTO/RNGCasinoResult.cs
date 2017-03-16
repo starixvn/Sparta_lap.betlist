@@ -3,10 +3,6 @@
 // Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Bravo.Tran" date="2013.7.11">Created</change>
-// </history>
-// ----------------------------------------------------------------------
 
 namespace Fanex.Athena.Model.Casino.DTO
 {

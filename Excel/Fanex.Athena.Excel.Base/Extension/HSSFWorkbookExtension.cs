@@ -1,10 +1,8 @@
-﻿// <copyright file="HSSFWorkbookExtension.cs" company="" >
+﻿// --------------------------------------------------------------------------
+// <copyright file="HSSFWorkbookExtension.cs" company="" >
 //  Copyright (c) . All rights reserved.
 // </copyright>
-//
-// <history>
-//  <change who="jacob.phan" date="2012.5.8">Created</change>
-// </history>
+// --------------------------------------------------------------------------
 
 namespace Fanex.Athena.Excel.Base.Extension
 {

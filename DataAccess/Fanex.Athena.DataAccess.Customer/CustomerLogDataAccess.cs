@@ -3,10 +3,6 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-// <history>
-//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
-// </history>
-// -----------------------------------------------------------------------
 
 namespace Fanex.Athena.DataAccess.Customer
 {
@@ -17,7 +13,6 @@ namespace Fanex.Athena.DataAccess.Customer
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
-    using Fanex.Data;
 
     /// <summary>
     /// Customer log.
@@ -52,7 +47,7 @@ namespace Fanex.Athena.DataAccess.Customer
         public IList<CustomerLog> GetGroupCommList(CustomerLogMetaModel metaModel)
         {
             const string SpName = "Lrf_GroupCommLog_Sel";
-           
+
             using (var db = this.GetObjectDb(SpName))
             {
                 db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);

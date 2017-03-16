@@ -3,10 +3,6 @@
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
-// <history>
-//  <change who="Bravo" date="2013.09.19">Apply Style Cop</change>
-// </history>
-// -----------------------------------------------------------------------
 
 namespace Fanex.Athena.DataAccess.TotalBet
 {
@@ -14,7 +10,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using System.Data;
     using Core;
     using Core.Extensions;
-    using Data;
     using DataAccess.TotalBet.Interfaces;
     using Fanex.Common.Extensions;
     using Model.TotalBet.DTO;
@@ -133,7 +128,7 @@ namespace Fanex.Athena.DataAccess.TotalBet
                 var totalAwayScore1StHalfColumnName = DataHelper.GetCurrencyColumnName("away_odds_HT", isConvert, baseCurrency);
 
                 return new MoneyLine
-                {                    
+                {
                     TotalHomeFt = reader.ToDecimal(totalHomeScoreColumnName),
                     TotalAwayFt = reader.ToDecimal(totalAwayScoreColumnName),
                     TotalHomeFirstHalf = reader.ToDecimal(totalHomeScore1StHalfColumnName),

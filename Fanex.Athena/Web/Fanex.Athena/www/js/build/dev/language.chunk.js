@@ -15,7 +15,7 @@ webpackJsonp([25],{
 /***/ 64:
 /***/ function(module, exports) {
 
-	// Generated at: 12/6/2016 9:59:00 AM
+	// Generated at: 3/15/2017 10:59:12 AM
 	window._language_en_US = {
 	AA:"AA",
 	AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -207,6 +207,7 @@ webpackJsonp([25],{
 	DailyStatement:"Daily Statement",
 	DailyStatementMsg:"Support data up to 4 months only",
 	Data:"data",
+	DataAreAvailableUpToYesterday:"After 3:30AM(GMT-4), the report will show yesterday&apos;s data.",
 	DataWareHouse:"Data Warehouse",
 	Date:"Date",
 	DateRange:"Date Range",
@@ -235,6 +236,7 @@ webpackJsonp([25],{
 	DisableAgCasino:"Disable AG Casino",
 	DisableAllBet:"Disable AllBet",
 	DisableColossusBets:"Disable Colossus Bets",
+	DisableFishingWorld:"Disable Fishing World",
 	DisableGoldDeluxe:"Disable Gold Deluxe",
 	DisableLiveCasino:"Disable Live Casino",
 	DisableMacau:"Disable Macau",
@@ -262,6 +264,7 @@ webpackJsonp([25],{
 	EnableAllBet:"Enable AllBet",
 	EnableBetTrade:"Enable BetTrade",
 	EnableColossusBets:"Enable Colossus Bets",
+	EnableFishingWorld:"Enable Fishing World",
 	EnableGoldDeluxe:"Enable Gold Deluxe",
 	EnableLiveCasino:"Enable Live Casino",
 	EnableMacau:"Enable Macau",
@@ -638,7 +641,6 @@ webpackJsonp([25],{
 	PlatformWinLossTitle:"Platform Win Loss - {0} --&gt; {1} - {2} - {3} - {4}",
 	Player:"Player",
 	PlayerHistoryNo:"Player History No",
-	PlaytechCasino:"Playtech Casino",
 	Postponed:"Postponed",
 	PreGame:"Pre Game",
 	Prev:"Prev",
@@ -652,6 +654,7 @@ webpackJsonp([25],{
 	ProductBT:"Bet Trade",
 	ProductCB:"Colossus Bets",
 	ProductCS:"RNG Casino",
+	ProductFW:"Fishing World",
 	ProductGD:"Gold Deluxe",
 	ProductKN:"Keno",
 	ProductLC:"Live Casino",
@@ -925,7 +928,7 @@ webpackJsonp([25],{
 /***/ 65:
 /***/ function(module, exports) {
 
-	// Generated at: 12/6/2016 9:59:00 AM
+	// Generated at: 3/15/2017 10:59:12 AM
 	window._language_zh_CN = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1086,6 +1089,7 @@ webpackJsonp([25],{
 	DailyRacingWinLoss:"每日赛事佣金",
 	DailyStatement:"每日账目",
 	DailyStatementMsg:"Support data up to 4 months only",
+	DataAreAvailableUpToYesterday:"在每天3:30 AM（GMT-4）过后，报告会显示前一天的数据",
 	DataWareHouse:"数据仓库技术",
 	Date:"日期",
 	DateRange:"日期范围",
@@ -1709,7 +1713,7 @@ webpackJsonp([25],{
 /***/ 66:
 /***/ function(module, exports) {
 
-	// Generated at: 12/6/2016 9:59:00 AM
+	// Generated at: 3/15/2017 10:59:12 AM
 	window._language_zh_TW = {
 	AA:"客客",
 	AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -1870,6 +1874,7 @@ webpackJsonp([25],{
 	DailyRacingWinLoss:"每日賽事佣金",
 	DailyStatement:"每日賬目",
 	DailyStatementMsg:"Support data up to 4 months only",
+	DataAreAvailableUpToYesterday:"在每天3:30AM(GMT-4) 過後，報告會顯示前一天的數據",
 	DataWareHouse:"數據倉庫技術",
 	Date:"日期",
 	DateRange:"日期範圍",
@@ -2493,7 +2498,7 @@ webpackJsonp([25],{
 /***/ 67:
 /***/ function(module, exports) {
 
-	// Generated at: 12/6/2016 9:59:00 AM
+	// Generated at: 3/15/2017 10:59:12 AM
 	window._language_zh_Hans = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -3277,7 +3282,7 @@ webpackJsonp([25],{
 /***/ 68:
 /***/ function(module, exports) {
 
-	// Generated at: 12/6/2016 9:59:00 AM
+	// Generated at: 3/15/2017 10:59:12 AM
 	window._language_ko_KR = {
 	AA:"AA",
 	AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
