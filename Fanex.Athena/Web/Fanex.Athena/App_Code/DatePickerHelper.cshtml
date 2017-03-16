@@ -1,6 +1,6 @@
-﻿@using System.Web.Mvc;
-@using System.Web.WebPages;
+﻿@using Fanex.Athena.Web.HtmlExtension;
 @using Fanex.Athena.Resources;
+
 
 @using Fanex.Athena.Extension.Helper;
 @helper RenderDateRangePicker(DateTime fromDate, DateTime toDate, DateTime minDate, DateTime maxDate,
@@ -34,7 +34,7 @@
                 
                 dateRangePicker = $('#FromDate, #ToDate').daterangepicker({
                     today: '@(today.ToString("MMM d yyyy"))',
-                    buttonImage: '@url.Content("~/Content/Library/start/images/calendar.png")',
+                    buttonImage: '@url.ContentLink("/Content/Library/start/images/calendar.png")',
                     datepickerOptions: {
                         showOtherMonths: true,
                         changeMonth: true,
@@ -71,7 +71,7 @@
                
                 $("#@(id)").datepicker({
                     showOn: "both",
-                    buttonImage: '@url.Content("~/Content/Library/start/images/calendar.png")',
+                    buttonImage: '@url.ContentLink("/Content/Library/start/images/calendar.png")',
                     buttonText: "Show Date Picker",
                     buttonImageOnly: true,
                     showOtherMonths: true,

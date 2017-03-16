@@ -11,7 +11,7 @@
         /// <summary>
         /// The CSS rewrite URL transform.
         /// </summary>
-        private static CssRewriteUrlTransformWrapper cssRewriteUrlTransform;
+        private static IItemTransform cssRewriteUrlTransform;
 
         /// <summary>
         /// Registers the bundles.

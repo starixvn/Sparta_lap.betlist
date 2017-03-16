@@ -28,34 +28,38 @@ namespace Fanex.Athena
     {
         public void Application_Start(object sender, EventArgs e)
         {
-            ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new RazorViewEngine());
-
-            AreaRegistration.RegisterAllAreas();
-
-            GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
-            RouteTable.Routes.IgnoreRoute("favicon.ico");
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-            /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
-            /*Web API*/
-            GlobalConfiguration.Configuration.EnableCors();
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new ApiCompressHandler());
-            GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
-            GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
-            GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
-            /*End Web API*/
-
-            AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
-
-            DbSettingProviderManager.Current.Start();
-            log4net.Config.XmlConfigurator.Configure();
-            log4net.LogManager.GetLogger("GeneralLog").Info("Start");
-
-            if (ConfigurationManager.AppSettings["EnableCasinoService"] == "1")
+            var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
+            if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
             {
-                SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
+                ViewEngines.Engines.Clear();
+                ViewEngines.Engines.Add(new RazorViewEngine());
+
+                AreaRegistration.RegisterAllAreas();
+
+                GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
+                RouteTable.Routes.IgnoreRoute("favicon.ico");
+                RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+                BundleConfig.RegisterBundles(BundleTable.Bundles);
+                /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
+                /*Web API*/
+                GlobalConfiguration.Configuration.EnableCors();
+                GlobalConfiguration.Configuration.MessageHandlers.Add(new ApiCompressHandler());
+                GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
+                GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+                GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
+                /*End Web API*/
+
+                AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
+
+                DbSettingProviderManager.Current.Start();
+                log4net.Config.XmlConfigurator.Configure();
+                log4net.LogManager.GetLogger("GeneralLog").Info("Start");
+
+                if (ConfigurationManager.AppSettings["EnableCasinoService"] == "1")
+                {
+                    SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
+                }
             }
         }
 
@@ -76,27 +80,31 @@ namespace Fanex.Athena
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public void Application_Error(object sender, EventArgs e)
         {
-            // Code that runs when an unhandled error occurs
-            var exception = Server.GetLastError().GetBaseException();
-            if (exception is HttpAntiForgeryException)
+            var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
+            if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
             {
-                return;
-            }
+                // Code that runs when an unhandled error occurs
+                var exception = Server.GetLastError().GetBaseException();
+                if (exception is HttpAntiForgeryException)
+                {
+                    return;
+                }
 
-            var httpException = exception as HttpException;
-            if (httpException != null && httpException.GetHttpCode() == 404)
-            {
-                return;
-            }
+                var httpException = exception as HttpException;
+                if (httpException != null && httpException.GetHttpCode() == 404)
+                {
+                    return;
+                }
 
-            // Exception when passing wrong data type to action method
-            if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
-                exception.TargetSite.Name == "ExtractParameterFromDictionary")
-            {
-                return;
-            }
+                // Exception when passing wrong data type to action method
+                if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
+                    exception.TargetSite.Name == "ExtractParameterFromDictionary")
+                {
+                    return;
+                }
 
-            LogHelper.WriteError(exception);
+                LogHelper.WriteError(exception);
+            }
         }
 
         /// <summary>

@@ -11,7 +11,7 @@
     </head>
     <body>
         <div class="error-content">
-            <img src="@Url.Content("~/www/assets/images/robot.jpg")" />
+            <img src="@Url.ContentLink("/www/assets/images/robot.jpg")" />
             <p class="first-line">Oops...</p>
             <p class="second-line">@RenderSection("message", false)</p>
             @RenderBody()
