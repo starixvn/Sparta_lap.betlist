@@ -9,3 +9,10 @@ FanexSpName.UAT.xml
 \\SiteConfig
 \\Jasmine
 \\jasmine-specs
+\\Gruntfile.js
+\\GruntFilters.json
+\\karma-new-dev.conf.js
+\\karma-new.conf.js
+\\karma.conf.js
+\\bower.json
+\\compilerconfig.json
