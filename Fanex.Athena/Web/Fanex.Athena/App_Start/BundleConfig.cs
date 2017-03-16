@@ -11,7 +11,7 @@
         /// <summary>
         /// The CSS rewrite URL transform.
         /// </summary>
-        private static CssRewriteUrlTransformWrapper cssRewriteUrlTransform;
+        private static IItemTransform cssRewriteUrlTransform;
 
         /// <summary>
         /// Registers the bundles.
@@ -19,7 +19,7 @@
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            cssRewriteUrlTransform = new CssRewriteUrlTransformWrapper();
+            cssRewriteUrlTransform = new CssRewriteUrlTransformStaticDomain();
             RegisterLayoutBundles(bundles);
             RegisterViewBundles(bundles);
 

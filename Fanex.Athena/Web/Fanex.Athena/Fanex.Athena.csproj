@@ -357,7 +357,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\CssRewriteUrlTransformWrapper.cs" />
+    <Compile Include="App_Start\CssRewriteUrlTransformStaticDomain.cs" />
     <Compile Include="App_Start\NonOrderingBundleOrderer.cs" />
     <Compile Include="Form\GenHistoryImg.aspx.cs">
       <DependentUpon>GenHistoryImg.aspx</DependentUpon>
