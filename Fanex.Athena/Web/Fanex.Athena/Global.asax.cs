@@ -83,7 +83,6 @@ namespace Fanex.Athena
             var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
             if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
             {
-
                 // Code that runs when an unhandled error occurs
                 var exception = Server.GetLastError().GetBaseException();
                 if (exception is HttpAntiForgeryException)
