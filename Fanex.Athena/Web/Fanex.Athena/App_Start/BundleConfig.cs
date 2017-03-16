@@ -19,7 +19,7 @@
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            cssRewriteUrlTransform = new CssRewriteUrlTransformStaticDomain();
+            cssRewriteUrlTransform = new CssRewriteUrlTransformWrapper();
             RegisterLayoutBundles(bundles);
             RegisterViewBundles(bundles);
 
