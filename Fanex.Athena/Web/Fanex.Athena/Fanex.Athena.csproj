@@ -839,6 +839,8 @@
     <Content Include="SiteConfig\Web.ConnectionStrings.PROStatic.config" />
     <Content Include="SiteConfig\Web.PROStatic.config" />
     <Content Include="SiteConfig\WebConfigTransforms\PROStatic.config" />
+    <Content Include="SiteConfig\WebConfigTransforms\DEV.config" />
+    <None Include="SiteConfig\Web.DEV.config" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />

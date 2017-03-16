@@ -15,11 +15,11 @@ namespace Fanex.Athena.Web.HtmlExtension
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", Justification = "Extension method")]
         public static string ContentLink(this UrlHelper helper, string contentPath)
         {
-            var appPath = ConfigurationManager.AppSettings["Environment"] != "DEV" ?
-                 ConfigurationManager.AppSettings["StaticDomain"] :
-                 HttpContext.Current.Request.ApplicationPath;
+            var cdnDomain = ConfigurationManager.AppSettings["StaticDomain"];
+            var appPath = string.IsNullOrEmpty(cdnDomain) ?
+                 HttpContext.Current.Request.ApplicationPath : cdnDomain;
             var baseUrl = appPath != null && appPath.Length > 1 ? appPath : string.Empty;
-
+            
             return baseUrl + contentPath + "?" + ConfigurationManager.AppSettings["JsVersion"];
         }
 
