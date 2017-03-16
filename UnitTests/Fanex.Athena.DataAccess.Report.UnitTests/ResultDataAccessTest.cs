@@ -77,11 +77,11 @@
 
             var readerDataMapping = new Dictionary<string, object>
             {
-                { "eventdate", "03/16/2017"},
-                { "sporttype", 1},
-                { "leagueid", 2},
-                { "teamid", 3},
-                { "status", "win"}
+                { "eventdate", "03/16/2017" },
+                { "sporttype", 1 },
+                { "leagueid", 2 },
+                { "teamid", 3 },
+                { "status", "win" }
             };
             MapReaderData(reader, readerDataMapping);
 
@@ -152,7 +152,7 @@
 
             var readerDataMapping = new Dictionary<string, object>
             {
-                { "sporttype", "sport1"}
+                { "sporttype", "sport1" }
             };
             MapReaderData(reader, readerDataMapping);
             var date = new DateTime(2017, 3, 16);
@@ -179,13 +179,14 @@
 
             var date = new DateTime(2017, 3, 16);
             var sportId = 1;
+            var expectedResult = @"{""eventdate"":""\/Date(1489597200000)\/"",""sporttype"":1,""isshowall"":true,""movebetsday"":""\/Date(1470762000000)\/""}";
 
             // Action
             _dataAccess.GetLeagues(date, sportId);
             var result = new JavaScriptSerializer().Serialize(param);
 
             // Assert
-            Assert.That(result, Is.EqualTo("{\"eventdate\":\"\\/Date(1489597200000)\\/\",\"sporttype\":1,\"isshowall\":true,\"movebetsday\":\"\\/Date(1470762000000)\\/\"}"));
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -205,7 +206,7 @@
 
             var readerDataMapping = new Dictionary<string, object>
             {
-                { "leagueid", 1}
+                { "leagueid", 1 }
             };
             MapReaderData(reader, readerDataMapping);
 
@@ -248,25 +249,15 @@
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelNumberGameByLeague")).Returns(objectDb);
             _metaModel.LeagueId = 1;
-
             var reader = Substitute.For<IDataReader>();
             objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
             reader.Read().Returns(true, false);
-
             reader.FieldCount.Returns(1);
             reader.GetName(0).Returns("isrefund");
             var readerDataMapping = new Dictionary<string, object>
             {
-                { "matchid", 0 },
-                { "leagueid", 1 },
-                { "matchid", 2 },
-                { "eventstatus", "win" },
-                { "eventdate", "03/16/2017" },
-                { "isrefund", "1" },
-                { "kickofftime", "1/1/2017" },
-                { "matchcode", "test" },
-                { "seq", 3 },
-                { "number", 4 }
+                { "leagueid", 1 }, { "matchid", 2 }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
+                { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
             };
             MapReaderData(reader, readerDataMapping);
 
@@ -275,7 +266,7 @@
                 new NumberGame
                 {
                     LeagueId = 1,
-                    MatchId = 0,
+                    MatchId = 2,
                     EventStatus = "win",
                     EventDate = new DateTime(2017, 3, 16),
                     IsPending = true,
@@ -290,7 +281,18 @@
             var result = _dataAccess.GetNumberGameMatches(_metaModel);
 
             // Assert
-            Assert.That(result, Is.EqualTo("{\"fromdate\":\"\\/Date(1483203600000)\\/\",\"leagueid\":1,\"isshowall\":true}"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result[0].LeagueId, Is.EqualTo(expectedResult[0].LeagueId));
+                Assert.That(result[0].MatchId, Is.EqualTo(expectedResult[0].MatchId));
+                Assert.That(result[0].EventStatus, Is.EqualTo(expectedResult[0].EventStatus));
+                Assert.That(result[0].EventDate, Is.EqualTo(expectedResult[0].EventDate));
+                Assert.That(result[0].IsPending, Is.EqualTo(expectedResult[0].IsPending));
+                Assert.That(result[0].KickOffTime, Is.EqualTo(expectedResult[0].KickOffTime));
+                Assert.That(result[0].MatchCode, Is.EqualTo(expectedResult[0].MatchCode));
+                Assert.That(result[0].Seg[0], Is.EqualTo(expectedResult[0].Seg[0]));
+                Assert.That(result[0].Ball[0], Is.EqualTo(expectedResult[0].Ball[0]));
+            });
         }
 
         private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)

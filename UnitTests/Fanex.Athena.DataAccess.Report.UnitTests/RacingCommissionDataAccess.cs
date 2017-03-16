@@ -58,14 +58,14 @@
             RacingCommission totalData = new RacingCommission();
             dynamic result = null;
             objectDb.ExecuteReader(Arg.Do<dynamic>(arg => result = arg));
+            var expectedResult = "{\"AgentList\":\"xml\",\"FromDate\":\"\\/Date(1483203600000)\\/\",\"ToDate\":\"\\/Date(1485968400000)\\/\"," +
+                "\"MoveBetsDay\":\"\\/Date(1470762000000)\\/\",\"PageSize\":100,\"PageIndex\":2}";
 
             // Action
             _dataAccess.GetDataList(_metaModel, ref totalData);
 
             // Assert
-            Assert.That(
-                new JavaScriptSerializer().Serialize(result),
-                Is.EqualTo(@"{""AgentList"":""xml"",""FromDate"":""\/Date(1483203600000)\/"",""ToDate"":""\/Date(1485968400000)\/"",""MoveBetsDay"":""\/Date(1470762000000)\/"",""PageSize"":100,""PageIndex"":2}"));
+            Assert.That(new JavaScriptSerializer().Serialize(result), Is.EqualTo(expectedResult));
         }
 
         [Test]
