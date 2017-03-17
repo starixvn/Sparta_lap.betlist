@@ -996,13 +996,14 @@
             objectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
             _metaModel.SportId = 1;
             _metaModel.LeagueId = 2;
+            var expected = "{\"fromdate\":\"\\/Date(1483203600000)\\/\",\"sporttype\":1,\"leagueid\":2,\"isshowall\":true,\"movebetsday\":\"\\/Date(1470762000000)\\/\"}";
 
             // Action
             _dataAccess.GetMatches<Sportsbook>(_metaModel);
             var result = new JavaScriptSerializer().Serialize(param);
 
             // Assert
-            Assert.That(result, Is.EqualTo("{\"fromdate\":\"\\/Date(1483203600000)\\/\",\"sporttype\":1,\"leagueid\":2,\"isshowall\":true,\"movebetsday\":\"\\/Date(1470762000000)\\/\"}"));
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
