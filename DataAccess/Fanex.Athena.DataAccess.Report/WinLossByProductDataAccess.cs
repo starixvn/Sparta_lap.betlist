@@ -41,7 +41,7 @@ namespace Fanex.Athena.DataAccess.Report
             try
             {
                 IList<WinLossByProduct> data;
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
                     db.AddInParameter("username", DbType.String, metaModel.Username);
@@ -74,7 +74,7 @@ namespace Fanex.Athena.DataAccess.Report
             const string UspName = "Lrf_Rpt_WinlossByProductDetail_Ag";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     UpdateUspParams(db, metaModel, true);
                     db.AddInParameter("CustID", DbType.Int32, metaModel.MemberId);
@@ -98,7 +98,7 @@ namespace Fanex.Athena.DataAccess.Report
             const string UspName = "Lrf_Rpt_WinlossByProductDetail";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.CustomerId);
                     db.AddInParameter("MemberID", DbType.Int32, metaModel.MemberId);
@@ -205,7 +205,7 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        private void UpdateUspParams(ObjectDb db, WinLossByProductMetaModel metaModel, bool drilldown)
+        private void UpdateUspParams(IObjectDb db, WinLossByProductMetaModel metaModel, bool drilldown)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate.Date : metaModel.FromDate.Date);

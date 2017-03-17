@@ -29,7 +29,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "Lrf_Rpt_ThirdPartyWinloss";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     UpdateUspParams(db, metaModel, false);
                     db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
@@ -54,7 +54,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "LRF_Rpt_ThirdPartyWinloss_Mem";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
                     UpdateUspParams(db, metaModel, true);
@@ -78,7 +78,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "LRF_Rpt_ThirdPartyWinloss_Ag";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
@@ -151,7 +151,7 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        private void UpdateUspParams(ObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
+        private void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml); 
             db.AddInParameter("productid", DbType.Int32, metaModel.ProductId);

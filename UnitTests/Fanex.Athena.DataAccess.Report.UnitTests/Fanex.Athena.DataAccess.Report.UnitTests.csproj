@@ -154,8 +154,9 @@
     <Compile Include="CustomerBalanceDataAccessTest.cs" />
     <Compile Include="CustomerPendingFundsDataAccessTest.cs" />
     <Compile Include="CustomerTurnoverDataAccessTest.cs" />
+    <Compile Include="SettledMatchCountDataAccessTest.cs" />
     <Compile Include="ResultDataAccessTest.cs" />
-    <Compile Include="RacingCommissionDataAccess.cs" />
+    <Compile Include="RacingCommissionDataAccessTest.cs" />
     <Compile Include="PlatformWinLossDataAccessTest.cs" />
     <Compile Include="MicroGamingWinLossDataAccessTest.cs" />
     <Compile Include="MatchWinLossDataAccessTest.cs" />

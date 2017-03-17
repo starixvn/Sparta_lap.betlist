@@ -36,7 +36,7 @@ namespace Fanex.Athena.DataAccess.Report
             const string UspName = "Lrf_Rpt_WinlostByLeague";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status);
                     var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status);
@@ -74,7 +74,7 @@ namespace Fanex.Athena.DataAccess.Report
             const string UspName = "Lrf_Rpt_WinlossByLeagueDetail";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status);
                     var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status);

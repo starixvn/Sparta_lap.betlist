@@ -39,8 +39,8 @@
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            dynamic result = null;
-            _objectDb.ExecuteReader(Arg.Do<dynamic>(arg => result = arg));
+            dynamic uspParam = null;
+            _objectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
 
             // Action
             _dataAccess.GetDataList(new DailyRacingWinLossMetaModel
@@ -50,7 +50,7 @@
             });
 
             // Assert
-            Assert.That(new JavaScriptSerializer().Serialize(result), Is.EqualTo(@"{""AgentList"":""1"",""WinlostDate"":""\/Date(1483203600000)\/""}"));
+            Assert.That(new JavaScriptSerializer().Serialize(uspParam), Is.EqualTo(@"{""AgentList"":""1"",""WinlostDate"":""\/Date(1483203600000)\/""}"));
         }
 
         [Test]

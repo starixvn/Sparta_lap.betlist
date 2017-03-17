@@ -20,7 +20,7 @@ namespace Fanex.Athena.DataAccess.Report
         public IList<TurnoverDTO> GetDataList(TurnoverMetaModel metaModel)
         {
             IList<TurnoverDTO> result = new List<TurnoverDTO>();
-            using (var db = new ObjectDb("Lrf_Rpt_TurnOver"))
+            using (var db = this.GetObjectDb("Lrf_Rpt_TurnOver"))
             {
                 foreach (var item in metaModel.ProductOptions)
                 {
