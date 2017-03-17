@@ -48,7 +48,6 @@
             Assert.Multiple(() =>
             {
                 objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
                 objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
                 objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
@@ -78,6 +77,8 @@
             var result = _dataAccess.GetDataList(
                 new WeeklyLiveMatchMetaModel
                 {
+                    SortDirection = "asc",
+                    SortColumn = "Week0",
                     BaseCurrency = "USD"
                 }, 
                 out totalData);
