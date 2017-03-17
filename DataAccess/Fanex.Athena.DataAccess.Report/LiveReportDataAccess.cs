@@ -74,7 +74,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 var currency = metaModel.BaseCurrency;
                 var items = new List<LiveReport>();
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -124,7 +124,7 @@ namespace Fanex.Athena.DataAccess.Report
             const string UspName = "Lrf_Rpt_LiveReportSummaryDetail";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -157,7 +157,7 @@ namespace Fanex.Athena.DataAccess.Report
             const string UspName = "Lrf_Rpt_LiveReportWinlossByMatch";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);

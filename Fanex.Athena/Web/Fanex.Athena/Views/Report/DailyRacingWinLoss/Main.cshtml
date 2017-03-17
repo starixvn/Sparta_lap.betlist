@@ -8,7 +8,7 @@
 @model DailyRacingWinLossViewModel
 @{
     ViewBag.IsAllowedCustomerCommission = Model.IsAllowedCustomerCommission;
-    if (Model.Param.LicenseeId == 1)
+    if (Model.LicenseeId == 1)
     {
         ViewBag.RaceWidth = 125;
         ViewBag.CommonWidth = 65;
@@ -52,7 +52,7 @@
 @{
     if (!Model.ShowEmptyContent)
     {
-        var stringContentView = Model.Param.LicenseeId == 1 ? "~/Views/Report/DailyRacingWinLoss/12Bet/Content.cshtml" : "~/Views/Report/DailyRacingWinLoss/Content.cshtml";
+        var stringContentView = Model.LicenseeId == 1 ? "~/Views/Report/DailyRacingWinLoss/12Bet/Content.cshtml" : "~/Views/Report/DailyRacingWinLoss/Content.cshtml";
         Html.RenderPartial(stringContentView);
     }
 }

@@ -10,11 +10,10 @@ namespace Fanex.Athena.Model.Report.ViewModel
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ViewModel;
 
-    /// <summary>
-    /// DailyRacingWinLossViewModel class.
-    /// </summary>
     public class DailyRacingWinLossViewModel : BaseViewModel
     {
+        public int LicenseeId { get; set; }
+
         public DailyRacingWinLossMetaModel Param { get; set; }
 
         public DailyRacingWinLossData DailyRacingWinLossData { get; set; }
