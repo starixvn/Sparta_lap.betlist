@@ -140,9 +140,8 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     var licenseeSession = SessionService.LicenseeSession;
                     var userSession = SessionService.UserSession;
-                    metaModel.LicenseeId = licenseeSession.LicenseeId;
-                    metaModel.UserId = userSession.UserId;
                     metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
                     if (metaModel.GridColumns.Count(i => i.Checked) > 0)
                     {
