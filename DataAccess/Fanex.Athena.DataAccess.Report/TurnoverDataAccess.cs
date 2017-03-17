@@ -13,7 +13,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
 
     public class TurnoverDataAccess : BaseDataAccess, ITurnoverDataAccess
     {

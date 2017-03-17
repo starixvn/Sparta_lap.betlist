@@ -19,9 +19,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Logging;
     using Model.Core.Helper;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class WeeklyLiveMatchDataAccess : BaseDataAccess, IWeeklyLiveMatchDataAccess
     {
         private const int StartWeekColumnIndex = 2;
@@ -72,7 +69,7 @@ namespace Fanex.Athena.DataAccess.Report
 
             while (reader.Read())
             {
-                var item = new WeeklyLiveMatch()
+                var item = new WeeklyLiveMatch
                 {
                     SportName = CacheRef.GetSportName(reader["sporttype"]),
                     NumbersOfMatches = new List<int>()
