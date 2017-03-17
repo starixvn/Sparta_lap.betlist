@@ -6,11 +6,8 @@
 namespace Fanex.Athena.Model.Core.DTO.Common
 {
     using System;
-    using Fanex.Athena.Models.Helper;
+    using Fanex.Athena.Model.Core.Helper;
 
-    /// <summary>
-    /// Product class.
-    /// </summary>
     [Serializable]
     public class Product
     {

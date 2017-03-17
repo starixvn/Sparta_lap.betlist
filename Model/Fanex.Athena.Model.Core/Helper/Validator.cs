@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Models.Helper
+namespace Fanex.Athena.Model.Core.Helper
 {
     using Fanex.Athena.Model.Core.DTO.Common;
 

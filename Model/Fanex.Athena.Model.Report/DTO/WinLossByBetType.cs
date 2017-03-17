@@ -7,12 +7,8 @@
 namespace Fanex.Athena.Model.Report.DTO
 {
     using Fanex.Athena.Model.Core.Helper;
-    using Fanex.Athena.Models.Helper;
     using Resources;
 
-    /// <summary>
-    /// WinLossByBetType class.
-    /// </summary>
     public class WinLossByBetType : ICustomerWinLoss
     {
         private string _betTypeName;
