@@ -10,6 +10,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Result.Core.LiveCasino.DTO;
     using Result.Core.NumberGame.DTO;
     using Result.Core.Racing.DTO;
     using Result.Core.Sportsbook.DTO;
@@ -86,7 +87,8 @@
             };
             MapReaderData(reader, readerDataMapping);
 
-            var expectedResult = new List<Outright>
+            var serializer = new JavaScriptSerializer();
+            var outrights = new List<Outright>
             {
                 new Outright
                 {
@@ -97,19 +99,13 @@
                     Status = "win"
                 }
             };
+            var expectedResult = serializer.Serialize(outrights);
 
             // Action
-            var result = _dataAccess.GetOutRight(_metaModel);
+            var result = serializer.Serialize(_dataAccess.GetOutRight(_metaModel));
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result[0].EventDate, Is.EqualTo(expectedResult[0].EventDate));
-                Assert.That(result[0].SportType, Is.EqualTo(expectedResult[0].SportType));
-                Assert.That(result[0].LeagueId, Is.EqualTo(expectedResult[0].LeagueId));
-                Assert.That(result[0].TeamId, Is.EqualTo(expectedResult[0].TeamId));
-                Assert.That(result[0].Status, Is.EqualTo(expectedResult[0].Status));
-            });
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -163,10 +159,7 @@
             var result = _dataAccess.GetSports(date, licenseeId);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result[0].SportId, Is.EqualTo(expectedResult[0].SportId));
-            });
+            Assert.That(result[0].SportId, Is.EqualTo(expectedResult[0].SportId));
         }
 
         [Test]
@@ -218,10 +211,7 @@
             var result = _dataAccess.GetLeagues(date, sportId);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result[0].LeagueId, Is.EqualTo(expectedResult[0].LeagueId));
-            });
+            Assert.That(result[0].LeagueId, Is.EqualTo(expectedResult[0].LeagueId));
         }
 
         [Test]
@@ -262,7 +252,8 @@
             };
             MapReaderData(reader, readerDataMapping);
 
-            var expectedResult = new List<NumberGame>
+            var serializer = new JavaScriptSerializer();
+            var numberGames = new List<NumberGame>
             {
                 new NumberGame
                 {
@@ -277,23 +268,13 @@
                     Ball = new List<int> { 4, 4 }
                 }
             };
+            var expectedResult = serializer.Serialize(numberGames);
 
             // Action
-            var result = _dataAccess.GetNumberGameMatches(_metaModel);
+            var result = serializer.Serialize(_dataAccess.GetNumberGameMatches(_metaModel));
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result[0].LeagueId, Is.EqualTo(expectedResult[0].LeagueId));
-                Assert.That(result[0].MatchId, Is.EqualTo(expectedResult[0].MatchId));
-                Assert.That(result[0].EventStatus, Is.EqualTo(expectedResult[0].EventStatus));
-                Assert.That(result[0].EventDate, Is.EqualTo(expectedResult[0].EventDate));
-                Assert.That(result[0].IsPending, Is.EqualTo(expectedResult[0].IsPending));
-                Assert.That(result[0].KickOffTime, Is.EqualTo(expectedResult[0].KickOffTime));
-                Assert.That(result[0].MatchCode, Is.EqualTo(expectedResult[0].MatchCode));
-                Assert.That(result[0].Seg[0], Is.EqualTo(expectedResult[0].Seg[0]));
-                Assert.That(result[0].Ball[0], Is.EqualTo(expectedResult[0].Ball[0]));
-            });
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -332,30 +313,15 @@
                 { "rowcount", 4 }, { "SCR", "SCR" }, { "TF", "TF" }
             };
             MapReaderData(reader, readerDataMapping);
+            var serializer = new JavaScriptSerializer();
 
-            var expectedResult = GetExpectedRacingData();
+            var expectedResult = serializer.Serialize(GetExpectedRacingData());
 
             // Action
-            var result = _dataAccess.GetRacingMatches(_metaModel);
+            var result = serializer.Serialize(_dataAccess.GetRacingMatches(_metaModel));
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result[0].LeagueId, Is.EqualTo(expectedResult[0].LeagueId));
-                Assert.That(result[0].EngineId, Is.EqualTo(expectedResult[0].EngineId));
-                Assert.That(result[0].EngineNo, Is.EqualTo(expectedResult[0].EngineNo));
-                Assert.That(result[0].IsFavor, Is.EqualTo(expectedResult[0].IsFavor));
-                Assert.That(result[0].IsSCR, Is.EqualTo(expectedResult[0].IsSCR));
-                Assert.That(result[0].Place, Is.EqualTo(expectedResult[0].Place));
-                Assert.That(result[0].PlaceOdds, Is.EqualTo(expectedResult[0].PlaceOdds));
-                Assert.That(result[0].WinOdds, Is.EqualTo(expectedResult[0].WinOdds));
-                Assert.That(result[0].RaceName, Is.EqualTo(expectedResult[0].RaceName));
-                Assert.That(result[0].KickOffTime, Is.EqualTo(expectedResult[0].KickOffTime));
-                Assert.That(result[0].Favourite, Is.EqualTo(expectedResult[0].Favourite));
-                Assert.That(result[0].RowCount, Is.EqualTo(expectedResult[0].RowCount));
-                Assert.That(result[0].SCROfMatch, Is.EqualTo(expectedResult[0].SCROfMatch));
-                Assert.That(result[0].TFOfMatch, Is.EqualTo(expectedResult[0].TFOfMatch));
-            });
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -405,6 +371,248 @@
 
             // Action
             var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetPopUpMatches_TypeIsSportsbookWithSomeReturnedNullValues_ReturnCorrectData()
+        {
+            // Arrange
+            var objectDb = Substitute.For<IObjectDb>();
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
+            var reader = Substitute.For<IDataReader>();
+            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
+            reader.Read().Returns(true, false, true, false);
+            reader.NextResult().Returns(true);
+
+            reader.FieldCount.Returns(1);
+            reader.GetName(0).Returns("lcolor");
+
+            var dataMapping = GetReaderDataMappingForSportsbookType();
+            dataMapping["betstatus"] = DBNull.Value;
+            dataMapping["lcolor"] = DBNull.Value;
+            var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
+            dataMappingForGameDetail["ResultStatusID"] = DBNull.Value;
+            dataMappingForGameDetail["SettlementStatusID"] = DBNull.Value;
+            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
+            MapReaderData(reader, dataMapping);
+            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            long? betId = 6;
+
+            var serializer = new JavaScriptSerializer();
+            var sportsbookData = GetExpectedSportsbookData();
+            sportsbookData.BetStatus = string.Empty;
+            sportsbookData.Color = string.Empty;
+            sportsbookData.LiveAwayScore = null;
+            sportsbookData.LiveHomeScore = null;
+            sportsbookData.GameDetails[0].ResultStatusID = 0;
+            sportsbookData.GameDetails[0].SettlementStatusID = 0;
+            var expectedResult = serializer.Serialize(new List<Sportsbook> { sportsbookData });
+
+            // Action
+            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetPopUpMatches_TypeIsLiveCasino_ReturnCorrectData()
+        {
+            // Arrange
+            var objectDb = Substitute.For<IObjectDb>();
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
+            var reader = Substitute.For<IDataReader>();
+            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
+            reader.Read().Returns(true, false);
+
+            var readerDataMapping = new Dictionary<string, object>
+            {
+                { "showtime", "showtime" }, { "leagueid", 1 }, { "eventstatus", "win" }, { "finalawayscore", 2 }, { "finalhomescore", 3 },
+                { "eventdate", "03/17/2017" }, { "IsPending", true }, { "kickofftime", "01/01/2017" }, { "IsHTCal", true }, { "Calculate", true },
+                { "betstatus", "betstatus" }, { "homeid2", 4 }
+            };
+            MapReaderData(reader, readerDataMapping);
+
+            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            long? betId = 6;
+
+            var serializer = new JavaScriptSerializer();
+            var liveCasinoMatches = new List<LiveCasino>
+            {
+                new LiveCasino
+                {
+                    ShowTime = "showtime",
+                    LeagueId = 1,
+                    EventStatus = "win",
+                    FinalAwayScore = 2,
+                    FinalHomeScore = 3,
+                    EventDate = new DateTime(2017, 3, 17),
+                    IsPending = true,
+                    KickOffTime = new DateTime(2017, 1, 1),
+                    IsHTCal = true,
+                    Calculate = true,
+                    BetStatus = "betstatus",
+                    Bettype = 4
+                }
+            };
+            var expectedResult = serializer.Serialize(liveCasinoMatches);
+
+            // Action
+            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetPopUpMatches_TypeIsLiveCasinoWithSomeReturnedNullValues_ReturnCorrectData()
+        {
+            // Arrange
+            var objectDb = Substitute.For<IObjectDb>();
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
+            var reader = Substitute.For<IDataReader>();
+            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
+            reader.Read().Returns(true, false);
+
+            var readerDataMapping = new Dictionary<string, object>
+            {
+                { "showtime", "showtime" }, { "leagueid", 1 }, { "eventstatus", "win" }, { "finalawayscore", 2 }, { "finalhomescore", 3 },
+                { "eventdate", "03/17/2017" }, { "IsPending", true }, { "kickofftime", "01/01/2017" }, { "IsHTCal", true }, { "Calculate", true },
+                { "betstatus", DBNull.Value }, { "homeid2", 4 }
+            };
+            MapReaderData(reader, readerDataMapping);
+
+            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            long? betId = 6;
+
+            var serializer = new JavaScriptSerializer();
+            var liveCasinoMatches = new List<LiveCasino>
+            {
+                new LiveCasino
+                {
+                    ShowTime = "showtime",
+                    LeagueId = 1,
+                    EventStatus = "win",
+                    FinalAwayScore = 2,
+                    FinalHomeScore = 3,
+                    EventDate = new DateTime(2017, 3, 17),
+                    IsPending = true,
+                    KickOffTime = new DateTime(2017, 1, 1),
+                    IsHTCal = true,
+                    Calculate = true,
+                    BetStatus = string.Empty,
+                    Bettype = 4
+                }
+            };
+            var expectedResult = serializer.Serialize(liveCasinoMatches);
+
+            // Action
+            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetPopUpMatches_TypeIsRacing_ReturnCorrectData()
+        {
+            // Arrange
+            var objectDb = Substitute.For<IObjectDb>();
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
+            var reader = Substitute.For<IDataReader>();
+            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
+            reader.Read().Returns(true, false);
+
+            var readerDataMapping = new Dictionary<string, object>
+            {
+                { "meetingid", 1 }, { "HorseId", "HorseId" }, { "HorseNo", "HorseNo" }, { "IsFavor", "1" }, { "IsSCR", "1" },
+                { "place", 2 }, { "placeodds", 10m }, { "odds", 0.2m }, { "racename", 3 }, { "kickofftime", "03/17/2017" },
+                { "rowcount", 10 }, { "SCR", "SCR" }, { "TF", "TF" }
+            };
+            MapReaderData(reader, readerDataMapping);
+
+            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            long? betId = 6;
+
+            var serializer = new JavaScriptSerializer();
+            var racingMatches = new List<Racing>
+            {
+                new Racing
+                {
+                    LeagueId = 1,
+                    EngineId = "HorseId",
+                    EngineNo = "HorseNo",
+                    IsFavor = true,
+                    IsSCR = true,
+                    Place = 2,
+                    PlaceOdds = 10m,
+                    WinOdds = 0.2m,
+                    RaceName = 3,
+                    KickOffTime = new DateTime(2017, 3, 17),
+                    Favourite = "1",
+                    RowCount = 10,
+                    SCROfMatch = "SCR",
+                    TFOfMatch = "TF"
+                }
+            };
+            var expectedResult = serializer.Serialize(racingMatches);
+
+            // Action
+            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetPopUpMatches_TypeIsRacingWithSomeReturnedNullValues_ReturnCorrectData()
+        {
+            // Arrange
+            var objectDb = Substitute.For<IObjectDb>();
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
+            var reader = Substitute.For<IDataReader>();
+            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
+            reader.Read().Returns(true, false);
+
+            var readerDataMapping = new Dictionary<string, object>
+            {
+                { "meetingid", 1 }, { "HorseId", "HorseId" }, { "HorseNo", "HorseNo" }, { "IsFavor", DBNull.Value }, { "IsSCR", DBNull.Value },
+                { "place", 2 }, { "placeodds", 10m }, { "odds", 0.2m }, { "racename", 3 }, { "kickofftime", DBNull.Value },
+                { "rowcount", 10 }, { "SCR", "SCR" }, { "TF", "TF" }
+            };
+            MapReaderData(reader, readerDataMapping);
+
+            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            long? betId = 6;
+
+            var serializer = new JavaScriptSerializer();
+            var racingMatches = new List<Racing>
+            {
+                new Racing
+                {
+                    LeagueId = 1,
+                    EngineId = "HorseId",
+                    EngineNo = "HorseNo",
+                    IsFavor = false,
+                    IsSCR = false,
+                    Place = 2,
+                    PlaceOdds = 10m,
+                    WinOdds = 0.2m,
+                    RaceName = 3,
+                    KickOffTime = DateTime.MinValue,
+                    Favourite = string.Empty,
+                    RowCount = 10,
+                    SCROfMatch = "SCR",
+                    TFOfMatch = "TF"
+                }
+            };
+            var expectedResult = serializer.Serialize(racingMatches);
+
+            // Action
+            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
