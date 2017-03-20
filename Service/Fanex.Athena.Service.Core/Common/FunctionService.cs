@@ -140,16 +140,6 @@ namespace Fanex.Athena.Service.Core.Common
             return functionList;
         }
 
-        /// <summary>
-        /// Assign function to user.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="functionIdList">The function list.</param>
-        /// <param name="userId">The user id.</param>
-        /// <param name="ip">The IP address.</param>
-        /// <param name="langKey">The language code.</param>
-        /// <returns>The result.</returns>
         public IResultInfo AssignUserFunctions(int licenseeId, int custId, IList<int> functionIdList, int userId, string ip, string langKey)
         {
             var correctFunctionIdList = functionIdList.Where(f => Functions.Any(l => l.FunctionId == f)).ToList();
@@ -157,24 +147,16 @@ namespace Fanex.Athena.Service.Core.Common
             var addingIdList = correctFunctionIdList.Where(f => userFunctionList.All(u => u != f));
             var removingIdList = userFunctionList.Where(f => correctFunctionIdList.All(c => c != f));
 
-            var code = 0;
-            var message = string.Empty;
-            var addedFailure = string.Empty;
+            var addingResult = AddUserToFunction(licenseeId, custId, userId, ip, langKey, addingIdList);
 
-            var addedResultInfo = AddUserToFunction(licenseeId, custId, userId, ip, langKey, addingIdList, ref addedFailure);
+            var removingResult = RemoveUserFromFunction(licenseeId, custId, userId, ip, langKey, removingIdList);
 
-            RemoveUserFromFunction(licenseeId, custId, userId, ip, langKey, removingIdList, ref code, ref message, ref addedFailure, addedResultInfo);
-
-            if (code == 0)
+            if (!addingResult.IsSuccessful)
             {
-                message = ViewResources.UpdateFunctionSuccessfulMsg;
+                removingResult.Message += "; " + addingResult.Message;
             }
 
-            return new ResultInfo
-            {
-                Code = code,
-                Message = message
-            };
+            return removingResult;
         }
 
         #endregion Licensee Function
@@ -237,25 +219,13 @@ namespace Fanex.Athena.Service.Core.Common
 
         #endregion Utilities
 
-        /// <summary>
-        /// Add user to function.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="userId">The user id.</param>
-        /// <param name="ip">The IP address.</param>
-        /// <param name="langKey">The language code.</param>
-        /// <param name="addingIdList">The function id list.</param>
-        /// <param name="addedFailure">The function id list that processing is failed.</param>
-        /// <returns>The result.</returns>
         private IResultInfo AddUserToFunction(
             int licenseeId,
             int custId,
             int userId,
             string ip,
             string langKey,
-            IEnumerable<int> addingIdList,
-            ref string addedFailure)
+            IEnumerable<int> addingIdList)
         {
             IResultInfo addedResultInfo = new ResultInfo
             {
@@ -263,44 +233,34 @@ namespace Fanex.Athena.Service.Core.Common
                 Message = ViewResources.UpdateFunctionSuccessfulMsg
             };
 
+            var failedIdList = string.Empty;
+
             foreach (var function in addingIdList)
             {
                 var tempResult = _functionDataAccess.AssignUserFunction(licenseeId, custId, function, userId, ip, langKey);
 
                 if (!tempResult.IsSuccessful)
                 {
-                    addedFailure += function.ToString() + ",";
+                    failedIdList += function.ToString() + ",";
                     addedResultInfo = tempResult;
                 }
+            }
+
+            if (!addedResultInfo.IsSuccessful)
+            {
+                addedResultInfo.Message += " [" + failedIdList.TrimEnd(',') + "];";
             }
 
             return addedResultInfo;
         }
 
-        /// <summary>
-        /// Remove user from function.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="userId">The user id.</param>
-        /// <param name="ip">The IP address.</param>
-        /// <param name="langKey">The language code.</param>
-        /// <param name="removingIdList">The functions.</param>
-        /// <param name="code">The result code.</param>
-        /// <param name="message">The result message.</param>
-        /// <param name="addedFailure">The function id list that processing is failed.</param>
-        /// <param name="addedResultInfo">The result info.</param>
-        private void RemoveUserFromFunction(
+        private IResultInfo RemoveUserFromFunction(
             int licenseeId,
             int custId,
             int userId,
             string ip,
             string langKey,
-            IEnumerable<int> removingIdList,
-            ref int code,
-            ref string message,
-            ref string addedFailure,
-            IResultInfo addedResultInfo)
+            IEnumerable<int> removingIdList)
         {
             IResultInfo deletedResultInfo = new ResultInfo
             {
@@ -324,22 +284,12 @@ namespace Fanex.Athena.Service.Core.Common
 
             deletedFailure = builderDeletedFailure.ToString();
 
-            if (!string.IsNullOrEmpty(addedFailure))
-            {
-                addedFailure = addedFailure.Substring(0, addedFailure.Length - 1);
-                code = addedResultInfo.Code;
-                message = addedResultInfo.Message + " [" + addedFailure + "];";
-            }
-
             if (!string.IsNullOrEmpty(deletedFailure))
             {
-                deletedFailure = deletedFailure.Substring(0, addedFailure.Length - 1);
-                code = deletedResultInfo.Code;
-                if (!string.IsNullOrEmpty(message))
-                {
-                    message += "; " + deletedResultInfo.Message + " [" + deletedFailure + "];";
-                }
+                deletedResultInfo.Message += " [" + deletedFailure.TrimEnd(',') + "];";
             }
+
+            return deletedResultInfo;
         }
     }
 }
