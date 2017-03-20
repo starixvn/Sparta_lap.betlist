@@ -22,8 +22,7 @@
         {
             var currencyList = _currencyService.GetCurrenciesByUser(this.LicenseeId, this.UserId)
                 .Where(x => x.IsActive)
-                .Select(x => new { x.CurrencyId, x.CurrencyName })
-                .ToDictionary(x => x.CurrencyId, x => x.CurrencyName).ToArray();
+                .Select(x => new { CurrencyId = x.CurrencyId, Currency = x.CurrencyName }).ToArray();
             return new
             {
                 CurrencyList = currencyList.ToArray(),
