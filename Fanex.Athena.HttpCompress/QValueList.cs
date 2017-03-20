@@ -8,10 +8,10 @@
     [DebuggerDisplay("QValue[{Count}, {AcceptWildcard}]")]
     internal sealed class QValueList : List<QValue>
     {
-        private static char[] delimiters = { ',' };
+        private static readonly char[] delimiters = { ',' };
 
         private bool _acceptWildcard;
-        private bool _autoSort;
+        private readonly bool _autoSort;
 
         public QValueList(bool autoSort)
         {
