@@ -153,7 +153,14 @@ namespace Fanex.Athena.Service.Core.Common
 
             if (!addingResult.IsSuccessful)
             {
-                removingResult.Message += "; " + addingResult.Message;
+                if (removingResult.IsSuccessful)
+                {
+                    removingResult = addingResult;
+                }
+                else
+                {
+                    removingResult.Message += "; " + addingResult.Message;
+                }
             }
 
             return removingResult;
