@@ -26,8 +26,6 @@
             _authorizationService = Substitute.For<IAuthorizationService>();
             _dataAccess = Substitute.For<IVirtualSportsBetSettingDataAccess>();
             _service = new VirtualSportsBetSettingService(_authorizationService, _dataAccess);
-
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
         [OneTimeTearDown]
@@ -42,6 +40,7 @@
         public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             var betSettings = new List<BetSetting>
             {
                 new BetSetting()
@@ -59,6 +58,7 @@
         public void UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters()
         {
             // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             const string ExpectedXmlParam = "<settings><setting sporttype=\"1\" minbet=\"100\" maxbet=\"200\" maxpermatch=\"300\" ></setting></settings>";
 
             var betSettings = new List<VSBetSetting>
@@ -77,6 +77,24 @@
 
             // Assert
             _dataAccess.Received().UpdateBetSetting(CustId, UserId, Language, "ip", ExpectedXmlParam);
+        }
+
+        [Test]
+        public void UpdateBetSetting_HaveNoPermission_ReturnCorrectErrorResult()
+        {
+            // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+            var betSettings = new List<VSBetSetting>
+            {
+                new VSBetSetting()
+            };
+
+            // Action
+            var result = _service.UpdateBetSetting(LicenseeId, CustId, UserId, Language, "ip", betSettings);
+
+            // Assert
+            Assert.That(result.Code, Is.EqualTo(1));
+            Assert.That(result.Message, Is.EqualTo("Invalid parameter. Invalid custId."));
         }
     }
 }

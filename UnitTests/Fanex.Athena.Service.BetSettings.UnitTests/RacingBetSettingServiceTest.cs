@@ -4,6 +4,7 @@
     using BetSettings;
     using BetSettings.Interfaces;
     using DataAccess.BetSettings.Interfaces;
+    using Exception;
     using Model.BetSettings.DTO;
     using NSubstitute;
     using NUnit.Framework;
@@ -25,8 +26,6 @@
             _authorizationService = Substitute.For<IAuthorizationService>();
             _dataAccess = Substitute.For<IRacingBetSettingDataAccess>();
             _service = new RacingBetSettingService(_authorizationService, _dataAccess);
-
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
         [OneTimeTearDown]
@@ -41,6 +40,7 @@
         public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             var isAllowSaToteCurrency = true;
             var betSettings = new List<BetSetting>()
             {
@@ -59,6 +59,7 @@
         public void UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters()
         {
             // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             var commonBetSetting = new CommonBetSetting();
             var racingParam = new Dictionary<string, RacingBetSetting>()
             {
@@ -70,6 +71,39 @@
 
             // Assert
             _dataAccess.Received().UpdateBetSetting(Arg.Any<Dictionary<string, RacingBetSetting>>());
+        }
+
+        [Test]
+        public void UpdateBetSetting_RacingParamIsNull_ThrowException()
+        {
+            // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+            var commonBetSetting = new CommonBetSetting();
+            Dictionary<string, RacingBetSetting> racingParam = null;
+
+            // Action
+            TestDelegate result = () => _service.UpdateBetSetting(LicenseeId, racingParam);
+
+            // Assert
+            Assert.Throws<ServiceException>(result, "Invalid parameter. racingParam is null", "BetSetting");
+        }
+
+        [Test]
+        public void UpdateBetSetting_HaveNoPermission_ThrowException()
+        {
+            // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+            var commonBetSetting = new CommonBetSetting();
+            var racingParam = new Dictionary<string, RacingBetSetting>()
+            {
+                ["0"] = new RacingBetSetting(CustId, commonBetSetting)
+            };
+
+            // Action
+            TestDelegate result = () => _service.UpdateBetSetting(LicenseeId, racingParam);
+
+            // Assert
+            Assert.Throws<ServiceException>(result, "Invalid parameter. Invalid custId.", "BetSetting");
         }
     }
 }

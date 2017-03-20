@@ -28,8 +28,6 @@
             _authorizationService = Substitute.For<IAuthorizationService>();
             _dataAccess = Substitute.For<INumberGameBetSettingDataAccess>();
             _service = new NumberGameBetSettingService(_authorizationService, _dataAccess);
-
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
         [OneTimeTearDown]
@@ -44,6 +42,7 @@
         public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             var betSettings = new List<BetSetting>
             {
                 new BetSetting()
@@ -61,6 +60,7 @@
         public void UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters()
         {
             // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             var data = new Hashtable
             {
                 { "minbet161", 111m },
@@ -90,6 +90,22 @@
                     x.MaxPerMatch == 333m &&
                     x.MaxPerBall == 444m &&
                     x.IsDataChange));
+        }
+
+        [Test]
+        public void UpdateBetSetting_HaveNoPermission_ReturnCorrectErrorResult()
+        {
+            // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+            var data = new Hashtable();
+            var setting = new CommonBetSetting();
+
+            // Action
+            var result = _service.UpdateBetSetting(setting, data);
+
+            // Assert
+            Assert.That(result.Code, Is.EqualTo(1));
+            Assert.That(result.Message, Is.EqualTo("Invalid parameter. Invalid custId."));
         }
     }
 }
