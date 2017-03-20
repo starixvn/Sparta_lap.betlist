@@ -139,6 +139,19 @@
             Assert.That(cookiValue, Is.EqualTo(LanguageCode));
         }
 
+        [Test]
+        public void ChangeLanguage_LanguageCodeIsEmpty_ReturnFalse()
+        {
+            // Arrange
+            const string LanguageCode = "";
+
+            // Action
+            var result = _languageService.ChangeLanguage(LanguageCode);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(false));
+        }
+
         private HttpContext GetHttpContext()
         {
             return new HttpContext(

@@ -70,6 +70,23 @@
             Assert.AreEqual(expectedResult, currency.CurrencyName);
         }
 
+        [Test]
+        public void KeepHKDCurrencyName_NotContainHKDCurrency_CurrencyListNotChange()
+        {
+            // Arrange
+            var currencyList = new List<CurrencyUser>
+            {
+                new CurrencyUser { CurrencyId = CurrencyType.Cny, CurrencyName = "CNY" }
+            };
+            var expectedResult = "CNY";
+
+            // Action
+            KeanOceanBusinessHelper.KeepHKDCurrencyName(currencyList);
+
+            // Assert
+            Assert.AreEqual(currencyList[0].CurrencyName, expectedResult);
+        }
+
         [TestCase(1, CurrencyType.Cny, false)]
         [TestCase(1, CurrencyType.Hkd, true)]
         [TestCase(1, 0, false)]
@@ -102,6 +119,20 @@
 
             // Assert
             Assert.True(currencyList.Any(i => i.Key == CurrencyType.Hkd));
+        }
+
+        [Test]
+        public void AddHKDCurrencyForTurnOverReport_LicenseeIsNotKeenOcean_CurrencyListIsNotChanged()
+        {
+            // Arrange
+            var currencyList = new Dictionary<int, string>();
+            currencyList.Add(1, "USD");
+
+            // Action
+            KeanOceanBusinessHelper.AddHKDCurrencyForTurnOverReport(currencyList, 100);
+
+            // Assert
+            Assert.That(currencyList[1], Is.EqualTo("USD"));
         }
     }
 }

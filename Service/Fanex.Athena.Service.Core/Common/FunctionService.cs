@@ -159,7 +159,7 @@ namespace Fanex.Athena.Service.Core.Common
                 }
                 else
                 {
-                    removingResult.Message += "; " + addingResult.Message;
+                    removingResult.Message += " " + addingResult.Message;
                 }
             }
 
