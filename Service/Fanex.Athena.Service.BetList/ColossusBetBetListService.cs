@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Service.BetList
 {
-    using System;
     using Fanex.Athena.DataAccess.BetList;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -20,6 +19,11 @@ namespace Fanex.Athena.Service.BetList
         public ColossusBetBetListService()
         {
             _colossusBetBetListDataAccess = new ColossusBetBetListDataAccess();
+        }
+
+        public ColossusBetBetListService(IColossusBetBetListDataAccess colossusBetBetListDataAccess)
+        {
+            _colossusBetBetListDataAccess = colossusBetBetListDataAccess;
         }
 
         public ColossusBetDetailViewModel GetData(ColossusBetDetailMetaModel metaModel)

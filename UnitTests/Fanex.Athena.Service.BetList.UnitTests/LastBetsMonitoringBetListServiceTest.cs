@@ -76,6 +76,49 @@
             });
         }
 
+        [Test]
+        public void GetLastBetsMonitoringData_GetDataFromCache_TicketIsAssignedDataCorrectlyFromMatchList()
+        {
+            // Arrange
+            const int SportType = 111;
+            const int LeagueId = 222;
+            var ticketResult = new TicketResult();
+            ticketResult.MainTicketList.AddRange(new List<LrfTicket>
+            {
+                new LrfTicket
+                {
+                    MatchId = 999,
+                    BetTypeId = (int)BetType.Outright
+                }
+            });
+
+            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
+                .Returns(ticketResult);
+
+            _lastBetsMonitoringBetListDataAccess.GetMatchList(Arg.Any<string>())
+                .Returns(new List<BetListMatch>
+                {
+                    new BetListMatch
+                    {
+                        MatchId = 999,
+                        SportType = SportType,
+                        LeagueId = LeagueId
+                    }
+                });
+            var metaModel = new LastBetsMonitoringMetaModel { OddsType = string.Empty };
+            _betListService.GetLastBetsMonitoringData(metaModel);
+
+            // Action
+            var result = _betListService.GetLastBetsMonitoringData(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.MainTicketList[0].SportTypeId, Is.EqualTo(SportType));
+                Assert.That(result.MainTicketList[0].LeagueId, Is.EqualTo(LeagueId));
+            });
+        }
+
         [TestCase(OddsType.Decimal, -2, -1)]
         [TestCase(OddsType.Malay, -2, 1.5)]
         [TestCase(OddsType.American, -2, 1.5)]

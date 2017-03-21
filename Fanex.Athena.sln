@@ -186,6 +186,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.Dashboard.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.HttpCompress", "Fanex.Athena.HttpCompress\Fanex.Athena.HttpCompress.csproj", "{88FBBF63-2272-411A-B89A-2B6F9E97BDBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Customer.UnitTests", "UnitTests\Fanex.Athena.Service.Customer.UnitTests\Fanex.Athena.Service.Customer.UnitTests.csproj", "{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1074,6 +1076,18 @@ Global
 		{88FBBF63-2272-411A-B89A-2B6F9E97BDBF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{88FBBF63-2272-411A-B89A-2B6F9E97BDBF}.Release|x86.ActiveCfg = Release|Any CPU
 		{88FBBF63-2272-411A-B89A-2B6F9E97BDBF}.Release|x86.Build.0 = Release|Any CPU
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}.Debug|x86.Build.0 = Debug|Any CPU
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}.Release|x86.ActiveCfg = Release|Any CPU
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1157,6 +1171,7 @@ Global
 		{C35589B1-0739-4133-B809-3E8160FBFC64} = {4D5CED10-CCDF-4520-8FE1-E599D3DB18D6}
 		{AAAC748B-04E5-4A61-8FFB-25E365789F2D} = {8124F11D-CD42-4473-AE75-80290172BE0A}
 		{88FBBF63-2272-411A-B89A-2B6F9E97BDBF} = {8A8161D6-261F-4B28-9CB8-71D83D5977E5}
+		{92086EE2-594B-4B0A-ABEB-07745F6B2AF5} = {8A922757-8C4B-44C0-9D3E-9B68E6AE956B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35

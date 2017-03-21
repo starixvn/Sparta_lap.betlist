@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.Customer
 {
     using System.Collections.Generic;
     using System.Linq;
+    using DataAccess.Customer.Interfaces;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
@@ -20,7 +21,7 @@ namespace Fanex.Athena.Service.Customer
     {
         #region Field
 
-        private readonly CustomerLogDataAccess _customerLogDataAccess;
+        private readonly ICustomerLogDataAccess _customerLogDataAccess;
 
         #endregion Field
 
@@ -29,6 +30,11 @@ namespace Fanex.Athena.Service.Customer
         public CustomerLogService()
         {
             this._customerLogDataAccess = new CustomerLogDataAccess();
+        }
+
+        public CustomerLogService(ICustomerLogDataAccess customerLogDataAccess)
+        {
+            this._customerLogDataAccess = customerLogDataAccess;
         }
 
         #endregion Constructor
