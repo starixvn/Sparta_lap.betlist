@@ -57,7 +57,43 @@
             var result = _productService.GetProductList(LicenseeId, Arg.Any<string>());
 
             // Assert
-            Assert.That(result[0].ProductID, Is.EqualTo(expectedResult[0].ProductID));
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetProductList_GetDataFromCache_ReturnCachedData()
+        {
+            // Arrange
+            var expectedResult = new List<Product>
+            {
+                new Product { ProductID = 1 }
+            };
+
+            const int LicenseeId = 1;
+            _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
+            _productService.GetProductList(LicenseeId, Arg.Any<string>());
+
+            // Action
+            var result = _productService.GetProductList(LicenseeId, Arg.Any<string>());
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetProductList_GetEmptyListFromDataAccess_ReturnNull()
+        {
+            // Arrange
+            const int LicenseeId = 1;
+            var expectedResult = new List<Product>();
+            _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
+            _productService.GetProductList(LicenseeId, Arg.Any<string>());
+
+            // Action
+            var result = _productService.GetProductList(LicenseeId, Arg.Any<string>());
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -86,6 +122,55 @@
         }
 
         [Test]
+        public void GetProductAccess_GetDataFromCache_ReturnCachedData()
+        {
+            // Arrange
+            var expectedResult = new List<Product>
+            {
+                new Product { ProductID = 100, ProductCode = "SB" },
+                new Product { ProductID = 200, ProductCode = "ABC" },
+            };
+
+            const string XmlContent = "<Root><Group Name=\"Default\"><Function Name = \"_Default\" Product=\"SB,DB\"></Function></Group></Root>";
+            const int LicenseeId = 1;
+
+            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
+            _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
+            _productService.GetProductAccess(LicenseeId, Arg.Any<string>());
+
+            // Action
+            var result = _productService.GetProductAccess(LicenseeId, Arg.Any<string>());
+
+            // Assert
+            Assert.That(result.IsAllow(100), Is.True);
+            Assert.That(result.IsAllow(200), Is.False);
+        }
+
+        [Test]
+        public void GetProductAccess_AllowedProductIsEmptyArray_ReturnOriginalProductList()
+        {
+            // Arrange
+            var expectedResult = new List<Product>
+            {
+                new Product { ProductID = 100, ProductCode = "123" },
+                new Product { ProductID = 200, ProductCode = "ABC" },
+            };
+
+            const string XmlContent = "<Root></Root>";
+            const int LicenseeId = 1;
+
+            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
+            _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
+
+            // Action
+            var result = _productService.GetProductAccess(LicenseeId, Arg.Any<string>());
+
+            // Assert
+            Assert.That(result.IsAllow(100), Is.True);
+            Assert.That(result.IsAllow(200), Is.True);
+        }
+
+        [Test]
         public void GetProductAccessForActiveCustomerSummary_WhenCall_ReturnAllowedProducts()
         {
             // Arrange
@@ -108,6 +193,55 @@
             // Assert
             Assert.That(result.IsAllow(100), Is.True);
             Assert.That(result.IsAllow(200), Is.False);
+        }
+
+        [Test]
+        public void GetProductAccessForActiveCustomerSummary_GetDataFromCache_ReturnCachedData()
+        {
+            // Arrange
+            var expectedResult = new List<Product>
+            {
+                new Product { ProductID = 100, ProductCode = "SB", IsOfferedSingleWallet = true },
+                new Product { ProductID = 200, ProductCode = "ABC", IsOfferedSingleWallet = true },
+            };
+
+            const int LicenseeId = 1;
+            const string XmlContent = "<Root><Group Name=\"Default\"><Function Name = \"ActiveCustomerSummary\" Product=\"SB,DB\"></Function></Group></Root>";
+
+            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
+            _productDataAccess.GetProductAccessList(LicenseeId, true).Returns(expectedResult);
+            _productService.GetProductAccessForActiveCustomerSummary(LicenseeId, Arg.Any<string>());
+
+            // Action
+            var result = _productService.GetProductAccessForActiveCustomerSummary(LicenseeId, Arg.Any<string>());
+
+            // Assert
+            Assert.That(result.IsAllow(100), Is.True);
+            Assert.That(result.IsAllow(200), Is.False);
+        }
+
+        [Test]
+        public void GetProductAccessForActiveCustomerSummary_AllowedProductIsEmptyList_ReturnCorrectData()
+        {
+            // Arrange
+            var expectedResult = new List<Product>
+            {
+                new Product { ProductID = 100, ProductCode = "SB", IsOfferedSingleWallet = false },
+                new Product { ProductID = 200, ProductCode = "ABC", IsOfferedSingleWallet = false },
+            };
+
+            const int LicenseeId = 1;
+            const string XmlContent = "<Root></Root>";
+
+            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(XmlContent));
+            _productDataAccess.GetProductAccessList(LicenseeId, true).Returns(expectedResult);
+
+            // Action
+            var result = _productService.GetProductAccessForActiveCustomerSummary(LicenseeId, Arg.Any<string>());
+
+            // Assert
+            Assert.That(result.IsAllow(100), Is.True);
+            Assert.That(result.IsAllow(200), Is.True);
         }
 
         [TestCase(1, true)]

@@ -95,7 +95,7 @@ namespace Fanex.Athena.Service.Core.Common
 
             var originalProducts = this.GetProductList(licenseeId, languageCode);
 
-            var productList = allowedProducts != null ? originalProducts.Where(i => allowedProducts.Contains(i.ProductCode)).ToList()
+            var productList = allowedProducts.Any() ? originalProducts.Where(i => allowedProducts.Contains(i.ProductCode)).ToList()
                 : originalProducts;
             return new ProductAccess(productList);
         }
@@ -106,7 +106,7 @@ namespace Fanex.Athena.Service.Core.Common
 
             var originalProducts = this.GetProductList(licenseeId, languageCode);
 
-            var productList = allowedProducts != null ? originalProducts.Where(i => i.IsOfferedSingleWallet && allowedProducts.Contains(i.ProductCode)).ToList()
+            var productList = allowedProducts.Any() ? originalProducts.Where(i => i.IsOfferedSingleWallet && allowedProducts.Contains(i.ProductCode)).ToList()
                 : originalProducts;
             return new ProductAccess(productList);
         }

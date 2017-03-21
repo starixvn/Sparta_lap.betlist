@@ -79,6 +79,31 @@
         }
 
         [Test]
+        public void CreateNewSession_CurrentSessionOfLicenseeIsNull_LicenseeSessionIsNull()
+        {
+            // Arrange
+            const int LicenseeId = 1;
+            const string LicenseeSessionKey = "LicenseeSessionKey";
+
+            // Action
+            CreateDefaultNewSession(LicenseeId);
+            HttpContext.Current.Session[LicenseeSessionKey] = null;
+
+            // Assert
+            Assert.That(_sessionService.LicenseeSession, Is.Null);
+        }
+
+        [Test]
+        public void CreateNewSession_LicenseeIdIsZero_LicenseeSessionIsNull()
+        {
+            // Action
+            CreateDefaultNewSession(0);
+
+            // Assert
+            Assert.That(_sessionService.LicenseeSession, Is.Null);
+        }
+
+        [Test]
         public void UpdateLiceseeSession_WhenCall_LicenseeSessionIsCreatedProperly()
         {
             // Arrange
@@ -98,6 +123,120 @@
             // Assert
             Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(NewLicenseeId));
             Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("12bet"));
+        }
+
+        [Test]
+        public void UpdateLiceseeSession_LicenseeIdIsZero_LicenseeSessionIsNotCreated()
+        {
+            // Arrange
+            var licensees = new List<Licensee>
+            {
+                new Licensee { Id = 1, Name = "spondemo" },
+                new Licensee { Id = 2, Name = "12bet" },
+            };
+            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            const int OldLicenseeId = 1;
+            const int NewLicenseeId = 0;
+            CreateDefaultNewSession(OldLicenseeId);
+
+            // Action
+            _sessionService.UpdateLiceseeSession(NewLicenseeId);
+
+            // Assert
+            Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(OldLicenseeId));
+            Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("spondemo"));
+        }
+
+        [Test]
+        public void UpdateLiceseeSession_FunctionListContainReportBalance_ReturnCorrectReportUrl()
+        {
+            // Arrange
+            var licensees = new List<Licensee>
+            {
+                new Licensee { Id = 1, Name = "spondemo" },
+                new Licensee { Id = 2, Name = "12bet" },
+            };
+            var functions = new List<Function> { new Function { FunctionId = 42 } };
+            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            const int OldLicenseeId = 1;
+            const int NewLicenseeId = 2;
+            _functionService.GetUserFunctionList(NewLicenseeId, DefaultUserId).Returns(functions);
+            CreateDefaultNewSession(OldLicenseeId);
+
+            // Action
+            _sessionService.UpdateLiceseeSession(NewLicenseeId);
+
+            // Assert
+            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("BalanceReport"));
+        }
+
+        [Test]
+        public void UpdateLiceseeSession_FunctionListIsNotContainReportBalance_ReturnCorrectReportUrl()
+        {
+            // Arrange
+            var licensees = new List<Licensee>
+            {
+                new Licensee { Id = 1, Name = "spondemo" },
+                new Licensee { Id = 2, Name = "12bet" },
+            };
+            var functions = new List<Function> { new Function { FunctionId = 1, ParentId = 1, IsActive = true, Url = "TestUrl" } };
+            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            const int OldLicenseeId = 1;
+            const int NewLicenseeId = 2;
+            _functionService.GetUserFunctionList(NewLicenseeId, DefaultUserId).Returns(functions);
+            CreateDefaultNewSession(OldLicenseeId);
+
+            // Action
+            _sessionService.UpdateLiceseeSession(NewLicenseeId);
+
+            // Assert
+            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("TestUrl"));
+        }
+
+        [Test]
+        public void UpdateLiceseeSession_FunctionListIsNotContainReportBalanceButIsActiveIsFalse_ReturnCorrectReportUrl()
+        {
+            // Arrange
+            var licensees = new List<Licensee>
+            {
+                new Licensee { Id = 1, Name = "spondemo" },
+                new Licensee { Id = 2, Name = "12bet" },
+            };
+            var functions = new List<Function> { new Function { FunctionId = 1, ParentId = 1, IsActive = false, Url = "TestUrl" } };
+            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            const int OldLicenseeId = 1;
+            const int NewLicenseeId = 2;
+            _functionService.GetUserFunctionList(NewLicenseeId, DefaultUserId).Returns(functions);
+            CreateDefaultNewSession(OldLicenseeId);
+
+            // Action
+            _sessionService.UpdateLiceseeSession(NewLicenseeId);
+
+            // Assert
+            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("BalanceReport"));
+        }
+
+        [Test]
+        public void UpdateLiceseeSession_FunctionListIsNotContainReportBalanceButParentIdIsZero_ReturnCorrectReportUrl()
+        {
+            // Arrange
+            var licensees = new List<Licensee>
+            {
+                new Licensee { Id = 1, Name = "spondemo" },
+                new Licensee { Id = 2, Name = "12bet" },
+            };
+            var functions = new List<Function> { new Function { FunctionId = 1, ParentId = 0, IsActive = true, Url = "TestUrl" } };
+            _licenseeService.GetByUser(DefaultUserId).Returns(licensees);
+            const int OldLicenseeId = 1;
+            const int NewLicenseeId = 2;
+            _functionService.GetUserFunctionList(NewLicenseeId, DefaultUserId).Returns(functions);
+            CreateDefaultNewSession(OldLicenseeId);
+
+            // Action
+            _sessionService.UpdateLiceseeSession(NewLicenseeId);
+
+            // Assert
+            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("BalanceReport"));
         }
 
         [Test]
@@ -422,7 +561,7 @@
 
         [TestCase("ASDF")]
         [TestCase("12234")]
-        public void CaptchaCode_GetAndSet_CorrectValue(string value)
+        public void CaptchaCode_Set_ValueIsSetCorrectly(string value)
         {
             // Arrange
             const string CaptchaCodeKey = "CaptchaCodeKey";
@@ -432,6 +571,23 @@
 
             // Action
             var result = HttpContext.Current.Session[CaptchaCodeKey] as string;
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [TestCase("ASDF")]
+        [TestCase("12234")]
+        public void CaptchaCode_Get_ValueIsGotCorrectly(string value)
+        {
+            // Arrange
+            const string CaptchaCodeKey = "CaptchaCodeKey";
+            CreateDefaultNewSession();
+            HttpContext.Current.Session[CaptchaCodeKey] = value;
+            var expectedResult = value;
+
+            // Action
+            var result = _sessionService.CaptchaCode;
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));

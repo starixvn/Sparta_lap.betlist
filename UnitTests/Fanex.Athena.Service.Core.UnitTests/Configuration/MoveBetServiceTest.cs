@@ -50,6 +50,24 @@
         }
 
         [Test]
+        public void GetMoveBet_GetDataFromCache_ReturnCachedData()
+        {
+            // Arrange
+            var expectedResult = new MoveBet
+            {
+                AvailableWinlostDate = new DateTime(2016, 1, 1)
+            };
+            _moveBetDataAccess.GetMoveBet().Returns(expectedResult);
+            var firstGetting = _moveBetService.GetMoveBet();
+
+            // Action
+            var result = _moveBetService.GetMoveBet();
+
+            // Assert
+            Assert.That(result.AvailableWinlostDate, Is.EqualTo(expectedResult.AvailableWinlostDate));
+        }
+
+        [Test]
         public void GetMoveBet_WhenCall_ReturnResultFromAppSetting()
         {
             // Arrange

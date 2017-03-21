@@ -48,6 +48,25 @@
         }
 
         [Test]
+        public void GetAllRunningMatch_GetDataFromCache_ReturnCachedData()
+        {
+            // Arrange
+            var expectedResult = new List<Match>
+            {
+                new Match { MatchId = 1 }
+            };
+            var sportId = 1;
+            _matchDataAccess.GetAllRunningMatch(sportId).Returns(expectedResult);
+            var firstCall = _matchService.GetAllRunningMatch(sportId);
+
+            // Action
+            var result = _matchService.GetAllRunningMatch(sportId);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
         public void GetForecastMatchListByLeague_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
