@@ -262,8 +262,8 @@
   </Function>
 
   <Function Name="CustomerLog">
-    <Setting Key="Lrf_UserLog_LoginSel" SpName="Lrf_UserLog_LoginSel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerSettingLog_Sel" SpName="Lrf_CustomerSettingLog_Sel" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
+    <Setting Key="Lrf_UserLog_LoginSel" SpName="Lrf_UserLog_LoginSel_xpre" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerSettingLog_Sel" SpName="Lrf_CustomerSettingLog_Sel_xpre" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
     <Setting Key="Lrf_GroupCommLog_Sel" SpName="Lrf_GroupCommLog_Sel" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
   </Function>
 </Functions>

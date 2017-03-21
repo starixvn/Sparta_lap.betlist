@@ -33,11 +33,6 @@ namespace Fanex.Athena.Service.Customer
 
         #endregion Constructor
 
-        /// <summary>
-        /// Get customer setting data list.
-        /// </summary>
-        /// <param name="metaModel">Customer log parameter.</param>
-        /// <returns>The customer log list.</returns>
         public IList<CustomerLog> GetCustomerSettingList(CustomerLogMetaModel metaModel)
         {
             var dataList = this._customerLogDataAccess.GetCustomerSettingList(metaModel).OrderByDescending(x => x.LogId).ToList();

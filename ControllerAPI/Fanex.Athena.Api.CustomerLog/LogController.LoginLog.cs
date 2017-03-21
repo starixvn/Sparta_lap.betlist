@@ -8,34 +8,26 @@ namespace Fanex.Athena.Api.CustomerLog
 {
     using System.Collections.Generic;
     using System.Web.Http;
-    using Base.Attributes;
 
-    /// <summary>
-    /// Log in log's API controller.
-    /// </summary>
     public partial class LogController
     {
-        /// <summary>
-        /// Get Log in log data list.
-        /// </summary>
-        /// <param name="username">Filter by user name.</param>
-        /// <returns>Data list of user name.</returns>
         [HttpGet]
         public dynamic LoginLog(string username)
         {
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            username = string.IsNullOrEmpty(username) ? string.Empty : username.Trim();
-            if (!string.IsNullOrEmpty(username))
+            if (string.IsNullOrWhiteSpace(username))
             {
-                var dataList = _logInLogService.GetDataList(licenseeId, username);
-
-                return new
-                {
-                    rows = dataList
-                };
+                return new { rows = new List<string>() };
             }
 
-            return new { rows = new List<string>() };
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            var agentListXml = SessionService.GenerateAgentListXml();
+            var dataList = _logInLogService.GetDataList(licenseeId, username.Trim(), agentListXml);
+
+            return new
+            {
+                rows = dataList
+            };
         }
     }
 }

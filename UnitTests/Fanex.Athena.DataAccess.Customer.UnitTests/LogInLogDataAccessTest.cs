@@ -32,13 +32,15 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserLog_LoginSel")).Returns(_objectDb);
             var licenseeId = 0;
             var username = string.Empty;
+            var agentList = "xml";
 
             // Action
-            _dataAccess.GetDataList(licenseeId, username);
+            _dataAccess.GetDataList(licenseeId, username, agentList);
 
             // Assert
             _objectDb.Received().AddInParameter("UserName", DbType.String, string.IsNullOrEmpty(username) ? string.Empty : username.Trim());
             _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, licenseeId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, agentList);
         }
     }
 }

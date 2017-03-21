@@ -14,21 +14,14 @@ namespace Fanex.Athena.DataAccess.Customer
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
 
-    /// <summary>
-    /// Customer log.
-    /// </summary>
     public class CustomerLogDataAccess : BaseDataAccess, ICustomerLogDataAccess
     {
-        /// <summary>
-        /// Get Customer Setting Log Data List.
-        /// </summary>
-        /// <param name="metaModel">Customer log MetaModel.</param>
-        /// <returns>The list of customer log.</returns>
         public IList<CustomerLog> GetCustomerSettingList(CustomerLogMetaModel metaModel)
         {
             const string SpName = "Lrf_CustomerSettingLog_Sel";
             using (var db = this.GetObjectDb(SpName))
             {
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 db.AddInParameter("UserName", DbType.String, metaModel.UserName);
                 db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);

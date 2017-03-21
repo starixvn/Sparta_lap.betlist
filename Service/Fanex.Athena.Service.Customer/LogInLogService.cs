@@ -31,9 +31,9 @@ namespace Fanex.Athena.Service.Customer
 
         #endregion Constructor
 
-        public IList<LogInLog> GetDataList(int licenseeId, string username)
+        public IList<LogInLog> GetDataList(int licenseeId, string username, string agentListXml)
         {
-            return this._logInLogDataAccess.GetDataList(licenseeId, username);
+            return this._logInLogDataAccess.GetDataList(licenseeId, username, agentListXml);
         }
     }
 }
