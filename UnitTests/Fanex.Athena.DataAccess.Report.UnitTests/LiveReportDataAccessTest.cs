@@ -23,8 +23,6 @@
         {
             _dataAccess = Substitute.ForPartsOf<LiveReportDataAccess>();
 
-            var appSetting = Substitute.For<IAppSettings>();
-            appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
             _metaModel = new LiveReportMetaModel
             {
                 BaseCurrency = "UUS",

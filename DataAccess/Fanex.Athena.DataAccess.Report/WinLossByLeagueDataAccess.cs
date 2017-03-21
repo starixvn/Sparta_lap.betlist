@@ -14,7 +14,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common;
@@ -24,8 +23,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class WinLossByLeagueDataAccess : BaseDataAccess, IWinLossByLeagueDataAccess
     {
-        public WinLossByLeagueDataAccess(BalanceUp balanceUp)
-            : base(balanceUp)
+        public WinLossByLeagueDataAccess()
         {
         }
 

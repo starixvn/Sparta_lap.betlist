@@ -146,6 +146,9 @@
     <Compile Include="CustomerBalanceDataAccessTest.cs" />
     <Compile Include="CustomerPendingFundsDataAccessTest.cs" />
     <Compile Include="CustomerTurnoverDataAccessTest.cs" />
+    <Compile Include="WinLossByProductDataAccessTest.cs" />
+    <Compile Include="WinLossByLeagueDataAccessTest.cs" />
+    <Compile Include="WinLossByBetTypeDataAccessTest.cs" />
     <Compile Include="WeeklyLiveMatchDataAccessTest.cs" />
     <Compile Include="TurnoverDataAccessTest.cs" />
     <Compile Include="ThirdPartyWinLossDataAccessTest.cs" />
