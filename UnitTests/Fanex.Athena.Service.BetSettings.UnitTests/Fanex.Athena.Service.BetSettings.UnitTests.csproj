@@ -95,6 +95,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CoreBetSettingServiceTest.cs" />
+    <Compile Include="DcsBetSettingServiceTest.cs" />
     <Compile Include="VirtualSportsBetSettingServiceTest.cs" />
     <Compile Include="ThirdPartyBetSettingServiceTest.cs" />
     <Compile Include="SportsbookBetSettingServiceTest.cs" />

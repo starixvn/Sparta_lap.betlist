@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.BetSettings
 {
     using BetSettings.Interfaces;
+    using Core.Users.Interfaces;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Model.Core.DTO.Common;
@@ -19,6 +20,12 @@ namespace Fanex.Athena.Service.BetSettings
         public DcsBetSettingService()
         {
             _betSettingDataAccess = new DcsBetSettingDataAccess();
+        }
+
+        public DcsBetSettingService(IDcsBetSettingDataAccess betSettingDataAccess, IAuthorizationService authorizationService)
+            : base(authorizationService)
+        {
+            _betSettingDataAccess = betSettingDataAccess;
         }
 
         public bool? GetStatus(int licenseeId, int custId, int productId)

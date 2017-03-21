@@ -65,6 +65,35 @@
             // Assert
             Assert.That(result.Games[0].GameType, Is.EqualTo("1"));
             Assert.That(result.Games[0].Groups[0].GroupType, Is.EqualTo("AA"));
+            Assert.That(result.BetSetting.CheckedGroups.Length, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void GetViewModel_CheckGroupsContainAgGroupInSetting_ReturnCorrectViewModel()
+        {
+            // Arrange
+            var licenseeId = 1;
+            var licenseeName = "spondemo";
+            var custId = 2;
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+            _appSettings.GetValue("AGCasinoApiUrl").Returns("http://api.com");
+            _dataAccess.GetBetSetting(custId).Returns(new AgCasinoBetSetting
+            {
+                AgGroup = "B",
+                CheckedGroups = new string[] { "A", "B", "C" },
+                IsEnabled = true
+            });
+            _webClientService.UploadString(new Uri("http://api.com"), "SiteName=spondemo&Currency=0")
+                .Returns("<Game GameType='1' Name='A'><Group GroupType='AA'><Min>1</Min><Max>100</Max></Group></Game>");
+
+            // Action
+            var result = _service.GetViewModel(licenseeId, custId, licenseeName);
+
+            // Assert
+            Assert.That(result.Games[0].GameType, Is.EqualTo("1"));
+            Assert.That(result.Games[0].Groups[0].GroupType, Is.EqualTo("AA"));
+            Assert.That(result.BetSetting.CheckedGroups.Length, Is.EqualTo(3));
+            Assert.That(result.IsEnabled, Is.True);
         }
 
         [Test]
