@@ -30,9 +30,16 @@ namespace Fanex.Athena.Service.Core.Common
             this._functionDataAccess = new FunctionDataAccess();
         }
 
-        public FunctionService(IFunctionDataAccess functionDataAccess)
+        internal FunctionService(
+            IFunctionDataAccess functionDataAccess,
+            IList<Function> functionList = null,
+            IList<Function> masterFunctions = null,
+            IDictionary<int, IList<Function>> subFunctions = null)
         {
             this._functionDataAccess = functionDataAccess;
+            _functionList = functionList;
+            _masterFunctions = masterFunctions;
+            _subFunctions = subFunctions;
         }
 
         #region Property

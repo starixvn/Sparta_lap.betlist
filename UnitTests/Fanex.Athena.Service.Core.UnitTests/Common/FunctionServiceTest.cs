@@ -39,10 +39,30 @@
         }
 
         [Test]
-        public void Functions_WhenAccessed_ReturnResultFromDataAccess()
+        public void Functions_WhenAccessedFirstTime_ReturnResultFromDataAccess()
         {
+            // Arrange
+            var expectedResult = _functionList;
+
+            // Action
+            var result = _service.Functions;
+
             // Assert
-            Assert.That(_service.Functions.Count, Is.EqualTo(_functionList.Count));
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void Functions_WhenAccessedSecondTime_ReturnResultFromDataAccess()
+        {
+            // Arrange
+            var expectedResult = _functionList;
+            var firstGet = _service.Functions;
+
+            // Action
+            var result = _service.Functions;
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -87,6 +107,35 @@
 
             // Action
             var result = _service.GetUserFunctionList(licenseeId, userId);
+
+            // Assert
+            Assert.That(result.Count, Is.EqualTo(2));
+            Assert.That(result[0].FunctionId, Is.EqualTo(2));
+            Assert.That(result[1].FunctionId, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GetUserFunctionList_SubFunctionIsExisting_ReturnCorrectFunctions()
+        {
+            // Arrange
+            var licenseeId = 1;
+            var userId = 2;
+            var subFunctions = new Dictionary<int, IList<Function>> { { 1, new List<Function> { new Function { FunctionId = 2, ParentId = 1 } } } };
+            var service = new FunctionService(_functionDataAccess, null, null, subFunctions);
+            var userFunctionList = new List<Function>
+            {
+                new Function { FunctionId = 2 }
+            };
+            var licenseeFunctionList = new List<Function>
+            {
+                new Function { FunctionId = 1 },
+                new Function { FunctionId = 2 }
+            };
+            _functionDataAccess.GetUserFunctionList(licenseeId, userId).Returns(userFunctionList);
+            _functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(licenseeFunctionList);
+
+            // Action
+            var result = service.GetUserFunctionList(licenseeId, userId);
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(2));
@@ -236,7 +285,7 @@
             Assert.That(result.Message, Is.EqualTo("Adding Error [1];"));
         }
 
-        [Ignore("Temporal failed")]
+        [Test]
         public void AssignUserFunctions_BothAddAndRemoveAreFailure_ReturnCorrectResultInfo()
         {
             // Arrange
@@ -278,6 +327,50 @@
 
             // Assert
             Assert.That(result.Message, Is.EqualTo("Remove Error [1]; Adding Error [3];"));
+        }
+
+        [Test]
+        public void AssignUserFunctions_BothAddAndRemoveAreSuccess_ReturnCorrectResultInfo()
+        {
+            // Arrange
+            var licenseeId = 1;
+            var userId = 2;
+            var custId = 3;
+            var langKey = "en-US";
+            var ip = string.Empty;
+            var functionList = new ReadOnlyCollection<Function>(new List<Function>()
+            {
+                new Function { FunctionId = 1 },
+                new Function { FunctionId = 2, ParentId = 1 },
+                new Function { FunctionId = 3, ParentId = 1 }
+            });
+            var functionDataAccess = Substitute.For<IFunctionDataAccess>();
+            var service = new FunctionService(functionDataAccess);
+            functionDataAccess.GetFunctionList().Returns(functionList.ToList());
+
+            var functionIdList = new List<int> { 2, 3 };
+            var userFunctionList = new List<Function>
+            {
+                new Function { FunctionId = 1 },
+                new Function { FunctionId = 2 }
+            };
+            var licenseeFunctionList = new List<Function>
+            {
+                new Function { FunctionId = 1 },
+                new Function { FunctionId = 2 }
+            };
+            functionDataAccess.GetUserFunctionList(licenseeId, custId).Returns(userFunctionList);
+            functionDataAccess.GetLicenseeFunctionList(licenseeId).Returns(licenseeFunctionList);
+            functionDataAccess.RemoveUserFunction(licenseeId, userId, custId, ip, Arg.Any<int>(), langKey)
+                .Returns(new ResultInfo());
+            functionDataAccess.AssignUserFunction(licenseeId, custId, Arg.Any<int>(), userId, ip, langKey)
+                .Returns(new ResultInfo());
+
+            // Action
+            var result = service.AssignUserFunctions(licenseeId, custId, functionIdList, userId, ip, langKey);
+
+            // Assert
+            Assert.That(result.Message, Is.EqualTo("Updating Functions is successul."));
         }
 
         [Test]
