@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.Customer
     #region Using
 
     using System.Collections.Generic;
+    using DataAccess.Customer.Interfaces;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Casino.MetaModel;
@@ -33,7 +34,7 @@ namespace Fanex.Athena.Service.Customer
     {
         #region Varialbes
 
-        private readonly CustomerDataAccess _customerDataAccess;
+        private readonly ICustomerDataAccess _customerDataAccess;
 
         private readonly ICasinoSetting _casinoSetting;
 
@@ -60,6 +61,24 @@ namespace Fanex.Athena.Service.Customer
             _sessionService = new SessionService();
             _rngCasinoService = new RNGCasinoService();
             _appSettings = new AppSettings();
+        }
+
+        public CustomerService(
+            ICustomerDataAccess customerDataAccess,
+            ICasinoSetting casinoSetting,
+            IAuthorizationService authorizationService,
+            IProductService productService,
+            ISessionService sessionService,
+            IRNGCasinoService rngCasinoService,
+            IAppSettings appSettings)
+        {
+            _customerDataAccess = customerDataAccess;
+            _casinoSetting = casinoSetting;
+            _authorizationService = authorizationService;
+            _productService = productService;
+            _sessionService = sessionService;
+            _rngCasinoService = rngCasinoService;
+            _appSettings = appSettings;
         }
 
         #endregion Constructors

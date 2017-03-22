@@ -55,6 +55,8 @@ namespace Fanex.Athena.DataAccess.Customer.Interfaces
 
         IResultInfo UpdateSpecialLevel(int userId, int custId, int level, string ip, string language);
 
+        IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel);
+
         #endregion Update
     }
 }
