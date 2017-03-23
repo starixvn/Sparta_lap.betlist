@@ -997,6 +997,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cash Out is not offered for this currency..
+        /// </summary>
+        public static string CashOutNotOfferCurrency {
+            get {
+                return ResourceManager.GetString("CashOutNotOfferCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cash-out Share.
         /// </summary>
         public static string CashOutShare {
@@ -2271,6 +2280,15 @@ namespace Fanex.Athena.Resources {
         public static string EnableBetTrade {
             get {
                 return ResourceManager.GetString("EnableBetTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Cash Out.
+        /// </summary>
+        public static string EnableCashOut {
+            get {
+                return ResourceManager.GetString("EnableCashOut", resourceCulture);
             }
         }
         
@@ -5808,6 +5826,15 @@ namespace Fanex.Athena.Resources {
         public static string ProductCB {
             get {
                 return ResourceManager.GetString("ProductCB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cash Out.
+        /// </summary>
+        public static string ProductCO {
+            get {
+                return ResourceManager.GetString("ProductCO", resourceCulture);
             }
         }
         

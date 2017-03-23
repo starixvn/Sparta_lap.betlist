@@ -839,6 +839,7 @@
     <Content Include="SiteConfig\WebConfigTransforms\PROStatic.config" />
     <Content Include="SiteConfig\WebConfigTransforms\DEV.config" />
     <None Include="SiteConfig\Web.DEV.config" />
+    <Content Include="Views\Customer\BetSetting\CashOut.cshtml" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />

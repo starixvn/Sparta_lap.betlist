@@ -2954,4 +2954,13 @@
     <value>This report supports up-to-date data. You can filter data up to 3 months per query.</value>
     <comment>#71725</comment>
   </data>
+  <data name="ProductCO" xml:space="preserve">
+    <value>Cash Out</value>
+  </data>
+  <data name="EnableCashOut" xml:space="preserve">
+    <value>Enable Cash Out</value>
+  </data>
+  <data name="CashOutNotOfferCurrency" xml:space="preserve">
+    <value>Cash Out is not offered for this currency.</value>
+  </data>
 </root>
