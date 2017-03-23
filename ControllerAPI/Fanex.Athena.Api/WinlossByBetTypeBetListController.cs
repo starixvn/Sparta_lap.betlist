@@ -17,7 +17,6 @@
         public dynamic Index(
             int page,
             int rows,
-            string licenseeType,
             int currencyId,
             string currencyName,
             string baseCurrency,
@@ -27,27 +26,21 @@
             string sortBy = null,
             string sortOrder = null)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (currencyId != 0 && !currencyList.Values.Contains(currencyId))
+            if (currencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(currencyId))
             {
                 return null;
             }
 
             var metaModel = new BetListMetaModel
             {
-                LicenseeId = SessionService.LicenseeSession.LicenseeId,
-                LicenseeType = licenseeType,
-                CurrencyId = currencyId,
                 CurrencyName = currencyName,
                 BaseCurrency = baseCurrency ?? string.Empty,
                 FromDate = fromDate,
                 ToDate = toDate,
-                UserId = userSession.UserId,
                 BetType = bettype,
                 SortBy = sortBy,
-                SortOrder = sortOrder
+                SortOrder = sortOrder,
+                AgentListXml = SessionService.GenerateAgentListXml(currencyId)
             };
 
             const string UspKey = "Lrf_BetList_SelWinLossByBetType";

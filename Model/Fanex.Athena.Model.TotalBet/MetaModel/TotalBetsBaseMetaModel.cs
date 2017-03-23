@@ -8,14 +8,10 @@ namespace Fanex.Athena.Model.TotalBet.MetaModel
 {
     using Fanex.Athena.Model.Core.MetaModel;
 
-    /// <summary>
-    /// TotalBetsBaseMetaModel class.
-    /// </summary>
     public class TotalBetsBaseMetaModel : BaseMetaModel
     {
         public TotalBetsBaseMetaModel()
         {
-            LicenseeType = null;
             CurrencyId = 0;
             PageIndex = 1;
             PageSize = 1000;

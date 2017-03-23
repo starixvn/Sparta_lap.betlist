@@ -6,8 +6,10 @@
 
 namespace Fanex.Athena.Service.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -19,12 +21,10 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
-    /// <summary>
-    /// Live report service class.
-    /// </summary>
     public class LiveReportService : ILiveReportService
     {
         private readonly IBalanceUpService _balanceUpService;
+
         private readonly ILiveReportDataAccess _liveReportDataAccess;
 
         public LiveReportService()
@@ -33,12 +33,7 @@ namespace Fanex.Athena.Service.Report
             this._balanceUpService = new BalanceUpService();
         }
 
-        /// <summary>
-        /// Get summary data of live report.
-        /// </summary>
-        /// <param name="model">The metal model.</param>
-        /// <returns>The summary data list.</returns>
-        public IList<LiveReport> GetLiveReportSummary(LiveReportMetalModel model)
+        public IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel model)
         {
             if (model.IsValid)
             {
@@ -49,17 +44,8 @@ namespace Fanex.Athena.Service.Report
             return new List<LiveReport>();
         }
 
-        /// <summary>
-        /// Get detail data of live report.
-        /// </summary>
-        /// <param name="model">The metal model.</param>
-        /// <param name="productCode">The product code.</param>
-        /// <param name="products">The products.</param>
-        /// <param name="resultBySport">The result data group by sport.</param>
-        /// <param name="resultByByCurrency">The result data group by currency.</param>
-        /// <param name="resultByBettype">The result data group by bet type.</param>
         public void GetLiveReportSumaryDetail(
-            LiveReportMetalModel model,
+            LiveReportMetaModel model,
             string productCode,
             IList<Product> products,
             out IList<LiveReport> resultBySport,
@@ -69,14 +55,24 @@ namespace Fanex.Athena.Service.Report
             if (model.IsValid)
             {
                 var moveBetsDay = this._balanceUpService.BalanceUpInfo.MoveBetsDay;
-                this._liveReportDataAccess.GetLiveReportSummaryDetail(
-                    model,
-                    moveBetsDay,
-                    productCode,
-                    products,
-                    out resultBySport,
-                    out resultByByCurrency,
-                    out resultByBettype);
+
+                var taskForSport = Task<IList<LiveReport>>.Factory.StartNew(() =>
+                {
+                    return _liveReportDataAccess.GetDetailBySport(model, moveBetsDay, productCode);
+                });
+
+                var taskForCurrencyAndBettype = Task<Tuple<IList<LiveReport>, IList<LiveReportByBetType>>>.Factory.StartNew(() =>
+                {
+                    return _liveReportDataAccess.GetDetailByCurrencyAndBettype(
+                        model,
+                        moveBetsDay,
+                        productCode,
+                        products);
+                });
+
+                resultBySport = taskForSport.Result;
+                resultByByCurrency = taskForCurrencyAndBettype.Result.Item1;
+                resultByBettype = taskForCurrencyAndBettype.Result.Item2;
             }
             else
             {
@@ -86,11 +82,6 @@ namespace Fanex.Athena.Service.Report
             }
         }
 
-        /// <summary>
-        /// Get live report win-loss by match.
-        /// </summary>
-        /// <param name="model">The metal model.</param>
-        /// <returns>The data list.</returns>
         public IList<LiveReportWinLossByMatch> GetLiveReportWinLossByMatch(LiveReportMatchListMetalModel model)
         {
             if (model.IsValid)

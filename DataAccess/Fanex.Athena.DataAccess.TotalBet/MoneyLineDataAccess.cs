@@ -15,29 +15,17 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// Money Line data access.
-    /// </summary>
     public class MoneyLineDataAccess : BaseDataAccess, IMoneyLineDataAccess
     {
-        /// <summary>
-        /// Get money line data list.
-        /// </summary>
-        /// <param name="metaModel">Money line MetaModel value.</param>
-        /// <param name="totalData">Money line value.</param>
-        /// <returns>A list of money line.</returns>
         public IList<MoneyLine> GetMoneyLineDataList(MoneyLineMetaModel metaModel, out MoneyLine totalData)
         {
             const string SpName = "Lrf_TotalBets_Sel2021";
             var uspParams = new
             {
-                LicenseeId = metaModel.LicenseeId,
-                LicenseeType = metaModel.LicenseeType,
-                CurrencyId = metaModel.CurrencyId,
+                AgentList = metaModel.AgentListXml,
                 PageSize = metaModel.PageSize,
                 PageIndex = metaModel.PageIndex,
-                TotalRows = metaModel.TotalRows,
-                UserId = metaModel.UserId
+                TotalRows = metaModel.TotalRows
             };
 
             IList<MoneyLine> data;

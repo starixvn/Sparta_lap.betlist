@@ -53,7 +53,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
@@ -92,7 +91,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 CurrencyList = userSession.CurrencyList,
                 HistoryParam = historyParam,
@@ -109,8 +107,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
 
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
             CustomerWinLoss totalData;
             int totalRows;
             var custWinlossService = new CustomerWinlossService();
@@ -121,7 +118,6 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CustomerWinLossViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language),
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
@@ -147,7 +143,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.UserId = userSession.UserId;
             metaModel.FromDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.FromDay);
             metaModel.ToDate = new DateTime(metaModel.Year, metaModel.Month, metaModel.ToDay);
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
             CustomerWinLoss totalData;
             int totalRows;
             var custWinlossService = new CustomerWinlossService();
@@ -158,7 +154,6 @@ namespace Fanex.Athena.Controllers.Report
             var model = new CustomerWinLossViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language),
                 CurrencyList = userSession.CurrencyList,
                 HistoryParam = metaModel,

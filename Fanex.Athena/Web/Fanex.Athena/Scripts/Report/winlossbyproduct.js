@@ -33,7 +33,7 @@ var WinLossByProduct = (function ($) {
 
     function initAutoComplete() {
         var $username = $('#Username');
-        var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
+        var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
         if ($username.length > 0) {
             $username.autocomplete({ serviceUrl: serUrl, minChars: 2 });
             setDefaultUsername();

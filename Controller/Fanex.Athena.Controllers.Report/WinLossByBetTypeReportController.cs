@@ -6,6 +6,10 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
@@ -16,10 +20,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
 
     [FunctionAuthorization(PermissionKeys.ReportWinLossByBetType)]
     public class WinLossByBetTypeReportController : ReportBaseController
@@ -45,7 +45,6 @@ namespace Fanex.Athena.Controllers.Report
                 BalanceUpdate = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = userSession.CurrencyList,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
             };
 
@@ -60,8 +59,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var winLossByBetTypeService = new WinLossByBetTypeService();
             var reportData = winLossByBetTypeService.GetDataList(metaModel);
 
@@ -75,7 +73,6 @@ namespace Fanex.Athena.Controllers.Report
                 BalanceUpdate = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString(),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = userSession.CurrencyList,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 ColumnCount = GetColumnCount(productAccess, licenseeSession.IsAllowedCustomerComm),
                 Total = total

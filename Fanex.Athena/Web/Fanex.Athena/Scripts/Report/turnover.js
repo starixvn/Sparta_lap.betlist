@@ -82,7 +82,7 @@ var Turnover = (function ($) {
 
         initAutoComplete: function () {
             var txtUserName = $('#Username');
-            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
+            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
             if (txtUserName.length > 0) {
                 txtUserName.autocomplete({ serviceUrl: serUrl, minChars: 2 });
             }

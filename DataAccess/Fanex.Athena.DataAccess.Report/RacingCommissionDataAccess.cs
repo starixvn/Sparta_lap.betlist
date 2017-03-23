@@ -18,9 +18,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class RacingCommissionDataAccess : BaseDataAccess, IRacingCommissionDataAccess
     {
         public RacingCommissionDataAccess(BalanceUp balanceUp)
@@ -28,21 +25,12 @@ namespace Fanex.Athena.DataAccess.Report
         {
         }
 
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="total">Total value.</param>
-        /// <returns>The result value.</returns>
         public SortableList<RacingCommission> GetDataList(RacingCommissionMetaModel metaModel, ref RacingCommission total)
         {
             const string UspName = "Lrf_Rpt_CommByBettype_HR";
             var uspParams = new
             {
-                LicenseeID = metaModel.LicenseeId,
-                metaModel.UserId,
-                metaModel.LicenseeType,
-                metaModel.CurrencyId,
+                AgentList = metaModel.AgentListXml,
                 metaModel.FromDate,
                 metaModel.ToDate,
                 BalanceUp.MoveBetsDay,
@@ -52,13 +40,13 @@ namespace Fanex.Athena.DataAccess.Report
 
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
                         var baseCurrency = metaModel.BaseCurrency;
 
-                        return this.SetToList(reader, baseCurrency, ref total);
+                        return this.ReadData(reader, baseCurrency, ref total);
                     }
                 }
             }
@@ -69,18 +57,10 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Set to list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <param name="total">Total value.</param>
-        /// <returns>The result value.</returns>
-        public SortableList<RacingCommission> SetToList(IDataReader reader, string baseCurrency, ref RacingCommission total)
+        public SortableList<RacingCommission> ReadData(IDataReader reader, string baseCurrency, ref RacingCommission total)
         {
             var dataList = new SortableList<RacingCommission>();
 
-            // Determine para names based on currency
             var custId = "custID";
             var externalColumn = "NickName";
             var systemId = "UserName";

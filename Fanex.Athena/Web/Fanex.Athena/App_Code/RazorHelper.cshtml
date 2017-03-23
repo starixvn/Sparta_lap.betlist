@@ -205,21 +205,21 @@ if (addMoreAllOption)
         }
     </select>
 }
-@helper CurrencyList(IDictionary<string, int> currencyList,
+@helper CurrencyList(IDictionary<int, string> currencyList,
 string className = "", int selected = 0,
 bool addMoreAllOption = true,
 bool addBasedOption = false)
 {
-var selectedName = currencyList.Where(p => p.Value == selected).FirstOrDefault().Key;
+var selectedName = currencyList.Where(p => p.Key == selected).FirstOrDefault().Key;
 var selectedBaseCurrency = selected == BaseCurrencyType.Gbp ? "gbp" :
                            (selected == BaseCurrencyType.Usd ? "usd" :
                            (selected == BaseCurrencyType.Eur ? "eur" : string.Empty));
 var items = currencyList
  .Select(c => new System.Web.WebPages.Html.SelectListItem
  {
-     Value = c.Value.ToString(),
-     Text = c.Key,
-     Selected = selected == c.Value
+     Value = c.Key.ToString(),
+     Text = c.Value,
+     Selected = selected == c.Key
  }).ToList();
 if (addBasedOption)
 {

@@ -18,11 +18,10 @@ namespace Fanex.Athena.Controllers.Forecast
 
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class AhForecastController : ForecastBaseController
-    {        
+    {
         public ActionResult Index(ForecastAHMetaModel metaModel)
         {
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var model = this.GetViewModel(metaModel);
 

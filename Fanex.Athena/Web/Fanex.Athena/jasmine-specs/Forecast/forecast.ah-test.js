@@ -79,7 +79,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("AhForecast/Index?matchid=1&bettype=6&basecurrency=1&licenseetype=1&currencyid=2&currentscore=5")
+                .stubRequest("AhForecast/Index?matchid=1&bettype=6&basecurrency=1&currencyid=2&currentscore=5")
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -97,7 +97,7 @@
         });
 
         it("ajax request should be called with correct url", function () {
-            var expectedUrl = "AhForecast/Index?matchid=1&bettype=6&basecurrency=1&licenseetype=1&currencyid=2&currentscore=5";
+            var expectedUrl = "AhForecast/Index?matchid=1&bettype=6&basecurrency=1&currencyid=2&currentscore=5";
             expect(request.url).toBe(expectedUrl);
         });
 
@@ -119,7 +119,7 @@
             spyOn(ForecastPopup, "resizePopup");
             Forecast.viewBetlist(5);
 
-            var url = "RunningMatchBetList/Index?matchid=1&bettype=5&basecurrency=1&currencyid=2&currencyname=eur&licenseetype=1";
+            var url = "RunningMatchBetList/Index?matchid=1&bettype=5&basecurrency=1&currencyid=2&currencyname=eur";
 
             expect(ForecastPopup.resizePopup).toHaveBeenCalledWith(jasmine.any(Number), jasmine.any(Number), url);
         });

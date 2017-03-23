@@ -30,7 +30,6 @@
 
             _metaModel = new CustomerPendingFundsMetaModel
             {
-                LicenseeType = "LicenseeTypeTest",
                 ProductOptions = GetProductOptions(),
                 BaseCurrency = "UUS"
             };
@@ -56,12 +55,9 @@
             _dataAccess.GetDataList(_metaModel, ref totalData, ref totalRow);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
-            _objectDb.Received().AddInParameter("licenseetype", DbType.String, _metaModel.LicenseeType);
             _objectDb.Received().AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
-            _objectDb.Received().AddInParameter("currencyid", DbType.Int32, _metaModel.CurrencyId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
         }

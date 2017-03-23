@@ -10,17 +10,10 @@ namespace Fanex.Athena.Model.Core.MetaModel
     using System.ComponentModel;
     using Fanex.Athena.Model.Core.DataDomain;
 
-    /// <summary>
-    /// BaseMetaModel class.
-    /// </summary>
     [Serializable]
     public class BaseMetaModel
     {
-        #region Private
-
         private string _baseCurrency = string.Empty;
-
-        #endregion Private
 
         public BaseMetaModel()
         {
@@ -28,12 +21,11 @@ namespace Fanex.Athena.Model.Core.MetaModel
             CurrencyName = string.Empty;
         }
 
+        public string AgentListXml { get; set; }
+
         public int LicenseeId { get; set; }
 
         public int UserId { get; set; }
-
-        [DefaultValue("")]
-        public string LicenseeType { get; set; }
 
         public int CurrencyId { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ReportController.PlatformWinLoss.cs" company="">
+// <copyright file="PlatformWinLossReportController.cs" company="">
 // Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Api.Report
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -42,7 +41,6 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         private HttpResponseMessage ExportExcel(
             PlatformWinLossMetaModel metaModel,
             IList<PlatformWinLossMember> dataList,
@@ -84,13 +82,13 @@ namespace Fanex.Athena.Api.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            var mobileWinLossExcel = new PlatformWinLossMemberExcel(templatePath, FileName, excelModel, showingOption, convertingOption)
+            var platformWinLossExcel = new PlatformWinLossMemberExcel(templatePath, FileName, excelModel, showingOption, convertingOption)
             {
                 ProductOptions = metaModel.ProductOptions
             };
-            mobileWinLossExcel.Export();
+            platformWinLossExcel.Export();
 
-            return ExcelStream(mobileWinLossExcel.Workbook, FileName);
+            return ExcelStream(platformWinLossExcel.Workbook, FileName);
         }
 
         private HttpResponseMessage ExportExcelSummary(
@@ -99,8 +97,6 @@ namespace Fanex.Athena.Api.Report
             PlatformWinLossSummary total)
         {
             const string FileName = "PlatformWinLossSummary.xls";
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossSummary.xls");
 
             var convertingOption = new ConvertingOption
@@ -123,8 +119,7 @@ namespace Fanex.Athena.Api.Report
                 throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
             }
 
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
             if (metaModel.Level == 0)
             {

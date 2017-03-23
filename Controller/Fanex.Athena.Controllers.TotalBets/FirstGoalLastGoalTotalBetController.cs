@@ -60,13 +60,11 @@ namespace Fanex.Athena.Controllers.TotalBets
 
         private ActionResult GetView(FirstGoalLastGoalMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var licenseeSession = SessionService.LicenseeSession;
-            metaModel.UserId = userSession.UserId;
-            var currencies = userSession.CurrencyList;
+            var currencies = SessionService.UserSession.CurrencyList;
 
-            if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 FirstGoalLastGoal totalData;
                 var dataList = _firstGoalLastGoalService.GetFirstGoalLastGoalDataList(metaModel, out totalData);
 
@@ -74,7 +72,6 @@ namespace Fanex.Athena.Controllers.TotalBets
                 {
                     Param = metaModel,
                     MainData = dataList,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
                     CurrencyList = currencies,
                     TotalData = totalData
                 };

@@ -102,11 +102,6 @@ namespace Fanex.Athena.Service.Core.Users
 
         #endregion Public Methods and Operators
 
-        public string GetNumberOfOnlineUser()
-        {
-            return _licenseeDataAccess.GetNumberOfOnlineUser();
-        }
-
         public Licensee GetLicenseeByName(string licenseeName)
         {
             return _licenseeDataAccess.GetLicenseeByName(licenseeName);

@@ -11,20 +11,17 @@
     public class CustomerBalanceControllerTest
     {
         private ISimpleWidgetService _customerBalanceService;
-        private CustomerBalanceController _customerBalanceController;
 
         [OneTimeSetUp]
         public void Setup()
         {
             _customerBalanceService = Substitute.For<ISimpleWidgetService>();
-            _customerBalanceController = new CustomerBalanceController(_customerBalanceService);
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
             _customerBalanceService = null;
-            _customerBalanceController = null;
         }
 
         [Test]
@@ -40,14 +37,17 @@
                 ControllerContext = new HttpControllerContext(),
                 ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
             };
-            _customerBalanceController.ActionContext = mockActionContext;
+            using (var controller = CreateController())
+            {
+                controller.ActionContext = mockActionContext;
 
-            // Action
-            _customerBalanceController.GetData(metaModel);
+                // Action
+                controller.GetData(metaModel);
 
-            // Assert
-            Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
-            _customerBalanceService.Received().GetData(metaModel);
+                // Assert
+                Assert.That(metaModel.LicenseeId, Is.EqualTo(1));
+                _customerBalanceService.Received().GetData(metaModel);
+            }
         }
 
         [Test]
@@ -63,13 +63,21 @@
                 ControllerContext = new HttpControllerContext(),
                 ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
             };
-            _customerBalanceController.ActionContext = mockActionContext;
+            using (var controller = CreateController())
+            {
+                controller.ActionContext = mockActionContext;
 
-            // Action
-            var result = _customerBalanceController.GetData(metaModel);
+                // Action
+                var result = controller.GetData(metaModel);
 
-            // Assert
-            Assert.That(result, Is.EqualTo(expected));
+                // Assert
+                Assert.That(result, Is.EqualTo(expected));
+            }
+        }
+
+        private CustomerBalanceController CreateController()
+        {
+            return new CustomerBalanceController(_customerBalanceService);
         }
     }
 }

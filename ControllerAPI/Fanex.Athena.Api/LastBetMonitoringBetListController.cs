@@ -79,20 +79,21 @@
             };
         }
 
-        /// <summary>
-        /// Get data for last monitoring bet list.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic object, contains bet list result.</returns>
         [HttpPost]
         public dynamic Index(LastBetsMonitoringMetaModel metaModel)
         {
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            if (string.IsNullOrWhiteSpace(metaModel.Currency))
+            {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml();
+            }
+            else
+            {
+                var currencyIdList = metaModel.Currency.Split(',').Select(int.Parse);
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(currencyIdList);
+            }
 
             var ticketResult = _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel);
 
-            // Show empty content if data is empty
             return ticketResult == null || ticketResult.MainTicketList.Count == 0
                 ? (dynamic)new
                 {
@@ -106,13 +107,6 @@
                 };
         }
 
-        /// <summary>
-        /// Build odds text.
-        /// </summary>
-        /// <param name="metaModel">Meta model object.</param>
-        /// <param name="ticketResult">Ticket result.</param>
-        /// <param name="ticket">LRF ticket object.</param>
-        /// <param name="builder">Bet list builder.</param>
         private static void BuildOdds(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult, LrfTicket ticket, BetListHTMLBuilder builder)
         {
             const string OddStr = "<td data-name=\"Odds\" class=\"bl-odds\"><span class=\"underdog {1}\">{0}</span><br><span class=\"oddstype\">{2}</span></td>";

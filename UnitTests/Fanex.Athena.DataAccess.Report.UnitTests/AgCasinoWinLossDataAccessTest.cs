@@ -55,13 +55,10 @@
             _dataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("currency", DbType.Int32, metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
             _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
             _objectDb.Received().AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
-            _objectDb.Received().AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
             _objectDb.Received().AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
 
         [Test]
@@ -124,13 +121,10 @@
             _dataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("currency", DbType.Int32, metaModel.DrillDownCurrencyId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
             _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
             _objectDb.Received().AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
-            _objectDb.Received().AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
             _objectDb.Received().AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
 
         [Test]
@@ -193,12 +187,9 @@
             _dataAccess.GetAgentWinlossDetail(metaModel, out summaryTotal);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("currency", DbType.Int32, metaModel.DrillDownCurrencyId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
             _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
             _objectDb.Received().AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
-            _objectDb.Received().AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
 
         [Test]

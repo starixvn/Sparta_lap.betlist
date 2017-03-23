@@ -5,7 +5,6 @@
     using Core.Common.Interfaces;
     using DataAccess.Core.Common.Interfaces;
     using Model.Core.DTO.Common;
-    using Model.Core.MetaModel.Product;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -28,26 +27,6 @@
         {
             _betTypeDataAccess = null;
             _betTypeService = null;
-        }
-
-        [Test]
-        public void GetAllBettypes_WhenCall_ReturnResultFromDataAcess()
-        {
-            // Arrange
-            var expectedResult = new Dictionary<string, int>
-            {
-                { "SB", 1 },
-                { "NG", 2 }
-            };
-
-            _betTypeDataAccess.GetAllBettypes(Arg.Any<IList<ProductOption>>()).Returns(expectedResult);
-
-            // Action
-            var result = _betTypeService.GetAllBettypes(null);
-
-            // Assert
-            Assert.That(result, Contains.Key("SB"));
-            Assert.That(result, Contains.Key("NG"));
         }
 
         [Test]
@@ -86,7 +65,7 @@
                 new SportProductItem()
             };
             var licenseeId = 1;
-            _betTypeDataAccess.GetBettypes(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>()).Returns(expectedResult);
+            _betTypeDataAccess.GetBettypes(licenseeId, Arg.Any<string>(), Arg.Any<string>()).Returns(expectedResult);
 
             // Action
             var result = _betTypeService.GetBettypes(licenseeId, sports, Arg.Any<string>());
@@ -94,6 +73,19 @@
             // Assert
             Assert.That(result[0].ID, Is.EqualTo(expectedResult[0].ID));
             Assert.That(result[1].ID, Is.EqualTo(expectedResult[1].ID));
+        }
+
+        [Test]
+        public void GetBettypes_WhenCall_ReturnEmptyDataList()
+        {
+            // Arrange
+            var licenseeId = 1;
+
+            // Action
+            var result = _betTypeService.GetBettypes(licenseeId, null, Arg.Any<string>());
+
+            // Assert
+            Assert.That(result.Count, Is.EqualTo(0));
         }
     }
 }

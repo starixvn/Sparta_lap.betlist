@@ -12,7 +12,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.BetList.ColossusBets.Builder;
-    using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
     using Fanex.Common.Extensions;
     using Fanex.Data;
@@ -53,8 +52,7 @@ namespace Fanex.Athena.DataAccess.BetList
             {
                 using (var db = this.GetObjectDb(UspKey))
                 {
-                    db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("custid", DbType.String, metaModel.CustId);
                     db.AddInParameter("refno", DbType.String, metaModel.RefNo);
                     using (var reader = db.ExecuteReader())

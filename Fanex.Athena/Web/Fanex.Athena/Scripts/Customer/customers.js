@@ -586,7 +586,7 @@ var CustomerList = (function ($) {
         },
         initAutoComplete: function () {
             var $username = $('#txtUsername');
-            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0");
+            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
             if ($username.length > 0) {
                 $username.autocomplete({ serviceUrl: serUrl, minChars: 2 });
                 CustomerList.setDefaultUsername();
@@ -650,7 +650,6 @@ var CustomerList = (function ($) {
                 }
             }
 
-            data.LicenseeType = Site.asNull($("#LicenseeType").val());
             data.PageIndex = _pagingOption.pageindex;
             data.PageSize = _pagingOption.pagesize;
             data.CurrencyId = $("#CurrencyId").val();
@@ -669,7 +668,6 @@ var CustomerList = (function ($) {
 
             $("#excelParam").val(JSON.stringify(data));
 
-            $("#LicenseeType").attr('data-original', data.LicenseeType);
             $("#CurrencyId").attr('data-original', data.CurrencyId);
             $("#BaseCurrency").attr('data-original', data.BaseCurrency);
 

@@ -225,7 +225,7 @@
                 Username = "user1",
                 Password = hashPassword
             };
-            
+
             IResultInfo resultInfo = null;
             _userDataAccess.GetByUsername("user1").Returns(outputUser);
             _userDataAccess.ValidateUserForLrfSystem(Arg.Any<User>(), out resultInfo).Returns(outputUser);
@@ -235,6 +235,87 @@
 
             // Assert
             Assert.That(result.UserID, Is.EqualTo(outputUser.UserID));
+        }
+
+        [Test]
+        public void ValidateUserForLrfSystem_WhenCallWithWrongPassword_GetCorrectResultInfo()
+        {
+            // Arrange
+            var outputUser = new User
+            {
+                UserID = 999,
+                Password = "password1",
+                UserSalt = "salt1"
+            };
+            var loginToken = "logintoken";
+            var hashPassword = Cryptography.CreateHash("WrongPassword", outputUser.UserSalt);
+            var inputUser = new User
+            {
+                Username = "user1",
+                Password = hashPassword
+            };
+
+            IResultInfo resultInfo = null;
+            _userDataAccess.GetByUsername("user1").Returns(outputUser);
+
+            var expectedResult = new ResultInfo { Code = 104, Message = "Wrong username or password." };
+
+            // Action
+            var result = _userService.ValidateUserForLrfSystem(inputUser, loginToken, out resultInfo);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(resultInfo.Code, Is.EqualTo(expectedResult.Code));
+                Assert.That(resultInfo.Message, Is.EqualTo(expectedResult.Message));
+            });
+        }
+
+        [Test]
+        public void ValidateUserForLrfSystem_WhenCallWithWrongUserName_GetCorrectResultInfo()
+        {
+            // Arrange
+            User outputUser = null;
+            var loginToken = "logintoken";
+
+            var inputUser = new User
+            {
+                Username = "user1",
+                Password = "123"
+            };
+
+            IResultInfo resultInfo = null;
+            _userDataAccess.GetByUsername("user1").Returns(outputUser);
+            var expectedResult = new ResultInfo { Code = 100, Message = "Not found user" };
+
+            // Action
+            var result = _userService.ValidateUserForLrfSystem(inputUser, loginToken, out resultInfo);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(resultInfo.Code, Is.EqualTo(expectedResult.Code));
+                Assert.That(resultInfo.Message, Is.EqualTo(expectedResult.Message));
+            });
+        }
+
+        [Test]
+        public void SyncUserInfo_WhenCall_ReturnCorrectData()
+        {
+            // Arrange
+            var expectedResult = new ResultInfo
+            {
+                Code = 100,
+                Message = "Success"
+            };
+            const string LicenseeName = "12Bet", UserName = "alex";
+            _userDataAccess.SyncUserInfo(LicenseeName, UserName).Returns(expectedResult);
+
+            // Action
+            var result = _userService.SyncUserInfo(LicenseeName, UserName);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
     }
 }

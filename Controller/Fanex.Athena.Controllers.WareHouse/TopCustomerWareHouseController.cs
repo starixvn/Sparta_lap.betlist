@@ -65,8 +65,7 @@ namespace Fanex.Athena.Controllers.WareHouse
         public ActionResult Index(TopCustomerMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-            metaModel.UserId = userSession.UserId;
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             if (metaModel.IsExportExcel)
             {
                 return Excel(metaModel);
@@ -98,7 +97,7 @@ namespace Fanex.Athena.Controllers.WareHouse
             var userSession = SessionService.UserSession;
             const string FileName = "TopCustomer";
             const string FormatTitle = "{0} {1} {2} {3} {4} --> {5} - {6}";
-            metaModel.UserId = userSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var templatePath = Server.MapPath("~/App_Data/Template/DataWareHouse/TopCustomer.xls");
             var productAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
             var showingOption = new ShowingOption

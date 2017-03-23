@@ -150,11 +150,6 @@ namespace Fanex.Athena.Service.BetSettings
             Justification = "Reviewed. Suppression is OK here.")]
         private IList<GoldDeluxeGame> GetGoldDeluxeGroupBettingLimit(int licenseeId, int custId, string siteName, int currency)
         {
-            if (!HasPermissionOnData(licenseeId, custId))
-            {
-                return new List<GoldDeluxeGame>();
-            }
-
             var uri = new Uri(_appSettings.GetValue("GoldDeluxeGroupBettingLimitApiUrl"));
             var parameters = string.Format("SiteName={0}&Currency={1}&ThirdPartyId={2}", siteName, currency, GoldDeluxeThirdPartyId);
             var games = new List<GoldDeluxeGame>();

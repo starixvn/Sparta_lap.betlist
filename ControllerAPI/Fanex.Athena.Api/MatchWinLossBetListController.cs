@@ -15,6 +15,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.MetaModel.Product;
     using Model.Core.DataDomain;
+
     #endregion Using
 
     [ApiFunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
@@ -29,13 +30,12 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (metaModel.CurrencyId != 0 && !currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            metaModel.UserId = userSession.UserId;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.IsServerPaging = true;
 
             var uspKey = IsRacing(metaModel.BetType)
@@ -56,10 +56,9 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
             {
-                metaModel.UserId = userSession.UserId;
-                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 metaModel.IsServerPaging = true;
 
                 const string UspKey = "Lrf_BetList_MatchWL_Outright";
@@ -73,7 +72,6 @@ namespace Fanex.Athena.Api.BetList
         public dynamic MixParlay(
             int page,
             int rows,
-            string licenseeType,
             int currencyId,
             string baseCurrency,
             int betType,
@@ -87,7 +85,7 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (currencyId == 0 || currencyList.Values.Contains(currencyId))
+            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
             {
                 const string UspKey = "Lrf_BetList_MatchWL_Parlay";
                 var productOptions = new HashSet<ProductOption>
@@ -106,7 +104,6 @@ namespace Fanex.Athena.Api.BetList
 
                 var metaModel = new BetListMetaModel
                 {
-                    LicenseeType = licenseeType,
                     LicenseeId = SessionService.LicenseeSession.LicenseeId,
                     UserId = userSession.UserId,
                     CurrencyId = currencyId,
@@ -117,7 +114,8 @@ namespace Fanex.Athena.Api.BetList
                     ToDate = toDate.Date,
                     SortBy = sortBy,
                     SortOrder = sortOrder,
-                    IsServerPaging = true
+                    IsServerPaging = true,
+                    AgentListXml = SessionService.GenerateAgentListXml(currencyId)
                 };
 
                 return GetPagingBetListResult(metaModel, UspKey, page, rows);

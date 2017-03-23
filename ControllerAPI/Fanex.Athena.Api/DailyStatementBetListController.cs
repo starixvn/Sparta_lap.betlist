@@ -24,14 +24,12 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (metaModel.CurrencyId != 0 && !currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            metaModel.UserId = userSession.UserId;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             const string UspKey = "Lrf_BetList_SelByDayAll_Mem";
             const string UspKeyOld = "Lrf_BetList_SelByDayAll_Mem_Old";
 

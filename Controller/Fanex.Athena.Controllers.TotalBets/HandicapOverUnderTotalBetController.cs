@@ -64,11 +64,11 @@ namespace Fanex.Athena.Controllers.TotalBets
         {
             var userSession = SessionService.UserSession;
             var licenseeSession = SessionService.LicenseeSession;
-            metaModel.UserId = userSession.UserId;
             var currencies = userSession.CurrencyList;
 
-            if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 HandicapOverUnder totalData;
                 var dataList = _handicapOverUnderService.GetHandicapOverUnderDataList(metaModel, out totalData);
 
@@ -76,7 +76,6 @@ namespace Fanex.Athena.Controllers.TotalBets
                 {
                     Param = metaModel,
                     MainData = dataList,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
                     CurrencyList = currencies,
                     TotalData = totalData
                 };

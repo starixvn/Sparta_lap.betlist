@@ -61,13 +61,12 @@
                 it("Popup.openPopupWithIframe(url, option) should be called with correct parameters", function () {
                     spyOn(Site, "resolveClientUrl").and.callFake(function (url) { return url; });
                     setFixtures(
-                        '<div id="LicenseeType" data-original="1"></div>' +
                         '<select id="CurrencyId" data-original="2"></select>' +
                         '<div id="BaseCurrency" data-original="3"></div>'
                         );
                     $("#CurrencyId").append('<option value="2">uus</option>');
 
-                    var queryString = "matchid=1&bettype=2&ispopup=true&licenseetype=1&currencyid=2&currencyname=uus&basecurrency=3";
+                    var queryString = "matchid=1&bettype=2&ispopup=true&currencyid=2&currencyname=uus&basecurrency=3";
                     var url = "OneXTwoForecast/Popup?" + queryString;
                     window.innerHeight = 500;
                     spyOn(Popup, "openPopupWithIframe");

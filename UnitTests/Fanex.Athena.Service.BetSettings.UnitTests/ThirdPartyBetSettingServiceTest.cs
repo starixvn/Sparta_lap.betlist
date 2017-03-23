@@ -26,8 +26,6 @@
             _authorizationService = Substitute.For<IAuthorizationService>();
             _dataAccess = Substitute.For<IThirdPartyBetSettingDataAccess>();
             _service = new ThirdPartyBetSettingService(_authorizationService, _dataAccess);
-
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
         [OneTimeTearDown]
@@ -42,6 +40,7 @@
         public void GetViewModel_WhenCall_ReturnDataFromDataAcccess()
         {
             // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             const int ProductId = 100;
 
             var betSetting = new ThirdPartyBetSetting
@@ -61,9 +60,24 @@
         }
 
         [Test]
+        public void GetViewModel_HaveNoPermission_ReturnNull()
+        {
+            // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+            const int ProductId = 100;
+
+            // Action
+            var result = _service.GetViewModel(LicenseeId, CustId, ProductId);
+
+            // Assert
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
         public void UpdateStatus_WhenCall_CallDataAccessWithCorrectParameters()
         {
             // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             const int ProductId = 100;
 
             var betSetting = new ThirdPartyBetSetting
@@ -77,6 +91,41 @@
 
             // Assert
             _dataAccess.Received().UpdateStatus(ProductId, UserId, CustId, Language, "ip", true);
+        }
+
+        [Test]
+        public void UpdateStatus_HaveNoPermission_ReturnCorrectErrorResult()
+        {
+            // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+            const int ProductId = 100;
+
+            // Action
+            var result = _service.UpdateStatus(LicenseeId, ProductId, UserId, CustId, Language, "ip", true);
+
+            // Assert
+            Assert.That(result.Code, Is.EqualTo(1));
+            Assert.That(result.Message, Is.EqualTo("Invalid parameter. Invalid custId."));
+        }
+
+        [Test]
+        public void UpdateStatus_IsLineEnabledInSettingIsNull_ReturnCorrectErrorResult()
+        {
+            // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+            const int ProductId = 100;
+            var betSetting = new ThirdPartyBetSetting
+            {
+                IsLineEnabled = false
+            };
+            _dataAccess.GetBetSetting(CustId, ProductId).Returns(betSetting);
+
+            // Action
+            var result = _service.UpdateStatus(LicenseeId, ProductId, UserId, CustId, Language, "ip", true);
+
+            // Assert
+            Assert.That(result.Code, Is.EqualTo(1));
+            Assert.That(result.Message, Is.EqualTo("Invalid parameter. Invalid custId."));
         }
     }
 }

@@ -68,19 +68,18 @@ namespace Fanex.Athena.Api.Report
 
             var currencyList = userSession.CurrencyList;
 
-            var currency = currencyList.SingleOrDefault(i => i.Value == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
+            var currency = currencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
             var exportedFileName = string.Format(
                 "AGWinLoss_{0:ddMMMyyyy}_{1}.xls",
                 metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate,
-                currency.Value == 0 ? "All" : currency.Key);
+                currency.Key == 0 ? "All" : currency.Value);
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currency.Key
+                CurrencyName = currency.Value
             };
 
-            // Update metalModel Value
             if (metaModel.DrillDownLevel > 0 && metaModel.CurrencyId > 0)
             {
                 metaModel.CurrencyId = metaModel.DrillDownCurrencyId;
@@ -108,23 +107,6 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, exportedFileName);
         }
 
-        private void GetData(
-                AgCasinoWinLossMetaModel metaModel,
-                out SortableList<AgCasinoWinLoss> dataList,
-                out IDictionary<string, AgCasinoWinLoss> summaryTotal)
-        {
-            dataList = metaModel.DrillDownLevel == 0 ? _agcasinoWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) : metaModel.DrillDownLevel == 2
-                               ? _agcasinoWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
-                               : _agcasinoWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
-        }
-
-        /// <param name="metaModel">todo: describe metaModel parameter on ProcessRequest</param>
-        /// <param name="fdate">todo: describe fdate parameter on ProcessRequest</param>
-        /// <param name="tdate">todo: describe tdate parameter on ProcessRequest</param>
-        /// <param name="level">todo: describe level parameter on ProcessRequest</param>
-        /// <param name="currencyId">todo: describe currencyId parameter on ProcessRequest</param>
-        /// <param name="custId">todo: describe custId parameter on ProcessRequest</param>
-        /// <returns>Dynamic object.</returns>
         private dynamic ProcessRequest(
             AgCasinoWinLossMetaModel metaModel,
             DateTime? fdate,
@@ -135,14 +117,12 @@ namespace Fanex.Athena.Api.Report
         {
             if (IsValidRequest(metaModel, currencyId))
             {
-                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.UserId = SessionService.UserSession.UserId;
                 metaModel.DrillDownCurrencyId = currencyId;
                 metaModel.DrillDownLevel = level;
                 metaModel.DrillDownCustomerId = custId;
                 metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
                 metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
-
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(level > 0 ? currencyId : metaModel.CurrencyId, metaModel.IsExcludedTestData);
                 IDictionary<string, AgCasinoWinLoss> summaryTotal;
                 SortableList<AgCasinoWinLoss> dataList;
                 GetData(metaModel, out dataList, out summaryTotal);
@@ -164,6 +144,16 @@ namespace Fanex.Athena.Api.Report
             }
 
             return GetEmptyResult();
+        }
+
+        private void GetData(
+                AgCasinoWinLossMetaModel metaModel,
+                out SortableList<AgCasinoWinLoss> dataList,
+                out IDictionary<string, AgCasinoWinLoss> summaryTotal)
+        {
+            dataList = metaModel.DrillDownLevel == 0 ? _agcasinoWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) : metaModel.DrillDownLevel == 2
+                               ? _agcasinoWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
+                               : _agcasinoWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
         }
     }
 }

@@ -11,16 +11,12 @@ namespace Fanex.Athena.Model.Customer.MetaModel
     using Core.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
 
-    /// <summary>
-    /// CustomerListMetaModel class.
-    /// </summary>
     [Serializable]
     public class CustomerListMetaModel : BaseMetaModel
     {
         public CustomerListMetaModel()
         {
             LicenseeId = 1;
-            LicenseeType = null;
             Username = string.Empty;
             PageSize = 1000;
             PageIndex = 1;

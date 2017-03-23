@@ -30,8 +30,6 @@
             _appSettings = Substitute.For<IAppSettings>();
             _webClientService = Substitute.For<IWebClientService>();
             _service = new AgCasinoBetSettingService(_authorizationService, _dataAccess, _appSettings, _webClientService);
-
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
         }
 
         [OneTimeTearDown]
@@ -51,6 +49,7 @@
             var licenseeId = 1;
             var licenseeName = "spondemo";
             var custId = 2;
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             _appSettings.GetValue("AGCasinoApiUrl").Returns("http://api.com");
             _dataAccess.GetBetSetting(custId).Returns(new AgCasinoBetSetting
             {
@@ -66,6 +65,51 @@
             // Assert
             Assert.That(result.Games[0].GameType, Is.EqualTo("1"));
             Assert.That(result.Games[0].Groups[0].GroupType, Is.EqualTo("AA"));
+            Assert.That(result.BetSetting.CheckedGroups.Length, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void GetViewModel_CheckGroupsContainAgGroupInSetting_ReturnCorrectViewModel()
+        {
+            // Arrange
+            var licenseeId = 1;
+            var licenseeName = "spondemo";
+            var custId = 2;
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+            _appSettings.GetValue("AGCasinoApiUrl").Returns("http://api.com");
+            _dataAccess.GetBetSetting(custId).Returns(new AgCasinoBetSetting
+            {
+                AgGroup = "B",
+                CheckedGroups = new string[] { "A", "B", "C" },
+                IsEnabled = true
+            });
+            _webClientService.UploadString(new Uri("http://api.com"), "SiteName=spondemo&Currency=0")
+                .Returns("<Game GameType='1' Name='A'><Group GroupType='AA'><Min>1</Min><Max>100</Max></Group></Game>");
+
+            // Action
+            var result = _service.GetViewModel(licenseeId, custId, licenseeName);
+
+            // Assert
+            Assert.That(result.Games[0].GameType, Is.EqualTo("1"));
+            Assert.That(result.Games[0].Groups[0].GroupType, Is.EqualTo("AA"));
+            Assert.That(result.BetSetting.CheckedGroups.Length, Is.EqualTo(3));
+            Assert.That(result.IsEnabled, Is.True);
+        }
+
+        [Test]
+        public void GetViewModel_HaveNoPermission_ReturnNull()
+        {
+            // Arrange
+            var licenseeId = 1;
+            var licenseeName = "spondemo";
+            var custId = 2;
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+
+            // Action
+            var result = _service.GetViewModel(licenseeId, custId, licenseeName);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(null));
         }
 
         [Test]
@@ -81,6 +125,7 @@
             {
                 CustId = 2
             };
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             _dataAccess.GetBetSetting(setting.CustId).Returns(new AgCasinoBetSetting
             {
                 IsEnabled = true
@@ -92,6 +137,80 @@
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+        }
+
+        [Test]
+        public void UpdateAgCasinoBetSetting_SettingParamIsNull_ReturnCorrectErrorResult()
+        {
+            // Arrange
+            var expectedResult = new ResultInfo()
+            {
+                Code = 1,
+                Message = "Invalid parameter. AG Casino is null"
+            };
+            var group = "A";
+
+            // Action
+            var result = _service.UpdateAgCasinoBetSetting(null, group);
+
+            // Assert
+            Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+            Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+        }
+
+        [Test]
+        public void UpdateAgCasinoBetSetting_IsEnabledOfSettingIsFalse_ReturnCorrectErrorResult()
+        {
+            // Arrange
+            var expectedResult = new ResultInfo()
+            {
+                Code = 1,
+                Message = "Invalid parameter. Invalid custId."
+            };
+            var group = "A";
+            var setting = new CommonBetSetting
+            {
+                CustId = 2
+            };
+            _dataAccess.GetBetSetting(setting.CustId).Returns(new AgCasinoBetSetting
+            {
+                IsEnabled = false
+            });
+
+            // Action
+            var result = _service.UpdateAgCasinoBetSetting(setting, group);
+
+            // Assert
+            Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+            Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+        }
+
+        [Test]
+        public void UpdateAgCasinoBetSetting_HaveNoPermission_ReturnCorrectErrorResult()
+        {
+            // Arrange
+            var expectedResult = new ResultInfo()
+            {
+                Code = 1,
+                Message = "Invalid parameter. Invalid custId."
+            };
+            var group = "A";
+            var setting = new CommonBetSetting
+            {
+                CustId = 2
+            };
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+            _dataAccess.GetBetSetting(setting.CustId).Returns(new AgCasinoBetSetting
+            {
+                IsEnabled = true
+            });
+
+            // Action
+            var result = _service.UpdateAgCasinoBetSetting(setting, group);
+
+            // Assert
+            Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+            Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
         }
 
         [Test]
@@ -107,6 +226,7 @@
             var custId = 3;
             var language = "en-US";
             var ip = "ip";
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             _dataAccess.UpdateStatus(userId, custId, language, ip, true).Returns(expectedResult);
 
             // Action
@@ -114,6 +234,30 @@
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+        }
+
+        [Test]
+        public void UpdateStatus_HaveNoPermission_ReturnCorrectErrorResult()
+        {
+            // Arrange
+            var expectedResult = new ResultInfo
+            {
+                Code = 1,
+                Message = "Invalid parameter. Invalid custId."
+            };
+            var licenseeId = 1;
+            var userId = 2;
+            var custId = 3;
+            var language = "en-US";
+            var ip = "ip";
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+
+            // Action
+            var result = _service.UpdateStatus(licenseeId, userId, custId, language, ip, true);
+
+            // Assert
+            Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+            Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
         }
     }
 }

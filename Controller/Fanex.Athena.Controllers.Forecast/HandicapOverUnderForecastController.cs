@@ -43,8 +43,6 @@ namespace Fanex.Athena.Controllers.Forecast
         [CustomValidateAntiForgery]
         public ActionResult Index(ForecastHandicapOverUnderMetaModel metaModel)
         {
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
             var model = this.GetViewModel(metaModel);
 
             return View("~/Views/Forecast/ForecastHDPOU/Main.cshtml", model);
@@ -52,11 +50,10 @@ namespace Fanex.Athena.Controllers.Forecast
 
         private ForecastHdpOuViewModel GetViewModel(ForecastHandicapOverUnderMetaModel metaModel)
         {
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var leagueList = ForecastService.GetForecastRunningLeague(metaModel);
-            var licenseeSession = SessionService.LicenseeSession;
             var currentLeagueId = metaModel.LeagueId;
             metaModel.LeagueId = GetLeagueId(currentLeagueId, leagueList);
-
             var forecastHdpOuByLeague = ForecastService.GetForecastHandicapOverUnder(metaModel);
 
             return new ForecastHdpOuViewModel
@@ -64,7 +61,6 @@ namespace Fanex.Athena.Controllers.Forecast
                 Param = metaModel,
                 MainData = forecastHdpOuByLeague,
                 LeagueList = leagueList,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 CurrencyList = SessionService.UserSession.CurrencyList
             };
         }

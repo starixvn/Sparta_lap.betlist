@@ -37,7 +37,7 @@ namespace Fanex.Athena.Api.Report
             MicroGamingWinLossMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
             IDictionary<string, MicroGamingWinLoss> summaryTotal;
             SortableList<MicroGamingWinLoss> dataList;
 
@@ -116,17 +116,17 @@ namespace Fanex.Athena.Api.Report
         {
             var userSession = SessionService.UserSession;
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/MicroGamingWinLoss.xls");
-            var currency = userSession.CurrencyList.SingleOrDefault(i => i.Value == metaModel.CurrencyId);
+            var currency = userSession.CurrencyList.SingleOrDefault(i => i.Key == metaModel.CurrencyId);
 
             var exportedFileName = string.Format(
                 "MGCWinLoss_{0:ddMMMyyyy}_{1}.xls",
                 metaModel.FromDate,
-                currency.Value == 0 ? "All" : currency.Key);
+                currency.Key == 0 ? "All" : currency.Value);
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currency.Key
+                CurrencyName = currency.Value
             };
 
             var excelModel = new MicroGamingWinLossViewModel

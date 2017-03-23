@@ -26,9 +26,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    /// Licensee win loss data access.
-    /// </summary>
     public class LicenseeWinLossDataAccess : BaseDataAccess, ILicenseeWinLossDataAccess
     {
         private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.BA, Product.RB };
@@ -39,20 +36,12 @@ namespace Fanex.Athena.DataAccess.Report
         {
         }
 
-        #region ILicenseeWinLossDataAccess Members
-
-        /// <summary>
-        /// Get summary win loss.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
         public SortableList<LicenseeWinLoss> GetSummaryWinloss(LicenseeWinLossMetaModel metaModel, out IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
             var uspName = "Lrf_Rpt_LicWinloss";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
                     UpdateUspParams(db, metaModel, false);
@@ -70,12 +59,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get customer win loss detail.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
         public SortableList<LicenseeWinLoss> GetCustomerWinlossDetail(
             LicenseeWinLossMetaModel metaModel,
             out IDictionary<string, LicenseeWinLoss> summaryTotal)
@@ -83,7 +66,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "Lrf_Rpt_LicWinlossDetail";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
                     UpdateUspParams(db, metaModel, true);
@@ -100,12 +83,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get agent win loss detail.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
         public SortableList<LicenseeWinLoss> GetAgentWinlossDetail(
             LicenseeWinLossMetaModel metaModel,
             out IDictionary<string, LicenseeWinLoss> summaryTotal)
@@ -113,7 +90,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "Lrf_Rpt_LicWinlossDetail_Ag";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
@@ -129,10 +106,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        #endregion ILicenseeWinLossDataAccess Members
-
-        #region Private
-
         private static bool IsIgnoredLicenseeWLProduct(string productCode)
         {
             return IgnoredLicenseeWLProducts.Contains(productCode);
@@ -143,14 +116,6 @@ namespace Fanex.Athena.DataAccess.Report
             return IgnoredTurnoverProducts.Contains(productCode);
         }
 
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="drilldown">Drill down value.</param>
-        /// <param name="summaryTotal">Summary value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static SortableList<LicenseeWinLoss> GetData(
@@ -294,19 +259,14 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private void UpdateUspParams(ObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
+        private void UpdateUspParams(IObjectDb db, LicenseeWinLossMetaModel metaModel, bool drilldown)
         {
-            var currencyId = drilldown ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
-            currencyId = currencyId < 0 ? 0 : currencyId;
-
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-            db.AddInParameter("currencyid", DbType.Int32, currencyId);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
             db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
-            db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
             db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
 
             foreach (var product in metaModel.ProductOptions)
@@ -314,7 +274,5 @@ namespace Fanex.Athena.DataAccess.Report
                 db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
             }
         }
-
-        #endregion Private
     }
 }

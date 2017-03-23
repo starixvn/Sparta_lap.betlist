@@ -6,6 +6,8 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System;
+    using System.Web.Mvc;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;
@@ -15,8 +17,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
-    using System;
-    using System.Web.Mvc;
 
     [FunctionAuthorization(PermissionKeys.ReportRacingCommission)]
     public class RacingCommissionReportController : ReportBaseController
@@ -38,7 +38,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
             };
@@ -50,11 +49,7 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult Index(RacingCommissionMetaModel metaModel)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             if (metaModel.IsExportExcel)
             {
                 metaModel.PageSize = PageSizeExcel;
@@ -70,9 +65,8 @@ namespace Fanex.Athena.Controllers.Report
             {
                 RacingCommissionList = reportData,
                 Param = metaModel,
-                LicenseeTypeList = licenseeSession.LicenseeType,
-                CurrencyList = userSession.CurrencyList,
-                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                CurrencyList = SessionService.UserSession.CurrencyList,
+                IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
                 Total = total,
             };
 

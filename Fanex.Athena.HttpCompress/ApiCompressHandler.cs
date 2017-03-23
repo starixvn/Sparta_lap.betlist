@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CompressHandler.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.HttpCompress
+﻿namespace Fanex.Athena.HttpCompress
 {
     using System.Net;
     using System.Net.Http;
@@ -17,12 +11,6 @@ namespace Fanex.Athena.HttpCompress
     /// </summary>
     public class ApiCompressHandler : DelegatingHandler
     {
-        /// <summary>
-        /// Compress response and send to client.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The response task.</returns>
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             return base.SendAsync(request, cancellationToken).ContinueWith(

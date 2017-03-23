@@ -27,9 +27,7 @@ namespace Fanex.Athena.DataAccess.BetList
             {
                 using (var db = this.GetObjectDb(UspKey))
                 {
-                    db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("BetType", DbType.String, metaModel.BetType);
                     db.AddInParameter("Currency", DbType.String, metaModel.Currency);
                     db.AddInParameter("SpecialLevel", DbType.String, metaModel.Level);
@@ -60,11 +58,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        /// <summary>
-        /// Get Match List of system.
-        /// </summary>
-        /// <param name="uspKey">USP key value.</param>
-        /// <returns>The result value.</returns>
         public IList<BetListMatch> GetMatchList(string uspKey)
         {
             try

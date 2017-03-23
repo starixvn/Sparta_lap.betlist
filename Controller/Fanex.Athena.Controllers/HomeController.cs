@@ -10,17 +10,15 @@ namespace Fanex.Athena.Controllers
     using System.IO;
     using System.Web;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
+    using Service.Core.Common.Interfaces;
     using Web.ActionFilter;
 
-    /// <summary>
-    /// Home controller.
-    /// </summary>
     [CheckUMFilter]
     public class HomeController : BaseController
     {
@@ -31,6 +29,16 @@ namespace Fanex.Athena.Controllers
         public HomeController()
         {
             _moveBetService = new MoveBetService();
+        }
+
+        public HomeController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IMoveBetService moveBetService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _moveBetService = moveBetService;
         }
 
         [AuthorizeRestriction(AppMode.Self)]
@@ -51,31 +59,6 @@ namespace Fanex.Athena.Controllers
         {
             SessionService.UserSession.ViewType = type;
             return RedirectToAction(nameof(Index), "Home");
-        }
-
-        /// <summary>
-        /// Get number online user.
-        /// </summary>
-        /// <returns>The amount online users.</returns>
-        [HttpGet]
-        [AllowAnonymous]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
-#pragma warning disable CC0091 // Use static method
-        public string NumOfOnlineUser()
-#pragma warning restore CC0091 // Use static method
-        {
-            var result = string.Empty;
-            try
-            {
-                ILicenseeService licenseeService = new LicenseeService();
-                result = licenseeService.GetNumberOfOnlineUser();
-            }
-            catch (Exception exception)
-            {
-                result = "Error!" + exception.Message;
-            }
-
-            return result;
         }
 
         /// <summary>
@@ -110,7 +93,10 @@ namespace Fanex.Athena.Controllers
                 return string.Empty;
             }
 
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            var cache = Response.Cache;
+            cache.SetNoStore();
+            cache.SetExpires(DateTime.Now.AddMinutes(-1));
+            cache.SetCacheability(HttpCacheability.NoCache);
             Response.SetCookie(new System.Web.HttpCookie(IsFirstLoadCookieKey, "0"));
 
             var moveBet = _moveBetService.GetMoveBet();

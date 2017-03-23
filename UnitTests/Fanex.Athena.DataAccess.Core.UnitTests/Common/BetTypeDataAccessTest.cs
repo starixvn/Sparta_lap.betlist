@@ -1,11 +1,9 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
-    using System.Collections.Generic;
     using System.Data;
     using Core.Common;
     using Data;
     using Model.Core.DTO.Common;
-    using Model.Core.MetaModel.Product;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -22,7 +20,7 @@
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<BetTypeDataAccess>();
             _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(_reader);           
+            _objectDb.ExecuteReader().Returns(_reader);
         }
 
         [OneTimeTearDown]
@@ -72,25 +70,6 @@
             Assert.That(result[0].Checked, Is.True);
             Assert.That(result[0].ID, Is.EqualTo(expected.ID));
             Assert.That(result[0].Name, Is.EqualTo(expected.Name));
-        }
-
-        [Test]
-        public void GetAllBettypes_WhenCall_PassCorrectParameters()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetTypesGetAll")).Returns(_objectDb);
-            var productOptions = new List<ProductOption>
-            {
-                new ProductOption { Code = "SB", Status = false },
-                new ProductOption { Code = "VB", Status = true }
-            };
-
-            // Action
-            _dataAccess.GetAllBettypes(productOptions);
-
-            // Assert
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, false);
-            _objectDb.Received().AddInParameter("showVB", DbType.Boolean, true);
         }
     }
 }

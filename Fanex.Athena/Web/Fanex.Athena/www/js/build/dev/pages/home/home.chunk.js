@@ -1132,7 +1132,7 @@ webpackJsonp([37],{
 	                el: '#suggestionDropdown'
 	            },
 	            getData: function (value, callback) {
-	                var url = Site.resolveClientUrl("CustomerAPI/SearchCustomer?licenseeType=&currencyId=0&query=" + value);
+	                var url = Site.resolveClientUrl("CustomerAPI/SearchCustomer?query=" + value);
 	
 	                $.ajax({
 	                    type: "GET",

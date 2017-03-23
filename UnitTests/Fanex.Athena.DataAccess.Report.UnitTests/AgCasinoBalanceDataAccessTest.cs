@@ -26,7 +26,7 @@
             var balanceUp = new BalanceUp();
             _dataAccess = Substitute.ForPartsOf<AgCasinoBalanceDataAccess>(balanceUp);
 
-            _reader = Substitute.For<IDataReader>();          
+            _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(_reader);
         }
 
@@ -55,12 +55,9 @@
             _dataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("currency", DbType.Int32, metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
             _objectDb.Received().AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
-            _objectDb.Received().AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
         }
 
         [Test]
@@ -132,12 +129,9 @@
             _objectDb.Received().AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
             _objectDb.Received().AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
             _objectDb.Received().AddOutParameter("TotalRows", DbType.Int32, 10);
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("currency", DbType.Int32, 0);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
             _objectDb.Received().AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
-            _objectDb.Received().AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
         }
 
         [Test]

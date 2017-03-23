@@ -49,3 +49,6 @@ bower_components
 /Fanex.Athena/Web/Fanex.Athena/PhantomJS_2.1.1_(Windows_8_0.0.0)/junit/test-results.xml
 /UnitTest.xml
 /UnitTestCoverage.xml
+
+UnitTestCoverage_*.xml
+UnitTestResult_*.xml

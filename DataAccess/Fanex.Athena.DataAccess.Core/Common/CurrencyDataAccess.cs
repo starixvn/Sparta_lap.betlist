@@ -8,12 +8,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
-    using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
     using Model.Core.MetaModel.Account;
@@ -29,23 +29,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 var entityList = new List<CurrencyUser>();
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    using (var reader = db.ExecuteReader(uspParams))
-                    {
-                        while (reader.Read())
-                        {
-                            var currency = new CurrencyUser
-                            {
-                                CurrencyId = reader.GetInt32(reader.GetOrdinal("Currency")),
-                                CurrencyName = reader.GetString(reader.GetOrdinal("CurrencyName")),
-                                IsActive = true
-                            };
-
-                            entityList.Add(currency);
-                        }
-                    }
+                    return BindCurrencyUser(db);
                 }
-
-                return entityList;
             }
             catch (ObjectDbException sqlException)
             {
@@ -87,16 +72,9 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
         }
 
-        /// <summary>
-        /// Get currencies by user.
-        /// </summary>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <returns>The result value.</returns>
         public IList<CurrencyUser> GetCurrenciesByUser(int licenseeId, int userId)
         {
             const string UspName = "Lrf_SelCurrencyByLicenseeUser";
-            IList<CurrencyUser> currencyList = new List<CurrencyUser>();
 
             try
             {
@@ -105,27 +83,26 @@ namespace Fanex.Athena.DataAccess.Core.Common
                     db.AddInParameter("UserID", DbType.Int32, userId);
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            currencyList.Add(new CurrencyUser
-                            {
-                                CurrencyId = reader.ToInt("Currency"),
-                                CurrencyName = reader.ToString("CurrencyName"),
-                                IsActive = reader.ToBool("IsActive")
-                            });
-                        }
-                    }
+                    return BindCurrencyUser(db);
                 }
-
-                return currencyList;
             }
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
+        }
+
+        private static IList<CurrencyUser> BindCurrencyUser(IObjectDb db)
+        {
+            var currencyList = db.Query<CurrencyUser>();
+            return currencyList.GroupBy(x => x.CurrencyId).Select(x => new CurrencyUser
+            {
+                CurrencyId = x.Key,
+                CurrencyName = x.First().CurrencyName,
+                IsActive = x.First().IsActive,
+                AgentIdList = x.Select(y => y.AgentId).ToList()
+            }).ToList();
         }
     }
 }

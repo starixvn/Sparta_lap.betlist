@@ -19,33 +19,22 @@ namespace Fanex.Athena.DataAccess.Warehouse
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    /// Data warehouse win loss data access.
-    /// </summary>
     public class WinLossDataAccess : BaseDataAccess, IWinLossDataAccess
     {
-        #region IWinLossDataAccess Members
-
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="metaModel"> The model. </param>
-        /// <returns> List win loss.</returns>
         public IList<WinLoss> GetDataList(WinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_rpt_DWWinloss";
             var dataList = new List<WinLoss>();
             var uspParams = new
             {
+                LicenseeId = metaModel.LicenseeId,
+                AgentList = metaModel.AgentListXml,
                 FromDate = metaModel.FromDate,
                 ToDate = metaModel.ToDate,
-                CurrencyId = metaModel.CurrencyId,
                 groupingid = metaModel.ReportBy,
                 drawfilter = metaModel.DrawFilter,
-                UserId = metaModel.UserId,
                 basedcurrency = metaModel.BaseCurrencyId
             };
             try
@@ -82,7 +71,5 @@ namespace Fanex.Athena.DataAccess.Warehouse
 
             return dataList;
         }
-
-        #endregion IWinLossDataAccess Members
     }
 }

@@ -104,8 +104,8 @@
         describe("TotalBet.viewRunningBetListMatch(matchId, betType)", function () {
             it("Site.redirect(url) should be called with correct parameter", function () {
                 spyOn(Site, "redirect");
-                spyOn(Site, "setLicenseeOptionOriginalParam").and.returnValue("RunningMatchBetList/Index?licenseetype=normal&currencyid=1&basecurrency=all");
-                var expectedUrl = "RunningMatchBetList/Index?licenseetype=normal&currencyid=1&basecurrency=all&matchid=1&bettype=2&isshowsumstake=true";
+                spyOn(Site, "setLicenseeOptionOriginalParam").and.returnValue("RunningMatchBetList/Index?currencyid=1&basecurrency=all");
+                var expectedUrl = "RunningMatchBetList/Index?currencyid=1&basecurrency=all&matchid=1&bettype=2&isshowsumstake=true";
 
                 TotalBet.viewRunningBetListMatch(1, 2);
 
@@ -116,8 +116,8 @@
         describe("TotalBet.viewRunningBetListMultiBettype(matchId, betType)", function () {
             it("Site.redirect(url) should be called with correct parameter", function () {
                 spyOn(Site, "redirect");
-                spyOn(Site, "setLicenseeOptionOriginalParam").and.returnValue("RunningBettypesOfMatchBetList/Index?licenseetype=normal&currencyid=1&basecurrency=all");
-                var expectedUrl = "RunningBettypesOfMatchBetList/Index?licenseetype=normal&currencyid=1&basecurrency=all&matchid=1&multiplebettype=2&isshowsumstake=true";
+                spyOn(Site, "setLicenseeOptionOriginalParam").and.returnValue("RunningBettypesOfMatchBetList/Index?currencyid=1&basecurrency=all");
+                var expectedUrl = "RunningBettypesOfMatchBetList/Index?currencyid=1&basecurrency=all&matchid=1&multiplebettype=2&isshowsumstake=true";
 
                 TotalBet.viewRunningBetListMultiBettype(1, 2);
 

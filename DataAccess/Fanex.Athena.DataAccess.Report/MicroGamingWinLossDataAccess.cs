@@ -22,9 +22,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    /// MicroGaming win loss data access.
-    /// </summary>
     public class MicroGamingWinLossDataAccess : BaseDataAccess, IMicroGamingWinLossDataAccess
     {
         public MicroGamingWinLossDataAccess(BalanceUp balanceUp)
@@ -37,9 +34,12 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "LRF_Rpt_MicroGamingWinloss";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
-                    UpdateUspParams(db, metaModel);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                    db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
+                    db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
+                    db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
                     db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
                     using (var reader = db.ExecuteReader())
                     {
@@ -54,15 +54,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        #region Private
-
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static SortableList<MicroGamingWinLoss> GetData(
@@ -126,19 +117,5 @@ namespace Fanex.Athena.DataAccess.Report
 
             return result;
         }
-
-        private void UpdateUspParams(ObjectDb db, MicroGamingWinLossMetaModel metaModel)
-        {
-            var currencyId = metaModel.CurrencyId < 0 ? 0 : metaModel.CurrencyId;
-
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("currencyid", DbType.Int32, currencyId);
-            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-            db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
-            db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
-        }
-
-        #endregion Private
     }
 }

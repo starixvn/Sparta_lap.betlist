@@ -35,19 +35,14 @@
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelUserSearch")).Returns(_objectDb);
             var userId = 0;
             var userName = string.Empty;
-            var licenseeId = 0;
-            var licenseeType = string.Empty;
-            var currencyId = 0;
 
             // Action
-            _dataAccess.SearchCustomers(userId, userName, licenseeId, licenseeType, currencyId);
+            _dataAccess.SearchCustomers(userId, userName, string.Empty);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, licenseeId);
             _objectDb.Received().AddInParameter("userid", DbType.Int32, userId);
-            _objectDb.Received().AddInParameter("licenseetype", DbType.String, licenseeType);
-            _objectDb.Received().AddInParameter("currencyid", DbType.Int32, currencyId);
             _objectDb.Received().AddInParameter("username", DbType.String, userName);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, string.Empty);
         }
 
         [Test]
@@ -63,9 +58,7 @@
 
             // Assert
             _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("UserID", DbType.Int32, metaModel.UserId);
-            _objectDb.Received().AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             _objectDb.Received().AddInParameter("username", DbType.String, metaModel.Username);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             _objectDb.Received().AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);

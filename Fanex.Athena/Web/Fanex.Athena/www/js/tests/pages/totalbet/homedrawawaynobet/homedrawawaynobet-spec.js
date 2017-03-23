@@ -5,7 +5,7 @@
                 beforeEach(function () {
                     spyOn(Site, "initialize");
                     spyOn(Site, "addUserGuide");
-                    spyOn(Site, "getSingleResource").and.callFake(function (name) { return name });
+                    spyOn(Site, "getSingleResource").and.callFake(function (name) { return name; });
                     spyOn(Totalbets, "initialize");
                     spyOn(HomeDrawAwayNoBet, "initEvent");
                     spyOn(RefreshCountDown, "initEvent");

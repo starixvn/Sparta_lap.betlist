@@ -15,28 +15,17 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// Home/Draw/Away no bet data access.
-    /// </summary>
     public class HomeDrawAwayNoBetDataAccess : BaseDataAccess, IHomeDrawAwayNoBetDataAccess
     {
-        /// <summary>
-        /// Get Home/Draw/Away no bet data list.
-        /// </summary>
-        /// <param name="metaModel">Home/Draw/Away no bet MetaModel value.</param>
-        /// <returns>A list of Home/Draw/Away not bet.</returns>
         public IList<HomeDrawAwayNoBet> GetHomeDrawAwayNoBetDataList(HomeDrawAwayNoBetMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel121";
             var uspParams = new
             {
-                LicenseeId = metaModel.LicenseeId,
-                LicenseeType = metaModel.LicenseeType,
-                CurrencyId = metaModel.CurrencyId,
+                AgentList = metaModel.AgentListXml,
                 PageSize = metaModel.PageSize,
                 PageIndex = metaModel.PageIndex,
-                TotalRows = metaModel.TotalRows,
-                UserId = metaModel.UserId
+                TotalRows = metaModel.TotalRows
             };
 
             using (var db = this.GetObjectDb(SpName))

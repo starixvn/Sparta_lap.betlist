@@ -70,7 +70,7 @@
 
                     ForecastHDPOU.openForecast(123, 456);
 
-                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith("AhForecast/Index?matchid=123&bettype=456&licenseetype=&currencyname=",
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith("AhForecast/Index?matchid=123&bettype=456&currencyname=",
                         { width: 700, height: 250, title: 'Forecast', id: 'forecast-dialog' });
                 });
             });
@@ -108,7 +108,7 @@
 
                     ForecastHDPOU.loadSelectedLeague(999);
 
-                    expect(ForecastHDPOU.loadData).toHaveBeenCalledWith("HandicapOverUnderForecast/Index?licenseetype=&currencyname=&leagueid=999");
+                    expect(ForecastHDPOU.loadData).toHaveBeenCalledWith("HandicapOverUnderForecast/Index?currencyname=&leagueid=999");
                 });
             });
 
@@ -120,7 +120,7 @@
 
                     ForecastHDPOU.loadSelectedLeague(999);
 
-                    expect(ForecastHDPOU.loadData).toHaveBeenCalledWith("HandicapOverUnderForecast/Index?licenseetype=&currencyname=&leagueid=999");
+                    expect(ForecastHDPOU.loadData).toHaveBeenCalledWith("HandicapOverUnderForecast/Index?currencyname=&leagueid=999");
                 });
             });
         });

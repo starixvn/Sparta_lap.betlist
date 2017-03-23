@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.DataAccess.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
@@ -21,9 +20,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Logging;
     using Model.Core.DTO.Configuration;
 
-    /// <summary>
-    /// Platform win loss data access.
-    /// </summary>
     public class PlatformWinLossDataAccess : BaseDataAccess, IPlatformWinLossDataAccess
     {
         public PlatformWinLossDataAccess(BalanceUp balanceUp)
@@ -36,9 +32,9 @@ namespace Fanex.Athena.DataAccess.Report
             const string UspName = "Lrf_Rpt_PlatformWinloss";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
-                    UpdateUspParams(db, metaModel, metaModel.CurrencyId);
+                    UpdateUspParams(db, metaModel);
                     using (var reader = db.ExecuteReader())
                     {
                         return ReadSummaryData(reader, metaModel, out totalData);
@@ -57,9 +53,9 @@ namespace Fanex.Athena.DataAccess.Report
             const string UspName = "Lrf_Rpt_PlatformWinlossDetail";
             try
             {
-                using (var db = new ObjectDb(UspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
-                    UpdateUspParams(db, metaModel, metaModel.CurrencyId);
+                    UpdateUspParams(db, metaModel);
                     using (var reader = db.ExecuteReader())
                     {
                         return ReadMemberData(reader, metaModel, out totalData);
@@ -211,25 +207,14 @@ namespace Fanex.Athena.DataAccess.Report
             return dataList;
         }
 
-        /// <summary>
-        /// Update USP parameter.
-        /// </summary>
-        /// <param name="db">Database value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="currencyId">Currency ID value.</param>
-        private void UpdateUspParams(ObjectDb db, PlatformWinLossMetaModel metaModel, int currencyId)
+        private void UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
         {
-            currencyId = Math.Max(0, currencyId);
-
-            db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
             db.AddInParameter("PlatformType", DbType.Byte, metaModel.PlatformType);
             db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
             db.AddInParameter("DrawFilter", DbType.Int16, metaModel.DrawFilter);
-            db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);
-            db.AddInParameter("CurrencyId", DbType.Int32, currencyId);
             db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
             db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
 
             foreach (var product in metaModel.ProductOptions)
             {

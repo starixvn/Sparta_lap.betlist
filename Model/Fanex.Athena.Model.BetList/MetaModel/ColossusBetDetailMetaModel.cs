@@ -8,10 +8,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 {
     public class ColossusBetDetailMetaModel
     {
-        public int LicenseeId { get; set; }
-        
-        public int UserId { get; set; }
-
         public int CustId { get; set; }
 
         public long RefNo { get; set; }
@@ -19,5 +15,7 @@ namespace Fanex.Athena.Model.BetList.MetaModel
         public string BaseCurrency { get; set; }
 
         public long BetCheck { get; set; }
+
+        public string AgentListXml { get; set; }
     }
 }

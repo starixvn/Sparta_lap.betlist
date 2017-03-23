@@ -25,7 +25,7 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
         /// <param name="licenseeId">The licensee id.</param>
         /// <param name="userId">The user id.</param>
         /// <returns>Currency list.</returns>
-        IList<CurrencyUser> GetCurrenciesByUser(int licenseeId, int userId);
+        IEnumerable<CurrencyUser> GetCurrenciesByUser(int licenseeId, int userId);
 
         /// <summary>
         /// Assign Currencies To User.
@@ -33,13 +33,5 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
         /// <param name="request">The request.</param>
         /// <returns>The result info.</returns>
         IResultInfo AssignCurrenciesByUser(AssignCurrencyMetaModel request);
-
-        /// <summary>
-        /// Get currency by user id.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="userId">The user id.</param>
-        /// <returns>The currencies.</returns>
-        IDictionary<string, int> GetCurrencyMapByUser(int licenseeId, int userId);
     }
 }

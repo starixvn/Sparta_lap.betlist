@@ -20,6 +20,7 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using System.Web.UI;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -32,10 +33,8 @@ namespace Fanex.Athena.Controllers
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
     using Resources;
+    using Service.Core.Common.Interfaces;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class AuthorizationController : BaseController
     {
         #region Constant
@@ -48,20 +47,33 @@ namespace Fanex.Athena.Controllers
 
         private readonly IUserService _userService;
         private readonly IMaintenanceService _maintenanceService;
+        private readonly IFormsAuthenticationService _formAuthenticationService;
 
         public AuthorizationController()
         {
             _userService = new UserService();
             _maintenanceService = new MaintenanceService();
+            _formAuthenticationService = new FormsAuthenticationService();
         }
 
-        /// <summary>
-        /// The sign-in page.
-        /// </summary>
-        /// <returns>The sign in page.</returns>
+        public AuthorizationController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IMaintenanceService maintenanceService,
+            IUserService userService,
+            IFormsAuthenticationService formAuthenticationService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _maintenanceService = maintenanceService;
+            _userService = userService;
+            _formAuthenticationService = formAuthenticationService;
+        }
+
         [CheckUMFilter]
         [AllowAnonymous]
         [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult SignIn()
         {
             var requestHost = Request.Url.AbsoluteUri;
@@ -88,7 +100,7 @@ namespace Fanex.Athena.Controllers
         [HandleAntiForgeryError]
         [HttpPost]
         [CustomValidateAntiForgery]
-        [OutputCache(Duration = 0, NoStore = true)]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         [SuppressMessage(
           "StyleCop.CSharp.StylecopPlus.Rules",
           "SP2101:MethodMustNotContainMoreLinesThan",
@@ -145,8 +157,7 @@ namespace Fanex.Athena.Controllers
                         user.IsInternal,
                         user.Licensee.Id);
 
-                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                    FormsAuthentication.SetAuthCookie(user.Username, false);
+                    _formAuthenticationService.SetAuthCookie(user.Username, false);
 
                     if (user.IsInRole(UserRole.Admin.ToString()))
                     {
@@ -167,10 +178,6 @@ namespace Fanex.Athena.Controllers
             return View("~/Views/Authorization/SignIn.cshtml");
         }
 
-        /// <summary>
-        /// Check current user login and clear current authentication if another session using this user id to login.
-        /// </summary>
-        /// <returns>The JSON data with error code and error message.</returns>
         [HttpGet]
         [AllowAnonymous]
         [OutputCache(NoStore = true, Duration = 0, Location = OutputCacheLocation.None, VaryByParam = "*")]
@@ -203,16 +210,12 @@ namespace Fanex.Athena.Controllers
             {
                 errorCode = ErrorType.KickedOut;
                 errorMsg = ViewResources.SessionLoggedMsg;
-                FormsAuthentication.SignOut();
+                _formAuthenticationService.SignOut();
             }
 
             return Json(RecheckInResult(errorCode, errorMsg), JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// Generate captcha.
-        /// </summary>
-        /// <returns>Return the image.</returns>
         [AllowAnonymous]
         public FileContentResult Captcha()
         {
@@ -223,26 +226,19 @@ namespace Fanex.Athena.Controllers
             var code = CreateRandomCaptchaCode();
 
             SessionService.CaptchaCode = code;
+            var userSession = SessionService.UserSession;
             FileContentResult img = null;
-            var sessionService = new SessionService();
-            var userSession = sessionService.UserSession;
             var viewType = userSession != null && userSession.ViewType != ClientViewType.None ? userSession.ViewType :
                         (ClientViewType)int.Parse(AppSettings.GetValue(nameof(ClientViewType)));
 
-            if (viewType == ClientViewType.Desktop)
-            {
-                img = CreateCaptchaForNewViewType(code);
-            }
-            else
-            {
-                img = CreateCaptchaForOldViewType(code);
-            }
+            img = viewType == ClientViewType.Desktop ? CreateCaptchaForNewViewType(code) : CreateCaptchaForOldViewType(code);
 
             return File(img.FileContents, img.ContentType);
         }
 
         [HttpGet]
         [AllowAnonymous]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public string GetUserSalt(string userName)
         {
             var user = _userService.GetByUsername(userName);
@@ -256,33 +252,19 @@ namespace Fanex.Athena.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult SignOut()
         {
-            var userSession = SessionService.UserSession;
-            if (userSession != null)
-            {
-                _userService.Logout(userSession.OnUserId);
-            }
-
-            Session.Clear();
-            ClearCookies();
-            FormsAuthentication.SignOut();
+            DoSignOut();
             return RedirectToAction("LocationRestriction", "Utility");
         }
 
         [HttpGet]
         [AllowAnonymous]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult InternalSignOut()
         {
-            var userSession = SessionService.UserSession;
-            if (userSession != null)
-            {
-                _userService.Logout(userSession.OnUserId);
-            }
-
-            Session.Clear();
-            ClearCookies();
-            FormsAuthentication.SignOut();
+            DoSignOut();
             return RedirectToAction("OneTokenRestriction?code=100", "Utility");
         }
 
@@ -306,6 +288,7 @@ namespace Fanex.Athena.Controllers
 
         [HttpPost]
         [CustomValidateAntiForgery]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult ChangePassword(string oldPassword, string newPassword)
         {
             if (string.IsNullOrEmpty(oldPassword) || !Util.IsPasswordValid(newPassword))
@@ -366,6 +349,19 @@ namespace Fanex.Athena.Controllers
             return randomNumber.ToString();
         }
 
+        private void DoSignOut()
+        {
+            var userSession = SessionService.UserSession;
+            if (userSession != null)
+            {
+                _userService.Logout(userSession.OnUserId);
+            }
+
+            Session.Clear();
+            ClearCookies();
+            _formAuthenticationService.SignOut();
+        }
+
         private void SetErrorForView(int errorCode, string errorMsg)
         {
             ViewBag.errCode = errorCode;
@@ -374,48 +370,36 @@ namespace Fanex.Athena.Controllers
 
         private void ClearCookies()
         {
+            var cache = Response.Cache;
+            cache.SetNoStore();
+            cache.SetExpires(DateTime.Now.AddMinutes(-1));
+            cache.SetCacheability(HttpCacheability.NoCache);
             var cookies = Request.Cookies.AllKeys;
             foreach (string cookie in cookies)
             {
-                Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
+                var item = new HttpCookie(cookie)
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                };
+                Response.Cookies.Add(item);
             }
         }
 
         private FileContentResult CreateCaptchaForNewViewType(string code)
         {
-            var iwidth = (code.Length * 12) + 10;
-            using (var mem = new MemoryStream())
-            using (var bmp = new Bitmap(iwidth, 25))
-            using (var gfx = Graphics.FromImage((Image)bmp))
-            {
-                var random = new Random();
-
-                var fonts = new[] { "Tahoma", "Arial" };
-
-                var f = new Font(fonts[random.Next(0, fonts.Length - 1)], 11, FontStyle.Bold);
-                Brush b = new SolidBrush(Color.Black);
-                gfx.Clear(Color.LightGray);
-
-                gfx.DrawString(code, f, b, random.Next(2, 12), random.Next(-1, 1));
-                gfx.DrawRectangle(new Pen(Color.LightGray), 0, 0, bmp.Width - 1, bmp.Height - 1);
-
-                for (int i = 0; i < 50; i++)
-                {
-                    int x = random.Next(bmp.Width);
-                    int y = random.Next(bmp.Height);
-                    bmp.SetPixel(x, y, Color.FromArgb(random.Next()));
-                }
-
-                bmp.Save(mem, ImageFormat.Png);
-                return this.File(mem.GetBuffer(), "image/png");
-            }
+            return CreateCaptcha(code, 25, Color.Black, Color.LightGray, Color.LightGray);
         }
 
         private FileContentResult CreateCaptchaForOldViewType(string code)
         {
+            return CreateCaptcha(code, 20, Color.White, Color.DimGray, Color.Black);
+        }
+
+        private FileContentResult CreateCaptcha(string code, int height, Color brushColor, Color backgroundColor, Color penColor)
+        {
             var iwidth = (code.Length * 12) + 10;
             using (var mem = new MemoryStream())
-            using (var bmp = new Bitmap(iwidth, 20))
+            using (var bmp = new Bitmap(iwidth, height))
             using (var gfx = Graphics.FromImage((Image)bmp))
             {
                 var random = new Random();
@@ -423,11 +407,11 @@ namespace Fanex.Athena.Controllers
                 var fonts = new[] { "Tahoma", "Arial" };
 
                 var f = new Font(fonts[random.Next(0, fonts.Length - 1)], 11, FontStyle.Bold);
-                Brush b = new SolidBrush(Color.White);
-                gfx.Clear(Color.DimGray);
+                Brush b = new SolidBrush(brushColor);
+                gfx.Clear(backgroundColor);
 
                 gfx.DrawString(code, f, b, random.Next(2, 12), random.Next(-1, 1));
-                gfx.DrawRectangle(new Pen(Color.Black), 0, 0, bmp.Width - 1, bmp.Height - 1);
+                gfx.DrawRectangle(new Pen(penColor), 0, 0, bmp.Width - 1, bmp.Height - 1);
 
                 for (int i = 0; i < 50; i++)
                 {

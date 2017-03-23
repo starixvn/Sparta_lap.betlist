@@ -29,7 +29,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "Lrf_Rpt_ThirdPartyWinloss";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     UpdateUspParams(db, metaModel, false);
                     db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
@@ -54,7 +54,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "LRF_Rpt_ThirdPartyWinloss_Mem";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
                     UpdateUspParams(db, metaModel, true);
@@ -78,7 +78,7 @@ namespace Fanex.Athena.DataAccess.Report
             var uspName = "LRF_Rpt_ThirdPartyWinloss_Ag";
             try
             {
-                using (var db = new ObjectDb(uspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
@@ -151,18 +151,12 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        private void UpdateUspParams(ObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
+        private void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
-            var currencyId = drilldown ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
-            currencyId = currencyId < 0 ? 0 : currencyId;
-
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml); 
             db.AddInParameter("productid", DbType.Int32, metaModel.ProductId);
-            db.AddInParameter("currency", DbType.Int32, currencyId);
-            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
         }
 
         #endregion Private

@@ -28,16 +28,14 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Match(LiveReportBetListMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
+            var currencyList = SessionService.UserSession.CurrencyList;
 
-            if (metaModel.CurrencyId != 0 && !currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            metaModel.UserId = userSession.UserId;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             const string UspKey = "Lrf_BetList_LiveReport_SelWinlossByMatch";
 
@@ -47,14 +45,9 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Outright(LiveReportBetListMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId == 0 || currencyList.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == 0 || SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
             {
-                metaModel.UserId = userSession.UserId;
-                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
                 return GetData(metaModel, UspKey);
             }
@@ -86,7 +79,7 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (currencyId == 0 || currencyList.Values.Contains(currencyId))
+            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
                 var metaModel = new LiveReportBetListMetaModel
@@ -102,11 +95,9 @@ namespace Fanex.Athena.Api.BetList
                     BaseCurrency = baseCurrency,
                     SortBy = sortBy,
                     SortOrder = sortOrder,
-                    UserId = userSession.UserId,
-                    LicenseeId = SessionService.LicenseeSession.LicenseeId,
                     LiveIndicator = liveIndicator
                 };
-
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return GetPagingData(metaModel, UspKey, page, rows);
             }
 
@@ -136,7 +127,7 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (currencyId == 0 || currencyList.Values.Contains(currencyId))
+            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
                 var productOptions = new HashSet<ProductOption>
@@ -166,11 +157,10 @@ namespace Fanex.Athena.Api.BetList
                     BaseCurrency = baseCurrency,
                     SortBy = sortBy,
                     SortOrder = sortOrder,
-                    UserId = userSession.UserId,
-                    LicenseeId = SessionService.LicenseeSession.LicenseeId,
                     LiveIndicator = liveIndicator
                 };
 
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 metaModel.ProductOptions = productOptions;
                 metaModel.BetType = betType;
 
@@ -203,7 +193,7 @@ namespace Fanex.Athena.Api.BetList
             var userSession = SessionService.UserSession;
             var currencyList = userSession.CurrencyList;
 
-            if (currencyId == 0 || currencyList.Values.Contains(currencyId))
+            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
             {
                 var metaModel = new LiveReportBetListMetaModel
                 {
@@ -218,8 +208,6 @@ namespace Fanex.Athena.Api.BetList
                     BaseCurrency = baseCurrency,
                     SortBy = sortBy,
                     SortOrder = sortOrder,
-                    UserId = userSession.UserId,
-                    LicenseeId = SessionService.LicenseeSession.LicenseeId,
                     SportType = sportType
                 };
 
@@ -232,6 +220,7 @@ namespace Fanex.Athena.Api.BetList
                     (int)SportType.VirtualCycling
                 };
                 var uspKey = racingBettypes.Contains(sportType) ? UspKeyVHRacing : UspKeyRacing;
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return GetPagingData(metaModel, uspKey, page, rows);
             }
 

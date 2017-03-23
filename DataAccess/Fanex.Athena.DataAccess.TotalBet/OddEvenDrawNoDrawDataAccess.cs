@@ -15,29 +15,17 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// Odd/Even/1X2/DrawNoDraw data access.
-    /// </summary>
     public class OddEvenDrawNoDrawDataAccess : BaseDataAccess, IOddEvenDrawNoDrawDataAccess
     {
-        /// <summary>
-        /// GetOddEventDrawNoDrawDataList data.
-        /// </summary>
-        /// <param name="metaModel">Odd Even 1X2 DrawNoDraw MetaModel value.</param>
-        /// <param name="totalData">OddEvenDrawNoDraw value.</param>
-        /// <returns>A list of Odd/Even/1X2/DrawNoDraw.</returns>
         public IList<OddEvenDrawNoDraw> GetOddEventDrawNoDrawDataList(OddEvenDrawNoDrawMetaModel metaModel, out OddEvenDrawNoDraw totalData)
         {
             const string SpName = "Lrf_TotalBets_Sel25";
             var uspParams = new
             {
-                LicenseeId = metaModel.LicenseeId,
-                LicenseeType = metaModel.LicenseeType,
-                CurrencyId = metaModel.CurrencyId,
                 PageSize = metaModel.PageSize,
                 PageIndex = metaModel.PageIndex,
                 TotalRows = metaModel.TotalRows,
-                UserId = metaModel.UserId
+                AgentList = metaModel.AgentListXml
             };
 
             IList<OddEvenDrawNoDraw> data;
@@ -54,15 +42,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             return data;
         }
 
-        #region Utility
-
-        /// <summary>
-        /// Get total score.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="homeColumnName">Home column name value.</param>
-        /// <param name="awayColumnName">Away column name value.</param>
-        /// <returns>Total score.</returns>
         private static decimal GetTotalScore(IDataReader reader, string homeColumnName, string awayColumnName)
         {
             var homeScore = reader.ToDecimal(homeColumnName);
@@ -71,14 +50,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             return homeScore - awayScore;
         }
 
-        /// <summary>
-        /// Get OneXTwo Score.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="columnOne">Column One value.</param>
-        /// <param name="columnX">Column X value.</param>
-        /// <param name="columnTwo">Column Two value.</param>
-        /// <returns>One X Two score.</returns>
         private static decimal GetOneXTwoScore(IDataReader reader, string columnOne, string columnX, string columnTwo)
         {
             var onwScore = reader.ToDecimal(columnOne);
@@ -87,13 +58,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             return onwScore + drawScore + twoScore;
         }
 
-        /// <summary>
-        /// Set data to list.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="isConvert">Is Convert value.</param>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <returns>A list of Odd/Even/1X2/DrawNoDraw.</returns>
         private static IList<OddEvenDrawNoDraw> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<OddEvenDrawNoDraw>();
@@ -145,13 +109,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             return dataList;
         }
 
-        /// <summary>
-        /// Get OddEvenDrawNoDraw Score.
-        /// </summary>
-        /// <param name="reader">Data reader value.</param>
-        /// <param name="isConvert">Is Convert value.</param>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <returns>Odd Even Draw No Draw score.</returns>
         private static OddEvenDrawNoDraw ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
             if (reader.Read())
@@ -191,7 +148,5 @@ namespace Fanex.Athena.DataAccess.TotalBet
             var twoScore = reader.ToDecimal(columnTwo);
             return onwScore + twoScore;
         }
-
-        #endregion Utility
     }
 }

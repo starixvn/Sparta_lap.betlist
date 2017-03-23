@@ -15,32 +15,21 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
     using Resources;
 
-    /// <summary>
-    ///     Credit Balance.
-    /// </summary>
     public class CreditBalanceDataAccess : BaseDataAccess, IBalanceDataAccess
     {
-        /// <summary>
-        /// Get report data.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <returns>The result value.</returns>
         public Balance GetReportData(BalanceMetaModel metaModel)
         {
             var uspName = "Lrf_CustomerSelBalance";
             var uspParam = new
             {
                 metaModel.LicenseeId,
-                metaModel.UserId,
-                metaModel.CurrencyId,
-                metaModel.LicenseeType,
                 metaModel.MoveBetsDay,
                 metaModel.FromDate,
                 metaModel.ToDate,
-                metaModel.IsOld
+                metaModel.IsOld,
+                AgentList = metaModel.AgentListXml
             };
 
             using (var db = this.GetObjectDb(uspName))
@@ -52,12 +41,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Bind data.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static Balance BindData(IDataReader reader, string baseCurrency)

@@ -17,9 +17,6 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
-    /// <summary>
-    /// Customer turnover service class.
-    /// </summary>
     public class CustomerTurnoverService : ICustTurnoverService
     {
         private readonly IBalanceUpService _balanceUpService;
@@ -31,14 +28,6 @@ namespace Fanex.Athena.Service.Report
             _custTurnoverDataAccess = new CustomerTurnoverDataAccess(_balanceUpService.BalanceUpInfo);
         }
 
-        /// <summary>
-        /// Get customer turnover data list.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <param name="total">The total data.</param>
-        /// <param name="totalRows">The total rows.</param>
-        /// <returns>The customer turnover list.</returns>
         public IList<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode, out CustTurnover total, out int totalRows)
         {
             total = new CustTurnover();
@@ -56,12 +45,6 @@ namespace Fanex.Athena.Service.Report
             return datalist;
         }
 
-        /// <summary>
-        /// Update row span for data.
-        /// </summary>
-        /// <param name="datalist">The data list.</param>
-        /// <param name="startRowIndex">The start row index.</param>
-        /// <returns>The customer turnover data list.</returns>
         [SuppressMessage(
             "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",

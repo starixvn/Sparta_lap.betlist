@@ -20,9 +20,7 @@
             dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelLeagueBySport")).Returns(objectDb);
             var metaModel = new LeagueMetaModel
             {
-                LicenseeId = 1,
-                CurrencyId = 2,
-                UserId = 3,
+                AgentListXml = "hello",
                 SportId = 4,
                 FromDate = new DateTime(2016, 8, 10),
                 ToDate = new DateTime(2016, 8, 11)
@@ -32,12 +30,10 @@
             dataAccess.GetLeaguesBySport(metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
-            objectDb.Received().AddInParameter("CurrencyID", DbType.Int32, metaModel.CurrencyId);
-            objectDb.Received().AddInParameter("userID", DbType.Int32, metaModel.UserId);
             objectDb.Received().AddInParameter("sportId", DbType.Int32, metaModel.SportId);
             objectDb.Received().AddInParameter("Fromdate", DbType.DateTime, metaModel.FromDate);
             objectDb.Received().AddInParameter("Todate", DbType.DateTime, metaModel.ToDate);
+            objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
     }
 }

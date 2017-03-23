@@ -8,10 +8,10 @@
     [DebuggerDisplay("QValue[{Count}, {AcceptWildcard}]")]
     internal sealed class QValueList : List<QValue>
     {
-        private static char[] delimiters = { ',' };
+        private static readonly char[] Delimiters = { ',' };
+        private readonly bool _autoSort;
 
         private bool _acceptWildcard;
-        private bool _autoSort;
 
         public QValueList(bool autoSort)
         {
@@ -41,16 +41,12 @@
 
         public QValue Find(string name)
         {
-            Predicate<QValue> criteria = delegate(QValue item) { return item.Name.Equals(name, StringComparison.OrdinalIgnoreCase); };
-
-            return Find(criteria);
+            return Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
         public QValue FindPreferred(params string[] candidates)
         {
-            Predicate<QValue> criteria = delegate(QValue item) { return IsCandidate(item.Name, candidates) && item.CanAccept; };
-
-            return Find(criteria);
+            return Find(x => IsCandidate(x.Name, candidates) && x.CanAccept);
         }
 
         private static bool IsCandidate(string item, params string[] candidates)

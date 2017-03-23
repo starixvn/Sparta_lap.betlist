@@ -8,11 +8,9 @@ namespace Fanex.Athena.DataAccess.Forecast
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Core;
     using Core.Extensions;
-    using Data;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
     using Fanex.Athena.Model.Forecast.ViewModel;
     using Fanex.Common;
@@ -51,21 +49,12 @@ namespace Fanex.Athena.DataAccess.Forecast
             }
         }
 
-        /// <summary>
-        /// Get Forecast Handicap.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <returns>A table of forecast handicap.</returns>
         public DataTable GetForecastHandicap(ForecastAHMetaModel metaModel, int userId)
         {
             const string UspName = "Lrf_Forecast_SelHDP";
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
-                db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
                 db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
                 var dataset = db.ExecuteDataSet();
@@ -73,22 +62,13 @@ namespace Fanex.Athena.DataAccess.Forecast
             }
         }
 
-        /// <summary>
-        /// Get Forecast Over/Under.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <returns>A table of forecast over under.</returns>
         public DataTable GetForecastOverUnder(ForecastAHMetaModel metaModel, int userId)
         {
             const string UspName = "Lrf_Forecast_SelOU";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
-                db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
                 db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
                 var dataset = db.ExecuteDataSet();
@@ -100,51 +80,27 @@ namespace Fanex.Athena.DataAccess.Forecast
 
         #region Forecast 1 x 2
 
-        /// <summary>
-        /// Get Forecast one x two's running league.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <returns>A list of running league.</returns>
-        public IList<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
+        public IEnumerable<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
         {
             const string UspName = "Lrf_LeagueSelRunning";
             var leagues = new List<League>();
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
-                db.AddInParameter("CurrencyId", DbType.Int32, 0);
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 db.AddInParameter("betTypes", DbType.String, metaModel.BetTypeString);
 
-                using (var reader = db.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        leagues.Add(new League { LeagueId = reader.ToInt("leagueid") });
-                    }
-                }
-
-                return leagues;
+                return db.Query<League>();
             }
         }
 
-        /// <summary>
-        /// Get Forecast one x two by league.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <returns>A list of forecast one x two by league.</returns>
         public IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel)
         {
             const string UspName = "Lrf_Forecast1x2_SelByLeague";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
-                db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
 
                 using (var reader = db.ExecuteReader())
@@ -154,22 +110,13 @@ namespace Fanex.Athena.DataAccess.Forecast
             }
         }
 
-        /// <summary>
-        /// Get Forecast one x two by match.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <returns>A list of forecast one x two by match..</returns>
-        public IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel, int userId)
+        public IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel)
         {
             const string UspName = "Lrf_Forecast_Sel1X2";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
-                db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 db.AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
                 db.AddInParameter("betType", DbType.Int32, metaModel.BetType);
 
@@ -184,21 +131,13 @@ namespace Fanex.Athena.DataAccess.Forecast
 
         #region Forecast HDP OU
 
-        /// <summary>
-        /// Get forecast handicap over under.
-        /// </summary>
-        /// <param name="metaModel">Meta model.</param>
-        /// <returns>List result.</returns>
         public IList<ForecastHandicapOverUnder> GetForecastHandicapOverUnder(ForecastHandicapOverUnderMetaModel metaModel)
         {
             const string UspName = "Lrf_Forecast_SelByLeague";
 
             var paramValues = new
             {
-                LicenseeId = metaModel.LicenseeId,
-                UserId = metaModel.UserId,
-                LicenseeType = metaModel.LicenseeType,
-                CurrencyId = metaModel.CurrencyId,
+                AgentList = metaModel.AgentListXml,
                 LeagueId = metaModel.LeagueId,
                 Baseoffsethdp = 0,
                 baseoffsetou = 0,
@@ -218,28 +157,18 @@ namespace Fanex.Athena.DataAccess.Forecast
 
         #region New Forecast
 
-        /// <summary>
-        /// Get new forecast data.
-        /// </summary>
-        /// <param name="metaModel">Meta model.</param>
-        /// <param name="matchInfo">Match information.</param>
-        /// <returns>New forecast result.</returns>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public NewForecastHdpOuData GetNewForecastData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuMatchInfo matchInfo)
         {
-            var forecastData = new NewForecastHdpOuData();
             using (var db = this.GetObjectDb("Lrf_Forecast_MatchTotalForecast"))
             {
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-                db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                 db.AddOutParameter("HomeScore", DbType.Int32, 4);
                 db.AddOutParameter("AwayScore", DbType.Int32, 4);
                 db.AddOutParameter("MatchTime", DbType.DateTime, 4);
                 using (var ds = db.ExecuteDataSet())
                 {
+                    var forecastData = new NewForecastHdpOuData();
                     if (ds.Tables.Count > 1)
                     {
                         var totalTable = ds.Tables[0];
@@ -275,20 +204,13 @@ namespace Fanex.Athena.DataAccess.Forecast
                     matchInfo.KickOffDateString = string.IsNullOrEmpty(date)
                         ? ViewResources.Live + "!"
                         : Converter.ToDateTime(date).ToString("MM/dd/yyyy hh:mm tt");
+                    return forecastData;
                 }
             }
-
-            return forecastData;
         }
 
         #endregion New Forecast
 
-        /// <summary>
-        /// Get forecast list.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <param name="reader">Data reader.</param>
-        /// <returns>A list of forecast one x two.</returns>
         private static IList<ForecastOneXTwo> GetForecastOneXTwoList(BaseMetaModel metaModel, IDataReader reader)
         {
             var forecasts = new List<ForecastOneXTwo>();

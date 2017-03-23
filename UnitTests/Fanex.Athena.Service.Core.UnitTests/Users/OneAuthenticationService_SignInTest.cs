@@ -214,6 +214,30 @@
             Assert.AreEqual(1, counter);
         }
 
+        [Test]
+        public void SignIn_GetLicenseeByNameReturnNull_ReturnCorrectResultInfo()
+        {
+            // Arrange
+            var tokenInfo = new OneAuthenticationToken { SiteName = "spondemo" };
+            Licensee licensee = null;
+            _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
+            var expectedResult = new ResultInfo
+            {
+                Code = 200,
+                Message = "Not found licensee"
+            };
+
+            // Action
+            var result = _oneAuthenticationService.SignIn(Arg.Any<HttpContextBase>(), tokenInfo);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+                Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+            });
+        }
+
         private OneAuthenticationToken FakeSessionFixToken(int licenseeId)
         {
             var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo", ActionLink = "LiceenseeWLReport" };

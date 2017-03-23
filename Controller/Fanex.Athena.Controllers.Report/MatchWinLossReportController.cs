@@ -62,7 +62,6 @@ namespace Fanex.Athena.Controllers.Report
                 ShowEmptyContent = true,
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
@@ -80,13 +79,11 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
             var currencies = userSession.CurrencyList;
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             if (metaModel.IsExportExcel)
             {
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
                 {
                     return Excel(metaModel);
                 }
@@ -125,8 +122,6 @@ namespace Fanex.Athena.Controllers.Report
                 SpecialBetTypeResult = reportDataOutrightParlay,
 
                 CurrencyList = currencies,
-                LicenseeTypeList = licenseeSession.LicenseeType,
-
                 ProductAccess = productAccess,
                 ColumnCount = GetColumnCount(productAccess, licenseeSession.IsAllowedCustomerComm),
                 Total = total,
@@ -142,9 +137,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var matchWinLossService = new MatchWinLossService();
             var reportData = matchWinLossService.GetDetailDataList(metaModel);
 
@@ -154,7 +147,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 MainResult = reportData,
                 ProductAccess = productAccess,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
@@ -167,10 +159,9 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             const string FileName = nameof(MatchWinLoss);
             var templatePath = Server.MapPath(@"~/App_Data/Template/Reports/MatchWinLoss.xls");
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
             var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
             var showingOption = new ShowingOption
             {

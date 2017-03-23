@@ -54,12 +54,6 @@ namespace Fanex.Athena.Service.Warehouse
                        : new DataTable();
         }
 
-        /// <summary>
-        /// Get top customer list.
-        /// </summary>
-        /// <param name="model">The metal model.</param>
-        /// <param name="totalValues">The total dictionary result.</param>
-        /// <returns>The top customer list.</returns>
         public IList<TopCustomer> GetTopCustomerList(TopCustomerMetaModel model, ref Dictionary<string, decimal> totalValues)
         {
             var dataList = model.IsValid
@@ -69,11 +63,6 @@ namespace Fanex.Athena.Service.Warehouse
             return dataList;
         }
 
-        /// <summary>
-        /// Calculate summary data.
-        /// </summary>
-        /// <param name="dataList">The data list.</param>
-        /// <returns>The summary data.</returns>
         public Dictionary<string, decimal> GetTopCustomerTotalInfo(IList<TopCustomer> dataList)
         {
             var totalValues = new Dictionary<string, decimal>

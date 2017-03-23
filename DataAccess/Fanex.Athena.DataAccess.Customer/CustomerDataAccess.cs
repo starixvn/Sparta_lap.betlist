@@ -24,24 +24,19 @@ namespace Fanex.Athena.DataAccess.Customer
     using Fanex.Logging;
     using Resources;
 
-    /// <summary>
-    /// Class CustomerDataAccess contains all method relates to customer.
-    /// </summary>
     public class CustomerDataAccess : BaseDataAccess, ICustomerDataAccess
     {
         #region Read
 
-        public IEnumerable<string> SearchCustomers(int userId, string userName, int licenseeId, string licenseeType, int currencyId)
+        public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
         {
             try
             {
                 using (var db = this.GetObjectDb("Lrf_CustomerSelUserSearch"))
                 {
-                    db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
                     db.AddInParameter("userid", DbType.Int32, userId);
-                    db.AddInParameter("licenseetype", DbType.String, licenseeType);
-                    db.AddInParameter("currencyid", DbType.Int32, currencyId);
                     db.AddInParameter("username", DbType.String, userName);
+                    db.AddInParameter("AgentList", DbType.String, agentListXml);
 
                     return db.Query<string>();
                 }
@@ -70,9 +65,6 @@ namespace Fanex.Athena.DataAccess.Customer
                 using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("UserID", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
-                    db.AddInParameter("LicenseeType", DbType.String, metaModel.LicenseeType);
                     db.AddInParameter("username", DbType.String, metaModel.Username);
                     db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
                     db.AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
@@ -80,6 +72,7 @@ namespace Fanex.Athena.DataAccess.Customer
                     db.AddInParameter("CustStatus", DbType.String, metaModel.CustStatus ?? string.Empty);
                     db.AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
                     db.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddOutParameter("TotalRows", DbType.Int32, 4);
 
                     AddOddsGroupParam(db, metaModel);

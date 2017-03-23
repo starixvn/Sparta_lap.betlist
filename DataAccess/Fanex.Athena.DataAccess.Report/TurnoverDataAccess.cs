@@ -8,47 +8,28 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
 
-    /// <summary>
-    /// Turnover data access.
-    /// </summary>
     public class TurnoverDataAccess : BaseDataAccess, ITurnoverDataAccess
     {
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="metaModel">Meta model.</param>
-        /// <returns>Result value.</returns>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public IList<TurnoverDTO> GetDataList(TurnoverMetaModel metaModel)
         {
             IList<TurnoverDTO> result = new List<TurnoverDTO>();
-            using (var db = new ObjectDb("Lrf_Rpt_TurnOver"))
+            using (var db = this.GetObjectDb("Lrf_Rpt_TurnOver"))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-                db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
                 foreach (var item in metaModel.ProductOptions)
                 {
                     db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);
                 }
 
-                db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId < 0 ? 0 : metaModel.CurrencyId);
                 db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);
                 db.AddInParameter("username", DbType.String, metaModel.Username);
-                if (!string.IsNullOrEmpty(metaModel.LicenseeType))
-                {
-                    db.AddInParameter("licenseetype", DbType.String, metaModel.LicenseeType);
-                }
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
 
                 using (var reader = db.ExecuteReader())
                 {

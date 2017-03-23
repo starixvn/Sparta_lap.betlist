@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Service.Customer
 {
     using System.Collections.Generic;
+    using DataAccess.Customer.Interfaces;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Service.Customer.Interfaces;
@@ -18,7 +19,7 @@ namespace Fanex.Athena.Service.Customer
     {
         #region Field
 
-        private readonly LogInLogDataAccess _logInLogDataAccess;
+        private readonly ILogInLogDataAccess _logInLogDataAccess;
 
         #endregion Field
 
@@ -29,11 +30,16 @@ namespace Fanex.Athena.Service.Customer
             _logInLogDataAccess = new LogInLogDataAccess();
         }
 
+        public LogInLogService(ILogInLogDataAccess logInLogDataAccess)
+        {
+            _logInLogDataAccess = logInLogDataAccess;
+        }
+
         #endregion Constructor
 
-        public IList<LogInLog> GetDataList(int licenseeId, string username)
+        public IList<LogInLog> GetDataList(int licenseeId, string username, string agentListXml)
         {
-            return this._logInLogDataAccess.GetDataList(licenseeId, username);
+            return this._logInLogDataAccess.GetDataList(licenseeId, username, agentListXml);
         }
     }
 }

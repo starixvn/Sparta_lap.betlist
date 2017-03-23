@@ -65,14 +65,14 @@ namespace Fanex.Athena.Controllers.BetList
         private ActionResult ExcelDetail(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_LC_Detail";
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var showingOption = new ShowingOption()
             {
                 GrandTotalVisible = false
             };
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId == LicenseeId12Bet, hiddenColumns);
+            var excel = new BetListExcel(showingOption, SessionService.LicenseeSession.LicenseeId == LicenseeId12Bet, hiddenColumns);
             var title = GetTitle(metaModel.TransType);
             var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
             var workbook = excel.Export(ticketResult, title);

@@ -18,7 +18,7 @@ namespace Fanex.Athena.Model.Forecast.ViewModel
     {
         public NewForecastHandicapOverUnderMetaModel Param { get; set; }
 
-        public IList<League> LeagueList { get; set; }
+        public IEnumerable<League> LeagueList { get; set; }
 
         public IList<Match> MatchList { get; set; }
 

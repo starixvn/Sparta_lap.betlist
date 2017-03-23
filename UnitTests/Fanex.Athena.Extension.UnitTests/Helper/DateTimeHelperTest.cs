@@ -36,6 +36,7 @@
         [TestCase("7/25/2016", "7/24/2016", 0)]
         [TestCase("7/25/2016", "7/31/2016", 1)]
         [TestCase("7/24/2016", "7/25/2016", 2)]
+        [TestCase("12/31/2016", "1/1/2017", 1)]
         public void GetWeeks_WhenCall_ReturnCorrectDate(DateTime fromdate, DateTime todate, int numberOfWeeks)
         {
             // Action

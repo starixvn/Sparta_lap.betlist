@@ -59,19 +59,16 @@ namespace Fanex.Athena.Controllers.TotalBets
 
         private ActionResult GetView(HomeDrawAwayNoBetMetaModel metaModel)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
-            metaModel.UserId = userSession.UserId;
-            var currencies = userSession.CurrencyList;
+            var currencies = SessionService.UserSession.CurrencyList;
 
-            if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 var dataList = _homeDrawAwayNoBetService.GetHomeDrawAwayNoBetDataList(metaModel);
                 var model = new HomeDrawAwayNoBetViewModel
                 {
                     Param = metaModel,
                     MainData = dataList,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
                     CurrencyList = currencies
                 };
 

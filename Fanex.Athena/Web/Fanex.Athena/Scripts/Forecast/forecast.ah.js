@@ -2,14 +2,13 @@
 /// <reference path="/@JSense.js" />
 "use strict";
 var Forecast = (function ($) {
-    var matchid, baseCurrency, licenseetype, currencyid, currencyName;
+    var matchid, baseCurrency, currencyid, currencyName;
 
     return {
         initialize: function () {
             // Init private variables
             matchid = $('#forecast-table').attr('data-match-id');
             baseCurrency = $('#forecast-table').attr('data-basecurrency');
-            licenseetype = $('#forecast-table').attr('data-licenseetype');
             currencyid = $('#forecast-table').attr('data-currencyid');
             currencyName = $('#forecast-table').attr('data-currencyname');
 
@@ -41,7 +40,6 @@ var Forecast = (function ($) {
         loadForecast: function (selectedScore, bettype) {
             var url = Site.resolveClientUrl("AhForecast/Index?matchid=" + matchid + '&bettype=' + bettype);
             url = QueryString.setParam(url, "basecurrency", baseCurrency);
-            url = QueryString.setParam(url, "LicenseeType", licenseetype);
             url = QueryString.setParam(url, "CurrencyId", currencyid);
             if (selectedScore != null) {
                 url = QueryString.setParam(url, "CurrentScore", selectedScore);
@@ -76,7 +74,6 @@ var Forecast = (function ($) {
             url = QueryString.setParam(url, "basecurrency", baseCurrency);
             url = QueryString.setParam(url, "currencyid", currencyid);
             url = QueryString.setParam(url, "currencyname", currencyName);
-            url = QueryString.setParam(url, "licenseetype", licenseetype);
 
             var popH = Math.min(parent.innerHeight - 100, 700), popW = 960;
 

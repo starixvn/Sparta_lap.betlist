@@ -65,12 +65,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDashboardApiController.cs" />
+    <Compile Include="DashboardController.cs" />
     <Compile Include="LicenseeWinLossByPlatformController.cs" />
     <Compile Include="PendingFundController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CustomerBalanceController.cs" />
     <Compile Include="TodayDepositController.cs" />
-    <Compile Include="DashboardController.cs" />
     <Compile Include="TodayWithdrawalController.cs" />
     <Compile Include="TurnoverByPlatformController.cs" />
   </ItemGroup>

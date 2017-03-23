@@ -13,6 +13,7 @@
         public void SetUp()
         {
             _pendingFundDataAccess = Substitute.ForPartsOf<PendingFundDataAccess>();
+            _pendingFundDataAccess.When(x => x.GetObjectDb(Arg.Any<string>())).DoNotCallBase();
         }
 
         [OneTimeTearDown]

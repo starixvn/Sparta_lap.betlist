@@ -1,7 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers
 {
-    #region Using
-
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Extension.Utility;
@@ -11,11 +9,6 @@
     using ONEbook.UM.Filters;
     using Web.ActionFilter;
 
-    #endregion Using
-
-    /// <summary>
-    /// Base controller.
-    /// </summary>
     [CustomAuthorize]
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]

@@ -8,10 +8,12 @@ namespace Fanex.Athena.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.ViewModel;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Model.Core.DataDomain;
+    using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
     [AuthorizeRestriction(AppMode.Self)]
@@ -22,6 +24,16 @@ namespace Fanex.Athena.Controllers
         public MenuController()
         {
             _functionService = new FunctionService();
+        }
+
+        public MenuController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IFunctionService functionService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _functionService = functionService;
         }
 
         [HttpGet]

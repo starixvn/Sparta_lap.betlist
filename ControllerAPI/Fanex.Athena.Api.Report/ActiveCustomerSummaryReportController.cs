@@ -97,12 +97,12 @@ namespace Fanex.Athena.Api.Report
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
-            var currencyName = currencyList.SingleOrDefault(i => i.Value == metaModel.CurrencyId);
+            var currencyName = currencyList.SingleOrDefault(i => i.Key == metaModel.CurrencyId);
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = currencyName.Key
+                CurrencyName = currencyName.Value
             };
 
             var excelModel = new ActiveCustomerViewModel
@@ -122,8 +122,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (IsValidRequest(metaModel))
             {
-                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.UserId = SessionService.UserSession.UserId;
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
                 int totalCustomer;
                 var dataList = _activeCustomerService.GetActiveCustomers(metaModel, out totalCustomer);

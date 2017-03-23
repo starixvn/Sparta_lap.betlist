@@ -15,7 +15,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
     {
         public CustomerWinLossHistoryMetaModel()
         {
-            LicenseeType = string.Empty;
             PageIndex = 1;
             PageSize = 1000;
             FromDay = 1;

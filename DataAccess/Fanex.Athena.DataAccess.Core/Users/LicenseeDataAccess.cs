@@ -176,17 +176,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
         #endregion Public Methods and Operators
 
-        public string GetNumberOfOnlineUser()
-        {
-            var uspName = "Lrf_GetNumberOfOnlineUsers";
-
-            using (var db = this.GetObjectDb(uspName))
-            {
-                var result = db.ExecuteScalar();
-                return result != null ? result.ToString() : string.Empty;
-            }
-        }
-
         public Licensee GetLicenseeByName(string licenseeName)
         {
             const string UspName = "Lrf_LicenseeSelBySiteName";

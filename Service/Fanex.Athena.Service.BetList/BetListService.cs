@@ -65,23 +65,12 @@ namespace Fanex.Athena.Service.BetList
                         : new TicketResult();
         }
 
-        /// <summary>
-        /// Get System Parlay Detail data.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The system parlay.</returns>
         [System.CLSCompliant(false)]
         public SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
         {
             return _betlistDataAccess.GetSystemParlayDetail(metaModel);
         }
 
-        /// <summary>
-        /// Get Bet List Data.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="uspKey">The store procedure key.</param>
-        /// <returns>The ticket result.</returns>
         public TicketResult GetBetListData(BetListMetaModel metaModel, string uspKey)
         {
             UpdateCommonInfo(metaModel);

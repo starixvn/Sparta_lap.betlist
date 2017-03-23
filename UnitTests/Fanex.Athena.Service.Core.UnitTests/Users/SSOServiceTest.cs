@@ -97,6 +97,55 @@
             _formsAuthenticationService.Received().SetAuthCookie("user1", Arg.Any<bool>());
         }
 
+        [Test]
+        public void SSO_UserIsAuthenticatedButNotMatchWithCurrentUserName_SetAuthCookieIsNotCalled()
+        {
+            // Arrange
+            var timeSpan = DateTime.Now.Ticks;
+            var decryptedQueryString = "licname=spondemo&username=user2&pwd=123&loginurl=null&lang=abc&timestamp=" + timeSpan;
+            _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
+
+            var user = HttpContext.Current.User;
+
+            var userSession = new UserSession
+            {
+                UserId = 1
+            };
+            _sessionService.UserSession.Returns(userSession);
+
+            var licenseeSession = new LicenseeSession
+            {
+                LicenseeId = 1
+            };
+            _sessionService.LicenseeSession.Returns(licenseeSession);
+
+            IResultInfo resultInfo;
+            var onuserId = 12345;
+            _userService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan, out resultInfo)
+                .Returns(x =>
+                {
+                    x[3] = new ResultInfo();
+                    return new User
+                    {
+                        Username = "user1",
+                        UserID = 1,
+                        ServerId = 999,
+                        Licensee = new Licensee
+                        {
+                            Id = 2
+                        }
+                    };
+                });
+            _userService.LoginOnUser(Arg.Any<User>(), HttpContext.Current.Session.SessionID, 999, HttpContext.Current.Request.UserHostAddress)
+                .Returns(onuserId);
+
+            // Action
+            _ssoService.SSO();
+
+            // Assert
+            _formsAuthenticationService.Received(1).SetAuthCookie("user2", Arg.Any<bool>());
+        }
+
         private static void MockHttpContext()
         {
             var queryString = "key=123";

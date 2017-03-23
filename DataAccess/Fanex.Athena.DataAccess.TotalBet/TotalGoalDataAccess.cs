@@ -15,29 +15,17 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// Total goals data access.
-    /// </summary>
     public class TotalGoalDataAccess : BaseDataAccess, ITotalGoalDataAccess
     {
-        /// <summary>
-        /// Get total goal data list.
-        /// </summary>
-        /// <param name="metaModel">Meta model.</param>
-        /// <param name="totalData">Total goal value.</param>
-        /// <returns>List total goal.The result value.</returns>
         public IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel, out TotalGoal totalData)
         {
             const string UspName = "Lrf_TotalBets_Sel6";
             var uspParams = new
             {
-                LicenseeId = metaModel.LicenseeId,
-                LicenseeType = metaModel.LicenseeType,
-                CurrencyId = metaModel.CurrencyId,
+                AgentList = metaModel.AgentListXml,
                 PageSize = metaModel.PageSize,
                 PageIndex = metaModel.PageIndex,
-                TotalRows = metaModel.TotalRows,
-                UserId = metaModel.UserId
+                TotalRows = metaModel.TotalRows
             };
             IList<TotalGoal> data;
             using (var db = this.GetObjectDb(UspName))
@@ -53,15 +41,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             return data;
         }
 
-        #region Utility
-
-        /// <summary>
-        /// Set to list.
-        /// </summary>
-        /// <param name="reader">The reader value.</param>
-        /// <param name="isConvert">The convert value.</param>
-        /// <param name="baseCurrency">The base currency value.</param>
-        /// <returns>The result value.</returns>
         private static IList<TotalGoal> SetToList(IDataReader reader, bool isConvert, string baseCurrency)
         {
             var dataList = new List<TotalGoal>();
@@ -98,13 +77,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             return dataList;
         }
 
-        /// <summary>
-        /// Read total data.
-        /// </summary>
-        /// <param name="reader">IDataReader class.</param>
-        /// <param name="isConvert">Boolean isConvert.</param>
-        /// <param name="baseCurrency">Base currency.</param>
-        /// <returns>Total goal data.</returns>
         private static TotalGoal ReadTotalData(IDataReader reader, bool isConvert, string baseCurrency)
         {
             if (reader.Read())
@@ -126,7 +98,5 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
             return new TotalGoal();
         }
-
-        #endregion Utility
     }
 }

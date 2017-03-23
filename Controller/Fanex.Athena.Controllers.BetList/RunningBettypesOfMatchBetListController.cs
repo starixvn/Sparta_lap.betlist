@@ -19,13 +19,9 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ResultExtension;
     using Fanex.Common;
     using Resources;
-    using Web.ActionFilter;
 
     #endregion Using
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class RunningBettypesOfMatchBetListController : BetListBaseController
     {
         [HttpGet]
@@ -37,8 +33,9 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                     return Excel(metaModel);
                 }
 

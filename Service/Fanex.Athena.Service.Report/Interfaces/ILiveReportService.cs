@@ -13,12 +13,12 @@ namespace Fanex.Athena.Service.Report.Interfaces
 
     public interface ILiveReportService
     {
-        IList<LiveReport> GetLiveReportSummary(LiveReportMetalModel model);
+        IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel model);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
         void GetLiveReportSumaryDetail(
-            LiveReportMetalModel model,
+            LiveReportMetaModel model,
             string productCode,
             IList<Product> products,
             out IList<LiveReport> resultBySport,

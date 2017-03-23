@@ -14,9 +14,6 @@ namespace Fanex.Athena.Model.Core.Helper
     using RemotingRef;
     using Resources;
 
-    /// <summary>
-    /// CacheRef class.
-    /// </summary>
     public sealed class CacheRef
     {
         private const string MicrogamingResourceKey = "MG_Casino";

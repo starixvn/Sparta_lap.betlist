@@ -1,14 +1,6 @@
 ﻿@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 
 <div class="row">
-    @if (Model.LicenseeTypeList.Count > 0)
-    {
-        <div class="input-field col l2 m3 s12">
-            @RazorHelperDesktop.LicenseeType(Model.LicenseeTypeList, "select", Model.Param.LicenseeType, true)
-            <label>@ViewResources.Type</label>
-        </div>
-    }
-
     <div class="input-field col l2 m3 s12">
         @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, false)
         <label>@ViewResources.Currency</label>

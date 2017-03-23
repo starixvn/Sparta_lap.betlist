@@ -10,9 +10,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
 
-    /// <summary>
-    /// CustomerWinLossMetaModel class.
-    /// </summary>
     public class CustomerWinLossMetaModel : BaseReportMetaModel
     {
         public CustomerWinLossMetaModel()
@@ -23,7 +20,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public CustomerWinLossMetaModel(IAppSettings appSetting)
             : base(appSetting)
         {
-            LicenseeType = string.Empty;
             FromDate = DateTime.Today;
             ToDate = DateTime.Today;
             PageIndex = 1;

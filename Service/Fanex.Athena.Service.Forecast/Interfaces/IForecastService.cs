@@ -15,9 +15,6 @@ namespace Fanex.Athena.Service.Forecast.Interfaces
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
 
-    /// <summary>
-    /// Forecast interface.
-    /// </summary>
     public interface IForecastService
     {
         #region Forecast AH
@@ -32,9 +29,9 @@ namespace Fanex.Athena.Service.Forecast.Interfaces
 
         #region Forecast 1 x 2
 
-        IList<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel);
+        IEnumerable<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel);
 
-        IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel, int userId);
+        IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel);
 
         IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel);
 

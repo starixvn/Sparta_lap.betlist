@@ -1,5 +1,4 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Extension.Helper;
+﻿@using Fanex.Athena.Extension.Helper;
 @model Fanex.Athena.Model.Report.ViewModel.DailyRacingWinLossViewModel
 @{
     var grandTotalData = Model.DailyRacingWinLossData.GrandTotalData;
@@ -8,7 +7,7 @@
     <div class="content-row " style="width: @ViewBag.ContainerWidth@("px")">
         <div class="row" style="width: @(ViewBag.MeetingCurrencyWidth + ViewBag.CommonWidth + 1)@("px")">
             <div class="title-text">
-            @ViewResources.GrandTotalIn @ViewResources.MYR
+                @ViewResources.GrandTotalIn @ViewResources.MYR
             </div>
         </div>
         <div class="row" style="width: @ViewBag.CommonWidth@("px")">
@@ -136,4 +135,3 @@
         </div>
     </div>
 </div>
-</div> 

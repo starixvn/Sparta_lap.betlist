@@ -14,9 +14,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
     using Fanex.Athena.Model.Core.MetaModel.Product;
     using Model.Core.MetaModel;
 
-    /// <summary>
-    /// BaseReportMetaModel class.
-    /// </summary>
     public abstract class BaseReportMetaModel : BaseMetaModel
     {
         private readonly IAppSettings _appSettings;

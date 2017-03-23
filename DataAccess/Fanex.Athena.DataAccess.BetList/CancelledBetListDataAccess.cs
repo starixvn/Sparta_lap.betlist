@@ -27,10 +27,7 @@ namespace Fanex.Athena.DataAccess.BetList
             {
                 using (var db = this.GetObjectDb(UspKey))
                 {
-                    db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-                    db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                    db.AddInParameter("LicenseeType", DbType.String, string.IsNullOrWhiteSpace(metaModel.LicenseeType) ? null : metaModel.LicenseeType);
-                    db.AddInParameter("CurrencyId", DbType.String, metaModel.CurrencyId.ToString());
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     return db.Query<CustomerCancelBetItem>().ToList();
                 }
             }

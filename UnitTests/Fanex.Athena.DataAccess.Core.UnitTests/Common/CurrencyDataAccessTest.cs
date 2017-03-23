@@ -1,9 +1,10 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Core.Common;
     using Data;
-    using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Account;
     using NSubstitute;
@@ -22,6 +23,7 @@
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<CurrencyDataAccess>();
+            _dataAccess.When(x => x.GetObjectDb(Arg.Any<string>())).DoNotCallBase();
             _reader = Substitute.For<IDataReader>();
         }
 
@@ -44,24 +46,19 @@
             _dataAccess.GetCurrencies(LicenseeId);
 
             // Assert
-            _objectDb.ReceivedWithAnyArgs().ExecuteReader(null);
+            _objectDb.ReceivedWithAnyArgs().Query<CurrencyUser>(null);
         }
 
         [Test]
         public void GetCurrencies_WhenCall_DataReturnCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicensee")).Returns(_objectDb);
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-            _reader.Read().Returns(true, false);
-
-            var expected = new CurrencyUser
-            {
-                CurrencyId = 1,
-                CurrencyName = "Currency Test"
-            };
-            _reader.GetInt32(Arg.Any<int>()).Returns(expected.CurrencyId);
-            _reader.GetString(Arg.Any<int>()).Returns(expected.CurrencyName);
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelCurrencyByLicensee")).Query<CurrencyUser>()
+                .Returns(new List<CurrencyUser>
+                {
+                    new CurrencyUser { CurrencyId = 1, AgentId = 100 },
+                    new CurrencyUser { CurrencyId = 1, AgentId = 200 }
+                });
 
             const int LicenseeId = 1;
 
@@ -69,8 +66,8 @@
             var result = _dataAccess.GetCurrencies(LicenseeId);
 
             // Assert
-            Assert.That(result[0].CurrencyId, Is.EqualTo(expected.CurrencyId));
-            Assert.That(result[0].CurrencyName, Is.EqualTo(expected.CurrencyName));
+            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result[0].AgentIdList.Count(), Is.EqualTo(2));
         }
 
         [Test]
@@ -131,6 +128,25 @@
             // Assert
             _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
             _objectDb.Received().AddInParameter("UserID", DbType.Int32, UserId);
+        }
+
+        [Test]
+        public void GetCurrenciesByUser_WhenCall_ReturnCorrectData()
+        {
+            // Arrange
+            _dataAccess.GetObjectDb("Lrf_SelCurrencyByLicenseeUser").Query<CurrencyUser>()
+                .Returns(new List<CurrencyUser>
+                {
+                    new CurrencyUser { CurrencyId = 1, AgentId = 100 },
+                    new CurrencyUser { CurrencyId = 1, AgentId = 200 }
+                });
+
+            // Action
+            var currencyList = _dataAccess.GetCurrenciesByUser(0, 0);
+
+            // Assert
+            Assert.That(currencyList.Count, Is.EqualTo(1));
+            Assert.That(currencyList[0].AgentIdList.Count(), Is.EqualTo(2));
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             if (metaModel.IsExportExcel)
             {
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
                 {
                     return Excel(metaModel);
                 }
@@ -54,7 +54,6 @@ namespace Fanex.Athena.Controllers.BetList
                 ShowEmptyContent = true,
                 Param = metaModel,
                 CurrencyList = currencies,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this.ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, BetListDailyBetListName),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
@@ -66,6 +65,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
 
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.IsServerPaging = true;
             metaModel.PageSize = MaxPageSizeDailyBetlist;
             metaModel.PageIndex = 1;

@@ -15,23 +15,11 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
     #endregion Using
 
-    /// <summary>
-    /// Interface ICustomerService contains all method relates to customer.
-    /// </summary>
     public interface ICustomerService
     {
         #region Read
 
-        /// <summary>
-        /// Quick search by userName.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="userName">The user name.</param>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="licenseeType">The licensee type.</param>
-        /// <param name="currencyId">The currency id.</param>
-        /// <returns>The data table.</returns>
-        IEnumerable<string> SearchCustomers(int userId, string userName, int licenseeId, string licenseeType, int currencyId);
+        IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml);
 
         /// <summary>
         /// Advance search customer.

@@ -60,27 +60,19 @@ namespace Fanex.Athena.Controllers.TotalBets
 
         #region Utility
 
-        /// <summary>
-        /// Get the view of OddEvenDrawNoDraw.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <returns>The action result.</returns>
         private ActionResult GetView(OddEvenDrawNoDrawMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var licenseeSession = SessionService.LicenseeSession;
-            metaModel.UserId = userSession.UserId;
-            var currencies = userSession.CurrencyList;
+            var currencies = SessionService.UserSession.CurrencyList;
 
-            if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 OddEvenDrawNoDraw totalData;
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 var dataList = _oddEvenDrawNoDrawService.GetOddEvenDrawNoDrawDataList(metaModel, out totalData);
                 var model = new OddEvenDrawNoDrawViewModel
                 {
                     Param = metaModel,
                     MainData = dataList,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
                     CurrencyList = currencies,
                     TotalData = totalData
                 };

@@ -93,9 +93,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (IsValidRequest(metaModel))
             {
-                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.UserId = SessionService.UserSession.UserId;
-
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 var dataList = _casinoProgressiveWinsService.GetDataList(metaModel);
 
                 if (metaModel.IsExportExcel)

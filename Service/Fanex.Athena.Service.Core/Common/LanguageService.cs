@@ -13,9 +13,6 @@ namespace Fanex.Athena.Service.Core.Common
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class LanguageService : ILanguageService
     {
         private readonly string _cookieName = "risk_forcast_system";
@@ -32,10 +29,6 @@ namespace Fanex.Athena.Service.Core.Common
             _sessionService = sessionService;
         }
 
-        /// <summary>
-        /// Get current language.
-        /// </summary>
-        /// <returns>The language code.</returns>
         public string GetCurrentLanguage()
         {
             var userSession = _sessionService.UserSession;

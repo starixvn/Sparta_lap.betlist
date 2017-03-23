@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Web.ActionFilter;
+
     #endregion Using
 
     [FunctionAuthorization(PermissionKeys.ReportCustomerWinLoss)]
@@ -32,7 +33,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     return Excel(metaModel);
                 }
@@ -46,7 +47,7 @@ namespace Fanex.Athena.Controllers.BetList
         private ActionResult Excel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinLossByDate_Mem";
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
 
             var showingOption = new ShowingOption

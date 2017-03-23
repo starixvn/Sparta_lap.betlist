@@ -61,27 +61,19 @@ namespace Fanex.Athena.Controllers.TotalBets
 
         #region Utility
 
-        /// <summary>
-        /// Get the view of Total Goal.
-        /// </summary>
-        /// <param name="metaModel">The parameter.</param>
-        /// <returns>The action result.</returns>
         private ActionResult GetView(TotalGoalMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var licenseeSession = SessionService.LicenseeSession;
-            var currencies = userSession.CurrencyList;
-            metaModel.UserId = userSession.UserId;
+            var currencies = SessionService.UserSession.CurrencyList;
 
-            if (metaModel.CurrencyId == 0 || currencies.Values.Contains(metaModel.CurrencyId))
+            if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 TotalGoal totalData;
                 var dataList = _totalGoalService.GetTotalGoalDataList(metaModel, out totalData);
                 var model = new TotalGoalViewModel
                 {
                     Param = metaModel,
                     MainData = dataList,
-                    LicenseeTypeList = licenseeSession.LicenseeType,
                     CurrencyList = currencies,
                     TotalData = totalData
                 };

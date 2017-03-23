@@ -1,8 +1,10 @@
 ﻿namespace Fanex.Athena.Controllers
 {
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
@@ -14,6 +16,16 @@
         public LicenseeListController()
         {
             _licenseeService = new LicenseeService();
+        }
+
+        public LicenseeListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            ILicenseeService licenseeService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _licenseeService = licenseeService;
         }
 
         [HttpGet]
@@ -33,13 +45,12 @@
             else
             {
                 var licenseeList = _licenseeService.GetByUser(userSession.UserId);
-                //// Admin, but not assinged to handle any licensees
+
                 if (licenseeList.Count <= 0)
                 {
                     return RedirectToAction("SignIn", "Authorization");
                 }
 
-                //// Admin user handle only one licensee
                 if (licenseeList.Count == 1)
                 {
                     return RedirectToHome(licenseeList[0].Id);

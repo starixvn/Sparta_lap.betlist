@@ -23,9 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    /// Ag casino win loss data access.
-    /// </summary>
     public class AgCasinoWinLossDataAccess : BaseDataAccess, IAgCasinoWinLossDataAccess
     {
         public AgCasinoWinLossDataAccess(BalanceUp balanceUp)
@@ -33,14 +30,6 @@ namespace Fanex.Athena.DataAccess.Report
         {
         }
 
-        #region IAgCasinoWinLossDataAccess Members
-
-        /// <summary>
-        /// Get summary win loss.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
         public SortableList<AgCasinoWinLoss> GetSummaryWinloss(AgCasinoWinLossMetaModel metaModel, out IDictionary<string, AgCasinoWinLoss> summaryTotal)
         {
             var uspName = "Lrf_Rpt_AGCasinoWinloss";
@@ -65,12 +54,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get customer win loss detail.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
         public SortableList<AgCasinoWinLoss> GetCustomerWinlossDetail(
             AgCasinoWinLossMetaModel metaModel,
             out IDictionary<string, AgCasinoWinLoss> summaryTotal)
@@ -95,12 +78,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Get agent win loss detail.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary total value.</param>
-        /// <returns>The result value.</returns>
         public SortableList<AgCasinoWinLoss> GetAgentWinlossDetail(
             AgCasinoWinLossMetaModel metaModel,
             out IDictionary<string, AgCasinoWinLoss> summaryTotal)
@@ -124,17 +101,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        #endregion IAgCasinoWinLossDataAccess Members
-
-        #region Private
-
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="reader">Reader value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="summaryTotal">Summary value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private static SortableList<AgCasinoWinLoss> GetData(
@@ -178,7 +144,6 @@ namespace Fanex.Athena.DataAccess.Report
 
                 result.Add(item);
 
-                // Read Summary
                 foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
                     summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
@@ -191,25 +156,11 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        /// <summary>
-        /// Update USP parameter.
-        /// </summary>
-        /// <param name="db">Database value.</param>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="drilldown">Drill down value.</param>
         private void UpdateUspParams(IObjectDb db, AgCasinoWinLossMetaModel metaModel, bool drilldown)
         {
-            var currencyId = drilldown ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
-            currencyId = currencyId < 0 ? 0 : currencyId;
-
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("currency", DbType.Int32, currencyId);
-            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
-
-        #endregion Private
     }
 }

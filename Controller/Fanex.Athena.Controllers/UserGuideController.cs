@@ -7,13 +7,41 @@
 namespace Fanex.Athena.Controllers
 {
     using System.IO;
+    using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
+    using Service.Core.Common;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     public class UserGuideController : ReadonlyBaseController
     {
         private const string CustomerListResourceName = "CustomerList";
+
+        private static readonly int[] CasinoProducts = new int[]
+        {
+            ProductTypes.MicroGamingLiveCasino, ProductTypes.MicrogamingRNGCasino, ProductTypes.AllBet, ProductTypes.RngCasino, ProductTypes.Voidbridge
+        };
+
+        private readonly IProductService _productService;
+
+        public UserGuideController()
+        {
+            _productService = new ProductService();
+        }
+
+        public UserGuideController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IProductService productService)
+            : base(languageService, sessionService, appSetting)
+        {
+            _productService = productService;
+        }
 
         [AjaxRequest]
         public ActionResult Index(string resourceName)
@@ -22,6 +50,10 @@ namespace Fanex.Athena.Controllers
             if (resourceName.Equals(CustomerListResourceName, System.StringComparison.OrdinalIgnoreCase))
             {
                 content = content.Replace("{rooturl}", Url.Content("~"));
+            }
+            else
+            {
+                content = AddCasinoProductList(content);
             }
 
             return View("~/Views/UserGuide/Index.cshtml", null, content);
@@ -47,7 +79,7 @@ namespace Fanex.Athena.Controllers
             return filePath;
         }
 
-        private string GetFileContent(string resourceName)
+        protected internal virtual string GetFileContent(string resourceName)
         {
             var language = SessionService.UserSession.Language;
 
@@ -58,6 +90,27 @@ namespace Fanex.Athena.Controllers
             {
                 return reader.ReadToEnd();
             }
+        }
+
+        private string AddCasinoProductList(string content)
+        {
+            if (content.Contains("{casino-productlist}"))
+            {
+                var products = _productService.GetProductList(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
+                var casinoProducts = products.Where(x => CasinoProducts.Contains(x.ProductID)).Select(x => x.ProductName);
+                if (casinoProducts.Any())
+                {
+                    content = content.Replace("{casino-productlist}", string.Join<string>(", ", casinoProducts));
+                    content = content.Replace("{casino-productlist-section}", string.Empty);
+                    content = content.Replace("{/casino-productlist-section}", string.Empty);
+                }
+                else
+                {
+                    content = new Regex(@"\{casino-productlist-section\}.*\{/casino-productlist-section\}").Replace(content, string.Empty);
+                }
+            }
+
+            return content;
         }
     }
 }

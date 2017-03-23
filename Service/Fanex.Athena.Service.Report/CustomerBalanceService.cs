@@ -13,10 +13,7 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
 
-    /// <summary>
-    /// Customer balance service class.
-    /// </summary>
-    public class CustomerBalanceService : ICustBalanceService
+    public class CustomerBalanceService : ICustomerBalanceService
     {
         private readonly ICustBalanceDataAccess _custBalanceDataAccess;
 

@@ -7,12 +7,20 @@
 namespace Fanex.Athena.Model.Report.MetaModel
 {
     using System;
+    using Extension.Utility;
 
-    /// <summary>
-    /// LicenseeWinLossMetaModel class.
-    /// </summary>
     public class LicenseeWinLossMetaModel : BaseReportMetaModel
     {
+        public LicenseeWinLossMetaModel()
+            : this(new AppSettings())
+        {
+        }
+
+        public LicenseeWinLossMetaModel(IAppSettings appSetting)
+            : base(appSetting)
+        {
+        }
+
         public byte ReportBy { get; set; }
 
         public int DrawFilter { get; set; }

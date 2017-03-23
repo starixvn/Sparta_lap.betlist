@@ -19,6 +19,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Web.ActionFilter;
+
     #endregion Using
 
     [FunctionAuthorization(PermissionKeys.ReportCustomerPendingFunds)]
@@ -38,13 +39,13 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 var currencyList = SessionService.UserSession.CurrencyList;
 
-                if (metaModel.CurrencyId != BaseCurrencyType.All && !currencyList.Values.Contains(metaModel.CurrencyId))
+                if (metaModel.CurrencyId != BaseCurrencyType.All && !currencyList.ContainsKey(metaModel.CurrencyId))
                 {
                     return this.File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
                 }
 
                 const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
-
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return this.Excel(metaModel, UspKey);
             }
 

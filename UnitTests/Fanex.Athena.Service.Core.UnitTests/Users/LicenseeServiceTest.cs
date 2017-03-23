@@ -104,17 +104,45 @@
         }
 
         [Test]
-        public void GetNumberOfOnlineUser_WhenCall_ReturnDataFromDataAccess()
+        public void GetCustByLicensee_GetDataFromCache_ReturnCachedData()
         {
             // Arrange
-            var expectedResult = "999";
-            _licenseeDataAccess.GetNumberOfOnlineUser().Returns(expectedResult);
+            var expectedResult = new List<LicenseeCustomer>
+            {
+                new LicenseeCustomer { Id = 1 }
+            };
+            var licenseeId = 1;
+            _licenseeDataAccess.GetCustByLicensee(licenseeId).Returns(expectedResult);
+            _licenseeService.GetCustByLicensee(licenseeId);
 
             // Action
-            var result = _licenseeService.GetNumberOfOnlineUser();
+            var result = _licenseeService.GetCustByLicensee(licenseeId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(result[0].Id, Is.EqualTo(expectedResult[0].Id));
+        }
+
+        [Test]
+        public void GetLicenseeByName_WhenCall_ReturnCorrectValue()
+        {
+            // Arrange
+            var licenseeName = "LicenseeTest";
+            var expectedResult = new Licensee
+            {
+                Id = 1,
+                Name = licenseeName
+            };
+            _licenseeDataAccess.GetLicenseeByName(licenseeName).Returns(expectedResult);
+
+            // Action
+            var result = _licenseeService.GetLicenseeByName(licenseeName);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Id, Is.EqualTo(expectedResult.Id));
+                Assert.That(result.Name, Is.EqualTo(expectedResult.Name));
+            });
         }
     }
 }

@@ -20,80 +20,33 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
 
-    /// <summary>
-    ///     The licensee win loss service.
-    /// </summary>
     public class AgCasinoBalanceService : IAgCasinoBalanceService
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///     The _balance service.
-        /// </summary>
         private readonly IBalanceUpService _balanceService;
 
-        /// <summary>
-        ///     The _licensee win loss data access.
-        /// </summary>
         private readonly IAgCasinoBalanceDataAccess _licenseeBalanceDataAccess;
 
-        #endregion Constants and Fields
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="AgCasinoBalanceService" /> class.
-        /// </summary>
         public AgCasinoBalanceService()
         {
             this._balanceService = new BalanceUpService();
             this._licenseeBalanceDataAccess = new AgCasinoBalanceDataAccess(this._balanceService.BalanceUpInfo);
         }
 
-        #endregion Constructors and Destructors
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        ///     The get agent win loss detail table.
-        /// </summary>
-        /// <param name="metaModel">
-        ///     The metal model.
-        /// </param>
-        /// <param name="summaryTotal">The summary total.</param>
-        /// <returns>The licensee win loss list.</returns>
         public SortableList<AgCasinoBalance> GetAgentBalanceDetail(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
             summaryTotal = new Dictionary<string, AgCasinoBalance>();
             return this._licenseeBalanceDataAccess.GetAgentWinlossDetail(metaModel, out summaryTotal);
         }
 
-        /// <summary>
-        ///     The get customer win loss detail table.
-        /// </summary>
-        /// <param name="metaModel">
-        ///     The metal model.
-        /// </param>
-        /// <param name="summaryTotal">The summary total.</param>
-        /// <param name="totalRows">Total rows.</param>
-        /// <returns>The licensee win loss list.</returns>
         public SortableList<AgCasinoBalance> GetCustomerBalanceDetail(
-            AgCasinoBalanceMetaModel metaModel, 
-            out IDictionary<string, AgCasinoBalance> summaryTotal, 
+            AgCasinoBalanceMetaModel metaModel,
+            out IDictionary<string, AgCasinoBalance> summaryTotal,
             out int totalRows)
         {
             summaryTotal = new Dictionary<string, AgCasinoBalance>();
             return this._licenseeBalanceDataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal, out totalRows);
         }
 
-        /// <summary>
-        ///     The get summary win loss table.
-        /// </summary>
-        /// <param name="metaModel">
-        ///     The metaModel.
-        /// </param>
-        /// <param name="summaryTotal">The summary total.</param>
-        /// <returns>The licensee win loss list.</returns>
         public SortableList<AgCasinoBalance> GetSummaryBalance(AgCasinoBalanceMetaModel metaModel, out IDictionary<string, AgCasinoBalance> summaryTotal)
         {
             summaryTotal = new Dictionary<string, AgCasinoBalance>();
@@ -117,14 +70,6 @@ namespace Fanex.Athena.Service.Report
             return result;
         }
 
-        #endregion Public Methods and Operators
-
-        /// <summary>
-        /// Calculate total win-loss.
-        /// Group by currency.
-        /// </summary>
-        /// <param name="dataList">The data list.</param>
-        /// <returns>The total list.</returns>
         public IList<AgCasinoBalance> TotalCalc(IList<AgCasinoBalance> dataList)
         {
             if (dataList == null || dataList.Count == 0)

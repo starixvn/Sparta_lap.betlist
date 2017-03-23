@@ -161,7 +161,7 @@ function activeDefaultLink() {
 $(window).load(function () {
     // auto suggest username
     var txtUserName = $('#txtUserName');
-    var serUrl = "../CustomerAPI/SearchCustomer?licenseeType=&currencyId=0";
+    var serUrl = "../CustomerAPI/SearchCustomer";
 
     txtUserName.autocomplete({ serviceUrl: serUrl, minChars: 2 });
     $("#search-button").click(function () { return searchByUserName(); });

@@ -62,7 +62,9 @@ namespace Fanex.Athena.Controllers.WareHouse
             const string FileName = "WinLoss";
             const string FormatTitle = "{0} {1} {2} {3} --> {4} - {5}";
             var userSession = SessionService.UserSession;
-            metaModel.UserId = userSession.UserId;
+            var licenseeSession = SessionService.LicenseeSession;
+            metaModel.LicenseeId = licenseeSession.LicenseeId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var templatePath = Server.MapPath("~/App_Data/Template/DataWareHouse/WinLoss.xls");
             var productAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language);
             var showingOption = new ShowingOption
@@ -107,8 +109,10 @@ namespace Fanex.Athena.Controllers.WareHouse
         [CustomValidateAntiForgery]
         public ActionResult Index(WinLossMetaModel metaModel)
         {
+            var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            metaModel.UserId = userSession.UserId;
+            metaModel.LicenseeId = licenseeSession.LicenseeId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             if (metaModel.IsExportExcel)
             {
                 return Excel(metaModel);
@@ -119,7 +123,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
                 ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
-                IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
             IDictionary<string, decimal> totalValues = new Dictionary<string, decimal>();

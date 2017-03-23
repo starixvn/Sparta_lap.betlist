@@ -36,6 +36,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             if (IsValidCurrency(metaModel.CurrencyId))
             {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return this.Excel(metaModel);
             }
 

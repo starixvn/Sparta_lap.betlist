@@ -1,14 +1,11 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web;
     using Core.Common.Interfaces;
     using Core.Users.Interfaces;
-    using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
-    using Model.Core.DataDomain;
     using Model.Core.DTO;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
@@ -58,32 +55,11 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
 
-            _currencyService.GetCurrencyMapByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(new Dictionary<string, int>());
+            _currencyService.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(new List<CurrencyUser>());
 
             _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
 
             var expectedResult = new ResultInfo { Code = 600, Message = "Not found currency" };
-
-            // Action
-            var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
-
-            // Assert
-            Assert.AreEqual(expectedResult.IsSuccessful, result.IsSuccessful);
-            Assert.AreEqual(expectedResult.Code, result.Code);
-        }
-
-        [Test]
-        public void SignIn_SetAuthorize_ReturnErrorLicenseDoesNotHaveAgent()
-        {
-            // Arrange
-            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "pgmAlex", SiteName = "spondemo" };
-            var fakeHttpContext = Substitute.For<HttpContextBase>();
-            fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
-            _currencyService.GetCurrencyMapByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(FakeCurrencyListMapByUser());
-            _licenseeService.GetCustByLicensee(Arg.Any<int>()).Returns(new List<LicenseeCustomer>());
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
-
-            var expectedResult = new ResultInfo { Code = 200, Message = "Licensee Has not agent" };
 
             // Action
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
@@ -110,7 +86,7 @@
             var expectedAgents = new List<LicenseeCustomer> { new LicenseeCustomer() };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
-            _currencyService.GetCurrencyMapByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(FakeCurrencyListMapByUser());
+            _currencyService.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(FakeCurrencyListMapByUser());
             _licenseeService.GetCustByLicensee(Arg.Any<int>()).Returns(expectedAgents);
 
             _sessionService.When(x => x.CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>()))
@@ -139,19 +115,12 @@
             Assert.AreEqual(1, sessionCounter);
             Assert.AreEqual(1, cookieCounter);
             Assert.False(string.IsNullOrEmpty(result.ExtendedData));
-            Assert.True(VerifyUserSession(user, expectedCurrency, tokenInfo));
-            Assert.True(VeryfiLicSession(lic, expectedAgents, expectedLicInfo, tokenInfo));
+            Assert.True(VeryfiLicSession(lic, expectedLicInfo, tokenInfo));
         }
 
-        private static bool VeryfiLicSession(LicenseeSession lic, List<LicenseeCustomer> expectedAgents, Licensee expectedLicInfo, OneAuthenticationToken tokenInfo)
+        private static bool VeryfiLicSession(LicenseeSession lic, Licensee expectedLicInfo, OneAuthenticationToken tokenInfo)
         {
-            var licType = expectedAgents.Where(s => !string.IsNullOrEmpty(s.Description))
-                                        .Select(s => s.Description)
-                                        .Distinct()
-                                        .ToList();
-            var curName = expectedAgents.Select(s => s.CurrencyName).Distinct().ToList();
-            return lic.LicenseeId == expectedLicInfo.Id && lic.CurrencyName.Count == curName.Count
-                 && lic.LicenseeType.Count == licType.Count && lic.LicenseeName == expectedLicInfo.Name
+            return lic.LicenseeId == expectedLicInfo.Id && lic.LicenseeName == expectedLicInfo.Name
                  && lic.IsEnableBA == expectedLicInfo.IsEnableBA && lic.IsAllowedCustomerComm == expectedLicInfo.IsAllowedCustomerComm;
         }
 
@@ -179,20 +148,16 @@
             };
         }
 
-        private static bool VerifyUserSession(UserSession userSession, IDictionary<string, int> currency, OneAuthenticationToken tokenInfo)
+        private static IList<CurrencyUser> FakeCurrencyListMapByUser()
         {
-            var lang = Util.MapLanguages.Where(i => i.Value.Equals(tokenInfo.Language))
-                       .Select(i => i.Key).DefaultIfEmpty<string>("en-Us").FirstOrDefault();
-            return userSession != null && userSession.UserId == tokenInfo.UserSEQ &&
-                userSession.VendorID == tokenInfo.VendorID && userSession.VendorIdentityID == tokenInfo.UserID
-                && userSession.IsInternal && userSession.ApplicationMode == AppMode.Parasitic
-                && userSession.PortalFunctionList.Count > 0 && userSession.CurrencyList.Count == currency.Count
-                && userSession.Language == lang && userSession.FunctionIdList.Count == 0;
-        }
-
-        private static IDictionary<string, int> FakeCurrencyListMapByUser()
-        {
-            return new Dictionary<string, int> { { "UUS", 1 } };
+            return new List<CurrencyUser>
+            {
+                new CurrencyUser
+                {
+                    CurrencyId = 1,
+                    CurrencyName = "USD"
+                }
+            };
         }
 
         private static string GetJsonSystemFunctionList()

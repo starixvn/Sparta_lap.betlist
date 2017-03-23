@@ -23,7 +23,6 @@ namespace Fanex.Athena.Api.BetList
         public dynamic Index(
             int page,
             int rows,
-            string licenseeType,
             int currencyId,
             string currencyName,
             string baseCurrency,
@@ -37,21 +36,19 @@ namespace Fanex.Athena.Api.BetList
 
             var metaModel = new BetListMetaModel
             {
-                LicenseeType = licenseeType,
                 CurrencyId = currencyId,
                 CurrencyName = currencyName,
                 BaseCurrency = baseCurrency ?? string.Empty,
                 Date = date.Date,
                 FromDate = date.Date,
                 ToDate = date.Date,
-                UserId = SessionService.UserSession.UserId,
                 ProductCode = productCode,
                 DailyBetListStatus = status,
                 SortBy = sortBy,
                 SortOrder = sortOrder,
                 IsServerPaging = true
             };
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             return GetPagingBetListResult(metaModel, UspKey, page, rows);
         }
     }

@@ -15,11 +15,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
 
-    /// <summary>
-    /// Customer win loss data access.
-    /// </summary>
     public class CustomerWinlossDataAccess : BaseDataAccess, ICustWinlossDataAccess
     {
         public CustomerWinlossDataAccess(BalanceUp balanceUp)
@@ -27,13 +23,6 @@ namespace Fanex.Athena.DataAccess.Report
         {
         }
 
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="totalData">Total data value.</param>
-        /// <param name="totalRows">Total rows value.</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public SortableList<CustomerWinLoss> GetDataList(CustomerWinLossMetaModel metaModel, out CustomerWinLoss totalData, out int totalRows)
@@ -42,8 +31,6 @@ namespace Fanex.Athena.DataAccess.Report
             totalData = new CustomerWinLoss();
             using (var db = this.GetObjectDb("Lrf_Rpt_WinLoss"))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-                db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
                 db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
                 db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
@@ -51,8 +38,7 @@ namespace Fanex.Athena.DataAccess.Report
                 db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
                 db.AddInParameter("movebetsday", DbType.DateTime, BalanceUp.MoveBetsDay);
                 db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
-                db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
-                db.AddInParameter("excludetest", DbType.Int32, metaModel.IsExcludedTestData);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 foreach (var item in metaModel.ProductOptions)
                 {
                     db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);

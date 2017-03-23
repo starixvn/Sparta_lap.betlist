@@ -241,7 +241,7 @@
     <Compile Include="Interfaces\IWinLossByLeagueService.cs" />
     <Compile Include="Interfaces\IResultService.cs" />
     <Compile Include="Interfaces\ICreditBalanceService.cs" />
-    <Compile Include="Interfaces\ICustBalanceService.cs" />
+    <Compile Include="Interfaces\ICustomerBalanceService.cs" />
     <Compile Include="Interfaces\ICustPendingFundsService.cs" />
     <Compile Include="Interfaces\ICustTurnoverService.cs" />
     <Compile Include="Interfaces\ICustWinlossService.cs" />

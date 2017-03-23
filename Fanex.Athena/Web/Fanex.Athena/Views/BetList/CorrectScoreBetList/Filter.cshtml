@@ -1,24 +1,13 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Model.Core.MetaModel.Product
-@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
+﻿@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 @using (Html.BeginForm("Index", "CorrectScoreBetList", FormMethod.Post, new { @id = "CorrectScoreBetListForm" }))
 {
     @Html.AntiForgeryToken()
-    //-----------------------------Type of licensee---------------------------//
-    if (Model.LicenseeTypeList.Count > 0)
-    {
-    <div class="grid_2 filter-label">
-        <label>@ViewResources.Type</label>
-    </div>
-    <div class="grid_3 filter-input">
-        @RazorHelper.LicenseeType(Model.LicenseeTypeList, "", Model.Param.LicenseeType, true)
-    </div>
-    }
 
     //-----------------------------Currency-----------------------------------//
     <div class="grid_2 filter-label">
         <label>
-            @ViewResources.Currency</label>
+            @ViewResources.Currency
+        </label>
     </div>
     <div class="grid_3 filter-input">
         @RazorHelper.CurrencyList(Model.CurrencyList, "", Model.Param.CurrencyId, true, false)
@@ -34,8 +23,8 @@
         </div>
         <div>
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
-               type="image" id="ExportToExcela" name="exporttoexcel"
-               title="@ViewResources.ExportToExcel" class="hand" />
+                   type="image" id="ExportToExcela" name="exporttoexcel"
+                   title="@ViewResources.ExportToExcel" class="hand" />
         </div>
     </div>
     <div class="grid_2 filter-input">

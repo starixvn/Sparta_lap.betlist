@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Common
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Core.Common;
     using Core.Common.Interfaces;
     using DataAccess.Core.Common.Interfaces;
@@ -43,7 +44,7 @@
             var result = _languageService.GetLeaguesBySport(null);
 
             // Assert
-            Assert.That(result[0].LeagueId, Is.EqualTo(expectedResult[0].LeagueId));
+            Assert.That(result.ElementAt(0).LeagueId, Is.EqualTo(expectedResult[0].LeagueId));
         }
     }
 }

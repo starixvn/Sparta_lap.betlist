@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.Customer
     #region Using
 
     using System.Collections.Generic;
+    using DataAccess.Customer.Interfaces;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Casino.MetaModel;
@@ -33,7 +34,7 @@ namespace Fanex.Athena.Service.Customer
     {
         #region Varialbes
 
-        private readonly CustomerDataAccess _customerDataAccess;
+        private readonly ICustomerDataAccess _customerDataAccess;
 
         private readonly ICasinoSetting _casinoSetting;
 
@@ -62,21 +63,33 @@ namespace Fanex.Athena.Service.Customer
             _appSettings = new AppSettings();
         }
 
+        public CustomerService(
+            ICustomerDataAccess customerDataAccess,
+            ICasinoSetting casinoSetting,
+            IAuthorizationService authorizationService,
+            IProductService productService,
+            ISessionService sessionService,
+            IRNGCasinoService rngCasinoService,
+            IAppSettings appSettings)
+        {
+            _customerDataAccess = customerDataAccess;
+            _casinoSetting = casinoSetting;
+            _authorizationService = authorizationService;
+            _productService = productService;
+            _sessionService = sessionService;
+            _rngCasinoService = rngCasinoService;
+            _appSettings = appSettings;
+        }
+
         #endregion Constructors
 
         #region Read
 
-        public IEnumerable<string> SearchCustomers(int userId, string userName, int licenseeId, string licenseeType, int currencyId)
+        public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
         {
-            return _customerDataAccess.SearchCustomers(userId, userName, licenseeId, licenseeType, currencyId);
+            return _customerDataAccess.SearchCustomers(userId, userName, agentListXml);
         }
 
-        /// <summary>
-        /// Advance search customer.
-        /// </summary>
-        /// <param name="metaModel">Meta model contains the filter such as: BA type, special level type, ...</param>
-        /// <param name="totalRows">The total rows.</param>
-        /// <returns>The customer list.</returns>
         public IList<CustomerDTO> Search(CustomerListMetaModel metaModel, ref int totalRows)
         {
             return _customerDataAccess.Search(metaModel, ref totalRows);

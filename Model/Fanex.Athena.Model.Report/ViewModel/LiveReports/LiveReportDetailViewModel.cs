@@ -25,7 +25,7 @@ namespace Fanex.Athena.Model.Report.ViewModel.LiveReports
 
         public bool IsShowedDetailLink { get; set; }
 
-        public LiveReportMetalModel Param { get; set; }
+        public LiveReportMetaModel Param { get; set; }
 
         public IList<Product> Products { get; set; }
     }

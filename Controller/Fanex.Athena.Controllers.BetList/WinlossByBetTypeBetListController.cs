@@ -34,9 +34,10 @@
             var currencyList = this.SessionService.UserSession.CurrencyList;
 
             if (metaModel.CurrencyId != BaseCurrencyType.All &&
-                currencyList.Values.Contains(metaModel.CurrencyId) &&
+                currencyList.ContainsKey(metaModel.CurrencyId) &&
                 metaModel.FromDate.Date == metaModel.ToDate.Date)
             {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return this.Excel(metaModel);
             }
 

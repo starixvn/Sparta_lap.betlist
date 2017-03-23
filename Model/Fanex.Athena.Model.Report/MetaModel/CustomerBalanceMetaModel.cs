@@ -21,7 +21,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
             OrderItem = 1;
             PageIndex = 1;
             PageSize = 1000;
-            LicenseeType = string.Empty;
         }
 
         public int TopCount { get; set; }

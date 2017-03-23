@@ -22,10 +22,18 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
     using Resources;
+    using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportCustomerBalance)]
     public class CustomerBalanceReportController : ReportBaseController
     {
+        private readonly ICustomerBalanceService _custBalanceService;
+
+        public CustomerBalanceReportController()
+        {
+            _custBalanceService = new CustomerBalanceService();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -55,7 +63,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel,
@@ -80,15 +87,13 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
+            
             var totalData = new CustBalance();
             var totalRows = 0;
             var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.CustomerBalance);
             var model = new CustomerBalanceViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = productAccess,
                 CurrencyList = userSession.CurrencyList,
                 Param = metaModel
@@ -109,17 +114,17 @@ namespace Fanex.Athena.Controllers.Report
                 return View("~/Views/Report/CustomerBalance/Main.cshtml", model);
             }
 
-            var custBalanceService = new CustomerBalanceService();
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
             if (isExportedExcel != null)
             {
                 metaModel.PageSize = PageSizeExcel;
-                var dataListExcel = custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
+                var dataListExcel = _custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
                 model.DataList = dataListExcel;
                 model.TotalData = totalData;
                 return Excel(model);
             }
 
-            var dataList = custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
+            var dataList = _custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
             ViewBag.TotalRows = totalRows;
             model.DataList = dataList;
             model.TotalData = totalData;

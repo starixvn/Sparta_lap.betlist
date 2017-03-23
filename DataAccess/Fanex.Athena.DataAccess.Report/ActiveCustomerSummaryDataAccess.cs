@@ -85,13 +85,10 @@ namespace Fanex.Athena.DataAccess.Report
         private void UpdateUspParams(IObjectDb db, ActiveCustomerMetaModel metaModel)
         {
             var productCodes = metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code).ToArray();
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-            db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
             db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate);
             db.AddInParameter("todate", DbType.Date, metaModel.ToDate);
             db.AddInParameter("products", DbType.String, string.Join(",", productCodes));
-            db.AddInParameter("excludetest", DbType.Boolean, metaModel.IsExcludeTest);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
     }
 }

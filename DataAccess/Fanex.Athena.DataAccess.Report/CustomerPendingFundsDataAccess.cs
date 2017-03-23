@@ -13,35 +13,17 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
 
-    /// <summary>
-    /// Customer pending funds.
-    /// </summary>
     public class CustomerPendingFundsDataAccess : BaseDataAccess, ICustPendingFundsDataAccess
     {
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="totalData">Total data value.</param>
-        /// <param name="totalRows">Total rows value.</param>
-        /// <returns>The result value.</returns>
         public SortableList<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel, ref CustPendingFunds totalData, ref int totalRows)
         {
             SortableList<CustPendingFunds> result = new SortableList<CustPendingFunds>();
             using (var db = this.GetObjectDb("Lrf_Rpt_Outstanding"))
             {
-                db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-                db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                if (!string.IsNullOrEmpty(metaModel.LicenseeType))
-                {
-                    db.AddInParameter("licenseetype", DbType.String, metaModel.LicenseeType);
-                }
-
                 db.AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
                 db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
-                db.AddInParameter("currencyid", DbType.Int32, metaModel.CurrencyId);
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 foreach (var item in metaModel.ProductOptions)
                 {
                     db.AddInParameter("show" + item.Code, DbType.Boolean, item.Status);

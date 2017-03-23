@@ -35,7 +35,8 @@ namespace Fanex.Athena.Api.CustomerLog
                 Month = month,
                 LicenseeId = SessionService.LicenseeSession.LicenseeId,
                 FromDay = fromday,
-                ToDay = today
+                ToDay = today,
+                AgentListXml = SessionService.GenerateAgentListXml()
             };
 
             if (metaModel.IsValid)

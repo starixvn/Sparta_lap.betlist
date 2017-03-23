@@ -20,8 +20,9 @@
 
         public object GetCurrencyList()
         {
-            var currencyList = _currencyService.GetCurrencyMapByUser(this.LicenseeId, this.UserId);
-
+            var currencyList = _currencyService.GetCurrenciesByUser(this.LicenseeId, this.UserId)
+                .Where(x => x.IsActive)
+                .Select(x => new { CurrencyId = x.CurrencyId, Currency = x.CurrencyName }).ToArray();
             return new
             {
                 CurrencyList = currencyList.ToArray(),

@@ -187,8 +187,8 @@
                     '<input id="HomeTeamId" value="10" /><input id="AwayTeamId" value="11" />');
 
                 spyOn(Site, "getCurrentUrl");
-                spyOn(Site, "setLicenseeOptionOriginalParam").and.returnValue("localhost-test?licenseetype=6&currencyid=7&currencyname=eur&basecurrency=eur");
-                var expectedUrl = "localhost-test?licenseetype=6&currencyid=7&currencyname=eur&basecurrency=eur" +
+                spyOn(Site, "setLicenseeOptionOriginalParam").and.returnValue("localhost-test?currencyid=7&currencyname=eur&basecurrency=eur");
+                var expectedUrl = "localhost-test?currencyid=7&currencyname=eur&basecurrency=eur" +
                                 "&leagueid=1&matchid=2&bettype=3&currentscore=4&isshowft=true&isshowfh=true&hometeamid=10&awayteamid=11";
 
                 var result = RefreshCountDown.calculateUrl();

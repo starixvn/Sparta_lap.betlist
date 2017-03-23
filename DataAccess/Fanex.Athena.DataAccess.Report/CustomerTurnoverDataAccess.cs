@@ -19,9 +19,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Model.Core.Helper;
 
-    /// <summary>
-    /// Customer turnover data access.
-    /// </summary>
     public class CustomerTurnoverDataAccess : BaseDataAccess, ICustTurnoverDataAccess
     {
         public CustomerTurnoverDataAccess(BalanceUp balanceUp)
@@ -29,16 +26,6 @@ namespace Fanex.Athena.DataAccess.Report
         {
         }
 
-        #region ICustTurnoverDataAccess Members
-
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="metaModel">Meta model value.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <param name="total">The total data.</param>
-        /// <param name="totalRow">The total rows.</param>
-        /// <returns>The result value.</returns>
         public IList<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode, out CustTurnover total, out int totalRow)
         {
             total = new CustTurnover();
@@ -91,14 +78,9 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        /// <summary>
-        /// Add parameter.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <param name="db">The database object.</param>
         private void AddParameters(CustomerTurnoverMetaModel metaModel, string languageCode, IObjectDb db)
         {
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
             db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
@@ -119,7 +101,5 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("Product", DbType.String, metaModel.ProductParameters);
             db.AddInParameter("Bettype", DbType.String, metaModel.BettypeParameters);
         }
-
-        #endregion ICustTurnoverDataAccess Members
     }
 }

@@ -69,12 +69,6 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Action
 
-        /// <summary>
-        /// The customer list report.
-        /// </summary>
-        /// <param name="userName">The user name.</param>
-        /// <param name="groupId">The group id.</param>
-        /// <returns>The action result.</returns>
         [HttpGet]
         public ActionResult CustomerList(string userName = "", int groupId = -1)
         {
@@ -102,21 +96,16 @@ namespace Fanex.Athena.Controllers.Customer
             return View("~/Views/Customer/Customers.cshtml", model);
         }
 
-        /// <summary>
-        /// The customer list report.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
         [HttpPost]
         [AjaxRequest]
         [CustomValidateAntiForgery]
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-            metaModel.UserId = SessionService.UserSession.UserId;
+
             metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
             metaModel.Username = metaModel.Username == ViewResources.ExternalIdOrSystemId ? string.Empty : metaModel.Username;
-
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var totalRows = 0;
             var dataList = _customerService.Search(metaModel, ref totalRows);
             return new JsonResult
@@ -151,9 +140,8 @@ namespace Fanex.Athena.Controllers.Customer
                 {
                     var licenseeSession = SessionService.LicenseeSession;
                     var userSession = SessionService.UserSession;
-                    metaModel.LicenseeId = licenseeSession.LicenseeId;
-                    metaModel.UserId = userSession.UserId;
                     metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
                     if (metaModel.GridColumns.Count(i => i.Checked) > 0)
                     {
@@ -224,7 +212,6 @@ namespace Fanex.Athena.Controllers.Customer
             {
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language),
                 IsAllowedUserEditComm = SessionService.IsAllowedEditCommission(userSession),
                 IsAllowedUserChangeBA = SessionService.IsAllowedSpecialBA(userSession),

@@ -11,19 +11,9 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
-    using Fanex.Data;
 
-    /// <summary>
-    ///     Settled Match Count.
-    /// </summary>
     public class SettledMatchCountDataAccess : BaseDataAccess, ISettledMatchCountDataAccess
     {
-        /// <summary>
-        /// Get data list.
-        /// </summary>
-        /// <param name="isShowAll">Is Show all.</param>
-        /// <param name="licenseeId">Licensee ID.</param>
-        /// <returns>Result value.</returns>
         public IList<SettledMatchCount> GetDataList(bool isShowAll, int licenseeId)
         {
             var uspParams = new
@@ -32,7 +22,7 @@ namespace Fanex.Athena.DataAccess.Report
                 licenseeid = licenseeId
             };
 
-            using (var db = new ObjectDb("Lrf_Rpt_MatchSelResultEntered"))
+            using (var db = this.GetObjectDb("Lrf_Rpt_MatchSelResultEntered"))
             {
                 return db.Query<SettledMatchCount>(uspParams).ToList();
             }

@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Controllers.Base.UnitTests
 {
+    using System;
     using System.Collections.Generic;
+    using System.Security.Principal;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -16,6 +18,16 @@
     [TestFixture]
     public class BaseControllerTest
     {
+        protected const string TestingRequestUrl = "http://unit-test-mode";
+
+        protected const string SesssionUserName = "alex.vn";
+
+        protected const int SessionLicenseeId = 100;
+
+        protected const int SessionUserId = 1;
+
+        protected const int SessionOnUserId = 999;
+
         protected UrlHelper Url { get; set; }
 
         protected ControllerContext ControllerContext { get; set; }
@@ -34,6 +46,14 @@
 
             var httpContext = Substitute.For<HttpContextBase>();
             httpContext.Request.ApplicationPath.Returns("/");
+            httpContext.Request.Url.Returns(new Uri(TestingRequestUrl));
+            httpContext.Request.Cookies.Returns(new HttpCookieCollection());
+            httpContext.Response.Cookies.Returns(new HttpCookieCollection());
+            httpContext.Server.MapPath(Arg.Any<string>()).Returns(x => (string)x[0]);
+            var fakeIdentity = new GenericIdentity("User");
+            var principal = new GenericPrincipal(fakeIdentity, null);
+
+            httpContext.User.Returns(principal);
 
             ControllerContext = Substitute.For<ControllerContext>();
             ControllerContext.HttpContext = httpContext;
@@ -60,21 +80,19 @@
             SessionService = Substitute.For<ISessionService>();
             SessionService.UserSession.Returns(new UserSession
             {
-                CurrencyList = new Dictionary<string, int> { { "UUS", 1 } },
-                ViewType = ClientViewType.None,
-                UserId = 1,
+                CurrencyList = new Dictionary<int, string> { { 1, "UUS" } },
+                ViewType = ClientViewType.Default,
+                UserId = SessionUserId,
                 Language = "en-Us",
-                UserName = "alex.vn",
-                OnUserId = 1,
+                UserName = SesssionUserName,
+                OnUserId = SessionOnUserId,
                 FunctionIdList = new List<int>()
             });
 
             SessionService.LicenseeSession.Returns(new LicenseeSession
             {
-                CurrencyName = new List<string> { "UUS" },
-                LicenseeId = 100,
-                LicenseeName = "Spondemo",
-                LicenseeType = new List<string>()
+                LicenseeId = SessionLicenseeId,
+                LicenseeName = "Spondemo"
             });
 
             AppSettings = Substitute.For<IAppSettings>();

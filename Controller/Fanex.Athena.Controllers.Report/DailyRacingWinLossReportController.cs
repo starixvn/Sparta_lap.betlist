@@ -37,7 +37,6 @@ namespace Fanex.Athena.Controllers.Report
             {
                 ShowEmptyContent = true,
                 Param = metaModel,
-                LicenseeTypeList = licenseeSession.LicenseeType,
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
             };
@@ -50,18 +49,16 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Index(DailyRacingWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString();
             var dailyRacingWinLossService = new DailyRacingWinLossService();
             var dailyRacingWlData = dailyRacingWinLossService.GetDailyRacingWinLossData(metaModel);
 
             var model = new DailyRacingWinLossViewModel
             {
+                LicenseeId = licenseeSession.LicenseeId,
                 Param = metaModel,
-                LicenseeTypeList = licenseeSession.LicenseeType,
-                CurrencyList = userSession.CurrencyList,
+                CurrencyList = SessionService.UserSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 DailyRacingWinLossData = dailyRacingWlData
             };
