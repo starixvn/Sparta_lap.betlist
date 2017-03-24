@@ -8,7 +8,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class SportsbookWalletServiceTest
+    public class CustomerBalanceServiceTest
     {
         private ISimpleWidgetDataAccess _sportsbookWalletDataAccess;
         private ISimpleWidgetService _sportsbookWalletService;

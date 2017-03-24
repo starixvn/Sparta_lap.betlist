@@ -10,6 +10,7 @@ namespace Fanex.Athena.Service.Forecast
     using System.Data;
     using DataAccess.Core.Extensions;
     using DataAccess.Forecast;
+    using DataAccess.Forecast.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
     using Fanex.Common;
@@ -27,7 +28,7 @@ namespace Fanex.Athena.Service.Forecast
     {
         #region Fields
 
-        private readonly ForecastDataAccess _forecastDataAccess;
+        private readonly IForecastDataAccess _forecastDataAccess;
 
         #endregion Fields
 
@@ -38,16 +39,15 @@ namespace Fanex.Athena.Service.Forecast
             this._forecastDataAccess = new ForecastDataAccess();
         }
 
+        public ForecastService(IForecastDataAccess forecastDataAccess)
+        {
+            this._forecastDataAccess = forecastDataAccess;
+        }
+
         #endregion Constructor
 
         #region Forecast AH
 
-        /// <summary>
-        /// Get forecast top odds by match.
-        /// </summary>
-        /// <param name="matchId">The match id.</param>
-        /// <param name="betType">The bet type.</param>
-        /// <returns>The Forecast data.</returns>
         public ForecastAH GetForecastTopOddsByMatch(int matchId, int betType)
         {
             return _forecastDataAccess.GetForecastTopOddsByMatch(matchId, betType);
