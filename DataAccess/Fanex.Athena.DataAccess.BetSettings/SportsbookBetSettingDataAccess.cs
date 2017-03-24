@@ -25,6 +25,11 @@ namespace Fanex.Athena.DataAccess.BetSettings
             _appSettings = new AppSettings();
         }
 
+        public SportsbookBetSettingDataAccess(IAppSettings appSettings)
+        {
+            _appSettings = appSettings;
+        }
+
         public IList<BetSetting> GetBetSetting(int custId, ref EsportSettingType esportSetting)
         {
             var uspName = "Lrf_CustomerSelEditCustomer";

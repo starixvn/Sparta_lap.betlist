@@ -2,13 +2,14 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core;
     using Data;
     using Fanex.Athena.DataAccess.BetSettings.Interfaces;
     using Fanex.Common.Extensions;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
 
-    public class DcsBetSettingDataAccess : IDcsBetSettingDataAccess
+    public class DcsBetSettingDataAccess : BaseDataAccess, IDcsBetSettingDataAccess
     {
         private const int MemberRoleId = 1;
 
@@ -33,7 +34,7 @@
         public bool? GetStatus(int custId, int productId)
         {
             var uspName = "Acc_Dep_CustSetting_StatusSettingSelect";
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("CustID", DbType.Int32, custId);
                 db.AddInParameter("ProductId", DbType.Int32, productId);
@@ -56,7 +57,7 @@
         {
             var uspName = "Acc_Dep_CustSetting_DisableStatUpd";
 
-            using (var db = new ObjectDb(uspName))
+            using (var db = this.GetObjectDb(uspName))
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
                 db.AddInParameter("userid", DbType.Int32, userId);
