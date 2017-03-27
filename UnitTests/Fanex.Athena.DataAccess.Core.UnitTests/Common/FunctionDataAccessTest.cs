@@ -1,9 +1,11 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using Core.Common;
     using Data;
+    using Extension.Utility;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -15,12 +17,14 @@
         private IObjectDb _objectDb;
         private FunctionDataAccess _dataAccess;
         private IDataReader _reader;
+        private IAppSettings _appSetting;
 
         [OneTimeSetUp]
         public void Setup()
         {
+            _appSetting = Substitute.For<IAppSettings>();
             _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<FunctionDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<FunctionDataAccess>(_appSetting);
             _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(_reader);
         }
@@ -31,6 +35,28 @@
             _objectDb = null;
             _dataAccess = null;
             _reader = null;
+        }
+
+        [Test]
+        public void GetFunctionList_WhenCall_DataReturnedCorrectly()
+        {
+            // Arrange
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_FunctionsSel")).Returns(_objectDb);
+            var expected = new List<Function> { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
+            _reader.Read().Returns(true, false);
+
+            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "FunctionId", 1 }
+            };
+
+            MapReaderData(_reader, readerDataMapping);
+
+            // Action
+            var result = _dataAccess.GetFunctionList();
+
+            // Assert
+            Assert.That(result[0].FunctionId, Is.EqualTo(1));
         }
 
         [Test]
@@ -196,6 +222,20 @@
             // Assert
             Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
             Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+        }
+
+        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
+        {
+            reader[Arg.Any<string>()].Returns(x =>
+            {
+                var paramName = x.ArgAt<string>(0);
+                if (readerDataMapping.ContainsKey(paramName))
+                {
+                    return readerDataMapping[paramName];
+                }
+
+                return string.Empty;
+            });
         }
     }
 }

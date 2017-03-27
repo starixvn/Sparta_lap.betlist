@@ -18,9 +18,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    /// Function data access.
-    /// </summary>
     public class FunctionDataAccess : BaseDataAccess, IFunctionDataAccess
     {
         private readonly IAppSettings _appSettings;
@@ -30,10 +27,11 @@ namespace Fanex.Athena.DataAccess.Core.Common
             _appSettings = new AppSettings();
         }
 
-        /// <summary>
-        /// Get function list.
-        /// </summary>
-        /// <returns>The result value.</returns>
+        public FunctionDataAccess(IAppSettings appSettings)
+        {
+            _appSettings = appSettings;
+        }
+
         public IList<Function> GetFunctionList()
         {
             var functionList = new List<Function>();

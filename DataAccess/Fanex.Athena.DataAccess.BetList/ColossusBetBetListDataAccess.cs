@@ -53,8 +53,8 @@ namespace Fanex.Athena.DataAccess.BetList
                 using (var db = this.GetObjectDb(UspKey))
                 {
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                    db.AddInParameter("custid", DbType.String, metaModel.CustId);
-                    db.AddInParameter("refno", DbType.String, metaModel.RefNo);
+                    db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
+                    db.AddInParameter("refno", DbType.Int64, metaModel.RefNo);
                     using (var reader = db.ExecuteReader())
                     {
                         return ReadData(reader, metaModel.BaseCurrency);

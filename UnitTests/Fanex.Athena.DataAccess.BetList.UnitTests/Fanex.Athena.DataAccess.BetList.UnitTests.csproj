@@ -111,6 +111,7 @@
   <ItemGroup>
     <Compile Include="BaseBetListDataAccessTest.cs" />
     <Compile Include="BetListDataAccessTest.cs" />
+    <Compile Include="ColossusBetBetListDataAccessTest.cs" />
     <Compile Include="CancelledBetListDataAccessTest.cs" />
     <Compile Include="ClassTest\FakeBaseBetListDataAccess.cs" />
     <Compile Include="LastBetsMonitoringBetListDataAccessTest.cs" />
