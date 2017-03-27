@@ -11,7 +11,10 @@
     /// </summary>
     public class ApiCompressHandler : DelegatingHandler
     {
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) => base.SendAsync(request, cancellationToken).ContinueWith(
+        protected override Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request, 
+            CancellationToken cancellationToken) 
+            => base.SendAsync(request, cancellationToken).ContinueWith(
                 responseToCompleteTask =>
                 {
                     var response = responseToCompleteTask.Result;
