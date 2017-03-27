@@ -11,9 +11,7 @@
     /// </summary>
     public class ApiCompressHandler : DelegatingHandler
     {
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            return base.SendAsync(request, cancellationToken).ContinueWith(
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) => base.SendAsync(request, cancellationToken).ContinueWith(
                 responseToCompleteTask =>
                 {
                     var response = responseToCompleteTask.Result;
@@ -23,7 +21,8 @@
                         response.Content = new StringContent("Unauthorized.");
                     }
 
-                    if (response.RequestMessage != null)
+                    if (response.RequestMessage != null && response.RequestMessage.Headers.AcceptEncoding != null
+                    && response.RequestMessage.Headers.AcceptEncoding.Count > 0)
                     {
                         var encoding = FindEncodingType(response.RequestMessage.Headers.AcceptEncoding);
                         if (!string.IsNullOrEmpty(encoding))
@@ -35,7 +34,6 @@
                     return response;
                 },
              TaskContinuationOptions.OnlyOnRanToCompletion);
-        }
 
         private static string FindEncodingType(HttpHeaderValueCollection<StringWithQualityHeaderValue> acceptEncoding)
         {
