@@ -178,33 +178,7 @@ var currentYear = DateTime.Now.Year;
         }
     </select>
 }
-@helper LicenseeType(IList<string> licenseeTypes, string className = "", string selected = "", bool addMoreAllOption = true)
-{
-var items = licenseeTypes
- .Select(c => new System.Web.WebPages.Html.SelectListItem
- {
-     Value = c,
-     Text = c,
-     Selected = selected == c
- }).ToList();
-if (addMoreAllOption)
-{
-    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
-    {
-        Text = ViewResources.All.ToUpper(),
-        Value = "",
-        Selected = string.IsNullOrEmpty(selected) || selected == "0"
-    });
-}
-    <select name="LicenseeType" id="LicenseeType" class="@className" data-original="@selected">
-        @foreach (var item in items)
-        {
-            <option value="@item.Value" @(item.Selected ? "selected=selected" : "")>
-                @item.Text
-            </option>
-        }
-    </select>
-}
+
 @helper CurrencyList(IDictionary<int, string> currencyList,
 string className = "", int selected = 0,
 bool addMoreAllOption = true,

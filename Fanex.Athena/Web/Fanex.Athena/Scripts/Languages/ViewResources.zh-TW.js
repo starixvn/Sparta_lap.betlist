@@ -1,4 +1,4 @@
-﻿// Generated at: 3/28/2017 10:43:12 AM
+﻿// Generated at: 3/28/2017 1:06:37 PM
 var _language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -376,7 +376,6 @@ Licensee:"承租公司",
 Licensee12Bet:"12Bet Licensee",
 LicenseeFee:"承租公司費用",
 Licenseegrossrevenuefor:"承租公司總收益為{0}",
-LicenseeType:"承租公司類型",
 LicenseeW_L:"承租公司輸贏",
 LicenseeWinLoss:"承租公司輸贏",
 LicenseeWinLossTip1:"向下拖曳以查看數據",

@@ -715,9 +715,6 @@
   <data name="LicenseeFee" xml:space="preserve">
     <value>Licensee Fee</value>
   </data>
-  <data name="LicenseeType" xml:space="preserve">
-    <value>Licensee Type</value>
-  </data>
   <data name="LicenseeWinLoss" xml:space="preserve">
     <value>Licensee Win Loss</value>
   </data>

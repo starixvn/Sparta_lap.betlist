@@ -66,16 +66,14 @@
 
     describe("openForecast(matchId, betType)", function () {
         it("ForecastPopup.showPopup(width, height, url) should be called with correct parameters", function () {
-            affix("#LicenseeType");
             affix("#CurrencyId");
             affix("#BaseCurrency");
             $("#CurrencyId").append('<option value="2">uus</option>');
 
-            $("#LicenseeType").attr('data-original', 1);
             $("#CurrencyId").attr('data-original', 2);
             $("#BaseCurrency").attr('data-original', 3);
 
-            var url = "AhForecast/Index?matchid=1&bettype=2&licenseetype=1&currencyid=2&currencyname=uus&basecurrency=3";
+            var url = "AhForecast/Index?matchid=1&bettype=2&currencyid=2&currencyname=uus&basecurrency=3";
             spyOn(ForecastPopup, "showPopup");
 
             ForecastHDPOU.openForecast(1, 2);
@@ -85,16 +83,14 @@
     });
 
     describe("loadSelectedLeague(leagueId)", function () {
-        var url = "HandicapOverUnderForecast/Index?licenseetype=1&currencyid=2&currencyname=uus&basecurrency=3&leagueid=12";
+        var url = "HandicapOverUnderForecast/Index?currencyid=2&currencyname=uus&basecurrency=3&leagueid=12";
         var request;
         beforeEach(function (done) {
             affix("#Refresh-Content");
-            affix("#LicenseeType");
             affix("#CurrencyId");
             affix("#BaseCurrency");
             $("#CurrencyId").append('<option value="2">uus</option>');
 
-            $("#LicenseeType").attr('data-original', 1);
             $("#CurrencyId").attr('data-original', 2);
             $("#BaseCurrency").attr('data-original', 3);
 

@@ -62,16 +62,14 @@
     });
 
     describe("openForecast(matchId, betType, isPopup)", function () {
-        var queryString = "licenseetype=1&currencyid=2&currencyname=uus&basecurrency=3&matchid=1&bettype=2";
+        var queryString = "currencyid=2&currencyname=uus&basecurrency=3&matchid=1&bettype=2";
         var url = "RunningMatchBetList/Index?" + queryString;
 
         beforeEach(function () {
-            affix("#LicenseeType");
             affix("#CurrencyId");
             affix("#BaseCurrency");
             $("#CurrencyId").append('<option value="2">uus</option>');
 
-            $("#LicenseeType").attr('data-original', 1);
             $("#CurrencyId").attr('data-original', 2);
             $("#BaseCurrency").attr('data-original', 3);
         });

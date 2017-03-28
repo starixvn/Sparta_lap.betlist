@@ -4048,15 +4048,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Licensee Type.
-        /// </summary>
-        public static string LicenseeType {
-            get {
-                return ResourceManager.GetString("LicenseeType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Licensee W/L.
         /// </summary>
         public static string LicenseeW_L {

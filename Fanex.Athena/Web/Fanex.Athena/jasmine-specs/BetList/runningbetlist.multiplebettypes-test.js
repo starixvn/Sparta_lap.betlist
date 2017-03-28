@@ -42,7 +42,6 @@
                 BaseCurrency: "eur",
                 CurrencyId: 0,
                 CurrencyName: "ALL",
-                LicenseeType: "",
                 multiplebettype: ""
             };
             spyOn(Site, "setLicenseeOptionParam").and.returnValue(params);
@@ -61,7 +60,6 @@
                 BaseCurrency: "eur",
                 CurrencyId: 0,
                 CurrencyName: "ALL",
-                LicenseeType: "",
                 multiplebettype: ""
             };
             expect(BetList.loadData).toHaveBeenCalledWith(params, jasmine.any(String));

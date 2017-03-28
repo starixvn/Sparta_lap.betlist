@@ -1299,9 +1299,6 @@
   <data name="Licenseegrossrevenuefor" xml:space="preserve">
     <value>{0}에 대한 라이선스 사용자 총 수입</value>
   </data>
-  <data name="LicenseeType" xml:space="preserve">
-    <value>라이선스 사용자 유형</value>
-  </data>
   <data name="LicenseeWinLoss" xml:space="preserve">
     <value>라이선스 사용자 승리 패배</value>
   </data>

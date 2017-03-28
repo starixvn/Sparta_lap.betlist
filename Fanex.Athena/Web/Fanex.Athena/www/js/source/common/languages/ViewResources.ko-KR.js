@@ -1,4 +1,4 @@
-﻿// Generated at: 3/15/2017 10:59:12 AM
+﻿// Generated at: 3/28/2017 1:06:30 PM
 window._language_ko_KR = {
 AA:"AA",
 AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
@@ -369,7 +369,6 @@ Licensee:"라이선스 사용자",
 Licensee12Bet:"12 배팅 라이선스 사용자",
 LicenseeFee:"라이선스 사용자 요금",
 Licenseegrossrevenuefor:"{0}에 대한 라이선스 사용자 총 수입",
-LicenseeType:"라이선스 사용자 유형",
 LicenseeW_L:"라이선스 사용자 승리/패배",
 LicenseeWinLoss:"라이선스 사용자 승리 패배",
 LicenseeWinLossTip1:"데이터 이곳에 열거하기",

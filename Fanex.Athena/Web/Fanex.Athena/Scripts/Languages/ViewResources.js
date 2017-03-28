@@ -1,4 +1,4 @@
-﻿// Generated at: 3/28/2017 10:43:12 AM
+﻿// Generated at: 3/28/2017 1:06:37 PM
 var _language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -104,6 +104,7 @@ CancelledBets:"Cancelled Bets",
 CancelledBetsTitle:"Void/Rejected Bet List (Last 3 days)",
 CannotUpdateBetLimitForProduct:"You cannot update member bet limit for product {0}.",
 CashOutAmt:"Cash-out Amt",
+CashOutCommission:"Cash Out Commission",
 CashOutNotOfferCurrency:"Cash Out is not offered for this currency.",
 CashOutShare:"Cash-out Share",
 CASINOHANDHISTORY:"CASINO HAND HISTORY",
@@ -442,7 +443,6 @@ Licenseegrossrevenuefor:"Licensee gross revenue for {0}",
 LicenseeIsNotExisted:"Not found licensee",
 LicenseeNetWin:"Licensee Net Win",
 LicenseeNotOfferedCurrency:"Licensee is not offered any currency",
-LicenseeType:"Licensee Type",
 LicenseeW_L:"Licensee W/L",
 LicenseeWinLoss:"Licensee Win Loss",
 LicenseeWinLossTip1:"Drill down to view data in",

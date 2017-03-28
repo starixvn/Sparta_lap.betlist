@@ -27,45 +27,41 @@
 
     describe("setLicenseeOptionParam(urlOrParams)", function () {
         it("return an url with query string if 'urlOrParams' is a string", function () {
-            affix("input#LicenseeType[value=1]");
             var $currencyId = affix("select#CurrencyId"); 
             $currencyId.affix("option[value=1]");
             $currencyId.affix("option[value=2]");
             affix("input#BaseCurrency[value=USD]");
 
             var result = Site.setLicenseeOptionParam("localhost");
-            expect(result).toBe("localhost?licenseetype=1&currencyid=1&currencyname=&basecurrency=USD");
+            expect(result).toBe("localhost?currencyid=1&currencyname=&basecurrency=USD");
         });
 
         it("return an object with query string if 'urlOrParams' is an object", function () {
-            affix("input#LicenseeType[value=1]");
             var $currencyId = affix("select#CurrencyId");
             $currencyId.affix("option[value=1]");
             $currencyId.affix("option[value=2]");
             affix("input#BaseCurrency[value=USD]");
 
             var result = Site.setLicenseeOptionParam({});
-            expect(result).toEqual({ LicenseeType: '1', CurrencyId: '1', CurrencyName: '', BaseCurrency: 'USD' });
+            expect(result).toEqual({ CurrencyId: '1', CurrencyName: '', BaseCurrency: 'USD' });
         });
     });
 
     describe("setLicenseeOptionOriginalParam(urlOrParams)", function () {
         it("build an url from 'data-original' attributes of html tags", function () {
-            affix("input#LicenseeType[data-original=1]");
             var $currencyId = affix("select#CurrencyId[data-original=2]");
             affix("input#BaseCurrency[data-original=USD]");
 
             var result = Site.setLicenseeOptionOriginalParam("localhost");
-            expect(result).toBe("localhost?licenseetype=1&currencyid=2&currencyname=&basecurrency=USD");
+            expect(result).toBe("localhost?currencyid=2&currencyname=&basecurrency=USD");
         });
     });
 
     describe("updateOriginalLicenseeOption()", function () {
         it("update values of html tags to 'data-original' attributes", function () {
-            affix("input#LicenseeType[value=1]");            
             affix("input#BaseCurrency[value=USD]");
             Site.updateOriginalLicenseeOption();
-            var result = $("#LicenseeType").attr("data-original") === "1" && $("#BaseCurrency").attr("data-original") === "USD";
+            var result = $("#BaseCurrency").attr("data-original") === "USD";
             expect(result).toBe(true);
         });
     });
