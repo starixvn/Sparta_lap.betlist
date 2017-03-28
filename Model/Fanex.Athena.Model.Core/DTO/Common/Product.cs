@@ -51,6 +51,8 @@ namespace Fanex.Athena.Model.Core.DTO.Common
 
         public const string FW = "FW";
 
+        public const string CO = "CO";
+
         #endregion Field
 
         #region Constructor

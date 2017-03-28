@@ -67,8 +67,8 @@ namespace Fanex.Athena.Excel.Report
         private const int TotalLicenseeWlProductColumn = 15;
         private const int TotalTurnoverProductColumn = 15;
 
-        private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.RB, Product.BA };
-        private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT };
+        private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.RB, Product.BA, Product.CO };
+        private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT, Product.CO };
 
         private readonly bool _isAllowBA;
 
@@ -152,6 +152,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.CustomerW_L);
             row.Cells[ColumnLicenseeWlSportsBook].SetCellValue(ViewResources.LicenseeW_L);
             row.Cells[ColumnLicenseeWlTotal].SetCellValue(ViewResources.LicenseeW_L);
+            row.Cells[ColumnCashOutCommission].SetCellValue(ViewResources.CashOutCommission);
             row.Cells[ColumnBetTradeCommission].SetCellValue(ViewResources.BetTradeCommission);
             row.Cells[ColumnBaCommission].SetCellValue(ViewResources.BACommission);
             row.Cells[ColumnRacingRevenue].SetCellValue(ViewResources.RacingRevenue);
@@ -290,6 +291,11 @@ namespace Fanex.Athena.Excel.Report
                 sheet.MergeCells(RowHeaderTemplate, ColumnCustomerWl, RowHeaderTemplate + 1, ColumnCustomerWl);
             }
 
+            if (!ShowingOption.COVisible)
+            {
+                HideColumn(sheet, ColumnCashOutCommission);
+            }
+
             if (ShowingOption.BTVisible)
             {
                 if (!_isAllowBA)
@@ -380,6 +386,7 @@ namespace Fanex.Athena.Excel.Report
 
             row.Cells[ColumnLicenseeWlTotal].SetCellValue(data.LicenseeWL.Sum(a => a.Value));
 
+            row.Cells[ColumnCashOutCommission].SetCellValue(data.CashOutCommission);
             row.Cells[ColumnBetTradeCommission].SetCellValue(data.BetTradeCommission);
             row.Cells[ColumnBaCommission].SetCellValue(data.BACommission);
             row.Cells[ColumnRacingRevenue].SetCellValue(data.RacingRevenue);
@@ -605,6 +612,7 @@ namespace Fanex.Athena.Excel.Report
                                         .GroupBy(i => i.Key)
                                         .ToDictionary(k => k.Key, k => k.Sum(i => i.Value))
                         }.LicenseeWL,
+                        CashOutCommission = group.Sum(a => a.CashOutCommission),
                         BetTradeCommission = group.Sum(a => a.BetTradeCommission),
                         BACommission = group.Sum(a => a.BACommission),
                         RacingRevenue = group.Sum(a => a.RacingRevenue),

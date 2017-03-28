@@ -7,8 +7,8 @@
 
 var LicenseeWinLossOption = (function () {
     "use strict";
-    var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA"];
-    var IGNORED_TURNOVER_PRODUCTS = ["BT"];
+    var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA", "CO"];
+    var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
 
     // store state of toggle() function
     var _expanseTypes = {};
@@ -220,6 +220,19 @@ var LicenseeWinLossOption = (function () {
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
 
+    var cashOutCommissionColumn =
+    {
+        name: 'CashOutCommission',
+        classes: 'highlight',
+        index: 'CashOutCommission',
+        width: 80,
+        align: 'right',
+        sortable: true,
+        resizable: false,
+        formatter: 'currency',
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+    };
+
     var baCommissionColumn =
     {
         name: 'BACommission',
@@ -320,12 +333,12 @@ var LicenseeWinLossOption = (function () {
     //#endregion
 
     var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency", 'Turnover', 'ActualStake', 'BuyBackAmount',
-     'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'LicenseeW_L', '@[BetTrade]<br/>@[Commission]', 'BA<br/>@[Commission]',
+     'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'LicenseeW_L', '@[ProductBT]<br/>@[Commission]', '@[ProductCO]<br/>@[Commission]', 'BA<br/>@[Commission]',
      '@[RacingRevenue]', '@[AmtDueToBetTrade]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId'];
 
     var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
         turnoverColumn, actualStakeColumn, buybackColumn, totalTransColumn, customerWlColumn, playerCommColumn,
-        customerWlTotalColumn, licenseeWlColumn, betTradeCommissionColumn, baCommissionColumn, racingRevenueColumn,
+        customerWlTotalColumn, licenseeWlColumn, betTradeCommissionColumn, cashOutCommissionColumn, baCommissionColumn, racingRevenueColumn,
         amtDueToBetTradeColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
 
     var me =
@@ -519,6 +532,7 @@ var LicenseeWinLossOption = (function () {
         var allowedBa = isProductChecked(productOptions, "BA");
         var allowedRacing = isProductChecked(productOptions, "RB");
         var allowedBetTrade = isProductChecked(productOptions, "BT");
+        var allowedCashOut = isProductChecked(productOptions, "CO");
         buybackColumn.hidden = !allowedBetTrade;
         actualStakeColumn.hidden = !allowedBetTrade;
         baCommissionColumn.hidden = !allowedBa;
@@ -527,6 +541,7 @@ var LicenseeWinLossOption = (function () {
         amtDueToRacingColumn.hidden = !allowedRacing;
         betTradeCommissionColumn.hidden = !allowedBetTrade;
         amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
+        cashOutCommissionColumn.hidden = !allowedCashOut;
 
         // Row span setting
         // indexColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;

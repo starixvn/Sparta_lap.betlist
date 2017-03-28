@@ -2963,4 +2963,7 @@
   <data name="CashOutNotOfferCurrency" xml:space="preserve">
     <value>Cash Out is not offered for this currency.</value>
   </data>
+  <data name="CashOutCommission" xml:space="preserve">
+    <value>Cash Out Commission</value>
+  </data>
 </root>

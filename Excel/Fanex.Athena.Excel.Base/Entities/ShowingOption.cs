@@ -116,5 +116,11 @@ namespace Fanex.Athena.Excel.Base.Entities
             get;
             set;
         }
+
+        public bool COVisible
+        {
+            get;
+            set;
+        }
     }
 }

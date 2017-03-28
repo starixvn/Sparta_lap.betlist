@@ -1,4 +1,4 @@
-﻿// Generated at: 11/24/2016 11:26:33 AM
+﻿// Generated at: 3/28/2017 10:43:12 AM
 var _language_ko_KR = {
 AA:"AA",
 AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",

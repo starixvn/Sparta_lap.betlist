@@ -997,6 +997,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cash Out Commission.
+        /// </summary>
+        public static string CashOutCommission {
+            get {
+                return ResourceManager.GetString("CashOutCommission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cash Out is not offered for this currency..
         /// </summary>
         public static string CashOutNotOfferCurrency {

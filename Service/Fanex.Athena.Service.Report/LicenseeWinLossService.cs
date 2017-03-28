@@ -83,6 +83,7 @@ namespace Fanex.Athena.Service.Report
                 .GroupBy(j => j.Key)
                 .ToDictionary(p => p.Key, p => p.Sum(j => j.Value)),
                 BetTradeCommission = g.Sum(p => p.BetTradeCommission),
+                CashOutCommission = g.Sum(p => p.CashOutCommission),
                 BACommission = g.Sum(p => p.BACommission),
                 RacingRevenue = g.Sum(p => p.RacingRevenue),
                 AmtDueToBetTrade = g.Sum(p => p.AmtDueToBetTrade),
