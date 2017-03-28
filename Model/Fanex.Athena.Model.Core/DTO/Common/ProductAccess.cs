@@ -96,59 +96,11 @@ namespace Fanex.Athena.Model.Core.DTO.Common
             }
         }
 
-        public bool IsAllowAG
-        {
-            get
-            {
-                return ProductList.Any(p => p.ProductCode == Product.AGC);
-            }
-        }
-
-        public bool IsAllowGD
-        {
-            get
-            {
-                return ProductList.Any(p => p.ProductCode == Product.GD);
-            }
-        }
-
-        public bool IsAllowMC
-        {
-            get
-            {
-                return ProductList.Any(p => p.ProductCode == Product.VG);
-            }
-        }
-
-        public bool IsAllowMGCLC
-        {
-            get
-            {
-                return ProductList.Any(p => p.ProductCode == Product.MGCLC);
-            }
-        }
-
-        public bool IsAllowMGCRNG
-        {
-            get
-            {
-                return ProductList.Any(p => p.ProductCode == Product.MGCRNG);
-            }
-        }
-
         public bool IsAllowBT
         {
             get
             {
                 return ProductList.Any(p => p.ProductCode == Product.BT);
-            }
-        }
-
-        public bool IsAllowVB
-        {
-            get
-            {
-                return ProductList.Any(p => p.ProductCode == Product.VB);
             }
         }
 

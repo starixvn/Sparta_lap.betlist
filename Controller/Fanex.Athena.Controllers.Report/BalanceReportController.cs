@@ -84,16 +84,16 @@ namespace Fanex.Athena.Controllers.Report
 
             var showingOption = new ShowingOption
             {
-                RBVisible = productAccess.IsAllowRB,
-                BAVisible = productAccess.IsAllowBA,
-                NGVisible = productAccess.IsAllowNG,
-                SBVisible = productAccess.IsAllowSB,
-                LCVisible = productAccess.IsAllowLC,
-                VSVisible = productAccess.IsAllowVS,
-                CSVisible = productAccess.IsAllowCS,
-                BGVisible = productAccess.IsAllowBG,
-                KNVisible = productAccess.IsAllowKN,
-                BTVisible = productAccess.IsAllowBT,
+                RBVisible = productAccess.IsAllow(ProductTypes.Racing),
+                BAVisible = productAccess.IsAllow(ProductTypes.BA),
+                NGVisible = productAccess.IsAllow(ProductTypes.NumberGame),
+                SBVisible = productAccess.IsAllow(ProductTypes.Sportsbook),
+                LCVisible = productAccess.IsAllow(ProductTypes.LiveCasino),
+                VSVisible = productAccess.IsAllow(ProductTypes.VirtualSports),
+                CSVisible = productAccess.IsAllow(ProductTypes.RngCasino),
+                BGVisible = productAccess.IsAllow(ProductTypes.Bingo),
+                KNVisible = productAccess.IsAllow(ProductTypes.Keno),
+                BTVisible = productAccess.IsAllow(ProductTypes.BetTrade),
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 

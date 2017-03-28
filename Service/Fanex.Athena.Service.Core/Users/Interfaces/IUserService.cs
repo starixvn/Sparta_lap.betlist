@@ -13,9 +13,6 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
 
-    /// <summary>
-    ///     The i user service.
-    /// </summary>
     public interface IUserService
     {
         #region Public Methods and Operators
@@ -25,8 +22,6 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
         IList<User> GetByLicensee(int licenseeId, bool isInternal);
 
         User GetUserInfo(int licenseeId, int userId);
-
-        bool IsUserNameExisted(string userName);
 
         int LoginOnUser(User requestUser, string netSessionId, int serverId, string ip);
 

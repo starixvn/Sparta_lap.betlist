@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings;
@@ -43,7 +44,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
-            if (ProductAccess.IsAllowAG == false || !IsBetSettingEditable())
+            if (ProductAccess.IsAllow(ProductTypes.AgCasino) == false || !IsBetSettingEditable())
             {
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }
@@ -69,7 +70,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(string nickName, string group)
         {
-            if (ProductAccess.IsAllowAG == false || !IsBetSettingEditable())
+            if (ProductAccess.IsAllow(ProductTypes.AgCasino) == false || !IsBetSettingEditable())
             {
                 return Json(new ResultInfo() { Code = -1, Message = ViewResources.AccessDeniedMsg });
             }

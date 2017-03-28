@@ -99,21 +99,6 @@
         }
 
         [Test]
-        public void IsUserNameExisted_WhenCall_ReturnDataFromDataAccess()
-        {
-            // Arrange
-            var expectedResult = true;
-            var userName = "demo";
-            _userDataAccess.IsUsernameExisted(userName).Returns(expectedResult);
-
-            // Action
-            var result = _userService.IsUserNameExisted(userName);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
-        }
-
-        [Test]
         public void LoginOnUser_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange

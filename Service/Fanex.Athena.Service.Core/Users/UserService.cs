@@ -109,11 +109,6 @@ namespace Fanex.Athena.Service.Core.Users
             return this._userDataAccess.GetUserInfo(licenseeId, userId);
         }
 
-        public bool IsUserNameExisted(string userName)
-        {
-            return this._userDataAccess.IsUsernameExisted(userName);
-        }
-
         /// <summary>
         ///   If returned value greater than 0, User login successfully.
         /// </summary>
