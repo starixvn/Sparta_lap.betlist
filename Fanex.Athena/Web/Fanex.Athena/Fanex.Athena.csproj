@@ -840,6 +840,7 @@
     <Content Include="SiteConfig\WebConfigTransforms\DEV.config" />
     <None Include="SiteConfig\Web.DEV.config" />
     <Content Include="Views\Customer\BetSetting\CashOut.cshtml" />
+    <Content Include="www\css\source\components\selectlist\selectlist.scss" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
@@ -937,6 +938,7 @@
     <Content Include="www\js\source\components\pluginhelper\daterangepicker.js" />
     <Content Include="www\js\source\components\pluginhelper\monthpicker.js" />
     <Content Include="www\js\source\components\scrollablegrid.js" />
+    <Content Include="www\js\source\components\selectlist.js" />
     <Content Include="www\js\source\lib\select2.js" />
     <Content Include="www\js\source\pages\betlist\betlist.js" />
     <Content Include="www\js\source\pages\betlist\betlist.option.js" />

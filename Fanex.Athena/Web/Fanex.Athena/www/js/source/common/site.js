@@ -1,5 +1,5 @@
 ﻿/*global _language_en_US*/
-define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "lib/jquery.multiselect", "extensions/prototype", "lib/select2"],
+define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "lib/jquery.multiselect", "extensions/prototype", "components/selectlist"],
     function ($, QueryString, Popup) {// jshint ignore:line
         "use strict";
         var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
@@ -63,11 +63,9 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
         }
 
         function initSelectElements() {
-            $('select.select').not('#CurrencyId').select2({
-                minimumResultsForSearch: Infinity
-            });
+            $('select.select').not('#CurrencyId').selectList();
 
-            $('select#CurrencyId').select2();
+            $('select#CurrencyId').selectList({ canSearch: true });
         }
 
         function initialize() {
@@ -408,9 +406,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                 $baseCurrency.val(basedCurrency);
             }
 
-            $("select#BaseCurrency").select2({
-                minimumResultsForSearch: Infinity
-            });
+            $("select#BaseCurrency").selectList();
         }
 
         function sortReport(sortColumn) {

@@ -1010,6 +1010,63 @@ ul.list {
       margin-top: 0.7rem;
       border-radius: 50%; }
 
+.select-list-container {
+  position: relative;
+  font-size: 12px; }
+  .select-list-container .selection {
+    background: transparent;
+    border-bottom: 1px solid #ccc;
+    height: 26px;
+    line-height: 26px; }
+    .select-list-container .selection-label {
+      cursor: pointer; }
+    .select-list-container .selection-icon {
+      position: absolute;
+      top: 1px;
+      right: 1px; }
+      .select-list-container .selection-icon-arrow {
+        border-color: #4d6273 transparent transparent transparent;
+        border-width: 4px 4px 0 4px;
+        border-style: solid;
+        display: inline-block;
+        vertical-align: middle; }
+
+.select-list-result-container {
+  position: absolute; }
+  .select-list-result-container .select-list-dropdown {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 1051; }
+    .select-list-result-container .select-list-dropdown-search {
+      padding: 4px; }
+      .select-list-result-container .select-list-dropdown-search .select-list-search-results {
+        width: 100%;
+        margin-bottom: 0;
+        border: 0;
+        border-bottom: 2px solid #4c6375;
+        font-size: 12px;
+        padding: 0;
+        height: 25px;
+        outline: none; }
+        .select-list-result-container .select-list-dropdown-search .select-list-search-results:focus {
+          border-bottom: 2px solid #4c6375; }
+    .select-list-result-container .select-list-dropdown-results {
+      max-height: 300px;
+      overflow-y: auto; }
+      .select-list-result-container .select-list-dropdown-results ul.option-list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0; }
+        .select-list-result-container .select-list-dropdown-results ul.option-list .option-item {
+          padding: 6px;
+          cursor: pointer; }
+          .select-list-result-container .select-list-dropdown-results ul.option-list .option-item.highlighted {
+            background-color: #4c6375;
+            color: #fff; }
+          .select-list-result-container .select-list-dropdown-results ul.option-list .option-item:hover {
+            background-color: #4c6375;
+            color: #fff; }
+
 .closed {
   color: #FF0000; }
 
