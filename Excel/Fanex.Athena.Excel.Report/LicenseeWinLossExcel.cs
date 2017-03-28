@@ -20,10 +20,9 @@ namespace Fanex.Athena.Excel.Report
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using Resources;
+    using Service.Report;
+    using Service.Report.Interfaces;
 
-    /// <summary>
-    /// Licensee Win Loss - Export excel.
-    /// </summary>
     public class LicenseeWinLossExcel : ReportBase
     {
         private const int ColumnDate = 1;
@@ -72,16 +71,16 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly bool _isAllowBA;
 
-        private readonly bool _isAllowSB;
+        private readonly ILicenseeWinLossService _licenseeWinLossService;
 
-        // This is drill down of report
-        private readonly IList<LicenseeWinLoss> _licenseeWinLossList;
+        private readonly IList<LicenseeWinLoss> _dataList;
 
         private readonly LicenseeWinLossMetaModel _metaModel;
         private readonly IList<ProductOption> _productOption;
         private readonly IDictionary<string, LicenseeWinLoss> _summaryTotal;
 
         public LicenseeWinLossExcel(
+                ILicenseeWinLossService licenseeWinLossService,
                 string templatePath,
                 string exportingFileName,
                 ConvertingOption convertingOption,
@@ -90,11 +89,12 @@ namespace Fanex.Athena.Excel.Report
                 LicenseeWinLossViewModel viewModel)
             : base(templatePath, exportingFileName, showingOption, convertingOption)
         {
+            _licenseeWinLossService = licenseeWinLossService ?? new LicenseeWinLossService();
             _metaModel = metaModel;
-            _licenseeWinLossList = viewModel.MainResult;
+            _dataList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
             _productOption = GetProductOption(metaModel.ProductOptions);
-            _isAllowSB = metaModel.ProductOptions.Any(x => x.Code == Product.SB);
+
             _isAllowBA = metaModel.ProductOptions.Any(x => x.Code == Product.BA);
         }
 
@@ -104,12 +104,9 @@ namespace Fanex.Athena.Excel.Report
             set;
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
         public override void AssignData()
         {
-            int numOfDataRow = _licenseeWinLossList.Count;
+            int numOfDataRow = _dataList.Count;
 
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
 
@@ -128,10 +125,6 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         public override void AssignHeader(ISheet sheet)
         {
@@ -204,21 +197,17 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         public override void AssignSheetData(ISheet sheet)
         {
             var rowSpan = 1;
             var rowIndex = 1;
             var indexDetail = 1;
             int index;
-            var rowCount = _licenseeWinLossList.Count;
+            var rowCount = _dataList.Count;
 
             for (index = 0; index < rowCount; index++)
             {
-                var licenseeWinLoss = _licenseeWinLossList[index];
+                var licenseeWinLoss = _dataList[index];
 
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
@@ -230,7 +219,7 @@ namespace Fanex.Athena.Excel.Report
 
                 // Merge first two columns
                 var needMerge = index >= rowCount - 1 ||
-                                 licenseeWinLoss.Date.Date != _licenseeWinLossList[index + 1].Date.Date;
+                                 licenseeWinLoss.Date.Date != _dataList[index + 1].Date.Date;
 
                 // Merge cell
                 if (needMerge && rowSpan > 1)
@@ -311,7 +300,9 @@ namespace Fanex.Athena.Excel.Report
                 HideColumn(sheet, ColumnActualStake);
             }
 
-            if (!ShowingOption.BTVisible || (_isAllowSB && !ShowingOption.SBVisible) || (_isAllowBA && !ShowingOption.BAVisible))
+            if (!ShowingOption.BTVisible ||
+                (_metaModel.ProductOptions.Any(x => x.Code == Product.SB) && !ShowingOption.SBVisible) ||
+                (_isAllowBA && !ShowingOption.BAVisible))
             {
                 HideColumn(sheet, ColumnAmtDueToBetTrade);
             }
@@ -432,7 +423,7 @@ namespace Fanex.Athena.Excel.Report
         protected int AssignTotalData(ISheet sheet, int rowIndex)
         {
             int beginTotalRow = rowIndex;
-            var currencies = GetTotalCurrency(_licenseeWinLossList);
+            var currencies = _licenseeWinLossService.CalculateTotal(_dataList);
 
             foreach (LicenseeWinLoss totalCurrency in currencies)
             {
@@ -581,47 +572,6 @@ namespace Fanex.Athena.Excel.Report
             }
 
             return offeredProducts;
-        }
-
-        /// <summary>
-        /// Get total currency data.
-        /// </summary>
-        /// <param name="dataList">Report data.</param>
-        /// <returns>List of LicenseeWinLoss entity.</returns>
-        private static IEnumerable<LicenseeWinLoss> GetTotalCurrency(IEnumerable<LicenseeWinLoss> dataList)
-        {
-            var currencies = dataList.GroupBy(x => new { x.CurrencyName })
-                    .Select(group => new LicenseeWinLoss
-                    {
-                        CurrencyName = group.Key.CurrencyName,
-                        TurnOver = new LicenseeWinLoss
-                        {
-                            LicenseeWL = group.SelectMany(i => i.TurnOver)
-                                        .GroupBy(i => i.Key)
-                                        .ToDictionary(k => k.Key, k => k.Sum(i => i.Value))
-                        }.LicenseeWL,
-                        ActualStake = group.Sum(p => p.ActualStake),
-                        BuyBackAmountSB = group.Sum(p => p.BuyBackAmountSB),
-                        BuyBackAmountBA = group.Sum(p => p.BuyBackAmountBA),
-                        TotalTransaction = group.Sum(a => a.TotalTransaction),
-                        CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
-                        CustomerComm = group.Sum(a => a.CustomerComm),
-                        LicenseeWL = new LicenseeWinLoss
-                        {
-                            LicenseeWL = group.SelectMany(i => i.LicenseeWL)
-                                        .GroupBy(i => i.Key)
-                                        .ToDictionary(k => k.Key, k => k.Sum(i => i.Value))
-                        }.LicenseeWL,
-                        CashOutCommission = group.Sum(a => a.CashOutCommission),
-                        BetTradeCommission = group.Sum(a => a.BetTradeCommission),
-                        BACommission = group.Sum(a => a.BACommission),
-                        RacingRevenue = group.Sum(a => a.RacingRevenue),
-                        AmtDueToBetTrade = group.Sum(a => a.AmtDueToBetTrade),
-                        AmtDueToBA = group.Sum(a => a.AmtDueToBA),
-                        AmtDueToRacing = group.Sum(a => a.AmtDueToRacing)
-                    });
-
-            return currencies;
         }
     }
 }

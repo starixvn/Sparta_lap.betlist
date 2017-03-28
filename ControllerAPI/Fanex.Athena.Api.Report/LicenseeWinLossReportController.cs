@@ -215,7 +215,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var licenseeWinLoss = new LicenseeWinLossExcel(templatePath, FileName, convertingOption, showingOption, metaModel, excelModel)
+            var licenseeWinLoss = new LicenseeWinLossExcel(_licenseeWinLossService, templatePath, FileName, convertingOption, showingOption, metaModel, excelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };
@@ -272,7 +272,7 @@ namespace Fanex.Athena.Api.Report
                     return new
                     {
                         Data = dataList.Select(MapToGridView).ToList(),
-                        Total = _licenseeWinLossService.TotalCalc(dataList).Select(MapToGridView).ToList(),
+                        Total = _licenseeWinLossService.CalculateTotal(dataList).Select(MapToGridView).ToList(),
                         SummaryTotal = summaryTotalView,
                         ProductOptions = metaModel.ProductOptions.ToJson()
                     };
