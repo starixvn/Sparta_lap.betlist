@@ -16069,15 +16069,35 @@
 	            console.log($originalSelectElement.val());
 	        });
 	
+	        $dropdown.find(".select-list-search-results").on("keyup", function (e) {
+	            var $searchBox = $(this);
+	
+	            setTimeout(function () {
+	                var query = $searchBox.val().toUpperCase();
+	                var optionList = $searchBox.closest(".select-list-dropdown").find(".option-item");
+	
+	                optionList.each(function (index, element) {
+	                    var $element = $(element);
+	                    var currentText = $element.text().toUpperCase();
+	                    if (currentText.indexOf(query) === -1) {
+	                        $element.hide();
+	                    }
+	                    else {
+	                        $element.show();
+	                    }
+	                });
+	            }, 100);
+	        });
+	
 	        return $dropdown;
 	    }
 	
 	    function generateId($element) {
 	        var id = '';
 	
-	        if ($element.attr('id') != null) {
+	        if ($element.attr('id') !== null) {
 	            id = $element.attr('id');
-	        } else if ($element.attr('name') != null) {
+	        } else if ($element.attr('name') !== null) {
 	            id = $element.attr('name') + '-' + generateChars(2);
 	        } else {
 	            id = generateChars(4);
@@ -16115,8 +16135,13 @@
 	                var selectionId = generateId($self);
 	                var $selectionLabel = $(getLabelHtml(selectedValue, selectionId));
 	
-	                $selectionLabel.find(".selection").on("click", function () {
+	                $selectionLabel.find(".selection").on("click", function (e) {
+	                    e.stopPropagation();
 	                    _methods.toggle.call($self, $(this), selectListOption.canSearch);
+	                });
+	
+	                $(document).click(function () {
+	                    $(".select-list-result-container").remove();
 	                });
 	
 	                $self.hide().parent().append($selectionLabel);
@@ -16134,6 +16159,7 @@
 	            $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 	
 	            $("body").append($dropdown);
+	            $dropdown.find(".select-list-search-results").focus();
 	        },
 	
 	        toggle: function ($sourceElement, canSearch) {
@@ -16149,7 +16175,7 @@
 	                else {
 	                    _methods.open.call(this, resultContainerId, canSearch);
 	                }
-	            }            
+	            }
 	        }
 	    };
 	

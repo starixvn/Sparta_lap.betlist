@@ -8,7 +8,7 @@
 @import '../../../../../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar';
 @import '../../scss/layout/navbar';
 @import '../../scss/layout/sidebar';
-@import '../../components/select2/select2.main';
+@import '../../components/selectlist/selectlist';
 
 .licensees-block {
     padding: 0 1rem;
@@ -20,8 +20,16 @@
     }
 }
 
-.select2-container--open .select2-dropdown--below {
-    margin-top: 17px;
+.select-list-result-container {
+    top: 65px !important;
+}
+
+.select-list-container {
+    margin-top: 20px;
+
+    .selection-icon-arrow {
+        border-top-color: $white;
+    }
 }
 
 .dropdown-header {

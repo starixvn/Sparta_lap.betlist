@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomplete", "lib/select2"], function (Site, Recheckin) {
+define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomplete", "components/selectlist"], function (Site, Recheckin) {
     var $searchBox;
     var _autocomplete;
 
@@ -40,7 +40,7 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomp
             changeLanguage($(this));
         });
 
-        $("#ddlLicensee").select2()
+        $("#ddlLicensee").selectList({ canSearch: true })
         .on('change', function () {
             var licenseeId = $(this).val();
             top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
