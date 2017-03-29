@@ -30,32 +30,32 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnCurrency = 4;
 
         private const int ColumnTurnoverSportBook = 5;
-        private const int ColumnTurnoverTotal = 19;
+        private const int ColumnTurnoverTotal = 20;
 
-        private const int ColumnActualStake = 20;
+        private const int ColumnActualStake = 21;
 
-        private const int ColumnBuyBackAmountSportsbook = 21;
-        private const int ColumnBuyBackAmountBA = 22;
-        private const int ColumnBuyBackAmountTotal = 23;
+        private const int ColumnBuyBackAmountSportsbook = 22;
+        private const int ColumnBuyBackAmountBA = 23;
+        private const int ColumnBuyBackAmountTotal = 24;
 
-        private const int ColumnTotalTransaction = 24;
+        private const int ColumnTotalTransaction = 25;
 
-        private const int ColumnCustomerWl = 25;
-        private const int ColumnCustomerComm = 26;
-        private const int ColumnCustomerTotal = 27;
+        private const int ColumnCustomerWl = 26;
+        private const int ColumnCustomerComm = 27;
+        private const int ColumnCustomerTotal = 28;
 
-        private const int ColumnLicenseeWlSportsBook = 28;
-        private const int ColumnLicenseeWlTotal = 42;
+        private const int ColumnLicenseeWlSportsBook = 29;
+        private const int ColumnLicenseeWlTotal = 44;
 
-        private const int ColumnBetTradeCommission = 43;
-        private const int ColumnCashOutCommission = 44;
-        private const int ColumnBaCommission = 45;
-        private const int ColumnRacingRevenue = 46;
-        private const int ColumnAmtDueToBetTrade = 47;
-        private const int ColumnAmtDueToBa = 48;
-        private const int ColumnAmtDueToRacing = 49;
+        private const int ColumnBetTradeCommission = 45;
+        private const int ColumnCashOutCommission = 46;
+        private const int ColumnBaCommission = 47;
+        private const int ColumnRacingRevenue = 48;
+        private const int ColumnAmtDueToBetTrade = 49;
+        private const int ColumnAmtDueToBa = 50;
+        private const int ColumnAmtDueToRacing = 51;
 
-        private const int ColumnTemplateCount = 50;
+        private const int ColumnTemplateCount = 52;
 
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
@@ -63,8 +63,8 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalNoSolidBorder = 5;
         private const int RowTotalSolidBorder = 4;
 
-        private const int TotalLicenseeWlProductColumn = 13;
-        private const int TotalTurnoverProductColumn = 13;
+        private const int TotalLicenseeWlProductColumn = 15;
+        private const int TotalTurnoverProductColumn = 15;
 
         private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.RB, Product.BA, Product.CO };
         private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT, Product.CO };
@@ -73,11 +73,11 @@ namespace Fanex.Athena.Excel.Report
             {
                 { Product.SB, false }, { Product.AB, false },
                 { Product.AGC, false }, { Product.BA, false },
-                { Product.BT, false }, { Product.KN, false },
+                { Product.BT, false }, { Product.FW, false }, { Product.KN, false },
                 { Product.LC, false }, { Product.VB, false },
                 { Product.MGCLC, false }, { Product.MGCRNG, false },
                 { Product.NG, false }, { Product.RB, false },
-                { Product.CS, false }, { Product.VS, false }
+                { Product.CS, false }, { Product.VS, false },
             };
 
         private readonly bool _isAllowBA;
@@ -506,10 +506,10 @@ namespace Fanex.Athena.Excel.Report
                 nextColumns++;
             }
 
-            int countStatus = _offeredProducts.Count(x => x.Value || IgnoredTurnoverProducts.Contains(x.Key) == false);
+            int countStatus = _offeredProducts.Count(x => x.Value && IgnoredTurnoverProducts.Contains(x.Key) == false);
             if (countStatus <= 1)
             {
-                if (countStatus == 0)
+                if (countStatus == 1)
                 {
                     HideColumn(sheet, ColumnTurnoverTotal, ColumnTurnoverTotal);
                 }
