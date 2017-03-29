@@ -87,7 +87,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            
+
             var totalData = new CustBalance();
             var totalRows = 0;
             var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.CustomerBalance);
@@ -233,6 +233,18 @@ namespace Fanex.Athena.Controllers.Report
                             Value = "5",
                             Text = ViewResources.Loss,
                             Selected = orderItem == 5,
+                        },
+                    new SelectListItem
+                        {
+                            Value = "6",
+                            Text = ViewResources.OpeningBalance,
+                            Selected = orderItem == 6,
+                        },
+                    new SelectListItem
+                        {
+                            Value = "7",
+                            Text = ViewResources.ClosingBalance,
+                            Selected = orderItem == 7,
                         }
                 };
             return result;

@@ -43,8 +43,8 @@
         <div class="grid_2 filter-label">
             <label>@ViewResources.SortBy</label>
         </div>
-        <div class="grid_3 filter-input">
-            @Html.DropDownList("OrderItem", ViewBag.OrderItemList as List<SelectListItem>, new { })
+        <div class="grid_4 filter-input">
+            @Html.DropDownList("OrderItem", ViewBag.OrderItemList as List<SelectListItem>, new { @style = "width: 110px;" })
         </div>
         @RazorHelper.RenderProductFilter(Model.Param.ProductOptions, 3)
         <div class="grid_3 filter-label new-line">
