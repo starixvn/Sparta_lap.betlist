@@ -183,14 +183,21 @@
   .panel-heading.active .panel-title .icon-arrow {
     transform: rotate(0); }
 
+.input-field label {
+  position: absolute;
+  top: -14px; }
+
 .select-list-container {
   position: relative;
   font-size: 12px; }
   .select-list-container .selection {
     background: transparent;
     border-bottom: 1px solid #ccc;
-    height: 26px;
-    line-height: 26px; }
+    height: 28px;
+    line-height: 28px;
+    display: inline-block;
+    width: 100%;
+    position: relative; }
     .select-list-container .selection-label {
       cursor: pointer; }
     .select-list-container .selection-icon {
@@ -642,14 +649,21 @@ table tbody tr.row-group-level1 {
   .panel-heading.active .panel-title .icon-arrow {
     transform: rotate(0); }
 
+.input-field label {
+  position: absolute;
+  top: -14px; }
+
 .select-list-container {
   position: relative;
   font-size: 12px; }
   .select-list-container .selection {
     background: transparent;
     border-bottom: 1px solid #ccc;
-    height: 26px;
-    line-height: 26px; }
+    height: 28px;
+    line-height: 28px;
+    display: inline-block;
+    width: 100%;
+    position: relative; }
     .select-list-container .selection-label {
       cursor: pointer; }
     .select-list-container .selection-icon {

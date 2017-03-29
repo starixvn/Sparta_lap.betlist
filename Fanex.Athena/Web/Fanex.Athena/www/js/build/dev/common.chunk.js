@@ -16069,12 +16069,18 @@
 	            console.log($originalSelectElement.val());
 	        });
 	
-	        $dropdown.find(".select-list-search-results").on("keyup", function (e) {
-	            var $searchBox = $(this);
+	        var $searchBox = $dropdown.find(".select-list-search-results");
+	
+	        $searchBox.on("click", function (e) {
+	            e.stopPropagation();
+	        });
+	
+	        $searchBox.on("keyup", function (e) {
+	            var $this = $(this);
 	
 	            setTimeout(function () {
-	                var query = $searchBox.val().toUpperCase();
-	                var optionList = $searchBox.closest(".select-list-dropdown").find(".option-item");
+	                var query = $this.val().toUpperCase();
+	                var optionList = $this.closest(".select-list-dropdown").find(".option-item");
 	
 	                optionList.each(function (index, element) {
 	                    var $element = $(element);
@@ -16120,6 +16126,10 @@
 	        return chars;
 	    }
 	
+	    function closeAll() {
+	        $(".select-list-result-container").remove();
+	    }
+	
 	    var _methods = {
 	        init: function (options) {
 	            var selectListOption = {
@@ -16141,7 +16151,7 @@
 	                });
 	
 	                $(document).click(function () {
-	                    $(".select-list-result-container").remove();
+	                    closeAll();
 	                });
 	
 	                $self.hide().parent().append($selectionLabel);
@@ -16149,7 +16159,7 @@
 	        },
 	
 	        open: function (resultContainerId, canSearch) {
-	            $(".select-list-result-container").remove();
+	            closeAll();
 	
 	            var $self = $(this);
 	            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch);
@@ -16160,6 +16170,13 @@
 	
 	            $("body").append($dropdown);
 	            $dropdown.find(".select-list-search-results").focus();
+	        },
+	
+	        close: function(){
+	            var $this = $(this);
+	            var $selection = $this.siblings(".select-list-container").find(".selection");
+	            var resultContainerId = $selection.attr("aria-targetDropdown");
+	            $("#" + resultContainerId).remove();
 	        },
 	
 	        toggle: function ($sourceElement, canSearch) {

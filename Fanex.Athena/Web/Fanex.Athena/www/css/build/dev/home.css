@@ -5815,14 +5815,21 @@ header nav {
 #sidenav-overlay {
   z-index: 996; }
 
+.input-field label {
+  position: absolute;
+  top: -14px; }
+
 .select-list-container {
   position: relative;
   font-size: 12px; }
   .select-list-container .selection {
     background: transparent;
     border-bottom: 1px solid #ccc;
-    height: 26px;
-    line-height: 26px; }
+    height: 28px;
+    line-height: 28px;
+    display: inline-block;
+    width: 100%;
+    position: relative; }
     .select-list-container .selection-label {
       cursor: pointer; }
     .select-list-container .selection-icon {
@@ -5878,14 +5885,13 @@ header nav {
   .licensees-block .select-licensee {
     display: inline-block;
     width: 100%; }
+  .licensees-block .select-list-container .selection {
+    border-bottom-color: #fff; }
+  .licensees-block .select-list-container .selection-icon-arrow {
+    border-top-color: #fff; }
 
 .select-list-result-container {
   top: 65px !important; }
-
-.select-list-container {
-  margin-top: 20px; }
-  .select-list-container .selection-icon-arrow {
-    border-top-color: #fff; }
 
 .dropdown-header {
   max-height: 400px; }

@@ -18,18 +18,20 @@
         display: inline-block;
         width: 100%;
     }
+
+    .select-list-container {
+        .selection {
+            border-bottom-color: $white;
+        }
+
+        .selection-icon-arrow {
+            border-top-color: $white;
+        }
+    }
 }
 
 .select-list-result-container {
     top: 65px !important;
-}
-
-.select-list-container {
-    margin-top: 20px;
-
-    .selection-icon-arrow {
-        border-top-color: $white;
-    }
 }
 
 .dropdown-header {

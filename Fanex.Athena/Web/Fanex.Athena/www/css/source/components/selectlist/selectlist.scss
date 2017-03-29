@@ -1,5 +1,12 @@
-﻿$height: 26px;
+﻿$height: 28px;
 $font-size: 12px;
+
+.input-field {
+    label {
+        position: absolute;
+        top: -14px;
+    }
+}
 
 .select-list {
     &-container {
@@ -11,6 +18,9 @@ $font-size: 12px;
             border-bottom: 1px solid #ccc;
             height: $height;
             line-height: $height;
+            display: inline-block;
+            width: 100%;
+            position: relative;
 
             &-label {
                 cursor: pointer;
