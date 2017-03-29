@@ -228,29 +228,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                 window.innerWidth = window.document.documentElement.clientWidth;
             }
         }
-        function addFilterCollapseExpand(containerSelector) {
-            if (!containerSelector) {
-                containerSelector = ".content-filter:has(form)";
-            }
-
-            var $handler = $("<div class='filter-handle filter-handle-collapse'></div>");
-            var $container = $(containerSelector);
-
-            $container.append($handler);
-
-            var originalHeight = $container.height();
-            var originalTop = originalHeight - 15;
-            var isCollapsed = false;
-            $handler.css("top", originalTop);
-            $handler.click(function () {
-                isCollapsed = !isCollapsed;
-                $container.find("*").toggle();
-                $container.height(isCollapsed ? 5 : originalHeight + 5);
-                $handler.css("top", isCollapsed ? -15 : originalTop);
-                $(this).show().toggleClass("filter-handle-collapse filter-handle-expand");
-                $(window).resize();
-            });
-        }
         function asNull(text) {
             if (text != null) {
                 text = text.trim();
@@ -472,56 +449,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             }
         }
 
-        function detectBrowser(userAgent) {
-            if (userAgent === undefined) { userAgent = navigator.userAgent; }
-            userAgent = userAgent.toLowerCase();
-            var match = /(chrome)[ \/]([\w.]+)/.exec(userAgent) || /(webkit)[ \/]([\w.]+)/.exec(userAgent) ||
-                    /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(userAgent) || /(msie) ([\w.]+)/.exec(userAgent) ||
-                     userAgent.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(userAgent) || [];
-
-            return {
-                browser: match[1] || "",
-                version: match[2] || "0"
-            };
-        }
-
-        function getMaxHeight(element) {
-            var height = 0;
-
-            var title = 20;
-            var footer = 20;
-            var headerTitle = 26;
-            var headerFilter = $("div.page-form").outerHeight();
-            var exHeight = footer + headerTitle + headerFilter + title;
-
-            var body = window.document.body;
-            if (window.innerHeight) {
-                height = window.innerHeight;
-            } else if (body.parentElement.clientHeight) {
-                height = body.parentElement.clientHeight;
-            } else if (body && body.clientHeight) {
-                height = body.clientHeight;
-            }
-            var offset = element.offset();
-            return height - offset.top - exHeight;
-        }
-
-        function getMaxWidth() {
-            var width = 0;
-            var marginRight = 20;
-
-            var body = window.document.body;
-            if (window.innerWidth) {
-                width = window.innerWidth;
-            } else if (body.parentElement.clientWidth) {
-                width = body.parentElement.clientWidth;
-            } else if (body && body.clientWidth) {
-                width = body.clientWidth;
-            }
-
-            return width - marginRight;
-        }
-
         function clone(obj) {
             /// <summary>
             ///
@@ -704,7 +631,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             isBaseCurrency: isBaseCurrency,
             addUserGuide: addUserGuide,
             overrideInnerSize: overrideInnerSize,
-            addFilterCollapseExpand: addFilterCollapseExpand,
             asNull: asNull,
             gotoErrorPage: gotoErrorPage,
             unBlockUI: unBlockUI,
@@ -720,9 +646,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             currencyConstraint: currencyConstraint,
             sortReport: sortReport,
             createSortingIcon: createSortingIcon,
-            detectBrowser: detectBrowser,
-            getMaxHeight: getMaxHeight,
-            getMaxWidth: getMaxWidth,
             clone: clone,
             asBool: asBool,
             getSingleResource: getSingleResource,
