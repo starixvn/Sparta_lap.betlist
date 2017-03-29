@@ -114,6 +114,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\CashOutWinLoss.cs" />
     <Compile Include="DTO\CasinoProgressiveWins.cs" />
     <Compile Include="DTO\MicroGamingWinLoss.cs" />
     <Compile Include="DTO\Keno\KenoAuthorization.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="DTO\WinLossByBetType.cs" />
     <Compile Include="DTO\TurnoverDTO.cs" />
     <Compile Include="DTO\WinLossByProduct.cs" />
+    <Compile Include="MetaModel\CashOutWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Keno\KenoResultMetalModel.cs" />
     <Compile Include="MetaModel\BalanceMetaModel.cs" />
     <Compile Include="MetaModel\BaseReportMetaModel.cs" />
@@ -178,6 +180,7 @@
     <Compile Include="MetaModel\TurnoverMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByBetTypeMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\CashOutWinLossViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />
     <Compile Include="ViewModel\BalanceViewModel.cs" />
     <Compile Include="ViewModel\AgCasinoWinLossViewModel.cs" />

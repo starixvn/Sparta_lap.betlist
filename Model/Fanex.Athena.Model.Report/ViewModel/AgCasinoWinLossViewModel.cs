@@ -11,9 +11,6 @@ namespace Fanex.Athena.Model.Report.ViewModel
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ViewModel;
 
-    /// <summary>
-    /// AgCasinoWinLossViewModel class.
-    /// </summary>
     public class AgCasinoWinLossViewModel : BaseViewModel
     {
         public IList<AgCasinoWinLoss> MainResult { get; set; }

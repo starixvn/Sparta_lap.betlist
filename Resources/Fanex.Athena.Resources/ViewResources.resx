@@ -2963,4 +2963,7 @@
   <data name="CashOutCommission" xml:space="preserve">
     <value>Cash Out Commission</value>
   </data>
+  <data name="CashOutWinLoss" xml:space="preserve">
+    <value>Cash Out Win Loss</value>
+  </data>
 </root>

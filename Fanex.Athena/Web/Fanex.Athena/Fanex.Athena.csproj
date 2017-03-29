@@ -725,9 +725,12 @@
     <Content Include="Content\Plugin\ColorPicker\images\checked-dark.png" />
     <Content Include="Content\Plugin\ColorPicker\images\transparent.png" />
     <Content Include="Content\Plugin\ColorPicker\images\checked-light.png" />
+    <Content Include="Content\Report\cashoutwinloss.css" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
+    <Content Include="Scripts\Report\cashoutwinloss.js" />
+    <Content Include="Scripts\Report\cashoutwinloss.option.js" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\logo-text.svg" />
     <Content Include="www\assets\images\robot.jpg" />
@@ -841,6 +844,9 @@
     <None Include="SiteConfig\Web.DEV.config" />
     <Content Include="Views\Customer\BetSetting\CashOut.cshtml" />
     <Content Include="www\css\source\components\selectlist\selectlist.scss" />
+    <Content Include="Views\Report\CashOutWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\CashOutWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\CashOutWinLoss\Main.cshtml" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
@@ -4394,8 +4400,6 @@
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
-    <Content Include="Scripts\Report\agcasinowinloss.js" />
-    <Content Include="Scripts\Report\agcasinowinloss.option.js" />
     <Content Include="Scripts\Report\activecustomersummary.js" />
     <Content Include="Scripts\Report\activecustomersummary.option.js" />
     <Content Include="Scripts\Report\thirdpartywinloss.js" />

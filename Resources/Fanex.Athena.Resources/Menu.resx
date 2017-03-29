@@ -327,4 +327,8 @@
     <value>Colossus Bets Win Loss</value>
     <comment>#63785</comment>
   </data>
+  <data name="Menu_72" xml:space="preserve">
+    <value>Cash Out Win Loss</value>
+    <comment>#71727</comment>
+  </data>
 </root>

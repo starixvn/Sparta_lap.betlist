@@ -146,9 +146,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CashOutWinLossDataAccess.cs" />
     <Compile Include="AgCasinoWinLossDataAccess.cs" />
     <Compile Include="ActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="CasinoProgressiveWinsDataAccess.cs" />
+    <Compile Include="Interfaces\ICashOutWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IColossusBetsWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchDataAccess.cs" />
     <Compile Include="MicroGamingWinLossDataAccess.cs" />

@@ -1,4 +1,4 @@
-﻿// Generated at: 3/28/2017 1:06:37 PM
+﻿// Generated at: 3/29/2017 11:15:15 AM
 var _language_en_US = {
 AA:"AA",
 AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -107,6 +107,7 @@ CashOutAmt:"Cash-out Amt",
 CashOutCommission:"Cash Out Commission",
 CashOutNotOfferCurrency:"Cash Out is not offered for this currency.",
 CashOutShare:"Cash-out Share",
+CashOutWinLoss:"Cash Out Win Loss",
 CASINOHANDHISTORY:"CASINO HAND HISTORY",
 CasinoProgressiveWins:"Casino Progressive Wins",
 CasinoProgressiveWinsGuidelineContent:"This report supports up-to-date data. You can filter data up to 12 months per query.",
