@@ -35,7 +35,7 @@
             //{ pattern: 'www/js/tests/pages/report/settledmatchcount/**/*-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/report/racingcommission/**/*-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/report/balance/**/*-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/report/livereport/livereport-spec.js', included: false },
+            { pattern: 'www/js/tests/common/popup-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {

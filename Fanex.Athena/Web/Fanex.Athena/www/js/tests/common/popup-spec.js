@@ -27,5 +27,53 @@
                 expect($.fn.flatPopup).toHaveBeenCalledWith(option);
             });
         });
+
+        describe("updateCurrentPopup(url, option)", function () {
+            it("flatPopup should be called with correct parameter", function () {
+                parent.$ = $;
+                spyOn($.fn, "flatPopup");
+                setFixtures('<div id="current" class="popup-frame"><div id="popupFrame"></div></div>');
+                var $frame = parent.$("#popupFrame");
+                parent.$frame = $frame;
+
+                var url = "localhost/Test";
+                var option = { id: "current", title: "title" };
+
+                PopUp.updateCurrentPopup(url, option);
+
+                expect($.fn.flatPopup).toHaveBeenCalledWith(option);
+            });
+
+            it("#popupFrame should has correct src attribute", function () {
+                parent.$ = $;
+                spyOn($.fn, "flatPopup");
+                setFixtures('<div id="current" class="popup-frame"><div id="popupFrame"></div></div>');
+                var $frame = parent.$("#popupFrame");
+                parent.$frame = $frame;
+
+                var url = "localhost/Test";
+                var option = { id: "current", title: "title" };
+
+                PopUp.updateCurrentPopup(url, option);
+
+                expect($frame.attr("src")).toBe("localhost/Test");
+            });
+
+            it(".txt-title should has correct text", function () {
+                parent.$ = $;
+                spyOn($.fn, "flatPopup");
+                setFixtures('<div id="current" class="popup-frame"><div class="txt-title"></div>"<div id="popupFrame"></div></div>');
+                var $frame = parent.$("#popupFrame");
+                parent.$frame = $frame;
+
+                var url = "localhost/Test";
+                var option = { id: "current", title: "title" };
+
+                PopUp.updateCurrentPopup(url, option);
+                var result = $(".txt-title").html();
+
+                expect(result).toBe(option.title);
+            });
+        });
     });
 });
