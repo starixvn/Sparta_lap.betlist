@@ -2966,4 +2966,25 @@
   <data name="CashOutWinLoss" xml:space="preserve">
     <value>Cash Out Win Loss</value>
   </data>
+  <data name="BBAmtComm" xml:space="preserve">
+    <value>BB Amt + Comm</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="CashOutTickets" xml:space="preserve">
+    <value>Cash Out Tickets</value>
+  </data>
+  <data name="CashOutTimes" xml:space="preserve">
+    <value>Cash Out Times</value>
+  </data>
+  <data name="CashOutValue" xml:space="preserve">
+    <value>Cash Out Value</value>
+  </data>
+  <data name="SettleAmount" xml:space="preserve">
+    <value>Settle Amount</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="TicketPayout" xml:space="preserve">
+    <value>Ticket Payout</value>
+    <comment>#71727</comment>
+  </data>
 </root>

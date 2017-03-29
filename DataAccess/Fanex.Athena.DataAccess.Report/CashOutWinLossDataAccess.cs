@@ -135,10 +135,9 @@ namespace Fanex.Athena.DataAccess.Report
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
                     CurrencyId = reader.ToInt("currency"),
                     CurrencyName = reader.ToString("currencyname"),
-                    CustomerWinLoss = reader.ToDecimal(winlostColumn),
-                    LicenseeWL = reader.ToDecimal(licenseewlColumn),
-                    TurnOver = reader.ToDecimal(turnoverColumn),
-                    TotalTransaction = reader.ToInt("totaltrans"),
+                    CashOutValue = reader.ToDecimal(winlostColumn),
+                    CashOutTimes = reader.ToDecimal(turnoverColumn),
+                    CashOutTickets = reader.ToInt("totaltrans"),
                     Date = hasWinlostDate ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
                 };
 
@@ -146,10 +145,9 @@ namespace Fanex.Athena.DataAccess.Report
 
                 foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
-                    summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
-                    summaryTotal[currency].TotalTransaction += reader.ToInt("totaltrans");
-                    summaryTotal[currency].LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
-                    summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
+                    summaryTotal[currency].CashOutValue += reader.ToDecimal("winlost" + currency);
+                    summaryTotal[currency].CashOutTickets += reader.ToInt("totaltrans");
+                    summaryTotal[currency].CashOutTimes += reader.ToDecimal("turnover" + currency);
                 }
             }
 

@@ -13,6 +13,8 @@ namespace Fanex.Athena.Model.Report.ViewModel
 
     public class CashOutWinLossViewModel : BaseViewModel
     {
+        public bool IsLicenseeOfferBA { get; set; }
+
         public IList<CashOutWinLoss> MainResult { get; set; }
 
         public IDictionary<string, CashOutWinLoss> SummaryTotal { get; set; }

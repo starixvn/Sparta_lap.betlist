@@ -14,6 +14,7 @@ var CashOutWinLoss = (function ($) {
             return totalRowCount;
         },
         initialize: function () {
+            CashOutWinLossOption.isLicenseeOfferBA = $("#IsLicenseeOfferBA").val() === "1";
             CashOutWinLoss.initEvent();
             Site.addUserGuide({
                 resourceName: "AGCasinoWL",
@@ -275,7 +276,7 @@ var CashOutWinLoss = (function ($) {
             var numOfRow = response.Data.length;
             var numOfTotalRow = response.Total.length;
             totalRowCount = numOfTotalRow;
-
+            
             var gridOption = CashOutWinLossOption.getGridOption(level);
             gridOption.data = response.Data;
             gridOption.rowTotal = numOfRow;
@@ -293,6 +294,8 @@ var CashOutWinLoss = (function ($) {
 
                     jqGridAdditional.resizeGrid();
                 }
+
+                CashOutWinLossOption.setGroupHeaders(reportGrid);
 
                 Site.unBlockUI();
             };

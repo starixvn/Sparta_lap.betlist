@@ -188,25 +188,13 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign common data to excel row.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="data">Licensee win loss data.</param>
         protected void AssignCommonData(IRow row, CashOutWinLoss data)
         {
-            row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
-            row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
-            row.Cells[ColumnCustomerWl].SetCellValue(data.CustomerWinLoss);
-            row.Cells[ColumnLicenseeWl].SetCellValue(data.LicenseeWL);
+            row.Cells[ColumnTurnover].SetCellValue(data.CashOutTimes);
+            row.Cells[ColumnTotalTransaction].SetCellValue(data.CashOutTickets);
+            row.Cells[ColumnCustomerWl].SetCellValue(data.CashOutValue);
         }
 
-        /// <summary>
-        /// Assign grand total data of EUR.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="rowIndex">The starting row index.</param>
-        /// <returns>The last row index after assign data.</returns>
         protected int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
@@ -276,10 +264,9 @@ namespace Fanex.Athena.Excel.Report
                     .Select(group => new CashOutWinLoss
                     {
                         CurrencyName = group.Key.CurrencyName,
-                        TurnOver = group.Sum(a => a.TurnOver),
-                        TotalTransaction = group.Sum(a => a.TotalTransaction),
-                        CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
-                        LicenseeWL = group.Sum(a => a.LicenseeWL),
+                        CashOutTimes = group.Sum(a => a.CashOutTimes),
+                        CashOutTickets = group.Sum(a => a.CashOutTickets),
+                        CashOutValue = group.Sum(a => a.CashOutValue)
                     }).ToList();
 
             return listTotalCurrency;

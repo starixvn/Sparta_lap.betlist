@@ -718,6 +718,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BB Amt + Comm.
+        /// </summary>
+        public static string BBAmtComm {
+            get {
+                return ResourceManager.GetString("BBAmtComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Best viewed in.
         /// </summary>
         public static string Bestviewedin {
@@ -1020,6 +1029,33 @@ namespace Fanex.Athena.Resources {
         public static string CashOutShare {
             get {
                 return ResourceManager.GetString("CashOutShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cash Out Tickets.
+        /// </summary>
+        public static string CashOutTickets {
+            get {
+                return ResourceManager.GetString("CashOutTickets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cash Out Times.
+        /// </summary>
+        public static string CashOutTimes {
+            get {
+                return ResourceManager.GetString("CashOutTimes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cash Out Value.
+        /// </summary>
+        public static string CashOutValue {
+            get {
+                return ResourceManager.GetString("CashOutValue", resourceCulture);
             }
         }
         
@@ -6694,6 +6730,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settle Amount.
+        /// </summary>
+        public static string SettleAmount {
+            get {
+                return ResourceManager.GetString("SettleAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settled.
         /// </summary>
         public static string Settled {
@@ -7086,6 +7131,15 @@ namespace Fanex.Athena.Resources {
         public static string TicketNo {
             get {
                 return ResourceManager.GetString("TicketNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ticket Payout.
+        /// </summary>
+        public static string TicketPayout {
+            get {
+                return ResourceManager.GetString("TicketPayout", resourceCulture);
             }
         }
         

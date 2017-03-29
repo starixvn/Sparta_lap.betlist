@@ -26,12 +26,38 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public int CurrencyId { get; set; }
 
-        public decimal TurnOver { get; set; }
+        public decimal CashOutTimes { get; set; }
 
-        public decimal TotalTransaction { get; set; }
+        public decimal CashOutTickets { get; set; }
 
-        public decimal CustomerWinLoss { get; set; }
+        public decimal CashOutValue { get; set; }
 
-        public decimal LicenseeWL { get; set; }
+        public decimal BuyBackAmountSB { get; set; }
+
+        public decimal BuyBackAmountBA { get; set; }
+
+        public decimal TotalBuyBackAmount
+        {
+            get
+            {
+                return BuyBackAmountSB + BuyBackAmountBA;
+            }
+        }
+
+        public decimal TicketsPayout { get; set; }
+
+        public decimal CashOutCommission { get; set; }
+
+        public decimal SettleAmountTicketPayout { get; set; }
+
+        public decimal SettleAmountBuyBackComm { get; set; }
+
+        public decimal SettleAmountTotal
+        {
+            get
+            {
+                return SettleAmountTicketPayout + SettleAmountBuyBackComm;
+            }
+        }
     }
 }

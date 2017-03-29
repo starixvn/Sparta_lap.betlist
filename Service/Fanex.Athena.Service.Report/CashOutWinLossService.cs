@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CashOutWinLossService.cs" company="">
-// The ag casino win loss service.
+// The cash out win loss service.
 // </copyright>
-// <summary>
-//   The ag casino win loss service.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Fanex.Athena.Service.Report
@@ -85,10 +82,9 @@ namespace Fanex.Athena.Service.Report
             return dataList.GroupBy(d => d.CurrencyName).Select(g => new CashOutWinLoss
             {
                 CurrencyName = g.Key,
-                TurnOver = g.Sum(p => p.TurnOver),
-                TotalTransaction = g.Sum(p => p.TotalTransaction),
-                CustomerWinLoss = g.Sum(p => p.CustomerWinLoss),
-                LicenseeWL = g.Sum(p => p.LicenseeWL)
+                CashOutTimes = g.Sum(p => p.CashOutTimes),
+                CashOutTickets = g.Sum(p => p.CashOutTickets),
+                CashOutValue = g.Sum(p => p.CashOutValue)
             }).ToList();
         }
     }
