@@ -4,6 +4,10 @@
         describe("LicenseeWinLoss", function () {
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {
+                    if (text === "Viewin") {
+                        return "Viewin {0}";
+                    }
+
                     return text;
                 });
                 spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
@@ -233,7 +237,27 @@
 
                     LicenseeWinLoss.setReportTitle('-1', date, date);
 
-                    expect($('.report-title').html()).toBe('LicenseeWinLoss, 02/01/2001 → 02/01/2001 - Viewin');
+                    expect($('.report-title').html()).toBe('LicenseeWinLoss, 02/01/2001 → 02/01/2001 - Viewin EUR');
+                });
+
+                it("setReportTitle() should assign correct content to .report-title when currencyId is not in dictionary and currencyName is undefine", function () {
+                    setFixtures('<div class="report-title"></div>');
+                    spyOn(Site, "getCurrencyName").and.callFake(function (param) { return param });
+                    var date = new Date(2001, 1, 1);
+
+                    LicenseeWinLoss.setReportTitle('1', date, date);
+
+                    expect($('.report-title').html()).toBe('LicenseeWinLoss, 02/01/2001 → 02/01/2001 - Viewin 1');
+                });
+
+                it("setReportTitle() should assign correct content to .report-title when currencyId is not in dictionary and currencyName has value", function () {
+                    setFixtures('<div class="report-title"></div>');
+                    spyOn(Site, "getCurrencyName").and.callFake(function (param) { return param });
+                    var date = new Date(2001, 1, 1);
+
+                    LicenseeWinLoss.setReportTitle('1', date, date, "CurrencyName");
+
+                    expect($('.report-title').html()).toBe('LicenseeWinLoss, 02/01/2001 → 02/01/2001 - Viewin CurrencyName');
                 });
             });
 
@@ -963,6 +987,106 @@
                         LicenseeWinLossOption.pageSize = defaultPagesize;
 
                         expect(Site.blockUI).not.toHaveBeenCalled();
+                    });
+                });
+
+                describe("gridOption.gridComplete()", function () {
+                    var originalPageSize;
+                    beforeEach(function () {
+                        spyOn(jqGridAdditional, "gridComplete");
+                        spyOn(LicenseeWinLoss, "resizeGrid");
+                        spyOn(LicenseeWinLossOption, "addProductButton");
+                        spyOn(Site, "unBlockUI");
+                        spyOn(LicenseeWinLoss, "bindTotal");
+
+                        originalPageSize = LicenseeWinLossOption.pageSize;
+                    });
+
+                    afterEach(function () {
+                        LicenseeWinLossOption.pageSize = originalPageSize;
+                    });
+
+                    it("jqGridAdditional.gridComplete() should be called", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+
+                        gridOption.gridComplete();
+
+                        expect(jqGridAdditional.gridComplete).toHaveBeenCalled();
+                    });
+
+                    it("LicenseeWinLoss.resizeGrid() should be called", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+
+                        gridOption.gridComplete();
+
+                        expect(LicenseeWinLoss.resizeGrid).toHaveBeenCalled();
+                    });
+
+                    it("LicenseeWinLoss.bindTotal() should be called with correct parameter", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1], SummaryTotal: [2] });
+
+                        gridOption.gridComplete();
+
+                        expect(LicenseeWinLoss.bindTotal).toHaveBeenCalledWith(2, [1], [2]);
+                    });
+
+                    it("#footer should has correct html content when onPaging is false or level is not 2", function () {
+                        appendSetFixtures('<div class="ui-jqgrid-ftable">Footer Content</div> <div id="footer"></div>');
+                        LicenseeWinLoss.bindData(1, 2, { Data: [1, 2, 3], Total: [1], SummaryTotal: [2] });
+
+                        gridOption.gridComplete();
+                        var result = $("#footer").html();
+
+                        expect(result).toBe("Footer Content");
+                    });
+
+                    it("LicenseeWinLossOption.addProductButton should be called with correct parameter", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+
+                        gridOption.gridComplete();
+
+                        expect(LicenseeWinLossOption.addProductButton).toHaveBeenCalledWith($("#ReportGrid"), "jqgh_ReportGrid", "ReportGrid", ["RC", "SB"]);
+                    });
+
+                    it("LicenseeWinLossOption.addProductButton should not be called when Total data is empty", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [] });
+
+                        gridOption.gridComplete();
+
+                        expect(LicenseeWinLossOption.addProductButton).not.toHaveBeenCalled();
+                    });
+
+                    it("#pg_ppdata should be showed when level is 2 and rowNum greater than pagesize", function () {
+                        appendSetFixtures('<button id="pg_ppdata"></button>');
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+                        LicenseeWinLossOption.pageSize = 1;
+
+                        gridOption.gridComplete();
+
+                        expect($("#pg_ppdata")).toBeVisible();
+                    });
+
+                    it("#pg_ppdata should be hidden when level is not 2", function () {
+                        appendSetFixtures('<button id="pg_ppdata"></button>');
+                        LicenseeWinLoss.bindData(1, 2, { Data: [1, 2, 3], Total: [1] });
+
+                        gridOption.gridComplete();
+
+                        expect($("#pg_ppdata")).not.toBeVisible();
+                    });
+
+                    it(".ui-jqgrid-ftable should has correct html content when onPaging is true and level is 2", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [] });
+                        appendSetFixtures('<button id="pgButton"></button>' +
+                            '<div class="ui-jqgrid-ftable"></div>' +
+                            '<div id="footer">Footer Content</div>');
+                        LicenseeWinLossOption.pageSize = 1;
+
+                        gridOption.onPaging("pgButton");
+                        gridOption.gridComplete();
+                        var result = $(".ui-jqgrid-ftable").html();
+
+                        expect(result).toBe("Footer Content");
                     });
                 });
             });

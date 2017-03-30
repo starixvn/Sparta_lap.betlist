@@ -46,8 +46,8 @@
                     LicenseeWinLossOption.hasCustomerComm = true;
                     var columnNames = LicenseeWinLossOption.getColName([]);
 
-                    expect(columnNames).toEqual(['#', 'Date', 'ExternalId', 'SystemId', 'Currency', 'Total', 'Turnover', 'ActualStake', 'BuyBackAmount',
-                        'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'Total', 'LicenseeW_L', '@[BetTrade]<br/>@[Commission]', 'BA<br/>@[Commission]',
+                    expect(columnNames).toEqual(['#', 'Date', 'ExternalId', 'SystemId', 'Currency', 'Total', 'Turnover', 'ActualStake', 'BuyBackAmount', 'TotalTransaction',
+                        '@[Win]/@[Loss]', 'Comm', 'Total', 'Total', 'LicenseeW_L', '@[ProductBT]<br/>@[Commission]', '@[ProductCO]<br/>@[Commission]', 'BA<br/>@[Commission]',
                         '@[RacingRevenue]', '@[AmtDueToBetTrade]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId']);
                 });
 
@@ -55,7 +55,7 @@
                     LicenseeWinLossOption.hasCustomerComm = false;
                     var columnNames = LicenseeWinLossOption.getColName(productOptions);
 
-                    expect(columnNames.length).toBe(27);
+                    expect(columnNames.length).toBe(28);
                     expect(columnNames[5]).toBe("Keno");
                     expect(columnNames[6]).toBe("Sportsbook");
                     expect(columnNames[7]).toBe("Total");
@@ -69,7 +69,7 @@
                     productOptions.push({ Code: "BA", Status: true });
                     var columnNames = LicenseeWinLossOption.getColName(productOptions);
 
-                    expect(columnNames.length).toBe(31);
+                    expect(columnNames.length).toBe(32);
                     expect(columnNames[11]).toBe("Sportsbook");
                     expect(columnNames[12]).toBe("BA");
                     expect(columnNames[13]).toBe("Total");
@@ -79,7 +79,7 @@
                     productOptions.push({ Code: "BT", Status: true });
                     var columnNames = LicenseeWinLossOption.getColName(productOptions);
 
-                    expect(columnNames.length).toBe(28);
+                    expect(columnNames.length).toBe(29);
                 });
             });
 
@@ -202,7 +202,7 @@
                     });
 
                     afterEach(function () {
-                        productOptions.slice(productOptions.length - 1)
+                        productOptions.slice(productOptions.length - 1);
                     });
 
                     it("Products should add correctly to Turnover column", function () {
