@@ -32,6 +32,37 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_WinlostByLeague" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_PlatformWinloss" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_PlatformWinlossDetail" EnvironmentText="_xtest"></SpNameConfig>
+
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_TotalBets_Sel430" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByMultipleBettypeMatch" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettypeList" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByMultipleBettypeMatch" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettype" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettypeList" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettypeList" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettype" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_Forecast_SelByMatch" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="aaaaaaaaaa" EnvironmentText="_xtest"></SpNameConfig>
