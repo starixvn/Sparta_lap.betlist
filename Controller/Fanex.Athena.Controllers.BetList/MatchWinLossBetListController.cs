@@ -86,6 +86,7 @@ namespace Fanex.Athena.Controllers.BetList
 
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(metaModel.CurrencyId))
                 {
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                     const string UspKey = "Lrf_BetList_MatchWL_Outright";
                     return Excel(metaModel, UspKey);
                 }
