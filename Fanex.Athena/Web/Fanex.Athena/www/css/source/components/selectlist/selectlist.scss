@@ -12,6 +12,7 @@ $font-size: 12px;
     &-container {
         position: relative;
         font-size: $font-size;
+        margin-bottom: 10px;
 
         .selection {
             background: transparent;

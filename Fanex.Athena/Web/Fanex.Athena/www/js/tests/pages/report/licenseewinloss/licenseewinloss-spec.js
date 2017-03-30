@@ -242,7 +242,7 @@
 
                 it("setReportTitle() should assign correct content to .report-title when currencyId is not in dictionary and currencyName is undefine", function () {
                     setFixtures('<div class="report-title"></div>');
-                    spyOn(Site, "getCurrencyName").and.callFake(function (param) { return param });
+                    spyOn(Site, "getCurrencyName").and.callFake(function (param) { return param; });
                     var date = new Date(2001, 1, 1);
 
                     LicenseeWinLoss.setReportTitle('1', date, date);
@@ -252,7 +252,7 @@
 
                 it("setReportTitle() should assign correct content to .report-title when currencyId is not in dictionary and currencyName has value", function () {
                     setFixtures('<div class="report-title"></div>');
-                    spyOn(Site, "getCurrencyName").and.callFake(function (param) { return param });
+                    spyOn(Site, "getCurrencyName").and.callFake(function (param) { return param; });
                     var date = new Date(2001, 1, 1);
 
                     LicenseeWinLoss.setReportTitle('1', date, date, "CurrencyName");

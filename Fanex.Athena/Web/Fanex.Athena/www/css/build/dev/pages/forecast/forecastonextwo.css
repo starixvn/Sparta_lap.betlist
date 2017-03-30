@@ -189,7 +189,8 @@
 
 .select-list-container {
   position: relative;
-  font-size: 12px; }
+  font-size: 12px;
+  margin-bottom: 10px; }
   .select-list-container .selection {
     background: transparent;
     border-bottom: 1px solid #ccc;
@@ -655,7 +656,8 @@ table tbody tr.row-group-level1 {
 
 .select-list-container {
   position: relative;
-  font-size: 12px; }
+  font-size: 12px;
+  margin-bottom: 10px; }
   .select-list-container .selection {
     background: transparent;
     border-bottom: 1px solid #ccc;

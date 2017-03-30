@@ -132,6 +132,7 @@ define(['jquery'], function ($) {
 
             return this.each(function () {
                 var $self = $(this);
+                $self.siblings(".select-list-container").remove();
                 var optionSelected = $self.find("option:selected");
                 var selectedValue = optionSelected.length ? optionSelected.text() : "";
 

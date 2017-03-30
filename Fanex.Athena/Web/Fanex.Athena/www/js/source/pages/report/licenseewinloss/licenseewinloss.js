@@ -24,6 +24,8 @@
                 Site.initialize();
                 _me.initEvent();
                 _me.initSetting();
+                _me.registerGlobalFunction();
+
                 LicenseeWinLossOption.gridOption.onSortCol = function (index) {
                     Site.blockUI();
                     window.setTimeout(function () {
@@ -50,6 +52,10 @@
                 });
                 Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
                 DatePicker.initDateRangePicker();
+            },
+
+            registerGlobalFunction: function () {
+                window.licenseewinlossDrilldown = _me.drillDown;
             },
 
             sortData: function (arrayData) {
@@ -94,6 +100,14 @@
                     var level = Number($(this).attr("data-level"));
                     _level = level;
                     return _me.goBack(level);
+                });
+
+                $(window).on("resize", function () {
+                    _me.resizeGrid();
+                });
+
+                $(window).on("unload", function () {
+                    $(window).unbind("resize");
                 });
             },
 
@@ -346,7 +360,7 @@
                 var reportGrid = $("#ReportGrid");
                 var productOptions = $.parseJSON(_submitData.ProductOptions);
                 productOptions = productOptions.reverse(); //make orders of product columns like excel file
-                
+
                 var numOfTotalRow = response.Total.length;
                 totalRowCount = numOfTotalRow;
 
