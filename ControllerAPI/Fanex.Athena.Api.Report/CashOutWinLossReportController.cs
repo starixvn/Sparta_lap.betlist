@@ -93,6 +93,7 @@ namespace Fanex.Athena.Api.Report
 
             var excelModel = new CashOutWinLossViewModel
             {
+                IsLicenseeOfferBA = SessionService.LicenseeSession.IsEnableBA,
                 MainResult = dataList,
                 SummaryTotal = summaryTotal,
             };

@@ -13,13 +13,11 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Model.Core.DTO.Common;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using Resources;
-    using Service.Report;
 
     public class CashOutWinLossExcel : ReportBase
     {
@@ -43,7 +41,7 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnSettleAmountBBAmtComm = 14;
         private const int ColumnSettleAmountTotal = 15;
 
-        private const int ColumnTemplateCount = 15;
+        private const int ColumnTemplateCount = 16;
 
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
@@ -69,7 +67,7 @@ namespace Fanex.Athena.Excel.Report
             _metaModel = metaModel;
             _dataList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
-            _isAllowBA = metaModel.ProductOptions.Any(x => x.Code == Product.BA);
+            _isAllowBA = viewModel.IsLicenseeOfferBA;
         }
 
         public int Level
@@ -115,12 +113,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(ViewResources.BuyBackAmount);
             row.Cells[ColumnTicketPayout].SetCellValue(ViewResources.TicketPayout);
             row.Cells[ColumnCashOutCommssion].SetCellValue(ViewResources.CashOutCommission);
-            row.Cells[ColumnSettleAmountTicketPayout].SetCellValue(ViewResources.Settled);
+            row.Cells[ColumnSettleAmountTicketPayout].SetCellValue(ViewResources.SettleAmount);
 
             // row 2
             IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
-            row2.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(ViewResources.Sportsbook);
+            row2.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(ViewResources.ProductSB);
             row2.Cells[ColumnBuyBackAmountBA].SetCellValue(ViewResources.ProductBA);
             row2.Cells[ColumnBuyBackAmountTotal].SetCellValue(ViewResources.Total);
 
