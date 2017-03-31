@@ -58,8 +58,7 @@ define(['jquery'], function ($) {
             $selectionLabel.text($(this).text());
 
             $resultContainer.remove();
-
-            console.log($originalSelectElement.val());
+            $originalSelectElement.trigger("change");
         });
 
         var $searchBox = $dropdown.find(".select-list-search-results");

@@ -15,7 +15,7 @@ webpackJsonp([26],{
 /***/ 66:
 /***/ function(module, exports) {
 
-	// Generated at: 3/28/2017 1:06:30 PM
+	// Generated at: 3/31/2017 12:39:17 PM
 	window._language_en_US = {
 	AA:"AA",
 	AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -90,6 +90,7 @@ webpackJsonp([26],{
 	BAStatus:"BA Status",
 	BaTurnoverReferenceNote:"BA Turnover&apos;s figures are for reference purpose only and still be included in the overall Turnover",
 	BAUpdatedBy:"BA Updated By",
+	BBAmtComm:"BB Amt + Comm",
 	Bestviewedin:"Best viewed in",
 	BestViewResolution:"Resolution 1280x1024",
 	BestWinLoss:"Best Win Loss",
@@ -124,6 +125,10 @@ webpackJsonp([26],{
 	CashOutCommission:"Cash Out Commission",
 	CashOutNotOfferCurrency:"Cash Out is not offered for this currency.",
 	CashOutShare:"Cash-out Share",
+	CashOutTickets:"Cash Out Tickets",
+	CashOutTimes:"Cash Out Times",
+	CashOutValue:"Cash Out Value",
+	CashOutWinLoss:"Cash Out Win Loss",
 	CASINOHANDHISTORY:"CASINO HAND HISTORY",
 	CasinoProgressiveWins:"Casino Progressive Wins",
 	CasinoProgressiveWinsGuidelineContent:"This report supports up-to-date data. You can filter data up to 12 months per query.",
@@ -753,6 +758,7 @@ webpackJsonp([26],{
 	SessionID:"Session ID",
 	SessionLoggedMsg:"You have logged in from another session or your login session has expired",
 	SetAsDefaultGroup:"Set as default group",
+	SettleAmount:"Settle Amount",
 	Settled:"Settled",
 	SettledMatchCount:"Settled Match Count",
 	Show:"Show",
@@ -797,6 +803,7 @@ webpackJsonp([26],{
 	TicketDetailOf:"Ticket detail of {0}",
 	TicketFilter:"Ticket filter",
 	TicketNo:"Ticket No.",
+	TicketPayout:"Ticket Payout",
 	Time:"Time",
 	TimeZone:"Time Zone",
 	To:"To",
@@ -934,7 +941,7 @@ webpackJsonp([26],{
 /***/ 67:
 /***/ function(module, exports) {
 
-	// Generated at: 3/28/2017 1:06:30 PM
+	// Generated at: 3/31/2017 12:39:17 PM
 	window._language_zh_CN = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1721,7 +1728,7 @@ webpackJsonp([26],{
 /***/ 68:
 /***/ function(module, exports) {
 
-	// Generated at: 3/28/2017 1:06:30 PM
+	// Generated at: 3/31/2017 12:39:17 PM
 	window._language_zh_TW = {
 	AA:"客客",
 	AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -2508,7 +2515,7 @@ webpackJsonp([26],{
 /***/ 69:
 /***/ function(module, exports) {
 
-	// Generated at: 3/28/2017 1:06:30 PM
+	// Generated at: 3/31/2017 12:39:17 PM
 	window._language_zh_Hans = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -3291,7 +3298,7 @@ webpackJsonp([26],{
 /***/ 70:
 /***/ function(module, exports) {
 
-	// Generated at: 3/28/2017 1:06:30 PM
+	// Generated at: 3/31/2017 12:39:17 PM
 	window._language_ko_KR = {
 	AA:"AA",
 	AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",

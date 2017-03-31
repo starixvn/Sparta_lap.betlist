@@ -2,7 +2,7 @@ webpackJsonp([41],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(221);
+	module.exports = __webpack_require__(223);
 
 
 /***/ },
@@ -20181,22 +20181,116 @@ webpackJsonp([41],[
 /* 218 */,
 /* 219 */,
 /* 220 */,
-/* 221 */
+/* 221 */,
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(222)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site*/
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	    "use strict";
+	    var Report = (function () {
+	        return {
+	            ValidProducts: function () {
+	                var temp = true;
+	                if ($(".childCheckbox:checked").length === 0) {
+	                    temp = false;
+	                    var title = Site.getSingleResource("LrfNotification");
+	                    $('<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>').dialog({
+	                        open: function () {
+	                            $('#SubmitButton').prop('disabled', true);
+	                        },
+	                        close: function () {
+	                            $('#SubmitButton').removeAttr('disabled');
+	                        }
+	                    });
+	                }
+	
+	                return temp;
+	            },
+	            setOriginalProduct: function () {
+	                $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
+	                    var isCheck = $(this).is(":checked");
+	                    $(element).attr({ 'data-original': isCheck });
+	                });
+	            },
+	            bindSummaryTotal: function (columnModel, summaryTotal) {
+	                /// <summary>
+	                /// Bind summary total data to footer rows
+	                /// </summary>
+	                /// <param name="columnModel"></param>
+	                /// <param name="summaryTotal"></param>
+	                /// <returns type="int">Number of iserted row</returns>
+	                var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
+	                if (summaryTotal === undefined || summaryTotal == null || summaryTotal.length === 0) {
+	                    return;
+	                }
+	
+	                function processColumnModel(columnModel) {
+	                    var firstCell = null;
+	                    $(columnModel).each(function (cellIndex, modelElement) {
+	                        var cell = cellList.get(cellIndex);
+	                        var isCustomFormater = typeof (modelElement.formatter) === "function";
+	                        var rawValue = summaryData[modelElement.name];
+	                        var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+	                                    $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
+	                        var titleValue = value;
+	                        if ($.isNumeric(rawValue) && rawValue < 0) {
+	                            var wrapper = document.createElement('div');
+	                            wrapper.innerHTML = value;
+	                            titleValue = wrapper.outerHtml;
+	                        }
+	
+	                        $(cell).html(value).attr("title", titleValue);
+	                        firstCell = !firstCell ? $(cell) : firstCell;
+	                    });
+	
+	                    return firstCell;
+	                }
+	
+	                var rowCount = 0;
+	                var currencyList = [];
+	                for (var currency in summaryTotal) {
+	                    currencyList.push(currency);
+	                    var summaryData = summaryTotal[currency];
+	
+	                    var row = mainFooter.clone();
+	                    row.addClass("total-eur total-eur-none-top-se");
+	                    var cellList = $("td", row);
+	                    var firstCell = processColumnModel(columnModel);
+	                    firstCell.html("Total in " + currency);
+	                    firstCell.addClass("group-" + currency);
+	                    row.insertAfter(mainFooter);
+	                    rowCount++;
+	                }
+	
+	                $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+	                mainFooter.remove();
+	
+	                return rowCount;
+	            }
+	        };
+	    })();
+	
+	    return Report;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(224)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
 	    "use strict";
 	    $(LicenseeWinLoss.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 222 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(223), __webpack_require__(224),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(222), __webpack_require__(225),
 	        __webpack_require__(179), __webpack_require__(190), __webpack_require__(72), __webpack_require__(9),
-	        __webpack_require__(182), __webpack_require__(183), __webpack_require__(204), __webpack_require__(225)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup) {
+	        __webpack_require__(182), __webpack_require__(183), __webpack_require__(204), __webpack_require__(226)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup) {
 	        "use strict";
 	        var REPORT_BY_MONTHLY = 2;
 	
@@ -20688,100 +20782,7 @@ webpackJsonp([41],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 223 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site*/
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
-	    "use strict";
-	    var Report = (function () {
-	        return {
-	            ValidProducts: function () {
-	                var temp = true;
-	                if ($(".childCheckbox:checked").length === 0) {
-	                    temp = false;
-	                    var title = Site.getSingleResource("LrfNotification");
-	                    $('<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>').dialog({
-	                        open: function () {
-	                            $('#SubmitButton').prop('disabled', true);
-	                        },
-	                        close: function () {
-	                            $('#SubmitButton').removeAttr('disabled');
-	                        }
-	                    });
-	                }
-	
-	                return temp;
-	            },
-	            setOriginalProduct: function () {
-	                $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-	                    var isCheck = $(this).is(":checked");
-	                    $(element).attr({ 'data-original': isCheck });
-	                });
-	            },
-	            bindSummaryTotal: function (columnModel, summaryTotal) {
-	                /// <summary>
-	                /// Bind summary total data to footer rows
-	                /// </summary>
-	                /// <param name="columnModel"></param>
-	                /// <param name="summaryTotal"></param>
-	                /// <returns type="int">Number of iserted row</returns>
-	                var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-	                if (summaryTotal === undefined || summaryTotal == null || summaryTotal.length === 0) {
-	                    return;
-	                }
-	
-	                function processColumnModel(columnModel) {
-	                    var firstCell = null;
-	                    $(columnModel).each(function (cellIndex, modelElement) {
-	                        var cell = cellList.get(cellIndex);
-	                        var isCustomFormater = typeof (modelElement.formatter) === "function";
-	                        var rawValue = summaryData[modelElement.name];
-	                        var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
-	                                    $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
-	                        var titleValue = value;
-	                        if ($.isNumeric(rawValue) && rawValue < 0) {
-	                            var wrapper = document.createElement('div');
-	                            wrapper.innerHTML = value;
-	                            titleValue = wrapper.outerHtml;
-	                        }
-	
-	                        $(cell).html(value).attr("title", titleValue);
-	                        firstCell = !firstCell ? $(cell) : firstCell;
-	                    });
-	
-	                    return firstCell;
-	                }
-	
-	                var rowCount = 0;
-	                var currencyList = [];
-	                for (var currency in summaryTotal) {
-	                    currencyList.push(currency);
-	                    var summaryData = summaryTotal[currency];
-	
-	                    var row = mainFooter.clone();
-	                    row.addClass("total-eur total-eur-none-top-se");
-	                    var cellList = $("td", row);
-	                    var firstCell = processColumnModel(columnModel);
-	                    firstCell.html("Total in " + currency);
-	                    firstCell.addClass("group-" + currency);
-	                    row.insertAfter(mainFooter);
-	                    rowCount++;
-	                }
-	
-	                $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
-	                mainFooter.remove();
-	
-	                return rowCount;
-	            }
-	        };
-	    })();
-	
-	    return Report;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
@@ -20790,7 +20791,7 @@ webpackJsonp([41],[
 	*  "0" for master,"1" for agent and "2" for member
 	*/
 	
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(179), __webpack_require__(225)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(179), __webpack_require__(226)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
 	        "use strict";
 	        var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA", "CO"];
 	        var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
@@ -21589,7 +21590,7 @@ webpackJsonp([41],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports) {
 
 	/*--------------------------------------------------------------------------

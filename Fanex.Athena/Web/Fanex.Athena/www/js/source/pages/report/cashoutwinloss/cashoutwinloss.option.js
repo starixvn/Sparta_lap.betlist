@@ -1,7 +1,7 @@
 ﻿"use strict";
 define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], function ($, Site, jqGridAdditional) {
     var setDrillDownLink = function (level, currencyId, custId, datetime, cellvalue) {
-        return '<a class="drilldown" href="javascript:;" onclick="return CashOutWinLoss.drillDown(' + level + ',' +
+        return '<a class="drilldown" href="javascript:;" onclick="return cashoutDrillDown(' + level + ',' +
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
 
@@ -20,7 +20,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         name: 'Index',
         index: 'Index',
         resizable: false,
-        width: 30,
+        width: 45,
         align: 'center',
         valign: 'middle',
         frozen: true,
@@ -33,7 +33,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         name: 'Date',
         index: 'Date',
         resizable: false,
-        width: 55,
+        width: 100,
         align: 'center',
         valign: 'middle',
         sortable: false,
@@ -61,7 +61,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         name: 'SystemId',
         index: 'SystemId',
         resizable: false,
-        width: 120,
+        width: 150,
         align: 'left',
         sortable: false,
         formatter: function (cellvalue, options, rowObject) {
@@ -73,7 +73,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     {
         name: 'CurrencyName',
         index: 'CurrencyName',
-        width: 60,
+        width: 80,
         align: 'center',
         sortable: false,
         resizable: false,
@@ -84,7 +84,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     {
         name: 'CashOutTimes',
         index: 'CashOutTimes',
-        width: 75,
+        width: 120,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -97,7 +97,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     {
         name: 'CashOutTickets',
         index: 'CashOutTickets',
-        width: 75,
+        width: 100,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -113,7 +113,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     {
         name: 'CashOutValue',
         index: 'CashOutValue',
-        width: 90,
+        width: 120,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -146,7 +146,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     {
         name: 'SettleAmountTicketPayout',
         index: 'SettleAmountTicketPayout',
-        width: 80,
+        width: 100,
         align: 'right',
         sortable: true,
         resizable: false,
@@ -159,7 +159,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     {
         name: 'SettleAmountBuyBackComm',
         index: 'SettleAmountBuyBackComm',
-        width: 80,
+        width: 100,
         align: 'right',
         sortable: true,
         resizable: false,
@@ -172,7 +172,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     {
         name: 'SettleAmountTotal',
         index: 'SettleAmountTotal',
-        width: 80,
+        width: 100,
         align: 'right',
         sortable: true,
         resizable: false,
@@ -207,7 +207,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     {
         name: 'Dummy',
         index: 'Dummy',
-        width: 80,
+        width: 100,
         align: 'right',
         sortable: true,
         resizable: false,
@@ -245,6 +245,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     }
 
     var _me = {
+        licenseeId: 0,
         isLicenseeOfferBA: false,
         buyBackAmountColumnIndex: 7,
         totalColspan: [2, 2, 3],
