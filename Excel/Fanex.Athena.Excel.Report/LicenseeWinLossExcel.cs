@@ -63,11 +63,11 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalNoSolidBorder = 5;
         private const int RowTotalSolidBorder = 4;
 
-        private const int TotalLicenseeWlProductColumn = 15;
-        private const int TotalTurnoverProductColumn = 15;
+        private const int TotalLicenseeWlProductColumn = 16;
+        private const int TotalTurnoverProductColumn = 16;
 
-        private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.RB, Product.BA, Product.CO };
-        private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT, Product.CO };
+        private static readonly string[] IgnoredLicenseeWLProducts = new string[] { Product.RB, Product.BA };
+        private static readonly string[] IgnoredTurnoverProducts = new string[] { Product.BT };
 
         private readonly IDictionary<string, bool> _offeredProducts = new Dictionary<string, bool>
             {
