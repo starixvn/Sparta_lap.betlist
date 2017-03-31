@@ -14,7 +14,7 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public int Index { get; set; }
 
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
 
         public string ExternalId { get; set; }
 
@@ -44,7 +44,7 @@ namespace Fanex.Athena.Model.Report.DTO
             }
         }
 
-        public decimal TicketsPayout { get; set; }
+        public decimal TicketPayout { get; set; }
 
         public decimal CashOutCommission { get; set; }
 

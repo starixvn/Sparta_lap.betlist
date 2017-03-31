@@ -7,37 +7,53 @@
 namespace Fanex.Athena.Excel.Report
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using Resources;
+    using Service.Report;
 
     public class CashOutWinLossExcel : ReportBase
     {
-        private const int ColumnTemplateCount = 9;
-
         private const int ColumnDate = 1;
         private const int ColumnExternalId = 2;
         private const int ColumnSystemId = 3;
         private const int ColumnCurrency = 4;
-        private const int ColumnTurnover = 5;
-        private const int ColumnTotalTransaction = 6;
-        private const int ColumnCustomerWl = 7;
-        private const int ColumnLicenseeWl = 8;
 
-        private const int RowContentTemplate = 2;
-        private const int RowTotalNoSolidBorder = 4;
-        private const int RowTotalSolidBorder = 3;
-        private const int RowGrantTotal = 5;
-        private const int RowNoInfoTemplate = 6;
+        private const int ColumnCashOutTimes = 5;
+        private const int ColumnCashOutTickets = 6;
+        private const int ColumnCashOutValue = 7;
 
-        // This is drill down of report
-        private readonly IList<CashOutWinLoss> _winLossList;
+        private const int ColumnBuyBackAmountSportsbook = 8;
+        private const int ColumnBuyBackAmountBA = 9;
+        private const int ColumnBuyBackAmountTotal = 10;
+
+        private const int ColumnTicketPayout = 11;
+        private const int ColumnCashOutCommssion = 12;
+
+        private const int ColumnSettleAmountTicketPayout = 13;
+        private const int ColumnSettleAmountBBAmtComm = 14;
+        private const int ColumnSettleAmountTotal = 15;
+
+        private const int ColumnTemplateCount = 15;
+
+        private const int RowContentTemplate = 3;
+        private const int RowGrantTotal = 6;
+        private const int RowNoInfoTemplate = 7;
+        private const int RowTotalNoSolidBorder = 5;
+        private const int RowTotalSolidBorder = 4;
+
+        private readonly bool _isAllowBA;
+
+        private readonly IList<CashOutWinLoss> _dataList;
 
         private readonly CashOutWinLossMetaModel _metaModel;
         private readonly IDictionary<string, CashOutWinLoss> _summaryTotal;
@@ -51,8 +67,9 @@ namespace Fanex.Athena.Excel.Report
             : base(templatePath, exportingFileName, null, convertingOption)
         {
             _metaModel = metaModel;
-            _winLossList = viewModel.MainResult;
+            _dataList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
+            _isAllowBA = metaModel.ProductOptions.Any(x => x.Code == Product.BA);
         }
 
         public int Level
@@ -63,7 +80,7 @@ namespace Fanex.Athena.Excel.Report
 
         public override void AssignData()
         {
-            int numOfDataRow = _winLossList.Count;
+            int numOfDataRow = _dataList.Count;
 
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
 
@@ -82,18 +99,34 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         public override void AssignHeader(ISheet sheet)
         {
+            // row 1
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
             row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
-            row.Cells[ColumnTurnover].SetCellValue(ViewResources.Turnover);
-            row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
-            row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.CustomerW_L);
-            row.Cells[ColumnLicenseeWl].SetCellValue(ViewResources.LicenseeW_L);
+            row.Cells[ColumnCashOutTimes].SetCellValue(ViewResources.CashOutTimes);
+            row.Cells[ColumnCashOutTickets].SetCellValue(ViewResources.CashOutTickets);
+            row.Cells[ColumnCashOutValue].SetCellValue(ViewResources.CashOutValue);
+            row.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(ViewResources.BuyBackAmount);
+            row.Cells[ColumnTicketPayout].SetCellValue(ViewResources.TicketPayout);
+            row.Cells[ColumnCashOutCommssion].SetCellValue(ViewResources.CashOutCommission);
+            row.Cells[ColumnSettleAmountTicketPayout].SetCellValue(ViewResources.Settled);
+
+            // row 2
+            IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
+
+            row2.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(ViewResources.Sportsbook);
+            row2.Cells[ColumnBuyBackAmountBA].SetCellValue(ViewResources.ProductBA);
+            row2.Cells[ColumnBuyBackAmountTotal].SetCellValue(ViewResources.Total);
+
+            row2.Cells[ColumnSettleAmountTicketPayout].SetCellValue(ViewResources.TicketPayout);
+            row2.Cells[ColumnSettleAmountBBAmtComm].SetCellValue(ViewResources.BBAmtComm);
+            row2.Cells[ColumnSettleAmountTotal].SetCellValue(ViewResources.Total);
         }
 
         public override void AssignNoInfoRow(ISheet sheet)
@@ -102,52 +135,58 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         public override void AssignSheetData(ISheet sheet)
         {
+            var rowSpan = 1;
             var rowIndex = 1;
+            var indexDetail = 1;
             int index;
-            var dateStringFormat = _metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
-            var rowCount = _winLossList.Count;
+            var rowCount = _dataList.Count;
 
             for (index = 0; index < rowCount; index++)
             {
-                var licenseeWinLoss = _winLossList[index];
+                var item = _dataList[index];
 
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
                 // Report Date
-                var reportDateString = licenseeWinLoss.Date.Value.ToString(dateStringFormat);
+                var reportDateString = _metaModel.ReportBy == ReportByType.Monthly
+                                          ? item.Date.ToString("MM/yyyy")
+                                          : item.Date.ToShortDateString();
 
-                row.Cells[ColumnIndex].SetCellValue(licenseeWinLoss.Index);
-                row.Cells[ColumnDate].SetCellValue(reportDateString);
-                row.Cells[ColumnExternalId].SetCellValue(licenseeWinLoss.ExternalId);
-                row.Cells[ColumnSystemId].SetCellValue(licenseeWinLoss.SystemId);
-                row.Cells[ColumnCurrency].SetCellValue(licenseeWinLoss.CurrencyName);
-                AssignCommonData(row, licenseeWinLoss);
-                rowIndex++;
+                // Merge first two columns
+                var needMerge = index >= rowCount - 1 ||
+                                 item.Date.Date != _dataList[index + 1].Date.Date;
 
-                if (licenseeWinLoss.RowSpan > 1)
+                // Merge cell
+                if (needMerge && rowSpan > 1)
                 {
-                    var currentRow = index + RowContentTemplate;
-                    sheet.MergeCells(currentRow, ColumnIndex, currentRow + licenseeWinLoss.RowSpan - 1, ColumnIndex);
-                    sheet.MergeCells(currentRow, ColumnDate, currentRow + licenseeWinLoss.RowSpan - 1, ColumnDate);
-                    continue;
+                    if (Level == 0)
+                    {
+                        sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnIndex, index + RowContentTemplate, ColumnIndex);
+                    }
+
+                    sheet.MergeCells(index + RowContentTemplate - rowSpan + 1, ColumnDate, index + RowContentTemplate, ColumnDate);
                 }
+
+                rowSpan = needMerge ? 1 : rowSpan + 1;
+
+                var indexid = Level == 0 ? rowIndex : indexDetail++;
+                row.Cells[ColumnIndex].SetCellValue(indexid);
+                rowIndex = needMerge ? rowIndex + 1 : rowIndex;
+
+                row.Cells[ColumnExternalId].SetCellValue(item.ExternalId);
+                row.Cells[ColumnSystemId].SetCellValue(item.SystemId);
+                row.Cells[ColumnDate].SetCellValue(reportDateString);
+                row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
+                AssignCommonData(row, item);
             }
 
-            rowIndex = AssignTotalData(sheet, index + 2);
+            rowIndex = AssignTotalData(sheet, index + 3);
             AssignGrandTotalInEurData(sheet, rowIndex);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         public override void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
@@ -156,11 +195,11 @@ namespace Fanex.Athena.Excel.Report
                 ? GetExactTitleCurrencyName(_metaModel.DrillDownCurrencyId)
                 : GetExactTitleCurrencyName(_metaModel.CurrencyId);
 
-            ReportTitle = string.Format(ViewResources.AGCasinoWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
+            ReportTitle = string.Format(ViewResources.CashOutWinLoss + ", {0} --> {1} - {2}", fromdate, todate, title);
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);
 
             // Freeze 2 rows title and header
-            sheet.CreateFreezePane(0, 2);
+            sheet.CreateFreezePane(0, 3);
 
             // Remove content below header before insert new data
             ClearTemplate(sheet, RowContentTemplate);
@@ -170,8 +209,15 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         public override void ProcessUI(ISheet sheet)
         {
+            if (!_isAllowBA)
+            {
+                HideColumn(sheet, ColumnBuyBackAmountBA, ColumnBuyBackAmountTotal);
+                sheet.MergeCells(RowHeaderTemplate, ColumnBuyBackAmountSportsbook, RowHeaderTemplate + 1, ColumnBuyBackAmountSportsbook);
+            }
+
             switch (Level)
             {
                 case 0:
@@ -190,17 +236,22 @@ namespace Fanex.Athena.Excel.Report
 
         protected void AssignCommonData(IRow row, CashOutWinLoss data)
         {
-            row.Cells[ColumnTurnover].SetCellValue(data.CashOutTimes);
-            row.Cells[ColumnTotalTransaction].SetCellValue(data.CashOutTickets);
-            row.Cells[ColumnCustomerWl].SetCellValue(data.CashOutValue);
+            row.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(data.BuyBackAmountSB);
+            row.Cells[ColumnBuyBackAmountBA].SetCellValue(data.BuyBackAmountBA);
+            row.Cells[ColumnBuyBackAmountTotal].SetCellValue(data.TotalBuyBackAmount);
         }
 
+        /// <summary>
+        /// Assign grand total data of EUR.
+        /// </summary>
+        /// <param name="sheet">Excel sheet.</param>
+        /// <param name="rowIndex">The starting row index.</param>
+        /// <returns>The last row index after assign data.</returns>
         protected int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
-            var currencyList = _summaryTotal.Keys.ToList();
-            currencyList.Reverse();
+            var currencies = _summaryTotal.Keys.Reverse();
 
-            foreach (string currency in currencyList)
+            foreach (string currency in currencies)
             {
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
@@ -227,9 +278,9 @@ namespace Fanex.Athena.Excel.Report
         protected int AssignTotalData(ISheet sheet, int rowIndex)
         {
             int beginTotalRow = rowIndex;
-            List<CashOutWinLoss> totalCurrencyList = GetTotalCurrency(_winLossList);
+            var totalCurrencyList = GetTotalCurrency(_dataList);
 
-            foreach (CashOutWinLoss totalCurrency in totalCurrencyList)
+            foreach (var totalCurrency in totalCurrencyList)
             {
                 // Copy template
                 IRow row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
@@ -253,20 +304,13 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        /// <summary>
-        /// Get total currency data.
-        /// </summary>
-        /// <param name="dataList">Report data.</param>
-        /// <returns>List of CashOutWinLoss entity.</returns>
-        private static List<CashOutWinLoss> GetTotalCurrency(IEnumerable<CashOutWinLoss> dataList)
+        private static IList<CashOutWinLoss> GetTotalCurrency(IEnumerable<CashOutWinLoss> dataList)
         {
             var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
                     .Select(group => new CashOutWinLoss
                     {
                         CurrencyName = group.Key.CurrencyName,
-                        CashOutTimes = group.Sum(a => a.CashOutTimes),
-                        CashOutTickets = group.Sum(a => a.CashOutTickets),
-                        CashOutValue = group.Sum(a => a.CashOutValue)
+                        CashOutTimes = group.Sum(a => a.CashOutTimes)
                     }).ToList();
 
             return listTotalCurrency;

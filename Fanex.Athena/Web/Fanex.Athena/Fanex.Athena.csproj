@@ -844,6 +844,7 @@
     <Content Include="SiteConfig\Web.PROStatic.config" />
     <Content Include="SiteConfig\WebConfigTransforms\PROStatic.config" />
     <Content Include="SiteConfig\WebConfigTransforms\DEV.config" />
+    <Content Include="App_Data\Template\Reports\CashOutWinLoss.xls" />
     <None Include="SiteConfig\Web.DEV.config" />
     <Content Include="Views\Customer\BetSetting\CashOut.cshtml" />
     <Content Include="www\css\source\components\selectlist\selectlist.scss" />

@@ -125,10 +125,10 @@ var CashOutWinLossOption = (function () {
         formatter: jqGridAdditional.formatDecimal
     };
 
-    var ticketsPayoutColumn =
+    var ticketPayoutColumn =
     {
-        name: 'TicketsPayout',
-        index: 'TicketsPayout',
+        name: 'TicketPayout',
+        index: 'TicketPayout',
         width: 90,
         align: 'right',
         sortable: false,
@@ -226,11 +226,11 @@ var CashOutWinLossOption = (function () {
     //#endregion
 
     var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
-      'CashOutTimes', 'CashOutTickets', 'CashOutValue', 'TicketsPayout', 'CashOutCommission',
+      'CashOutTimes', 'CashOutTickets', 'CashOutValue', 'TicketPayout', 'CashOutCommission',
       'TicketPayout', 'BBAmtComm', 'Total', 'CurrencyId', 'CustomerId'];
 
     var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
-        cashOutTimesColumn, cashOutTicketsColumn, cashOutValueColumn, ticketsPayoutColumn, cashOutCommissionColumn,
+        cashOutTimesColumn, cashOutTicketsColumn, cashOutValueColumn, ticketPayoutColumn, cashOutCommissionColumn,
         settleAmountTicketPayoutColumn, settleAmountBuyBackCommColumn, settleAmountTotalColumn, currencyIdColumn, customerIdColumn];
 
     var me =

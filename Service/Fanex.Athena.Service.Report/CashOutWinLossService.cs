@@ -59,7 +59,7 @@ namespace Fanex.Athena.Service.Report
             {
                 if (date != item.Date)
                 {
-                    date = item.Date ?? new System.DateTime();
+                    date = item.Date;
                     item.RowSpan = result.Count(x => x.Date == item.Date);
                     item.Index = index++;
                 }

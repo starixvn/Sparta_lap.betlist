@@ -70,7 +70,7 @@ namespace Fanex.Athena.Api.Report
 
             var currency = currencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
             var exportedFileName = string.Format(
-                "AGWinLoss_{0:ddMMMyyyy}_{1}.xls",
+                "CashOutWinLoss_{0:ddMMMyyyy}_{1}.xls",
                 metaModel.DrillDownLevel > 0 ? metaModel.DrillDownFromDate : metaModel.FromDate,
                 currency.Key == 0 ? "All" : currency.Value);
             var convertingOption = new ConvertingOption
@@ -91,13 +91,13 @@ namespace Fanex.Athena.Api.Report
                 metaModel.ToDate = metaModel.DrillDownToDate;
             }
 
-            var exccelModel = new CashOutWinLossViewModel
+            var excelModel = new CashOutWinLossViewModel
             {
                 MainResult = dataList,
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new CashOutWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, exccelModel)
+            var excel = new CashOutWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, excelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };

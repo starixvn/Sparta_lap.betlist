@@ -22,6 +22,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
+    using Report.Interfaces;
 
     public class CashOutWinLossDataAccess : BaseDataAccess, ICashOutWinLossDataAccess
     {
@@ -138,7 +139,7 @@ namespace Fanex.Athena.DataAccess.Report
                     CashOutValue = reader.ToDecimal(winlostColumn),
                     CashOutTimes = reader.ToDecimal(turnoverColumn),
                     CashOutTickets = reader.ToInt("totaltrans"),
-                    Date = hasWinlostDate ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
+                    Date = hasWinlostDate ? (DateTime)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
                 };
 
                 result.Add(item);
