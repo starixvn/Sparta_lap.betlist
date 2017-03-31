@@ -8,7 +8,6 @@
 
         var cacheData = {};
         var ajaxRequest = null;
-        var totalRowCount = 0;
         var _sortColumnName = null;
         var _sortOrder = "desc";
         var _level = 0;
@@ -17,9 +16,6 @@
         var _submitData; // cache submit data of level 0.
 
         var _me = {
-            getTotalRowCount: function () {
-                return totalRowCount;
-            },
             initialize: function () {
                 Site.initialize();
                 _me.initEvent();
@@ -99,7 +95,9 @@
                 $("#level-link-container").on("click", ".level-link", function () {
                     var level = Number($(this).attr("data-level"));
                     _level = level;
-                    return _me.goBack(level);
+                    if (level < 2) {
+                        _me.goBack(level);
+                    }
                 });
 
                 $(window).on("resize", function () {
@@ -107,7 +105,7 @@
                 });
 
                 $(window).on("unload", function () {
-                    $(window).unbind("resize");
+                    $(window).off("resize");
                 });
             },
 
@@ -122,40 +120,11 @@
                 LicenseeWinLossOption.urlExcelData = temp;
             },
 
-            renderBreadCrumb: function (level) {
-                level = Number(level);
-                if (level === 0) {
-                    $(".breadCrumbHolder").hide();
-                }
-                else {
-                    $(".breadCrumbHolder").show();
-                    $("#level-link-container .level0").show();
-
-                    var showLevel2 = level === 2;
-                    $("#level-link-container .level2").toggle(showLevel2).toggleClass("active", showLevel2);
-                    $("#level-link-container .level1").toggle(Number(LicenseeWinLossOption.licenseeId) === 1).toggleClass("active", !showLevel2);
-                }
-            },
-
             setReportTitle: function (currencyId, fromdate, todate, currencyName) {
                 var titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-                var viewinKey = Site.getSingleResource("Viewin");
-                //get currencyName
-                var currencyTextList =
-                {
-                    "-3": viewinKey.replace("{0}", "GBP"),
-                    "-2": viewinKey.replace("{0}", "USD"),
-                    "-1": viewinKey.replace("{0}", "EUR"),
-                    "0": Site.getSingleResource('AllCurrencies')
-                };
-
-                var currencyStr = currencyTextList[currencyId] === undefined
-                    ? viewinKey.replace("{0}", currencyName || Site.getCurrencyName(currencyId))
-                    : currencyTextList[currencyId];
-
-                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyStr); // jshint ignore:line
+                var currencyName = Report.getCurrencyNameForReportTitle(currencyId);
+                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyName);
                 $(".report-title").html(title);
-                // Show title
                 $(".panel-heading").removeClass("hide");
             },
             //#end
@@ -172,7 +141,7 @@
                         _me.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
                     }
 
-                    _me.renderBreadCrumb(level);
+                    Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
                     _me.bindData(level, reportBy, response);
                 }
             },
@@ -319,18 +288,15 @@
 
             goBack: function (level) {
                 var reportBy = _submitData.ReportBy;
+                Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
+                _me.bindData(level, reportBy, cacheData[level]);
 
                 if (level === 0) {
-                    _me.renderBreadCrumb(level);
-                    _me.bindData(0, reportBy, cacheData[level]);
-                    //reset excel Link
                     _me.setExcelUrl(0, 0, 0, "", "", "");
                     _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
                 else if (level === 1) {
-                    _me.bindData(1, reportBy, cacheData[level]);
                     LicenseeWinLossOption.urlExcelData = LicenseeWinLossOption.urlExcelData.replace("level=2", "level=1");
-                    _me.renderBreadCrumb(level);
                 }
             },
 
@@ -362,8 +328,6 @@
                 productOptions = productOptions.reverse(); //make orders of product columns like excel file
 
                 var numOfTotalRow = response.Total.length;
-                totalRowCount = numOfTotalRow;
-
                 var onPaging = false;
 
                 var gridOption = LicenseeWinLossOption.getGridOption(level, reportBy, productOptions);

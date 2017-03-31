@@ -20223,7 +20223,7 @@ webpackJsonp([40],[
 	                CashOutWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
 	            },
 	
-	            registerGlobalFunction: function(){
+	            registerGlobalFunction: function () {
 	                window.cashoutDrillDown = _me.drillDown;
 	            },
 	
@@ -20247,7 +20247,9 @@ webpackJsonp([40],[
 	                $("#level-link-container").on("click", ".level-link", function () {
 	                    var level = Number($(this).data("level"));
 	                    _level = level;
-	                    return _me.goBack(level);
+	                    if (level < 2) {
+	                        _me.goBack(level);
+	                    }
 	                });
 	
 	                $(window).on("resize", function () {
@@ -20307,46 +20309,17 @@ webpackJsonp([40],[
 	                        _me.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);
 	                    }
 	
-	                    _me.renderBreadCrumb(level);
+	                    Report.renderBreadCrumb(level, CashOutWinLossOption.licenseeId);
 	                    _me.bindData(level, response);
 	                }
 	            },
 	
 	            setReportTitle: function (currencyId, fromdate, todate) {
 	                var titlePattern = Site.getSingleResource('CashOutWinLoss') + ', {0} → {1} - {2}';
-	                var currencyName = _me.getCurrencyName(currencyId);
+	                var currencyName = Report.getCurrencyNameForReportTitle(currencyId);
 	                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyName);
 	                $(".report-title").html(title);
 	                $(".panel-heading").removeClass("hide");
-	            },
-	
-	            getCurrencyName: function (currencyId) {
-	                var viewinKey = Site.getSingleResource("Viewin");
-	                var currencyTextList = {
-	                    "-3": viewinKey.replace("{0}", "GBP"),
-	                    "-2": viewinKey.replace("{0}", "USD"),
-	                    "-1": viewinKey.replace("{0}", "EUR"),
-	                    "0": Site.getSingleResource('AllCurrencies')
-	                };
-	
-	                return currencyTextList[currencyId] === undefined
-	                    ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
-	                    : currencyTextList[currencyId];
-	            },
-	
-	            renderBreadCrumb: function (level) {
-	                level = Number(level);
-	                if (level === 0) {
-	                    $(".breadCrumbHolder").hide();
-	                }
-	                else {
-	                    $(".breadCrumbHolder").show();
-	                    $("#level-link-container .level0").show();
-	
-	                    var isLevel2 = level === 2;
-	                    $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
-	                    $("#level-link-container .level1").toggle(CashOutWinLossOption.licenseeId === 1).toggleClass("active", !isLevel2);
-	                }
 	            },
 	
 	            bindData: function (level, response) {
@@ -20397,16 +20370,15 @@ webpackJsonp([40],[
 	            },
 	
 	            goBack: function (level) {
+	                Report.renderBreadCrumb(level, CashOutWinLossOption.licenseeId);
+	                _me.bindData(level, cacheData[level]);
+	
 	                if (level === 0) {
-	                    _me.renderBreadCrumb(level);
-	                    _me.bindData(0, cacheData[level]);
 	                    _me.setExcelUrl(0, 0, 0, "", "");
 	                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
 	                }
 	                else if (level === 1) {
-	                    _me.bindData(1, cacheData[level]);
 	                    CashOutWinLossOption.urlExcelData = CashOutWinLossOption.urlExcelData.replace("level=2", "level=1");
-	                    _me.renderBreadCrumb(level);
 	                }
 	            },
 	
@@ -20854,93 +20826,132 @@ webpackJsonp([40],[
 /* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site*/
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
 	    "use strict";
-	    var Report = (function () {
-	        return {
-	            ValidProducts: function () {
-	                var temp = true;
-	                if ($(".childCheckbox:checked").length === 0) {
-	                    temp = false;
-	                    var title = Site.getSingleResource("LrfNotification");
-	                    $('<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>').dialog({
-	                        open: function () {
-	                            $('#SubmitButton').prop('disabled', true);
-	                        },
-	                        close: function () {
-	                            $('#SubmitButton').removeAttr('disabled');
-	                        }
-	                    });
-	                }
+	    
+	    var _me = {
+	        ValidProducts: function () {
+	            var temp = true;
+	            if ($(".childCheckbox:checked").length === 0) {
+	                temp = false;
+	                var title = Site.getSingleResource("LrfNotification");
+	                var message = Site.getSingleResource("AlertChooseProductMsg");
+	                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
 	
-	                return temp;
-	            },
-	            setOriginalProduct: function () {
-	                $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-	                    var isCheck = $(this).is(":checked");
-	                    $(element).attr({ 'data-original': isCheck });
+	                Popup.openPopup($dialog, {
+	                    width: 380,
+	                    height: 150,
+	                    title: title,
+	                    className: "popup-notification",
+	                    onOpen: function () {
+	                        $('#SubmitButton').prop('disabled', true);
+	                    },
+	                    onClose: function () {
+	                        $('#SubmitButton').removeAttr('disabled');
+	                    }
 	                });
-	            },
-	            bindSummaryTotal: function (columnModel, summaryTotal) {
-	                /// <summary>
-	                /// Bind summary total data to footer rows
-	                /// </summary>
-	                /// <param name="columnModel"></param>
-	                /// <param name="summaryTotal"></param>
-	                /// <returns type="int">Number of iserted row</returns>
-	                var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-	                if (summaryTotal === undefined || summaryTotal == null || summaryTotal.length === 0) {
-	                    return;
-	                }
-	
-	                function processColumnModel(columnModel) {
-	                    var firstCell = null;
-	                    $(columnModel).each(function (cellIndex, modelElement) {
-	                        var cell = cellList.get(cellIndex);
-	                        var isCustomFormater = typeof (modelElement.formatter) === "function";
-	                        var rawValue = summaryData[modelElement.name];
-	                        var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
-	                                    $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
-	                        var titleValue = value;
-	                        if ($.isNumeric(rawValue) && rawValue < 0) {
-	                            var wrapper = document.createElement('div');
-	                            wrapper.innerHTML = value;
-	                            titleValue = wrapper.outerHtml;
-	                        }
-	
-	                        $(cell).html(value).attr("title", titleValue);
-	                        firstCell = !firstCell ? $(cell) : firstCell;
-	                    });
-	
-	                    return firstCell;
-	                }
-	
-	                var rowCount = 0;
-	                var currencyList = [];
-	                for (var currency in summaryTotal) {
-	                    currencyList.push(currency);
-	                    var summaryData = summaryTotal[currency];
-	
-	                    var row = mainFooter.clone();
-	                    row.addClass("total-eur total-eur-none-top-se");
-	                    var cellList = $("td", row);
-	                    var firstCell = processColumnModel(columnModel);
-	                    firstCell.html("Total in " + currency);
-	                    firstCell.addClass("group-" + currency);
-	                    row.insertAfter(mainFooter);
-	                    rowCount++;
-	                }
-	
-	                $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
-	                mainFooter.remove();
-	
-	                return rowCount;
 	            }
-	        };
-	    })();
 	
-	    return Report;
+	            return temp;
+	        },
+	
+	        setOriginalProduct: function () {
+	            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
+	                var isCheck = $(this).is(":checked");
+	                $(element).attr({ 'data-original': isCheck });
+	            });
+	        },
+	
+	        bindSummaryTotal: function (columnModel, summaryTotal) {
+	            /// <summary>
+	            /// Bind summary total data to footer rows
+	            /// </summary>
+	            /// <param name="columnModel"></param>
+	            /// <param name="summaryTotal"></param>
+	            /// <returns type="int">Number of iserted row</returns>
+	            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
+	            if (!summaryTotal || summaryTotal.length === 0) {
+	                return;
+	            }
+	
+	            function processColumnModel(columnModel) {
+	                var firstCell = null;
+	                $(columnModel).each(function (cellIndex, modelElement) {
+	                    var cell = cellList.get(cellIndex);
+	                    var isCustomFormater = typeof (modelElement.formatter) === "function";
+	                    var rawValue = summaryData[modelElement.name];
+	                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+	                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
+	                    var titleValue = value;
+	                    if ($.isNumeric(rawValue) && rawValue < 0) {
+	                        var wrapper = document.createElement('div');
+	                        wrapper.innerHTML = value;
+	                        titleValue = wrapper.outerHtml;
+	                    }
+	
+	                    $(cell).html(value).attr("title", titleValue);
+	                    firstCell = !firstCell ? $(cell) : firstCell;
+	                });
+	
+	                return firstCell;
+	            }
+	
+	            var rowCount = 0;
+	            var currencyList = [];
+	            for (var currency in summaryTotal) {
+	                currencyList.push(currency);
+	                var summaryData = summaryTotal[currency];
+	
+	                var row = mainFooter.clone();
+	                row.addClass("total-eur total-eur-none-top-se");
+	                var cellList = $("td", row);
+	                var firstCell = processColumnModel(columnModel);
+	                firstCell.html("Total in " + currency);
+	                firstCell.addClass("group-" + currency);
+	                row.insertAfter(mainFooter);
+	                rowCount++;
+	            }
+	
+	            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+	            mainFooter.remove();
+	
+	            return rowCount;
+	        },
+	
+	        getCurrencyNameForReportTitle: function (currencyId) {
+	            var viewinKey = Site.getSingleResource("Viewin");
+	            var currencyTextList = {
+	                "-3": viewinKey.replace("{0}", "GBP"),
+	                "-2": viewinKey.replace("{0}", "USD"),
+	                "-1": viewinKey.replace("{0}", "EUR"),
+	                "0": Site.getSingleResource('AllCurrencies')
+	            };
+	
+	            return currencyTextList[currencyId] === undefined
+	                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+	                : currencyTextList[currencyId];
+	        },
+	
+	        renderBreadCrumb: function (level, licenseeId) {
+	            level = Number(level);
+	            if (level === 0) {
+	                $(".breadCrumbHolder").hide();
+	            }
+	            else {
+	                $(".breadCrumbHolder").show();
+	                $("#level-link-container .level0").show();
+	
+	                var isLevel2 = level === 2;
+	                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+	                
+	                var allowShowLevel1 = licenseeId === 1;
+	                $("#level-link-container .level1").toggle(allowShowLevel1);
+	                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+	            }
+	        }
+	    };
+	
+	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }

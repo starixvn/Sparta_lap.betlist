@@ -28,7 +28,7 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                 CashOutWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
             },
 
-            registerGlobalFunction: function(){
+            registerGlobalFunction: function () {
                 window.cashoutDrillDown = _me.drillDown;
             },
 
@@ -52,7 +52,9 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                 $("#level-link-container").on("click", ".level-link", function () {
                     var level = Number($(this).data("level"));
                     _level = level;
-                    return _me.goBack(level);
+                    if (level < 2) {
+                        _me.goBack(level);
+                    }
                 });
 
                 $(window).on("resize", function () {
@@ -112,46 +114,17 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                         _me.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);
                     }
 
-                    _me.renderBreadCrumb(level);
+                    Report.renderBreadCrumb(level, CashOutWinLossOption.licenseeId);
                     _me.bindData(level, response);
                 }
             },
 
             setReportTitle: function (currencyId, fromdate, todate) {
                 var titlePattern = Site.getSingleResource('CashOutWinLoss') + ', {0} → {1} - {2}';
-                var currencyName = _me.getCurrencyName(currencyId);
+                var currencyName = Report.getCurrencyNameForReportTitle(currencyId);
                 var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyName);
                 $(".report-title").html(title);
                 $(".panel-heading").removeClass("hide");
-            },
-
-            getCurrencyName: function (currencyId) {
-                var viewinKey = Site.getSingleResource("Viewin");
-                var currencyTextList = {
-                    "-3": viewinKey.replace("{0}", "GBP"),
-                    "-2": viewinKey.replace("{0}", "USD"),
-                    "-1": viewinKey.replace("{0}", "EUR"),
-                    "0": Site.getSingleResource('AllCurrencies')
-                };
-
-                return currencyTextList[currencyId] === undefined
-                    ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
-                    : currencyTextList[currencyId];
-            },
-
-            renderBreadCrumb: function (level) {
-                level = Number(level);
-                if (level === 0) {
-                    $(".breadCrumbHolder").hide();
-                }
-                else {
-                    $(".breadCrumbHolder").show();
-                    $("#level-link-container .level0").show();
-
-                    var isLevel2 = level === 2;
-                    $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
-                    $("#level-link-container .level1").toggle(CashOutWinLossOption.licenseeId === 1).toggleClass("active", !isLevel2);
-                }
             },
 
             bindData: function (level, response) {
@@ -202,16 +175,15 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
             },
 
             goBack: function (level) {
+                Report.renderBreadCrumb(level, CashOutWinLossOption.licenseeId);
+                _me.bindData(level, cacheData[level]);
+
                 if (level === 0) {
-                    _me.renderBreadCrumb(level);
-                    _me.bindData(0, cacheData[level]);
                     _me.setExcelUrl(0, 0, 0, "", "");
                     _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
                 else if (level === 1) {
-                    _me.bindData(1, cacheData[level]);
                     CashOutWinLossOption.urlExcelData = CashOutWinLossOption.urlExcelData.replace("level=2", "level=1");
-                    _me.renderBreadCrumb(level);
                 }
             },
 

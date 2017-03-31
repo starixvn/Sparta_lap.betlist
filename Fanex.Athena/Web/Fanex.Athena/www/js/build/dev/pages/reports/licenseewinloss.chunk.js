@@ -20185,93 +20185,132 @@ webpackJsonp([41],[
 /* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site*/
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
 	    "use strict";
-	    var Report = (function () {
-	        return {
-	            ValidProducts: function () {
-	                var temp = true;
-	                if ($(".childCheckbox:checked").length === 0) {
-	                    temp = false;
-	                    var title = Site.getSingleResource("LrfNotification");
-	                    $('<div title="' + title + '">' + Site.getSingleResource("AlertChooseProductMsg") + '</div>').dialog({
-	                        open: function () {
-	                            $('#SubmitButton').prop('disabled', true);
-	                        },
-	                        close: function () {
-	                            $('#SubmitButton').removeAttr('disabled');
-	                        }
-	                    });
-	                }
+	    
+	    var _me = {
+	        ValidProducts: function () {
+	            var temp = true;
+	            if ($(".childCheckbox:checked").length === 0) {
+	                temp = false;
+	                var title = Site.getSingleResource("LrfNotification");
+	                var message = Site.getSingleResource("AlertChooseProductMsg");
+	                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
 	
-	                return temp;
-	            },
-	            setOriginalProduct: function () {
-	                $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-	                    var isCheck = $(this).is(":checked");
-	                    $(element).attr({ 'data-original': isCheck });
+	                Popup.openPopup($dialog, {
+	                    width: 380,
+	                    height: 150,
+	                    title: title,
+	                    className: "popup-notification",
+	                    onOpen: function () {
+	                        $('#SubmitButton').prop('disabled', true);
+	                    },
+	                    onClose: function () {
+	                        $('#SubmitButton').removeAttr('disabled');
+	                    }
 	                });
-	            },
-	            bindSummaryTotal: function (columnModel, summaryTotal) {
-	                /// <summary>
-	                /// Bind summary total data to footer rows
-	                /// </summary>
-	                /// <param name="columnModel"></param>
-	                /// <param name="summaryTotal"></param>
-	                /// <returns type="int">Number of iserted row</returns>
-	                var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-	                if (summaryTotal === undefined || summaryTotal == null || summaryTotal.length === 0) {
-	                    return;
-	                }
-	
-	                function processColumnModel(columnModel) {
-	                    var firstCell = null;
-	                    $(columnModel).each(function (cellIndex, modelElement) {
-	                        var cell = cellList.get(cellIndex);
-	                        var isCustomFormater = typeof (modelElement.formatter) === "function";
-	                        var rawValue = summaryData[modelElement.name];
-	                        var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
-	                                    $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
-	                        var titleValue = value;
-	                        if ($.isNumeric(rawValue) && rawValue < 0) {
-	                            var wrapper = document.createElement('div');
-	                            wrapper.innerHTML = value;
-	                            titleValue = wrapper.outerHtml;
-	                        }
-	
-	                        $(cell).html(value).attr("title", titleValue);
-	                        firstCell = !firstCell ? $(cell) : firstCell;
-	                    });
-	
-	                    return firstCell;
-	                }
-	
-	                var rowCount = 0;
-	                var currencyList = [];
-	                for (var currency in summaryTotal) {
-	                    currencyList.push(currency);
-	                    var summaryData = summaryTotal[currency];
-	
-	                    var row = mainFooter.clone();
-	                    row.addClass("total-eur total-eur-none-top-se");
-	                    var cellList = $("td", row);
-	                    var firstCell = processColumnModel(columnModel);
-	                    firstCell.html("Total in " + currency);
-	                    firstCell.addClass("group-" + currency);
-	                    row.insertAfter(mainFooter);
-	                    rowCount++;
-	                }
-	
-	                $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
-	                mainFooter.remove();
-	
-	                return rowCount;
 	            }
-	        };
-	    })();
 	
-	    return Report;
+	            return temp;
+	        },
+	
+	        setOriginalProduct: function () {
+	            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
+	                var isCheck = $(this).is(":checked");
+	                $(element).attr({ 'data-original': isCheck });
+	            });
+	        },
+	
+	        bindSummaryTotal: function (columnModel, summaryTotal) {
+	            /// <summary>
+	            /// Bind summary total data to footer rows
+	            /// </summary>
+	            /// <param name="columnModel"></param>
+	            /// <param name="summaryTotal"></param>
+	            /// <returns type="int">Number of iserted row</returns>
+	            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
+	            if (!summaryTotal || summaryTotal.length === 0) {
+	                return;
+	            }
+	
+	            function processColumnModel(columnModel) {
+	                var firstCell = null;
+	                $(columnModel).each(function (cellIndex, modelElement) {
+	                    var cell = cellList.get(cellIndex);
+	                    var isCustomFormater = typeof (modelElement.formatter) === "function";
+	                    var rawValue = summaryData[modelElement.name];
+	                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+	                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
+	                    var titleValue = value;
+	                    if ($.isNumeric(rawValue) && rawValue < 0) {
+	                        var wrapper = document.createElement('div');
+	                        wrapper.innerHTML = value;
+	                        titleValue = wrapper.outerHtml;
+	                    }
+	
+	                    $(cell).html(value).attr("title", titleValue);
+	                    firstCell = !firstCell ? $(cell) : firstCell;
+	                });
+	
+	                return firstCell;
+	            }
+	
+	            var rowCount = 0;
+	            var currencyList = [];
+	            for (var currency in summaryTotal) {
+	                currencyList.push(currency);
+	                var summaryData = summaryTotal[currency];
+	
+	                var row = mainFooter.clone();
+	                row.addClass("total-eur total-eur-none-top-se");
+	                var cellList = $("td", row);
+	                var firstCell = processColumnModel(columnModel);
+	                firstCell.html("Total in " + currency);
+	                firstCell.addClass("group-" + currency);
+	                row.insertAfter(mainFooter);
+	                rowCount++;
+	            }
+	
+	            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+	            mainFooter.remove();
+	
+	            return rowCount;
+	        },
+	
+	        getCurrencyNameForReportTitle: function (currencyId) {
+	            var viewinKey = Site.getSingleResource("Viewin");
+	            var currencyTextList = {
+	                "-3": viewinKey.replace("{0}", "GBP"),
+	                "-2": viewinKey.replace("{0}", "USD"),
+	                "-1": viewinKey.replace("{0}", "EUR"),
+	                "0": Site.getSingleResource('AllCurrencies')
+	            };
+	
+	            return currencyTextList[currencyId] === undefined
+	                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+	                : currencyTextList[currencyId];
+	        },
+	
+	        renderBreadCrumb: function (level, licenseeId) {
+	            level = Number(level);
+	            if (level === 0) {
+	                $(".breadCrumbHolder").hide();
+	            }
+	            else {
+	                $(".breadCrumbHolder").show();
+	                $("#level-link-container .level0").show();
+	
+	                var isLevel2 = level === 2;
+	                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+	                
+	                var allowShowLevel1 = licenseeId === 1;
+	                $("#level-link-container .level1").toggle(allowShowLevel1);
+	                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+	            }
+	        }
+	    };
+	
+	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
@@ -20296,7 +20335,6 @@ webpackJsonp([41],[
 	
 	        var cacheData = {};
 	        var ajaxRequest = null;
-	        var totalRowCount = 0;
 	        var _sortColumnName = null;
 	        var _sortOrder = "desc";
 	        var _level = 0;
@@ -20305,9 +20343,6 @@ webpackJsonp([41],[
 	        var _submitData; // cache submit data of level 0.
 	
 	        var _me = {
-	            getTotalRowCount: function () {
-	                return totalRowCount;
-	            },
 	            initialize: function () {
 	                Site.initialize();
 	                _me.initEvent();
@@ -20387,7 +20422,9 @@ webpackJsonp([41],[
 	                $("#level-link-container").on("click", ".level-link", function () {
 	                    var level = Number($(this).attr("data-level"));
 	                    _level = level;
-	                    return _me.goBack(level);
+	                    if (level < 2) {
+	                        _me.goBack(level);
+	                    }
 	                });
 	
 	                $(window).on("resize", function () {
@@ -20395,7 +20432,7 @@ webpackJsonp([41],[
 	                });
 	
 	                $(window).on("unload", function () {
-	                    $(window).unbind("resize");
+	                    $(window).off("resize");
 	                });
 	            },
 	
@@ -20410,40 +20447,11 @@ webpackJsonp([41],[
 	                LicenseeWinLossOption.urlExcelData = temp;
 	            },
 	
-	            renderBreadCrumb: function (level) {
-	                level = Number(level);
-	                if (level === 0) {
-	                    $(".breadCrumbHolder").hide();
-	                }
-	                else {
-	                    $(".breadCrumbHolder").show();
-	                    $("#level-link-container .level0").show();
-	
-	                    var showLevel2 = level === 2;
-	                    $("#level-link-container .level2").toggle(showLevel2).toggleClass("active", showLevel2);
-	                    $("#level-link-container .level1").toggle(Number(LicenseeWinLossOption.licenseeId) === 1).toggleClass("active", !showLevel2);
-	                }
-	            },
-	
 	            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
 	                var titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-	                var viewinKey = Site.getSingleResource("Viewin");
-	                //get currencyName
-	                var currencyTextList =
-	                {
-	                    "-3": viewinKey.replace("{0}", "GBP"),
-	                    "-2": viewinKey.replace("{0}", "USD"),
-	                    "-1": viewinKey.replace("{0}", "EUR"),
-	                    "0": Site.getSingleResource('AllCurrencies')
-	                };
-	
-	                var currencyStr = currencyTextList[currencyId] === undefined
-	                    ? viewinKey.replace("{0}", currencyName || Site.getCurrencyName(currencyId))
-	                    : currencyTextList[currencyId];
-	
-	                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyStr); // jshint ignore:line
+	                var currencyName = Report.getCurrencyNameForReportTitle(currencyId);
+	                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyName);
 	                $(".report-title").html(title);
-	                // Show title
 	                $(".panel-heading").removeClass("hide");
 	            },
 	            //#end
@@ -20460,7 +20468,7 @@ webpackJsonp([41],[
 	                        _me.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
 	                    }
 	
-	                    _me.renderBreadCrumb(level);
+	                    Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
 	                    _me.bindData(level, reportBy, response);
 	                }
 	            },
@@ -20607,18 +20615,15 @@ webpackJsonp([41],[
 	
 	            goBack: function (level) {
 	                var reportBy = _submitData.ReportBy;
+	                Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
+	                _me.bindData(level, reportBy, cacheData[level]);
 	
 	                if (level === 0) {
-	                    _me.renderBreadCrumb(level);
-	                    _me.bindData(0, reportBy, cacheData[level]);
-	                    //reset excel Link
 	                    _me.setExcelUrl(0, 0, 0, "", "", "");
 	                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
 	                }
 	                else if (level === 1) {
-	                    _me.bindData(1, reportBy, cacheData[level]);
 	                    LicenseeWinLossOption.urlExcelData = LicenseeWinLossOption.urlExcelData.replace("level=2", "level=1");
-	                    _me.renderBreadCrumb(level);
 	                }
 	            },
 	
@@ -20650,8 +20655,6 @@ webpackJsonp([41],[
 	                productOptions = productOptions.reverse(); //make orders of product columns like excel file
 	
 	                var numOfTotalRow = response.Total.length;
-	                totalRowCount = numOfTotalRow;
-	
 	                var onPaging = false;
 	
 	                var gridOption = LicenseeWinLossOption.getGridOption(level, reportBy, productOptions);
