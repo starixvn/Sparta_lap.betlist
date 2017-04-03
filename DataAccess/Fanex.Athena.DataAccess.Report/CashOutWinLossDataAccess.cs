@@ -6,10 +6,10 @@
 
 namespace Fanex.Athena.DataAccess.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using Extension.Helper;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -22,7 +22,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
-    using Report.Interfaces;
 
     public class CashOutWinLossDataAccess : BaseDataAccess, ICashOutWinLossDataAccess
     {
@@ -33,7 +32,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         public SortableList<CashOutWinLoss> GetSummaryWinloss(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal)
         {
-            var uspName = "Lrf_Rpt_AGCasinoWinloss";
+            var uspName = "Lrf_Rpt_CashoutWinloss";
             try
             {
                 using (var db = this.GetObjectDb(uspName))
@@ -59,35 +58,12 @@ namespace Fanex.Athena.DataAccess.Report
             CashOutWinLossMetaModel metaModel,
             out IDictionary<string, CashOutWinLoss> summaryTotal)
         {
-            var uspName = "LRF_Rpt_AGCasinoWinloss_Mem";
+            var uspName = "Lrf_Rpt_CashoutWinloss_Detail";
             try
             {
                 using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, metaModel, out summaryTotal);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName, metaModel);
-            }
-        }
-
-        public SortableList<CashOutWinLoss> GetAgentWinlossDetail(
-            CashOutWinLossMetaModel metaModel,
-            out IDictionary<string, CashOutWinLoss> summaryTotal)
-        {
-            var uspName = "LRF_Rpt_AGCasinoWinloss_Ag";
-            try
-            {
-                using (var db = this.GetObjectDb(uspName))
-                {
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
@@ -117,14 +93,24 @@ namespace Fanex.Athena.DataAccess.Report
                 summaryTotal.Add(currency, new CashOutWinLoss());
             }
 
-            var winlostColumn = "winlost" + metaModel.BaseCurrency;
-            var licenseewlColumn = "licenseewinlost" + metaModel.BaseCurrency;
-            var turnoverColumn = "turnover" + metaModel.BaseCurrency;
+            var cashOutTimeColumn = "cashouttime" + metaModel.BaseCurrency;
+            var cashOutValueColumn = "cashoutvalue" + metaModel.BaseCurrency;
+            var cashOutTicketColumn = "cashoutticket" + metaModel.BaseCurrency;
+
+            var buybackAmountSBColumn = "buybackamountSB" + metaModel.BaseCurrency;
+            var buybackAmountBAColumn = "buybackamountBA" + metaModel.BaseCurrency;
+
+            var ticketPayoutColumn = "ticketpayout" + metaModel.BaseCurrency;
+            var cashOutCommColumn = "cashoutcomm" + metaModel.BaseCurrency;
+
+            var settleTicketPayoutColumn = "AmountDue_TicketPayout" + metaModel.BaseCurrency;
+            var settleCommColumn = "AmountDue_Comm" + metaModel.BaseCurrency;
+            var settleTotalColumn = "Amount_Total" + metaModel.BaseCurrency;
 
             var hasSystemId = reader.HasColumn("username");
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");
-            var hasWinlostDate = reader.HasColumn("winlostdate");
+            var isDrilldown = metaModel.DrillDownLevel > 0;
             var index = 1;
             while (reader.Read())
             {
@@ -134,21 +120,30 @@ namespace Fanex.Athena.DataAccess.Report
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
-                    CurrencyId = reader.ToInt("currency"),
+                    CurrencyId = reader.ToInt("currencyid"),
                     CurrencyName = reader.ToString("currencyname"),
-                    CashOutValue = reader.ToDecimal(winlostColumn),
-                    CashOutTimes = reader.ToDecimal(turnoverColumn),
-                    CashOutTickets = reader.ToInt("totaltrans"),
-                    Date = hasWinlostDate ? (DateTime)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
+                    CashOutTimes = reader.ToInt(cashOutTimeColumn),
+                    CashOutValue = reader.ToDecimal(cashOutValueColumn),
+                    CashOutTickets = reader.ToInt(cashOutTicketColumn),
+                    BuyBackAmountSB = reader.ToDecimal(buybackAmountSBColumn),
+                    BuyBackAmountBA = reader.ToDecimal(buybackAmountBAColumn),
+                    TicketPayout = reader.ToDecimal(ticketPayoutColumn),
+                    CashOutCommission = reader.ToDecimal(cashOutCommColumn),
+                    SettleAmountTicketPayout = reader.ToDecimal(settleTicketPayoutColumn),
+                    SettleAmountBuyBackComm = reader.ToDecimal(settleCommColumn),
+                    SettleAmountTotal = reader.ToDecimal(settleTotalColumn),
+                    Date = isDrilldown
+                        ? metaModel.DrillDownFromDate
+                        : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
                 };
 
                 result.Add(item);
 
                 foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
-                    summaryTotal[currency].CashOutValue += reader.ToDecimal("winlost" + currency);
-                    summaryTotal[currency].CashOutTickets += reader.ToInt("totaltrans");
-                    summaryTotal[currency].CashOutTimes += reader.ToDecimal("turnover" + currency);
+                    summaryTotal[currency].CashOutValue += reader.ToDecimal("cashoutvalue" + currency);
+                    summaryTotal[currency].CashOutTickets += reader.ToInt("cashoutticket" + currency);
+                    summaryTotal[currency].CashOutTimes += reader.ToInt("cashouttime" + currency);
                 }
             }
 
@@ -160,6 +155,7 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
         }
     }
 }

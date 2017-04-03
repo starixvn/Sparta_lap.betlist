@@ -29,16 +29,6 @@ namespace Fanex.Athena.Service.Report
             this._agcasinoWinLossDataAccess = new CashOutWinLossDataAccess(this._balanceService.BalanceUpInfo);
         }
 
-        public SortableList<CashOutWinLoss> GetAgentWinlossDetail(
-            CashOutWinLossMetaModel metaModel,
-            out IDictionary<string, CashOutWinLoss> summaryTotal)
-        {
-            summaryTotal = new Dictionary<string, CashOutWinLoss>();
-            return metaModel.IsValid
-                       ? this._agcasinoWinLossDataAccess.GetAgentWinlossDetail(metaModel, out summaryTotal)
-                       : new SortableList<CashOutWinLoss>();
-        }
-
         public SortableList<CashOutWinLoss> GetCustomerWinlossDetail(
             CashOutWinLossMetaModel metaModel,
             out IDictionary<string, CashOutWinLoss> summaryTotal)

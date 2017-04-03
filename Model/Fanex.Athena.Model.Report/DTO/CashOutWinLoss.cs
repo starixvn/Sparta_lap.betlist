@@ -26,9 +26,9 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public int CurrencyId { get; set; }
 
-        public decimal CashOutTimes { get; set; }
+        public int CashOutTimes { get; set; }
 
-        public decimal CashOutTickets { get; set; }
+        public int CashOutTickets { get; set; }
 
         public decimal CashOutValue { get; set; }
 
@@ -52,12 +52,6 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public decimal SettleAmountBuyBackComm { get; set; }
 
-        public decimal SettleAmountTotal
-        {
-            get
-            {
-                return SettleAmountTicketPayout + SettleAmountBuyBackComm;
-            }
-        }
+        public decimal SettleAmountTotal { get; set; }
     }
 }

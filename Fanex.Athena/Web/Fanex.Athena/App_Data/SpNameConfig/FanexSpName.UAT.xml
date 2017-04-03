@@ -111,6 +111,8 @@
     <Setting Key="Lrf_Rpt_LiveMatchWeekly" SpName="Lrf_Rpt_LiveMatchWeekly" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_ColossusBetsWinloss" SpName="Lrf_Rpt_ColossusBetsWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_ColossusBetsWinloss_detail" SpName="Lrf_Rpt_ColossusBetsWinloss_detail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_CashoutWinloss" SpName="Lrf_Rpt_CashoutWinloss" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_CashoutWinloss_Detail" SpName="Lrf_Rpt_CashoutWinloss_Detail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerInformation">

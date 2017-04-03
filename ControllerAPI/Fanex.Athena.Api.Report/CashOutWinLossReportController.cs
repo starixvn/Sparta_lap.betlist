@@ -152,9 +152,9 @@ namespace Fanex.Athena.Api.Report
                 out SortableList<CashOutWinLoss> dataList,
                 out IDictionary<string, CashOutWinLoss> summaryTotal)
         {
-            dataList = metaModel.DrillDownLevel == 0 ? _cashOutWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) : metaModel.DrillDownLevel == 2
-                               ? _cashOutWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal)
-                               : _cashOutWinLossService.GetAgentWinlossDetail(metaModel, out summaryTotal);
+            dataList = metaModel.DrillDownLevel == 0 ?
+                _cashOutWinLossService.GetSummaryWinloss(metaModel, out summaryTotal) :
+                _cashOutWinLossService.GetCustomerWinlossDetail(metaModel, out summaryTotal);
         }
     }
 }
