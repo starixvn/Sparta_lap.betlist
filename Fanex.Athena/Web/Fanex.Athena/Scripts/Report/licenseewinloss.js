@@ -290,9 +290,10 @@ var LicenseeWinLoss = (function ($) {
                         } else {
                             LicenseeWinLoss.setReportTitle(param.CurrencyId, fdate, tdate, currencyName);
                         }
-                        //update excel ULR
-                        LicenseeWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate, currencyName);
                     }
+
+                    //update excel ULR
+                    LicenseeWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate, currencyName);
                 },
                 beforeSend: function () {
                     Site.blockUI();
