@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
+  <!--Do not delete this-->
+  <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_UserLogout" EnvironmentText="_mnl"></SpNameConfig>
+  <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_UserLogin" EnvironmentText="_mnl"></SpNameConfig>
+  <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_InternalLogin" EnvironmentText="_mnl"></SpNameConfig>
+  <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_ReCheckIn" EnvironmentText="_mnl"></SpNameConfig>
+  <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
+  <!--Do not delete this-->
+  
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Test" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_LicenseeProductSel" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_LicenseeProduct3rdSel" EnvironmentText="_xtest"></SpNameConfig>
