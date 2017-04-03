@@ -20596,9 +20596,10 @@ webpackJsonp([41],[
 	                            } else {
 	                                _me.setReportTitle(param.CurrencyId, fdate, tdate, currencyName);
 	                            }
-	                            //update excel ULR
-	                            _me.setExcelUrl(level, currencyId, customerId, fdate, tdate, currencyName);
 	                        }
+	
+	                        //update excel ULR
+	                        _me.setExcelUrl(level, currencyId, customerId, fdate, tdate, currencyName);
 	                    },
 	                    beforeSend: function () {
 	                        Site.blockUI();
