@@ -103,8 +103,8 @@ namespace Fanex.Athena.DataAccess.Report
             var settleCommColumn = "AmountDue_Comm" + metaModel.BaseCurrency;
             var settleTotalColumn = "Amount_Total" + metaModel.BaseCurrency;
 
-            var hasSystemId = reader.HasColumn("username");
-            var hasExternalId = reader.HasColumn("nickname");
+            var hasSystemId = reader.HasColumn("systemid");
+            var hasExternalId = reader.HasColumn("externalid");
             var hasCustomerId = reader.HasColumn("custid");
             var isDrilldown = metaModel.DrillDownLevel > 0;
             var index = 1;
@@ -113,8 +113,8 @@ namespace Fanex.Athena.DataAccess.Report
                 var item = new CashOutWinLoss
                 {
                     Index = index++,
-                    SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
-                    ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
+                    SystemId = hasSystemId ? reader.ToString("systemid") : string.Empty,
+                    ExternalId = hasExternalId ? reader.ToString("externalid") : string.Empty,
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
                     CurrencyId = reader.ToInt("currencyid"),
                     CurrencyName = reader.ToString("currencyname"),

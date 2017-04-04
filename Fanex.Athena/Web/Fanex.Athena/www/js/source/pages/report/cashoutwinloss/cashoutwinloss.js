@@ -57,6 +57,11 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                     }
                 });
 
+                $("body").on("click", ".bet-list-link", function () {
+                    var dataDrillDown = $(this).attr("data-drill-down");
+                    _me.openBetlistPopUp(dataDrillDown);
+                });
+
                 $(window).on("resize", function () {
                     _me.resizeGrid();
                 });
@@ -264,7 +269,40 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                 }
                 ajaxRequest = $.ajax(option);
             },
+            openBetlistPopUp: function (dataDrillDown) {
+                dataDrillDown = $.parseJSON(dataDrillDown);
+            
+                var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
+            
+                var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
+                url = QueryString.setParam(url, "fromdate", dateRange.FromDate.toString("MM/dd/yyyy"));
+                url = QueryString.setParam(url, "todate", dateRange.ToDate.toString("MM/dd/yyyy"));
+                url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);
+                url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
+                url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
+                url = QueryString.setParam(url, "drawfilter", _submitData.DrawFilter);
+                url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
+                url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
+                url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
+                url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
+                url = QueryString.setParam(url, "OriginalCurrenceId", _submitData.CurrencyId);
+                url = QueryString.setParam(url, "OriginalCurrencyName", _submitData.CurrencyName);
+                url = QueryString.setParam(url, "productoptions[0].code", "CO");
+                url = QueryString.setParam(url, "productoptions[0].status", "true");
+                url = QueryString.setParam(url, "excelfilename", "CashOutWinLossBetList");
 
+                url = Site.setProductOptionOriginalParamList(url);
+
+                var popH = Math.min($(window).height() - 100, 650), popW = 920;
+                var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' +
+                                 popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+                $(dialogForm).dialog({
+                    modal: true,
+                    width: popW + 50,
+                    height: popH + 50
+                });
+            },
             lastDateOfMonth: function (year, month) {
                 return moment([year, month + 1]).endOf('month');
             }

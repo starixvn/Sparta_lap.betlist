@@ -1,7 +1,40 @@
 ﻿define(["jquery", "common/site", "common/popup"], function ($, Site, Popup) {
     "use strict";
-    
+    var REPORT_BY_MONTHLY = 2;
+    function lastDateOfMonth(year, month) {
+        return new Date(year, month + 1, 0);
+    }
+
     var _me = {
+        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
+            var fdate = (typeof drilldownDate === "string") ? Date.parse(drilldownDate) : drilldownDate;
+            var tdate = fdate;
+
+            if (Number(reportBy) === REPORT_BY_MONTHLY) {
+                var fday = 1;
+                var month = fdate.getMonth();
+                var year = fdate.getFullYear();
+                var orignalFDate = new Date(fromDate);
+                if (month === orignalFDate.getMonth()) {
+                    fday = orignalFDate.getDate();
+                }
+                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+                var originalTDate = new Date(toDate);
+
+                if (month === originalTDate.getMonth()) {
+                    var tday = originalTDate.getDate();
+                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+                }
+                else {
+                    tdate = lastDateOfMonth(year, month);
+                }
+            }
+
+            return {
+                FromDate: fdate,
+                ToDate: tdate
+            };
+        },
         ValidProducts: function () {
             var temp = true;
             if ($(".childCheckbox:checked").length === 0) {

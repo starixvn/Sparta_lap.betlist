@@ -18,8 +18,18 @@ var CashOutWinLossOption = (function () {
         return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
-    var systemIdFormatter = function (cellvalue, options, rowObject) {
-        return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
+    var betlistLink = function (cellvalue, options, rowObject) {
+        var param =
+        {
+            DrillDownDate: rowObject.Date,
+            DrillDownCurrencyId: rowObject.CurrencyId,
+            DrillDownCurrencyName: rowObject.CurrencyName,
+            CustomerId: rowObject.CustomerId,
+            ExternalId: rowObject.ExternalId,
+            SystemId: rowObject.SystemId
+        };
+
+        return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
     };
 
     //#region Columns
@@ -62,7 +72,8 @@ var CashOutWinLossOption = (function () {
         resizable: false,
         width: 120,
         align: 'left',
-        sortable: false
+        sortable: false,
+        formatter: betlistLink
     };
 
     var systemIdColumn =
@@ -73,9 +84,7 @@ var CashOutWinLossOption = (function () {
         width: 120,
         align: 'left',
         sortable: false,
-        formatter: function (cellvalue, options, rowObject) {
-            return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
-        }
+        formatter: betlistLink
     };
 
     var currencyColumn =
@@ -182,6 +191,7 @@ var CashOutWinLossOption = (function () {
     {
         name: 'CashOutCommission',
         index: 'CashOutCommission',
+        classes: 'highlight',
         width: 90,
         align: 'right',
         sortable: false,
@@ -265,7 +275,7 @@ var CashOutWinLossOption = (function () {
     {
         isLicenseeOfferBA: false,
         buyBackAmountTotalColumnIndex: 10,
-        totalColspan: [2, 2, 3],
+        totalColspan: [2, 3],
         urlData: 'api/CashOutWinLossReport/Index',
         urlExcelData: 'api/CashOutWinLossReport/Index',
         gridOption:
@@ -326,8 +336,7 @@ var CashOutWinLossOption = (function () {
         level = Number(level);
 
         currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-        systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
-
+        
         dateColumn.hidden = level > 0;
         dateColumn.formatoptions =
         {

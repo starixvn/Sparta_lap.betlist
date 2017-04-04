@@ -20252,6 +20252,11 @@ webpackJsonp([40],[
 	                    }
 	                });
 	
+	                $("body").on("click", ".bet-list-link", function () {
+	                    var dataDrillDown = $(this).attr("data-drill-down");
+	                    _me.openBetlistPopUp(dataDrillDown);
+	                });
+	
 	                $(window).on("resize", function () {
 	                    _me.resizeGrid();
 	                });
@@ -20459,7 +20464,40 @@ webpackJsonp([40],[
 	                }
 	                ajaxRequest = $.ajax(option);
 	            },
+	            openBetlistPopUp: function (dataDrillDown) {
+	                dataDrillDown = $.parseJSON(dataDrillDown);
+	            
+	                var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
+	            
+	                var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
+	                url = QueryString.setParam(url, "fromdate", dateRange.FromDate.toString("MM/dd/yyyy"));
+	                url = QueryString.setParam(url, "todate", dateRange.ToDate.toString("MM/dd/yyyy"));
+	                url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);
+	                url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
+	                url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
+	                url = QueryString.setParam(url, "drawfilter", _submitData.DrawFilter);
+	                url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
+	                url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
+	                url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
+	                url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
+	                url = QueryString.setParam(url, "OriginalCurrenceId", _submitData.CurrencyId);
+	                url = QueryString.setParam(url, "OriginalCurrencyName", _submitData.CurrencyName);
+	                url = QueryString.setParam(url, "productoptions[0].code", "CO");
+	                url = QueryString.setParam(url, "productoptions[0].status", "true");
+	                url = QueryString.setParam(url, "excelfilename", "CashOutWinLossBetList");
 	
+	                url = Site.setProductOptionOriginalParamList(url);
+	
+	                var popH = Math.min($(window).height() - 100, 650), popW = 920;
+	                var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' +
+	                                 popW + '" height="100%" src="' + url + '" ></iframe></div>';
+	
+	                $(dialogForm).dialog({
+	                    modal: true,
+	                    width: popW + 50,
+	                    height: popH + 50
+	                });
+	            },
 	            lastDateOfMonth: function (year, month) {
 	                return moment([year, month + 1]).endOf('month');
 	            }
@@ -20478,13 +20516,26 @@ webpackJsonp([40],[
 	        return '<a class="drilldown" href="javascript:;" onclick="return cashoutDrillDown(' + level + ',' +
 	         currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
 	    };
-	
+	    var dateFormatter = function (cellvalue, options, rowObject) {
+	        cellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
+	        return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
+	    };
 	    var currencyFormatter = function (cellvalue, options, rowObject) {
 	        return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
 	    };
 	
-	    var systemIdFormatter = function (cellvalue, options, rowObject) {
-	        return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
+	    var betlistLink = function (cellvalue, options, rowObject) {
+	        var param =
+	        {
+	            DrillDownDate: rowObject.Date,
+	            DrillDownCurrencyId: rowObject.CurrencyId,
+	            DrillDownCurrencyName: rowObject.CurrencyName,
+	            CustomerId: rowObject.CustomerId,
+	            ExternalId: rowObject.ExternalId,
+	            SystemId: rowObject.SystemId
+	        };
+	
+	        return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
 	    };
 	
 	    //#region Columns
@@ -20513,7 +20564,7 @@ webpackJsonp([40],[
 	        sortable: false,
 	        frozen: true,
 	        cellattr: jqGridAdditional.rowSpanSetting,
-	        formatter: 'date',
+	        formatter: dateFormatter,
 	        formatoptions:
 	        {
 	            newformat: 'm/d/Y'
@@ -20527,7 +20578,8 @@ webpackJsonp([40],[
 	        resizable: false,
 	        width: 120,
 	        align: 'left',
-	        sortable: false
+	        sortable: false,
+	        formatter: betlistLink
 	    };
 	
 	    var systemIdColumn =
@@ -20538,9 +20590,7 @@ webpackJsonp([40],[
 	        width: 150,
 	        align: 'left',
 	        sortable: false,
-	        formatter: function (cellvalue, options, rowObject) {
-	            return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
-	        }
+	        formatter: betlistLink
 	    };
 	
 	    var currencyColumn =
@@ -20609,6 +20659,7 @@ webpackJsonp([40],[
 	    {
 	        name: 'CashOutCommission',
 	        index: 'CashOutCommission',
+	        classes: 'highlight',
 	        width: 90,
 	        align: 'right',
 	        sortable: false,
@@ -20722,7 +20773,7 @@ webpackJsonp([40],[
 	        licenseeId: 0,
 	        isLicenseeOfferBA: false,
 	        buyBackAmountColumnIndex: 7,
-	        totalColspan: [2, 2, 3],
+	        totalColspan: [2, 3],
 	        urlData: 'api/CashOutWinLossReport/Index',
 	        urlExcelData: 'api/CashOutWinLossReport/Index',
 	        gridOption:
@@ -20781,14 +20832,13 @@ webpackJsonp([40],[
 	            level = Number(level);
 	
 	            currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-	            systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
 	
 	            dateColumn.hidden = level > 0;
 	            dateColumn.formatoptions =
 	            {
 	                newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
 	            };
-	            externalIdColumn.hidden = level < 2;
+	            externalIdColumn.hidden = level === 0;
 	            systemIdColumn.hidden = level === 0;
 	
 	            var temp = Site.clone(colModelList);
@@ -20828,8 +20878,41 @@ webpackJsonp([40],[
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
 	    "use strict";
-	    
+	    var REPORT_BY_MONTHLY = 2;
+	    function lastDateOfMonth(year, month) {
+	        return new Date(year, month + 1, 0);
+	    }
+	
 	    var _me = {
+	        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
+	            var fdate = (typeof drilldownDate === "string") ? Date.parse(drilldownDate) : drilldownDate;
+	            var tdate = fdate;
+	
+	            if (Number(reportBy) === REPORT_BY_MONTHLY) {
+	                var fday = 1;
+	                var month = fdate.getMonth();
+	                var year = fdate.getFullYear();
+	                var orignalFDate = new Date(fromDate);
+	                if (month === orignalFDate.getMonth()) {
+	                    fday = orignalFDate.getDate();
+	                }
+	                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+	                var originalTDate = new Date(toDate);
+	
+	                if (month === originalTDate.getMonth()) {
+	                    var tday = originalTDate.getDate();
+	                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+	                }
+	                else {
+	                    tdate = lastDateOfMonth(year, month);
+	                }
+	            }
+	
+	            return {
+	                FromDate: fdate,
+	                ToDate: tdate
+	            };
+	        },
 	        ValidProducts: function () {
 	            var temp = true;
 	            if ($(".childCheckbox:checked").length === 0) {

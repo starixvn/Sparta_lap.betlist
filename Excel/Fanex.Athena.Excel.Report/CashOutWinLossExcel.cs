@@ -203,10 +203,6 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        /// <summary>
-        /// Process UI, hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         public override void ProcessUI(ISheet sheet)
         {
@@ -216,19 +212,13 @@ namespace Fanex.Athena.Excel.Report
                 sheet.MergeCells(RowHeaderTemplate, ColumnBuyBackAmountSportsbook, RowHeaderTemplate + 1, ColumnBuyBackAmountSportsbook);
             }
 
-            switch (Level)
+            if (Level == 0)
             {
-                case 0:
-                    HideColumn(sheet, ColumnExternalId, ColumnSystemId);
-                    break;
-
-                case 1:
-                    HideColumn(sheet, ColumnExternalId, ColumnDate);
-                    break;
-
-                default:
-                    HideColumn(sheet, ColumnDate);
-                    break;
+                HideColumn(sheet, ColumnExternalId, ColumnSystemId);
+            }
+            else
+            {
+                HideColumn(sheet, ColumnDate);
             }
         }
 

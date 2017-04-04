@@ -4,13 +4,26 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         return '<a class="drilldown" href="javascript:;" onclick="return cashoutDrillDown(' + level + ',' +
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
-
+    var dateFormatter = function (cellvalue, options, rowObject) {
+        cellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
+        return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
+    };
     var currencyFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
 
-    var systemIdFormatter = function (cellvalue, options, rowObject) {
-        return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
+    var betlistLink = function (cellvalue, options, rowObject) {
+        var param =
+        {
+            DrillDownDate: rowObject.Date,
+            DrillDownCurrencyId: rowObject.CurrencyId,
+            DrillDownCurrencyName: rowObject.CurrencyName,
+            CustomerId: rowObject.CustomerId,
+            ExternalId: rowObject.ExternalId,
+            SystemId: rowObject.SystemId
+        };
+
+        return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
     };
 
     //#region Columns
@@ -39,7 +52,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         sortable: false,
         frozen: true,
         cellattr: jqGridAdditional.rowSpanSetting,
-        formatter: 'date',
+        formatter: dateFormatter,
         formatoptions:
         {
             newformat: 'm/d/Y'
@@ -53,7 +66,8 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         resizable: false,
         width: 120,
         align: 'left',
-        sortable: false
+        sortable: false,
+        formatter: betlistLink
     };
 
     var systemIdColumn =
@@ -64,9 +78,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         width: 150,
         align: 'left',
         sortable: false,
-        formatter: function (cellvalue, options, rowObject) {
-            return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
-        }
+        formatter: betlistLink
     };
 
     var currencyColumn =
@@ -135,6 +147,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     {
         name: 'CashOutCommission',
         index: 'CashOutCommission',
+        classes: 'highlight',
         width: 90,
         align: 'right',
         sortable: false,
@@ -248,7 +261,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         licenseeId: 0,
         isLicenseeOfferBA: false,
         buyBackAmountColumnIndex: 7,
-        totalColspan: [2, 2, 3],
+        totalColspan: [2, 3],
         urlData: 'api/CashOutWinLossReport/Index',
         urlExcelData: 'api/CashOutWinLossReport/Index',
         gridOption:
@@ -307,14 +320,13 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
             level = Number(level);
 
             currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-            systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
 
             dateColumn.hidden = level > 0;
             dateColumn.formatoptions =
             {
                 newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
             };
-            externalIdColumn.hidden = level < 2;
+            externalIdColumn.hidden = level === 0;
             systemIdColumn.hidden = level === 0;
 
             var temp = Site.clone(colModelList);
