@@ -35,7 +35,7 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnBuyBackAmountTotal = 10;
 
         private const int ColumnTicketPayout = 11;
-        private const int ColumnCashOutCommssion = 12;
+        private const int ColumnCashOutCommmission = 12;
 
         private const int ColumnSettleAmountTicketPayout = 13;
         private const int ColumnSettleAmountBBAmtComm = 14;
@@ -112,7 +112,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCashOutValue].SetCellValue(ViewResources.CashOutValue);
             row.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(ViewResources.BuyBackAmount);
             row.Cells[ColumnTicketPayout].SetCellValue(ViewResources.TicketPayout);
-            row.Cells[ColumnCashOutCommssion].SetCellValue(ViewResources.CashOutCommission);
+            row.Cells[ColumnCashOutCommmission].SetCellValue(ViewResources.CashOutCommission);
             row.Cells[ColumnSettleAmountTicketPayout].SetCellValue(ViewResources.SettleAmount);
 
             // row 2
@@ -234,9 +234,20 @@ namespace Fanex.Athena.Excel.Report
 
         protected void AssignCommonData(IRow row, CashOutWinLoss data)
         {
+            row.Cells[ColumnCashOutTimes].SetCellValue(data.CashOutTimes);
+            row.Cells[ColumnCashOutTickets].SetCellValue(data.CashOutTickets);
+            row.Cells[ColumnCashOutValue].SetCellValue(data.CashOutValue);
+
             row.Cells[ColumnBuyBackAmountSportsbook].SetCellValue(data.BuyBackAmountSB);
             row.Cells[ColumnBuyBackAmountBA].SetCellValue(data.BuyBackAmountBA);
             row.Cells[ColumnBuyBackAmountTotal].SetCellValue(data.TotalBuyBackAmount);
+
+            row.Cells[ColumnTicketPayout].SetCellValue(data.TicketPayout);
+            row.Cells[ColumnCashOutCommmission].SetCellValue(data.CashOutCommission);
+
+            row.Cells[ColumnSettleAmountTicketPayout].SetCellValue(data.SettleAmountTicketPayout);
+            row.Cells[ColumnSettleAmountBBAmtComm].SetCellValue(data.SettleAmountBuyBackComm);
+            row.Cells[ColumnSettleAmountTotal].SetCellValue(data.SettleAmountTotal);
         }
 
         /// <summary>

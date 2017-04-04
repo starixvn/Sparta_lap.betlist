@@ -21,28 +21,28 @@ namespace Fanex.Athena.Service.Report
     {
         private readonly IBalanceUpService _balanceService;
 
-        private readonly ICashOutWinLossDataAccess _agcasinoWinLossDataAccess;
+        private readonly ICashOutWinLossDataAccess _dataAccess;
 
         public CashOutWinLossService()
         {
             this._balanceService = new BalanceUpService();
-            this._agcasinoWinLossDataAccess = new CashOutWinLossDataAccess(this._balanceService.BalanceUpInfo);
+            this._dataAccess = new CashOutWinLossDataAccess(this._balanceService.BalanceUpInfo);
         }
 
-        public SortableList<CashOutWinLoss> GetCustomerWinlossDetail(
+        public SortableList<CashOutWinLoss> GetDetail(
             CashOutWinLossMetaModel metaModel,
             out IDictionary<string, CashOutWinLoss> summaryTotal)
         {
             summaryTotal = new Dictionary<string, CashOutWinLoss>();
             return metaModel.IsValid
-                       ? this._agcasinoWinLossDataAccess.GetCustomerWinlossDetail(metaModel, out summaryTotal)
+                       ? this._dataAccess.GetDetail(metaModel, out summaryTotal)
                        : new SortableList<CashOutWinLoss>();
         }
 
-        public SortableList<CashOutWinLoss> GetSummaryWinloss(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal)
+        public SortableList<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal)
         {
             summaryTotal = new Dictionary<string, CashOutWinLoss>();
-            var result = this._agcasinoWinLossDataAccess.GetSummaryWinloss(metaModel, out summaryTotal);
+            var result = this._dataAccess.GetSummary(metaModel, out summaryTotal);
             var date = new System.DateTime();
             var index = 1;
             foreach (var item in result)

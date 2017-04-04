@@ -30,7 +30,7 @@ namespace Fanex.Athena.DataAccess.Report
         {
         }
 
-        public SortableList<CashOutWinLoss> GetSummaryWinloss(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal)
+        public SortableList<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal)
         {
             var uspName = "Lrf_Rpt_CashoutWinloss";
             try
@@ -38,7 +38,6 @@ namespace Fanex.Athena.DataAccess.Report
                 using (var db = this.GetObjectDb(uspName))
                 {
                     UpdateUspParams(db, metaModel, false);
-
                     db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
 
                     using (var reader = db.ExecuteReader())
@@ -54,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableList<CashOutWinLoss> GetCustomerWinlossDetail(
+        public SortableList<CashOutWinLoss> GetDetail(
             CashOutWinLossMetaModel metaModel,
             out IDictionary<string, CashOutWinLoss> summaryTotal)
         {
@@ -63,7 +62,6 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 using (var db = this.GetObjectDb(uspName))
                 {
-                    db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
@@ -93,9 +91,7 @@ namespace Fanex.Athena.DataAccess.Report
                 summaryTotal.Add(currency, new CashOutWinLoss());
             }
 
-            var cashOutTimeColumn = "cashouttime" + metaModel.BaseCurrency;
             var cashOutValueColumn = "cashoutvalue" + metaModel.BaseCurrency;
-            var cashOutTicketColumn = "cashoutticket" + metaModel.BaseCurrency;
 
             var buybackAmountSBColumn = "buybackamountSB" + metaModel.BaseCurrency;
             var buybackAmountBAColumn = "buybackamountBA" + metaModel.BaseCurrency;
@@ -122,9 +118,9 @@ namespace Fanex.Athena.DataAccess.Report
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
                     CurrencyId = reader.ToInt("currencyid"),
                     CurrencyName = reader.ToString("currencyname"),
-                    CashOutTimes = reader.ToInt(cashOutTimeColumn),
+                    CashOutTimes = reader.ToInt("cashouttime"),
                     CashOutValue = reader.ToDecimal(cashOutValueColumn),
-                    CashOutTickets = reader.ToInt(cashOutTicketColumn),
+                    CashOutTickets = reader.ToInt("cashoutticket"),
                     BuyBackAmountSB = reader.ToDecimal(buybackAmountSBColumn),
                     BuyBackAmountBA = reader.ToDecimal(buybackAmountBAColumn),
                     TicketPayout = reader.ToDecimal(ticketPayoutColumn),
@@ -142,8 +138,8 @@ namespace Fanex.Athena.DataAccess.Report
                 foreach (var currency in SystemConstants.BaseCurrencyList)
                 {
                     summaryTotal[currency].CashOutValue += reader.ToDecimal("cashoutvalue" + currency);
-                    summaryTotal[currency].CashOutTickets += reader.ToInt("cashoutticket" + currency);
-                    summaryTotal[currency].CashOutTimes += reader.ToInt("cashouttime" + currency);
+                    summaryTotal[currency].CashOutTickets += reader.ToInt("cashoutticket");
+                    summaryTotal[currency].CashOutTimes += reader.ToInt("cashouttime");
                 }
             }
 

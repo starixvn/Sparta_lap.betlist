@@ -10,6 +10,10 @@ var CashOutWinLossOption = (function () {
          currencyId + ',' + custId + ',\'' + datetime + '\');">' + cellvalue + '</a>';
     };
 
+    var dateFormatter = function (cellvalue, options, rowObject) {
+        cellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
+        return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
+    };
     var currencyFormatter = function (cellvalue, options, rowObject) {
         return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
     };
@@ -44,7 +48,7 @@ var CashOutWinLossOption = (function () {
         sortable: false,
         frozen: true,
         cellattr: jqGridAdditional.rowSpanSetting,
-        formatter: 'date',
+        formatter: dateFormatter,
         formatoptions:
         {
             newformat: 'm/d/Y'
@@ -81,8 +85,7 @@ var CashOutWinLossOption = (function () {
         width: 60,
         align: 'center',
         sortable: false,
-        resizable: false,
-        formatter: currencyFormatter
+        resizable: false
     };
 
     var cashOutTimesColumn =
@@ -330,7 +333,7 @@ var CashOutWinLossOption = (function () {
         {
             newformat: $('#reportbydaily').is(':checked') ? 'm/d/Y' : 'm/Y'
         };
-        externalIdColumn.hidden = level < 2;
+        externalIdColumn.hidden = level === 0;
         systemIdColumn.hidden = level === 0;
         if (!me.isLicenseeOfferBA)
         {

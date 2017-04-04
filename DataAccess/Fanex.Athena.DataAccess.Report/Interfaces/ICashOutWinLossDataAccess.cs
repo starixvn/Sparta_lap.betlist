@@ -15,10 +15,10 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        SortableList<CashOutWinLoss> GetCustomerWinlossDetail(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal);
+        SortableList<CashOutWinLoss> GetDetail(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
-        SortableList<CashOutWinLoss> GetSummaryWinloss(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal);
+        SortableList<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal);
     }
 }
