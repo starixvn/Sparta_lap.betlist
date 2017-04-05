@@ -143,7 +143,7 @@ var CashOutWinLossOption = (function () {
         index: 'BuyBackAmountSB',
         width: 80,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         formatter: 'currency',
         hidden: false,
@@ -156,7 +156,7 @@ var CashOutWinLossOption = (function () {
         index: 'BuyBackAmountBA',
         width: 80,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         formatter: 'currency',
         hidden: false,
@@ -169,7 +169,7 @@ var CashOutWinLossOption = (function () {
         index: 'TotalBuyBackAmount',
         width: 80,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         formatter: 'currency',
         hidden: false,
@@ -205,7 +205,7 @@ var CashOutWinLossOption = (function () {
         index: 'SettleAmountTicketPayout',
         width: 80,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         formatter: 'currency',
         hidden: false,
@@ -218,7 +218,7 @@ var CashOutWinLossOption = (function () {
         index: 'SettleAmountBuyBackComm',
         width: 80,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         formatter: 'currency',
         hidden: false,
@@ -231,7 +231,7 @@ var CashOutWinLossOption = (function () {
         index: 'SettleAmountTotal',
         width: 80,
         align: 'right',
-        sortable: true,
+        sortable: false,
         resizable: false,
         formatter: 'currency',
         hidden: false,
@@ -259,7 +259,6 @@ var CashOutWinLossOption = (function () {
         resizable: false,
         hidden: true
     };
-
 
     //#endregion
 

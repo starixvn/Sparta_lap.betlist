@@ -1,8 +1,8 @@
 ﻿"use strict";
 define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option", "../report",
-        "lib/jqgrid/jquery.jqgrid.additional", "components/pluginhelper/daterangepicker", "moment",
+        "lib/jqgrid/jquery.jqgrid.additional", "components/pluginhelper/daterangepicker", "moment", "common/popup",
         "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, QueryString, Site, CashOutWinLossOption, Report, jqGridAdditional, DatePicker, moment) {
+    function ($, QueryString, Site, CashOutWinLossOption, Report, jqGridAdditional, DatePicker, moment, Popup) {
         var cacheData = {};
         var ajaxRequest = null;
         var _level = 0;
@@ -271,12 +271,11 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
             },
             openBetlistPopUp: function (dataDrillDown) {
                 dataDrillDown = $.parseJSON(dataDrillDown);
-            
                 var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
-            
+                console.log("aaaaaaaaaaa", typeof(dateRange.FromDate));//.toString("MM/dd/yyyy"));
                 var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
-                url = QueryString.setParam(url, "fromdate", dateRange.FromDate.toString("MM/dd/yyyy"));
-                url = QueryString.setParam(url, "todate", dateRange.ToDate.toString("MM/dd/yyyy"));
+                url = QueryString.setParam(url, "fromdate", moment(dateRange.FromDate).format("MM/DD/YYYY"));
+                url = QueryString.setParam(url, "todate", moment(dateRange.ToDate).format("MM/DD/YYYY"));
                 url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);
                 url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
                 url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
@@ -294,14 +293,8 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                 url = Site.setProductOptionOriginalParamList(url);
 
                 var popH = Math.min($(window).height() - 100, 650), popW = 920;
-                var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' +
-                                 popW + '" height="100%" src="' + url + '" ></iframe></div>';
-
-                $(dialogForm).dialog({
-                    modal: true,
-                    width: popW + 50,
-                    height: popH + 50
-                });
+                var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
+                Popup.openPopupWithIframe(url, popupOption);
             },
             lastDateOfMonth: function (year, month) {
                 return moment([year, month + 1]).endOf('month');

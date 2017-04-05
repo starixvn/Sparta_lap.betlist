@@ -20196,8 +20196,8 @@ webpackJsonp([40],[
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(221), __webpack_require__(222),
-	        __webpack_require__(179), __webpack_require__(190), __webpack_require__(72),
-	        __webpack_require__(204), __webpack_require__(182), __webpack_require__(183)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, CashOutWinLossOption, Report, jqGridAdditional, DatePicker, moment) {
+	        __webpack_require__(179), __webpack_require__(190), __webpack_require__(72), __webpack_require__(9),
+	        __webpack_require__(204), __webpack_require__(182), __webpack_require__(183)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, CashOutWinLossOption, Report, jqGridAdditional, DatePicker, moment, Popup) {
 	        var cacheData = {};
 	        var ajaxRequest = null;
 	        var _level = 0;
@@ -20466,12 +20466,11 @@ webpackJsonp([40],[
 	            },
 	            openBetlistPopUp: function (dataDrillDown) {
 	                dataDrillDown = $.parseJSON(dataDrillDown);
-	            
 	                var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
-	            
+	                console.log("aaaaaaaaaaa", typeof(dateRange.FromDate));//.toString("MM/dd/yyyy"));
 	                var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
-	                url = QueryString.setParam(url, "fromdate", dateRange.FromDate.toString("MM/dd/yyyy"));
-	                url = QueryString.setParam(url, "todate", dateRange.ToDate.toString("MM/dd/yyyy"));
+	                url = QueryString.setParam(url, "fromdate", moment(dateRange.FromDate).format("MM/DD/YYYY"));
+	                url = QueryString.setParam(url, "todate", moment(dateRange.ToDate).format("MM/DD/YYYY"));
 	                url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);
 	                url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
 	                url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
@@ -20489,14 +20488,8 @@ webpackJsonp([40],[
 	                url = Site.setProductOptionOriginalParamList(url);
 	
 	                var popH = Math.min($(window).height() - 100, 650), popW = 920;
-	                var dialogForm = '<div title="Customer Bet List"><iframe scrolling="no" frameborder="0" width="' +
-	                                 popW + '" height="100%" src="' + url + '" ></iframe></div>';
-	
-	                $(dialogForm).dialog({
-	                    modal: true,
-	                    width: popW + 50,
-	                    height: popH + 50
-	                });
+	                var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
+	                Popup.openPopupWithIframe(url, popupOption);
 	            },
 	            lastDateOfMonth: function (year, month) {
 	                return moment([year, month + 1]).endOf('month');
@@ -20885,9 +20878,8 @@ webpackJsonp([40],[
 	
 	    var _me = {
 	        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-	            var fdate = (typeof drilldownDate === "string") ? Date.parse(drilldownDate) : drilldownDate;
+	            var fdate = (typeof drilldownDate === "string") ? new Date(drilldownDate) : drilldownDate;
 	            var tdate = fdate;
-	
 	            if (Number(reportBy) === REPORT_BY_MONTHLY) {
 	                var fday = 1;
 	                var month = fdate.getMonth();

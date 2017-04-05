@@ -111,18 +111,10 @@ var CashOutWinLoss = (function ($) {
         ajaxComplete: function (level, response) {
             level = Number(level);
             if (response != null) {
-                var reportBy = $("input[name='reportby']:checked").val();
                 cacheData[level] = response;
                 //reset layout
                 if (level === 0) {
                     //update drildownValue
-                    $("#OriginalIsExcludedTestData").val($("#IsExcludedTestData").is(":checked"));
-                    $("#OriginalCurrencyId").val($("#CurrencyId").val());
-                    $("#OriginalFromDate").val(_submitData.FromDate);
-                    $("#OriginalToDate").val(_submitData.ToDate);
-                    $("#OriginalCurrencyName").val($("#CurrencyId option:selected").text());
-                    $("#BaseCurrency").attr("data-original", $("#BaseCurrency").val());
-                    $("#OriginalReportBy").val(reportBy);
                     CashOutWinLoss.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);
                 }
 
@@ -174,12 +166,12 @@ var CashOutWinLoss = (function ($) {
 
             var param =
             {
-                IsExcludedTestData: $("#OriginalIsExcludedTestData").val(),
-                CurrencyId: $("#OriginalCurrencyId").val(),
-                FromDate: $("#OriginalFromDate").val(),
-                ToDate: $("#OriginalToDate").val(),
-                ReportBy: $("#OriginalReportBy").val(),
-                BaseCurrency: $("#BaseCurrency").attr("data-original")
+                IsExcludedTestData: _submitData.IsExcludedTestData,
+                CurrencyId: _submitData.CurrencyId,
+                FromDate: _submitData.FromDate,
+                ToDate: _submitData.ToDate,
+                ReportBy: _submitData.ReportBy,
+                BaseCurrency: _submitData.BaseCurrency
             };
             var fdate = new Date(Date.parse(datetime));
             var tdate = new Date(Date.parse(datetime));
@@ -244,11 +236,7 @@ var CashOutWinLoss = (function ($) {
                 CashOutWinLoss.bindData(0, cacheData[level]);
                 //reset excel Link
                 CashOutWinLoss.setExcelUrl(0, 0, 0, "", "");
-                //re-set title
-                var fromdate = new Date($("#OriginalFromDate").val());
-                var todate = new Date($("#OriginalToDate").val());
-                var currencyId = $("#OriginalCurrencyId").val();
-                CashOutWinLoss.setReportTitle(currencyId, fromdate, todate);
+                CashOutWinLoss.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
             }
             else if (level === 1) {
                 CashOutWinLoss.bindData(1, cacheData[level]);
@@ -319,7 +307,6 @@ var CashOutWinLoss = (function ($) {
         },
         openBetlistPopUp: function (dataDrillDown) {
             dataDrillDown = $.parseJSON(dataDrillDown);
-            
             var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
             
             var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
@@ -358,7 +345,6 @@ var CashOutWinLoss = (function ($) {
 $(window).load(function () {
     "use strict";
     CashOutWinLoss.initialize();
-    //alert(Date.parse('Apr 5, 2013'));
 });
 
 $(window).resize(function () {
