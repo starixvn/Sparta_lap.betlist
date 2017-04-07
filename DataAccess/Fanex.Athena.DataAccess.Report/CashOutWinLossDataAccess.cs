@@ -140,6 +140,13 @@ namespace Fanex.Athena.DataAccess.Report
                     summaryTotal[currency].CashOutValue += reader.ToDecimal("cashoutvalue" + currency);
                     summaryTotal[currency].CashOutTickets += reader.ToInt("cashoutticket");
                     summaryTotal[currency].CashOutTimes += reader.ToInt("cashouttime");
+                    summaryTotal[currency].BuyBackAmountSB += reader.ToDecimal("buybackamountSB" + currency);
+                    summaryTotal[currency].BuyBackAmountBA += reader.ToDecimal("buybackamountBA" + currency);
+                    summaryTotal[currency].TicketPayout += reader.ToDecimal("ticketpayout" + currency);
+                    summaryTotal[currency].CashOutCommission += reader.ToDecimal("cashoutcomm" + currency);
+                    summaryTotal[currency].SettleAmountTicketPayout += reader.ToDecimal("AmountDue_TicketPayout" + currency);
+                    summaryTotal[currency].SettleAmountBuyBackComm += reader.ToDecimal("AmountDue_Comm" + currency);
+                    summaryTotal[currency].SettleAmountTotal += reader.ToDecimal("Amount_Total" + currency);
                 }
             }
 

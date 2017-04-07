@@ -105,9 +105,8 @@ var CashOutWinLossOption = (function () {
         align: 'right',
         sortable: false,
         resizable: false,
-        formatter: 'currency',
-        hidden: false,
-        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+        formatter: 'integer',
+        hidden: false
     };
 
     var cashOutTicketsColumn =
@@ -119,11 +118,7 @@ var CashOutWinLossOption = (function () {
         sortable: false,
         resizable: false,
         formatter: 'integer',
-        frozen: true,
-        formatoptions:
-        {
-            thousandsSeparator: ","
-        }
+        frozen: true
     };
 
     var cashOutValueColumn =

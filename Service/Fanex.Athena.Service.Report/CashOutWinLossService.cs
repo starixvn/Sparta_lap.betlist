@@ -74,7 +74,14 @@ namespace Fanex.Athena.Service.Report
                 CurrencyName = g.Key,
                 CashOutTimes = g.Sum(p => p.CashOutTimes),
                 CashOutTickets = g.Sum(p => p.CashOutTickets),
-                CashOutValue = g.Sum(p => p.CashOutValue)
+                CashOutValue = g.Sum(p => p.CashOutValue),
+                BuyBackAmountSB = g.Sum(p => p.BuyBackAmountSB),
+                BuyBackAmountBA = g.Sum(p => p.BuyBackAmountBA),
+                TicketPayout = g.Sum(p => p.TicketPayout),
+                CashOutCommission = g.Sum(p => p.CashOutCommission),
+                SettleAmountTicketPayout = g.Sum(p => p.SettleAmountTicketPayout),
+                SettleAmountBuyBackComm = g.Sum(p => p.SettleAmountBuyBackComm),
+                SettleAmountTotal = g.Sum(p => p.SettleAmountTotal),
             }).ToList();
         }
     }

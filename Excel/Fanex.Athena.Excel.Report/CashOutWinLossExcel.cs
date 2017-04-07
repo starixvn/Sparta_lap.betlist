@@ -306,10 +306,19 @@ namespace Fanex.Athena.Excel.Report
         private static IList<CashOutWinLoss> GetTotalCurrency(IEnumerable<CashOutWinLoss> dataList)
         {
             var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
-                    .Select(group => new CashOutWinLoss
+                    .Select(g => new CashOutWinLoss
                     {
-                        CurrencyName = group.Key.CurrencyName,
-                        CashOutTimes = group.Sum(a => a.CashOutTimes)
+                        CurrencyName = g.Key.CurrencyName,
+                        CashOutTimes = g.Sum(p => p.CashOutTimes),
+                        CashOutTickets = g.Sum(p => p.CashOutTickets),
+                        CashOutValue = g.Sum(p => p.CashOutValue),
+                        BuyBackAmountSB = g.Sum(p => p.BuyBackAmountSB),
+                        BuyBackAmountBA = g.Sum(p => p.BuyBackAmountBA),
+                        TicketPayout = g.Sum(p => p.TicketPayout),
+                        CashOutCommission = g.Sum(p => p.CashOutCommission),
+                        SettleAmountTicketPayout = g.Sum(p => p.SettleAmountTicketPayout),
+                        SettleAmountBuyBackComm = g.Sum(p => p.SettleAmountBuyBackComm),
+                        SettleAmountTotal = g.Sum(p => p.SettleAmountTotal),
                     }).ToList();
 
             return listTotalCurrency;
