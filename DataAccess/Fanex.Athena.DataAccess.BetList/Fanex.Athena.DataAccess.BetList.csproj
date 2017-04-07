@@ -124,6 +124,8 @@
   <ItemGroup>
     <Compile Include="CancelledBetListDataAccess.cs" />
     <Compile Include="BetListDataAccess.cs" />
+    <Compile Include="CashOutBetListDataAccess.cs" />
+    <Compile Include="Interfaces\ICashOutBetListDataAccess.cs" />
     <Compile Include="Interfaces\IColossusBetBetListDataAccess.cs" />
     <Compile Include="Interfaces\ICancelledBetListDataAccess.cs" />
     <Compile Include="Interfaces\ILastBetsMonitoringBetListDataAccess.cs" />

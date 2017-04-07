@@ -2987,4 +2987,15 @@
     <value>Ticket Payout</value>
     <comment>#71727</comment>
   </data>
+  <data name="CashOutTicketsList" xml:space="preserve">
+    <value>Cash Out Ticket[s]</value>
+  </data>
+  <data name="OriginalBetTicket" xml:space="preserve">
+    <value>Original Bet Ticket</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+    <comment>#71727</comment>
+  </data>
 </root>

@@ -43,7 +43,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     db.AddInParameter("BetFrom", DbType.Byte, metaModel.BetFrom);
                     using (var reader = db.ExecuteReader())
                     {
-                        var mainTicket = ReadLrfTicket(reader, metaModel.BasedCurrency);
+                        var mainTicket = ReadBetListTicket(reader, metaModel.BasedCurrency);
                         mainTicket.Sort("TransId", false);
                         ticketResult.MainTicketList.AddRange(mainTicket);
                     }

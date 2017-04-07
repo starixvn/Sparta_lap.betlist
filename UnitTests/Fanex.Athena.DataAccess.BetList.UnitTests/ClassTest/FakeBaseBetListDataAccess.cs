@@ -6,9 +6,9 @@
 
     public class FakeBaseBetListDataAccess : BaseBetListDataAccess
     {
-        public new SortableList<LrfTicket> ReadLrfTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
+        public new SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
         {
-            return BaseBetListDataAccess.ReadLrfTicket(dataReader, baseCurrency, custId);
+            return BaseBetListDataAccess.ReadBetListTicket(dataReader, baseCurrency, custId);
         }
 
         public new string NumberReport(object value)

@@ -40,7 +40,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     using (var reader = db.ExecuteReader())
                     {
                         var result = new TicketResult();
-                        result.MainTicketList.AddRange(ReadLrfTicket(reader, string.Empty));
+                        result.MainTicketList.AddRange(ReadBetListTicket(reader, string.Empty));
                         return result;
                     }
                 }
@@ -158,7 +158,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     BetListParameterBuilder.CreateBetListParameters(db, uspKey, metaModel);
                     using (var reader = db.ExecuteReader())
                     {
-                        ticketResult.MainTicketList.AddRange(ReadLrfTicket(reader, baseCurrency, metaModel.CustId));
+                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, baseCurrency, metaModel.CustId));
                         if (reader.NextResult())
                         {
                             ticketResult.TicketDataList.AddRange(ReadLrfReferneceTicket(reader, baseCurrency).ToList());

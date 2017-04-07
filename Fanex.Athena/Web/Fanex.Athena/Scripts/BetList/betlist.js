@@ -761,7 +761,29 @@ var BetList = (function ($) {
 
             url += urlParam;
             window.location = url;
-        }
+        },
+
+        viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
+          
+            var params = $.parseJSON($("#BetListMetaModel").val());
+            var url = Site.resolveClientUrl('CashOutBetList/Detail');
+            url = QueryString.setParam(url, "transId", transId);
+            url = QueryString.setParam(url, "refNo", refNo);
+            url = QueryString.setParam(url, "betType", betType);
+            url = QueryString.setParam(url, "originaltransId", betdaqId);
+            url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
+            
+            var popH = Math.min($(window).height() - 100, 350), popW = 840;
+            var title = Site.getSingleResource("ProductCO");
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
+        },
     };
 })(jQuery);
 
@@ -795,3 +817,4 @@ var showVoidbridgeResult = BetList.viewVoidbridgeResult;
 var showTodayRunningBetsDetails = BetList.showAllBetDetails;
 var showColossusBetsDetails = BetList.showColossusBetsDetails;
 var showGlobalGaming = BetList.showGlobalGamingDetails;
+var ViewCashOutHistory = BetList.viewCashOutHistory;
