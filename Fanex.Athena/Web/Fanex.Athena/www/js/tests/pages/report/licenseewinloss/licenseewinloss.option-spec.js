@@ -99,7 +99,7 @@
                     it("licenseeWlColumn should has column width is 90", function () {
                         LicenseeWinLossOption.hasCustomerComm = false;
                         var columnModels = LicenseeWinLossOption.getColModel(0, 1, []);
-                        
+
                         expect(columnModels[14].width).toBe(90);
                     });
                 });
@@ -565,6 +565,22 @@
                             titleText: "BuyBackAmount"
                         }
                     ];
+
+                    expect(_method).toBe("setGroupHeaders");
+                    expect(_option.useColSpanStyle).toBe(true);
+                    expect(_option.groupHeaders[0]).toEqual(groupHeaders[0]);
+                    expect(_option.groupHeaders[1]).toEqual(groupHeaders[1]);
+                    expect(_option.groupHeaders[2]).toEqual(groupHeaders[2]);
+                    expect(_option.groupHeaders[3]).toEqual(groupHeaders[3]);
+                });
+
+                it("jqGrid() function should be called with correct parameter when items in productOptions have status is false", function () {
+                    var _method, _option;
+                    spyOn($.fn, "jqGrid").and.callFake(function (method, option) { _method = method; _option = option; });
+                    LicenseeWinLossOption.hasCustomerComm = false;
+                    var productOptions = [{ Code: "SB", Status: false }, { Code: "KN", Status: false }, { Code: "RB", Status: false }];
+                    LicenseeWinLossOption.setGroupHeaderColumns($("#ReportGrid"), productOptions);
+                    var groupHeaders = [{}, {}, {}, {}];
 
                     expect(_method).toBe("setGroupHeaders");
                     expect(_option.useColSpanStyle).toBe(true);

@@ -530,7 +530,8 @@ table tbody tr.row-group-level1 {
   color: #fff; }
 
 .table > tbody tr > td {
-  background: #fff; }
+  background: #fff;
+  vertical-align: top; }
 
 .table-content {
   padding-bottom: 15px; }

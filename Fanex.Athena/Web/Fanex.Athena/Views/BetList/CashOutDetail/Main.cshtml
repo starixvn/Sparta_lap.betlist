@@ -5,6 +5,15 @@
 @section css{
     <link href="@Url.ContentLink("/Content/Global/lrf.global.reportable.css")" rel="stylesheet" type="text/css" />
     @Styles.Render("~/bundles/BetListSimpleLayoutStyles")
+
+    <style>
+        div.match + div.league{
+            text-align: right !important;
+        }
+        table.report-table td{
+            vertical-align: top;
+        }
+    </style>
 }
 @model Fanex.Athena.Model.BetList.ViewModel.CashOutBetListDetailViewModel
 <div class="content-wrapper">
