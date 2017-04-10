@@ -701,6 +701,21 @@ webpackJsonp([33],[
 	                window.location = url;
 	            },
 	
+	            viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
+	
+	                var params = $.parseJSON($("#BetListMetaModel").val());
+	                var url = Site.resolveClientUrl('CashOutBetList/Detail');
+	                url = QueryString.setParam(url, "transId", transId);
+	                url = QueryString.setParam(url, "refNo", refNo);
+	                url = QueryString.setParam(url, "betType", betType);
+	                url = QueryString.setParam(url, "originaltransId", betdaqId);
+	                url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
+	
+	                var popH = Math.min($(window).height() - 100, 550);
+	                var title = Site.getSingleResource("CashOutHistory");
+	
+	                showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
+	            },
 	            registerBetListGlobalFunctions: function () {
 	                window.ViewResult = _me.viewResult;
 	
@@ -726,6 +741,7 @@ webpackJsonp([33],[
 	                window.showTodayRunningBetsDetails = _me.showAllBetDetails;
 	                window.showColossusBetsDetails = _me.showColossusBetsDetails;
 	                window.showGlobalGaming = _me.showGlobalGamingDetails;
+	                window.ViewCashOutHistory = _me.viewCashOutHistory;
 	
 	                var betList = {
 	                    ViewCasinoHandHistory: _me.ViewCasinoHandHistory
