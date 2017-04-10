@@ -222,7 +222,6 @@
     <Compile Include="DailyBetListController.cs" />
     <Compile Include="PendingFundsBetListController.cs" />
     <Compile Include="LastBetMonitoringBetListController.cs" />
-    <Compile Include="LrfBetListHtmlBuilder.cs" />
     <Compile Include="OutStandingCompletedBetListController.cs" />
     <Compile Include="OutstandingRunningBetListController.cs" />
     <Compile Include="RunningBetListController.cs" />

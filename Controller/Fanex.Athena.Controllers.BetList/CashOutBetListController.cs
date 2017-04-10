@@ -41,25 +41,6 @@
             return this.View("~/Views/BetList/CashOutDetail/Main.cshtml", viewModel);
         }
 
-        private static string BuildCustomerWL(BetListHTMLBuilder builder, Ticket ticket, bool showPlayerComm)
-        {
-            var running = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
-            var winloss = running
-                            ? "-"
-                            : string.Format("<div class='underdog'>{0:#,##0.00}</div>", ticket.Winlost);
-
-            if (!showPlayerComm)
-            {
-                return winloss;
-            }
-
-            winloss += running
-                ? string.Empty
-                : string.Format("<div class='underdog'>{0:#,##0.00}</div>", ticket.PlayerComm);
-
-            return winloss;
-        }
-
         private IList<CashOutTicketText> BuildCashOutTicketTextList(IEnumerable<CashOutTicket> dataList)
         {
             var licenseeSession = SessionService.LicenseeSession;
@@ -109,7 +90,7 @@
                     Choice = builder.BuildChoice(ticket, ticketHelper, null, false),
                     Odds = builder.BuildOdds(ticket, null, CacheRef.GetOddsTypeName),
                     Stake = builder.BuildStake(ticket),
-                    WinLoss = BuildCustomerWL(builder, ticket, showPlayerComm)
+                    WinLoss = builder.BuildCustomerWL(ticket, showPlayerComm)
                 };
 
                 ticketTextList.Add(ticketText);
