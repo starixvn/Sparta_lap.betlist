@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.BetList
+namespace Fanex.Athena.Service.BetList.Extensions
 {
     #region Using
 

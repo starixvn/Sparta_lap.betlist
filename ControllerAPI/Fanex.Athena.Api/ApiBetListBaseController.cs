@@ -17,6 +17,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.BetList;
+    using Fanex.Athena.Service.BetList.Extensions;
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
@@ -24,6 +25,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
     using Helpers;
+
     #endregion Using
 
     public class ApiBetListBaseController : BaseApiController

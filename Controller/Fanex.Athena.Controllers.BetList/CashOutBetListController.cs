@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.Athena.Service.BetList.Extensions;
     using Fanex.BetList.Core.Builder;
-    using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
     using Model.BetList.DTO;
     using Resources;
