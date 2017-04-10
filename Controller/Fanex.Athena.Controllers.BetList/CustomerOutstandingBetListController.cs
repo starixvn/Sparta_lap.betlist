@@ -21,6 +21,8 @@ namespace Fanex.Athena.Controllers.BetList
         private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
         private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
 
+        private static readonly string[] IgnoredProductInBetListRunning = new string[] { "BT", "CO" };
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", Justification = "Reviewd.")]
         public ActionResult Index(BetListMetaModel metaModel)
         {
@@ -36,10 +38,9 @@ namespace Fanex.Athena.Controllers.BetList
                 SessionService.UserSession.Language,
                 isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName);
 
-            var isCheckedAllProducts = metaModel.ProductOptions.Count() == 0;
-            var previousCheckedProducts = metaModel.ProductOptions.Where(x => x.Status)
-                                            .Select(x => x.Code).ToList();
-            var hasCheckedBetTrade = metaModel.ProductOptions.Any(p => p.Code == "BT" && p.Status);
+            var isFirstTimeLoading = metaModel.ProductOptions.Count() == 0;
+            var previousCheckedProducts = metaModel.ProductOptions.Where(x => x.Status).ToList();
+            var shouldCheckSportsbook = ShouldCheckSportsbook(previousCheckedProducts);
             var productOptions = new HashSet<ProductOption>();
 
             foreach (var product in productAccess.ProductList)
@@ -50,13 +51,13 @@ namespace Fanex.Athena.Controllers.BetList
                     Name = product.ProductName
                 };
 
-                if (isCheckedAllProducts)
+                if (isFirstTimeLoading)
                 {
                     productOption.Status = true;
                 }
                 else
                 {
-                    var status = previousCheckedProducts.Any(code => code == product.ProductCode);
+                    var status = previousCheckedProducts.Any(p => p.Code == product.ProductCode);
                     productOption.Status = status;
                 }
 
@@ -65,13 +66,21 @@ namespace Fanex.Athena.Controllers.BetList
 
             metaModel.ProductOptions = productOptions;
 
-            if (hasCheckedBetTrade)
+            if (shouldCheckSportsbook)
             {
                 var defaultProduct = metaModel.ProductOptions.FirstOrDefault(p => p.Code == "SB");
                 defaultProduct.Status = true;
             }
 
             return View("~/Views/BetList/CustomerOutstanding/Main.cshtml", metaModel);
+        }
+
+        private static bool ShouldCheckSportsbook(IEnumerable<ProductOption> previousCheckedProducts)
+        {
+            var hasCheckedIgnoredProduct = previousCheckedProducts.Any(p => IgnoredProductInBetListRunning.Contains(p.Code));
+            var hasCheckedOtherProducts = previousCheckedProducts.Any(p => !IgnoredProductInBetListRunning.Contains(p.Code));
+
+            return hasCheckedIgnoredProduct && !hasCheckedOtherProducts;
         }
     }
 }
