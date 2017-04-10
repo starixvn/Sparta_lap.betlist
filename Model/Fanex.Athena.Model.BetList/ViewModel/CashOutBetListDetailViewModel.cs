@@ -13,5 +13,7 @@
         public IEnumerable<CashOutTicket> CashOutTicketList { get; set; }
 
         public IEnumerable<CashOutTicketText> CashOutTicketTextList { get; set; }
+
+        public bool IsBoughtTicket { get; set; }
     }
 }

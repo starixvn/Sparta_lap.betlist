@@ -774,7 +774,7 @@ var BetList = (function ($) {
             url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
             
             var popH = Math.min($(window).height() - 100, 350), popW = 840;
-            var title = Site.getSingleResource("ProductCO");
+            var title = Site.getSingleResource("CashOutHistory");
             var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
                              popW + '" height="100%" src="' + url + '" ></iframe></div>';
 

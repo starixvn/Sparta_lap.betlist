@@ -8,6 +8,7 @@
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.TicketHelper;
     using Model.BetList.DTO;
+    using Model.Core.DataDomain;
     using Resources;
     using Service.BetList;
     using Service.BetList.Interfaces;
@@ -37,7 +38,7 @@
 
             viewModel.TicketTextList = BuilTicketTextList(viewModel.DataList);
             viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList);
-
+            viewModel.IsBoughtTicket = metaModel.BetType == (int)BetType.CashOutBought;
             return this.View("~/Views/BetList/CashOutDetail/Main.cshtml", viewModel);
         }
 
@@ -53,12 +54,20 @@
             };
             foreach (var ticket in dataList)
             {
+                var betListTicket = new LrfTicket
+                {
+                    BetTypeId = ticket.BetType,
+                    Status = ticket.Status
+                };
+                var statusHtml = builder.CreateStatusBuilder(ticket.BetType).Render(betListTicket, ticketHelper, null, false);
+                statusHtml.StatusResult = null;
                 var ticketText = new CashOutTicketText
                 {
                     TransTime = ViewResources.RefNo + ":" + ticket.RefNo + Environment.NewLine + "<div class='time'>" + ticket.TransDate + "</div>",
-                    Stake = ticket.Stake.ToString(),
-                    Price = ticket.Price.ToString(),
-                    WinLoss = ticket.WinLoss.ToString()
+                    Stake = ticket.Stake.ToString("0.00"),
+                    Price = ticket.Price.ToString("0.00"),
+                    WinLoss = ticket.WinLoss.ToString("0.00"),
+                    Status = statusHtml.ToString()
                 };
 
                 ticketTextList.Add(ticketText);

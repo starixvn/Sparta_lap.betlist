@@ -925,6 +925,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bought Stake.
+        /// </summary>
+        public static string BoughtStake {
+            get {
+                return ResourceManager.GetString("BoughtStake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Buy Back Amount.
         /// </summary>
         public static string BuyBackAmount {
@@ -1015,6 +1024,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cash Out History.
+        /// </summary>
+        public static string CashOutHistory {
+            get {
+                return ResourceManager.GetString("CashOutHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cash Out is not offered for this currency..
         /// </summary>
         public static string CashOutNotOfferCurrency {
@@ -1029,6 +1047,15 @@ namespace Fanex.Athena.Resources {
         public static string CashOutShare {
             get {
                 return ResourceManager.GetString("CashOutShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cash Out Stake.
+        /// </summary>
+        public static string CashOutStake {
+            get {
+                return ResourceManager.GetString("CashOutStake", resourceCulture);
             }
         }
         
