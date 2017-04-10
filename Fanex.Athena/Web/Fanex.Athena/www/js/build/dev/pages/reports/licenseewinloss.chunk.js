@@ -21256,35 +21256,34 @@ webpackJsonp([41],[
 	
 	        _me.setGroupHeaderColumns = function (grid, productOptions) {
 	            var numOfTurnover = Enumerable.From(productOptions).Count(turnoverProductsFilter) + 1;
-	            var lastOfTurnover = Enumerable.From(productOptions).Last(turnoverProductsFilter);
+	            var lastOfTurnover = numOfTurnover > 1 ? Enumerable.From(productOptions).Last(turnoverProductsFilter) : null;
 	
 	            var numOfLicenseeWL = Enumerable.From(productOptions).Count(licenseeWLProductsFilter) + 1;
-	            var lastOfLicenseeWL = Enumerable.From(productOptions).Last(licenseeWLProductsFilter);
+	            var lastOfLicenseeWL = numOfLicenseeWL > 1 ? Enumerable.From(productOptions).LastOrDefault(licenseeWLProductsFilter) : null;
 	
-	            var groupCustomerWinloss = _me.hasCustomerComm ?
-	                {
-	                    startColumnName: 'CustomerWinLoss',
-	                    numberOfColumns: 3,
-	                    titleText: Site.getSingleResource('CustomerW_L')
-	                } : {};
+	            var groupCustomerWinloss = _me.hasCustomerComm ? {
+	                startColumnName: 'CustomerWinLoss',
+	                numberOfColumns: 3,
+	                titleText: Site.getSingleResource('CustomerW_L')
+	            } : {};
 	
-	            var groupTurnoverWL = {
+	            var groupTurnoverWL = lastOfTurnover !== null ? {
 	                startColumnName: "TurnOver" + lastOfTurnover.Code,
 	                numberOfColumns: numOfTurnover,
 	                titleText: Site.getSingleResource('Turnover')
-	            };
+	            } : {};
 	
-	            var groupLicenseeWL = {
+	            var groupLicenseeWL = lastOfLicenseeWL !== null ? {
 	                startColumnName: "LicenseeWL" + lastOfLicenseeWL.Code,
 	                numberOfColumns: numOfLicenseeWL,
 	                titleText: Site.getSingleResource('LicenseeW_L')
-	            };
+	            } : {};
 	
-	            var groupBuyBackAmount = {
+	            var groupBuyBackAmount = lastOfLicenseeWL !== null ? {
 	                startColumnName: "BuyBackAmountSB",
 	                numberOfColumns: 3,
 	                titleText: Site.getSingleResource('BuyBackAmount')
-	            };
+	            } : {};
 	
 	            grid.jqGrid('setGroupHeaders',
 	            {
