@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -750,6 +750,8 @@
     <Content Include="www\css\build\dev\pages\betlist\betlistResult.css" />
     <Content Include="www\css\build\dev\pages\betlist\betlistSimpleLayout.chunk.js" />
     <Content Include="www\css\build\dev\pages\betlist\betlistSimpleLayout.css" />
+    <Content Include="www\css\build\dev\pages\betlist\cashouthistory.chunk.js" />
+    <Content Include="www\css\build\dev\pages\betlist\cashouthistory.css" />
     <Content Include="www\css\build\dev\pages\betlist\colossusbetdetail.chunk.js" />
     <Content Include="www\css\build\dev\pages\betlist\colossusbetdetail.css" />
     <Content Include="www\css\build\dev\pages\betlist\images\goal-icon.png" />
@@ -806,6 +808,7 @@
     <Content Include="www\css\build\pro\pages\betlist\betlistLayout.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistResult.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistSimpleLayout.css" />
+    <Content Include="www\css\build\pro\pages\betlist\cashouthistory.css" />
     <Content Include="www\css\build\pro\pages\betlist\colossusbetdetail.css" />
     <Content Include="www\css\build\pro\pages\betlist\images\goal-icon.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\q_Icon2_1.png" />
@@ -863,6 +866,9 @@
     <Content Include="www\css\build\dev\pages\reports\cashoutwinloss.css.map" />
     <Content Include="Views\BetList\CashOutDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\CashOutDetail\Main.cshtml" />
+    <Content Include="www\css\source\pages\betlist\cashouthistory.main.scss" />
+    <Content Include="www\css\build\dev\pages\betlist\cashouthistory.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\betlist\cashouthistory.css.map" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />

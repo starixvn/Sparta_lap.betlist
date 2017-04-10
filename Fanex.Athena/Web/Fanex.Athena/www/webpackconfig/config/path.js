@@ -36,7 +36,8 @@ var cssPaths = {
     racingcommission: ["./www/css/source/pages/report/racingcommission.scss"],
     turnover: ["./www/css/source/pages/report/turnover.scss"],
     result: ["./www/css/source/pages/report/result.scss"],
-    cashoutwinloss: ["./www/css/source/pages/report/cashoutwinloss.scss"]
+    cashoutwinloss: ["./www/css/source/pages/report/cashoutwinloss.scss"],
+    cashouthistory: ["./www/css/source/pages/betlist/cashouthistory.main.scss", "./www/css/source/extensions/popup-ex.scss"]
 };
 
 var scriptPaths = {

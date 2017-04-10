@@ -1,21 +1,21 @@
-webpackJsonp([26],{
+webpackJsonp([27],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(66);
-	__webpack_require__(67);
 	__webpack_require__(68);
 	__webpack_require__(69);
-	module.exports = __webpack_require__(70);
+	__webpack_require__(70);
+	__webpack_require__(71);
+	module.exports = __webpack_require__(72);
 
 
 /***/ },
 
-/***/ 66:
+/***/ 68:
 /***/ function(module, exports) {
 
-	// Generated at: 3/31/2017 12:39:17 PM
+	// Generated at: 4/10/2017 2:55:41 PM
 	window._language_en_US = {
 	AA:"AA",
 	AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -113,6 +113,7 @@ webpackJsonp([26],{
 	BingoExcludedNote:"Bingo is not included in the report",
 	BONTeamToScore:"Both/One/Neither Team To Score",
 	Bonus:"Bonus",
+	BoughtStake:"Bought Stake",
 	BuyBackAmount:"Buy Back Amount",
 	ByBetType:"By Bet Type",
 	ByCurrency:"By Currency",
@@ -123,9 +124,12 @@ webpackJsonp([26],{
 	CannotUpdateBetLimitForProduct:"You cannot update member bet limit for product {0}.",
 	CashOutAmt:"Cash-out Amt",
 	CashOutCommission:"Cash Out Commission",
+	CashOutHistory:"Cash Out History",
 	CashOutNotOfferCurrency:"Cash Out is not offered for this currency.",
 	CashOutShare:"Cash-out Share",
+	CashOutStake:"Cash Out Stake",
 	CashOutTickets:"Cash Out Tickets",
+	CashOutTicketsList:"Cash Out Ticket[s]",
 	CashOutTimes:"Cash Out Times",
 	CashOutValue:"Cash Out Value",
 	CashOutWinLoss:"Cash Out Win Loss",
@@ -617,6 +621,7 @@ webpackJsonp([26],{
 	OneXTwo:"1 X 2",
 	Open:"Open",
 	OpeningBalance:"Opening Balance",
+	OriginalBetTicket:"Original Bet Ticket",
 	OT:"OT",
 	Others:"Others",
 	OtherSport:"Other Sports",
@@ -655,6 +660,7 @@ webpackJsonp([26],{
 	PreGame:"Pre Game",
 	Prev:"Prev",
 	Previous:"Previous",
+	Price:"Price",
 	ProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 	Product:"Product",
 	ProductAB:"AllBet",
@@ -938,10 +944,10 @@ webpackJsonp([26],{
 
 /***/ },
 
-/***/ 67:
+/***/ 69:
 /***/ function(module, exports) {
 
-	// Generated at: 3/31/2017 12:39:17 PM
+	// Generated at: 4/10/2017 2:55:41 PM
 	window._language_zh_CN = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1725,10 +1731,10 @@ webpackJsonp([26],{
 
 /***/ },
 
-/***/ 68:
+/***/ 70:
 /***/ function(module, exports) {
 
-	// Generated at: 3/31/2017 12:39:17 PM
+	// Generated at: 4/10/2017 2:55:41 PM
 	window._language_zh_TW = {
 	AA:"客客",
 	AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -2512,10 +2518,10 @@ webpackJsonp([26],{
 
 /***/ },
 
-/***/ 69:
+/***/ 71:
 /***/ function(module, exports) {
 
-	// Generated at: 3/31/2017 12:39:17 PM
+	// Generated at: 4/10/2017 2:55:41 PM
 	window._language_zh_Hans = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -3295,10 +3301,10 @@ webpackJsonp([26],{
 
 /***/ },
 
-/***/ 70:
+/***/ 72:
 /***/ function(module, exports) {
 
-	// Generated at: 3/31/2017 12:39:17 PM
+	// Generated at: 4/10/2017 2:55:41 PM
 	window._language_ko_KR = {
 	AA:"AA",
 	AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
