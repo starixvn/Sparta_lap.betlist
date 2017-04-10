@@ -21261,7 +21261,7 @@ webpackJsonp([42],[
 	            var lastOfTurnover = numOfTurnover > 1 ? Enumerable.From(productOptions).Last(turnoverProductsFilter) : null;
 	
 	            var numOfLicenseeWL = Enumerable.From(productOptions).Count(licenseeWLProductsFilter) + 1;
-	            var lastOfLicenseeWL = numOfLicenseeWL > 1 ? Enumerable.From(productOptions).LastOrDefault(licenseeWLProductsFilter) : null;
+	            var lastOfLicenseeWL = numOfLicenseeWL > 1 ? Enumerable.From(productOptions).Last(licenseeWLProductsFilter) : null;
 	
 	            var groupCustomerWinloss = _me.hasCustomerComm ? {
 	                startColumnName: 'CustomerWinLoss',
