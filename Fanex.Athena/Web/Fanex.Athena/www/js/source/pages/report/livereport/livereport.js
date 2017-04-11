@@ -28,7 +28,7 @@
             /*back button*/
             /*-affect the action excel*/
             window.onbeforeunload = function () {
-                $("ProductCode").val("");
+                $("#ProductCode").val("");
             };
 
             $("body").on("click", ".product-detail-link", function () {

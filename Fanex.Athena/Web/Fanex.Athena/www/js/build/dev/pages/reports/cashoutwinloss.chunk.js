@@ -20469,7 +20469,6 @@ webpackJsonp([41],[
 	            openBetlistPopUp: function (dataDrillDown) {
 	                dataDrillDown = $.parseJSON(dataDrillDown);
 	                var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
-	                console.log("aaaaaaaaaaa", typeof(dateRange.FromDate));//.toString("MM/dd/yyyy"));
 	                var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
 	                url = QueryString.setParam(url, "fromdate", moment(dateRange.FromDate).format("MM/DD/YYYY"));
 	                url = QueryString.setParam(url, "todate", moment(dateRange.ToDate).format("MM/DD/YYYY"));

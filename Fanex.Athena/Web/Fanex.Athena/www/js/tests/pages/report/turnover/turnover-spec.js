@@ -1,7 +1,7 @@
 ﻿define(["jquery", "common/site", "pages/report/turnover/turnover.option", "lib/jqgrid/jquery.jqgrid.additional",
-        "moment", "components/pluginhelper/monthpicker", "pages/report/turnover/turnover",
+        "moment", "components/pluginhelper/monthpicker", "components/pluginhelper/multiselect", "pages/report/turnover/turnover",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "materialize-autocomplete"],
-    function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, Turnover) {
+    function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect, Turnover) {
         describe("Turnover", function () {
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (resource) { if (resource === "Viewin") { return resource + " EUR"; } return resource; });
@@ -20,7 +20,7 @@
                     spyOn(Site, "initialize");
                     spyOn(Turnover, "initEvent");
                     spyOn(MonthPicker, "initMonthPicker");
-                    spyOn(Site, "setMultiSelectForDropDownList");
+                    spyOn(MultiSelect, "initialize");
                     spyOn(Site, "addUserGuide");
                     spyOn(Turnover, "initAutoComplete");
                     Turnover.initialize();
@@ -38,8 +38,8 @@
                 it("MonthPicker.initMonthPicker() should be called", function () {
                     expect(MonthPicker.initMonthPicker).toHaveBeenCalled();
                 });
-                it("Site.setMultiSelectForDropDownList() should be called with correct parameter", function () {
-                    expect(Site.setMultiSelectForDropDownList).toHaveBeenCalledWith('grid-products-multiselect', "SB,RC", 'Code', 'Name', 'Status');
+                it("MultiSelect.initialize() should be called with correct parameter", function () {
+                    expect(MultiSelect.initialize).toHaveBeenCalledWith('grid-products-multiselect', "SB,RC", 'Code', 'Name', 'Status');
                 });
                 it("Site.addUserGuide() should be called with correct parameter", function () {
                     expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "Turnover", title: "Turnover" });
@@ -71,7 +71,7 @@
                     beforeEach(function () {
                         spyOn(Site, "initialize");
                         spyOn(MonthPicker, "initMonthPicker");
-                        spyOn(Site, "setMultiSelectForDropDownList");
+                        spyOn(MultiSelect, "initialize");
                         spyOn(Site, "addUserGuide");
 
                         $autocomplete = $("#Username");
@@ -275,7 +275,7 @@
                     spyOn(Turnover, "initEvent");
                     spyOn(Turnover, "initAutoComplete");
                     spyOn(MonthPicker, "initMonthPicker");
-                    spyOn(Site, "setMultiSelectForDropDownList");
+                    spyOn(MultiSelect, "initialize");
                     spyOn(Site, "addUserGuide");
 
                     setFixtures('<div id="suggestionDropdown" style="width: 200px;"></div> <input id="Username" />');

@@ -2,7 +2,7 @@ webpackJsonp([43],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(229);
+	module.exports = __webpack_require__(230);
 
 
 /***/ },
@@ -16306,20 +16306,21 @@ webpackJsonp([43],[
 /* 226 */,
 /* 227 */,
 /* 228 */,
-/* 229 */
+/* 229 */,
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(230)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveReport) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(231)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveReport) {
 	    "use strict";
 	    $(LiveReport.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(192), __webpack_require__(231), __webpack_require__(233)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, DatePicker, MonthPicker, Helper) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(192), __webpack_require__(232), __webpack_require__(234)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, DatePicker, MonthPicker, Helper) {
 	        "use strict";
 	
 	        function initialize() {
@@ -16347,7 +16348,7 @@ webpackJsonp([43],[
 	            /*back button*/
 	            /*-affect the action excel*/
 	            window.onbeforeunload = function () {
-	                $("ProductCode").val("");
+	                $("#ProductCode").val("");
 	            };
 	
 	            $("body").on("click", ".product-detail-link", function () {
@@ -16477,10 +16478,10 @@ webpackJsonp([43],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(232)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(233)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
 	        "use strict";
 	
 	        var _historyDate = new Date($("#HistoryDate").val());
@@ -16525,7 +16526,7 @@ webpackJsonp([43],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -17335,7 +17336,7 @@ webpackJsonp([43],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {

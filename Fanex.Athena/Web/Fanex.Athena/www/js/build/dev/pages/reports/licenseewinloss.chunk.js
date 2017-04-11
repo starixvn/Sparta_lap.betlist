@@ -20361,9 +20361,9 @@ webpackJsonp([42],[
 /* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(224), __webpack_require__(227),
-	        __webpack_require__(181), __webpack_require__(192), __webpack_require__(74), __webpack_require__(9),
-	        __webpack_require__(184), __webpack_require__(185), __webpack_require__(206), __webpack_require__(228)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(224), __webpack_require__(227), __webpack_require__(181),
+	        __webpack_require__(192), __webpack_require__(74), __webpack_require__(9), __webpack_require__(229),
+	        __webpack_require__(184), __webpack_require__(185), __webpack_require__(206), __webpack_require__(228)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect) {
 	        "use strict";
 	        var REPORT_BY_MONTHLY = 2;
 	
@@ -20407,7 +20407,7 @@ webpackJsonp([42],[
 	                    resourceName: "LicenseeWL",
 	                    title: Site.getSingleResource("LicenseeWinLoss")
 	                });
-	                Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+	                MultiSelect.initialize('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
 	                DatePicker.initDateRangePicker();
 	            },
 	
@@ -20483,8 +20483,8 @@ webpackJsonp([42],[
 	
 	            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
 	                var titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-	                var currencyName = Report.getCurrencyNameForReportTitle(currencyId);
-	                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyName);
+	                var currencyNameOnTitle = currencyName ? currencyName : Report.getCurrencyNameForReportTitle(currencyId);
+	                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyNameOnTitle);
 	                $(".report-title").html(title);
 	                $(".panel-heading").removeClass("hide");
 	            },
@@ -24363,6 +24363,64 @@ webpackJsonp([42],[
 	    // out to global
 	    return Enumerable;
 	})()
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(11)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	    var _me = {
+	        initialize: function (dropDownListId, dataSource, valueField, textField, checkField) {
+	            var data = $.parseJSON(dataSource);
+	            var length = data.length;
+	            var dataUI = [];
+	            var checkedCount = 0;
+	            for (var i = 0; i < length; i++) {
+	                var item = data[i];
+	                var isChecked = asBool(item[checkField]);
+	                if (isChecked) {
+	                    checkedCount++;
+	                }
+	
+	                dataUI.push({
+	                    Id: item[valueField],
+	                    Value: item[valueField],
+	                    Text: getSingleResource(item[textField]),
+	                    Checked: isChecked,
+	                    Enable: true
+	                });
+	            }
+	
+	            var isCheckAll = checkedCount === length;
+	            $("#" + dropDownListId).multiSelect({
+	                minWidth: 200,
+	                maxHeight: 400,
+	                shadow: true,
+	                showHeader: true,
+	                isCheckAll: isCheckAll,
+	                checkAllText: getSingleResource('All'),
+	                showFooter: false,
+	                listData: dataUI,
+	                onCheck: function () {
+	                    var checkedItems = $("#" + dropDownListId).multiSelect("getCheckedItems");
+	                    $("#product-container input[type=checkbox]:checked").prop("checked", false);
+	                    var hasItemsChecked = checkedItems.length > 0;
+	                    if (hasItemsChecked) {
+	                        for (var i = 0; i < checkedItems.length; i++) {
+	                            $('#product-container #' + checkedItems[i]).prop("checked", true);
+	                        }
+	                    }
+	
+	                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
+	                    $(".error-img").toggleClass("hide", hasItemsChecked);
+	                }
+	            });
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }
 ]);

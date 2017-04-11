@@ -1,8 +1,8 @@
 ﻿define(
-    ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option",
-        "lib/jqgrid/jquery.jqgrid.additional", "components/pluginhelper/daterangepicker", "moment", "common/popup",
+    ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional",
+        "components/pluginhelper/daterangepicker", "moment", "common/popup", "components/pluginhelper/multiselect",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq"],
-    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup) {
+    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
 
@@ -46,7 +46,7 @@
                     resourceName: "LicenseeWL",
                     title: Site.getSingleResource("LicenseeWinLoss")
                 });
-                Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+                MultiSelect.initialize('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
                 DatePicker.initDateRangePicker();
             },
 
@@ -122,8 +122,8 @@
 
             setReportTitle: function (currencyId, fromdate, todate, currencyName) {
                 var titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-                var currencyName = Report.getCurrencyNameForReportTitle(currencyId);
-                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyName);
+                var currencyNameOnTitle = currencyName ? currencyName : Report.getCurrencyNameForReportTitle(currencyId);
+                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyNameOnTitle);
                 $(".report-title").html(title);
                 $(".panel-heading").removeClass("hide");
             },

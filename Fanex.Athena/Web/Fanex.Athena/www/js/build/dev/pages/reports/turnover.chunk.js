@@ -2,7 +2,7 @@ webpackJsonp([48],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(244);
+	module.exports = __webpack_require__(245);
 
 
 /***/ },
@@ -18887,12 +18887,70 @@ webpackJsonp([48],[
 /* 226 */,
 /* 227 */,
 /* 228 */,
-/* 229 */,
-/* 230 */,
-/* 231 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(232)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(11)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	    var _me = {
+	        initialize: function (dropDownListId, dataSource, valueField, textField, checkField) {
+	            var data = $.parseJSON(dataSource);
+	            var length = data.length;
+	            var dataUI = [];
+	            var checkedCount = 0;
+	            for (var i = 0; i < length; i++) {
+	                var item = data[i];
+	                var isChecked = asBool(item[checkField]);
+	                if (isChecked) {
+	                    checkedCount++;
+	                }
+	
+	                dataUI.push({
+	                    Id: item[valueField],
+	                    Value: item[valueField],
+	                    Text: getSingleResource(item[textField]),
+	                    Checked: isChecked,
+	                    Enable: true
+	                });
+	            }
+	
+	            var isCheckAll = checkedCount === length;
+	            $("#" + dropDownListId).multiSelect({
+	                minWidth: 200,
+	                maxHeight: 400,
+	                shadow: true,
+	                showHeader: true,
+	                isCheckAll: isCheckAll,
+	                checkAllText: getSingleResource('All'),
+	                showFooter: false,
+	                listData: dataUI,
+	                onCheck: function () {
+	                    var checkedItems = $("#" + dropDownListId).multiSelect("getCheckedItems");
+	                    $("#product-container input[type=checkbox]:checked").prop("checked", false);
+	                    var hasItemsChecked = checkedItems.length > 0;
+	                    if (hasItemsChecked) {
+	                        for (var i = 0; i < checkedItems.length; i++) {
+	                            $('#product-container #' + checkedItems[i]).prop("checked", true);
+	                        }
+	                    }
+	
+	                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
+	                    $(".error-img").toggleClass("hide", hasItemsChecked);
+	                }
+	            });
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 230 */,
+/* 231 */,
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(233)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
 	        "use strict";
 	
 	        var _historyDate = new Date($("#HistoryDate").val());
@@ -18937,7 +18995,7 @@ webpackJsonp([48],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -19747,7 +19805,6 @@ webpackJsonp([48],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 233 */,
 /* 234 */,
 /* 235 */,
 /* 236 */,
@@ -19758,10 +19815,11 @@ webpackJsonp([48],[
 /* 241 */,
 /* 242 */,
 /* 243 */,
-/* 244 */
+/* 244 */,
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Turnover) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(246)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Turnover) {
 	    "use strict";
 	    $(function () {
 	        Turnover.initialize();
@@ -19777,12 +19835,12 @@ webpackJsonp([48],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(246),
-	        __webpack_require__(181), __webpack_require__(74), __webpack_require__(231),
-	        __webpack_require__(184), __webpack_require__(185), __webpack_require__(206), __webpack_require__(218)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(247),
+	        __webpack_require__(181), __webpack_require__(74), __webpack_require__(232), __webpack_require__(229),
+	        __webpack_require__(184), __webpack_require__(185), __webpack_require__(206), __webpack_require__(218)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect) {
 	        "use strict";
 	    var ajaxRequest = null;
 	    var _fromDate, _toDate, _currencyName, _currencyId;
@@ -19800,7 +19858,7 @@ webpackJsonp([48],[
 	            TurnoverOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
 	            TurnoverOption.hasCasinoTransfer = Site.asBool($("#IsAllowedCasinoTransfer").val());
 	            TurnoverOption.isAllowBa = Site.asBool($("#IsAllowBa").val());
-	            Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+	            MultiSelect.initialize('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
 	            Site.addUserGuide({
 	                resourceName: "Turnover",
 	                title: Site.getSingleResource("Turnover")
@@ -20035,7 +20093,7 @@ webpackJsonp([48],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(181)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {

@@ -3,7 +3,7 @@ webpackJsonp([52],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(289);
+	module.exports = __webpack_require__(290);
 
 
 /***/ },
@@ -500,7 +500,7 @@ webpackJsonp([52],{
 
 /***/ },
 
-/***/ 288:
+/***/ 289:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(202), __webpack_require__(206)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
@@ -577,10 +577,10 @@ webpackJsonp([52],{
 
 /***/ },
 
-/***/ 289:
+/***/ 290:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(290)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HalfTimeFullTime) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(291)], __WEBPACK_AMD_DEFINE_RESULT__ = function (HalfTimeFullTime) {
 	    "use strict";
 	
 	    $(HalfTimeFullTime.initialize);
@@ -589,10 +589,10 @@ webpackJsonp([52],{
 
 /***/ },
 
-/***/ 290:
+/***/ 291:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(288), __webpack_require__(202)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(289), __webpack_require__(202)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
 	    "use strict";
 	
 	    var _me = {

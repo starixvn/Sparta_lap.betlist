@@ -3,7 +3,7 @@ webpackJsonp([56],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(297);
+	module.exports = __webpack_require__(298);
 
 
 /***/ },
@@ -500,7 +500,7 @@ webpackJsonp([56],{
 
 /***/ },
 
-/***/ 288:
+/***/ 289:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(202), __webpack_require__(206)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
@@ -577,10 +577,10 @@ webpackJsonp([56],{
 
 /***/ },
 
-/***/ 297:
+/***/ 298:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(298)], __WEBPACK_AMD_DEFINE_RESULT__ = function (OddEvenDND) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(299)], __WEBPACK_AMD_DEFINE_RESULT__ = function (OddEvenDND) {
 	    "use strict";
 	
 	    $(OddEvenDND.initialize);
@@ -589,10 +589,10 @@ webpackJsonp([56],{
 
 /***/ },
 
-/***/ 298:
+/***/ 299:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(288), __webpack_require__(9), __webpack_require__(202)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, Popup, RefreshCountDown) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(289), __webpack_require__(9), __webpack_require__(202)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, Popup, RefreshCountDown) {
 	    "use strict";
 	
 	    var _me = {

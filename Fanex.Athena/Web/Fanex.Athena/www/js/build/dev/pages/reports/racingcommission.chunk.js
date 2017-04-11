@@ -2,7 +2,7 @@ webpackJsonp([45],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(236);
+	module.exports = __webpack_require__(237);
 
 
 /***/ },
@@ -16555,11 +16555,12 @@ webpackJsonp([45],[
 /* 233 */,
 /* 234 */,
 /* 235 */,
-/* 236 */
+/* 236 */,
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(237)], __WEBPACK_AMD_DEFINE_RESULT__ = function (RacingCommission) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(238)], __WEBPACK_AMD_DEFINE_RESULT__ = function (RacingCommission) {
 	    $(function () {
 	        RacingCommission.initialize();
 	
@@ -16573,11 +16574,11 @@ webpackJsonp([45],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(192), __webpack_require__(238), __webpack_require__(239), __webpack_require__(206)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, DatePicker, Paging, GridHelper) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(192), __webpack_require__(239), __webpack_require__(240), __webpack_require__(206)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, DatePicker, Paging, GridHelper) {
 	        var _me = {
 	            initialize: function () {
 	                Site.initialize();
@@ -16646,7 +16647,7 @@ webpackJsonp([45],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -16817,7 +16818,7 @@ webpackJsonp([45],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";

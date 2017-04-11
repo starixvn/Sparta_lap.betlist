@@ -2,7 +2,7 @@ webpackJsonp([46],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(240);
+	module.exports = __webpack_require__(241);
 
 
 /***/ },
@@ -16558,7 +16558,8 @@ webpackJsonp([46],[
 /* 236 */,
 /* 237 */,
 /* 238 */,
-/* 239 */
+/* 239 */,
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -16599,21 +16600,21 @@ webpackJsonp([46],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(241)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Result) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(242)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Result) {
 	    $(Result.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(192), __webpack_require__(9), __webpack_require__(239), __webpack_require__(206)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, DatePicker, Popup, GridHelper) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(192), __webpack_require__(9), __webpack_require__(240), __webpack_require__(206)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, DatePicker, Popup, GridHelper) {
 	        var api = "ResultReport/Index";
 	        var apiExcel = "ResultReport/ResultExcel?";
 	        var apiSport = "ResultReport/GetSports";
