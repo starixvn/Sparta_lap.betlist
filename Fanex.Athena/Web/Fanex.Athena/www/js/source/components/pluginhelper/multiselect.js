@@ -1,5 +1,5 @@
 ﻿"use strict";
-define(["jquery", "lib/jquery.multiselect"], function ($) {
+define(["jquery", "common/site", "lib/jquery.multiselect"], function ($, Site) {
     var _me = {
         initialize: function (dropDownListId, dataSource, valueField, textField, checkField) {
             var data = $.parseJSON(dataSource);
@@ -8,7 +8,7 @@ define(["jquery", "lib/jquery.multiselect"], function ($) {
             var checkedCount = 0;
             for (var i = 0; i < length; i++) {
                 var item = data[i];
-                var isChecked = asBool(item[checkField]);
+                var isChecked = item[checkField];
                 if (isChecked) {
                     checkedCount++;
                 }
@@ -16,7 +16,7 @@ define(["jquery", "lib/jquery.multiselect"], function ($) {
                 dataUI.push({
                     Id: item[valueField],
                     Value: item[valueField],
-                    Text: getSingleResource(item[textField]),
+                    Text: Site.getSingleResource(item[textField]),
                     Checked: isChecked,
                     Enable: true
                 });
@@ -29,7 +29,7 @@ define(["jquery", "lib/jquery.multiselect"], function ($) {
                 shadow: true,
                 showHeader: true,
                 isCheckAll: isCheckAll,
-                checkAllText: getSingleResource('All'),
+                checkAllText: Site.getSingleResource('All'),
                 showFooter: false,
                 listData: dataUI,
                 onCheck: function () {

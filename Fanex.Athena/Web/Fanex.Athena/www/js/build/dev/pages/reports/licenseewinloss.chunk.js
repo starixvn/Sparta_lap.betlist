@@ -24369,7 +24369,7 @@ webpackJsonp([42],[
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(11)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(11)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
 	    var _me = {
 	        initialize: function (dropDownListId, dataSource, valueField, textField, checkField) {
 	            var data = $.parseJSON(dataSource);
@@ -24378,7 +24378,7 @@ webpackJsonp([42],[
 	            var checkedCount = 0;
 	            for (var i = 0; i < length; i++) {
 	                var item = data[i];
-	                var isChecked = asBool(item[checkField]);
+	                var isChecked = item[checkField];
 	                if (isChecked) {
 	                    checkedCount++;
 	                }
@@ -24386,7 +24386,7 @@ webpackJsonp([42],[
 	                dataUI.push({
 	                    Id: item[valueField],
 	                    Value: item[valueField],
-	                    Text: getSingleResource(item[textField]),
+	                    Text: Site.getSingleResource(item[textField]),
 	                    Checked: isChecked,
 	                    Enable: true
 	                });
@@ -24399,7 +24399,7 @@ webpackJsonp([42],[
 	                shadow: true,
 	                showHeader: true,
 	                isCheckAll: isCheckAll,
-	                checkAllText: getSingleResource('All'),
+	                checkAllText: Site.getSingleResource('All'),
 	                showFooter: false,
 	                listData: dataUI,
 	                onCheck: function () {

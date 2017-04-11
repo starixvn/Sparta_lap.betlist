@@ -108,22 +108,46 @@
         });
 
         describe("getSingleResource(enghlishName)", function () {
-            beforeEach(function () {
-                setFixtures('<input id="PageLanguage" value="_language_en_US" />');
-                window["_language_en_US"] = { "Test": "en-Test" };
-                spyOn($.fn, "selectList");
-            });
+            describe("resource is exist", function () {
+                beforeEach(function () {
+                    setFixtures('<input id="PageLanguage" value="en-US" />');
+                    window["_language_en_US"] = { "Test": "en-Test" };
+                    spyOn($.fn, "selectList");
+                });
 
-            it("get correct value from resource", function () {
-                Site.initialize();
-                var result = Site.getSingleResource("Test");
-                expect(result).toEqual("en-Test");
-            });
+                it("get correct value from resource", function () {
+                    Site.initialize();
+                    var result = Site.getSingleResource("Test");
+                    expect(result).toEqual("en-Test");
+                });
 
-            it("get key value when resource not contain", function () {
-                Site.initialize();
-                var result = Site.getSingleResource("NotContain");
-                expect(result).toEqual("NotContain");
+                it("get key value when resource not contain", function () {
+                    Site.initialize();
+                    var result = Site.getSingleResource("NotContain");
+                    expect(result).toEqual("NotContain");
+                });
+
+                it("return null when passed param is null", function () {
+                    var result = Site.getSingleResource(null);
+                    expect(result).toEqual(null);
+                });
+
+                it("return undefined when param is not passed", function () {
+                    var result = Site.getSingleResource();
+                    expect(result).toEqual(undefined);
+                });
+
+                it("get correct value from resource when value match with form that is defined", function () {
+                    Site.initialize();
+                    var result = Site.getSingleResource("@[Test]<br/>@[Commission]");
+                    expect(result).toEqual("en-Test<br/>Commission");
+                });
+
+                it("get correct value from resource with special character @ and not match with form that is defined", function () {
+                    Site.initialize();
+                    var result = Site.getSingleResource("@Test<br/>@Commission]");
+                    expect(result).toEqual("@Test<br/>@Commission]");
+                });
             });
         });
 
@@ -136,6 +160,18 @@
                 var arrayText = ["Test1", "Test2", "Test3", "Test4"];
                 var result = Site.getResources(arrayText);
                 expect(result).toEqual(["en-Test1", "en-Test2", "en-Test3", "Test4"]);
+            });
+
+            it("return null when passed array is null", function () {
+                var result = Site.getResources(null);
+
+                expect(result).toBe(null);
+            });
+
+            it("return null when passed value is not array", function () {
+                var result = Site.getResources({});
+
+                expect(result).toBe(null);
             });
         });
 
@@ -163,6 +199,75 @@
             it("return false when we don't pass text value", function () {
                 var result = Site.isNumber();
                 expect(result).toBe(false);
+            });
+        });
+
+        describe("clone(obj)", function () {
+            it("return null when passed param is null", function () {
+                var result = Site.clone(null);
+                expect(result).toBe(null);
+            });
+
+            it("return itself when passed param is not object type", function () {
+                var result = Site.clone(1);
+                expect(result).toBe(1);
+            });
+
+            it("return correct date value when passed param is Date type", function () {
+                var date = new Date(2017, 0, 1);
+
+                var result = Site.clone(date);
+
+                expect(result).not.toBe(date);
+                expect(result).toEqual(date);
+            });
+        });
+
+        describe("createSortingIcon(sortHandler)", function () {
+            describe("when Row Count less or equal 1", function () {
+                it(".sort-heading class should be removed", function () {
+                    setFixtures('<input id="RowCount" value="1" />' +
+                        '<div id="header-content"><div class="sortable sort-heading"><div></div>'
+                        );
+
+                    Site.createSortingIcon();
+
+                    var result = $("#header-content .sortable").hasClass("sort-heading");
+
+                    expect(result).toBe(false);
+                });
+            });
+
+            describe("when Row Count greater than 1", function () {
+                beforeEach(function () {
+                    setFixtures('<input id="RowCount" value="2" /> <input id="SortColumn" value="Col1" /> <input id="SortDirection" value="DESC" />' +
+                        '<div id="header-content">' +
+                        '<div class="sortable"><div class="sort-heading" data-column-name="Col1"></div></div>' +
+                        '<div class="sortable"><div class="sort-heading" data-column-name="Col2"></div></div>' +
+                        '</div>' +
+                        '<select id="CurrencyId"><option>USD<option></select>' +
+                        '<input id="CurrencyName" value="" />'
+                        );
+                });
+
+                it("Col1 should has class 'sorted-heading'", function () {
+                    var handler = function () { };
+                    Site.createSortingIcon();
+
+                    var result = $("#header-content .sortable .sort-heading[data-column-name='Col1']").hasClass("sorted-heading");
+
+                    expect(result).toBe(true);
+                });
+
+                it("Col1 should has correct html content", function () {
+                    var handler = function () { };
+                    Site.createSortingIcon();
+
+                    var expected = '<span class="sort-icon sort-icon-desc"></span>';
+                    var result = $("#header-content .sortable .sort-heading[data-column-name='Col1']").html();
+
+                    expect(result).toBe(expected);
+                });
             });
         });
     });
