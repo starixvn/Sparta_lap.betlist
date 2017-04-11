@@ -21,12 +21,11 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var date = DateTime.Now;
 
             var metaModel = new CashOutWinLossMetaModel
             {
-                FromDate = date.AddDays(-1),
-                ToDate = date.AddDays(-1),
+                FromDate = DateTime.Now,
+                ToDate = DateTime.Now,
                 LicenseeId = licenseeSession.LicenseeId,
                 IsExcludedTestData = true,
                 ReportBy = 1
