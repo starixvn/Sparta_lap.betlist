@@ -81,7 +81,6 @@ namespace Fanex.Athena.Controllers.Customer
                 Username = userName == ViewResources.ExternalIdOrSystemId ? string.Empty : userName,
                 GroupCommId = groupId,
                 LicenseeId = licenseeSession.LicenseeId,
-                UserId = userSession.UserId,
                 AllowLicensees = allowLicensees,
                 GridColumns = this.IniGridColumns(productAccess.IsAllowBA, allowLicensees),
                 OddsGroups = GetOddsGroups()
@@ -141,6 +140,7 @@ namespace Fanex.Athena.Controllers.Customer
                     var licenseeSession = SessionService.LicenseeSession;
                     var userSession = SessionService.UserSession;
                     metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
+                    metaModel.LicenseeId = licenseeSession.LicenseeId;
                     metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
                     if (metaModel.GridColumns.Count(i => i.Checked) > 0)

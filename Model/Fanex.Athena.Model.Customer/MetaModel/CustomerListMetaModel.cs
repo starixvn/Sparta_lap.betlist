@@ -16,7 +16,7 @@ namespace Fanex.Athena.Model.Customer.MetaModel
     {
         public CustomerListMetaModel()
         {
-            LicenseeId = 1;
+            LicenseeId = 0;
             Username = string.Empty;
             PageSize = 1000;
             PageIndex = 1;
