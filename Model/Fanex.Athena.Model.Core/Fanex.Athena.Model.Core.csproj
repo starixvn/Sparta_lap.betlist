@@ -53,6 +53,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -89,7 +90,9 @@
     <Compile Include="DTO\Common\League.cs" />
     <Compile Include="DTO\Common\Licensee.cs" />
     <Compile Include="DTO\Common\Match.cs" />
-    <Compile Include="DTO\Common\OneAuthenticationToken.cs" />
+    <Compile Include="DTO\OneAuth\OneAuthCurrency.cs" />
+    <Compile Include="DTO\OneAuth\OneAuthPermission.cs" />
+    <Compile Include="DTO\OneAuth\OneAuthToken.cs" />
     <Compile Include="DTO\Common\Product.cs" />
     <Compile Include="DTO\Common\ProductAccess.cs" />
     <Compile Include="DTO\Common\Request.cs" />
@@ -141,6 +144,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

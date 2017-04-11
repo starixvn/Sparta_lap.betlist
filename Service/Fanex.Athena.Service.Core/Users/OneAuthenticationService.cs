@@ -15,6 +15,7 @@
     using Fanex.Caching;
     using Model.Core.DataDomain;
     using Model.Core.DTO;
+    using Model.Core.DTO.OneAuth;
     using Model.Core.DTO.Users;
     using Newtonsoft.Json;
     using Resources;
@@ -54,7 +55,7 @@
             }
         }
 
-        public IResultInfo SignIn(HttpContextBase currentContext, OneAuthenticationToken tokenInfo)
+        public IResultInfo SignIn(HttpContextBase currentContext, OneAuthToken tokenInfo)
         {
             var licensee = _licenseeService.GetLicenseeByName(tokenInfo.SiteName);
             if (licensee == null)
@@ -98,13 +99,13 @@
             return SetAuthorize(licensee, language, tokenInfo);
         }
 
-        public OneAuthenticationToken GetTokenInfo(string token)
+        public OneAuthToken GetTokenInfo(string token)
         {
             var oneBookService = new OneBookSecurityWrapper();
             return oneBookService.Authenticate(token);
         }
 
-        private static bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthenticationToken tokenInfo, int licenseeId)
+        private static bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthToken tokenInfo, int licenseeId)
         {
             return userSession.UserName == tokenInfo.UserID
                 && userSession.VendorID == tokenInfo.VendorID && userSession.VendorIdentityID == tokenInfo.UserID
@@ -126,11 +127,19 @@
         [CLSCompliant(false)]
         protected internal virtual ICache GetMemCacheService() => Caching.CacheService.CreateInstance(CacheType.MemoryCache);
 
-        protected internal virtual IResultInfo SetAuthorize(Licensee licensee, string languageCode, OneAuthenticationToken tokenInfo)
+        protected internal virtual IResultInfo SetAuthorize(Licensee licensee, string languageCode, OneAuthToken tokenInfo)
         {
-            var currencyOfLicensee = _currencyService.GetCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ);
+            var currencyOfLicensee = tokenInfo.IsAdminstrator ?
+                _currencyService.GetCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ) :
+                tokenInfo.Currency?.Select(x => new CurrencyUser
+                {
+                    IsActive = true,
+                    CurrencyId = x.CurrencyId,
+                    CurrencyName = x.Currency,
+                    AgentIdList = x.AgentId
+                }).ToList();
 
-            if (currencyOfLicensee.Count() <= 0)
+            if (currencyOfLicensee == null || !currencyOfLicensee.Any())
             {
                 return new ResultInfo
                 {
@@ -212,7 +221,7 @@
 
         private void CreateSession(
             string languageCode,
-            OneAuthenticationToken tokenInfo,
+            OneAuthToken tokenInfo,
             Licensee licenseeInfo,
             IEnumerable<CurrencyUser> currencyByUser)
         {
@@ -223,7 +232,10 @@
                 IsEnableBA = licenseeInfo.IsEnableBA,
                 LicenseeName = licenseeInfo.Name
             };
-
+            var functionList = tokenInfo.IsAdminstrator ? GetFunctionList() : tokenInfo.Permissions.Select(x => new PortalSystemFunction
+            {
+                FunctionKey = x.FunctionKey
+            }).ToList();
             var userSerssion = new UserSession
             {
                 UserId = tokenInfo.UserSEQ,
@@ -231,7 +243,7 @@
                 UserName = tokenInfo.UserID,
                 IsInternal = true,
                 FunctionIdList = new List<int>(),
-                PortalFunctionList = GetFunctionList(),
+                PortalFunctionList = functionList,
                 Language = languageCode,
                 DefaultReportUrl = "BalanceReport",
                 ApplicationMode = AppMode.Parasitic,

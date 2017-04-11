@@ -7,6 +7,7 @@
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.OneAuth;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
@@ -58,7 +59,7 @@
             {
                 Id = 1
             };
-            var tokenInfo = new OneAuthenticationToken { UserID = "1" };
+            var tokenInfo = new OneAuthToken { UserID = "1" };
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _sessionService.UserSession.Returns(x => null);
@@ -108,7 +109,7 @@
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
-            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
+            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), Arg.Is<OneAuthToken>(tokenInfo));
             Assert.AreEqual(0, counter);
             _sessionService.Received(1).UpdateLanguage(Arg.Any<string>());
             Assert.AreEqual(1, langCounter);
@@ -138,7 +139,7 @@
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
-            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<Licensee>(licensee), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
+            _oneAuthenticationService.DidNotReceive().SetAuthorize(Arg.Is<Licensee>(licensee), Arg.Any<string>(), Arg.Is<OneAuthToken>(tokenInfo));
             Assert.AreEqual(0, counter);
             Assert.True(result.ExtendedData.Equals(tokenInfo.ActionLink));
         }
@@ -146,7 +147,7 @@
         public void SignIn_LicenseeNameIsNotExisted_ReturnErrorCodeEqual200()
         {
             // Arrange
-            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo" };
+            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo" };
 
             var fakeHttpContext = Substitute.For<HttpContextBase>();
 
@@ -181,7 +182,7 @@
 
             var counter = 0;
 
-            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo" };
+            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo" };
             var userSession = new UserSession
             {
                 UserId = 1,
@@ -210,7 +211,7 @@
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Result
-            _oneAuthenticationService.Received().SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), Arg.Is<OneAuthenticationToken>(tokenInfo));
+            _oneAuthenticationService.Received().SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), Arg.Is<OneAuthToken>(tokenInfo));
             Assert.AreEqual(1, counter);
         }
 
@@ -218,7 +219,7 @@
         public void SignIn_GetLicenseeByNameReturnNull_ReturnCorrectResultInfo()
         {
             // Arrange
-            var tokenInfo = new OneAuthenticationToken { SiteName = "spondemo" };
+            var tokenInfo = new OneAuthToken { SiteName = "spondemo" };
             Licensee licensee = null;
             _licenseeService.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
             var expectedResult = new ResultInfo
@@ -238,9 +239,9 @@
             });
         }
 
-        private OneAuthenticationToken FakeSessionFixToken(int licenseeId)
+        private OneAuthToken FakeSessionFixToken(int licenseeId)
         {
-            var tokenInfo = new OneAuthenticationToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo", ActionLink = "LiceenseeWLReport" };
+            var tokenInfo = new OneAuthToken { UserSEQ = 1, UserID = "alex", VendorID = "spondemo", ActionLink = "LiceenseeWLReport" };
             var userSession = new UserSession
             {
                 UserId = tokenInfo.UserSEQ,

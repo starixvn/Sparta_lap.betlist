@@ -2,11 +2,12 @@
 {
     using System.Web;
     using Fanex.Athena.Model.Core.DTO.Common;
+    using Model.Core.DTO.OneAuth;
 
     public interface IOneAuthenticationService
     {
-        IResultInfo SignIn(HttpContextBase currentContext, OneAuthenticationToken tokenInfo);
+        IResultInfo SignIn(HttpContextBase currentContext, OneAuthToken tokenInfo);
 
-        OneAuthenticationToken GetTokenInfo(string token);
+        OneAuthToken GetTokenInfo(string token);
     }
 }

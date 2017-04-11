@@ -285,7 +285,7 @@
         public void IsAllowedEditCommission_ApplicationModeIsParasiticAndPortalFunctionListContainCorrectKey_ReturnTrue()
         {
             // Arrange
-            var functionList = new List<PortalSystemFunction> { new PortalSystemFunction { FunctionId = 1, FunctionKey = "CommissionGroupList55" } };
+            var functionList = new List<PortalSystemFunction> { new PortalSystemFunction { FunctionKey = "CommissionGroupList55" } };
             var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = Model.Core.DataDomain.AppMode.Parasitic };
 
             // Action
@@ -299,7 +299,7 @@
         public void IsAllowedEditCommission_ApplicationModeIsParasiticAndPortalFunctionListNotContainCorrectKey_ReturnFalse()
         {
             // Arrange
-            var functionList = new List<PortalSystemFunction> { new PortalSystemFunction { FunctionId = 1, FunctionKey = "CommissionGroupList56" } };
+            var functionList = new List<PortalSystemFunction> { new PortalSystemFunction { FunctionKey = "CommissionGroupList56" } };
             var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = Model.Core.DataDomain.AppMode.Parasitic };
 
             // Action
@@ -341,7 +341,7 @@
         public void IsAllowedSpecialBA_ApplicationModeIsParasiticAndPortalFunctionListContainCorrectKey_ReturnTrue()
         {
             // Arrange
-            var functionList = new List<PortalSystemFunction> { new PortalSystemFunction { FunctionId = 1, FunctionKey = "SpecialBA54" } };
+            var functionList = new List<PortalSystemFunction> { new PortalSystemFunction { FunctionKey = "SpecialBA54" } };
             var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = Model.Core.DataDomain.AppMode.Parasitic };
 
             // Action
@@ -355,7 +355,7 @@
         public void IsAllowedSpecialBA_ApplicationModeIsParasiticAndPortalFunctionListNotContainCorrectKey_ReturnFalse()
         {
             // Arrange
-            var functionList = new List<PortalSystemFunction> { new PortalSystemFunction { FunctionId = 1, FunctionKey = "SpecialBA55" } };
+            var functionList = new List<PortalSystemFunction> { new PortalSystemFunction { FunctionKey = "SpecialBA55" } };
             var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = Model.Core.DataDomain.AppMode.Parasitic };
 
             // Action
