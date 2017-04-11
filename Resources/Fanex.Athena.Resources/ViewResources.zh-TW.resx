@@ -2508,4 +2508,8 @@
     <value>此報告提供最新數據。 您每次查詢可以過濾最多3個月內的數據。</value>
     <comment>#71725</comment>
   </data>
+  <data name="ProductCO" xml:space="preserve">
+    <value>即時兌現</value>
+    <comment>#71727</comment>
+  </data>
 </root>
