@@ -1,4 +1,4 @@
-﻿// Generated at: 4/10/2017 2:55:41 PM
+﻿// Generated at: 4/12/2017 1:29:58 PM
 window._language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -546,6 +546,7 @@ Prev:"上個",
 Previous:"上個",
 Product:"產品",
 ProductBG:"賓果",
+ProductCO:"即時兌現",
 ProductCS:"娛樂城",
 ProductLC:"娛樂廳",
 ProductNG:"百練賽",

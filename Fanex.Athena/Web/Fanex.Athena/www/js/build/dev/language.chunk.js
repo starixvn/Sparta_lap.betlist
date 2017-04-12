@@ -15,7 +15,7 @@ webpackJsonp([27],{
 /***/ 68:
 /***/ function(module, exports) {
 
-	// Generated at: 4/10/2017 2:55:41 PM
+	// Generated at: 4/12/2017 1:29:58 PM
 	window._language_en_US = {
 	AA:"AA",
 	AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -113,7 +113,10 @@ webpackJsonp([27],{
 	BingoExcludedNote:"Bingo is not included in the report",
 	BONTeamToScore:"Both/One/Neither Team To Score",
 	Bonus:"Bonus",
+	BoughtAmount:"Bought Amount",
+	BoughtDetails:"Bought Details",
 	BoughtStake:"Bought Stake",
+	BoughtTicketsList:"Bought Ticket[s]",
 	BuyBackAmount:"Buy Back Amount",
 	ByBetType:"By Bet Type",
 	ByCurrency:"By Currency",
@@ -122,9 +125,10 @@ webpackJsonp([27],{
 	CancelledBets:"Cancelled Bets",
 	CancelledBetsTitle:"Void/Rejected Bet List (Last 3 days)",
 	CannotUpdateBetLimitForProduct:"You cannot update member bet limit for product {0}.",
+	CashOutAmount:"Cash Out Amount",
 	CashOutAmt:"Cash-out Amt",
 	CashOutCommission:"Cash Out Commission",
-	CashOutHistory:"Cash Out History",
+	CashOutDetails:"Cash Out Details",
 	CashOutNotOfferCurrency:"Cash Out is not offered for this currency.",
 	CashOutShare:"Cash-out Share",
 	CashOutStake:"Cash Out Stake",
@@ -660,7 +664,6 @@ webpackJsonp([27],{
 	PreGame:"Pre Game",
 	Prev:"Prev",
 	Previous:"Previous",
-	Price:"Price",
 	ProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 	Product:"Product",
 	ProductAB:"AllBet",
@@ -947,7 +950,7 @@ webpackJsonp([27],{
 /***/ 69:
 /***/ function(module, exports) {
 
-	// Generated at: 4/10/2017 2:55:41 PM
+	// Generated at: 4/12/2017 1:29:58 PM
 	window._language_zh_CN = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1495,6 +1498,7 @@ webpackJsonp([27],{
 	Previous:"上个月",
 	Product:"产品",
 	ProductBG:"宾果",
+	ProductCO:"即时兑现",
 	ProductCS:"娱乐城",
 	ProductLC:"娱乐厅",
 	ProductNG:"百练赛",
@@ -1734,7 +1738,7 @@ webpackJsonp([27],{
 /***/ 70:
 /***/ function(module, exports) {
 
-	// Generated at: 4/10/2017 2:55:41 PM
+	// Generated at: 4/12/2017 1:29:58 PM
 	window._language_zh_TW = {
 	AA:"客客",
 	AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -2282,6 +2286,7 @@ webpackJsonp([27],{
 	Previous:"上個",
 	Product:"產品",
 	ProductBG:"賓果",
+	ProductCO:"即時兌現",
 	ProductCS:"娛樂城",
 	ProductLC:"娛樂廳",
 	ProductNG:"百練賽",
@@ -2521,7 +2526,7 @@ webpackJsonp([27],{
 /***/ 71:
 /***/ function(module, exports) {
 
-	// Generated at: 4/10/2017 2:55:41 PM
+	// Generated at: 4/12/2017 1:29:58 PM
 	window._language_zh_Hans = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -3304,7 +3309,7 @@ webpackJsonp([27],{
 /***/ 72:
 /***/ function(module, exports) {
 
-	// Generated at: 4/10/2017 2:55:41 PM
+	// Generated at: 4/12/2017 1:29:58 PM
 	window._language_ko_KR = {
 	AA:"AA",
 	AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",

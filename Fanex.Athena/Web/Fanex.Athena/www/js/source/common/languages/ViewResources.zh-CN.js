@@ -1,4 +1,4 @@
-﻿// Generated at: 4/10/2017 2:55:41 PM
+﻿// Generated at: 4/12/2017 1:29:58 PM
 window._language_zh_CN = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -546,6 +546,7 @@ Prev:"上个月",
 Previous:"上个月",
 Product:"产品",
 ProductBG:"宾果",
+ProductCO:"即时兑现",
 ProductCS:"娱乐城",
 ProductLC:"娱乐厅",
 ProductNG:"百练赛",

@@ -42,14 +42,14 @@
 
     <div class="table-content">
         <p>
-            @(ViewResources.CashOutTicketsList):
+            @(Model.IsBoughtTicket ? ViewResources.BoughtTicketsList : ViewResources.CashOutTicketsList):
         </p>
         <table class="table">
             <thead>
                 <tr>
                     <th class="col-medium">@ViewResources.TransTime</th>
                     <th class="col-large small">@(Model.IsBoughtTicket ? ViewResources.BoughtStake : ViewResources.CashOutStake)</th>
-                    <th>@ViewResources.Price</th>
+                    <th>@(Model.IsBoughtTicket ? ViewResources.BoughtAmount : ViewResources.CashOutAmount)</th>
                     <th>@ViewResources.WinLoss</th>
                     <th>@ViewResources.Status</th>
                     <th style="visibility:hidden"></th>

@@ -714,7 +714,7 @@ webpackJsonp([29],[
 	                url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
 	
 	                var popH = Math.min($(window).height() - 100, 550);
-	                var title = Site.getSingleResource("CashOutHistory");
+	                var title = Site.getSingleResource("CashOutDetails");
 	
 	                showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
 	            },
