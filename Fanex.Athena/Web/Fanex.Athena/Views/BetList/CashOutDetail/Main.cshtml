@@ -44,14 +44,14 @@
         </table>
     </p>
     <p>
-        @(ViewResources.CashOutTicketsList):
+        @(Model.IsBoughtTicket ? ViewResources.BoughtTicketsList: ViewResources.CashOutTicketsList):
     </p>
     <p>
         <table class="report-table table-detail" style="width: 700px">
             <tr class="report-header" style="height: 25px">
                 <th width="150">@ViewResources.TransTime</th>
                 <th width="250">@(Model.IsBoughtTicket ? ViewResources.BoughtStake : ViewResources.CashOutStake)</th>
-                <th width="100">@ViewResources.Price</th>
+                <th width="100">@(Model.IsBoughtTicket ? ViewResources.BoughtAmount: ViewResources.CashOutAmount)</th>
                 <th width="100">@ViewResources.WinLoss</th>
                 <th width="100">@ViewResources.Status</th>
             </tr>

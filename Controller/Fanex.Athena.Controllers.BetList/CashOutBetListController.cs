@@ -38,6 +38,7 @@
 
             viewModel.TicketTextList = BuilTicketTextList(viewModel.DataList);
             viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList);
+
             viewModel.IsBoughtTicket = metaModel.BetType == (int)BetType.CashOutBought;
             return this.View("~/Views/BetList/CashOutDetail/Main.cshtml", viewModel);
         }
