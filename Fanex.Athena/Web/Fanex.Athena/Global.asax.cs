@@ -27,44 +27,7 @@ namespace Fanex.Athena
 
     public class MvcApplication : HttpApplication
     {
-        private DelegatingHandler _apiCompress = null;
-
-        public void Application_Start(object sender, EventArgs e)
-        {
-            var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
-            if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
-            {
-                _apiCompress = new ApiCompressHandler();
-                ViewEngines.Engines.Clear();
-                ViewEngines.Engines.Add(new RazorViewEngine());
-
-                AreaRegistration.RegisterAllAreas();
-
-                GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
-                RouteTable.Routes.IgnoreRoute("favicon.ico");
-                RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-                BundleConfig.RegisterBundles(BundleTable.Bundles);
-                /*Web API*/
-                GlobalConfiguration.Configuration.EnableCors();
-                GlobalConfiguration.Configuration.MessageHandlers.Add(_apiCompress);
-                GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
-                GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
-                GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
-                /*End Web API*/
-
-                AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
-
-                DbSettingProviderManager.Current.Start();
-                log4net.Config.XmlConfigurator.Configure();
-                log4net.LogManager.GetLogger("GeneralLog").Info("Start");
-
-                if (ConfigurationManager.AppSettings["EnableCasinoService"] == "1")
-                {
-                    SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
-                }
-            }
-        }
+        private DelegatingHandler _apiCompress;
 
         /// <summary>
         /// The application errors.
@@ -101,15 +64,41 @@ namespace Fanex.Athena
             }
         }
 
-        /// <summary>
-        /// End request.
-        /// </summary>
-        protected void Application_EndRequest()
+        public void Application_Start(object sender, EventArgs e)
         {
-            Response.Headers.Remove("X-AspNet-Version");
-            Response.Headers.Remove("X-AspNetMvc-Version");
-            Response.Headers.Remove("Server");
-            Response.Headers.Remove("X-Powered-By");
+            var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
+            if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
+            {
+                ViewEngines.Engines.Clear();
+                ViewEngines.Engines.Add(new RazorViewEngine());
+
+                AreaRegistration.RegisterAllAreas();
+
+                GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
+                RouteTable.Routes.IgnoreRoute("favicon.ico");
+                RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+                BundleConfig.RegisterBundles(BundleTable.Bundles);
+                /*Web API*/
+                GlobalConfiguration.Configuration.EnableCors();
+                _apiCompress = new ApiCompressHandler();
+                GlobalConfiguration.Configuration.MessageHandlers.Add(_apiCompress);
+                GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
+                GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+                GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
+                /*End Web API*/
+
+                AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
+
+                DbSettingProviderManager.Current.Start();
+                log4net.Config.XmlConfigurator.Configure();
+                log4net.LogManager.GetLogger("GeneralLog").Info("Start");
+
+                if (ConfigurationManager.AppSettings["EnableCasinoService"] == "1")
+                {
+                    SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
+                }
+            }
         }
 
         public override void Dispose()
@@ -120,6 +109,17 @@ namespace Fanex.Athena
             }
 
             base.Dispose();
+        }
+
+        /// <summary>
+        /// End request.
+        /// </summary>
+        protected void Application_EndRequest()
+        {
+            Response.Headers.Remove("X-AspNet-Version");
+            Response.Headers.Remove("X-AspNetMvc-Version");
+            Response.Headers.Remove("Server");
+            Response.Headers.Remove("X-Powered-By");
         }
     }
 }
