@@ -70,7 +70,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         private static bool ShouldCheckSportsbook(IEnumerable<ProductOption> previousCheckedProducts)
         {
-            return previousCheckedProducts.All(i => IgnoredProductInBetListRunning.Contains(i.Code));
+            return previousCheckedProducts.Any(i => IgnoredProductInBetListRunning.Contains(i.Code));
         }
     }
 }

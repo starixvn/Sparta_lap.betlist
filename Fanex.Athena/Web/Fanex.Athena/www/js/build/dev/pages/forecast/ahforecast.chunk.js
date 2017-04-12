@@ -31,10 +31,10 @@ webpackJsonp([35],{
 	            Site.initialize();
 	            _me.resizePopup();
 	
-	            _matchid = $('#forecast-table').attr('data-match-id');
-	            _baseCurrency = $('#forecast-table').attr('data-basecurrency');
-	            _currencyid = $('#forecast-table').attr('data-currencyid');
-	            _currencyName = $('#forecast-table').attr('data-currencyname');
+	            _matchid = $('#hidden-data').attr('data-match-id');
+	            _baseCurrency = $('#hidden-data').attr('data-basecurrency');
+	            _currencyid = $('#hidden-data').attr('data-currencyid');
+	            _currencyName = $('#hidden-data').attr('data-currencyname');
 	
 	            _me.initEvent();
 	
