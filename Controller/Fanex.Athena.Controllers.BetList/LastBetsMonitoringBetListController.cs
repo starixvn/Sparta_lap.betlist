@@ -11,18 +11,23 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web.SessionState;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
+    using ONEbook.UM.Filters;
     using Resources;
 
     #endregion Using
 
+
+    [SessionState(SessionStateBehavior.ReadOnly)]
+    [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
-    public class LastBetsMonitoringBetListController : ReadonlyBaseController
+    public class LastBetsMonitoringBetListController : BaseController
     {
         private readonly ISportTypeService _sportTypeService;
 

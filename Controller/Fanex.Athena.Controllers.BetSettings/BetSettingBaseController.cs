@@ -9,6 +9,8 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Mvc;
+    using System.Web.SessionState;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.Core.Users;
@@ -18,14 +20,18 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
     using Model.Core.DTO.Common;
+    using ONEbook.UM.Filters;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Web.ActionFilter;
 
+
+    [SessionState(SessionStateBehavior.ReadOnly)]
+    [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
-    public class BetSettingBaseController : ReadonlyBaseController
+    public class BetSettingBaseController : BaseController
     {
         private const int BopingResellerId = 7;
 

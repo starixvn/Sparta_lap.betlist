@@ -16,6 +16,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web.SessionState;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Customer;
     using Fanex.Athena.Extension.Utility;
@@ -29,10 +30,14 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
     using Model.Core.ViewModel;
+    using ONEbook.UM.Filters;
     using Resources;
 
+
+    [SessionState(SessionStateBehavior.ReadOnly)]
+    [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
-    public class CustomerComGroupController : ReadonlyBaseController
+    public class CustomerComGroupController : BaseController
     {
         private readonly IGroupComService _customerComService;
         private readonly IProductService _productService;

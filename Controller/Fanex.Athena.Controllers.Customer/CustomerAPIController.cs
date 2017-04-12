@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web.SessionState;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -26,18 +27,16 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.Core.ViewModel;
+    using ONEbook.UM.Filters;
     using Resources;
 
     #endregion Using
 
-    /// <summary>
-    /// Customer API.
-    /// +Update BA.
-    /// +Update level.
-    /// +Update Status .
-    /// </summary>
+
+    [SessionState(SessionStateBehavior.ReadOnly)]
+    [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
-    public class CustomerApiController : ReadonlyBaseController
+    public class CustomerApiController : BaseController
     {
         private const string CustomerAPIRemoveFromGroupComName = "CustomerAPI_RemoveFromGroupCom";
 

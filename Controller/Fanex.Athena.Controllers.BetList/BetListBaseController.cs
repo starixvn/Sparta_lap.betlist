@@ -7,6 +7,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web.SessionState;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.BetList;
@@ -15,12 +16,15 @@
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
+    using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Utility;
 
     #endregion Using
 
-    public class BetListBaseController : ReadonlyBaseController
+    [SessionState(SessionStateBehavior.ReadOnly)]
+    [CheckUMFilter]
+    public class BetListBaseController : BaseController
     {
         protected const int MicroGamingRngTransTypeYesterday = 0;
 

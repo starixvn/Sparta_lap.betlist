@@ -8,11 +8,17 @@ namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Mvc;
+    using System.Web.SessionState;
     using Model.Core.DTO.Common;
+    using ONEbook.UM.Filters;
     using Service.Forecast;
     using Service.Forecast.Interfaces;
 
-    public class ForecastBaseController : ReadonlyBaseController
+
+    [SessionState(SessionStateBehavior.ReadOnly)]
+    [CheckUMFilter]
+    public class ForecastBaseController : BaseController
     {
         private readonly IForecastService _forecastService;
 
