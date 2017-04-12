@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Customer
     using System.Data;
     using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Linq;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -387,7 +388,7 @@ namespace Fanex.Athena.DataAccess.Customer
                     db.ExecuteNonQuery();
 
                     var resultInfo = GetResult(db);
-                    resultInfo.ExtendedData = db.GetParameterValue("OddsGroup").ToString().ToUpper();
+                    resultInfo.ExtendedData = db.GetParameterValue("OddsGroup").ToString().ToUpper(CultureInfo.CurrentCulture);
 
                     return resultInfo;
                 }

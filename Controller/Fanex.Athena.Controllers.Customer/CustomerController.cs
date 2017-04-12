@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Customer
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
@@ -138,12 +139,11 @@ namespace Fanex.Athena.Controllers.Customer
                 if (metaModel != null)
                 {
                     var licenseeSession = SessionService.LicenseeSession;
-                    var userSession = SessionService.UserSession;
                     metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
                     metaModel.LicenseeId = licenseeSession.LicenseeId;
                     metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-                    if (metaModel.GridColumns.Count(i => i.Checked) > 0)
+                    if (metaModel.GridColumns.Any(i => i.Checked))
                     {
                         var model = GetCustomers(metaModel);
                         var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/CustomerList.xls");
@@ -154,7 +154,7 @@ namespace Fanex.Athena.Controllers.Customer
                         }
 
                         var reportTitle = ViewResources.CustomerList + " - "
-                            + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                            + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
 
                         var excel = new CustomerListExcel(templatePath, reportTitle, model);
 

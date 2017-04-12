@@ -26,7 +26,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
             var uspParams = new { LicenseeId = licenseeId };
             try
             {
-                var entityList = new List<CurrencyUser>();
                 using (var db = this.GetObjectDb(UspName))
                 {
                     return BindCurrencyUser(db);

@@ -18,8 +18,6 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
     public partial class CustomerLogController : BaseController
     {
-        private const string CustomerLogUrl = "CustomerLog/LogInLog";
-
         private readonly ProductService _productService;
 
         public CustomerLogController()

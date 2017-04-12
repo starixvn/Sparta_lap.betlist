@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.BetList
     #region Using
 
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Web.Mvc;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Entities;
@@ -56,7 +57,7 @@ namespace Fanex.Athena.Controllers.BetList
             };
             var currencyTitle = string.Format(
                 ViewResources.Viewin,
-                metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
+                metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
 
             var title = ViewResources.Customer + " " + ViewResources.BetList + string.Format(
                 " - {0} --> {1} - {2}({3}) - {4}",

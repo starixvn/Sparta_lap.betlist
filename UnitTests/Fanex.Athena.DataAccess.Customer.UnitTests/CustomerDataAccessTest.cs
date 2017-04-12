@@ -33,7 +33,7 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelUserSearch")).Returns(_objectDb);
-            var userId = 0;
+            const int userId = 0;
             var userName = string.Empty;
 
             // Action
@@ -74,7 +74,7 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelStatus")).Returns(_objectDb);
-            var custId = 0;
+            const int custId = 0;
 
             // Action
             _dataAccess.GetCustomerInfo(custId);
@@ -88,8 +88,8 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerLoginInfo")).Returns(_objectDb);
-            var custId = 0;
-            var licenseeId = 0;
+            const int custId = 0;
+            const int licenseeId = 0;
 
             // Action
             _dataAccess.GetCustomerLoginInfo(custId, licenseeId);
@@ -214,10 +214,10 @@
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdMemberBAStatus")).Returns(_objectDb);
             _objectDb.GetParameterValue("OddsGroup").Returns(string.Empty);
-            var licenseeId = 0;
-            var custId = 0;
-            var modifiedBy = 0;
-            var allowBA = false;
+            const int licenseeId = 0;
+            const int custId = 0;
+            const int modifiedBy = 0;
+            const bool allowBA = false;
             var request = new Request();
 
             // Action
@@ -268,10 +268,10 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdSpecialLevel")).Returns(_objectDb);
-            var userId = 0;
-            var custId = 0;
-            var level = 0;
-            var ip = string.Empty;
+            const int userId = 0;
+            const int custId = 0;
+            const int level = 0;
+            const string ip = "";
             var language = string.Empty;
 
             // Action
@@ -292,8 +292,8 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdOddsGroup")).Returns(_objectDb);
-            var userId = 0;
-            var custId = 0;
+            const int userId = 0;
+            const int custId = 0;
             var group = string.Empty;
             var ip = string.Empty;
             var language = string.Empty;

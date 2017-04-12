@@ -184,7 +184,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             try
             {
-                var metaModel = new CustomerOddsGroupMetaModel()
+                var metaModel = new CustomerOddsGroupMetaModel
                 {
                     LicenseeId = SessionService.LicenseeSession.LicenseeId,
                     CustId = custId,
@@ -195,7 +195,7 @@ namespace Fanex.Athena.Controllers.Customer
                 };
                 var dataResult = _customerService.UpdateOddsGroup(metaModel);
 
-                var message = dataResult.IsSuccessful == false && string.IsNullOrWhiteSpace(dataResult.Message) ?
+               var message = !dataResult.IsSuccessful && string.IsNullOrWhiteSpace(dataResult.Message) ?
                               ViewResources.HttpError_Default : dataResult.Message;
                 return Json(new ResultViewModel
                 {
@@ -464,7 +464,7 @@ namespace Fanex.Athena.Controllers.Customer
                 ErrorMessage = ViewResources.Error
             };
 
-            var metaModel = new RemoveFromGroupComMetaModel()
+            var metaModel = new RemoveFromGroupComMetaModel
             {
                 CustomerIds = customerIds,
                 IsRemovePlayercomm = isRemovePlayercomm

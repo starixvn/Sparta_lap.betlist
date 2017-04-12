@@ -91,7 +91,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(platformWinLossExcel.Workbook, FileName);
         }
 
-        private HttpResponseMessage ExportExcelSummary(
+        private static HttpResponseMessage ExportExcelSummary(
             PlatformWinLossMetaModel metaModel,
             IList<PlatformWinLossSummary> dataList,
             PlatformWinLossSummary total)

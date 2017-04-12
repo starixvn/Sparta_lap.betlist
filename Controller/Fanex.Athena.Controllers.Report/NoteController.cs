@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsHistory = isHistory,
             };
 
-            var viewPath = string.Format("~/Views/Note/{0}.cshtml", viewName);
+            var viewPath = $"~/Views/Note/{viewName}.cshtml";
             return View(viewPath, model);
         }
 

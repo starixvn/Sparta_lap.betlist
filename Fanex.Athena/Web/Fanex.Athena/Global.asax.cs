@@ -8,6 +8,7 @@ namespace Fanex.Athena
 {
     using System;
     using System.Configuration;
+    using System.Net.Http;
     using System.Web;
     using System.Web.Helpers;
     using System.Web.Http;
@@ -26,6 +27,8 @@ namespace Fanex.Athena
 
     public class MvcApplication : HttpApplication
     {
+        private readonly DelegatingHandler _apiCompress = new ApiCompressHandler();
+
         public void Application_Start(object sender, EventArgs e)
         {
             var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
@@ -41,10 +44,9 @@ namespace Fanex.Athena
                 RouteConfig.RegisterRoutes(RouteTable.Routes);
 
                 BundleConfig.RegisterBundles(BundleTable.Bundles);
-                /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
                 /*Web API*/
                 GlobalConfiguration.Configuration.EnableCors();
-                GlobalConfiguration.Configuration.MessageHandlers.Add(new ApiCompressHandler());
+                GlobalConfiguration.Configuration.MessageHandlers.Add(_apiCompress);
                 GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
                 GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
                 GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
@@ -61,15 +63,6 @@ namespace Fanex.Athena
                     SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
                 }
             }
-        }
-
-        /// <summary>
-        /// Code that runs on application shutdown.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event ARGS.</param>
-        public void Application_End(object sender, EventArgs e)
-        {
         }
 
         /// <summary>
@@ -116,6 +109,16 @@ namespace Fanex.Athena
             Response.Headers.Remove("X-AspNetMvc-Version");
             Response.Headers.Remove("Server");
             Response.Headers.Remove("X-Powered-By");
+        }
+
+        public override void Dispose()
+        {
+            if (_apiCompress != null)
+            {
+                _apiCompress.Dispose();
+            }
+
+            base.Dispose();
         }
     }
 }

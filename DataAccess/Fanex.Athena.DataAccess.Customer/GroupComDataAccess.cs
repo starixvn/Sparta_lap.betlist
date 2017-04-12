@@ -30,7 +30,7 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <returns>The result value.</returns>
         public IList<GroupCommMetaModel> GetAll(int licenseeId)
         {
-            var uspName = "Lrf_LicenseeGroupCommSel";
+            const string uspName = "Lrf_LicenseeGroupCommSel";
             try
             {
                 var entityList = new List<GroupCommMetaModel>();
@@ -77,7 +77,7 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <returns>The result value.</returns>
         public DataTable GetDataForExcel(int licenseeId)
         {
-            var uspName = "Lrf_LicenseeGroupCommSel";
+            const string uspName = "Lrf_LicenseeGroupCommSel";
             try
             {
                 using (var db = this.GetObjectDb(uspName))
@@ -102,7 +102,7 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <returns>The result value.</returns>
         public GroupCommMetaModel GetById(int groupCommId)
         {
-            var uspName = "Lrf_GroupCommGetById";
+            const string uspName = "Lrf_GroupCommGetById";
             try
             {
                 using (var db = this.GetObjectDb(uspName))
@@ -149,7 +149,7 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <returns>The result value.</returns>
         public int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out IResultInfo resultInfo)
         {
-            var uspName = "Lrf_LicenseeGroupCommIns";
+            const string uspName = "Lrf_LicenseeGroupCommIns";
             try
             {
                 using (var db = this.GetObjectDb(uspName))
@@ -198,7 +198,7 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <returns>The result value.</returns>
         public bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId, out IResultInfo resultInfo)
         {
-            var uspName = "Lrf_LicenseeGroupCommUpd";
+            const string uspName = "Lrf_LicenseeGroupCommUpd";
             try
             {
                 using (var db = this.GetObjectDb(uspName))
@@ -261,7 +261,7 @@ namespace Fanex.Athena.DataAccess.Customer
             bool isResetDefault,
             out IResultInfo resultInfo)
         {
-            var uspName = "Lrf_LicenseeGroupCommDel";
+            const string uspName = "Lrf_LicenseeGroupCommDel";
             try
             {
                 using (var db = this.GetObjectDb(uspName))
@@ -297,7 +297,7 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <returns>The result value.</returns>
         public bool CheckByName(int licenseeId, string groupName)
         {
-            var uspName = "Lrf_GroupCommCheckByName";
+            const string uspName = "Lrf_GroupCommCheckByName";
             try
             {
                 using (var db = this.GetObjectDb(uspName))

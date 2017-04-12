@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.Customer
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
@@ -32,7 +33,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Model.Core.ViewModel;
     using ONEbook.UM.Filters;
     using Resources;
-
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -149,13 +149,8 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpGet]
         public string Validate(string groupName)
         {
-            if (!string.IsNullOrEmpty(groupName))
-            {
-                var result = _customerComService.CheckByName(SessionService.LicenseeSession.LicenseeId, groupName);
-                return result == false ? "OK" : "NO";
-            }
-
-            return "NO";
+            return string.IsNullOrEmpty(groupName) || _customerComService.CheckByName(SessionService.LicenseeSession.LicenseeId, groupName)
+                ? "NO" : "OK";
         }
 
         #endregion Create group
@@ -204,7 +199,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             if (ModelState.IsValid)
             {
-                if (metaModel.GroupName.Trim().ToLower().Equals("none"))
+                if (metaModel.GroupName.Trim().ToLower(CultureInfo.CurrentCulture).Equals("none"))
                 {
                     result.ErrorMessage = ViewResources.ChooseGroupNameMsg;
                     ViewBag.Result = result;
@@ -279,7 +274,7 @@ namespace Fanex.Athena.Controllers.Customer
                 var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
                 _customerComService.DeleteGroup(
-                    new DeleteGroupMetaModel()
+                    new DeleteGroupMetaModel
                     {
                         GroupId = groupId,
                         LicenseeId = licenseeId,
