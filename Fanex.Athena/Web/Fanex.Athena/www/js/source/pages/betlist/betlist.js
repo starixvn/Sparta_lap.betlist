@@ -623,7 +623,6 @@
             },
 
             viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
-
                 var params = $.parseJSON($("#BetListMetaModel").val());
                 var url = Site.resolveClientUrl('CashOutBetList/Detail');
                 url = QueryString.setParam(url, "transId", transId);
