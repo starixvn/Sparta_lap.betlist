@@ -925,11 +925,38 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bought Amount.
+        /// </summary>
+        public static string BoughtAmount {
+            get {
+                return ResourceManager.GetString("BoughtAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bought Details.
+        /// </summary>
+        public static string BoughtDetails {
+            get {
+                return ResourceManager.GetString("BoughtDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bought Stake.
         /// </summary>
         public static string BoughtStake {
             get {
                 return ResourceManager.GetString("BoughtStake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bought Ticket[s].
+        /// </summary>
+        public static string BoughtTicketsList {
+            get {
+                return ResourceManager.GetString("BoughtTicketsList", resourceCulture);
             }
         }
         
@@ -1006,6 +1033,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cash Out Amount.
+        /// </summary>
+        public static string CashOutAmount {
+            get {
+                return ResourceManager.GetString("CashOutAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cash-out Amt.
         /// </summary>
         public static string CashOutAmt {
@@ -1024,11 +1060,11 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cash Out History.
+        ///   Looks up a localized string similar to Cash Out Details.
         /// </summary>
-        public static string CashOutHistory {
+        public static string CashOutDetails {
             get {
-                return ResourceManager.GetString("CashOutHistory", resourceCulture);
+                return ResourceManager.GetString("CashOutDetails", resourceCulture);
             }
         }
         
@@ -5844,15 +5880,6 @@ namespace Fanex.Athena.Resources {
         public static string Previous {
             get {
                 return ResourceManager.GetString("Previous", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Price.
-        /// </summary>
-        public static string Price {
-            get {
-                return ResourceManager.GetString("Price", resourceCulture);
             }
         }
         

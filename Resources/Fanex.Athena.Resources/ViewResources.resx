@@ -2994,10 +2994,6 @@
     <value>Original Bet Ticket</value>
     <comment>#71727</comment>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>Price</value>
-    <comment>#71727</comment>
-  </data>
   <data name="BoughtStake" xml:space="preserve">
     <value>Bought Stake</value>
     <comment>#71727</comment>
@@ -3005,7 +3001,22 @@
   <data name="CashOutStake" xml:space="preserve">
     <value>Cash Out Stake</value>
   </data>
-  <data name="CashOutHistory" xml:space="preserve">
-    <value>Cash Out History</value>
+  <data name="CashOutDetails" xml:space="preserve">
+    <value>Cash Out Details</value>
+  </data>
+  <data name="BoughtAmount" xml:space="preserve">
+    <value>Bought Amount</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="BoughtDetails" xml:space="preserve">
+    <value>Bought Details</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="BoughtTicketsList" xml:space="preserve">
+    <value>Bought Ticket[s]</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="CashOutAmount" xml:space="preserve">
+    <value>Cash Out Amount</value>
   </data>
 </root>
