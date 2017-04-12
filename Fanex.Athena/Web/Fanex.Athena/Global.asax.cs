@@ -27,13 +27,14 @@ namespace Fanex.Athena
 
     public class MvcApplication : HttpApplication
     {
-        private readonly DelegatingHandler _apiCompress = new ApiCompressHandler();
+        private DelegatingHandler _apiCompress = null;
 
         public void Application_Start(object sender, EventArgs e)
         {
             var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
             if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
             {
+                _apiCompress = new ApiCompressHandler();
                 ViewEngines.Engines.Clear();
                 ViewEngines.Engines.Add(new RazorViewEngine());
 
