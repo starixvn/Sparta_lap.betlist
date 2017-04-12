@@ -342,5 +342,87 @@
                 });
             });
         });
+
+        describe("currencyConstraint(userChange)", function () {
+            beforeEach(function () {
+                setFixtures('<select id="CurrencyId"><option value="0">All</option><option value="1" selected>USD</option><option value="2">ABC</option></select>' +
+                    '<select id="BaseCurrency"><option value="">All</option><option value="usd" selected>USD</option><option value="eur" selected>EUR</option></select>' +
+                    '<input id="CurrencyName" />'
+                    );
+
+                spyOn($.fn, "selectList");
+            });
+
+            it("#CurrencyName should has correct value", function () {
+                Site.currencyConstraint(true);
+                var result = $("#CurrencyName").val();
+
+                expect(result).toBe("USD");
+            });
+
+            it("option 'All' in BaseCurrency should be removed", function () {
+                Site.currencyConstraint(true);
+                var result = $("#BaseCurrency option[value='']").length;
+
+                expect(result).toBe(0);
+            });
+
+            it("#BaseCurrency should has correct value when userChange and currency not equal 0", function () {
+                $("#BaseCurrency").val("eur");
+                Site.currencyConstraint(true);
+                var result = $("#BaseCurrency").val();
+
+                expect(result).toBe("usd");
+            });
+
+            it("#BaseCurrency should has correct value when it's not userChange", function () {
+                $("#BaseCurrency").val("eur");
+                Site.currencyConstraint(false);
+                var result = $("#BaseCurrency").val();
+
+                expect(result).toBe("eur");
+            });
+
+            it("#BaseCurrency should has correct value when appending value which not in base currency", function () {
+                $("#CurrencyId").val("2");
+                $("#BaseCurrency option[value='']").remove();
+                Site.currencyConstraint(true);
+                var result = $("#BaseCurrency option[value='']").text();
+
+                expect(result).toBe("ABC");
+            });
+
+            it("#BaseCurrency should has correct value when selected currency is not base currency", function () {
+                $("#CurrencyId").val("2");
+                Site.currencyConstraint(true);
+                var result = $("#BaseCurrency option[value='']").text();
+
+                expect(result).toBe("ABC");
+            });
+
+            it("#BaseCurrency should has correct value when selected currency in base currency dictionary", function () {
+                $("#CurrencyId").append('<option value="-1"></option>');
+                $("#CurrencyId").val("-1");
+                Site.currencyConstraint(true);
+                var result = $("#BaseCurrency").val();
+
+                expect(result).toBe("eur");
+            });
+
+            it("#BaseCurrency should has correct value when selected currency is not in base currency dictionary", function () {
+                $("#CurrencyId").append('<option value="-1"></option>');
+                $("#CurrencyId").val("2");
+                Site.currencyConstraint(true);
+                var result = $("#BaseCurrency").val();
+
+                expect(result).toBe("");
+            });
+
+            it("selectList function of jquery should be called", function () {
+                Site.currencyConstraint(true);
+
+                expect($.fn.selectList).toHaveBeenCalled();
+            });
+        });
     });
 });
