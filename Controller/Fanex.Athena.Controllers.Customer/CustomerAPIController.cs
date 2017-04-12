@@ -32,7 +32,6 @@ namespace Fanex.Athena.Controllers.Customer
 
     #endregion Using
 
-
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
@@ -195,8 +194,8 @@ namespace Fanex.Athena.Controllers.Customer
                 };
                 var dataResult = _customerService.UpdateOddsGroup(metaModel);
 
-               var message = !dataResult.IsSuccessful && string.IsNullOrWhiteSpace(dataResult.Message) ?
-                              ViewResources.HttpError_Default : dataResult.Message;
+                var message = !dataResult.IsSuccessful && string.IsNullOrWhiteSpace(dataResult.Message) ?
+                               ViewResources.HttpError_Default : dataResult.Message;
                 return Json(new ResultViewModel
                 {
                     Success = dataResult.IsSuccessful,

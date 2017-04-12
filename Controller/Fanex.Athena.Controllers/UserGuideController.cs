@@ -19,8 +19,6 @@ namespace Fanex.Athena.Controllers
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
 
-
-
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     public class UserGuideController : BaseController
@@ -54,7 +52,8 @@ namespace Fanex.Athena.Controllers
         {
             var content = GetFileContent(resourceName);
 
-            content = resourceName.Equals(CustomerListResourceName, System.StringComparison.OrdinalIgnoreCase) ? content.Replace("{rooturl}", Url.Content("~")) : AddCasinoProductList(content);
+            content = resourceName.Equals(CustomerListResourceName, System.StringComparison.OrdinalIgnoreCase) ?
+                content.Replace("{rooturl}", Url.Content("~")) : AddCasinoProductList(content);
 
             return View("~/Views/UserGuide/Index.cshtml", null, content);
         }

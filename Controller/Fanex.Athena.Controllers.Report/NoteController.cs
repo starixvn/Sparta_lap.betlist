@@ -15,10 +15,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using ONEbook.UM.Filters;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     public class NoteController : BaseController

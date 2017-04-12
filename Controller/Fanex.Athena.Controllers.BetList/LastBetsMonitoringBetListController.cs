@@ -23,7 +23,6 @@ namespace Fanex.Athena.Controllers.BetList
 
     #endregion Using
 
-
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]

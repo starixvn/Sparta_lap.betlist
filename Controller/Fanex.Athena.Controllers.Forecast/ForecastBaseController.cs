@@ -15,7 +15,6 @@ namespace Fanex.Athena.Controllers.Forecast
     using Service.Forecast;
     using Service.Forecast.Interfaces;
 
-
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     public class ForecastBaseController : BaseController

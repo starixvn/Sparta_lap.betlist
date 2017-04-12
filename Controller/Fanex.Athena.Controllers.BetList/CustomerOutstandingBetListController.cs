@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             if (productOptions.Any(p => p.Code == Product.SB) && ShouldCheckSportsbook(previousCheckedProducts))
             {
-                var sportbookProduct = productOptions.FirstOrDefault(p => p.Code == Product.SB);
+                var sportbookProduct = productOptions.First(p => p.Code == Product.SB);
                 sportbookProduct.Status = true;
             }
 
