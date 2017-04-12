@@ -30,18 +30,24 @@ namespace Fanex.Athena.Controllers.BetList
             var isRunningBetlist = metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);
             metaModel = CreateDefaultMetaModel(metaModel);
 
-            var minDate = DateTime.Today.AddYears(-1);
-            minDate = new DateTime(minDate.Year, 1, 1);
-            metaModel.FromDate = isRunningBetlist ? minDate : metaModel.MoveBetsDay.AddDays(1);
+            metaModel.FromDate = isRunningBetlist ? new DateTime(DateTime.Now.Year - 1, 1, 1) : metaModel.MoveBetsDay.AddDays(1);
 
             var productAccess = this.ProductService.GetProductAccess(
                 metaModel.LicenseeId,
                 SessionService.UserSession.Language,
                 isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName);
 
+            AssignProductOption(metaModel, productAccess);
+
+            return View("~/Views/BetList/CustomerOutstanding/Main.cshtml", metaModel);
+        }
+
+        private static void AssignProductOption(BetListMetaModel metaModel, ProductAccess productAccess)
+        {
             var isFirstTimeLoading = !metaModel.ProductOptions.Any();
             var previousCheckedProducts = metaModel.ProductOptions.Where(x => x.Status).ToList();
-            var productOptions = new HashSet<ProductOption>();
+
+            var productOptions = new List<ProductOption>();
 
             foreach (var product in productAccess.ProductList)
             {
@@ -53,15 +59,13 @@ namespace Fanex.Athena.Controllers.BetList
                 });
             }
 
-            metaModel.ProductOptions = productOptions;
-
-            if (metaModel.ProductOptions.Any(p => p.Code == Product.SB) && ShouldCheckSportsbook(previousCheckedProducts))
+            if (productOptions.Any(p => p.Code == Product.SB) && ShouldCheckSportsbook(previousCheckedProducts))
             {
-                var sportbookProduct = metaModel.ProductOptions.FirstOrDefault(p => p.Code == Product.SB);
+                var sportbookProduct = productOptions.FirstOrDefault(p => p.Code == Product.SB);
                 sportbookProduct.Status = true;
             }
 
-            return View("~/Views/BetList/CustomerOutstanding/Main.cshtml", metaModel);
+            metaModel.ProductOptions = productOptions;
         }
 
         private static bool ShouldCheckSportsbook(IEnumerable<ProductOption> previousCheckedProducts)
