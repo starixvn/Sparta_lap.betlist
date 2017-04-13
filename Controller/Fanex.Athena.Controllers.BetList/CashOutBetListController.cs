@@ -8,7 +8,6 @@
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.TicketHelper;
     using Model.BetList.DTO;
-    using Model.Core.DataDomain;
     using Resources;
     using Service.BetList;
     using Service.BetList.Interfaces;
@@ -37,13 +36,13 @@
             var viewModel = _cashOutBetListService.GetDetail(metaModel);
 
             viewModel.TicketTextList = BuilTicketTextList(viewModel.DataList);
-            viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList);
+            viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList, metaModel.RefNo.ToString());
 
-            viewModel.IsBoughtTicket = metaModel.BetdaqId > 0 || metaModel.BetType == (int)BetType.CashOutBought;
+            viewModel.IsCashOut = metaModel.IsCashOut;
             return this.View("~/Views/BetList/CashOutDetail/Main.cshtml", viewModel);
         }
 
-        private IList<CashOutTicketText> BuildCashOutTicketTextList(IEnumerable<CashOutTicket> dataList)
+        private IList<CashOutTicketText> BuildCashOutTicketTextList(IEnumerable<CashOutTicket> dataList, string selectedRefNo)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var showPlayerComm = licenseeSession.IsAllowedCustomerComm;
@@ -68,7 +67,8 @@
                     Stake = ticket.Stake.ToString("0.00"),
                     Price = ticket.Price.ToString("0.00"),
                     WinLoss = ticket.WinLoss.ToString("0.00"),
-                    Status = statusHtml.ToString()
+                    Status = statusHtml.ToString(),
+                    IsHighlight = selectedRefNo == ticket.RefNo
                 };
 
                 ticketTextList.Add(ticketText);

@@ -19,5 +19,7 @@ namespace Fanex.Athena.Model.BetList.MetaModel
         public long BetdaqId { get; set; }
 
         public string AgentListXml { get; set; }
+
+        public bool IsCashOut { get; set; }
     }
 }

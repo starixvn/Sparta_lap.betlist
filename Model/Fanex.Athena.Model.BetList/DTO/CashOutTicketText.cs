@@ -11,5 +11,7 @@
         public string WinLoss { get; set; }
 
         public string Status { get; set; }
+
+        public bool IsHighlight { get; set; }
     }
 }

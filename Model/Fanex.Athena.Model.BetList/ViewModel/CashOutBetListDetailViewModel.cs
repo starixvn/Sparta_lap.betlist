@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using DTO;
+    using MetaModel;
 
     public class CashOutBetListDetailViewModel
     {
@@ -14,6 +15,6 @@
 
         public IEnumerable<CashOutTicketText> CashOutTicketTextList { get; set; }
 
-        public bool IsBoughtTicket { get; set; }
+        public bool IsCashOut { get; set; }
     }
 }

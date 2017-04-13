@@ -5,6 +5,7 @@ showAGCasinoDetails, showRnGCasinoDetails, showVoidBridgeDetails, showVoidbridge
 
 var BetList = (function ($) {
     "use strict";
+    var BETTYPE_CASHOUT = 911;
     var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
     var MIN_BETTYPE_FASTMARKET = 221;
     var MAX_BETTYPE_FASTMARKET = 225;
@@ -764,17 +765,18 @@ var BetList = (function ($) {
         },
 
         viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
-          
             var params = $.parseJSON($("#BetListMetaModel").val());
+            var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
             var url = Site.resolveClientUrl('CashOutBetList/Detail');
             url = QueryString.setParam(url, "transId", transId);
             url = QueryString.setParam(url, "refNo", refNo);
             url = QueryString.setParam(url, "betType", betType);
             url = QueryString.setParam(url, "betdaqId", betdaqId);
             url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
+            url = QueryString.setParam(url, "isCashout", isCashOut);
             
             var popH = Math.min($(window).height() - 100, 350), popW = 840;
-            var title = betdaqId < 1 ? Site.getSingleResource("CashOutDetails") : Site.getSingleResource("BoughtDetails");
+            var title = isCashOut ? Site.getSingleResource("CashOutDetails") : Site.getSingleResource("BoughtDetails");
             var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
                              popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
@@ -783,7 +785,7 @@ var BetList = (function ($) {
                 width: popW + 50,
                 height: popH + 50
             });
-        },
+        }
     };
 })(jQuery);
 
