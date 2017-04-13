@@ -33,7 +33,7 @@ namespace Fanex.Athena.DataAccess.BetList
                         metaModel.TransId,
                         metaModel.RefNo,
                         metaModel.BetType,
-                        metaModel.OriginalTransId,
+                        OriginalTransId = metaModel.BetdaqId,
                         AgentList = metaModel.AgentListXml
                     };
                     using (var reader = db.ExecuteReader(param))

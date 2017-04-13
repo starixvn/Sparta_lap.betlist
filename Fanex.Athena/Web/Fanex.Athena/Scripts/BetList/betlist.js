@@ -770,11 +770,11 @@ var BetList = (function ($) {
             url = QueryString.setParam(url, "transId", transId);
             url = QueryString.setParam(url, "refNo", refNo);
             url = QueryString.setParam(url, "betType", betType);
-            url = QueryString.setParam(url, "originaltransId", betdaqId);
+            url = QueryString.setParam(url, "betdaqId", betdaqId);
             url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
             
             var popH = Math.min($(window).height() - 100, 350), popW = 840;
-            var title = Site.getSingleResource("CashOutDetails");
+            var title = betdaqId < 1 ? Site.getSingleResource("CashOutDetails") : Site.getSingleResource("BoughtDetails");
             var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
                              popW + '" height="100%" src="' + url + '" ></iframe></div>';
 
