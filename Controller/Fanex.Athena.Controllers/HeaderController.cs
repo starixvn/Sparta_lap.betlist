@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers
                 OnUserId = userSession.OnUserId,
                 LicenseeList = _licenseeService.GetByUser(userSession.UserId),
                 IsInternalLogin = userSession.IsInternal,
-                IsDisabledRecheckIn = AppSettings.LocalTest,
+                IsDisabledRecheckIn = AppSettings.Environment.Equals("DEV", System.StringComparison.OrdinalIgnoreCase),
                 SupportedLanguageList = Util.SupportedLanguages,
                 UserName = userSession.UserName,
                 CurrentLicenseeId = SessionService.LicenseeSession.LicenseeId
