@@ -2,19 +2,20 @@
 {
     using System.Collections.Generic;
     using DTO;
-    using MetaModel;
 
     public class CashOutBetListDetailViewModel
     {
-        public IEnumerable<TicketText> TicketTextList { get; set; }
+        public TicketText OriginalTicketText { get; set; }
 
         [System.CLSCompliant(false)]
-        public IEnumerable<LrfTicket> DataList { get; set; }
+        public LrfTicket OriginalTicket { get; set; }
 
         public IEnumerable<CashOutTicket> CashOutTicketList { get; set; }
 
         public IEnumerable<CashOutTicketText> CashOutTicketTextList { get; set; }
 
         public bool IsCashOut { get; set; }
+
+        public bool IsHighlightOriginalTicket { get; set; }
     }
 }

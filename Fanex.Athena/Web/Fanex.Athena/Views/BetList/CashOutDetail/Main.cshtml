@@ -7,10 +7,11 @@
     @Styles.Render("~/bundles/BetListSimpleLayoutStyles")
 
     <style>
-        div.match + div.league{
+        div.match + div.league {
             text-align: right !important;
         }
-        table.report-table td{
+
+        table.report-table td {
             vertical-align: top;
         }
     </style>
@@ -30,35 +31,35 @@
                 <th width="100">@(ViewResources.WinLoss)/@(ViewResources.Comm)</th>
                 <th width="100">@ViewResources.Status</th>
             </tr>
-            @foreach (var item in Model.TicketTextList)
-            {
-                <tr>
-                    <td style="text-align: center">@Html.Raw(item.TransTime)</td>
-                    <td>@Html.Raw(item.Choice)</td>
-                    <td>@Html.Raw(item.Odds)</td>
-                    <td>@Html.Raw(item.Stake)</td>
-                    <td>@Html.Raw(item.WinLoss)</td>
-                    <td style="text-align: center">@Html.Raw(item.Status)</td>
-                </tr>
-            }
+            <tr>
+                @{ 
+                    var tdClass = Model.IsHighlightOriginalTicket ? "highlight" : null;
+                }
+                <td class="@tdClass" style="text-align: center">@Html.Raw(Model.OriginalTicketText.TransTime)</td>
+                <td class="@tdClass">@Html.Raw(Model.OriginalTicketText.Choice)</td>
+                <td class="@tdClass">@Html.Raw(Model.OriginalTicketText.Odds)</td>
+                <td class="@tdClass">@Html.Raw(Model.OriginalTicketText.Stake)</td>
+                <td class="@tdClass">@Html.Raw(Model.OriginalTicketText.WinLoss)</td>
+                <td class="@tdClass" style="text-align: center">@Html.Raw(Model.OriginalTicketText.Status)</td>
+            </tr>
         </table>
     </p>
     <p>
-        @(Model.IsCashOut ? ViewResources.BoughtTicketsList: ViewResources.CashOutTicketsList):
+        @(Model.IsCashOut ? ViewResources.BoughtTicketsList : ViewResources.CashOutTicketsList):
     </p>
     <p>
         <table class="report-table table-detail" style="width: 700px">
             <tr class="report-header" style="height: 25px">
                 <th width="150">@ViewResources.TransTime</th>
                 <th width="250">@(Model.IsCashOut ? ViewResources.BoughtStake : ViewResources.CashOutStake)</th>
-                <th width="100">@(Model.IsCashOut ? ViewResources.BoughtAmount: ViewResources.CashOutAmount)</th>
+                <th width="100">@(Model.IsCashOut ? ViewResources.BoughtAmount : ViewResources.CashOutAmount)</th>
                 <th width="100">@ViewResources.WinLoss</th>
                 <th width="100">@ViewResources.Status</th>
             </tr>
-            
+
             @foreach (var item in Model.CashOutTicketTextList)
             {
-                var tdClass = item.IsHighlight ? "highlight" : null;
+                tdClass = item.IsHighlight ? "highlight" : null;
                 <tr>
                     <td class="@tdClass" style="text-align: center">@Html.Raw(item.TransTime)</td>
                     <td class="@tdClass">@Html.Raw(item.Stake)</td>

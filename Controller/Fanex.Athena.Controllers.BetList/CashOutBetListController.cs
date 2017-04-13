@@ -34,8 +34,8 @@
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml();
             var viewModel = _cashOutBetListService.GetDetail(metaModel);
-
-            viewModel.TicketTextList = BuilTicketTextList(viewModel.DataList);
+            viewModel.IsHighlightOriginalTicket = metaModel.RefNo.ToString() == viewModel.OriginalTicket.RefNo;
+            viewModel.OriginalTicketText = BuilOriginalTicketText(viewModel.OriginalTicket);
             viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList, metaModel.RefNo.ToString());
 
             viewModel.IsCashOut = metaModel.IsCashOut;
@@ -77,7 +77,7 @@
             return ticketTextList;
         }
 
-        private IList<TicketText> BuilTicketTextList(IEnumerable<LrfTicket> dataList)
+        private TicketText BuilOriginalTicketText(LrfTicket ticket)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var showPlayerComm = licenseeSession.IsAllowedCustomerComm;
@@ -87,26 +87,20 @@
             {
                 HideStatusCashOutHistory = true
             };
-            foreach (var ticket in dataList)
+
+            var statusHtml = builder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, ticketHelper, null, false);
+            statusHtml.StatusResult = null;
+            return new TicketText
             {
-                var statusHtml = builder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, ticketHelper, null, false);
-                statusHtml.StatusResult = null;
-                var ticketText = new TicketText
-                {
-                    ExternalId = ticket.ExternalId,
-                    SystemId = ticket.UserName,
-                    TransTime = builder.BuildTrans(ticket),
-                    Status = statusHtml.ToString(),
-                    Choice = builder.BuildChoice(ticket, ticketHelper, null, false),
-                    Odds = builder.BuildOdds(ticket, null, CacheRef.GetOddsTypeName),
-                    Stake = builder.BuildStake(ticket),
-                    WinLoss = builder.BuildCustomerWL(ticket, showPlayerComm)
-                };
-
-                ticketTextList.Add(ticketText);
-            }
-
-            return ticketTextList;
+                ExternalId = ticket.ExternalId,
+                SystemId = ticket.UserName,
+                TransTime = builder.BuildTrans(ticket),
+                Status = statusHtml.ToString(),
+                Choice = builder.BuildChoice(ticket, ticketHelper, null, false),
+                Odds = builder.BuildOdds(ticket, null, CacheRef.GetOddsTypeName),
+                Stake = builder.BuildStake(ticket),
+                WinLoss = builder.BuildCustomerWL(ticket, showPlayerComm)
+            };
         }
     }
 }
