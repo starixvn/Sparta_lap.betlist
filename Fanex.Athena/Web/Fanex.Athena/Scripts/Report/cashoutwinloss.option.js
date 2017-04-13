@@ -198,7 +198,7 @@ var CashOutWinLossOption = (function () {
     {
         name: 'SettleAmountTicketPayout',
         index: 'SettleAmountTicketPayout',
-        width: 80,
+        width: 90,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -211,7 +211,7 @@ var CashOutWinLossOption = (function () {
     {
         name: 'SettleAmountBuyBackComm',
         index: 'SettleAmountBuyBackComm',
-        width: 80,
+        width: 90,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -224,7 +224,7 @@ var CashOutWinLossOption = (function () {
     {
         name: 'SettleAmountTotal',
         index: 'SettleAmountTotal',
-        width: 80,
+        width: 90,
         align: 'right',
         sortable: false,
         resizable: false,

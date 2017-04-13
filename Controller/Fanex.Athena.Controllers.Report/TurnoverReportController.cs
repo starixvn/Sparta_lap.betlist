@@ -107,7 +107,9 @@ namespace Fanex.Athena.Controllers.Report
 
             var templatePath = Server.MapPath("~/App_Data/Template/Reports/Turnover.xls");
 
-            var productAccess = ProductService.GetSingleWalletProductAccess(viewModel.Param.LicenseeId, SessionService.UserSession.Language, FunctionNames.Turnover);
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeId, SessionService.UserSession.Language, FunctionNames.Turnover);
 
             var convertingOption = new ConvertingOption
             {
@@ -126,7 +128,7 @@ namespace Fanex.Athena.Controllers.Report
                 viewModel.Param.BaseCurrency
                 : viewModel.CurrencyList.FirstOrDefault(a => a.Key == viewModel.Param.CurrencyId).Value;
 
-            var turnoverExcel = new TurnoverExcel(templatePath, FileName, convertingOption, showingOption, viewModel) { LicenseeId = viewModel.Param.LicenseeId };
+            var turnoverExcel = new TurnoverExcel(templatePath, FileName, convertingOption, showingOption, viewModel) { LicenseeId = licenseeId };
 
             turnoverExcel.Export();
 

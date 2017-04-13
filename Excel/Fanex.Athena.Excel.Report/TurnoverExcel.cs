@@ -22,26 +22,27 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class TurnoverExcel : ReportBase
     {
-        private const int ColumnAdjustment = 6;
-        private const int ColumnAffiliateTransfer = 15;
-        private const int ColumnAmountDueToBa = 19;
-        private const int ColumnBonus = 5;
-        private const int ColumnCasinoTransfer = 16;
-        private const int ColumnClosingBalance = 14;
-        private const int ColumnCommBa = 18;
-        private const int ColumnCustomerComm = 12;
-        private const int ColumnCustomerTotal = 13;
-        private const int ColumnCustomerWinLoss = 11;
         private const int ColumnDay = 1;
+        private const int ColumnOpeningBalance = 2;
         private const int ColumnDeposit = 3;
+        private const int ColumnWithdrawal = 4;
+        private const int ColumnBonus = 5;
+        private const int ColumnAdjustment = 6;
+        private const int ColumnTurnOver = 7;
         private const int ColumnDrawGame = 8;
         private const int ColumnNetTurnOver = 9;
-        private const int ColumnOpeningBalance = 2;
         private const int ColumnPendingFunds = 10;
-        private const int ColumnTemplateCount = 20;
-        private const int ColumnTurnOver = 7;
+        private const int ColumnCustomerWinLoss = 11;
+        private const int ColumnCustomerComm = 12;
+        private const int ColumnCustomerTotal = 13;
+        private const int ColumnClosingBalance = 14;
+        private const int ColumnAffiliateTransfer = 15;
+        private const int ColumnCasinoTransfer = 16;
         private const int ColumnTurnoverBa = 17;
-        private const int ColumnWithdrawal = 4;
+        private const int ColumnCommBa = 18;
+        private const int ColumnAmountDueToBa = 19;
+        private const int ColumnTemplateCount = 20;
+
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemp = 5;
         private const int RowTableHeaderTemplate = 1;

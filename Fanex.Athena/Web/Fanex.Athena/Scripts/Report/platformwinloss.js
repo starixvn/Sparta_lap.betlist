@@ -375,7 +375,7 @@ var PlatformWinLoss = (function ($) {
                     cacheData[_level] = response;
                     PlatformWinLoss.setReportTitle(_drilldownData);
                     PlatformWinLoss.renderBreadCrumb(_level);
-                    PlatformWinLoss.bindData(_level, response, $.parseJSON(_submitData.ProductOptions));
+                    PlatformWinLoss.bindData(_level, response, productOptions);
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
