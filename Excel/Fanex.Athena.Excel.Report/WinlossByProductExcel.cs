@@ -12,6 +12,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Model.Core.Helper;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
@@ -522,6 +523,7 @@ namespace Fanex.Athena.Excel.Report
                     CurrencyId = group.Key.CurrencyId,
                     CurrencyName = group.Key.CurrencyName,
                     ProductCode = group.Key.ProductCode,
+                    ProductName = ProductHelper.GetProductName(group.Key.ProductCode),
                     TurnOver = group.Sum(a => a.TurnOver),
                     TotalTransaction = group.Sum(a => a.TotalTransaction),
                     CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
