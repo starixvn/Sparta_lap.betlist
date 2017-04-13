@@ -197,9 +197,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             var $popup;
             $(options.buttonSelector).click(function () {
                 var $userGuidePopup = $('<div style="display: none" ></div>');
-                if ($userGuidePopup.is(":visible")) {
-                    return;
-                }
 
                 if (!$popup) {
                     $userGuidePopup.empty().attr('style', '').hide()
@@ -257,10 +254,9 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
         function setLicenseeOptionParam(urlOrParams) {
             var currencyId = $("#CurrencyId").val();
             var baseCurrency = $("#BaseCurrency").val();
-            var currencyName = $("#CurrencyId option[value=" + currencyId + "]").text();
-            if (currencyName === undefined) {
-                currencyName = $("#CurrencyName").val();
-            }
+
+            var $currencyItem = $("#CurrencyId option[value=" + currencyId + "]");
+            var currencyName = $currencyItem.length ? $currencyItem.text() : $("#CurrencyName").val();
 
             return setLicenseeOption(urlOrParams || {}, currencyId, currencyName, baseCurrency);
         }
@@ -268,10 +264,10 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
         function setLicenseeOptionOriginalParam(urlOrParams) {
             var currencyId = $("#CurrencyId").attr('data-original');
             var baseCurrency = $("#BaseCurrency").attr('data-original');
-            var currencyName = $("#CurrencyId option[value=" + currencyId + "]").text();
-            if (currencyName === undefined) {
-                currencyName = $("#CurrencyName").val();
-            }
+
+            var $currencyItem = $("#CurrencyId option[value=" +currencyId + "]");
+            var currencyName = $currencyItem.length ? $currencyItem.text() : $("#CurrencyName").val();
+
             return setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency);
         }
 
@@ -324,7 +320,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             }
             else {
                 urlOrParams.ProductOptions = [];
-                $(".childCheckbox']", "#ProductList").each(function (index, element) {
+                $(".childCheckbox", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).attr("data-original") });

@@ -52,7 +52,7 @@
                     <th>@(Model.IsBoughtTicket ? ViewResources.BoughtAmount : ViewResources.CashOutAmount)</th>
                     <th>@ViewResources.WinLoss</th>
                     <th>@ViewResources.Status</th>
-                    <th style="visibility:hidden"></th>
+                    <th style="visibility: hidden; border-top-style: none; border-right-style: none;"></th>
                 </tr>
             </thead>
             @{
@@ -68,7 +68,7 @@
                         <td class="right-align @tdClass">@Html.Raw(item.Price)</td>
                         <td class="right-align @tdClass">@Html.Raw(item.WinLoss)</td>
                         <td class="center-align @tdClass">@Html.Raw(item.Status)</td>
-                        <td style="visibility:hidden"></td>
+                        <td style="visibility: hidden; border-style: none;"></td>
                     </tr>
                     firstRow = false;
                 }

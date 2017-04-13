@@ -1,4 +1,4 @@
-﻿define(['jquery', 'common/site', 'components/selectlist'], function ($, Site) {
+﻿define(['jquery', "common/popup", 'common/site', 'components/selectlist'], function ($, Popup, Site) {
     describe("Site", function () {
         describe("getLicenseeId()", function () {
             it("return a value from input#LicenseeId", function () {
@@ -12,6 +12,16 @@
         describe("asNull(text)", function () {
             it("return null if the param 'text' is an empty string", function () {
                 var result = Site.asNull("");
+                expect(result).toBe(null);
+            });
+
+            it("return itself if the param 'text' is not empty", function () {
+                var result = Site.asNull("test");
+                expect(result).toBe("test");
+            });
+
+            it("return null if the param 'text' is null", function () {
+                var result = Site.asNull(null);
                 expect(result).toBe(null);
             });
         });
@@ -28,7 +38,7 @@
 
         describe("setLicenseeOptionParam(urlOrParams)", function () {
             beforeEach(function () {
-                setFixtures('<select id="CurrencyId"><option value="1" /><option value="2" /></select> <input id="BaseCurrency" value="USD" />');
+                setFixtures('<select id="CurrencyId"><option value="1" /><option value="2" /></select> <input id="BaseCurrency" value="USD" /> <input id="CurrencyName" value="AAA" />');
             });
 
             it("return an url with query string if 'urlOrParams' is a string", function () {
@@ -40,6 +50,13 @@
                 var result = Site.setLicenseeOptionParam({});
                 expect(result).toEqual({ CurrencyId: '1', CurrencyName: '', BaseCurrency: 'USD' });
             });
+
+            it("url should return correct value when currency name not in option tag", function () {
+                $("#CurrencyId").html("");
+
+                var result = Site.setLicenseeOptionParam("localhost");
+                expect(result).toBe("localhost?currencyname=AAA&basecurrency=USD");
+            });
         });
 
         describe("setLicenseeOptionOriginalParam(urlOrParams)", function () {
@@ -48,6 +65,14 @@
 
                 var result = Site.setLicenseeOptionOriginalParam("localhost");
                 expect(result).toBe("localhost?currencyid=2&currencyname=&basecurrency=USD");
+            });
+
+            it("url should return correct value when currency name not in option tag", function () {
+                setFixtures('<select id="CurrencyId" data-original="2"></select>' +
+                    '<input id="CurrencyName" value="AAA" /> <input id="BaseCurrency" data-original="USD" />');
+
+                var result = Site.setLicenseeOptionOriginalParam("localhost");
+                expect(result).toBe("localhost?currencyid=2&currencyname=AAA&basecurrency=USD");
             });
         });
 
@@ -422,6 +447,157 @@
                 Site.currencyConstraint(true);
 
                 expect($.fn.selectList).toHaveBeenCalled();
+            });
+        });
+
+        describe("setDateRangeOriginalParam(url)", function () {
+            it("url should return correct value", function () {
+                setFixtures('<input id="FromDate" data-original="1/1/2017" /> <input id="ToDate" data-original="4/13/2017" />');
+                var url = "localhosttest";
+                var expectedResult = "localhosttest?fromdate=1/1/2017&todate=4/13/2017";
+
+                var result = Site.setDateRangeOriginalParam(url);
+
+                expect(result).toBe(expectedResult);
+            });
+        });
+
+        describe("setDateRangeParam(url)", function () {
+            it("url should return correct value", function () {
+                setFixtures('<input id="FromDate" value="1/1/2017" /> <input id="ToDate" value="4/13/2017" />');
+                var url = "localhosttest";
+                var expectedResult = "localhosttest?fromdate=1/1/2017&todate=4/13/2017";
+
+                var result = Site.setDateRangeParam(url);
+
+                expect(result).toBe(expectedResult);
+            });
+        });
+
+        describe("setProductOptionOriginalParamList(urlOrParams)", function () {
+            beforeEach(function () {
+                setFixtures('<ul id="ProductList">' +
+                    '<li class="childCheckbox" data-product-code="SB" data-original="true"></li><li class="childCheckbox" data-product-code=""></li>' +
+                    '</ul>');
+            });
+
+            it("param is query string - url should return correct value", function () {
+                var url = "localhosttest";
+                var expectedUrl = "localhosttest?productoptions[0].code=SB&productoptions[0].name=SB&productoptions[0].status=true";
+
+                var result = Site.setProductOptionOriginalParamList(url);
+
+                expect(result).toBe(expectedUrl);
+            });
+
+            it("param is object - url should return correct value", function () {
+                var param = { ProductOptions: [] };
+                var productOption = [{ Code: "SB", Name: "SB", Status: 'true' }];
+                var expectedParam = {
+                    ProductOptions: productOption
+                };
+
+                var result = Site.setProductOptionOriginalParamList(param);
+
+                expect(result).toEqual(expectedParam);
+            });
+        });
+
+        describe("setProductOptionParamList(urlOrParams)", function () {
+            beforeEach(function () {
+                setFixtures('<div id="ProductList">' +
+                    '<input type="checkbox" checked class="childCheckbox" data-product-code="SB" /><input type="checkbox" checked class="childCheckbox" data-product-code="" />' +
+                    '</div>');
+            });
+
+            it("param is query string - url should return correct value", function () {
+                var url = "localhosttest";
+                var expectedUrl = "localhosttest?productoptions[0].code=SB&productoptions[0].name=SB&productoptions[0].status=true";
+
+                var result = Site.setProductOptionParamList(url);
+
+                expect(result).toBe(expectedUrl);
+            });
+
+            it("param is object - url should return correct value", function () {
+                var param = { ProductOptions: [] };
+                var productOption = [{ Code: "SB", Name: "SB", Status: true }];
+                var expectedParam = {
+                    ProductOptions: productOption
+                };
+
+                var result = Site.setProductOptionParamList(param);
+
+                expect(result).toEqual(expectedParam);
+            });
+        });
+
+        describe("addUserGuide(options)", function () {
+            beforeEach(function () {
+                setFixtures('<div id="UserGuide"></div> <div id="UserGuidePopup"></div>' +
+                    '<input id="RootUrl" value="/" />'
+                    );
+                Site.initialize();
+            });
+
+            it("url should be correct when clicking to show User Guide button", function () {
+                var url, callback;
+                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2 });
+                Site.addUserGuide({ resourceName: "AAA" });
+
+                $("#UserGuide").click();
+                var result = /\/UserGuide\/Index\?resourcename=AAA.*/g.test(url);
+
+                expect(result).toBe(true);
+            });
+
+            it("Popup.openPopup should be called when clicking to show User Guide button and status is success", function () {
+                var url, callback;
+                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2 });
+                Site.addUserGuide({ resourceName: "AAA" });
+
+                $("#UserGuide").click();
+                spyOn(Popup, "openPopup");
+                jasmine.clock().install();
+                callback("test", "success");
+                jasmine.clock().tick(51);
+                jasmine.clock().uninstall();
+
+                expect(Popup.openPopup).toHaveBeenCalled();
+            });
+
+            it("Popup.openPopup should be called one time when clicking to show User Guide button and status is not success", function () {
+                var url, callback;
+                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2 });
+                Site.addUserGuide({ resourceName: "AAA" });
+
+                $("#UserGuide").click();
+                spyOn(Popup, "openPopup");
+                jasmine.clock().install();
+                callback("test", "success");
+                jasmine.clock().tick(51);
+                callback("test", "fail");
+                jasmine.clock().tick(51);
+                jasmine.clock().uninstall();
+
+                expect(Popup.openPopup.calls.count()).toBe(1);
+            });
+
+            it(".flatPopup should be called with correct parameter when $popup is exist", function () {
+                var url, callback;
+                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2 });
+                Site.addUserGuide({ resourceName: "AAA" });
+
+                $("#UserGuide").click();
+                spyOn(Popup, "openPopup");
+                jasmine.clock().install();
+                callback("test", "success");
+                jasmine.clock().tick(51);
+                jasmine.clock().uninstall();
+
+                spyOn($.fn, "flatPopup");
+                $("#UserGuide").click();
+                expect($.fn.flatPopup).toHaveBeenCalledWith("show");
             });
         });
     });
