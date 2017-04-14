@@ -52,7 +52,7 @@ var CashOutWinLossOption = (function () {
         name: 'Date',
         index: 'Date',
         resizable: false,
-        width: 55,
+        width: 60,
         align: 'center',
         valign: 'middle',
         sortable: false,
