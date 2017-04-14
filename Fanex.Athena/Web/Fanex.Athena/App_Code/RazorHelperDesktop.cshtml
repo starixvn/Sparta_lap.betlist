@@ -338,3 +338,28 @@ if (toDate != null)
             </div>
     }
 }
+
+@helper ViewInCurrency(int currencyId, string currencyName)
+{
+    string title;
+
+    switch (currencyId)
+    {
+        case BaseCurrencyType.All:
+        title = ViewResources.AllCurrencies;
+        break;
+        case BaseCurrencyType.Eur:
+        title = string.Format(ViewResources.Viewin, FormatKey.Eur);
+        break;
+        case BaseCurrencyType.Usd:
+        title = string.Format(ViewResources.Viewin, FormatKey.Usd);
+        break;
+        case BaseCurrencyType.Gbp:
+        title = string.Format(ViewResources.Viewin, FormatKey.Gbp);
+        break;
+        default:
+        title = string.Format(ViewResources.Viewin, currencyName);
+        break;
+    }
+    @(title)
+}

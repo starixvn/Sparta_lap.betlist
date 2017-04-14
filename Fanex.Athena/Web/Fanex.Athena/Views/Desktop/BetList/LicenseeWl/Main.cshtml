@@ -15,7 +15,7 @@
            @{var curencyId = Model.IsConvert ? Model.BaseCurrencyId : Model.CurrencyId;}
 
         
-            @RazorHelper.ViewInCurrency(curencyId, Model.CurrencyName)
+            @RazorHelperDesktop.ViewInCurrency(curencyId, Model.CurrencyName)
         
     </span>
 }
@@ -26,5 +26,4 @@
     <input type="hidden" id="ApiUrl" value="api/LicenseeWinLossBetList/Index" />
     <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
     <input type="hidden" id="HiddenColumnList" value="externalid,systemid" />
-    
 }
