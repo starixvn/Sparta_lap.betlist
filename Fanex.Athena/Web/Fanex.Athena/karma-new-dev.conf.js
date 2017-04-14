@@ -31,13 +31,14 @@
             { pattern: 'www/js/source/**/*.js', included: false },
 
             { pattern: 'www/js/tests/common/site-spec.js', included: false },
+            //{ pattern: 'www/js/tests/pages/betlist/betlist-spec.js', included: false },
 
             //{ pattern: 'www/js/tests/pages/report/weeklylivematch/**/*-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/report/turnover/**/*-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/report/settledmatchcount/**/*-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/report/racingcommission/**/*-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/report/balance/**/*-spec.js', included: false },
-            //{ pattern: 'www/js/tests/pages/report/licenseewinloss/**/licenseewinloss-spec.js', included: false }, ,
+            //{ pattern: 'www/js/tests/pages/report/licenseewinloss/**/licenseewinloss-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {

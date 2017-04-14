@@ -160,6 +160,10 @@ var CashOutWinLoss = (function ($) {
         drillDown: function (level, currencyId, customerId, datetime) {
             level = Number(level);
 
+            if (currencyId === 0) {
+                currencyId = _submitData.CurrencyId;
+            }
+
             if (_level !== level) {
                 _level = level;
             }
