@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.BetList.Extensions;
@@ -11,6 +10,7 @@
     using Model.BetList.DTO;
     using Resources;
     using Service.BetList;
+    using Service.BetList.Helpers;
     using Service.BetList.Interfaces;
 
     public class CashOutBetListController : BetListBaseController
@@ -35,18 +35,13 @@
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml();
             var viewModel = _cashOutBetListService.GetDetail(metaModel);
-            viewModel.IsHighlightOriginalTicket = metaModel.TransId == viewModel.OriginalTicket.TransId || IsCashOutBetTicket(metaModel.BetdaqId, metaModel.BetType);
+            viewModel.IsHighlightOriginalTicket = metaModel.TransId == viewModel.OriginalTicket.TransId ||
+                BetListHelper.IsCashOutBetTicket(metaModel.BetdaqId, metaModel.BetType);
             viewModel.OriginalTicketText = BuilOriginalTicketText(viewModel.OriginalTicket);
             viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList, metaModel.TransId);
 
             viewModel.IsCashOut = metaModel.IsCashOut;
             return this.View("~/Views/BetList/CashOutDetail/Main.cshtml", viewModel);
-        }
-
-        private static bool IsCashOutBetTicket(long betdaqid, int bettype)
-        {
-            var cashOutBetTypes = new int[] { 911, 912, 913 };
-            return betdaqid > 0 && cashOutBetTypes.Contains(bettype) == false;
         }
 
         private IList<CashOutTicketText> BuildCashOutTicketTextList(IEnumerable<CashOutTicket> dataList, long transId)

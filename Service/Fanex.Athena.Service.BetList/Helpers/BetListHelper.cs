@@ -1,4 +1,6 @@
-﻿namespace Fanex.Athena.Api.BetList.Helpers
+﻿using System.Linq;
+
+namespace Fanex.Athena.Service.BetList.Helpers
 {
     using System;
     using Fanex.Athena.Model.BetList.DTO;
@@ -29,6 +31,12 @@
                 custid,
                 betTeam,
                 baseCurrency);
+        }
+
+        public static bool IsCashOutBetTicket(long betdaqid, int bettype)
+        {
+            var cashOutBetTypes = new int[] { 900, 912 };
+            return betdaqid > 0 && cashOutBetTypes.Contains(bettype) == false;
         }
     }
 }

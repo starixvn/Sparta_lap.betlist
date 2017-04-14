@@ -198,7 +198,6 @@
     <Compile Include="AGCasinoBetListController.cs" />
     <Compile Include="DailyStatementBetListController.cs" />
     <Compile Include="GlobalGamingBetListController.cs" />
-    <Compile Include="Helpers\BetListHelper.cs" />
     <Compile Include="MixParlayBetListController.cs" />
     <Compile Include="PlatformWinLossBetListController.cs" />
     <Compile Include="RNGCasinoBetListController.cs" />

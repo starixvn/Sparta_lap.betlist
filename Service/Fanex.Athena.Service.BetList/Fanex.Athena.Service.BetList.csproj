@@ -191,6 +191,7 @@
   <ItemGroup>
     <Compile Include="CancelledBetListService.cs" />
     <Compile Include="CashOutBetListService.cs" />
+    <Compile Include="Helpers\BetListHelper.cs" />
     <Compile Include="Interfaces\ICashOutBetListService.cs" />
     <Compile Include="Interfaces\IColossusBetBetListService.cs" />
     <Compile Include="Interfaces\ICancelledBetListService.cs" />
