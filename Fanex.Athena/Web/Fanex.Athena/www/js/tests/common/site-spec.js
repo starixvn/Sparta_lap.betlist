@@ -1,11 +1,16 @@
 ﻿define(['jquery', "common/popup", 'common/site', 'components/selectlist'], function ($, Popup, Site) {
     describe("Site", function () {
         describe("getLicenseeId()", function () {
-            it("return a value from input#LicenseeId", function () {
+            it("return a correct value", function () {
                 setFixtures('<input id="LicenseeId" value="2" />');
                 var result = Site.getLicenseeId();
 
                 expect(result).toBe(2);
+
+                spyOn(window, "parseInt").and.callThrough();
+                Site.getLicenseeId();
+
+                expect(window.parseInt.calls.count()).toBe(0);
             });
         });
 
@@ -542,7 +547,7 @@
 
             it("url should be correct when clicking to show User Guide button", function () {
                 var url, callback;
-                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2 });
+                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2; });
                 Site.addUserGuide({ resourceName: "AAA" });
 
                 $("#UserGuide").click();
@@ -551,24 +556,35 @@
                 expect(result).toBe(true);
             });
 
-            it("Popup.openPopup should be called when clicking to show User Guide button and status is success", function () {
+            it("Popup.openPopup should be called with correct parameter when clicking to show User Guide button and status is success", function () {
                 var url, callback;
-                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2 });
+                var $userGuidePopup, option;
+                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2; });
                 Site.addUserGuide({ resourceName: "AAA" });
 
                 $("#UserGuide").click();
-                spyOn(Popup, "openPopup");
+                spyOn(Popup, "openPopup").and.callFake(function (param1, param2) { $userGuidePopup = param1[0].outerHTML, option = param2; });
                 jasmine.clock().install();
                 callback("test", "success");
                 jasmine.clock().tick(51);
                 jasmine.clock().uninstall();
 
+                var expectedElement = '<div style="display: none;"></div>';
+                var expectedOption = {
+                    buttonSelector: "#UserGuide",
+                    id: "UserGuidePopup",
+                    resourceName: 'AAA',
+                    title: ''
+                };
+
                 expect(Popup.openPopup).toHaveBeenCalled();
+                expect($userGuidePopup).toBe(expectedElement);
+                expect(option).toEqual(expectedOption);
             });
 
             it("Popup.openPopup should be called one time when clicking to show User Guide button and status is not success", function () {
                 var url, callback;
-                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2 });
+                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2; });
                 Site.addUserGuide({ resourceName: "AAA" });
 
                 $("#UserGuide").click();
@@ -585,7 +601,7 @@
 
             it(".flatPopup should be called with correct parameter when $popup is exist", function () {
                 var url, callback;
-                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2 });
+                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2; });
                 Site.addUserGuide({ resourceName: "AAA" });
 
                 $("#UserGuide").click();
@@ -598,6 +614,47 @@
                 spyOn($.fn, "flatPopup");
                 $("#UserGuide").click();
                 expect($.fn.flatPopup).toHaveBeenCalledWith("show");
+            });
+        });
+
+        describe("getHistoryDate()", function () {
+            it("return correct value", function () {
+                setFixtures('<input id="HistoryDate" value="4/14/2017" />');
+                var expectedResult = new Date(2017, 3, 14);
+                Site.initialize();
+
+                var result = Site.getHistoryDate();
+
+                expect(result).toEqual(expectedResult);
+            });
+        });
+
+        describe("getCurrencyName(currencyId)", function () {
+            it("return correct value", function () {
+                var jsonData = JSON.stringify({ 1: "USD" });
+                setFixtures('<input id="UserCurrencies" value=\'' + jsonData + '\' />');
+                Site.initialize();
+
+                var result = Site.getCurrencyName(1);
+
+                expect(result).toEqual("USD");
+            });
+        });
+
+        describe("showMessaegBox(message)", function () {
+            it("Popup.openPopup function should be called with correct parameter", function () {
+                setFixtures('<input id="PageLanguage" value="en-US" />');
+                window["_language_en_US"] = { "LrfNotification": "LrfNotification" };
+                Site.initialize();
+
+                spyOn(Popup, "openPopup");
+                var message = "Test";
+                var expectedParam1 = '<div title="LrfNotification"><p class="notification">' + message + '!</p></div>';
+                var expectedParam2 = { width: 350, height: 120, title: "LrfNotification", className: "popup-notification" };
+
+                Site.showMessaegBox(message);
+
+                expect(Popup.openPopup).toHaveBeenCalledWith(expectedParam1, expectedParam2);
             });
         });
     });
