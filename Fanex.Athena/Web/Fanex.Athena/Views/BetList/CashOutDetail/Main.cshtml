@@ -32,7 +32,7 @@
                 <th width="100">@ViewResources.Status</th>
             </tr>
             <tr>
-                @{ 
+                @{
                     var tdClass = Model.IsHighlightOriginalTicket ? "highlight" : null;
                 }
                 <td class="@tdClass" style="text-align: center">@Html.Raw(Model.OriginalTicketText.TransTime)</td>
@@ -45,14 +45,14 @@
         </table>
     </p>
     <p>
-        @(Model.IsCashOut ? ViewResources.BoughtTicketsList : ViewResources.CashOutTicketsList):
+        @(Model.IsCashOut ? ViewResources.CashOutTicketsList : ViewResources.BoughtTicketsList ):
     </p>
     <p>
         <table class="report-table table-detail" style="width: 700px">
             <tr class="report-header" style="height: 25px">
                 <th width="150">@ViewResources.TransTime</th>
-                <th width="250">@(Model.IsCashOut ? ViewResources.BoughtStake : ViewResources.CashOutStake)</th>
-                <th width="100">@(Model.IsCashOut ? ViewResources.BoughtAmount : ViewResources.CashOutAmount)</th>
+                <th width="250">@(Model.IsCashOut ? ViewResources.CashOutStake : ViewResources.BoughtStake )</th>
+                <th width="100">@(Model.IsCashOut ? ViewResources.CashOutAmount : ViewResources.BoughtAmount )</th>
                 <th width="100">@ViewResources.WinLoss</th>
                 <th width="100">@ViewResources.Status</th>
             </tr>

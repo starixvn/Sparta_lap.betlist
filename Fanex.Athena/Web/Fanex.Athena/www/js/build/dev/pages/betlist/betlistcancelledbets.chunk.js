@@ -84,6 +84,7 @@ webpackJsonp([29],[
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(181), __webpack_require__(183), __webpack_require__(74), __webpack_require__(9),
 	        __webpack_require__(184), __webpack_require__(185), __webpack_require__(4)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, BetListOption, moment, Popup) {
 	        "use strict";
+	        var BETTYPE_CASHOUT = 911;
 	        var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
 	        var MIN_BETTYPE_FASTMARKET = 221;
 	        var MAX_BETTYPE_FASTMARKET = 225;
@@ -705,15 +706,17 @@ webpackJsonp([29],[
 	
 	            viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
 	                var params = $.parseJSON($("#BetListMetaModel").val());
+	                var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
 	                var url = Site.resolveClientUrl('CashOutBetList/Detail');
 	                url = QueryString.setParam(url, "transId", transId);
 	                url = QueryString.setParam(url, "refNo", refNo);
 	                url = QueryString.setParam(url, "betType", betType);
-	                url = QueryString.setParam(url, "originaltransId", betdaqId);
+	                url = QueryString.setParam(url, "betdaqId", betdaqId);
 	                url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
+	                url = QueryString.setParam(url, "isCashout", isCashOut);
 	
 	                var popH = Math.min($(window).height() - 100, 550);
-	                var title = Site.getSingleResource("CashOutDetails");
+	                var title = isCashOut ? Site.getSingleResource("CashOutDetails") : Site.getSingleResource("BoughtDetails");
 	
 	                showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
 	            },

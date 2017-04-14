@@ -24,53 +24,49 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.TicketTextList)
-            {
-                    <tr>
-                        <td class="center-align">@Html.Raw(item.TransTime)</td>
-                        <td class="right-align">@Html.Raw(item.Choice)</td>
-                        <td class="right-align">@Html.Raw(item.Odds)</td>
-                        <td class="right-align">@Html.Raw(item.Stake)</td>
-                        <td class="right-align">@Html.Raw(item.WinLoss)</td>
-                        <td class="center-align">@Html.Raw(item.Status)</td>
-                    </tr>
+                @{
+                    var tdClass = Model.IsHighlightOriginalTicket ? "highlight" : null;
+                    var ticket = Model.OriginalTicketText;
                 }
+                <tr>
+                    <td class="@tdClass center-align">@Html.Raw(ticket.TransTime)</td>
+                    <td class="@tdClass right-align">@Html.Raw(ticket.Choice)</td>
+                    <td class="@tdClass right-align">@Html.Raw(ticket.Odds)</td>
+                    <td class="@tdClass right-align">@Html.Raw(ticket.Stake)</td>
+                    <td class="@tdClass right-align">@Html.Raw(ticket.WinLoss)</td>
+                    <td class="@tdClass center-align">@Html.Raw(ticket.Status)</td>
+                </tr>
             </tbody>
         </table>
     </div>
 
-
     <div class="table-content">
         <p>
-            @(Model.IsBoughtTicket ? ViewResources.BoughtTicketsList : ViewResources.CashOutTicketsList):
+            @(Model.IsCashOut ? ViewResources.CashOutTicketsList : ViewResources.BoughtTicketsList):
         </p>
         <table class="table">
             <thead>
                 <tr>
                     <th class="col-medium">@ViewResources.TransTime</th>
-                    <th class="col-large small">@(Model.IsBoughtTicket ? ViewResources.BoughtStake : ViewResources.CashOutStake)</th>
-                    <th>@(Model.IsBoughtTicket ? ViewResources.BoughtAmount : ViewResources.CashOutAmount)</th>
+                    <th class="col-large small">@(Model.IsCashOut ? ViewResources.CashOutStake : ViewResources.BoughtStake )</th>
+                    <th>@(Model.IsCashOut ? ViewResources.CashOutAmount : ViewResources.BoughtAmount )</th>
                     <th>@ViewResources.WinLoss</th>
                     <th>@ViewResources.Status</th>
                     <th style="visibility: hidden; border-top-style: none; border-right-style: none;"></th>
                 </tr>
             </thead>
-            @{
-                var firstRow = true;
-            }
             <tbody>
                 @foreach (var item in Model.CashOutTicketTextList)
             {
-                var tdClass = firstRow ? "highlight" : null;
+                tdClass = item.IsHighlight ? "highlight" : null;
                     <tr>
-                        <td class="center-align @tdClass">@Html.Raw(item.TransTime)</td>
-                        <td class="right-align @tdClass">@Html.Raw(item.Stake)</td>
-                        <td class="right-align @tdClass">@Html.Raw(item.Price)</td>
-                        <td class="right-align @tdClass">@Html.Raw(item.WinLoss)</td>
-                        <td class="center-align @tdClass">@Html.Raw(item.Status)</td>
+                        <td class="@tdClass center-align @tdClass">@Html.Raw(item.TransTime)</td>
+                        <td class="@tdClass right-align @tdClass">@Html.Raw(item.Stake)</td>
+                        <td class="@tdClass right-align @tdClass">@Html.Raw(item.Price)</td>
+                        <td class="@tdClass right-align @tdClass">@Html.Raw(item.WinLoss)</td>
+                        <td class="@tdClass center-align @tdClass">@Html.Raw(item.Status)</td>
                         <td style="visibility: hidden; border-style: none;"></td>
                     </tr>
-                    firstRow = false;
                 }
             </tbody>
         </table>
