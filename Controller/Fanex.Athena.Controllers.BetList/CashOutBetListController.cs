@@ -63,7 +63,7 @@
                 statusHtml.StatusResult = null;
                 var ticketText = new CashOutTicketText
                 {
-                    TransTime = ViewResources.RefNo + ":" + ticket.RefNo + Environment.NewLine + "<div class='time'>" + ticket.TransDate + "</div>",
+                    TransTime = ViewResources.RefNo + ":" + ticket.TransId + Environment.NewLine + "<div class='time'>" + ticket.TransDate + "</div>",
                     Stake = ticket.Stake.ToString("0.00"),
                     Price = ticket.Price.ToString("0.00"),
                     WinLoss = ticket.WinLoss.ToString("0.00"),
