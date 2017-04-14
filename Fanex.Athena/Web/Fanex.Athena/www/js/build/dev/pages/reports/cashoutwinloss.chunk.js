@@ -20469,7 +20469,7 @@ webpackJsonp([41],[
 	            openBetlistPopUp: function (dataDrillDown) {
 	                dataDrillDown = $.parseJSON(dataDrillDown);
 	                var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
-	                var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
+	                var url = Site.resolveClientUrl("CustomerWinLossBetList/Index");
 	                url = QueryString.setParam(url, "fromdate", moment(dateRange.FromDate).format("MM/DD/YYYY"));
 	                url = QueryString.setParam(url, "todate", moment(dateRange.ToDate).format("MM/DD/YYYY"));
 	                url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);

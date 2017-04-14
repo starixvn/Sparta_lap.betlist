@@ -309,7 +309,7 @@ var CashOutWinLoss = (function ($) {
             dataDrillDown = $.parseJSON(dataDrillDown);
             var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownDate);
             
-            var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
+            var url = Site.resolveClientUrl("CustomerWinLossBetList/Index");
             url = QueryString.setParam(url, "fromdate", dateRange.FromDate.toString("MM/dd/yyyy"));
             url = QueryString.setParam(url, "todate", dateRange.ToDate.toString("MM/dd/yyyy"));
             url = QueryString.setParam(url, "excludetest", _submitData.IsExcludedTestData);
