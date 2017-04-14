@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.BetList.Extensions;
@@ -34,15 +35,21 @@
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml();
             var viewModel = _cashOutBetListService.GetDetail(metaModel);
-            viewModel.IsHighlightOriginalTicket = metaModel.RefNo.ToString() == viewModel.OriginalTicket.RefNo;
+            viewModel.IsHighlightOriginalTicket = metaModel.TransId == viewModel.OriginalTicket.TransId || IsCashOutBetTicket(metaModel.BetdaqId, metaModel.BetType);
             viewModel.OriginalTicketText = BuilOriginalTicketText(viewModel.OriginalTicket);
-            viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList, metaModel.RefNo.ToString());
+            viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList, metaModel.TransId);
 
             viewModel.IsCashOut = metaModel.IsCashOut;
             return this.View("~/Views/BetList/CashOutDetail/Main.cshtml", viewModel);
         }
 
-        private IList<CashOutTicketText> BuildCashOutTicketTextList(IEnumerable<CashOutTicket> dataList, string selectedRefNo)
+        private static bool IsCashOutBetTicket(long betdaqid, int bettype)
+        {
+            var cashOutBetTypes = new int[] { 911, 912, 913 };
+            return betdaqid > 0 && cashOutBetTypes.Contains(bettype) == false;
+        }
+
+        private IList<CashOutTicketText> BuildCashOutTicketTextList(IEnumerable<CashOutTicket> dataList, long transId)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var showPlayerComm = licenseeSession.IsAllowedCustomerComm;
@@ -68,7 +75,7 @@
                     Price = ticket.Price.ToString("0.00"),
                     WinLoss = ticket.WinLoss.ToString("0.00"),
                     Status = statusHtml.ToString(),
-                    IsHighlight = selectedRefNo == ticket.RefNo
+                    IsHighlight = transId == ticket.TransId
                 };
 
                 ticketTextList.Add(ticketText);
