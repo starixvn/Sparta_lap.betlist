@@ -20512,7 +20512,7 @@ webpackJsonp([41],[
 	    };
 	    var dateFormatter = function (cellvalue, options, rowObject) {
 	        cellvalue = $.fn.fmatter.call(this, "date", cellvalue, options, rowObject);
-	        return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
+	        return setDrillDownLink(1, 0, 0, rowObject.Date, cellvalue);
 	    };
 	    var currencyFormatter = function (cellvalue, options, rowObject) {
 	        return setDrillDownLink(1, rowObject.CurrencyId, 0, rowObject.Date, cellvalue);
