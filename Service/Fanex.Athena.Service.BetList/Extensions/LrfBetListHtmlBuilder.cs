@@ -92,6 +92,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
             var racing = ticket.BetTypeId == (int)BetType.Win || ticket.BetTypeId == (int)BetType.Place ||
                            ticket.BetTypeId == (int)BetType.WinPlace;
             if (racing ||
+                ticket.BetTypeId == (int)BetType.CashOutBought ||
                 ticket.BetTypeId == (int)BetType.BetTradeBought ||
                 (ticket.BetTypeId >= MinColossusBetBetType && ticket.BetTypeId <= MaxColossusBetBetType))
             {
