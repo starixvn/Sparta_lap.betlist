@@ -55,6 +55,7 @@ namespace Fanex.Athena.Controllers.BetList
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
+
             var currencyTitle = string.Format(
                 ViewResources.Viewin,
                 metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);

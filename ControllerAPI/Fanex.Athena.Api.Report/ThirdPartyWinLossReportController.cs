@@ -94,7 +94,7 @@ namespace Fanex.Athena.Api.Report
             // Use product code of Vegas Games to Macau
             var productCodeExport = metaModel.ProductCode == "VG" ? "MC" : metaModel.ProductCode;
 
-            string exportedFileName = GetExcelFileName(metaModel, ref currency, productCodeExport);
+            var exportedFileName = GetExcelFileName(metaModel, ref currency, productCodeExport);
 
             var convertingOption = new ConvertingOption
             {

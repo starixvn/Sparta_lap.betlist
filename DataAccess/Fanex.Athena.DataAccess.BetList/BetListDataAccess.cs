@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Linq;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -71,40 +72,46 @@ namespace Fanex.Athena.DataAccess.BetList
                     db.AddOutParameter("outstandingusd", DbType.Currency, 8);
                     db.AddOutParameter("outstandinggbp", DbType.Currency, 8);
                     var dataSet = db.ExecuteDataSet();
-                    var ticketData = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
-                    var serialData = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable();
-
-                    var systemParlayData = new SystemParlayData();
-
-                    systemParlayData.TicketList = new List<ISystemParlayTicket>();
-                    foreach (DataRow row in ticketData.Rows)
+                    var systemParlayData = new SystemParlayData
                     {
-                        ISystemParlayTicket ticket = new SystemParlayTicket();
-                        ticket.Comm = Converter.ToDecimal(row["comm" + metaModel.BaseCurrency]);
-                        ticket.MOdds = Converter.ToDecimal(row["modds"]);
-                        ticket.PlayerComm = Converter.ToDecimal(row["playercomm" + metaModel.BaseCurrency]);
-                        ticket.Serial = Convert.ToInt64(row["serial"]);
-                        ticket.Stake = Converter.ToDecimal(row["stake" + metaModel.BaseCurrency]);
-                        ticket.Status = Converter.ToString2(row["status"]);
-                        ticket.StatusId = Converter.ToInt(row["statusid"]);
-                        ticket.TransId = Convert.ToInt64(row["transid"]);
-                        ticket.WinLost = Converter.ToDecimal(row["winlost" + metaModel.BaseCurrency]);
-                        ticket.WinLostDate = Converter.ToDateTime(row["winlostdate"]);
-
-                        systemParlayData.TicketList.Add(ticket);
-                    }
-
-                    systemParlayData.SerialList = new List<ISystemParlaySerial>();
-                    foreach (DataRow row in serialData.Rows)
+                        TicketList = new List<ISystemParlayTicket>(),
+                        SerialList = new List<ISystemParlaySerial>()
+                    };
+                    using (var ticketData = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable())
                     {
-                        ISystemParlaySerial serial = new SystemParlaySerial();
-                        serial.Serial = Convert.ToInt64(row["serial"]);
-                        serial.HomeId = Converter.ToInt(row["homeid"]);
-                        serial.AwayId = Converter.ToInt(row["awayid"]);
+                        foreach (DataRow row in ticketData.Rows)
+                        {
+                            ISystemParlayTicket ticket = new SystemParlayTicket
+                            {
+                                Comm = Converter.ToDecimal(row["comm" + metaModel.BaseCurrency]),
+                                MOdds = Converter.ToDecimal(row["modds"]),
+                                PlayerComm = Converter.ToDecimal(row["playercomm" + metaModel.BaseCurrency]),
+                                Serial = Convert.ToInt64(row["serial"]),
+                                Stake = Converter.ToDecimal(row["stake" + metaModel.BaseCurrency]),
+                                Status = Converter.ToString2(row["status"]),
+                                StatusId = Converter.ToInt(row["statusid"]),
+                                TransId = Convert.ToInt64(row["transid"]),
+                                WinLost = Converter.ToDecimal(row["winlost" + metaModel.BaseCurrency]),
+                                WinLostDate = Converter.ToDateTime(row["winlostdate"])
+                            };
 
-                        systemParlayData.SerialList.Add(serial);
+                            systemParlayData.TicketList.Add(ticket);
+                        }
                     }
+                    using (var serialData = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable())
+                    {
+                        foreach (DataRow row in serialData.Rows)
+                        {
+                            ISystemParlaySerial serial = new SystemParlaySerial
+                            {
+                                Serial = Convert.ToInt64(row["serial"]),
+                                HomeId = Converter.ToInt(row["homeid"]),
+                                AwayId = Converter.ToInt(row["awayid"])
+                            };
 
+                            systemParlayData.SerialList.Add(serial);
+                        }
+                    }
                     systemParlayData.Outstanding = Converter.ToDecimal(db.GetParameterValue("outstanding" + metaModel.BaseCurrency));
 
                     return systemParlayData;
@@ -245,16 +252,16 @@ namespace Fanex.Athena.DataAccess.BetList
                     BetListParameterBuilder.CreateBetlistBUParameters(db, metaModel);
                     BetListParameterBuilder.CreateBetListPagingParameters(db, metaModel);
                     decimal balance = 0;
-
+                    var currentCulture = CultureInfo.CurrentCulture;
                     using (var reader = db.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             var winlostDate = reader.ToDateTime("winlostdate");
-                            var transType = reader.ToString("transtype").ToLower();
+                            var transType = reader.ToString("transtype").ToLower(currentCulture);
                             var transDesc = reader.ToString("transdesc");
-                            var transTypeId = transTypeIdMap.ContainsKey(transDesc.ToLower()) ? transTypeIdMap[transDesc.ToLower()] : 0;
-                            var credit = transDesc.ToLower() == "outstanding bet" || transType == "bal" ? 0 : reader.ToDecimal(totalAmtColumn);
+                            var transTypeId = transTypeIdMap.ContainsKey(transDesc.ToLower(currentCulture)) ? transTypeIdMap[transDesc.ToLower(currentCulture)] : 0;
+                            var credit = transDesc.ToLower(currentCulture) == "outstanding bet" || transType == "bal" ? 0 : reader.ToDecimal(totalAmtColumn);
                             var comm = reader.ToDecimal(commissionColumn);
 
                             // Add commission.
@@ -270,11 +277,11 @@ namespace Fanex.Athena.DataAccess.BetList
                                 CustId = metaModel.CustId,
                                 ExternalId = metaModel.ExternalId == null ? "0" : metaModel.ExternalId,
                                 SystemId = metaModel.SystemId == null ? "0" : metaModel.SystemId,
-                                FullStatementDate = string.Format("{0:dddd} <br/> {1}", winlostDate, winlostDate),
+                                FullStatementDate = $"{winlostDate:dddd} <br/> {winlostDate}",
                                 TransTypeHasBetList = transTypeHasBetList.Contains(transType),
                                 Index = index++,
                                 Date = winlostDate.ToShortDateString(),
-                                Remark = string.Format(FormatRemark, transType.ToUpper(), transDesc),
+                                Remark = string.Format(FormatRemark, transType.ToUpper(currentCulture), transDesc),
                                 Turnover = NumberReport(reader.ToDecimal(turnoverColumn)),
                                 CreditDebit = NumberReport(credit),
                                 Commission = NumberReport(comm),
@@ -300,14 +307,15 @@ namespace Fanex.Athena.DataAccess.BetList
             var hasOrdinalStake = reader.HasColumn(stakeColumn);
             while (reader.Read())
             {
-                var ticket = new TicketData();
-
-                ticket.BetTeam = hasOrdinalBetTeam ? reader.ToString("betteam") : string.Empty;
-                ticket.RefNo = reader.ToString("refno");
-                ticket.Status = reader.ToString("status");
-                ticket.BetTypeId = reader.ToInt("bettype");
-                ticket.Stake = hasOrdinalStake ? reader.ToDecimal(stakeColumn) : 0;
-                ticket.Odds = reader.ToDecimal("odds");
+                var ticket = new TicketData
+                {
+                    BetTeam = hasOrdinalBetTeam ? reader.ToString("betteam") : string.Empty,
+                    RefNo = reader.ToString("refno"),
+                    Status = reader.ToString("status"),
+                    BetTypeId = reader.ToInt("bettype"),
+                    Stake = hasOrdinalStake ? reader.ToDecimal(stakeColumn) : 0,
+                    Odds = reader.ToDecimal("odds")
+                };
 
                 yield return ticket;
             }

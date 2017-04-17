@@ -103,6 +103,8 @@ namespace Fanex.Athena
 
         public override void Dispose()
         {
+            GC.SuppressFinalize(_apiCompress);
+
             if (_apiCompress != null)
             {
                 _apiCompress.Dispose();

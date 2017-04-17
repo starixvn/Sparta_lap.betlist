@@ -27,7 +27,7 @@
         public void GetData_WhenCall_PassCorrectParam()
         {
             // Arrange
-            var expected = 1570000M;
+            const decimal expected = 1570000M;
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR", CurrencyId = 1, SelectedWidgetString = "PendingFund" };
             _pendingFundService.GetData(metaModel).Returns(expected);
 
@@ -46,7 +46,7 @@
         public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expected = 1570000M;
+            const decimal expected = 1570000M;
             var metaModel = new DashboardBaseModel();
             _pendingFundService.GetData(metaModel).Returns(expected);
 
