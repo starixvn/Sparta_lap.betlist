@@ -28,8 +28,9 @@
         private readonly ICurrencyService _currencyService;
         private readonly IUserService _userService;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
+        private readonly IOneBookSecurityWrapper _oneBookSecurityWrapper;
 
-        public OneAuthenticationService() : this(null, null, null, null, null)
+        public OneAuthenticationService() : this(null, null, null, null, null, null)
         {
         }
 
@@ -38,13 +39,15 @@
             ILicenseeService licenseeService,
             ICurrencyService currencyService,
             IFormsAuthenticationService formsAuthenticationService,
-            IUserService userService)
+            IUserService userService,
+            IOneBookSecurityWrapper oneBookSecurityWrapper)
         {
             _sessionService = sessionService ?? new SessionService();
             _licenseeService = licenseeService ?? new LicenseeService();
             _currencyService = currencyService ?? new CurrencyService();
             _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
             _userService = userService ?? new UserService();
+            _oneBookSecurityWrapper = oneBookSecurityWrapper ?? new OneBookSecurityWrapper();
         }
 
         protected internal virtual string GetStringFromFile(string path)
@@ -101,8 +104,7 @@
 
         public OneAuthToken GetTokenInfo(string token)
         {
-            var oneBookService = new OneBookSecurityWrapper();
-            return oneBookService.Authenticate(token);
+            return _oneBookSecurityWrapper.Authenticate(token);
         }
 
         private static bool VerifySessionWithToken(UserSession userSession, LicenseeSession licenseeSession, OneAuthToken tokenInfo, int licenseeId)

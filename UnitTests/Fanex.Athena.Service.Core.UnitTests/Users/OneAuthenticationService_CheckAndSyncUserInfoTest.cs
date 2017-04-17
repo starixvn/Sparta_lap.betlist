@@ -52,7 +52,7 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => null);
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
 
             var expectedResult = new ResultInfo { Code = 800, Message = "Not found user" };
 
@@ -76,7 +76,7 @@
             _userService.GetByUsername(tokenInfo.UserID, Arg.Any<int>()).Returns(x => new User { UserID = exptectedUserId });
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
-                _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
+                _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
 
             _oneAuthenticationService.When(x => x.SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), tokenInfo)).DoNotCallBase();
             _oneAuthenticationService.When(x => x.SetAuthorize(Arg.Any<Licensee>(), Arg.Any<string>(), tokenInfo)).Do(x => counter++);

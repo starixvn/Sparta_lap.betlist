@@ -138,6 +138,7 @@
     <Compile Include="Users\LicenseeServiceTest.cs" />
     <Compile Include="Users\OneAuthenticationService_CheckAndSyncUserInfoTest.cs" />
     <Compile Include="Users\OneAuthenticationService_SetAuthorizeTest.cs" />
+    <Compile Include="Users\OneAuthenticationService_GetTokenInfo.cs" />
     <Compile Include="Users\OneAuthenticationService_SignInTest.cs" />
     <Compile Include="Users\SessionServiceTest.cs" />
     <Compile Include="Users\SSOServiceTest.cs" />

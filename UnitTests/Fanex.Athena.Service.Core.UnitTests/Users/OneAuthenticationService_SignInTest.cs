@@ -37,7 +37,8 @@
                 _licenseeService,
                 _currencyService,
                 _formAuthenticationService,
-                _userService);
+                _userService,
+                null);
         }
 
         [TearDown]

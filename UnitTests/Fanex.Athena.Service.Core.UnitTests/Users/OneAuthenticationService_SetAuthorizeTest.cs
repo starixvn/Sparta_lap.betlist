@@ -49,6 +49,40 @@
         }
 
         [Test]
+        public void SetAuthorize_IfAdminCallGetCurrencyFromDB()
+        {
+            // Arrange
+            var tokenInfo = new OneAuthToken { IsAdminstrator = true, UserSEQ = 1 };
+
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
+            var licensee = new Licensee
+            {
+                Id = 1
+            };
+
+            // Action
+            _oneAuthenticationService.SetAuthorize(licensee, "en-US", tokenInfo);
+
+            // Assert
+            _currencyService.Received().GetCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ);
+        }
+
+        [Test]
+        public void SignIn_SetAuthorize_IfNotAdminNotCallGetCurrencyFromDB()
+        {
+            // Arrange
+            var tokenInfo = new OneAuthToken { IsAdminstrator = false };
+
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
+            
+            // Action
+            _oneAuthenticationService.SetAuthorize(new Licensee(), "en-US", tokenInfo);
+
+            // Assert
+            _currencyService.DidNotReceive().GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>());
+        }
+
+        [Test]
         public void SignIn_SetAuthorize_ReturnErrorLicenseDoesNotOfferedCurrency()
         {
             // Arrange
@@ -58,7 +92,7 @@
 
             _currencyService.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(new List<CurrencyUser>());
 
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
+            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
 
             var expectedResult = new ResultInfo { Code = 600, Message = "Not found currency" };
 
@@ -102,7 +136,7 @@
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
-                _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService);
+                _sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
 
             _oneAuthenticationService.GetStringFromFile(Arg.Any<string>()).Returns(GetJsonSystemFunctionList());
 
