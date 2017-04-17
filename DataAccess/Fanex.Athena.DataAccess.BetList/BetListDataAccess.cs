@@ -98,6 +98,7 @@ namespace Fanex.Athena.DataAccess.BetList
                             systemParlayData.TicketList.Add(ticket);
                         }
                     }
+
                     using (var serialData = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable())
                     {
                         foreach (DataRow row in serialData.Rows)
@@ -112,6 +113,7 @@ namespace Fanex.Athena.DataAccess.BetList
                             systemParlayData.SerialList.Add(serial);
                         }
                     }
+
                     systemParlayData.Outstanding = Converter.ToDecimal(db.GetParameterValue("outstanding" + metaModel.BaseCurrency));
 
                     return systemParlayData;

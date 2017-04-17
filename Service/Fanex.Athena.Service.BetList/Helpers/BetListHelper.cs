@@ -36,7 +36,7 @@ namespace Fanex.Athena.Service.BetList.Helpers
         public static bool IsCashOutBetTicket(long betdaqid, int bettype)
         {
             var cashOutBetTypes = new int[] { 900, 912 };
-            return betdaqid > 0 && cashOutBetTypes.Contains(bettype) == false;
+            return betdaqid == 1 && cashOutBetTypes.Contains(bettype) == false;
         }
     }
 }
