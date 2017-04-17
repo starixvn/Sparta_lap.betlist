@@ -250,5 +250,9 @@
   {
     "FunctionId": 71,
     "FunctionKey": "ColossusBetsWinLoss71"
+  },
+  {
+    "FunctionId": 72,
+    "FunctionKey": "CashOutWinLoss72"
   }
 ]
