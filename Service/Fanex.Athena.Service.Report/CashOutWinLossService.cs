@@ -40,9 +40,7 @@ namespace Fanex.Athena.Service.Report
             out IDictionary<string, CashOutWinLoss> summaryTotal)
         {
             summaryTotal = new Dictionary<string, CashOutWinLoss>();
-            return metaModel.IsValid
-                       ? this._dataAccess.GetDetail(metaModel, out summaryTotal)
-                       : new SortableList<CashOutWinLoss>();
+            return _dataAccess.GetDetail(metaModel, out summaryTotal);
         }
 
         public SortableList<CashOutWinLoss> GetSummary(CashOutWinLossMetaModel metaModel, out IDictionary<string, CashOutWinLoss> summaryTotal)

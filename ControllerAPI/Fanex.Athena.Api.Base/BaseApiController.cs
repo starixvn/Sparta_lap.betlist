@@ -38,6 +38,11 @@ namespace Fanex.Athena.Api.Base
             _langService = new LanguageService();
         }
 
+        protected BaseApiController(ISessionService sessionService)
+        {
+            _sessionService = sessionService;
+        }
+
         protected IProductService ProductService
         {
             get
