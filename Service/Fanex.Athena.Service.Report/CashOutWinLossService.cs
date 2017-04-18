@@ -29,6 +29,12 @@ namespace Fanex.Athena.Service.Report
             this._dataAccess = new CashOutWinLossDataAccess(this._balanceService.BalanceUpInfo);
         }
 
+        public CashOutWinLossService(IBalanceUpService balanceService, ICashOutWinLossDataAccess dataAccess)
+        {
+            _balanceService = balanceService;
+            _dataAccess = dataAccess;
+        }
+
         public SortableList<CashOutWinLoss> GetDetail(
             CashOutWinLossMetaModel metaModel,
             out IDictionary<string, CashOutWinLoss> summaryTotal)
