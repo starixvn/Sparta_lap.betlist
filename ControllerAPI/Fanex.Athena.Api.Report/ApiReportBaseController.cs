@@ -12,7 +12,9 @@
         {
         }
 
-        protected ApiReportBaseController() { }
+        protected ApiReportBaseController()
+        {
+        }
 
         protected bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
         {

@@ -162,6 +162,13 @@
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
+        private static bool IsValidMetaModelForLevel0(CashOutWinLossMetaModel metaModel, int level)
+        {
+            return metaModel.DrillDownCurrencyId == -2 && metaModel.DrillDownLevel == level &&
+                metaModel.DrillDownCustomerId == 1 && metaModel.DrillDownFromDate == new DateTime(2017, 4, 1) &&
+                metaModel.DrillDownToDate == new DateTime(2017, 4, 18) && metaModel.AgentListXml == "xmlData";
+        }
+
         private void CreateSession()
         {
             var userSession = new UserSession();
@@ -186,13 +193,6 @@
                     Total = total,
                     SummaryTotal = summaryTotal
                 });
-        }
-
-        private static bool IsValidMetaModelForLevel0(CashOutWinLossMetaModel metaModel, int level)
-        {
-            return metaModel.DrillDownCurrencyId == -2 && metaModel.DrillDownLevel == level &&
-                metaModel.DrillDownCustomerId == 1 && metaModel.DrillDownFromDate == new DateTime(2017, 4, 1) &&
-                metaModel.DrillDownToDate == new DateTime(2017, 4, 18) && metaModel.AgentListXml == "xmlData";
         }
     }
 }

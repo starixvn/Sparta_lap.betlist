@@ -102,6 +102,39 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "pages/r
                     expect(option).toEqual(expectedResult);
                 });
             });
+
+            describe("getColName()", function () {
+                var originalValue = CashoutWinLossOption.isLicenseeOfferBA;
+
+                beforeEach(function () {
+                    spyOn(Site, "getResources").and.callFake(function (resource) { return resource });
+                });
+
+                afterEach(function () {
+                    CashoutWinLossOption.isLicenseeOfferBA = originalValue;
+                });
+
+                it("ColName should be returned correctly when Licensee do not offer BA", function () {
+                    var expected = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
+                          'CashOutTimes', 'CashOutTickets', 'CashOutValue', 'TicketPayout', 'CashOutCommission',
+                          'TicketPayout', 'BBAmtComm', 'Total', 'CurrencyId', 'CustomerId'];
+
+                    var result = CashoutWinLossOption.getColName();
+
+                    expect(result).toEqual(expected);
+                });
+
+                it("ColName should be returned correctly when Licensee offer BA", function () {
+                    CashoutWinLossOption.isLicenseeOfferBA = true;
+                    var expected = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
+                          'CashOutTimes', 'CashOutTickets', 'CashOutValue', 'Sportsbook', 'BA', 'Total', 'TicketPayout', 'CashOutCommission',
+                          'TicketPayout', 'BBAmtComm', 'Total', 'CurrencyId', 'CustomerId'];
+
+                    var result = CashoutWinLossOption.getColName();
+
+                    expect(result).toEqual(expected);
+                });
+            });
         });
     }
 );
