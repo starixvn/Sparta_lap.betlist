@@ -20,7 +20,7 @@
 }
 @section BackButton
 {
-    <a href="javascript:;" onclick="history.back()" class="icon-back"></a>
+    <a href="javascript:window.history.back();" class="icon-back"></a>
 }
 @{
     <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
