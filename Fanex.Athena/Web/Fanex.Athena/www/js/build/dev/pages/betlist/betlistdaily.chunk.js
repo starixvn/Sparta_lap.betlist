@@ -300,6 +300,15 @@ webpackJsonp([31],[
 	                gridOption.loadonce = false;
 	                gridOption.datatype = "json";
 	                gridOption.gridComplete = function () {
+	                    var rowCount = $(this).getGridParam("records");
+	                    if (rowCount === 0) {
+	                        $("#pager2").hide();
+	                        jqGridAdditional.setNoInfo();
+	                        Site.unBlockUI();
+	                        return;
+	                    }
+	
+	                    $("#gbox_BetListGrid").show();
 	                    _me.gridComplete(this);
 	                    if (_me.submiting) {
 	                        $(".ui-pg-selbox").val(rows);
@@ -310,6 +319,7 @@ webpackJsonp([31],[
 	                // Show the grid
 	                $("#BetListGrid").jqGrid('GridUnload');
 	                $("#BetListGrid").jqGrid(gridOption);
+	                $("#gbox_BetListGrid").hide();
 	            },
 	
 	            bindData: function (response) {
@@ -19008,7 +19018,6 @@ webpackJsonp([31],[
 	    };
 	
 	    var _me = {
-	        submitUrl: null,
 	        initialize: function () {
 	            Site.initialize();
 	            _me.initEvent();
@@ -19049,7 +19058,6 @@ webpackJsonp([31],[
 	            url = QueryString.setParam(url, "productCode", $("#ProductCode").val());
 	            url = QueryString.setParam(url, "status", $("#DailyBetListStatus").val());
 	            url = QueryString.setParam(url, "date", $("#Date").val());
-	            BetList.submitUrl = url;
 	            BetList.loadDataPaging(url);
 	        },
 	

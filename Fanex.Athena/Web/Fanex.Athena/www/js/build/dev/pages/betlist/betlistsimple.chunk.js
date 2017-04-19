@@ -300,6 +300,15 @@ webpackJsonp([34],[
 	                gridOption.loadonce = false;
 	                gridOption.datatype = "json";
 	                gridOption.gridComplete = function () {
+	                    var rowCount = $(this).getGridParam("records");
+	                    if (rowCount === 0) {
+	                        $("#pager2").hide();
+	                        jqGridAdditional.setNoInfo();
+	                        Site.unBlockUI();
+	                        return;
+	                    }
+	
+	                    $("#gbox_BetListGrid").show();
 	                    _me.gridComplete(this);
 	                    if (_me.submiting) {
 	                        $(".ui-pg-selbox").val(rows);
@@ -310,6 +319,7 @@ webpackJsonp([34],[
 	                // Show the grid
 	                $("#BetListGrid").jqGrid('GridUnload');
 	                $("#BetListGrid").jqGrid(gridOption);
+	                $("#gbox_BetListGrid").hide();
 	            },
 	
 	            bindData: function (response) {

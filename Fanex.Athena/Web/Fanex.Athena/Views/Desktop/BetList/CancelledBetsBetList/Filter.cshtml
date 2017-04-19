@@ -27,7 +27,7 @@
                         Text = string.Format("{0} ({1} {2})", c.NickName, c.BetCount, c.BetCount <= 1 ? "bet" : "bets"),
                         Selected = c.CustId == Model.Param.CustId,
                     });
-                    @Html.DropDownList("CustId", custList, new { @id = "CustId", @class="select" })
+                    @Html.DropDownList("CustId", custList, new { @id = "CustId", @class="select hide" })
                 }
                 <label>@ViewResources.ExternalId</label>
             </div>
