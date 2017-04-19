@@ -165,21 +165,32 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "pages/r
                 });
 
                 it("dateColumn should be correct with level 0 and #reportbydaily is not checked", function () {
+                    spyOn($.fn, "fmatter").and.callFake(function (param1, param2) { return param2; });
                     $("#reportbydaily").prop("checked", false);
+                    var expectedFormat = '<a class="drilldown" href="javascript:;" onclick="return cashoutDrillDown(1,0,0,\'2017-03-25\');">03/2017</a>';
+
                     var colModels = CashoutWinLossOption.getColModel(0);
                     var dateColumn = colModels[1];
+                    var dateFormattedResult = dateColumn.formatter("03/2017", null, { Date: "2017-03-25" });
 
+                    expect($.fn.fmatter).toHaveBeenCalled();
                     expect(dateColumn.hidden).toBe(false);
                     expect(dateColumn.formatoptions.newformat).toBe('m/Y');
+                    expect(dateFormattedResult).toBe(expectedFormat);
                 });
 
                 it("dateColumn should be correct with level 1 and #reportbydaily is checked", function () {
+                    spyOn($.fn, "fmatter").and.callFake(function (param1, param2) { return param2; });
                     $("#reportbydaily").prop("checked", true);
+                    var expectedFormat = '<a class="drilldown" href="javascript:;" onclick="return cashoutDrillDown(1,0,0,\'2017-03-25\');">2017-03-25</a>';
                     var colModels = CashoutWinLossOption.getColModel(1);
                     var dateColumn = colModels[1];
+                    var dateFormattedResult = dateColumn.formatter("2017-03-25", null, { Date: "2017-03-25" });
 
+                    expect($.fn.fmatter).toHaveBeenCalled();
                     expect(dateColumn.hidden).toBe(true);
                     expect(dateColumn.formatoptions.newformat).toBe('m/d/Y');
+                    expect(dateFormattedResult).toBe(expectedFormat);
                 });
 
                 it("externalIdColumn and systemIdColumn are hidden when level is 0", function () {
@@ -198,6 +209,35 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "pages/r
 
                     expect(externalIdColumn.hidden).toBe(false);
                     expect(systemIdColumn.hidden).toBe(false);
+                });
+
+                it("externalIdColumn should has correct format", function () {
+                    var colModels = CashoutWinLossOption.getColModel(1);
+                    var externalIdColumn = colModels[2];
+
+                    var cellObject = {
+                        Date: "01-01-2017",
+                        CurrencyId: 1,
+                        CurrencyName: "EUR",
+                        CustomerId: 2,
+                        ExternalId: 3,
+                        SystemId: 4
+                    };
+
+                    var drillDownObject = {
+                        DrillDownDate: "01-01-2017",
+                        DrillDownCurrencyId: 1,
+                        DrillDownCurrencyName: "EUR",
+                        CustomerId: 2,
+                        ExternalId: 3,
+                        SystemId: 4
+                    };
+
+                    var expected = '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(drillDownObject) + '>CellValue</a>';
+
+                    var result = externalIdColumn.formatter("CellValue", null, cellObject);
+
+                    expect(result).toBe(expected);
                 });
 
                 it("Columns for BuyBackAmount are inserted correctly", function () {

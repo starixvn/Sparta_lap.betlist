@@ -20611,7 +20611,7 @@ webpackJsonp([41],[
 	        sortable: false,
 	        resizable: false,
 	        formatter: 'integer',
-	        hidden: false,
+	        hidden: false
 	    };
 	
 	    var cashOutTicketsColumn =

@@ -669,8 +669,9 @@
 
             it("Popup.openPopup function should be called with correct parameter when exceed range", function () {
                 Site.setConstraintMonthRange(2, "localhost");
-
+                
                 $("#form").submit();
+
                 var expectedParam1 = '<div title="LrfNotification"><p class="notification">Exceed 2!</p></div>';
                 var expectedParam2 = { width: 350, height: 120, title: "LrfNotification", className: "popup-notification" };
 
@@ -683,6 +684,73 @@
                 $("#form").submit();
 
                 expect(Popup.openPopup).not.toHaveBeenCalled();
+            });
+        });
+
+        describe("initEvent()", function () {
+            var ajaxOption;
+            beforeEach(function () {
+                setFixtures('<input name="__RequestVerificationToken" value="ABC" /> <input id="PageLanguage" value="en-US" />');
+                window["_language_en_US"] = { "Test": "en-Test" };
+                spyOn($, "ajaxSetup").and.callFake(function (option) { ajaxOption = option; });
+            });
+
+            it("#CurrencyName should has correct value", function () {
+                appendSetFixtures('<select id="CurrencyId"><option value="0">All</option><option value="1" selected>USD</option><option value="2">ABC</option></select>' +
+                    '<select id="BaseCurrency"><option value="">All</option><option value="usd" selected>USD</option><option value="eur" selected>EUR</option></select>' +
+                    '<input id="CurrencyName" />'
+                    );
+
+                Site.initialize();
+                $("#CurrencyId").change();
+                var result = $("#CurrencyName").val();
+
+                expect(result).toBe("USD");
+            });
+
+            it("ajax options should be correct", function () {
+                Site.initialize();
+
+                expect(ajaxOption.cache).toBe(false);
+                expect(ajaxOption.headers).toEqual({ '__RequestVerificationToken': "ABC" });
+                expect(typeof ajaxOption.statusCode).toBe("object");
+            });
+
+            describe("statusCode in ajax option", function () {
+                beforeEach(function () {
+                    setFixtures('<div class="block-body" style="width: 100px; height: 100px;"></div>');
+                    spyOn(window, "alert");
+                });
+
+                afterEach(function () {
+                    $(".block-body").remove();
+                });
+
+                it(".block-body should be hidden when calling status 0", function () {
+                    ajaxOption.statusCode["0"];
+
+                    var result = $("block-body").is(":visible");
+
+                    expect(result).toBe(false);
+                });
+
+                it(".block-body should be hidden and window.alert should be called when calling status 403", function () {
+                    ajaxOption.statusCode["403"]();
+
+                    var result = $("block-body").is(":visible");
+
+                    expect(result).toBe(false);
+                    expect(window.alert).toHaveBeenCalledWith("HttpError_403");
+                });
+
+                it(".block-body should be hidden and window.alert should be called when calling status 500", function () {
+                    ajaxOption.statusCode["500"]();
+
+                    var result = $("block-body").is(":visible");
+
+                    expect(result).toBe(false);
+                    expect(window.alert).toHaveBeenCalledWith("ErrorProcessingMsg");
+                });
             });
         });
     });

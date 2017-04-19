@@ -101,7 +101,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
         sortable: false,
         resizable: false,
         formatter: 'integer',
-        hidden: false,
+        hidden: false
     };
 
     var cashOutTicketsColumn =

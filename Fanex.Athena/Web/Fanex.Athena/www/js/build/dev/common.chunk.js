@@ -14284,7 +14284,7 @@
 	                headers: { '__RequestVerificationToken': REQUEST_VERIFICATION_TOKEN },
 	                statusCode: {
 	                    0: unBlockUI(),
-	                    401: function (/*jqXHR, textStatus, errorThrown*/) {
+	                    401: function () {
 	                        window.location.href = resolveClientUrl("Utility/LocationRestriction");
 	                    },
 	                    403: function () {
