@@ -20610,9 +20610,8 @@ webpackJsonp([41],[
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,
-	        formatter: 'currency',
+	        formatter: 'integer',
 	        hidden: false,
-	        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
 	    };
 	
 	    var cashOutTicketsColumn =
