@@ -107,7 +107,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "pages/r
                 var originalValue = CashoutWinLossOption.isLicenseeOfferBA;
 
                 beforeEach(function () {
-                    spyOn(Site, "getResources").and.callFake(function (resource) { return resource });
+                    spyOn(Site, "getResources").and.callFake(function (resource) { return resource; });
                 });
 
                 afterEach(function () {
@@ -133,6 +133,132 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "pages/r
                     var result = CashoutWinLossOption.getColName();
 
                     expect(result).toEqual(expected);
+                });
+            });
+
+            describe("getColModel(level)", function () {
+                var originalValue = CashoutWinLossOption.isLicenseeOfferBA;
+                beforeEach(function () {
+                    setFixtures('<input type="checkbox" id="reportbydaily" />');
+                });
+
+                afterEach(function () {
+                    CashoutWinLossOption.isLicenseeOfferBA = originalValue;
+                });
+
+                it("formatter of currencyColumn should be correct with level is 0", function () {
+                    var expected = '<a class="drilldown" href="javascript:;" onclick="return cashoutDrillDown(1,6,0,\'2017-03-25\');">EUR</a>';
+
+                    var colModels = CashoutWinLossOption.getColModel(0);
+                    var currencyColumn = colModels[4];
+                    var result = currencyColumn.formatter("EUR", null, { CurrencyId: 6, Date: "2017-03-25" });
+
+                    expect(result).toBe(expected);
+                });
+
+                it("formatter of currencyColumn should be correct with level is 1", function () {
+                    var colModels = CashoutWinLossOption.getColModel(1);
+                    var currencyColumn = colModels[4];
+                    var result = currencyColumn.formatter;
+
+                    expect(result).toBe(null);
+                });
+
+                it("dateColumn should be correct with level 0 and #reportbydaily is not checked", function () {
+                    $("#reportbydaily").prop("checked", false);
+                    var colModels = CashoutWinLossOption.getColModel(0);
+                    var dateColumn = colModels[1];
+
+                    expect(dateColumn.hidden).toBe(false);
+                    expect(dateColumn.formatoptions.newformat).toBe('m/Y');
+                });
+
+                it("dateColumn should be correct with level 1 and #reportbydaily is checked", function () {
+                    $("#reportbydaily").prop("checked", true);
+                    var colModels = CashoutWinLossOption.getColModel(1);
+                    var dateColumn = colModels[1];
+
+                    expect(dateColumn.hidden).toBe(true);
+                    expect(dateColumn.formatoptions.newformat).toBe('m/d/Y');
+                });
+
+                it("externalIdColumn and systemIdColumn are hidden when level is 0", function () {
+                    var colModels = CashoutWinLossOption.getColModel(0);
+                    var externalIdColumn = colModels[2];
+                    var systemIdColumn = colModels[3];
+
+                    expect(externalIdColumn.hidden).toBe(true);
+                    expect(systemIdColumn.hidden).toBe(true);
+                });
+
+                it("externalIdColumn and systemIdColumn are visible when level is 1", function () {
+                    var colModels = CashoutWinLossOption.getColModel(1);
+                    var externalIdColumn = colModels[2];
+                    var systemIdColumn = colModels[3];
+
+                    expect(externalIdColumn.hidden).toBe(false);
+                    expect(systemIdColumn.hidden).toBe(false);
+                });
+
+                it("Columns for BuyBackAmount are inserted correctly", function () {
+                    CashoutWinLossOption.isLicenseeOfferBA = true;
+                    var colModels = CashoutWinLossOption.getColModel(1);
+
+                    var buyBackAmountSBColumn = colModels[8];
+                    var buyBackAmountBAColumn = colModels[9];
+                    var buyBackAmountColumn = colModels[10];
+
+                    expect(buyBackAmountSBColumn.name).toBe("BuyBackAmountSB");
+                    expect(buyBackAmountSBColumn.index).toBe("BuyBackAmountSB");
+                    expect(buyBackAmountBAColumn.name).toBe("BuyBackAmountBA");
+                    expect(buyBackAmountBAColumn.index).toBe("BuyBackAmountBA");
+                    expect(buyBackAmountColumn.name).toBe("TotalBuyBackAmount");
+                    expect(buyBackAmountColumn.index).toBe("TotalBuyBackAmount");
+                });
+            });
+
+            describe("getGridOption(level)", function () {
+                beforeEach(function () {
+                    spyOn(CashoutWinLossOption, "getColName").and.returnValues(["ColName1"]);
+                    spyOn(CashoutWinLossOption, "getColModel").and.returnValues(["ColModel1"]);
+                });
+
+                it("getColName() should be called", function () {
+                    CashoutWinLossOption.getGridOption(0);
+
+                    expect(CashoutWinLossOption.getColName).toHaveBeenCalled();
+                });
+
+                it("getColModel() should be called with correct parameter", function () {
+                    CashoutWinLossOption.getGridOption(0);
+
+                    expect(CashoutWinLossOption.getColModel).toHaveBeenCalledWith(0);
+                });
+
+                it("result should be returned correctly", function () {
+                    var result = CashoutWinLossOption.getGridOption(0);
+
+                    expect(result.colNames).toEqual(["ColName1"]);
+                    expect(result.colModel).toEqual(["ColModel1"]);
+                });
+            });
+
+            describe("getTotalColModel(level)", function () {
+                beforeEach(function () {
+                    spyOn(CashoutWinLossOption, "getColModel").and.returnValues([{ formatter: "ABC", name: "CurrencyName" }]);
+                });
+
+                it("getColModel() should be called with correct parameter", function () {
+                    CashoutWinLossOption.getTotalColModel(0);
+
+                    expect(CashoutWinLossOption.getColModel).toHaveBeenCalledWith(0);
+                });
+
+                it("formatter of currencyNameColumn should be correct", function () {
+                    var totalColModel = CashoutWinLossOption.getTotalColModel(0);
+                    var currencyColumn = totalColModel[0];
+
+                    expect(currencyColumn.formatter).toBe(null);
                 });
             });
         });
