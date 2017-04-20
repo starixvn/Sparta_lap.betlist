@@ -59,41 +59,20 @@
         }
 
         [Test]
-        public void Export_WhenCall_LoadTemplateMethodIsCalled()
+        public void Export_WhenCall_AssignDataMethodIsCalled()
         {
             // Arrange
-            var report = Substitute.For<FakeReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
+            var report = Substitute.ForPartsOf<ReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
+            report.When(x => x.AssignData()).DoNotCallBase();
+            report.When(x => x.LoadTemplate()).DoNotCallBase();
+            report.When(x => x.RemoveTemplate()).DoNotCallBase();
 
             // Action
             report.Export();
 
             // Assert
             report.Received().LoadTemplate();
-        }
-
-        [Test]
-        public void Export_WhenCall_AssignDataMethodIsCalled()
-        {
-            // Arrange
-            var report = Substitute.For<FakeReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
-
-            // Action
-            report.Export();
-
-            // Assert
             report.Received().AssignData();
-        }
-
-        [Test]
-        public void Export_WhenCall_RemoveTemplateMethodIsCalled()
-        {
-            // Arrange
-            var report = Substitute.For<FakeReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
-
-            // Action
-            report.Export();
-
-            // Assert
             report.Received().RemoveTemplate();
         }
 
