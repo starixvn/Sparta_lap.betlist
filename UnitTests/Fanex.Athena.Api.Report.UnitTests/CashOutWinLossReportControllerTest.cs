@@ -4,11 +4,15 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Script.Serialization;
+    using Excel.Base.Entities;
+    using Excel.Report;
     using Extension.Utility;
     using Fanex.Athena.Service.Report.Interfaces;
     using Model.Core.DTO.Users;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Model.Report.ViewModel;
+    using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
     using Report;
@@ -26,7 +30,7 @@
         {
             _sessionService = Substitute.For<ISessionService>();
             _service = Substitute.For<ICashOutWinLossService>();
-            _controller = new CashOutWinLossReportController(_service, _sessionService);
+            _controller = Substitute.ForPartsOf<CashOutWinLossReportController>(_service, _sessionService);
             _serializer = new JavaScriptSerializer();
             CreateSession();
         }
@@ -160,6 +164,44 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void Index_IsExportExcelTrue_CallExcelStream()
+        {
+            // Arrange
+            const int CurrencyId = -2, Level = 1, CustId = 1;
+            DateTime fromDate = new DateTime(2017, 4, 1), toDate = new DateTime(2017, 4, 18);
+            var metaModel = new CashOutWinLossMetaModel
+            {
+                CurrencyId = -1,
+                IsExcludedTestData = true,
+                DrillDownLevel = Level,
+                DrillDownCurrencyId = CurrencyId,
+                DrillDownCustomerId = CustId,
+                IsExportExcel = true,
+                DrillDownFromDate = fromDate,
+                DrillDownToDate = toDate,
+                FromDate = fromDate
+            };
+
+            var expectedResult = CreateResultData(new List<CashOutWinLoss>(), new List<CashOutWinLoss>(), new Dictionary<string, CashOutWinLoss>());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            excel.When(x => x.Export()).DoNotCallBase();
+            _controller.CreateExcel(
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<ConvertingOption>(),
+                Arg.Any<CashOutWinLossMetaModel>(),
+                Arg.Any<CashOutWinLossViewModel>())
+                .Returns(excel);
+            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
+
+            // Action
+            _controller.Index(metaModel);
+
+            // Assert
+            _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
         }
 
         private static bool IsValidMetaModelForLevel0(CashOutWinLossMetaModel metaModel, int level)

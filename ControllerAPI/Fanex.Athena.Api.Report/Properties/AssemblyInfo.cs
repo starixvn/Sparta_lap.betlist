@@ -5,8 +5,10 @@
 // --------------------------------------------------------------------------
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
+[assembly: InternalsVisibleTo("Fanex.Athena.Api.Report.UnitTests")]
 [assembly: System.CLSCompliant(true)]
 
 // General Information about an assembly is controlled through the following

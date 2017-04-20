@@ -41,7 +41,7 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel);
         }
 
-        private static HttpResponseMessage ExportExcelSummary(
+        private HttpResponseMessage ExportExcelSummary(
             PlatformWinLossMetaModel metaModel,
             IList<PlatformWinLossSummary> dataList,
             PlatformWinLossSummary total)

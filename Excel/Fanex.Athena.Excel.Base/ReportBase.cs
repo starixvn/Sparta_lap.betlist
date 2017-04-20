@@ -121,7 +121,7 @@ namespace Fanex.Athena.Excel.Base
             set;
         }
 
-        public IWorkbook Workbook
+        public virtual IWorkbook Workbook
         {
             get;
             set;
@@ -199,7 +199,7 @@ namespace Fanex.Athena.Excel.Base
             Write(stream);
         }
 
-        public void Export()
+        public virtual void Export()
         {
             LoadTemplate();
 

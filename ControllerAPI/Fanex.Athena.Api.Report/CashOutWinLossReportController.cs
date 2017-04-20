@@ -11,6 +11,7 @@ namespace Fanex.Athena.Api.Report
     using System.Linq;
     using System.Net.Http;
     using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Excel.Base.Entities;
@@ -58,6 +59,20 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, null, null);
         }
 
+        [CLSCompliant(false)]
+        protected internal virtual CashOutWinLossExcel CreateExcel(
+            string templatePath,
+            string exportingFileName,
+            ConvertingOption convertingOption,
+            CashOutWinLossMetaModel metaModel,
+            CashOutWinLossViewModel viewModel)
+        {
+            return new CashOutWinLossExcel(templatePath, exportingFileName, convertingOption, metaModel, viewModel)
+            {
+                Level = metaModel.DrillDownLevel,
+            };
+        }
+
         private static dynamic GetEmptyResult()
         {
             return new
@@ -71,7 +86,7 @@ namespace Fanex.Athena.Api.Report
         private HttpResponseMessage ExportExcel(CashOutWinLossMetaModel metaModel, IList<CashOutWinLoss> dataList, IDictionary<string, CashOutWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/CashOutWinLoss.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/CashOutWinLoss.xls");
 
             var currencyList = userSession.CurrencyList;
 
@@ -101,13 +116,10 @@ namespace Fanex.Athena.Api.Report
             {
                 IsLicenseeOfferBA = SessionService.LicenseeSession.IsEnableBA,
                 MainResult = dataList,
-                SummaryTotal = summaryTotal,
+                SummaryTotal = summaryTotal
             };
 
-            var excel = new CashOutWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, excelModel)
-            {
-                Level = metaModel.DrillDownLevel,
-            };
+            var excel = CreateExcel(templatePath, exportedFileName, convertingOption, metaModel, excelModel);
 
             excel.Export();
 

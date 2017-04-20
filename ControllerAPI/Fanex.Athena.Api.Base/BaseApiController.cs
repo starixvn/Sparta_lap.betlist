@@ -19,9 +19,6 @@ namespace Fanex.Athena.Api.Base
     using NPOI.SS.UserModel;
     using ONEbook.UM.Filters;
 
-    /// <summary>
-    /// Base API Controller.
-    /// </summary>
     [CustomApiAuthorize]
     [CheckUMFilter]
     [XFrameOptionApi]
@@ -66,7 +63,7 @@ namespace Fanex.Athena.Api.Base
         /// <param name="fileName">Excel file name.</param>
         /// <returns>Http Response Message.</returns>
         [System.CLSCompliant(false)]
-        protected static HttpResponseMessage ExcelStream(IWorkbook workbook, string fileName)
+        protected internal virtual HttpResponseMessage ExcelStream(IWorkbook workbook, string fileName)
         {
             var memoryStream = new MemoryStream();
             workbook.Write(memoryStream);
