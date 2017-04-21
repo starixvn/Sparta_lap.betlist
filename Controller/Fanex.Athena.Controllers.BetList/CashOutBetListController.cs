@@ -90,7 +90,7 @@
                 HideStatusCashOutHistory = true
             };
 
-            var statusHtml = builder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, ticketHelper, null, false);
+            var statusHtml = builder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, ticketHelper, null, true);
             statusHtml.StatusResult = null;
             return new TicketText
             {
