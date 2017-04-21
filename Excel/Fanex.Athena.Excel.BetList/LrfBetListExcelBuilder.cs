@@ -254,6 +254,7 @@ namespace Fanex.Athena.Excel.BetList
                             ticket.BetTypeId == (int)BetType.WinPlace;
             if ((isRacing && is12Bet) || 
                 ticket.BetTypeId == (int)BetType.BetTradeBought ||
+                ticket.BetTypeId == (int)BetType.CashOutBought ||
                 (ticket.BetTypeId >= MinColossusBetBetType && ticket.BetTypeId <= MaxColossusBetBetType))
             {
                 string licenseeWl = isRunning

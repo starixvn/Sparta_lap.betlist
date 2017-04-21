@@ -77,12 +77,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
             }
         }
 
-        /// <summary>
-        /// Build licensee win lost html.
-        /// </summary>
-        /// <param name="builder">Bet list builder.</param>
-        /// <param name="ticket">LRF ticket object.</param>
-        /// <returns>Licensee win loss text.</returns>
+        // when updating this, remember to update Fanex.Athena.Excel.BetList.LrfBetListExcelBuilder as well
         [System.CLSCompliant(false)]
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters",
             Justification = "Reviewed. Suppression is OK here.")]
