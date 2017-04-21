@@ -221,29 +221,9 @@
                     BaseCurrency: $("#BaseCurrency").attr("data-original")
                 };
 
-                var momentDate = moment(datetime);
-                var fdate = momentDate.clone();
-                var tdate = momentDate.clone();
+                var drilldownDate = new Date(datetime);
+                var dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
 
-                if (Number(param.ReportBy) === 2) {
-                    var fday = 1;
-                    var month = fdate.month();
-                    var year = fdate.year();
-                    var orignalFDate = moment(param.FromDate);
-                    if (month === orignalFDate.month()) {
-                        fday = orignalFDate.date();
-                    }
-                    fdate = moment([year, month, fday, 0, 0, 0, 0]);
-
-                    var originalTDate = moment(param.ToDate);
-                    if (month === originalTDate.month()) {
-                        var tday = originalTDate.date();
-                        tdate = moment([year, month, tday, 0, 0, 0, 0]);
-                    }
-                    else {
-                        tdate = moment(_me.lastDateOfMonth(year, month));
-                    }
-                }
                 if (keepSorting && _sortColumnName) {
                     param.SortBy = _sortColumnName;
                     param.SortOrder = _sortOrder;
@@ -260,19 +240,19 @@
 
                     url: Site.resolveClientUrl(LicenseeWinLossOption.urlData +
                         "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
-                        fdate.format("MM/DD/YYYY") + "&tdate=" + tdate.format("MM/DD/YYYY")),
+                        moment(dateRange.FromDate).format("MM/DD/YYYY") + "&tdate=" + moment(dateRange.ToDate).format("MM/DD/YYYY")),
                     success: function (response) {
                         _me.ajaxComplete(level, response);
                         if (response !== null && response.Data.length > 0) {
                             if (level > 0 && Number(param.CurrencyId) === 0) {
-                                _me.setReportTitle(currencyId, fdate, tdate, currencyName);
+                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
                             } else {
-                                _me.setReportTitle(param.CurrencyId, fdate, tdate, currencyName);
+                                _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
                             }
                         }
 
                         //update excel ULR
-                        _me.setExcelUrl(level, currencyId, customerId, fdate, tdate, currencyName);
+                        _me.setExcelUrl(level, currencyId, customerId, dateRange.FromDate, dateRange.ToDate, currencyName);
                     },
                     beforeSend: function () {
                         Site.blockUI();

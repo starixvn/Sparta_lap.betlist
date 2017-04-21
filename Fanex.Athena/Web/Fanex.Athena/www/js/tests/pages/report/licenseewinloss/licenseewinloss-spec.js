@@ -421,6 +421,7 @@
                     spyOn(LicenseeWinLoss, "setExcelUrl");
                     spyOn(LicenseeWinLoss, "ajaxComplete");
                     spyOn($, "ajax").and.returnValue({ abort: function () { } });
+                    spyOn(Report, "GetDrilldownDateRange").and.returnValues({ FromDate: new Date(2017, 2, 1), ToDate: new Date(2017, 2, 31) });
                 });
                 afterEach(function () {
                     submitData = {
@@ -463,21 +464,6 @@
 
                     var resultUrl = ajaxOptionForDrillingDown.url;
                     var expectedUrl = "api/LicenseeWinLossReport/Index?level=2&currencyId=9&custId=0&fdate=03/01/2017&tdate=03/31/2017";
-
-                    expect(resultUrl).toBe(expectedUrl);
-                });
-
-                it("url of ajax option should be correct when ReportBy not equal 2", function () {
-                    submitData.ReportBy = 1;
-                    LicenseeWinLoss.submit();
-                    var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
-                    ajaxOptionForCreateSubmitData.success(submitData);
-
-                    LicenseeWinLoss.drillDown(2, 9, 0, '2017-03-04T00:00:00', 'EUR', true);
-                    var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
-
-                    var resultUrl = ajaxOptionForDrillingDown.url;
-                    var expectedUrl = "api/LicenseeWinLossReport/Index?level=2&currencyId=9&custId=0&fdate=03/04/2017&tdate=03/04/2017";
 
                     expect(resultUrl).toBe(expectedUrl);
                 });
@@ -535,8 +521,8 @@
                         expect(args[0]).toBe(0);
                         expect(args[1]).toBe(9);
                         expect(args[2]).toBe(0);
-                        expect(args[3].format("MM/DD/YYYY")).toBe("03/01/2017");
-                        expect(args[4].format("MM/DD/YYYY")).toBe("03/31/2017");
+                        expect(args[3]).toEqual(new Date(2017, 2, 1));
+                        expect(args[4]).toEqual(new Date(2017, 2, 31));
                         expect(args[5]).toBe("EUR");
                     });
 
@@ -552,8 +538,8 @@
 
                         var args = LicenseeWinLoss.setReportTitle.calls.mostRecent().args;
                         expect(args[0]).toBe(1);
-                        expect(args[1].format("MM/DD/YYYY")).toBe("03/01/2017");
-                        expect(args[2].format("MM/DD/YYYY")).toBe("03/31/2017");
+                        expect(args[1]).toEqual(new Date(2017, 2, 1));
+                        expect(args[2]).toEqual(new Date(2017, 2, 31));
                         expect(args[3]).toBe("EUR");
                     });
 
@@ -570,8 +556,8 @@
 
                         var args = LicenseeWinLoss.setReportTitle.calls.mostRecent().args;
                         expect(args[0]).toBe(9);
-                        expect(args[1].format("MM/DD/YYYY")).toBe("03/01/2017");
-                        expect(args[2].format("MM/DD/YYYY")).toBe("03/31/2017");
+                        expect(args[1]).toEqual(new Date(2017, 2, 1));
+                        expect(args[2]).toEqual(new Date(2017, 2, 31));
                         expect(args[3]).toBe("EUR");
                     });
                 });
