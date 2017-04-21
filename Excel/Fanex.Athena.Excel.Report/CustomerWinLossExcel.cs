@@ -79,7 +79,7 @@ namespace Fanex.Athena.Excel.Report
         /// <summary>
         /// Assign data to excel sheet.
         /// </summary>
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = _customerWinlossList.Count;
 
@@ -112,7 +112,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to header section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
@@ -132,7 +132,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign "no information" to sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -144,7 +144,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="pageIndex">Start index.</param>
         /// <returns>Row index.</returns>
-        public override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
             int rowCount = Math.Min(_customerWinlossList.Count, checked((pageIndex + 1) * PageSize));
             int rowIndex = 0;
@@ -183,7 +183,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign title for the report.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             ReportTitle = string.Format(
                                         ViewResources.CustomerWinLossTitle,
@@ -204,7 +204,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {
@@ -221,18 +221,6 @@ namespace Fanex.Athena.Excel.Report
             {
                 HideColumn(sheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
             }
-        }
-
-        /// <summary>
-        /// Merge cells in total rows.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="row">The first total row.</param>
-        /// <param name="rowTotalNumber">The last total row index.</param>
-        protected static void MergeTotalCell(ISheet sheet, IRow row, int rowTotalNumber)
-        {
-            sheet.MergeCells(rowTotalNumber, ColumnIndex, rowTotalNumber, 2);
-            row.Cells[0].SetCellValue(ViewResources.Total);
         }
 
         /// <summary>
@@ -259,6 +247,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmtDueToRacing].SetCellValue(_total.AmtDueToRacing);
 
             MergeTotalCell(sheet, row, rowTotalNumber);
+        }
+
+        private void MergeTotalCell(ISheet sheet, IRow row, int rowTotalNumber)
+        {
+            sheet.MergeCells(rowTotalNumber, ColumnIndex, rowTotalNumber, 2);
+            row.Cells[0].SetCellValue(ViewResources.Total);
         }
     }
 }

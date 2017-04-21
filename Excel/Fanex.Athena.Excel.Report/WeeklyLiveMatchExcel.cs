@@ -47,7 +47,7 @@ namespace Fanex.Athena.Excel.Report
             _weekHeaders = weekHeaders;
         }
 
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = _dataList.Count();
 
@@ -71,7 +71,7 @@ namespace Fanex.Athena.Excel.Report
             HideColumn(sheet, hiddenColumns.ToArray());
         }
 
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
@@ -86,7 +86,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnSport].SetCellValue(ViewResources.Sport);
@@ -98,13 +98,13 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        public override void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             int index;
             var rowCount = _dataList.Count();

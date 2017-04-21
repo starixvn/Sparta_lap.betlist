@@ -74,7 +74,7 @@ namespace Fanex.Athena.Excel.Report
         /// <summary>
         /// Assign data to excel sheet.
         /// </summary>
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = _dataList.Count;
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
@@ -98,7 +98,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to header section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
@@ -118,7 +118,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign no info row.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
@@ -127,7 +127,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             int rowIndex = 0;
             int index = 1;
@@ -148,7 +148,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign title for the report.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var metaModel = _model.Param;
             string platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(metaModel.PlatformType);
@@ -175,7 +175,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {
@@ -199,7 +199,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="row">The current row.</param>
         /// <param name="item">The mobile win-loss.</param>
-        protected static void AssignCellData(IRow row, PlatformWinLossMember item)
+        protected void AssignCellData(IRow row, PlatformWinLossMember item)
         {
             row.Cells[ColumnExternalId].SetCellValue(item.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(item.SystemId);

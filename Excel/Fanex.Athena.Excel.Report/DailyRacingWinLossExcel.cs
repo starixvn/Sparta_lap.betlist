@@ -80,7 +80,7 @@ namespace Fanex.Athena.Excel.Report
         /// <summary>
         /// Assign data to excel sheet.
         /// </summary>
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = DailyRacingWinLossData.ContentData.Count;
 
@@ -105,7 +105,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to header section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             for (int i = 0; i < HeaderTextList.Count; i++)
@@ -114,7 +114,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentStart, ColumnTemplateCount, ViewResources.NoInfo);
         }
@@ -123,7 +123,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var contentData = DailyRacingWinLossData.ContentData;
             var contentTotalData = DailyRacingWinLossData.ContentTotalData;
@@ -167,7 +167,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign title for the report.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             ReportTitle = string.Format(
                                         ViewResources.DailyRacingTitle,
@@ -188,7 +188,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {
@@ -203,7 +203,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="dailyRacingWinLoss">Daily Racing win loss data.</param>
         /// <param name="leagueName">League name.</param>
         /// <param name="raceName">Race name.</param>
-        protected static void AssignDataEur(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
+        protected void AssignDataEur(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
         {
             row.Cells[ColumnMeetingCurrency].SetCellValue(leagueName);
             row.Cells[ColumnRace].SetCellValue(raceName);
@@ -225,7 +225,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="dailyRacingWinLoss">Daily Racing win loss data.</param>
         /// <param name="leagueName">League name.</param>
         /// <param name="raceName">Race name.</param>
-        protected static void AssignDataMyr(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
+        protected void AssignDataMyr(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
         {
             row.Cells[ColumnMeetingCurrency].SetCellValue(leagueName);
             row.Cells[ColumnRace].SetCellValue(raceName);
@@ -247,7 +247,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="dailyRacingWinLoss">Daily Racing win loss data.</param>
         /// <param name="leagueName">League name.</param>
         /// <param name="raceName">Race name.</param>
-        protected static void AssignDataRow(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
+        protected void AssignDataRow(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
         {
             row.Cells[ColumnMeetingCurrency].SetCellValue(leagueName);
             row.Cells[ColumnRace].SetCellValue(raceName);
@@ -269,7 +269,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="dailyRacingWinLoss">Daily Racing win loss data.</param>
         /// <param name="leagueName">League name.</param>
         /// <param name="raceName">Race name.</param>
-        protected static void AssignDataUsd(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
+        protected void AssignDataUsd(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
         {
             row.Cells[ColumnMeetingCurrency].SetCellValue(leagueName);
             row.Cells[ColumnRace].SetCellValue(raceName);
@@ -291,7 +291,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="dailyRacingWinLoss">Daily Racing win loss data.</param>
         /// <param name="leagueName">League name.</param>
         /// <param name="raceName">Race name.</param>
-        protected static void AssignDataGbp(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
+        protected void AssignDataGbp(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
         {
             row.Cells[ColumnMeetingCurrency].SetCellValue(leagueName);
             row.Cells[ColumnRace].SetCellValue(raceName);

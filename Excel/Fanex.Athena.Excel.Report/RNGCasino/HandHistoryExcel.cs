@@ -81,7 +81,7 @@ namespace Fanex.Athena.Excel.Report
         /// <summary>
         /// Assign data to excel sheet.
         /// </summary>
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = _data.Count;
 
@@ -106,7 +106,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to header section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
@@ -116,7 +116,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
@@ -125,7 +125,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             int indexReport = 1;
             int currentRow = 3;
@@ -173,7 +173,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign title for the report.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             ReportTitle = ViewResources.CASINOHANDHISTORY;
 

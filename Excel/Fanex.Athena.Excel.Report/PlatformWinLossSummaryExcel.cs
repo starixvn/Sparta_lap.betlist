@@ -66,7 +66,7 @@
             };
         }
 
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = _dataList.Count;
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
@@ -84,7 +84,7 @@
             }
         }
 
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
@@ -100,12 +100,12 @@
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowParentContentTemplate, ColumnNoContent, ViewResources.NoInfo);
         }
 
-        public override void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             int rowIndex = RowParentContentTemplate;
             foreach (var item in _dataList)
@@ -129,7 +129,7 @@
             AssignCellData(totalRow, _total);
         }
 
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             string platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(_model.PlatformType);
             var currencyText = _model.CurrencyId == 0 ?

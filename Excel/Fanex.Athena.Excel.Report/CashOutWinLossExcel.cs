@@ -76,7 +76,7 @@ namespace Fanex.Athena.Excel.Report
             set;
         }
 
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = _dataList.Count;
 
@@ -98,7 +98,7 @@ namespace Fanex.Athena.Excel.Report
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             // row 1
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -127,13 +127,13 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnSettleAmountTotal].SetCellValue(ViewResources.Total);
         }
 
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        public override void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var rowSpan = 1;
             var rowIndex = 1;
@@ -185,7 +185,7 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotalInEurData(sheet, rowIndex);
         }
 
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
@@ -204,7 +204,7 @@ namespace Fanex.Athena.Excel.Report
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
-        public override void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!_isAllowBA)
             {

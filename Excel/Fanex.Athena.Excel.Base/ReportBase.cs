@@ -126,7 +126,30 @@ namespace Fanex.Athena.Excel.Base
             set;
         }
 
-        public virtual void AssignData()
+        public virtual void Export()
+        {
+            LoadTemplate();
+
+            AssignData();
+
+            RemoveTemplate();
+        }
+
+        protected static void ClearTemplate(ISheet sheet, int startRowIndex)
+        {
+            int lastRowNum = sheet.LastRowNum;
+            for (int i = startRowIndex; i <= lastRowNum; i++)
+            {
+                sheet.DeleteRow(i);
+            }
+        }
+
+        protected static int GetNumberOfSheets(int numberOfItems, int pageSize)
+        {
+            return numberOfItems % pageSize == 0 ? numberOfItems / pageSize : (numberOfItems / pageSize) + 1;
+        }
+
+        protected internal virtual void AssignData()
         {
             if (ExportData != null && ExportData.Rows.Count > 0)
             {
@@ -152,52 +175,29 @@ namespace Fanex.Athena.Excel.Base
             ProcessUI(sheet);
         }
 
-        public virtual void AssignHeader(ISheet sheet)
+        protected virtual void AssignHeader(ISheet sheet)
         {
         }
 
-        public virtual void AssignNoInfoRow(ISheet sheet)
+        protected internal virtual void AssignNoInfoRow(ISheet sheet)
         {
         }
 
-        public virtual void AssignSheetData(ISheet sheet)
+        protected internal virtual void AssignSheetData(ISheet sheet)
         {
         }
 
-        public virtual int AssignSheetData(ISheet sheet, int pageIndex)
+        protected virtual int AssignSheetData(ISheet sheet, int pageIndex)
         {
             return 0;
         }
 
-        public virtual void AssignTitle(ISheet sheet)
+        protected virtual void AssignTitle(ISheet sheet)
         {
         }
 
-        public virtual void Export()
+        protected virtual void ProcessUI(ISheet sheet)
         {
-            LoadTemplate();
-
-            AssignData();
-
-            RemoveTemplate();
-        }
-
-        public virtual void ProcessUI(ISheet sheet)
-        {
-        }
-
-        protected static void ClearTemplate(ISheet sheet, int startRowIndex)
-        {
-            int lastRowNum = sheet.LastRowNum;
-            for (int i = startRowIndex; i <= lastRowNum; i++)
-            {
-                sheet.DeleteRow(i);
-            }
-        }
-
-        protected static int GetNumberOfSheets(int numberOfItems, int pageSize)
-        {
-            return numberOfItems % pageSize == 0 ? numberOfItems / pageSize : (numberOfItems / pageSize) + 1;
         }
 
         protected internal virtual void LoadTemplate()

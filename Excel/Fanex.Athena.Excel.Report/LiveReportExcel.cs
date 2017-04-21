@@ -62,7 +62,7 @@ namespace Fanex.Athena.Excel.Report
         /// <summary>
         /// Assign data to excel sheet.
         /// </summary>
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = _liveReportList.Count;
 
@@ -87,13 +87,13 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to header section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             // Summary
             AssignCommonHeader(sheet, ViewResources.Summary, ViewResources.Product, RowSummaryHeaderTemplate, RowSummaryHeaderTemplate);
         }
 
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -103,7 +103,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             int rowCount = _liveReportList.Count;
 
@@ -148,7 +148,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign title for the report.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             ReportTitle = string.Format(
                                         ViewResources.LiveReportTitle,
@@ -170,7 +170,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {
@@ -189,7 +189,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="row">Excel row.</param>
         /// <param name="liveReport">Live report data.</param>
-        protected static void AssignCommonData(IRow row, LiveReport liveReport)
+        protected void AssignCommonData(IRow row, LiveReport liveReport)
         {
             row.Cells[ColumnCustomerWl].SetCellValue(liveReport.CustomerWinLoss);
             row.Cells[ColumnCustomerComm].SetCellValue(liveReport.CustomerComm);
