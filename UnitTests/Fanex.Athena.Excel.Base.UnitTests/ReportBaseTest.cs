@@ -116,8 +116,8 @@
         public void GetExactTitleCurrencyName_CurrencyIdNotInRange_ReturnCorrectValue(int currencyId, bool convertOption, string currencyName, string expected)
         {
             // Arrange
-            var report = new FakeReportBase("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
-            report.ConvertingOption = new ConvertingOption { IsConvert = convertOption, BaseCurrency = "EUR", CurrencyName = currencyName };
+            var convertingOption = new ConvertingOption { IsConvert = convertOption, BaseCurrency = "EUR", CurrencyName = currencyName };
+            var report = new FakeReportBase("TestPath.xls", "ExportFileName", new ShowingOption(), convertingOption, 0);
 
             // Action
             var result = report.GetExactTitleCurrencyName(currencyId);

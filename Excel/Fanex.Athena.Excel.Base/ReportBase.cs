@@ -12,7 +12,6 @@ namespace Fanex.Athena.Excel.Base
     using System.IO;
     using System.Linq;
     using System.Web;
-    using Base;
     using Excel.Base.Entities;
     using Excel.Base.Utility;
     using Fanex.Athena.Excel.Base.Extension;
@@ -48,7 +47,7 @@ namespace Fanex.Athena.Excel.Base
             PageSize = pageSize;
         }
 
-        public int PageSize
+        protected int PageSize
         {
             get
             {
@@ -61,13 +60,13 @@ namespace Fanex.Athena.Excel.Base
             }
         }
 
-        public ConvertingOption ConvertingOption
+        protected ConvertingOption ConvertingOption
         {
             get;
             set;
         }
 
-        public ICellStyle DefaultStyle
+        protected ICellStyle DefaultStyle
         {
             get;
             set;
@@ -79,13 +78,13 @@ namespace Fanex.Athena.Excel.Base
             set;
         }
 
-        public string ExportingFileName
+        protected string ExportingFileName
         {
             get;
             set;
         }
 
-        public IList<string> HeaderTextList
+        protected IList<string> HeaderTextList
         {
             get;
             set;
@@ -97,25 +96,19 @@ namespace Fanex.Athena.Excel.Base
             set;
         }
 
-        public DataTable RacingData
-        {
-            get;
-            set;
-        }
-
         public string ReportTitle
         {
             get;
             set;
         }
 
-        public string TemplatePath
+        protected string TemplatePath
         {
             get;
             set;
         }
 
-        public ISheet TemplateSheet
+        protected internal ISheet TemplateSheet
         {
             get;
             set;
@@ -127,15 +120,12 @@ namespace Fanex.Athena.Excel.Base
             set;
         }
 
-        public int NumOfDataRow
+        protected int NumOfDataRow
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// Assign data.
-        /// </summary>
         public virtual void AssignData()
         {
             if (ExportData != null && ExportData.Rows.Count > 0)
@@ -170,10 +160,6 @@ namespace Fanex.Athena.Excel.Base
         {
         }
 
-        public virtual void AssignSheetData(ISheet sheet, int rowFrom, int rowTo)
-        {
-        }
-
         public virtual void AssignSheetData(ISheet sheet)
         {
         }
@@ -187,18 +173,6 @@ namespace Fanex.Athena.Excel.Base
         {
         }
 
-        public virtual void Export(HttpResponse response)
-        {
-            Export();
-            Write(response);
-        }
-
-        public virtual void Export(Stream stream)
-        {
-            Export();
-            Write(stream);
-        }
-
         public virtual void Export()
         {
             LoadTemplate();
@@ -208,10 +182,25 @@ namespace Fanex.Athena.Excel.Base
             RemoveTemplate();
         }
 
-        /// <summary>
-        /// Load template.
-        /// </summary>
-        public virtual void LoadTemplate()
+        public virtual void ProcessUI(ISheet sheet)
+        {
+        }
+
+        protected static void ClearTemplate(ISheet sheet, int startRowIndex)
+        {
+            int lastRowNum = sheet.LastRowNum;
+            for (int i = startRowIndex; i <= lastRowNum; i++)
+            {
+                sheet.DeleteRow(i);
+            }
+        }
+
+        protected static int GetNumberOfSheets(int numberOfItems, int pageSize)
+        {
+            return numberOfItems % pageSize == 0 ? numberOfItems / pageSize : (numberOfItems / pageSize) + 1;
+        }
+
+        protected internal virtual void LoadTemplate()
         {
             FileStream stream = null;
             try
@@ -232,23 +221,12 @@ namespace Fanex.Athena.Excel.Base
             }
         }
 
-        public virtual void ProcessUI(ISheet sheet)
-        {
-        }
-
-        /// <summary>
-        /// Remove template.
-        /// </summary>
-        public virtual void RemoveTemplate()
+        protected internal virtual void RemoveTemplate()
         {
             Workbook.RemoveSheet("Template");
         }
 
-        /// <summary>
-        /// Write data stream to browser.
-        /// </summary>
-        /// <param name="response">The HTTP response.</param>
-        public virtual void Write(HttpResponse response)
+        protected virtual void Write(HttpResponse response)
         {
             response.ContentType = "application/vnd.ms-excel";
             response.AddHeader("Content-Disposition", "attachment;filename={0}" + ExportingFileName);
@@ -261,37 +239,6 @@ namespace Fanex.Athena.Excel.Base
             response.End();
         }
 
-        public virtual void Write(Stream stream)
-        {
-            Workbook.Write(stream);
-        }
-
-        /// <summary>
-        ///     Clear the template from header row.
-        /// </summary>
-        /// <param name="sheet">The excel sheet.</param>
-        /// <param name="startRowIndex">The starting row index of sheet.</param>
-        protected static void ClearTemplate(ISheet sheet, int startRowIndex)
-        {
-            int lastRowNum = sheet.LastRowNum;
-            for (int i = startRowIndex; i <= lastRowNum; i++)
-            {
-                sheet.DeleteRow(i);
-            }
-        }
-
-        protected static int GetNumberOfSheets(int numberOfItems, int pageSize)
-        {
-            return numberOfItems % pageSize == 0 ? numberOfItems / pageSize : (numberOfItems / pageSize) + 1;
-        }
-
-        /// <summary>
-        ///     Assign array decimal to row.
-        /// </summary>
-        /// <param name="row">Row in sheet export excel.</param>
-        /// <param name="cellIndex">Position cell will insert.</param>
-        /// <param name="decimalValues">Array decimal values.</param>
-        /// <returns>Cell position after insert.</returns>
         protected virtual int AssignDecimalData(IRow row, int cellIndex, params decimal[] decimalValues)
         {
             for (int i = 0, j = decimalValues.Length; i < j && cellIndex < row.Cells.Count; i++)
@@ -303,14 +250,6 @@ namespace Fanex.Athena.Excel.Base
             return cellIndex;
         }
 
-        /// <summary>
-        ///     Assign a list of column in table to excel row.
-        /// </summary>
-        /// <param name="row">The excel row.</param>
-        /// <param name="data">The data table row.</param>
-        /// <param name="columnNameList">List of column name.</param>
-        /// <param name="columnStart">The starting column index of row.</param>
-        /// <returns>Cell position after insert.</returns>
         protected virtual int AssignRowContent(IRow row, DataRow data, IList<string> columnNameList, int columnStart = 0)
         {
             foreach (string columnName in columnNameList)
@@ -331,11 +270,6 @@ namespace Fanex.Athena.Excel.Base
             return DataHelper.GetCurrencyColumnName(columnName, this.ConvertingOption);
         }
 
-        /// <summary>
-        /// Get exactly title base on currency .
-        /// </summary>
-        /// <param name="currencyId">The currency id.</param>
-        /// <returns>The title.</returns>
         protected virtual string GetExactTitleCurrencyName(int currencyId)
         {
             string title;
@@ -366,11 +300,6 @@ namespace Fanex.Athena.Excel.Base
             return title;
         }
 
-        /// <summary>
-        /// Get licensee win-loss or Win-loss by product.
-        /// </summary>
-        /// <param name="caption">Caption text.</param>
-        /// <returns>A string value.</returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]
         protected virtual string GetLicenseeWLProduct(string caption = null)
@@ -385,10 +314,6 @@ namespace Fanex.Athena.Excel.Base
                       : string.Format(", {0} ({1})", string.IsNullOrWhiteSpace(caption) ? ViewResources.LicenseeW_L : caption, prdText);
         }
 
-        /// <summary>
-        /// Get title by currency.
-        /// </summary>
-        /// <returns>The title.</returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
            Justification = "Reviewed. Suppression is OK here.")]
         protected virtual string GetTitleCurrencyName()
