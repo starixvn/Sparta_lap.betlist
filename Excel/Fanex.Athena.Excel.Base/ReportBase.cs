@@ -22,9 +22,6 @@ namespace Fanex.Athena.Excel.Base
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// The report base.
-    /// </summary>
     public abstract class ReportBase : ExcelBase
     {
         public const int RowHeaderTemplate = 1;
@@ -250,7 +247,7 @@ namespace Fanex.Athena.Excel.Base
             return cellIndex;
         }
 
-        protected virtual int AssignRowContent(IRow row, DataRow data, IList<string> columnNameList, int columnStart = 0)
+        protected internal virtual int AssignRowContent(IRow row, DataRow data, IList<string> columnNameList, int columnStart = 0)
         {
             foreach (string columnName in columnNameList)
             {
@@ -270,7 +267,7 @@ namespace Fanex.Athena.Excel.Base
             return DataHelper.GetCurrencyColumnName(columnName, this.ConvertingOption);
         }
 
-        protected virtual string GetExactTitleCurrencyName(int currencyId)
+        protected internal virtual string GetExactTitleCurrencyName(int currencyId)
         {
             string title;
 
@@ -302,7 +299,7 @@ namespace Fanex.Athena.Excel.Base
 
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]
-        protected virtual string GetLicenseeWLProduct(string caption = null)
+        protected internal virtual string GetLicenseeWLProduct(string caption = null)
         {
             var prdOptionTitleList =
                 ProductOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
@@ -323,7 +320,7 @@ namespace Fanex.Athena.Excel.Base
                    : string.Format(ViewResources.Viewin, ConvertingOption.CurrencyName);
         }
 
-        protected void SetTextRowValue(ISheet sheet, int sourceRowIndex, int destRowIndex, int columnCount, string value)
+        protected internal void SetTextRowValue(ISheet sheet, int sourceRowIndex, int destRowIndex, int columnCount, string value)
         {
             IRow row = sheet.CopyRow(TemplateSheet, sourceRowIndex, destRowIndex);
             sheet.MergeCells(destRowIndex, 0, destRowIndex, columnCount - 1);
