@@ -13,4 +13,6 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Result_LeagueSelByDate" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Result_MatchSelByLeague" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Result_MatchSelByLeague_Detail" EnvironmentText="_xpre"></SpNameConfig>
+
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Monitor_BetlistSel_New" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
