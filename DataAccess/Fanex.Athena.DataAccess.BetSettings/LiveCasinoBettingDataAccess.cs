@@ -96,7 +96,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         public IResultInfo UpdateStatus(int userId, int custId, int status, string language, string ip)
         {
-            return UpdateCasinoStatus(userId, custId, LiveCasinoSportId, status, ip, language);
+            return UpdateCasinoStatus(userId, custId, LiveCasinoSportId, status, language, ip);
         }
 
         private static string GetGameTypeColumn(string language)
