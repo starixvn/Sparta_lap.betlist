@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.Core.Exception
 {
     using System;
+    using System.Runtime.Serialization;
     using System.Web.Script.Serialization;
 
     /// <summary>
@@ -32,6 +33,12 @@ namespace Fanex.Athena.DataAccess.Core.Exception
             this._uspParams = null;
         }
 
+        public DataAccessException(SerializationInfo info, StreamingContext context)
+        {
+            _uspName = info.GetString(nameof(_uspName));
+            _uspParams = info.GetValue(nameof(_uspParams), typeof(object));
+        }
+
         public override string Message
         {
             get
@@ -48,8 +55,10 @@ namespace Fanex.Athena.DataAccess.Core.Exception
             }
         }
 
-        public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            info.AddValue(nameof(_uspName), _uspName);
+            info.AddValue(nameof(_uspParams), _uspParams);
             base.GetObjectData(info, context);
         }
     }

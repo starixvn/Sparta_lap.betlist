@@ -22,10 +22,12 @@ namespace Fanex.Athena.Service.Core.Exception
         {
             this._serviceName = serviceName;
         }
+
         public ServiceException(SerializationInfo info, StreamingContext context)
         {
             _serviceName = info.GetString(nameof(_serviceName));
         }
+
         public override string Message
         {
             get
@@ -37,7 +39,7 @@ namespace Fanex.Athena.Service.Core.Exception
             }
         }
 
-        public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue(nameof(_serviceName), _serviceName);
             base.GetObjectData(info, context);
