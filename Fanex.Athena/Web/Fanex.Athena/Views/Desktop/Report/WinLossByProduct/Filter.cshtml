@@ -1,0 +1,55 @@
+﻿@using Fanex.Athena.Model.Core.DataDomain
+@model Fanex.Athena.Model.Report.ViewModel.WinLossByProductViewModel
+@{
+    var appSettings = new AppSettings();
+}
+
+<div class="page-form">
+    <form id="winlossbyproduct" name="winlossbyproduct" method="post" action="">
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="input-field input col l3 m3 s12 calendar date-range">
+                @RazorHelperDesktop.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, appSettings.HistoryDate, appSettings.MaxDate)
+            </div>
+
+            <div class="input-field col l2 m3 s12">
+                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true)
+                <label>@ViewResources.Currency</label>
+            </div>
+
+            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions)
+
+            <div class="input-field col l2 m3 s12">
+                @Html.TextBox("Username", Model.Param.Username, new { placeholder = ViewResources.ExternalIdOrSystemId })
+                <label>@ViewResources.Username</label>
+                <ul id="suggestionDropdown" class="dropdown-content ac-dropdown"></ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field input col l3 m4 s12">
+                @RazorHelperDesktop.DrawFilter(Model.Param.DrawFilter)
+            </div>
+
+            <div class="input-field input col l2 m3 s12">
+                @RazorHelperDesktop.ReportBy(Model.Param.ReportBy)
+            </div>
+
+            <div class="input-field input col l2 m3 s12">
+                @RazorHelperDesktop.ExcludeTestData(Model.Param.IsExcludedTestData)
+            </div>
+
+            <div class="col l2 m2 s12 button-block">
+                <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+            </div>
+        </div>
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+    </form>
+
+    @Html.Hidden("ProductOptionJson", Model.Param.ProductOptions.ToJson())
+    @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
+    @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.IsAllowBA)
+    @Html.Hidden("IsAllowedRacing", Model.ProductAccess.IsAllowRB)
+    @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+</div>

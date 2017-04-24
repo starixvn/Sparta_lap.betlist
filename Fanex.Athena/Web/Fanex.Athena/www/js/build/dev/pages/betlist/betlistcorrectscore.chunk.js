@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 webpackJsonp([30],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(188);
+=======
+webpackJsonp([29],[
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(186);
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 
 
 /***/ },
@@ -76,6 +84,7 @@ webpackJsonp([30],[
 /* 68 */,
 /* 69 */,
 /* 70 */,
+<<<<<<< HEAD
 /* 71 */,
 /* 72 */,
 /* 73 */
@@ -83,6 +92,13 @@ webpackJsonp([30],[
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(181), __webpack_require__(183), __webpack_require__(74), __webpack_require__(9),
 	        __webpack_require__(184), __webpack_require__(185), __webpack_require__(4)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, BetListOption, moment, Popup) {
+=======
+/* 71 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(179), __webpack_require__(181), __webpack_require__(72), __webpack_require__(9),
+	        __webpack_require__(182), __webpack_require__(183), __webpack_require__(4)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, BetListOption, moment, Popup) {
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	        "use strict";
 	        var BETTYPE_CASHOUT = 911;
 	        var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
@@ -776,7 +792,11 @@ webpackJsonp([30],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+<<<<<<< HEAD
 /* 74 */
+=======
+/* 72 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
@@ -2575,7 +2595,11 @@ webpackJsonp([30],[
 	                module && module.exports) {
 	            try {
 	                oldLocale = globalLocale._abbr;
+<<<<<<< HEAD
 	                __webpack_require__(76)("./" + name);
+=======
+	                __webpack_require__(74)("./" + name);
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	                // because defineLocale currently also sets the global locale, we
 	                // want to undo that for lazy loaded locales
 	                locale_locales__getSetGlobalLocale(oldLocale);
@@ -5013,10 +5037,17 @@ webpackJsonp([30],[
 	    return _moment;
 	
 	}));
+<<<<<<< HEAD
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(75)(module)))
 
 /***/ },
 /* 75 */
+=======
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(73)(module)))
+
+/***/ },
+/* 73 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -5032,6 +5063,7 @@ webpackJsonp([30],[
 
 
 /***/ },
+<<<<<<< HEAD
 /* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -5244,6 +5276,220 @@ webpackJsonp([30],[
 		"./zh-hk.js": 179,
 		"./zh-tw": 180,
 		"./zh-tw.js": 180
+=======
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./af": 75,
+		"./af.js": 75,
+		"./ar": 76,
+		"./ar-ly": 77,
+		"./ar-ly.js": 77,
+		"./ar-ma": 78,
+		"./ar-ma.js": 78,
+		"./ar-sa": 79,
+		"./ar-sa.js": 79,
+		"./ar-tn": 80,
+		"./ar-tn.js": 80,
+		"./ar.js": 76,
+		"./az": 81,
+		"./az.js": 81,
+		"./be": 82,
+		"./be.js": 82,
+		"./bg": 83,
+		"./bg.js": 83,
+		"./bn": 84,
+		"./bn.js": 84,
+		"./bo": 85,
+		"./bo.js": 85,
+		"./br": 86,
+		"./br.js": 86,
+		"./bs": 87,
+		"./bs.js": 87,
+		"./ca": 88,
+		"./ca.js": 88,
+		"./cs": 89,
+		"./cs.js": 89,
+		"./cv": 90,
+		"./cv.js": 90,
+		"./cy": 91,
+		"./cy.js": 91,
+		"./da": 92,
+		"./da.js": 92,
+		"./de": 93,
+		"./de-at": 94,
+		"./de-at.js": 94,
+		"./de.js": 93,
+		"./dv": 95,
+		"./dv.js": 95,
+		"./el": 96,
+		"./el.js": 96,
+		"./en-au": 97,
+		"./en-au.js": 97,
+		"./en-ca": 98,
+		"./en-ca.js": 98,
+		"./en-gb": 99,
+		"./en-gb.js": 99,
+		"./en-ie": 100,
+		"./en-ie.js": 100,
+		"./en-nz": 101,
+		"./en-nz.js": 101,
+		"./eo": 102,
+		"./eo.js": 102,
+		"./es": 103,
+		"./es-do": 104,
+		"./es-do.js": 104,
+		"./es.js": 103,
+		"./et": 105,
+		"./et.js": 105,
+		"./eu": 106,
+		"./eu.js": 106,
+		"./fa": 107,
+		"./fa.js": 107,
+		"./fi": 108,
+		"./fi.js": 108,
+		"./fo": 109,
+		"./fo.js": 109,
+		"./fr": 110,
+		"./fr-ca": 111,
+		"./fr-ca.js": 111,
+		"./fr-ch": 112,
+		"./fr-ch.js": 112,
+		"./fr.js": 110,
+		"./fy": 113,
+		"./fy.js": 113,
+		"./gd": 114,
+		"./gd.js": 114,
+		"./gl": 115,
+		"./gl.js": 115,
+		"./he": 116,
+		"./he.js": 116,
+		"./hi": 117,
+		"./hi.js": 117,
+		"./hr": 118,
+		"./hr.js": 118,
+		"./hu": 119,
+		"./hu.js": 119,
+		"./hy-am": 120,
+		"./hy-am.js": 120,
+		"./id": 121,
+		"./id.js": 121,
+		"./is": 122,
+		"./is.js": 122,
+		"./it": 123,
+		"./it.js": 123,
+		"./ja": 124,
+		"./ja.js": 124,
+		"./jv": 125,
+		"./jv.js": 125,
+		"./ka": 126,
+		"./ka.js": 126,
+		"./kk": 127,
+		"./kk.js": 127,
+		"./km": 128,
+		"./km.js": 128,
+		"./ko": 129,
+		"./ko.js": 129,
+		"./ky": 130,
+		"./ky.js": 130,
+		"./lb": 131,
+		"./lb.js": 131,
+		"./lo": 132,
+		"./lo.js": 132,
+		"./lt": 133,
+		"./lt.js": 133,
+		"./lv": 134,
+		"./lv.js": 134,
+		"./me": 135,
+		"./me.js": 135,
+		"./mi": 136,
+		"./mi.js": 136,
+		"./mk": 137,
+		"./mk.js": 137,
+		"./ml": 138,
+		"./ml.js": 138,
+		"./mr": 139,
+		"./mr.js": 139,
+		"./ms": 140,
+		"./ms-my": 141,
+		"./ms-my.js": 141,
+		"./ms.js": 140,
+		"./my": 142,
+		"./my.js": 142,
+		"./nb": 143,
+		"./nb.js": 143,
+		"./ne": 144,
+		"./ne.js": 144,
+		"./nl": 145,
+		"./nl.js": 145,
+		"./nn": 146,
+		"./nn.js": 146,
+		"./pa-in": 147,
+		"./pa-in.js": 147,
+		"./pl": 148,
+		"./pl.js": 148,
+		"./pt": 149,
+		"./pt-br": 150,
+		"./pt-br.js": 150,
+		"./pt.js": 149,
+		"./ro": 151,
+		"./ro.js": 151,
+		"./ru": 152,
+		"./ru.js": 152,
+		"./se": 153,
+		"./se.js": 153,
+		"./si": 154,
+		"./si.js": 154,
+		"./sk": 155,
+		"./sk.js": 155,
+		"./sl": 156,
+		"./sl.js": 156,
+		"./sq": 157,
+		"./sq.js": 157,
+		"./sr": 158,
+		"./sr-cyrl": 159,
+		"./sr-cyrl.js": 159,
+		"./sr.js": 158,
+		"./ss": 160,
+		"./ss.js": 160,
+		"./sv": 161,
+		"./sv.js": 161,
+		"./sw": 162,
+		"./sw.js": 162,
+		"./ta": 163,
+		"./ta.js": 163,
+		"./te": 164,
+		"./te.js": 164,
+		"./th": 165,
+		"./th.js": 165,
+		"./tl-ph": 166,
+		"./tl-ph.js": 166,
+		"./tlh": 167,
+		"./tlh.js": 167,
+		"./tr": 168,
+		"./tr.js": 168,
+		"./tzl": 169,
+		"./tzl.js": 169,
+		"./tzm": 170,
+		"./tzm-latn": 171,
+		"./tzm-latn.js": 171,
+		"./tzm.js": 170,
+		"./uk": 172,
+		"./uk.js": 172,
+		"./uz": 173,
+		"./uz.js": 173,
+		"./vi": 174,
+		"./vi.js": 174,
+		"./x-pseudo": 175,
+		"./x-pseudo.js": 175,
+		"./zh-cn": 176,
+		"./zh-cn.js": 176,
+		"./zh-hk": 177,
+		"./zh-hk.js": 177,
+		"./zh-tw": 178,
+		"./zh-tw.js": 178
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -5256,11 +5502,19 @@ webpackJsonp([30],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
+<<<<<<< HEAD
 	webpackContext.id = 76;
 
 
 /***/ },
 /* 77 */
+=======
+	webpackContext.id = 74;
+
+
+/***/ },
+/* 75 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5268,7 +5522,11 @@ webpackJsonp([30],[
 	//! author : Werner Mollentze : https://github.com/wernerm
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5337,7 +5595,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 78 */
+=======
+/* 76 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5347,7 +5609,11 @@ webpackJsonp([30],[
 	//! author : forabi https://github.com/forabi
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5478,7 +5744,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 79 */
+=======
+/* 77 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5486,7 +5756,11 @@ webpackJsonp([30],[
 	//! author : Ali Hmer: https://github.com/kikoanis
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5604,7 +5878,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 80 */
+=======
+/* 78 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5613,7 +5891,11 @@ webpackJsonp([30],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5668,7 +5950,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 81 */
+=======
+/* 79 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5676,7 +5962,11 @@ webpackJsonp([30],[
 	//! author : Suhail Alkowaileet : https://github.com/xsoh
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5776,7 +6066,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 82 */
+=======
+/* 80 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5784,7 +6078,11 @@ webpackJsonp([30],[
 	//! author : Nader Toukabri : https://github.com/naderio
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5839,7 +6137,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 83 */
+=======
+/* 81 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5847,7 +6149,11 @@ webpackJsonp([30],[
 	//! author : topchiyev : https://github.com/topchiyev
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5948,7 +6254,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 84 */
+=======
+/* 82 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5958,7 +6268,11 @@ webpackJsonp([30],[
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6086,7 +6400,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 85 */
+=======
+/* 83 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6094,7 +6412,11 @@ webpackJsonp([30],[
 	//! author : Krasen Borisov : https://github.com/kraz
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6180,7 +6502,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 86 */
+=======
+/* 84 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6188,7 +6514,11 @@ webpackJsonp([30],[
 	//! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6303,7 +6633,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 87 */
+=======
+/* 85 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6311,7 +6645,11 @@ webpackJsonp([30],[
 	//! author : Thupten N. Chakrishar : https://github.com/vajradog
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6426,7 +6764,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 88 */
+=======
+/* 86 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6434,7 +6776,11 @@ webpackJsonp([30],[
 	//! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6538,7 +6884,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 89 */
+=======
+/* 87 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6547,7 +6897,11 @@ webpackJsonp([30],[
 	//! based on (hr) translation by Bojan Marković
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6685,7 +7039,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 90 */
+=======
+/* 88 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6693,7 +7051,11 @@ webpackJsonp([30],[
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6770,7 +7132,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 91 */
+=======
+/* 89 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6778,7 +7144,11 @@ webpackJsonp([30],[
 	//! author : petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6946,7 +7316,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 92 */
+=======
+/* 90 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6954,7 +7328,11 @@ webpackJsonp([30],[
 	//! author : Anatoly Mironov : https://github.com/mirontoli
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7013,7 +7391,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 93 */
+=======
+/* 91 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7022,7 +7404,11 @@ webpackJsonp([30],[
 	//! author : https://github.com/ryangreaves
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7098,7 +7484,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 94 */
+=======
+/* 92 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7106,7 +7496,11 @@ webpackJsonp([30],[
 	//! author : Ulrik Nielsen : https://github.com/mrbase
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7162,7 +7556,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 95 */
+=======
+/* 93 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7172,7 +7570,11 @@ webpackJsonp([30],[
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7244,7 +7646,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 96 */
+=======
+/* 94 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7255,7 +7661,11 @@ webpackJsonp([30],[
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7327,7 +7737,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 97 */
+=======
+/* 95 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7335,7 +7749,11 @@ webpackJsonp([30],[
 	//! author : Jawish Hameed : https://github.com/jawish
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7430,7 +7848,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 98 */
+=======
+/* 96 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7438,7 +7860,11 @@ webpackJsonp([30],[
 	//! author : Aggelos Karalias : https://github.com/mehiel
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7532,7 +7958,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 99 */
+=======
+/* 97 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7540,7 +7970,11 @@ webpackJsonp([30],[
 	//! author : Jared Morse : https://github.com/jarcoal
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7603,7 +8037,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 100 */
+=======
+/* 98 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7611,7 +8049,11 @@ webpackJsonp([30],[
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7670,7 +8112,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 101 */
+=======
+/* 99 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7678,7 +8124,11 @@ webpackJsonp([30],[
 	//! author : Chris Gedrim : https://github.com/chrisgedrim
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7741,7 +8191,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 102 */
+=======
+/* 100 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7749,7 +8203,11 @@ webpackJsonp([30],[
 	//! author : Chris Cartlidge : https://github.com/chriscartlidge
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7812,7 +8270,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 103 */
+=======
+/* 101 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7820,7 +8282,11 @@ webpackJsonp([30],[
 	//! author : Luke McGregor : https://github.com/lukemcgregor
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7883,7 +8349,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 104 */
+=======
+/* 102 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7893,7 +8363,11 @@ webpackJsonp([30],[
 	//!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7960,7 +8434,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 105 */
+=======
+/* 103 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7968,7 +8446,11 @@ webpackJsonp([30],[
 	//! author : Julio Napurí : https://github.com/julionc
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8045,14 +8527,22 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 106 */
+=======
+/* 104 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : Spanish (Dominican Republic) [es-do]
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8129,7 +8619,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 107 */
+=======
+/* 105 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8138,7 +8632,11 @@ webpackJsonp([30],[
 	//! improvements : Illimar Tambek : https://github.com/ragulka
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8213,7 +8711,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 108 */
+=======
+/* 106 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8221,7 +8723,11 @@ webpackJsonp([30],[
 	//! author : Eneko Illarramendi : https://github.com/eillarra
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8283,7 +8789,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 109 */
+=======
+/* 107 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8291,7 +8801,11 @@ webpackJsonp([30],[
 	//! author : Ebrahim Byagowi : https://github.com/ebraminio
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8393,7 +8907,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 110 */
+=======
+/* 108 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8401,7 +8919,11 @@ webpackJsonp([30],[
 	//! author : Tarmo Aidantausta : https://github.com/bleadof
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8504,7 +9026,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 111 */
+=======
+/* 109 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8512,7 +9038,11 @@ webpackJsonp([30],[
 	//! author : Ragnar Johannesen : https://github.com/ragnar123
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8568,7 +9098,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 112 */
+=======
+/* 110 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8576,7 +9110,11 @@ webpackJsonp([30],[
 	//! author : John Fischer : https://github.com/jfroffice
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8636,7 +9174,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 113 */
+=======
+/* 111 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8644,7 +9186,11 @@ webpackJsonp([30],[
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8700,7 +9246,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 114 */
+=======
+/* 112 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8708,7 +9258,11 @@ webpackJsonp([30],[
 	//! author : Gaspard Bucher : https://github.com/gaspard
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8768,7 +9322,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 115 */
+=======
+/* 113 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8776,7 +9334,11 @@ webpackJsonp([30],[
 	//! author : Robin van der Vliet : https://github.com/robin0van0der0v
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8845,7 +9407,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 116 */
+=======
+/* 114 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8853,7 +9419,11 @@ webpackJsonp([30],[
 	//! author : Jon Ashdown : https://github.com/jonashdown
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8925,7 +9495,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 117 */
+=======
+/* 115 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8933,7 +9507,11 @@ webpackJsonp([30],[
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9006,7 +9584,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 118 */
+=======
+/* 116 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9016,7 +9598,11 @@ webpackJsonp([30],[
 	//! author : Tal Ater : https://github.com/TalAter
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9109,7 +9695,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 119 */
+=======
+/* 117 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9117,7 +9707,11 @@ webpackJsonp([30],[
 	//! author : Mayank Singhal : https://github.com/mayanksinghal
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9237,7 +9831,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 120 */
+=======
+/* 118 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9245,7 +9843,11 @@ webpackJsonp([30],[
 	//! author : Bojan Marković : https://github.com/bmarkovic
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9386,7 +9988,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 121 */
+=======
+/* 119 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9394,7 +10000,11 @@ webpackJsonp([30],[
 	//! author : Adam Brunner : https://github.com/adambrunner
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9499,7 +10109,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 122 */
+=======
+/* 120 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9507,7 +10121,11 @@ webpackJsonp([30],[
 	//! author : Armendarabyan : https://github.com/armendarabyan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9598,7 +10216,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 123 */
+=======
+/* 121 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9607,7 +10229,11 @@ webpackJsonp([30],[
 	//! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9685,7 +10311,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 124 */
+=======
+/* 122 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9693,7 +10323,11 @@ webpackJsonp([30],[
 	//! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9816,7 +10450,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 125 */
+=======
+/* 123 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9825,7 +10463,11 @@ webpackJsonp([30],[
 	//! author: Mattia Larentis: https://github.com/nostalgiaz
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9890,7 +10532,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 126 */
+=======
+/* 124 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9898,7 +10544,11 @@ webpackJsonp([30],[
 	//! author : LI Long : https://github.com/baryon
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9970,7 +10620,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 127 */
+=======
+/* 125 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9979,7 +10633,11 @@ webpackJsonp([30],[
 	//! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10057,7 +10715,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 128 */
+=======
+/* 126 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10065,7 +10727,11 @@ webpackJsonp([30],[
 	//! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10150,7 +10816,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 129 */
+=======
+/* 127 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10158,7 +10828,11 @@ webpackJsonp([30],[
 	//! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10241,7 +10915,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 130 */
+=======
+/* 128 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10249,7 +10927,11 @@ webpackJsonp([30],[
 	//! author : Kruy Vanna : https://github.com/kruyvanna
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10303,7 +10985,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 131 */
+=======
+/* 129 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10312,7 +10998,11 @@ webpackJsonp([30],[
 	//! author : Jeeeyul Lee <jeeeyul@gmail.com>
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10372,7 +11062,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 132 */
+=======
+/* 130 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10380,7 +11074,11 @@ webpackJsonp([30],[
 	//! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10464,7 +11162,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 133 */
+=======
+/* 131 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10473,7 +11175,11 @@ webpackJsonp([30],[
 	//! author : David Raison : https://github.com/kwisatz
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10605,7 +11311,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 134 */
+=======
+/* 132 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10613,7 +11323,11 @@ webpackJsonp([30],[
 	//! author : Ryan Hart : https://github.com/ryanhart2
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10679,7 +11393,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 135 */
+=======
+/* 133 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10687,7 +11405,11 @@ webpackJsonp([30],[
 	//! author : Mindaugas Mozūras : https://github.com/mmozuras
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10800,7 +11522,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 136 */
+=======
+/* 134 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10809,7 +11535,11 @@ webpackJsonp([30],[
 	//! author : Jānis Elmeris : https://github.com/JanisE
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10901,7 +11631,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 137 */
+=======
+/* 135 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10909,7 +11643,11 @@ webpackJsonp([30],[
 	//! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11016,7 +11754,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 138 */
+=======
+/* 136 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11024,7 +11766,11 @@ webpackJsonp([30],[
 	//! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11084,7 +11830,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 139 */
+=======
+/* 137 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11092,7 +11842,11 @@ webpackJsonp([30],[
 	//! author : Borislav Mickov : https://github.com/B0k0
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11178,7 +11932,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 140 */
+=======
+/* 138 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11186,7 +11944,11 @@ webpackJsonp([30],[
 	//! author : Floyd Pink : https://github.com/floydpink
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11263,7 +12025,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 141 */
+=======
+/* 139 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11272,7 +12038,11 @@ webpackJsonp([30],[
 	//! author : Vivek Athalye : https://github.com/vnathalye
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11426,7 +12196,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 142 */
+=======
+/* 140 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11434,7 +12208,11 @@ webpackJsonp([30],[
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11512,7 +12290,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 143 */
+=======
+/* 141 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11521,7 +12303,11 @@ webpackJsonp([30],[
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11599,7 +12385,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 144 */
+=======
+/* 142 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11609,7 +12399,11 @@ webpackJsonp([30],[
 	//! author : Tin Aung Lin : https://github.com/thanyawzinmin
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11698,7 +12492,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 145 */
+=======
+/* 143 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11707,7 +12505,11 @@ webpackJsonp([30],[
 	//!           Sigurd Gartmann : https://github.com/sigurdga
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11765,7 +12567,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 146 */
+=======
+/* 144 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11773,7 +12579,11 @@ webpackJsonp([30],[
 	//! author : suvash : https://github.com/suvash
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11892,7 +12702,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 147 */
+=======
+/* 145 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11901,7 +12715,11 @@ webpackJsonp([30],[
 	//! author : Jacob Middag : https://github.com/middagj
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11982,7 +12800,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 148 */
+=======
+/* 146 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11990,7 +12812,11 @@ webpackJsonp([30],[
 	//! author : https://github.com/mechuwind
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12046,7 +12872,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 149 */
+=======
+/* 147 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12054,7 +12884,11 @@ webpackJsonp([30],[
 	//! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12174,7 +13008,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 150 */
+=======
+/* 148 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12182,7 +13020,11 @@ webpackJsonp([30],[
 	//! author : Rafal Hirsz : https://github.com/evoL
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12283,7 +13125,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 151 */
+=======
+/* 149 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12291,7 +13137,11 @@ webpackJsonp([30],[
 	//! author : Jefferson : https://github.com/jalex79
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12352,7 +13202,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 152 */
+=======
+/* 150 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12360,7 +13214,11 @@ webpackJsonp([30],[
 	//! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12417,7 +13275,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 153 */
+=======
+/* 151 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12426,7 +13288,11 @@ webpackJsonp([30],[
 	//! author : Valentin Agachi : https://github.com/avaly
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12496,7 +13362,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 154 */
+=======
+/* 152 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12506,7 +13376,11 @@ webpackJsonp([30],[
 	//! author : Коренберг Марк : https://github.com/socketpair
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12683,7 +13557,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 155 */
+=======
+/* 153 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12691,7 +13569,11 @@ webpackJsonp([30],[
 	//! authors : Bård Rolstad Henriksen : https://github.com/karamell
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12748,7 +13630,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 156 */
+=======
+/* 154 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12756,7 +13642,11 @@ webpackJsonp([30],[
 	//! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12823,7 +13713,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 157 */
+=======
+/* 155 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12832,7 +13726,11 @@ webpackJsonp([30],[
 	//! based on work of petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12977,7 +13875,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 158 */
+=======
+/* 156 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12985,7 +13887,11 @@ webpackJsonp([30],[
 	//! author : Robert Sedovšek : https://github.com/sedovsek
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13143,7 +14049,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 159 */
+=======
+/* 157 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13153,7 +14063,11 @@ webpackJsonp([30],[
 	//! author : Oerd Cukalla : https://github.com/oerd
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13217,7 +14131,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 160 */
+=======
+/* 158 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13225,7 +14143,11 @@ webpackJsonp([30],[
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13331,7 +14253,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 161 */
+=======
+/* 159 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13339,7 +14265,11 @@ webpackJsonp([30],[
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13445,7 +14375,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 162 */
+=======
+/* 160 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13453,7 +14387,11 @@ webpackJsonp([30],[
 	//! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13538,7 +14476,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 163 */
+=======
+/* 161 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13546,7 +14488,11 @@ webpackJsonp([30],[
 	//! author : Jens Alm : https://github.com/ulmus
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13611,7 +14557,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 164 */
+=======
+/* 162 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13619,7 +14569,11 @@ webpackJsonp([30],[
 	//! author : Fahad Kassim : https://github.com/fadsel
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13674,7 +14628,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 165 */
+=======
+/* 163 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13682,7 +14640,11 @@ webpackJsonp([30],[
 	//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13807,7 +14769,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 166 */
+=======
+/* 164 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13815,7 +14781,11 @@ webpackJsonp([30],[
 	//! author : Krishna Chaitanya Thota : https://github.com/kcthota
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13900,7 +14870,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 167 */
+=======
+/* 165 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13908,7 +14882,11 @@ webpackJsonp([30],[
 	//! author : Kridsada Thanabulpong : https://github.com/sirn
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13971,7 +14949,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 168 */
+=======
+/* 166 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13979,7 +14961,11 @@ webpackJsonp([30],[
 	//! author : Dan Hagman : https://github.com/hagmandan
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14037,7 +15023,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 169 */
+=======
+/* 167 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14045,7 +15035,11 @@ webpackJsonp([30],[
 	//! author : Dominika Kruk : https://github.com/amaranthrose
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14161,7 +15155,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 170 */
+=======
+/* 168 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14170,7 +15168,11 @@ webpackJsonp([30],[
 	//!           Burak Yiğit Kaya: https://github.com/BYK
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14255,7 +15257,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 171 */
+=======
+/* 169 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14264,7 +15270,11 @@ webpackJsonp([30],[
 	//! author : Iustì Canun
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14350,7 +15360,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 172 */
+=======
+/* 170 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14358,7 +15372,11 @@ webpackJsonp([30],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14412,7 +15430,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 173 */
+=======
+/* 171 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14420,7 +15442,11 @@ webpackJsonp([30],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14474,7 +15500,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 174 */
+=======
+/* 172 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14483,7 +15513,11 @@ webpackJsonp([30],[
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14624,7 +15658,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 175 */
+=======
+/* 173 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14632,7 +15670,11 @@ webpackJsonp([30],[
 	//! author : Sardor Muminov : https://github.com/muminoff
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14686,7 +15728,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 176 */
+=======
+/* 174 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14694,7 +15740,11 @@ webpackJsonp([30],[
 	//! author : Bang Nguyen : https://github.com/bangnk
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14769,7 +15819,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 177 */
+=======
+/* 175 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14777,7 +15831,11 @@ webpackJsonp([30],[
 	//! author : Andrew Hood : https://github.com/andrewhood125
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14841,7 +15899,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 178 */
+=======
+/* 176 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14850,7 +15912,11 @@ webpackJsonp([30],[
 	//! author : Zeno Zeng : https://github.com/zenozeng
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14972,7 +16038,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 179 */
+=======
+/* 177 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14982,7 +16052,11 @@ webpackJsonp([30],[
 	//! author : Konstantin : https://github.com/skfd
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15081,7 +16155,11 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 180 */
+=======
+/* 178 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15090,7 +16168,11 @@ webpackJsonp([30],[
 	//! author : Chris Lam : https://github.com/hehachris
 	
 	;(function (global, factory) {
+<<<<<<< HEAD
 	    true ? factory(__webpack_require__(74)) :
+=======
+	    true ? factory(__webpack_require__(72)) :
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15189,12 +16271,20 @@ webpackJsonp([30],[
 	}));
 
 /***/ },
+<<<<<<< HEAD
 /* 181 */
+=======
+/* 179 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
 	///
+<<<<<<< HEAD
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(182)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+=======
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(180)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	    "use strict";
 	    var jqGridAdditional = (function () {
 	        return {
@@ -15316,8 +16406,6 @@ webpackJsonp([30],[
 	                        titleText: Site.getSingleResource('CustomerW_L')
 	                    }]
 	                });
-	                $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column div").addClass("header-one-line");
-	                $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column span").css("height", "45px !important");
 	            },
 	
 	            resetHeaderHeight: function () {
@@ -15564,7 +16652,11 @@ webpackJsonp([30],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+<<<<<<< HEAD
 /* 182 */
+=======
+/* 180 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/MikeMcl/bignumber.js/LICENCE */
@@ -18307,7 +19399,11 @@ webpackJsonp([30],[
 
 
 /***/ },
+<<<<<<< HEAD
 /* 183 */
+=======
+/* 181 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
@@ -18458,7 +19554,11 @@ webpackJsonp([30],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
+<<<<<<< HEAD
 /* 184 */
+=======
+/* 182 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
@@ -18635,7 +19735,11 @@ webpackJsonp([30],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
+<<<<<<< HEAD
 /* 185 */
+=======
+/* 183 */
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* 
@@ -18985,12 +20089,21 @@ webpackJsonp([30],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
+<<<<<<< HEAD
 /* 186 */,
 /* 187 */,
 /* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(189)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListCorrectScore) {
+=======
+/* 184 */,
+/* 185 */,
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(187)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListCorrectScore) {
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	    "use strict";
 	
 	    $(function () {
@@ -19000,11 +20113,19 @@ webpackJsonp([30],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
+<<<<<<< HEAD
 /* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(73)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetList) {
+=======
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(71)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetList) {
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
 	        var _me = {
 	            initialize: function () {
 	                _me.initEvent();

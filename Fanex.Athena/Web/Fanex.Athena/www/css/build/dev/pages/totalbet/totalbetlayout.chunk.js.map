@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"version":3,"sources":["webpack:///./www/css/source/pages/totalbet/totalbet.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/dev/pages/totalbet/totalbetlayout.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n/*****************\n ** WEBPACK FOOTER\n ** ./www/css/source/pages/totalbet/totalbet.scss\n ** module id = 64\n ** module chunks = 25\n **/"],"sourceRoot":""}
+=======
+{"version":3,"sources":["webpack:///./www/css/source/pages/totalbet/totalbet.scss"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,0C","file":"www/css/build/dev/pages/totalbet/totalbetlayout.chunk.js","sourcesContent":["// removed by extract-text-webpack-plugin\n\n\n/*****************\n ** WEBPACK FOOTER\n ** ./www/css/source/pages/totalbet/totalbet.scss\n ** module id = 62\n ** module chunks = 24\n **/"],"sourceRoot":""}
+>>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report

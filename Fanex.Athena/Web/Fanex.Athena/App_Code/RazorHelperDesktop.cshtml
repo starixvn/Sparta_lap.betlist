@@ -363,3 +363,49 @@ if (toDate != null)
     }
     @(title)
 }
+
+@helper DrawFilter(int drawFilterType)
+{
+    <input type="radio" value="1" class="with-gap" @(drawFilterType == DrawFilterType.Normal ? "checked=checked" : "") name="DrawFilter" id="DrawFilter" />
+    <label for="DrawFilter">
+        @ViewResources.Normal
+    </label>
+    <input type="radio" value="2" class="with-gap" @(drawFilterType == DrawFilterType.NoDraws ? "checked=checked" : "") name="DrawFilter" id="DrawFilterNoDraw" />
+    <label for="DrawFilterNoDraw">
+        @ViewResources.NoDraws
+    </label>
+    <input type="radio" value="3" class="with-gap" @(drawFilterType == DrawFilterType.NoDrawsForTurnoverOnly ? "checked=checked" : "") name="DrawFilter" id="DrawFilterNoDrawsForTurnoverOnly" />
+    <label for="DrawFilterNoDrawsForTurnoverOnly">
+        @ViewResources.NoDrawsForTurnoverOnly
+    </label>
+
+    <label class="active">@ViewResources.DrawFilter</label>
+}
+
+@helper ReportBy(int reportByType)
+{
+    <input type="radio" class="with-gap" value="1" @(reportByType == ReportByType.Daily ? "checked=checked" : "") name="ReportBy" id="reportbydaily" />
+    <label for="reportbydaily">
+        @ViewResources.Daily
+    </label>
+    <input type="radio" class="with-gap" value="2" @(reportByType == ReportByType.Monthly ? "checked=checked" : "") name="ReportBy" id="reportbymonthly" />
+    <label for="reportbymonthly">
+        @ViewResources.Monthly
+    </label>
+
+    <label class="active">@ViewResources.ReportBy</label>
+}
+
+@helper ExcludeTestData(bool isExcludedTestData)
+{
+    <input type="radio" value="true" class="with-gap" @(isExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData0" />
+    <label for="IsExcludedTestData0">
+        @ViewResources.Yes
+    </label>
+    <input type="radio" class="with-gap" value="false" @(isExcludedTestData == false ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData1" />
+    <label for="IsExcludedTestData1">
+        @ViewResources.No
+    </label>
+
+    <label class="active">@ViewResources.ExcludeTestData</label>
+}

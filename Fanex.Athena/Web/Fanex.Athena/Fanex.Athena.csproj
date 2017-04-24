@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -873,6 +873,9 @@
     <Content Include="www\css\build\dev\pages\betlist\cashouthistory.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\betlist\cashouthistory.css.map" />
     <Content Include="Views\Desktop\BetList\CustomerWl\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\WinLossByProduct\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\WinLossByProduct\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\WinLossByProduct\Content.cshtml" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
@@ -1040,6 +1043,9 @@
     <Content Include="www\js\source\pages\report\weeklylivematch\main-weeklylivematch.js" />
     <Content Include="www\js\source\pages\report\weeklylivematch\weeklylivematch.js" />
     <Content Include="www\js\source\pages\report\weeklylivematch\weeklylivematch.option.js" />
+    <Content Include="www\js\source\pages\report\winlossbyproduct\main-winlossbyproduct.js" />
+    <Content Include="www\js\source\pages\report\winlossbyproduct\winlossbyproduct.js" />
+    <Content Include="www\js\source\pages\report\winlossbyproduct\winlossbyproduct.option.js" />
     <Content Include="www\js\source\pages\signin\main.js" />
     <Content Include="www\js\source\pages\signin\signin.js" />
     <Content Include="www\js\source\pages\totalbet\firstgoallastgoal\firstgoallastgoal.js" />
@@ -1730,6 +1736,7 @@
     <Content Include="www\css\source\scss\components\_radio-button.scss" />
     <Content Include="www\js\tests\pages\report\turnover\turnover.option-spec.js" />
     <Content Include="www\js\build\dev\pages\reports\cashoutwinloss.chunk.js.map" />
+    <Content Include="www\css\source\pages\report\winlossbyproduct.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

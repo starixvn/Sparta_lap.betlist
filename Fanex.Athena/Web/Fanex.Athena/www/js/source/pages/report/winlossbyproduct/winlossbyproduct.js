@@ -1,0 +1,411 @@
+﻿define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid.additional", "./winlossbyproduct.option", "moment", "common/popup",
+    "components/pluginhelper/daterangepicker", "../report",
+    "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"
+],
+    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report) {
+        "use strict";
+
+        var LICENSEE_12BET = 1;
+        var REPORT_BY_MONTHLY = 2;
+        var VALID_MONTH_RANGE = 3;
+        var _cacheData = [];
+        var ajaxRequest = null;
+        var _memberId, _systemId; // store data when submit level 0
+        var _submitData = {}; // cache submit data of level 0.
+
+        function GetDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
+            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
+            var tdate = fdate;
+            if (Number(reportBy) === REPORT_BY_MONTHLY) {
+                var fday = 1;
+                var month = fdate.getMonth();
+                var year = fdate.getFullYear();
+                var orignalFDate = new Date(fromDate);
+                if (month === orignalFDate.getMonth()) {
+                    fday = orignalFDate.getDate();
+                }
+                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+                var originalTDate = new Date(toDate);
+
+                if (month === originalTDate.getMonth()) {
+                    var tday = originalTDate.getDate();
+                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+                }
+                else {
+                    tdate = lastDateOfMonth(year, month);
+                }
+            }
+
+            return {
+                FromDate: fdate,
+                ToDate: tdate
+            };
+        }
+
+        function lastDateOfMonth(year, month) {
+            return moment([year, month + 1]).endOf('month');
+        }
+
+        function getCurrencyNameForReportTitle(currencyId) {
+            var viewinKey = Site.getSingleResource("Viewin");
+            var currencyTextList = {
+                "-3": viewinKey.replace("{0}", "GBP"),
+                "-2": viewinKey.replace("{0}", "USD"),
+                "-1": viewinKey.replace("{0}", "EUR"),
+                "0": Site.getSingleResource('AllCurrencies')
+            };
+
+            return currencyTextList[currencyId] === undefined
+                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+                : currencyTextList[currencyId];
+        }
+
+        function renderBreadCrumb(level, licenseeId) {
+            level = Number(level);
+            if (level === 0) {
+                $(".breadCrumbHolder").hide();
+            }
+            else {
+                $(".breadCrumbHolder").show();
+                $("#level-link-container .level0").show();
+
+                var isLevel2 = level === 2;
+                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+
+                var allowShowLevel1 = licenseeId === 1;
+                $("#level-link-container .level1").toggle(allowShowLevel1);
+                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+            }
+        }
+
+        var _me = {
+            initialize: function () {
+                Site.initialize();
+                DatePicker.initDateRangePicker();
+                Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#ProductOptionJson").val(), 'Code', 'Name', 'Status');
+                Site.setConstraintMonthRange(VALID_MONTH_RANGE, WinLossByProductOption.urlExcelData);
+                Site.addUserGuide({
+                    resourceName: "WinLossByProduct",
+                    title: Site.getSingleResource("WinLossByProduct")
+                });
+                _me.initEvent();
+                _me.initSetting();
+                _me.registerGlobalFunction();
+            },
+
+            initSetting: function () {
+                WinLossByProductOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
+                WinLossByProductOption.IsAllowBA = Site.asBool($("#IsAllowedBACommission").val());
+                WinLossByProductOption.IsAllowRB = Site.asBool($("#IsAllowedRacing").val());
+                WinLossByProductOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+            },
+
+            registerGlobalFunction: function () {
+                window.drillDown = _me.drillDown;
+            },
+
+            initEvent: function () {
+                $("body").on("click", ".bet-list-link", function () {
+                    var dataDrillDown = $(this).attr("data-drill-down");
+                    _me.openBetlistPopUp(dataDrillDown);
+                });
+
+                $('#SubmitButton').click(function () {
+                    $('#IsExportExcel').val(false);
+                    _me.submit();
+                });
+
+                $('#ExportToExcel').click(function () {
+                    $('#IsExportExcel').val(true);
+                    var mainForm = $("#winlossbyproduct");
+                    var url = Site.resolveClientUrl(WinLossByProductOption.urlExcelData);
+                    mainForm.attr("action", url);
+                    mainForm.submit();
+                    return false;
+                });
+
+                $("#level-link-container").on("click", ".level-link", function () {
+                    var level = Number($(this).attr("data-level"));
+                    if (level < 2) {
+                        _me.goBack(level);
+                    }
+                });
+
+                $(window).on("resize", function () {
+                    _me.resizeGrid();
+                });
+
+                $(window).on("unload", function () {
+                    $(window).off("resize");
+                });
+            },
+
+            submit: function () {
+                Report.setOriginalProduct();
+
+                var validProduct = Report.ValidProducts();
+                if (!validProduct) {
+                    return false;
+                }
+
+                Site.updateOriginalLicenseeOption();
+                var data = $("#winlossbyproduct").serializeObject();
+
+                if (data.Username === "") {
+                    data.Username = null;
+                }
+
+                var option = {
+                    type: "POST",
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    cache: false,
+                    url: Site.resolveClientUrl(WinLossByProductOption.urlData),
+                    success: function (response) {
+                        _submitData = {
+                            ProductOptions: response.ProductOptions,
+                            DrawFilter: data.DrawFilter,
+                            CurrencyId: data.CurrencyId,
+                            ReportBy: Number(data.ReportBy),
+                            FromDate: new Date(data.FromDate),
+                            ToDate: new Date(data.ToDate),
+                            CurrencyName: data.CurrencyName,
+                            IsExcludedTestData: data.IsExcludedTestData
+                        };
+
+                        _systemId = response.SystemId;
+                        _memberId = response.MemberId;
+                        _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+                        _me.setExcelUrl(0, 0, 0, "", "", "");
+                        _me.ajaxComplete(0, response);
+                    },
+                    beforeSend: function () {
+                        Site.blockUI();
+                    }
+                };
+                if (ajaxRequest !== null) {
+                    ajaxRequest.abort();
+                }
+
+                ajaxRequest = $.ajax(option);
+                return true;
+            },
+
+            setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
+                var temp = "api/WinLossByProductReport/Index";
+                if (level > 0) {
+                    temp += "?level=" + level + "&currencyId=" + currencyId + "&custId=" + custId + "&fdate=" +
+                    moment(fdate).format("MM/DD/YYYY") + "&tdate=" + moment(tdate).format("MM/DD/YYYY") +
+                    "&memberid=" + _memberId + "&systemid=" + _systemId + "&currencyname=" + currencyName;
+                }
+                WinLossByProductOption.urlExcelData = temp;
+            },
+
+            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
+                var titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
+                var currencyNameOnTitle = currencyName ? currencyName : getCurrencyNameForReportTitle(currencyId);
+                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyNameOnTitle);
+                $(".report-title").html(title);
+                $(".panel-heading").removeClass("hide");
+            },
+
+            ajaxComplete: function (level, response) {
+                if (response !== null) {
+                    _cacheData[level] = response;
+                    renderBreadCrumb(level, WinLossByProductOption.licenseeId);
+                    _me.bindData(level, _submitData.ReportBy, response);
+                }
+            },
+
+            bindData: function (level, reportBy, response) {
+                jqGridAdditional.clearGrid("ReportGrid");
+                var numOfRow = response.Data.length;
+                if (numOfRow === 0) {
+                    jqGridAdditional.setNoInfo();
+                    return;
+                }
+
+                level = Number(level);
+                var reportGrid = $("#ReportGrid");
+                var onPaging = false;
+
+                var gridOption = WinLossByProductOption.getGridOption(level, reportBy);
+                gridOption.data = response.Data;
+                gridOption.sortname = "Index";
+                gridOption.rowNum = level === 2 ? WinLossByProductOption.pageSize : WinLossByProductOption.nonePagingSize;
+                gridOption.rowList = WinLossByProductOption.rowList;
+                gridOption.rowTotal = numOfRow;
+                gridOption.onPaging = function (pgButton) {
+                    if (level === 2 && numOfRow > WinLossByProductOption.pageSize) {
+                        if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
+                            Site.blockUI();
+                        }
+                        onPaging = true;
+                    }
+                    else {
+                        return 'stop';
+                    }
+                };
+                gridOption.gridComplete = function () {
+                    jqGridAdditional.gridComplete();
+                    switch (level) {
+                        case 0:
+                            reportGrid.tableRowSpan([0, 4]);
+                            break;
+                        case 1:
+                            reportGrid.tableRowSpan([0, WinLossByProductOption.systemIdIndex], WinLossByProductOption.currencyIndex);
+                            break;
+                        case 2:
+                            reportGrid.tableRowSpan([0, WinLossByProductOption.externalIdIndex, WinLossByProductOption.systemIdIndex],
+                                                         WinLossByProductOption.currencyIndex);
+                            break;
+                    }
+                    if (level === 2 && numOfRow > WinLossByProductOption.pageSize) {
+                        $("#pg_ppdata").show();
+                    }
+                    else {
+                        $("#pg_ppdata").hide();
+                    }
+
+                    if (onPaging && level === 2) {
+                        $(".ui-jqgrid-ftable").html($("#footer").html());
+                    }
+                    else {
+                        //_me.bindTotal(level, response.Total, response.SummaryTotal);
+                        $("#footer").html($(".ui-jqgrid-ftable").html());
+                    }
+
+                    onPaging = false;
+                    _me.resizeGrid();
+                    Site.unBlockUI();
+                };
+
+                reportGrid.jqGrid(gridOption);
+
+                if (WinLossByProductOption.hasCustomerComm) {
+                    jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
+                }
+
+                //set rowspan for footer row
+                $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByProductOption.currencyIndex]);
+            },
+
+            bindTotal: function (level, totalData, summaryTotal) {
+                var productOptions = $.parseJSON(_submitData.ProductOptions);
+                var columnModel = WinLossByProductOption.getTotalColModel(level, productOptions);
+                var colspan = WinLossByProductOption.totalColspan[level];
+                var summaryColspan = colspan + 1;
+                jqGridAdditional.assignTotal(totalData, columnModel);
+                var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
+
+                var allowScrolling = true;
+                jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount, allowScrolling);
+            },
+
+            goBack: function (level) {
+                var reportBy = _submitData.ReportBy;
+                renderBreadCrumb(level, WinLossByProductOption.licenseeId);
+                _me.bindData(level, reportBy, _cacheData[level]);
+
+                if (level === 0) {
+                    _me.setExcelUrl(0, 0, 0, "", "", "");
+                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+                }
+                else {
+                    LicenseeWinLossOption.urlExcelData = LicenseeWinLossOption.urlExcelData.replace("level=2", "level=1");
+                }
+            },
+
+            openBetlistPopUp: function (dataDrillDown) {
+                dataDrillDown = $.parseJSON(dataDrillDown);
+                dataDrillDown.DrawFilter = _submitData.DrawFilter;
+                dataDrillDown.IsExcludedTestData = _submitData.IsExcludedTestData;
+                dataDrillDown.CurrencyId = _submitData.CurrencyId;
+                dataDrillDown.CurrencyName = _submitData.CurrencyName;
+                if (typeof dataDrillDown.DrillDownFromDate === 'string') {
+                    dataDrillDown.DrillDownFromDate = new Date(dataDrillDown.DrillDownFromDate);
+                    dataDrillDown.DrillDownToDate = new Date(dataDrillDown.DrillDownToDate);
+                }
+
+                var dateRange = GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownFromDate);
+
+                var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
+                url = Site.setProductOptionOriginalParamList(url);
+                url = Site.setLicenseeOptionOriginalParam(url);
+                url = QueryString.setParam(url, "fromdate", moment(dateRange.FromDate).format("MM/DD/YYYY"));
+                url = QueryString.setParam(url, "todate", moment(dateRange.ToDate).format("MM/DD/YYYY"));
+                url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
+                url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
+                url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
+                url = QueryString.setParam(url, "drawfilter", dataDrillDown.DrawFilter);
+                url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
+                url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
+                url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
+                url = QueryString.setParam(url, "OriginalCurrenceId", dataDrillDown.CurrencyId);
+                url = QueryString.setParam(url, "OriginalCurrencyName", dataDrillDown.CurrencyName);
+
+                var popH = Math.min($(window).height() - 100, 500), popW = 920;
+                var popupOption = { id: "betlist-popup", width: popW + 30, height: popH + 50, title: "Customer Bet List" };
+                Popup.openPopupWithIframe(url, popupOption);
+            },
+
+            resizeGrid: function () {
+                var reportGrid = $("#ReportGrid");
+                jqGridAdditional.updateGridHeight();
+                jqGridAdditional.updateGridWidth(reportGrid);
+            },
+
+            drillDown: function (level, currencyId, customerId, datetime, currencyName) {
+                var param = {
+                    MemberId: _memberId,
+                    ProductOptions: $.parseJSON(_submitData.ProductOptions),
+                    DrawFilter: _submitData.DrawFilter,
+                    IsExcludedTestData: _submitData.IsExcludedTestData,
+                    CurrencyId: _submitData.CurrencyId,
+                    ReportBy: _submitData.ReportBy,
+                    FromDate: _submitData.FromDate,
+                    ToDate: _submitData.ToDate,
+                    BaseCurrency: $("#BaseCurrency").attr("data-original")
+                };
+                var drilldownDate = new Date(datetime);
+                var dateRange = GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
+
+                var url = Site.resolveClientUrl(WinLossByProductOption.urlData) + "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
+                         "&fdate=" + moment(dateRange.FromDate).format("MM/DD/YYYY") + "&tdate=" + moment(dateRange.ToDate).format("MM/DD/YYYY");
+                var option = {
+                    type: "POST",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    contentType: "application/json",
+                    cache: false,
+                    url: url,
+                    success: function (response) {
+                        _me.ajaxComplete(level, response);
+                        if (response !== null && response.Data.length > 0) {
+                            if (level > 0 && param.CurrencyId === '0') {
+                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
+                            } else {
+                                _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
+                            }
+
+                            _me.setExcelUrl(level, currencyId, customerId, dateRange.FromDate, dateRange.ToDate, currencyName);
+                        }
+                    },
+                    beforeSend: function () {
+                        Site.blockUI();
+                    },
+                    complete: function () {
+                        Site.unBlockUI();
+                    }
+                };
+
+                if (ajaxRequest !== null) {
+                    ajaxRequest.abort();
+                }
+                ajaxRequest = $.ajax(option);
+            }
+        };
+
+        return _me;
+    });

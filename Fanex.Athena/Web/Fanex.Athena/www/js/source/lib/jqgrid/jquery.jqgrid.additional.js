@@ -122,8 +122,6 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                         titleText: Site.getSingleResource('CustomerW_L')
                     }]
                 });
-                $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column div").addClass("header-one-line");
-                $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column span").css("height", "45px !important");
             },
 
             resetHeaderHeight: function () {
