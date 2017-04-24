@@ -8,7 +8,7 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 {
     public class CashOutBetListDetailMetaModel
     {
-        public string BaseCurrrency { get; set; }
+        public string BaseCurrency { get; set; }
 
         public long TransId { get; set; }
 

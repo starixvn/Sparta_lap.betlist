@@ -39,11 +39,11 @@ namespace Fanex.Athena.DataAccess.BetList
                     using (var reader = db.ExecuteReader(param))
                     {
                         var viewModel = new CashOutBetListDetailViewModel();
-                        viewModel.OriginalTicket = ReadBetListTicket(reader, metaModel.BaseCurrrency).GetFirstOrDefault() ?? new LrfTicket();
+                        viewModel.OriginalTicket = ReadBetListTicket(reader, metaModel.BaseCurrency).GetFirstOrDefault() ?? new LrfTicket();
 
                         if (reader.NextResult())
                         {
-                            viewModel.CashOutTicketList = ReadCashOutTickets(reader, metaModel.BaseCurrrency);
+                            viewModel.CashOutTicketList = ReadCashOutTickets(reader, metaModel.BaseCurrency);
                         }
 
                         return viewModel;
