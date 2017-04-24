@@ -101,16 +101,22 @@ namespace Fanex.Athena
             }
         }
 
-        public override void Dispose()
+        public sealed override void Dispose()
         {
+            Dispose(true);
+
             GC.SuppressFinalize(_apiCompress);
+        }
 
-            if (_apiCompress != null)
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                _apiCompress.Dispose();
+                if (_apiCompress != null)
+                {
+                    _apiCompress.Dispose();
+                }
             }
-
-            base.Dispose();
         }
 
         /// <summary>

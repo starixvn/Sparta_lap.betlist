@@ -82,7 +82,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.UserId = userSession.UserId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            if (metaModel == null || !metaModel.IsValid)
+            if (!metaModel.IsValid)
             {
                 Response.Redirect("~/Utility/Error?errCode=400");
             }

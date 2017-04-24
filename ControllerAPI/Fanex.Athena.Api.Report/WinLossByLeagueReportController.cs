@@ -74,7 +74,7 @@ namespace Fanex.Athena.Api.Report
             var templatePath = HttpContext.Current.Server.MapPath("~/App_Data/Template/Reports/WinLossByLeagues.xls");
 
             var currencyList = SessionService.UserSession.CurrencyList;
-            var currency = currencyList.SingleOrDefault(i => i.Key == (metaModel.Level == 0 ? metaModel.CurrencyId : metaModel.CurrencyId));
+            var currency = currencyList.SingleOrDefault(i => i.Key == metaModel.CurrencyId);
 
             var convertingOption = new ConvertingOption
             {

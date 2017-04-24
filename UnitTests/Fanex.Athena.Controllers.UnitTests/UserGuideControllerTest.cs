@@ -95,7 +95,7 @@
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.DownloadCustomerListPdf() as FilePathResult;
+                var result = controller.DownloadCustomerListPdf();
 
                 // Assert
                 Assert.That(result.FileName, Is.EqualTo("~/App_Data/UserGuide/CustomerList/pdf/en-Us/Odds Group Feature_Licensee.pdf"));
