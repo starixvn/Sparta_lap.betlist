@@ -117,6 +117,7 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
             if (isExportedExcel != null)
             {
+                metaModel.PageIndex = 1;
                 metaModel.PageSize = PageSizeExcel;
                 var dataListExcel = _custBalanceService.GetDataList(metaModel, ref totalData, ref totalRows);
                 model.DataList = dataListExcel;
