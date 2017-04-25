@@ -1,32 +1,17 @@
-<<<<<<< HEAD
-webpackJsonp([38],{
-=======
-webpackJsonp([37],{
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+webpackJsonp([39],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-	module.exports = __webpack_require__(209);
-=======
-	module.exports = __webpack_require__(207);
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+	module.exports = __webpack_require__(211);
 
 
 /***/ },
 
-<<<<<<< HEAD
-/***/ 202:
+/***/ 204:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(203)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
-=======
-/***/ 200:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(201)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(205)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
 	    var curCountDown = 0;
 	    var countDownTimer = null;
 	    var cookieName = null;
@@ -150,11 +135,7 @@ webpackJsonp([37],{
 
 /***/ },
 
-<<<<<<< HEAD
-/***/ 203:
-=======
-/***/ 201:
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+/***/ 205:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -275,17 +256,10 @@ webpackJsonp([37],{
 
 /***/ },
 
-<<<<<<< HEAD
-/***/ 209:
+/***/ 211:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(210)], __WEBPACK_AMD_DEFINE_RESULT__ = function (NewForecastHdpOu) {
-=======
-/***/ 207:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(208)], __WEBPACK_AMD_DEFINE_RESULT__ = function (NewForecastHdpOu) {
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(212)], __WEBPACK_AMD_DEFINE_RESULT__ = function (NewForecastHdpOu) {
 		"use strict";
 	
 		$(NewForecastHdpOu.initialize);
@@ -294,17 +268,10 @@ webpackJsonp([37],{
 
 /***/ },
 
-<<<<<<< HEAD
-/***/ 210:
+/***/ 212:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(202)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
-=======
-/***/ 208:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(200)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(204)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
 	    var _hiddenContents = [];
 	
 	    var _me = {

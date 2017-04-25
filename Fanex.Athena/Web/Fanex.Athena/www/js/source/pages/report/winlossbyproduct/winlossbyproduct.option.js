@@ -129,7 +129,6 @@
     };
     var licenseeWlColumn = {
         name: 'LicenseeWL',
-        classes: 'highlight',
         index: 'LicenseeWL',
         width: 100,
         align: 'right',
@@ -141,7 +140,6 @@
     };
     var LicenseeWlCommColumn = {
         name: 'LicenseeWLComm',
-        classes: 'highlight',
         index: 'LicenseeWLComm',
         width: 90,
         align: 'right',
@@ -161,25 +159,6 @@
         formatter: 'currency',
         formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
     };
-
-    var currencyIdColumn = {
-        name: 'CurrencyId',
-        index: 'CurrencyId',
-        width: 0,
-        align: 'center',
-        sortable: false,
-        resizable: false,
-        hidden: true
-    };
-    var customerIdColumn = {
-        name: 'CustomerId',
-        index: 'CustomerId',
-        width: 0,
-        align: 'center',
-        sortable: false,
-        resizable: false,
-        hidden: true
-    };
     var productColumn = {
         name: 'ProductName',
         index: 'productName',
@@ -192,10 +171,10 @@
     };
 
     var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency", 'Product', 'Turnover',
-                'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'LicenseeW_L', 'Comm', 'AmountDue', 'CurrencyId', 'CustomerId'];
+                'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'LicenseeW_L', 'Comm', 'AmountDue'];
     var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn, productColumn, turnoverColumn,
                 totalTransColumn, customerWlColumn, playerCommColumn, customerWlTotalColumn,
-                 licenseeWlColumn, LicenseeWlCommColumn, amtDueToColumn, currencyIdColumn, customerIdColumn];
+                 licenseeWlColumn, LicenseeWlCommColumn, amtDueToColumn];
 
     var _me = {
         licenseeId: 0,
@@ -209,7 +188,6 @@
         pageSize: 50,
         nonePagingSize: 2000,
         rowNum: 50,
-        rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
         totalColspan: [1, 2, 3],
         //level 0,1,2
         urlData: 'api/WinLossByProductReport/Index',
@@ -232,7 +210,9 @@
             userDataOnFooter: true,
             userData: [],
             viewrecords: true,
-            gridview: true
+            gridview: true,
+            sortname: "Index",
+            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000]
         }
     };
 
@@ -279,7 +259,7 @@
 
         if (level === 0) {
             _me.gridOption.grouping = true;
-            _me.gridOption.groupingView = { groupField: ['Date'], groupColumnShow: [false] };
+            _me.gridOption.groupingView = { groupField: ['Date'], groupColumnShow: [true] };
         } else {
             _me.gridOption.grouping = false;
             _me.gridOption.groupingView = null;

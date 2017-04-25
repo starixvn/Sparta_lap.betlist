@@ -1,32 +1,17 @@
-<<<<<<< HEAD
-webpackJsonp([47],{
-=======
-webpackJsonp([45],{
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+webpackJsonp([48],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-	module.exports = __webpack_require__(243);
-=======
-	module.exports = __webpack_require__(237);
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+	module.exports = __webpack_require__(245);
 
 
 /***/ },
 
-<<<<<<< HEAD
-/***/ 243:
+/***/ 245:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(244)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SettledMatchCount) {
-=======
-/***/ 237:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(238)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SettledMatchCount) {
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(246)], __WEBPACK_AMD_DEFINE_RESULT__ = function (SettledMatchCount) {
 	    "use strict";
 	
 	    $(SettledMatchCount.initialize);
@@ -35,11 +20,7 @@ webpackJsonp([45],{
 
 /***/ },
 
-<<<<<<< HEAD
-/***/ 244:
-=======
-/***/ 238:
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+/***/ 246:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";

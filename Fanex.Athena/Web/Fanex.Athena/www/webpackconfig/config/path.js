@@ -38,7 +38,6 @@ var cssPaths = {
     result: ["./www/css/source/pages/report/result.scss"],
     cashoutwinloss: ["./www/css/source/pages/report/cashoutwinloss.scss"],
     cashouthistory: ["./www/css/source/pages/betlist/cashouthistory.main.scss", "./www/css/source/extensions/popup-ex.scss"],
-    result: ["./www/css/source/pages/report/result.scss"],
 
     winlossbyproduct: ["./www/css/source/pages/report/winlossbyproduct.scss"]
 };
@@ -81,7 +80,6 @@ var scriptPaths = {
     turnover: "./www/js/source/pages/report/turnover/main.js",
     result: "./www/js/source/pages/report/result/main-result.js",
     cashoutwinloss: "./www/js/source/pages/report/cashoutwinloss/main.js",
-    result: "./www/js/source/pages/report/result/main-result.js",
 
     winlossbyproduct: "./www/js/source/pages/report/winlossbyproduct/main-winlossbyproduct.js"
 };

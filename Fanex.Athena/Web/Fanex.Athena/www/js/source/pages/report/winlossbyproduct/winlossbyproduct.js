@@ -1,8 +1,8 @@
 ﻿define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid.additional", "./winlossbyproduct.option", "moment", "common/popup",
-    "components/pluginhelper/daterangepicker", "../report",
+    "components/pluginhelper/daterangepicker", "../report", "components/pluginhelper/multiselect",
     "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"
 ],
-    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report) {
+    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect) {
         "use strict";
 
         var LICENSEE_12BET = 1;
@@ -13,76 +13,11 @@
         var _memberId, _systemId; // store data when submit level 0
         var _submitData = {}; // cache submit data of level 0.
 
-        function GetDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
-            if (Number(reportBy) === REPORT_BY_MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
-                if (month === orignalFDate.getMonth()) {
-                    fday = orignalFDate.getDate();
-                }
-                fdate = new Date(year, month, fday, 0, 0, 0, 0);
-                var originalTDate = new Date(toDate);
-
-                if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
-                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
-                }
-                else {
-                    tdate = lastDateOfMonth(year, month);
-                }
-            }
-
-            return {
-                FromDate: fdate,
-                ToDate: tdate
-            };
-        }
-
-        function lastDateOfMonth(year, month) {
-            return moment([year, month + 1]).endOf('month');
-        }
-
-        function getCurrencyNameForReportTitle(currencyId) {
-            var viewinKey = Site.getSingleResource("Viewin");
-            var currencyTextList = {
-                "-3": viewinKey.replace("{0}", "GBP"),
-                "-2": viewinKey.replace("{0}", "USD"),
-                "-1": viewinKey.replace("{0}", "EUR"),
-                "0": Site.getSingleResource('AllCurrencies')
-            };
-
-            return currencyTextList[currencyId] === undefined
-                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
-                : currencyTextList[currencyId];
-        }
-
-        function renderBreadCrumb(level, licenseeId) {
-            level = Number(level);
-            if (level === 0) {
-                $(".breadCrumbHolder").hide();
-            }
-            else {
-                $(".breadCrumbHolder").show();
-                $("#level-link-container .level0").show();
-
-                var isLevel2 = level === 2;
-                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
-
-                var allowShowLevel1 = licenseeId === 1;
-                $("#level-link-container .level1").toggle(allowShowLevel1);
-                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
-            }
-        }
-
         var _me = {
             initialize: function () {
                 Site.initialize();
                 DatePicker.initDateRangePicker();
-                Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#ProductOptionJson").val(), 'Code', 'Name', 'Status');
+                MultiSelect.initialize('grid-products-multiselect', $("#ProductOptionJson").val(), 'Code', 'Name', 'Status');
                 Site.setConstraintMonthRange(VALID_MONTH_RANGE, WinLossByProductOption.urlExcelData);
                 Site.addUserGuide({
                     resourceName: "WinLossByProduct",
@@ -204,7 +139,7 @@
 
             setReportTitle: function (currencyId, fromdate, todate, currencyName) {
                 var titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
-                var currencyNameOnTitle = currencyName ? currencyName : getCurrencyNameForReportTitle(currencyId);
+                var currencyNameOnTitle = currencyName ? currencyName : Report.getCurrencyNameForReportTitle(currencyId);
                 var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyNameOnTitle);
                 $(".report-title").html(title);
                 $(".panel-heading").removeClass("hide");
@@ -213,7 +148,7 @@
             ajaxComplete: function (level, response) {
                 if (response !== null) {
                     _cacheData[level] = response;
-                    renderBreadCrumb(level, WinLossByProductOption.licenseeId);
+                    Report.renderBreadCrumb(level, WinLossByProductOption.licenseeId);
                     _me.bindData(level, _submitData.ReportBy, response);
                 }
             },
@@ -232,9 +167,7 @@
 
                 var gridOption = WinLossByProductOption.getGridOption(level, reportBy);
                 gridOption.data = response.Data;
-                gridOption.sortname = "Index";
                 gridOption.rowNum = level === 2 ? WinLossByProductOption.pageSize : WinLossByProductOption.nonePagingSize;
-                gridOption.rowList = WinLossByProductOption.rowList;
                 gridOption.rowTotal = numOfRow;
                 gridOption.onPaging = function (pgButton) {
                     if (level === 2 && numOfRow > WinLossByProductOption.pageSize) {
@@ -249,18 +182,8 @@
                 };
                 gridOption.gridComplete = function () {
                     jqGridAdditional.gridComplete();
-                    switch (level) {
-                        case 0:
-                            reportGrid.tableRowSpan([0, 4]);
-                            break;
-                        case 1:
-                            reportGrid.tableRowSpan([0, WinLossByProductOption.systemIdIndex], WinLossByProductOption.currencyIndex);
-                            break;
-                        case 2:
-                            reportGrid.tableRowSpan([0, WinLossByProductOption.externalIdIndex, WinLossByProductOption.systemIdIndex],
-                                                         WinLossByProductOption.currencyIndex);
-                            break;
-                    }
+                    _me.rowSpanByLevel(reportGrid, level);
+
                     if (level === 2 && numOfRow > WinLossByProductOption.pageSize) {
                         $("#pg_ppdata").show();
                     }
@@ -272,23 +195,42 @@
                         $(".ui-jqgrid-ftable").html($("#footer").html());
                     }
                     else {
-                        //_me.bindTotal(level, response.Total, response.SummaryTotal);
+                        _me.bindTotal(level, response.Total, response.SummaryTotal);
                         $("#footer").html($(".ui-jqgrid-ftable").html());
                     }
 
                     onPaging = false;
+
+                    if (WinLossByProductOption.hasCustomerComm) {
+                        jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
+                    }
+
+                    //set rowspan for footer row
+                    $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByProductOption.currencyIndex]);
+
                     _me.resizeGrid();
+
+                    var coulumnVisibleCount = gridOption.colModel.filter(function (item) { return !item.hidden; }).length;
+                    reportGrid.find("tr.jqgroup td").attr("colspan", coulumnVisibleCount);
                     Site.unBlockUI();
                 };
 
                 reportGrid.jqGrid(gridOption);
+            },
 
-                if (WinLossByProductOption.hasCustomerComm) {
-                    jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
+            rowSpanByLevel: function($grid, level){
+                switch (level) {
+                    case 0:
+                        $grid.tableRowSpan([0, 4]);
+                        break;
+                    case 1:
+                        $grid.tableRowSpan([0, WinLossByProductOption.systemIdIndex], WinLossByProductOption.currencyIndex);
+                        break;
+                    case 2:
+                        $grid.tableRowSpan([0, WinLossByProductOption.externalIdIndex, WinLossByProductOption.systemIdIndex],
+                                                     WinLossByProductOption.currencyIndex);
+                        break;
                 }
-
-                //set rowspan for footer row
-                $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByProductOption.currencyIndex]);
             },
 
             bindTotal: function (level, totalData, summaryTotal) {
@@ -305,7 +247,7 @@
 
             goBack: function (level) {
                 var reportBy = _submitData.ReportBy;
-                renderBreadCrumb(level, WinLossByProductOption.licenseeId);
+                Report.renderBreadCrumb(level, WinLossByProductOption.licenseeId);
                 _me.bindData(level, reportBy, _cacheData[level]);
 
                 if (level === 0) {
@@ -328,7 +270,7 @@
                     dataDrillDown.DrillDownToDate = new Date(dataDrillDown.DrillDownToDate);
                 }
 
-                var dateRange = GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownFromDate);
+                var dateRange = Report.GetDrilldownDateRange(_submitData.ReportBy, _submitData.FromDate, _submitData.ToDate, dataDrillDown.DrillDownFromDate);
 
                 var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
                 url = Site.setProductOptionOriginalParamList(url);
@@ -369,7 +311,7 @@
                     BaseCurrency: $("#BaseCurrency").attr("data-original")
                 };
                 var drilldownDate = new Date(datetime);
-                var dateRange = GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
+                var dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
 
                 var url = Site.resolveClientUrl(WinLossByProductOption.urlData) + "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId +
                          "&fdate=" + moment(dateRange.FromDate).format("MM/DD/YYYY") + "&tdate=" + moment(dateRange.ToDate).format("MM/DD/YYYY");

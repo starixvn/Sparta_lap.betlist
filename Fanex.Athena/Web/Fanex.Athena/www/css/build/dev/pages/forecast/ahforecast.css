@@ -139,9 +139,6 @@
   border: 1px solid #d6d6d6;
   color: #404040;
   padding: 2px 5px;
-  background: #ededed; }
-
-.table > tbody tr:nth-child(odd) td {
   background: #fff; }
 
 .table > tbody tr:hover td {

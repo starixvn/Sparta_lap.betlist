@@ -1,26 +1,14 @@
-<<<<<<< HEAD
-webpackJsonp([26],{
-=======
-webpackJsonp([25],{
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+webpackJsonp([27],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-	module.exports = __webpack_require__(66);
-=======
-	module.exports = __webpack_require__(64);
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+	module.exports = __webpack_require__(68);
 
 
 /***/ },
 
-<<<<<<< HEAD
-/***/ 66:
-=======
-/***/ 64:
->>>>>>> baed3a1... #73738 - Add View for Win Loss By Product report
+/***/ 68:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
