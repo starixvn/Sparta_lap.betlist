@@ -117,6 +117,9 @@
                     },
                     beforeSend: function () {
                         Site.blockUI();
+                    },
+                    complete: function () {
+                        Site.unBlockUI();
                     }
                 };
                 if (ajaxRequest !== null) {
@@ -211,7 +214,7 @@
                     _me.resizeGrid();
 
                     var coulumnVisibleCount = gridOption.colModel.filter(function (item) { return !item.hidden; }).length;
-                    reportGrid.find("tr.jqgroup td").attr("colspan", coulumnVisibleCount);
+                    reportGrid.find("tr.jqgroup td").attr("colspan", coulumnVisibleCount - 1); // -1 for hiding of Date column
                     Site.unBlockUI();
                 };
 

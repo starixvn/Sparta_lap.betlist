@@ -259,7 +259,7 @@
 
         if (level === 0) {
             _me.gridOption.grouping = true;
-            _me.gridOption.groupingView = { groupField: ['Date'], groupColumnShow: [true] };
+            _me.gridOption.groupingView = { groupField: ['Date'], groupColumnShow: [false] };
         } else {
             _me.gridOption.grouping = false;
             _me.gridOption.groupingView = null;

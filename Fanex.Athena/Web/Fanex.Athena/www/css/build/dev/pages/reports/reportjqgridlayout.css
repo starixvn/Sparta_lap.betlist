@@ -1676,4 +1676,8 @@ ul.ui-multiselect-checkboxes {
 tr.total td {
   background: #ffb391; }
 
+.theme_jqGrid .ui-jqgrid-btable tr.jqgroup td {
+  background: #D1DAE1;
+  font-weight: bold; }
+
 /*# sourceMappingURL=reportjqgridlayout.css.map*/

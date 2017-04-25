@@ -1,9 +1,23 @@
-﻿@import 'reportcommon.main';
+﻿@import "../../scss/abstracts/_variables";
+@import 'reportcommon.main';
 @import '../../components/jqgrid/jqgrid.main';
 @import '../../components/multiselect/multiselect.main';
+
+$bgRowGroupLevel1: #D1DAE1;
 
 tr {
     &.total td {
         background: #ffb391;
+    }
+}
+
+.theme_jqGrid {
+    .ui-jqgrid-btable {
+        tr {
+            &.jqgroup td {
+                background: $bgRowGroupLevel1;
+                font-weight: bold;
+            }
+        }
     }
 }
