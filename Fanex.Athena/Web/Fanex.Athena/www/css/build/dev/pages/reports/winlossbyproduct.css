@@ -431,9 +431,32 @@
   .breadcrumb.flat a.active:hover {
     background: #4C6375; }
 
-.ui-jqgrid .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th.ui-th-column-header, .ui-jqgrid .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th.ui-th-column {
+.dropdown-content {
+  opacity: 1;
+  top: 25px; }
+
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th.ui-th-column-header, .theme_jqGrid .ui-jqgrid .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th.ui-th-column {
   background: #9eb4c3;
   color: #2c3d4b;
   font-weight: bold; }
+
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-btable .jqgroup .ui-icon {
+  float: right;
+  font-weight: bold; }
+
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-btable .jqgroup .ui-icon-circlesmall-plus {
+  transform: rotate(-90deg); }
+
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-btable .jqgroup > td {
+  padding-right: 10px; }
+  .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable .jqgroup > td:before {
+    content: "";
+    padding-left: 10px; }
+
+.theme_jqGrid .ui-jqgrid .grandTotal > td {
+  background: #fff; }
+
+.theme_jqGrid .ui-jqgrid .total-eur > td {
+  background: #B8C3C9; }
 
 /*# sourceMappingURL=winlossbyproduct.css.map*/

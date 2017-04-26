@@ -2,10 +2,53 @@
 @import '../../components/daterangepicker/daterangepicker-ex';
 @import '../../components/breadcrumb/breadcrumb';
 
-.ui-jqgrid .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th {
-    &.ui-th-column-header, &.ui-th-column {
-        background: $bgHeaderTableLevel2;
-        color: #2c3d4b;
-        font-weight: bold;
+.dropdown-content {
+    opacity: 1;
+    top: 25px;
+}
+
+.theme_jqGrid {
+    .ui-jqgrid {
+        .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th {
+            &.ui-th-column-header, &.ui-th-column {
+                background: $bgHeaderTableLevel2;
+                color: #2c3d4b;
+                font-weight: bold;
+            }
+        }
+
+        .ui-jqgrid-btable {
+            .jqgroup {
+                .ui-icon {
+                    float: right;
+                    font-weight: bold;
+                }
+
+                .ui-icon-circlesmall-plus {
+                    transform: rotate(-90deg);
+                }
+
+                > td {
+                    padding-right: 10px;
+
+                    &:before {
+                        content: "";
+                        padding-left: 10px;
+                    }
+                }
+            }
+        }
+
+        .grandTotal{
+            > td{
+                background: $white;
+            }
+        }
+
+        .total-eur {
+            > td {
+                background: $bgSummaryTotal;
+            }
+        }
     }
 }

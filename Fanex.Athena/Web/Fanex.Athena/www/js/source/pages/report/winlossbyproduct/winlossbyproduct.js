@@ -1,8 +1,7 @@
 ﻿define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid.additional", "./winlossbyproduct.option", "moment", "common/popup",
-    "components/pluginhelper/daterangepicker", "../report", "components/pluginhelper/multiselect",
-    "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"
-],
-    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect) {
+    "components/pluginhelper/daterangepicker", "../report", "components/pluginhelper/multiselect", "components/pluginhelper/autocomplete",
+    "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
+    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect, AutoComplete) {
         "use strict";
 
         var LICENSEE_12BET = 1;
@@ -26,6 +25,8 @@
                 _me.initEvent();
                 _me.initSetting();
                 _me.registerGlobalFunction();
+
+                _me.initAutoComplete();
             },
 
             initSetting: function () {
@@ -33,6 +34,15 @@
                 WinLossByProductOption.IsAllowBA = Site.asBool($("#IsAllowedBACommission").val());
                 WinLossByProductOption.IsAllowRB = Site.asBool($("#IsAllowedRacing").val());
                 WinLossByProductOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+            },
+
+            initAutoComplete: function(){
+                var option = {
+                    url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
+                    target: "#Username"
+                }
+
+                AutoComplete.initialize(option);
             },
 
             registerGlobalFunction: function () {
@@ -68,6 +78,7 @@
 
                 $(window).on("resize", function () {
                     _me.resizeGrid();
+                    AutoComplete.updateWidthOfSuggestionDropdown();
                 });
 
                 $(window).on("unload", function () {
@@ -221,7 +232,7 @@
                 reportGrid.jqGrid(gridOption);
             },
 
-            rowSpanByLevel: function($grid, level){
+            rowSpanByLevel: function ($grid, level) {
                 switch (level) {
                     case 0:
                         $grid.tableRowSpan([0, 4]);
