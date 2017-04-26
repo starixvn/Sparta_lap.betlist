@@ -300,7 +300,7 @@ namespace Fanex.Athena.Api.Report
             }
 
             return dataList.Count > 0
-                ? (dynamic)new
+                ? new
                 {
                     Data = WinLossByProductRestructureData(dataList, level),
                     Total = _winlossByProductService.TotalCalc(dataList),
