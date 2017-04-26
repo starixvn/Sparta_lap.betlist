@@ -67,7 +67,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.CustomerW_L,
                 ViewResources.LicenseeW_L,
                 ViewResources.BACommission,
-                ViewResources.AmountDue,
+                ViewResources.AmountDueTo,
             };
         }
 
@@ -158,9 +158,9 @@ namespace Fanex.Athena.Excel.Report
 
             for (int index = pageIndex * PageSize; index < rowCount; index++)
             {
-                WinLossByLeague winlossByLeague = _winlossByLeagueList[index];
+                var winlossByLeague = _winlossByLeagueList[index];
 
-                IRow rowContent = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
+                var rowContent = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
 
                 rowContent.Cells[ColumnIndex].SetCellValue(winlossByLeague.Index);
                 if (Level == 0)

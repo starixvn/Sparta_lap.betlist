@@ -108,6 +108,7 @@ namespace Fanex.Athena
                 GC.SuppressFinalize(_apiCompress);
                 _apiCompress.Dispose();
             }
+
             base.Dispose();
         }
 
