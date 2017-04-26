@@ -1,20 +1,20 @@
-﻿/*global Site, JSLINQ*/
+﻿/*global Site, JSLINQ, LastBetGrid*/
 
 "use strict";
 
 var LastBetFilter = (function () {
     var _me = {};
 
-    _me.highLightSubmitIntervalId = 0;
+    var _highLightSubmitIntervalId = 0;
 
-    _me.currentMatchList = [];
-    _me.currentLeagueList = [];
+    var _currentMatchList = [];
+    var _currentLeagueList = [];
 
     _me.initSports = function () {
         $("#sports").change(function () {
             _me.setHighlightSubmit();
             var sportId = Number($(this).val());
-            LastBetGrid.numberParam("sportId", sportId);
+            LastBetGrid.numberParam("SportId", sportId);
 
             var mixParlaySportId = 999;
             $("#league").html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
@@ -40,9 +40,9 @@ var LastBetFilter = (function () {
                         Site.unBlockUI();
                     },
                     success: function (data) {
-                        _me.currentMatchList = data.MatchList;
+                        _currentMatchList = data.MatchList;
                         var leagueDropdown = $("#league");
-                        _me.currentLeagueList = data.LeagueList;
+                        _currentLeagueList = data.LeagueList;
                         $(data.LeagueList).each(function (i, e) {
                             leagueDropdown.append("<option value='" + e.LeagueId + "'>" + e.LeagueName + "</option>");
                         });
@@ -52,8 +52,8 @@ var LastBetFilter = (function () {
 
             $("#match").html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
             //update leagueId and matchId
-            LastBetGrid.numberParam("leagueId", $("#league").val());
-            LastBetGrid.numberParam("matchId", $("#match").val());
+            LastBetGrid.numberParam("LeagueId", $("#league").val());
+            LastBetGrid.numberParam("MatchId", $("#match").val());
         });
     };
 
@@ -61,7 +61,7 @@ var LastBetFilter = (function () {
         $("#league").change(function () {
             _me.setHighlightSubmit();
             var leagueId = Number($(this).val());
-            LastBetGrid.numberParam("leagueId", leagueId);
+            LastBetGrid.numberParam("LeagueId", leagueId);
             $("#match").html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
 
             if (leagueId === 0) {
@@ -69,9 +69,9 @@ var LastBetFilter = (function () {
             }
             else {
                 // Bind match league
-                var leagueItem = JSLINQ(_me.currentLeagueList).First(function (item) { return Number(item.LeagueId) === leagueId; });
+                var leagueItem = JSLINQ(_currentLeagueList).First(function (item) { return Number(item.LeagueId) === leagueId; });
                 if (leagueItem !== undefined && leagueItem !== null && Site.asBool(leagueItem.IsOutRight) === false) {
-                    var matchList = JSLINQ(_me.currentMatchList).Where(function (item) { return Number(item.LeagueId) === leagueId; })
+                    var matchList = JSLINQ(_currentMatchList).Where(function (item) { return Number(item.LeagueId) === leagueId; })
                                         .ToArray();
                     var matchDropdown = $("#match");
                     $(matchList).each(function (i, e) {
@@ -86,7 +86,7 @@ var LastBetFilter = (function () {
                 }
             }
             //update matchId
-            LastBetGrid.numberParam("matchId", $("#match").val());
+            LastBetGrid.numberParam("MatchId", $("#match").val());
         });
     };
 
@@ -94,7 +94,7 @@ var LastBetFilter = (function () {
         $("#match").change(function () {
             _me.setHighlightSubmit();
 
-            LastBetGrid.numberParam("matchId", $("#match").val());
+            LastBetGrid.numberParam("MatchId", $("#match").val());
         });
     };
 
@@ -102,7 +102,7 @@ var LastBetFilter = (function () {
         $("#bet-type").change(function () {
             _me.setHighlightSubmit();
 
-            LastBetGrid.stringParam("betType", $("#bet-type").val());
+            LastBetGrid.stringParam("BetType", $("#bet-type").val());
         });
     };
 
@@ -110,7 +110,7 @@ var LastBetFilter = (function () {
         $("#live-status").change(function () {
             _me.setHighlightSubmit();
 
-            LastBetGrid.stringParam("liveStatus", $("#live-status").val());
+            LastBetGrid.stringParam("LiveStatus", $("#live-status").val());
         });
     };
 
@@ -118,7 +118,7 @@ var LastBetFilter = (function () {
         $("#odds-type").change(function () {
             _me.setHighlightSubmit();
 
-            LastBetGrid.stringParam("oddsType", $("#odds-type").val());
+            LastBetGrid.stringParam("OddsType", $("#odds-type").val());
         });
     };
 
@@ -153,7 +153,7 @@ var LastBetFilter = (function () {
 
                 var selectedLevel = $("#special-level").multiSelect("getCheckedItems");
                 selectedLevel = selectedLevel.length === 11 ? "" : selectedLevel.join(",");
-                LastBetGrid.stringParam("level", selectedLevel);
+                LastBetGrid.stringParam("Level", selectedLevel);
             }
         });
     };
@@ -216,8 +216,8 @@ var LastBetFilter = (function () {
                         baseCurrencyObj.val("");
                     }
                 }
-                LastBetGrid.stringParam("currency", selectedCurrency);
-                LastBetGrid.stringParam("basedCurrency", $("#based-currency option:selected").text());
+                LastBetGrid.stringParam("Currency", selectedCurrency);
+                LastBetGrid.stringParam("BasedCurrency", $("#based-currency option:selected").text());
             }
         });
     };
@@ -226,7 +226,7 @@ var LastBetFilter = (function () {
         $("#time-zone").change(function () {
             _me.setHighlightSubmit();
 
-            LastBetGrid.numberParam("timeZone", $("#time-zone").val());
+            LastBetGrid.numberParam("TimeZone", $("#time-zone").val());
         });
     };
 
@@ -234,12 +234,12 @@ var LastBetFilter = (function () {
         $("#based-currency").change(function () {
             _me.setHighlightSubmit();
 
-            LastBetGrid.stringParam("basedCurrency", $("#based-currency").val());
+            LastBetGrid.stringParam("BasedCurrency", $("#based-currency").val());
         });
     };
 
     _me.initStake = function () {
-        var maxStake = LastBetGrid.maxStake;
+        var maxStake = LastBetGrid.getMaxStake();
         $("#stake-from").numbericTextBox(0, maxStake);
         $("#stake-to").numbericTextBox(0, maxStake);
         $("#stake-from, #stake-to").keyup(function () {
@@ -252,7 +252,7 @@ var LastBetFilter = (function () {
             var stake = $("#stake-from").val();
             stake = stake.replace(/,/g, '');
             stake = stake === "" ? 0 : parseInt(stake);
-            LastBetGrid.numberParam("stakeFrom", stake);
+            LastBetGrid.numberParam("StakeFrom", stake);
         });
 
         $("#stake-to").change(function () {
@@ -262,7 +262,7 @@ var LastBetFilter = (function () {
 
             stake = stake.replace(/,/g, '');
             stake = stake === "" ? maxStake : parseInt(stake);
-            LastBetGrid.numberParam("stakeTo", stake);
+            LastBetGrid.numberParam("StakeTo", stake);
         });
     };
 
@@ -272,7 +272,7 @@ var LastBetFilter = (function () {
 
             $("#pagesize input").prop("disabled", false);
             $(this).prop("disabled", true);
-            LastBetGrid.numberParam("pageSize", $(this).val());
+            LastBetGrid.numberParam("PageSize", $(this).val());
         });
     };
 
@@ -282,7 +282,7 @@ var LastBetFilter = (function () {
             var newStatus = currentStatus === 1 ? 0 : 1;
             var newValue = newStatus ? Site.getSingleResource("Freeze") : Site.getSingleResource("Unfreeze");
             if (newStatus) {
-                monitor.startMonitor();
+                LastBetGrid.startMonitor();
             }
             else {
                 monitor.stopMonitor();
@@ -294,8 +294,8 @@ var LastBetFilter = (function () {
     };
 
     _me.setHighlightSubmit = function () {
-        clearInterval(_me.highLightSubmitIntervalId);
-        _me.highLightSubmitIntervalId = setInterval(function () {
+        clearInterval(_highLightSubmitIntervalId);
+        _highLightSubmitIntervalId = setInterval(function () {
             $("#submit-button").css("background-color", "rgb(211,211,211)");
             setTimeout(function () {
                 $("#submit-button").css("background-color", "buttonface");
@@ -304,7 +304,7 @@ var LastBetFilter = (function () {
     };
     _me.initSubmit = function () {
         $("#submit-button").click(function () {
-            clearInterval(_me.highLightSubmitIntervalId);
+            clearInterval(_highLightSubmitIntervalId);
             $("#submit-button").css("background-color", "");
             var freeStatus = $("#freeze-button").attr("data-status");
             LastBetGrid.Submit(freeStatus);
@@ -365,7 +365,7 @@ var LastBetFilter = (function () {
         $("#bet-form").change(function () {
             _me.setHighlightSubmit();
             var value = $(this).val();
-            LastBetGrid.numberParam("betFrom", value);
+            LastBetGrid.numberParam("BetFrom", value);
         });
     };
     _me.initialize = function () {

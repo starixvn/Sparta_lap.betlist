@@ -10,29 +10,31 @@ var LastBetGrid = (function () {
     // Param
     var SERVICE_URL = Site.resolveClientUrl('api/LastBetMonitoringBetList/Index');
 
-    _me.betListResult = { NewRow: false, Rows: [], LastTransId: 0 };
-    _me.sportId = 0;
-    _me.leagueId = 0;
-    _me.matchId = 0;
-    _me.betType = "";
-    _me.liveStatus = "3";
-    _me.oddsType = "";
-    _me.level = "";
-    _me.timeZone = "8";
-    _me.currency = "";
-    _me.basedCurrency = $("#last-bet-monitor-base-currency").val();
-    _me.stakeFrom = "0";
-    _me.stakeTo = "1000000000";
-    _me.pageSize = 10;
-    _me.lastTransId = "0";
-    _me.params = {};
-    _me.currentParam = {};
-    _me.intervalId = 0;
-    _me.errorMessage = null;
-    _me.isLoading = false;
-    _me.isCriteriaChange = false;
-    _me.intervalMiliseconds = 3000;
-    _me.betFrom = 0;
+    var _betListResult = { NewRow: false, Rows: [], LastTransId: 0 };
+    var _lastTransId = "0";
+
+    var _params = {
+        SportId: 0,
+        LeagueId: 0,
+        MatchId: 0,
+        BetType: "",
+        LiveStatus: "3",
+        OddsType: "",
+        Level: "",
+        TimeZone: "8",
+        Currency: "0",
+        BasedCurrency: $("#last-bet-monitor-base-currency").val(),
+        PageSize: 10,
+        StakeFrom: "0",
+        StakeTo: "1000000000",
+        TransId: _lastTransId,
+        BetFrom: 0
+    };
+    var _intervalId = 0;
+    var _errorMessage = null;
+    var _isLoading = false;
+    var _isCriteriaChange = false;
+    var _intervalMiliseconds = 3000;
 
     // Object
     var _$containerTable = null;
@@ -41,9 +43,9 @@ var LastBetGrid = (function () {
     // Config
     var MIN_LOADING_MILISECONDS = 1000;
     var MIN_INTERVAL = 3000;
-    _me.maxStake = 999999999;
-    _me.highlightClass = "monitor-hightlight";
-    _me.highlightKeepClass = "monitor-keep";
+    var HIGHLIGHT_CLASS = "monitor-hightlight";
+    var MAX_STAKE = 999999999;
+    
     _me.columns =
         [{ Name: "Platform", IsShow: 1 },
          { Name: "ExternalId", IsShow: 1 },
@@ -59,77 +61,50 @@ var LastBetGrid = (function () {
             title: Site.getSingleResource("LastBetsMonitoring")
         });
 
-        _me.updateParams();
-        _me.currentParam = Site.clone(_me.params);
-
         _$headerRow = $("#monitor-header");
         _$containerTable = $("#last-bets-monitoring");
         _$containerTable.on("click", "tr", function () {
             $(this).toggleClass("monitor-keep");
         });
     };
-
+    _me.getMaxStake = function () {
+        return MAX_STAKE;
+    };
     _me.numberParam = function (name, value) {
-        _me[name] = value === undefined || value == null || value === ""
+        _params[name] = value === undefined || value == null || value === ""
                             ? 0
                             : parseInt(value);
-        _me.updateParams();
     };
 
     _me.stringParam = function (name, value) {
-        _me[name] = value === undefined || value == null || value === ""
+        _params[name] = value === undefined || value == null || value === ""
                             ? ""
                             : $.trim(value);
-        _me.updateParams();
     };
 
     _me.isValidParam = function () {
-        return _me.stakeFrom <= _me.stakeTo
+        return _params.StakeFrom <= _params.StakeTo
             && $("#currency").multiSelect("getCheckedItems").length > 0
             && $("#special-level").multiSelect("getCheckedItems").length > 0;
     };
-    _me.tryUpdateStack = function () {
+    _me.tryUpdateStake = function () {
         var tempF = $("#stake-from").val();
         tempF = tempF.replace(/,/g, '');
         tempF = tempF === "" ? 0 : parseInt(tempF);
 
-        _me.stakeFrom = tempF;
+        _params.StakeFrom = tempF;
 
         var tempT = $("#stake-to").val();
         tempT = tempT.replace(/,/g, '');
-        tempT = tempT === "" ? _me.maxStake : parseInt(tempT);
-        _me.stakeTo = tempT;
+        tempT = tempT === "" ? MAX_STAKE : parseInt(tempT);
 
-        _me.params.StakeFrom = _me.stakeFrom;
-        _me.params.StakeTo = _me.stakeTo;
-    };
-    _me.updateParams = function () {
-        _me.params = {
-            SportId: _me.sportId,
-            LeagueId: _me.leagueId,
-            MatchId: _me.matchId,
-            BetType: _me.betType,
-            LiveStatus: _me.liveStatus,
-            OddsType: _me.oddsType,
-            Level: _me.level,
-            TimeZone: _me.timeZone,
-            Currency: _me.currency,
-            BasedCurrency: _me.basedCurrency,
-            StakeFrom: _me.stakeFrom,
-            StakeTo: _me.stakeTo,
-            PageSize: _me.pageSize,
-            TransId: _me.lastTransId,
-            BetFrom: _me.betFrom
-        };
-
-        _me.currentParam = Site.clone(_me.params);
+        _params.StakeTo = tempT;
     };
 
     _me.Submit = function (freeStatus) {
         _me.stopMonitor();
-        _me.tryUpdateStack();
-        _me.currentParam = Site.clone(_me.params);
-        _me.isCriteriaChange = true;
+        _me.tryUpdateStake();
+        _isCriteriaChange = true;
 
         if (parseInt(freeStatus) === 1) {
             _me.startMonitor();
@@ -143,7 +118,7 @@ var LastBetGrid = (function () {
     Get data from database
     ------------------------------------------------------------------------------------------*/
     _me.reloadData = function () {
-        if (_me.isLoading) {
+        if (_isLoading) {
             _me.doMonitor();
             return;
         }
@@ -152,17 +127,17 @@ var LastBetGrid = (function () {
             return;
         }
 
-        _me.isLoading = true;
+        _isLoading = true;
 
         var loadingTickBegin = (new Date()).getTime();
-        if (Number(_me.lastTransId) === 0 || _me.isCriteriaChange) {
+        if (Number(_lastTransId) === 0 || _isCriteriaChange) {
             _me.clearContent();
         }
 
         $.ajax({
             url: SERVICE_URL,
             type: "POST",
-            data: JSON.stringify(_me.currentParam),
+            data: JSON.stringify(_params),
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
             async: true,
@@ -170,8 +145,8 @@ var LastBetGrid = (function () {
             timeout: 10000,
             beforeSend: function () {
                 $("#div-loading").show();
-                _me.isLoading = true;
-                _me.isCriteriaChange = false;
+                _isLoading = true;
+                _isCriteriaChange = false;
             },
             complete: function () {
                 $("#div-loading").hide();
@@ -181,19 +156,19 @@ var LastBetGrid = (function () {
                 }
             },
             success: function (result) {
-                if (_me.isCriteriaChange) {
-                    _me.isLoading = false;
+                if (_isCriteriaChange) {
+                    _isLoading = false;
                     _me.doMonitor();
                     return;
                 }
 
                 // Only bind data if current mode == mode at the begining of request
-                _me.betListResult = result;
+                _betListResult = result;
                 _me.bindData();
 
                 var loadingTime = (new Date()).getTime() - loadingTickBegin;
-                _me.intervalMiliseconds = loadingTime > MIN_LOADING_MILISECONDS
-                ? _me.intervalMiliseconds + 1000
+                _intervalMiliseconds = loadingTime > MIN_LOADING_MILISECONDS
+                ? _intervalMiliseconds + 1000
                 : MIN_INTERVAL;
 
                 // Continue
@@ -202,10 +177,10 @@ var LastBetGrid = (function () {
             error: function (/*jqXHR, textStatus, errorThrown*/) {
                 $("#div-loading").hide();
 
-                _me.betListResult.Updated = false;
-                _me.betListResult.Rows = "";
-                _me.isLoading = false;
-                _me.intervalMiliseconds += 1000;
+                _betListResult.Updated = false;
+                _betListResult.Rows = "";
+                _isLoading = false;
+                _intervalMiliseconds += 1000;
                 _me.doMonitor();
             }
         });
@@ -213,10 +188,10 @@ var LastBetGrid = (function () {
 
     _me.bindData = function () {
         // If there is no new bet, process error message
-        if (!_me.betListResult.NewRow) {
-            _me.isLoading = false;
+        if (!_betListResult.NewRow) {
+            _isLoading = false;
 
-            var message = _me.betListResult.Message;
+            var message = _betListResult.Message;
             if (message !== undefined && message.length > 0) {
                 _me.bindNoInfoRow(message);
                 return;
@@ -239,7 +214,7 @@ var LastBetGrid = (function () {
         var hideColumns = JSLINQ(_me.columns).Where(function (item) { return Number(item.IsShow) === 0; })
                                         .ToArray();
         if (hideColumns.length > 0) {
-            var rows = _me.betListResult.Rows;
+            var rows = _betListResult.Rows;
             var display = " style=\"display:none;\"";
             $.each(hideColumns, function (index, value) {
                 var name = "data-name=\"" + value.Name + "\"";
@@ -247,20 +222,20 @@ var LastBetGrid = (function () {
             });
             _$headerRow.after(rows);
         } else {
-            _$headerRow.after(_me.betListResult.Rows);
+            _$headerRow.after(_betListResult.Rows);
         }
-        $("tr:gt(" + _me.pageSize + ")", _$containerTable).remove();
+        $("tr:gt(" + _params.PageSize + ")", _$containerTable).remove();
 
-        if (_me.betListResult) {
-            _me.lastTransId = _me.betListResult.LastTransId;
-            _me.currentParam.TransId = _me.lastTransId;
+        if (_betListResult) {
+            _lastTransId = _betListResult.LastTransId;
+            _params.TransId = _lastTransId;
         }
         setTimeout(function () {
-            return _me.unHighlight(_me.lastTransId);
+            return _me.unHighlight(_lastTransId);
         },
          6000);
 
-        _me.isLoading = false;
+        _isLoading = false;
     };
 
     _me.bindNoInfoRow = function (text) {
@@ -281,38 +256,37 @@ var LastBetGrid = (function () {
         $("tr.content-row", _$containerTable).each(function (i, e) {
             var transId = $(e).attr("data-transid");
             if (transId <= lastTransId) {
-                $(e).removeClass(_me.highlightClass);
+                $(e).removeClass(HIGHLIGHT_CLASS);
             }
         });
     };
 
     _me.clearContent = function () {
-        _me.lastTransId = 0;
-        _me.currentParam.TransId = _me.lastTransId;
-        _me.params.TransId = _me.lastTransId;
+        _lastTransId = 0;
+        _params.TransId = _lastTransId;
         _me.bindNoInfoRow();
     };
 
     _me.startMonitor = function () {
-        this.stopMonitor();
+        _me.stopMonitor();
 
-        _me.lastTransId = 0;
-        _me.intervalMiliseconds = MIN_INTERVAL;
+        _lastTransId = 0;
+        _intervalMiliseconds = MIN_INTERVAL;
         _me.doMonitor();
     };
 
     _me.stopMonitor = function () {
-        if (this.intervalId > 0) {
-            clearTimeout(this.intervalId);
+        if (_intervalId > 0) {
+            clearTimeout(_intervalId);
         }
     };
 
     _me.doMonitor = function () {
-        if (_me.intervalId > 0) {
-            clearTimeout(_me.intervalId);
+        if (_intervalId > 0) {
+            clearTimeout(_intervalId);
         }
 
-        _me.intervalId = setTimeout(function () { _me.reloadData(); }, _me.intervalMiliseconds);
+        _intervalId = setTimeout(_me.reloadData, _intervalMiliseconds);
     };
 
     return _me;
