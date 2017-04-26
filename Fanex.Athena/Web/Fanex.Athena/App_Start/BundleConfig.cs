@@ -711,7 +711,8 @@
                         "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js",
                         "~/Scripts/Plugin/LinqJs/JSLINQ.js",
                         "~/Scripts/Global/prototype.js",                      
-                        "~/Scripts/BetList/lastbetsmonitornew.js");
+                        "~/Scripts/BetList/lastbet.grid.js",
+                        "~/Scripts/BetList/lastbet.filter.js");
             AddNewScriptBundle(bundles, bundle);
         }
 

@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -736,6 +736,7 @@
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
+    <Content Include="Scripts\BetList\lastbet.filter.js" />
     <Content Include="Scripts\Report\cashoutwinloss.js" />
     <Content Include="Scripts\Report\cashoutwinloss.option.js" />
     <Content Include="www\assets\images\15.jpg" />
@@ -4845,7 +4846,7 @@
     <Content Include="Scripts\BetList\betlist.js" />
     <Content Include="Scripts\BetList\cancelledbetsbetlist.js" />
     <Content Include="Scripts\BetList\commonbetlist.js" />
-    <Content Include="Scripts\BetList\lastbetsmonitornew.js" />
+    <Content Include="Scripts\BetList\lastbet.grid.js" />
     <Content Include="Scripts\BetList\correctscorebetlist.js" />
     <Content Include="Scripts\BetList\customer.dailystatement.js" />
     <Content Include="Scripts\BetList\customer.dailystatement.option.js" />
