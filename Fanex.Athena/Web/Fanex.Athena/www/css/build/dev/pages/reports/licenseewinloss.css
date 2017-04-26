@@ -483,15 +483,5 @@
 
 .grandTotal, .total-eur {
   color: #2c2c2c; }
-  .grandTotal > td, .total-eur > td {
-    border: 1px solid #fff !important; }
-    .grandTotal > td:first-child, .total-eur > td:first-child {
-      border-left-color: #d1dae1 !important; }
-
-.grandTotal {
-  background: #FFE7C5; }
-
-.total-eur {
-  background-color: #FFB391; }
 
 /*# sourceMappingURL=licenseewinloss.css.map*/

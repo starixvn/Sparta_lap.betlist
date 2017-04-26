@@ -145,7 +145,7 @@
   background: #fcf4df; }
 
 .table > tbody tr.total td {
-  background: #ffb391; }
+  background: #fff; }
 
 .table > tbody tr.highlight td {
   background: #f7dbb6;
@@ -609,7 +609,7 @@ table tbody tr.row-group-level1 {
   background: #fcf4df; }
 
 .table > tbody tr.total td {
-  background: #ffb391; }
+  background: #fff; }
 
 .table > tbody tr.highlight td {
   background: #f7dbb6;

@@ -448,15 +448,10 @@
   transform: rotate(-90deg); }
 
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable .jqgroup > td {
-  padding-right: 10px; }
+  padding-right: 10px;
+  border-bottom: 1px solid #c5c3c3; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable .jqgroup > td:before {
     content: "";
     padding-left: 10px; }
-
-.theme_jqGrid .ui-jqgrid .grandTotal > td {
-  background: #fff; }
-
-.theme_jqGrid .ui-jqgrid .total-eur > td {
-  background: #B8C3C9; }
 
 /*# sourceMappingURL=winlossbyproduct.css.map*/

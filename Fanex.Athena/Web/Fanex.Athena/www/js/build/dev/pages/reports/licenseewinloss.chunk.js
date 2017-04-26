@@ -14824,12 +14824,13 @@ webpackJsonp([43],[
 	                    var currencyListString = footerTable.attr("data-total-currency-list");
 	                    if (currencyListString) {
 	                        var currencyList = currencyListString.split(",");
+	                        var rowspan = summaryRowCount / currencyList.length;
 	                        $(currencyList).each(function (i, currency) {
-	                            $("td.group-" + currency + ":first-child", footerTable).attr("colspan", colspan)
-	                                    .attr("rowspan", summaryRowCount / currencyList.length).css("display", "")
+	                            $("td.group-" + currency + ":first-child", footerTable)
+	                                    .attr("rowspan", rowspan).css("display", "")
 	                                    .attr("colspan", summaryColspan).html(totalInText + " " + currency);
 	                            $("td.group-" + currency + ":gt(0)", footerTable).hide();
-	                            $("td.group-" + currency + ":first-child", footerTable).parent().addClass("total-eur");
+	                            $("td.group-" + currency + ":first-child", footerTable).parent().addClass("summarytotal");
 	                        });
 	                    } else {
 	                        if (footerRowList.length > 1) {
@@ -14838,8 +14839,7 @@ webpackJsonp([43],[
 	                    }
 	                    /*set scrolling*/
 	                    if (allowScrolling) {
-	                        footerTable.parent().css("position", "relative");
-	                        footerTable.parent().parent().addClass("jqgrid-footer-scroll-hacking");
+	                        footerTable.closest(".ui-jqgrid-sdiv").addClass("jqgrid-footer-scroll-hacking");
 	                    }
 	                }
 	            },
@@ -20274,7 +20274,6 @@ webpackJsonp([43],[
 	                var firstCell = null;
 	
 	                var row = mainFooter.clone();
-	                row.addClass("total-eur total-eur-none-top-se");
 	                row.insertAfter(mainFooter);
 	                var cellList = $("td", row);
 	
@@ -20502,7 +20501,7 @@ webpackJsonp([43],[
 	
 	            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
 	                var titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-	                var currencyNameOnTitle = currencyName ? currencyName : Report.getCurrencyNameForReportTitle(currencyId);
+	                var currencyNameOnTitle = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName) : Report.getCurrencyNameForReportTitle(currencyId);
 	                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyNameOnTitle);
 	                $(".report-title").html(title);
 	                $(".panel-heading").removeClass("hide");
@@ -21064,7 +21063,6 @@ webpackJsonp([43],[
 	        var licenseeWlColumn =
 	        {
 	            name: 'TotalLicenseeWLSingle',
-	            classes: 'highlight',
 	            index: 'TotalLicenseeWLSingle',
 	            width: 120,
 	            align: 'right',
@@ -21078,7 +21076,6 @@ webpackJsonp([43],[
 	        var betTradeCommissionColumn =
 	        {
 	            name: 'BetTradeCommission',
-	            classes: 'highlight',
 	            index: 'BetTradeCommission',
 	            width: 120,
 	            align: 'right',
@@ -21091,7 +21088,6 @@ webpackJsonp([43],[
 	        var cashOutCommissionColumn =
 	        {
 	            name: 'CashOutCommission',
-	            classes: 'highlight',
 	            index: 'CashOutCommission',
 	            width: 120,
 	            align: 'right',
@@ -21104,7 +21100,6 @@ webpackJsonp([43],[
 	        var baCommissionColumn =
 	        {
 	            name: 'BACommission',
-	            classes: 'highlight',
 	            index: 'BACommission',
 	            width: 95,
 	            align: 'right',
@@ -21117,7 +21112,6 @@ webpackJsonp([43],[
 	        var racingRevenueColumn =
 	        {
 	            name: 'RacingRevenue',
-	            classes: 'highlight',
 	            index: 'RacingRevenue',
 	            width: 100,
 	            align: 'right',
@@ -21404,7 +21398,6 @@ webpackJsonp([43],[
 	                        var licenseeWL = Site.clone(productColumn);
 	                        licenseeWL.name = "LicenseeWL" + item.Code;
 	                        licenseeWL.index = "LicenseeWL" + item.Code;
-	                        licenseeWL.classes = 'highlight';
 	                        licenseeWL.sortable = true;
 	
 	                        temp.insertAfter(licenseeWL, customerWLTotalIndex);
@@ -21423,7 +21416,6 @@ webpackJsonp([43],[
 	            var licenseeWLTotal = Site.clone(productColumn);
 	            licenseeWLTotal.name = "TotalLicenseeWL";
 	            licenseeWLTotal.index = "TotalLicenseeWL";
-	            licenseeWLTotal.classes = 'highlight';
 	            temp.insertBefore(licenseeWLTotal, licenseeIndex);
 	
 	            if (allowedBa !== null) {

@@ -14,20 +14,4 @@ $colorTextTotal: $black;
 
 .grandTotal, .total-eur {
     color: $colorTextTotal;
-
-    > td {
-        border: 1px solid $white !important;
-
-        &:first-child {
-            border-left-color: $colorBorderTable !important;
-        }
-    }
-}
-
-.grandTotal {
-    background: $bgTotalLevel1;
-}
-
-.total-eur {
-    background-color: $bgTotalLevel3;
 }

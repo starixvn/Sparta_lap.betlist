@@ -146,7 +146,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     {
         name: 'CashOutCommission',
         index: 'CashOutCommission',
-        classes: 'highlight',
         width: 90,
         align: 'right',
         sortable: false,

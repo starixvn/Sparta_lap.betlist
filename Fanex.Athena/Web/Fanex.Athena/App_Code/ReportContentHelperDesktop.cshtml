@@ -42,12 +42,12 @@ if (model.IsAllowedCustomerCommission)
 
     <td class="right-align" title="@turnOver">@turnOver</td>
     <td class="right-align" title="@betCount">@betCount</td>
-    <td class="right-align highlight" title="@licenseeWL.ToStringExt()">@RazorHelperDesktop.HighlightNegativeFormat(licenseeWL)</td>
+    <td class="right-align" title="@licenseeWL.ToStringExt()">@RazorHelperDesktop.HighlightNegativeFormat(licenseeWL)</td>
 
     if (model.ProductAccess.IsAllowRB || model.ProductAccess.IsAllowBA)
     {
         var licenseeComm = data.LicenseeComm.ToStringExt();
-        <td class="right-align highlight" title="@licenseeComm">@licenseeComm</td>
+        <td class="right-align" title="@licenseeComm">@licenseeComm</td>
     }
 
     <td class="right-align" title="@amountDue">@amountDue</td>

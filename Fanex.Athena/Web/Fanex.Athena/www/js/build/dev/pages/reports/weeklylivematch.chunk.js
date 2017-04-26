@@ -14824,12 +14824,13 @@ webpackJsonp([50],[
 	                    var currencyListString = footerTable.attr("data-total-currency-list");
 	                    if (currencyListString) {
 	                        var currencyList = currencyListString.split(",");
+	                        var rowspan = summaryRowCount / currencyList.length;
 	                        $(currencyList).each(function (i, currency) {
-	                            $("td.group-" + currency + ":first-child", footerTable).attr("colspan", colspan)
-	                                    .attr("rowspan", summaryRowCount / currencyList.length).css("display", "")
+	                            $("td.group-" + currency + ":first-child", footerTable)
+	                                    .attr("rowspan", rowspan).css("display", "")
 	                                    .attr("colspan", summaryColspan).html(totalInText + " " + currency);
 	                            $("td.group-" + currency + ":gt(0)", footerTable).hide();
-	                            $("td.group-" + currency + ":first-child", footerTable).parent().addClass("total-eur");
+	                            $("td.group-" + currency + ":first-child", footerTable).parent().addClass("summarytotal");
 	                        });
 	                    } else {
 	                        if (footerRowList.length > 1) {
@@ -14838,8 +14839,7 @@ webpackJsonp([50],[
 	                    }
 	                    /*set scrolling*/
 	                    if (allowScrolling) {
-	                        footerTable.parent().css("position", "relative");
-	                        footerTable.parent().parent().addClass("jqgrid-footer-scroll-hacking");
+	                        footerTable.closest(".ui-jqgrid-sdiv").addClass("jqgrid-footer-scroll-hacking");
 	                    }
 	                }
 	            },

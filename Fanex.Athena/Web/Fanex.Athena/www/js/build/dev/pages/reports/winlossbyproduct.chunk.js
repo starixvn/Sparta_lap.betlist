@@ -14824,12 +14824,13 @@ webpackJsonp([51],[
 	                    var currencyListString = footerTable.attr("data-total-currency-list");
 	                    if (currencyListString) {
 	                        var currencyList = currencyListString.split(",");
+	                        var rowspan = summaryRowCount / currencyList.length;
 	                        $(currencyList).each(function (i, currency) {
-	                            $("td.group-" + currency + ":first-child", footerTable).attr("colspan", colspan)
-	                                    .attr("rowspan", summaryRowCount / currencyList.length).css("display", "")
+	                            $("td.group-" + currency + ":first-child", footerTable)
+	                                    .attr("rowspan", rowspan).css("display", "")
 	                                    .attr("colspan", summaryColspan).html(totalInText + " " + currency);
 	                            $("td.group-" + currency + ":gt(0)", footerTable).hide();
-	                            $("td.group-" + currency + ":first-child", footerTable).parent().addClass("total-eur");
+	                            $("td.group-" + currency + ":first-child", footerTable).parent().addClass("summarytotal");
 	                        });
 	                    } else {
 	                        if (footerRowList.length > 1) {
@@ -14838,8 +14839,7 @@ webpackJsonp([51],[
 	                    }
 	                    /*set scrolling*/
 	                    if (allowScrolling) {
-	                        footerTable.parent().css("position", "relative");
-	                        footerTable.parent().parent().addClass("jqgrid-footer-scroll-hacking");
+	                        footerTable.closest(".ui-jqgrid-sdiv").addClass("jqgrid-footer-scroll-hacking");
 	                    }
 	                }
 	            },
@@ -20738,7 +20738,6 @@ webpackJsonp([51],[
 	                var firstCell = null;
 	
 	                var row = mainFooter.clone();
-	                row.addClass("total-eur total-eur-none-top-se");
 	                row.insertAfter(mainFooter);
 	                var cellList = $("td", row);
 	
@@ -20935,7 +20934,6 @@ webpackJsonp([51],[
 	        var ajaxRequest = null;
 	        var _memberId, _systemId; // store data when submit level 0
 	        var _submitData = {}; // cache submit data of level 0.
-	        var _autocomplete;
 	
 	        var _me = {
 	            initialize: function () {
@@ -20961,11 +20959,11 @@ webpackJsonp([51],[
 	                WinLossByProductOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
 	            },
 	
-	            initAutoComplete: function(){
+	            initAutoComplete: function () {
 	                var option = {
 	                    url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
 	                    target: "#Username"
-	                }
+	                };
 	
 	                AutoComplete.initialize(option);
 	            },
@@ -20973,8 +20971,6 @@ webpackJsonp([51],[
 	            registerGlobalFunction: function () {
 	                window.drillDown = _me.drillDown;
 	            },
-	
-	            
 	
 	            initEvent: function () {
 	                $("body").on("click", ".bet-list-link", function () {
@@ -21080,8 +21076,14 @@ webpackJsonp([51],[
 	
 	            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
 	                var titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
-	                var currencyNameOnTitle = currencyName ? currencyName : Report.getCurrencyNameForReportTitle(currencyId);
-	                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyNameOnTitle);
+	                var currencyNameOnTitle = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName) : Report.getCurrencyNameForReportTitle(currencyId);
+	                var licenseeWLNote = jqGridAdditional.getLicenseeWLNote(_submitData.ProductOptions, _systemId);
+	                licenseeWLNote = licenseeWLNote === '' ? '' : ', ' + licenseeWLNote;
+	
+	                var title = $.format(titlePattern,
+	                    moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"),
+	                    currencyNameOnTitle, licenseeWLNote);
+	
 	                $(".report-title").html(title);
 	                $(".panel-heading").removeClass("hide");
 	            },
@@ -21196,7 +21198,7 @@ webpackJsonp([51],[
 	                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
 	                }
 	                else {
-	                    LicenseeWinLossOption.urlExcelData = LicenseeWinLossOption.urlExcelData.replace("level=2", "level=1");
+	                    WinLossByProductOption.urlExcelData = WinLossByProductOption.urlExcelData.replace("level=2", "level=1");
 	                }
 	            },
 	

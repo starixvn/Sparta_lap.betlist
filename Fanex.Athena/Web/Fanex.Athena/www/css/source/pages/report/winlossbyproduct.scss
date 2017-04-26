@@ -2,6 +2,8 @@
 @import '../../components/daterangepicker/daterangepicker-ex';
 @import '../../components/breadcrumb/breadcrumb';
 
+$colorBorderGroupingRow: #c5c3c3;
+
 .dropdown-content {
     opacity: 1;
     top: 25px;
@@ -30,24 +32,13 @@
 
                 > td {
                     padding-right: 10px;
+                    border-bottom: 1px solid $colorBorderGroupingRow;
 
                     &:before {
                         content: "";
                         padding-left: 10px;
                     }
                 }
-            }
-        }
-
-        .grandTotal{
-            > td{
-                background: $white;
-            }
-        }
-
-        .total-eur {
-            > td {
-                background: $bgSummaryTotal;
             }
         }
     }

@@ -225,12 +225,10 @@
                         expect(result[19].name).toBe("LicenseeWLKN");
                         expect(result[19].index).toBe("LicenseeWLKN");
                         expect(result[19].sortable).toBe(true);
-                        expect(result[19].classes).toBe("highlight");
 
                         expect(result[20].name).toBe("LicenseeWLSB");
                         expect(result[20].index).toBe("LicenseeWLSB");
                         expect(result[20].sortable).toBe(true);
-                        expect(result[20].classes).toBe("highlight");
                     });
 
                     it("Products should add correctly to BuyBackAmount column", function () {
@@ -259,7 +257,6 @@
 
                         expect(result[21].name).toBe("TotalLicenseeWL");
                         expect(result[21].index).toBe("TotalLicenseeWL");
-                        expect(result[21].classes).toBe("highlight");
                     });
                 });
             });

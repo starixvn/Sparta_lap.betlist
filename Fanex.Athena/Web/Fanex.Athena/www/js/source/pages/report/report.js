@@ -85,7 +85,6 @@
                 var firstCell = null;
 
                 var row = mainFooter.clone();
-                row.addClass("total-eur total-eur-none-top-se");
                 row.insertAfter(mainFooter);
                 var cellList = $("td", row);
 
