@@ -20211,8 +20211,8 @@ webpackJsonp([41],[
 	                Site.initialize();
 	                DatePicker.initDateRangePicker();
 	                Site.addUserGuide({
-	                    resourceName: "AGCasinoWL",
-	                    title: Site.getSingleResource("AGCasinoWinLoss")
+	                    resourceName: "CashOutWL",
+	                    title: Site.getSingleResource("CashOutWinLoss")
 	                });
 	                Site.setConstraintMonthRange(VALID_MONTH_RANGE, CashOutWinLossOption.urlExcelData);
 	                _me.initEvent();

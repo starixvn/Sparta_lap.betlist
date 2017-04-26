@@ -17,8 +17,8 @@ var CashOutWinLoss = (function ($) {
             CashOutWinLossOption.isLicenseeOfferBA = $("#IsLicenseeOfferBA").val() === "1";
             CashOutWinLoss.initEvent();
             Site.addUserGuide({
-                resourceName: "AGCasinoWL",
-                title: Site.getSingleResource("AGCasinoWinLoss")
+                resourceName: "CashOutWL",
+                title: Site.getSingleResource("CashOutWinLoss")
             });
             Site.setConstraintMonthRange(VALID_MONTH_RANGE, CashOutWinLossOption.urlExcelData);
         },
