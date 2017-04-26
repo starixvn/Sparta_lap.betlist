@@ -61,7 +61,7 @@
                     BetTypeId = ticket.BetType,
                     Status = ticket.Status
                 };
-                var statusHtml = builder.CreateStatusBuilder(ticket.BetType).Render(betListTicket, ticketHelper, null, false);
+                var statusHtml = builder.CreateStatusBuilder(ticket.BetType).Render(betListTicket, ticketHelper, null, true);
                 statusHtml.StatusResult = null;
                 var ticketText = new CashOutTicketText
                 {
