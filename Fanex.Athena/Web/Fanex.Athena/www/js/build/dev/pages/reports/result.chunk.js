@@ -16903,18 +16903,23 @@ webpackJsonp([46],[
 	                if (param.SportId === 0 && sportList.length > 0) {
 	                    var firstSport = sportList[0].SportId;
 	                    param.SportId = firstSport;
+	
+	                    var $sport = $("#ddlSport");
 	                    $.each(sportList, function (index, value) {
-	                        $("#ddlSport").append('<option value="' + value.SportId + '">' + value.SportName + '</option>');
+	                        $sport.append('<option value="' + value.SportId + '">' + value.SportName + '</option>');
 	                    });
+	                    $sport.selectList();
 	                }
 	            },
 	
 	            renderLeagueFilter: function (leagueList) {
 	                if (leagueList !== null && leagueList.length > 0) {
+	                    var $league = $("#ddlLeague");
 	                    $.each(leagueList, function (index, value) {
-	                        $("#ddlLeague").append('<option value="' + value.LeagueId + '">' + value.LeagueName + '</option>');
+	                        $league.append('<option value="' +value.LeagueId + '">' + value.LeagueName + '</option>');
 	                    });
-	                    $("#ddlLeague").val(param.LeagueId);
+	                    $league.val(param.LeagueId);
+	                    $league.selectList();
 	                }
 	            },
 	
