@@ -106,8 +106,8 @@ namespace Fanex.Athena.DataAccess.BetList
 
                 ticket.BetdaqId = reader.GetLong("betdaqid", -1);
                 ticket.ExtraInfo = reader.GetString("extrainfo");
-                ticket.OriginalStake = reader.GetDecimal(originalStakeCol);
-                ticket.OriginalBetType = reader.GetInt("originalbettype", -1);
+                ticket.OriginalStake = reader.GetDecimal(originalStakeCol, -1);
+                ticket.OriginalBetType = reader.GetInt("originalbettype");
 
                 tickets.Add(ticket);
             }
