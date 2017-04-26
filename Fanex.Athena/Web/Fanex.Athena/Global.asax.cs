@@ -103,20 +103,12 @@ namespace Fanex.Athena
 
         public sealed override void Dispose()
         {
-            Dispose(true);
-
-            GC.SuppressFinalize(_apiCompress);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
+            if (_apiCompress != null)
             {
-                if (_apiCompress != null)
-                {
-                    _apiCompress.Dispose();
-                }
+                _apiCompress.Dispose();
             }
+            GC.SuppressFinalize(_apiCompress);
+            base.Dispose();
         }
 
         /// <summary>
