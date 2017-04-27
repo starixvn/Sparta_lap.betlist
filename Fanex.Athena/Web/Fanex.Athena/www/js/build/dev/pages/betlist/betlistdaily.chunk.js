@@ -715,14 +715,18 @@ webpackJsonp([31],[
 	            },
 	
 	            viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
-	                var params = $.parseJSON($("#BetListMetaModel").val());
+	                var $baseCurrency = $("#BaseCurrency");
+	                var baseCurrency = $baseCurrency.length ?
+	                $baseCurrency.val() !== "" ? $baseCurrency.val() : $baseCurrency.find("option[value='']").text().toLowerCase()
+	                : $.parseJSON($("#BetListMetaModel").val()).BaseCurrency;
+	
 	                var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
 	                var url = Site.resolveClientUrl('CashOutBetList/Detail');
 	                url = QueryString.setParam(url, "transId", transId);
 	                url = QueryString.setParam(url, "refNo", refNo);
 	                url = QueryString.setParam(url, "betType", betType);
 	                url = QueryString.setParam(url, "betdaqId", betdaqId);
-	                url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
+	                url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
 	                url = QueryString.setParam(url, "isCashout", isCashOut);
 	
 	                var popH = Math.min($(window).height() - 100, 550);
