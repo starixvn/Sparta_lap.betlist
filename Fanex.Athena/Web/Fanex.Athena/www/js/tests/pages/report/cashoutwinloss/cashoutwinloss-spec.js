@@ -58,7 +58,7 @@
                     expect(DatePicker.initDateRangePicker).toHaveBeenCalled();
                 });
                 it("Site.addUserGuide(option) should be called with correct parameter", function () {
-                    expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "AGCasinoWL", title: "AGCasinoWinLoss" });
+                    expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "CashOutWL", title: "CashOutWinLoss" });
                 });
                 it("Site.setConstraintMonthRange(monthRange, url) should be called with correct parameter", function () {
                     expect(Site.setConstraintMonthRange).toHaveBeenCalledWith(3, "api/CashOutWinLossReport/Index");
@@ -82,9 +82,6 @@
 
                 it("CashOutWinLossOption.isLicenseeOfferBA should be correct", function () {
                     expect(CashOutWinLossOption.isLicenseeOfferBA).toBe(true);
-                });
-                it("CashOutWinLossOption.licenseeId should be correct", function () {
-                    expect(CashOutWinLossOption.licenseeId).toBe(1);
                 });
             });
 
@@ -308,7 +305,7 @@
                     var level = 1, response = {};
                     CashOutWinLoss.ajaxComplete(level, response);
 
-                    expect(Report.renderBreadCrumb).toHaveBeenCalledWith(level, CashOutWinLossOption.licenseeId);
+                    expect(Report.renderBreadCrumb).toHaveBeenCalledWith(level);
                 });
 
                 it("CashOutWinLoss.bindData() should be called with correct parameter", function () {
@@ -567,23 +564,20 @@
                 var originalExcelUrl;
 
                 beforeEach(function () {
-                    originalLicenseeId = CashOutWinLossOption.licenseeId;
                     originalExcelUrl = CashOutWinLossOption.urlExcelData;
                 });
 
                 afterEach(function () {
-                    CashOutWinLossOption.licenseeId = originalLicenseeId;
                     CashOutWinLossOption.urlExcelData - originalExcelUrl;
                 });
 
                 it("functions should be called with correct parameter (if any) when level is 0", function () {
                     var level = 0, response = {};
-                    CashOutWinLossOption.licenseeId = 1;
 
                     CreateCacheData(level, response);
                     CashOutWinLoss.goBack(level);
 
-                    expect(Report.renderBreadCrumb).toHaveBeenCalledWith(level, 1);
+                    expect(Report.renderBreadCrumb).toHaveBeenCalledWith(level);
                     expect(CashOutWinLoss.bindData).toHaveBeenCalledWith(level, response);
                     expect(CashOutWinLoss.setExcelUrl).toHaveBeenCalledWith(0, 0, 0, "", "");
                     expect(CashOutWinLoss.setReportTitle).toHaveBeenCalledWith("1", "04/01/2017", "04/20/2017");

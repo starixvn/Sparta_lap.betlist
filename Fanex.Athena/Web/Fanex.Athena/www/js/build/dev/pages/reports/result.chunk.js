@@ -16890,6 +16890,7 @@ webpackJsonp([46],[
 	                if (data) {
 	                    _me.renderSportFilter(data.Sports);
 	                    _me.renderLeagueFilter(data.Leagues);
+	                    Site.initSelectElements();
 	
 	                    $("#sportAndLeagueFilter").css("visibility", "visible");
 	                    $("#noInfoRow").hide();
@@ -16908,7 +16909,6 @@ webpackJsonp([46],[
 	                    $.each(sportList, function (index, value) {
 	                        $sport.append('<option value="' + value.SportId + '">' + value.SportName + '</option>');
 	                    });
-	                    $sport.selectList();
 	                }
 	            },
 	
@@ -16919,7 +16919,6 @@ webpackJsonp([46],[
 	                        $league.append('<option value="' +value.LeagueId + '">' + value.LeagueName + '</option>');
 	                    });
 	                    $league.val(param.LeagueId);
-	                    $league.selectList();
 	                }
 	            },
 	

@@ -276,6 +276,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                 if (data) {
                     _me.renderSportFilter(data.Sports);
                     _me.renderLeagueFilter(data.Leagues);
+                    Site.initSelectElements();
 
                     $("#sportAndLeagueFilter").css("visibility", "visible");
                     $("#noInfoRow").hide();
@@ -294,7 +295,6 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                     $.each(sportList, function (index, value) {
                         $sport.append('<option value="' + value.SportId + '">' + value.SportName + '</option>');
                     });
-                    $sport.selectList();
                 }
             },
 
@@ -305,7 +305,6 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                         $league.append('<option value="' +value.LeagueId + '">' + value.LeagueName + '</option>');
                     });
                     $league.val(param.LeagueId);
-                    $league.selectList();
                 }
             },
 

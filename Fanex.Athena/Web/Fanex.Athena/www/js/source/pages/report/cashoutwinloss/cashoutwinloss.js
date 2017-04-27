@@ -25,7 +25,6 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
 
             initSetting: function () {
                 CashOutWinLossOption.isLicenseeOfferBA = $("#IsLicenseeOfferBA").val() === "1";
-                CashOutWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
             },
 
             registerGlobalFunction: function () {
@@ -119,7 +118,7 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                         _me.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);
                     }
 
-                    Report.renderBreadCrumb(level, CashOutWinLossOption.licenseeId);
+                    Report.renderBreadCrumb(level);
                     _me.bindData(level, response);
                 }
             },
@@ -179,7 +178,7 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
             },
 
             goBack: function (level) {
-                Report.renderBreadCrumb(level, CashOutWinLossOption.licenseeId);
+                Report.renderBreadCrumb(level);
                 _me.bindData(level, cacheData[level]);
 
                 if (level === 0) {

@@ -257,7 +257,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
     }
 
     var _me = {
-        licenseeId: 0,
         isLicenseeOfferBA: false,
         buyBackAmountColumnIndex: 7,
         totalColspan: [2, 3],

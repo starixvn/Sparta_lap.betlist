@@ -8,7 +8,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "pages/r
 
             describe("initial properties should be correct", function () {
                 it("Default values are correct", function () {
-                    expect(CashoutWinLossOption.licenseeId).toBe(0);
                     expect(CashoutWinLossOption.isLicenseeOfferBA).toBe(false);
                     expect(CashoutWinLossOption.buyBackAmountColumnIndex).toBe(7);
                     expect(CashoutWinLossOption.totalColspan).toEqual([2, 3]);

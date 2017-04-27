@@ -598,6 +598,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             isInteger: isInteger,
             redirect: redirect,
             getCurrentUrl: getCurrentUrl,
-            getLocation: getLocation
+            getLocation: getLocation,
+            initSelectElements: initSelectElements
         };
     });

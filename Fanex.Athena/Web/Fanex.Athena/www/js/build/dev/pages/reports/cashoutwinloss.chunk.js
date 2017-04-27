@@ -20222,7 +20222,6 @@ webpackJsonp([41],[
 	
 	            initSetting: function () {
 	                CashOutWinLossOption.isLicenseeOfferBA = $("#IsLicenseeOfferBA").val() === "1";
-	                CashOutWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
 	            },
 	
 	            registerGlobalFunction: function () {
@@ -20316,7 +20315,7 @@ webpackJsonp([41],[
 	                        _me.setReportTitle($("#CurrencyId").val(), _submitData.FromDate, _submitData.ToDate);
 	                    }
 	
-	                    Report.renderBreadCrumb(level, CashOutWinLossOption.licenseeId);
+	                    Report.renderBreadCrumb(level);
 	                    _me.bindData(level, response);
 	                }
 	            },
@@ -20376,7 +20375,7 @@ webpackJsonp([41],[
 	            },
 	
 	            goBack: function (level) {
-	                Report.renderBreadCrumb(level, CashOutWinLossOption.licenseeId);
+	                Report.renderBreadCrumb(level);
 	                _me.bindData(level, cacheData[level]);
 	
 	                if (level === 0) {
@@ -20745,7 +20744,6 @@ webpackJsonp([41],[
 	    }
 	
 	    var _me = {
-	        licenseeId: 0,
 	        isLicenseeOfferBA: false,
 	        buyBackAmountColumnIndex: 7,
 	        totalColspan: [2, 3],
@@ -20860,7 +20858,7 @@ webpackJsonp([41],[
 	
 	    var _me = {
 	        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-	            var fdate = (typeof drilldownDate === "string") ? new Date(drilldownDate) : drilldownDate;
+	            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
 	            var tdate = fdate;
 	            if (Number(reportBy) === REPORT_BY_MONTHLY) {
 	                var fday = 1;
@@ -20935,7 +20933,7 @@ webpackJsonp([41],[
 	                var firstCell = null;
 	                $(columnModel).each(function (cellIndex, modelElement) {
 	                    var cell = cellList.get(cellIndex);
-	                    var isCustomFormater = typeof (modelElement.formatter) === "function";
+	                    var isCustomFormater = typeof modelElement.formatter === "function";
 	                    var rawValue = summaryData[modelElement.name];
 	                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
 	                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
@@ -21001,7 +20999,7 @@ webpackJsonp([41],[
 	                var isLevel2 = level === 2;
 	                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
 	                
-	                var allowShowLevel1 = licenseeId === 1;
+	                var allowShowLevel1 = licenseeId ? licenseeId === 1 : true;
 	                $("#level-link-container .level1").toggle(allowShowLevel1);
 	                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
 	            }
