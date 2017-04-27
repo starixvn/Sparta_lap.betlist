@@ -18,7 +18,7 @@
     [TestFixture]
     public class BaseControllerTest
     {
-        protected const string TestingRequestUrl = "http://unit-test-mode";
+        protected const string TestingRequestDomain = "http://unit-test-mode";
 
         protected const string SesssionUserName = "alex.vn";
 
@@ -46,7 +46,7 @@
 
             var httpContext = Substitute.For<HttpContextBase>();
             httpContext.Request.ApplicationPath.Returns("/");
-            httpContext.Request.Url.Returns(new Uri(TestingRequestUrl));
+            httpContext.Request.Url.Returns(new Uri(TestingRequestDomain));
             httpContext.Request.Cookies.Returns(new HttpCookieCollection());
             httpContext.Response.Cookies.Returns(new HttpCookieCollection());
             httpContext.Server.MapPath(Arg.Any<string>()).Returns(x => (string)x[0]);

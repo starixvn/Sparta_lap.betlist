@@ -82,7 +82,7 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        private void UpdateUspParams(IObjectDb db, ActiveCustomerMetaModel metaModel)
+        private static void UpdateUspParams(IObjectDb db, ActiveCustomerMetaModel metaModel)
         {
             var productCodes = metaModel.ProductOptions.Where(x => x.Status).Select(x => x.Code).ToArray();
             db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate);

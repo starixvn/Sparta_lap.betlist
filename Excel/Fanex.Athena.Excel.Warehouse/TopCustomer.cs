@@ -15,9 +15,6 @@ namespace Fanex.Athena.Excel.Warehouse
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// Top customer - Export excel.
-    /// </summary>
     public class TopCustomer : ReportBase
     {
         private const int ColumnBaCommission = 9;
@@ -105,11 +102,11 @@ namespace Fanex.Athena.Excel.Warehouse
         {
             int rowCount = ExportData.Rows.Count;
 
-            IList<string> columnNameList = GetColumnNameList();
+            var columnNameList = GetColumnNameList();
             for (int index = 0; index < rowCount; index++)
             {
-                DataRow dataRow = ExportData.Rows[index];
-                IRow row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
+                var dataRow = ExportData.Rows[index];
+                var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
                 row.Cells[0].SetCellValue(index + 1);
                 AssignRowContent(row, dataRow, columnNameList, 1);
             }
@@ -134,25 +131,15 @@ namespace Fanex.Athena.Excel.Warehouse
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        /// <summary>
-        /// Process UI, hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
             HideColumn(sheet, ColumnCustomerTotal, ColumnCustomerComm);
             HideRow(sheet, RowTableHeaderTemplate + 1);
         }
 
-        /// <summary>
-        /// Get column name in data table.
-        /// </summary>
-        /// <returns>The list of column name in data table.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
-            Justification = "Reviewed. Suppression is OK here.")]
-        protected IList<string> GetColumnNameList()
+        private static IEnumerable<string> GetColumnNameList()
         {
-            return new List<string>
+            return new string[]
             {
                 "UserName",
                 "currency",
@@ -166,15 +153,9 @@ namespace Fanex.Athena.Excel.Warehouse
             };
         }
 
-        /// <summary>
-        /// Get column name in data table to get total data.
-        /// </summary>
-        /// <returns>The list of column name in data table.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
-            Justification = "Reviewed. Suppression is OK here.")]
-        protected IList<string> GetTotalColumnNameList()
+        private static IEnumerable<string> GetTotalColumnNameList()
         {
-            return new List<string>
+            return new string[]
             {
                 "Turnover",
                 "betcount",
@@ -185,16 +166,11 @@ namespace Fanex.Athena.Excel.Warehouse
             };
         }
 
-        /// <summary>
-        /// Assign data to total section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="currentRow">Excel row index.</param>
-        protected void AssignTotalData(ISheet sheet, int currentRow)
+        private void AssignTotalData(ISheet sheet, int currentRow)
         {
             int cellIndex = 3;
             IRow row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
-            IList<string> columnNameList = GetTotalColumnNameList();
+            var columnNameList = GetTotalColumnNameList();
             foreach (string columnName in columnNameList)
             {
                 object sumValue = ExportData.Compute("Sum(" + columnName + ")", string.Empty);
@@ -207,13 +183,7 @@ namespace Fanex.Athena.Excel.Warehouse
             sheet.MergeCells(currentRow, 0, currentRow, 2);
         }
 
-        /// <summary>
-        ///     Check data has error or hasn't error.
-        /// </summary>
-        /// <returns>Error message.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
-            Justification = "Reviewed. Suppression is OK here.")]
-        protected string GetErrorMessage()
+        private string GetErrorMessage()
         {
             if (ExportData.Rows.Count == 0)
             {

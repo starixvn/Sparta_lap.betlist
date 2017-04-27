@@ -156,7 +156,7 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        private void UpdateUspParams(IObjectDb db, AgCasinoWinLossMetaModel metaModel, bool drilldown)
+        private static void UpdateUspParams(IObjectDb db, AgCasinoWinLossMetaModel metaModel, bool drilldown)
         {
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);

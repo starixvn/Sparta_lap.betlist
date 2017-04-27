@@ -247,7 +247,7 @@ namespace Fanex.Athena.Excel.Base
             return cellIndex;
         }
 
-        protected internal virtual int AssignRowContent(IRow row, DataRow data, IList<string> columnNameList, int columnStart = 0)
+        protected internal virtual int AssignRowContent(IRow row, DataRow data, IEnumerable<string> columnNameList, int columnStart = 0)
         {
             foreach (string columnName in columnNameList)
             {

@@ -24,8 +24,6 @@ namespace Fanex.Athena.Controllers.Forecast
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class NewHandicapOverUnderForecastController : ForecastBaseController
     {
-        private const string ParentUrl = "HandicapOverUnderForecast";
-
         private readonly IMatchService _matchService;
 
         public NewHandicapOverUnderForecastController()

@@ -151,7 +151,7 @@ namespace Fanex.Athena.DataAccess.Report
             return result;
         }
 
-        private void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
+        private static void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml); 
             db.AddInParameter("productid", DbType.Int32, metaModel.ProductId);

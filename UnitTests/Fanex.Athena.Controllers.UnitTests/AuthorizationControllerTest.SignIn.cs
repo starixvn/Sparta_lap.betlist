@@ -32,7 +32,7 @@
         public void SignIn_IsInternalDomain_ReturnCorrectView()
         {
             // Arrange
-            AppSettings.GetValue("internaldomain").Returns(TestingRequestUrl);
+            AppSettings.GetValue("internaldomain").Returns(TestingRequestDomain);
 
             using (var controller = CreateController())
             {
