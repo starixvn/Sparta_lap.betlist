@@ -8,7 +8,7 @@ namespace Fanex.Athena.Model.Core.DataDomain
     /// <summary>
     /// Format Key constant.
     /// </summary>
-    public sealed class FormatKey
+    public static class FormatKey
     {
         public const string ShortFormatDate = "M/d/yyyy";
 
@@ -17,9 +17,5 @@ namespace Fanex.Athena.Model.Core.DataDomain
         public const string Usd = "USD";
 
         public const string Gbp = "GBP";
-
-        private FormatKey()
-        {
-        }
     }
 }

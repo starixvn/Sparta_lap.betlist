@@ -23,7 +23,7 @@ namespace Fanex.Athena.Service.Report
 
     public class MatchWinLossService : IMatchWinLossService
     {
-        private const string KICKOFFTIME_FORMAT = "{0:MM/dd/yyyy hh:mm:ss tt}";
+        private const string KickOfTimeFormat = "{0:MM/dd/yyyy hh:mm:ss tt}";
 
         private static readonly IList<int> RacingSportTypes = new List<int>
                     {
@@ -134,11 +134,6 @@ namespace Fanex.Athena.Service.Report
             }
         }
 
-        /// <summary>
-        /// Order data list.
-        /// </summary>
-        /// <param name="dataList">The original data list.</param>
-        /// <returns>The ordered data list.</returns>
         private static IList<MatchWinLoss> OrderByProduct(IList<MatchWinLoss> dataList)
         {
             var result = dataList.Where(p => p.ProductName == Product.SB || p.ProductName == Product.BA)
@@ -218,7 +213,7 @@ namespace Fanex.Athena.Service.Report
 
                     if (RacingSportTypes.Contains(matchWinLoss.SportType))
                     {
-                        return string.Format(_culturelEnglish, KICKOFFTIME_FORMAT, matchWinLoss.KickofTime);
+                        return string.Format(_culturelEnglish, KickOfTimeFormat, matchWinLoss.KickofTime);
                     }
 
                     var homeName = CacheRef.GetTeamName(matchWinLoss.HomeId) +

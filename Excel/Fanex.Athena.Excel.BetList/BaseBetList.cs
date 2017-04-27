@@ -32,9 +32,9 @@ namespace Fanex.Athena.Excel.BetList
         private readonly bool _is12Bet;
         private readonly ITicketHelper _ticketHelper;
 
-        private ICellStyle _evenCellStyleLeftAligned;
+        private readonly bool _isShowSumStake;
 
-        private bool _isShowSumStake;
+        private ICellStyle _evenCellStyleLeftAligned;
 
         // Default Fonts
         private IFont _negativeWinLossFont;

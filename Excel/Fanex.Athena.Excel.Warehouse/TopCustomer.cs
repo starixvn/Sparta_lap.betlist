@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Excel.Warehouse
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using Base;
@@ -102,15 +101,6 @@ namespace Fanex.Athena.Excel.Warehouse
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        protected override void AssignNoInfoRow(ISheet sheet)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
             int rowCount = ExportData.Rows.Count;
@@ -124,14 +114,9 @@ namespace Fanex.Athena.Excel.Warehouse
                 AssignRowContent(row, dataRow, columnNameList, 1);
             }
 
-            // Total row
             AssignTotalData(sheet, RowContentTemplate + rowCount);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, ReportTitle);

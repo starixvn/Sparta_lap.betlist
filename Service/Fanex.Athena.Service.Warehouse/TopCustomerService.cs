@@ -18,18 +18,9 @@ namespace Fanex.Athena.Service.Warehouse
     using Fanex.Athena.Model.Warehouse.MetaModel;
     using Fanex.Athena.Service.Warehouse.Interfaces;
 
-    /// <summary>
-    ///     The top customer service.
-    /// </summary>
     public class TopCustomerService : ITopCustomerService
     {
-        #region Constants and Fields
-
-        public const int CacheTimeoutMinute = 1;
-
         private readonly ITopCustomerDataAccess _topCustDataAccess;
-
-        #endregion Constants and Fields
 
         #region Constructors and Destructors
 
@@ -42,11 +33,6 @@ namespace Fanex.Athena.Service.Warehouse
 
         #region Public Methods and Operators
 
-        /// <summary>
-        /// Get data for excel.
-        /// </summary>
-        /// <param name="model">The metal model.</param>
-        /// <returns>The data table.</returns>
         public DataTable GetDataForExcel(TopCustomerMetaModel model)
         {
             return model.IsValid

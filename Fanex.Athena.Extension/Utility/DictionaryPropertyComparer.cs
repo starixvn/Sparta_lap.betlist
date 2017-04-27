@@ -23,7 +23,7 @@ namespace Fanex.Athena.Extension.Utility
     [SuppressMessage("Microsoft.Design", "CA1005:AvoidExcessiveParametersOnGenericTypes", Justification = "Reviewed.")]
     public class DictionaryPropertyComparer<T, TKey, TValue> : PropertyComparer<T>
     {
-        private TKey _key;
+        private readonly TKey _key;
 
         public DictionaryPropertyComparer(TKey key, string property, ListSortDirection direction)
             : base(property, direction)

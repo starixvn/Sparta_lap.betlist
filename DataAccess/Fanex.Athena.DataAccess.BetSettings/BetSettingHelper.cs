@@ -7,7 +7,7 @@
     using Fanex.Athena.Model.Core.Helper;
     using Resources;
 
-    public class BetSettingHelper
+    public static class BetSettingHelper
     {
         public static void RenderSport(IDataReader reader, string sportId, List<BetSetting> resultList, bool isNumberGame = false)
         {

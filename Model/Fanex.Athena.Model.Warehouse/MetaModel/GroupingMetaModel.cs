@@ -9,23 +9,14 @@ namespace Fanex.Athena.Model.Warehouse.MetaModel
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
 
-    /// <summary>
-    /// GroupingMetaModel class.
-    /// </summary>
-    public sealed class GroupingMetaModel
+    public static class GroupingMetaModel
     {
-        [SuppressMessage("Microsoft.Performance", "CA1814:PreferJaggedArraysOverMultidimensional",
-            Justification = "Reviewed.")]
         private static readonly string[,] GroupingMap = new[,]
         {
             { "1", "date" }, { "2", "month" },
             { "3", "currency" }, { "4", "betType" },
             { "5", "league" }
         };
-
-        private GroupingMetaModel()
-        {
-        }
 
         public static int DefaultValue
         {

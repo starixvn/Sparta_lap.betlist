@@ -15,9 +15,6 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class DailyRacingWinLossService : IDailyRacingWinLossService
     {
         #region Fields

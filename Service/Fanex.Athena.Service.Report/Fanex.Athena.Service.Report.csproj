@@ -217,7 +217,6 @@
     <Compile Include="WeeklyLiveMatchService.cs" />
     <Compile Include="WinLossByLeagueService.cs" />
     <Compile Include="ResultService.cs" />
-    <Compile Include="BaseReportService.cs" />
     <Compile Include="CreditBalanceService.cs" />
     <Compile Include="WinLossByProductService.cs" />
     <Compile Include="CustomerBalanceService.cs" />
