@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------
 
-namespace Fanex.Athena.Excel.Report
+namespace Fanex.Athena.Excel.Report.RNGCasino
 {
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
@@ -16,9 +16,6 @@ namespace Fanex.Athena.Excel.Report
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// Win loss by product - Export excel.
-    /// </summary>
     public class HandHistoryExcel : ReportBase
     {
         private const int ColumnGameId = 1;

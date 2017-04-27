@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings;
+    using Service.BetSettings.Interfaces;
 
     public class KenoBetSettingController : BetSettingBaseController
     {

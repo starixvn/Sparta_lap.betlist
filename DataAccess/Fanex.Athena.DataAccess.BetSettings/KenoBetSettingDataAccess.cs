@@ -12,7 +12,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
-    using Fanex.Data;
+    using Interfaces;
     using Model.Core.Helper;
 
     public class KenoBetSettingDataAccess : BaseDataAccess, IKenoBetSettingDataAccess

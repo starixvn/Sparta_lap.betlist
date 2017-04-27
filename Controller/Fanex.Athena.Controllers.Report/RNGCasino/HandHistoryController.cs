@@ -11,7 +11,7 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
-    using Fanex.Athena.Excel.Report;
+    using Excel.Report.RNGCasino;
     using Fanex.Athena.Model.Casino.DTO;
     using Fanex.Athena.Model.Casino.DTO.RNGResultDetail;
     using Fanex.Athena.Model.Casino.MetaModel;
@@ -19,7 +19,6 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Casino.Interfaces;
-    using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
 
     /// <summary>

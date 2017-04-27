@@ -12,6 +12,7 @@ namespace Fanex.Athena.Service.BetSettings
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Service.Casino;
+    using Interfaces;
     using Model.BetSettings.DTO.RngCasino;
     using Model.BetSettings.ViewModel;
     using Model.Casino.MetaModel;

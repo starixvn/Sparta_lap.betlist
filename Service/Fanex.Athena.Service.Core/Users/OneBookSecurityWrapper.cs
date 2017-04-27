@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Service.Core.User
+﻿namespace Fanex.Athena.Service.Core.Users
 {
     using System;
     using System.Configuration;

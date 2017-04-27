@@ -4,6 +4,7 @@
     using BetSettings;
     using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
+    using Interfaces;
     using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
     using NSubstitute;
