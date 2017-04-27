@@ -135,7 +135,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new MicroGamingWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, excelModel);
+            var excel = new MicroGamingWinLossExcel(templatePath, convertingOption, metaModel, excelModel);
 
             excel.Export();
 

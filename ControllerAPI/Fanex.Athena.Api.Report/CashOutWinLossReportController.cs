@@ -66,7 +66,7 @@ namespace Fanex.Athena.Api.Report
             CashOutWinLossMetaModel metaModel,
             CashOutWinLossViewModel viewModel)
         {
-            return new CashOutWinLossExcel(templatePath, exportingFileName, convertingOption, metaModel, viewModel)
+            return new CashOutWinLossExcel(templatePath, convertingOption, metaModel, viewModel)
             {
                 Level = metaModel.DrillDownLevel,
             };

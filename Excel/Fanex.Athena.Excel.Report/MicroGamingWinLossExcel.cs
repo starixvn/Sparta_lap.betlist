@@ -18,9 +18,6 @@ namespace Fanex.Athena.Excel.Report
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    ///  Third party Win Loss - Export excel.
-    /// </summary>
     public class MicroGamingWinLossExcel : ReportBase
     {
         private const int ColumnTemplateCount = 12;
@@ -50,21 +47,14 @@ namespace Fanex.Athena.Excel.Report
 
         public MicroGamingWinLossExcel(
                 string templatePath,
-                string exportingFileName,
                 ConvertingOption convertingOption,
                 MicroGamingWinLossMetaModel metaModel,
                 MicroGamingWinLossViewModel viewModel)
-            : base(templatePath, exportingFileName, null, convertingOption)
+            : base(templatePath, null, convertingOption)
         {
             _metaModel = metaModel;
             _winLossList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
-        }
-
-        public int Level
-        {
-            get;
-            set;
         }
 
         /// <summary>
@@ -91,10 +81,6 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -118,10 +104,6 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
             int indexReport = 1;
@@ -142,10 +124,8 @@ namespace Fanex.Athena.Excel.Report
                     currentRow++;
                 }
 
-                // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
 
-                // Report Date
                 var dateStringFormat = _metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
                 var reportDateString = winloss.Date.ToString(dateStringFormat);
 
@@ -172,10 +152,6 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotalInEurData(sheet, currentRow);
         }
 
-        /// <summary>
-        /// Assign title for the report.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
@@ -192,12 +168,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        /// <summary>
-        /// Assign common data to excel row.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="data">Licensee win loss data.</param>
-        protected void AssignCommonData(IRow row, MicroGamingWinLoss data)
+        private static void AssignCommonData(IRow row, MicroGamingWinLoss data)
         {
             row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
@@ -210,13 +181,42 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnProgressiveFee].SetCellValue(data.ProgressiveFee);
         }
 
+        private static string GenerateProductReportTitle(string fromDate, string toDate, string title)
+        {
+            StringBuilder reportTitle = new StringBuilder(string.Empty);
+            reportTitle.Append(ViewResources.Microgaming).Append(" ");
+            reportTitle.Append(ViewResources.WinLoss);
+            reportTitle.Append(string.Format(", {0} --> {1} - {2}", fromDate, toDate, title));
+            return reportTitle.ToString();
+        }
+
+        private static List<MicroGamingWinLoss> GetTotalCurrency(IEnumerable<MicroGamingWinLoss> dataList)
+        {
+            var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
+                    .Select(group => new MicroGamingWinLoss
+                    {
+                        CurrencyName = group.Key.CurrencyName,
+                        TurnOver = group.Sum(a => a.TurnOver),
+                        TotalTransaction = group.Sum(a => a.TotalTransaction),
+                        CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
+                        ProgressiveContribution = group.Sum(a => a.ProgressiveContribution),
+                        ProgressivePayout = group.Sum(a => a.ProgressivePayout),
+                        LicenseeWL = group.Sum(a => a.LicenseeWL),
+                        LicenseeNetWin = group.Sum(a => a.LicenseeNetWin),
+                        AmountDueToMGC = group.Sum(a => a.AmountDueToMGC),
+                        ProgressiveFee = group.Sum(a => a.ProgressiveFee)
+                    }).ToList();
+
+            return listTotalCurrency;
+        }
+
         /// <summary>
         /// Assign grand total data of EUR.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        protected int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
+        private int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -245,7 +245,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        protected int AssignTotalData(ISheet sheet, int rowIndex)
+        private int AssignTotalData(ISheet sheet, int rowIndex)
         {
             int beginTotalRow = rowIndex;
             List<MicroGamingWinLoss> totalCurrencyList = GetTotalCurrency(_winLossList);
@@ -272,47 +272,6 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, ColumnDate);
 
             return rowIndex;
-        }
-
-        /// <summary>
-        /// Get total currency data.
-        /// </summary>
-        /// <param name="dataList">Report data.</param>
-        /// <returns>List of third party WinLoss entity.</returns>
-        private static List<MicroGamingWinLoss> GetTotalCurrency(IEnumerable<MicroGamingWinLoss> dataList)
-        {
-            var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
-                    .Select(group => new MicroGamingWinLoss
-                    {
-                        CurrencyName = group.Key.CurrencyName,
-                        TurnOver = group.Sum(a => a.TurnOver),
-                        TotalTransaction = group.Sum(a => a.TotalTransaction),
-                        CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
-                        ProgressiveContribution = group.Sum(a => a.ProgressiveContribution),
-                        ProgressivePayout = group.Sum(a => a.ProgressivePayout),
-                        LicenseeWL = group.Sum(a => a.LicenseeWL),
-                        LicenseeNetWin = group.Sum(a => a.LicenseeNetWin),
-                        AmountDueToMGC = group.Sum(a => a.AmountDueToMGC),
-                        ProgressiveFee = group.Sum(a => a.ProgressiveFee)
-                    }).ToList();
-
-            return listTotalCurrency;
-        }
-
-        /// <summary>
-        /// Generates the product report's title.
-        /// </summary>
-        /// <param name="fromDate">The fromDate.</param>
-        /// <param name="toDate">The toDate.</param>
-        /// <param name="title">The title.</param>
-        /// <returns>String of Report Title.</returns>
-        private string GenerateProductReportTitle(string fromDate, string toDate, string title)
-        {
-            StringBuilder reportTitle = new StringBuilder(string.Empty);
-            reportTitle.Append(ViewResources.Microgaming).Append(" ");
-            reportTitle.Append(ViewResources.WinLoss);
-            reportTitle.Append(string.Format(", {0} --> {1} - {2}", fromDate, toDate, title));
-            return reportTitle.ToString();
         }
 
         private int CalculateReportRowSpan(MicroGamingWinLoss winloss)

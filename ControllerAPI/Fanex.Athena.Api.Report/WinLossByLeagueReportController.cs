@@ -88,7 +88,7 @@ namespace Fanex.Athena.Api.Report
                 MainResult = dataList
             };
 
-            var winlossByLeague = new WinlossByLeagueExcel(templatePath, FileName, convertingOption, metaModel, viewModel, grandTotal)
+            var winlossByLeague = new WinlossByLeagueExcel(templatePath, convertingOption, metaModel, viewModel, grandTotal)
             {
                 Level = metaModel.Level
             };

@@ -54,11 +54,10 @@ namespace Fanex.Athena.Excel.Report
 
         public TurnoverExcel(
                              string templatePath,
-                             string exportingFileName,
                              ConvertingOption convertingOption,
                              ShowingOption showingOption,
                              TurnoverViewModel viewModel)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _viewModel = viewModel;
             _turnoverList = viewModel.DataList;

@@ -54,13 +54,12 @@ namespace Fanex.Athena.Excel.Report
 
         public MatchWinLossExcel(
                                 string templatePath,
-                                string exportingFileName,
                                 ConvertingOption convertingOption,
                                 ShowingOption showingOption,
                                 DataTable exportData,
                                 DataTable totalData,
                                 MatchWinLossMetaModel model)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _model = model;
             ExportData = exportData;
@@ -243,6 +242,17 @@ namespace Fanex.Athena.Excel.Report
                 "amtduetoba",
                 "amtduetorb"
             };
+        }
+
+        private static int AssignDecimalData(IRow row, int cellIndex, params decimal[] decimalValues)
+        {
+            for (int i = 0, j = decimalValues.Length; i < j && cellIndex < row.Cells.Count; i++)
+            {
+                row.Cells[cellIndex].SetCellValue(decimalValues[i]);
+                cellIndex++;
+            }
+
+            return cellIndex;
         }
 
         /// <summary>

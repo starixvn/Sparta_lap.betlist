@@ -166,7 +166,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyName = viewModel.Param.CurrencyName
             };
 
-            var custBalanceExcel = new CustomerBalanceExcel(templatePath, FileName, viewModel, showingOption, convertingOption, ViewBag.SortByText);
+            var custBalanceExcel = new CustomerBalanceExcel(templatePath, viewModel, showingOption, convertingOption, ViewBag.SortByText);
             custBalanceExcel.Export();
 
             return new ExcelResult(custBalanceExcel.Workbook, FileName);

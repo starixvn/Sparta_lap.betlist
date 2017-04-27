@@ -42,12 +42,11 @@ namespace Fanex.Athena.Excel.Report
 
         public BalanceExcel(
                             string templatePath,
-                            string exportingFileName,
                             ShowingOption showingOption,
                             ConvertingOption convertingOption,
                             Balance balance,
                             string date)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _balance = balance;
             _date = date;

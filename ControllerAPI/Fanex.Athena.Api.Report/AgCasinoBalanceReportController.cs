@@ -83,7 +83,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new AgCasinoBalanceExcel(templatePath, FileName, convertingOption, metaModel, excelModel)
+            var excel = new AgCasinoBalanceExcel(templatePath, convertingOption, metaModel, excelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };

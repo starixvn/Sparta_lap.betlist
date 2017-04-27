@@ -42,11 +42,10 @@ namespace Fanex.Athena.Excel.Report
 
         public WinLossByBetTypeExcel(
                                      string templatePath,
-                                     string exportingFileName,
                                      ConvertingOption convertingOption,
                                      ShowingOption showingOption,
                                      WinLossByBetTypeViewModel viewModel)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _viewModel = viewModel;
             _winlossByBetTypeList = viewModel.MainResult;

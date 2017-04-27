@@ -82,7 +82,7 @@ namespace Fanex.Athena.Api.Report
                 DataList = dataList
             };
 
-            var excel = new CasinoProgressiveWinsExcel(templatePath, FileName, convertingOption, metaModel, excelModel);
+            var excel = new CasinoProgressiveWinsExcel(templatePath, convertingOption, metaModel, excelModel);
 
             excel.Export();
 

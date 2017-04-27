@@ -82,7 +82,7 @@ namespace Fanex.Athena.Api.Report
             const string FileName = "WeeklyLiveMatches.xls";
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/WeeklyLiveMatch.xls");
 
-            var excel = new WeeklyLiveMatchExcel(templatePath, FileName, metaModel, dataList, totalData, weekHeaders);
+            var excel = new WeeklyLiveMatchExcel(templatePath, metaModel, dataList, totalData, weekHeaders);
 
             excel.Export();
 

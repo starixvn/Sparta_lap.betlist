@@ -48,12 +48,11 @@ namespace Fanex.Athena.Excel.Report
 
         public LiveReportExcel(
                                string templatePath,
-                               string exportingFileName,
                                ConvertingOption convertingOption,
                                ShowingOption showingOption,
                                IList<LiveReport> liveReportList,
                                LiveReportDetailViewModel liveReportDetailList)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _liveReportList = liveReportList;
             _liveReportDetailList = liveReportDetailList;

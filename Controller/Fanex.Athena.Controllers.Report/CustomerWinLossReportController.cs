@@ -209,7 +209,6 @@ namespace Fanex.Athena.Controllers.Report
 
             var custWinlossExcel = new CustomerWinLossExcel(
                 templatePath,
-                FileName,
                 showingOption,
                 convertingOption,
                 viewModel)
@@ -250,7 +249,6 @@ namespace Fanex.Athena.Controllers.Report
 
             var custWinlossExcel = new CustomerWinLossExcel(
                 templatePath,
-                FileName,
                 showingOption,
                 convertingOption,
                 viewModel)

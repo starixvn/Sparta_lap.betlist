@@ -47,11 +47,10 @@ namespace Fanex.Athena.Excel.Report
 
         public DailyRacingWinLoss12BetExcel(
                                             string templatePath,
-                                            string exportingFileName,
                                             ConvertingOption convertingOption,
                                             ShowingOption showingOption,
                                             DailyRacingWinLossViewModel viewModel)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             ViewModel = viewModel;
             DailyRacingWinLossData = viewModel.DailyRacingWinLossData;

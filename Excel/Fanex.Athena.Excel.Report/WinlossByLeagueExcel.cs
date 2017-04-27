@@ -46,12 +46,11 @@ namespace Fanex.Athena.Excel.Report
 
         public WinlossByLeagueExcel(
                                      string templatePath,
-                                     string exportingFileName,
                                      ConvertingOption convertingOption,
                                      WinLossByLeagueMetaModel metaModel,
                                      WinLossByLeagueViewModel viewModel,
                                      WinLossByLeague totalData)
-            : base(templatePath, exportingFileName, new ShowingOption(), convertingOption)
+            : base(templatePath, new ShowingOption(), convertingOption)
         {
             _metaModel = metaModel;
             _winlossByLeagueList = viewModel.MainResult.ToList();

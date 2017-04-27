@@ -44,12 +44,11 @@ namespace Fanex.Athena.Excel.Report
 
         public ActiveCustomerSummaryExcel(
                 string templatePath,
-                string exportingFileName,
                 ConvertingOption convertingOption,
                 ShowingOption showingOption,
                 ActiveCustomerMetaModel metaModel,
                 ActiveCustomerViewModel viewModel)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _metaModel = metaModel;
             _activeCustomerList = viewModel.MainResult;

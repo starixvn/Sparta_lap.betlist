@@ -56,7 +56,7 @@ namespace Fanex.Athena.Api.Report
                 CurrencyName = metaModel.CurrencyName
             };
 
-            var platformWinLossExcel = new PlatformWinLossSummaryExcel(templatePath, FileName, metaModel, dataList, total, convertingOption);
+            var platformWinLossExcel = new PlatformWinLossSummaryExcel(templatePath, metaModel, dataList, total, convertingOption);
             platformWinLossExcel.Export();
 
             return ExcelStream(platformWinLossExcel.Workbook, FileName);
@@ -103,7 +103,7 @@ namespace Fanex.Athena.Api.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            var platformWinLossExcel = new PlatformWinLossMemberExcel(templatePath, FileName, excelModel, showingOption, convertingOption)
+            var platformWinLossExcel = new PlatformWinLossMemberExcel(templatePath, excelModel, showingOption, convertingOption)
             {
                 ProductOptions = metaModel.ProductOptions
             };

@@ -196,7 +196,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal
             };
 
-            var winlossByProduct = new WinlossByProductExcel(templatePath, FileName, convertingOption, showingOption, metaModel, viewModel, systemId, errorMessage)
+            var winlossByProduct = new WinlossByProductExcel(templatePath, convertingOption, showingOption, metaModel, viewModel, systemId, errorMessage)
             {
                 Level = metaModel.Level,
                 EnableReportByMonth = metaModel.ReportBy,

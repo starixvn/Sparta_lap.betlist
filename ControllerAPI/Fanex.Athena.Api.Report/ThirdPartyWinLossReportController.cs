@@ -120,7 +120,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new ThirdPartyWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, excelModel)
+            var excel = new ThirdPartyWinLossExcel(templatePath, convertingOption, metaModel, excelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };

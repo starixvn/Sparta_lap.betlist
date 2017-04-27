@@ -184,7 +184,6 @@ namespace Fanex.Athena.Controllers.Report
             };
             var liveReportExcel = new LiveReportExcel(
                 templatePath,
-                FileName,
                 convertingOption,
                 showingOption,
                 viewModel.MainResult,

@@ -92,13 +92,13 @@ namespace Fanex.Athena.Controllers.Report
             // Export excel
             if (licenseeSession.LicenseeId == 1)
             {
-                var racingWinLossExcel12Bet = new DailyRacingWinLoss12BetExcel(templatePath, FileName, currencyConvert, showingOption, viewModel);
+                var racingWinLossExcel12Bet = new DailyRacingWinLoss12BetExcel(templatePath, currencyConvert, showingOption, viewModel);
                 racingWinLossExcel12Bet.Export();
 
                 return new ExcelResult(racingWinLossExcel12Bet.Workbook, FileName);
             }
 
-            var dailyRacingWinLossExcel = new DailyRacingWinLossExcel(templatePath, FileName, currencyConvert, showingOption, viewModel);
+            var dailyRacingWinLossExcel = new DailyRacingWinLossExcel(templatePath, currencyConvert, showingOption, viewModel);
 
             dailyRacingWinLossExcel.Export();
 

@@ -43,11 +43,10 @@ namespace Fanex.Athena.Excel.Report
 
         public PlatformWinLossMemberExcel(
                         string templatePath,
-                                  string exportingFileName,
                                   PlatformWinLossViewModel model,
                                   ShowingOption showingOption,
                                   ConvertingOption convertingOption)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _model = model;
             _dataList = model.MainResult;

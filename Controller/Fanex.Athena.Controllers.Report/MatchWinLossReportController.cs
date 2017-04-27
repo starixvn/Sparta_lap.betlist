@@ -184,7 +184,6 @@ namespace Fanex.Athena.Controllers.Report
             mainTable = mainTable.DefaultView.ToTable();
             var matchWinLossExcel = new MatchWinLossExcel(
                 templatePath,
-                FileName,
                 convertingOption,
                 showingOption,
                 mainTable,

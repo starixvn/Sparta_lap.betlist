@@ -39,11 +39,10 @@ namespace Fanex.Athena.Excel.Report
 
         public RacingCommissionExcel(
                                      string templatePath,
-                                     string exportingFileName,
                                      ConvertingOption convertingOption,
                                      ShowingOption showingOption,
                                      RacingCommissionViewModel viewModel)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _viewModel = viewModel;
             _racingCommissionList = viewModel.RacingCommissionList;

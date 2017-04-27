@@ -31,11 +31,10 @@ namespace Fanex.Athena.Excel.Warehouse
 
         public TopCustomer(
                 string templatePath,
-                string exportingFileName,
                 ConvertingOption convertingOption,
                 ShowingOption showingOption,
                 DataTable exportData)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             ExportData = exportData;
 

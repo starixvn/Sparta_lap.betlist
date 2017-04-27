@@ -50,7 +50,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
                     RNGCasinoResultMetaModel metaModel,
                     RNGCasinoResultViewModel viewModel,
                     RNGCasinoResult totalData)
-            : base(templatePath, exportingFileName, null, null)
+            : base(templatePath, null, null)
         {
             _metaModel = metaModel;
             _data = viewModel.Data;

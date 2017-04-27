@@ -103,7 +103,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var excel = new ColossusBetsWinLossExcel(templatePath, exportedFileName, convertingOption, metaModel, excelModel)
+            var excel = new ColossusBetsWinLossExcel(templatePath, convertingOption, metaModel, excelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };

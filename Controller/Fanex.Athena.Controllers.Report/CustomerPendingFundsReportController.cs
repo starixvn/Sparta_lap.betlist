@@ -128,7 +128,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyName = viewModel.Param.CurrencyName
             };
 
-            var custPendingFundsExcel = new CustomerPendingFundsExcel(templatePath, FileName, convertingOption, viewModel);
+            var custPendingFundsExcel = new CustomerPendingFundsExcel(templatePath, convertingOption, viewModel);
             custPendingFundsExcel.Export();
 
             return new ExcelResult(custPendingFundsExcel.Workbook, FileName);
