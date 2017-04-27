@@ -33,7 +33,7 @@ namespace Fanex.Athena.DataAccess.Core.Exception
             this._uspParams = null;
         }
 
-        public DataAccessException(SerializationInfo info, StreamingContext context)
+        public DataAccessException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             _uspName = info.GetString(nameof(_uspName));
             _uspParams = info.GetValue(nameof(_uspParams), typeof(object));

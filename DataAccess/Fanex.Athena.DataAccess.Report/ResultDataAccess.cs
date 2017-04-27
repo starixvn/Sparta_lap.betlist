@@ -304,7 +304,7 @@ namespace Fanex.Athena.DataAccess.Report
                             var parlay = results.SingleOrDefault(x => x.LeagueId == leagueId);
                             if (parlay == null)
                             {
-                                parlay = new Parlay()
+                                parlay = new Parlay
                                 {
                                     LeagueId = leagueId,
                                     SportId = reader.ToInt("sporttype")

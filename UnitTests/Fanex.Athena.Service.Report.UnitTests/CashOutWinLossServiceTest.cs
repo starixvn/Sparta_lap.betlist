@@ -39,7 +39,7 @@
         {
             // Arrange
             var metaModel = new CashOutWinLossMetaModel();
-            IDictionary<string, CashOutWinLoss> summaryTotal = new Dictionary<string, CashOutWinLoss>();
+            IDictionary<string, CashOutWinLoss> summaryTotal;
 
             // Action
             _service.GetDetail(metaModel, out summaryTotal);

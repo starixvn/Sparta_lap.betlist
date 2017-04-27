@@ -23,7 +23,7 @@ namespace Fanex.Athena.Service.Core.Exception
             this._serviceName = serviceName;
         }
 
-        public ServiceException(SerializationInfo info, StreamingContext context)
+        public ServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             _serviceName = info.GetString(nameof(_serviceName));
         }

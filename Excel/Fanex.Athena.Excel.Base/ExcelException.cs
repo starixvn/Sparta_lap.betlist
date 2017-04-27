@@ -24,7 +24,7 @@ namespace Fanex.Athena.Excel.Base
             _excelFile = excelFile;
         }
 
-        public ExcelException(SerializationInfo info, StreamingContext context)
+        public ExcelException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             _excelFile = info.GetString(nameof(_excelFile));
         }

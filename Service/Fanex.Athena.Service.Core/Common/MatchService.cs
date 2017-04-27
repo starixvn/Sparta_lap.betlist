@@ -22,7 +22,7 @@ namespace Fanex.Athena.Service.Core.Common
         private const string RunningMatchCacheKey = "RunningMatchCacheKey_";
         private readonly IMatchDataAccess _matchDataAccess;
 
-        private ICache _cacheInstance = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
+        private readonly ICache _cacheInstance = Fanex.Caching.CacheService.CreateInstance(CacheType.MemoryCache);
 
         public MatchService()
         {
