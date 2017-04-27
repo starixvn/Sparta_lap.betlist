@@ -7,10 +7,11 @@
 namespace Fanex.Athena.Service.Core.Common
 {
     using System.Collections.Generic;
+    using DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Model.Core.MetaModel.Common;
 
     public class LeagueService : ILeagueService
     {

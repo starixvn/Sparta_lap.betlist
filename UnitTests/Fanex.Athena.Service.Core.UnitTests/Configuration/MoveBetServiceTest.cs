@@ -1,8 +1,8 @@
-﻿namespace Fanex.Athena.Service.Core.UnitTests.Common
+﻿namespace Fanex.Athena.Service.Core.UnitTests.Configuration
 {
     using System;
-    using Configuration;
-    using Configuration.Interfaces;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Model.Core.DTO.Configuration;

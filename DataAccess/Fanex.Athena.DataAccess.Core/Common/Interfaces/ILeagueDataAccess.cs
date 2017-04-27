@@ -8,7 +8,7 @@ namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Report.MetaModel;
+    using Model.Core.MetaModel.Common;
 
     public interface ILeagueDataAccess
     {

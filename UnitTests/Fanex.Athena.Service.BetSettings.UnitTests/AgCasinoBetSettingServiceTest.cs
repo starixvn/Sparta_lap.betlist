@@ -1,8 +1,10 @@
-﻿namespace Fanex.Athena.Service.Core.UnitTests.Common
+﻿namespace Fanex.Athena.Service.BetSettings.UnitTests
 {
     using System;
     using BetSettings;
     using BetSettings.Interfaces;
+    using Core.Users.Interfaces;
+    using Core.Utility.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Model.BetSettings.DTO;
@@ -10,8 +12,6 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
-    using Users.Interfaces;
-    using Utility.Interfaces;
 
     [TestFixture]
     public class AgCasinoBetSettingServiceTest

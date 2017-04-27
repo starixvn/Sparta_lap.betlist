@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.DataAccess.Dashboard.Tests
+﻿namespace Fanex.Athena.DataAccess.Dashboard.UnitTests
 {
     using Model.Dashboard.MetaModel;
     using NSubstitute;

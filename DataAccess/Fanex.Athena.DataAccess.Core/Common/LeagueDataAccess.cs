@@ -4,12 +4,13 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
+namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
     using System.Data;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Report.MetaModel;
+    using Interfaces;
+    using Model.Core.MetaModel.Common;
 
     public class LeagueDataAccess : BaseDataAccess, ILeagueDataAccess
     {

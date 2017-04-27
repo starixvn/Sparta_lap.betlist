@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Service.Core.UnitTests.Common
+﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,6 @@
     using DataAccess.Core.Users.Interfaces;
     using Model.Core.DTO;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
 

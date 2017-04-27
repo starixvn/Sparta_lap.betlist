@@ -4,13 +4,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Model.BetSettings.DTO.AgCasino
+namespace Fanex.Athena.Model.BetSettings.DTO.GoldDeluxe
 {
     using System.Collections.Generic;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class GoldDeluxeGame
     {
         public string GameType { get; set; }

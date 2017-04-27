@@ -1,14 +1,14 @@
-﻿namespace Fanex.Athena.Service.Core.UnitTests.Common
+﻿namespace Fanex.Athena.Service.BetSettings.UnitTests
 {
     using System.Collections.Generic;
     using BetSettings;
     using BetSettings.Interfaces;
+    using Core.Exception;
+    using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
-    using Exception;
     using Model.BetSettings.DTO;
     using NSubstitute;
     using NUnit.Framework;
-    using Users.Interfaces;
 
     [TestFixture]
     public class RacingBetSettingServiceTest

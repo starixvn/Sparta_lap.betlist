@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Extension.UnitTests.Helper
+﻿namespace Fanex.Athena.Extension.UnitTests.Utility
 {
     using Extension.Utility;
     using NUnit.Framework;

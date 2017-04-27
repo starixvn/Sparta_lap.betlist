@@ -2,9 +2,9 @@
 {
     using System;
     using System.Data;
-    using Core.Common.Interfaces;
+    using Core.Common;
     using Data;
-    using Model.Report.MetaModel;
+    using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;
 

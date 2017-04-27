@@ -17,6 +17,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.Core.MetaModel.Common;
     using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;

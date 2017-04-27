@@ -6,7 +6,7 @@
     using Core.Common.Interfaces;
     using DataAccess.Core.Common.Interfaces;
     using Model.Core.DTO.Common;
-    using Model.Report.MetaModel;
+    using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;
 

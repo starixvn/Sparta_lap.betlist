@@ -4,14 +4,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Model.BetSettings.ViewModel
+namespace Fanex.Athena.Model.BetSettings.DTO
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.BetSettings.DTO;
 
-    /// <summary>
-    /// LiveCasinoBetSettingGame class.
-    /// </summary>
     public class LiveCasinoBetSettingGame
     {
         public string GameTypeName { get; set; }

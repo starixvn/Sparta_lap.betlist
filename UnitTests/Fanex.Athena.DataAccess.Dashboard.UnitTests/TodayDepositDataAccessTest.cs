@@ -2,7 +2,7 @@
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Fanex.Athena.DataAccess.Dashboard.Tests
+namespace Fanex.Athena.DataAccess.Dashboard.UnitTests
 {
     [TestFixture]
     public class TodayDepositDataAccessTest
