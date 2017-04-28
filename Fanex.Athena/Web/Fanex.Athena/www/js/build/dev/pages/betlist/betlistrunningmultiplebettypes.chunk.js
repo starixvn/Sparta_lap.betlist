@@ -716,9 +716,7 @@ webpackJsonp([33],[
 	
 	            viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
 	                var $baseCurrency = $("#BaseCurrency");
-	                var baseCurrency = $baseCurrency.length ?
-	                $baseCurrency.val() !== "" ? $baseCurrency.val() : $baseCurrency.find("option[value='']").text().toLowerCase()
-	                : $.parseJSON($("#BetListMetaModel").val()).BaseCurrency;
+	                var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($("#BetListMetaModel").val()).BaseCurrency;
 	
 	                var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
 	                var url = Site.resolveClientUrl('CashOutBetList/Detail');
