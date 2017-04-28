@@ -57,7 +57,7 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        private IEnumerable<CashOutTicket> ReadCashOutTickets(IDataReader reader, string baseCurrency)
+        private static IEnumerable<CashOutTicket> ReadCashOutTickets(IDataReader reader, string baseCurrency)
         {
             var result = new SortableList<CashOutTicket>();
 

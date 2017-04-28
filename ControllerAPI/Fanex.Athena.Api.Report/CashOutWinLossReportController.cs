@@ -10,7 +10,6 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Web;
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
