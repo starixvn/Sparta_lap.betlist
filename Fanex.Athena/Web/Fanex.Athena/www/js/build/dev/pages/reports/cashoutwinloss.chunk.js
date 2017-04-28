@@ -20940,13 +20940,8 @@ webpackJsonp([42],[
 	
 	                $(columnModel).each(function (cellIndex, modelElement) {
 	                    var cell = cellList.get(cellIndex);
-<<<<<<< HEAD
 	                    var isCustomFormater = typeof modelElement.formatter === "function";
-	                    var rawValue = summaryData[modelElement.name];
-=======
-	                    var isCustomFormater = typeof (modelElement.formatter) === "function";
 	                    var rawValue = dataItem[modelElement.name];
->>>>>>> f106cd8... #73738 - Update resize grid function for Win Loss By product
 	                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
 	                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
 	                    var titleValue = value;
