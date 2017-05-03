@@ -440,6 +440,9 @@
   color: #2c3d4b;
   font-weight: bold; }
 
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-sortable {
+  cursor: default; }
+
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable .jqgroup .ui-icon {
   float: right;
   font-weight: bold; }
@@ -448,10 +451,8 @@
   transform: rotate(-90deg); }
 
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable .jqgroup > td {
+  padding-left: 10px !important;
   padding-right: 10px;
   border-bottom: 1px solid #c5c3c3; }
-  .theme_jqGrid .ui-jqgrid .ui-jqgrid-btable .jqgroup > td:before {
-    content: "";
-    padding-left: 10px; }
 
 /*# sourceMappingURL=winlossbyproduct.css.map*/

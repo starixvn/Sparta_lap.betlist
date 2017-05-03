@@ -19,6 +19,10 @@ $colorBorderGroupingRow: #c5c3c3;
             }
         }
 
+        .ui-jqgrid-sortable{
+            cursor: default;
+        }
+
         .ui-jqgrid-btable {
             .jqgroup {
                 .ui-icon {
@@ -31,13 +35,9 @@ $colorBorderGroupingRow: #c5c3c3;
                 }
 
                 > td {
+                    padding-left: 10px !important;
                     padding-right: 10px;
                     border-bottom: 1px solid $colorBorderGroupingRow;
-
-                    &:before {
-                        content: "";
-                        padding-left: 10px;
-                    }
                 }
             }
         }
