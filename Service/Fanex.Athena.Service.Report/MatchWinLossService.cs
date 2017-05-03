@@ -25,7 +25,7 @@ namespace Fanex.Athena.Service.Report
     {
         private const string KickOfTimeFormat = "{0:MM/dd/yyyy hh:mm:ss tt}";
 
-        private static readonly IList<int> RacingSportTypes = new List<int>
+        private static readonly IEnumerable<int> RacingSportTypes = new List<int>
                     {
                         (int)SportType.VirtualHorseRacing,
                         (int)SportType.VirtualGreyhound,
@@ -34,32 +34,17 @@ namespace Fanex.Athena.Service.Report
                         (int)SportType.VirtualCycling
                     };
 
-        private readonly CultureInfo _culturelEnglish;
+        private static readonly CultureInfo EnglishCulture = new CultureInfo("en-US");
 
-        #region Field and constants
-
-        /// <summary>
-        ///     The _balance up service.
-        /// </summary>
         private readonly IBalanceUpService _balanceUpService;
 
-        /// <summary>
-        ///     The match win loss data access.
-        /// </summary>
         private readonly MatchWinLossDataAccess _matchWinLossDataAccess;
-
-        #endregion Field and constants
-
-        #region Constructor
 
         public MatchWinLossService()
         {
             this._balanceUpService = new BalanceUpService();
             this._matchWinLossDataAccess = new MatchWinLossDataAccess(this._balanceUpService.BalanceUpInfo);
-            this._culturelEnglish = new CultureInfo("en-US");
         }
-
-        #endregion Constructor
 
         #region IMatchWinLossService Members
 
@@ -213,7 +198,7 @@ namespace Fanex.Athena.Service.Report
 
                     if (RacingSportTypes.Contains(matchWinLoss.SportType))
                     {
-                        return string.Format(_culturelEnglish, KickOfTimeFormat, matchWinLoss.KickofTime);
+                        return string.Format(EnglishCulture, KickOfTimeFormat, matchWinLoss.KickofTime);
                     }
 
                     var homeName = CacheRef.GetTeamName(matchWinLoss.HomeId) +

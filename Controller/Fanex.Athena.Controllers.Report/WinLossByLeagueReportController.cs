@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -89,7 +88,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         [AjaxRequest]
         [CustomValidateAntiForgery]
         public ActionResult GetLeaguesBySport(LeagueMetaModel metaModel)

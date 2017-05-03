@@ -15,10 +15,20 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportDailyRacingWinLoss)]
     public class DailyRacingWinLossReportController : ReportBaseController
     {
+        private const int Licensee12Bet = 1;
+
+        private readonly IDailyRacingWinLossService _dailyRacingWinLossService;
+
+        public DailyRacingWinLossReportController()
+        {
+            _dailyRacingWinLossService = new DailyRacingWinLossService();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -51,8 +61,7 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.BalanceUpDay = BalanceUpService.BalanceUpInfo.BalanceUpDay.ToShortDateString();
-            var dailyRacingWinLossService = new DailyRacingWinLossService();
-            var dailyRacingWlData = dailyRacingWinLossService.GetDailyRacingWinLossData(metaModel);
+            var dailyRacingWlData = _dailyRacingWinLossService.GetDailyRacingWinLossData(metaModel);
 
             var model = new DailyRacingWinLossViewModel
             {
@@ -89,8 +98,7 @@ namespace Fanex.Athena.Controllers.Report
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
-            // Export excel
-            if (licenseeSession.LicenseeId == 1)
+            if (licenseeSession.LicenseeId == Licensee12Bet)
             {
                 var racingWinLossExcel12Bet = new DailyRacingWinLoss12BetExcel(templatePath, currencyConvert, showingOption, viewModel);
                 racingWinLossExcel12Bet.Export();
