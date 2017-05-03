@@ -285,7 +285,7 @@ var LastBetFilter = (function () {
                 LastBetGrid.startMonitor();
             }
             else {
-                monitor.stopMonitor();
+                LastBetGrid.stopMonitor();
             }
 
             $(this).val(newValue);

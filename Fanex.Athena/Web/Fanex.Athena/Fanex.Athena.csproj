@@ -733,6 +733,7 @@
     <Content Include="Content\Plugin\ColorPicker\images\transparent.png" />
     <Content Include="Content\Plugin\ColorPicker\images\checked-light.png" />
     <Content Include="Content\Report\cashoutwinloss.css" />
+    <Content Include="jasmine-specs\BetList\lastbet.filter-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
@@ -1220,7 +1221,7 @@
     <Content Include="jasmine-specs\BetList\customer.dailystatement.option-test.js" />
     <Content Include="jasmine-specs\BetList\customer.outstandingbetlist-test.js" />
     <Content Include="jasmine-specs\BetList\dailybetlist-test.js" />
-    <Content Include="jasmine-specs\BetList\lastbetsmonitornew-test.js" />
+    <Content Include="jasmine-specs\BetList\lastbet.grid-test.js" />
     <Content Include="jasmine-specs\BetList\runningbetlist-test.js" />
     <Content Include="jasmine-specs\BetList\runningbetlist.multiplebettypes-test.js" />
     <Content Include="jasmine-specs\Casino\RNGCasinoResult-test.js" />
@@ -1467,7 +1468,9 @@
     <Content Include="SiteConfig\Web.AppSettings.SANDBOX.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="SiteConfig\Web.AppSettings.SIT.config" />
+    <Content Include="SiteConfig\Web.AppSettings.SIT.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="SiteConfig\Web.AppSettings.UAT.config" />
     <Content Include="SiteConfig\Web.ConnectionStrings.BACKUPMNL.config" />
     <Content Include="SiteConfig\Web.ConnectionStrings.DEV.config" />

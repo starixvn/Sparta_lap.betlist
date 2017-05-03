@@ -30,15 +30,15 @@ var LastBetGrid = (function () {
         TransId: _lastTransId,
         BetFrom: 0
     };
-    var _intervalId = 0;
-    var _errorMessage = null;
-    var _isLoading = false;
-    var _isCriteriaChange = false;
-    var _intervalMiliseconds = 3000;
+    var _intervalId;
+    var _errorMessage;
+    var _isLoading;
+    var _isCriteriaChange;
+    var _intervalMiliseconds;
 
     // Object
-    var _$containerTable = null;
-    var _$headerRow = null;
+    var _$containerTable;
+    var _$headerRow;
 
     // Config
     var MIN_LOADING_MILISECONDS = 1000;
@@ -56,6 +56,15 @@ var LastBetGrid = (function () {
          { Name: "Stake", IsShow: 1 },
          { Name: "Status", IsShow: 1 }];
     _me.initialize = function () {
+        _intervalId = 0;
+        _errorMessage = null;
+        _isLoading = false;
+        _isCriteriaChange = false;
+        _intervalMiliseconds = 3000;
+
+        _$containerTable = null;
+        _$headerRow = null;
+
         Site.addUserGuide({
             resourceName: "LastBetsMonitoring",
             title: Site.getSingleResource("LastBetsMonitoring")
@@ -101,12 +110,12 @@ var LastBetGrid = (function () {
         _params.StakeTo = tempT;
     };
 
-    _me.Submit = function (freeStatus) {
+    _me.Submit = function (freezeStatus) {
         _me.stopMonitor();
         _me.tryUpdateStake();
         _isCriteriaChange = true;
 
-        if (parseInt(freeStatus) === 1) {
+        if (parseInt(freezeStatus) === 1) {
             _me.startMonitor();
         }
         else {
