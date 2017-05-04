@@ -5433,10 +5433,6 @@
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.HttpCompress\Fanex.Athena.HttpCompress.csproj">
-      <Project>{88FBBF63-2272-411A-B89A-2B6F9E97BDBF}</Project>
-      <Name>Fanex.Athena.HttpCompress</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
       <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>
       <Name>Fanex.Athena.Model.BetList</Name>
