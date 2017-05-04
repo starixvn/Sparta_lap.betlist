@@ -204,6 +204,10 @@
                     jqGridAdditional.gridComplete();
                     _me.rowSpanByLevel(reportGrid, level);
 
+                    // Update colspan for grouping row (because fixed table should has correct colspan value)
+                    var coulumnVisibleCount = gridOption.colModel.filter(function (item) { return !item.hidden; }).length;
+                    reportGrid.find("tr.jqgroup td").attr("colspan", coulumnVisibleCount - 1); // -1 for hiding of Date column
+
                     if (level === 2 && numOfRow > WinLossByProductOption.pageSize) {
                         $("#pg_ppdata").show();
                     }
@@ -229,9 +233,6 @@
                     $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByProductOption.currencyIndex]);
 
                     _me.resizeGrid();
-
-                    var coulumnVisibleCount = gridOption.colModel.filter(function (item) { return !item.hidden; }).length;
-                    reportGrid.find("tr.jqgroup td").attr("colspan", coulumnVisibleCount - 1); // -1 for hiding of Date column
                     Site.unBlockUI();
                 };
 
