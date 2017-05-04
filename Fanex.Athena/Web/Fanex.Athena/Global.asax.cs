@@ -8,7 +8,6 @@ namespace Fanex.Athena
 {
     using System;
     using System.Configuration;
-    using System.Net.Http;
     using System.Web;
     using System.Web.Helpers;
     using System.Web.Http;
@@ -27,8 +26,6 @@ namespace Fanex.Athena
 
     public class MvcApplication : HttpApplication
     {
-        private DelegatingHandler _apiCompress;
-
         /// <summary>
         /// The application errors.
         /// </summary>
@@ -81,8 +78,8 @@ namespace Fanex.Athena
                 BundleConfig.RegisterBundles(BundleTable.Bundles);
                 /*Web API*/
                 GlobalConfiguration.Configuration.EnableCors();
-                _apiCompress = new ApiCompressHandler();
-                GlobalConfiguration.Configuration.MessageHandlers.Add(_apiCompress);
+                var apiCompress = new ApiCompressHandler();
+                GlobalConfiguration.Configuration.MessageHandlers.Add(apiCompress);
                 GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
                 GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
                 GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
@@ -99,17 +96,6 @@ namespace Fanex.Athena
                     SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
                 }
             }
-        }
-
-        public sealed override void Dispose()
-        {
-            if (_apiCompress != null)
-            {
-                GC.SuppressFinalize(_apiCompress);
-                _apiCompress.Dispose();
-            }
-
-            base.Dispose();
         }
 
         /// <summary>
