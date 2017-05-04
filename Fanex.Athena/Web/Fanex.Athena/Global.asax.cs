@@ -78,8 +78,8 @@ namespace Fanex.Athena
                 BundleConfig.RegisterBundles(BundleTable.Bundles);
                 /*Web API*/
                 GlobalConfiguration.Configuration.EnableCors();
-                var apiCompress = new ApiCompressHandler();
-                GlobalConfiguration.Configuration.MessageHandlers.Add(apiCompress);
+                //// var apiCompress = new ApiCompressHandler();
+                //// GlobalConfiguration.Configuration.MessageHandlers.Add(apiCompress);
                 GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
                 GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
                 GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
