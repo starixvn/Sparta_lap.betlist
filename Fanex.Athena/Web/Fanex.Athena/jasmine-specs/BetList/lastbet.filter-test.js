@@ -1,9 +1,6 @@
-﻿
-xdescribe("LastBetFilter", function () {
-    
+﻿describe("LastBetFilter", function () {
     describe("initialize()", function () {
         beforeEach(function () {
-            spyOn(LastBetFilter, "initMainObject");
             spyOn(LastBetFilter, "initSports");
             spyOn(LastBetFilter, "initLeague");
             spyOn(LastBetFilter, "initMatch");
@@ -17,16 +14,11 @@ xdescribe("LastBetFilter", function () {
             spyOn(LastBetFilter, "initStake");
             spyOn(LastBetFilter, "initPageSizeControl");
             spyOn(LastBetFilter, "initFreezeButton");
-            spyOn(LastBetFilter, "initHighlight");
             spyOn(LastBetFilter, "initSubmit");
             spyOn(LastBetFilter, "initPlatForm");
             spyOn(LastBetFilter, "initColumns");
 
             LastBetFilter.initialize();
-        });
-
-        it("LastBetFilter.initMainObject() should be called", function () {
-            expect(LastBetFilter.initMainObject).toHaveBeenCalled();
         });
 
         it("LastBetFilter.initSports() should be called", function () {
@@ -81,10 +73,6 @@ xdescribe("LastBetFilter", function () {
             expect(LastBetFilter.initFreezeButton).toHaveBeenCalled();
         });
 
-        it("LastBetFilter.initHighlight() should be called", function () {
-            expect(LastBetFilter.initHighlight).toHaveBeenCalled();
-        });
-
         it("LastBetFilter.initSubmit() should be called", function () {
             expect(LastBetFilter.initSubmit).toHaveBeenCalled();
         });
@@ -115,10 +103,6 @@ xdescribe("LastBetFilter", function () {
 
             it("LastBetFilter.setHighlightSubmit() should be called when $('#sports') fired change event", function () {
                 expect(LastBetFilter.setHighlightSubmit).toHaveBeenCalled();
-            });
-
-            it("MonitorBetList.sportId should be 0 when $('#sports') fired change event", function () {
-                expect(LastBetGrid.sportId).toBe(0);
             });
 
             it("$('#league') should be disabled when $('#sports') fired change event with sportId is 0 or 999", function () {
@@ -178,11 +162,6 @@ xdescribe("LastBetFilter", function () {
             it("Site.unBlockUI() should be called", function () {
                 expect(Site.unBlockUI).toHaveBeenCalled();
             });
-
-            it("LastBetFilter.currentLeagueList should be [{LeagueId: 1, 'LeagueName': 'League Name test'}]", function () {
-                var leagueList = [{ LeagueId: 1, LeagueName: 'League Name test' }];
-                expect(LastBetFilter.currentLeagueList).toEqual(jasmine.arrayContaining(leagueList));
-            });
         });
     });
 
@@ -214,34 +193,6 @@ xdescribe("LastBetFilter", function () {
 
             it("LastBetGrid.numberParam(name, value) should be called twice when $('#league') fired change event", function () {
                 expect(LastBetGrid.numberParam.calls.count()).toBe(2);
-            });
-        });
-
-        describe("leagueId value not equal 0", function () {
-            beforeEach(function () {
-                affix("input#league[value=1]");
-                LastBetFilter.currentLeagueList = [
-                    { LeagueId: 1, LeagueName: 'League Name test 1', IsOutRight: false },
-                    { LeagueId: 2, LeagueName: 'League Name test 2', IsOutRight: false }
-                ];
-
-                LastBetFilter.currentMatchList = [
-                    { MatchId: 1, MatchName: 'Match Name test 1', LeagueId: 1 },
-                    { MatchId: 2, MatchName: 'Match Name test 2', LeagueId: 1 }
-                ];
-
-                spyOn($.fn, "append");
-
-                LastBetFilter.initLeague();
-                $("#league").change();
-            });
-
-            it("append function of jquery should be called twice", function () {
-                expect($.fn.append).toHaveBeenCalled();
-            });
-
-            it("$('#match') should be enabled when $('#league') fired change event", function () {
-                expect($('#match')).not.toBeDisabled();
             });
         });
     });
@@ -495,22 +446,6 @@ xdescribe("LastBetFilter", function () {
             it("MonitorBetList.startMonitor() should be callled when $('#freeze-button') fired click event", function () {
                 expect(LastBetGrid.startMonitor).toHaveBeenCalled();
             });
-        });
-    });
-
-    describe("initHighlight()", function () {
-        beforeEach(function () {
-            affix("table#last-bets-monitoring tr");
-            LastBetGrid.containerTable = $("#last-bets-monitoring");
-
-            spyOn($.fn, "toggleClass");
-
-            LastBetFilter.initHighlight();
-            LastBetGrid.containerTable.find("tr").click();
-        });
-
-        it("toggleClass function of jquery shuold be called with correct parameters", function () {
-            expect($.fn.toggleClass).toHaveBeenCalledWith("monitor-keep");
         });
     });
 
