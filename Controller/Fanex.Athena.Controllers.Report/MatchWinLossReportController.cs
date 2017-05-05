@@ -6,6 +6,12 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Data;
+    using System.Globalization;
+    using System.Linq;
+    using System.Web.Mvc;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
@@ -22,32 +28,27 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Common;
     using Resources;
     using Service.Report.Interfaces;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Data;
-    using System.Globalization;
-    using System.Linq;
-    using System.Web.Mvc;
 
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossReportController : ReportBaseController
     {
         private readonly IMatchWinLossService _matchWinLossService;
         private static readonly ReadOnlyCollection<int> _virtualHrBettypes = new ReadOnlyCollection<int>(new[] { 1231, 1232, 1233, 1237, 1238 });
-        const int LCSport = 162;
-        const int BetType81 = 81;
-        const int BetType120 = 120;
-        const int BetType31 = 31;
-        const int BetType33 = 33;
-        const int BetType1101 = 1101;
-        const int BetType1199 = 1199;
-        const int BetType1021 = 1021;
-        const int BetType1299 = 1299;
-        const int LCProductId = 4;
-        const int RBProductId = 2;
-        const int VSProductId = 5;
-        const int SBProductId = 1;
-        const int NGProductId = 3;
+        private const int LCSport = 162;
+        private const int BetType81 = 81;
+        private const int BetType120 = 120;
+        private const int BetType31 = 31;
+        private const int BetType33 = 33;
+        private const int BetType1101 = 1101;
+        private const int BetType1199 = 1199;
+        private const int BetType1021 = 1021;
+        private const int BetType1299 = 1299;
+        private const int LCProductId = 4;
+        private const int RBProductId = 2;
+        private const int VSProductId = 5;
+        private const int SBProductId = 1;
+        private const int NGProductId = 3;
+
         public MatchWinLossReportController()
         {
             _matchWinLossService = new MatchWinLossService();
@@ -159,9 +160,10 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Excel(MatchWinLossMetaModel metaModel)
         {
             const int PageSize = 63000;
+            const string FileName = nameof(MatchWinLoss);
+
             var licenseeSession = SessionService.LicenseeSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            const string FileName = nameof(MatchWinLoss);
             var templatePath = Server.MapPath(@"~/App_Data/Template/Reports/MatchWinLoss.xls");
             var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.MatchWinLoss);
             var showingOption = new ShowingOption
@@ -270,7 +272,6 @@ namespace Fanex.Athena.Controllers.Report
 
         private static void AssignProduct(DataRow row, int betType)
         {
-
             if (betType >= BetType81 && betType < BetType120)
             {
                 row["productname"] = Product.NG;
@@ -307,11 +308,11 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 case Product.NG:
-                    row["matchname"] = ViewResources.NumberGameNo + " " + row["matchcode"];
+                    row["matchname"] = string.Format("{0} {1}", ViewResources.NumberGameNo, row["matchcode"]);
                     break;
 
                 case Product.LC:
-                    row["matchname"] = string.Format("{0} {1} {2} ", CacheRef.GetSportName(LCSport), CacheRef.GetBettype(row["bettype"]), row["showtime"]);
+                    row["matchname"] = $"{CacheRef.GetSportName(LCSport)} {CacheRef.GetBettype(row["bettype"])} {row["showtime"]} ";
                     break;
 
                 default:
@@ -342,7 +343,7 @@ namespace Fanex.Athena.Controllers.Report
             switch (row["productname"].ToString())
             {
                 case Product.RB:
-                    row["leaguename"] = ViewResources.ProductRB + " - " + CacheRef.GetLeagueName(row["leagueid"]);
+                    row["leaguename"] = $"{ViewResources.ProductRB} - {CacheRef.GetLeagueName(row["leagueid"])}";
                     break;
 
                 case Product.NG:
