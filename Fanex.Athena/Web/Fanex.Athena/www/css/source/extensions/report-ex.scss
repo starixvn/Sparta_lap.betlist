@@ -67,8 +67,10 @@ table {
     tbody {
         tr {
             &.row-group-level1 {
-                background: $bgRowGroupLevel1;
-                font-weight: bold;
+                td {
+                    background: $bgRowGroupLevel1;
+                    font-weight: bold;
+                }
             }
         }
     }

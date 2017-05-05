@@ -1,0 +1,75 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.DailyRacingWinLossViewModel
+
+@helper RenderFirstRow()
+{
+    <tr class="first-row">
+        <td class="col-child small"></td>
+        <td class="col-child small"></td>
+
+        <td class="col-child small"></td>
+        <td class="col-child small"></td>
+        <td class="col-child small"></td>
+        <td class="col-child small"></td>
+        <td class="col-child small"></td>
+        @if (Model.IsAllowedCustomerCommission)
+        {
+            <td class="col-child small"></td>
+        }
+
+        <td class="col-child small"></td>
+        <td class="col-child small"></td>
+        <td class="col-child small"></td>
+        <td class="col-child small"></td>
+        <td class="col-child small"></td>
+        <td class="col-child small"></td>
+
+        <td class="col-medium small"></td>
+    </tr>
+}
+
+<div class="page-results">
+    <div class="result-content">
+        <div class="panel-heading active">
+            <div class="panel-title">
+                @ViewResources.DailyRacingWinLoss, @RazorHelper.TitleDateTime(Model.Param.Date, null)
+                - @RazorHelper.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
+            </div>
+        </div>
+
+        <div class="main-content">
+            @if (Model.DailyRacingWinLossData.ContentData.Count == 0)
+            {
+                <p class="no-info-row">@ViewResources.NoInfo</p>
+            }
+            else
+            {
+                <div id="header-content" class="header-content">
+                    <table class="table">
+                        <thead>
+                            @RenderFirstRow()
+                            @{ Html.RenderPartial("~/Views/Desktop/Report/DailyRacingWinLoss/12Bet/Content.Header.cshtml", Model); }
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="body-content">
+                    <table class="table">
+                        <tbody>
+                            @RenderFirstRow()
+                            @{ Html.RenderPartial("~/Views/Desktop/Report/DailyRacingWinLoss/12Bet/Content.Data.cshtml", Model); }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="footer-content">
+                    <table class="table">
+                        <tbody>
+                            @RenderFirstRow()
+                            @{ Html.RenderPartial("~/Views/Desktop/Report/DailyRacingWinLoss/12Bet/Content.GrandTotal.cshtml", Model); }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

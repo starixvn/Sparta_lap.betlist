@@ -1,0 +1,34 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.DailyRacingWinLossViewModel
+
+@{
+    var customerColSpan = Model.IsAllowedCustomerCommission ? 6 : 5;
+}
+
+<tr>
+    <th rowspan="2" colspan="2">@ViewResources.Race</th>
+    <th colspan="@customerColSpan">@ViewResources.CustomerOverall</th>
+    <th colspan="6">@ViewResources.Licensee12Bet</th>
+    <th rowspan="2">@ViewResources.AmountDueTo</th>
+</tr>
+
+<tr>
+    @*-----Customer (Overall)-----*@
+    <th>@ViewResources.WinTO</th>
+    <th>@ViewResources.PlaceTO</th>
+    <th>@ViewResources.WPTO</th>
+    <th>@ViewResources.TotalTO</th>
+    <th>@ViewResources.DividendWon</th>
+
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <th>@ViewResources.CustomerCommission</th>
+    }
+
+    @*-----12Bet Licensee-----*@
+    <th>@ViewResources.WinTO</th>
+    <th>@ViewResources.PlaceTO</th>
+    <th>@ViewResources.WPTO</th>
+    <th>@ViewResources.TotalTO</th>
+    <th>@ViewResources.WinLoss</th>
+    <th>@ViewResources.Comm</th>
+</tr>

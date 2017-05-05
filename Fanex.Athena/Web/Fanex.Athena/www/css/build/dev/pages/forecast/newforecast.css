@@ -303,7 +303,7 @@
 table td, table th {
   border-radius: 0; }
 
-table tbody tr.row-group-level1 {
+table tbody tr.row-group-level1 td {
   background: #D1DAE1;
   font-weight: bold; }
 
@@ -767,7 +767,7 @@ table tbody tr.row-group-level1 {
 table td, table th {
   border-radius: 0; }
 
-table tbody tr.row-group-level1 {
+table tbody tr.row-group-level1 td {
   background: #D1DAE1;
   font-weight: bold; }
 
