@@ -94,7 +94,7 @@ if (addBasedOption)
 {
         <input type="hidden" id="BaseCurrency" name="BaseCurrency" value="@selectedBaseCurrency" data-original="@selectedBaseCurrency" />
 }
-    <select name="CurrencyId" id="CurrencyId" class="@className" data-original="@selected">
+    <select name="CurrencyId" id="CurrencyId" class="@className hide" data-original="@selected">
         @foreach (var item in items)
         {
             <option value="@item.Value" @(item.Selected ? new HtmlString("selected=selected") : new HtmlString(""))>@item.Text</option>
@@ -107,7 +107,7 @@ if (addBasedOption)
 selectedBasedCurrency = string.IsNullOrEmpty(selectedBasedCurrency) ? string.Empty : selectedBasedCurrency;
 selectedBasedCurrency = selectedBasedCurrency.ToLower();
 
-    <select class="based-currency" name="BaseCurrency" id="BaseCurrency" data-original="@selectedBasedCurrency">
+    <select class="based-currency hide" name="BaseCurrency" id="BaseCurrency" data-original="@selectedBasedCurrency">
         <option value="eur" @(selectedBasedCurrency == "eur" ? new HtmlString("selected=selected") : new HtmlString(""))>EUR</option>
         <option value="usd" @(selectedBasedCurrency == "usd" ? new HtmlString("selected=selected") : new HtmlString(""))>USD</option>
         <option value="gbp" @(selectedBasedCurrency == "gbp" ? new HtmlString("selected=selected") : new HtmlString(""))>GBP</option>
@@ -117,7 +117,7 @@ selectedBasedCurrency = selectedBasedCurrency.ToLower();
 
 @helper LiveStatus(int selectedStatus)
 {
-    <select class="live-status select" name="LiveIndicator" id="LiveIndicator" data-original="@selectedStatus">
+    <select class="live-status select hide" name="LiveIndicator" id="LiveIndicator" data-original="@selectedStatus">
         <option value="2" @(selectedStatus.Equals(2) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.All</option>
         <option value="1" @(selectedStatus.Equals(1) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.Live</option>
         <option value="0" @(selectedStatus.Equals(0) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.NoneLive</option>
@@ -207,32 +207,6 @@ if (toDate != null)
     </ul>
 }
 
-@helper LicenseeType(IList<string> licenseeTypes, string className = "", string selected = "", bool addMoreAllOption = true)
-{
-    var items = licenseeTypes
-     .Select(c => new System.Web.WebPages.Html.SelectListItem
-     {
-         Value = c,
-         Text = c,
-         Selected = selected == c
-     }).ToList();
-    if (addMoreAllOption)
-    {
-        items.Insert(0, new System.Web.WebPages.Html.SelectListItem
-        {
-            Text = ViewResources.All.ToUpper(),
-            Value = "",
-            Selected = string.IsNullOrEmpty(selected) || selected == "0"
-        });
-    }
-    <select name="LicenseeType" id="LicenseeType" class="@className" data-original="@selected">
-        @foreach (var item in items)
-        {
-            <option value="@item.Value" @(item.Selected ? "selected=selected" : "")>@item.Text</option>
-        }
-    </select>
-}
-
 @helper NegativeFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
 {
     if (value != 0)
@@ -284,7 +258,7 @@ if (toDate != null)
 
 @helper MonthDropDownList(int selectedMonth)
 {
-    <select class="select" id="Month">
+    <select class="select hide" id="Month">
         <option @(selectedMonth == 1 ? "selected = selected" : string.Empty) value="0">@ViewResources.January</option>
         <option @(selectedMonth == 2 ? "selected = selected" : string.Empty) value="1">@ViewResources.February</option>
         <option @(selectedMonth == 3 ? "selected = selected" : string.Empty) value="2">@ViewResources.March</option>
@@ -303,7 +277,7 @@ if (toDate != null)
 @helper YearDropDownList(int selectedYear, int itemCount)
 {
     var currentYear = DateTime.Now.Year;
-    <select class="select" id="Year">
+    <select class="select hide" id="Year">
         @for (int i = currentYear; i > currentYear - itemCount && i >= 2012; i--)
         {
             <option @(selectedYear == i ? "selected = selected" : string.Empty) value="@i.ToString()">@i.ToString()</option>
@@ -363,4 +337,29 @@ if (toDate != null)
                 <input type="hidden" name="NoOfPage" value="@noOfPage" />
             </div>
     }
+}
+
+@helper ViewInCurrency(int currencyId, string currencyName)
+{
+    string title;
+
+    switch (currencyId)
+    {
+        case BaseCurrencyType.All:
+        title = ViewResources.AllCurrencies;
+        break;
+        case BaseCurrencyType.Eur:
+        title = string.Format(ViewResources.Viewin, FormatKey.Eur);
+        break;
+        case BaseCurrencyType.Usd:
+        title = string.Format(ViewResources.Viewin, FormatKey.Usd);
+        break;
+        case BaseCurrencyType.Gbp:
+        title = string.Format(ViewResources.Viewin, FormatKey.Gbp);
+        break;
+        default:
+        title = string.Format(ViewResources.Viewin, currencyName);
+        break;
+    }
+    @(title)
 }

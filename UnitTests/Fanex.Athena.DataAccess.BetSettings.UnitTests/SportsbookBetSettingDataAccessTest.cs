@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Data;
+    using Extension.Utility;
     using Model.BetSettings.DTO;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
@@ -15,11 +17,14 @@
         private IObjectDb _objectDb;
         private SportsbookBetSettingDataAccess _dataAccess;
 
+        private IAppSettings _appSetting;
+
         [OneTimeSetUp]
         public void SetUp()
         {
+            _appSetting = Substitute.For<IAppSettings>();
             _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<SportsbookBetSettingDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<SportsbookBetSettingDataAccess>(_appSetting);
         }
 
         [OneTimeTearDown]
@@ -42,6 +47,28 @@
 
             // Assert
             _objectDb.Received().AddInParameter("CustID", DbType.Int32, custId);
+        }
+
+        [Test]
+        public void GetBetSetting_WhenCall_DataReturnCorrectly()
+        {
+            // Arrange
+            _appSetting.IsShowMixedSport.Returns(true);
+            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelEditCustomer")).Returns(_objectDb);
+            var reader = Substitute.For<IDataReader>();
+            _objectDb.ExecuteReader().Returns(reader);
+            reader.Read().Returns(true);
+            reader.FieldCount.Returns(1);
+            var custId = 1;
+            var esportSetting = EsportSettingType.LicenseeOffering;
+            MapReaderData(reader, new Dictionary<string, object>());
+
+            // Action
+            var result = _dataAccess.GetBetSetting(custId, ref esportSetting);
+            var sportIdList = string.Join(",", result.Select(x => x.SportId));
+
+            // Assert
+            Assert.That(sportIdList, Is.EqualTo("1,2,3,5,8,10,11,99,99MP,154"));
         }
 
         [Test]
@@ -159,6 +186,20 @@
             // Assert
             Assert.That(result.Code, Is.EqualTo(expected.Code));
             Assert.That(result.Message, Is.EqualTo(expected.Message));
+        }
+
+        private static void MapReaderData(IDataReader reader, Dictionary<string, object> readerDataMapping)
+        {
+            reader[Arg.Any<string>()].Returns(x =>
+            {
+                var paramName = x.ArgAt<string>(0);
+                if (readerDataMapping.ContainsKey(paramName))
+                {
+                    return readerDataMapping[paramName];
+                }
+
+                return string.Empty;
+            });
         }
     }
 }

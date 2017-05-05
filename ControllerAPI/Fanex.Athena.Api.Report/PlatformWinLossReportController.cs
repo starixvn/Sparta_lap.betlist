@@ -41,6 +41,27 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel);
         }
 
+        private HttpResponseMessage ExportExcelSummary(
+            PlatformWinLossMetaModel metaModel,
+            IList<PlatformWinLossSummary> dataList,
+            PlatformWinLossSummary total)
+        {
+            const string FileName = "PlatformWinLossSummary.xls";
+            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossSummary.xls");
+
+            var convertingOption = new ConvertingOption
+            {
+                IsConvert = metaModel.IsConvert,
+                BaseCurrency = metaModel.BaseCurrency,
+                CurrencyName = metaModel.CurrencyName
+            };
+
+            var platformWinLossExcel = new PlatformWinLossSummaryExcel(templatePath, FileName, metaModel, dataList, total, convertingOption);
+            platformWinLossExcel.Export();
+
+            return ExcelStream(platformWinLossExcel.Workbook, FileName);
+        }
+
         private HttpResponseMessage ExportExcel(
             PlatformWinLossMetaModel metaModel,
             IList<PlatformWinLossMember> dataList,
@@ -86,27 +107,6 @@ namespace Fanex.Athena.Api.Report
             {
                 ProductOptions = metaModel.ProductOptions
             };
-            platformWinLossExcel.Export();
-
-            return ExcelStream(platformWinLossExcel.Workbook, FileName);
-        }
-
-        private HttpResponseMessage ExportExcelSummary(
-            PlatformWinLossMetaModel metaModel,
-            IList<PlatformWinLossSummary> dataList,
-            PlatformWinLossSummary total)
-        {
-            const string FileName = "PlatformWinLossSummary.xls";
-            var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossSummary.xls");
-
-            var convertingOption = new ConvertingOption
-            {
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = metaModel.CurrencyName
-            };
-
-            var platformWinLossExcel = new PlatformWinLossSummaryExcel(templatePath, FileName, metaModel, dataList, total, convertingOption);
             platformWinLossExcel.Export();
 
             return ExcelStream(platformWinLossExcel.Workbook, FileName);

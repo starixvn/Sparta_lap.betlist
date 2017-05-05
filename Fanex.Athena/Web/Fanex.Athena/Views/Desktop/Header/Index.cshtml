@@ -35,7 +35,7 @@
         }
 
         <div class="licensees-block s2-selectSite">
-            <select id="ddlLicensee" name="ddlLicensee" class="select-licensee">
+            <select id="ddlLicensee" name="ddlLicensee" class="select-licensee hide">
                 @foreach (var licensee in Model.LicenseeList)
                 {
                     var selectedStr = licensee.Id == Model.CurrentLicenseeId ? "selected=\"selected\"" : string.Empty;

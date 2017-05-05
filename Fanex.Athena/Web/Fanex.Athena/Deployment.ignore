@@ -6,7 +6,6 @@ FanexSpName.UAT.xml
 \\www\\js\\tests
 \\www\\css\\source
 \\www\\webpackconfig
-\\SiteConfig
 \\Jasmine
 \\jasmine-specs
 \\Gruntfile.js
@@ -16,4 +15,3 @@ FanexSpName.UAT.xml
 \\karma.conf.js
 \\bower.json
 \\compilerconfig.json
-\\SiteConfig

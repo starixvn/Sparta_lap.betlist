@@ -58,7 +58,7 @@
                     $("#HiddenColumnList").remove();
                 });
 
-                it("should return sorting data stored in inputs", function () {
+                it("url should be correct", function () {
                     expect(request.url).toBe('localhost-test');
                 });
 

@@ -1,17 +1,32 @@
-﻿define(['jquery', 'common/site', 'lib/select2'], function ($, Site) {
+﻿define(['jquery', "common/popup", 'common/site', 'components/selectlist'], function ($, Popup, Site) {
     describe("Site", function () {
         describe("getLicenseeId()", function () {
-            it("return a value from input#LicenseeId", function () {
+            it("return a correct value", function () {
                 setFixtures('<input id="LicenseeId" value="2" />');
                 var result = Site.getLicenseeId();
 
                 expect(result).toBe(2);
+
+                spyOn(window, "parseInt").and.callThrough();
+                Site.getLicenseeId();
+
+                expect(window.parseInt.calls.count()).toBe(0);
             });
         });
 
         describe("asNull(text)", function () {
             it("return null if the param 'text' is an empty string", function () {
                 var result = Site.asNull("");
+                expect(result).toBe(null);
+            });
+
+            it("return itself if the param 'text' is not empty", function () {
+                var result = Site.asNull("test");
+                expect(result).toBe("test");
+            });
+
+            it("return null if the param 'text' is null", function () {
+                var result = Site.asNull(null);
                 expect(result).toBe(null);
             });
         });
@@ -28,7 +43,7 @@
 
         describe("setLicenseeOptionParam(urlOrParams)", function () {
             beforeEach(function () {
-                setFixtures('<select id="CurrencyId"><option value="1" /><option value="2" /></select> <input id="BaseCurrency" value="USD" />');
+                setFixtures('<select id="CurrencyId"><option value="1" /><option value="2" /></select> <input id="BaseCurrency" value="USD" /> <input id="CurrencyName" value="AAA" />');
             });
 
             it("return an url with query string if 'urlOrParams' is a string", function () {
@@ -40,6 +55,13 @@
                 var result = Site.setLicenseeOptionParam({});
                 expect(result).toEqual({ CurrencyId: '1', CurrencyName: '', BaseCurrency: 'USD' });
             });
+
+            it("url should return correct value when currency name not in option tag", function () {
+                $("#CurrencyId").html("");
+
+                var result = Site.setLicenseeOptionParam("localhost");
+                expect(result).toBe("localhost?currencyname=AAA&basecurrency=USD");
+            });
         });
 
         describe("setLicenseeOptionOriginalParam(urlOrParams)", function () {
@@ -48,6 +70,14 @@
 
                 var result = Site.setLicenseeOptionOriginalParam("localhost");
                 expect(result).toBe("localhost?currencyid=2&currencyname=&basecurrency=USD");
+            });
+
+            it("url should return correct value when currency name not in option tag", function () {
+                setFixtures('<select id="CurrencyId" data-original="2"></select>' +
+                    '<input id="CurrencyName" value="AAA" /> <input id="BaseCurrency" data-original="USD" />');
+
+                var result = Site.setLicenseeOptionOriginalParam("localhost");
+                expect(result).toBe("localhost?currencyid=2&currencyname=AAA&basecurrency=USD");
             });
         });
 
@@ -108,22 +138,46 @@
         });
 
         describe("getSingleResource(enghlishName)", function () {
-            beforeEach(function () {
-                setFixtures('<input id="PageLanguage" value="_language_en_US" />');
-                window["_language_en_US"] = { "Test": "en-Test" };
-                spyOn($.fn, "select2");
-            });
+            describe("resource is exist", function () {
+                beforeEach(function () {
+                    setFixtures('<input id="PageLanguage" value="en-US" />');
+                    window["_language_en_US"] = { "Test": "en-Test" };
+                    spyOn($.fn, "selectList");
+                });
 
-            it("get correct value from resource", function () {
-                Site.initialize();
-                var result = Site.getSingleResource("Test");
-                expect(result).toEqual("en-Test");
-            });
+                it("get correct value from resource", function () {
+                    Site.initialize();
+                    var result = Site.getSingleResource("Test");
+                    expect(result).toEqual("en-Test");
+                });
 
-            it("get key value when resource not contain", function () {
-                Site.initialize();
-                var result = Site.getSingleResource("NotContain");
-                expect(result).toEqual("NotContain");
+                it("get key value when resource not contain", function () {
+                    Site.initialize();
+                    var result = Site.getSingleResource("NotContain");
+                    expect(result).toEqual("NotContain");
+                });
+
+                it("return null when passed param is null", function () {
+                    var result = Site.getSingleResource(null);
+                    expect(result).toEqual(null);
+                });
+
+                it("return undefined when param is not passed", function () {
+                    var result = Site.getSingleResource();
+                    expect(result).toEqual(undefined);
+                });
+
+                it("get correct value from resource when value match with form that is defined", function () {
+                    Site.initialize();
+                    var result = Site.getSingleResource("@[Test]<br/>@[Commission]");
+                    expect(result).toEqual("en-Test<br/>Commission");
+                });
+
+                it("get correct value from resource with special character @ and not match with form that is defined", function () {
+                    Site.initialize();
+                    var result = Site.getSingleResource("@Test<br/>@Commission]");
+                    expect(result).toEqual("@Test<br/>@Commission]");
+                });
             });
         });
 
@@ -131,11 +185,23 @@
             it("return correct array text", function () {
                 setFixtures('<input id="PageLanguage" value="_language_en_US" />');
                 window["_language_en_US"] = { "Test1": "en-Test1", "Test2": "en-Test2", "Test3": "en-Test3" };
-                spyOn($.fn, "select2");
+                spyOn($.fn, "selectList");
                 Site.initialize();
                 var arrayText = ["Test1", "Test2", "Test3", "Test4"];
                 var result = Site.getResources(arrayText);
                 expect(result).toEqual(["en-Test1", "en-Test2", "en-Test3", "Test4"]);
+            });
+
+            it("return null when passed array is null", function () {
+                var result = Site.getResources(null);
+
+                expect(result).toBe(null);
+            });
+
+            it("return null when passed value is not array", function () {
+                var result = Site.getResources({});
+
+                expect(result).toBe(null);
             });
         });
 
@@ -163,6 +229,528 @@
             it("return false when we don't pass text value", function () {
                 var result = Site.isNumber();
                 expect(result).toBe(false);
+            });
+        });
+
+        describe("clone(obj)", function () {
+            it("return null when passed param is null", function () {
+                var result = Site.clone(null);
+                expect(result).toBe(null);
+            });
+
+            it("return itself when passed param is not object type", function () {
+                var result = Site.clone(1);
+                expect(result).toBe(1);
+            });
+
+            it("return correct date value when passed param is Date type", function () {
+                var date = new Date(2017, 0, 1);
+
+                var result = Site.clone(date);
+
+                expect(result).not.toBe(date);
+                expect(result).toEqual(date);
+            });
+        });
+
+        describe("createSortingIcon(sortHandler)", function () {
+            describe("when Row Count less or equal 1", function () {
+                it(".sort-heading class should be removed", function () {
+                    setFixtures('<input id="RowCount" value="1" />' +
+                        '<div id="header-content"><div class="sortable sort-heading"><div></div>'
+                        );
+
+                    Site.createSortingIcon();
+
+                    var result = $("#header-content .sortable").hasClass("sort-heading");
+
+                    expect(result).toBe(false);
+                });
+            });
+
+            describe("when Row Count greater than 1", function () {
+                beforeEach(function () {
+                    setFixtures('<input id="RowCount" value="2" /> <input id="SortColumn" value="Col1" /> <input id="SortDirection" value="DESC" />' +
+                        '<div id="header-content">' +
+                        '<div class="sortable"><div class="sort-heading" data-column-name="Col1"></div></div>' +
+                        '<div class="sortable"><div class="sort-heading" data-column-name="Col2"></div></div>' +
+                        '</div>' +
+                        '<select id="CurrencyId"><option selected>USD<option></select>' +
+                        '<input id="CurrencyName" value="" />'
+                        );
+                });
+
+                it("Col1 should has class 'sorted-heading'", function () {
+                    Site.createSortingIcon();
+
+                    var result = $("#header-content .sortable .sort-heading[data-column-name='Col1']").hasClass("sorted-heading");
+
+                    expect(result).toBe(true);
+                });
+
+                it("Col1 should has correct html content when SortDirection is DESC", function () {
+                    Site.createSortingIcon();
+
+                    var expected = '<span class="sort-icon sort-icon-desc"></span>';
+                    var result = $("#header-content .sortable .sort-heading[data-column-name='Col1']").html();
+
+                    expect(result).toBe(expected);
+                });
+
+                it("Col1 should has correct html content when SortDirection is ASC", function () {
+                    $("#SortDirection").val("ASC");
+                    Site.createSortingIcon();
+
+                    var expected = '<span class="sort-icon sort-icon-asc"></span>';
+                    var result = $("#header-content .sortable .sort-heading[data-column-name='Col1']").html();
+
+                    expect(result).toBe(expected);
+                });
+
+                describe("Click on header to sort", function () {
+                    var sortHandler;
+                    beforeEach(function () {
+                        sortHandler = jasmine.createSpy('sortHandler');
+                        Site.createSortingIcon(sortHandler);
+                    });
+
+                    it("#SortColumn should has correct value when clicking on Col2", function () {
+                        var $col2 = $(".sort-heading[data-column-name='Col2']").closest(".sortable");
+
+                        $col2.click();
+                        var result = $("#SortColumn").val();
+
+                        expect(result).toBe("Col2");
+                    });
+
+                    it("#SortDirection should has correct value when clicking on Col1", function () {
+                        var $col1 = $(".sort-heading[data-column-name='Col1']").closest(".sortable");
+
+                        $col1.click();
+                        var result = $("#SortDirection").val();
+
+                        expect(result).toBe("ASC");
+                    });
+
+                    it("#SortDirection should has correct value when clicking on Col2 and current value is 'DESC'", function () {
+                        var $col2 = $(".sort-heading[data-column-name='Col2']").closest(".sortable");
+
+                        $col2.click();
+                        var result = $("#SortDirection").val();
+
+                        expect(result).toBe("ASC");
+                    });
+
+                    it("#SortDirection should has correct value when clicking on Col2 and current value is 'ASC'", function () {
+                        $("#SortDirection").val("ASC");
+                        sortHandler = function () { };
+                        Site.createSortingIcon(sortHandler);
+                        var $col2 = $(".sort-heading[data-column-name='Col2']").closest(".sortable");
+
+                        $col2.click();
+                        var result = $("#SortDirection").val();
+
+                        expect(result).toBe("DESC");
+                    });
+
+                    it("#CurrencyName should has correct value", function () {
+                        var $col2 = $(".sort-heading[data-column-name='Col2']").closest(".sortable");
+
+                        $col2.click();
+                        var result = $("#CurrencyName").val();
+
+                        expect(result).toBe("USD");
+                    });
+
+                    it("sortHandler function should be called with correct parameter", function () {
+                        var $col2 = $(".sort-heading[data-column-name='Col2']").closest(".sortable");
+
+                        $col2.click();
+
+                        expect(sortHandler).toHaveBeenCalledWith("Col2");
+                    });
+                });
+            });
+        });
+
+        describe("currencyConstraint(userChange)", function () {
+            beforeEach(function () {
+                setFixtures('<select id="CurrencyId"><option value="0">All</option><option value="1" selected>USD</option><option value="2">ABC</option></select>' +
+                    '<select id="BaseCurrency"><option value="">All</option><option value="usd" selected>USD</option><option value="eur" selected>EUR</option></select>' +
+                    '<input id="CurrencyName" />'
+                    );
+
+                spyOn($.fn, "selectList");
+            });
+
+            it("#CurrencyName should has correct value", function () {
+                Site.currencyConstraint(true);
+                var result = $("#CurrencyName").val();
+
+                expect(result).toBe("USD");
+            });
+
+            it("option 'All' in BaseCurrency should be removed", function () {
+                Site.currencyConstraint(true);
+                var result = $("#BaseCurrency option[value='']").length;
+
+                expect(result).toBe(0);
+            });
+
+            it("#BaseCurrency should has correct value when userChange and currency not equal 0", function () {
+                $("#BaseCurrency").val("eur");
+                Site.currencyConstraint(true);
+                var result = $("#BaseCurrency").val();
+
+                expect(result).toBe("usd");
+            });
+
+            it("#BaseCurrency should has correct value when it's not userChange", function () {
+                $("#BaseCurrency").val("eur");
+                Site.currencyConstraint(false);
+                var result = $("#BaseCurrency").val();
+
+                expect(result).toBe("eur");
+            });
+
+            it("#BaseCurrency should has correct value when appending value which not in base currency", function () {
+                $("#CurrencyId").val("2");
+                $("#BaseCurrency option[value='']").remove();
+                Site.currencyConstraint(true);
+                var result = $("#BaseCurrency option[value='']").text();
+
+                expect(result).toBe("ABC");
+            });
+
+            it("#BaseCurrency should has correct value when selected currency is not base currency", function () {
+                $("#CurrencyId").val("2");
+                Site.currencyConstraint(true);
+                var result = $("#BaseCurrency option[value='']").text();
+
+                expect(result).toBe("ABC");
+            });
+
+            it("#BaseCurrency should has correct value when selected currency in base currency dictionary", function () {
+                $("#CurrencyId").append('<option value="-1"></option>');
+                $("#CurrencyId").val("-1");
+                Site.currencyConstraint(true);
+                var result = $("#BaseCurrency").val();
+
+                expect(result).toBe("eur");
+            });
+
+            it("#BaseCurrency should has correct value when selected currency is not in base currency dictionary", function () {
+                $("#CurrencyId").append('<option value="-1"></option>');
+                $("#CurrencyId").val("2");
+                Site.currencyConstraint(true);
+                var result = $("#BaseCurrency").val();
+
+                expect(result).toBe("");
+            });
+
+            it("selectList function of jquery should be called", function () {
+                Site.currencyConstraint(true);
+
+                expect($.fn.selectList).toHaveBeenCalled();
+            });
+        });
+
+        describe("setDateRangeOriginalParam(url)", function () {
+            it("url should return correct value", function () {
+                setFixtures('<input id="FromDate" data-original="1/1/2017" /> <input id="ToDate" data-original="4/13/2017" />');
+                var url = "localhosttest";
+                var expectedResult = "localhosttest?fromdate=1/1/2017&todate=4/13/2017";
+
+                var result = Site.setDateRangeOriginalParam(url);
+
+                expect(result).toBe(expectedResult);
+            });
+        });
+
+        describe("setDateRangeParam(url)", function () {
+            it("url should return correct value", function () {
+                setFixtures('<input id="FromDate" value="1/1/2017" /> <input id="ToDate" value="4/13/2017" />');
+                var url = "localhosttest";
+                var expectedResult = "localhosttest?fromdate=1/1/2017&todate=4/13/2017";
+
+                var result = Site.setDateRangeParam(url);
+
+                expect(result).toBe(expectedResult);
+            });
+        });
+
+        describe("setProductOptionOriginalParamList(urlOrParams)", function () {
+            beforeEach(function () {
+                setFixtures('<ul id="ProductList">' +
+                    '<li class="childCheckbox" data-product-code="SB" data-original="true"></li><li class="childCheckbox" data-product-code=""></li>' +
+                    '</ul>');
+            });
+
+            it("param is query string - url should return correct value", function () {
+                var url = "localhosttest";
+                var expectedUrl = "localhosttest?productoptions[0].code=SB&productoptions[0].name=SB&productoptions[0].status=true";
+
+                var result = Site.setProductOptionOriginalParamList(url);
+
+                expect(result).toBe(expectedUrl);
+            });
+
+            it("param is object - url should return correct value", function () {
+                var param = { ProductOptions: [] };
+                var productOption = [{ Code: "SB", Name: "SB", Status: 'true' }];
+                var expectedParam = {
+                    ProductOptions: productOption
+                };
+
+                var result = Site.setProductOptionOriginalParamList(param);
+
+                expect(result).toEqual(expectedParam);
+            });
+        });
+
+        describe("setProductOptionParamList(urlOrParams)", function () {
+            beforeEach(function () {
+                setFixtures('<div id="ProductList">' +
+                    '<input type="checkbox" checked class="childCheckbox" data-product-code="SB" /><input type="checkbox" checked class="childCheckbox" data-product-code="" />' +
+                    '</div>');
+            });
+
+            it("param is query string - url should return correct value", function () {
+                var url = "localhosttest";
+                var expectedUrl = "localhosttest?productoptions[0].code=SB&productoptions[0].name=SB&productoptions[0].status=true";
+
+                var result = Site.setProductOptionParamList(url);
+
+                expect(result).toBe(expectedUrl);
+            });
+
+            it("param is object - url should return correct value", function () {
+                var param = { ProductOptions: [] };
+                var productOption = [{ Code: "SB", Name: "SB", Status: true }];
+                var expectedParam = {
+                    ProductOptions: productOption
+                };
+
+                var result = Site.setProductOptionParamList(param);
+
+                expect(result).toEqual(expectedParam);
+            });
+        });
+
+        describe("addUserGuide(options)", function () {
+            beforeEach(function () {
+                setFixtures('<div id="UserGuide"></div> <div id="UserGuidePopup"></div>' +
+                    '<input id="RootUrl" value="/" />'
+                    );
+                Site.initialize();
+            });
+
+            it("url should be correct when clicking to show User Guide button", function () {
+                var url, callback;
+                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2; });
+                Site.addUserGuide({ resourceName: "AAA" });
+
+                $("#UserGuide").click();
+                var result = /\/UserGuide\/Index\?resourcename=AAA.*/g.test(url);
+
+                expect(result).toBe(true);
+            });
+
+            it("Popup.openPopup should be called with correct parameter when clicking to show User Guide button and status is success", function () {
+                var url, callback;
+                var $userGuidePopup, option;
+                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2; });
+                Site.addUserGuide({ resourceName: "AAA" });
+
+                $("#UserGuide").click();
+                spyOn(Popup, "openPopup").and.callFake(function (param1, param2) { $userGuidePopup = param1[0].outerHTML, option = param2; });
+                jasmine.clock().install();
+                callback("test", "success");
+                jasmine.clock().tick(51);
+                jasmine.clock().uninstall();
+
+                var expectedElement = '<div style="display: none;"></div>';
+                var expectedOption = {
+                    buttonSelector: "#UserGuide",
+                    id: "UserGuidePopup",
+                    resourceName: 'AAA',
+                    title: ''
+                };
+
+                expect(Popup.openPopup).toHaveBeenCalled();
+                expect($userGuidePopup).toBe(expectedElement);
+                expect(option).toEqual(expectedOption);
+            });
+
+            it("Popup.openPopup should be called one time when clicking to show User Guide button and status is not success", function () {
+                var url, callback;
+                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2; });
+                Site.addUserGuide({ resourceName: "AAA" });
+
+                $("#UserGuide").click();
+                spyOn(Popup, "openPopup");
+                jasmine.clock().install();
+                callback("test", "success");
+                jasmine.clock().tick(51);
+                callback("test", "fail");
+                jasmine.clock().tick(51);
+                jasmine.clock().uninstall();
+
+                expect(Popup.openPopup.calls.count()).toBe(1);
+            });
+
+            it(".flatPopup should be called with correct parameter when $popup is exist", function () {
+                var url, callback;
+                spyOn($.fn, "load").and.callFake(function (param1, param2) { url = param1, callback = param2; });
+                Site.addUserGuide({ resourceName: "AAA" });
+
+                $("#UserGuide").click();
+                spyOn(Popup, "openPopup");
+                jasmine.clock().install();
+                callback("test", "success");
+                jasmine.clock().tick(51);
+                jasmine.clock().uninstall();
+
+                spyOn($.fn, "flatPopup");
+                $("#UserGuide").click();
+                expect($.fn.flatPopup).toHaveBeenCalledWith("show");
+            });
+        });
+
+        describe("getHistoryDate()", function () {
+            it("return correct value", function () {
+                setFixtures('<input id="HistoryDate" value="4/14/2017" />');
+                var expectedResult = new Date(2017, 3, 14);
+                Site.initialize();
+
+                var result = Site.getHistoryDate();
+
+                expect(result).toEqual(expectedResult);
+            });
+        });
+
+        describe("getCurrencyName(currencyId)", function () {
+            it("return correct value", function () {
+                var jsonData = JSON.stringify({ 1: "USD" });
+                setFixtures('<input id="UserCurrencies" value=\'' + jsonData + '\' />');
+                Site.initialize();
+
+                var result = Site.getCurrencyName(1);
+
+                expect(result).toEqual("USD");
+            });
+        });
+
+        describe("showMessaegBox(message)", function () {
+            it("Popup.openPopup function should be called with correct parameter", function () {
+                setFixtures('<input id="PageLanguage" value="en-US" />');
+                window["_language_en_US"] = { "LrfNotification": "LrfNotification" };
+                Site.initialize();
+
+                spyOn(Popup, "openPopup");
+                var message = "Test";
+                var expectedParam1 = '<div title="LrfNotification"><p class="notification">' + message + '!</p></div>';
+                var expectedParam2 = { width: 350, height: 120, title: "LrfNotification", className: "popup-notification" };
+
+                Site.showMessaegBox(message);
+
+                expect(Popup.openPopup).toHaveBeenCalledWith(expectedParam1, expectedParam2);
+            });
+        });
+
+        xdescribe("setConstraintMonthRange(monthRange, url)", function () {
+            beforeEach(function () {
+                spyOn(Popup, "openPopup");
+                setFixtures('<input id="PageLanguage" value="en-US" /> <input id="FromDate" value="4/1/2017" /> <input id="ToDate" value="7/1/2017" />' +
+                    '<form id="form"></form>');
+                window["_language_en_US"] = { "DateRangeExceedMsg": "Exceed {0}" };
+                Site.initialize();
+            });
+
+            it("Popup.openPopup function should be called with correct parameter when exceed range", function () {
+                Site.setConstraintMonthRange(2, "localhost");
+                
+                $("#form").submit();
+
+                var expectedParam1 = '<div title="LrfNotification"><p class="notification">Exceed 2!</p></div>';
+                var expectedParam2 = { width: 350, height: 120, title: "LrfNotification", className: "popup-notification" };
+
+                expect(Popup.openPopup).toHaveBeenCalledWith(expectedParam1, expectedParam2);
+            });
+
+            it("Popup.openPopup function should not be called when range is valid", function () {
+                Site.setConstraintMonthRange(4, "localhost");
+
+                $("#form").submit();
+
+                expect(Popup.openPopup).not.toHaveBeenCalled();
+            });
+        });
+
+        describe("initEvent()", function () {
+            var ajaxOption;
+            beforeEach(function () {
+                setFixtures('<input name="__RequestVerificationToken" value="ABC" /> <input id="PageLanguage" value="en-US" />');
+                window["_language_en_US"] = { "Test": "en-Test" };
+                spyOn($, "ajaxSetup").and.callFake(function (option) { ajaxOption = option; });
+            });
+
+            it("#CurrencyName should has correct value", function () {
+                appendSetFixtures('<select id="CurrencyId"><option value="0">All</option><option value="1" selected>USD</option><option value="2">ABC</option></select>' +
+                    '<select id="BaseCurrency"><option value="">All</option><option value="usd" selected>USD</option><option value="eur" selected>EUR</option></select>' +
+                    '<input id="CurrencyName" />'
+                    );
+
+                Site.initialize();
+                $("#CurrencyId").change();
+                var result = $("#CurrencyName").val();
+
+                expect(result).toBe("USD");
+            });
+
+            it("ajax options should be correct", function () {
+                Site.initialize();
+
+                expect(ajaxOption.cache).toBe(false);
+                expect(ajaxOption.headers).toEqual({ '__RequestVerificationToken': "ABC" });
+                expect(typeof ajaxOption.statusCode).toBe("object");
+            });
+
+            describe("statusCode in ajax option", function () {
+                beforeEach(function () {
+                    setFixtures('<div class="block-body" style="width: 100px; height: 100px;"></div>');
+                    spyOn(window, "alert");
+                });
+
+                afterEach(function () {
+                    $(".block-body").remove();
+                });
+
+                it(".block-body should be hidden when calling status 0", function () {
+                    ajaxOption.statusCode["0"];
+
+                    var result = $("block-body").is(":visible");
+
+                    expect(result).toBe(false);
+                });
+
+                it(".block-body should be hidden and window.alert should be called when calling status 403", function () {
+                    ajaxOption.statusCode["403"]();
+
+                    var result = $("block-body").is(":visible");
+
+                    expect(result).toBe(false);
+                    expect(window.alert).toHaveBeenCalledWith("HttpError_403");
+                });
+
+                it(".block-body should be hidden and window.alert should be called when calling status 500", function () {
+                    ajaxOption.statusCode["500"]();
+
+                    var result = $("block-body").is(":visible");
+
+                    expect(result).toBe(false);
+                    expect(window.alert).toHaveBeenCalledWith("ErrorProcessingMsg");
+                });
             });
         });
     });

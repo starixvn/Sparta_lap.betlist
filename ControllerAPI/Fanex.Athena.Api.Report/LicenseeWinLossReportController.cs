@@ -109,6 +109,7 @@ namespace Fanex.Athena.Api.Report
                 AmtDueToBA = item.AmtDueToBA,
                 AmtDueToRacing = item.AmtDueToRacing,
                 AmtDueToBetTrade = item.AmtDueToBetTrade,
+                CashOutCommission = item.CashOutCommission,
                 BACommission = item.BACommission,
                 BetTradeCommission = item.BetTradeCommission,
                 CurrencyId = item.CurrencyId,
@@ -182,10 +183,11 @@ namespace Fanex.Athena.Api.Report
 
             var showingOption = new ShowingOption
             {
-                SBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.SB) && productAccess.IsAllowSB,
-                BTVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BT) && productAccess.IsAllowBT,
-                BAVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BA) && productAccess.IsAllowBA,
-                RBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.RB) && productAccess.IsAllowRB,
+                SBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.SB) && productAccess.IsAllow(ProductTypes.Sportsbook),
+                BTVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BT) && productAccess.IsAllow(ProductTypes.BetTrade),
+                COVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.CO) && productAccess.IsAllow(ProductTypes.CashOut),
+                BAVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BA) && productAccess.IsAllow(ProductTypes.BA),
+                RBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.RB) && productAccess.IsAllow(ProductTypes.Racing),
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
@@ -213,7 +215,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var licenseeWinLoss = new LicenseeWinLossExcel(templatePath, FileName, convertingOption, showingOption, metaModel, excelModel)
+            var licenseeWinLoss = new LicenseeWinLossExcel(_licenseeWinLossService, templatePath, FileName, convertingOption, showingOption, metaModel, excelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };
@@ -270,7 +272,7 @@ namespace Fanex.Athena.Api.Report
                     return new
                     {
                         Data = dataList.Select(MapToGridView).ToList(),
-                        Total = _licenseeWinLossService.TotalCalc(dataList).Select(MapToGridView).ToList(),
+                        Total = _licenseeWinLossService.CalculateTotal(dataList).Select(MapToGridView).ToList(),
                         SummaryTotal = summaryTotalView,
                         ProductOptions = metaModel.ProductOptions.ToJson()
                     };

@@ -10,14 +10,18 @@ namespace Fanex.Athena.Controllers
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
+    using System.Web.SessionState;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
+    using ONEbook.UM.Filters;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
 
-    public class UserGuideController : ReadonlyBaseController
+    [SessionState(SessionStateBehavior.ReadOnly)]
+    [CheckUMFilter]
+    public class UserGuideController : BaseController
     {
         private const string CustomerListResourceName = "CustomerList";
 
@@ -47,14 +51,9 @@ namespace Fanex.Athena.Controllers
         public ActionResult Index(string resourceName)
         {
             var content = GetFileContent(resourceName);
-            if (resourceName.Equals(CustomerListResourceName, System.StringComparison.OrdinalIgnoreCase))
-            {
-                content = content.Replace("{rooturl}", Url.Content("~"));
-            }
-            else
-            {
-                content = AddCasinoProductList(content);
-            }
+
+            content = resourceName.Equals(CustomerListResourceName, System.StringComparison.OrdinalIgnoreCase) ?
+                content.Replace("{rooturl}", Url.Content("~")) : AddCasinoProductList(content);
 
             return View("~/Views/UserGuide/Index.cshtml", null, content);
         }

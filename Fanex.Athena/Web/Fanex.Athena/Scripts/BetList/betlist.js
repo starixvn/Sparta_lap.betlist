@@ -5,6 +5,7 @@ showAGCasinoDetails, showRnGCasinoDetails, showVoidBridgeDetails, showVoidbridge
 
 var BetList = (function ($) {
     "use strict";
+    var BETTYPE_CASHOUT = 911;
     var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
     var MIN_BETTYPE_FASTMARKET = 221;
     var MAX_BETTYPE_FASTMARKET = 225;
@@ -391,7 +392,7 @@ var BetList = (function ($) {
 
         viewAllBetResult: function (trasdesc, betcheck, bettype) {
             var url = Site.resolveClientUrl('ResultReport/AllBetResult?transdesc=' +
-                encodeURIComponent(trasdesc) +'&betcheck=' + betcheck + '&bettype=' + bettype);
+                encodeURIComponent(trasdesc) + '&betcheck=' + betcheck + '&bettype=' + bettype);
             Site.blockUI();
 
             var dialogForm = '<div title="' + Site.getSingleResource("Result") +
@@ -761,6 +762,31 @@ var BetList = (function ($) {
 
             url += urlParam;
             window.location = url;
+        },
+
+        viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
+            var $baseCurrency = $("#BaseCurrency");
+            var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($("#BetListMetaModel").val()).BaseCurrency;
+
+            var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
+            var url = Site.resolveClientUrl('CashOutBetList/Detail');
+            url = QueryString.setParam(url, "transId", transId);
+            url = QueryString.setParam(url, "refNo", refNo);
+            url = QueryString.setParam(url, "betType", betType);
+            url = QueryString.setParam(url, "betdaqId", betdaqId);
+            url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
+            url = QueryString.setParam(url, "isCashout", isCashOut);
+
+            var popH = Math.min($(window).height() - 100, 350), popW = 840;
+            var title = isCashOut ? Site.getSingleResource("CashOutDetails") : Site.getSingleResource("BoughtDetails");
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
         }
     };
 })(jQuery);
@@ -795,3 +821,4 @@ var showVoidbridgeResult = BetList.viewVoidbridgeResult;
 var showTodayRunningBetsDetails = BetList.showAllBetDetails;
 var showColossusBetsDetails = BetList.showColossusBetsDetails;
 var showGlobalGaming = BetList.showGlobalGamingDetails;
+var ViewCashOutHistory = BetList.viewCashOutHistory;

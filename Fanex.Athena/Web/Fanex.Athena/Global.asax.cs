@@ -22,56 +22,9 @@ namespace Fanex.Athena
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
-    using HttpCompress;
 
     public class MvcApplication : HttpApplication
     {
-        public void Application_Start(object sender, EventArgs e)
-        {
-            var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
-            if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
-            {
-                ViewEngines.Engines.Clear();
-                ViewEngines.Engines.Add(new RazorViewEngine());
-
-                AreaRegistration.RegisterAllAreas();
-
-                GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
-                RouteTable.Routes.IgnoreRoute("favicon.ico");
-                RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-                BundleConfig.RegisterBundles(BundleTable.Bundles);
-                /*BundleConfig.RegisterBundles(BundleTable.Bundles);*/
-                /*Web API*/
-                GlobalConfiguration.Configuration.EnableCors();
-                GlobalConfiguration.Configuration.MessageHandlers.Add(new ApiCompressHandler());
-                GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
-                GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
-                GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
-                /*End Web API*/
-
-                AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
-
-                DbSettingProviderManager.Current.Start();
-                log4net.Config.XmlConfigurator.Configure();
-                log4net.LogManager.GetLogger("GeneralLog").Info("Start");
-
-                if (ConfigurationManager.AppSettings["EnableCasinoService"] == "1")
-                {
-                    SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Code that runs on application shutdown.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event ARGS.</param>
-        public void Application_End(object sender, EventArgs e)
-        {
-        }
-
         /// <summary>
         /// The application errors.
         /// </summary>
@@ -104,6 +57,41 @@ namespace Fanex.Athena
                 }
 
                 LogHelper.WriteError(exception);
+            }
+        }
+
+        public void Application_Start(object sender, EventArgs e)
+        {
+            var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
+            if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
+            {
+                ViewEngines.Engines.Clear();
+                ViewEngines.Engines.Add(new RazorViewEngine());
+
+                AreaRegistration.RegisterAllAreas();
+
+                GlobalFilters.Filters.Add(new CustomAuthorizeAttribute());
+                RouteTable.Routes.IgnoreRoute("favicon.ico");
+                RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+                BundleConfig.RegisterBundles(BundleTable.Bundles);
+                /*Web API*/
+                GlobalConfiguration.Configuration.EnableCors();
+                GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
+                GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+                GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
+                /*End Web API*/
+
+                AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
+
+                DbSettingProviderManager.Current.Start();
+                log4net.Config.XmlConfigurator.Configure();
+                log4net.LogManager.GetLogger("GeneralLog").Info("Start");
+
+                if (ConfigurationManager.AppSettings["EnableCasinoService"] == "1")
+                {
+                    SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
+                }
             }
         }
 

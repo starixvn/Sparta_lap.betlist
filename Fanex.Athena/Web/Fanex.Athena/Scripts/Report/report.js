@@ -10,9 +10,8 @@ var Report = (function ($) {
 
     return {
         GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = (typeof drilldownDate === "string") ? Date.parse(drilldownDate) : drilldownDate;
+            var fdate = (typeof drilldownDate === "string") ? new Date(drilldownDate) : drilldownDate;
             var tdate = fdate;
-
             if (Number(reportBy) === REPORT_BY_MONTHLY) {
                 var fday = 1;
                 var month = fdate.getMonth();

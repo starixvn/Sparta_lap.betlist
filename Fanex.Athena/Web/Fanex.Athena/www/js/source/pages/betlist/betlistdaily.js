@@ -15,7 +15,6 @@ define(['jquery', 'common/site', 'common/querystring', './betlist', 'components/
     };
 
     var _me = {
-        submitUrl: null,
         initialize: function () {
             Site.initialize();
             _me.initEvent();
@@ -56,7 +55,6 @@ define(['jquery', 'common/site', 'common/querystring', './betlist', 'components/
             url = QueryString.setParam(url, "productCode", $("#ProductCode").val());
             url = QueryString.setParam(url, "status", $("#DailyBetListStatus").val());
             url = QueryString.setParam(url, "date", $("#Date").val());
-            BetList.submitUrl = url;
             BetList.loadDataPaging(url);
         },
 

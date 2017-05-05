@@ -109,7 +109,7 @@
 
             describe("viewBetlist(bettype)", function () {
                 beforeAll(function () {
-                    setFixtures('<div id="forecast-table" data-match-id="1" data-basecurrency="USD" data-currencyid="20" data-currencyname="UUS"></div>');
+                    setFixtures('<div id="hidden-data" data-match-id="1" data-basecurrency="USD" data-currencyid="20" data-currencyname="UUS"></div>');
                     spyOn(ForecastAh, "initEvent");
                     ForecastAh.initialize();
                 });

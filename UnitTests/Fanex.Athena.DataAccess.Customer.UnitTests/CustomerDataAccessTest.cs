@@ -33,14 +33,14 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelUserSearch")).Returns(_objectDb);
-            var userId = 0;
+            const int UserId = 0;
             var userName = string.Empty;
 
             // Action
-            _dataAccess.SearchCustomers(userId, userName, string.Empty);
+            _dataAccess.SearchCustomers(UserId, userName, string.Empty);
 
             // Assert
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, userId);
+            _objectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
             _objectDb.Received().AddInParameter("username", DbType.String, userName);
             _objectDb.Received().AddInParameter("AgentList", DbType.String, string.Empty);
         }
@@ -74,13 +74,13 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelStatus")).Returns(_objectDb);
-            var custId = 0;
+            const int CustId = 0;
 
             // Action
-            _dataAccess.GetCustomerInfo(custId);
+            _dataAccess.GetCustomerInfo(CustId);
 
             // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
+            _objectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
         }
 
         [Test]
@@ -88,15 +88,15 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerLoginInfo")).Returns(_objectDb);
-            var custId = 0;
-            var licenseeId = 0;
+            const int CustId = 0;
+            const int LicenseeId = 0;
 
             // Action
-            _dataAccess.GetCustomerLoginInfo(custId, licenseeId);
+            _dataAccess.GetCustomerLoginInfo(CustId, LicenseeId);
 
             // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
-            _objectDb.Received().AddInParameter("licenseeId", DbType.Int32, licenseeId);
+            _objectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
+            _objectDb.Received().AddInParameter("licenseeId", DbType.Int32, LicenseeId);
         }
 
         [Test]
@@ -214,20 +214,20 @@
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdMemberBAStatus")).Returns(_objectDb);
             _objectDb.GetParameterValue("OddsGroup").Returns(string.Empty);
-            var licenseeId = 0;
-            var custId = 0;
-            var modifiedBy = 0;
-            var allowBA = false;
+            const int LicenseeId = 0;
+            const int CustId = 0;
+            const int ModifiedBy = 0;
+            const bool AllowBA = false;
             var request = new Request();
 
             // Action
-            _dataAccess.UpdateCustomerBAStatus(licenseeId, custId, modifiedBy, allowBA, request);
+            _dataAccess.UpdateCustomerBAStatus(LicenseeId, CustId, ModifiedBy, AllowBA, request);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-            _objectDb.Received().AddInParameter("CustID", DbType.String, custId);
-            _objectDb.Received().AddInParameter("ModifyBy", DbType.String, modifiedBy);
-            _objectDb.Received().AddInParameter("IsBA", DbType.Boolean, allowBA);
+            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+            _objectDb.Received().AddInParameter("CustID", DbType.String, CustId);
+            _objectDb.Received().AddInParameter("ModifyBy", DbType.String, ModifiedBy);
+            _objectDb.Received().AddInParameter("IsBA", DbType.Boolean, AllowBA);
             _objectDb.Received().AddInParameter("langkey", DbType.String, request.Language);
             _objectDb.Received().AddInParameter("IP", DbType.String, request.Ip);
             _objectDb.Received().AddOutParameter("OddsGroup", DbType.String, 10);
@@ -268,21 +268,21 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdSpecialLevel")).Returns(_objectDb);
-            var userId = 0;
-            var custId = 0;
-            var level = 0;
-            var ip = string.Empty;
-            var language = string.Empty;
+            const int UserId = 0;
+            const int CustId = 0;
+            const int Level = 0;
+            const string Ip = "";
+            const string Language = "";
 
             // Action
-            _dataAccess.UpdateSpecialLevel(userId, custId, level, ip, language);
+            _dataAccess.UpdateSpecialLevel(UserId, CustId, Level, Ip, Language);
 
             // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, userId);
-            _objectDb.Received().AddInParameter("speciallevel", DbType.Int32, level);
-            _objectDb.Received().AddInParameter("ip", DbType.String, ip);
-            _objectDb.Received().AddInParameter("langkey", DbType.String, language);
+            _objectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
+            _objectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
+            _objectDb.Received().AddInParameter("speciallevel", DbType.Int32, Level);
+            _objectDb.Received().AddInParameter("ip", DbType.String, Ip);
+            _objectDb.Received().AddInParameter("langkey", DbType.String, Language);
             _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
             _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
         }
@@ -292,21 +292,19 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdOddsGroup")).Returns(_objectDb);
-            var userId = 0;
-            var custId = 0;
-            var group = string.Empty;
-            var ip = string.Empty;
-            var language = string.Empty;
+            const int UserId = 0;
+            const int CustId = 0;
+            const string Group = "", Ip = "", Language = "";
 
             // Action
-            _dataAccess.UpdateOddsGroup(userId, custId, group, ip, language);
+            _dataAccess.UpdateOddsGroup(UserId, CustId, Group, Ip, Language);
 
             // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, userId);
-            _objectDb.Received().AddInParameter("oddsgroup", DbType.String, group);
-            _objectDb.Received().AddInParameter("ip", DbType.String, ip);
-            _objectDb.Received().AddInParameter("langkey", DbType.String, language);
+            _objectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
+            _objectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
+            _objectDb.Received().AddInParameter("oddsgroup", DbType.String, Group);
+            _objectDb.Received().AddInParameter("ip", DbType.String, Ip);
+            _objectDb.Received().AddInParameter("langkey", DbType.String, Language);
         }
     }
 }

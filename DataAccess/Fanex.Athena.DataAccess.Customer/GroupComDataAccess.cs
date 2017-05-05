@@ -30,11 +30,11 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <returns>The result value.</returns>
         public IList<GroupCommMetaModel> GetAll(int licenseeId)
         {
-            var uspName = "Lrf_LicenseeGroupCommSel";
+            const string UspName = "Lrf_LicenseeGroupCommSel";
             try
             {
                 var entityList = new List<GroupCommMetaModel>();
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
                     using (var reader = db.ExecuteReader())
@@ -66,7 +66,7 @@ namespace Fanex.Athena.DataAccess.Customer
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException.Message, UspName);
             }
         }
 
@@ -77,10 +77,10 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <returns>The result value.</returns>
         public DataTable GetDataForExcel(int licenseeId)
         {
-            var uspName = "Lrf_LicenseeGroupCommSel";
+            const string UspName = "Lrf_LicenseeGroupCommSel";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
 
@@ -91,7 +91,7 @@ namespace Fanex.Athena.DataAccess.Customer
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException.Message, UspName);
             }
         }
 
@@ -102,10 +102,10 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <returns>The result value.</returns>
         public GroupCommMetaModel GetById(int groupCommId)
         {
-            var uspName = "Lrf_GroupCommGetById";
+            const string UspName = "Lrf_GroupCommGetById";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("GroupCommID", DbType.Int32, groupCommId);
 
@@ -133,7 +133,7 @@ namespace Fanex.Athena.DataAccess.Customer
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException.Message, UspName);
             }
 
             return null;
@@ -149,10 +149,10 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <returns>The result value.</returns>
         public int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out IResultInfo resultInfo)
         {
-            var uspName = "Lrf_LicenseeGroupCommIns";
+            const string UspName = "Lrf_LicenseeGroupCommIns";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, item.LicenseeId);
                     db.AddInParameter("GroupName", DbType.String, item.GroupName);
@@ -184,7 +184,7 @@ namespace Fanex.Athena.DataAccess.Customer
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException.Message, UspName);
             }
         }
 
@@ -198,10 +198,10 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <returns>The result value.</returns>
         public bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId, out IResultInfo resultInfo)
         {
-            var uspName = "Lrf_LicenseeGroupCommUpd";
+            const string UspName = "Lrf_LicenseeGroupCommUpd";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, newItem.LicenseeId);
                     db.AddInParameter("GroupCommId", DbType.Int32, newItem.GroupCommId);
@@ -235,7 +235,7 @@ namespace Fanex.Athena.DataAccess.Customer
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException.Message, UspName);
             }
         }
 
@@ -261,10 +261,10 @@ namespace Fanex.Athena.DataAccess.Customer
             bool isResetDefault,
             out IResultInfo resultInfo)
         {
-            var uspName = "Lrf_LicenseeGroupCommDel";
+            const string UspName = "Lrf_LicenseeGroupCommDel";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
                     db.AddInParameter("GroupCommId", DbType.Int32, groupId);
@@ -285,7 +285,7 @@ namespace Fanex.Athena.DataAccess.Customer
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException.Message, UspName);
             }
         }
 
@@ -297,10 +297,10 @@ namespace Fanex.Athena.DataAccess.Customer
         /// <returns>The result value.</returns>
         public bool CheckByName(int licenseeId, string groupName)
         {
-            var uspName = "Lrf_GroupCommCheckByName";
+            const string UspName = "Lrf_GroupCommCheckByName";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
                     db.AddInParameter("GroupName", DbType.String, groupName);
@@ -311,7 +311,7 @@ namespace Fanex.Athena.DataAccess.Customer
             catch (ObjectDbException sqlException)
             {
                 LogService.Error(sqlException.Message, sqlException);
-                throw new DataAccessException(sqlException.Message, uspName);
+                throw new DataAccessException(sqlException.Message, UspName);
             }
         }
     }

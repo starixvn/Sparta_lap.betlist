@@ -56,7 +56,7 @@ namespace Fanex.Athena.Service.Report.Interfaces
         /// </summary>
         /// <param name="dataList">The data list.</param>
         /// <returns>The summary data.</returns>
-        IList<LicenseeWinLoss> TotalCalc(IList<LicenseeWinLoss> dataList);
+        IList<LicenseeWinLoss> CalculateTotal(IList<LicenseeWinLoss> dataList);
 
         #endregion Public Methods and Operators
     }

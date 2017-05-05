@@ -1,11 +1,11 @@
 ﻿"use strict";
 
-define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomplete", "lib/select2"], function (Site, Recheckin) {
+define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomplete", "components/selectlist"], function (Site, Recheckin) {
     var $searchBox;
     var _autocomplete;
 
     function initialize() {
-        Site.initialize();  
+        Site.initialize();
         initVariables();
         initEvent();
         activeDefaultMenuItem();
@@ -13,12 +13,12 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomp
             var $mainFrame = $("#mainFrame");
             $mainFrame.attr('src', $mainFrame.data('src'));
         }, 100);
-        
+
         if ($('#HasRecheckIn').val() === "1") {
             Recheckin.init();
         }
     }
-   
+
     function initVariables() {
         $searchBox = $('#searchbox');
     }
@@ -40,11 +40,12 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomp
             changeLanguage($(this));
         });
 
-        $("#ddlLicensee").select2()
-        .on('change', function () {
-            var licenseeId = $(this).val();
-            top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
-        });
+        $("#ddlLicensee")
+            .selectList({ canSearch: true })
+            .on('change', function () {
+                var licenseeId = $(this).val();
+                top.location.href = Site.resolveClientUrl("Header/ChangeLicensee?licenseeid=") + licenseeId + "&nocache=" + (new Date().getTime());
+            });
 
         $('#label-search').click(function () {
             $(this).parent().addClass('focused');
@@ -77,7 +78,7 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomp
         $("#mainFrame").on("load", function () {
             $(window.frames["main"]).click(function () {
                 $('.dropdown-button').dropdown('close');
-                $('#ddlLicensee').select2("close");
+                $('#ddlLicensee').selectList("close");
             });
         });
     }

@@ -56,7 +56,7 @@
             ConfigureReader(dataList);
 
             // Action
-            var result = _dataAccess.ReadLrfTicket(_reader, currency)[0];
+            var result = _dataAccess.ReadBetListTicket(_reader, currency)[0];
 
             // Assert
             Assert.That(result.UserName, Is.EqualTo(expected.UserName));

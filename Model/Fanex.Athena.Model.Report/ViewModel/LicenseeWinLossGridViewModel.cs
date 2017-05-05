@@ -31,6 +31,8 @@ namespace Fanex.Athena.Model.Report.ViewModel
 
         public decimal TotalTransaction { get; set; }
 
+        public decimal CashOutCommission { get; set; }
+
         public decimal BACommission { get; set; }
 
         public decimal BetTradeCommission { get; set; }

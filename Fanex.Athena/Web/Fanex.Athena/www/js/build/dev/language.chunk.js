@@ -1,21 +1,21 @@
-webpackJsonp([25],{
+webpackJsonp([27],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(64);
-	__webpack_require__(65);
-	__webpack_require__(66);
-	__webpack_require__(67);
-	module.exports = __webpack_require__(68);
+	__webpack_require__(68);
+	__webpack_require__(69);
+	__webpack_require__(70);
+	__webpack_require__(71);
+	module.exports = __webpack_require__(72);
 
 
 /***/ },
 
-/***/ 64:
+/***/ 68:
 /***/ function(module, exports) {
 
-	// Generated at: 3/15/2017 10:59:12 AM
+	// Generated at: 4/12/2017 1:29:58 PM
 	window._language_en_US = {
 	AA:"AA",
 	AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -90,6 +90,7 @@ webpackJsonp([25],{
 	BAStatus:"BA Status",
 	BaTurnoverReferenceNote:"BA Turnover&apos;s figures are for reference purpose only and still be included in the overall Turnover",
 	BAUpdatedBy:"BA Updated By",
+	BBAmtComm:"BB Amt + Comm",
 	Bestviewedin:"Best viewed in",
 	BestViewResolution:"Resolution 1280x1024",
 	BestWinLoss:"Best Win Loss",
@@ -112,6 +113,10 @@ webpackJsonp([25],{
 	BingoExcludedNote:"Bingo is not included in the report",
 	BONTeamToScore:"Both/One/Neither Team To Score",
 	Bonus:"Bonus",
+	BoughtAmount:"Bought Amount",
+	BoughtDetails:"Bought Details",
+	BoughtStake:"Bought Stake",
+	BoughtTicketsList:"Bought Ticket[s]",
 	BuyBackAmount:"Buy Back Amount",
 	ByBetType:"By Bet Type",
 	ByCurrency:"By Currency",
@@ -120,10 +125,21 @@ webpackJsonp([25],{
 	CancelledBets:"Cancelled Bets",
 	CancelledBetsTitle:"Void/Rejected Bet List (Last 3 days)",
 	CannotUpdateBetLimitForProduct:"You cannot update member bet limit for product {0}.",
+	CashOutAmount:"Cash Out Amount",
 	CashOutAmt:"Cash-out Amt",
+	CashOutCommission:"Cash Out Commission",
+	CashOutDetails:"Cash Out Details",
+	CashOutNotOfferCurrency:"Cash Out is not offered for this currency.",
 	CashOutShare:"Cash-out Share",
+	CashOutStake:"Cash Out Stake",
+	CashOutTickets:"Cash Out Tickets",
+	CashOutTicketsList:"Cash Out Ticket[s]",
+	CashOutTimes:"Cash Out Times",
+	CashOutValue:"Cash Out Value",
+	CashOutWinLoss:"Cash Out Win Loss",
 	CASINOHANDHISTORY:"CASINO HAND HISTORY",
 	CasinoProgressiveWins:"Casino Progressive Wins",
+	CasinoProgressiveWinsGuidelineContent:"This report supports up-to-date data. You can filter data up to 12 months per query.",
 	CasinoTransfer:"Casino Transfer",
 	ChangePassword:"Change Password",
 	ChangeStatus:"Change {0}&apos;s status",
@@ -207,7 +223,6 @@ webpackJsonp([25],{
 	DailyStatement:"Daily Statement",
 	DailyStatementMsg:"Support data up to 4 months only",
 	Data:"data",
-	DataAreAvailableUpToYesterday:"After 3:30AM(GMT-4), the report will show yesterday&apos;s data.",
 	DataWareHouse:"Data Warehouse",
 	Date:"Date",
 	DateRange:"Date Range",
@@ -263,6 +278,7 @@ webpackJsonp([25],{
 	EnableAgCasino:"Enable AG Casino",
 	EnableAllBet:"Enable AllBet",
 	EnableBetTrade:"Enable BetTrade",
+	EnableCashOut:"Enable Cash Out",
 	EnableColossusBets:"Enable Colossus Bets",
 	EnableFishingWorld:"Enable Fishing World",
 	EnableGoldDeluxe:"Enable Gold Deluxe",
@@ -327,6 +343,7 @@ webpackJsonp([25],{
 	GoldDeluxeNotOfferCurrency:"Gold Deluxe is not offered for this currency.",
 	GoldDeluxeProblemDisplayBetSetting:"There is problem to display bet setting group&apos;s detail.",
 	GoldDeluxeWinLoss:"Gold Deluxe Win Loss",
+	GoldDeluxeWinLossGuidelineContent:"Any query before 4PM GMT-4 will return the data up to 4PM of the day before. You can filter data up to 3 months per query.",
 	GotoCustomerList:"Go to Customer List",
 	GrandPrizeNote:"Grand Prize: the grand winning amount which is excluded from member balance",
 	GrandTotal:"Grand Total",
@@ -456,7 +473,6 @@ webpackJsonp([25],{
 	LicenseeIsNotExisted:"Not found licensee",
 	LicenseeNetWin:"Licensee Net Win",
 	LicenseeNotOfferedCurrency:"Licensee is not offered any currency",
-	LicenseeType:"Licensee Type",
 	LicenseeW_L:"Licensee W/L",
 	LicenseeWinLoss:"Licensee Win Loss",
 	LicenseeWinLossTip1:"Drill down to view data in",
@@ -488,6 +504,7 @@ webpackJsonp([25],{
 	Macau:"Macau",
 	MacauNotOfferCurrency:"Macau is not offered for this currency.",
 	MacauWinLoss:"Macau Win Loss",
+	MacauWinLossGuidelineContent:"Any query before 4PM GMT-4 will return the data up to 4PM of the day before. You can filter data up to 1 month per query.",
 	Main:"Main",
 	ManageAccount:"Manage Account",
 	ManageCustomer:"Manage Customer",
@@ -523,6 +540,7 @@ webpackJsonp([25],{
 	MicrogamingRNGCasino:"Microgaming-RNG Casino",
 	MicroGamingRNGCasinoNotOfferCurrency:"Microgaming RNG Casino is not offered for this currency.",
 	MicrogamingWinLoss:"Microgaming Win Loss",
+	MicrogamingWinLossGuidelineContent:"This report supports up-to-date data. You can filter data up to 3 months per query.",
 	MinBet:"Min Bet",
 	MinBetCanNotGreaterThanMaxBet:"Min Bet cannot be greater than Max Bet",
 	MinBetCount:"Min bet count",
@@ -607,6 +625,7 @@ webpackJsonp([25],{
 	OneXTwo:"1 X 2",
 	Open:"Open",
 	OpeningBalance:"Opening Balance",
+	OriginalBetTicket:"Original Bet Ticket",
 	OT:"OT",
 	Others:"Others",
 	OtherSport:"Other Sports",
@@ -653,6 +672,7 @@ webpackJsonp([25],{
 	ProductBG:"Bingo",
 	ProductBT:"Bet Trade",
 	ProductCB:"Colossus Bets",
+	ProductCO:"Cash Out",
 	ProductCS:"RNG Casino",
 	ProductFW:"Fishing World",
 	ProductGD:"Gold Deluxe",
@@ -747,6 +767,7 @@ webpackJsonp([25],{
 	SessionID:"Session ID",
 	SessionLoggedMsg:"You have logged in from another session or your login session has expired",
 	SetAsDefaultGroup:"Set as default group",
+	SettleAmount:"Settle Amount",
 	Settled:"Settled",
 	SettledMatchCount:"Settled Match Count",
 	Show:"Show",
@@ -791,6 +812,7 @@ webpackJsonp([25],{
 	TicketDetailOf:"Ticket detail of {0}",
 	TicketFilter:"Ticket filter",
 	TicketNo:"Ticket No.",
+	TicketPayout:"Ticket Payout",
 	Time:"Time",
 	TimeZone:"Time Zone",
 	To:"To",
@@ -925,10 +947,10 @@ webpackJsonp([25],{
 
 /***/ },
 
-/***/ 65:
+/***/ 69:
 /***/ function(module, exports) {
 
-	// Generated at: 3/15/2017 10:59:12 AM
+	// Generated at: 4/12/2017 1:29:58 PM
 	window._language_zh_CN = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1012,6 +1034,7 @@ webpackJsonp([25],{
 	CancelledBets:"已删除/作废注单",
 	CancelledBetsTitle:"作废/已删除注单(3天纪录)",
 	CASINOHANDHISTORY:"赌场下注历史",
+	CasinoProgressiveWinsGuidelineContent:"此报告提供最新数据。您每次查询可以过滤最多12个月内的数据。",
 	CasinoTransfer:"娱乐城的总转账额",
 	ChangePassword:"更改密码",
 	ChangeStatus:"更改 {0}&apos;s 状态",
@@ -1089,7 +1112,6 @@ webpackJsonp([25],{
 	DailyRacingWinLoss:"每日赛事佣金",
 	DailyStatement:"每日账目",
 	DailyStatementMsg:"Support data up to 4 months only",
-	DataAreAvailableUpToYesterday:"在每天3:30 AM（GMT-4）过后，报告会显示前一天的数据",
 	DataWareHouse:"数据仓库技术",
 	Date:"日期",
 	DateRange:"日期范围",
@@ -1181,6 +1203,7 @@ webpackJsonp([25],{
 	General:"常规",
 	GetAll:"获取全部",
 	Go:"开始",
+	GoldDeluxeWinLossGuidelineContent:"在GMT-4下午4点之前的任何查询将依据前一天下午4点的数据。您每次查询可以过滤最多3个月内的数据。",
 	GotoCustomerList:"转至会员名单",
 	GrandTotal:"累计",
 	GrandTotalIn:"累计",
@@ -1305,7 +1328,6 @@ webpackJsonp([25],{
 	Licensee12Bet:"12Bet Licensee",
 	LicenseeFee:"承租公司费用",
 	Licenseegrossrevenuefor:"承租公司总收益为{0}",
-	LicenseeType:"承租公司类型",
 	LicenseeW_L:"承租公司输赢",
 	LicenseeWinLoss:"承租公司輸贏",
 	LicenseeWinLossTip1:"向下拖曳以查看数据",
@@ -1333,6 +1355,7 @@ webpackJsonp([25],{
 	Lose:"输",
 	Loss:"输",
 	LrfNotification:"LRF-通知",
+	MacauWinLossGuidelineContent:"在GMT-4下午4点之前的任何查询将依据前一天下午4点的数据。您每次查询可以过滤最多1个月内的数据。",
 	Main:"主",
 	ManageAccount:"账号管理",
 	ManageCustomer:"会员管理",
@@ -1360,6 +1383,7 @@ webpackJsonp([25],{
 	MessageGroupHasAlreadyChoosen:"此组名称已经被选择, 请尝试另一个名称!",
 	MessageInvalidCommValue:"佣金值无效!",
 	MessageSuccess:"成功",
+	MicrogamingWinLossGuidelineContent:"此报告提供最新数据。您每次查询可以过滤最多3个月内的数据。",
 	MinBet:"最低投注",
 	MinBetCanNotGreaterThanMaxBet:"最小投注不能超过最大投注",
 	MinBetCount:"最低投注计数",
@@ -1474,6 +1498,7 @@ webpackJsonp([25],{
 	Previous:"上个月",
 	Product:"产品",
 	ProductBG:"宾果",
+	ProductCO:"即时兑现",
 	ProductCS:"娱乐城",
 	ProductLC:"娱乐厅",
 	ProductNG:"百练赛",
@@ -1710,10 +1735,10 @@ webpackJsonp([25],{
 
 /***/ },
 
-/***/ 66:
+/***/ 70:
 /***/ function(module, exports) {
 
-	// Generated at: 3/15/2017 10:59:12 AM
+	// Generated at: 4/12/2017 1:29:58 PM
 	window._language_zh_TW = {
 	AA:"客客",
 	AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -1797,6 +1822,7 @@ webpackJsonp([25],{
 	CancelledBets:"已刪除/作廢注單",
 	CancelledBetsTitle:"作廢/已刪除注單（3天紀錄）",
 	CASINOHANDHISTORY:"賭場下注歷史",
+	CasinoProgressiveWinsGuidelineContent:"此報告提供最新數據。 您每次查詢可以過濾最多12個月內的數據。",
 	CasinoTransfer:"娛樂城的總轉賬額",
 	ChangePassword:"更改密碼",
 	ChangeStatus:"更改{0}的狀態",
@@ -1874,7 +1900,6 @@ webpackJsonp([25],{
 	DailyRacingWinLoss:"每日賽事佣金",
 	DailyStatement:"每日賬目",
 	DailyStatementMsg:"Support data up to 4 months only",
-	DataAreAvailableUpToYesterday:"在每天3:30AM(GMT-4) 過後，報告會顯示前一天的數據",
 	DataWareHouse:"數據倉庫技術",
 	Date:"日期",
 	DateRange:"日期範圍",
@@ -1966,6 +1991,7 @@ webpackJsonp([25],{
 	General:"常規",
 	GetAll:"獲取全部",
 	Go:"開始",
+	GoldDeluxeWinLossGuidelineContent:"在GMT-4下午4點之前的任何查詢將依據前一天下午4點的數據。您每次查詢可以過濾最多3個月內的數據。",
 	GotoCustomerList:"轉至會員名單",
 	GrandTotal:"累計",
 	GrandTotalIn:"累計",
@@ -2090,7 +2116,6 @@ webpackJsonp([25],{
 	Licensee12Bet:"12Bet Licensee",
 	LicenseeFee:"承租公司費用",
 	Licenseegrossrevenuefor:"承租公司總收益為{0}",
-	LicenseeType:"承租公司類型",
 	LicenseeW_L:"承租公司輸贏",
 	LicenseeWinLoss:"承租公司輸贏",
 	LicenseeWinLossTip1:"向下拖曳以查看數據",
@@ -2118,6 +2143,7 @@ webpackJsonp([25],{
 	Lose:"輸",
 	Loss:"輸",
 	LrfNotification:"LRF通知",
+	MacauWinLossGuidelineContent:"在GMT-4下午4點之前的任何查詢將依據前一天下午4點的數據。您每次查詢可以過濾最多1個月內的數據。",
 	Main:"主",
 	ManageAccount:"賬號管理",
 	ManageCustomer:"會員管理",
@@ -2145,6 +2171,7 @@ webpackJsonp([25],{
 	MessageGroupHasAlreadyChoosen:"此組名稱已經被選擇，請嘗試另一個名稱!",
 	MessageInvalidCommValue:"佣金值無效!",
 	MessageSuccess:"成功",
+	MicrogamingWinLossGuidelineContent:"此報告提供最新數據。 您每次查詢可以過濾最多3個月內的數據。",
 	MinBet:"最低投注",
 	MinBetCanNotGreaterThanMaxBet:"最小投注不能超過最大投注",
 	MinBetCount:"最低投注計數",
@@ -2259,6 +2286,7 @@ webpackJsonp([25],{
 	Previous:"上個",
 	Product:"產品",
 	ProductBG:"賓果",
+	ProductCO:"即時兌現",
 	ProductCS:"娛樂城",
 	ProductLC:"娛樂廳",
 	ProductNG:"百練賽",
@@ -2495,10 +2523,10 @@ webpackJsonp([25],{
 
 /***/ },
 
-/***/ 67:
+/***/ 71:
 /***/ function(module, exports) {
 
-	// Generated at: 3/15/2017 10:59:12 AM
+	// Generated at: 4/12/2017 1:29:58 PM
 	window._language_zh_Hans = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -2874,7 +2902,6 @@ webpackJsonp([25],{
 	Licensee12Bet:"12Bet Licensee",
 	LicenseeFee:"承租公司费用",
 	Licenseegrossrevenuefor:"承租公司总收益为{0}",
-	LicenseeType:"承租公司类型",
 	LicenseeW_L:"承租公司输赢",
 	LicenseeWinLoss:"承租公司輸贏",
 	LicenseeWinLossTip1:"向下拖曳以查看数据",
@@ -3279,10 +3306,10 @@ webpackJsonp([25],{
 
 /***/ },
 
-/***/ 68:
+/***/ 72:
 /***/ function(module, exports) {
 
-	// Generated at: 3/15/2017 10:59:12 AM
+	// Generated at: 4/12/2017 1:29:58 PM
 	window._language_ko_KR = {
 	AA:"AA",
 	AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
@@ -3653,7 +3680,6 @@ webpackJsonp([25],{
 	Licensee12Bet:"12 배팅 라이선스 사용자",
 	LicenseeFee:"라이선스 사용자 요금",
 	Licenseegrossrevenuefor:"{0}에 대한 라이선스 사용자 총 수입",
-	LicenseeType:"라이선스 사용자 유형",
 	LicenseeW_L:"라이선스 사용자 승리/패배",
 	LicenseeWinLoss:"라이선스 사용자 승리 패배",
 	LicenseeWinLossTip1:"데이터 이곳에 열거하기",

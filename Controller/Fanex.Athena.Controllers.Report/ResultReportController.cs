@@ -519,7 +519,7 @@ namespace Fanex.Athena.Controllers.Report
                     limitedSports = sports;
                 }
 
-                if (limitedSports.Count() > 0)
+                if (limitedSports.Any())
                 {
                     leagues = _resultService.GetLeagues(
                        metalModel.FromDate,

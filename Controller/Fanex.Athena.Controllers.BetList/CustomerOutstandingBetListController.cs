@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.MetaModel.Product;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
@@ -21,57 +22,55 @@ namespace Fanex.Athena.Controllers.BetList
         private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
         private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
 
+        private static readonly string[] IgnoredProductInBetListRunning = new string[] { "BT", "CO" };
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", Justification = "Reviewd.")]
         public ActionResult Index(BetListMetaModel metaModel)
         {
             var isRunningBetlist = metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);
             metaModel = CreateDefaultMetaModel(metaModel);
 
-            var minDate = DateTime.Today.AddYears(-1);
-            minDate = new DateTime(minDate.Year, 1, 1);
-            metaModel.FromDate = isRunningBetlist ? minDate : metaModel.MoveBetsDay.AddDays(1);
+            metaModel.FromDate = isRunningBetlist ? new DateTime(DateTime.Now.Year - 1, 1, 1) : metaModel.MoveBetsDay.AddDays(1);
 
             var productAccess = this.ProductService.GetProductAccess(
                 metaModel.LicenseeId,
                 SessionService.UserSession.Language,
                 isRunningBetlist ? BetListCustomerOutstandingRunningName : BetListCustomerOutstandingName);
 
-            var isCheckedAllProducts = metaModel.ProductOptions.Count() == 0;
-            var previousCheckedProducts = metaModel.ProductOptions.Where(x => x.Status)
-                                            .Select(x => x.Code).ToList();
-            var hasCheckedBetTrade = metaModel.ProductOptions.Any(p => p.Code == "BT" && p.Status);
-            var productOptions = new HashSet<ProductOption>();
+            AssignProductOption(metaModel, productAccess);
+
+            return View("~/Views/BetList/CustomerOutstanding/Main.cshtml", metaModel);
+        }
+
+        private static void AssignProductOption(BetListMetaModel metaModel, ProductAccess productAccess)
+        {
+            var isFirstTimeLoading = !metaModel.ProductOptions.Any();
+            var previousCheckedProducts = metaModel.ProductOptions.Where(x => x.Status).ToList();
+
+            var productOptions = new List<ProductOption>();
 
             foreach (var product in productAccess.ProductList)
             {
-                var productOption = new ProductOption()
+                productOptions.Add(new ProductOption
                 {
                     Code = product.ProductCode,
-                    Name = product.ProductName
-                };
+                    Name = product.ProductName,
+                    Status = isFirstTimeLoading || previousCheckedProducts.Any(p => p.Code == product.ProductCode)
+                });
+            }
 
-                if (isCheckedAllProducts)
-                {
-                    productOption.Status = true;
-                }
-                else
-                {
-                    var status = previousCheckedProducts.Any(code => code == product.ProductCode);
-                    productOption.Status = status;
-                }
-
-                productOptions.Add(productOption);
+            if (productOptions.Any(p => p.Code == Product.SB) && ShouldCheckSportsbook(previousCheckedProducts))
+            {
+                var sportbookProduct = productOptions.First(p => p.Code == Product.SB);
+                sportbookProduct.Status = true;
             }
 
             metaModel.ProductOptions = productOptions;
+        }
 
-            if (hasCheckedBetTrade)
-            {
-                var defaultProduct = metaModel.ProductOptions.FirstOrDefault(p => p.Code == "SB");
-                defaultProduct.Status = true;
-            }
-
-            return View("~/Views/BetList/CustomerOutstanding/Main.cshtml", metaModel);
+        private static bool ShouldCheckSportsbook(IEnumerable<ProductOption> previousCheckedProducts)
+        {
+            return previousCheckedProducts.Any(i => IgnoredProductInBetListRunning.Contains(i.Code));
         }
     }
 }

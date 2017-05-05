@@ -12,6 +12,7 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
+    using Model.Core.Helper;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ViewModel;
@@ -115,10 +116,7 @@ namespace Fanex.Athena.Excel.Report
             set;
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = _winlossByProductList.Count;
 
@@ -143,7 +141,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to header section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
@@ -159,7 +157,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             var message = string.IsNullOrWhiteSpace(_errorMessage) ? ViewResources.NoInfo : _errorMessage;
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTitleTemplate, ColumnTemplateCount, message);
@@ -169,7 +167,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             int indexReport = 1;
 
@@ -222,7 +220,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign title for the report.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             string fromdate = _metaModel.Level == 0
                               ? _metaModel.FromDate.ToString(FormatDate)
@@ -261,7 +259,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {
@@ -291,7 +289,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="nameOfRow">Name of row.</param>
         /// <returns>Row number list.</returns>
-        protected static int[] GetRowNumberFromTemplate(string nameOfRow)
+        protected int[] GetRowNumberFromTemplate(string nameOfRow)
         {
             var numberRowList = new[] { 4, 5, 6, 7 };
             switch (nameOfRow)
@@ -313,7 +311,7 @@ namespace Fanex.Athena.Excel.Report
             return numberRowList;
         }
 
-        protected static void AssignCommonData(IRow row, WinLossByProduct winlossByProduct)
+        protected void AssignCommonData(IRow row, WinLossByProduct winlossByProduct)
         {
             row.Cells[ColumnTurnover].SetCellValue(winlossByProduct.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(winlossByProduct.TotalTransaction);
@@ -522,6 +520,7 @@ namespace Fanex.Athena.Excel.Report
                     CurrencyId = group.Key.CurrencyId,
                     CurrencyName = group.Key.CurrencyName,
                     ProductCode = group.Key.ProductCode,
+                    ProductName = ProductHelper.GetProductName(group.Key.ProductCode),
                     TurnOver = group.Sum(a => a.TurnOver),
                     TotalTransaction = group.Sum(a => a.TotalTransaction),
                     CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),

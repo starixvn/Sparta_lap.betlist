@@ -55,11 +55,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.2.21.0.1\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.BetList.Core.2.23.0.2\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.21.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.2.21.0.1\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    <Reference Include="Fanex.BetList.Core, Version=2.23.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.Core.2.23.0.2\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.GlobalGaming, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
@@ -198,7 +198,6 @@
     <Compile Include="AGCasinoBetListController.cs" />
     <Compile Include="DailyStatementBetListController.cs" />
     <Compile Include="GlobalGamingBetListController.cs" />
-    <Compile Include="Helpers\BetListHelper.cs" />
     <Compile Include="MixParlayBetListController.cs" />
     <Compile Include="PlatformWinLossBetListController.cs" />
     <Compile Include="RNGCasinoBetListController.cs" />
@@ -222,7 +221,6 @@
     <Compile Include="DailyBetListController.cs" />
     <Compile Include="PendingFundsBetListController.cs" />
     <Compile Include="LastBetMonitoringBetListController.cs" />
-    <Compile Include="LrfBetListHtmlBuilder.cs" />
     <Compile Include="OutStandingCompletedBetListController.cs" />
     <Compile Include="OutstandingRunningBetListController.cs" />
     <Compile Include="RunningBetListController.cs" />

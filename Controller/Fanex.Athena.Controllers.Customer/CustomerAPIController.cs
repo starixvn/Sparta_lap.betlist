@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web.SessionState;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -26,18 +27,15 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.Core.ViewModel;
+    using ONEbook.UM.Filters;
     using Resources;
 
     #endregion Using
 
-    /// <summary>
-    /// Customer API.
-    /// +Update BA.
-    /// +Update level.
-    /// +Update Status .
-    /// </summary>
+    [SessionState(SessionStateBehavior.ReadOnly)]
+    [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
-    public class CustomerApiController : ReadonlyBaseController
+    public class CustomerApiController : BaseController
     {
         private const string CustomerAPIRemoveFromGroupComName = "CustomerAPI_RemoveFromGroupCom";
 
@@ -185,7 +183,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             try
             {
-                var metaModel = new CustomerOddsGroupMetaModel()
+                var metaModel = new CustomerOddsGroupMetaModel
                 {
                     LicenseeId = SessionService.LicenseeSession.LicenseeId,
                     CustId = custId,
@@ -196,8 +194,8 @@ namespace Fanex.Athena.Controllers.Customer
                 };
                 var dataResult = _customerService.UpdateOddsGroup(metaModel);
 
-                var message = dataResult.IsSuccessful == false && string.IsNullOrWhiteSpace(dataResult.Message) ?
-                              ViewResources.HttpError_Default : dataResult.Message;
+                var message = !dataResult.IsSuccessful && string.IsNullOrWhiteSpace(dataResult.Message) ?
+                               ViewResources.HttpError_Default : dataResult.Message;
                 return Json(new ResultViewModel
                 {
                     Success = dataResult.IsSuccessful,
@@ -465,7 +463,7 @@ namespace Fanex.Athena.Controllers.Customer
                 ErrorMessage = ViewResources.Error
             };
 
-            var metaModel = new RemoveFromGroupComMetaModel()
+            var metaModel = new RemoveFromGroupComMetaModel
             {
                 CustomerIds = customerIds,
                 IsRemovePlayercomm = isRemovePlayercomm

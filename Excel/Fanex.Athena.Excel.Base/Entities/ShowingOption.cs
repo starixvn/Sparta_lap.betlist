@@ -6,15 +6,11 @@
 
 namespace Fanex.Athena.Excel.Base.Entities
 {
-    /// <summary>
-    /// Showing option.
-    /// </summary>
     public class ShowingOption
     {
         public ShowingOption()
         {
             GrandTotalVisible = true;
-            LicenseeTypeVisible = false;
             RBVisible = false;
             NGVisible = false;
             BAVisible = false;
@@ -75,12 +71,6 @@ namespace Fanex.Athena.Excel.Base.Entities
             }
         }
 
-        public bool LicenseeTypeVisible
-        {
-            get;
-            set;
-        }
-
         public bool NGVisible
         {
             get;
@@ -112,6 +102,12 @@ namespace Fanex.Athena.Excel.Base.Entities
         }
 
         public bool BTVisible
+        {
+            get;
+            set;
+        }
+
+        public bool COVisible
         {
             get;
             set;

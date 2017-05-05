@@ -120,7 +120,6 @@
     <Compile Include="ClientViewHelper.cs" />
     <Compile Include="DefaultCultureBaseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReadonlyBaseController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

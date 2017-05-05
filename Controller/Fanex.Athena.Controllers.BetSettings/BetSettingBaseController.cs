@@ -9,28 +9,28 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Mvc;
+    using System.Web.SessionState;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Service.Core.Users;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
     using Model.Core.DTO.Common;
+    using ONEbook.UM.Filters;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Web.ActionFilter;
 
+    [SessionState(SessionStateBehavior.ReadOnly)]
+    [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
-    public class BetSettingBaseController : ReadonlyBaseController
+    public class BetSettingBaseController : BaseController
     {
-        private const int BopingResellerId = 7;
-
         private readonly ICoreBetSettingService _coreBetSettingService;
-        private readonly ILicenseeService _licenseeService;
         private readonly ICustomerService _customerService;
         private readonly IProductService _productService;
         private readonly Lazy<ProductAccess> _productAccess;
@@ -38,7 +38,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         public BetSettingBaseController()
         {
             this._coreBetSettingService = new CoreBetSettingService();
-            this._licenseeService = new LicenseeService();
             this._customerService = new CustomerService();
             this._productService = new ProductService();
             _productAccess = new Lazy<ProductAccess>(() =>

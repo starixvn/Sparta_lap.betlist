@@ -1,8 +1,8 @@
 ﻿define(
     ["jquery", "common/site", "./turnover.option",
-        "lib/jqgrid/jquery.jqgrid.additional", "moment", "components/pluginhelper/monthpicker",
+        "lib/jqgrid/jquery.jqgrid.additional", "moment", "components/pluginhelper/monthpicker", "components/pluginhelper/multiselect",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "materialize-autocomplete"],
-    function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker) {
+    function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect) {
         "use strict";
     var ajaxRequest = null;
     var _fromDate, _toDate, _currencyName, _currencyId;
@@ -20,7 +20,7 @@
             TurnoverOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
             TurnoverOption.hasCasinoTransfer = Site.asBool($("#IsAllowedCasinoTransfer").val());
             TurnoverOption.isAllowBa = Site.asBool($("#IsAllowBa").val());
-            Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+            MultiSelect.initialize('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
             Site.addUserGuide({
                 resourceName: "Turnover",
                 title: Site.getSingleResource("Turnover")

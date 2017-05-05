@@ -22,26 +22,27 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class TurnoverExcel : ReportBase
     {
-        private const int ColumnAdjustment = 6;
-        private const int ColumnAffiliateTransfer = 15;
-        private const int ColumnAmountDueToBa = 19;
-        private const int ColumnBonus = 5;
-        private const int ColumnCasinoTransfer = 16;
-        private const int ColumnClosingBalance = 14;
-        private const int ColumnCommBa = 18;
-        private const int ColumnCustomerComm = 12;
-        private const int ColumnCustomerTotal = 13;
-        private const int ColumnCustomerWinLoss = 11;
         private const int ColumnDay = 1;
+        private const int ColumnOpeningBalance = 2;
         private const int ColumnDeposit = 3;
+        private const int ColumnWithdrawal = 4;
+        private const int ColumnBonus = 5;
+        private const int ColumnAdjustment = 6;
+        private const int ColumnTurnOver = 7;
         private const int ColumnDrawGame = 8;
         private const int ColumnNetTurnOver = 9;
-        private const int ColumnOpeningBalance = 2;
         private const int ColumnPendingFunds = 10;
-        private const int ColumnTemplateCount = 20;
-        private const int ColumnTurnOver = 7;
+        private const int ColumnCustomerWinLoss = 11;
+        private const int ColumnCustomerComm = 12;
+        private const int ColumnCustomerTotal = 13;
+        private const int ColumnClosingBalance = 14;
+        private const int ColumnAffiliateTransfer = 15;
+        private const int ColumnCasinoTransfer = 16;
         private const int ColumnTurnoverBa = 17;
-        private const int ColumnWithdrawal = 4;
+        private const int ColumnCommBa = 18;
+        private const int ColumnAmountDueToBa = 19;
+        private const int ColumnTemplateCount = 20;
+
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemp = 5;
         private const int RowTableHeaderTemplate = 1;
@@ -94,7 +95,7 @@ namespace Fanex.Athena.Excel.Report
         /// <summary>
         /// Assign data to excel sheet.
         /// </summary>
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = _turnoverList.Count;
 
@@ -126,7 +127,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to header section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             IRow row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
@@ -145,7 +146,7 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnAmountDueToBa].SetCellValue(ViewResources.AmtDueTo);
         }
 
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
@@ -157,7 +158,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="pageIndex">Start index.</param>
         /// <returns>Row index.</returns>
-        public override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
             int rowCount = Math.Min(_turnoverList.Count, checked((pageIndex + 1) * PageSize));
             var currentRow = 3;
@@ -186,7 +187,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign title for the report.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             string titleNoUserName = string.Format(
                                                     ViewResources.TurnoverTitleNoUser,
@@ -214,7 +215,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
             {
@@ -246,7 +247,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="row">Excel row.</param>
         /// <param name="turnover">Turnover data.</param>
-        protected static void AssignCommonData(IRow row, TurnoverDTO turnover)
+        protected void AssignCommonData(IRow row, TurnoverDTO turnover)
         {
             row.Cells[ColumnDeposit].SetCellValue(turnover.Deposit);
             row.Cells[ColumnWithdrawal].SetCellValue(turnover.Withdrawal);

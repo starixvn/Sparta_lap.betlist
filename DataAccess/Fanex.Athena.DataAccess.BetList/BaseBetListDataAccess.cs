@@ -14,22 +14,12 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public abstract class BaseBetListDataAccess : BaseDataAccess
     {
-        /// <summary>
-        /// Do not use reflection because of bad performance.
-        /// </summary>
-        /// <param name="baseCurrency">Base currency value.</param>
-        /// <param name="custId">The customer ID.</param>
-        /// <param name="dataReader">todo: describe dataReader parameter on ReadLrfTicket</param>
-        /// <returns>The result value.</returns>
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         [CLSCompliant(false)]
-        protected internal static SortableList<LrfTicket> ReadLrfTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
+        protected internal static SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
         {
             var playerCommCol = "playercomm" + baseCurrency;
             var commCol = "comm" + baseCurrency;
@@ -38,6 +28,7 @@ namespace Fanex.Athena.DataAccess.BetList
             var beteffectiveCol = "beteffective" + baseCurrency;
             var stakeCol = "stake" + baseCurrency;
             var actualStakeCol = "actual_stake" + baseCurrency;
+            var originalStakeCol = "originalstake" + baseCurrency;
 
             var tickets = new SortableList<LrfTicket>();
             var columns = new string[]
@@ -47,7 +38,7 @@ namespace Fanex.Athena.DataAccess.BetList
                 "leagueid", "awayid", "homeid", "matchid", "custid", "currencyid", "livehomescore", "liveawayscore",
                 "SpecialLevel", "StatusId", "transid", "betid", "winlostdate", "transdate",
                 playerCommCol, commCol, licenseeWlCol, winlostCol, beteffectiveCol, stakeCol, actualStakeCol,
-                "odds", "modds", "hdp1", "hdp2", "transdesc", "currency"
+                "odds", "modds", "hdp1", "hdp2", "transdesc", "currency", "betdaqid", "extrainfo", originalStakeCol, "originalbettype"
             };
 
             var reader = new SafeDataReader(dataReader, columns);
@@ -112,6 +103,11 @@ namespace Fanex.Athena.DataAccess.BetList
                 ticket.Handicap2 = reader.GetDecimal("hdp2");
                 ticket.TransDesc = reader.GetString("transdesc");
                 ticket.Currency = reader.GetString("currency");
+
+                ticket.BetdaqId = reader.GetLong("betdaqid", -1);
+                ticket.ExtraInfo = reader.GetString("extrainfo");
+                ticket.OriginalStake = reader.GetDecimal(originalStakeCol, -1);
+                ticket.OriginalBetType = reader.GetInt("originalbettype");
 
                 tickets.Add(ticket);
             }

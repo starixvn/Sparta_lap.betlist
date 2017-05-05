@@ -6,9 +6,6 @@
 
 namespace Fanex.Athena.Model.BetList.DTO
 {
-    /// <summary>
-    /// TicketText class.
-    /// </summary>
     public class TicketText
     {
         public int Index { get; set; }

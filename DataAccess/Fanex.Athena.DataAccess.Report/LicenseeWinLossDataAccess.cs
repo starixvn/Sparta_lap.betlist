@@ -195,6 +195,7 @@ namespace Fanex.Athena.DataAccess.Report
                     TotalTransaction = reader.ToInt("betcount"),
                     RacingRevenue = reader.ToDecimal("licenseewlrb" + baseCurrency) + reader.ToDecimal("commrb" + baseCurrency),
                     BACommission = reader.ToDecimal("commba" + baseCurrency),
+                    CashOutCommission = reader.ToDecimal("cashoutcomm" + baseCurrency),
                     BetTradeCommission = reader.ToDecimal("bettradecomm" + baseCurrency),
                     AmtDueToBetTrade = reader.ToDecimal("AmtDueToBT" + baseCurrency),
                     AmtDueToBA = reader.ToDecimal("amtduetoba" + baseCurrency),
@@ -223,6 +224,7 @@ namespace Fanex.Athena.DataAccess.Report
                 summaryItem.CustomerComm += reader.ToDecimal("playercomm" + currency);
                 summaryItem.TotalTransaction += reader.ToInt("betcount");
                 summaryItem.RacingRevenue += reader.ToDecimal("licenseewlrb" + currency) + reader.ToDecimal("commrb" + currency);
+                summaryItem.CashOutCommission += reader.ToDecimal("CashOutComm" + currency);
                 summaryItem.BACommission += reader.ToDecimal("commba" + currency);
                 summaryItem.BetTradeCommission += reader.ToDecimal("BetTradeComm" + currency);
                 summaryItem.AmtDueToBetTrade += reader.ToDecimal("amtduetoBT" + currency);

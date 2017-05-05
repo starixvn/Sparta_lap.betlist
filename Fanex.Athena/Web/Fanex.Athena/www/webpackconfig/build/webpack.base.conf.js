@@ -47,6 +47,7 @@ function generateConfig(environment) {
             [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/racingcommission`]: [pathConfig.scriptPaths.racingcommission],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/turnover`]: [pathConfig.scriptPaths.turnover],
             [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/result`]: [pathConfig.scriptPaths.result],
+            [`${pathConfig.scriptPaths.build}/${environment}/pages/reports/cashoutwinloss`]: [pathConfig.scriptPaths.cashoutwinloss],
             
 
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
@@ -74,7 +75,9 @@ function generateConfig(environment) {
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/weeklylivematch`]: pathConfig.cssPaths.weeklylivematch,
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/racingcommission`]: pathConfig.cssPaths.racingcommission,
             [`${pathConfig.cssPaths.build}/${environment}/pages/reports/turnover`]: pathConfig.cssPaths.turnover,
-            [`${pathConfig.cssPaths.build}/${environment}/pages/reports/result`]: pathConfig.cssPaths.result
+            [`${pathConfig.cssPaths.build}/${environment}/pages/reports/result`]: pathConfig.cssPaths.result,
+            [`${pathConfig.cssPaths.build}/${environment}/pages/reports/cashoutwinloss`]: pathConfig.cssPaths.cashoutwinloss,
+            [`${pathConfig.cssPaths.build}/${environment}/pages/betlist/cashouthistory`]: pathConfig.cssPaths.cashouthistory
         },
         output: {
             path: pathConfig.projectRoot,

@@ -7,18 +7,17 @@
 namespace Fanex.Athena.Controllers.Customer.CustomerLog
 {
     using System.Web.Mvc;
+    using System.Web.SessionState;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
+    using ONEbook.UM.Filters;
 
-    /// <summary>
-    /// Customer log.
-    /// </summary>
+    [SessionState(SessionStateBehavior.ReadOnly)]
+    [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
-    public partial class CustomerLogController : ReadonlyBaseController
+    public partial class CustomerLogController : BaseController
     {
-        private const string CustomerLogUrl = "CustomerLog/LogInLog";
-
         private readonly ProductService _productService;
 
         public CustomerLogController()

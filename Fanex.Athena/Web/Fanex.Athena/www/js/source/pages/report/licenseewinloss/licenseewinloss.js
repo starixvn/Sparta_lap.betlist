@@ -1,14 +1,13 @@
 ﻿define(
-    ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option",
-        "lib/jqgrid/jquery.jqgrid.additional", "components/pluginhelper/daterangepicker", "moment", "common/popup",
+    ["jquery", "common/querystring", "common/site", "../report", "./licenseewinloss.option", "lib/jqgrid/jquery.jqgrid.additional",
+        "components/pluginhelper/daterangepicker", "moment", "common/popup", "components/pluginhelper/multiselect",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq"],
-    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup) {
+    function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
 
         var cacheData = {};
         var ajaxRequest = null;
-        var totalRowCount = 0;
         var _sortColumnName = null;
         var _sortOrder = "desc";
         var _level = 0;
@@ -17,13 +16,12 @@
         var _submitData; // cache submit data of level 0.
 
         var _me = {
-            getTotalRowCount: function () {
-                return totalRowCount;
-            },
             initialize: function () {
                 Site.initialize();
                 _me.initEvent();
                 _me.initSetting();
+                _me.registerGlobalFunction();
+
                 LicenseeWinLossOption.gridOption.onSortCol = function (index) {
                     Site.blockUI();
                     window.setTimeout(function () {
@@ -48,8 +46,12 @@
                     resourceName: "LicenseeWL",
                     title: Site.getSingleResource("LicenseeWinLoss")
                 });
-                Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+                MultiSelect.initialize('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
                 DatePicker.initDateRangePicker();
+            },
+
+            registerGlobalFunction: function () {
+                window.licenseewinlossDrilldown = _me.drillDown;
             },
 
             sortData: function (arrayData) {
@@ -93,7 +95,17 @@
                 $("#level-link-container").on("click", ".level-link", function () {
                     var level = Number($(this).attr("data-level"));
                     _level = level;
-                    return _me.goBack(level);
+                    if (level < 2) {
+                        _me.goBack(level);
+                    }
+                });
+
+                $(window).on("resize", function () {
+                    _me.resizeGrid();
+                });
+
+                $(window).on("unload", function () {
+                    $(window).off("resize");
                 });
             },
 
@@ -108,40 +120,11 @@
                 LicenseeWinLossOption.urlExcelData = temp;
             },
 
-            renderBreadCrumb: function (level) {
-                level = Number(level);
-                if (level === 0) {
-                    $(".breadCrumbHolder").hide();
-                }
-                else {
-                    $(".breadCrumbHolder").show();
-                    $("#level-link-container .level0").show();
-
-                    var showLevel2 = level === 2;
-                    $("#level-link-container .level2").toggle(showLevel2).toggleClass("active", showLevel2);
-                    $("#level-link-container .level1").toggle(Number(LicenseeWinLossOption.licenseeId) === 1).toggleClass("active", !showLevel2);
-                }
-            },
-
             setReportTitle: function (currencyId, fromdate, todate, currencyName) {
                 var titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-                var viewinKey = Site.getSingleResource("Viewin");
-                //get currencyName
-                var currencyTextList =
-                {
-                    "-3": viewinKey.replace("{0}", "GBP"),
-                    "-2": viewinKey.replace("{0}", "USD"),
-                    "-1": viewinKey.replace("{0}", "EUR"),
-                    "0": Site.getSingleResource('AllCurrencies')
-                };
-
-                var currencyStr = currencyTextList[currencyId] === undefined
-                    ? viewinKey.replace("{0}", currencyName || Site.getCurrencyName(currencyId))
-                    : currencyTextList[currencyId];
-
-                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyStr); // jshint ignore:line
+                var currencyNameOnTitle = currencyName ? currencyName : Report.getCurrencyNameForReportTitle(currencyId);
+                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyNameOnTitle);
                 $(".report-title").html(title);
-                // Show title
                 $(".panel-heading").removeClass("hide");
             },
             //#end
@@ -158,7 +141,7 @@
                         _me.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
                     }
 
-                    _me.renderBreadCrumb(level);
+                    Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
                     _me.bindData(level, reportBy, response);
                 }
             },
@@ -238,29 +221,9 @@
                     BaseCurrency: $("#BaseCurrency").attr("data-original")
                 };
 
-                var momentDate = moment(datetime);
-                var fdate = momentDate.clone();
-                var tdate = momentDate.clone();
+                var drilldownDate = new Date(datetime);
+                var dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
 
-                if (Number(param.ReportBy) === 2) {
-                    var fday = 1;
-                    var month = fdate.month();
-                    var year = fdate.year();
-                    var orignalFDate = moment(param.FromDate);
-                    if (month === orignalFDate.month()) {
-                        fday = orignalFDate.date();
-                    }
-                    fdate = moment([year, month, fday, 0, 0, 0, 0]);
-
-                    var originalTDate = moment(param.ToDate);
-                    if (month === originalTDate.month()) {
-                        var tday = originalTDate.date();
-                        tdate = moment([year, month, tday, 0, 0, 0, 0]);
-                    }
-                    else {
-                        tdate = moment(_me.lastDateOfMonth(year, month));
-                    }
-                }
                 if (keepSorting && _sortColumnName) {
                     param.SortBy = _sortColumnName;
                     param.SortOrder = _sortOrder;
@@ -277,18 +240,19 @@
 
                     url: Site.resolveClientUrl(LicenseeWinLossOption.urlData +
                         "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
-                        fdate.format("MM/DD/YYYY") + "&tdate=" + tdate.format("MM/DD/YYYY")),
+                        moment(dateRange.FromDate).format("MM/DD/YYYY") + "&tdate=" + moment(dateRange.ToDate).format("MM/DD/YYYY")),
                     success: function (response) {
                         _me.ajaxComplete(level, response);
                         if (response !== null && response.Data.length > 0) {
                             if (level > 0 && Number(param.CurrencyId) === 0) {
-                                _me.setReportTitle(currencyId, fdate, tdate, currencyName);
+                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
                             } else {
-                                _me.setReportTitle(param.CurrencyId, fdate, tdate, currencyName);
+                                _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
                             }
-                            //update excel ULR
-                            _me.setExcelUrl(level, currencyId, customerId, fdate, tdate, currencyName);
                         }
+
+                        //update excel ULR
+                        _me.setExcelUrl(level, currencyId, customerId, dateRange.FromDate, dateRange.ToDate, currencyName);
                     },
                     beforeSend: function () {
                         Site.blockUI();
@@ -305,18 +269,15 @@
 
             goBack: function (level) {
                 var reportBy = _submitData.ReportBy;
+                Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
+                _me.bindData(level, reportBy, cacheData[level]);
 
                 if (level === 0) {
-                    _me.renderBreadCrumb(level);
-                    _me.bindData(0, reportBy, cacheData[level]);
-                    //reset excel Link
                     _me.setExcelUrl(0, 0, 0, "", "", "");
                     _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
                 else if (level === 1) {
-                    _me.bindData(1, reportBy, cacheData[level]);
                     LicenseeWinLossOption.urlExcelData = LicenseeWinLossOption.urlExcelData.replace("level=2", "level=1");
-                    _me.renderBreadCrumb(level);
                 }
             },
 
@@ -346,10 +307,8 @@
                 var reportGrid = $("#ReportGrid");
                 var productOptions = $.parseJSON(_submitData.ProductOptions);
                 productOptions = productOptions.reverse(); //make orders of product columns like excel file
-                
-                var numOfTotalRow = response.Total.length;
-                totalRowCount = numOfTotalRow;
 
+                var numOfTotalRow = response.Total.length;
                 var onPaging = false;
 
                 var gridOption = LicenseeWinLossOption.getGridOption(level, reportBy, productOptions);

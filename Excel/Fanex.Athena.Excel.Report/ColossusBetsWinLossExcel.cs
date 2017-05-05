@@ -66,7 +66,7 @@ namespace Fanex.Athena.Excel.Report
             set;
         }
 
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = _winLossList.Count;
 
@@ -87,7 +87,7 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -108,13 +108,13 @@ namespace Fanex.Athena.Excel.Report
             row2.Cells[ColumnCashOutAmt].SetCellValue(ViewResources.CashOutAmt);
         }
 
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        public override void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             var rowIndex = 1;
             int index;
@@ -148,7 +148,7 @@ namespace Fanex.Athena.Excel.Report
             AssignGrandTotal(sheet, rowIndex);
         }
 
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);
@@ -166,7 +166,7 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        public override void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             switch (Level)
             {

@@ -1064,9 +1064,6 @@
   <data name="Licenseegrossrevenuefor" xml:space="preserve">
     <value>承租公司总收益为{0}</value>
   </data>
-  <data name="LicenseeType" xml:space="preserve">
-    <value>承租公司类型</value>
-  </data>
   <data name="LicenseeWinLoss" xml:space="preserve">
     <value>承租公司輸贏</value>
   </data>

@@ -35,7 +35,9 @@ var cssPaths = {
     weeklylivematch: ["./www/css/source/pages/report/weeklylivematch.scss"],
     racingcommission: ["./www/css/source/pages/report/racingcommission.scss"],
     turnover: ["./www/css/source/pages/report/turnover.scss"],
-    result: ["./www/css/source/pages/report/result.scss"]
+    result: ["./www/css/source/pages/report/result.scss"],
+    cashoutwinloss: ["./www/css/source/pages/report/cashoutwinloss.scss"],
+    cashouthistory: ["./www/css/source/pages/betlist/cashouthistory.main.scss", "./www/css/source/extensions/popup-ex.scss"]
 };
 
 var scriptPaths = {
@@ -74,7 +76,8 @@ var scriptPaths = {
     weeklylivematch: "./www/js/source/pages/report/weeklylivematch/main-weeklylivematch.js",
     racingcommission: "./www/js/source/pages/report/racingcommission/main-racingcommission.js",
     turnover: "./www/js/source/pages/report/turnover/main.js",
-    result: "./www/js/source/pages/report/result/main-result.js"
+    result: "./www/js/source/pages/report/result/main-result.js",
+    cashoutwinloss: "./www/js/source/pages/report/cashoutwinloss/main.js"
 };
 
 module.exports = {

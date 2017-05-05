@@ -58,15 +58,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.2.21.0.1\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.BetList.Core.2.23.0.2\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.ColossusBets, Version=1.0.1.7, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.ColossusBets.1.0.1.7\lib\net40\Fanex.BetList.ColossusBets.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.21.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.2.21.0.1\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    <Reference Include="Fanex.BetList.Core, Version=2.23.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.Core.2.23.0.2\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.Voidbridge, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
@@ -190,6 +190,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CancelledBetListService.cs" />
+    <Compile Include="CashOutBetListService.cs" />
+    <Compile Include="Helpers\BetListHelper.cs" />
+    <Compile Include="Interfaces\ICashOutBetListService.cs" />
     <Compile Include="Interfaces\IColossusBetBetListService.cs" />
     <Compile Include="Interfaces\ICancelledBetListService.cs" />
     <Compile Include="Interfaces\ILastBetsMonitoringBetListService.cs" />
@@ -197,6 +200,7 @@
     <Compile Include="LastBetsMonitoringBetListService.cs" />
     <Compile Include="BetListService.cs" />
     <Compile Include="Interfaces\IBetListService.cs" />
+    <Compile Include="Extensions\LrfBetListHtmlBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -62,9 +62,9 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.SystemId,
                 viewinCurrency);
 
-            var colList = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
+            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
 
-            var excel = new BetListExcel(new ShowingOption(), metaModel.LicenseeId == 1, colList);
+            var excel = new BetListExcel(new ShowingOption { CustomerCommVisible = true }, metaModel.LicenseeId == 1, hiddenColumns);
 
             var workbook = excel.Export(ticketResult, title);
 

@@ -1,13 +1,18 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
     using System;
+    using System.Web.Mvc;
+    using System.Web.SessionState;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
+    using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration;
 
-    public class ReportBaseController : ReadonlyBaseController
+    [SessionState(SessionStateBehavior.ReadOnly)]
+    [CheckUMFilter]
+    public class ReportBaseController : BaseController
     {
         public const int PageSizeExcel = int.MaxValue - 1000;
 

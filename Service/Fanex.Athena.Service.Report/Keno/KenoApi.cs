@@ -23,13 +23,7 @@ namespace Fanex.Athena.Service.Report.Keno
         private const string SERVICENAME = "KenoApi";
         private const string GAMENAME = "Keno";
 
-        /// <summary>
-        /// Authorize for Keno.
-        /// </summary>
-        /// <param name="setting">Setting meta model.</param>
-        /// <param name="userId">User Id value.</param>
-        /// <returns>KenoAuthorization value.</returns>
-        public Model.Report.DTO.Keno.KenoAuthorization Authorize(Model.Report.MetaModel.Keno.KenoResultMetalModel setting, string userId)
+        public KenoAuthorization Authorize(Model.Report.MetaModel.Keno.KenoResultMetalModel setting, string userId)
         {
             try
             {
@@ -43,23 +37,7 @@ namespace Fanex.Athena.Service.Report.Keno
                 var serialize = new JavaScriptSerializer();
                 return serialize.Deserialize<KenoAuthorization>(data);
             }
-            catch (WebException exception)
-            {
-                throw new ServiceException(exception.Message, SERVICENAME);
-            }
-            catch (ArgumentNullException exception)
-            {
-                throw new ServiceException(exception.Message, SERVICENAME);
-            }
-            catch (ArgumentException exception)
-            {
-                throw new ServiceException(exception.Message, SERVICENAME);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new ServiceException(exception.Message, SERVICENAME);
-            }
-            catch (FormatException exception)
+            catch (Exception exception)
             {
                 throw new ServiceException(exception.Message, SERVICENAME);
             }
@@ -71,7 +49,7 @@ namespace Fanex.Athena.Service.Report.Keno
         /// <param name="setting">Setting value.</param>
         /// <param name="userId">User Id value.</param>
         /// <returns>KenoExtendedToken value.</returns>
-        public Model.Report.DTO.Keno.KenoExtendedToken ExtendToken(Model.Report.MetaModel.Keno.KenoResultMetalModel setting, string userId)
+        public KenoExtendedToken ExtendToken(Model.Report.MetaModel.Keno.KenoResultMetalModel setting, string userId)
         {
             try
             {
@@ -85,23 +63,7 @@ namespace Fanex.Athena.Service.Report.Keno
                 var serialize = new JavaScriptSerializer();
                 return serialize.Deserialize<KenoExtendedToken>(data);
             }
-            catch (WebException exception)
-            {
-                throw new ServiceException(exception.Message, SERVICENAME);
-            }
-            catch (ArgumentNullException exception)
-            {
-                throw new ServiceException(exception.Message, SERVICENAME);
-            }
-            catch (ArgumentException exception)
-            {
-                throw new ServiceException(exception.Message, SERVICENAME);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new ServiceException(exception.Message, SERVICENAME);
-            }
-            catch (FormatException exception)
+            catch (Exception exception)
             {
                 throw new ServiceException(exception.Message, SERVICENAME);
             }

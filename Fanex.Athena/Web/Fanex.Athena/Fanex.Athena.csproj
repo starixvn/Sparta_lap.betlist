@@ -89,15 +89,19 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.21.0.1\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.23.0.2\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.CashOut, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.CashOut.1.0.0.6\lib\net40\Fanex.BetList.CashOut.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.ColossusBets, Version=1.0.1.7, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.ColossusBets.1.0.1.7\lib\net40\Fanex.BetList.ColossusBets.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.21.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.21.0.1\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    <Reference Include="Fanex.BetList.Core, Version=2.23.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.23.0.2\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.GlobalGaming, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
@@ -429,6 +433,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
+    <Content Include="App_Data\UserGuide\CashOutWL\zh-CN.htm" />
+    <Content Include="App_Data\UserGuide\CashOutWL\zh-TW.htm" />
+    <Content Include="App_Data\UserGuide\CashOutWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\ColossusBetsWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\ColossusBetsWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\ColossusBetsWL\zh-TW.htm" />
@@ -725,9 +732,12 @@
     <Content Include="Content\Plugin\ColorPicker\images\checked-dark.png" />
     <Content Include="Content\Plugin\ColorPicker\images\transparent.png" />
     <Content Include="Content\Plugin\ColorPicker\images\checked-light.png" />
+    <Content Include="Content\Report\cashoutwinloss.css" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
+    <Content Include="Scripts\Report\cashoutwinloss.js" />
+    <Content Include="Scripts\Report\cashoutwinloss.option.js" />
     <Content Include="www\assets\images\15.jpg" />
     <Content Include="www\assets\images\logo-text.svg" />
     <Content Include="www\assets\images\robot.jpg" />
@@ -743,6 +753,8 @@
     <Content Include="www\css\build\dev\pages\betlist\betlistResult.css" />
     <Content Include="www\css\build\dev\pages\betlist\betlistSimpleLayout.chunk.js" />
     <Content Include="www\css\build\dev\pages\betlist\betlistSimpleLayout.css" />
+    <Content Include="www\css\build\dev\pages\betlist\cashouthistory.chunk.js" />
+    <Content Include="www\css\build\dev\pages\betlist\cashouthistory.css" />
     <Content Include="www\css\build\dev\pages\betlist\colossusbetdetail.chunk.js" />
     <Content Include="www\css\build\dev\pages\betlist\colossusbetdetail.css" />
     <Content Include="www\css\build\dev\pages\betlist\images\goal-icon.png" />
@@ -761,6 +773,8 @@
     <Content Include="www\css\build\dev\pages\login\login.css" />
     <Content Include="www\css\build\dev\pages\reports\balance.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\balance.css" />
+    <Content Include="www\css\build\dev\pages\reports\cashoutwinloss.chunk.js" />
+    <Content Include="www\css\build\dev\pages\reports\cashoutwinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\licenseewinloss.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\livereport.chunk.js" />
@@ -797,6 +811,7 @@
     <Content Include="www\css\build\pro\pages\betlist\betlistLayout.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistResult.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistSimpleLayout.css" />
+    <Content Include="www\css\build\pro\pages\betlist\cashouthistory.css" />
     <Content Include="www\css\build\pro\pages\betlist\colossusbetdetail.css" />
     <Content Include="www\css\build\pro\pages\betlist\images\goal-icon.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\q_Icon2_1.png" />
@@ -808,6 +823,7 @@
     <Content Include="www\css\build\pro\pages\forecast\newforecast.css" />
     <Content Include="www\css\build\pro\pages\login\login.css" />
     <Content Include="www\css\build\pro\pages\reports\balance.css" />
+    <Content Include="www\css\build\pro\pages\reports\cashoutwinloss.css" />
     <Content Include="www\css\build\pro\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\pro\pages\reports\livereport.css" />
     <Content Include="www\css\build\pro\pages\reports\racingcommission.css" />
@@ -838,7 +854,25 @@
     <Content Include="SiteConfig\Web.PROStatic.config" />
     <Content Include="SiteConfig\WebConfigTransforms\PROStatic.config" />
     <Content Include="SiteConfig\WebConfigTransforms\DEV.config" />
+    <Content Include="App_Data\Template\Reports\CashOutWinLoss.xls" />
     <None Include="SiteConfig\Web.DEV.config" />
+    <Content Include="Views\Customer\BetSetting\CashOut.cshtml" />
+    <Content Include="www\css\source\components\selectlist\selectlist.scss" />
+    <Content Include="Views\Report\CashOutWinLoss\Content.cshtml" />
+    <Content Include="Views\Report\CashOutWinLoss\Filter.cshtml" />
+    <Content Include="Views\Report\CashOutWinLoss\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\CashOutWinLoss\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\CashOutWinLoss\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\CashOutWinLoss\Content.cshtml" />
+    <Content Include="www\css\source\pages\report\cashoutwinloss.scss" />
+    <Content Include="www\css\build\dev\pages\reports\cashoutwinloss.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\reports\cashoutwinloss.css.map" />
+    <Content Include="Views\BetList\CashOutDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\CashOutDetail\Main.cshtml" />
+    <Content Include="www\css\source\pages\betlist\cashouthistory.main.scss" />
+    <Content Include="www\css\build\dev\pages\betlist\cashouthistory.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\betlist\cashouthistory.css.map" />
+    <Content Include="Views\Desktop\BetList\CustomerWl\Main.cshtml" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
@@ -855,6 +889,7 @@
     <Content Include="www\js\build\dev\pages\forecast\newforecasthdpou.chunk.js" />
     <Content Include="www\js\build\dev\pages\home\home.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\balance.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\cashoutwinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\livereportmatchlist.chunk.js" />
@@ -887,6 +922,7 @@
     <Content Include="www\js\build\pro\pages\forecast\newforecasthdpou.chunk.js" />
     <Content Include="www\js\build\pro\pages\home\home.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\balance.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\cashoutwinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\livereportmatchlist.chunk.js" />
@@ -935,7 +971,9 @@
     <Content Include="www\js\source\components\paging.js" />
     <Content Include="www\js\source\components\pluginhelper\daterangepicker.js" />
     <Content Include="www\js\source\components\pluginhelper\monthpicker.js" />
+    <Content Include="www\js\source\components\pluginhelper\multiselect.js" />
     <Content Include="www\js\source\components\scrollablegrid.js" />
+    <Content Include="www\js\source\components\selectlist.js" />
     <Content Include="www\js\source\lib\select2.js" />
     <Content Include="www\js\source\pages\betlist\betlist.js" />
     <Content Include="www\js\source\pages\betlist\betlist.option.js" />
@@ -976,6 +1014,9 @@
     <Content Include="www\js\source\pages\home\recheckin.js" />
     <Content Include="www\js\source\pages\report\balance\balance.js" />
     <Content Include="www\js\source\pages\report\balance\main-balance.js" />
+    <Content Include="www\js\source\pages\report\cashoutwinloss\cashoutwinloss.js" />
+    <Content Include="www\js\source\pages\report\cashoutwinloss\cashoutwinloss.option.js" />
+    <Content Include="www\js\source\pages\report\cashoutwinloss\main.js" />
     <Content Include="www\js\source\pages\report\livereport\helper.js" />
     <Content Include="www\js\source\pages\report\livereport\livereport.js" />
     <Content Include="www\js\source\pages\report\livereport\livereportmatchlist.js" />
@@ -1036,11 +1077,14 @@
     <Content Include="www\js\tests\pages\forecast\forecast.onextwo-spec.js" />
     <Content Include="www\js\tests\pages\forecast\forecast.ah-spec.js" />
     <Content Include="www\js\tests\pages\report\balance\balance-spec.js" />
+    <Content Include="www\js\tests\pages\report\cashoutwinloss\cashoutwinloss-spec.js" />
+    <Content Include="www\js\tests\pages\report\cashoutwinloss\cashoutwinloss.option-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss.option-spec.js" />
     <Content Include="www\js\tests\pages\report\livereport\livereport-spec.js" />
     <Content Include="www\js\tests\pages\report\livereport\helper-spec.js" />
     <Content Include="www\js\tests\pages\report\racingcommission\racingcommission-spec.js" />
+    <Content Include="www\js\tests\pages\report\report-spec.js" />
     <Content Include="www\js\tests\pages\report\result\result-spec.js" />
     <Content Include="www\js\tests\pages\report\settledmatchcount\settledmatchcount-spec.js" />
     <Content Include="www\js\tests\pages\report\turnover\turnover-spec.js" />
@@ -1297,6 +1341,7 @@
     <Content Include="Scripts\Report\microgamingwinloss.option.js" />
     <Content Include="SiteConfig\Web.LOCAL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="SiteConfig\Web.PRO.config">
       <DependentUpon>Web.config.tt</DependentUpon>
@@ -1684,6 +1729,7 @@
     <Content Include="www\js\build\dev\pages\reports\turnover.chunk.js.map" />
     <Content Include="www\css\source\scss\components\_radio-button.scss" />
     <Content Include="www\js\tests\pages\report\turnover\turnover.option-spec.js" />
+    <Content Include="www\js\build\dev\pages\reports\cashoutwinloss.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
@@ -4391,8 +4437,6 @@
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
-    <Content Include="Scripts\Report\agcasinowinloss.js" />
-    <Content Include="Scripts\Report\agcasinowinloss.option.js" />
     <Content Include="Scripts\Report\activecustomersummary.js" />
     <Content Include="Scripts\Report\activecustomersummary.option.js" />
     <Content Include="Scripts\Report\thirdpartywinloss.js" />
@@ -5388,10 +5432,6 @@
     <ProjectReference Include="..\..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Fanex.Athena.HttpCompress\Fanex.Athena.HttpCompress.csproj">
-      <Project>{88FBBF63-2272-411A-B89A-2B6F9E97BDBF}</Project>
-      <Name>Fanex.Athena.HttpCompress</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
       <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>

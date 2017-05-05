@@ -21,7 +21,7 @@
         </div>
 
         <div class="col l2 m2 s12 input-field">
-            <select id="ProductCode" name="ProductCode" class="select">
+            <select id="ProductCode" name="ProductCode" class="select hide">
                 @foreach (var prd in Model.ProductAccess.ProductList)
                 {
                     <option value="@prd.ProductCode" @(prd.ProductCode == Model.Param.ProductCode ? "selected='selected'" : string.Empty)>
@@ -33,7 +33,7 @@
         </div>
 
         <div class="col l2 m2 s12 input-field">
-            <select id="DailyBetListStatus" name="DailyBetListStatus" class="select">
+            <select id="DailyBetListStatus" name="DailyBetListStatus" class="select hide">
                 <option value="won" @(Model.Param.DailyBetListStatus == "won" ? "selected='selected'" : string.Empty)>@ViewResources.Won</option>
                 <option value="lose" @(Model.Param.DailyBetListStatus == "lose" ? "selected='selected'" : string.Empty)>@ViewResources.Lose</option>
                 <option value="draw" @(Model.Param.DailyBetListStatus == "draw" ? "selected='selected'" : string.Empty)>@ViewResources.Draw</option>

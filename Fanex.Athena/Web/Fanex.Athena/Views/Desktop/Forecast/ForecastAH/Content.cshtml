@@ -28,6 +28,13 @@
     }
 }
 @{
+    <div id="hidden-data" class="hide"
+         data-match-id="@Model.Param.MatchId"
+         data-basecurrency="@Model.Param.BaseCurrency"
+         data-currencyid="@Model.Param.CurrencyId"
+         data-currencyname="@Model.Param.CurrencyName">
+    </div>
+
     if (Model.ForecastValue == null || !Model.ForecastValue.HasData)
     {
         <p class="no-info-row">@ViewResources.NoInfo</p>

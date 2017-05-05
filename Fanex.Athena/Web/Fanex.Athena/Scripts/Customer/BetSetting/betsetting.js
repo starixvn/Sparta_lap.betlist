@@ -20,6 +20,7 @@ var BetSetting = (function ($) {
     var TAB_ALLBET = 21;
     var TAB_VOIDBRIDGE = 22;
     var TAB_FISHINGWORLD = 24;
+    var TAB_CASHOUT = 25;
 
     var _sportIds = null;
     return {
@@ -117,6 +118,10 @@ var BetSetting = (function ($) {
                 case TAB_VOIDBRIDGE:
                 case TAB_FISHINGWORLD:
                     url = "DcsBetSetting/UpdateStatus";
+                    break;
+                case TAB_CASHOUT:
+                    url = "ThirdPartyBetSetting/UpdateCashOutStatus";
+                    status = $("#enable-product").is(":checked") ? 1 : 0;
                     break;
             }
 
@@ -533,6 +538,9 @@ var BetSetting = (function ($) {
                 case TAB_MICROGAMINGRNGCASINO:
                     BetSetting.resetMicrogamingSetting();
                     break;
+                case TAB_CASHOUT:
+                    BetSetting.resetCashOutSetting();
+                    break;
                 default:
                     BetSetting.resetValues();
                     break;
@@ -577,7 +585,10 @@ var BetSetting = (function ($) {
                 $("input[name=gameTypeName" + i + "][data-stake-id=" + oldCheck + "]").prop("checked", true);
             }
         },
-
+        resetCashOutSetting: function () {
+            var $checkbox = $("#enable-product");
+            $checkbox.prop("checked", $checkbox.data("original") === 1);
+        },
         checkCopyAllValues: function ($checkbox) {
             var arrayItemMinBet = $('input[id^="min"]');
             var arrayItemMaxBet = $('input[id^="max-bet"]');

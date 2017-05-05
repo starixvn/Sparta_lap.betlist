@@ -62,7 +62,7 @@ namespace Fanex.Athena.Excel.Report
         /// <summary>
         /// Assign data to excel sheet.
         /// </summary>
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = _balance.BalanceList.Count;
 
@@ -86,7 +86,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign no info row.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
         }
 
@@ -94,7 +94,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to excel sheet.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             for (int index = 0; index < _balance.BalanceList.Count; index++)
             {
@@ -114,7 +114,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign title for the report.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             ReportTitle = string.Format(ViewResources.BalanceTitle, GetTitleCurrencyName()) + GetLicenseeWLProduct();
 
@@ -147,7 +147,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.BAVisible)
             {
@@ -176,7 +176,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="row">The row of sheet.</param>
         /// <param name="balanceDetails">The detail balance.</param>
         /// <param name="timeText">The time text.</param>
-        protected static void AssignCommonData(IRow row, BalanceDetails balanceDetails, string timeText)
+        protected void AssignCommonData(IRow row, BalanceDetails balanceDetails, string timeText)
         {
             row.Cells[ColumnDate].SetCellValue(timeText);
             row.Cells[ColumnLicenseeWl].SetCellValue(balanceDetails.LicWinLoss);

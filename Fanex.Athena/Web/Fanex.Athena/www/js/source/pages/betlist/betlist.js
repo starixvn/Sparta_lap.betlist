@@ -3,6 +3,7 @@
         'lib/jqgrid/jquery.jqGrid.en', 'lib/jqgrid/jquery.jqGrid.min', "vendor-materialize"],
     function ($, Site, QueryString, jqGridAdditional, BetListOption, moment, Popup) {
         "use strict";
+        var BETTYPE_CASHOUT = 911;
         var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29;
         var MIN_BETTYPE_FASTMARKET = 221;
         var MAX_BETTYPE_FASTMARKET = 225;
@@ -218,6 +219,15 @@
                 gridOption.loadonce = false;
                 gridOption.datatype = "json";
                 gridOption.gridComplete = function () {
+                    var rowCount = $(this).getGridParam("records");
+                    if (rowCount === 0) {
+                        $("#pager2").hide();
+                        jqGridAdditional.setNoInfo();
+                        Site.unBlockUI();
+                        return;
+                    }
+
+                    $("#gbox_BetListGrid").show();
                     _me.gridComplete(this);
                     if (_me.submiting) {
                         $(".ui-pg-selbox").val(rows);
@@ -228,6 +238,7 @@
                 // Show the grid
                 $("#BetListGrid").jqGrid('GridUnload');
                 $("#BetListGrid").jqGrid(gridOption);
+                $("#gbox_BetListGrid").hide();
             },
 
             bindData: function (response) {
@@ -622,6 +633,24 @@
                 window.location = url;
             },
 
+            viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
+                var $baseCurrency = $("#BaseCurrency");
+                var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($("#BetListMetaModel").val()).BaseCurrency;
+
+                var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
+                var url = Site.resolveClientUrl('CashOutBetList/Detail');
+                url = QueryString.setParam(url, "transId", transId);
+                url = QueryString.setParam(url, "refNo", refNo);
+                url = QueryString.setParam(url, "betType", betType);
+                url = QueryString.setParam(url, "betdaqId", betdaqId);
+                url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
+                url = QueryString.setParam(url, "isCashout", isCashOut);
+
+                var popH = Math.min($(window).height() - 100, 550);
+                var title = isCashOut ? Site.getSingleResource("CashOutDetails") : Site.getSingleResource("BoughtDetails");
+
+                showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
+            },
             registerBetListGlobalFunctions: function () {
                 window.ViewResult = _me.viewResult;
 
@@ -647,6 +676,7 @@
                 window.showTodayRunningBetsDetails = _me.showAllBetDetails;
                 window.showColossusBetsDetails = _me.showColossusBetsDetails;
                 window.showGlobalGaming = _me.showGlobalGamingDetails;
+                window.ViewCashOutHistory = _me.viewCashOutHistory;
 
                 var betList = {
                     ViewCasinoHandHistory: _me.ViewCasinoHandHistory

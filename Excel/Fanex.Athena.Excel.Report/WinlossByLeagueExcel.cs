@@ -67,7 +67,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.CustomerW_L,
                 ViewResources.LicenseeW_L,
                 ViewResources.BACommission,
-                ViewResources.AmountDue,
+                ViewResources.AmountDueTo,
             };
         }
 
@@ -86,7 +86,7 @@ namespace Fanex.Athena.Excel.Report
         /// <summary>
         /// Assign data to excel sheet.
         /// </summary>
-        public override void AssignData()
+        protected override void AssignData()
         {
             int numOfDataRow = _winlossByLeagueList.Count;
 
@@ -118,7 +118,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign data to header section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
 
@@ -132,7 +132,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);
         }
 
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, ViewResources.NoInfo);
         }
@@ -143,7 +143,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="pageIndex">Start index.</param>
         /// <returns>Row index.</returns>
-        public override int AssignSheetData(ISheet sheet, int pageIndex)
+        protected override int AssignSheetData(ISheet sheet, int pageIndex)
         {
             if (Level == 1)
             {
@@ -158,9 +158,9 @@ namespace Fanex.Athena.Excel.Report
 
             for (int index = pageIndex * PageSize; index < rowCount; index++)
             {
-                WinLossByLeague winlossByLeague = _winlossByLeagueList[index];
+                var winlossByLeague = _winlossByLeagueList[index];
 
-                IRow rowContent = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
+                var rowContent = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
 
                 rowContent.Cells[ColumnIndex].SetCellValue(winlossByLeague.Index);
                 if (Level == 0)
@@ -188,7 +188,7 @@ namespace Fanex.Athena.Excel.Report
         /// Assign title for the report.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             SetTextRowValue(sheet, RowTitleTemplate, RowTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, _metaModel.ReportTitle);
 
@@ -203,7 +203,7 @@ namespace Fanex.Athena.Excel.Report
         /// Process UI, hide redundant row and column.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        public override void ProcessUI(ISheet sheet)
+        protected override void ProcessUI(ISheet sheet)
         {
             switch (Level)
             {
@@ -217,7 +217,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected static void AssignCommonData(IRow row, WinLossByLeague winlossByLeague)
+        protected void AssignCommonData(IRow row, WinLossByLeague winlossByLeague)
         {
             row.Cells[ColumnTurnover].SetCellValue(winlossByLeague.TurnOver);
             row.Cells[ColumnBetCount].SetCellValue(winlossByLeague.BetCount);

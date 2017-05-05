@@ -245,6 +245,8 @@ namespace Fanex.Athena.Model.Core.DataDomain
         /// <summary>
         /// BetTrade bet type, value = 902.
         /// </summary>
-        BetTradeBought = 902
+        BetTradeBought = 902,
+
+        CashOutBought = 912
     }
 }

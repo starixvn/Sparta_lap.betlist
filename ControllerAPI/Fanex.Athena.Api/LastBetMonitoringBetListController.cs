@@ -18,9 +18,9 @@
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
-    using Helpers;
     using Resources;
     using Service.BetList;
+    using Service.BetList.Helpers;
     using Service.BetList.Interfaces;
     using BetListCacheRef = Fanex.BetList.Core.TicketHelper.CacheRef;
 

@@ -52,7 +52,7 @@ namespace Fanex.Athena.Excel.Report
             _dataList = viewModel.DataList;
         }
 
-        public override void AssignData()
+        protected override void AssignData()
         {
             ISheet sheet = Workbook.CloneSheet("Template", "Data");
 
@@ -71,7 +71,7 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        public override void AssignHeader(ISheet sheet)
+        protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
@@ -83,13 +83,13 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmount].SetCellValue(ViewResources.Amount);
         }
 
-        public override void AssignNoInfoRow(ISheet sheet)
+        protected override void AssignNoInfoRow(ISheet sheet)
         {
             SetTextRowValue(sheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        public override void AssignSheetData(ISheet sheet)
+        protected override void AssignSheetData(ISheet sheet)
         {
             InitializeFonts();
 
@@ -103,7 +103,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        public override void AssignTitle(ISheet sheet)
+        protected override void AssignTitle(ISheet sheet)
         {
             var fromdate = _metaModel.FromDate.ToString(FormatDate);
             var todate = _metaModel.ToDate.ToString(FormatDate);

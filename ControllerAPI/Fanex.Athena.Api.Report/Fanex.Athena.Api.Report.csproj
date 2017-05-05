@@ -162,6 +162,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CashOutWinLossReportController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApiReportBaseController.cs" />
     <Compile Include="CasinoProgressiveWinsReportController.cs" />

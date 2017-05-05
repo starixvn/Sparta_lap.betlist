@@ -121,7 +121,7 @@ namespace Fanex.Athena.Service.Core.Users
             var userSession = this.UserSession;
             var licenseeList = _licenseeService.GetByUser(userSession.UserId);
 
-            if (userSession != null && licenseeId > 0)
+            if (licenseeId > 0)
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
                 var functionList = _functionService.GetUserFunctionList(licenseeId, userSession.UserId);

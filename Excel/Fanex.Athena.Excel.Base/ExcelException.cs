@@ -8,11 +8,12 @@
 namespace Fanex.Athena.Excel.Base
 {
     using System;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Excel exception .
     /// </summary>
-    [Serializable] 
+    [Serializable]
     public class ExcelException : Exception
     {
         private readonly string _excelFile;
@@ -21,6 +22,11 @@ namespace Fanex.Athena.Excel.Base
             : base(message)
         {
             _excelFile = excelFile;
+        }
+
+        public ExcelException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            _excelFile = info.GetString(nameof(_excelFile));
         }
 
         public override string Message
@@ -36,6 +42,7 @@ namespace Fanex.Athena.Excel.Base
 
         public override void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
         {
+            info.AddValue(nameof(_excelFile), _excelFile);
             base.GetObjectData(info, context);
         }
     }

@@ -590,6 +590,7 @@
 
                         spyOn(Result, "renderSportFilter");
                         spyOn(Result, "renderLeagueFilter");
+                        spyOn(Site, "initSelectElements");
 
                         Result.renderFilter({ Sports: ["SB", "RC"], Leagues: ["V-League", "Premier League"]});
                     });
@@ -599,6 +600,9 @@
                     });
                     it("Result.renderLeagueFilter(leagueData) should be called", function () {
                         expect(Result.renderLeagueFilter).toHaveBeenCalledWith(["V-League", "Premier League"]);
+                    });
+                    it("Site.initSelectElements() should be called", function () {
+                        expect(Site.initSelectElements).toHaveBeenCalled();
                     });
                     it("'#sportAndLeagueFilter' should has correct css", function () {
                         var result = $("#sportAndLeagueFilter").css("visibility");

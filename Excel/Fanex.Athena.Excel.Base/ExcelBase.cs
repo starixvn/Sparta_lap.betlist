@@ -12,24 +12,17 @@ namespace Fanex.Athena.Excel.Base
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
 
-    /// <summary>
-    /// The excel base.
-    /// </summary>
     public abstract class ExcelBase
     {
         protected const int ColumnIndex = 0;
         protected const string FormatDate = "MM/dd/yyyy";
 
-        public ShowingOption ShowingOption
+        protected ShowingOption ShowingOption
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// Export empty file.
-        /// </summary>
-        /// <returns>A byte array.</returns>
         public static byte[] ExportEmptyFile()
         {
             // Create a new workbook
@@ -44,12 +37,7 @@ namespace Fanex.Athena.Excel.Base
             return ms.ToArray();
         }
 
-        /// <summary>
-        /// Hide rows.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="rowIndex">The row index.</param>
-        public virtual void HideRow(ISheet sheet, params int[] rowIndex)
+        protected internal virtual void HideRow(ISheet sheet, params int[] rowIndex)
         {
             // Clear content
             foreach (int i in rowIndex)
@@ -75,12 +63,7 @@ namespace Fanex.Athena.Excel.Base
             }
         }
 
-        /// <summary>
-        ///     Method used hidden column with parameter is position of column.
-        /// </summary>
-        /// <param name="sheet">The excel sheet.</param>
-        /// <param name="columnIndex">Column Index of column will be hidden.</param>
-        protected static void HideColumn(ISheet sheet, params int[] columnIndex)
+        protected internal virtual void HideColumn(ISheet sheet, params int[] columnIndex)
         {
             // Clear content
             var firstRowNum = sheet.FirstRowNum;
@@ -102,7 +85,7 @@ namespace Fanex.Athena.Excel.Base
             foreach (int i in columnIndex)
             {
                 sheet.SetColumnWidth(i, 0);
-                sheet.SetColumnHidden(i, true);                
+                sheet.SetColumnHidden(i, true);
             }
         }
     }

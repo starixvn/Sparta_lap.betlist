@@ -64,6 +64,7 @@
         public const string ReportCustomerTurnover = "CustomerTurnover51";
         public const string ReportPlatformWinLoss = "MobileWinLoss53";
         public const string ReportColossusBetsWinLoss = "ColossusBetsWinLoss71";
+        public const string ReportCashOutWinLoss = "CashOutWinLoss72";
 
         /* Warehouse. */
 

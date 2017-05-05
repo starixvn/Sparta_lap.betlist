@@ -1,5 +1,5 @@
 ﻿/*global _language_en_US*/
-define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "lib/jquery.multiselect", "extensions/prototype", "lib/select2"],
+define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "lib/jquery.multiselect", "extensions/prototype", "components/selectlist"],
     function ($, QueryString, Popup) {// jshint ignore:line
         "use strict";
         var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
@@ -63,11 +63,9 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
         }
 
         function initSelectElements() {
-            $('select.select').not('#CurrencyId').select2({
-                minimumResultsForSearch: Infinity
-            });
+            $('select.select').not('#CurrencyId').selectList();
 
-            $('select#CurrencyId').select2();
+            $('select#CurrencyId').selectList({ canSearch: true });
         }
 
         function initialize() {
@@ -98,7 +96,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                 headers: { '__RequestVerificationToken': REQUEST_VERIFICATION_TOKEN },
                 statusCode: {
                     0: unBlockUI(),
-                    401: function (/*jqXHR, textStatus, errorThrown*/) {
+                    401: function () {
                         window.location.href = resolveClientUrl("Utility/LocationRestriction");
                     },
                     403: function () {
@@ -199,9 +197,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             var $popup;
             $(options.buttonSelector).click(function () {
                 var $userGuidePopup = $('<div style="display: none" ></div>');
-                if ($userGuidePopup.is(":visible")) {
-                    return;
-                }
 
                 if (!$popup) {
                     $userGuidePopup.empty().attr('style', '').hide()
@@ -259,10 +254,9 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
         function setLicenseeOptionParam(urlOrParams) {
             var currencyId = $("#CurrencyId").val();
             var baseCurrency = $("#BaseCurrency").val();
-            var currencyName = $("#CurrencyId option[value=" + currencyId + "]").text();
-            if (currencyName === undefined) {
-                currencyName = $("#CurrencyName").val();
-            }
+
+            var $currencyItem = $("#CurrencyId option[value=" + currencyId + "]");
+            var currencyName = $currencyItem.length ? $currencyItem.text() : $("#CurrencyName").val();
 
             return setLicenseeOption(urlOrParams || {}, currencyId, currencyName, baseCurrency);
         }
@@ -270,10 +264,10 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
         function setLicenseeOptionOriginalParam(urlOrParams) {
             var currencyId = $("#CurrencyId").attr('data-original');
             var baseCurrency = $("#BaseCurrency").attr('data-original');
-            var currencyName = $("#CurrencyId option[value=" + currencyId + "]").text();
-            if (currencyName === undefined) {
-                currencyName = $("#CurrencyName").val();
-            }
+
+            var $currencyItem = $("#CurrencyId option[value=" +currencyId + "]");
+            var currencyName = $currencyItem.length ? $currencyItem.text() : $("#CurrencyName").val();
+
             return setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency);
         }
 
@@ -326,7 +320,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             }
             else {
                 urlOrParams.ProductOptions = [];
-                $(".childCheckbox']", "#ProductList").each(function (index, element) {
+                $(".childCheckbox", "#ProductList").each(function (index, element) {
                     var productCode = $(element).attr('data-product-code');
                     if (productCode !== undefined && productCode.length > 0) {
                         urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).attr("data-original") });
@@ -408,9 +402,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                 $baseCurrency.val(basedCurrency);
             }
 
-            $("select#BaseCurrency").select2({
-                minimumResultsForSearch: Infinity
-            });
+            $("select#BaseCurrency").selectList();
         }
 
         function sortReport(sortColumn) {
@@ -571,54 +563,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             return window.location;
         }
 
-        function setMultiSelectForDropDownList(dropDownListId, dataSource, valueField, textField, checkField) {
-            var data = $.parseJSON(dataSource);
-            var length = data.length;
-            var dataUI = [];
-            var checkedCount = 0;
-            for (var i = 0; i < length; i++) {
-                var item = data[i];
-                var isChecked = asBool(item[checkField]);
-                if (isChecked) {
-                    checkedCount++;
-                }
-
-                dataUI.push({
-                    Id: item[valueField],
-                    Value: item[valueField],
-                    Text: getSingleResource(item[textField]),
-                    Checked: isChecked,
-                    Enable: true
-                });
-            }
-
-            var isCheckAll = checkedCount === length;
-            $("#" + dropDownListId).multiSelect(
-                {
-                    minWidth: 200,
-                    maxHeight: 400,
-                    shadow: true,
-                    showHeader: true,
-                    isCheckAll: isCheckAll,
-                    checkAllText: getSingleResource('All'),
-                    showFooter: false,
-                    listData: dataUI,
-                    onCheck: function () {
-                        var checkedItems = $("#" + dropDownListId).multiSelect("getCheckedItems");
-                        $("#product-container input[type=checkbox]:checked").prop("checked", false);
-                        var hasItemsChecked = checkedItems.length > 0;
-                        if (hasItemsChecked) {
-                            for (var i = 0; i < checkedItems.length; i++) {
-                                $('#product-container #' + checkedItems[i]).prop("checked", true);
-                            }
-                        }
-
-                        $("#SubmitButton").prop("disabled", !hasItemsChecked);
-                        $(".error-img").toggleClass("hide", hasItemsChecked);
-                    }
-                });
-        }
-
         return {
             initialize: initialize,
             resolveClientUrl: resolveClientUrl,
@@ -655,6 +599,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             redirect: redirect,
             getCurrentUrl: getCurrentUrl,
             getLocation: getLocation,
-            setMultiSelectForDropDownList: setMultiSelectForDropDownList
+            initSelectElements: initSelectElements
         };
     });

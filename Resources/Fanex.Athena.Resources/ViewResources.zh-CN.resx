@@ -1064,9 +1064,6 @@
   <data name="Licenseegrossrevenuefor" xml:space="preserve">
     <value>承租公司总收益为{0}</value>
   </data>
-  <data name="LicenseeType" xml:space="preserve">
-    <value>承租公司类型</value>
-  </data>
   <data name="LicenseeWinLoss" xml:space="preserve">
     <value>承租公司輸贏</value>
   </data>
@@ -2511,5 +2508,9 @@
   <data name="MicrogamingWinLossGuidelineContent" xml:space="preserve">
     <value>此报告提供最新数据。您每次查询可以过滤最多3个月内的数据。</value>
     <comment>#71725</comment>
+  </data>
+  <data name="ProductCO" xml:space="preserve">
+    <value>即时兑现</value>
+    <comment>#71727</comment>
   </data>
 </root>

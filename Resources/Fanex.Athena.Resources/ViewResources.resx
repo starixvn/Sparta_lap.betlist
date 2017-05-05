@@ -715,9 +715,6 @@
   <data name="LicenseeFee" xml:space="preserve">
     <value>Licensee Fee</value>
   </data>
-  <data name="LicenseeType" xml:space="preserve">
-    <value>Licensee Type</value>
-  </data>
   <data name="LicenseeWinLoss" xml:space="preserve">
     <value>Licensee Win Loss</value>
   </data>
@@ -2953,5 +2950,73 @@
   <data name="MicrogamingWinLossGuidelineContent" xml:space="preserve">
     <value>This report supports up-to-date data. You can filter data up to 3 months per query.</value>
     <comment>#71725</comment>
+  </data>
+  <data name="ProductCO" xml:space="preserve">
+    <value>Cash Out</value>
+  </data>
+  <data name="EnableCashOut" xml:space="preserve">
+    <value>Enable Cash Out</value>
+  </data>
+  <data name="CashOutNotOfferCurrency" xml:space="preserve">
+    <value>Cash Out is not offered for this currency.</value>
+  </data>
+  <data name="CashOutCommission" xml:space="preserve">
+    <value>Cash Out Commission</value>
+  </data>
+  <data name="CashOutWinLoss" xml:space="preserve">
+    <value>Cash Out Win Loss</value>
+  </data>
+  <data name="BBAmtComm" xml:space="preserve">
+    <value>BB Amt + Comm</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="CashOutTickets" xml:space="preserve">
+    <value>Cash Out Tickets</value>
+  </data>
+  <data name="CashOutTimes" xml:space="preserve">
+    <value>Cash Out Times</value>
+  </data>
+  <data name="CashOutValue" xml:space="preserve">
+    <value>Cash Out Value</value>
+  </data>
+  <data name="SettleAmount" xml:space="preserve">
+    <value>Settle Amount</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="TicketPayout" xml:space="preserve">
+    <value>Ticket Payout</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="CashOutTicketsList" xml:space="preserve">
+    <value>Cash Out Ticket[s]</value>
+  </data>
+  <data name="OriginalBetTicket" xml:space="preserve">
+    <value>Original Bet Ticket</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="BoughtStake" xml:space="preserve">
+    <value>Bought Stake</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="CashOutStake" xml:space="preserve">
+    <value>Cash Out Stake</value>
+  </data>
+  <data name="CashOutDetails" xml:space="preserve">
+    <value>Cash Out Details</value>
+  </data>
+  <data name="BoughtAmount" xml:space="preserve">
+    <value>Bought Amount</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="BoughtDetails" xml:space="preserve">
+    <value>Bought Details</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="BoughtTicketsList" xml:space="preserve">
+    <value>Bought Ticket[s]</value>
+    <comment>#71727</comment>
+  </data>
+  <data name="CashOutAmount" xml:space="preserve">
+    <value>Cash Out Amount</value>
   </data>
 </root>

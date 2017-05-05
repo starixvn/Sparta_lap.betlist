@@ -1,16 +1,20 @@
-﻿define(['jquery', 'common/site', 'components/pluginhelper/daterangepicker', "pages/report/licenseewinloss/licenseewinloss.option", 'pages/report/licenseewinloss/licenseewinloss',
-    'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup'],
-    function ($, Site, DatePicker, LicenseeWinLossOption, LicenseeWinLoss, Report, jqGridAdditional, Popup) {
+﻿define(['jquery', 'common/site', 'components/pluginhelper/daterangepicker', 'pages/report/licenseewinloss/licenseewinloss.option', 'pages/report/licenseewinloss/licenseewinloss',
+    'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup', 'components/pluginhelper/multiselect'],
+    function ($, Site, DatePicker, LicenseeWinLossOption, LicenseeWinLoss, Report, jqGridAdditional, Popup, MultiSelect) {
         describe("LicenseeWinLoss", function () {
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {
+                    if (text === "Viewin") {
+                        return "Viewin {0}";
+                    }
+
                     return text;
                 });
                 spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
                     return url;
                 });
                 spyOn(Site, "initialize");
-                spyOn(Site, "setMultiSelectForDropDownList");
+                spyOn(MultiSelect, "initialize");
                 spyOn(DatePicker, "initDateRangePicker");
             });
 
@@ -54,7 +58,7 @@
                         jasmine.clock().install();
 
                         setFixtures('<input name="ReportBy" type="checkbox" checked value="1" />');
-                        spyOn(LicenseeWinLoss, "renderBreadCrumb");
+                        spyOn(Report, "renderBreadCrumb");
 
                         spyOn(Site, "blockUI");
                         spyOn(LicenseeWinLoss, "sortData").and.callFake(function (data) { return data; });
@@ -92,7 +96,7 @@
                     jasmine.clock().install();
 
                     setFixtures('<input name="ReportBy" type="checkbox" checked value="1" />');
-                    spyOn(LicenseeWinLoss, "renderBreadCrumb");
+                    spyOn(Report, "renderBreadCrumb");
 
                     spyOn(Site, "blockUI");
                     spyOn(LicenseeWinLoss, "bindData");
@@ -153,14 +157,25 @@
                 });
 
                 it("#LicenseeWinLoss.goBack() should be called with correct param when .level-link is clicked.", function () {
-                    setFixtures('<div id="level-link-container"><div class="level-link" data-level="3"></div></div>');
+                    setFixtures('<div id="level-link-container"><div class="level-link" data-level="1"></div></div>');
 
                     spyOn(LicenseeWinLoss, 'goBack');
 
                     LicenseeWinLoss.initEvent();
                     $('.level-link').click();
 
-                    expect(LicenseeWinLoss.goBack).toHaveBeenCalledWith(3);
+                    expect(LicenseeWinLoss.goBack).toHaveBeenCalledWith(1);
+                });
+
+                it("#LicenseeWinLoss.goBack() is not called when data-level in .level-link is greater than 1.", function () {
+                    setFixtures('<div id="level-link-container"><div class="level-link" data-level="2"></div></div>');
+
+                    spyOn(LicenseeWinLoss, 'goBack');
+
+                    LicenseeWinLoss.initEvent();
+                    $('.level-link').click();
+
+                    expect(LicenseeWinLoss.goBack).not.toHaveBeenCalled();
                 });
 
                 it("LicenseeWinLoss.openBetlistPopUp(datadrilldown) should be called if .bet-list-link is clicked.", function () {
@@ -170,6 +185,24 @@
                     LicenseeWinLoss.initEvent();
                     $('.bet-list-link').click();
                     expect(LicenseeWinLoss.openBetlistPopUp).toHaveBeenCalled();
+                });
+
+                it("resizeGrid function should be called when window fire resize event", function () {
+                    spyOn(LicenseeWinLoss, "resizeGrid");
+                    LicenseeWinLoss.initEvent();
+
+                    $(window).resize();
+
+                    expect(LicenseeWinLoss.resizeGrid).toHaveBeenCalled();
+                });
+
+                it("off() jquery function should be called with correct parameter when window fire unload event", function () {
+                    spyOn($.fn, "off");
+                    LicenseeWinLoss.initEvent();
+
+                    $(window).unload();
+
+                    expect($.fn.off).toHaveBeenCalledWith("resize");
                 });
             });
 
@@ -192,48 +225,26 @@
                 });
             });
 
-            describe("renderBreadCrumb(level)", function () {
-                it(".breadCrumbHolder should be hide if param level is 0.", function () {
-                    setFixtures('<div class="breadCrumbHolder"></div>');
-
-                    LicenseeWinLoss.renderBreadCrumb(0);
-
-                    expect($('.breadCrumbHolder').is(':visible')).toBe(false);
-                });
-
-                it(".level0 should show if param level > 0.", function () {
-                    setFixtures('<div id="level-link-container"><div class="level0"></div></div>');
-
-                    LicenseeWinLoss.renderBreadCrumb(1);
-
-                    expect($('.level0').is(':visible')).toBe(true);
-                });
-
-                it(".level2 should be hide if param level = 1.", function () {
-                    setFixtures('<div id="level-link-container"><div class="level2"></div></div>');
-
-                    LicenseeWinLoss.renderBreadCrumb(1);
-
-                    expect($('.level2').is(':visible')).toBe(false);
-                });
-
-                it(".level2 should show if param level = 2.", function () {
-                    setFixtures('<div id="level-link-container"><div class="level2"></div></div>');
-
-                    LicenseeWinLoss.renderBreadCrumb(2);
-
-                    expect($('.level2').is(':visible')).toBe(true);
-                });
-            });
-
             describe("setReportTitle(currencyId, fromdate, todate)", function () {
-                it("setReportTitle() should assign correct content to .report-title.", function () {
+                it(".report-title should has correct html content", function () {
                     setFixtures('<div class="report-title"></div>');
+                    spyOn(Report, "getCurrencyNameForReportTitle").and.returnValue("Viewin EUR");
                     var date = new Date(2001, 1, 1);
 
                     LicenseeWinLoss.setReportTitle('-1', date, date);
 
-                    expect($('.report-title').html()).toBe('LicenseeWinLoss, 02/01/2001 → 02/01/2001 - Viewin');
+                    expect($('.report-title').html()).toBe('LicenseeWinLoss, 02/01/2001 → 02/01/2001 - Viewin EUR');
+                });
+
+                it("class 'hide' should be removed in .panel-heading", function () {
+                    setFixtures('<div class="panel-heading hide"></div>');
+                    spyOn(Report, "getCurrencyNameForReportTitle").and.returnValue("Viewin EUR");
+                    var date = new Date(2001, 1, 1);
+
+                    LicenseeWinLoss.setReportTitle('-1', date, date);
+                    var hasClass = $(".panel-heading").hasClass("hide");
+
+                    expect(hasClass).toBe(false);
                 });
             });
 
@@ -248,15 +259,16 @@
                     setFixtures('<input name="ReportBy" type="checkbox" checked value="1" />' +
                         '<input id="CurrencyId" value="1" />' +
                         '<input id="FromDate" value="03/01/2017" /> <input id="ToDate" value="03/31/2017" />');
-                    spyOn(LicenseeWinLoss, "renderBreadCrumb");
+                    spyOn(Report, "renderBreadCrumb");
                     spyOn(LicenseeWinLoss, "bindData");
                     spyOn(LicenseeWinLoss, "setReportTitle");
+                    LicenseeWinLossOption.licenseeId = 0;
                 });
 
                 it("Nothing happen if response param has null value", function () {
                     LicenseeWinLoss.ajaxComplete(0, null);
 
-                    expect(LicenseeWinLoss.renderBreadCrumb).not.toHaveBeenCalled();
+                    expect(Report.renderBreadCrumb).not.toHaveBeenCalled();
                 });
 
                 it("LicenseeWinLoss.setReportTitle(currencyId, fromDate, toDate) should be called with correct parameter if level param is 0", function () {
@@ -271,10 +283,10 @@
                     expect(LicenseeWinLoss.setReportTitle).not.toHaveBeenCalled();
                 });
 
-                it("LicenseeWinLoss.renderBreadCrumb(level) should be called with correct parameter", function () {
+                it("Report.renderBreadCrumb(level, licenseeId) should be called with correct parameter", function () {
                     LicenseeWinLoss.ajaxComplete(0, { Data: "Hello" });
 
-                    expect(LicenseeWinLoss.renderBreadCrumb).toHaveBeenCalledWith(0);
+                    expect(Report.renderBreadCrumb).toHaveBeenCalledWith(0, 0);
                 });
 
                 it("LicenseeWinLoss.bindData(level) should be called with correct parameter", function () {
@@ -409,6 +421,7 @@
                     spyOn(LicenseeWinLoss, "setExcelUrl");
                     spyOn(LicenseeWinLoss, "ajaxComplete");
                     spyOn($, "ajax").and.returnValue({ abort: function () { } });
+                    spyOn(Report, "GetDrilldownDateRange").and.returnValues({ FromDate: new Date(2017, 2, 1), ToDate: new Date(2017, 2, 31) });
                 });
                 afterEach(function () {
                     submitData = {
@@ -451,21 +464,6 @@
 
                     var resultUrl = ajaxOptionForDrillingDown.url;
                     var expectedUrl = "api/LicenseeWinLossReport/Index?level=2&currencyId=9&custId=0&fdate=03/01/2017&tdate=03/31/2017";
-
-                    expect(resultUrl).toBe(expectedUrl);
-                });
-
-                it("url of ajax option should be correct when ReportBy not equal 2", function () {
-                    submitData.ReportBy = 1;
-                    LicenseeWinLoss.submit();
-                    var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
-                    ajaxOptionForCreateSubmitData.success(submitData);
-
-                    LicenseeWinLoss.drillDown(2, 9, 0, '2017-03-04T00:00:00', 'EUR', true);
-                    var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
-
-                    var resultUrl = ajaxOptionForDrillingDown.url;
-                    var expectedUrl = "api/LicenseeWinLossReport/Index?level=2&currencyId=9&custId=0&fdate=03/04/2017&tdate=03/04/2017";
 
                     expect(resultUrl).toBe(expectedUrl);
                 });
@@ -523,8 +521,8 @@
                         expect(args[0]).toBe(0);
                         expect(args[1]).toBe(9);
                         expect(args[2]).toBe(0);
-                        expect(args[3].format("MM/DD/YYYY")).toBe("03/01/2017");
-                        expect(args[4].format("MM/DD/YYYY")).toBe("03/31/2017");
+                        expect(args[3]).toEqual(new Date(2017, 2, 1));
+                        expect(args[4]).toEqual(new Date(2017, 2, 31));
                         expect(args[5]).toBe("EUR");
                     });
 
@@ -540,8 +538,8 @@
 
                         var args = LicenseeWinLoss.setReportTitle.calls.mostRecent().args;
                         expect(args[0]).toBe(1);
-                        expect(args[1].format("MM/DD/YYYY")).toBe("03/01/2017");
-                        expect(args[2].format("MM/DD/YYYY")).toBe("03/31/2017");
+                        expect(args[1]).toEqual(new Date(2017, 2, 1));
+                        expect(args[2]).toEqual(new Date(2017, 2, 31));
                         expect(args[3]).toBe("EUR");
                     });
 
@@ -558,8 +556,8 @@
 
                         var args = LicenseeWinLoss.setReportTitle.calls.mostRecent().args;
                         expect(args[0]).toBe(9);
-                        expect(args[1].format("MM/DD/YYYY")).toBe("03/01/2017");
-                        expect(args[2].format("MM/DD/YYYY")).toBe("03/31/2017");
+                        expect(args[1]).toEqual(new Date(2017, 2, 1));
+                        expect(args[2]).toEqual(new Date(2017, 2, 31));
                         expect(args[3]).toBe("EUR");
                     });
                 });
@@ -590,7 +588,7 @@
                     spyOn($.fn, "serializeObject").and.returnValue(submitData);
                     spyOn(LicenseeWinLoss, "setExcelUrl");
                     spyOn(LicenseeWinLoss, "setReportTitle");
-                    spyOn(LicenseeWinLoss, "renderBreadCrumb");
+                    spyOn(Report, "renderBreadCrumb");
                     spyOn(LicenseeWinLoss, "bindData");
                     spyOn($, "ajax").and.returnValue({ abort: function () { } });
 
@@ -611,6 +609,23 @@
                     };
                 });
 
+                it("Report.renderBreadCrumb(level, licenseeId) should be called with correct parameter", function () {
+                    LicenseeWinLoss.drillDown(0, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                    var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                    ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test Level 0" }] });
+                    LicenseeWinLoss.goBack(0);
+
+                    expect(Report.renderBreadCrumb).toHaveBeenCalledWith(0, 0);
+                });
+                it("LicenseeWinLoss.bindData(level) should be called with correct parameter", function () {
+                    LicenseeWinLoss.drillDown(0, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                    var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                    ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test Level 0" }] });
+                    LicenseeWinLoss.goBack(0);
+
+                    expect(LicenseeWinLoss.bindData).toHaveBeenCalledWith(0, 2, { Data: [{ Name: "Test Level 0" }] });
+                });
+
                 describe("level equal 0", function () {
                     beforeEach(function () {
                         LicenseeWinLoss.drillDown(0, 9, 0, '2017-02-04T00:00:00', 'EUR');
@@ -619,12 +634,6 @@
                         LicenseeWinLoss.goBack(0);
                     });
 
-                    it("LicenseeWinLoss.renderBreadCrumb(level) should be called with correct parameter", function () {
-                        expect(LicenseeWinLoss.renderBreadCrumb).toHaveBeenCalledWith(0);
-                    });
-                    it("LicenseeWinLoss.bindData(level) should be called with correct parameter", function () {
-                        expect(LicenseeWinLoss.bindData).toHaveBeenCalledWith(0, 2, { Data: [{ Name: "Test Level 0" }] });
-                    });
                     it("LicenseeWinLoss.setExcelUrl(level, currencyId, customerId, fdate, tdate, currencyName) should be called with correct parameter", function () {
                         expect(LicenseeWinLoss.setExcelUrl).toHaveBeenCalledWith(0, 0, 0, "", "", "");
                     });
@@ -652,13 +661,6 @@
                         LicenseeWinLossOption.urlExcelData = urlExcelData;
                     });
 
-                    it("LicenseeWinLoss.renderBreadCrumb(level) should be called with correct parameter", function () {
-                        expect(LicenseeWinLoss.renderBreadCrumb).toHaveBeenCalledWith(1);
-                    });
-                    it("LicenseeWinLoss.bindData(level) should be called with correct parameter", function () {
-                        expect(LicenseeWinLoss.bindData).toHaveBeenCalledWith(1, 2, { Data: [{ Name: "Test Level 1" }] });
-                    });
-
                     it("LicenseeWinLossOption.urlExcelData should be correct", function () {
                         expect(LicenseeWinLossOption.urlExcelData).toBe("localhost/Test?level=1");
                     });
@@ -668,7 +670,15 @@
                     LicenseeWinLoss.drillDown(2, 9, 0, '2017-02-04T00:00:00', 'EUR');
                     LicenseeWinLoss.goBack(2);
 
-                    expect(LicenseeWinLoss.renderBreadCrumb.calls.count()).toBe(1);
+                    expect(LicenseeWinLoss.setReportTitle.calls.count()).toBe(1);
+                });
+
+                it("urlExcelData is not be changed", function () {
+                    var urlExcel = LicenseeWinLossOption.urlExcelData;
+                    LicenseeWinLoss.drillDown(2, 9, 0, '2017-02-04T00:00:00', 'EUR');
+                    LicenseeWinLoss.goBack(2);
+
+                    expect(urlExcel).toBe(LicenseeWinLossOption.urlExcelData);
                 });
             });
 
@@ -916,14 +926,6 @@
                     expect(gridOption.pager).toBe("#ppdata");
                 });
 
-                it("getTotalRowCount() should return correct value", function () {
-                    LicenseeWinLoss.bindData(0, 2, { Data: [1, 2, 3], Total: [1] });
-
-                    var result = LicenseeWinLoss.getTotalRowCount();
-
-                    expect(result).toBe(1);
-                });
-
                 describe("gridOption.onPaging(pgButton)", function () {
                     it("Should return 'stop' when level not equal 2", function () {
                         LicenseeWinLoss.bindData(0, 2, { Data: [1, 2, 3], Total: [1] });
@@ -963,6 +965,106 @@
                         LicenseeWinLossOption.pageSize = defaultPagesize;
 
                         expect(Site.blockUI).not.toHaveBeenCalled();
+                    });
+                });
+
+                describe("gridOption.gridComplete()", function () {
+                    var originalPageSize;
+                    beforeEach(function () {
+                        spyOn(jqGridAdditional, "gridComplete");
+                        spyOn(LicenseeWinLoss, "resizeGrid");
+                        spyOn(LicenseeWinLossOption, "addProductButton");
+                        spyOn(Site, "unBlockUI");
+                        spyOn(LicenseeWinLoss, "bindTotal");
+
+                        originalPageSize = LicenseeWinLossOption.pageSize;
+                    });
+
+                    afterEach(function () {
+                        LicenseeWinLossOption.pageSize = originalPageSize;
+                    });
+
+                    it("jqGridAdditional.gridComplete() should be called", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+
+                        gridOption.gridComplete();
+
+                        expect(jqGridAdditional.gridComplete).toHaveBeenCalled();
+                    });
+
+                    it("LicenseeWinLoss.resizeGrid() should be called", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+
+                        gridOption.gridComplete();
+
+                        expect(LicenseeWinLoss.resizeGrid).toHaveBeenCalled();
+                    });
+
+                    it("LicenseeWinLoss.bindTotal() should be called with correct parameter", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1], SummaryTotal: [2] });
+
+                        gridOption.gridComplete();
+
+                        expect(LicenseeWinLoss.bindTotal).toHaveBeenCalledWith(2, [1], [2]);
+                    });
+
+                    it("#footer should has correct html content when onPaging is false or level is not 2", function () {
+                        appendSetFixtures('<div class="ui-jqgrid-ftable">Footer Content</div> <div id="footer"></div>');
+                        LicenseeWinLoss.bindData(1, 2, { Data: [1, 2, 3], Total: [1], SummaryTotal: [2] });
+
+                        gridOption.gridComplete();
+                        var result = $("#footer").html();
+
+                        expect(result).toBe("Footer Content");
+                    });
+
+                    it("LicenseeWinLossOption.addProductButton should be called with correct parameter", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+
+                        gridOption.gridComplete();
+
+                        expect(LicenseeWinLossOption.addProductButton).toHaveBeenCalledWith($("#ReportGrid"), "jqgh_ReportGrid", "ReportGrid", ["RC", "SB"]);
+                    });
+
+                    it("LicenseeWinLossOption.addProductButton should not be called when Total data is empty", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [] });
+
+                        gridOption.gridComplete();
+
+                        expect(LicenseeWinLossOption.addProductButton).not.toHaveBeenCalled();
+                    });
+
+                    it("#pg_ppdata should be showed when level is 2 and rowNum greater than pagesize", function () {
+                        appendSetFixtures('<button id="pg_ppdata"></button>');
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [1] });
+                        LicenseeWinLossOption.pageSize = 1;
+
+                        gridOption.gridComplete();
+
+                        expect($("#pg_ppdata")).toBeVisible();
+                    });
+
+                    it("#pg_ppdata should be hidden when level is not 2", function () {
+                        appendSetFixtures('<button id="pg_ppdata"></button>');
+                        LicenseeWinLoss.bindData(1, 2, { Data: [1, 2, 3], Total: [1] });
+
+                        gridOption.gridComplete();
+
+                        expect($("#pg_ppdata")).not.toBeVisible();
+                    });
+
+                    it(".ui-jqgrid-ftable should has correct html content when onPaging is true and level is 2", function () {
+                        LicenseeWinLoss.bindData(2, 2, { Data: [1, 2, 3], Total: [] });
+                        appendSetFixtures('<button id="pgButton"></button>' +
+                            '<div class="ui-jqgrid-ftable"></div>' +
+                            '<div id="footer">Footer Content</div>');
+                        LicenseeWinLossOption.pageSize = 1;
+
+                        gridOption.onPaging("pgButton");
+                        gridOption.gridComplete();
+                        var result = $(".ui-jqgrid-ftable").html();
+
+                        expect(result).toBe("Footer Content");
                     });
                 });
             });

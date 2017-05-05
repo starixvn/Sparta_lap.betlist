@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Customer
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
@@ -132,36 +133,32 @@ namespace Fanex.Athena.Controllers.Customer
                 return null;
             }
 
-            if (!string.IsNullOrEmpty(excelParam))
+            var metaModel = JsonConvert.DeserializeObject<CustomerListMetaModel>(excelParam);
+            if (metaModel != null)
             {
-                var metaModel = JsonConvert.DeserializeObject<CustomerListMetaModel>(excelParam);
-                if (metaModel != null)
+                var licenseeSession = SessionService.LicenseeSession;
+                metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
+                metaModel.LicenseeId = licenseeSession.LicenseeId;
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+
+                if (metaModel.GridColumns.Any(i => i.Checked))
                 {
-                    var licenseeSession = SessionService.LicenseeSession;
-                    var userSession = SessionService.UserSession;
-                    metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
-                    metaModel.LicenseeId = licenseeSession.LicenseeId;
-                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-
-                    if (metaModel.GridColumns.Count(i => i.Checked) > 0)
+                    var model = GetCustomers(metaModel);
+                    var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/CustomerList.xls");
+                    var fileName = "CustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
+                    if (!System.IO.File.Exists(templatePath))
                     {
-                        var model = GetCustomers(metaModel);
-                        var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/CustomerList.xls");
-                        var fileName = "CustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
-                        if (!System.IO.File.Exists(templatePath))
-                        {
-                            throw new FileNotFoundException(templatePath);
-                        }
-
-                        var reportTitle = ViewResources.CustomerList + " - "
-                            + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper() : metaModel.CurrencyName);
-
-                        var excel = new CustomerListExcel(templatePath, reportTitle, model);
-
-                        excel.Export();
-
-                        return new ExcelResult(excel.Workbook, fileName);
+                        throw new FileNotFoundException(templatePath);
                     }
+
+                    var reportTitle = ViewResources.CustomerList + " - "
+                        + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
+
+                    var excel = new CustomerListExcel(templatePath, reportTitle, model);
+
+                    excel.Export();
+
+                    return new ExcelResult(excel.Workbook, fileName);
                 }
             }
 

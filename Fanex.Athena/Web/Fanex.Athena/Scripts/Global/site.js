@@ -11,18 +11,15 @@ var Site = (function ($) {
     var _historyDate = null;
     var _licenseeId = null;
 
-    function setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency) {
-        licenseeType = licenseeType === undefined ? "" : licenseeType;
+    function setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency) {
         currencyName = $.trim(currencyName);
         // Set Url
         if (typeof (urlOrParams) === "string") {
-            urlOrParams = QueryString.setParam(urlOrParams, "LicenseeType", licenseeType);
             urlOrParams = QueryString.setParam(urlOrParams, "CurrencyId", currencyId);
             urlOrParams = QueryString.setParam(urlOrParams, "CurrencyName", currencyName);
             urlOrParams = QueryString.setParam(urlOrParams, "BaseCurrency", baseCurrency);
         }
         else {
-            urlOrParams.LicenseeType = licenseeType;
             urlOrParams.CurrencyId = currencyId;
             urlOrParams.CurrencyName = currencyName;
             urlOrParams.BaseCurrency = baseCurrency;
@@ -248,7 +245,6 @@ var Site = (function ($) {
         },
 
         setLicenseeOptionParam: function (urlOrParams) {
-            var licenseeType = $("#LicenseeType").val();
             var currencyId = $("#CurrencyId").val();
             var baseCurrency = $("#BaseCurrency").val();
             var currencyName = $("#CurrencyId option[value=" + currencyId + "]").text();
@@ -256,22 +252,21 @@ var Site = (function ($) {
                 currencyName = $("#CurrencyName").val();
             }
 
-            return setLicenseeOption(urlOrParams || {}, licenseeType, currencyId, currencyName, baseCurrency);
+            return setLicenseeOption(urlOrParams || {}, currencyId, currencyName, baseCurrency);
         },
 
         setLicenseeOptionOriginalParam: function (urlOrParams) {
-            var licenseeType = $("#LicenseeType").attr('data-original');
             var currencyId = $("#CurrencyId").attr('data-original');
             var baseCurrency = $("#BaseCurrency").attr('data-original');
             var currencyName = $("#CurrencyId option[value=" + currencyId + "]").text();
             if (currencyName === undefined) {
                 currencyName = $("#CurrencyName").val();
             }
-            return setLicenseeOption(urlOrParams, licenseeType, currencyId, currencyName, baseCurrency);
+            return setLicenseeOption(urlOrParams, currencyId, currencyName, baseCurrency);
         },
 
         updateOriginalLicenseeOption: function () {
-            var objectIdList = ["#LicenseeType", "#CurrencyId", "#BaseCurrency", "#CurrencyName"];
+            var objectIdList = ["#CurrencyId", "#BaseCurrency", "#CurrencyName"];
             $(objectIdList).each(function (i, e) {
                 $(e).attr("data-original", $(e).val());
             });

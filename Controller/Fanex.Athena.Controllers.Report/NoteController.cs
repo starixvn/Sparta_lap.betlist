@@ -7,16 +7,17 @@
 namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Mvc;
+    using System.Web.SessionState;
     using Fanex.Athena.Model.Report.ViewModel.Note;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Configuration;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
+    using ONEbook.UM.Filters;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
-    public class NoteController : ReadonlyBaseController
+    [SessionState(SessionStateBehavior.ReadOnly)]
+    [CheckUMFilter]
+    public class NoteController : BaseController
     {
         #region Fields
 
@@ -53,7 +54,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsHistory = isHistory,
             };
 
-            var viewPath = string.Format("~/Views/Note/{0}.cshtml", viewName);
+            var viewPath = $"~/Views/Note/{viewName}.cshtml";
             return View(viewPath, model);
         }
 
