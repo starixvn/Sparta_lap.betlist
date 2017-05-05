@@ -33,7 +33,7 @@ namespace Fanex.Athena.Controllers.Report
     public class MatchWinLossReportController : ReportBaseController
     {
         private readonly IMatchWinLossService _matchWinLossService;
-        private static readonly ReadOnlyCollection<int> _virtualHrBettypes = new ReadOnlyCollection<int>(new[] { 1231, 1232, 1233, 1237, 1238 });
+        private static readonly IList<int> _virtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
         private const int LCSport = 162;
         private const int BetType81 = 81;
         private const int BetType120 = 120;

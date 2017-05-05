@@ -3,6 +3,7 @@
     #region Using
 
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
@@ -29,7 +30,7 @@
     [ApiFunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
     public class LastBetMonitoringBetListController : BaseApiController
     {
-        private static readonly IEnumerable<int> ConvertingDecimalOddsBetType = new List<int> { 1, 2, 3, 7, 8, 12, 20 };
+        private static readonly IList<int> ConvertingDecimalOddsBetType = new List<int> { 1, 2, 3, 7, 8, 12, 20 };
 
         private readonly IMatchService _matchService;
 
@@ -174,9 +175,6 @@
             {
                 switch (ticket.LiveHomeScore)
                 {
-                    case 0:
-                        return string.Format(PatternStatusBetlist, "#000", ViewResources.NoneLive);
-
                     case 1:
                         return string.Format(PatternStatusBetlist, "#cc0033", ViewResources.Live);
 
