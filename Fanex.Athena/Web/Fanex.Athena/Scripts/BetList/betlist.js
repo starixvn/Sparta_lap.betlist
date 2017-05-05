@@ -475,7 +475,7 @@ var BetList = (function ($) {
                     ? BetList.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
                     : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
 
-                var height = isParlay ? 450 : (isFastMarket(bettype) ? 250 : 150);
+                var height = isParlay ? 450 : (isFastMarket(bettype) ? 300 : 250);
                 var width = 750;
                 var dialogForm = '<div title="' + title + '"><iframe frameborder="0" width="' +
                          width + '" height="' + height + '" src="' + url + '" ></iframe></div>';

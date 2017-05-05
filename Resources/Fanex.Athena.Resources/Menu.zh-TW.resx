@@ -353,4 +353,8 @@
     <value>单双盘/1X2/和局/不是和局</value>
     <comment>Odd/Even + 1x2 + DND</comment>
   </data>
+  <data name="Menu_72" xml:space="preserve">
+    <value>即時兌現輸贏</value>
+    <comment>Cash Out Win Loss</comment>
+  </data>
 </root>
