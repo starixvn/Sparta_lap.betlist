@@ -6,11 +6,6 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Globalization;
-    using System.Linq;
-    using System.Web.Mvc;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
@@ -27,12 +22,32 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Common;
     using Resources;
     using Service.Report.Interfaces;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Data;
+    using System.Globalization;
+    using System.Linq;
+    using System.Web.Mvc;
 
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossReportController : ReportBaseController
     {
         private readonly IMatchWinLossService _matchWinLossService;
-
+        private static readonly ReadOnlyCollection<int> _virtualHrBettypes = new ReadOnlyCollection<int>(new[] { 1231, 1232, 1233, 1237, 1238 });
+        const int LCSport = 162;
+        const int BetType81 = 81;
+        const int BetType120 = 120;
+        const int BetType31 = 31;
+        const int BetType33 = 33;
+        const int BetType1101 = 1101;
+        const int BetType1199 = 1199;
+        const int BetType1021 = 1021;
+        const int BetType1299 = 1299;
+        const int LCProductId = 4;
+        const int RBProductId = 2;
+        const int VSProductId = 5;
+        const int SBProductId = 1;
+        const int NGProductId = 3;
         public MatchWinLossReportController()
         {
             _matchWinLossService = new MatchWinLossService();
@@ -60,14 +75,13 @@ namespace Fanex.Athena.Controllers.Report
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.MatchWinLoss);
-            var productOption = productAccess.ProductList
+            metaModel.ProductOptions = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {
                                                  Code = i.ProductCode,
                                                  Name = i.ProductName,
                                                  Status = i.ProductCode == Product.SB
                                              }).ToList();
-            metaModel.ProductOptions = productOption;
 
             var model = new MatchWinLossViewModel
             {
@@ -92,9 +106,7 @@ namespace Fanex.Athena.Controllers.Report
             if (metaModel.IsExportExcel)
             {
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
-                {
                     return Excel(metaModel);
-                }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
             }
@@ -102,10 +114,8 @@ namespace Fanex.Athena.Controllers.Report
             var reportData = _matchWinLossService.GetDataList(metaModel);
             var reportDataOutrightParlay = new List<MatchWinLoss>();
 
-            if (metaModel.ProductOptions.Count(i => (i.Code == Product.BA || i.Code == Product.SB) && i.Status) > 0)
-            {
+            if (metaModel.ProductOptions.Any(i => (i.Code == Product.BA || i.Code == Product.SB) && i.Status))
                 reportDataOutrightParlay = _matchWinLossService.GetOutrightParlayList(metaModel).ToList();
-            }
 
             var total = GetTotal(reportData);
             var grandTotal = GetGrandTotal(reportDataOutrightParlay, total);
@@ -132,16 +142,12 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Detail(MatchWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var reportData = _matchWinLossService.GetDetailDataList(metaModel);
-
-            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
-
             var model = new MatchWinLossViewModel
             {
                 MainResult = reportData,
-                ProductAccess = productAccess,
+                ProductAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.MatchWinLoss),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
@@ -152,12 +158,12 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult Excel(MatchWinLossMetaModel metaModel)
         {
+            const int PageSize = 63000;
             var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             const string FileName = nameof(MatchWinLoss);
             var templatePath = Server.MapPath(@"~/App_Data/Template/Reports/MatchWinLoss.xls");
-            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
+            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.MatchWinLoss);
             var showingOption = new ShowingOption
             {
                 BAVisible = productAccess.IsAllowBA,
@@ -176,7 +182,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyName = metaModel.CurrencyName
             };
 
-            metaModel.PageSize = 63000;
+            metaModel.PageSize = PageSize;
             var reportData = _matchWinLossService.GetDetailDataSet(metaModel);
             var mainTable = reportData.Tables[0];
             mainTable = AddColumnsForSorting(mainTable);
@@ -200,17 +206,10 @@ namespace Fanex.Athena.Controllers.Report
 
         private static IDictionary<int, string> CreateLeagueList(IList<MatchWinLoss> reportData)
         {
-            var leagueList = new Dictionary<int, string>();
-            for (int i = 0, count = reportData.Count; i < count; i++)
-            {
-                var item = reportData[i];
-                if (!leagueList.ContainsKey(item.LeagueId))
-                {
-                    leagueList.Add(item.LeagueId, item.LeagueName);
-                }
-            }
+            if (reportData == null || reportData.Count == 0)
+                return new Dictionary<int, string>();
 
-            return leagueList;
+            return reportData.GroupBy(i => i.LeagueId).ToDictionary(i => i.Key, i => i.FirstOrDefault().LeagueName);
         }
 
         private static MatchWinLoss GetTotal(IList<MatchWinLoss> dataList)
@@ -271,30 +270,31 @@ namespace Fanex.Athena.Controllers.Report
 
         private static void AssignProduct(DataRow row, int betType)
         {
-            if (betType >= 81 && betType < 120)
+
+            if (betType >= BetType81 && betType < BetType120)
             {
                 row["productname"] = Product.NG;
-                row["newproductid"] = 3;
+                row["newproductid"] = NGProductId;
             }
-            else if (betType >= 31 && betType <= 33)
+            else if (betType >= BetType31 && betType <= BetType33)
             {
                 row["productname"] = Product.RB;
-                row["newproductid"] = 2;
+                row["newproductid"] = RBProductId;
             }
-            else if (betType >= 1101 && betType <= 1199)
+            else if (betType >= BetType1101 && betType <= BetType1199)
             {
                 row["productname"] = Product.LC;
-                row["newproductid"] = 4;
+                row["newproductid"] = LCProductId;
             }
-            else if (betType >= 1021 && betType <= 1299)
+            else if (betType >= BetType1021 && betType <= BetType1299)
             {
                 row["productname"] = Product.VS;
-                row["newproductid"] = 5;
+                row["newproductid"] = VSProductId;
             }
             else
             {
                 row["productname"] = Product.SB;
-                row["newproductid"] = 1;
+                row["newproductid"] = SBProductId;
             }
         }
 
@@ -303,45 +303,37 @@ namespace Fanex.Athena.Controllers.Report
             switch (row["productname"].ToString())
             {
                 case Product.RB:
-                    {
-                        row["matchname"] = ViewResources.Race + Converter.ToString2(row["race"]);
-                        break;
-                    }
+                    row["matchname"] = ViewResources.Race + Converter.ToString2(row["race"]);
+                    break;
 
                 case Product.NG:
-                    {
-                        row["matchname"] = ViewResources.NumberGameNo + " " + row["matchcode"];
-                        break;
-                    }
+                    row["matchname"] = ViewResources.NumberGameNo + " " + row["matchcode"];
+                    break;
 
                 case Product.LC:
-                    {
-                        row["matchname"] = string.Format("{0} {1} {2} ", CacheRef.GetSportName(162), CacheRef.GetBettype(row["bettype"]), row["showtime"]);
-                        break;
-                    }
+                    row["matchname"] = string.Format("{0} {1} {2} ", CacheRef.GetSportName(LCSport), CacheRef.GetBettype(row["bettype"]), row["showtime"]);
+                    break;
 
                 default:
+                    // Virtual Horse Racing
+
+                    if (_virtualHrBettypes.Contains(betType))
                     {
-                        // Virtual Horse Racing
-                        var virtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
-                        if (virtualHrBettypes.Contains(betType))
-                        {
-                            var culture = new CultureInfo("en-US");
-                            const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
-                            var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
-                            row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
-                            break;
-                        }
-
-                        var homeName = CacheRef.GetTeamName(row["homeid"]) +
-                                       (Converter.ToBool(row["isneutral"])
-                                            ? " " + ViewResources.IsNeutral
-                                            : string.Empty);
-                        var awayName = CacheRef.GetTeamName(row["awayid"]);
-                        row["matchname"] = homeName + "-vs-" + awayName;
-
+                        var culture = new CultureInfo("en-US");
+                        const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
+                        var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
+                        row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
                         break;
                     }
+
+                    var homeName = CacheRef.GetTeamName(row["homeid"]) +
+                                   (Converter.ToBool(row["isneutral"])
+                                        ? " " + ViewResources.IsNeutral
+                                        : string.Empty);
+                    var awayName = CacheRef.GetTeamName(row["awayid"]);
+                    row["matchname"] = homeName + "-vs-" + awayName;
+
+                    break;
             }
         }
 
@@ -369,19 +361,13 @@ namespace Fanex.Athena.Controllers.Report
         {
             var columnCount = 6;
             if (productAccess.IsAllowBA)
-            {
                 columnCount += 2;
-            }
 
             if (productAccess.IsAllowRB)
-            {
                 columnCount += 2;
-            }
 
             if (isAllowedCustomerComm)
-            {
                 columnCount += 2;
-            }
 
             return columnCount;
         }
