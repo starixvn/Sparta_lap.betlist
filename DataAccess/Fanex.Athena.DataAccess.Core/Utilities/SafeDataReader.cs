@@ -82,6 +82,20 @@
             return defaultValue;
         }
 
+        public long? GetNullableLong(string column, long? defaultValue = null)
+        {
+            if (_existedColumns.Contains(column))
+            {
+                var value = _reader[column];
+                if (value != DBNull.Value)
+                {
+                    return (long)value;
+                }
+            }
+
+            return defaultValue;
+        }
+
         public decimal GetDecimal(string column, decimal defaultValue = 0)
         {
             if (_existedColumns.Contains(column))
