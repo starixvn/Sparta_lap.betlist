@@ -1,0 +1,50 @@
+﻿@using Fanex.Athena.Model.Core.Helper
+@model Fanex.Athena.Model.Report.ViewModel.DailyRacingWinLossViewModel
+@{
+    var contentData = Model.DailyRacingWinLossData.ContentData;
+    var contentTotalData = Model.DailyRacingWinLossData.ContentTotalData;
+    var leagueCurrencyList = contentData.Keys;
+}
+
+@foreach (var leagueCurrency in leagueCurrencyList)
+{
+    var leagueCurrencyData = contentData[leagueCurrency];
+
+    var isFirstRow = true;
+    foreach (var dailyRacing in leagueCurrencyData)
+    {
+        <tr>
+            @if (isFirstRow)
+            {
+                var firstCellText = CacheRef.GetLeagueName(dailyRacing.LeagueId) + " - " + dailyRacing.CurrencyName;
+                <td rowspan="@leagueCurrencyData.Count" class="left-align text-bold" title="@firstCellText">@firstCellText</td>
+            }
+            
+            <td class="center-align">
+                <a href="javascript:;" class="number-circle bet-list-link" data-league="@dailyRacing.LeagueId" data-race-no="@dailyRacing.RaceNo" data-currency="@dailyRacing.Currency">
+                    @dailyRacing.RaceNo
+                </a>
+            </td>
+
+            <td class="right-align">@dailyRacing.WinTO.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.PlaceTO.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.WPTO.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.TotalTO.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.DividendWon.ToStringExt()</td>
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <td class="right-align">@dailyRacing.CustomerCommission.ToStringExt()</td>
+            }
+
+            <td class="right-align">@dailyRacing.CommIncome.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.AmountDueToRacing.ToStringExt()</td>
+        </tr>
+
+        isFirstRow = false;
+    }
+
+    Html.RenderPartial("~/Views/Desktop/Report/DailyRacingWinLoss/Content.TotalCommon.cshtml", contentTotalData[leagueCurrency]);
+}
+
+@*Currency Total*@
+@{Html.RenderPartial("~/Views/Desktop/Report/DailyRacingWinLoss/Content.TotalCurrency.cshtml", Model);}

@@ -893,4 +893,11 @@ table tbody tr.row-group-level1 td {
   color: #2c2c2c;
   font-weight: bold; }
 
+.number-circle {
+  border: 1px solid #147ccc;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-block; }
+
 /*# sourceMappingURL=dailyracingwinloss.css.map*/

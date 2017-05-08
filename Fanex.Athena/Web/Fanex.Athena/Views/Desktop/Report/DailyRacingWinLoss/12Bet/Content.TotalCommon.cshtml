@@ -1,5 +1,9 @@
 ﻿@model Fanex.Athena.Model.Report.DTO.DailyRacingWinLoss
 
+@{
+    var isAllowCustomerComm = Convert.ToBoolean(ViewBag.IsAllowedCustomerCommission);
+}
+
 @*-----------------------------------Total Currency---------------------------------*@
 <tr>
     <td rowspan="2" class="center-align text-bold">@ViewResources.Total</td>
@@ -11,7 +15,7 @@
     <td class="right-align text-bold">@Model.WPTO.ToStringExt()</td>
     <td class="right-align text-bold">@Model.TotalTO.ToStringExt()</td>
     <td class="right-align text-bold">@Model.DividendWon.ToStringExt()</td>
-    @if (Convert.ToBoolean(ViewBag.IsAllowedCustomerCommission))
+    @if (isAllowCustomerComm)
     {
         <td class="right-align text-bold">@Model.CustomerCommission.ToStringExt()</td>
     }
@@ -35,7 +39,7 @@
     <td class="right-align text-bold">@Model.WPTOMYR.ToStringExt()</td>
     <td class="right-align text-bold">@Model.TotalTOMYR.ToStringExt()</td>
     <td class="right-align text-bold">@Model.DividendWonMYR.ToStringExt()</td>
-    @if (Convert.ToBoolean(ViewBag.IsAllowedCustomerCommission))
+    @if (isAllowCustomerComm)
     {
         <td class="right-align text-bold">@Model.CustomerCommissionMYR.ToStringExt()</td>
     }

@@ -897,6 +897,13 @@
     <Content Include="www\css\build\dev\pages\reports\dailyracingwinloss.css.map" />
     <Content Include="www\css\build\dev\pages\reports\winlossbyproduct.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\winlossbyproduct.css.map" />
+    <Content Include="Views\Desktop\Report\DailyRacingWinLoss\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\DailyRacingWinLoss\Content.Data.cshtml" />
+    <Content Include="Views\Desktop\Report\DailyRacingWinLoss\Content.GrandTotal.cshtml" />
+    <Content Include="Views\Desktop\Report\DailyRacingWinLoss\Content.Header.cshtml" />
+    <Content Include="Views\Desktop\Report\DailyRacingWinLoss\Content.TotalCommon.cshtml" />
+    <Content Include="Views\Desktop\Report\DailyRacingWinLoss\Content.TotalCurrency.cshtml" />
+    <Content Include="Views\Desktop\BetList\DailyRacingWl\Main.cshtml" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />

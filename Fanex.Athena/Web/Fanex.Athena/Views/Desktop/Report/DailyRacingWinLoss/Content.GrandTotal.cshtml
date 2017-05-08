@@ -1,0 +1,76 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.DailyRacingWinLossViewModel
+@{
+    var grandTotalData = Model.DailyRacingWinLossData.GrandTotalData;
+}
+
+@*------------------------------------- MYR -------------------------------------*@
+<tr>
+    <td colspan="2" class="center-align text-bold">@ViewResources.GrandTotalIn @ViewResources.MYR</td>
+
+    <td class="right-align text-bold">@grandTotalData.WinTOMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.PlaceTOMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.WPTOMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.TotalTOMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.DividendWonMYR.ToStringExt()</td>
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <td class="right-align text-bold">@grandTotalData.CustomerCommissionMYR.ToStringExt()</td>
+    }
+
+    <td class="right-align text-bold">@grandTotalData.CommIncomeMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.AmountDueToRacingMYR.ToStringExt()</td>
+</tr>
+
+@*------------------------------------- EUR -------------------------------------*@
+<tr>
+    <td colspan="2" class="center-align text-bold">@ViewResources.GrandTotalIn @ViewResources.EUR</td>
+
+    <td class="right-align text-bold">@grandTotalData.WinTOEUR.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.PlaceTOEUR.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.WPTOEUR.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.TotalTOEUR.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.DividendWonEUR.ToStringExt()</td>
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <td class="right-align text-bold">@grandTotalData.CustomerCommissionEUR.ToStringExt()</td>
+    }
+
+    <td class="right-align text-bold">@grandTotalData.CommIncomeEUR.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.AmountDueToRacingEUR.ToStringExt()</td>
+</tr>
+
+@*------------------------------------- USD -------------------------------------*@
+<tr>
+    <td colspan="2" class="center-align text-bold">@ViewResources.GrandTotalIn @ViewResources.USD</td>
+
+    <td class="right-align text-bold">@grandTotalData.WinTOUSD.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.PlaceTOUSD.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.WPTOUSD.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.TotalTOUSD.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.DividendWonUSD.ToStringExt()</td>
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <td class="right-align text-bold">@grandTotalData.CustomerCommissionUSD.ToStringExt()</td>
+    }
+
+    <td class="right-align text-bold">@grandTotalData.CommIncomeUSD.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.AmountDueToRacingUSD.ToStringExt()</td>
+</tr>
+
+@*------------------------------------- GBP -------------------------------------*@
+<tr>
+    <td colspan="2" class="center-align text-bold">@ViewResources.GrandTotalIn @ViewResources.GBP</td>
+
+    <td class="right-align text-bold">@grandTotalData.WinTOGBP.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.PlaceTOGBP.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.WPTOGBP.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.TotalTOGBP.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.DividendWonGBP.ToStringExt()</td>
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <td class="right-align text-bold">@grandTotalData.CustomerCommissionGBP.ToStringExt()</td>
+    }
+
+    <td class="right-align text-bold">@grandTotalData.CommIncomeGBP.ToStringExt()</td>
+    <td class="right-align text-bold">@grandTotalData.AmountDueToRacingGBP.ToStringExt()</td>
+</tr>
