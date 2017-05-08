@@ -1,13 +1,6 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.MatchWinLoss.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Controllers.Report
+﻿namespace Fanex.Athena.Controllers.Report
 {
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Data;
     using System.Globalization;
     using System.Linq;
@@ -32,8 +25,6 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossReportController : ReportBaseController
     {
-        private readonly IMatchWinLossService _matchWinLossService;
-        private static readonly IList<int> _virtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
         private const int LCSport = 162;
         private const int BetType81 = 81;
         private const int BetType120 = 120;
@@ -48,6 +39,8 @@ namespace Fanex.Athena.Controllers.Report
         private const int VSProductId = 5;
         private const int SBProductId = 1;
         private const int NGProductId = 3;
+        private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
+        private readonly IMatchWinLossService _matchWinLossService;
 
         public MatchWinLossReportController()
         {
@@ -107,7 +100,9 @@ namespace Fanex.Athena.Controllers.Report
             if (metaModel.IsExportExcel)
             {
                 if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
+                {
                     return Excel(metaModel);
+                }
 
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
             }
@@ -116,7 +111,9 @@ namespace Fanex.Athena.Controllers.Report
             var reportDataOutrightParlay = new List<MatchWinLoss>();
 
             if (metaModel.ProductOptions.Any(i => (i.Code == Product.BA || i.Code == Product.SB) && i.Status))
+            {
                 reportDataOutrightParlay = _matchWinLossService.GetOutrightParlayList(metaModel).ToList();
+            }
 
             var total = GetTotal(reportData);
             var grandTotal = GetGrandTotal(reportDataOutrightParlay, total);
@@ -209,7 +206,9 @@ namespace Fanex.Athena.Controllers.Report
         private static IDictionary<int, string> CreateLeagueList(IList<MatchWinLoss> reportData)
         {
             if (reportData == null || reportData.Count == 0)
+            {
                 return new Dictionary<int, string>();
+            }
 
             return reportData.GroupBy(i => i.LeagueId).ToDictionary(i => i.Key, i => i.FirstOrDefault().LeagueName);
         }
@@ -312,13 +311,12 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 case Product.LC:
-                    row["matchname"] = $"{CacheRef.GetSportName(LCSport)} {CacheRef.GetBettype(row["bettype"])} {row["showtime"]} ";
+                    row["matchname"] = string.Format("{0} {1} {2}", CacheRef.GetSportName(LCSport), CacheRef.GetBettype(row["bettype"]), row["showtime"]);
                     break;
 
                 default:
-                    // Virtual Horse Racing
 
-                    if (_virtualHrBettypes.Contains(betType))
+                    if (VirtualHrBettypes.Contains(betType))
                     {
                         var culture = new CultureInfo("en-US");
                         const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
@@ -343,7 +341,7 @@ namespace Fanex.Athena.Controllers.Report
             switch (row["productname"].ToString())
             {
                 case Product.RB:
-                    row["leaguename"] = $"{ViewResources.ProductRB} - {CacheRef.GetLeagueName(row["leagueid"])}";
+                    row["leaguename"] = ViewResources.ProductRB + "-" + CacheRef.GetLeagueName(row["leagueid"]);
                     break;
 
                 case Product.NG:
@@ -362,13 +360,19 @@ namespace Fanex.Athena.Controllers.Report
         {
             var columnCount = 6;
             if (productAccess.IsAllowBA)
+            {
                 columnCount += 2;
+            }
 
             if (productAccess.IsAllowRB)
+            {
                 columnCount += 2;
+            }
 
             if (isAllowedCustomerComm)
+            {
                 columnCount += 2;
+            }
 
             return columnCount;
         }
