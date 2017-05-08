@@ -1,17 +1,19 @@
 webpackJsonp([39],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(211);
+	module.exports = __webpack_require__(222);
 
 
-/***/ },
+/***/ }),
 
-/***/ 206:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 217:
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(207)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(218)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	    "use strict";
+	
 	    var curCountDown = 0;
 	    var countDownTimer = null;
 	    var cookieName = null;
@@ -133,10 +135,10 @@ webpackJsonp([39],{
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 207:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 218:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	* jQuery Cookie Plugin v1.4.1
@@ -254,10 +256,10 @@ webpackJsonp([39],{
 	}));
 
 
-/***/ },
+/***/ }),
 
-/***/ 210:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 221:
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
 	"use strict";
@@ -479,7 +481,7 @@ webpackJsonp([39],{
 	
 	    $.fn.hasVerticalScrollBar = function () {
 	        return this.get(0).scrollHeight > this.height();
-	    }
+	    };
 	})(jQuery);
 	
 	jQuery.extend({
@@ -498,133 +500,133 @@ webpackJsonp([39],{
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 211:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 222:
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(212)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ForecastOneXTwo) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(223)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ForecastOneXTwo) {
 	    "use strict";
 	
 	    $(ForecastOneXTwo.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 212:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 223:
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(206), __webpack_require__(9), __webpack_require__(210)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown, Popup) {
-		"use strict";
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(217), __webpack_require__(9), __webpack_require__(221)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown, Popup) {
+	        "use strict";
 	
-		var _isPopup;
+	        var _isPopup;
 	
-		var _me = {
-			resizeGrid: function () {
-				var $grid = $(".body-content");
-				if ($grid.length === 0) {
-					return;
-				}
+	        var _me = {
+	            resizeGrid: function () {
+	                var $grid = $(".body-content");
+	                if ($grid.length === 0) {
+	                    return;
+	                }
 	
-				var gridTop = $grid.offset().top;
-				var footerSite = 18;
-				var gridHeight = window.innerHeight - gridTop - footerSite - 10;
-				gridHeight = Math.max(150, gridHeight);
-				$grid.css("max-height", gridHeight);
+	                var gridTop = $grid.offset().top;
+	                var footerSite = 18;
+	                var gridHeight = window.innerHeight - gridTop - footerSite - 10;
+	                gridHeight = Math.max(150, gridHeight);
+	                $grid.css("max-height", gridHeight);
 	
-				if (!$grid.hasVerticalScrollBar()) {
-				    $grid.addClass("hasScroll");
-				}
-				else {
-				    $grid.find("table").width($grid.width() - 17);
-				}
-			},
-			initialize: function () {
-			    Site.initialize();
+	                if (!$grid.hasVerticalScrollBar()) {
+	                    $grid.addClass("hasScroll");
+	                }
+	                else {
+	                    $grid.find("table").width($grid.width() - 17);
+	                }
+	            },
+	            initialize: function () {
+	                Site.initialize();
 	
-			    _isPopup = $('#IsPopUp').val() === "true";
-			    if (_isPopup) {
-			        $("body").css("background", "#fff");
-			        _me.resizePopup();
-			    }
+	                _isPopup = $('#IsPopUp').val() === "true";
+	                if (_isPopup) {
+	                    $("body").css("background", "#fff");
+	                    _me.resizePopup();
+	                }
 	
-				_me.initEvent();
-				_me.resizeGrid();
-				Site.addUserGuide({
-					resourceName: "Forecast1x2",
-					title: Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("OneXTwo")
-				});
+	                _me.initEvent();
+	                _me.resizeGrid();
+	                Site.addUserGuide({
+	                    resourceName: "Forecast1x2",
+	                    title: Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("OneXTwo")
+	                });
 	
-				RefreshCountDown.initialize();
-				RefreshCountDown.initEvent();
+	                RefreshCountDown.initialize();
+	                RefreshCountDown.initEvent();
 	
-				Site.unBlockUI();
-			},
-			initEvent: function () {
-				$('.league-list').on('change', function () {
-				    _me.submit();
-				});
+	                Site.unBlockUI();
+	            },
+	            initEvent: function () {
+	                $('.league-list').on('change', function () {
+	                    _me.submit();
+	                });
 	
-				$('#reportContent').on('click', '.button-add', function () {
-					var matchId = $(this).attr('data-match-id');
-					var betType = parseInt($(this).attr('data-bettype'));
-					_me.openForecast(matchId, betType);
-				});
+	                $('#reportContent').on('click', '.button-add', function () {
+	                    var matchId = $(this).attr('data-match-id');
+	                    var betType = parseInt($(this).attr('data-bettype'));
+	                    _me.openForecast(matchId, betType);
+	                });
 	
-				$('#SubmitButton').on('click', function () {
-					_me.submit();
-				});
+	                $('#SubmitButton').on('click', function () {
+	                    _me.submit();
+	                });
 	
-				$(window).on("resize", function () {
-				    _me.resizeGrid();
-				});
+	                $(window).on("resize", function () {
+	                    _me.resizeGrid();
+	                });
 	
-				$(window).on("unload", function () {
-				    $(window).off("resize");
-				});
-			},
-			openForecast: function (matchId, betType) {
-				var url = Site.resolveClientUrl("RunningMatchBetList/Index");
+	                $(window).on("unload", function () {
+	                    $(window).off("resize");
+	                });
+	            },
+	            openForecast: function (matchId, betType) {
+	                var url = Site.resolveClientUrl("RunningMatchBetList/Index");
 	
-				if (_isPopup) {
-				    url = _me.getBetListUrl(url, matchId, betType);
-					var popH = Math.min(parent.innerHeight - 100, 650), popW = 900;
-					Popup.updateCurrentPopup(url, { width: popW, height: popH, title: Site.getSingleResource("BetList") });
-				} else {
-				    url = Site.setLicenseeOptionOriginalParam(url);
-				    url = QueryString.setParam(url, "matchid", matchId);
-				    url = QueryString.setParam(url, "bettype", betType);
-					Site.redirect(url);
-				}
-			},
-			getBetListUrl: function (url, matchId, betType) {
-			    var currencyId = $("#CurrencyId-Hidden").val();
-			    var baseCurrency = $("#BaseCurrency-Hidden").val();
+	                if (_isPopup) {
+	                    url = _me.getBetListUrl(url, matchId, betType);
+	                    var popH = Math.min(parent.innerHeight - 100, 650), popW = 900;
+	                    Popup.updateCurrentPopup(url, { width: popW, height: popH, title: Site.getSingleResource("BetList") });
+	                } else {
+	                    url = Site.setLicenseeOptionOriginalParam(url);
+	                    url = QueryString.setParam(url, "matchid", matchId);
+	                    url = QueryString.setParam(url, "bettype", betType);
+	                    Site.redirect(url);
+	                }
+	            },
+	            getBetListUrl: function (url, matchId, betType) {
+	                var currencyId = $("#CurrencyId-Hidden").val();
+	                var baseCurrency = $("#BaseCurrency-Hidden").val();
 	
-			    url = QueryString.setParam(url, "CurrencyId", currencyId);
-			    url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
-			    url = QueryString.setParam(url, "matchid", matchId);
-			    url = QueryString.setParam(url, "bettype", betType);
-			    url = QueryString.setParam(url, "currencyname", QueryString.getParam(Site.getCurrentUrl(), "currencyname"));
+	                url = QueryString.setParam(url, "CurrencyId", currencyId);
+	                url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
+	                url = QueryString.setParam(url, "matchid", matchId);
+	                url = QueryString.setParam(url, "bettype", betType);
+	                url = QueryString.setParam(url, "currencyname", QueryString.getParam(Site.getCurrentUrl(), "currencyname"));
 	
-			    return url;
-			},
-			submit: function () {
-				Site.blockUI();
-				$("#ForecastOneXTwoForm").submit();
-			},
-			resizePopup: function () {
-			    var popH = Math.min(parent.innerHeight - 100, 600), popW = 700;
-			    var title = Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("OneXTwo");
-			    Popup.updateCurrentPopup(null, { width: popW, height: popH, title: title });
-			}
-		};
+	                return url;
+	            },
+	            submit: function () {
+	                Site.blockUI();
+	                $("#ForecastOneXTwoForm").submit();
+	            },
+	            resizePopup: function () {
+	                var popH = Math.min(parent.innerHeight - 100, 600), popW = 700;
+	                var title = Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("OneXTwo");
+	                Popup.updateCurrentPopup(null, { width: popW, height: popH, title: title });
+	            }
+	        };
 	
-		return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=forecastonextwo.chunk.js.map

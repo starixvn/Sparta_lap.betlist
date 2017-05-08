@@ -1,5 +1,5 @@
-﻿define(["jquery", "common/site", "lib/jquery.monthpicker"],
-    function ($, Site) {
+﻿define(["jquery", "lib/jquery.monthpicker"],
+    function ($) {
         "use strict";
 
         var _historyDate = new Date($("#HistoryDate").val());

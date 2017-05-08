@@ -259,7 +259,12 @@
 
         if (level === 0) {
             _me.gridOption.grouping = true;
-            _me.gridOption.groupingView = { groupField: ['Date'], groupColumnShow: [false], plusicon: "ui-icon-circlesmall-plus icon-arrow", minusicon: "ui-icon-circlesmall-minus icon-arrow" };
+            _me.gridOption.groupingView = {
+                groupField: ['Date'],
+                groupColumnShow: [false],
+                plusicon: "ui-icon-circlesmall-plus icon-arrow",
+                minusicon: "ui-icon-circlesmall-minus icon-arrow"
+            };
         } else {
             _me.gridOption.grouping = false;
             _me.gridOption.groupingView = null;

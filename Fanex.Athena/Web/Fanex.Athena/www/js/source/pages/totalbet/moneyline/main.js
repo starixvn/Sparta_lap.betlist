@@ -2,4 +2,4 @@
     "use strict";
 
     $(MoneyLine.initialize);
-})
+});

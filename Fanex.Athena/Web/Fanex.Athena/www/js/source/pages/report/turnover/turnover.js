@@ -117,7 +117,8 @@
                     "0": Site.getSingleResource('AllCurrencies')
                 };
 
-            var currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId] : $('#CurrencyId option[value="' + _currencyId + '"]').text().trim();
+            var currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId]
+                                                            : $('#CurrencyId option[value="' + _currencyId + '"]').text().trim();
             var dateString = _fromDate.format("MM/DD/YYYY") + ' → ' + _toDate.format("MM/DD/YYYY");
             currencyName = currencyName.toUpperCase();
             if (username === _me.defaultUserName) {

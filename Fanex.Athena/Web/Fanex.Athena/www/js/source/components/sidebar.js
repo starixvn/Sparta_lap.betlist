@@ -1,7 +1,10 @@
-﻿'use strict';
+﻿/*jshint camelcase: false*/
+
+'use strict';
 
 define(["jquery"], function ($) {
     function activeMenuItem($target) {
+        /*jshint validthis: true*/
         $(this).find('.collapsible-body li.active').removeClass('active');
         $target.closest('li').addClass('active');
         var $groupHeader = $target.closest('.menu-item').find('.collapsible-header');
@@ -10,7 +13,9 @@ define(["jquery"], function ($) {
         }
     }
 
-    function init (options) {
+    function init(options) {
+        /*jshint validthis: true*/
+
         var defaults = {
             accordion: undefined
         };
@@ -19,15 +24,15 @@ define(["jquery"], function ($) {
         var touch = 'ontouchstart' in window || navigator.maxTouchPoints;
 
         return this.each(function () {
-
             var $this = $(this);
 
-            if (!$this.parent().hasClass('site-menu')) return;
+            if (!$this.parent().hasClass('site-menu')) {
+                return;
+            }
 
-            var $panel_headers = $(this).find('> li > .collapsible-header');
+            var $panel_headers = $this.find('> li > .collapsible-header');
 
             var collapsible_type = $this.data("collapsible");
-            var menu = {};
 
             // Turn off any existing event handlers
             $this.off('click.collapse2', '> li > .collapsible-header');
@@ -39,20 +44,33 @@ define(["jquery"], function ($) {
 
             // Accordion Open
             function accordionOpen(object) {
-                $panel_headers = $this.find('> li > .collapsible-header');
                 if (object.hasClass('active')) {
                     object.parent().addClass('active');
                 } else {
                     object.parent().removeClass('active');
                 }
                 if (object.parent().hasClass('active')) {
-                    object.siblings('.collapsible-body').stop(true, false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function complete() {
-                            $(this).css('height', '');
-                        } });
+                    object.siblings('.collapsible-body')
+                        .stop(true, false)
+                        .slideDown({
+                            duration: 350,
+                            easing: "easeOutQuart",
+                            queue: false,
+                            complete: function complete() {
+                                $(this).css('height', '');
+                            }
+                        });
                 } else {
-                    object.siblings('.collapsible-body').stop(true, false).slideUp({ duration: 350, easing: "easeOutQuart", queue: false, complete: function complete() {
-                            $(this).css('height', '');
-                        } });
+                    object.siblings('.collapsible-body')
+                        .stop(true, false)
+                        .slideUp({
+                            duration: 350,
+                            easing: "easeOutQuart",
+                            queue: false,
+                            complete: function complete() {
+                                $(this).css('height', '');
+                            }
+                        });
                 }
 
                 $panel_headers.not(object).removeClass('active').parent().removeClass('active');
@@ -74,13 +92,27 @@ define(["jquery"], function ($) {
                     object.parent().removeClass('active');
                 }
                 if (object.parent().hasClass('active')) {
-                    object.siblings('.collapsible-body').stop(true, false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function complete() {
-                            $(this).css('height', '');
-                        } });
+                    object.siblings('.collapsible-body')
+                        .stop(true, false)
+                        .slideDown({
+                            duration: 350,
+                            easing: "easeOutQuart",
+                            queue: false,
+                            complete: function complete() {
+                                $(this).css('height', '');
+                            }
+                        });
                 } else {
-                    object.siblings('.collapsible-body').stop(true, false).slideUp({ duration: 350, easing: "easeOutQuart", queue: false, complete: function complete() {
-                            $(this).css('height', '');
-                        } });
+                    object.siblings('.collapsible-body')
+                        .stop(true, false)
+                        .slideUp({
+                            duration: 350,
+                            easing: "easeOutQuart",
+                            queue: false,
+                            complete: function complete() {
+                                $(this).css('height', '');
+                            }
+                        });
                 }
             }
 
@@ -90,7 +122,6 @@ define(["jquery"], function ($) {
              * @return {Boolean} true if it is children
              */
             function isChildrenOfPanelHeader(object) {
-
                 var panelHeader = getPanelHeader(object);
 
                 return panelHeader.length > 0;
@@ -102,18 +133,15 @@ define(["jquery"], function ($) {
              * @return {Object} panel header object
              */
             function getPanelHeader(object) {
-
                 return object.closest('li > .collapsible-header');
             }
 
             /*****  End Helper Functions  *****/
 
             function collapseWithOverlay($this, event) {
-
                 collapse($this, event);
 
                 if ($('#sidenav-overlay').length > 0) {
-
                     if (!$($this).hasClass('active')) {
                         $('#sidenav-overlay').unbind("click");
                         $('#sidenav-overlay').remove();
@@ -132,10 +160,10 @@ define(["jquery"], function ($) {
                     $('body').append(overlay);
                     overlay.velocity({ opacity: 1 }, {
                         duration: 300, queue: false, easing: 'easeOutQuad',
-                        complete: function complete() {}
+                        complete: function complete() { }
                     });
                 }
-            };
+            }
 
             function collapse($this, event) {
                 var $header = $($this),
@@ -158,11 +186,13 @@ define(["jquery"], function ($) {
                         expandableOpen($header);
                     }
                 }
-            };
+            }
 
             if (!touch) {
                 $this.on('mouseover.opensub', '> li > .collapsible-header', function (e) {
-                    if ($('body').hasClass('site-menubar-fold')) collapse(this, e);
+                    if ($('body').hasClass('site-menubar-fold')) {
+                        collapse(this, e);
+                    }
                 });
             }
 
@@ -173,15 +203,13 @@ define(["jquery"], function ($) {
 
             if (!touch) {
                 // Add focusout event
-                $this.on('mouseleave.closesub', '> li > .collapsible-body', function (e) {
-                    var $header = $(this),
-                        element = $(e.target);
+                $this.on('mouseleave.closesub', '> li > .collapsible-body', function () {
+                    var $header = $(this);
                     var temp = element.closest('li > .collapsible-body');
 
                     var element = temp.parent().find('.collapsible-header');
 
                     if ($('body').hasClass('site-menubar-fold') && element.hasClass('active')) {
-
                         element.toggleClass('active');
 
                         if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) {
@@ -205,7 +233,7 @@ define(["jquery"], function ($) {
                 $('#mainFrame').prop('src', url);
 
                 var element = $(e.target);
-                if (touch && $('body').hasClass('site-menubar-fold')) {                   
+                if (touch && $('body').hasClass('site-menubar-fold')) {
                     var temp = element.closest('li > .collapsible-body');
 
                     temp.parent().find('.collapsible-header').trigger("click");
@@ -214,7 +242,6 @@ define(["jquery"], function ($) {
             });
 
             // Open first active
-            var $panel_headers = $this.find('> li > .collapsible-header');
             if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) {
                 // Handle Accordion
                 accordionOpen($panel_headers.filter('.active').first());
@@ -225,7 +252,7 @@ define(["jquery"], function ($) {
                 });
             }
         });
-    };
+    }
 
     var methods = {
         init: init,
@@ -241,10 +268,9 @@ define(["jquery"], function ($) {
         } else {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.collapsibleMenu');
         }
-    }
+    };
 });
 
 $(document).ready(function () {
     $('.collapsible2').collapsibleMenu();
 });
-

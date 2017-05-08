@@ -160,7 +160,7 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
         $pageSize = $("input[name='PageSize']", $pagingContainer);
 
         me.bindEvent();
-    }
+    };
 
     return me;
 });

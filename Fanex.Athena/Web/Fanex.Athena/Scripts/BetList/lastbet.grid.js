@@ -1,4 +1,4 @@
-﻿/*global Site, JSLINQ*/
+﻿/*global Site, JSLINQ, LastBetFilter*/
 /*---------------------------------------------------------------------------------
 * Report monitor bet list display lastest when user bet
 ---------------------------------------------------------------------------------*/

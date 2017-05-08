@@ -1,5 +1,5 @@
 ﻿define(['jquery', 'common/site', 'common/querystring', 'components/refreshcountdown'], function ($, Site, QueryString, RefreshCountDown) {
-    var _hiddenContents = [];
+    "use strict";
 
     var _me = {
         initialize: function () {

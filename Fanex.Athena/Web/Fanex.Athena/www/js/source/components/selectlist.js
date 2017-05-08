@@ -1,5 +1,6 @@
-﻿"use strict";
-define(['jquery'], function ($) {
+﻿define(['jquery'], function ($) {
+    "use strict";
+
     function getLabelHtml(labelText, selectionId) {
         var targetDropdownId = selectionId + "-result-container";
         return '<div class="select-list-container">' +
@@ -32,6 +33,7 @@ define(['jquery'], function ($) {
     }
 
     function getDropdownList(resultContainerId, canSearch) {
+        /*jshint validthis: true*/
         var $originalSelectElement = $(this);
         var dataList = $originalSelectElement.find("option").map(function (index, item) {
             var key = item.value;
@@ -67,7 +69,7 @@ define(['jquery'], function ($) {
             e.stopPropagation();
         });
 
-        $searchBox.on("keyup", function (e) {
+        $searchBox.on("keyup", function () {
             var $this = $(this);
 
             setTimeout(function () {

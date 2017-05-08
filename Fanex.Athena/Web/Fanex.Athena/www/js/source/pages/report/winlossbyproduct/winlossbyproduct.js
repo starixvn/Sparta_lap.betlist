@@ -4,8 +4,6 @@
     function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect, AutoComplete) {
         "use strict";
 
-        var LICENSEE_12BET = 1;
-        var REPORT_BY_MONTHLY = 2;
         var VALID_MONTH_RANGE = 3;
         var _cacheData = [];
         var ajaxRequest = null;
@@ -153,7 +151,8 @@
 
             setReportTitle: function (currencyId, fromdate, todate, currencyName) {
                 var titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
-                var currencyNameOnTitle = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName) : Report.getCurrencyNameForReportTitle(currencyId);
+                var currencyNameOnTitle = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName)
+                                                        : Report.getCurrencyNameForReportTitle(currencyId);
                 var licenseeWLNote = jqGridAdditional.getLicenseeWLNote(_submitData.ProductOptions, _systemId);
                 licenseeWLNote = licenseeWLNote === '' ? '' : ', ' + licenseeWLNote;
 

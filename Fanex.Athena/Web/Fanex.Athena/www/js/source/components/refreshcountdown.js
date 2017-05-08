@@ -1,4 +1,6 @@
 ﻿define(['jquery', 'common/site', 'common/querystring', 'lib/jquery.cookie'], function ($, Site, QueryString) {
+    "use strict";
+
     var curCountDown = 0;
     var countDownTimer = null;
     var cookieName = null;

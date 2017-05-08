@@ -120,9 +120,9 @@
                 currencyList.push(currency);
                 var summaryData = summaryTotal[currency];
                 if (Array.isArray(summaryData)) {
-                    summaryData.forEach(function (item) {
+                    for (var item in summaryData) {
                         renderDataForSummaryTotalRow(item);
-                    });
+                    }
                 }
                 else {
                     renderDataForSummaryTotalRow(summaryData);

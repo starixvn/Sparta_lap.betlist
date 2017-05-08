@@ -14,7 +14,7 @@ var UpdateGroup = (function ($) {
     function isParentSameOrigin() {
         var sameOrigin;
         try {
-            sameOrigin = window.parent.location.host == window.location.host;
+            sameOrigin = window.parent.location.host === window.location.host;
         }
         catch (e) {
             sameOrigin = false;

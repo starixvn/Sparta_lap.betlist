@@ -1,4 +1,5 @@
 ﻿/*global Site, JSLINQ, LastBetGrid*/
+/*exported LastBetFilter*/
 
 "use strict";
 
