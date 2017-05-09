@@ -729,9 +729,9 @@ webpackJsonp([42],{
 	
 	            if (!touch) {
 	                // Add focusout event
-	                $this.on('mouseleave.closesub', '> li > .collapsible-body', function () {
+	                $this.on('mouseleave.closesub', '> li > .collapsible-body', function (e) {
 	                    var $header = $(this);
-	                    var temp = element.closest('li > .collapsible-body');
+	                    var temp = $(e.target).closest('li > .collapsible-body');
 	
 	                    var element = temp.parent().find('.collapsible-header');
 	

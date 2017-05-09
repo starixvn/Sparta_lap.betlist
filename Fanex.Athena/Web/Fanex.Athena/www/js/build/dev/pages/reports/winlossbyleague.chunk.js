@@ -20417,9 +20417,7 @@ webpackJsonp([54],[
 	                currencyList.push(currency);
 	                var summaryData = summaryTotal[currency];
 	                if (Array.isArray(summaryData)) {
-	                    for (var index in summaryData) {
-	                        renderDataForSummaryTotalRow(summaryData[index]);
-	                    }
+	                    summaryData.forEach(renderDataForSummaryTotalRow);
 	                }
 	                else {
 	                    renderDataForSummaryTotalRow(summaryData);
