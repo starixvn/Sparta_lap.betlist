@@ -1,4 +1,4 @@
-﻿// Generated at: 4/12/2017 1:29:58 PM
+﻿// Generated at: 5/9/2017 10:28:25 AM
 window._language_zh_CN = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -81,6 +81,7 @@ BySportsType:"根据运动类型",
 Cancel:"取消",
 CancelledBets:"已删除/作废注单",
 CancelledBetsTitle:"作废/已删除注单(3天纪录)",
+CashOutWinLoss:"即时兑现输赢",
 CASINOHANDHISTORY:"赌场下注历史",
 CasinoProgressiveWinsGuidelineContent:"此报告提供最新数据。您每次查询可以过滤最多12个月内的数据。",
 CasinoTransfer:"娱乐城的总转账额",
