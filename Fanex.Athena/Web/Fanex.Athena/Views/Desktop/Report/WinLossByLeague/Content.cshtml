@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="page-results">
+    <div class="breadCrumbHolder" id="level-link-container">
+        <div class="breadcrumb flat">
+            <a class="level level0 level-link" data-level="0" href="javascript:;">@ViewResources.Main</a>
+            <a class="level level1 level-link" data-level="1" href="javascript:;">@ViewResources.Licensee</a>
+            <a class="level level2" href="javascript:;">@ViewResources.Customer</a>
+        </div>
+    </div>
+    <div class="result-content">
+        <div class="panel-heading active hide">
+            <div class="panel-title">
+                <span class="report-title"></span>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="panel-body">
+                <div class="theme_jqGrid">
+                    <table id="ReportGrid" class="table"></table>
+
+                    <div id="ppdata">
+                    </div>
+                    <div id="footer" class="hide">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

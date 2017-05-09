@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -904,7 +904,11 @@
     <Content Include="Views\Desktop\Report\DailyRacingWinLoss\Content.TotalCommon.cshtml" />
     <Content Include="Views\Desktop\Report\DailyRacingWinLoss\Content.TotalCurrency.cshtml" />
     <Content Include="Views\Desktop\BetList\DailyRacingWl\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\WinLossByLeague\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\WinLossByLeague\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\WinLossByLeague\Main.cshtml" />
     <None Include="www\css\source\pages\report\turnover.scss" />
+    <None Include="www\css\source\pages\report\winlossbyleague.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlist.chunk.js" />
@@ -1078,6 +1082,9 @@
     <Content Include="www\js\source\pages\report\weeklylivematch\main-weeklylivematch.js" />
     <Content Include="www\js\source\pages\report\weeklylivematch\weeklylivematch.js" />
     <Content Include="www\js\source\pages\report\weeklylivematch\weeklylivematch.option.js" />
+    <Content Include="www\js\source\pages\report\winlossbyleague\main.js" />
+    <Content Include="www\js\source\pages\report\winlossbyleague\winlossbyleague.js" />
+    <Content Include="www\js\source\pages\report\winlossbyleague\winlossbyleague.option.js" />
     <Content Include="www\js\source\pages\report\winlossbyproduct\main-winlossbyproduct.js" />
     <Content Include="www\js\source\pages\report\winlossbyproduct\winlossbyproduct.js" />
     <Content Include="www\js\source\pages\report\winlossbyproduct\winlossbyproduct.option.js" />
@@ -4610,7 +4617,6 @@
     <Content Include="Content\Plugin\Common\images\Chevron.gif" />
     <Content Include="Content\Global\images\collapse_expand_sprites.png" />
     <Content Include="Content\Report\playtechcasino.css" />
-    <Content Include="Content\Report\winlossbyleague.css" />
     <Content Include="Content\SignIn\images\bg-loop.png" />
     <Content Include="Content\SignIn\images\bg-main.png" />
     <Content Include="Content\SignIn\images\bg.png" />

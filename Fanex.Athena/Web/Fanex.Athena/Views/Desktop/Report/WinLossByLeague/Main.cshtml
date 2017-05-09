@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.WinLossByLeague;
+    Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
+}
+
+
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/winlossbyleague.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/winlossbyleague.chunk.js")"></script>
+}
+
+@section Filter{
+    @{
+        Html.RenderPartial("~/Views/Desktop/Report/WinLossByLeague/Filter.cshtml");
+    }
+}
+
+@section Content{
+    @{
+        Html.RenderPartial("~/Views/Desktop/Report/WinLossByLeague/Content.cshtml");
+    }
+}
