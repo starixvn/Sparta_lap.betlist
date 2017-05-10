@@ -1,0 +1,81 @@
+﻿@using Fanex.Athena.Model.Core.DataDomain
+@model Fanex.Athena.Model.Report.ViewModel.PlatformWinLossViewModel
+@{
+    Layout = null;
+    var appSettings = new AppSettings();
+    var platformList = new Dictionary<int, string>
+    {
+        {PlatformType.Asia, ViewResources.Asia},
+        {PlatformType.NewAsia, ViewResources.NewAsia},
+        {PlatformType.Euro, ViewResources.Euro},
+        {PlatformType.Wap, ViewResources.Wap},
+        {PlatformType.SmartSite, ViewResources.SmartSite}
+    };
+}
+
+<div class="page-form">
+    <form id="platformwinloss" name="platformwinloss" method="post" action="">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            @RazorHelperDesktop.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
+            <div class="input-field col l2 m2 s12">
+                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true)
+                <label>@ViewResources.Currency</label>
+            </div>
+            <div class="input-field col l2 m2 s12">
+                @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                <label>@ViewResources.Based</label>
+            </div>
+            <div class="input-field col l2 m2 s12">
+                @RazorHelperDesktop.PlatformList(platformList, Model.Param.CurrencyId)
+                <label>@ViewResources.Platform</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field input col l4 m4 s12">
+                <input type="radio" value="1" class="with-gap" @(Model.Param.DrawFilter == DrawFilterType.Normal ? "checked=checked" : "") name="DrawFilter" id="DrawFilter" />
+                <label for="DrawFilter">
+                    @ViewResources.Normal
+                </label>
+                <input type="radio" value="2" class="with-gap" @(Model.Param.DrawFilter == DrawFilterType.NoDraws ? "checked=checked" : "") name="DrawFilter" id="DrawFilterNoDraw" />
+                <label for="DrawFilterNoDraw">
+                    @ViewResources.NoDraws
+                </label>
+                <input type="radio" value="3" class="with-gap" @(Model.Param.DrawFilter == DrawFilterType.NoDrawsForTurnoverOnly ? "checked=checked" : "") name="DrawFilter" id="DrawFilterNoDrawsForTurnoverOnly" />
+                <label for="DrawFilterNoDrawsForTurnoverOnly">
+                    @ViewResources.NoDrawsForTurnoverOnly
+                </label>
+
+                <label class="active">@ViewResources.DrawFilter</label>
+            </div>
+            <div class="input-field input col l2 m2 s12">
+                <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludeTest == true ? "checked=checked" : "") name="IsExcludeTest" id="IsExcludeTest0" />
+                <label for="IsExcludedTestData0">
+                    @ViewResources.Yes
+                </label>
+                <input type="radio" class="with-gap" value="false" @(Model.Param.IsExcludeTest == false ? "checked=checked" : "") name="IsExcludeTest" id="IsExcludeTest1" />
+                <label for="IsExcludedTestData1">
+                    @ViewResources.No
+                </label>
+
+                <label class="active">@ViewResources.ExcludeTestData</label>
+            </div>
+            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions)
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="platform-data-info">
+                    <span class="circle"></span> Platform data is available from 27 Feb 2016.
+                </div>
+            </div>
+            <div class="col l2 m2 s12 button-block">
+                <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+            </div>
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
+        </div>
+        <input type="hidden" id="MaxDate" value="@appSettings.MaxDate.ToString("yyyy/M/d")" />
+    </form>
+</div>

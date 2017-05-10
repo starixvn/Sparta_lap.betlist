@@ -42,7 +42,8 @@ var cssPaths = {
     winlossbyproduct: ["./www/css/source/pages/report/winlossbyproduct.scss"],
     dailyracingwinloss: ["./www/css/source/pages/report/dailyracingwinloss.scss"],
     winlossbyleague: ["./www/css/source/pages/report/winlossbyleague.scss"],
-    matchwinloss: ["./www/css/source/pages/report/matchwinloss.scss"]
+    matchwinloss: ["./www/css/source/pages/report/matchwinloss.scss"],
+    platformwinloss: ["./www/css/source/pages/report/platformwinloss.scss"]
 };
 
 var scriptPaths = {
@@ -87,7 +88,8 @@ var scriptPaths = {
     winlossbyproduct: "./www/js/source/pages/report/winlossbyproduct/main-winlossbyproduct.js",
     dailyracingwinloss: "./www/js/source/pages/report/dailyracingwinloss/main-dailyracingwinloss.js",
     winlossbyleague: "./www/js/source/pages/report/winlossbyleague/main.js",
-    matchwinloss: "./www/js/source/pages/report/matchwinloss/main.js"
+    matchwinloss: "./www/js/source/pages/report/matchwinloss/main.js",
+    platformwinloss: "./www/js/source/pages/report/platformwinloss/main-platformwinloss.js"
 };
 
 module.exports = {

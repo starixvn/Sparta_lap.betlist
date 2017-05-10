@@ -916,6 +916,10 @@
     <Content Include="Views\Desktop\Report\MatchWinLoss\Content.GrandTotal.cshtml" />
     <Content Include="Views\Desktop\Report\MatchWinLoss\Content.Total.cshtml" />
     <Content Include="www\css\source\pages\report\matchwinloss.scss" />
+    <Content Include="Views\Desktop\Report\PlatformWinLoss\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\PlatformWinLoss\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\PlatformWinLoss\Filter.cshtml" />
+    <Content Include="www\css\source\pages\report\platformwinloss.scss" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <None Include="www\css\source\pages\report\winlossbyleague.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
@@ -1080,6 +1084,9 @@
     <Content Include="www\js\source\pages\report\licenseewinloss\main.js" />
     <Content Include="www\js\source\pages\report\matchwinloss\main.js" />
     <Content Include="www\js\source\pages\report\matchwinloss\matchwinloss.js" />
+    <Content Include="www\js\source\pages\report\platformwinloss\main-platformwinloss.js" />
+    <Content Include="www\js\source\pages\report\platformwinloss\platformwinloss.js" />
+    <Content Include="www\js\source\pages\report\platformwinloss\platformwinloss.option.js" />
     <Content Include="www\js\source\pages\report\racingcommission\main-racingcommission.js" />
     <Content Include="www\js\source\pages\report\racingcommission\racingcommission.js" />
     <Content Include="www\js\source\pages\report\report.js" />
