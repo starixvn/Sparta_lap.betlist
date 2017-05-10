@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = null;
+    Layout = null;
+}
+
+@model Fanex.Athena.Model.Report.ViewModel.MatchWinLossViewModel
+
+@{
+    var matchWinlossList = Model.MainResult;
+    var productAccess = Model.ProductAccess;
+
+    foreach (var matchWinloss in matchWinlossList)
+    {
+        <tr>
+            <td class="bet-type">
+                <a href="javascript:;" class="bet-list-link" data-bettype="@matchWinloss.BetType" data-islive="@(matchWinloss.IsLive ? "1" : "0")">
+                    @matchWinloss.BettypeName
+                </a>
+            </td>
+            <td class="right-align">
+                @NumberHelper.DecFormat(matchWinloss.Turnover, 2)
+            </td>
+            <td class="right-align">
+                @matchWinloss.TotalTransaction.ToString("#,###")
+            </td>
+
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <td class="right-align">
+                    @NumberHelper.DecFormat(matchWinloss.CustomerWL, 2)
+                </td>
+                <td class="right-align">
+                    @NumberHelper.DecFormat(matchWinloss.CustomerComm, 2)
+                </td>
+                <td class="right-align">
+                    @NumberHelper.DecFormat(matchWinloss.CustomerWL + matchWinloss.CustomerComm, 2)
+                </td>
+            }
+            else
+            {
+                <td class="right-align">
+                    @NumberHelper.DecFormat(matchWinloss.CustomerWL, 2)
+                </td>
+            }
+            <td class="right-align">
+                @RazorHelperDesktop.NegativeFormat(matchWinloss.LicenseeWL)
+            </td>
+            @if (Model.ProductAccess.IsAllowBA)
+            {
+                <td class="right-align">
+                    @RazorHelperDesktop.NegativeFormat(matchWinloss.BACommission)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowRB)
+            {
+                <td class="right-align">
+                    @RazorHelperDesktop.NegativeFormat(matchWinloss.RacingRevenue)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowBA)
+            {
+                <td class="right-align">
+                    @NumberHelper.DecFormat(matchWinloss.AmtDueToBA, 2)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowRB)
+            {
+                <td class="right-align">
+                    @NumberHelper.DecFormat(matchWinloss.AmtDueToRacing, 2)
+                </td>
+            }
+        </tr>
+    }
+}

@@ -1,0 +1,67 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.MatchWinLossViewModel
+@{
+    var dataList = Model.MainResult;
+    var dataListOutright = Model.SpecialBetTypeResult;
+
+    if (dataList.Count > 0)
+    {
+        var dataGrandTotal = Model.GrandTotal;
+        <tr>
+            <td colspan="2">
+                @ViewResources.GrandTotal
+            </td>
+            <td class="right-align text-bold">
+                @NumberHelper.DecFormat(dataGrandTotal.Turnover)
+            </td>
+            <td class="right-align text-bold">
+                @dataGrandTotal.TotalTransaction.ToString("#,###")
+            </td>
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(dataGrandTotal.CustomerWL)
+                </td>
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(dataGrandTotal.CustomerComm)
+                </td>
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(dataGrandTotal.CustomerWL + dataGrandTotal.CustomerComm)
+                </td>
+            }
+            else
+            {
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(dataGrandTotal.CustomerWL)
+                </td>
+            }
+
+            <td class="right-align text-bold">
+                @RazorHelperDesktop.NegativeFormat(dataGrandTotal.LicenseeWL)
+            </td>
+            @if (Model.ProductAccess.IsAllowBA)
+            {
+                <td class="right-align text-bold">
+                    @RazorHelperDesktop.NegativeFormat(dataGrandTotal.BACommission)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowRB)
+            {
+                <td class="right-align text-bold">
+                    @RazorHelperDesktop.NegativeFormat(dataGrandTotal.RacingRevenue)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowBA)
+            {
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(@dataGrandTotal.AmtDueToBA)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowRB)
+            {
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(@dataGrandTotal.AmtDueToRacing)
+                </td>
+            }
+        </tr>
+    }
+}

@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -907,6 +907,15 @@
     <Content Include="Views\Desktop\Report\WinLossByLeague\Content.cshtml" />
     <Content Include="Views\Desktop\Report\WinLossByLeague\Filter.cshtml" />
     <Content Include="Views\Desktop\Report\WinLossByLeague\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\MatchWinLoss\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\MatchWinLoss\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\MatchWinLoss\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\MatchWinLoss\Content.Header.cshtml" />
+    <Content Include="Views\Desktop\Report\MatchWinLoss\Content.Data.cshtml" />
+    <Content Include="Views\Desktop\Report\MatchWinLoss\Content.Data.Detail.cshtml" />
+    <Content Include="Views\Desktop\Report\MatchWinLoss\Content.GrandTotal.cshtml" />
+    <Content Include="Views\Desktop\Report\MatchWinLoss\Content.Total.cshtml" />
+    <Content Include="www\css\source\pages\report\matchwinloss.scss" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <None Include="www\css\source\pages\report\winlossbyleague.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
@@ -1069,6 +1078,8 @@
     <Content Include="www\js\source\pages\report\licenseewinloss\licenseewinloss.js" />
     <Content Include="www\js\source\pages\report\licenseewinloss\licenseewinloss.option.js" />
     <Content Include="www\js\source\pages\report\licenseewinloss\main.js" />
+    <Content Include="www\js\source\pages\report\matchwinloss\main.js" />
+    <Content Include="www\js\source\pages\report\matchwinloss\matchwinloss.js" />
     <Content Include="www\js\source\pages\report\racingcommission\main-racingcommission.js" />
     <Content Include="www\js\source\pages\report\racingcommission\racingcommission.js" />
     <Content Include="www\js\source\pages\report\report.js" />

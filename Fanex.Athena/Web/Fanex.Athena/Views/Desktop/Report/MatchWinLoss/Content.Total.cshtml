@@ -1,0 +1,131 @@
+﻿@using Fanex.Athena.Model.Core.Helper
+@model Fanex.Athena.Model.Report.ViewModel.MatchWinLossViewModel
+@{
+    var dataTotal = Model.Total;
+
+    if (Model.MainResult.Count > 0)
+    {
+        <tr>
+            <td colspan="2" class="right-align text-bold">
+                @ViewResources.Total
+            </td>
+            <td class="right-align text-bold">
+                @NumberHelper.DecFormat(@dataTotal.Turnover)
+            </td>
+            <td class="right-align text-bold">
+                @dataTotal.TotalTransaction.ToString("#,###")
+            </td>
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(@dataTotal.CustomerWL)
+                </td>
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(@dataTotal.CustomerComm)
+                </td>
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(@dataTotal.CustomerWL + @dataTotal.CustomerComm)
+                </td>
+            }
+            else
+            {
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(@dataTotal.CustomerWL)
+                </td>
+            }
+            <td class="right-align text-bold">
+                @RazorHelperDesktop.NegativeFormat(dataTotal.LicenseeWL)
+            </td>
+
+            @if (Model.ProductAccess.IsAllowBA)
+                {
+                <td class="right-align text-bold">
+                    @RazorHelperDesktop.NegativeFormat(dataTotal.BACommission)
+                </td>
+            }
+
+            @if (Model.ProductAccess.IsAllowRB)
+            {
+                <td class="right-align text-bold">
+                    @RazorHelperDesktop.NegativeFormat(dataTotal.RacingRevenue)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowBA)
+            {
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(@dataTotal.AmtDueToBA, 2)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowRB)
+            {
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(@dataTotal.AmtDueToRacing, 2)
+                </td>
+            }
+        </tr>
+    }
+
+    var dataListOutright = Model.SpecialBetTypeResult;
+    // Display information for outright and mixparlay
+    foreach (var itemOutRight in dataListOutright)
+    {
+        <tr>
+            <td colspan="2">
+                <a href="javascript:;" class="outright-link" data-bettype="@itemOutRight.BetType" onclick="MatchWinLoss.viewOutrightMixParlay(@itemOutRight.BetType)">
+                    @CacheRef.GetBettype(itemOutRight.BetType)
+                </a>
+            </td>
+            <td class="right-align">
+                @NumberHelper.DecFormat(itemOutRight.Turnover)
+            </td>
+            <td class="right-align">
+                @itemOutRight.TotalTransaction.ToString("#,###")
+            </td>
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <td class="right-align">
+                    @NumberHelper.DecFormat(itemOutRight.CustomerWL)
+                </td>
+                            <td class="right-align">
+                                @NumberHelper.DecFormat(itemOutRight.CustomerComm)
+                            </td>
+                            <td class="right-align">
+                                @NumberHelper.DecFormat(itemOutRight.CustomerWL + itemOutRight.CustomerComm)
+                            </td>
+            }
+            else
+            {
+                <td class="right-align">
+                    @NumberHelper.DecFormat(itemOutRight.CustomerWL)
+                </td>
+            }
+            <td class="right-align">
+                @RazorHelperDesktop.NegativeFormat(itemOutRight.LicenseeWL)
+            </td>
+            @if (Model.ProductAccess.IsAllowBA)
+            {
+                <td class="right-align">
+                    @RazorHelperDesktop.NegativeFormat(itemOutRight.BACommission)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowRB)
+            {
+                <td class="right-align">
+                    @RazorHelperDesktop.NegativeFormat(itemOutRight.RacingRevenue)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowBA)
+            {
+                <td class="right-align">
+                    @NumberHelper.DecFormat(itemOutRight.AmtDueToBA)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowRB)
+            {
+                <td class="right-align">
+                    @NumberHelper.DecFormat(itemOutRight.AmtDueToRacing)
+                </td>
+            }
+        </tr>
+    }
+}

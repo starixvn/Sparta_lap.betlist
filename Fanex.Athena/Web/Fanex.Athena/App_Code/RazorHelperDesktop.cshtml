@@ -2,6 +2,7 @@
 @using Fanex.Athena.Extension.Helper;
 @using Fanex.Athena.Model.Core.MetaModel.Product;
 @using Fanex.Athena.Model.Core.DataDomain;
+@using Fanex.Athena.Model.Core.DTO.Common;
 @using Fanex.Athena.Resources;
 
 @helper DateRangePicker(DateTime fromDate, DateTime toDate, DateTime minDate, DateTime maxDate) {
@@ -408,4 +409,20 @@ if (toDate != null)
     </label>
 
     <label class="active">@ViewResources.ExcludeTestData</label>
+}
+
+@helper TitleLicenseeWLPrefix(IEnumerable<ProductOption> productOptions)
+{
+    var productOptionTitleList = productOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
+    var productText = string.Empty;
+    foreach (var product in productOptionTitleList)
+    {
+        if (product.Status)
+        {
+            productText += string.IsNullOrEmpty(productText) ? product.Code : ", " + product.Code;
+        }
+    }
+    productText = string.IsNullOrEmpty(productText) ? string.Empty : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, productText);
+
+    @productText
 }
