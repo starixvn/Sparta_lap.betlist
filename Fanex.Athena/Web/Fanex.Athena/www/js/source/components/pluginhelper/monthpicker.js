@@ -1,11 +1,12 @@
 ﻿define(["jquery", "lib/jquery.monthpicker"],
     function ($) {
         "use strict";
+        var PICKER_SELECTOR = "#month-picker";
 
         var _historyDate = new Date($("#HistoryDate").val());
 
         function initMonthPicker(option) {
-            var $picker = $('#month-picker');
+            var $picker = $(PICKER_SELECTOR);
             var $fromDate = $('#FromDate');
             var $todate = $('#ToDate');
 
@@ -28,6 +29,9 @@
                 afterChangeDay: function () {
                     $fromDate.val($picker.monPickr("getFromDate", "MM/dd/yyyy"));
                     $todate.val($picker.monPickr("getToDate", "MM/dd/yyyy"));
+                    if (typeof (option.customAfterChangeDay) === "function") {
+                        option.customAfterChangeDay();
+                    }
                 }
             };
 
@@ -38,7 +42,17 @@
             $picker.monPickr(defaultOption);
         }
 
+        function getFromDateString() {
+            return $(PICKER_SELECTOR).monPickr("getFromDate", "dd MMM yyyy");
+        }
+
+        function getToDateString() {
+            return $(PICKER_SELECTOR).monPickr("getToDate", "dd MMM yyyy");
+        }
+
         return {
-            initMonthPicker: initMonthPicker
+            initMonthPicker: initMonthPicker,
+            getFromDateString: getFromDateString,
+            getToDateString: getToDateString
         };
     });
