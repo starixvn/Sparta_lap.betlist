@@ -356,7 +356,8 @@ namespace Fanex.Athena.Controllers.Report
                 IsOutright = metalModel.IsOutRight.HasValue && metalModel.IsOutRight.Value > 0,
                 IsParlayPopUp = metalModel.Bettype == 9 || metalModel.Bettype == 29,
                 IsPopUp = true,
-                LanguageCode = SessionService.UserSession.Language
+                LanguageCode = SessionService.UserSession.Language,
+                EnableCheckScoreCalculated = IsCheckScoreCalculated(sportType)
             };
 
             if (setting.IsParlayPopUp)
@@ -618,12 +619,13 @@ namespace Fanex.Athena.Controllers.Report
             var sportType = (SportType)metalModel.SportId;
             var setting = new ResultSetting
             {
-                SportType = (SportType)metalModel.SportId,
+                SportType = sportType,
                 ExcelTitle = ViewResources.Result,
                 ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
                 LanguageCode = SessionService.UserSession.Language,
                 VisibleDetailedLink = true,
-                VisibleFreeHeader = true
+                VisibleFreeHeader = true,
+                EnableCheckScoreCalculated = IsCheckScoreCalculated(sportType)
             };
             switch (sportType)
             {
@@ -746,6 +748,10 @@ namespace Fanex.Athena.Controllers.Report
             };
         }
 
+        private bool IsCheckScoreCalculated(SportType sportType)
+        {
+            return sportType == SportType.Soccer;
+        }
         #endregion Utilities
     }
 }
