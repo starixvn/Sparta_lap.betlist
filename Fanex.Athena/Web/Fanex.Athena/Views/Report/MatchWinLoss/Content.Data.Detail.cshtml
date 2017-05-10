@@ -14,9 +14,9 @@
     {
     <tr class="expand">
         <td class="bet-type">
-            <a href="javascript:;" class="bet-list-link" data-bettype="@matchWinloss.BetType" data-islive="@(matchWinloss.IsLive ? "1" : "0")">
+            <span class="downline-link" data-bettype="@matchWinloss.BetType" data-islive="@(matchWinloss.IsLive ? "1" : "0")">
                @matchWinloss.BettypeName
-            </a>
+            </span>
         </td>
         <td>
             @NumberHelper.DecFormat(matchWinloss.Turnover, 2)

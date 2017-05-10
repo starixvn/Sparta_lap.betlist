@@ -16494,11 +16494,12 @@ webpackJsonp([48],[
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(244)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	        "use strict";
+	        var PICKER_SELECTOR = "#month-picker";
 	
 	        var _historyDate = new Date($("#HistoryDate").val());
 	
 	        function initMonthPicker(option) {
-	            var $picker = $('#month-picker');
+	            var $picker = $(PICKER_SELECTOR);
 	            var $fromDate = $('#FromDate');
 	            var $todate = $('#ToDate');
 	
@@ -16521,6 +16522,9 @@ webpackJsonp([48],[
 	                afterChangeDay: function () {
 	                    $fromDate.val($picker.monPickr("getFromDate", "MM/dd/yyyy"));
 	                    $todate.val($picker.monPickr("getToDate", "MM/dd/yyyy"));
+	                    if (typeof (option.customAfterChangeDay) === "function") {
+	                        option.customAfterChangeDay();
+	                    }
 	                }
 	            };
 	
@@ -16531,8 +16535,18 @@ webpackJsonp([48],[
 	            $picker.monPickr(defaultOption);
 	        }
 	
+	        function getFromDateString() {
+	            return $(PICKER_SELECTOR).monPickr("getFromDate", "dd MMM yyyy");
+	        }
+	
+	        function getToDateString() {
+	            return $(PICKER_SELECTOR).monPickr("getToDate", "dd MMM yyyy");
+	        }
+	
 	        return {
-	            initMonthPicker: initMonthPicker
+	            initMonthPicker: initMonthPicker,
+	            getFromDateString: getFromDateString,
+	            getToDateString: getToDateString
 	        };
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
