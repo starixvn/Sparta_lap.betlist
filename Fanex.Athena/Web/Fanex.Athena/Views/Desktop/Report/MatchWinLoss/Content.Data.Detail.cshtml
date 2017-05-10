@@ -11,8 +11,8 @@
 
     foreach (var matchWinloss in matchWinlossList)
     {
-        <tr>
-            <td class="bet-type">
+        <tr class="expanding-row">
+            <td>
                 <a href="javascript:;" class="bet-list-link" data-bettype="@matchWinloss.BetType" data-islive="@(matchWinloss.IsLive ? "1" : "0")">
                     @matchWinloss.BettypeName
                 </a>

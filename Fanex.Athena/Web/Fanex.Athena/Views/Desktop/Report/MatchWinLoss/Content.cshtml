@@ -59,7 +59,7 @@
                     <table class="table">
                         <thead>
                             @RenderFirstRow()
-                            @{ Html.RenderPartial("~/Views/Desktop/Report/MatchWinLoss/Content.Header.cshtml", Model); }
+                            @{ Html.RenderPartial("~/Views/Desktop/Report/MatchWinLoss/Content.Header.cshtml"); }
                         </thead>
                     </table>
                 </div>
@@ -68,7 +68,7 @@
                     <table class="table">
                         <tbody>
                             @RenderFirstRow()
-                            @{ Html.RenderPartial("~/Views/Desktop/Report/MatchWinLoss/Content.Data.cshtml", Model); }
+                            @{ Html.RenderPartial("~/Views/Desktop/Report/MatchWinLoss/Content.Data.cshtml"); }
                         </tbody>
                     </table>
                 </div>
@@ -83,13 +83,13 @@
                                     Html.RenderPartial("~/Views/Desktop/Report/MatchWinLoss/Content.Total.cshtml");
                                 }
 
-                                Html.RenderPartial("~/Views/Desktop/Report/MatchWinLoss/Content.GrandTotal.cshtml", Model);
+                                Html.RenderPartial("~/Views/Desktop/Report/MatchWinLoss/Content.GrandTotal.cshtml");
                             }
                         </tbody>
 
                     </table>
                 </div>
-                                }
+            }
         </div>
     </div>
 </div>

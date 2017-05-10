@@ -14,12 +14,12 @@
 }
 @section Filter
 {
-    @Html.Partial("~/Views/Desktop/Report/MatchWinLoss/Filter.cshtml", Model)
+    @{ Html.RenderPartial("~/Views/Desktop/Report/MatchWinLoss/Filter.cshtml"); }
 }
 @section Content
 {
     @if (!Model.ShowEmptyContent)
     {
-        Html.Partial("~/Views/Desktop/Report/MatchWinLoss/Content.cshtml");
+        Html.RenderPartial("~/Views/Desktop/Report/MatchWinLoss/Content.cshtml");
     }
 }

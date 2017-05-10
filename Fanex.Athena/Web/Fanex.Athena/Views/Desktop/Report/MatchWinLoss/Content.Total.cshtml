@@ -6,7 +6,7 @@
     if (Model.MainResult.Count > 0)
     {
         <tr>
-            <td colspan="2" class="right-align text-bold">
+            <td colspan="2" class="text-bold">
                 @ViewResources.Total
             </td>
             <td class="right-align text-bold">
@@ -70,59 +70,59 @@
     foreach (var itemOutRight in dataListOutright)
     {
         <tr>
-            <td colspan="2">
-                <a href="javascript:;" class="outright-link" data-bettype="@itemOutRight.BetType" onclick="MatchWinLoss.viewOutrightMixParlay(@itemOutRight.BetType)">
+            <td colspan="2" class="text-bold">
+                <a href="javascript:;" class="outright-link" data-bettype="@itemOutRight.BetType">
                     @CacheRef.GetBettype(itemOutRight.BetType)
                 </a>
             </td>
-            <td class="right-align">
+            <td class="right-align text-bold">
                 @NumberHelper.DecFormat(itemOutRight.Turnover)
             </td>
-            <td class="right-align">
+            <td class="right-align text-bold">
                 @itemOutRight.TotalTransaction.ToString("#,###")
             </td>
             @if (Model.IsAllowedCustomerCommission)
             {
-                <td class="right-align">
+                <td class="right-align text-bold">
                     @NumberHelper.DecFormat(itemOutRight.CustomerWL)
                 </td>
-                            <td class="right-align">
+                            <td class="right-align text-bold">
                                 @NumberHelper.DecFormat(itemOutRight.CustomerComm)
                             </td>
-                            <td class="right-align">
+                            <td class="right-align text-bold">
                                 @NumberHelper.DecFormat(itemOutRight.CustomerWL + itemOutRight.CustomerComm)
                             </td>
             }
             else
             {
-                <td class="right-align">
+                <td class="right-align text-bold">
                     @NumberHelper.DecFormat(itemOutRight.CustomerWL)
                 </td>
             }
-            <td class="right-align">
+            <td class="right-align text-bold">
                 @RazorHelperDesktop.NegativeFormat(itemOutRight.LicenseeWL)
             </td>
             @if (Model.ProductAccess.IsAllowBA)
             {
-                <td class="right-align">
+                <td class="right-align text-bold">
                     @RazorHelperDesktop.NegativeFormat(itemOutRight.BACommission)
                 </td>
             }
             @if (Model.ProductAccess.IsAllowRB)
             {
-                <td class="right-align">
+                <td class="right-align text-bold">
                     @RazorHelperDesktop.NegativeFormat(itemOutRight.RacingRevenue)
                 </td>
             }
             @if (Model.ProductAccess.IsAllowBA)
             {
-                <td class="right-align">
+                <td class="right-align text-bold">
                     @NumberHelper.DecFormat(itemOutRight.AmtDueToBA)
                 </td>
             }
             @if (Model.ProductAccess.IsAllowRB)
             {
-                <td class="right-align">
+                <td class="right-align text-bold">
                     @NumberHelper.DecFormat(itemOutRight.AmtDueToRacing)
                 </td>
             }

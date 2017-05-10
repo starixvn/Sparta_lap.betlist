@@ -48,14 +48,14 @@
             {
                 if (homeName.Length > maxLength)
                 {
-                    homeName = String.Format("<span title='{0}'>{1}",
+                    homeName = String.Format("<span title='{0}'>{1}</span>",
                         homeName.Replace("'", "&#39;"),
                         HttpUtility.HtmlEncode(homeName.Substring(0, maxLength - 3)) + "...");
                 }
 
                 if (awayName.Length > maxLength)
                 {
-                    awayName = String.Format("<span title='{0}'>{1}",
+                    awayName = String.Format("<span title='{0}'>{1}</span>",
                         awayName.Replace("'", "&#39;"),
                         HttpUtility.HtmlEncode(awayName.Substring(0, maxLength - 3)) + "...");
                 }
@@ -79,69 +79,67 @@
 
             <td>
                 <div class="match-container">
-                    <span class="match-name @(productName.Equals(Product.SB) ? "match-link" : null)" data-islive="@(matchWinLoss.IsLive ? "1" : "0")">
+                    <span class="match-name text-bold cell @(productName.Equals(Product.SB) ? "bet-list-link" : null)" data-islive="@(matchWinLoss.IsLive ? "1" : "0")">
                         @(new HtmlString(matchName))
                     </span>
 
-                    <div class="icon-wrapper">
-                        <span href="#" class="icon-expand view-match-detail"></span>
-                    </div>
+                    <a href="javascript:;" class="icon-wrapper cell view-match-detail"><i class="icon-arrow"></i></a>
                 </div>
             </td>
 
-            <td class="right-align">
+            <td class="right-align text-bold">
                 @NumberHelper.DecFormat(matchWinLoss.Turnover)
             </td>
-            <td class="right-align">
+            <td class="right-align text-bold">
                 @matchWinLoss.TotalTransaction.ToString("#,###")
             </td>
 
             @if (Model.IsAllowedCustomerCommission)
             {
-                <td class="right-align">
+                <td class="right-align text-bold">
                     @NumberHelper.DecFormat(matchWinLoss.CustomerWL)
                 </td>
-                <td class="right-align">
+                <td class="right-align text-bold">
                     @NumberHelper.DecFormat(matchWinLoss.CustomerComm)
                 </td>
-                    <td class="right-align">
+                    <td class="right-align text-bold">
                         @NumberHelper.DecFormat(matchWinLoss.CustomerWL + matchWinLoss.CustomerComm)
                     </td>
             }
             else
             {
-                <td class="right-align">
+                <td class="right-align text-bold">
                     @NumberHelper.DecFormat(matchWinLoss.CustomerWL)
                 </td>
             }
-            <td class="right-align">
+            <td class="right-align text-bold">
                 @RazorHelperDesktop.NegativeFormat(matchWinLoss.LicenseeWL)
             </td>
 
             @{
                 if (Model.ProductAccess.IsAllowBA)
                 {
-                    <td class="right-align">
+                    <td class="right-align text-bold">
                         @RazorHelperDesktop.NegativeFormat(matchWinLoss.BACommission)
                     </td>
                 }
             }
             @if (Model.ProductAccess.IsAllowRB)
             {
-                <td class="right-align">
+                <td class="right-align text-bold">
                     @RazorHelperDesktop.NegativeFormat(matchWinLoss.RacingRevenue)
                     @string.Empty
                 </td>
             }
             @if (Model.ProductAccess.IsAllowBA)
             {
-                <td class="right-align">
+                <td class="right-align text-bold">
                     @NumberHelper.DecFormat(matchWinLoss.AmtDueToBA)
                 </td>
             }
             @if (Model.ProductAccess.IsAllowRB)
             {
-                <td class="right-align">
+                <td class="right-align text-bold">
                     @NumberHelper.DecFormat(matchWinLoss.AmtDueToRacing)
                 </td>
             }
