@@ -149,19 +149,25 @@ var Site = (function ($) {
             $("body").prepend('<div id="UserGuidePopup" style="display: none" ></div>');
             var url = Site.resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName) + "&_" + (new Date().getTime());
             var popup;
+            var popupRendered = false;
+
             $(options.buttonSelector).click(function () {
-                var $userGuidePopup = $("#UserGuidePopup");
+                var $userGuidePopup = $("#UserGuidePopup");              
+
                 if ($userGuidePopup.is(":visible")) {
                     return;
                 }
 
                 if (!popup) {
                     $userGuidePopup.empty().attr('style', '').hide()
-                        .load(url, function (response, status) {
+                        .load(url, function (response, status) {               
                             if (status === "success") {
                                 setTimeout(function () {
-                                    popup = $userGuidePopup.flatPopup(options);
-                                    popup.show();
+                                    if (popupRendered === false) {
+                                        popup = $userGuidePopup.flatPopup(options);
+                                        popupRendered = true;
+                                        popup.show();
+                                    }                                 
                                 }, 50);
                             } else {
                                 $userGuidePopup.hide();
