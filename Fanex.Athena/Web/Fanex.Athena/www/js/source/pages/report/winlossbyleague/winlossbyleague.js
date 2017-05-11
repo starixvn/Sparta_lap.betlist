@@ -1,7 +1,7 @@
 ﻿define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid.additional", "./winlossbyleague.option", "moment", "common/popup",
-     "components/pluginhelper/monthpicker", "../report", "components/pluginhelper/multiselect", "components/pluginhelper/autocomplete",
+     "components/pluginhelper/monthpicker", "../report", "components/pluginhelper/multiselect",
     "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, moment, Popup, MonthPicker, Report, MultiSelect, AutoComplete) {
+    function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, moment, Popup, MonthPicker, Report, MultiSelect) {
         "use strict";
 
         var ajaxRequest = null;
@@ -113,7 +113,7 @@
             },
             //#region Init
             initialize: function () {
-                Site.initialize()
+                Site.initialize();
                 _me.initEvent();
                 _me.initSetting();
                 MultiSelect.initialize('grid-products-multiselect', $("#ProductOptionJson").val(), 'Code', 'Name', 'Status');
@@ -239,7 +239,6 @@
 
                 var currencyStr = viewinKey + " " + (_postdata.BaseCurrency === "" ? _currencyName : _postdata.BaseCurrency);
                 var minOddStr = Site.getSingleResource("MinimumOdds") + " : " + minOdds;
-                console.log(fromdate)
                 var title = $.format(titlePattern, moment(fromdate).format("M/DD/YYYY"), moment(todate).format("M/DD/YYYY"), currencyStr, minOddStr);
                 _postdata.ReportTitle = title;
                 $(".report-title").html(title);

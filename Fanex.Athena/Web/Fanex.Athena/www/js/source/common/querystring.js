@@ -1,5 +1,5 @@
 ﻿/// <reference path="/@JSense.js" />
-define(['jquery'], function ($) {
+define([], function () {
     "use strict";
 
     function getQueryString(url) {
