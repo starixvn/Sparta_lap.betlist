@@ -6,6 +6,10 @@
 
 namespace Fanex.Athena.Controllers.Forecast
 {
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Web.Mvc;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Service.Core.Helpers;
@@ -15,10 +19,6 @@ namespace Fanex.Athena.Controllers.Forecast
     using Model.Forecast.ViewModel;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Web.Mvc;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
