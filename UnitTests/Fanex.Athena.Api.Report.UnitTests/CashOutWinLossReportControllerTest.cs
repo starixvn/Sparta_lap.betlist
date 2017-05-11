@@ -441,14 +441,18 @@
 
         private void CreateSession()
         {
-            var userSession = new UserSession();
-            userSession.CurrencyList = new Dictionary<int, string>
+            var userSession = new UserSession
+            {
+                CurrencyList = new Dictionary<int, string>
             {
                 { -1, "EUR" }, { -2, "USD" }
+            }
             };
 
-            var licenseeSession = new LicenseeSession();
-            licenseeSession.LicenseeId = 1;
+            var licenseeSession = new LicenseeSession
+            {
+                LicenseeId = 1
+            };
 
             _sessionService.UserSession.Returns(userSession);
             _sessionService.LicenseeSession.Returns(licenseeSession);
