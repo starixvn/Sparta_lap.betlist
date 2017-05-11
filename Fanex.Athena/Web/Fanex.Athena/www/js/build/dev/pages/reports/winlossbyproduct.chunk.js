@@ -14550,7 +14550,7 @@ webpackJsonp([59],[
 	                $(".theme_jqGrid .ui-jqgrid-hdiv table.ui-jqgrid-htable").css("width", tableWidth + "px");
 	                $(".theme_jqGrid .ui-jqgrid-sdiv table.ui-jqgrid-ftable").css("width", tableWidth + "px");
 	
-	                jqGridAdditional.updateFooterWidth(parentWidth);
+	                jqGridAdditional.updateFooterWidth();
 	            },
 	
 	            updateFooterWidth: function () {
@@ -20156,6 +20156,9 @@ webpackJsonp([59],[
 	    $.fn.hasVerticalScrollBar = function () {
 	        return this.get(0).scrollHeight > this.height();
 	    };
+	    $.fn.hasHorizontalScrollBar = function () {
+	        return this.get(0).scrollWidth > this.width();
+	    };
 	})(jQuery);
 	
 	jQuery.extend({
@@ -21159,12 +21162,13 @@ webpackJsonp([59],[
 	                        $("#pg_ppdata").hide();
 	                    }
 	
+	                    var $footerTable = $("table.ui-jqgrid-ftable");
 	                    if (onPaging && level === 2) {
-	                        $(".ui-jqgrid-ftable").html($("#footer").html());
+	                        $footerTable.html($("#footer").html());
 	                    }
 	                    else {
 	                        _me.bindTotal(level, response.Total, response.SummaryTotal);
-	                        $("#footer").html($(".ui-jqgrid-ftable").html());
+	                        $("#footer").html($footerTable.html());
 	                    }
 	
 	                    onPaging = false;
@@ -21174,13 +21178,27 @@ webpackJsonp([59],[
 	                    }
 	
 	                    //set rowspan for footer row
-	                    $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByProductOption.currencyIndex]);
+	                    $footerTable.tableRowSpan([WinLossByProductOption.currencyIndex]);
 	
 	                    _me.resizeGrid();
+	                    _me.reUpdateGridWidth();
 	                    Site.unBlockUI();
 	                };
 	
 	                reportGrid.jqGrid(gridOption);
+	            },
+	
+	            reUpdateGridWidth: function () {
+	                var $gridContainer = $(".theme_jqGrid");
+	                var $gridFooter = $gridContainer.find(".ui-jqgrid-sdiv");
+	                var $gridBody = $gridContainer.find(".ui-jqgrid-bdiv");
+	
+	                var shouldReUpdateGridWidth = $gridBody.hasHorizontalScrollBar() && $gridFooter.hasVerticalScrollBar();
+	                if (shouldReUpdateGridWidth) {
+	                    var tableWidth = $gridBody.width() - 20;
+	                    $gridContainer.find(".ui-jqgrid-hdiv").css("width", tableWidth + "px");
+	                    $gridBody.css("width", tableWidth + "px");
+	                }
 	            },
 	
 	            rowSpanByLevel: function ($grid, level) {
@@ -21399,7 +21417,7 @@ webpackJsonp([59],[
 	    var currencyColumn = {
 	        name: 'CurrencyName',
 	        index: 'CurrencyName',
-	        width: 55,
+	        width: 60,
 	        align: 'center',
 	        sortable: false,
 	        resizable: false,
@@ -21419,7 +21437,7 @@ webpackJsonp([59],[
 	    var totalTransColumn = {
 	        name: 'TotalTransaction',
 	        index: 'TotalTransaction',
-	        width: 68,
+	        width: 75,
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,
@@ -21471,7 +21489,7 @@ webpackJsonp([59],[
 	    var LicenseeWlCommColumn = {
 	        name: 'LicenseeWLComm',
 	        index: 'LicenseeWLComm',
-	        width: 90,
+	        width: 70,
 	        align: 'right',
 	        sortable: false,
 	        resizable: false,
@@ -21492,7 +21510,7 @@ webpackJsonp([59],[
 	    var productColumn = {
 	        name: 'ProductName',
 	        index: 'productName',
-	        width: 150,
+	        width: 160,
 	        sortable: false,
 	        resizable: false,
 	        align: "left",

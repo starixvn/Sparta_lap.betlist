@@ -893,6 +893,9 @@ table tbody tr.row-group-level1 td {
   color: #2c2c2c;
   font-weight: bold; }
 
+.col-customer-comm {
+  width: 7.5%; }
+
 .number-circle {
   border: 1px solid #147ccc;
   border-radius: 50%;

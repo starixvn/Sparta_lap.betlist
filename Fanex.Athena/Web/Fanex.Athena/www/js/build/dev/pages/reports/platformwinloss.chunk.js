@@ -56,7 +56,7 @@ webpackJsonp([52],{
 	                $(".theme_jqGrid .ui-jqgrid-hdiv table.ui-jqgrid-htable").css("width", tableWidth + "px");
 	                $(".theme_jqGrid .ui-jqgrid-sdiv table.ui-jqgrid-ftable").css("width", tableWidth + "px");
 	
-	                jqGridAdditional.updateFooterWidth(parentWidth);
+	                jqGridAdditional.updateFooterWidth();
 	            },
 	
 	            updateFooterWidth: function () {

@@ -14550,7 +14550,7 @@ webpackJsonp([46],[
 	                $(".theme_jqGrid .ui-jqgrid-hdiv table.ui-jqgrid-htable").css("width", tableWidth + "px");
 	                $(".theme_jqGrid .ui-jqgrid-sdiv table.ui-jqgrid-ftable").css("width", tableWidth + "px");
 	
-	                jqGridAdditional.updateFooterWidth(parentWidth);
+	                jqGridAdditional.updateFooterWidth();
 	            },
 	
 	            updateFooterWidth: function () {
@@ -20155,6 +20155,9 @@ webpackJsonp([46],[
 	
 	    $.fn.hasVerticalScrollBar = function () {
 	        return this.get(0).scrollHeight > this.height();
+	    };
+	    $.fn.hasHorizontalScrollBar = function () {
+	        return this.get(0).scrollWidth > this.width();
 	    };
 	})(jQuery);
 	

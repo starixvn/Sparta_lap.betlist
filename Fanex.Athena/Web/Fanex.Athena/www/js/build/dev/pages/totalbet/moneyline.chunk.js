@@ -482,6 +482,9 @@ webpackJsonp([65],{
 	    $.fn.hasVerticalScrollBar = function () {
 	        return this.get(0).scrollHeight > this.height();
 	    };
+	    $.fn.hasHorizontalScrollBar = function () {
+	        return this.get(0).scrollWidth > this.width();
+	    };
 	})(jQuery);
 	
 	jQuery.extend({
