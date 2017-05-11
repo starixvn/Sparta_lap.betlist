@@ -167,7 +167,7 @@ if (toDate != null)
         @(string.Format(ViewResources.Viewin, converter ? BaseCurrency.ToUpper() : CurrencyName))
 }
 
-@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int colLg = 2, int colMd = 4)
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int colLg = 3, int colMd = 4)
 {
 var Url = new UrlHelper(Context.Request.RequestContext);
 var i = 0;

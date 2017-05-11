@@ -1,16 +1,14 @@
 ﻿@import "../../scss/abstracts/_variables";
 
 .multiselect-container {
-    min-width: 250px;
-
     > label {
         position: absolute;
         top: -14px;
     }
 
     > a.ui-multiselect {
-        height: 2.5rem;
-        line-height: 2.5rem;
+        height: 26px;
+        line-height: 26px;
         border: none;
         border-bottom: 1px solid #ccc;
         cursor: pointer;
