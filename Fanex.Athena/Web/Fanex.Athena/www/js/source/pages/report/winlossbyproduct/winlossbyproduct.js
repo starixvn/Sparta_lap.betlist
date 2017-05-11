@@ -219,12 +219,13 @@
                         $("#pg_ppdata").hide();
                     }
 
+                    var $footerTable = $("table.ui-jqgrid-ftable");
                     if (onPaging && level === 2) {
-                        $(".ui-jqgrid-ftable").html($("#footer").html());
+                        $footerTable.html($("#footer").html());
                     }
                     else {
                         _me.bindTotal(level, response.Total, response.SummaryTotal);
-                        $("#footer").html($(".ui-jqgrid-ftable").html());
+                        $("#footer").html($footerTable.html());
                     }
 
                     onPaging = false;
@@ -234,13 +235,27 @@
                     }
 
                     //set rowspan for footer row
-                    $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByProductOption.currencyIndex]);
+                    $footerTable.tableRowSpan([WinLossByProductOption.currencyIndex]);
 
                     _me.resizeGrid();
+                    _me.reUpdateGridWidth();
                     Site.unBlockUI();
                 };
 
                 reportGrid.jqGrid(gridOption);
+            },
+
+            reUpdateGridWidth: function () {
+                var $gridContainer = $(".theme_jqGrid");
+                var $gridFooter = $gridContainer.find(".ui-jqgrid-sdiv");
+                var $gridBody = $gridContainer.find(".ui-jqgrid-bdiv");
+
+                var shouldReUpdateGridWidth = $gridBody.hasHorizontalScrollBar() && $gridFooter.hasVerticalScrollBar();
+                if (shouldReUpdateGridWidth) {
+                    var tableWidth = $gridBody.width() - 20;
+                    $gridContainer.find(".ui-jqgrid-hdiv").css("width", tableWidth + "px");
+                    $gridBody.css("width", tableWidth + "px");
+                }
             },
 
             rowSpanByLevel: function ($grid, level) {

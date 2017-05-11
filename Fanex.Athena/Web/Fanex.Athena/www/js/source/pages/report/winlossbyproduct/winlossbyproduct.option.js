@@ -76,7 +76,7 @@
     var currencyColumn = {
         name: 'CurrencyName',
         index: 'CurrencyName',
-        width: 55,
+        width: 60,
         align: 'center',
         sortable: false,
         resizable: false,
@@ -96,7 +96,7 @@
     var totalTransColumn = {
         name: 'TotalTransaction',
         index: 'TotalTransaction',
-        width: 68,
+        width: 75,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -148,7 +148,7 @@
     var LicenseeWlCommColumn = {
         name: 'LicenseeWLComm',
         index: 'LicenseeWLComm',
-        width: 90,
+        width: 70,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -169,7 +169,7 @@
     var productColumn = {
         name: 'ProductName',
         index: 'productName',
-        width: 150,
+        width: 160,
         sortable: false,
         resizable: false,
         align: "left",
