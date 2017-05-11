@@ -2,6 +2,20 @@
 define(["jquery", "common/site", "common/querystring", "components/pluginhelper/daterangepicker",
     "components/scrollablegrid", "components/pluginhelper/multiselect", "extensions/jquery.extension"],
     function ($, Site, QueryString, DatePicker, GridHelper, MultiSelect) {
+        var ClassName = {
+            active: "active",
+            expanded: "expanded"
+        }
+
+        var Selector = {
+            detailRow: ".detail-row",
+            viewDetail: ".view-match-detail",
+            active: "." + ClassName.active,
+            date: "#Date",
+            isExportExcel: "#IsExportExcel",
+            matchWinLossForm: "#MatchWinLossForm"
+        }
+
         var _me = {
             initialize: function () {
                 Site.initialize();
@@ -17,15 +31,15 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
 
             initEvent: function () {
                 $('#ExportToExcel').click(function () {
-                    $('#IsExportExcel').val(true);
-                    $('#MatchWinLossForm').submit();
+                    $(Selector.isExportExcel).val(true);
+                    $(Selector.matchWinLossForm).submit();
                 });
 
                 $('#SubmitButton').click(function () {
                     _me.submit();
                 });
 
-                $(".body-content").on("click", ".view-match-detail", function () {
+                $(".body-content").on("click", Selector.viewDetail, function () {
                     _me.viewMatchWinlossDetail(this);
                 })
                 .on("click", ".bet-list-link", function () {
@@ -48,8 +62,8 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
 
             submit: function () {
                 Site.blockUI();
-                $('#IsExportExcel').val(false);
-                $('#MatchWinLossForm').submit();
+                $(Selector.isExportExcel).val(false);
+                $(Selector.matchWinLossForm).submit();
             },
 
             viewMatchWinlossDetail: function (element) {
@@ -63,16 +77,16 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
                 };
 
                 submitData = Site.setLicenseeOptionOriginalParam(submitData);
-                submitData.Date = $("#Date").attr('data-original');
+                submitData.Date = $(Selector.date).attr('data-original');
                 submitData.ProductOptions = _me.getProductOption(submitData.ProductCode);
 
-                var isExpanding = $this.closest("tr").hasClass("active");
+                var isExpanding = $this.closest("tr").hasClass(ClassName.active);
                 _me.clearDetailRows($parentRow);
                 if (isExpanding) {
                     return;
                 }
 
-                $this.addClass("expanded");
+                $this.addClass(ClassName.expanded);
                 $.ajax({
                     type: 'POST',
                     url: "MatchWinLossReport/Detail",
@@ -81,9 +95,9 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
                     dataType: 'html',
                     success: function (result) {
                         $parentRow.after(result);
-                        var rowspan = $(".expanding-row").length + 1;
+                        var rowspan = $(Selector.detailRow).length + 1;
                         $parentRow.find("td:first").attr("rowspan", rowspan);
-                        $parentRow.addClass("active");
+                        $parentRow.addClass(ClassName.active);
                     },
                     beforeSend: Site.blockUI,
                     complete: Site.unBlockUI
@@ -92,20 +106,20 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
 
             clearDetailRows: function ($parentRow) {
                 var $table = $parentRow.closest("table");
-                var $expandingRows = $table.find(".expanding-row");
-                if ($expandingRows.length) {
-                    $expandingRows.remove();
-                    $table.find(".active").removeClass("active")
+                var $detailRows = $table.find(Selector.detailRow);
+                if ($detailRows.length) {
+                    $detailRows.remove();
+                    $table.find(Selector.active).removeClass(ClassName.active)
                         .find("td:first").removeAttr("rowspan");
                 }
-                $(".view-match-detail").removeClass("expanded");
+                $(Selector.viewDetail).removeClass(ClassName.expanded);
             },
 
             viewMatchWinlossBetList: function (element) {
                 var $parentRow = $(element).closest('tr');
-                var matchData = $parentRow.data('match') || $(".active").data('match');
+                var matchData = $parentRow.data('match') || $parentRow.siblings(Selector.active).data('match');
                 var productCode = matchData.ProductCode;
-                var date = $("#Date").attr('data-original');
+                var date = $(Selector.date).attr('data-original');
 
                 var bettype = Number($(element).data('bettype'));
                 bettype = isNaN(bettype) ? 0 : bettype;
@@ -139,7 +153,7 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
             },
 
             viewOutrightMixParlay: function (betType) {
-                var date = $("#Date").attr("data-original");
+                var date = $(Selector.date).attr("data-original");
                 var url = betType === 10
                             ? Site.resolveClientUrl("MatchWinlossBetList/Outright")
                             : Site.resolveClientUrl("MatchWinlossBetList/MixParlay");

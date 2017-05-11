@@ -783,6 +783,10 @@
     <Content Include="www\css\build\dev\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\livereport.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\livereport.css" />
+    <Content Include="www\css\build\dev\pages\reports\matchwinloss.chunk.js" />
+    <Content Include="www\css\build\dev\pages\reports\matchwinloss.css" />
+    <Content Include="www\css\build\dev\pages\reports\platformwinloss.chunk.js" />
+    <Content Include="www\css\build\dev\pages\reports\platformwinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\racingcommission.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\racingcommission.css" />
     <Content Include="www\css\build\dev\pages\reports\reportjqgridlayout.chunk.js" />
@@ -795,6 +799,8 @@
     <Content Include="www\css\build\dev\pages\reports\turnover.css" />
     <Content Include="www\css\build\dev\pages\reports\weeklylivematch.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\weeklylivematch.css" />
+    <Content Include="www\css\build\dev\pages\reports\winlossbyleague.chunk.js" />
+    <Content Include="www\css\build\dev\pages\reports\winlossbyleague.css" />
     <Content Include="www\css\build\dev\pages\reports\winlossbyproduct.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\winlossbyproduct.css" />
     <Content Include="www\css\build\dev\pages\totalbet\mixparlay.chunk.js" />
@@ -833,12 +839,15 @@
     <Content Include="www\css\build\pro\pages\reports\dailyracingwinloss.css" />
     <Content Include="www\css\build\pro\pages\reports\licenseewinloss.css" />
     <Content Include="www\css\build\pro\pages\reports\livereport.css" />
+    <Content Include="www\css\build\pro\pages\reports\matchwinloss.css" />
+    <Content Include="www\css\build\pro\pages\reports\platformwinloss.css" />
     <Content Include="www\css\build\pro\pages\reports\racingcommission.css" />
     <Content Include="www\css\build\pro\pages\reports\reportjqgridlayout.css" />
     <Content Include="www\css\build\pro\pages\reports\result.css" />
     <Content Include="www\css\build\pro\pages\reports\settledmatchcount.css" />
     <Content Include="www\css\build\pro\pages\reports\turnover.css" />
     <Content Include="www\css\build\pro\pages\reports\weeklylivematch.css" />
+    <Content Include="www\css\build\pro\pages\reports\winlossbyleague.css" />
     <Content Include="www\css\build\pro\pages\reports\winlossbyproduct.css" />
     <Content Include="www\css\build\pro\pages\totalbet\mixparlay.css" />
     <Content Include="www\css\build\pro\pages\totalbet\totalbetlayout.css" />
@@ -920,6 +929,15 @@
     <Content Include="Views\Desktop\Report\PlatformWinLoss\Content.cshtml" />
     <Content Include="Views\Desktop\Report\PlatformWinLoss\Filter.cshtml" />
     <Content Include="www\css\source\pages\report\platformwinloss.scss" />
+    <Content Include="Views\Desktop\BetList\MatchWl\MatchBetType.cshtml" />
+    <Content Include="Views\Desktop\BetList\MatchWl\MixParlay.cshtml" />
+    <Content Include="Views\Desktop\BetList\MatchWl\Outright.cshtml" />
+    <Content Include="www\css\build\dev\pages\reports\matchwinloss.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\reports\matchwinloss.css.map" />
+    <Content Include="www\css\build\dev\pages\reports\platformwinloss.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\reports\platformwinloss.css.map" />
+    <Content Include="www\css\build\dev\pages\reports\winlossbyleague.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\reports\winlossbyleague.css.map" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <None Include="www\css\source\pages\report\winlossbyleague.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
@@ -942,11 +960,14 @@
     <Content Include="www\js\build\dev\pages\reports\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\livereportmatchlist.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\matchwinloss.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\platformwinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\racingcommission.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\result.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\settledmatchcount.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\turnover.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\weeklylivematch.chunk.js" />
+    <Content Include="www\js\build\dev\pages\reports\winlossbyleague.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\winlossbyproduct.chunk.js" />
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\firstgoallastgoal.chunk.js" />
@@ -977,11 +998,14 @@
     <Content Include="www\js\build\pro\pages\reports\licenseewinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\livereport.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\livereportmatchlist.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\matchwinloss.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\platformwinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\racingcommission.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\result.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\settledmatchcount.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\turnover.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\weeklylivematch.chunk.js" />
+    <Content Include="www\js\build\pro\pages\reports\winlossbyleague.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\winlossbyproduct.chunk.js" />
     <Content Include="www\js\build\pro\pages\signin\signin.chunk.js" />
     <Content Include="www\js\build\pro\pages\totalbet\firstgoallastgoal.chunk.js" />
@@ -1801,6 +1825,9 @@
     <Content Include="www\css\source\pages\report\winlossbyproduct.scss" />
     <Content Include="www\js\build\dev\pages\reports\dailyracingwinloss.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\winlossbyproduct.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\reports\matchwinloss.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\reports\platformwinloss.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\reports\winlossbyleague.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
