@@ -1,6 +1,7 @@
 ﻿define(["jquery", "common/site", "common/popup"], function ($, Site, Popup) {
     "use strict";
     var REPORT_BY_MONTHLY = 2;
+    var LICENSEE_12BET = 1;
     function lastDateOfMonth(year, month) {
         return new Date(year, month + 1, 0);
     }
@@ -159,7 +160,7 @@
                 var isLevel2 = level === 2;
                 $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
                 
-                var allowShowLevel1 = licenseeId ? licenseeId === 1 : true;
+                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
                 $("#level-link-container .level1").toggle(allowShowLevel1);
                 $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
             }

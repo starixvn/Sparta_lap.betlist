@@ -2,8 +2,15 @@
     "use strict";
 
     var setDrillDownLink = function (level, currencyId, custId, datetime, currencyName, cellvalue) {
-        return '<a class="drilldown" href="javascript:;" onclick="return drillDown(' + level +
-         ',' + currencyId + ',' + custId + ',\'' + datetime + '\',\'' + currencyName + '\');">' + cellvalue + '</a>';
+        var dataDrilldown = {
+            level: level,
+            currencyId: currencyId,
+            custId: custId,
+            datetime: datetime,
+            currencyName: currencyName
+        };
+
+        return '<a class="drilldown" href="javascript:;" data-drill-down=' + JSON.stringify(dataDrilldown) + '>' + cellvalue + '</a>';
     };
     var currencyFormatter = function (cellvalue, options, rowObject) {
         var level = _me.licenseeId === 1 ? 1 : 2;

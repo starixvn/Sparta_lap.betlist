@@ -74,6 +74,11 @@
                     }
                 });
 
+                $(".main-content").on("click", ".drilldown", function () {
+                    var param = $(this).data("drill-down");
+                    _me.drillDown(param.level, param.currencyId, param.custId, param.datetime, param.currencyName);
+                });
+
                 $(window).on("resize", function () {
                     _me.resizeGrid();
                     AutoComplete.updateWidthOfSuggestionDropdown();

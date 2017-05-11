@@ -160,16 +160,22 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
             },
 
             getProductOption: function (productCode) {
+                var specialProducts = ["SB", "BA"];
+                var containSpecialProducts = _me.contain(specialProducts, productCode);
                 var productOptions = JSON.parse($("#productsData").val());
 
                 return productOptions.filter(function (item) {
-                    if (productCode === "BA" || productCode === "SB") {
-                        return (item.Code === "BA" || item.Code === "SB") & item.Status;
+                    if (containSpecialProducts) {
+                        return _me.contain(specialProducts, item.Code) & item.Status;
                     }
 
-                    var containCode = Array.isArray(productCode) ? productCode.indexOf(item.Code) > -1 : item.Code === productCode;
+                    var containCode = Array.isArray(productCode) ? _me.contain(productCode, item.Code) : item.Code === productCode;
                     return containCode && item.Status;
                 });
+            },
+
+            contain: function (arrayData, value) {
+                return arrayData.indexOf(value) > -1;
             }
         };
 
