@@ -2,7 +2,7 @@ webpackJsonp([59],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(272);
+	module.exports = __webpack_require__(271);
 
 
 /***/ },
@@ -20928,96 +20928,7 @@ webpackJsonp([59],[
 /* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// require option properties: suggestionDropdown, url, target
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(228)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
-	    "use strict";
-	
-	    var mainOption = {
-	        suggestionDropdown: '#suggestionDropdown',
-	        url: null,
-	        target: null
-	    };
-	
-	    var _autoComplete;
-	
-	    var _me = {
-	        initialize: function (option) {
-	            _me.initAutoComplete(option);
-	            _me.initEvent();
-	        },
-	
-	        initEvent: function () {
-	            $('body').click(function () {
-	                _me.hideDropdown.call(_autoComplete);
-	            });
-	
-	            $(mainOption.target).keypress(function (e) {
-	                if (e.keyCode === 13) {
-	                    _me.hideDropdown.call(_autoComplete);
-	                }
-	            });
-	        },
-	
-	        initAutoComplete: function (option) {
-	            $.extend(mainOption, option);
-	            if (!mainOption.url || !mainOption.target) {
-	                throw Error("Missing data in option");
-	            }
-	
-	            _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
-	                ignoreCase: false,
-	                multiple: {
-	                    enable: false
-	                },
-	                dropdown: {
-	                    el: mainOption.suggestionDropdown
-	                },
-	                getData: function (value, callback) {
-	                    var url = mainOption.url + "?query=" + value;
-	
-	                    $.ajax({
-	                        type: "GET",
-	                        dataType: "json",
-	                        url: url,
-	                        success: function (response) {
-	                            var suggestions = response.suggestions;
-	
-	                            if (suggestions && suggestions.length > 0) {
-	                                var data = suggestions.map(function (item) {
-	                                    return { id: item, text: item };
-	                                });
-	
-	                                callback(value, data);
-	                            }
-	                        }
-	                    });
-	                }
-	            });
-	
-	            _me.updateWidthOfSuggestionDropdown();
-	        },
-	
-	        updateWidthOfSuggestionDropdown: function () {
-	            var $autoCompleteTarget = $(mainOption.target);
-	            var $suggestionDropdown = $(mainOption.suggestionDropdown);
-	            if ($suggestionDropdown.width() !== $autoCompleteTarget.width()) {
-	                $suggestionDropdown.width($autoCompleteTarget.width());
-	            }
-	        },
-	
-	        hideDropdown: function () {
-	            this.$dropdown.html('').hide();
-	        }
-	    };
-	
-	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(273)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByProduct) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(272)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByProduct) {
 	    "use strict";
 	
 	    $(WinLossByProduct.initialize);
@@ -21025,11 +20936,11 @@ webpackJsonp([59],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 273 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(191), __webpack_require__(274), __webpack_require__(84), __webpack_require__(9),
-	    __webpack_require__(202), __webpack_require__(234), __webpack_require__(242), __webpack_require__(271),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(191), __webpack_require__(273), __webpack_require__(84), __webpack_require__(9),
+	    __webpack_require__(202), __webpack_require__(234), __webpack_require__(242), __webpack_require__(274),
 	    __webpack_require__(216), __webpack_require__(194), __webpack_require__(195)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect, AutoComplete) {
 	        "use strict";
 	
@@ -21407,7 +21318,7 @@ webpackJsonp([59],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 274 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(191)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
@@ -21701,6 +21612,95 @@ webpackJsonp([59],[
 	
 	        curCol.formatter = null;
 	        return colModel;
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// require option properties: suggestionDropdown, url, target
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(228)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	    "use strict";
+	
+	    var mainOption = {
+	        suggestionDropdown: '#suggestionDropdown',
+	        url: null,
+	        target: null
+	    };
+	
+	    var _autoComplete;
+	
+	    var _me = {
+	        initialize: function (option) {
+	            _me.initAutoComplete(option);
+	            _me.initEvent();
+	        },
+	
+	        initEvent: function () {
+	            $('body').click(function () {
+	                _me.hideDropdown.call(_autoComplete);
+	            });
+	
+	            $(mainOption.target).keypress(function (e) {
+	                if (e.keyCode === 13) {
+	                    _me.hideDropdown.call(_autoComplete);
+	                }
+	            });
+	        },
+	
+	        initAutoComplete: function (option) {
+	            $.extend(mainOption, option);
+	            if (!mainOption.url || !mainOption.target) {
+	                throw Error("Missing data in option");
+	            }
+	
+	            _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
+	                ignoreCase: false,
+	                multiple: {
+	                    enable: false
+	                },
+	                dropdown: {
+	                    el: mainOption.suggestionDropdown
+	                },
+	                getData: function (value, callback) {
+	                    var url = mainOption.url + "?query=" + value;
+	
+	                    $.ajax({
+	                        type: "GET",
+	                        dataType: "json",
+	                        url: url,
+	                        success: function (response) {
+	                            var suggestions = response.suggestions;
+	
+	                            if (suggestions && suggestions.length > 0) {
+	                                var data = suggestions.map(function (item) {
+	                                    return { id: item, text: item };
+	                                });
+	
+	                                callback(value, data);
+	                            }
+	                        }
+	                    });
+	                }
+	            });
+	
+	            _me.updateWidthOfSuggestionDropdown();
+	        },
+	
+	        updateWidthOfSuggestionDropdown: function () {
+	            var $autoCompleteTarget = $(mainOption.target);
+	            var $suggestionDropdown = $(mainOption.suggestionDropdown);
+	            if ($suggestionDropdown.width() !== $autoCompleteTarget.width()) {
+	                $suggestionDropdown.width($autoCompleteTarget.width());
+	            }
+	        },
+	
+	        hideDropdown: function () {
+	            this.$dropdown.html('').hide();
+	        }
 	    };
 	
 	    return _me;

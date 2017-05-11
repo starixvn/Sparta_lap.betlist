@@ -191,8 +191,8 @@
   .select-list-container .selection {
     background: transparent;
     border-bottom: 1px solid #ccc;
-    height: 28px;
-    line-height: 28px;
+    height: 26px;
+    line-height: 26px;
     display: inline-block;
     width: 100%;
     position: relative; }
@@ -655,8 +655,8 @@ table tbody tr.row-group-level1 td {
   .select-list-container .selection {
     background: transparent;
     border-bottom: 1px solid #ccc;
-    height: 28px;
-    line-height: 28px;
+    height: 26px;
+    line-height: 26px;
     display: inline-block;
     width: 100%;
     position: relative; }

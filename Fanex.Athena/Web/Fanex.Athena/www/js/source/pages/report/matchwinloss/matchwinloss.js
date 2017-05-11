@@ -5,7 +5,7 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
         var ClassName = {
             active: "active",
             expanded: "expanded"
-        }
+        };
 
         var Selector = {
             detailRow: ".detail-row",
@@ -14,7 +14,7 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
             date: "#Date",
             isExportExcel: "#IsExportExcel",
             matchWinLossForm: "#MatchWinLossForm"
-        }
+        };
 
         var _me = {
             initialize: function () {
@@ -180,7 +180,7 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
 
                 return productOptions.filter(function (item) {
                     if (containSpecialProducts) {
-                        return _me.contain(specialProducts, item.Code) & item.Status;
+                        return _me.contain(specialProducts, item.Code) && item.Status;
                     }
 
                     var containCode = Array.isArray(productCode) ? _me.contain(productCode, item.Code) : item.Code === productCode;

@@ -1,7 +1,7 @@
 ﻿define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid.additional", "./winlossbyleague.option", "moment", "common/popup",
-     "components/pluginhelper/monthpicker", "../report", "components/pluginhelper/multiselect",
+     "components/pluginhelper/monthpicker", "../report", "components/pluginhelper/multiselect", "components/paging",
     "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, moment, Popup, MonthPicker, Report, MultiSelect) {
+    function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, moment, Popup, MonthPicker, Report, MultiSelect, PagingHeper) {
         "use strict";
 
         var ajaxRequest = null;

@@ -31,7 +31,7 @@
 
             initSetting: function () {
             }
-        }
+        };
 
         return _me;
     });
