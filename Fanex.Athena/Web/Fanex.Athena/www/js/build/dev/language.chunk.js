@@ -1,7 +1,7 @@
 webpackJsonp([27],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	__webpack_require__(68);
 	__webpack_require__(69);
@@ -10,10 +10,10 @@ webpackJsonp([27],{
 	module.exports = __webpack_require__(72);
 
 
-/***/ },
+/***/ }),
 
 /***/ 68:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_en_US = {
@@ -945,10 +945,10 @@ webpackJsonp([27],{
 	};
 
 
-/***/ },
+/***/ }),
 
 /***/ 69:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_zh_CN = {
@@ -1734,10 +1734,10 @@ webpackJsonp([27],{
 	};
 
 
-/***/ },
+/***/ }),
 
 /***/ 70:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_zh_TW = {
@@ -2523,10 +2523,10 @@ webpackJsonp([27],{
 	};
 
 
-/***/ },
+/***/ }),
 
 /***/ 71:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_zh_Hans = {
@@ -3306,10 +3306,10 @@ webpackJsonp([27],{
 	};
 
 
-/***/ },
+/***/ }),
 
 /***/ 72:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_ko_KR = {
@@ -4078,7 +4078,7 @@ webpackJsonp([27],{
 	};
 
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=language.chunk.js.map
