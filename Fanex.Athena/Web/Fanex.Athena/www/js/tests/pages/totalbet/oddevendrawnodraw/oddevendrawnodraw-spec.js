@@ -66,7 +66,7 @@
                         );
                     $("#CurrencyId").append('<option value="2">uus</option>');
 
-                    var queryString = "matchid=1&bettype=2&ispopup=true&currencyid=2&currencyname=uus&basecurrency=3";
+                    var queryString = "matchid=1&bettype=2&ispopup=true&CurrencyId=2&CurrencyName=uus&BaseCurrency=3";
                     var url = "OneXTwoForecast/Popup?" + queryString;
                     window.innerHeight = 500;
                     spyOn(Popup, "openPopupWithIframe");

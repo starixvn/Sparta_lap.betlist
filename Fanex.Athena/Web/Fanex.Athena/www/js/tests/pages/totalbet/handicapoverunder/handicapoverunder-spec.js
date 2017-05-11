@@ -61,12 +61,12 @@
             describe("viewNewForecast(leagueId, matchId, currencyId, baseCurrency)", function () {
                 it("Site.redirect(url) should be called with correct parameter", function () {
                     spyOn(Site, "resolveClientUrl").and.callFake(function (url) { return url; });
-                    var expectedUrl = "NewHandicapOverUnderForecast/Index?leagueid=1&matchid=2&currencyid=3&basecurrency=eur";
+                    var expectedUrlPattern = /NewHandicapOverUnderForecast\/Index\?leagueid=1\&matchid=2\&currencyid=3\&basecurrency=eur/i;
                     spyOn(Site, "redirect");
 
                     HandicapOU.viewNewForecast(1, 2, 3, "eur");
 
-                    expect(Site.redirect).toHaveBeenCalledWith(expectedUrl);
+                    expect(Site.redirect).toHaveBeenCalledWith(jasmine.stringMatching(expectedUrlPattern));
                 });
             });
 
@@ -79,7 +79,7 @@
                         );
                     $("#CurrencyId").append('<option value="2">uus</option>');
 
-                    var queryString = "matchid=1&bettype=2&currencyid=2&currencyname=uus&basecurrency=3";
+                    var queryString = "matchid=1&bettype=2&CurrencyId=2&CurrencyName=uus&BaseCurrency=3";
                     var url = "AhForecast/Index?" + queryString;
                     spyOn(Popup, "openPopupWithIframe");
 

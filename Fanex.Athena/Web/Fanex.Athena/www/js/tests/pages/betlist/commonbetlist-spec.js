@@ -82,7 +82,7 @@
 
                 it("url to export excel should be correct with no sort param", function () {
                     spyOn(BetList, "getSortParams").and.returnValue(null);
-                    var url = "http://localhost?pageindex=1&pagesize=50&isserverpaging=true&isexportexcel=true";
+                    var url = "http://localhost?PageIndex=1&PageSize=50&IsServerPaging=true&IsExportExcel=true";
 
                     CommonBetList.exportToExcel();
 
@@ -91,7 +91,7 @@
 
                 it("url to export excel should be correct with sort param", function () {
                     spyOn(BetList, "getSortParams").and.returnValue({ SortBy: "Index", SortOrder: "asc" });
-                    var url = "http://localhost?pageindex=1&pagesize=50&isserverpaging=true&sortby=Index&sortorder=asc&isexportexcel=true";
+                    var url = "http://localhost?PageIndex=1&PageSize=50&IsServerPaging=true&SortBy=Index&SortOrder=asc&IsExportExcel=true";
 
                     CommonBetList.exportToExcel();
 

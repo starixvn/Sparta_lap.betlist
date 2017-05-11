@@ -56,13 +56,12 @@
             $("#CurrencyId").attr('data-original', 2);
             $("#BaseCurrency").attr('data-original', 3);
 
-            var queryString = "matchid=1&bettype=2&currencyid=2&currencyname=uus&basecurrency=3";
-            var url = "AhForecast/Index?" + queryString;
+            var urlRegex = /AhForecast\/Index\?matchid=1\&bettype=2\&currencyid=2\&currencyname=uus\&basecurrency=3/i;
             spyOn(ForecastPopup, "showPopup");
 
             HandicapOU.viewForecast(1, 2);
 
-            expect(ForecastPopup.showPopup).toHaveBeenCalledWith(700, 250, url);
+            expect(ForecastPopup.showPopup).toHaveBeenCalledWith(700, 250, jasmine.stringMatching(urlRegex));
         });
     });
 

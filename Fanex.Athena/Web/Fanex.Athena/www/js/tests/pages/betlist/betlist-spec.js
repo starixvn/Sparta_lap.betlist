@@ -276,7 +276,7 @@
                     spyOn(Popup, 'openPopupWithIframe');
                     spyOn($.fn, 'height').and.returnValue(300);
                     BetList.showMicroGamingRnGBetsDetails(0, new Date('2015/2/1'), 0, 0);
-                    var url = 'MicroGamingRngBetList/Detail?transid=0&custid=0&transtype=0';
+                    var url = 'MicroGamingRngBetList/Detail?transid=0&custid=0&transType=0';
                     var title = 'Microgaming - DetailedBetlist - 02/01/2015';
                     
                     expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 870, height: 250, title: title, id: 'betlist-popup-detail' });
@@ -288,7 +288,7 @@
                     spyOn(Popup, 'openPopupWithIframe');
                     spyOn($.fn, 'height').and.returnValue(300);
                     BetList.showAGCasinoDetails(0, new Date('2015/2/1'), 0, 0);
-                    var url = 'AGCasinoBetList/Detail?transid=0&custid=0&transtype=0';
+                    var url = 'AGCasinoBetList/Detail?transid=0&custid=0&transType=0';
                     var title = 'AGCasino - DetailedBetlist - 02/01/2015';
 
                     expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 870, height: 250, title: title, id: 'betlist-popup-detail' });

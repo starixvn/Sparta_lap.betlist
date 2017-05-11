@@ -73,17 +73,17 @@
             $("#CurrencyId").attr('data-original', 2);
             $("#BaseCurrency").attr('data-original', 3);
 
-            var url = "AhForecast/Index?matchid=1&bettype=2&currencyid=2&currencyname=uus&basecurrency=3";
+            var urlPattern = /AhForecast\/Index\?matchid=1\&bettype=2\&currencyid=2\&currencyname=uus\&basecurrency=3/i;
             spyOn(ForecastPopup, "showPopup");
 
             ForecastHDPOU.openForecast(1, 2);
 
-            expect(ForecastPopup.showPopup).toHaveBeenCalledWith(700, 250, url);
+            expect(ForecastPopup.showPopup).toHaveBeenCalledWith(700, 250, jasmine.stringMatching(urlPattern));
         });
     });
 
     describe("loadSelectedLeague(leagueId)", function () {
-        var url = "HandicapOverUnderForecast/Index?currencyid=2&currencyname=uus&basecurrency=3&leagueid=12";
+        var urlPattern = /HandicapOverUnderForecast\/Index\?currencyid=2\&currencyname=uus\&basecurrency=3\&leagueid=12/i;
         var request;
         beforeEach(function (done) {
             affix("#Refresh-Content");
@@ -96,7 +96,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest(url)
+                .stubRequest(urlPattern)
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -114,7 +114,7 @@
         });
 
         it("ajax request should be called with correct url", function () {
-            expect(request.url).toBe(url);
+            expect(request.url).toMatch(urlPattern);
         });
 
         it("'#Refresh-Content' should be contain correct responsed text", function () {

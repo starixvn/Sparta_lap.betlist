@@ -801,7 +801,7 @@
                         var args = Popup.openPopupWithIframe.calls.mostRecent().args;
                         var optionResult = args[1];
 
-                        expect(args[0]).toBe(url);
+                        expect(args[0].toLowerCase()).toBe(url.toLowerCase());
                         expect(optionResult.id).toBe(popupOption.id);
                         expect(optionResult.width).toBe(popupOption.width);
                         expect(optionResult.title).toBe(popupOption.title);
@@ -824,7 +824,7 @@
                         var args = Popup.openPopupWithIframe.calls.mostRecent().args;
                         var optionResult = args[1];
 
-                        expect(args[0]).toBe(url);
+                        expect(args[0].toLowerCase()).toBe(url.toLowerCase());
                         expect(optionResult.id).toBe(popupOption.id);
                         expect(optionResult.width).toBe(popupOption.width);
                         expect(optionResult.title).toBe(popupOption.title);
@@ -859,7 +859,7 @@
                         var args = Popup.openPopupWithIframe.calls.mostRecent().args;
                         var optionResult = args[1];
 
-                        expect(args[0]).toBe(url);
+                        expect(args[0].toLowerCase()).toBe(url.toLowerCase());
                         expect(optionResult.id).toBe(popupOption.id);
                         expect(optionResult.width).toBe(popupOption.width);
                         expect(optionResult.title).toBe(popupOption.title);

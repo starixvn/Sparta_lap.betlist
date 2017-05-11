@@ -82,7 +82,7 @@
 
             jasmine.Ajax.install();
             jasmine.Ajax
-                .stubRequest("NewHandicapOverUnderForecast/GetMatchListByLeague?leagueid=1")
+                .stubRequest(/NewHandicapOverUnderForecast\/GetMatchListByLeague\?leagueid=1/i)
                 .andReturn({
                     'status': 200,
                     'contentType': 'application/json',
@@ -100,7 +100,7 @@
         });
 
         it("ajax request should be called with correct url", function () {
-            expect(request.url).toBe("NewHandicapOverUnderForecast/GetMatchListByLeague?leagueid=1");
+            expect(request.url.toLowerCase()).toBe("NewHandicapOverUnderForecast/GetMatchListByLeague?leagueid=1".toLowerCase());
         });
         it("'#DdlMatchId' should be contain correct responsed text", function () {
             expect($ddlmatch).toContainHtml("<option>Test</option>");
@@ -154,7 +154,7 @@
 
             NewForecastHdpOu.openBetlist(1, param, 2, 3);
 
-            expect(window.open.calls.argsFor(0)[0]).toBe(url);
+            expect(window.open.calls.argsFor(0)[0].toLowerCase()).toBe(url.toLowerCase());
         });
     });
 });

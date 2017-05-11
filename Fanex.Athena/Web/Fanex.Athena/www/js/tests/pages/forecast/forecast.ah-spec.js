@@ -87,7 +87,7 @@
                     setFixtures('<div id="reportContent"></div>');
                     jasmine.Ajax.install();
                     jasmine.Ajax
-                        .stubRequest("AhForecast/Index?matchid=undefined&bettype=2&currentscore=1")
+                        .stubRequest(/AhForecast\/Index\?matchid=undefined&bettype=2\&currentscore=1/i)
                         .andReturn({
                             'status': 200,
                             'dataType': 'html',

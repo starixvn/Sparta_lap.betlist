@@ -62,8 +62,7 @@
     });
 
     describe("openForecast(matchId, betType, isPopup)", function () {
-        var queryString = "currencyid=2&currencyname=uus&basecurrency=3&matchid=1&bettype=2";
-        var url = "RunningMatchBetList/Index?" + queryString;
+        var urlPattern = /RunningMatchBetList\/Index\?currencyid=2\&currencyname=uus\&basecurrency=3\&matchid=1\&bettype=2/i;
 
         beforeEach(function () {
             affix("#CurrencyId");
@@ -79,7 +78,7 @@
 
             ForecastOneXTwo.openForecast(1, 2, "true");
 
-            expect(ForecastPopup.resizePopup).toHaveBeenCalledWith(900, jasmine.any(Number), url);
+            expect(ForecastPopup.resizePopup).toHaveBeenCalledWith(900, jasmine.any(Number), jasmine.stringMatching(urlPattern));
         });
     });
 

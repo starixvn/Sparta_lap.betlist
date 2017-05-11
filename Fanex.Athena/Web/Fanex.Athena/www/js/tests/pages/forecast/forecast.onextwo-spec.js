@@ -84,7 +84,7 @@
 
                     ForecastOneXTwo.openForecast(123, 456);
 
-                    expect(Site.redirect).toHaveBeenCalledWith("RunningMatchBetList/Index?currencyname=&matchid=123&bettype=456");
+                    expect(Site.redirect).toHaveBeenCalledWith("RunningMatchBetList/Index?CurrencyName=&matchid=123&bettype=456");
                 });
             });
 
@@ -94,7 +94,7 @@
 
                     var url = ForecastOneXTwo.getBetListUrl("localhost", 123, 456);
 
-                    expect(url).toBe("localhost?currencyid=2&basecurrency=3&matchid=123&bettype=456");
+                    expect(url).toBe("localhost?CurrencyId=2&BaseCurrency=3&matchid=123&bettype=456");
                 });
             });
 

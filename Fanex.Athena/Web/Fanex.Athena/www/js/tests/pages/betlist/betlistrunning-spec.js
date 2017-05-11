@@ -64,7 +64,7 @@
                     BetListRunning.initEvent();
                     $("#ExportToExcel").click();
 
-                    expect(Site.redirect).toHaveBeenCalledWith("localhost?currencyname=&isexportexcel=true&sortby=Column1&sortorder=abc");
+                    expect(Site.redirect).toHaveBeenCalledWith("localhost?CurrencyName=&IsExportExcel=true&SortBy=Column1&SortOrder=abc");
                 });
             });
 

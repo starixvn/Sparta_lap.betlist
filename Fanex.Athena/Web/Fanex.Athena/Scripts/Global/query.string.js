@@ -14,13 +14,15 @@ var QueryString = (function () {
     }
 
     function setParam(url, key, value) {
+        var isRemoving = value === null || value === undefined;
+
         var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
         var separator = url.indexOf('?') !== -1 ? "&" : "?";
         if (url.match(re)) {
-            return url.replace(re, '$1' + key + "=" + value + '$2');
+            return url.replace(re, '$1' + (isRemoving ? '' : key + "=" + value + '$2')).replace("&&", "&");
         }
         else {
-            return url + separator + key + "=" + value;
+            return url + (isRemoving ? '' : separator + key + "=" + value).replace("&&", "&");
         }
     }
 

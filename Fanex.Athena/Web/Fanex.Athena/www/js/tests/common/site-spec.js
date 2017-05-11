@@ -48,7 +48,7 @@
 
             it("return an url with query string if 'urlOrParams' is a string", function () {
                 var result = Site.setLicenseeOptionParam("localhost");
-                expect(result).toBe("localhost?currencyid=1&currencyname=&basecurrency=USD");
+                expect(result).toBe("localhost?CurrencyId=1&CurrencyName=&BaseCurrency=USD");
             });
 
             it("return an object with query string if 'urlOrParams' is an object", function () {
@@ -60,7 +60,7 @@
                 $("#CurrencyId").html("");
 
                 var result = Site.setLicenseeOptionParam("localhost");
-                expect(result).toBe("localhost?currencyname=AAA&basecurrency=USD");
+                expect(result).toBe("localhost?CurrencyName=AAA&BaseCurrency=USD");
             });
         });
 
@@ -69,7 +69,7 @@
                 setFixtures('<select id="CurrencyId" data-original="2" /> <input id="BaseCurrency" data-original="USD" />');
 
                 var result = Site.setLicenseeOptionOriginalParam("localhost");
-                expect(result).toBe("localhost?currencyid=2&currencyname=&basecurrency=USD");
+                expect(result).toBe("localhost?CurrencyId=2&CurrencyName=&BaseCurrency=USD");
             });
 
             it("url should return correct value when currency name not in option tag", function () {
@@ -77,7 +77,7 @@
                     '<input id="CurrencyName" value="AAA" /> <input id="BaseCurrency" data-original="USD" />');
 
                 var result = Site.setLicenseeOptionOriginalParam("localhost");
-                expect(result).toBe("localhost?currencyid=2&currencyname=AAA&basecurrency=USD");
+                expect(result).toBe("localhost?CurrencyId=2&CurrencyName=AAA&BaseCurrency=USD");
             });
         });
 
@@ -95,7 +95,7 @@
         describe("setProductOptionParam(url, counter, productCode, status)", function () {
             it("build an url with production options", function () {
                 var result = Site.setProductOptionParam("localhost", 1, "SB", true);
-                expect(result).toBe("localhost?productoptions[1].code=SB&productoptions[1].name=SB&productoptions[1].status=true");
+                expect(result).toBe("localhost?ProductOptions[1].Code=SB&ProductOptions[1].Name=SB&ProductOptions[1].Status=true");
             });
         });
 
@@ -459,7 +459,7 @@
             it("url should return correct value", function () {
                 setFixtures('<input id="FromDate" data-original="1/1/2017" /> <input id="ToDate" data-original="4/13/2017" />');
                 var url = "localhosttest";
-                var expectedResult = "localhosttest?fromdate=1/1/2017&todate=4/13/2017";
+                var expectedResult = "localhosttest?FromDate=1/1/2017&ToDate=4/13/2017";
 
                 var result = Site.setDateRangeOriginalParam(url);
 
@@ -471,7 +471,7 @@
             it("url should return correct value", function () {
                 setFixtures('<input id="FromDate" value="1/1/2017" /> <input id="ToDate" value="4/13/2017" />');
                 var url = "localhosttest";
-                var expectedResult = "localhosttest?fromdate=1/1/2017&todate=4/13/2017";
+                var expectedResult = "localhosttest?FromDate=1/1/2017&ToDate=4/13/2017";
 
                 var result = Site.setDateRangeParam(url);
 
@@ -488,7 +488,7 @@
 
             it("param is query string - url should return correct value", function () {
                 var url = "localhosttest";
-                var expectedUrl = "localhosttest?productoptions[0].code=SB&productoptions[0].name=SB&productoptions[0].status=true";
+                var expectedUrl = "localhosttest?ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
 
                 var result = Site.setProductOptionOriginalParamList(url);
 
@@ -517,7 +517,7 @@
 
             it("param is query string - url should return correct value", function () {
                 var url = "localhosttest";
-                var expectedUrl = "localhosttest?productoptions[0].code=SB&productoptions[0].name=SB&productoptions[0].status=true";
+                var expectedUrl = "localhosttest?ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
 
                 var result = Site.setProductOptionParamList(url);
 

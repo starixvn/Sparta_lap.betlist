@@ -146,9 +146,9 @@
                 appendSetFixtures("<a class='sport-detailt-link' data-drill-down='{\"SportId\":1}'></a>");
                 LiveReport.initialize();
                 $('.sport-detailt-link').click();
-                var url = "LiveReport/MatchList?currencyname=&sportid=1&productcode=AG&showsb=true&showba=false&productoptions[0].code=AG&productoptions[0].name=AG&productoptions[0].status=true&showag=true";
+                var urlPattern = /LiveReport\/MatchList\?currencyname=\&sportid=1\&productcode=AG\&showsb=true\&showba=false\&productoptions\[0\]\.code=AG\&productoptions\[0\]\.name=AG\&productoptions\[0\]\.status=true\&showag=true/i;
 
-                expect(Site.redirect).toHaveBeenCalledWith(url);
+                expect(Site.redirect).toHaveBeenCalledWith(jasmine.stringMatching(urlPattern));
             });
 
             it("Site.redirect() is called with correct url when clicking on sportid = 161", function () {
@@ -159,9 +159,9 @@
                 appendSetFixtures("<a class='sport-detailt-link' data-drill-down='{\"SportId\":161}'></a>");
                 LiveReport.initialize();
                 $('.sport-detailt-link').click();
-                var url = "LiveReportBetList/NumberGame?currencyname=&showsb=false&showba=false&productoptions[0].code=AG&productoptions[0].name=AG&productoptions[0].status=true&showag=true";
+                var urlPattern = /LiveReportBetList\/NumberGame\?currencyname=\&showsb=false\&showba=false\&productoptions\[0\]\.code=AG\&productoptions\[0\]\.name=AG\&productoptions\[0\]\.status=true\&showag=true/i;
 
-                expect(Site.redirect).toHaveBeenCalledWith(url);
+                expect(Site.redirect).toHaveBeenCalledWith(jasmine.stringMatching(urlPattern));
             });
         });
     });

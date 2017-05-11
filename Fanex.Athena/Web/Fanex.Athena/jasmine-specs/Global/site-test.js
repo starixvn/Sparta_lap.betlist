@@ -33,7 +33,7 @@
             affix("input#BaseCurrency[value=USD]");
 
             var result = Site.setLicenseeOptionParam("localhost");
-            expect(result).toBe("localhost?currencyid=1&currencyname=&basecurrency=USD");
+            expect(result.toLowerCase()).toBe("localhost?currencyid=1&currencyname=&basecurrency=USD".toLowerCase());
         });
 
         it("return an object with query string if 'urlOrParams' is an object", function () {
@@ -53,7 +53,7 @@
             affix("input#BaseCurrency[data-original=USD]");
 
             var result = Site.setLicenseeOptionOriginalParam("localhost");
-            expect(result).toBe("localhost?currencyid=2&currencyname=&basecurrency=USD");
+            expect(result.toLowerCase()).toBe("localhost?currencyid=2&currencyname=&basecurrency=USD".toLowerCase());
         });
     });
 
@@ -69,7 +69,7 @@
     describe("setProductOptionParam(url, counter, productCode, status)", function () {
         it("build an url with production options", function () {            
             var result = Site.setProductOptionParam("localhost", 1, "SB", true);
-            expect(result).toBe("localhost?productoptions[1].code=SB&productoptions[1].name=SB&productoptions[1].status=true");
+            expect(result.toLowerCase()).toBe("localhost?productoptions[1].code=SB&productoptions[1].name=SB&productoptions[1].status=true".toLowerCase());
         });
     });
 
