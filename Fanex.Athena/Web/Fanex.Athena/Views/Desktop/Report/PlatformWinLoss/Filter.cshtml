@@ -76,6 +76,7 @@
                 <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
             </div>
         </div>
+        @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
         <input type="hidden" id="MaxDate" value="@appSettings.MaxDate.ToString("yyyy/M/d")" />
     </form>
 </div>

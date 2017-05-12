@@ -21,7 +21,7 @@ namespace Fanex.Athena.Model.Report.MetaModel
             ToDay = today.Day;
             CurrencyId = 0;
             DrawFilter = DataDomain.DrawFilterType.Normal;
-            PlatformType = Model.Core.DataDomain.PlatformType.All;
+            PlatformType = DataDomain.PlatformType.All;
             IsExcludeTest = true;
         }
 
