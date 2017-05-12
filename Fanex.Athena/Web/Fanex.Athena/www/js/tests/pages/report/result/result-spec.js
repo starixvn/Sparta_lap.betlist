@@ -801,5 +801,19 @@
                     expect(DatePicker.setValueForSingleDate).toHaveBeenCalledWith($("#Date"), "03/03/2017");
                 });
             });
+
+            describe("stopAjaxRequest(request)", function () {
+                it("should call request.abort()", function () {
+                    var request = {
+                        abort: function () { }
+                    };
+
+                    spyOn(request, 'abort');
+
+                    Result.stopAjaxRequest(request);
+
+                    expect(request.abort).toHaveBeenCalled();
+                });
+            });
         });
     });

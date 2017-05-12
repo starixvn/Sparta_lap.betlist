@@ -49,6 +49,23 @@
             });
         });
 
+        describe("setParams(url, parameters)", function () {
+            it("add new value to a query string if it does not exist", function () {
+                var result = QueryString.setParams("http://localhost", { a: 2 });
+                expect(result).toBe("http://localhost?a=2");
+            });
+
+            it("add/update value in a query string correctly", function () {
+                var result = QueryString.setParams("http://localhost?a=1", { a: 2, b: 1 });
+                expect(result).toBe("http://localhost?a=2&b=1");
+            });
+
+            it("remove null value", function () {
+                var result = QueryString.setParams("http://localhost?a=1&b=2", { a: null, b: 1 });
+                expect(result).toBe("http://localhost?b=1");
+            });
+        });
+
         describe("getParam(url, name)", function () {
             it("return a correct value if it exists", function () {
                 var result = QueryString.getParam("http://localhost?a=1", "a");
