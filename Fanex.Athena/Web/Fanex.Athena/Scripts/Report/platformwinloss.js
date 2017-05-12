@@ -63,7 +63,9 @@ var PlatformWinLoss = (function ($) {
 
                     cacheData[_level].Data = sortData(cacheData[_level].Data);
 
-                    PlatformWinLoss.bindData(_level, cacheData[_level], $.parseJSON(_submitData.ProductOptions));
+                    var productOptions = _level === 0 ? $.parseJSON(_submitData.ProductOptions) : _drilldownData.ProductOptions;
+
+                    PlatformWinLoss.bindData(_level, cacheData[_level], productOptions);
 
                     Site.unBlockUI();
                 }, 100);
