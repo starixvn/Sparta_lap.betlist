@@ -167,6 +167,8 @@ namespace Fanex.Athena.Excel.Report
                     rowContent.Cells[ColumnMatch].SetCellValue(winlossByLeague.HomeName + Environment.NewLine + winlossByLeague.AwayName);
                     rowContent.Cells[ColumnAmtDueTo].SetCellValue(winlossByLeague.AmountDue);
                     rowContent.Cells[ColumnBaComm].SetCellValue(winlossByLeague.BACommission);
+
+                    rowContent.Height = (short)(rowContent.Height * 2);
                 }
                 else
                 {
@@ -175,10 +177,6 @@ namespace Fanex.Athena.Excel.Report
                 }
 
                 AssignCommonData(rowContent, winlossByLeague);
-                if (Level == 0)
-                {
-                    rowContent.Height = 0; // auto height
-                }
 
                 currentRow++;
             }
@@ -238,7 +236,8 @@ namespace Fanex.Athena.Excel.Report
         protected int AssignTotalData(ISheet sheet, int currentRow)
         {
             int rowTemplate = RowTotalSolidBorder;
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
+            sheet.MergeCells(currentRow, 0, currentRow, Level == 0 ? 1 : 3);
+
             IRow row = sheet.CopyRow(TemplateSheet, rowTemplate, currentRow);
             AssignCommonData(row, _totalData);
             row.Cells[ColumnAmtDueTo].SetCellValue(_totalData.AmountDue);
