@@ -175,6 +175,10 @@ namespace Fanex.Athena.Excel.Report
                 }
 
                 AssignCommonData(rowContent, winlossByLeague);
+                if (Level == 0)
+                {
+                    rowContent.Height = 0; // auto height
+                }
 
                 currentRow++;
             }

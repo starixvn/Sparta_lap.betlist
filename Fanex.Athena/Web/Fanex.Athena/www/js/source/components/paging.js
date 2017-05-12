@@ -102,6 +102,7 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
             pageControl.push('<input type="hidden" name="AjaxPagingFunction" value="' + setting.ajaxfunction + '" />');
             pageHtml = pageControl.join("");
         }
+
         $(setting.elementcontainer).html(pageHtml);
         me.initialize();
     };

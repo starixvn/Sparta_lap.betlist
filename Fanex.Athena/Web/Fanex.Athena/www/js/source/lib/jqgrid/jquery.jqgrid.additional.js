@@ -17,6 +17,7 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
 
                 var gridTop = $bdiv.offset().top;
                 var pagingHeight = $(".paging:visible").length ? $(".paging:visible").height() : 0;
+                pagingHeight = pagingHeight || $("#paging:visible").length ? $("#paging:visible").height() : 0;
                 var footerHeight = $(".ui-jqgrid-sdiv:visible").length ? $(".ui-jqgrid-sdiv:visible").height() : 0;
                 var jqgridPagerHeight = $(".ui-jqgrid-pager:visible").length ? $(".ui-jqgrid-pager:visible").outerHeight(true) : 0;
                 var footerSite = 18;

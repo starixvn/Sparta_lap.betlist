@@ -162,7 +162,7 @@
                 colModel: [],
                 data: [],
                 height: 'auto',
-                autowidth: true,
+                autowidth: false,
                 forceFit: false,
                 shrinkToFit: true,
                 loadtext: 'loading...',

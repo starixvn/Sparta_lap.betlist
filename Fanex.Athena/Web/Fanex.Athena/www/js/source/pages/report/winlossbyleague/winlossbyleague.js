@@ -114,6 +114,7 @@
             //#region Init
             initialize: function () {
                 Site.initialize();
+                PagingHeper.initialize();
                 _me.initEvent();
                 _me.initSetting();
                 MultiSelect.initialize('grid-products-multiselect', $("#ProductOptionJson").val(), 'Code', 'Name', 'Status');
@@ -154,9 +155,7 @@
                 $("#ExportToExcel").click(function (e) {
                     _postdata.LeagueName = _leaguename;
                     _postdata.Level = _level;
-
                     Site.exportExcel(_postdata, Site.resolveClientUrl("api/WinLossByLeagueReport/Excel"));
-                    //  window.location.href = (Site.resolveClientUrl("api/WinLossByLeagueReport/Excel?") + $.param(_postdata));
                     e.preventDefault();
                 });
 
@@ -196,9 +195,6 @@
             },
 
             initEvent: function () {
-                /// <summary>
-                /// Inititalize events
-                /// </summary>
                 $("body").on("click", ".bet-list-link", function () {
                     var dataDrillDown = $(this).attr("data-drill-down");
                     _me.openBetlistPopUp(dataDrillDown);
@@ -212,11 +208,24 @@
                     var level = Number($(this).attr("data-level"));
                     return _me.goBack(level);
                 });
-            },
 
+                $(window).on("resize", function () {
+                    _me.resizeGrid();
+                });
+
+                $(window).on("unload", function () {
+                    $(window).off("resize");
+                });
+            },
+            
             //#endregion
 
             //#region Utilities
+            resizeGrid: function () {
+                var reportGrid = $("#ReportGrid");
+                jqGridAdditional.updateGridHeight();
+                jqGridAdditional.updateGridWidth(reportGrid);
+            },
 
             goBack: function () {
                 if (_level === 1) {
@@ -388,10 +397,12 @@
                         _me.ajaxComplete(_level, response);
                         if (response != null && response.Data.length > 0) {
                             _me.setReportTitle(1, _postdata.Odds, _fromDate, _toDate);
+
                             _pagingOption.totalrow = parseInt(response.TotalRows);
                             if (_pagingOption.totalrow > 0) {
                                 $("#paging").show();
                                 PagingHeper.render(_pagingOption);
+                                _me.resizeGrid();
                             }
                         }
                     },
@@ -465,6 +476,7 @@
                         onPaging = false;
                     }
 
+                     _me.resizeGrid();
                     Site.unBlockUI();
                 };
 
