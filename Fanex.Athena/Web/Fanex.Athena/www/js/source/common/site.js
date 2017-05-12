@@ -130,8 +130,10 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                     }
                 }
             }
+            if (!data["__RequestVerificationToken"]) {
+                $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: REQUEST_VERIFICATION_TOKEN }).appendTo($form);
+            }
 
-            $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: REQUEST_VERIFICATION_TOKEN }).appendTo($form);
             $form.submit();
             $form.remove();
         }
