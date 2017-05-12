@@ -244,6 +244,195 @@
             _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
         }
 
+        [Test]
+        public void Index_WhenCallWithMetaModelFromFormBody_AddDataForDrillDownPropertiesOfMetaModel()
+        {
+            // Arrange
+            const int CustId = 1, DrillDownCurrencyId = -2, CurrencyId = -2, Level = 1;
+            var fromDate = new DateTime(2017, 4, 1);
+            var toDate = new DateTime(2017, 4, 18);
+            var inputedMetaModel = new CashOutWinLossMetaModel
+            {
+                CurrencyId = CurrencyId,
+                IsExcludedTestData = true,
+                DrillDownLevel = Level,
+                DrillDownCurrencyId = DrillDownCurrencyId,
+                DrillDownCustomerId = CustId,
+                IsExportExcel = false,
+                DrillDownFromDate = fromDate,
+                DrillDownToDate = toDate,
+                FromDate = fromDate
+            };
+
+            var expectedDrillDownData = new
+            {
+                DrillDownCurrencyId = 0,
+                DrillDownLevel = 0,
+                DrillDownCustomerId = 0,
+                DrillDownFromDate = inputedMetaModel.DrillDownFromDate,
+                DrillDownToDate = inputedMetaModel.DrillDownToDate
+            };
+
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), inputedMetaModel, new CashOutWinLossViewModel());
+            excel.When(x => x.Export()).DoNotCallBase();
+            _controller.CreateExcel(
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<ConvertingOption>(),
+                Arg.Any<CashOutWinLossMetaModel>(),
+                Arg.Any<CashOutWinLossViewModel>())
+                .Returns(excel);
+            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
+
+            // Action
+            _controller.Index(inputedMetaModel, null, null);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(expectedDrillDownData.DrillDownCurrencyId, inputedMetaModel.DrillDownCurrencyId);
+                Assert.AreEqual(expectedDrillDownData.DrillDownLevel, inputedMetaModel.DrillDownLevel);
+                Assert.AreEqual(expectedDrillDownData.DrillDownCustomerId, inputedMetaModel.DrillDownCustomerId);
+                Assert.AreEqual(expectedDrillDownData.DrillDownFromDate, inputedMetaModel.DrillDownFromDate);
+                Assert.AreEqual(expectedDrillDownData.DrillDownToDate, inputedMetaModel.DrillDownToDate);
+            });
+        }
+
+        [Test]
+        public void Index_WhenCallWithManyInputs_AddDataForDrillDownPropertiesOfMetaModel()
+        {
+            // Arrange
+            var fromDateInput = new DateTime(2017, 4, 1);
+            var toDateInput = new DateTime(2017, 4, 18);
+            var levelInput = 1;
+            var currencyInput = -1;
+            var customerIdInput = 1;
+
+            var inputedMetaModel = new CashOutWinLossMetaModel
+            {
+                CurrencyId = -2,
+                IsExcludedTestData = true,
+                IsExportExcel = false,
+                FromDate = new DateTime(2017, 4, 1)
+            };
+
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), inputedMetaModel, new CashOutWinLossViewModel());
+            excel.When(x => x.Export()).DoNotCallBase();
+            _controller.CreateExcel(
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<ConvertingOption>(),
+                Arg.Any<CashOutWinLossMetaModel>(),
+                Arg.Any<CashOutWinLossViewModel>())
+                .Returns(excel);
+            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
+
+            // Action
+            _controller.Index(inputedMetaModel, fromDateInput, toDateInput, levelInput, currencyInput, customerIdInput);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(currencyInput,inputedMetaModel.DrillDownCurrencyId);
+                Assert.AreEqual(levelInput, inputedMetaModel.DrillDownLevel);
+                Assert.AreEqual(customerIdInput, inputedMetaModel.DrillDownCustomerId);
+                Assert.AreEqual(fromDateInput, inputedMetaModel.DrillDownFromDate);
+                Assert.AreEqual(toDateInput, inputedMetaModel.DrillDownToDate);
+            });
+        }
+
+        [Test]
+        public void Index_IsExportToExcelWithLevelAndCurrencyGreaterThanZero_ChangeCurrencyIdOfMetaModel()
+        {
+            // Arrange
+            const int CustId = 1, Level = 1;
+            var fromDate = new DateTime(2017, 4, 1);
+            var drillDownFromDate = new DateTime(2017, 5, 1);
+            var toDate = new DateTime(2017, 4, 18);
+            var drillDownToDate = new DateTime(2017, 5, 18);
+            var initialCurrencyId = 1;
+            var changedCurrencyId = -2;
+
+            var metaModel = new CashOutWinLossMetaModel
+            {
+                CurrencyId = initialCurrencyId,
+                IsExcludedTestData = true,
+                DrillDownLevel = Level,
+                DrillDownCurrencyId = changedCurrencyId,
+                DrillDownCustomerId = CustId,
+                IsExportExcel = true,
+                DrillDownFromDate = drillDownFromDate,
+                DrillDownToDate = drillDownToDate,
+                FromDate = fromDate,
+                ToDate = toDate
+            };
+
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            excel.When(x => x.Export()).DoNotCallBase();
+            _controller.CreateExcel(
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<ConvertingOption>(),
+                Arg.Any<CashOutWinLossMetaModel>(),
+                Arg.Any<CashOutWinLossViewModel>())
+                .Returns(excel);
+            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
+
+            _sessionService.UserSession.CurrencyList = new Dictionary<int, string>() { { initialCurrencyId, "Currency" } };
+
+            // Action
+            _controller.Index(metaModel, drillDownFromDate, drillDownToDate, Level, changedCurrencyId, CustId);
+
+            // Assert
+            Assert.AreEqual(changedCurrencyId, metaModel.CurrencyId);
+            Assert.AreEqual(fromDate, metaModel.FromDate);
+            Assert.AreEqual(toDate, metaModel.ToDate);
+        }
+
+        [Test]
+        public void Index_IsExportToExcelWithLevelGreaterThanZeroAndCurrencyLessThanZero_ChangeFromDateAndToDateOfMetaModel()
+        {
+            // Arrange
+            const int CustId = 1, Level = 1, CurrencyId = -2, DrillDownCurrencyId = -1;
+            var initialFromDate = new DateTime(2017, 4, 1);
+            var initialToDate = new DateTime(2017, 4, 18);
+            var changedFromDate = new DateTime(2017, 5, 1);
+            var changedToDate = new DateTime(2017, 5, 18);
+
+            var metaModel = new CashOutWinLossMetaModel
+            {
+                CurrencyId = CurrencyId,
+                IsExcludedTestData = true,
+                DrillDownLevel = Level,
+                DrillDownCurrencyId = DrillDownCurrencyId,
+                DrillDownCustomerId = CustId,
+                IsExportExcel = true,
+                DrillDownFromDate = changedFromDate,
+                DrillDownToDate = changedToDate,
+                FromDate = initialFromDate,
+                ToDate = initialToDate
+            };
+
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            excel.When(x => x.Export()).DoNotCallBase();
+            _controller.CreateExcel(
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<ConvertingOption>(),
+                Arg.Any<CashOutWinLossMetaModel>(),
+                Arg.Any<CashOutWinLossViewModel>())
+                .Returns(excel);
+            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
+
+            // Action
+            _controller.Index(metaModel, changedFromDate, changedToDate, Level, DrillDownCurrencyId, CustId);
+
+            // Assert
+            Assert.AreEqual(CurrencyId, metaModel.CurrencyId);
+            Assert.AreEqual(changedFromDate, metaModel.FromDate);
+            Assert.AreEqual(changedToDate, metaModel.ToDate);
+        }
+
         private static bool IsValidMetaModelForLevel0(CashOutWinLossMetaModel metaModel, int level)
         {
             return metaModel.DrillDownCurrencyId == -2 && metaModel.DrillDownLevel == level &&
