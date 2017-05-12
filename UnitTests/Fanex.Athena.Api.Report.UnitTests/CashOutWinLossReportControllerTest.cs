@@ -74,7 +74,7 @@
                 AgentListXml = "XmlData"
             };
             _sessionService.GenerateAgentListXml(CurrencyId, metaModel.IsExcludedTestData).Returns("XmlData");
-            IDictionary<string, CashOutWinLoss> summaryData = new Dictionary<string, CashOutWinLoss>();
+            IDictionary<string, CashOutWinLoss> summaryData;
             var dataListResult = new SortableList<CashOutWinLoss>
             {
                 new CashOutWinLoss()
@@ -112,7 +112,7 @@
                 AgentListXml = "XmlData"
             };
             _sessionService.GenerateAgentListXml(CurrencyId, metaModel.IsExcludedTestData).Returns("XmlData");
-            IDictionary<string, CashOutWinLoss> summaryData = new Dictionary<string, CashOutWinLoss>();
+            IDictionary<string, CashOutWinLoss> summaryData;
             var dataListResult = new SortableList<CashOutWinLoss>
             {
                 new CashOutWinLoss()
@@ -150,7 +150,7 @@
                 AgentListXml = "XmlData"
             };
             _sessionService.GenerateAgentListXml(CurrencyId, metaModel.IsExcludedTestData).Returns("XmlData");
-            IDictionary<string, CashOutWinLoss> summaryData = new Dictionary<string, CashOutWinLoss>();
+            IDictionary<string, CashOutWinLoss> summaryData;
 
             _service.GetDetail(Arg.Any<CashOutWinLossMetaModel>(), out summaryData).ReturnsForAnyArgs(x =>
             {
@@ -263,7 +263,6 @@
                 DrillDownToDate = toDate,
                 FromDate = fromDate
             };
-
             var expectedDrillDownData = new
             {
                 DrillDownCurrencyId = 0,
@@ -333,7 +332,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(currencyInput,inputedMetaModel.DrillDownCurrencyId);
+                Assert.AreEqual(currencyInput, inputedMetaModel.DrillDownCurrencyId);
                 Assert.AreEqual(levelInput, inputedMetaModel.DrillDownLevel);
                 Assert.AreEqual(customerIdInput, inputedMetaModel.DrillDownCustomerId);
                 Assert.AreEqual(fromDateInput, inputedMetaModel.DrillDownFromDate);
