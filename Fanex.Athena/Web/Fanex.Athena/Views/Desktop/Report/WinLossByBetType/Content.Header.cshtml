@@ -1,0 +1,62 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.WinLossByBetTypeViewModel
+
+@{ 
+    var rowspan = Model.IsAllowedCustomerCommission ? 2 : 1;
+    var colspan = Model.IsAllowedCustomerCommission ? 3 : 1;
+}
+<tr>
+    <th rowspan="@rowspan">#</th>
+    <th rowspan="@rowspan" class="sortable">
+        <a class="sort-heading" data-column-name="BetTypeName">@ViewResources.GameTypeName</a>
+    </th>
+    <th rowspan="@rowspan" class="sortable">
+        <a class="sort-heading" data-column-name="Turnover">@ViewResources.Turnover</a>
+    </th>
+    <th colspan="@colspan">
+        @ViewResources.CustomerW_L
+    </th>
+    <th rowspan="@rowspan" class="sortable">
+        <a class="sort-heading" data-column-name="LicenseeWL">@ViewResources.LicenseeW_L</a>
+    </th>
+
+    @*Check BA, RB commission*@
+    @if (Model.ProductAccess.IsAllowBA)
+    {
+        <th rowspan="@rowspan" class="sortable">
+            <a class="sort-heading" data-column-name="BACommission">@ViewResources.BACommission</a>
+        </th>
+    }
+    @if (Model.ProductAccess.IsAllowRB)
+    {
+        <th rowspan="@rowspan" class="sortable">
+            <a class="sort-heading" data-column-name="RacingWinLoss">@ViewResources.RacingRevenue</a>
+        </th>
+    }
+    @if (Model.ProductAccess.IsAllowBA)
+    {
+        <th rowspan="@rowspan" class="sortable">
+            <a class="sort-heading" data-column-name="AmtDueToBA">@ViewResources.AmtDueToBA</a>
+        </th>
+    }
+    @if (Model.ProductAccess.IsAllowRB)
+    {
+        <th rowspan="@rowspan" class="sortable">
+            <a class="sort-heading" data-column-name="AmtDueToRacing">@ViewResources.AmtDueToRacing</a>
+        </th>
+    }
+</tr>
+
+@if(Model.IsAllowedCustomerCommission)
+{
+    <tr>
+        <th class="sortable">
+            <a class="sort-heading" data-column-name="CustomerWinLoss">@ViewResources.WinLoss</a>
+        </th>
+        <th class="sortable">
+            <a class="sort-heading" data-column-name="CustomerComm">@ViewResources.Comm</a>
+        </th>
+        <th class="sortable">
+            <a class="sort-heading" data-column-name="CustomerTotal">@ViewResources.Total</a>
+        </th>
+    </tr>
+}

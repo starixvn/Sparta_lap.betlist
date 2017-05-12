@@ -91,6 +91,10 @@ table {
     &.small {
         width: 10%;
     }
+
+    &.large{
+        width: 20%;
+    }
 }
 
 .col-large {
@@ -106,6 +110,10 @@ table {
 
     &.small {
         width: 6%;
+    }
+
+    &.medium{
+        width: 7.5%;
     }
 }
 

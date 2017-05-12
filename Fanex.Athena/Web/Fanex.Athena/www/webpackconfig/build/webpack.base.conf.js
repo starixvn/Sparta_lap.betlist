@@ -56,6 +56,7 @@ function generateConfig(environment) {
             [`${jsPath}/pages/reports/winlossbyleague`]: [pathConfig.scriptPaths.winlossbyleague],
             [`${jsPath}/pages/reports/matchwinloss`]: [pathConfig.scriptPaths.matchwinloss],
             [`${jsPath}/pages/reports/platformwinloss`]: [pathConfig.scriptPaths.platformwinloss],
+            [`${jsPath}/pages/reports/winlossbybettype`]: [pathConfig.scriptPaths.winlossbybettype],
             
 
             [`${cssPath}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
@@ -90,7 +91,8 @@ function generateConfig(environment) {
             [`${cssPath}/pages/reports/dailyracingwinloss`]: pathConfig.cssPaths.dailyracingwinloss,
             [`${cssPath}/pages/reports/winlossbyleague`]: pathConfig.cssPaths.winlossbyleague,
             [`${cssPath}/pages/reports/matchwinloss`]: pathConfig.cssPaths.matchwinloss,
-            [`${cssPath}/pages/reports/platformwinloss`]: pathConfig.cssPaths.platformwinloss
+            [`${cssPath}/pages/reports/platformwinloss`]: pathConfig.cssPaths.platformwinloss,
+            [`${cssPath}/pages/reports/winlossbybettype`]: pathConfig.cssPaths.winlossbybettype
         },
         output: {
             path: pathConfig.projectRoot,

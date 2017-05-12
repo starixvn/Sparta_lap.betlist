@@ -939,7 +939,15 @@
     <Content Include="www\css\build\dev\pages\reports\winlossbyleague.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\winlossbyleague.css.map" />
     <Content Include="Views\Desktop\BetList\WinLossByLeague\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\WinLossByBetType\Main.cshtml" />
+    <Content Include="Views\Desktop\Report\WinLossByBetType\Filter.cshtml" />
+    <Content Include="Views\Desktop\Report\WinLossByBetType\Content.cshtml" />
+    <Content Include="Views\Desktop\Report\WinLossByBetType\Content.Data.cshtml" />
+    <Content Include="Views\Desktop\Report\WinLossByBetType\Content.Header.cshtml" />
+    <Content Include="Views\Desktop\Report\WinLossByBetType\Content.Total.cshtml" />
+    <Content Include="Views\Desktop\BetList\WinlossByBetType\Main.cshtml" />
     <None Include="www\css\source\pages\report\turnover.scss" />
+    <Content Include="www\css\source\pages\report\winlossbybettype.scss" />
     <None Include="www\css\source\pages\report\winlossbyleague.scss" />
     <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
@@ -1125,6 +1133,8 @@
     <Content Include="www\js\source\pages\report\weeklylivematch\main-weeklylivematch.js" />
     <Content Include="www\js\source\pages\report\weeklylivematch\weeklylivematch.js" />
     <Content Include="www\js\source\pages\report\weeklylivematch\weeklylivematch.option.js" />
+    <Content Include="www\js\source\pages\report\winlossbybettype\main.js" />
+    <Content Include="www\js\source\pages\report\winlossbybettype\winlossbybettype.js" />
     <Content Include="www\js\source\pages\report\winlossbyleague\main.js" />
     <Content Include="www\js\source\pages\report\winlossbyleague\winlossbyleague.js" />
     <Content Include="www\js\source\pages\report\winlossbyleague\winlossbyleague.option.js" />

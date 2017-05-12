@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.WinLossByBetType;
+    Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
+}
+@model Fanex.Athena.Model.Report.ViewModel.WinLossByBetTypeViewModel
+
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/winlossbybettype.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/winlossbybettype.chunk.js")"></script>
+}
+
+@section Filter
+{
+    @{ Html.RenderPartial("~/Views/Desktop/Report/WinLossByBetType/Filter.cshtml"); }
+}
+@section Content{
+    @if (!Model.ShowEmptyContent)
+    {
+        Html.RenderPartial("~/Views/Desktop/Report/WinLossByBetType/Content.cshtml");
+    }
+}

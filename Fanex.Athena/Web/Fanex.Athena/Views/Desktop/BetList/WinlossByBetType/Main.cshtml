@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = string.Format("LRF - {0}", ViewResources.BetList);
+    Layout = "~/Views/Desktop/Shared/_BetListSimpleLayout.cshtml";
+}
+
+@using Fanex.Athena.Model.Core.Helper
+@using Fanex.Athena.Model.Core.DataDomain
+@model Fanex.Athena.Model.BetList.MetaModel.BetListMetaModel
+
+@{
+    ViewBag.HideExportExcel = Model.CurrencyId == BaseCurrencyType.All || Model.FromDate.Date != Model.ToDate.Date;
+}
+
+@section pagecss {}
+@section pagejs {}
+
+@section ContentTitle
+{
+    @ViewResources.BetList - @CacheRef.GetBettype(Model.BetType)
+    - @Model.FromDate.ToShortDateString()<span class="header-title-arrow">→</span>@Model.ToDate.ToShortDateString()
+    - <span class="base-currency">
+        @{var curencyId = Model.IsConvert ? Model.BaseCurrencyId : Model.CurrencyId;}
+
+        @RazorHelper.ViewInCurrency(curencyId, Model.CurrencyName)
+
+    </span>
+}
+
+@section BackButton
+{
+    <a href="javascript:window.history.back();" class="icon-back"></a>
+}
+
+@{
+    <input type="hidden" id="ApiUrl" value="api/WinlossByBetTypeBetList/Index" />
+    <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
+    <input type="hidden" id="HiddenColumnList" value="" />
+    <input type="hidden" id="IsServerPaging" value="1" />
+    <input type="hidden" id="IsExportAll" value="1" />
+}

@@ -1,0 +1,37 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.WinLossByBetTypeViewModel
+
+@{
+    var index = 1;
+}
+
+@foreach (var item in Model.MainResult)
+{
+    <tr>
+        <td class="center-align">@(index++)</td>
+        <td>
+            <a href="javascript:;" class="bet-list-link" data-bettype="@item.BetType">@item.BetTypeName</a>
+        </td>
+        <td class="right-align">@item.Turnover.ToStringExt()</td>
+
+        @ReportContentHelperDesktop.RenderCustomerWinLossData(item as Fanex.Athena.Model.Report.DTO.ICustomerWinLoss, Model.IsAllowedCustomerCommission)
+
+        <td class="right-align">@RazorHelper.HighlightNegativeFormat(item.LicenseeWL)</td>
+
+        @if (Model.ProductAccess.IsAllowBA)
+        {
+            <td class="right-align">@RazorHelper.HighlightNegativeFormat(item.BACommission)</td>
+        }
+        @if (Model.ProductAccess.IsAllowRB)
+        {
+            <td class="right-align">@RazorHelper.HighlightNegativeFormat(item.RacingWinLoss)</td>
+        }
+        @if (Model.ProductAccess.IsAllowBA)
+        {
+            <td class="right-align">@item.AmtDueToBA.ToStringExt()</td>
+        }
+        @if (Model.ProductAccess.IsAllowRB)
+        {
+            <td class="right-align">@item.AmtDueToRacing.ToStringExt()</td>
+        }
+    </tr>
+}

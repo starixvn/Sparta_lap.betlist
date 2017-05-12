@@ -30,7 +30,7 @@
                 </a>
             </td>
 
-            @ReportContentHelperDesktop.RenderCustomerWinLossForLiveReport(item, Model.IsAllowedCustomerCommission)
+            @ReportContentHelperDesktop.RenderCustomerWinLossData(item, Model.IsAllowedCustomerCommission, true)
 
             @{ 
                 var turnOver = item.TurnOver.ToStringExt();

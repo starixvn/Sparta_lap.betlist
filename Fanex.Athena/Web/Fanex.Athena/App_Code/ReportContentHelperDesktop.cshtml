@@ -4,37 +4,9 @@
 @using Fanex.Athena.Model.Report.DTO
 @using Fanex.Athena.Model.Report.DTO.LiveReports
 
-@helper CreateHeaderForLiveReport(BaseViewModel model, string firstColumnHeader)
-{
-var rowspanText = model.IsAllowedCustomerCommission ? "rowspan=2" : "";
-var colspanText = model.IsAllowedCustomerCommission ? "colspan=3" : "";
-
-    <tr>
-        <th @rowspanText>@firstColumnHeader</th>
-        <th @colspanText>@ViewResources.CustomerW_L</th>
-        <th @rowspanText>@ViewResources.Turnover</th>
-        <th class="header-small" @rowspanText>@ViewResources.BetCount</th>
-        <th @rowspanText>@ViewResources.LicenseeW_L</th>
-        @if (model.ProductAccess.IsAllowRB || model.ProductAccess.IsAllowBA)
-        {
-            <th class="header-small" @rowspanText>@ViewResources.Comm</th>
-        }
-        <th @rowspanText>@ViewResources.AmountDueTo</th>
-    </tr>
-
-if (model.IsAllowedCustomerCommission)
-{
-        <tr>
-            <th>@ViewResources.WinLoss</th>
-            <th>@ViewResources.Comm</th>
-            <th style="border-right-color: #fff !important;">@ViewResources.Total</th>
-        </tr>
-}
-}
-
 @helper RenderDataForLiveReport(BaseViewModel model, LiveReport data)
 {
-    @RenderCustomerWinLossForLiveReport(data, model.IsAllowedCustomerCommission)
+    @RenderCustomerWinLossData(data, model.IsAllowedCustomerCommission, true)
     var turnOver = data.TurnOver.ToStringExt();
     var betCount = data.BetCount.ToStringExt();
     var licenseeWL = data.LicenseeWinLoss;
@@ -53,7 +25,35 @@ if (model.IsAllowedCustomerCommission)
     <td class="right-align" title="@amountDue">@amountDue</td>
 }
 
-@helper RenderCustomerWinLossForLiveReport(ICustomerWinLoss data, bool isAllowedCustomerCommission)
+@helper CreateHeaderForLiveReport(BaseViewModel model, string firstColumnHeader)
+{
+    var rowspanText = model.IsAllowedCustomerCommission ? "rowspan=2" : "";
+    var colspanText = model.IsAllowedCustomerCommission ? "colspan=3" : "";
+
+    <tr>
+        <th @rowspanText>@firstColumnHeader</th>
+        <th @colspanText>@ViewResources.CustomerW_L</th>
+        <th @rowspanText>@ViewResources.Turnover</th>
+        <th class="header-small" @rowspanText>@ViewResources.BetCount</th>
+        <th @rowspanText>@ViewResources.LicenseeW_L</th>
+        @if (model.ProductAccess.IsAllowRB || model.ProductAccess.IsAllowBA)
+        {
+            <th class="header-small" @rowspanText>@ViewResources.Comm</th>
+        }
+        <th @rowspanText>@ViewResources.AmountDueTo</th>
+    </tr>
+
+    if (model.IsAllowedCustomerCommission)
+    {
+            <tr>
+                <th>@ViewResources.WinLoss</th>
+                <th>@ViewResources.Comm</th>
+                <th style="border-right-color: #fff !important;">@ViewResources.Total</th>
+            </tr>
+    }
+}
+
+@helper RenderCustomerWinLossData(ICustomerWinLoss data, bool isAllowedCustomerCommission, bool isShowToolTip = false, string className = "")
 {
     var customerWinLoss = data.CustomerWinLoss.ToStringExt();
 
@@ -62,12 +62,20 @@ if (model.IsAllowedCustomerCommission)
         var customerComm = data.CustomerComm.ToStringExt();
         var customerTotal = data.CustomerTotal.ToStringExt();
 
-            <td class="right-align" title="@customerWinLoss">@customerWinLoss</td>
-            <td class="right-align" title="@customerComm">@customerComm</td>
-            <td class="right-align" title="@customerTotal">@customerTotal</td>
+            <td class="right-align @className" @(isShowToolTip ? GetToolTip(customerWinLoss) : null)>@customerWinLoss</td>
+            <td class="right-align @className" @(isShowToolTip ? GetToolTip(customerComm) : null)>@customerComm</td>
+            <td class="right-align @className" @(isShowToolTip ? GetToolTip(customerTotal) : null)>@customerTotal</td>
     }
     else
     {
-            <td class="right-align" title="@customerWinLoss">@customerWinLoss</td>
+            <td class="right-align" @(isShowToolTip ? GetToolTip(customerWinLoss) : null)>@customerWinLoss</td>
+    }
+}
+
+@functions
+{
+    public static string GetToolTip(string data)
+    {
+        return "title=\"" + data + "\"";
     }
 }
