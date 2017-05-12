@@ -11,14 +11,6 @@ $colorBorderGroupingRow: #c5c3c3;
 
 .theme_jqGrid {
     .ui-jqgrid {
-        .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th {
-            &.ui-th-column-header, &.ui-th-column {
-                background: $bgHeaderTableLevel2;
-                color: #2c3d4b;
-                font-weight: bold;
-            }
-        }
-
         .ui-jqgrid-sortable{
             cursor: default;
         }

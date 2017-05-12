@@ -4,14 +4,6 @@
 
 $colorTextTotal: $black;
 
-.ui-jqgrid .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th {
-    &.ui-th-column-header, &.ui-th-column {
-        background: $bgHeaderTableLevel2;
-        color: #2c3d4b;
-        font-weight: bold;
-    }
-}
-
 .grandTotal, .total-eur {
     color: $colorTextTotal;
 }

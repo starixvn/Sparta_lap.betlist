@@ -12,6 +12,17 @@ tr {
 }
 
 .theme_jqGrid {
+    .ui-jqgrid {
+        .ui-jqgrid-htable {
+            thead tr th {
+                &.ui-th-column, &.ui-th-column-header {
+                    background: $bgHeaderTableLevel2;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
     .ui-jqgrid-btable {
         tr {
             &.jqgroup td {

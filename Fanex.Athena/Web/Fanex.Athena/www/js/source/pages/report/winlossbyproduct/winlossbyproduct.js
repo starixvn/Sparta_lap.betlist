@@ -81,6 +81,7 @@
 
                 $(window).on("resize", function () {
                     _me.resizeGrid();
+                    _me.reUpdateGridWidth();
                     AutoComplete.updateWidthOfSuggestionDropdown();
                 });
 
