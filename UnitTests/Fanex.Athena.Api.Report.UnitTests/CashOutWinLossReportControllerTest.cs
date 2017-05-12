@@ -132,7 +132,7 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
-        }
+        }       
 
         [Test]
         public void Index_WhenDataListParamReturnEmpty_ReturnEmptyResult()
@@ -185,7 +185,6 @@
                 FromDate = fromDate
             };
 
-            var expectedResult = CreateResultData(new List<CashOutWinLoss>(), new List<CashOutWinLoss>(), new Dictionary<string, CashOutWinLoss>());
             var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
@@ -199,6 +198,47 @@
 
             // Action
             _controller.Index(metaModel);
+
+            // Assert
+            _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
+        }      
+
+        [TestCase(0, -2)]
+        [TestCase(1, -2)]
+        [TestCase(1, 1)]
+        public void Index_IsExportExcelTrueWithDifferentLevelAndCurrency_CallExcelStream(int level, int currencyId)
+        {
+            // Arrange
+            const int CustId = 1, DrillDownCurrencyId = -2;
+            DateTime fromDate = new DateTime(2017, 4, 1), toDate = new DateTime(2017, 4, 18);
+            var metaModel = new CashOutWinLossMetaModel
+            {
+                CurrencyId = currencyId,
+                IsExcludedTestData = true,
+                DrillDownLevel = level,
+                DrillDownCurrencyId = DrillDownCurrencyId,
+                DrillDownCustomerId = CustId,
+                IsExportExcel = true,
+                DrillDownFromDate = fromDate,
+                DrillDownToDate = toDate,
+                FromDate = fromDate
+            };
+
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            excel.When(x => x.Export()).DoNotCallBase();
+            _controller.CreateExcel(
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<ConvertingOption>(),
+                Arg.Any<CashOutWinLossMetaModel>(),
+                Arg.Any<CashOutWinLossViewModel>())
+                .Returns(excel);
+            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
+
+            _sessionService.UserSession.CurrencyList = new Dictionary<int, string>() { { currencyId, "Currency" } };
+
+            // Action
+            _controller.Index(metaModel, fromDate, toDate, level, currencyId, CustId);
 
             // Assert
             _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
