@@ -335,7 +335,10 @@ namespace Fanex.Athena.Excel.Report
             }
 
             currentRow++;
-            matchRow.Height = (short)(matchRow.Height * 2);
+            if (matchName.Contains('\n'))
+            {
+                matchRow.Height = (short)(matchRow.Height * 2);
+            }
 
             // Assign bettype
             for (int i = 0; i < rowCount; i++)
