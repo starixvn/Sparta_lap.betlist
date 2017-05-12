@@ -76,7 +76,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.Sportsbook, Version=1.0.8.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-Sportsbook.1.0.8.3-beta\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.Result.Core-Sportsbook.1.0.8.3\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.Voidbridge, Version=1.0.1.2, Culture=neutral, processorArchitecture=MSIL">
