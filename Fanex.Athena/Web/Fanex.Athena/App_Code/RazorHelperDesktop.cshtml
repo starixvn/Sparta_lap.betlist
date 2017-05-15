@@ -387,7 +387,7 @@ var Url = new UrlHelper(Context.Request.RequestContext);
         <label for="ShowDraw">@ViewResources.Draw</label>
         <img src="@Url.Content("/Content/Report/Images/icon_error.gif")" alt="" id="ticket-null" class="hide" />
     </div>
-    <label class="active">@ViewResources.TicketFilter</label>
+    <label>@ViewResources.TicketFilter</label>
 }
 
 @helper DrawFilter(int drawFilterType)
