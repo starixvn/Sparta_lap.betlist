@@ -1,0 +1,146 @@
+﻿@model Fanex.Athena.Model.BetList.ViewModel.LastBetsMonitoringViewModel
+@using (Html.BeginForm("LastBetMonitoringNew", "BetList", FormMethod.Post, new { @id = "DailyBetListForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col l2 m2 s12 input-field">
+            @Html.DropDownList("sports", Model.SportsList, new { })
+            <label>@ViewResources.Sport</label>
+        </div>
+
+        <div class="col l3 m3 s12 input-field">
+            <select id="league" disabled="disabled" style="width: 280px">
+                <option value="0">@ViewResources.All</option>
+            </select>
+            <label>@ViewResources.League</label>
+        </div>
+
+        <div class="col l3 m3 s12 input-field">
+            <select id="match" style="width: 180px" disabled="disabled">
+                <option value="0">@ViewResources.All</option>
+            </select>
+            <label>@ViewResources.Match</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col l3 m3 s12 input-field">
+            <select id="se-column"></select>
+            <label>@ViewResources.Show/@ViewResources.hide</label>
+        </div>
+
+        <div class="col l3 m3 s12 input-field">
+            <select id="bet-type">
+                <option value="">@ViewResources.AllBetTypes</option>
+                <option value="HDP">@ViewResources.Handicap</option>
+                <option value="OU">@ViewResources.OverUnder</option>
+                <option value="Others">@ViewResources.Others</option>
+            </select>
+            <label>@ViewResources.BetType</label>
+        </div>
+
+        <div class="col l3 m3 s12 input-field">
+            <select id="live-status">
+                <option value="3">@ViewResources.All</option>
+                <option value="0">@ViewResources.NoneLive</option>
+                <option value="1">@ViewResources.Live</option>
+                <option value="2">@ViewResources.MixLiveAndNoneLive</option>
+            </select>
+            <label>@ViewResources.LiveStatus</label>
+        </div>
+
+        <div class="col l3 m3 s12 input-field">
+            <select id="odds-type">
+                <option value="">@ViewResources.All</option>
+                <option value="DEC">@ViewResources.Based&nbsp;@ViewResources.Odd_Dec</option>
+                <option value="MY">@ViewResources.Based&nbsp;@ViewResources.Odd_MY</option>
+            </select>
+            <label>@ViewResources.OddsType</label>
+        </div>
+
+        <div class="col l3 m3 s12 input-field">
+            <select id="special-level"></select>
+            <label>@ViewResources.SpecialLevel</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col l3 m3 s12 input-field">
+            <select id="time-zone">
+                <option value="8">GMT +8</option>
+                <option value="-4">GMT -4</option>
+            </select>
+            <label>@ViewResources.TimeZone</label>
+        </div>
+
+        <div class="col l2 m2 s12 input-field">
+            @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select")
+            <label>@ViewResources.Currency</label>
+        </div>
+
+        <div class="col l2 m2 s12 input-field">
+            @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
+            <label>@ViewResources.Based</label>
+        </div>
+
+        <div class="col l2 m2 s12 input-field">
+            <input type="text" id="stake-from" style="width: 65px;" />
+            <label>@ViewResources.StakeFrom</label>
+        </div>
+
+        <div class="col l2 m2 s12 input-field">
+            <input type="text" id="stake-to" style="width: 65px;" maxlength="13" />
+            <label>@ViewResources.To</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col l2 m2 s12 input-field">
+            <select style="width: 100px;" id="bet-form">
+                <option value="0">
+                    @ViewResources.All
+                </option>
+                <option value="1">
+                    @ViewResources.Asia
+                </option>
+                <option value="2">
+                    @ViewResources.NewAsia
+                </option>
+                <option value="3">
+                    @ViewResources.Euro
+                </option>
+                <option value="4">
+                    @ViewResources.Wap
+                </option>
+                <option value="5">
+                    @ViewResources.SmartSite
+                </option>
+            </select>
+            <label>@ViewResources.Platform</label>
+        </div>
+
+        <div class="col l2 m2 s12 input-field">
+            <div id="pagesize">
+            <input type="button" value="10" class="limit-row" disabled="disabled" />
+            <input type="button" value="20" class="limit-row" />
+            <input type="button" value="30" class="limit-row" />
+            </div>
+            <label>@ViewResources.Last</label>
+        </div>
+
+        <div class="col l1 m2 s12 button-block">
+            <a id="FreezeButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Freeze</a>
+        </div>
+
+        <div class="col l1 m2 s12 button-block">
+            <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+        </div>
+
+    </div>
+
+    //----------------------------Special Level--------------------------------//
+
+    <input type="hidden" id="HiddenFieldBettypeHandicap" value="Handicap,1st Handicap" />
+    <input type="hidden" id="HiddenFieldOverUnder" value="Over/Under,1st Over/Under" />
+    <input type="hidden" id="last-bet-monitor-base-currency" value="@Model.Param.BaseCurrency" />
+}

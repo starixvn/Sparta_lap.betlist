@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -952,6 +952,8 @@
     <Content Include="www\css\build\dev\pages\reports\winlossbybettype.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\winlossbybettype.css.map" />
     <Content Include="www\css\source\components\checkbox\_checkbox.scss" />
+    <Content Include="Views\Desktop\BetList\LastBetsMonitoringNew\Filter.cshtml" />
+    <Content Include="Views\Desktop\BetList\LastBetsMonitoringNew\Main.cshtml" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\css\source\pages\report\winlossbybettype.scss" />
     <None Include="www\css\source\pages\report\winlossbyleague.scss" />
@@ -1073,8 +1075,11 @@
     <Content Include="www\js\source\pages\betlist\betlist.option.js" />
     <Content Include="www\js\source\pages\betlist\betlistcancelledbets.js" />
     <Content Include="www\js\source\pages\betlist\betlistdaily.js" />
+    <Content Include="www\js\source\pages\betlist\lastbetmonitoring\lastbet.filter.js" />
     <Content Include="www\js\source\pages\betlist\commonbetlist.js" />
     <Content Include="www\js\source\pages\betlist\betlistcorrectscore.js" />
+    <Content Include="www\js\source\pages\betlist\lastbetmonitoring\lastbet.grid.js" />
+    <Content Include="www\js\source\pages\betlist\lastbetmonitoring\main.js" />
     <Content Include="www\js\source\pages\betlist\main-betlistcancelledbets.js" />
     <Content Include="www\js\source\pages\betlist\main-betlistcorrectscore.js" />
     <Content Include="www\js\source\pages\betlist\main-betlistdaily.js" />

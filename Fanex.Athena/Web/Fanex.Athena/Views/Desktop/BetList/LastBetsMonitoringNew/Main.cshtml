@@ -1,0 +1,57 @@
+﻿@{
+    var formatTitle = "{0} {1} {2} - {3}";
+    ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.Report, ViewResources.LastBetsMonitoring);
+    Layout = "~/Views/Desktop/Shared/_BetListLayout.cshtml";
+}
+@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
+@section pagecss {
+    @*@Styles.Render("~/bundles/LastBetsMonitoringViewStyles")*@
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/betlist/lastbetmonitoring.chunk.js")"></script>
+}
+@{
+    var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
+    var isAppModeSelf = userSession == null ? true : userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Self;
+}
+
+@section ContentFilter
+{
+    @{
+        Html.RenderPartial("~/Views/Desktop/BetList/LastBetsMonitoringNew/Filter.cshtml");
+    }
+}
+@{
+    <div id="betlist_content" class="betlistcontent" style="min-width: 1040px;">
+        <table id="last-bets-monitoring" class="report-table">
+            <tr id="monitor-header" class="report-table-header">
+                <td width="60" data-name="Platform">
+                    @ViewResources.Platform
+                </td>
+                <td width="120" data-name="ExternalId">
+                    @ViewResources.ExternalId
+                </td>
+                <td width="120" data-name="SystemId">
+                    @ViewResources.SystemId
+                </td>
+                <td width="120" data-name="TransTime">
+                    @ViewResources.TransTime
+                </td>
+                <td class="bl-choice" data-name="Choice">
+                    @ViewResources.Choice
+                </td>
+                <td width="60" data-name="Odds">
+                    @ViewResources.Odds
+                </td>
+                <td width="60" data-name="Stake">
+                    @ViewResources.Stake
+                </td>
+                <td width="60" data-name="Status">
+                    @ViewResources.Status
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <input type="hidden" id="BetListMetaModel" value="@Model.Param.ToJson()" />
+}
