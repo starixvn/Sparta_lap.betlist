@@ -19,10 +19,10 @@
         <div class="row">
             @RazorHelperDesktop.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
             <div class="input-field col l2 m2 s12">
-                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true)
+                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, false)
                 <label>@ViewResources.Currency</label>
             </div>
-            <div class="input-field col l2 m2 s12">
+            <div class="input-field col l1 m2 s12">
                 @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
                 <label>@ViewResources.Based</label>
             </div>
@@ -76,6 +76,7 @@
                 <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
             </div>
         </div>
+        @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)
         @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
         <input type="hidden" id="MaxDate" value="@appSettings.MaxDate.ToString("yyyy/M/d")" />
     </form>

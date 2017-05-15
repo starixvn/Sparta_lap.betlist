@@ -19,7 +19,7 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                 ExternalId: rowObject.ExternalId,
                 SystemId: rowObject.SystemId
             };
-            return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+            return "<a class='bet-list-link' href='javascript:;' data-drill-down=" + JSON.stringify(param) + ">" + cellvalue + "</a>";
         };
         var drilldownLink = function (cellvalue, options, rowObject) {
             var param =
@@ -28,7 +28,7 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                 ProductCode: rowObject.PlatformType < 0 ? rowObject.ProductCode : undefined
             };
 
-            return '<a class="drilldown" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+            return "<a class='drilldown' href='javascript:;' data-drill-down=" + JSON.stringify(param) + ">" + cellvalue + "</a>";
         };
         var idColumn = {
             name: "PlatformType",
@@ -219,28 +219,27 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
             hidden: true
         };
         var columnConfigLevel0 = {
-            colNames: [
-                "Id",
+            colNames: [           
                 "Platform",
                 "Turnover",
                 "%Turnover",
                 "TotalTransaction",
                 "LicenseeW_L",
+                "Id",
                 "CurrencyId",
                 "CustomerId"],
-            colModels: [
-                idColumn,
+            colModels: [              
                 platformNameColumn,
                 turnoverColumn,
                 turnoverPercentColumn,
                 totalTransColumn,
                 licenseeWlColumn,
+                idColumn,
                 currencyIdColumn,
                 customerIdColumn]
         };
         var columnConfigLevel1 = {
-            colNames: [
-                "Id",
+            colNames: [               
                 "#",
                 "ExternalId",
                 "SystemId",
@@ -248,10 +247,10 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                 "Turnover",
                 "TotalTransaction",
                 "LicenseeW_L",
+                "Id",
                 "CurrencyId",
                 "CustomerId"],
-            colModels: [
-                idColumn,
+            colModels: [               
                 indexColumn,
                 externalIdColumn,
                 systemIdColumn,
@@ -259,6 +258,7 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                 turnoverColumn,
                 totalTransColumn,
                 licenseeWlColumn,
+                idColumn,
                 currencyIdColumn,
                 customerIdColumn]
         };
@@ -290,83 +290,33 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
             });
 
             return cols;
-        };
+        }
 
         function getColConfigLevel1(cols, customerWL, colsBA, colsRB) {
             var customerWlIndex = 6;
             customerWL.forEach(function (item) {
-                cols.insertAfter(item.name, item.indexAfter);
+                cols.insertAfter(item, customerWlIndex);
                 ++customerWlIndex;
             });
 
             if (colsBA != null) {
                 var bAIndex = customerWlIndex + 1;
-                columnConfigBA.forEach(function (item) {
+                colsBA.forEach(function (item) {
                     cols.insertAfter(item, bAIndex);
                     ++bAIndex;
                 });
             }
 
             if (colsRB != null) {
-                var rBIndex = allowedBa == true ? customerWlIndex + 2 : customerWlIndex + 1;
-                columnConfigRB.forEach(function (item) {
+                var rBIndex = colsBA != null ? customerWlIndex + 2 : customerWlIndex + 1;
+                colsRB.forEach(function (item) {
                     cols.insertAfter(item, rBIndex);
-                    rBIndex == true ? rBIndex + 2 : rBIndex + 1;
+                    rBIndex = colsBA != null ? rBIndex + 2 : rBIndex + 1;
                 });
             }
 
             return cols;
-        };
-
-        function getColNamesLevel0(hasCustomerComm) {
-            var customerWL = hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colNames : columnConfigCustomerComm.colsWithoutComm.colNames;
-
-            return Site.getResources(getColConfigLevel0(columnConfigLevel0.colNames, customerWL));
-        };
-
-        function getColNamesLevel1(hasCustomerComm, allowedBa, allowedRacing) {
-            var customerWL = hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colNames : columnConfigCustomerComm.colsWithoutComm.colNames;
-            var colsBA = null;
-            var colsRB = null;
-
-            if (allowedBa) {
-                colsBA = columnConfigBA.colNames;
-            }
-
-            if (allowedRacing) {
-                colsRB = columnConfigRB.colNames;
-            }
-
-            return Site.getResources(getColConfigLevel1(columnConfigLevel1.colNames, customerWL, colsBA, colsRB));
-        };
-
-        function getColModelsLevel0(hasCustomerComm) {
-            var customerWL = hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colModels : columnConfigCustomerComm.colsWithoutComm.colModels;
-
-            var colModels = getColConfigLevel0(columnConfigLevel0.colModels, customerWL);
-
-            colModels.forEach(function (item) {
-                item.sortable = false;
-            });
-        };
-
-        function getColModelsLevel1(hasCustomerComm, allowedBa, allowedRacing) {
-            var customerWL = hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colModels : columnConfigCustomerComm.colsWithoutComm.colModels;
-            var colsBA = null;
-            var colsRB = null;
-
-            if (allowedBa) {
-                colsBA = columnConfigBA.colModels;
-            }
-
-            if (allowedRacing) {
-                colsRB = columnConfigRB.colModels;
-            }
-
-            licenseeWlColumn.classes = "highlight";
-
-            return getColConfigLevel1(columnConfigLevel1.colModels, customerWL, colsBA, colsRB);
-        };
+        }
 
         function isProductChecked(productOptions, productCode) {
             var length = productOptions.length;
@@ -381,11 +331,10 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
         }
 
         var _me = {
+            licenseeId: 0,
             hasCustomerComm: true,
             pageSize: 50,
-            nonePagingSize: 2000,
-            rowNum: 50,
-            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
+            nonePagingSize: 2000,           
             totalColspan: [0, 4],
             urlData: "api/PlatformWinLossReport/Index",
             urlExcelData: "api/PlatformWinLossReport/Index",
@@ -395,7 +344,7 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                 colModel: [],
                 data: [],
                 viewrecords: true,
-                height: '100%',
+                height: "100%",
                 autowidth: false,
                 forceFit: false,
                 shrinkToFit: true,
@@ -404,7 +353,6 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                 loadonce: true,
                 gridview: true,
                 footerrow: true,
-                userDataOnFooter: true,
                 cmTemplate: { title: true }, //enable tooltip
                 treeGrid: true,
                 treeGridModel: "adjacency",
@@ -415,36 +363,34 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                     parent_id_field: "Parent",  // jshint ignore:line
                     leaf_field: "IsLeaf"        // jshint ignore:line
                 },
-                userData: [],
+                treeIcons: {plus:"ui-icon-circlesmall-plus icon-arrow", minus:"ui-icon-circlesmall-minus icon-arrow", leaf:""},
                 pager: "#ppdata",
-                beforeSelectRow: function () {
-                    return false;
-                },
-                onRightClickRow: function () {
-                    return false;
-                }
+                rowNum: 50,
+                rowList: [50, 100, 200, 300, 400, 500, 1000, 2000]
             },
 
             getColName: function (level, productOptions) {
-                if (level == 0) {
-                    var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colNames : columnConfigCustomerComm.colsWithoutComm.colNames;
-                    return Site.getResources(getColConfigLevel0(columnConfigLevel0.colNames, customerWL));
-                }
-
-                var allowedBa = isProductChecked(productOptions, "BA");
-                var allowedRacing = isProductChecked(productOptions, "RB");
-                var colsBA = allowedBa ? columnConfigBA.colNames : null;
-                var colsRB = allowedRacing ? columnConfigRB.colNames : null;
                 var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colNames : columnConfigCustomerComm.colsWithoutComm.colNames;
 
-                return Site.getResources(getColConfigLevel1(columnConfigLevel1.colNames, customerWL, colsBA, colsRB));
+                if (level === 0) {                  
+                    return Site.getResources(getColConfigLevel0(Site.clone(columnConfigLevel0.colNames), customerWL));
+                }
+
+                var allowedBa = isProductChecked(productOptions, BA_PRODUCTCODE);
+                var allowedRacing = isProductChecked(productOptions, RB_PRODUCTCODE);
+                var colsBA = allowedBa ? columnConfigBA.colNames : null;
+                var colsRB = allowedRacing ? columnConfigRB.colNames : null;
+
+                return Site.getResources(getColConfigLevel1(Site.clone(columnConfigLevel1.colNames), customerWL, colsBA, colsRB));
             },
 
             getColModel: function (level, productOptions) {
-                if (level == 0) {
-                    var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colModels : columnConfigCustomerComm.colsWithoutComm.colModels;
+                var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colModels : columnConfigCustomerComm.colsWithoutComm.colModels;
 
-                    var colModels = getColConfigLevel0(columnConfigLevel0.colModels, customerWL);
+                if (level === 0) {
+                    licenseeWlColumn.classes = null;
+
+                    var colModels = getColConfigLevel0(Site.clone(columnConfigLevel0.colModels), customerWL);
 
                     colModels.forEach(function (item) {
                         item.sortable = false;
@@ -453,14 +399,14 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                     return colModels;
                 }
 
-                var allowedBa = isProductChecked(productOptions, "BA");
-                var allowedRacing = isProductChecked(productOptions, "RB");
+                var allowedBa = isProductChecked(productOptions, BA_PRODUCTCODE);
+                var allowedRacing = isProductChecked(productOptions, RB_PRODUCTCODE);
                 var colsBA = allowedBa ? columnConfigBA.colModels : null;
                 var colsRB = allowedRacing ? columnConfigRB.colModels : null;
-                var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colModels : columnConfigCustomerComm.colsWithoutComm.colModels;
+
                 licenseeWlColumn.classes = "highlight";
 
-                return getColConfigLevel1(columnConfigLevel1.colModels, customerWL, colsBA, colsRB);
+                return getColConfigLevel1(Site.clone(columnConfigLevel1.colModels), customerWL, colsBA, colsRB);
             },
 
             getGridOption : function (level, productOptions) {
