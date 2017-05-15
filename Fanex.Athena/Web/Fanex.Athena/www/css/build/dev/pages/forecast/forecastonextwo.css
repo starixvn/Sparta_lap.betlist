@@ -317,6 +317,8 @@ table tbody tr.row-group-level1 td {
   width: 15%; }
   .col-medium.small {
     width: 10%; }
+  .col-medium.large {
+    width: 20%; }
 
 .col-large {
   width: 40%; }
@@ -327,6 +329,8 @@ table tbody tr.row-group-level1 td {
   width: 10%; }
   .col-child.small {
     width: 6%; }
+  .col-child.medium {
+    width: 7.5%; }
 
 #UserGuidePopup ul li {
   list-style-type: disc; }
@@ -781,6 +785,8 @@ table tbody tr.row-group-level1 td {
   width: 15%; }
   .col-medium.small {
     width: 10%; }
+  .col-medium.large {
+    width: 20%; }
 
 .col-large {
   width: 40%; }
@@ -791,6 +797,8 @@ table tbody tr.row-group-level1 td {
   width: 10%; }
   .col-child.small {
     width: 6%; }
+  .col-child.medium {
+    width: 7.5%; }
 
 #UserGuidePopup ul li {
   list-style-type: disc; }

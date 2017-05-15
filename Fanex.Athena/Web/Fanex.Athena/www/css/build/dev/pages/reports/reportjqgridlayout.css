@@ -317,6 +317,8 @@ table tbody tr.row-group-level1 td {
   width: 15%; }
   .col-medium.small {
     width: 10%; }
+  .col-medium.large {
+    width: 20%; }
 
 .col-large {
   width: 40%; }
@@ -327,6 +329,8 @@ table tbody tr.row-group-level1 td {
   width: 10%; }
   .col-child.small {
     width: 6%; }
+  .col-child.medium {
+    width: 7.5%; }
 
 #UserGuidePopup ul li {
   list-style-type: disc; }
@@ -1677,6 +1681,10 @@ ul.ui-multiselect-checkboxes {
 
 tr.total td {
   background: #fff; }
+
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column, .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column-header {
+  background: #9eb4c3;
+  font-weight: bold; }
 
 .theme_jqGrid .ui-jqgrid-btable tr.jqgroup td {
   background: #D1DAE1;

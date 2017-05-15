@@ -435,11 +435,6 @@
   opacity: 1;
   top: 25px; }
 
-.theme_jqGrid .ui-jqgrid .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th.ui-th-column-header, .theme_jqGrid .ui-jqgrid .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th.ui-th-column {
-  background: #9eb4c3;
-  color: #2c3d4b;
-  font-weight: bold; }
-
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-sortable {
   cursor: default; }
 

@@ -431,11 +431,6 @@
   .breadcrumb.flat a.active:hover {
     background: #4C6375; }
 
-.ui-jqgrid .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th.ui-th-column-header, .ui-jqgrid .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th.ui-th-column {
-  background: #9eb4c3;
-  color: #2c3d4b;
-  font-weight: bold; }
-
 .grandTotal, .total-eur {
   color: #2c2c2c; }
 

@@ -161,9 +161,57 @@
         color: #000;
         cursor: default; }
 
-.theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column, .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column-header {
-  background: #9eb4c3;
-  font-weight: bold; }
+.pagingContainer {
+  padding: 3px;
+  font-size: 1.1rem; }
+  .pagingContainer .icon {
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    font-size: 1.2rem;
+    color: #4c6375;
+    cursor: pointer; }
+  .pagingContainer .pagingDisable {
+    color: #ccc;
+    cursor: default; }
+  .pagingContainer .pagingFirst:before {
+    content: "\EA21"; }
+  .pagingContainer .pagingPrev:before {
+    content: "\EA1F"; }
+  .pagingContainer .pagingNext:before {
+    content: "\EA20"; }
+  .pagingContainer .pagingLast:before {
+    content: "\EA22"; }
+  .pagingContainer .paging-form {
+    width: auto;
+    height: auto;
+    font-size: inherit;
+    padding: 2px;
+    text-align: center;
+    margin: 0; }
+    .pagingContainer .paging-form, .pagingContainer .paging-form:focus {
+      background: #fff;
+      border: 1px solid #e2d6d6;
+      box-shadow: none; }
+  .pagingContainer .paging-info {
+    display: inline-block;
+    margin: 0 5px; }
+  .pagingContainer .pagingSeperator {
+    width: 4px;
+    height: 18px;
+    margin: 0;
+    border: 1px solid #ccc; }
+  .pagingContainer .pageSizeSelected {
+    height: auto;
+    font-size: inherit;
+    padding: 2px;
+    min-width: 65px;
+    border: 1px solid #e2d6d6; }
 
 .decimal-odds {
   color: #850012; }
