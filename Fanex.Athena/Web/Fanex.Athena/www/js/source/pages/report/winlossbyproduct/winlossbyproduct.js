@@ -100,7 +100,7 @@
 
                 Site.updateOriginalLicenseeOption();
                 var data = $("#winlossbyproduct").serializeObject();
-
+                Report.CleanProductOptions(data, Number($("#ProductListCount").val()));
                 if (data.Username === "") {
                     data.Username = null;
                 }

@@ -304,6 +304,10 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="currentRow">Excel row index.</param>
         /// <param name="currentIndex">Index of match.</param>
         /// <returns>The row index after assign data.</returns>
+        [SuppressMessage(
+        "StyleCop.CSharp.StylecopPlus.Rules",
+        "SP2101:MethodMustNotContainMoreLinesThan",
+        Justification = "Reviewed. Suppression is OK here.")]
         private int AssignMatchData(ISheet sheet, IList<DataRow> matchInfoList, string matchName, int currentRow, int currentIndex)
         {
             if (matchInfoList.Count == 0)

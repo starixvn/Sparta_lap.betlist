@@ -184,7 +184,7 @@ var WinLossByProduct = (function ($) {
 
             Site.updateOriginalLicenseeOption();
             var data = $("#winlossbyproduct").serializeObject();
-
+            Report.CleanProductOptions(data, Number($("#ProductListCount").val()));
             if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
                 data.Username = null;
             }

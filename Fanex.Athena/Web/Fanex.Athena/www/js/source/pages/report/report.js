@@ -7,6 +7,20 @@
     }
 
     var _me = {
+        CleanProductOptions: function (postData, productCount) {
+            var productList = [];
+            for (var i = 0; i < productCount; i++) {
+                if (postData["ProductOptions[" + i + "].Status"] === "True") {
+                    productList.push(postData["ProductOptions[" + i + "].Code"]);
+                }
+
+                postData["ProductOptions[" + i + "].Code"] = undefined;
+                postData["ProductOptions[" + i + "].Name"] = undefined;
+                postData["ProductOptions[" + i + "].Status"] = undefined;
+            }
+
+            postData.ProductList = productList;
+        },
         GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
             var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
             var tdate = fdate;
