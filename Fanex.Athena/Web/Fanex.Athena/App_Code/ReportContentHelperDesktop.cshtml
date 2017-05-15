@@ -76,6 +76,6 @@
 {
     public static string GetToolTip(string data)
     {
-        return "title=\"" + data + "\"";
+        return string.Format("title={0}", data);
     }
 }

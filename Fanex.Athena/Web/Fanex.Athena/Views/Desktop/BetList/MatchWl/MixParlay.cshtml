@@ -9,7 +9,7 @@
 @section ContentTitle
 {
     @ViewResources.BetList - @CacheRef.GetBettype(Model.BetType) - @Model.FromDate.ToShortDateString()
-    - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
+    - <span class="base-currency">@RazorHelperDesktop.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 }
 @section BackButton
 {

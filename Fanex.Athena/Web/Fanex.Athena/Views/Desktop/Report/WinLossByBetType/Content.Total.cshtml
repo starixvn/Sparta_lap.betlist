@@ -7,15 +7,15 @@
     @ReportContentHelperDesktop.RenderCustomerWinLossData(Model.Total as Fanex.Athena.Model.Report.DTO.ICustomerWinLoss,
                                                             Model.IsAllowedCustomerCommission, false, "text-bold")
 
-    <td class="right-align text-bold">@RazorHelper.HighlightNegativeFormat(Model.Total.LicenseeWL)</td>
+    <td class="right-align text-bold">@RazorHelperDesktop.HighlightNegativeFormat(Model.Total.LicenseeWL)</td>
 
     @if (Model.ProductAccess.IsAllowBA)
     {
-        <td class="right-align text-bold">@RazorHelper.HighlightNegativeFormat(Model.Total.BACommission)</td>
+        <td class="right-align text-bold">@RazorHelperDesktop.HighlightNegativeFormat(Model.Total.BACommission)</td>
     }
     @if (Model.ProductAccess.IsAllowRB)
     {
-        <td class="right-align text-bold">@RazorHelper.HighlightNegativeFormat(Model.Total.RacingWinLoss)</td>
+        <td class="right-align text-bold">@RazorHelperDesktop.HighlightNegativeFormat(Model.Total.RacingWinLoss)</td>
     }
     @if (Model.ProductAccess.IsAllowBA)
     {
