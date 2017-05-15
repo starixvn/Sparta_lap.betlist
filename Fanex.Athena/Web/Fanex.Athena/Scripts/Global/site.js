@@ -69,6 +69,9 @@ var Site = (function ($) {
                 }
             });
         },
+        reload: function(){
+            window.location.reload();
+        },
         exportExcel: function (data, url, method) {
             var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
                 .appendTo('body');

@@ -11,6 +11,10 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
         var _pageLanguage = null;
         var _userCurrencies = null;
 
+        function reload() {
+            window.location.reload();
+        }
+
         function addNoticationPopup() {
             var $marquee = $("#notification-marquee");
             if ("marquee" in $marquee) {
@@ -572,6 +576,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
 
         return {
             initialize: initialize,
+            reload: reload,
             resolveClientUrl: resolveClientUrl,
             exportExcel: exportExcel,
             setConstraintMonthRange: setConstraintMonthRange,

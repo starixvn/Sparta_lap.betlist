@@ -180,7 +180,12 @@ define(
                 // Continue
                 _me.doMonitor();
             },
-            error: function (/*jqXHR, textStatus, errorThrown*/) {
+            error: function (jqXHR) {
+                if (jqXHR.status === 403) {
+                    Site.reload();
+                    return;
+                }
+
                 $("#div-loading").hide();
 
                 _betListResult.Updated = false;
