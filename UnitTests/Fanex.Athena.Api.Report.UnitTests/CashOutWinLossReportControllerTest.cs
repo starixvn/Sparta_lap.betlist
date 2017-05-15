@@ -64,7 +64,7 @@
             const int CurrencyId = -2, Level = 0, CustId = 1;
             var metaModel = new CashOutWinLossMetaModel
             {
-                CurrencyId = -1,
+                CurrencyId = CurrencyId,
                 IsExcludedTestData = true,
                 DrillDownFromDate = new DateTime(2017, 4, 1),
                 DrillDownToDate = new DateTime(2017, 4, 18),
@@ -81,7 +81,7 @@
             };
             var totalDataResult = dataListResult.ToList();
             var summaryTotalResult = new Dictionary<string, CashOutWinLoss> { { "EUR", new CashOutWinLoss() } };
-            _service.GetSummary(Arg.Is<CashOutWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level)), out summaryData).ReturnsForAnyArgs(x =>
+            _service.GetSummary(Arg.Is<CashOutWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level)), out summaryData).Returns(x =>
             {
                 x[1] = summaryTotalResult;
                 return dataListResult;
@@ -104,7 +104,7 @@
             DateTime fromDate = new DateTime(2017, 4, 1), toDate = new DateTime(2017, 4, 18);
             var metaModel = new CashOutWinLossMetaModel
             {
-                CurrencyId = -1,
+                CurrencyId = CurrencyId,
                 IsExcludedTestData = true,
                 DrillDownLevel = Level,
                 DrillDownCurrencyId = CurrencyId,
@@ -119,7 +119,7 @@
             };
             var totalDataResult = dataListResult.ToList();
             var summaryTotalResult = new Dictionary<string, CashOutWinLoss> { { "EUR", new CashOutWinLoss() } };
-            _service.GetDetail(Arg.Is<CashOutWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level)), out summaryData).ReturnsForAnyArgs(x =>
+            _service.GetDetail(Arg.Is<CashOutWinLossMetaModel>(x => IsValidMetaModelForLevel0(x, Level)), out summaryData).Returns(x =>
             {
                 x[1] = summaryTotalResult;
                 return dataListResult;
@@ -436,7 +436,7 @@
         {
             return metaModel.DrillDownCurrencyId == -2 && metaModel.DrillDownLevel == level &&
                 metaModel.DrillDownCustomerId == 1 && metaModel.DrillDownFromDate == new DateTime(2017, 4, 1) &&
-                metaModel.DrillDownToDate == new DateTime(2017, 4, 18) && metaModel.AgentListXml == "xmlData";
+                metaModel.DrillDownToDate == new DateTime(2017, 4, 18) && metaModel.AgentListXml == "XmlData";
         }
 
         private void CreateSession()
