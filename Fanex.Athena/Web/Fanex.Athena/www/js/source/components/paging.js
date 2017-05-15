@@ -65,7 +65,7 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
         }
 
         if (pagingVisible || setting.alwayshow) {
-            var prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '</a>';
+            var prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
             var pageControl = ['<div class="pagingContainer center-align">',
                           '<a href="javascript:;" class="icon pagingFirst' + prevPageDisabledHtml,
                           '<a href="javascript:;" class="icon pagingPrev' + prevPageDisabledHtml,
@@ -73,13 +73,13 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
 
             var pagingInfo = '<div class="paging-info">' + Site.getSingleResource("Page") +
                 '<input  type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="' + setting.pageindex + '" />'
-            + Site.getSingleResource("of") + "&nbsp;" + noOfPage;
+            + "&nbsp;" + Site.getSingleResource("of") + "&nbsp;" + noOfPage + '</div>';
 
             pageControl.push(pagingInfo);
 
             pageControl.push('<span class="pagingSeperator"></span>');
 
-            var nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '</a>';
+            var nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
             var pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
             pageControl.push(pageNext);
             var pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
@@ -87,12 +87,13 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
 
             var pageListLength = setting.pagelist.length;
             var pageSizeSelectHtml = '<select class="pageSizeSelected">';
+            var pageSize = parseInt(setting.pagesize);
             for (var i = 0; i < pageListLength; i++) {
                 pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
-                + '"' + (setting.pagesize === setting.pagelist[i] ? ' selected="selected"' : '')
+                + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
                 + '>' + setting.pagelist[i] + '</option>';
             }
-            pageSizeSelectHtml += '</select></div>';
+            pageSizeSelectHtml += '</select>';
             pageControl.push(pageSizeSelectHtml);
 
             pageControl.push('<input type="hidden" name="PageSize" value="' + setting.pagesize + '" />');
@@ -100,6 +101,8 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
             pageControl.push('<input type="hidden" name="FormName" value="' + setting.formId + '" />');
             pageControl.push('<input type="hidden" name="NoOfPage" value="' + noOfPage + '" />');
             pageControl.push('<input type="hidden" name="AjaxPagingFunction" value="' + setting.ajaxfunction + '" />');
+
+            pageControl.push('</div>');
             pageHtml = pageControl.join("");
         }
 
@@ -139,12 +142,14 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
         });
 
         $("select.pageSizeSelected", $pagingContainer).on("change", function () {
-            $pageSize.val($(this).val());
+            var pageSize = $(this).val();
+            $pageSize.val(pageSize);
+            setting.pagesize = pageSize;
             goToPage(method, 1);
         });
 
         $pageIndex.on("keyup", function (e) {
-            var code = (e.keyCode ? e.keyCode : e.which);
+            var code = e.keyCode ? e.keyCode : e.which;
             if (code === 13) {
                 var value = parseInt($(this).val());
                 if (value > 0 && value <= noOfPage) {

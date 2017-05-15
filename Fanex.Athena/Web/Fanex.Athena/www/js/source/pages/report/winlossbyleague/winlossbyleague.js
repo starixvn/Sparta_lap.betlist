@@ -24,7 +24,7 @@
                 totalrow: 1,
                 elementcontainer: "#paging",
                 method: "AJAX",
-                ajaxfunction: "WinLossByLeague.ajaxPaging()",
+                ajaxfunction: "window.WinLossByLeague.ajaxPaging()",
                 alwayshow: true
             };
 
@@ -114,15 +114,17 @@
             //#region Init
             initialize: function () {
                 Site.initialize();
-                PagingHeper.initialize();
                 _me.initEvent();
                 _me.initSetting();
                 MultiSelect.initialize('grid-products-multiselect', $("#ProductOptionJson").val(), 'Code', 'Name', 'Status');
                 MonthPicker.initMonthPicker({
                     customAfterChangeDay: loadLeagues
                 });
-                
+
                 _productCount = $("#ProductList .childCheckbox[type=checkbox]").length;
+                window.WinLossByLeague = {
+                    ajaxPaging: _me.ajaxPaging
+                };
 
                 $("#searchForm").submit(function () {
                     _me.submit();
@@ -217,7 +219,7 @@
                     $(window).off("resize");
                 });
             },
-            
+
             //#endregion
 
             //#region Utilities
@@ -367,8 +369,7 @@
                 _leagueid = leagueid;
                 _leaguename = leaguename;
 
-                var param =
-                {
+                var param = {
                     FromDate: _fromDate.toDateString(),
                     ToDate: _toDate.toDateString(),
                     BaseCurrency: _postdata.BaseCurrency,
@@ -409,7 +410,7 @@
                     beforeSend: function () {
                         Site.blockUI();
                     },
-                    complete: function (/*jqXhr, textStatus*/) {
+                    complete: function () {
                         Site.unBlockUI();
                     }
                 };
@@ -476,7 +477,7 @@
                         onPaging = false;
                     }
 
-                     _me.resizeGrid();
+                    _me.resizeGrid();
                     Site.unBlockUI();
                 };
 
