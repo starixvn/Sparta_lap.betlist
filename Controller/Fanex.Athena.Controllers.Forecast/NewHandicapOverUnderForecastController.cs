@@ -105,9 +105,10 @@ namespace Fanex.Athena.Controllers.Forecast
             };
             try
             {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+
                 if (!Request.IsAjaxRequest())
                 {
-                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                     model.LeagueList = ForecastService.GetForecastRunningLeague(metaModel);
                     if (model.LeagueList.Count() > 0)
                     {

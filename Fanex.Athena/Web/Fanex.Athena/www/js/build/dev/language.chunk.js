@@ -15,7 +15,7 @@ webpackJsonp([27],{
 /***/ 68:
 /***/ function(module, exports) {
 
-	// Generated at: 4/12/2017 1:29:58 PM
+	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_en_US = {
 	AA:"AA",
 	AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -950,7 +950,7 @@ webpackJsonp([27],{
 /***/ 69:
 /***/ function(module, exports) {
 
-	// Generated at: 4/12/2017 1:29:58 PM
+	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_zh_CN = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1033,6 +1033,7 @@ webpackJsonp([27],{
 	Cancel:"取消",
 	CancelledBets:"已删除/作废注单",
 	CancelledBetsTitle:"作废/已删除注单(3天纪录)",
+	CashOutWinLoss:"即时兑现输赢",
 	CASINOHANDHISTORY:"赌场下注历史",
 	CasinoProgressiveWinsGuidelineContent:"此报告提供最新数据。您每次查询可以过滤最多12个月内的数据。",
 	CasinoTransfer:"娱乐城的总转账额",
@@ -1738,7 +1739,7 @@ webpackJsonp([27],{
 /***/ 70:
 /***/ function(module, exports) {
 
-	// Generated at: 4/12/2017 1:29:58 PM
+	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_zh_TW = {
 	AA:"客客",
 	AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -1821,6 +1822,7 @@ webpackJsonp([27],{
 	Cancel:"取消",
 	CancelledBets:"已刪除/作廢注單",
 	CancelledBetsTitle:"作廢/已刪除注單（3天紀錄）",
+	CashOutWinLoss:"即時兌現輸贏",
 	CASINOHANDHISTORY:"賭場下注歷史",
 	CasinoProgressiveWinsGuidelineContent:"此報告提供最新數據。 您每次查詢可以過濾最多12個月內的數據。",
 	CasinoTransfer:"娛樂城的總轉賬額",
@@ -2526,7 +2528,7 @@ webpackJsonp([27],{
 /***/ 71:
 /***/ function(module, exports) {
 
-	// Generated at: 4/12/2017 1:29:58 PM
+	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_zh_Hans = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -3309,7 +3311,7 @@ webpackJsonp([27],{
 /***/ 72:
 /***/ function(module, exports) {
 
-	// Generated at: 4/12/2017 1:29:58 PM
+	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_ko_KR = {
 	AA:"AA",
 	AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",

@@ -29,8 +29,7 @@ module.exports = function (config) {
         preprocessors: {
             'www/js/source/common/**/*.js': ['coverage'],
             'www/js/source/extensions/**/*.js': ['coverage'],
-            'www/js/source/pages/**/*.js': ['coverage'],
-            'www/js/source/vendors/**/*.js': ['coverage']
+            'www/js/source/pages/**/*.js': ['coverage']
         },
         port: 9875,
         colors: true,

@@ -492,7 +492,7 @@ webpackJsonp([31],[
 	                        ? _me.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
 	                        : _me.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
 	
-	                    var height = isParlay ? 450 : (isFastMarket(bettype) ? 250 : 150);
+	                    var height = isParlay ? 450 : (isFastMarket(bettype) ? 300 : 250);
 	                    var width = 750;
 	
 	                    showResultPopUp(url, { width: width + 25, height: height + 70, title: title });

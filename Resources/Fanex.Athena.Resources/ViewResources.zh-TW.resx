@@ -2512,4 +2512,8 @@
     <value>即時兌現</value>
     <comment>#71727</comment>
   </data>
+  <data name="CashOutWinLoss" xml:space="preserve">
+    <value>即時兌現輸贏</value>
+    <comment>Cash Out Win Loss</comment>
+  </data>
 </root>

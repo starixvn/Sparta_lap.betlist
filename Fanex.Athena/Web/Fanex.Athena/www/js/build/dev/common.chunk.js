@@ -14383,21 +14383,26 @@
 	            options.title = options.title || "";
 	            var url = resolveClientUrl('UserGuide/Index?resourcename=' + options.resourceName) + "&_" + (new Date().getTime());
 	            var $popup;
+	            var isRequesting = false;
 	            $(options.buttonSelector).click(function () {
 	                var $userGuidePopup = $('<div style="display: none" ></div>');
 	
 	                if (!$popup) {
-	                    $userGuidePopup.empty().attr('style', '').hide()
-	                        .load(url, function (response, status) {
-	                            if (status === "success") {
-	                                setTimeout(function () {
-	                                    Popup.openPopup($userGuidePopup, defaultOptions);
-	                                    $popup = $("#" + defaultOptions.id);
-	                                }, 50);
-	                            } else {
-	                                $userGuidePopup.hide();
-	                            }
-	                        });
+	                    if (isRequesting === false) {
+	                        isRequesting = true;
+	                        $userGuidePopup.empty().attr('style', '').hide()
+	                            .load(url, function (response, status) {
+	                                if (status === "success") {
+	                                    setTimeout(function () {
+	                                        Popup.openPopup($userGuidePopup, defaultOptions);
+	                                        $popup = $("#" + defaultOptions.id);
+	                                    }, 50);
+	                                } else {
+	                                    $userGuidePopup.hide();
+	                                    isRequesting = false;
+	                                }
+	                            });
+	                    }
 	                } else {
 	                    $popup.flatPopup("show");
 	                }
