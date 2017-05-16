@@ -1,7 +1,7 @@
 ﻿"use strict";
 define(
     ['jquery', 'common/site', "components/pluginhelper/multiselect",
-    "./lastbet.grid", "lib/jquery.multiselect"],
+    "./lastbet.grid", "lib/jquery.multiselect", 'extensions/jquery.extension'],
     function ($, Site, MultiSelect, LastBetGrid) {
         var _me = {};
 

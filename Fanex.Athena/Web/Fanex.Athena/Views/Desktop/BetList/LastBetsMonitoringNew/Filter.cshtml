@@ -25,7 +25,9 @@
 
     <div class="row">
         <div class="col l2 m2 s12 input-field">
-            <select id="se-column"></select>
+            <div class="multiselect-container">
+                <select id="se-column"></select>
+            </div>
             <label>@ViewResources.Show/@ViewResources.hide</label>
         </div>
 
@@ -59,7 +61,9 @@
         </div>
 
         <div class="col l2 m2 s12 input-field">
-            <select id="special-level1" class="select hide"></select>
+            <div class="multiselect-container">
+                <select id="special-level"></select>
+            </div>
             <label>@ViewResources.SpecialLevel</label>
         </div>
     </div>
@@ -94,52 +98,55 @@
         </div>
     </div>
 
-            <div class="row">
-                <div class="col l2 m2 s12 input-field">
-                    <select id="bet-form" class="select">
-                        <option value="0">
-                            @ViewResources.All
-                        </option>
-                        <option value="1">
-                            @ViewResources.Asia
-                        </option>
-                        <option value="2">
-                            @ViewResources.NewAsia
-                        </option>
-                        <option value="3">
-                            @ViewResources.Euro
-                        </option>
-                        <option value="4">
-                            @ViewResources.Wap
-                        </option>
-                        <option value="5">
-                            @ViewResources.SmartSite
-                        </option>
-                    </select>
-                    <label>@ViewResources.Platform</label>
-                </div>
+    <div class="row">
+        <div class="col l2 m2 s12 input-field">
+            <select id="bet-form" class="select">
+                <option value="0">
+                    @ViewResources.All
+                </option>
+                <option value="1">
+                    @ViewResources.Asia
+                </option>
+                <option value="2">
+                    @ViewResources.NewAsia
+                </option>
+                <option value="3">
+                    @ViewResources.Euro
+                </option>
+                <option value="4">
+                    @ViewResources.Wap
+                </option>
+                <option value="5">
+                    @ViewResources.SmartSite
+                </option>
+            </select>
+            <label>@ViewResources.Platform</label>
+        </div>
 
-                <div class="col l2 m2 s12 input-field">
-                    <div id="pagesize">
-                        <input type="button" value="10" class="limit-row" disabled="disabled" />
-                        <input type="button" value="20" class="limit-row" />
-                        <input type="button" value="30" class="limit-row" />
-                    </div>
-                    <label>@ViewResources.Last</label>
-                </div>
+        <div class="col l2 m2 s12 input-field">                                                     
+            <div id="pagesize">                                                                     
+                <a href="javascript:;" class="center-align label label-default active" disabled>10</a>     
+                <a href="javascript:;" class="center-align label label-default">20</a>              
+                <a href="javascript:;" class="center-align label label-default">30</a>              
+            </div>                                                                                  
+            <label>@ViewResources.Last</label>                                                      
+        </div>                                                                                      
 
-                <div class="col l1 m2 s12 button-block">
-                    <a id="FreezeButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Freeze</a>
-                </div>
+        <div class="col l1 m2 s12 button-block">
+            <a id="FreezeButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Freeze</a>
+        </div>
 
-                <div class="col l1 m2 s12 button-block">
-                    <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
-                </div>
-            </div>
+        <div class="col l1 m2 s12 button-block">
+            <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+        </div>
+        <div class="col right icon-block">
+            <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+        </div>
+    </div>
 
     //----------------------------Special Level--------------------------------//
 
     <input type="hidden" id="HiddenFieldBettypeHandicap" value="Handicap,1st Handicap" />
     <input type="hidden" id="HiddenFieldOverUnder" value="Over/Under,1st Over/Under" />
-            <input type="hidden" id="last-bet-monitor-base-currency" value="@Model.Param.BaseCurrency" />
+    <input type="hidden" id="last-bet-monitor-base-currency" value="@Model.Param.BaseCurrency" />
 }
