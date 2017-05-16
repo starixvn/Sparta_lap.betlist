@@ -179,10 +179,14 @@
                 }
 
                 onPaging = false;
-
                 resizeGrid();
 
                 $(".cell-wrapperleaf", "#ReportGrid").closest("tr").find("td").addClass("highlight");
+
+                if (gridControl.level === 0) {
+                    $("th[role='columnheader']").find("div").removeClass("ui-jqgrid-sortable");
+                }
+
                 Site.unBlockUI();
             };
 
