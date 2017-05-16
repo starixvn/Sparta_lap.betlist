@@ -4,19 +4,19 @@
     @Html.AntiForgeryToken()
     <div class="row">
         <div class="col l2 m2 s12 input-field">
-            @Html.DropDownList("sports", Model.SportsList, new { })
+            @Html.DropDownList("sports", Model.SportsList, new { @class= "select hide" })
             <label>@ViewResources.Sport</label>
         </div>
 
-        <div class="col l3 m3 s12 input-field">
-            <select id="league" disabled="disabled" style="width: 280px">
+        <div class="col l4 m4 s12 input-field">
+            <select id="league" disabled="disabled" class="select hide">
                 <option value="0">@ViewResources.All</option>
             </select>
             <label>@ViewResources.League</label>
         </div>
 
-        <div class="col l3 m3 s12 input-field">
-            <select id="match" style="width: 180px" disabled="disabled">
+        <div class="col l4 m4 s12 input-field">
+            <select id="match" disabled="disabled" class="select hide">
                 <option value="0">@ViewResources.All</option>
             </select>
             <label>@ViewResources.Match</label>
@@ -24,13 +24,13 @@
     </div>
 
     <div class="row">
-        <div class="col l3 m3 s12 input-field">
-            <select id="se-column"></select>
+        <div class="col l2 m2 s12 input-field">
+            <select id="se-column" class="select hide"></select>
             <label>@ViewResources.Show/@ViewResources.hide</label>
         </div>
 
-        <div class="col l3 m3 s12 input-field">
-            <select id="bet-type">
+        <div class="col l2 m2 s12 input-field">
+            <select id="bet-type" class="select hide">
                 <option value="">@ViewResources.AllBetTypes</option>
                 <option value="HDP">@ViewResources.Handicap</option>
                 <option value="OU">@ViewResources.OverUnder</option>
@@ -39,8 +39,8 @@
             <label>@ViewResources.BetType</label>
         </div>
 
-        <div class="col l3 m3 s12 input-field">
-            <select id="live-status">
+        <div class="col l2 m2 s12 input-field">
+            <select id="live-status" class="select hide">
                 <option value="3">@ViewResources.All</option>
                 <option value="0">@ViewResources.NoneLive</option>
                 <option value="1">@ViewResources.Live</option>
@@ -49,8 +49,8 @@
             <label>@ViewResources.LiveStatus</label>
         </div>
 
-        <div class="col l3 m3 s12 input-field">
-            <select id="odds-type">
+        <div class="col l2 m2 s12 input-field">
+            <select id="odds-type" class="select hide">
                 <option value="">@ViewResources.All</option>
                 <option value="DEC">@ViewResources.Based&nbsp;@ViewResources.Odd_Dec</option>
                 <option value="MY">@ViewResources.Based&nbsp;@ViewResources.Odd_MY</option>
@@ -58,15 +58,15 @@
             <label>@ViewResources.OddsType</label>
         </div>
 
-        <div class="col l3 m3 s12 input-field">
-            <select id="special-level"></select>
+        <div class="col l2 m2 s12 input-field">
+            <select id="special-level1" class="select hide"></select>
             <label>@ViewResources.SpecialLevel</label>
         </div>
     </div>
 
     <div class="row">
-        <div class="col l3 m3 s12 input-field">
-            <select id="time-zone">
+        <div class="col l2 m2 s12 input-field">
+            <select id="time-zone" class="select hide">
                 <option value="8">GMT +8</option>
                 <option value="-4">GMT -4</option>
             </select>
@@ -84,19 +84,19 @@
         </div>
 
         <div class="col l2 m2 s12 input-field">
-            <input type="text" id="stake-from" style="width: 65px;" />
+            <input type="text" id="stake-from" />
             <label>@ViewResources.StakeFrom</label>
         </div>
 
         <div class="col l2 m2 s12 input-field">
-            <input type="text" id="stake-to" style="width: 65px;" maxlength="13" />
+            <input type="text" id="stake-to" maxlength="13" />
             <label>@ViewResources.To</label>
         </div>
     </div>
 
     <div class="row">
         <div class="col l2 m2 s12 input-field">
-            <select style="width: 100px;" id="bet-form">
+            <select id="bet-form" class="select">
                 <option value="0">
                     @ViewResources.All
                 </option>

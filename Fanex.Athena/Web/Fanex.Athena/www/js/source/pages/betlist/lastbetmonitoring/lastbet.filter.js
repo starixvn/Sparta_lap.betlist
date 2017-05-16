@@ -1,7 +1,7 @@
 ﻿"use strict";
 define(
-    ['jquery', 'common/site'],
-    function ($, Site) {
+    ['jquery', 'common/site', "components/pluginhelper/multiselect"],
+    function ($, Site, MultiSelect) {
         var _me = {};
 
         var _highLightSubmitIntervalId = 0;
@@ -368,6 +368,7 @@ define(
             });
         };
         _me.initialize = function () {
+            Site.initialize();
             _me.initSports();
             _me.initLeague();
             _me.initMatch();

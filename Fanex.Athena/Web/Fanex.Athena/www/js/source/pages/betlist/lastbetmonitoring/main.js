@@ -1,9 +1,9 @@
 ﻿define(['./lastbet.filter', './lastbet.grid'], function (LastBetFilter, LastBetGrid) {
     "use strict";
 
-    $(window).load(function () {
-        LastBetGrid.initialize();
+    $(function () {
         LastBetFilter.initialize();
+        LastBetGrid.initialize();
 
         LastBetGrid.startMonitor();
     });
