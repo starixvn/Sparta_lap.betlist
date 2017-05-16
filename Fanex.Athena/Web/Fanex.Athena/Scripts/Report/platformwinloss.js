@@ -51,6 +51,7 @@ var PlatformWinLoss = (function ($) {
             PlatformWinLoss.initEvent();
             Site.addFilterCollapseExpand();
             PlatformWinLossOption.gridOption.onSortCol = function (index) {
+                _pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
                 Site.blockUI();
                 window.setTimeout(function () {
                     _removeSorting = false;
@@ -212,10 +213,10 @@ var PlatformWinLoss = (function ($) {
             var numOfRow = response.Data.length;
             gridOption.datastr = response.Data;
             gridOption.rowList = PlatformWinLossOption.rowList;
-            gridOption.rowNum = _pageSize;
+            gridOption.rowNum = level === 1 ? _pageSize : -1;
             gridOption.treeGrid = level === 0;
-            gridOption.rowTotal = numOfRow;
             gridOption.onPaging = function (pgButton) {
+                _pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
                 if (numOfRow > PlatformWinLossOption.pageSize) {
                     onPaging = true;
                     if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
@@ -229,8 +230,7 @@ var PlatformWinLoss = (function ($) {
 
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete(this, gridOption);
-                if (numOfRow > PlatformWinLossOption.pageSize) {
-                    _pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
+                if (level === 1 && numOfRow > PlatformWinLossOption.pageSize) {
                     $("#pg_ppdata").show();
                 }
                 else {
@@ -342,6 +342,8 @@ var PlatformWinLoss = (function ($) {
 
         drillDown: function (data) {
             _level = 1;
+            _pageSize = PlatformWinLossOption.pageSize;
+
             var productOptions;
             if (data.ProductCode) {
                 productOptions = [{ Code: data.ProductCode, Status: true }];

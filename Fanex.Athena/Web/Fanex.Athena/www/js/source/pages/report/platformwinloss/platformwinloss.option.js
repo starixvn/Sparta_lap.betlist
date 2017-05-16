@@ -166,12 +166,10 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
             sortable: true,
             resizable: false,
             formatter: "currency",
-            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS,
-            classes: "highlight"
+            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
         var racingRevenueColumn = {
             name: "RacingRevenue",
-            classes: "highlight",
             index: "RacingRevenue",
             width: 70,
             align: "right",
@@ -333,8 +331,7 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
         var _me = {
             licenseeId: 0,
             hasCustomerComm: true,
-            pageSize: 50,
-            nonePagingSize: 2000,           
+            pageSize: 50,         
             totalColspan: [0, 4],
             urlData: "api/PlatformWinLossReport/Index",
             urlExcelData: "api/PlatformWinLossReport/Index",
@@ -388,8 +385,6 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                 var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colModels : columnConfigCustomerComm.colsWithoutComm.colModels;
 
                 if (level === 0) {
-                    licenseeWlColumn.classes = null;
-
                     var colModels = getColConfigLevel0(Site.clone(columnConfigLevel0.colModels), customerWL);
 
                     colModels.forEach(function (item) {
@@ -403,8 +398,6 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                 var allowedRacing = isProductChecked(productOptions, RB_PRODUCTCODE);
                 var colsBA = allowedBa ? columnConfigBA.colModels : null;
                 var colsRB = allowedRacing ? columnConfigRB.colModels : null;
-
-                licenseeWlColumn.classes = "highlight";
 
                 return getColConfigLevel1(Site.clone(columnConfigLevel1.colModels), customerWL, colsBA, colsRB);
             },

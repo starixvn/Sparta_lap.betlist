@@ -70,6 +70,7 @@
 
             PlatformWinLossOption.gridOption.onSortCol = function (index) {
                 Site.blockUI();
+                gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
                 window.setTimeout(function () {
                     gridControl.removeSorting = false;
                     if (gridControl.sortColumnName === index) {
@@ -146,10 +147,11 @@
             var onPaging = false;
             var gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
             gridOption.datastr = response.Data;
-            gridOption.rowNum = gridControl.pageSize;
+            gridOption.rowNum = level === 1 ? gridControl.pageSize : -1;;
             gridOption.treeGrid = level === 0;
-            gridOption.rowTotal = numOfRow;
             gridOption.onPaging = function (pgButton) {
+                gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
+
                 if (numOfRow > PlatformWinLossOption.pageSize) {
                     onPaging = true;
                     if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
@@ -163,7 +165,7 @@
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete();
 
-                if (numOfRow > PlatformWinLossOption.pageSize) {
+                if (level === 1 && numOfRow > PlatformWinLossOption.pageSize) {
                     $("#pg_ppdata").show();
                 }
                 else {
@@ -180,8 +182,6 @@
 
                 onPaging = false;
                 resizeGrid();
-
-                $(".cell-wrapperleaf", "#ReportGrid").closest("tr").find("td").addClass("highlight");
 
                 if (gridControl.level === 0) {
                     $("th[role='columnheader']").find("div").removeClass("ui-jqgrid-sortable");
@@ -236,17 +236,18 @@
                 "usd": viewinKey.replace("{0}", "USD"),
                 "eur": viewinKey.replace("{0}", "EUR")
             };
-
             var baseCurrencyKey = $('#BaseCurrency').val();
             var baseCurrencyText = baseCurrency[baseCurrencyKey] === undefined
                 ? viewinKey.replace("{0}", selectedCurrency)
                 : baseCurrency[baseCurrencyKey];
 
             var platformName = platforms[data.PlatformType];
+
             var productText = Site.getSingleResource('Product') + ': ';
             productText = (data.ProductOptions && data.ProductOptions.length === 1) ?
                 productText + data.ProductOptions[0].Code :
                 getProductText(_submitData.ProductOptions);
+
             var title = $.format(titlePattern, _submitData.FromDate.toStringFormat("MM/dd/yyyy"), _submitData.ToDate.toStringFormat("MM/dd/yyyy"),
                         currencyText, baseCurrencyText, platformName, ', ' + productText);
 
@@ -256,6 +257,8 @@
 
         function drillDown(data) {
             gridControl.level = 1;
+            gridControl.pageSize = PlatformWinLossOption.pageSize;
+
             var productOptions;
             if (data.ProductCode) {
                 productOptions = [{ Code: data.ProductCode, Status: true }];

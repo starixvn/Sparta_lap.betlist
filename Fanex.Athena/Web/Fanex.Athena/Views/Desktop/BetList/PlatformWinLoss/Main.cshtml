@@ -14,9 +14,9 @@
 }
 @section ContentTitle
 {
-    @ViewResources.CustomerBetList @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
+    @ViewResources.CustomerBetList @Model.FromDate.ToString("MM/dd/yyyy")<span class="header-title-arrow">
         →
-    </span>@Model.ToDate.ToShortDateString()
+    </span>@Model.ToDate.ToString("MM/dd/yyyy")
     - @(Model.ExternalId)(@(Model.SystemId)) - @ViewResources.Platform: @platformText - <span class="base-currency">
         @{var curencyId = Model.IsConvert ? Model.BaseCurrencyId : Model.CurrencyId;}
 
