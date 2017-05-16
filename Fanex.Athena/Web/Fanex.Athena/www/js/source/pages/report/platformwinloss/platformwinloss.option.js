@@ -1,7 +1,7 @@
 ﻿/// <reference path="/@JSense.js" />
 /*
-* Note:in this report, parameter level have 3 value
-*  "0" for master,"1" for agent and "2" for member
+* Note:in this report, parameter level have 2 value
+*  "0" for master and "1" for member
 */
 
 define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "lib/linq"],
@@ -280,7 +280,7 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
         };
 
         function getColConfigLevel0(cols, customerWL) {
-            var customerWlIndex = 4;
+            var customerWlIndex = 3;
 
             customerWL.forEach(function (item) {
                 cols.insertAfter(item, customerWlIndex);
@@ -291,7 +291,7 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
         }
 
         function getColConfigLevel1(cols, customerWL, colsBA, colsRB) {
-            var customerWlIndex = 6;
+            var customerWlIndex = 5;
             customerWL.forEach(function (item) {
                 cols.insertAfter(item, customerWlIndex);
                 ++customerWlIndex;
