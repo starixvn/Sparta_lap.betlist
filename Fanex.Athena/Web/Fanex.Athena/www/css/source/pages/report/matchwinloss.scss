@@ -5,7 +5,7 @@
 
 $colorText: #484848;
 
-.col-small{
+.col-small {
     width: 3%;
 }
 
@@ -19,43 +19,43 @@ $colorText: #484848;
     }
 }
 
-.match-container{
+.match-container {
     display: table;
     width: 100%;
 
-    .cell{
+    .cell {
         display: table-cell;
     }
 
-    .match-name{
+    .match-name {
         color: $colorText;
     }
 
-    .bet-list-link{
+    .bet-list-link {
         cursor: pointer;
 
-        &:hover{
+        &:hover {
             text-decoration: underline;
         }
     }
 
-    .icon-wrapper{
+    .icon-wrapper {
         text-align: center;
         font-weight: 900;
         vertical-align: middle;
         color: $colorText;
         width: 20px;
 
-        &.expanded{
+        &.expanded {
             transform: rotate(180deg);
         }
     }
 }
 
-.footer-content{
-    .grandTotal{
-        &, &:hover{
-            > td{
+.footer-content {
+    .grandTotal {
+        &, &:hover {
+            > td {
                 background: $bgSummaryTotal;
             }
         }

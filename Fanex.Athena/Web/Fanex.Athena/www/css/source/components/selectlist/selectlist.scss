@@ -45,6 +45,7 @@ $font-size: 12px;
 
     &-result-container {
         position: absolute;
+        z-index: 100;
 
         .select-list-dropdown {
             background-color: #fff;

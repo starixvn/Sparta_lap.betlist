@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -1150,6 +1150,7 @@
     <Content Include="www\js\source\pages\report\winlossbybettype\main.js" />
     <Content Include="www\js\source\pages\report\winlossbybettype\winlossbybettype.js" />
     <Content Include="www\js\source\pages\report\winlossbyleague\main.js" />
+    <Content Include="www\js\source\pages\report\winlossbyleague\winlossbyleague.filter.js" />
     <Content Include="www\js\source\pages\report\winlossbyleague\winlossbyleague.js" />
     <Content Include="www\js\source\pages\report\winlossbyleague\winlossbyleague.option.js" />
     <Content Include="www\js\source\pages\report\winlossbyproduct\main-winlossbyproduct.js" />

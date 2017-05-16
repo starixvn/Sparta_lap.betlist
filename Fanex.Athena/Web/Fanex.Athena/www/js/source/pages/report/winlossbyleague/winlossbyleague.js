@@ -1,12 +1,10 @@
-﻿define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid.additional", "./winlossbyleague.option", "moment", "common/popup",
-     "components/pluginhelper/monthpicker", "../report", "components/pluginhelper/multiselect", "components/paging",
+﻿define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid.additional", "./winlossbyleague.option",
+    "./winlossbyleague.filter", "moment", "components/paging",
     "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, moment, Popup, MonthPicker, Report, MultiSelect, PagingHeper) {
+    function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, WinLossByLeagueFilter, moment, PagingHeper) {
         "use strict";
 
         var ajaxRequest = null;
-        var ajaxLeagues = null;
-        var ajaxMatches = null;
 
         var _level = 0;
         var _leagueid = -1;
@@ -15,129 +13,40 @@
         var _toDate = null;
         var _postdata = {};
         var _currencyName = null;
-        var _productCount = 0;
-        var _pagingOption =
-            {
-                pageindex: 1,
-                pagesize: 50,
-                pagelist: [50, 100, 1000],
-                totalrow: 1,
-                elementcontainer: "#paging",
-                method: "AJAX",
-                ajaxfunction: "window.WinLossByLeague.ajaxPaging()",
-                alwayshow: true
-            };
 
-        function loadLeagues() {
-            if (ajaxLeagues != null) {
-                ajaxLeagues.abort();
-            }
-
-            Site.blockUI();
-            $("#SubmitButton").prop("disabled", true);
-            $("#League").html("");
-
-            ajaxLeagues = $.ajax({
-                type: "POST",
-                url: Site.resolveClientUrl("WinLossByLeagueReport/GetLeaguesBySport"),
-                data: {
-                    currencyId: $("#CurrencyId").val(),
-                    sportid: $("#Sport").val(),
-                    fromDate: MonthPicker.getFromDateString(),
-                    toDate: MonthPicker.getToDateString()
-                },
-                success: function (data) {
-                    var str = "";
-                    $.each(data, function () {
-                        str += "<option value=\"" + this.Key + "\">" + this.Value + "</option>";
-                    });
-                    $("#League").html(str);
-                    loadMatches(false);
-                }
-            });
-        }
-
-        function loadMatches(isBlockUI) {
-            if (ajaxMatches != null) {
-                ajaxMatches.abort();
-            }
-
-            if (isBlockUI) {
-                Site.blockUI();
-            }
-
-            $("#SubmitButton").prop("disabled", true);
-            $("#Match").html("");
-            var leagueid = $("#League").val();
-            if (!leagueid) {
-                Site.unBlockUI();
-                return;
-            }
-
-            ajaxMatches = $.ajax({
-                type: "POST",
-                datatype: "json",
-                url: Site.resolveClientUrl("WinLossByLeagueReport/GetMatchesByLeague"),
-                data: {
-                    leagueid: leagueid,
-                    fromDate: MonthPicker.getFromDateString(),
-                    toDate: MonthPicker.getToDateString()
-                },
-                success: function (data) {
-                    var str = "";
-                    $.each(data, function () {
-                        str += "<option value=\"" + this.Key + "\">" + this.Value + "</option>";
-                    });
-                    $("#Match").html(str);
-                    if (data.length > 0) {
-                        $("#SubmitButton").prop("disabled", false);
-                    }
-                    Site.unBlockUI();
-                }
-            });
-        }
-
-        function buildProductsParams(paramObject) {
-            for (var i = 0; i < _productCount; i++) {
-                paramObject["ProductOptions[" + i + "].Code"] = _postdata["ProductOptions[" + i + "].Code"];
-                paramObject["ProductOptions[" + i + "].Name"] = _postdata["ProductOptions[" + i + "].Name"];
-                paramObject["ProductOptions[" + i + "].Status"] = _postdata["ProductOptions[" + i + "].Status"];
-            }
-        }
+        var _pagingOption = {
+            pageindex: 1,
+            pagesize: 50,
+            pagelist: [50, 100, 1000],
+            totalrow: 1,
+            elementcontainer: "#paging",
+            method: "AJAX",
+            ajaxfunction: "window.WinLossByLeague.ajaxPaging()",
+            alwayshow: true
+        };
 
         var _me = {
-            ajaxPaging: function () {
-                _pagingOption = PagingHeper.getSetting();
-
-                _me.drillDown(_leagueid, _leaguename);
-            },
             //#region Init
             initialize: function () {
                 Site.initialize();
                 _me.initEvent();
                 _me.initSetting();
-                MultiSelect.initProductList();
-                MonthPicker.initMonthPicker({
-                    customAfterChangeDay: loadLeagues
-                });
 
-                _productCount = $("#ProductList .childCheckbox[type=checkbox]").length;
+                WinLossByLeagueFilter.initialize();
+
                 window.WinLossByLeague = {
                     ajaxPaging: _me.ajaxPaging
                 };
+            },
 
-                $("#searchForm").submit(function () {
+            initSetting: function () {
+                WinLossByLeagueOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+            },
+
+            initEvent: function () {
+                $('#SubmitButton').click(function () {
                     _me.submit();
-                    return false;
                 });
-                $("#League").change(function () {
-                    loadMatches(true);
-                });
-                $("#Sport, #CurrencyId").change(function () {
-                    loadLeagues();
-                });
-
-                $("#TickerFilter input[type=checkbox]").checkboxgroup();
 
                 $("body").on("click", "#leagueHeader", function () {
                     _pagingOption.pageindex = 1;
@@ -152,63 +61,15 @@
                     _me.drillDownBetList(custid, externalid, systemid);
                 });
 
-                $("#BackLink").click(_me.goBack);
+                $("#BackLink").click(function () {
+                    _me.goBack();
+                });
 
                 $("#ExportToExcel").click(function (e) {
                     _postdata.LeagueName = _leaguename;
                     _postdata.Level = _level;
                     Site.exportExcel(_postdata, Site.resolveClientUrl("api/WinLossByLeagueReport/Excel"));
                     e.preventDefault();
-                });
-
-                $("#Odds").keypress(function (event) {
-                    /*--------------------------------------------------------------
-                    Backspace, tab, enter, end, home, left, right
-                    Don't support the del key in Opera because del == . == 46.
-                    --------------------------------------------------------------*/
-                    var controlKeys = [8, 9, 13, 35, 36, 37, 39, 46];
-
-                    /*--------------------------------------------------------------
-                    IE doesn't support indexOf
-                    --------------------------------------------------------------*/
-                    var isControlKey = controlKeys.join(",").match(new RegExp(event.which));
-
-                    /*--------------------------------------------------------------
-                    Some browsers just don't raise events for control keys. Easy.
-                    e.g. Safari backspace.
-                    --------------------------------------------------------------*/
-                    if (!event.which ||
-                        // Control keys in most browsers. e.g. Firefox tab is 0
-                     (48 <= event.which && event.which <= 57) ||
-                        // Always 0 through 9
-                        //(48 == event.which && $(this).attr("value")) ||   // No 0 first digit
-                        isControlKey) {
-                        // Opera assigns values for control keys.
-                        return;
-                    }
-                    else {
-                        event.preventDefault();
-                    }
-                });
-            },
-
-            initSetting: function () {
-                WinLossByLeagueOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
-            },
-
-            initEvent: function () {
-                $("body").on("click", ".bet-list-link", function () {
-                    var dataDrillDown = $(this).attr("data-drill-down");
-                    _me.openBetlistPopUp(dataDrillDown);
-                });
-
-                $('#SubmitButton').click(function () {
-                    _me.submit();
-                });
-
-                $("#level-link-container").on("click", ".level-link", function () {
-                    var level = Number($(this).attr("data-level"));
-                    return _me.goBack(level);
                 });
 
                 $(window).on("resize", function () {
@@ -247,10 +108,11 @@
 
                 var titlePattern = caption + ', {0} → {1} - {2} - {3}';
                 var viewinKey = Site.getSingleResource("Currency") + ": ";
-
                 var currencyStr = viewinKey + " " + (_postdata.BaseCurrency === "" ? _currencyName : _postdata.BaseCurrency);
+
                 var minOddStr = Site.getSingleResource("MinimumOdds") + " : " + minOdds;
                 var title = $.format(titlePattern, moment(fromdate).format("M/DD/YYYY"), moment(todate).format("M/DD/YYYY"), currencyStr, minOddStr);
+
                 _postdata.ReportTitle = title;
                 $(".report-title").html(title);
                 $(".panel-heading").removeClass("hide");
@@ -265,36 +127,19 @@
             //#region Get Data
 
             ajaxComplete: function (level, response) {
-                if (response != null) {
-                    //reset layout
+                if (response !== null) {
                     if (level === 0) {
                         _me.setReportTitle(0, _postdata.Odds, _fromDate, _toDate);
                     }
-                    // WinLossByLeague.renderBreadCrumb(level);
+
                     _me.bindData(level, response);
                 }
             },
 
             submit: function () {
-                if ($("#TickerFilter input:checked").length === 0) {
-                    return $("#ticket-null").removeClass("hide");
-                } else {
-                    $("#ticket-null").addClass("hide");
+                if (!WinLossByLeagueFilter.isValid()) {
+                    return;
                 }
-
-                if ($("#ProductList .childCheckbox:checked").length === 0) {
-                    return $("#product-null").removeClass("hide");
-                } else {
-                    $("#product-null").addClass("hide");
-                }
-
-                var odds = parseFloat($('#Odds').val());
-                if (isNaN(odds) || odds == null || odds < 0) {
-                    odds = 0;
-                }
-
-                $("#Odds").val(odds);
-
                 Site.blockUI();
                 _level = 0;
 
@@ -303,10 +148,9 @@
                 _toDate = new Date(_postdata.ToDate);
                 _currencyName = $("#CurrencyName").val().toUpperCase();
                 _postdata.BaseCurrency = _postdata.BaseCurrency.toUpperCase();
-
                 _leaguename = $("#League option:selected").text();
-                var option =
-                {
+
+                var option = {
                     type: "POST",
                     data: _postdata,
                     dataType: "json",
@@ -320,12 +164,11 @@
                     beforeSend: function () {
                         Site.blockUI();
                     },
-                    complete: function (/*jqXhr, textStatus*/) {
-                        $(".report-title").show();
+                    complete: function () {
                         Site.unBlockUI();
                     }
                 };
-                if (ajaxRequest != null) {
+                if (ajaxRequest !== null) {
                     ajaxRequest.abort();
                 }
                 ajaxRequest = $.ajax(option);
@@ -337,8 +180,7 @@
 
             //#region drillDown
             drillDownBetList: function (custId, externalId, systemId) {
-                var param =
-                {
+                var param = {
                     IsConvert: _postdata.BaseCurrency !== "",
                     Odds: _postdata.Odds,
                     FromDate: _fromDate.toDateString(),
@@ -357,7 +199,7 @@
                     ShowDraw: _postdata.ShowDraw
                 };
 
-                buildProductsParams(param);
+                WinLossByLeagueFilter.buildProductsParams(param, _postdata);
 
                 var url = Site.resolveClientUrl("WinlossByLeagueBetList/Index?") + $.param(param);
                 window.open(url, "", "modal=no");
@@ -385,10 +227,9 @@
                     pagesize: _pagingOption.pagesize
                 };
 
-                buildProductsParams(param);
+                WinLossByLeagueFilter.buildProductsParams(param, _postdata);
 
-                var option =
-                {
+                var option = {
                     type: "POST",
                     data: param,
                     dataType: "json",
@@ -396,7 +237,7 @@
                     url: Site.resolveClientUrl(WinLossByLeagueOption.urlData),
                     success: function (response) {
                         _me.ajaxComplete(_level, response);
-                        if (response != null && response.Data.length > 0) {
+                        if (response !== null && response.Data.length > 0) {
                             _me.setReportTitle(1, _postdata.Odds, _fromDate, _toDate);
 
                             _pagingOption.totalrow = parseInt(response.TotalRows);
@@ -414,91 +255,61 @@
                         Site.unBlockUI();
                     }
                 };
-                if (ajaxRequest != null) {
+                if (ajaxRequest !== null) {
                     ajaxRequest.abort();
                 }
                 ajaxRequest = $.ajax(option);
             },
-
             //#endregion
 
             //#region Bind Data
+            bindData: function (level, response) {
+                jqGridAdditional.clearGrid("ReportGrid");
+                var numOfRow = response.Data.length;
+                if (numOfRow === 0) {
+                    jqGridAdditional.setNoInfo();
+                    return;
+                }
+
+                var reportGrid = $("#ReportGrid");
+                $("#paging").hide();
+                var numOfTotalRow = response.Total.length;
+                var gridOption = WinLossByLeagueOption.getGridOption(level);
+
+                gridOption.data = response.Data;
+                gridOption.rowNum = level === 2 ? WinLossByLeagueOption.pageSize : WinLossByLeagueOption.nonePagingSize;
+                gridOption.rowTotal = numOfRow;
+
+                gridOption.gridComplete = function () {
+                    jqGridAdditional.gridComplete();
+                    _me.bindTotal(level, response.Total);
+                    _me.resizeGrid();
+                    Site.unBlockUI();
+                };
+
+                // Show the grid
+                reportGrid.jqGrid(gridOption);
+
+                //set rowspan for footer row
+                $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByLeagueOption.currencyIndex]);
+
+                if (level === 0) {
+                    WinLossByLeagueOption.addLeagueGroupRow($("#League").val(), $("#League option:selected").text());
+                }
+            },
+
             bindTotal: function (level, totalData) {
                 var columnModel = WinLossByLeagueOption.getColModel(level);
                 var colspan = level === 0 ? 2 : 3;
                 jqGridAdditional.assignTotal(totalData, columnModel);
                 jqGridAdditional.setGroupFooters(colspan, 0, 0);
             },
-
-            bindData: function (level, response) {
-                jqGridAdditional.clearGrid("ReportGrid");
-                var reportGrid = $("#ReportGrid");
-                $("#paging").hide();
-                var numOfRow = response.Data.length;
-                var numOfTotalRow = response.Total.length;
-                var onPaging = false;
-                var gridOption = WinLossByLeagueOption.getGridOption(level);
-
-                gridOption.footerrow = true;
-                gridOption.userDataOnFooter = true;
-
-                gridOption.data = response.Data;
-                gridOption.userData = {};
-                gridOption.rowNum = level === 2 ? WinLossByLeagueOption.pageSize : WinLossByLeagueOption.nonePagingSize;
-                gridOption.rowList = WinLossByLeagueOption.rowList;
-                gridOption.rowTotal = numOfRow;
-                gridOption.pager = '';
-                gridOption.onPaging = function (pgButton) {
-                    if (level === 2 && numOfRow > WinLossByLeagueOption.pageSize) {
-                        if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
-                            Site.blockUI();
-                        }
-                        onPaging = true;
-                    }
-                    else {
-                        return 'stop';
-                    }
-                };
-                gridOption.gridComplete = function () {
-                    jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow);
-
-                    if (response == null || numOfRow === 0) {
-                        jqGridAdditional.setNoInfo(gridOption.colModel);
-                    }
-                    else {
-                        if (onPaging && level === 2) {
-                            $(".ui-jqgrid-ftable").html($("#footer").html());
-                        }
-                        else {
-                            _me.bindTotal(level, response.Total);
-                            $("#footer").html($(".ui-jqgrid-ftable").html());
-                        }
-
-                        onPaging = false;
-                    }
-
-                    _me.resizeGrid();
-                    Site.unBlockUI();
-                };
-
-                // Show the grid
-
-                reportGrid.jqGrid(gridOption);
-
-                //set rowspan for footer row
-                $("table.ui-jqgrid-ftable").tableRowSpan([WinLossByLeagueOption.currencyIndex]);
-                if (level === 2) {
-                    jqGridAdditional.showRecommendedBrowser(gridOption.pager);
-                }
-                if (level === 0) {
-                    WinLossByLeagueOption.addLeagueGroupRow($("#League").val(), $("#League option:selected").text());
-                }
-                ///reset layout
-                // jqGridAdditional.resetLayout(reportGrid);
-                // jqGridAdditional.resizeGrid();
-            }
-
             //#endregion
+
+            ajaxPaging: function () {
+                _pagingOption = PagingHeper.getSetting();
+                _me.drillDown(_leagueid, _leaguename);
+            }
         };
 
         return _me;

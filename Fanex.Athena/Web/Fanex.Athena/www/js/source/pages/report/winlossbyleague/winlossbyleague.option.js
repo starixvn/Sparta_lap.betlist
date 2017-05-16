@@ -140,41 +140,40 @@
         [indexColumn, externalIdColumn, systemIdColumn, betcountColumn, turnoverColumn, customerWlColumn, licenseeWlColumn, baCommColumn]
     ];
 
-    var me =
+    var me = {
+        licenseeId: 0,
+        currencyIndex: 4,
+        systemIdIndex: 3,
+        externalIdIndex: 2,
+        customerWlTotalIndex: 10,
+        pageSize: 50,
+        nonePagingSize: 2000,
+        rowNum: 50,
+        totalColspan: [1, 2, 3],
+        //level 0,1,2
+        urlData: 'api/WinLossByLeagueReport/Index',
+        urlExcelData: 'api/WinLossByLeagueReport/Index',
+        gridOption:
         {
-            licenseeId: 0,
-            currencyIndex: 4,
-            systemIdIndex: 3,
-            externalIdIndex: 2,
-            customerWlTotalIndex: 10,
-            pageSize: 50,
-            nonePagingSize: 2000,
-            rowNum: 50,
-            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
-            totalColspan: [1, 2, 3],
-            //level 0,1,2
-            urlData: 'api/WinLossByLeagueReport/Index',
-            urlExcelData: 'api/WinLossByLeagueReport/Index',
-            gridOption:
-            {
-                datatype: 'local',
-                colNames: [],
-                colModel: [],
-                data: [],
-                height: 'auto',
-                autowidth: false,
-                forceFit: false,
-                shrinkToFit: true,
-                loadtext: 'loading...',
-                loadui: 'disable',
-                loadonce: true,
-                footerrow: true,
-                userDataOnFooter: true,
-                userData: [],
-                viewrecords: true,
-                gridview: true
-            }
-        };
+            datatype: 'local',
+            colNames: [],
+            colModel: [],
+            data: [],
+            height: 'auto',
+            autowidth: false,
+            forceFit: false,
+            shrinkToFit: true,
+            loadtext: 'loading...',
+            loadui: 'disable',
+            loadonce: true,
+            footerrow: true,
+            userDataOnFooter: true,
+            userData: [],
+            viewrecords: true,
+            gridview: true,
+            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000]
+        }
+    };
 
     //# getGidOptionregion
 
@@ -196,9 +195,8 @@
     me.addLeagueGroupRow = function (leagueid, leagueName) {
         var $grid = $("#ReportGrid");
         var $row = $grid.find("tr.jqgrow:first");
-        $row.before("<tr><td colspan=8>&nbsp;&nbsp;&nbsp; <a id='leagueHeader' data-leagueid='" +
-                leagueid + "' href='javascript:void(0)' style='color:blue;text-decoration: underline !important'>* " +
-                leagueName + "</a></td></tr>");
+        $row.before("<tr><td colspan=8>&nbsp;&nbsp;&nbsp; <a id='leagueHeader' data-leagueid='" + leagueid
+            + "' href='javascript:;'>" + leagueName + "</a></td></tr>");
     };
 
     return me;
