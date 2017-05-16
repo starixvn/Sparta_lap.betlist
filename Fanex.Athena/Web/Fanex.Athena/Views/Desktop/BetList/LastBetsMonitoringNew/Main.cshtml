@@ -5,7 +5,7 @@
 }
 @model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 @section pagecss {
-    @*@Styles.Render("~/bundles/LastBetsMonitoringViewStyles")*@
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/betlist/lastbetmonitoring.css")" rel="stylesheet" />
 }
 @section pagejs {
     <script src="@Url.ContentLinkByEnv("/www/js/build/pages/betlist/lastbetmonitoring.chunk.js")"></script>

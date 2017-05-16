@@ -92,7 +92,8 @@ function generateConfig(environment) {
             [`${cssPath}/pages/reports/winlossbyleague`]: pathConfig.cssPaths.winlossbyleague,
             [`${cssPath}/pages/reports/matchwinloss`]: pathConfig.cssPaths.matchwinloss,
             [`${cssPath}/pages/reports/platformwinloss`]: pathConfig.cssPaths.platformwinloss,
-            [`${cssPath}/pages/reports/winlossbybettype`]: pathConfig.cssPaths.winlossbybettype
+            [`${cssPath}/pages/reports/winlossbybettype`]: pathConfig.cssPaths.winlossbybettype,
+            [`${cssPath}/pages/betlist/lastbetmonitoring`]: pathConfig.cssPaths.lastbetmonitoring
         },
         output: {
             path: pathConfig.projectRoot,

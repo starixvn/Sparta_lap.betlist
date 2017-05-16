@@ -1,7 +1,8 @@
 ﻿"use strict";
 define(
-    ['jquery', 'common/site', "components/pluginhelper/multiselect"],
-    function ($, Site, MultiSelect) {
+    ['jquery', 'common/site', "components/pluginhelper/multiselect",
+    "./lastbet.grid", "lib/jquery.multiselect"],
+    function ($, Site, MultiSelect, LastBetGrid) {
         var _me = {};
 
         var _highLightSubmitIntervalId = 0;
@@ -327,9 +328,10 @@ define(
                 }
                 $("#se-column").append('<option value="' + e.Name + '">' + e.Name + " " + '</option>');
             });
+
             $("#se-column").multiSelect(
             {
-                minWidth: 103,
+                minWidth: 200,
                 maxHeight: 400,
                 shadow: true,
                 showHeader: true,

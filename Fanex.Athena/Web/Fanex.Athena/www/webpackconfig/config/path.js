@@ -44,7 +44,8 @@ var cssPaths = {
     winlossbyleague: ["./www/css/source/pages/report/winlossbyleague.scss"],
     matchwinloss: ["./www/css/source/pages/report/matchwinloss.scss"],
     platformwinloss: ["./www/css/source/pages/report/platformwinloss.scss"],
-    winlossbybettype: ["./www/css/source/pages/report/winlossbybettype.scss"]
+    winlossbybettype: ["./www/css/source/pages/report/winlossbybettype.scss"],
+    lastbetmonitoring: ["./www/css/source/pages/betlist/lastbetmonitoring.scss"]
 };
 
 var scriptPaths = {

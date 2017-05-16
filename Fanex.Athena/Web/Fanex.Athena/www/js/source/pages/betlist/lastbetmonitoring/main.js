@@ -8,7 +8,7 @@
         LastBetGrid.startMonitor();
     });
 
-    $(window).unload(function () {
+    $(window).on("unload", function () {
         LastBetGrid.stopMonitor();
     });
 });
