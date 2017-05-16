@@ -20,7 +20,7 @@
             TurnoverOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
             TurnoverOption.hasCasinoTransfer = Site.asBool($("#IsAllowedCasinoTransfer").val());
             TurnoverOption.isAllowBa = Site.asBool($("#IsAllowBa").val());
-            MultiSelect.initialize('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+            MultiSelect.initProductList();
             Site.addUserGuide({
                 resourceName: "Turnover",
                 title: Site.getSingleResource("Turnover")

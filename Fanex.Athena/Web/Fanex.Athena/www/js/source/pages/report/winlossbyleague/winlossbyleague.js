@@ -116,7 +116,7 @@
                 Site.initialize();
                 _me.initEvent();
                 _me.initSetting();
-                MultiSelect.initialize('grid-products-multiselect', $("#ProductOptionJson").val(), 'Code', 'Name', 'Status');
+                MultiSelect.initProductList();
                 MonthPicker.initMonthPicker({
                     customAfterChangeDay: loadLeagues
                 });

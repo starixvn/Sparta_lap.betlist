@@ -46,7 +46,7 @@
                     resourceName: "LicenseeWL",
                     title: Site.getSingleResource("LicenseeWinLoss")
                 });
-                MultiSelect.initialize('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+                MultiSelect.initProductList();
                 DatePicker.initDateRangePicker();
             },
 

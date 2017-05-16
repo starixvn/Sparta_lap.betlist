@@ -14,7 +14,7 @@
             initialize: function () {
                 Site.initialize();
                 DatePicker.initDateRangePicker();
-                MultiSelect.initialize('grid-products-multiselect', $("#ProductOptionJson").val(), 'Code', 'Name', 'Status');
+                MultiSelect.initProductList();
                 Site.setConstraintMonthRange(VALID_MONTH_RANGE, WinLossByProductOption.urlExcelData);
                 Site.addUserGuide({
                     resourceName: "WinLossByProduct",

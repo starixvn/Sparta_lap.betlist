@@ -20,7 +20,7 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
             initialize: function () {
                 Site.initialize();
                 DatePicker.initSingleDatePicker("Date");
-                MultiSelect.initialize('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+                MultiSelect.initProductList();
                 Site.addUserGuide({
                     resourceName: "MatchWL",
                     title: Site.getSingleResource("MatchWinLoss")

@@ -38,8 +38,8 @@
                 it("MonthPicker.initMonthPicker() should be called", function () {
                     expect(MonthPicker.initMonthPicker).toHaveBeenCalled();
                 });
-                it("MultiSelect.initialize() should be called with correct parameter", function () {
-                    expect(MultiSelect.initialize).toHaveBeenCalledWith('grid-products-multiselect', "SB,RC", 'Code', 'Name', 'Status');
+                it("MultiSelect.initProductList() should be called with correct parameter", function () {
+                    expect(MultiSelect.initProductList).toHaveBeenCalled();
                 });
                 it("Site.addUserGuide() should be called with correct parameter", function () {
                     expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "Turnover", title: "Turnover" });

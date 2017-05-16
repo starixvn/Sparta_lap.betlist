@@ -384,7 +384,7 @@
                 initEvent();
                 initSetting();
 
-                MultiSelect.initialize('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+                MultiSelect.initProductList();
                 MonthPicker.initMonthPicker();
 
                 platforms = {
