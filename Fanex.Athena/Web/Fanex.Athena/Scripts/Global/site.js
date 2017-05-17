@@ -86,11 +86,6 @@ var Site = (function ($) {
                             $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
                             $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
                         }
-                    } else if (property === "ProductList") {
-                        for (var i = 0; i < value.length; i++) {
-                            var product = value[i];
-                            $('<input type="hidden">').attr({ name: 'ProductList[' + i + ']', value: product }).appendTo($form);
-                        }
                     } else {
                         $('<input type="hidden">').attr({ name: property, value: value }).appendTo($form);
                     }

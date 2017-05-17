@@ -78,8 +78,6 @@ namespace Fanex.Athena.Excel.Base
             set;
         }
 
-        public string[] ProductList { get; set; }
-
         public IList<ProductOption> ProductOptions
         {
             get;
@@ -264,19 +262,6 @@ namespace Fanex.Athena.Excel.Base
             }
 
             return title;
-        }
-
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
-            Justification = "Reviewed. Suppression is OK here.")]
-        protected internal virtual string GetNewLicenseeWLProduct(string caption = null)
-        {
-            var prdOptionTitleList =
-                ProductList.Where(p => p != Product.BA && p != Product.RB);
-            var prdText = prdOptionTitleList.Aggregate(string.Empty, (current, prd) => current + (string.IsNullOrEmpty(current) ? prd : ", " + prd));
-
-            return string.IsNullOrEmpty(prdText)
-                ? string.IsNullOrWhiteSpace(caption) ? string.Empty : ", " + caption
-                      : string.Format(", {0} ({1})", string.IsNullOrWhiteSpace(caption) ? ViewResources.LicenseeW_L : caption, prdText);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",

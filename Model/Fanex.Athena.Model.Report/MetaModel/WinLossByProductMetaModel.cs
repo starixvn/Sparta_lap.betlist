@@ -21,8 +21,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
         {
         }
 
-        public string[] ProductList { get; set; }
-
         #region Members
 
         public int DrillDownCurrencyId { get; set; }
@@ -56,14 +54,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public DateTime DrillDownToDate { get; set; }
 
         public string Username { get; set; }
-
-        public override bool IsValid
-        {
-            get
-            {
-                return FromDate <= ToDate && ProductList.Length > 0;
-            }
-        }
 
         #endregion Members
     }

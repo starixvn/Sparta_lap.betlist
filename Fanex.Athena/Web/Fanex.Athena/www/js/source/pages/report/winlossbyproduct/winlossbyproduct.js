@@ -12,12 +12,28 @@
         
         function getPostData() {
             var data = $("#SearchForm").serializeObject();
-            Report.CleanProductOptions(data, Number($("#ProductListCount").val()));
             if (data.Username === "") {
                 data.Username = null;
             }
 
             return data;
+        }
+
+        function getLicenseeWLNote(productOptionJson, caption) {
+            var productOptions = $.parseJSON(productOptionJson);
+            var resultProducts = [];
+            var availableProducts = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
+            $.each(productOptions, function (index, item) {
+                if (Site.asBool(item.Status) && $.inArray(item.Code, availableProducts) > -1) {
+                    resultProducts.push(item.Code);
+                }
+            });
+            if (resultProducts.length > 0) {
+                return (caption || Site.getSingleResource("LicenseeW_L")) + "(" + resultProducts.join() + ")";
+            }
+            else {
+                return caption || "";
+            }
         }
 
         var _me = {
@@ -118,7 +134,7 @@
                     url: Site.resolveClientUrl(WinLossByProductOption.urlData),
                     success: function (response) {
                         _submitData = {
-                            ProductList: data.ProductList,
+                            ProductOptions: response.ProductOptions,
                             DrawFilter: data.DrawFilter,
                             CurrencyId: data.CurrencyId,
                             ReportBy: Number(data.ReportBy),
@@ -163,7 +179,7 @@
                 var titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
                 var currencyNameOnTitle = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName)
                                                         : Report.getCurrencyNameForReportTitle(currencyId);
-                var licenseeWLNote = jqGridAdditional.getNewLicenseeWLNote(_submitData.ProductList, _systemId);
+                var licenseeWLNote = getLicenseeWLNote(_submitData.ProductOptions, _systemId);
                 licenseeWLNote = licenseeWLNote === '' ? '' : ', ' + licenseeWLNote;
 
                 var title = $.format(titlePattern,
@@ -345,7 +361,7 @@
             drillDown: function (level, currencyId, customerId, datetime, currencyName) {
                 var param = {
                     MemberId: _memberId,
-                    ProductList: _submitData.ProductList,
+                    ProductOptions: $.parseJSON(_submitData.ProductOptions),
                     DrawFilter: _submitData.DrawFilter,
                     IsExcludedTestData: _submitData.IsExcludedTestData,
                     CurrencyId: _submitData.CurrencyId,
