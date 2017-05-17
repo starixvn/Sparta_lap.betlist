@@ -90,9 +90,9 @@
 
             <td>
                 <div class="match-container">
-                    <span class="match-name text-bold cell @(productName.Equals(Product.SB) ? "bet-list-link" : null)" data-islive="@(matchWinLoss.IsLive ? "1" : "0")">
+                    <a href="javascript:;" class="text-bold cell @(productName.Equals(Product.SB) ? "bet-list-link" : null)" data-islive="@(matchWinLoss.IsLive ? "1" : "0")">
                         @(new HtmlString(matchName))
-                    </span>
+                    </a>
 
                     <a href="javascript:;" class="icon-wrapper cell view-match-detail"><i class="icon-arrow"></i></a>
                 </div>

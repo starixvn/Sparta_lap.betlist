@@ -27,13 +27,7 @@ $colorText: #484848;
         display: table-cell;
     }
 
-    .match-name {
-        color: $colorText;
-    }
-
     .bet-list-link {
-        cursor: pointer;
-
         &:hover {
             text-decoration: underline;
         }

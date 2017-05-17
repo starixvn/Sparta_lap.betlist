@@ -2,22 +2,26 @@
 "use strict";
 (function ($) {
     $.fn.checkboxgroup = function () {
+        var $parent = $(this).parent();
         var allChk = this.first();
         var elseChk = this.slice(1);
 
-        allChk.prop('checked', elseChk.filter(":checked").length >= elseChk.length);
+        allChk.prop('checked', elseChk.filter(":checked").length === elseChk.length);
 
         allChk.change(function () {
             var thisIsChecked = $(this).is(':checked');
             elseChk.prop('checked', thisIsChecked);
+            $parent.toggleClass("invalid", !thisIsChecked);
         });
 
         elseChk.change(function () {
             if ($(this).is(':checked')) {
-                allChk.prop('checked', elseChk.filter(":checked").length >= elseChk.length);
+                allChk.prop('checked', elseChk.filter(":checked").length === elseChk.length);
             } else {
                 allChk.prop('checked', false);
             }
+
+            $parent.toggleClass("invalid", elseChk.filter(":checked").length === 0);
         });
 
         return this;

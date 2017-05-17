@@ -3,7 +3,16 @@
 .multiselect-container {
     > label {
         position: absolute;
-        top: -14px;
+        top: -10px;
+        width: 100%;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            opacity: 0;
+            left: 0;
+        }
     }
 
     > a.ui-multiselect {
@@ -35,6 +44,12 @@
                 right: -5px;
                 line-height: 1;
             }
+        }
+    }
+
+    &.invalid {
+        > a.ui-multiselect {
+            border-bottom: 2px solid $red;
         }
     }
 }

@@ -149,7 +149,7 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
 
                 setTotalRow: function () {
                     var $totalRow = $('.ui-jqgrid-ftable').find('.footrow');
-                    $totalRow.addClass('total');
+                    $totalRow.addClass('grandTotal');
                     var $firstCell = $totalRow.find('td:eq(0)');
                     var $secondCell = $firstCell.next();
                     $secondCell.hide();

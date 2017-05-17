@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -960,6 +960,7 @@
     <Content Include="www\css\source\pages\betlist\lastbetmonitoring.scss" />
     <Content Include="www\css\build\dev\pages\betlist\lastbetmonitoring.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\betlist\lastbetmonitoring.css.map" />
+    <Content Include="www\css\source\components\jqgrid\_multipletotalblock.scss" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\css\source\pages\report\winlossbybettype.scss" />
     <None Include="www\css\source\pages\report\winlossbyleague.scss" />

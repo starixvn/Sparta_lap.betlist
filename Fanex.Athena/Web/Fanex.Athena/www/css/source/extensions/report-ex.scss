@@ -92,7 +92,7 @@ table {
         width: 10%;
     }
 
-    &.large{
+    &.large {
         width: 20%;
     }
 }
@@ -112,7 +112,7 @@ table {
         width: 6%;
     }
 
-    &.medium{
+    &.medium {
         width: 7.5%;
     }
 }
@@ -130,4 +130,8 @@ table {
             }
         }
     }
+}
+
+.disabled {
+    pointer-events: none;
 }
