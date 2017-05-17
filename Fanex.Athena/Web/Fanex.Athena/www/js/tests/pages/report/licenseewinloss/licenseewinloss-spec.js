@@ -14,7 +14,7 @@
                     return url;
                 });
                 spyOn(Site, "initialize");
-                spyOn(MultiSelect, "initialize");
+                spyOn(MultiSelect, "initProductList");
                 spyOn(DatePicker, "initDateRangePicker");
             });
 

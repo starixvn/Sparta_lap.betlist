@@ -20,7 +20,7 @@
                     spyOn(Site, "initialize");
                     spyOn(Turnover, "initEvent");
                     spyOn(MonthPicker, "initMonthPicker");
-                    spyOn(MultiSelect, "initialize");
+                    spyOn(MultiSelect, "initProductList");
                     spyOn(Site, "addUserGuide");
                     spyOn(Turnover, "initAutoComplete");
                     Turnover.initialize();
@@ -71,7 +71,7 @@
                     beforeEach(function () {
                         spyOn(Site, "initialize");
                         spyOn(MonthPicker, "initMonthPicker");
-                        spyOn(MultiSelect, "initialize");
+                        spyOn(MultiSelect, "initProductList");
                         spyOn(Site, "addUserGuide");
 
                         $autocomplete = $("#Username");
@@ -275,7 +275,7 @@
                     spyOn(Turnover, "initEvent");
                     spyOn(Turnover, "initAutoComplete");
                     spyOn(MonthPicker, "initMonthPicker");
-                    spyOn(MultiSelect, "initialize");
+                    spyOn(MultiSelect, "initProductList");
                     spyOn(Site, "addUserGuide");
 
                     setFixtures('<div id="suggestionDropdown" style="width: 200px;"></div> <input id="Username" />');

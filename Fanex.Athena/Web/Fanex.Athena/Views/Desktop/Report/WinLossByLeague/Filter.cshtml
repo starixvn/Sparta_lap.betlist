@@ -15,13 +15,13 @@
 }
 
 <div class="page-form">
-    <form id="searchForm" name="searchForm" method="post" action="">
+    <form id="SearchForm" name="SearchForm" method="post" action="">
         @Html.AntiForgeryToken()
 
         <div class="row">
             @RazorHelperDesktop.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
 
-            <div class="input-field col l2 m3 s12">
+            <div class="input-field col l2 m2 s12">
                 @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true)
                 <label>@ViewResources.Currency</label>
             </div>
@@ -36,25 +36,25 @@
         </div>
 
         <div class="row">
-            <div class="input-field col l3 m3 s12">
+            <div class="input-field col l4 m4 s12">
                 @Html.DropDownList("Match", matches, new { @class = "select hide" })
                 <label>@ViewResources.Match</label>
             </div>
-            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions)
+            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions, 2)
 
-            <div class="input-field col l3 m3 s12">
+            <div class="input-field col l6 m4 s12">
                 @RazorHelperDesktop.TicketFilter()
             </div>
 
         </div>
 
         <div class="row">
-            <div class="input-field col l2 m2 s12">
+            <div class="input-field col l2 m4 s12">
                 <input id="Odds" name="Odds" type="text" value="0"  />
                 <label>@ViewResources.MinimumOdds <span class="decimal-odds">(@ViewResources.DecimalOdds)</span></label>
             </div>
 
-            <div class="input-field col l2 m2 s12">
+            <div class="input-field col l2 m4 s12">
                 @Html.DropDownList("Sport", sportList, new { @class = "select hide" })
                 <label>@ViewResources.Sport</label>
             </div>
@@ -72,11 +72,5 @@
             </div>
         </div>
         @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
-    </form>
-
-    @Html.Hidden("ProductOptionJson", Model.Param.ProductOptions.ToJson())
-    <input type="hidden" id="OriginalCurrencyId" name="OriginalCurrencyId" value="@Model.Param.CurrencyId" />
-    <input type="hidden" id="OriginalCurrencyName" name="OriginalCurrencyName" value="@Model.Param.CurrencyName" />
-    <input type="hidden" id="OriginalFromDate" name="OriginalFromDate" value="@Model.Param.FromDate.ToString("MM/dd/yyyy")" />
-    <input type="hidden" id="OriginalToDate" name="OriginalToDate" value="@Model.Param.ToDate.ToString("MM/dd/yyyy")" />        
+    </form>       
 </div>

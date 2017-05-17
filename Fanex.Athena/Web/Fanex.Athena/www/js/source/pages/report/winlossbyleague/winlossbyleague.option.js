@@ -141,7 +141,6 @@
     ];
 
     var me = {
-        licenseeId: 0,
         currencyIndex: 4,
         systemIdIndex: 3,
         externalIdIndex: 2,
