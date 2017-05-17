@@ -6,6 +6,14 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -23,19 +31,12 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Result.Core.MicroGaming;
     using Fanex.Result.Core.MicroGaming.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
+    using Logging;
     using Resources;
     using Result.Core.AllBetCasino;
     using Result.Core.GlobalGaming;
     using Result.Core.GlobalGaming.DTO;
     using Result.Core.Voidbridge;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Web;
-    using System.Web.Mvc;
 
     /// <summary>
     /// The result controller.
@@ -44,7 +45,8 @@ namespace Fanex.Athena.Controllers.Report
     public class ResultReportController : ReportBaseController
     {
         private const string ResultPageGetNormalSportsName = "ResultPage_GetNormalSports";
-
+        private const int ParlayBetType = 9;
+        private const int SystemParlayBetType = 29;
         private readonly IResultService _resultService;
         private readonly IRNGCasinoSingleWalletService _rngCasinoSingleWalletService;
         private readonly IKenoApi _kenoApi;
@@ -176,8 +178,7 @@ namespace Fanex.Athena.Controllers.Report
                 }
                 else
                 {
-                    leagues = _resultService.GetLeagues(metalModel.FromDate, metalModel.SportId);
-                    return Json(new { Leagues = leagues });
+                    return Json(new { Leagues = _resultService.GetLeagues(metalModel.FromDate, metalModel.SportId) });
                 }
             }
 
@@ -331,10 +332,11 @@ namespace Fanex.Athena.Controllers.Report
 
             if (result.ErrorCode > 0)
             {
-                Fanex.Logging.LogService.Error(result.ErrorMsg);
+                LogService.Error(result.ErrorMsg);
+                return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
             }
 
-            return result.ErrorCode > 0 ? Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme) : string.Empty;
+            return string.Empty;
         }
 
         #endregion KenoPage
@@ -354,9 +356,10 @@ namespace Fanex.Athena.Controllers.Report
             {
                 SportType = sportType,
                 IsOutright = metalModel.IsOutRight.HasValue && metalModel.IsOutRight.Value > 0,
-                IsParlayPopUp = metalModel.Bettype == 9 || metalModel.Bettype == 29,
+                IsParlayPopUp = metalModel.Bettype == ParlayBetType || metalModel.Bettype == SystemParlayBetType,
                 IsPopUp = true,
-                LanguageCode = SessionService.UserSession.Language
+                LanguageCode = SessionService.UserSession.Language,
+                EnableCheckScoreCalculated = sportType == SportType.Soccer
             };
 
             if (setting.IsParlayPopUp)
@@ -618,12 +621,13 @@ namespace Fanex.Athena.Controllers.Report
             var sportType = (SportType)metalModel.SportId;
             var setting = new ResultSetting
             {
-                SportType = (SportType)metalModel.SportId,
+                SportType = sportType,
                 ExcelTitle = ViewResources.Result,
                 ExcelTemplatePath = Server.MapPath(@"~/App_Data/Fanex.Result/"),
                 LanguageCode = SessionService.UserSession.Language,
                 VisibleDetailedLink = true,
-                VisibleFreeHeader = true
+                VisibleFreeHeader = true,
+                EnableCheckScoreCalculated = sportType == SportType.Soccer
             };
             switch (sportType)
             {
