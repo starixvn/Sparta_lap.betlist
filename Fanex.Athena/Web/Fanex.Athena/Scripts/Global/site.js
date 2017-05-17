@@ -91,14 +91,7 @@ var Site = (function ($) {
                             var product = value[i];
                             $('<input type="hidden">').attr({ name: 'ProductList[' + i + ']', value: product }).appendTo($form);
                         }
-                    }
-                    else if (property === "ProductList") {
-                        for (var i = 0; i < value.length; i++) {
-                            var product = value[i];
-                            $('<input type="hidden">').attr({ name: 'ProductList[' + i + ']', value: product }).appendTo($form);
-                        }
-                    }
-                    else {
+                    } else {
                         $('<input type="hidden">').attr({ name: property, value: value }).appendTo($form);
                     }
                 }
