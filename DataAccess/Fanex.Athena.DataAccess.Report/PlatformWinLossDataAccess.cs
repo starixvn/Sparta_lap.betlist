@@ -216,9 +216,12 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
 
-            foreach (var product in metaModel.ProductOptions)
+            if (metaModel.ProductList != null)
             {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+                foreach (var product in metaModel.ProductList)
+                {
+                    db.AddInParameter("show" + product, DbType.Boolean, true);
+                }
             }
         }
 

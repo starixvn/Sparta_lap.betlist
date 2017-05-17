@@ -82,7 +82,7 @@
 
                     _cacheData[gridControl.level].Data = sortData(_cacheData[gridControl.level].Data);
 
-                    bindData(gridControl.level, _cacheData[gridControl.level], _drilldownData.ProductOptions);
+                    bindData(gridControl.level, _cacheData[gridControl.level], _drilldownData.ProductList);
 
                     Site.unBlockUI();
                 }, 100);
@@ -99,6 +99,7 @@
             gridControl.level = 0;
             var data = $("#platformwinloss").serializeObject();
             data.Level = gridControl.level;
+            Report.CleanProductOptions(data, Number($("#ProductListCount").val()));
 
             $.ajax({
                 type: "POST",
@@ -112,7 +113,6 @@
                         ToDay: data.ToDay,
                         Month: data.Month,
                         Year: data.Year,
-                        ProductOptions: $.parseJSON(response.ProductOptions),
                         DrawFilter: data.DrawFilter,
                         PlatformType: data.PlatformType,
                         CurrencyId: data.CurrencyId,
@@ -120,12 +120,13 @@
                         ToDate: new Date(data.ToDate),
                         CurrencyName: data.CurrencyName,
                         IsExcludeTest: data.IsExcludeTest,
-                        BaseCurrency: data.BaseCurrency
+                        BaseCurrency: data.BaseCurrency,
+                        ProductList: data.ProductList
                     };
                     _cacheData[gridControl.level] = response;
                     setReportTitle(_submitData);
                     Report.renderBreadCrumb(gridControl.level, PlatformWinLossOption.licenseeId);
-                    bindData(gridControl.level, response, _submitData.ProductOptions);
+                    bindData(gridControl.level, response, _submitData.ProductList);
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
@@ -134,7 +135,7 @@
             return true;
         }
 
-        function bindData(level, response, productOptions) {
+        function bindData(level, response, productList) {
             jqGridAdditional.clearGrid("ReportGrid");
 
             var numOfRow = response.Data.length;
@@ -145,7 +146,7 @@
 
             var reportGrid = $("#ReportGrid");
             var onPaging = false;
-            var gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
+            var gridOption = PlatformWinLossOption.getGridOption(level, productList);
             gridOption.datastr = response.Data;
             gridOption.rowNum = level === 1 ? gridControl.pageSize : -1;;
             gridOption.treeGrid = level === 0;
@@ -203,7 +204,7 @@
         }
 
         function bindTotal(level, totalData, summaryTotal) {
-            var columnModel = PlatformWinLossOption.getColModel(level, _submitData.ProductOptions);
+            var columnModel = PlatformWinLossOption.getColModel(level, _submitData.ProductList);
 
             if (level === 0) {
                 jqGridAdditional.assignTotal(totalData, columnModel);
@@ -244,9 +245,9 @@
             var platformName = platforms[data.PlatformType];
 
             var productText = Site.getSingleResource('Product') + ': ';
-            productText = (data.ProductOptions && data.ProductOptions.length === 1) ?
-                productText + data.ProductOptions[0].Code :
-                getProductText(_submitData.ProductOptions);
+            productText = (data.ProductList && data.ProductList.length === 1) ?
+                productText + data.ProductList[0] :
+                getProductText(data.ProductList);
 
             var title = $.format(titlePattern, _submitData.FromDate.toStringFormat("MM/dd/yyyy"), _submitData.ToDate.toStringFormat("MM/dd/yyyy"),
                         currencyText, baseCurrencyText, platformName, ', ' + productText);
@@ -259,12 +260,12 @@
             gridControl.level = 1;
             gridControl.pageSize = PlatformWinLossOption.pageSize;
 
-            var productOptions;
+            var productList;
             if (data.ProductCode) {
-                productOptions = [{ Code: data.ProductCode, Status: true }];
+                productList = [data.ProductCode];
             }
             else {
-                productOptions = _submitData.ProductOptions;
+                productList = _submitData.ProductList;
             }
 
             _drilldownData =
@@ -276,13 +277,13 @@
                 Year: _submitData.Year,
                 FromDate: _submitData.FromDate,
                 ToDate: _submitData.ToDate,
-                ProductOptions: productOptions,
+                ProductList: productList,
                 PlatformType: data.PlatformType,
                 DrawFilter: _submitData.DrawFilter,
                 IsExcludeTest: _submitData.IsExcludeTest,
                 CurrencyId: _submitData.CurrencyId,
                 BaseCurrency: _submitData.BaseCurrency,
-                CurrencyName: _submitData.CurrencyName,
+                CurrencyName: _submitData.CurrencyName
             };
             $.ajax({
                 type: "POST",
@@ -294,7 +295,7 @@
                     _cacheData[gridControl.level] = response;
                     setReportTitle(_drilldownData);
                     Report.renderBreadCrumb(gridControl.level, PlatformWinLossOption.licenseeId);
-                    bindData(gridControl.level, response, productOptions);
+                    bindData(gridControl.level, response, productList);
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
@@ -319,10 +320,10 @@
             });
 
             var count = 0;
-            for (var i = 0; i < _drilldownData.ProductOptions.length; i++) {
-                var product = _drilldownData.ProductOptions[i];
-                if ($.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
-                    url = Site.setProductOptionParam(url, count, product.Code, product.Status);
+            for (var i = 0; i < _drilldownData.ProductList.length; i++) {
+                var product = _drilldownData.ProductList[i];
+                if ($.inArray(product, BETLIST_IGNORED_PRODUCTS)) {
+                    url = Site.setProductOptionParam(url, count, product, true);
                     count++;
                 }
             }
@@ -334,7 +335,7 @@
 
         function goBackLevel0() {
             Report.renderBreadCrumb(0, PlatformWinLossOption.licenseeId);
-            bindData(0, _cacheData[0], _submitData.ProductOptions);
+            bindData(0, _cacheData[0], _submitData.ProductList);
         }
 
         function sortData(arrayData) {
@@ -353,21 +354,20 @@
             return data;
         }
 
-        function getProductText(productOptionJson) {
-            var productOptions = productOptionJson;
-            var productText = "";
-            var selectedProductCount = 0;
+        function getProductText(productList) {
+            var productTitle = Site.getSingleResource("Product") + ": ";
+            var allProductCount = Number($("#ProductListCount").val());
 
-            for (var i = 0; i < productOptions.length; i++) {
-                if (productOptions[i].Status) {
-                    selectedProductCount++;
-                    productText += productText.length === 0 ? productOptions[i].Code : ", " + productOptions[i].Code;
-                }
+            if (productList.length === allProductCount) {
+                return productTitle + Site.getSingleResource('All');
             }
 
-            var productName = selectedProductCount === productOptions.length ? Site.getSingleResource('All') : productText;
+            var productText = "";
+            productList.each(function (item) {
+                productText += productText.length === 0 ? item : ", " + item;
+            });
 
-            return Site.getSingleResource("Product") + ": " + productName;
+            return productTitle + productText;
         }
 
         function resizeGrid() {

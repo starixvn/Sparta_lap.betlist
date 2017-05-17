@@ -214,9 +214,12 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
             db.AddInParameter("movebetsday", DbType.DateTime, this.BalanceUp.MoveBetsDay);
 
-            foreach (var product in metaModel.ProductList)
+            if (metaModel.ProductList != null)
             {
-                db.AddInParameter("show" + product, DbType.Boolean, true);
+                foreach (var product in metaModel.ProductList)
+                {
+                    db.AddInParameter("show" + product, DbType.Boolean, true);
+                }
             }
         }
 

@@ -287,12 +287,12 @@ var PlatformWinLossOption = (function () {
         }
     };
 
-    function isProductChecked(productOptions, productCode) {
-        var length = productOptions.length;
+    function isProductChecked(productList, productCode) {
+        var length = productList.length;
 
         for (var i = 0; i < length; i++) {
-            if (productOptions[i].Code === productCode) {
-                return productOptions[i].Status;
+            if (productList[i] === productCode) {
+                return true;
             }
         }
 
@@ -305,7 +305,7 @@ var PlatformWinLossOption = (function () {
         return Site.getResources(colNameList);
     };
 
-    me.getColModel = function (level, productOptions) {
+    me.getColModel = function (level, productList) {
         platformNameColumn.hidden = level === 1;
         turnoverPercentColumn.hidden = level === 1;
         indexColumn.hidden = level === 0;
@@ -325,8 +325,8 @@ var PlatformWinLossOption = (function () {
         playerCommColumn.hidden = !me.hasCustomerComm;
 
         if (level === 1) {
-            var allowedBa = isProductChecked(productOptions, "BA");
-            var allowedRacing = isProductChecked(productOptions, "RB");
+            var allowedBa = isProductChecked(productList, "BA");
+            var allowedRacing = isProductChecked(productList, "RB");
 
             baCommissionColumn.hidden = !allowedBa;
             amtDueToBaColumn.hidden = !allowedBa;
@@ -349,9 +349,9 @@ var PlatformWinLossOption = (function () {
         return colModelList;
     };
 
-    me.getGridOption = function (level, productOptions) {
+    me.getGridOption = function (level, productList) {
         me.gridOption.colNames = me.getColName();
-        me.gridOption.colModel = me.getColModel(level, productOptions);
+        me.gridOption.colModel = me.getColModel(level, productList);
 
         return me.gridOption;
     };

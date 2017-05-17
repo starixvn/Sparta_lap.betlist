@@ -316,12 +316,12 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
             return cols;
         }
 
-        function isProductChecked(productOptions, productCode) {
-            var length = productOptions.length;
+        function isProductChecked(productList, productCode) {
+            var length = productList.length;
 
             for (var i = 0; i < length; i++) {
-                if (productOptions[i].Code === productCode) {
-                    return productOptions[i].Status;
+                if (productList[i] === productCode) {
+                    return true;
                 }
             }
 
@@ -366,22 +366,22 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                 rowList: [50, 100, 200, 300, 400, 500, 1000, 2000]
             },
 
-            getColName: function (level, productOptions) {
+            getColName: function (level, productList) {
                 var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colNames : columnConfigCustomerComm.colsWithoutComm.colNames;
 
                 if (level === 0) {                  
                     return Site.getResources(getColConfigLevel0(Site.clone(columnConfigLevel0.colNames), customerWL));
                 }
 
-                var allowedBa = isProductChecked(productOptions, BA_PRODUCTCODE);
-                var allowedRacing = isProductChecked(productOptions, RB_PRODUCTCODE);
+                var allowedBa = isProductChecked(productList, BA_PRODUCTCODE);
+                var allowedRacing = isProductChecked(productList, RB_PRODUCTCODE);
                 var colsBA = allowedBa ? columnConfigBA.colNames : null;
                 var colsRB = allowedRacing ? columnConfigRB.colNames : null;
 
                 return Site.getResources(getColConfigLevel1(Site.clone(columnConfigLevel1.colNames), customerWL, colsBA, colsRB));
             },
 
-            getColModel: function (level, productOptions) {
+            getColModel: function (level, productList) {
                 var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colModels : columnConfigCustomerComm.colsWithoutComm.colModels;
 
                 if (level === 0) {
@@ -394,17 +394,17 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                     return colModels;
                 }
 
-                var allowedBa = isProductChecked(productOptions, BA_PRODUCTCODE);
-                var allowedRacing = isProductChecked(productOptions, RB_PRODUCTCODE);
+                var allowedBa = isProductChecked(productList, BA_PRODUCTCODE);
+                var allowedRacing = isProductChecked(productList, RB_PRODUCTCODE);
                 var colsBA = allowedBa ? columnConfigBA.colModels : null;
                 var colsRB = allowedRacing ? columnConfigRB.colModels : null;
 
                 return getColConfigLevel1(Site.clone(columnConfigLevel1.colModels), customerWL, colsBA, colsRB);
             },
 
-            getGridOption : function (level, productOptions) {
-                _me.gridOption.colNames = _me.getColName(level, productOptions);
-                _me.gridOption.colModel = _me.getColModel(level, productOptions);
+            getGridOption: function (level, productList) {
+                _me.gridOption.colNames = _me.getColName(level, productList);
+                _me.gridOption.colModel = _me.getColModel(level, productList);
 
                 return _me.gridOption;
             }

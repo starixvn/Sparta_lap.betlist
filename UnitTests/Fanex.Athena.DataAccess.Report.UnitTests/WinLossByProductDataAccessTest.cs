@@ -49,7 +49,8 @@
                 ProductOptions = new List<ProductOption>
                 {
                     new ProductOption { Code = "SB", Status = true }
-                }
+                },
+                ProductList = new string[] { "SB" }
             };
         }
 
