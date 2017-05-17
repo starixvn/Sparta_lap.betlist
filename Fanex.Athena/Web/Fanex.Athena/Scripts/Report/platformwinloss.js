@@ -28,20 +28,20 @@ var PlatformWinLoss = (function ($) {
         return data;
     }
 
-    function getProductText(productList) {
-        var productTitle = Site.getSingleResource("Product") + ": ";
-        var allProductCount = Number($("#ProductListCount").val());
+    function getProductText(productOptionJson) {
+        var productOptions = $.parseJSON(productOptionJson);
+        var productText = "";
 
-        if (productList.length === allProductCount) {
-            return productTitle + Site.getSingleResource('All');
+        var selectedProductCount = 0;
+        for (var i = 0; i < productOptions.length; i++) {
+            if (productOptions[i].Status) {
+                selectedProductCount++;
+                productText += productText.length === 0 ? productOptions[i].Code : ", " + productOptions[i].Code;
+            }
         }
 
-        var productText = "";
-        $.each(productList, function (index, item) {
-            productText += productText.length === 0 ? item : ", " + item;
-        });
-
-        return productTitle + productText;
+        return Site.getSingleResource("Product") + ": " +
+            (selectedProductCount === productOptions.length ? Site.getSingleResource('All') : productText);
     }
 
     return {
@@ -65,9 +65,9 @@ var PlatformWinLoss = (function ($) {
 
                     cacheData[_level].Data = sortData(cacheData[_level].Data);
 
-                    var productList = _level === 0 ? _submitData.ProductList : _drilldownData.ProductList;
+                    var productOptions = _level === 0 ? $.parseJSON(_submitData.ProductOptions) : _drilldownData.ProductOptions;
 
-                    PlatformWinLoss.bindData(_level, cacheData[_level], productList);
+                    PlatformWinLoss.bindData(_level, cacheData[_level], productOptions);
 
                     Site.unBlockUI();
                 }, 100);
@@ -180,9 +180,9 @@ var PlatformWinLoss = (function ($) {
 
             var platformName = PlatformWinLossOption.Platforms[data.PlatformType];
             var productText = Site.getSingleResource('Product') + ': ';
-            productText = (data.ProductList && data.ProductList.length === 1) ?
-                productText + data.ProductList[0] :
-                getProductText(data.ProductList);
+            productText = (data.ProductOptions && data.ProductOptions.length === 1) ?
+                productText + data.ProductOptions[0].Code :
+                getProductText(_submitData.ProductOptions);
             var title = $.format(titlePattern, _submitData.FromDate.toString("M/d/yyyy"), _submitData.ToDate.toString("M/d/yyyy"),
                         currencyText, baseCurrencyText, platformName, ', ' + productText);
 
@@ -206,11 +206,11 @@ var PlatformWinLoss = (function ($) {
                 jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
             }
         },
-        bindData: function (level, response, productList) {
+        bindData: function (level, response, productOptions) {
             jqGridAdditional.clearGrid("ReportGrid");
             var reportGrid = $("#ReportGrid");
             var onPaging = false;
-            var gridOption = PlatformWinLossOption.getGridOption(level, productList);
+            var gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
             var numOfRow = response.Data.length;
             gridOption.datastr = response.Data;
             gridOption.rowList = PlatformWinLossOption.rowList;
@@ -307,7 +307,6 @@ var PlatformWinLoss = (function ($) {
             data.ToDate = todate;
             data.IsExcludeTest = $('#IsExcludeTest').is(':checked');
             data.Level = _level;
-            Report.CleanProductOptions(data, Number($("#ProductListCount").val()));
             $.ajax({
                 type: "POST",
                 data: data,
@@ -320,6 +319,7 @@ var PlatformWinLoss = (function ($) {
                         ToDay: data.ToDay,
                         Month: data.Month,
                         Year: data.Year,
+                        ProductOptions: response.ProductOptions,
                         DrawFilter: data.DrawFilter,
                         PlatformType: data.PlatformType,
                         CurrencyId: data.CurrencyId,
@@ -327,13 +327,12 @@ var PlatformWinLoss = (function ($) {
                         ToDate: new Date(data.ToDate),
                         CurrencyName: data.CurrencyName,
                         IsExcludeTest: data.IsExcludeTest,
-                        BaseCurrency: data.BaseCurrency,
-                        ProductList: data.ProductList
+                        BaseCurrency: data.BaseCurrency
                     };
                     cacheData[_level] = response;
                     PlatformWinLoss.setReportTitle(_submitData);
                     PlatformWinLoss.renderBreadCrumb(_level);
-                    PlatformWinLoss.bindData(_level, response, _submitData.ProductList);
+                    PlatformWinLoss.bindData(_level, response, $.parseJSON(_submitData.ProductOptions));
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
@@ -346,12 +345,12 @@ var PlatformWinLoss = (function ($) {
             _level = 1;
             _pageSize = PlatformWinLossOption.pageSize;
 
-            var productList;
+            var productOptions;
             if (data.ProductCode) {
-                productList = [data.ProductCode];
+                productOptions = [{ Code: data.ProductCode, Status: true }];
             }
             else {
-                productList = _submitData.ProductList;
+                productOptions = $.parseJSON(_submitData.ProductOptions);
             }
 
             _drilldownData =
@@ -363,7 +362,7 @@ var PlatformWinLoss = (function ($) {
                 Year: _submitData.Year,
                 FromDate: _submitData.FromDate,
                 ToDate: _submitData.ToDate,
-                ProductList: productList,
+                ProductOptions: productOptions,
                 PlatformType: data.PlatformType,
                 DrawFilter: _submitData.DrawFilter,
                 IsExcludeTest: _submitData.IsExcludeTest,
@@ -381,7 +380,7 @@ var PlatformWinLoss = (function ($) {
                     cacheData[_level] = response;
                     PlatformWinLoss.setReportTitle(_drilldownData);
                     PlatformWinLoss.renderBreadCrumb(_level);
-                    PlatformWinLoss.bindData(_level, response, productList);
+                    PlatformWinLoss.bindData(_level, response, productOptions);
                 },
                 beforeSend: Site.blockUI,
                 complete: Site.unBlockUI
@@ -393,7 +392,10 @@ var PlatformWinLoss = (function ($) {
             PlatformWinLoss.bindData(level, cacheData[level]);
             if (level === 0) {
                 PlatformWinLoss.renderBreadCrumb(level);
-                PlatformWinLoss.setReportTitle(_submitData);
+                PlatformWinLoss.setReportTitle({
+                    CurrencyId: _submitData.CurrencyId,
+                    PlatformType: _submitData.PlatformType
+                });
             }
             else if (level === 1) {
                 PlatformWinLossOption.urlExcelData = PlatformWinLossOption.urlExcelData.replace("level=2", "level=1");
@@ -421,10 +423,10 @@ var PlatformWinLoss = (function ($) {
             url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
 
             var count = 0;
-            for (var i = 0; i < _drilldownData.ProductList.length; i++) {
-                var product = _drilldownData.ProductList[i];
+            for (var i = 0; i < _drilldownData.ProductOptions.length; i++) {
+                var product = _drilldownData.ProductOptions[i];
                 if ($.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
-                    url = Site.setProductOptionParam(url, count, product, true);
+                    url = Site.setProductOptionParam(url, count, product.Code, product.Status);
                     count++;
                 }
             }

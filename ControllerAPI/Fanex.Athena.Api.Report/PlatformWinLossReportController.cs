@@ -15,6 +15,7 @@ namespace Fanex.Athena.Api.Report
     using Base.Attributes;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
+    using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
@@ -129,7 +130,8 @@ namespace Fanex.Athena.Api.Report
                    (dynamic)new
                    {
                        Data = dataList,
-                       Total = totalData
+                       Total = totalData,
+                       ProductOptions = metaModel.ProductOptions.ToJson()
                    };
             }
             else
@@ -142,7 +144,8 @@ namespace Fanex.Athena.Api.Report
                     : (dynamic)new
                     {
                         Data = dataList,
-                        Total = totalData
+                        Total = totalData,
+                        ProductOptions = metaModel.ProductOptions.ToJson()
                     };
             }
         }

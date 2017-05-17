@@ -22168,20 +22168,6 @@ webpackJsonp([63],[
 	    }
 	
 	    var _me = {
-	        CleanProductOptions: function (postData, productCount) {
-	            var productList = [];
-	            for (var i = 0; i < productCount; i++) {
-	                if (postData["ProductOptions[" + i + "].Status"] === "True") {
-	                    productList.push(postData["ProductOptions[" + i + "].Code"]);
-	                }
-	
-	                delete postData["ProductOptions[" + i + "].Code"];
-	                delete postData["ProductOptions[" + i + "].Name"];
-	                delete postData["ProductOptions[" + i + "].Status"];
-	            }
-	
-	            postData.ProductList = productList;
-	        },
 	        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
 	            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
 	            var tdate = fdate;
@@ -22411,12 +22397,28 @@ webpackJsonp([63],[
 	        
 	        function getPostData() {
 	            var data = $("#SearchForm").serializeObject();
-	            Report.CleanProductOptions(data, Number($("#ProductListCount").val()));
 	            if (data.Username === "") {
 	                data.Username = null;
 	            }
 	
 	            return data;
+	        }
+	
+	        function getLicenseeWLNote(productOptionJson, caption) {
+	            var productOptions = $.parseJSON(productOptionJson);
+	            var resultProducts = [];
+	            var availableProducts = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
+	            $.each(productOptions, function (index, item) {
+	                if (Site.asBool(item.Status) && $.inArray(item.Code, availableProducts) > -1) {
+	                    resultProducts.push(item.Code);
+	                }
+	            });
+	            if (resultProducts.length > 0) {
+	                return (caption || Site.getSingleResource("LicenseeW_L")) + "(" + resultProducts.join() + ")";
+	            }
+	            else {
+	                return caption || "";
+	            }
 	        }
 	
 	        var _me = {
@@ -22517,7 +22519,7 @@ webpackJsonp([63],[
 	                    url: Site.resolveClientUrl(WinLossByProductOption.urlData),
 	                    success: function (response) {
 	                        _submitData = {
-	                            ProductList: data.ProductList,
+	                            ProductOptions: response.ProductOptions,
 	                            DrawFilter: data.DrawFilter,
 	                            CurrencyId: data.CurrencyId,
 	                            ReportBy: Number(data.ReportBy),
@@ -22562,7 +22564,7 @@ webpackJsonp([63],[
 	                var titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
 	                var currencyNameOnTitle = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName)
 	                                                        : Report.getCurrencyNameForReportTitle(currencyId);
-	                var licenseeWLNote = jqGridAdditional.getNewLicenseeWLNote(_submitData.ProductList, _systemId);
+	                var licenseeWLNote = getLicenseeWLNote(_submitData.ProductOptions, _systemId);
 	                licenseeWLNote = licenseeWLNote === '' ? '' : ', ' + licenseeWLNote;
 	
 	                var title = $.format(titlePattern,
@@ -22744,7 +22746,7 @@ webpackJsonp([63],[
 	            drillDown: function (level, currencyId, customerId, datetime, currencyName) {
 	                var param = {
 	                    MemberId: _memberId,
-	                    ProductList: _submitData.ProductList,
+	                    ProductOptions: $.parseJSON(_submitData.ProductOptions),
 	                    DrawFilter: _submitData.DrawFilter,
 	                    IsExcludedTestData: _submitData.IsExcludedTestData,
 	                    CurrencyId: _submitData.CurrencyId,

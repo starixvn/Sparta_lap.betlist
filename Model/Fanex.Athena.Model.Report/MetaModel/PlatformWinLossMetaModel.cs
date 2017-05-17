@@ -55,13 +55,8 @@ namespace Fanex.Athena.Model.Report.MetaModel
         {
             get
             {
-                return FromDate <= ToDate 
-                    && PlatformType <= DataDomain.PlatformType.SmartSite 
-                    && PlatformType >= DataDomain.PlatformType.All
-                    && ProductList.Length > 0;
+                return base.IsValid && PlatformType <= DataDomain.PlatformType.SmartSite && PlatformType >= DataDomain.PlatformType.All;
             }
         }
-
-        public string[] ProductList { get; set; }
     }
 }

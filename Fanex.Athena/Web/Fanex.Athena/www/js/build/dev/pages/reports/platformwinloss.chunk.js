@@ -3991,20 +3991,6 @@ webpackJsonp([55],{
 	    }
 	
 	    var _me = {
-	        CleanProductOptions: function (postData, productCount) {
-	            var productList = [];
-	            for (var i = 0; i < productCount; i++) {
-	                if (postData["ProductOptions[" + i + "].Status"] === "True") {
-	                    productList.push(postData["ProductOptions[" + i + "].Code"]);
-	                }
-	
-	                delete postData["ProductOptions[" + i + "].Code"];
-	                delete postData["ProductOptions[" + i + "].Name"];
-	                delete postData["ProductOptions[" + i + "].Status"];
-	            }
-	
-	            postData.ProductList = productList;
-	        },
 	        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
 	            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
 	            var tdate = fdate;
@@ -7880,7 +7866,7 @@ webpackJsonp([55],{
 	
 	                    _cacheData[gridControl.level].Data = sortData(_cacheData[gridControl.level].Data);
 	
-	                    bindData(gridControl.level, _cacheData[gridControl.level], _drilldownData.ProductList);
+	                    bindData(gridControl.level, _cacheData[gridControl.level], _drilldownData.ProductOptions);
 	
 	                    Site.unBlockUI();
 	                }, 100);
@@ -7897,7 +7883,6 @@ webpackJsonp([55],{
 	            gridControl.level = 0;
 	            var data = $("#platformwinloss").serializeObject();
 	            data.Level = gridControl.level;
-	            Report.CleanProductOptions(data, Number($("#ProductListCount").val()));
 	
 	            $.ajax({
 	                type: "POST",
@@ -7911,6 +7896,7 @@ webpackJsonp([55],{
 	                        ToDay: data.ToDay,
 	                        Month: data.Month,
 	                        Year: data.Year,
+	                        ProductOptions: $.parseJSON(response.ProductOptions),
 	                        DrawFilter: data.DrawFilter,
 	                        PlatformType: data.PlatformType,
 	                        CurrencyId: data.CurrencyId,
@@ -7918,13 +7904,12 @@ webpackJsonp([55],{
 	                        ToDate: new Date(data.ToDate),
 	                        CurrencyName: data.CurrencyName,
 	                        IsExcludeTest: data.IsExcludeTest,
-	                        BaseCurrency: data.BaseCurrency,
-	                        ProductList: data.ProductList
+	                        BaseCurrency: data.BaseCurrency
 	                    };
 	                    _cacheData[gridControl.level] = response;
 	                    setReportTitle(_submitData);
 	                    Report.renderBreadCrumb(gridControl.level, PlatformWinLossOption.licenseeId);
-	                    bindData(gridControl.level, response, _submitData.ProductList);
+	                    bindData(gridControl.level, response, _submitData.ProductOptions);
 	                },
 	                beforeSend: Site.blockUI,
 	                complete: Site.unBlockUI
@@ -7933,7 +7918,7 @@ webpackJsonp([55],{
 	            return true;
 	        }
 	
-	        function bindData(level, response, productList) {
+	        function bindData(level, response, productOptions) {
 	            jqGridAdditional.clearGrid("ReportGrid");
 	
 	            var numOfRow = response.Data.length;
@@ -7944,7 +7929,7 @@ webpackJsonp([55],{
 	
 	            var reportGrid = $("#ReportGrid");
 	            var onPaging = false;
-	            var gridOption = PlatformWinLossOption.getGridOption(level, productList);
+	            var gridOption = PlatformWinLossOption.getGridOption(level, productOptions);
 	            gridOption.datastr = response.Data;
 	            gridOption.rowNum = level === 1 ? gridControl.pageSize : -1;;
 	            gridOption.treeGrid = level === 0;
@@ -8002,7 +7987,7 @@ webpackJsonp([55],{
 	        }
 	
 	        function bindTotal(level, totalData, summaryTotal) {
-	            var columnModel = PlatformWinLossOption.getColModel(level, _submitData.ProductList);
+	            var columnModel = PlatformWinLossOption.getColModel(level, _submitData.ProductOptions);
 	
 	            if (level === 0) {
 	                jqGridAdditional.assignTotal(totalData, columnModel);
@@ -8043,9 +8028,9 @@ webpackJsonp([55],{
 	            var platformName = platforms[data.PlatformType];
 	
 	            var productText = Site.getSingleResource('Product') + ': ';
-	            productText = (data.ProductList && data.ProductList.length === 1) ?
-	                productText + data.ProductList[0] :
-	                getProductText(data.ProductList);
+	            productText = (data.ProductOptions && data.ProductOptions.length === 1) ?
+	                productText + data.ProductOptions[0].Code :
+	                getProductText(_submitData.ProductOptions);
 	
 	            var title = $.format(titlePattern, _submitData.FromDate.toStringFormat("MM/dd/yyyy"), _submitData.ToDate.toStringFormat("MM/dd/yyyy"),
 	                        currencyText, baseCurrencyText, platformName, ', ' + productText);
@@ -8058,12 +8043,12 @@ webpackJsonp([55],{
 	            gridControl.level = 1;
 	            gridControl.pageSize = PlatformWinLossOption.pageSize;
 	
-	            var productList;
+	            var productOptions;
 	            if (data.ProductCode) {
-	                productList = [data.ProductCode];
+	                productOptions = [{ Code: data.ProductCode, Status: true }];
 	            }
 	            else {
-	                productList = _submitData.ProductList;
+	                productOptions = _submitData.ProductOptions;
 	            }
 	
 	            _drilldownData =
@@ -8075,13 +8060,13 @@ webpackJsonp([55],{
 	                Year: _submitData.Year,
 	                FromDate: _submitData.FromDate,
 	                ToDate: _submitData.ToDate,
-	                ProductList: productList,
+	                ProductOptions: productOptions,
 	                PlatformType: data.PlatformType,
 	                DrawFilter: _submitData.DrawFilter,
 	                IsExcludeTest: _submitData.IsExcludeTest,
 	                CurrencyId: _submitData.CurrencyId,
 	                BaseCurrency: _submitData.BaseCurrency,
-	                CurrencyName: _submitData.CurrencyName
+	                CurrencyName: _submitData.CurrencyName,
 	            };
 	            $.ajax({
 	                type: "POST",
@@ -8093,7 +8078,7 @@ webpackJsonp([55],{
 	                    _cacheData[gridControl.level] = response;
 	                    setReportTitle(_drilldownData);
 	                    Report.renderBreadCrumb(gridControl.level, PlatformWinLossOption.licenseeId);
-	                    bindData(gridControl.level, response, productList);
+	                    bindData(gridControl.level, response, productOptions);
 	                },
 	                beforeSend: Site.blockUI,
 	                complete: Site.unBlockUI
@@ -8118,10 +8103,10 @@ webpackJsonp([55],{
 	            });
 	
 	            var count = 0;
-	            for (var i = 0; i < _drilldownData.ProductList.length; i++) {
-	                var product = _drilldownData.ProductList[i];
-	                if ($.inArray(product, BETLIST_IGNORED_PRODUCTS)) {
-	                    url = Site.setProductOptionParam(url, count, product, true);
+	            for (var i = 0; i < _drilldownData.ProductOptions.length; i++) {
+	                var product = _drilldownData.ProductOptions[i];
+	                if ($.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
+	                    url = Site.setProductOptionParam(url, count, product.Code, product.Status);
 	                    count++;
 	                }
 	            }
@@ -8133,7 +8118,7 @@ webpackJsonp([55],{
 	
 	        function goBackLevel0() {
 	            Report.renderBreadCrumb(0, PlatformWinLossOption.licenseeId);
-	            bindData(0, _cacheData[0], _submitData.ProductList);
+	            bindData(0, _cacheData[0], _submitData.ProductOptions);
 	        }
 	
 	        function sortData(arrayData) {
@@ -8152,20 +8137,21 @@ webpackJsonp([55],{
 	            return data;
 	        }
 	
-	        function getProductText(productList) {
-	            var productTitle = Site.getSingleResource("Product") + ": ";
-	            var allProductCount = Number($("#ProductListCount").val());
+	        function getProductText(productOptionJson) {
+	            var productOptions = productOptionJson;
+	            var productText = "";
+	            var selectedProductCount = 0;
 	
-	            if (productList.length === allProductCount) {
-	                return productTitle + Site.getSingleResource('All');
+	            for (var i = 0; i < productOptions.length; i++) {
+	                if (productOptions[i].Status) {
+	                    selectedProductCount++;
+	                    productText += productText.length === 0 ? productOptions[i].Code : ", " + productOptions[i].Code;
+	                }
 	            }
 	
-	            var productText = "";
-	            $.each(productList, function (index, item) {
-	                productText += productText.length === 0 ? item : ", " + item;
-	            });
+	            var productName = selectedProductCount === productOptions.length ? Site.getSingleResource('All') : productText;
 	
-	            return productTitle + productText;
+	            return Site.getSingleResource("Product") + ": " + productName;
 	        }
 	
 	        function resizeGrid() {
@@ -8532,12 +8518,12 @@ webpackJsonp([55],{
 	            return cols;
 	        }
 	
-	        function isProductChecked(productList, productCode) {
-	            var length = productList.length;
+	        function isProductChecked(productOptions, productCode) {
+	            var length = productOptions.length;
 	
 	            for (var i = 0; i < length; i++) {
-	                if (productList[i] === productCode) {
-	                    return true;
+	                if (productOptions[i].Code === productCode) {
+	                    return productOptions[i].Status;
 	                }
 	            }
 	
@@ -8582,22 +8568,22 @@ webpackJsonp([55],{
 	                rowList: [50, 100, 200, 300, 400, 500, 1000, 2000]
 	            },
 	
-	            getColName: function (level, productList) {
+	            getColName: function (level, productOptions) {
 	                var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colNames : columnConfigCustomerComm.colsWithoutComm.colNames;
 	
 	                if (level === 0) {                  
 	                    return Site.getResources(getColConfigLevel0(Site.clone(columnConfigLevel0.colNames), customerWL));
 	                }
 	
-	                var allowedBa = isProductChecked(productList, BA_PRODUCTCODE);
-	                var allowedRacing = isProductChecked(productList, RB_PRODUCTCODE);
+	                var allowedBa = isProductChecked(productOptions, BA_PRODUCTCODE);
+	                var allowedRacing = isProductChecked(productOptions, RB_PRODUCTCODE);
 	                var colsBA = allowedBa ? columnConfigBA.colNames : null;
 	                var colsRB = allowedRacing ? columnConfigRB.colNames : null;
 	
 	                return Site.getResources(getColConfigLevel1(Site.clone(columnConfigLevel1.colNames), customerWL, colsBA, colsRB));
 	            },
 	
-	            getColModel: function (level, productList) {
+	            getColModel: function (level, productOptions) {
 	                var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colModels : columnConfigCustomerComm.colsWithoutComm.colModels;
 	
 	                if (level === 0) {
@@ -8610,17 +8596,17 @@ webpackJsonp([55],{
 	                    return colModels;
 	                }
 	
-	                var allowedBa = isProductChecked(productList, BA_PRODUCTCODE);
-	                var allowedRacing = isProductChecked(productList, RB_PRODUCTCODE);
+	                var allowedBa = isProductChecked(productOptions, BA_PRODUCTCODE);
+	                var allowedRacing = isProductChecked(productOptions, RB_PRODUCTCODE);
 	                var colsBA = allowedBa ? columnConfigBA.colModels : null;
 	                var colsRB = allowedRacing ? columnConfigRB.colModels : null;
 	
 	                return getColConfigLevel1(Site.clone(columnConfigLevel1.colModels), customerWL, colsBA, colsRB);
 	            },
 	
-	            getGridOption: function (level, productList) {
-	                _me.gridOption.colNames = _me.getColName(level, productList);
-	                _me.gridOption.colModel = _me.getColModel(level, productList);
+	            getGridOption : function (level, productOptions) {
+	                _me.gridOption.colNames = _me.getColName(level, productOptions);
+	                _me.gridOption.colModel = _me.getColModel(level, productOptions);
 	
 	                return _me.gridOption;
 	            }

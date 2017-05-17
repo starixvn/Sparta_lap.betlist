@@ -22310,20 +22310,6 @@ webpackJsonp([49],[
 	    }
 	
 	    var _me = {
-	        CleanProductOptions: function (postData, productCount) {
-	            var productList = [];
-	            for (var i = 0; i < productCount; i++) {
-	                if (postData["ProductOptions[" + i + "].Status"] === "True") {
-	                    productList.push(postData["ProductOptions[" + i + "].Code"]);
-	                }
-	
-	                delete postData["ProductOptions[" + i + "].Code"];
-	                delete postData["ProductOptions[" + i + "].Name"];
-	                delete postData["ProductOptions[" + i + "].Status"];
-	            }
-	
-	            postData.ProductList = productList;
-	        },
 	        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
 	            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
 	            var tdate = fdate;
