@@ -390,3 +390,15 @@ var LastBetFilter = (function () {
 
     return _me;
 }());
+
+
+$(window).load(function () {
+    LastBetGrid.initialize();
+    LastBetFilter.initialize();
+
+    LastBetGrid.startMonitor();
+});
+
+$(window).unload(function () {
+    LastBetGrid.stopMonitor();
+});

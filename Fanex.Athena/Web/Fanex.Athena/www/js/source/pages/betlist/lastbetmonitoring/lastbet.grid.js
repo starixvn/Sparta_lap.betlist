@@ -1,12 +1,10 @@
 ﻿"use strict";
 define(
-    ['jquery', 'common/site'],
+    ['jquery', 'common/site', "lib/linq"],
     function ($, Site) {
     var _me = {};
 
     // Param
-    var SERVICE_URL = Site.resolveClientUrl('api/LastBetMonitoringBetList/Index');
-
     var _betListResult = { NewRow: false, Rows: [], LastTransId: 0 };
     var _lastTransId = "0";
 
@@ -19,8 +17,8 @@ define(
         OddsType: "",
         Level: "",
         TimeZone: "8",
-        Currency: "0",
-        BasedCurrency: $("#last-bet-monitor-base-currency").val(),
+        Currency: "",
+        BasedCurrency: "",
         PageSize: 10,
         StakeFrom: "0",
         StakeTo: "1000000000",
@@ -72,6 +70,8 @@ define(
         _$containerTable.on("click", "tr", function () {
             $(this).toggleClass("monitor-keep");
         });
+
+        _params.BasedCurrency = $("#last-bet-monitor-base-currency").val();
     };
     _me.getMaxStake = function () {
         return MAX_STAKE;
@@ -141,7 +141,7 @@ define(
         }
 
         $.ajax({
-            url: SERVICE_URL,
+            url: Site.resolveClientUrl('api/LastBetMonitoringBetList/Index'),
             type: "POST",
             data: JSON.stringify(_params),
             contentType: 'application/json; charset=utf-8',
@@ -222,7 +222,7 @@ define(
         Update last transId
         --------------------------------------------------------------------------------------------*/
         //get hide columns
-        var hideColumns = JSLINQ(_me.columns).Where(function (item) { return Number(item.IsShow) === 0; })
+        var hideColumns = Enumerable.From(_me.columns).Where(function (item) { return Number(item.IsShow) === 0; })
                                         .ToArray();
         if (hideColumns.length > 0) {
             var rows = _betListResult.Rows;
@@ -253,7 +253,7 @@ define(
         var noInfoMessage = text === undefined || text.length === 0
                         ? Site.getSingleResource("NoInfo")
                         : text;
-        var colspan = JSLINQ(_me.columns).Count(function (item) { return Number(item.IsShow) === 1; });
+        var colspan = Enumerable.From(_me.columns).Count(function (item) { return Number(item.IsShow) === 1; });
 
         var row = "<tr class='content-row no-info-row'><td colspan='" + colspan + "'>" + noInfoMessage + "</td></tr>";
         $("tr:gt(0)", _$containerTable).remove();

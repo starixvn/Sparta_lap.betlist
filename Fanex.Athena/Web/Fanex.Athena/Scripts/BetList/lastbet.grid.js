@@ -1,4 +1,4 @@
-﻿/*global Site, JSLINQ, LastBetFilter*/
+﻿/*global Site, JSLINQ*/
 /*---------------------------------------------------------------------------------
 * Report monitor bet list display lastest when user bet
 ---------------------------------------------------------------------------------*/
@@ -8,7 +8,6 @@ var LastBetGrid = (function () {
     var _me = {};
 
     // Param
-    var SERVICE_URL = Site.resolveClientUrl('api/LastBetMonitoringBetList/Index');
 
     var _betListResult = { NewRow: false, Rows: [], LastTransId: 0 };
     var _lastTransId = "0";
@@ -22,8 +21,8 @@ var LastBetGrid = (function () {
         OddsType: "",
         Level: "",
         TimeZone: "8",
-        Currency: "0",
-        BasedCurrency: $("#last-bet-monitor-base-currency").val(),
+        Currency: "",
+        BasedCurrency: "",
         PageSize: 10,
         StakeFrom: "0",
         StakeTo: "1000000000",
@@ -75,6 +74,8 @@ var LastBetGrid = (function () {
         _$containerTable.on("click", "tr", function () {
             $(this).toggleClass("monitor-keep");
         });
+
+        _params.BasedCurrency = $("#last-bet-monitor-base-currency").val();
     };
     _me.getMaxStake = function () {
         return MAX_STAKE;
@@ -144,7 +145,7 @@ var LastBetGrid = (function () {
         }
 
         $.ajax({
-            url: SERVICE_URL,
+            url: Site.resolveClientUrl('api/LastBetMonitoringBetList/Index'),
             type: "POST",
             data: JSON.stringify(_params),
             contentType: 'application/json; charset=utf-8',
@@ -306,16 +307,3 @@ var LastBetGrid = (function () {
 
     return _me;
 }());
-
-/*******************/
-
-$(window).load(function () {
-    LastBetGrid.initialize();
-    LastBetFilter.initialize();
-
-    LastBetGrid.startMonitor();
-});
-
-$(window).unload(function () {
-    LastBetGrid.stopMonitor();
-});

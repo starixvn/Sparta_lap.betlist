@@ -78,7 +78,14 @@
         </div>
 
         <div class="col l2 m2 s12 input-field">
-            @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select")
+            <div class="multiselect-container">
+                <select id="currency">
+                    @foreach (var item in Model.CurrencyList)
+                    {
+                        <option value="@item.Key">@item.Value</option>
+                    }
+                </select>
+            </div>
             <label>@ViewResources.Currency</label>
         </div>
 

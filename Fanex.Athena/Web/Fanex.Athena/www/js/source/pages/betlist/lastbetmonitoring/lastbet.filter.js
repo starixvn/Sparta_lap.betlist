@@ -267,17 +267,22 @@ define(
         };
 
         _me.initPageSizeControl = function () {
-            $("#pagesize input").click(function () {
+            $("#pagesize a").click(function () {
+                var $this = $(this);
+                if ($this.hasClass("active")) {
+                    return;
+                }
+
                 _me.setHighlightSubmit();
 
-                $("#pagesize input").prop("disabled", false);
-                $(this).prop("disabled", true);
-                LastBetGrid.numberParam("PageSize", $(this).val());
+                $("#pagesize a").removeClass("active");
+                $this.addClass("active");
+                LastBetGrid.numberParam("PageSize", $this.html());
             });
         };
 
         _me.initFreezeButton = function () {
-            $("#freeze-button").click(function () {
+            $("#FreezeButton").click(function () {
                 var currentStatus = Number($(this).attr("data-status"));
                 var newStatus = currentStatus === 1 ? 0 : 1;
                 var newValue = newStatus ? Site.getSingleResource("Freeze") : Site.getSingleResource("Unfreeze");
@@ -296,17 +301,17 @@ define(
         _me.setHighlightSubmit = function () {
             clearInterval(_highLightSubmitIntervalId);
             _highLightSubmitIntervalId = setInterval(function () {
-                $("#submit-button").css("background-color", "rgb(211,211,211)");
+                $("#SubmitButton").css("background-color", "rgb(211,211,211)");
                 setTimeout(function () {
-                    $("#submit-button").css("background-color", "buttonface");
+                    $("#SubmitButton").css("background-color", "buttonface");
                 }, 500);
             }, 1000);
         };
         _me.initSubmit = function () {
-            $("#submit-button").click(function () {
+            $("#SubmitButton").click(function () {
                 clearInterval(_highLightSubmitIntervalId);
-                $("#submit-button").css("background-color", "");
-                var freeStatus = $("#freeze-button").attr("data-status");
+                $("#SubmitButton").css("background-color", "");
+                var freeStatus = $("#FreezeButton").attr("data-status");
                 LastBetGrid.Submit(freeStatus);
             });
         };

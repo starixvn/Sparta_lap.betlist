@@ -22,36 +22,38 @@
     }
 }
 @{
-    <div id="betlist_content" class="betlistcontent" style="min-width: 1040px;">
-        <table id="last-bets-monitoring" class="report-table">
-            <tr id="monitor-header" class="report-table-header">
-                <td width="60" data-name="Platform">
-                    @ViewResources.Platform
-                </td>
-                <td width="120" data-name="ExternalId">
-                    @ViewResources.ExternalId
-                </td>
-                <td width="120" data-name="SystemId">
-                    @ViewResources.SystemId
-                </td>
-                <td width="120" data-name="TransTime">
-                    @ViewResources.TransTime
-                </td>
-                <td class="bl-choice" data-name="Choice">
-                    @ViewResources.Choice
-                </td>
-                <td width="60" data-name="Odds">
-                    @ViewResources.Odds
-                </td>
-                <td width="60" data-name="Stake">
-                    @ViewResources.Stake
-                </td>
-                <td width="60" data-name="Status">
-                    @ViewResources.Status
-                </td>
-            </tr>
+    <div id="betlist_content" class="betlistcontent header-content" style="min-width: 1040px;">
+        <table id="last-bets-monitoring" class="table">
+            <thead>
+                <tr id="monitor-header" class="report-table-header">
+                    <th width="60" data-name="Platform">
+                        @ViewResources.Platform
+                    </th>
+                    <th width="120" data-name="ExternalId">
+                        @ViewResources.ExternalId
+                    </th>
+                    <th width="120" data-name="SystemId">
+                        @ViewResources.SystemId
+                    </th>
+                    <th width="120" data-name="TransTime">
+                        @ViewResources.TransTime
+                    </th>
+                    <th class="bl-choice" data-name="Choice">
+                        @ViewResources.Choice
+                    </th>
+                    <th width="60" data-name="Odds">
+                        @ViewResources.Odds
+                    </th>
+                    <th width="60" data-name="Stake">
+                        @ViewResources.Stake
+                    </th>
+                    <th width="60" data-name="Status">
+                        @ViewResources.Status
+                    </th>
+                </tr>
+            </thead>
         </table>
     </div>
 
-    <input type="hidden" id="BetListMetaModel" value="@Model.Param.ToJson()" />
+        <input type="hidden" id="BetListMetaModel" value="@Model.Param.ToJson()" />
 }

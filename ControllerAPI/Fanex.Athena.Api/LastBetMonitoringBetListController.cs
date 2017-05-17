@@ -3,7 +3,6 @@
     #region Using
 
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
@@ -95,17 +94,23 @@
 
             var ticketResult = _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel);
 
-            return ticketResult == null || ticketResult.MainTicketList.Count == 0
-                ? (dynamic)new
-                {
-                    NewRow = false
-                }
-                : new
+            if (ticketResult.MainTicketList.Any())
+            {
+                var rows = GetLastMonitorBetListContent(metaModel, ticketResult);
+                return new
                 {
                     NewRow = true,
-                    Rows = GetLastMonitorBetListContent(metaModel, ticketResult),
+                    Rows = rows,
                     LastTransId = ticketResult.MainTicketList.Max(t => t.TransId),
                 };
+            }
+            else
+            {
+                return new
+                {
+                    NewRow = false
+                };
+            }
         }
 
         private static void BuildOdds(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult, LrfTicket ticket, BetListHTMLBuilder builder)
