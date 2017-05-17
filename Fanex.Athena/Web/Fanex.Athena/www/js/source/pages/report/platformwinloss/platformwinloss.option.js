@@ -22,13 +22,14 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
             return "<a class='bet-list-link' href='javascript:;' data-drill-down=" + JSON.stringify(param) + ">" + cellvalue + "</a>";
         };
         var drilldownLink = function (cellvalue, options, rowObject) {
+            var parentClassName = !rowObject.IsLeaf ? " text-bold" : "";
             var param =
             {
                 PlatformType: rowObject.PlatformType > 0 ? rowObject.PlatformType : Number(rowObject.Parent),
                 ProductCode: rowObject.PlatformType < 0 ? rowObject.ProductCode : undefined
             };
 
-            return "<a class='drilldown' href='javascript:;' data-drill-down=" + JSON.stringify(param) + ">" + cellvalue + "</a>";
+            return "<a class='drilldown" + parentClassName + "' href='javascript:;' data-drill-down=" + JSON.stringify(param) + ">" + cellvalue + "</a>";
         };
         var idColumn = {
             name: "PlatformType",

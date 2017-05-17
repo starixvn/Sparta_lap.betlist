@@ -1,7 +1,7 @@
 ﻿define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid.additional", "./winlossbyleague.option",
-    "./winlossbyleague.filter", "moment", "components/paging",
+    "./winlossbyleague.filter", "../report", "moment", "components/paging",
     "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, WinLossByLeagueFilter, moment, PagingHeper) {
+    function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, WinLossByLeagueFilter, Report, moment, PagingHeper) {
         "use strict";
 
         var ajaxRequest = null;
@@ -53,8 +53,11 @@
                     _me.drillDownBetList(custid, externalid, systemid);
                 });
 
-                $("#BackLink").click(function () {
-                    _me.goBack();
+                $("#level-link-container").on("click", ".level-link", function () {
+                    var level = Number($(this).attr("data-level"));
+                    if (level === 0) {
+                        _me.submit();
+                    }
                 });
 
                 $("#ExportToExcel").click(function (e) {
@@ -82,13 +85,6 @@
                 jqGridAdditional.updateGridWidth(reportGrid);
             },
 
-            goBack: function () {
-                if (_level === 1) {
-                    _me.submit();
-                } else {
-                    _me.drillDown(_leagueid, _leaguename);
-                }
-            },
             setReportTitle: function (level, minOdds, fromdate, todate) {
                 var caption = null;
                 if (level === 0) {
@@ -118,6 +114,7 @@
                     }
 
                     _me.bindData(level, response);
+                    Report.renderBreadCrumb(level);
                 }
             },
 
@@ -141,7 +138,6 @@
                     cache: false,
                     url: Site.resolveClientUrl(WinLossByLeagueOption.urlData),
                     success: function (response) {
-                        $("#BackLink").hide();
                         _me.ajaxComplete(0, response);
                     },
                     beforeSend: function () {
@@ -182,7 +178,6 @@
 
             drillDown: function (leagueid, leaguename) {
                 _level = 1;
-                $("#BackLink").show();
                 _leagueid = leagueid;
                 _leaguename = leaguename;
 
@@ -206,7 +201,6 @@
                         _me.ajaxComplete(_level, response);
                         if (response !== null && response.Data.length > 0) {
                             _me.setReportTitle(1, _postdata.Odds, _postdata.FromDate, _postdata.ToDate);
-
                             _pagingOption.totalrow = parseInt(response.TotalRows);
                             if (_pagingOption.totalrow > 0) {
                                 $("#paging").show();

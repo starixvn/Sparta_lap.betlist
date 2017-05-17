@@ -3,6 +3,13 @@
 }
 
 <div class="page-results">
+    <div class="breadCrumbHolder" id="level-link-container">
+        <div class="breadcrumb flat">
+            <a class="level level0 level-link" data-level="0" href="javascript:;">@ViewResources.Main</a>
+            <a class="level level1" data-level="1" href="javascript:;">@ViewResources.Member</a>
+        </div>
+    </div>
+
     <div class="result-content">
         <div class="panel-heading active hide">
             <div class="panel-title">
@@ -10,7 +17,6 @@
             </div>
 
             <div class="excel-container">
-                <a href="javascript:;" id="BackLink" class="icon-back"></a>
                 <i class="icon-excel" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
             </div>
         </div>
