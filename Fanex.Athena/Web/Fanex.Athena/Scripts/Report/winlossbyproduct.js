@@ -40,6 +40,16 @@ var WinLossByProduct = (function ($) {
         }
     }
 
+    function getPostData(){
+        var data = $("#SearchForm").serializeObject();
+        Report.CleanProductOptions(data, Number($("#ProductListCount").val()));
+        if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
+            data.Username = null;
+        }
+
+        return data;
+    }
+
     return {
         //#region Init
         initialize: function () {
@@ -78,11 +88,8 @@ var WinLossByProduct = (function ($) {
             });
 
             $('#ExportToExcel').click(function () {
-                $('#IsExportExcel').val(true);
-                var mainForm = $("#winlossbyproduct");
-                var url = Site.resolveClientUrl(WinLossByProductOption.urlExcelData);
-                mainForm.attr("action", url);
-                mainForm.submit();
+                var data = getPostData();
+                Site.exportExcel(data, WinLossByProductOption.urlExcelData);
                 return false;
             });
 
@@ -149,7 +156,7 @@ var WinLossByProduct = (function ($) {
                 ? viewinKey.replace("{0}", currencyName || Site.getCurrencyName(currencyId))
                 : currencyTextList[currencyId];
 
-            var licenseeWLNote = jqGridAdditional.getLicenseeWLNote(_submitData.ProductOptions, _systemId, true);
+            var licenseeWLNote = jqGridAdditional.getNewLicenseeWLNote(_submitData.ProductList, _systemId, true);
 
             var title = $.format(titlePattern, fromdate.toString("M/dd/yyyy"), todate.toString("M/dd/yyyy"),
            currencyStr, (licenseeWLNote.trim() === '' ? '' : ', ' + licenseeWLNote));
@@ -183,11 +190,7 @@ var WinLossByProduct = (function ($) {
             }
 
             Site.updateOriginalLicenseeOption();
-            var data = $("#winlossbyproduct").serializeObject();
-            Report.CleanProductOptions(data, Number($("#ProductListCount").val()));
-            if (data.Username === Site.getSingleResource('ExternalIdOrSystemId')) {
-                data.Username = null;
-            }
+            var data = getPostData();
 
             var option =
             {
@@ -199,7 +202,7 @@ var WinLossByProduct = (function ($) {
                 url: Site.resolveClientUrl(WinLossByProductOption.urlData),
                 success: function (response) {
                     _submitData = {
-                        ProductOptions: response.ProductOptions,
+                        ProductList: data.ProductList,
                         DrawFilter: data.DrawFilter,
                         CurrencyId: data.CurrencyId,
                         ReportBy: Number(data.ReportBy),
@@ -238,7 +241,7 @@ var WinLossByProduct = (function ($) {
             var param =
             {
                 MemberId: _memberId,
-                ProductOptions: $.parseJSON(_submitData.ProductOptions),
+                ProductList: _submitData.ProductList,
                 DrawFilter: _submitData.DrawFilter,
                 IsExcludedTestData: _submitData.IsExcludedTestData,
                 CurrencyId: _submitData.CurrencyId,
@@ -391,8 +394,7 @@ var WinLossByProduct = (function ($) {
         },
 
         bindTotal: function (level, totalData, summaryTotal) {
-            var productOptions = $.parseJSON(_submitData.ProductOptions);
-            var columnModel = WinLossByProductOption.getTotalColModel(level, productOptions);
+            var columnModel = WinLossByProductOption.getTotalColModel(level);
             var colspan = WinLossByProductOption.totalColspan[level];
             var summaryColspan = colspan + 1;
             jqGridAdditional.assignTotal(totalData, columnModel);

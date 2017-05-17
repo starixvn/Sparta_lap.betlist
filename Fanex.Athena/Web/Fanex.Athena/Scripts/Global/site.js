@@ -69,10 +69,11 @@ var Site = (function ($) {
                 }
             });
         },
-        reload: function(){
+        reload: function () {
             window.location.reload();
         },
         exportExcel: function (data, url, method) {
+            data.IsExportExcel = true;
             var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
                 .appendTo('body');
             for (var property in data) {
@@ -84,6 +85,11 @@ var Site = (function ($) {
                             var product = products[i];
                             $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
                             $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
+                        }
+                    } else if (property === "ProductList") {
+                        for (var i = 0; i < value.length; i++) {
+                            var product = value[i];
+                            $('<input type="hidden">').attr({ name: 'ProductList[' + i + ']', value: product }).appendTo($form);
                         }
                     }
                     else {
@@ -158,11 +164,11 @@ var Site = (function ($) {
             var isRequesting = false;
 
             $(options.buttonSelector).click(function () {
-                var $userGuidePopup = $("#UserGuidePopup");              
+                var $userGuidePopup = $("#UserGuidePopup");
 
                 if ($userGuidePopup.is(":visible")) {
                     return;
-                }               
+                }
 
                 if (!popup) {
                     if (isRequesting === false) {
@@ -171,8 +177,8 @@ var Site = (function ($) {
                             .load(url, function (response, status) {
                                 if (status === "success") {
                                     setTimeout(function () {
-                                            popup = $userGuidePopup.flatPopup(options);
-                                            popup.show();
+                                        popup = $userGuidePopup.flatPopup(options);
+                                        popup.show();
                                     }, 50);
                                 } else {
                                     $userGuidePopup.hide();

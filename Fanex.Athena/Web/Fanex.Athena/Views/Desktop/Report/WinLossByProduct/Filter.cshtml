@@ -1,11 +1,10 @@
-﻿@using Fanex.Athena.Model.Core.DataDomain
-@model Fanex.Athena.Model.Report.ViewModel.WinLossByProductViewModel
+﻿@model Fanex.Athena.Model.Report.ViewModel.WinLossByProductViewModel
 @{
     var appSettings = new AppSettings();
 }
 
 <div class="page-form">
-    <form id="winlossbyproduct" name="winlossbyproduct" method="post" action="">
+    <form id="SearchForm" name="SearchForm" method="post" action="">
         @Html.AntiForgeryToken()
 
         <div class="row">

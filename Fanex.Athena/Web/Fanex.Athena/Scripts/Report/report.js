@@ -16,9 +16,9 @@ var Report = (function ($) {
                     productList.push(postData["ProductOptions[" + i + "].Code"]);
                 }
 
-                postData["ProductOptions[" + i + "].Code"] = undefined;
-                postData["ProductOptions[" + i + "].Name"] = undefined;
-                postData["ProductOptions[" + i + "].Status"] = undefined;
+                delete postData["ProductOptions[" + i + "].Code"];
+                delete postData["ProductOptions[" + i + "].Name"];
+                delete postData["ProductOptions[" + i + "].Status"];
             }
 
             postData.ProductList = productList;

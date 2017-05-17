@@ -116,6 +116,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
         }
 
         function exportExcel(data, url, method) {
+            data.IsExportExcel = true;
             var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
                 .appendTo('body');
             for (var property in data) {
@@ -127,6 +128,11 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                             var product = products[i];
                             $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
                             $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
+                        }
+                    } else if (property === "ProductList") {
+                        for (var i = 0; i < value.length; i++) {
+                            var product = value[i];
+                            $('<input type="hidden">').attr({ name: 'ProductList[' + i + ']', value: product }).appendTo($form);
                         }
                     }
                     else {

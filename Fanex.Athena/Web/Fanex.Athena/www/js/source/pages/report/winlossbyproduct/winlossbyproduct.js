@@ -9,6 +9,16 @@
         var ajaxRequest = null;
         var _memberId, _systemId; // store data when submit level 0
         var _submitData = {}; // cache submit data of level 0.
+        
+        function getPostData() {
+            var data = $("#SearchForm").serializeObject();
+            Report.CleanProductOptions(data, Number($("#ProductListCount").val()));
+            if (data.Username === "") {
+                data.Username = null;
+            }
+
+            return data;
+        }
 
         var _me = {
             initialize: function () {
@@ -59,11 +69,9 @@
                 });
 
                 $('#ExportToExcel').click(function () {
-                    $('#IsExportExcel').val(true);
-                    var mainForm = $("#winlossbyproduct");
+                    var data = getPostData();
                     var url = Site.resolveClientUrl(WinLossByProductOption.urlExcelData);
-                    mainForm.attr("action", url);
-                    mainForm.submit();
+                    Site.exportExcel(data, url);
                     return false;
                 });
 
@@ -99,12 +107,8 @@
                 }
 
                 Site.updateOriginalLicenseeOption();
-                var data = $("#winlossbyproduct").serializeObject();
-                Report.CleanProductOptions(data, Number($("#ProductListCount").val()));
-                if (data.Username === "") {
-                    data.Username = null;
-                }
-
+                var data = getPostData();
+                
                 var option = {
                     type: "POST",
                     data: data,
@@ -114,7 +118,7 @@
                     url: Site.resolveClientUrl(WinLossByProductOption.urlData),
                     success: function (response) {
                         _submitData = {
-                            ProductOptions: response.ProductOptions,
+                            ProductList: data.ProductList,
                             DrawFilter: data.DrawFilter,
                             CurrencyId: data.CurrencyId,
                             ReportBy: Number(data.ReportBy),
@@ -159,7 +163,7 @@
                 var titlePattern = Site.getSingleResource('WinLossByProduct') + ', {0} → {1} - {2}{3}';
                 var currencyNameOnTitle = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName)
                                                         : Report.getCurrencyNameForReportTitle(currencyId);
-                var licenseeWLNote = jqGridAdditional.getLicenseeWLNote(_submitData.ProductOptions, _systemId);
+                var licenseeWLNote = jqGridAdditional.getNewLicenseeWLNote(_submitData.ProductList, _systemId);
                 licenseeWLNote = licenseeWLNote === '' ? '' : ', ' + licenseeWLNote;
 
                 var title = $.format(titlePattern,
@@ -275,8 +279,7 @@
             },
 
             bindTotal: function (level, totalData, summaryTotal) {
-                var productOptions = $.parseJSON(_submitData.ProductOptions);
-                var columnModel = WinLossByProductOption.getTotalColModel(level, productOptions);
+                var columnModel = WinLossByProductOption.getTotalColModel(level);
                 var colspan = WinLossByProductOption.totalColspan[level];
                 var summaryColspan = colspan + 1;
                 jqGridAdditional.assignTotal(totalData, columnModel);
@@ -342,7 +345,7 @@
             drillDown: function (level, currencyId, customerId, datetime, currencyName) {
                 var param = {
                     MemberId: _memberId,
-                    ProductOptions: $.parseJSON(_submitData.ProductOptions),
+                    ProductList: _submitData.ProductList,
                     DrawFilter: _submitData.DrawFilter,
                     IsExcludedTestData: _submitData.IsExcludedTestData,
                     CurrencyId: _submitData.CurrencyId,

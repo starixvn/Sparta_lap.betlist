@@ -178,6 +178,25 @@ var jqGridAdditional = (function () {
             $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column div").addClass("header-two-line");
         },
 
+        getNewLicenseeWLNote: function (productList, caption) {
+            var temp = caption || Site.getSingleResource("LicenseeW_L");
+            var productTemp = "";
+            var productAds = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
+            for (var i = 0; i < productList.length; i++) {
+                if ($.inArray(productList[i], productAds) > -1) {
+                    productTemp += productTemp.length === 0 ? productList[i] : ", " + productList[i];
+                }
+            }
+            if (productTemp.length > 0) {
+                temp += "(" + productTemp + ")";
+            }
+            else {
+                return caption || "";
+            }
+
+            return temp;
+        },
+        // update getNewLicenseeWLNote() as well
         getLicenseeWLNote: function (productOptionJson, caption) {
             var productOptions = $.parseJSON(productOptionJson);
             var temp = caption || Site.getSingleResource("LicenseeW_L");

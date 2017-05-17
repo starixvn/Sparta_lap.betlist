@@ -200,7 +200,7 @@ namespace Fanex.Athena.Api.Report
             {
                 Level = metaModel.Level,
                 EnableReportByMonth = metaModel.ReportBy,
-                ProductOptions = metaModel.ProductOptions
+                ProductList = metaModel.ProductList
             };
             winlossByProduct.Export();
 
@@ -305,7 +305,6 @@ namespace Fanex.Athena.Api.Report
                     Data = WinLossByProductRestructureData(dataList, level),
                     Total = _winlossByProductService.TotalCalc(dataList),
                     SummaryTotal = summaryTotal,
-                    ProductOptions = metaModel.ProductOptions.ToJson(),
                     MemberId = memberId,
                     SystemId = systemId,
                     ErrorMessage = resultInfo.Message
