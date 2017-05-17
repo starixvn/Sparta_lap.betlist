@@ -212,7 +212,8 @@ body {
         vertical-align: middle; }
 
 .select-list-result-container {
-  position: absolute; }
+  position: absolute;
+  z-index: 100; }
   .select-list-result-container .select-list-dropdown {
     background-color: #fff;
     border: 1px solid #ccc;

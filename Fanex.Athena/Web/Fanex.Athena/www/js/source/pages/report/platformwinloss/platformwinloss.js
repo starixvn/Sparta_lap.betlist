@@ -363,7 +363,7 @@
             }
 
             var productText = "";
-            productList.each(function (item) {
+            $.each(productList, function (index, item) {
                 productText += productText.length === 0 ? item : ", " + item;
             });
 

@@ -1,19 +1,19 @@
-webpackJsonp([53],{
+webpackJsonp([55],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(254);
+	module.exports = __webpack_require__(270);
 
 
-/***/ },
+/***/ }),
 
-/***/ 193:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 206:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
 	///
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(194)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(207)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
 	    "use strict";
 	    var jqGridAdditional = (function () {
 	        return {
@@ -142,6 +142,25 @@ webpackJsonp([53],{
 	                $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column div").addClass("header-two-line");
 	            },
 	
+	            getNewLicenseeWLNote: function (productList, caption) {
+	                var temp = caption || Site.getSingleResource("LicenseeW_L");
+	                var productTemp = "";
+	                var productAds = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
+	                for (var i = 0; i < productList.length; i++) {
+	                    if ($.inArray(productList[i], productAds) > -1) {
+	                        productTemp += productTemp.length === 0 ? productList[i] : ", " + productList[i];
+	                    }
+	                }
+	                if (productTemp.length > 0) {
+	                    temp += "(" + productTemp + ")";
+	                }
+	                else {
+	                    return caption || "";
+	                }
+	
+	                return temp;
+	            },
+	            // update getNewLicenseeWLNote() as well
 	            getLicenseeWLNote: function (productOptionJson, caption) {
 	                var productOptions = $.parseJSON(productOptionJson);
 	                var temp = caption || Site.getSingleResource("LicenseeW_L");
@@ -381,10 +400,10 @@ webpackJsonp([53],{
 	    return jqGridAdditional;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 194:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 207:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/MikeMcl/bignumber.js/LICENCE */
 	
@@ -3125,10 +3144,10 @@ webpackJsonp([53],{
 	})(this);
 
 
-/***/ },
+/***/ }),
 
-/***/ 196:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 209:
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
 	/**
@@ -3303,10 +3322,10 @@ webpackJsonp([53],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 197:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 210:
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* 
 	* jqGrid  4.6.0 - jQuery Grid 
@@ -3654,10 +3673,314 @@ webpackJsonp([53],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 236:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 227:
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(11)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	    var _me = {
+	        initProductList: function () {
+	            var selector = "#grid-products-multiselect";
+	            var data = $.parseJSON($("#productsData").val());
+	            var length = data.length;
+	            var dataUI = [];
+	            var checkedCount = 0;
+	            for (var i = 0; i < length; i++) {
+	                var item = data[i];
+	                var isChecked = item["Status"];
+	                if (isChecked) {
+	                    checkedCount++;
+	                }
+	
+	                dataUI.push({
+	                    Id: item["Code"],
+	                    Value: item["Code"],
+	                    Text: Site.getSingleResource(item["Name"]),
+	                    Checked: isChecked,
+	                    Enable: true
+	                });
+	            }
+	
+	            var isCheckAll = checkedCount === length;
+	            $(selector).multiSelect({
+	                minWidth: 200,
+	                maxHeight: 400,
+	                shadow: true,
+	                showHeader: true,
+	                isCheckAll: isCheckAll,
+	                checkAllText: Site.getSingleResource('All'),
+	                showFooter: false,
+	                listData: dataUI,
+	                onCheck: function () {
+	                    var checkedItems = $(selector).multiSelect("getCheckedItems");
+	                    $("#product-container input[type=checkbox]:checked").prop("checked", false);
+	                    var hasItemsChecked = checkedItems.length > 0;
+	                    if (hasItemsChecked) {
+	                        for (var i = 0; i < checkedItems.length; i++) {
+	                            $('#product-container #' + checkedItems[i]).prop("checked", true);
+	                        }
+	                    }
+	                }
+	            });
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 229:
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
+	"use strict";
+	(function ($) {
+	    $.fn.checkboxgroup = function () {
+	        var allChk = this.first();
+	        var elseChk = this.slice(1);
+	
+	        allChk.prop('checked', elseChk.filter(":checked").length >= elseChk.length);
+	
+	        allChk.change(function () {
+	            var thisIsChecked = $(this).is(':checked');
+	            elseChk.prop('checked', thisIsChecked);
+	        });
+	
+	        elseChk.change(function () {
+	            if ($(this).is(':checked')) {
+	                allChk.prop('checked', elseChk.filter(":checked").length >= elseChk.length);
+	            } else {
+	                allChk.prop('checked', false);
+	            }
+	        });
+	
+	        return this;
+	    };
+	
+	    $.fn.showHide = function (isShow) {
+	        if (isShow) {
+	            this.show();
+	        } else {
+	            this.hide();
+	        }
+	
+	        return this;
+	    };
+	
+	    jQuery.fn.serializeObject = function () {
+	        var o = {};
+	        var a = this.serializeArray();
+	        $.each(a, function () {
+	            if (o[this.name] !== undefined) {
+	                if (!o[this.name].push) {
+	                    o[this.name] = [o[this.name]];
+	                }
+	                o[this.name].push(this.value || '');
+	            } else {
+	                o[this.name] = this.value || '';
+	            }
+	        });
+	        return o;
+	    };
+	
+	    $.fn.getStyleObject = function () {
+	        /// <summary>
+	        /// don't work on ie8
+	        /// </summary>
+	        /// <returns type=""></returns>
+	        var dom = this.get(0);
+	        if(!dom)
+	        {
+	            return;
+	        }
+	
+	        var style;
+	        var returns = {};
+	
+	        if (window.getComputedStyle) {
+	            var camelize = function (a, b) {
+	                return b.toUpperCase();
+	            };
+	            style = window.getComputedStyle(dom, null);
+	            for (var i = 0, l = style.length; i < l; i++) {
+	                var prop = style[i];
+	                var camel = prop.replace(/\-([a-z])/, camelize);
+	                var val = style.getPropertyValue(prop);
+	                returns[camel] = val;
+	            }
+	            return returns;
+	        }
+	        try {
+	            if (dom.currentStyle) {
+	                style = dom.currentStyle;
+	                for (var p1 in style) {
+	                    returns[p1] = style[p1];
+	                }
+	                return returns;
+	            }
+	            if (style === dom.style) {
+	                for (var p2 in style) {
+	                    if (typeof style[p2] !== 'function') {
+	                        returns[p2] = style[p2];
+	                    }
+	                }
+	                return returns;
+	            }
+	        } catch (err) {
+	        }
+	        return returns;
+	    };
+	
+	    jQuery.fn.tableRowSpan = function (colIndexs, effectToIndex) {
+	        /// <summary>
+	        /// Created by Alex@20130228
+	        /// set table rowspan
+	        /// </summary>
+	        /// <param name="colIndexs">column indexs</param>
+	        /// <param name="effectToIndex">set rowspan for this columns base on lasted column in [colIndexs]</param>
+	        if (effectToIndex !== undefined) {
+	            if ($.inArray(effectToIndex, colIndexs) > -1) {
+	                return;
+	            }
+	        }
+	
+	        function process(table, colIdx) {
+	            var that;
+	            var ethat;
+	            var ethis;
+	            var rowspan = 1;
+	            var len = table.rows.length - 1;
+	            for(var index = 0; index <= len; index++)
+	            {
+	                var currentRow = table.rows[index];                
+	                var td = currentRow.cells[colIdx];
+	                if(td) {
+	                    ethis = currentRow.cells[effectToIndex];
+	                    var found = that != null && $(td).html() === $(that).html();
+	                    if (found && index < len) {
+	                        rowspan++;
+	                        $(td).hide();
+	                        if (effectToIndex !== undefined) {
+	                            $(ethis).hide();
+	                        }
+	                        //.remove// do your action for the old cell here
+	                    }
+	                    else if (found && index === len) {
+	                        //do your action for lasted row
+	                        $(td).hide();
+	                        rowspan++;
+	                        $(that).attr("rowSpan", rowspan);
+	                        that = td;
+	                        if (effectToIndex !== undefined) {
+	                            $(ethis).hide();
+	                            $(ethat).attr("rowSpan", rowspan);
+	                            ethat = ethis;
+	                        }
+	                        rowspan = 1;
+	                        // do your action for the colSpan cell here
+	                    }
+	                    else {
+	                        if (effectToIndex !== undefined) {
+	                            $(ethat).attr("rowSpan", rowspan);
+	                            ethat = ethis;
+	                        }
+	                        $(that).attr("rowSpan", rowspan);
+	                        // do your action for the colSpan cell here
+	                        that = td;
+	                        rowspan = 1;
+	                    }
+	                    that = (that == null) ? td : that;
+	                    if (effectToIndex !== undefined) {
+	                        ethat = (ethat == null) ? ethis : ethat;
+	                    }
+	                    // set the that if not already set
+	                }
+	            }
+	        }
+	
+	        return this.each(function () {
+	            for (var i = 0; i < colIndexs.length; i++) {
+	                process(this, colIndexs[i]);
+	            }
+	        });
+	    };
+	
+	    jQuery.fn.numbericTextBox = function (min, max) {
+	        var thousandFormater = function (x) {
+	            x = x.toString();
+	            var pattern = /(-?\d+)(\d{3})/;
+	            while (pattern.test(x)) {
+	                x = x.replace(pattern, "$1,$2");
+	            }
+	            return x;
+	        };
+	
+	        this.each(function (i, e) {
+	            $(e).keydown(function (event) {
+	                // Allow: backspace, delete, tab, escape, and enter
+	                if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
+	                // Allow: Ctrl+A
+	                    (event.keyCode === 65 && event.ctrlKey === true) ||
+	                // Allow: home, end, left, right
+	                    (event.keyCode >= 35 && event.keyCode <= 39)) {
+	                    // let it happen, don't do anything
+	                    return;
+	                }
+	                else {
+	                    // Ensure that it is a number and stop the keypress
+	                    if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+	                        event.preventDefault();
+	                    }
+	                }
+	            }).keyup(function (event) {
+	                var textBox = event.target;
+	                var value = textBox.value;
+	                value = value.replace(/,/g, '');
+	
+	                var isNotInRange = (value < min) || (value > max);
+	                if (isNotInRange) {
+	                    textBox.value = textBox.value.slice(0, -1);
+	                    value = textBox.value.replace(/,/g, '');
+	                }
+	
+	                textBox.value = thousandFormater(value);
+	            });
+	        });
+	
+	        return this;
+	    };
+	
+	    $.fn.hasVerticalScrollBar = function () {
+	        return this.get(0).scrollHeight > this.height();
+	    };
+	    $.fn.hasHorizontalScrollBar = function () {
+	        return this.get(0).scrollWidth > this.width();
+	    };
+	})(jQuery);
+	
+	jQuery.extend({
+	    format: function () {
+	        /// <summary>
+	        /// simply format method
+	        /// </summary>
+	        /// <returns type="string">formated string</returns>
+	        var formatted = arguments[0];
+	        var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
+	        for (var arg in passValue) {
+	            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+	        }
+	        return formatted;
+	    }
+	});
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+
+/***/ 253:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
 	    "use strict";
@@ -3668,6 +3991,20 @@ webpackJsonp([53],{
 	    }
 	
 	    var _me = {
+	        CleanProductOptions: function (postData, productCount) {
+	            var productList = [];
+	            for (var i = 0; i < productCount; i++) {
+	                if (postData["ProductOptions[" + i + "].Status"] === "True") {
+	                    productList.push(postData["ProductOptions[" + i + "].Code"]);
+	                }
+	
+	                delete postData["ProductOptions[" + i + "].Code"];
+	                delete postData["ProductOptions[" + i + "].Name"];
+	                delete postData["ProductOptions[" + i + "].Status"];
+	            }
+	
+	            postData.ProductList = productList;
+	        },
 	        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
 	            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
 	            var tdate = fdate;
@@ -3831,71 +4168,2751 @@ webpackJsonp([53],{
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 244:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 260:
+/***/ (function(module, exports) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(11)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
-	    var _me = {
-	        initialize: function (dropDownListId, dataSource, valueField, textField, checkField) {
-	            var data = $.parseJSON(dataSource);
-	            var length = data.length;
-	            var dataUI = [];
-	            var checkedCount = 0;
-	            for (var i = 0; i < length; i++) {
-	                var item = data[i];
-	                var isChecked = item[checkField];
-	                if (isChecked) {
-	                    checkedCount++;
-	                }
+	/*--------------------------------------------------------------------------
+	* linq.js - LINQ for JavaScript
+	* ver 2.2.0.2 (Jan. 21th, 2011)
+	*
+	* created and maintained by neuecc <ils@neue.cc>
+	* licensed under Microsoft Public License(Ms-PL)
+	* http://neue.cc/
+	* http://linqjs.codeplex.com/
+	*--------------------------------------------------------------------------*/
 	
-	                dataUI.push({
-	                    Id: item[valueField],
-	                    Value: item[valueField],
-	                    Text: Site.getSingleResource(item[textField]),
-	                    Checked: isChecked,
-	                    Enable: true
-	                });
+	Enumerable = (function ()
+	{
+	    var Enumerable = function (getEnumerator)
+	    {
+	        this.GetEnumerator = getEnumerator;
+	    }
+	
+	    // Generator
+	
+	    Enumerable.Choice = function () // variable argument
+	    {
+	        var args = (arguments[0] instanceof Array) ? arguments[0] : arguments;
+	
+	        return new Enumerable(function ()
+	        {
+	            return new IEnumerator(
+	                Functions.Blank,
+	                function ()
+	                {
+	                    return this.Yield(args[Math.floor(Math.random() * args.length)]);
+	                },
+	                Functions.Blank);
+	        });
+	    }
+	
+	    Enumerable.Cycle = function () // variable argument
+	    {
+	        var args = (arguments[0] instanceof Array) ? arguments[0] : arguments;
+	
+	        return new Enumerable(function ()
+	        {
+	            var index = 0;
+	            return new IEnumerator(
+	                Functions.Blank,
+	                function ()
+	                {
+	                    if (index >= args.length) index = 0;
+	                    return this.Yield(args[index++]);
+	                },
+	                Functions.Blank);
+	        });
+	    }
+	
+	    Enumerable.Empty = function ()
+	    {
+	        return new Enumerable(function ()
+	        {
+	            return new IEnumerator(
+	                Functions.Blank,
+	                function () { return false; },
+	                Functions.Blank);
+	        });
+	    }
+	
+	    Enumerable.From = function (obj)
+	    {
+	        if (obj == null)
+	        {
+	            return Enumerable.Empty();
+	        }
+	        if (obj instanceof Enumerable)
+	        {
+	            return obj;
+	        }
+	        if (typeof obj == Types.Number || typeof obj == Types.Boolean)
+	        {
+	            return Enumerable.Repeat(obj, 1);
+	        }
+	        if (typeof obj == Types.String)
+	        {
+	            return new Enumerable(function ()
+	            {
+	                var index = 0;
+	                return new IEnumerator(
+	                    Functions.Blank,
+	                    function ()
+	                    {
+	                        return (index < obj.length) ? this.Yield(obj.charAt(index++)) : false;
+	                    },
+	                    Functions.Blank);
+	            });
+	        }
+	        if (typeof obj != Types.Function)
+	        {
+	            // array or array like object
+	            if (typeof obj.length == Types.Number)
+	            {
+	                return new ArrayEnumerable(obj);
 	            }
 	
-	            var isCheckAll = checkedCount === length;
-	            $("#" + dropDownListId).multiSelect({
-	                minWidth: 200,
-	                maxHeight: 400,
-	                shadow: true,
-	                showHeader: true,
-	                isCheckAll: isCheckAll,
-	                checkAllText: Site.getSingleResource('All'),
-	                showFooter: false,
-	                listData: dataUI,
-	                onCheck: function () {
-	                    var checkedItems = $("#" + dropDownListId).multiSelect("getCheckedItems");
-	                    $("#product-container input[type=checkbox]:checked").prop("checked", false);
-	                    var hasItemsChecked = checkedItems.length > 0;
-	                    if (hasItemsChecked) {
-	                        for (var i = 0; i < checkedItems.length; i++) {
-	                            $('#product-container #' + checkedItems[i]).prop("checked", true);
+	            // JScript's IEnumerable
+	            if (!(obj instanceof Object) && Utils.IsIEnumerable(obj))
+	            {
+	                return new Enumerable(function ()
+	                {
+	                    var isFirst = true;
+	                    var enumerator;
+	                    return new IEnumerator(
+	                        function () { enumerator = new Enumerator(obj); },
+	                        function ()
+	                        {
+	                            if (isFirst) isFirst = false;
+	                            else enumerator.moveNext();
+	
+	                            return (enumerator.atEnd()) ? false : this.Yield(enumerator.item());
+	                        },
+	                        Functions.Blank);
+	                });
+	            }
+	        }
+	
+	        // case function/object : Create KeyValuePair[]
+	        return new Enumerable(function ()
+	        {
+	            var array = [];
+	            var index = 0;
+	
+	            return new IEnumerator(
+	                function ()
+	                {
+	                    for (var key in obj)
+	                    {
+	                        if (!(obj[key] instanceof Function))
+	                        {
+	                            array.push({ Key: key, Value: obj[key] });
+	                        }
+	                    }
+	                },
+	                function ()
+	                {
+	                    return (index < array.length)
+	                        ? this.Yield(array[index++])
+	                        : false;
+	                },
+	                Functions.Blank);
+	        });
+	    },
+	
+	    Enumerable.Return = function (element)
+	    {
+	        return Enumerable.Repeat(element, 1);
+	    }
+	
+	    // Overload:function(input, pattern)
+	    // Overload:function(input, pattern, flags)
+	    Enumerable.Matches = function (input, pattern, flags)
+	    {
+	        if (flags == null) flags = "";
+	        if (pattern instanceof RegExp)
+	        {
+	            flags += (pattern.ignoreCase) ? "i" : "";
+	            flags += (pattern.multiline) ? "m" : "";
+	            pattern = pattern.source;
+	        }
+	        if (flags.indexOf("g") === -1) flags += "g";
+	
+	        return new Enumerable(function ()
+	        {
+	            var regex;
+	            return new IEnumerator(
+	                function () { regex = new RegExp(pattern, flags) },
+	                function ()
+	                {
+	                    var match = regex.exec(input);
+	                    return (match) ? this.Yield(match) : false;
+	                },
+	                Functions.Blank);
+	        });
+	    }
+	
+	    // Overload:function(start, count)
+	    // Overload:function(start, count, step)
+	    Enumerable.Range = function (start, count, step)
+	    {
+	        if (step == null) step = 1;
+	        return Enumerable.ToInfinity(start, step).Take(count);
+	    }
+	
+	    // Overload:function(start, count)
+	    // Overload:function(start, count, step)
+	    Enumerable.RangeDown = function (start, count, step)
+	    {
+	        if (step == null) step = 1;
+	        return Enumerable.ToNegativeInfinity(start, step).Take(count);
+	    }
+	
+	    // Overload:function(start, to)
+	    // Overload:function(start, to, step)
+	    Enumerable.RangeTo = function (start, to, step)
+	    {
+	        if (step == null) step = 1;
+	        return (start < to)
+	            ? Enumerable.ToInfinity(start, step).TakeWhile(function (i) { return i <= to; })
+	            : Enumerable.ToNegativeInfinity(start, step).TakeWhile(function (i) { return i >= to; })
+	    }
+	
+	    // Overload:function(obj)
+	    // Overload:function(obj, num)
+	    Enumerable.Repeat = function (obj, num)
+	    {
+	        if (num != null) return Enumerable.Repeat(obj).Take(num);
+	
+	        return new Enumerable(function ()
+	        {
+	            return new IEnumerator(
+	                Functions.Blank,
+	                function () { return this.Yield(obj); },
+	                Functions.Blank);
+	        });
+	    }
+	
+	    Enumerable.RepeatWithFinalize = function (initializer, finalizer)
+	    {
+	        initializer = Utils.CreateLambda(initializer);
+	        finalizer = Utils.CreateLambda(finalizer);
+	
+	        return new Enumerable(function ()
+	        {
+	            var element;
+	            return new IEnumerator(
+	                function () { element = initializer(); },
+	                function () { return this.Yield(element); },
+	                function ()
+	                {
+	                    if (element != null)
+	                    {
+	                        finalizer(element);
+	                        element = null;
+	                    }
+	                });
+	        });
+	    }
+	
+	    // Overload:function(func)
+	    // Overload:function(func, count)
+	    Enumerable.Generate = function (func, count)
+	    {
+	        if (count != null) return Enumerable.Generate(func).Take(count);
+	        func = Utils.CreateLambda(func);
+	
+	        return new Enumerable(function ()
+	        {
+	            return new IEnumerator(
+	                Functions.Blank,
+	                function () { return this.Yield(func()); },
+	                Functions.Blank);
+	        });
+	    }
+	
+	    // Overload:function()
+	    // Overload:function(start)
+	    // Overload:function(start, step)
+	    Enumerable.ToInfinity = function (start, step)
+	    {
+	        if (start == null) start = 0;
+	        if (step == null) step = 1;
+	
+	        return new Enumerable(function ()
+	        {
+	            var value;
+	            return new IEnumerator(
+	                function () { value = start - step },
+	                function () { return this.Yield(value += step); },
+	                Functions.Blank);
+	        });
+	    }
+	
+	    // Overload:function()
+	    // Overload:function(start)
+	    // Overload:function(start, step)
+	    Enumerable.ToNegativeInfinity = function (start, step)
+	    {
+	        if (start == null) start = 0;
+	        if (step == null) step = 1;
+	
+	        return new Enumerable(function ()
+	        {
+	            var value;
+	            return new IEnumerator(
+	                function () { value = start + step },
+	                function () { return this.Yield(value -= step); },
+	                Functions.Blank);
+	        });
+	    }
+	
+	    Enumerable.Unfold = function (seed, func)
+	    {
+	        func = Utils.CreateLambda(func);
+	
+	        return new Enumerable(function ()
+	        {
+	            var isFirst = true;
+	            var value;
+	            return new IEnumerator(
+	                Functions.Blank,
+	                function ()
+	                {
+	                    if (isFirst)
+	                    {
+	                        isFirst = false;
+	                        value = seed;
+	                        return this.Yield(value);
+	                    }
+	                    value = func(value);
+	                    return this.Yield(value);
+	                },
+	                Functions.Blank);
+	        });
+	    }
+	
+	    // Extension Methods
+	
+	    Enumerable.prototype =
+	    {
+	        /* Projection and Filtering Methods */
+	
+	        // Overload:function(func)
+	        // Overload:function(func, resultSelector<element>)
+	        // Overload:function(func, resultSelector<element, nestLevel>)
+	        CascadeBreadthFirst: function (func, resultSelector)
+	        {
+	            var source = this;
+	            func = Utils.CreateLambda(func);
+	            resultSelector = Utils.CreateLambda(resultSelector);
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var nestLevel = 0;
+	                var buffer = [];
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        while (true)
+	                        {
+	                            if (enumerator.MoveNext())
+	                            {
+	                                buffer.push(enumerator.Current());
+	                                return this.Yield(resultSelector(enumerator.Current(), nestLevel));
+	                            }
+	
+	                            var next = Enumerable.From(buffer).SelectMany(function (x) { return func(x); });
+	                            if (!next.Any())
+	                            {
+	                                return false;
+	                            }
+	                            else
+	                            {
+	                                nestLevel++;
+	                                buffer = [];
+	                                Utils.Dispose(enumerator);
+	                                enumerator = next.GetEnumerator();
+	                            }
+	                        }
+	                    },
+	                    function () { Utils.Dispose(enumerator); });
+	            });
+	        },
+	
+	        // Overload:function(func)
+	        // Overload:function(func, resultSelector<element>)
+	        // Overload:function(func, resultSelector<element, nestLevel>)
+	        CascadeDepthFirst: function (func, resultSelector)
+	        {
+	            var source = this;
+	            func = Utils.CreateLambda(func);
+	            resultSelector = Utils.CreateLambda(resultSelector);
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumeratorStack = [];
+	                var enumerator;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        while (true)
+	                        {
+	                            if (enumerator.MoveNext())
+	                            {
+	                                var value = resultSelector(enumerator.Current(), enumeratorStack.length);
+	                                enumeratorStack.push(enumerator);
+	                                enumerator = Enumerable.From(func(enumerator.Current())).GetEnumerator();
+	                                return this.Yield(value);
+	                            }
+	
+	                            if (enumeratorStack.length <= 0) return false;
+	                            Utils.Dispose(enumerator);
+	                            enumerator = enumeratorStack.pop();
+	                        }
+	                    },
+	                    function ()
+	                    {
+	                        try { Utils.Dispose(enumerator); }
+	                        finally { Enumerable.From(enumeratorStack).ForEach(function (s) { s.Dispose(); }) }
+	                    });
+	            });
+	        },
+	
+	        Flatten: function ()
+	        {
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var middleEnumerator = null;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        while (true)
+	                        {
+	                            if (middleEnumerator != null)
+	                            {
+	                                if (middleEnumerator.MoveNext())
+	                                {
+	                                    return this.Yield(middleEnumerator.Current());
+	                                }
+	                                else
+	                                {
+	                                    middleEnumerator = null;
+	                                }
+	                            }
+	
+	                            if (enumerator.MoveNext())
+	                            {
+	                                if (enumerator.Current() instanceof Array)
+	                                {
+	                                    Utils.Dispose(middleEnumerator);
+	                                    middleEnumerator = Enumerable.From(enumerator.Current())
+	                                        .SelectMany(Functions.Identity)
+	                                        .Flatten()
+	                                        .GetEnumerator();
+	                                    continue;
+	                                }
+	                                else
+	                                {
+	                                    return this.Yield(enumerator.Current());
+	                                }
+	                            }
+	
+	                            return false;
+	                        }
+	                    },
+	                    function ()
+	                    {
+	                        try { Utils.Dispose(enumerator); }
+	                        finally { Utils.Dispose(middleEnumerator); }
+	                    });
+	            });
+	        },
+	
+	        Pairwise: function (selector)
+	        {
+	            var source = this;
+	            selector = Utils.CreateLambda(selector);
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        enumerator = source.GetEnumerator();
+	                        enumerator.MoveNext();
+	                    },
+	                    function ()
+	                    {
+	                        var prev = enumerator.Current();
+	                        return (enumerator.MoveNext())
+	                            ? this.Yield(selector(prev, enumerator.Current()))
+	                            : false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); });
+	            });
+	        },
+	
+	        // Overload:function(func)
+	        // Overload:function(seed,func<value,element>)
+	        // Overload:function(seed,func<value,element>,resultSelector)
+	        Scan: function (seed, func, resultSelector)
+	        {
+	            if (resultSelector != null) return this.Scan(seed, func).Select(resultSelector);
+	
+	            var isUseSeed;
+	            if (func == null)
+	            {
+	                func = Utils.CreateLambda(seed); // arguments[0]
+	                isUseSeed = false;
+	            }
+	            else
+	            {
+	                func = Utils.CreateLambda(func);
+	                isUseSeed = true;
+	            }
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var value;
+	                var isFirst = true;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        if (isFirst)
+	                        {
+	                            isFirst = false;
+	                            if (!isUseSeed)
+	                            {
+	                                if (enumerator.MoveNext())
+	                                {
+	                                    return this.Yield(value = enumerator.Current());
+	                                }
+	                            }
+	                            else
+	                            {
+	                                return this.Yield(value = seed);
+	                            }
+	                        }
+	
+	                        return (enumerator.MoveNext())
+	                            ? this.Yield(value = func(value, enumerator.Current()))
+	                            : false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); });
+	            });
+	        },
+	
+	        // Overload:function(selector<element>)
+	        // Overload:function(selector<element,index>)
+	        Select: function (selector)
+	        {
+	            var source = this;
+	            selector = Utils.CreateLambda(selector);
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var index = 0;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        return (enumerator.MoveNext())
+	                            ? this.Yield(selector(enumerator.Current(), index++))
+	                            : false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); })
+	            });
+	        },
+	
+	        // Overload:function(collectionSelector<element>)
+	        // Overload:function(collectionSelector<element,index>)
+	        // Overload:function(collectionSelector<element>,resultSelector)
+	        // Overload:function(collectionSelector<element,index>,resultSelector)
+	        SelectMany: function (collectionSelector, resultSelector)
+	        {
+	            var source = this;
+	            collectionSelector = Utils.CreateLambda(collectionSelector);
+	            if (resultSelector == null) resultSelector = function (a, b) { return b; }
+	            resultSelector = Utils.CreateLambda(resultSelector);
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var middleEnumerator = undefined;
+	                var index = 0;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        if (middleEnumerator === undefined)
+	                        {
+	                            if (!enumerator.MoveNext()) return false;
+	                        }
+	                        do
+	                        {
+	                            if (middleEnumerator == null)
+	                            {
+	                                var middleSeq = collectionSelector(enumerator.Current(), index++);
+	                                middleEnumerator = Enumerable.From(middleSeq).GetEnumerator();
+	                            }
+	                            if (middleEnumerator.MoveNext())
+	                            {
+	                                return this.Yield(resultSelector(enumerator.Current(), middleEnumerator.Current()));
+	                            }
+	                            Utils.Dispose(middleEnumerator);
+	                            middleEnumerator = null;
+	                        } while (enumerator.MoveNext())
+	                        return false;
+	                    },
+	                    function ()
+	                    {
+	                        try { Utils.Dispose(enumerator); }
+	                        finally { Utils.Dispose(middleEnumerator); }
+	                    })
+	            });
+	        },
+	
+	        // Overload:function(predicate<element>)
+	        // Overload:function(predicate<element,index>)
+	        Where: function (predicate)
+	        {
+	            predicate = Utils.CreateLambda(predicate);
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var index = 0;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        while (enumerator.MoveNext())
+	                        {
+	                            if (predicate(enumerator.Current(), index++))
+	                            {
+	                                return this.Yield(enumerator.Current());
+	                            }
+	                        }
+	                        return false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); })
+	            });
+	        },
+	
+	        OfType: function (type)
+	        {
+	            var typeName;
+	            switch (type)
+	            {
+	                case Number: typeName = Types.Number; break;
+	                case String: typeName = Types.String; break;
+	                case Boolean: typeName = Types.Boolean; break;
+	                case Function: typeName = Types.Function; break;
+	                default: typeName = null; break;
+	            }
+	            return (typeName === null)
+	                ? this.Where(function (x) { return x instanceof type })
+	                : this.Where(function (x) { return typeof x === typeName });
+	        },
+	
+	        // Overload:function(second,selector<outer,inner>)
+	        // Overload:function(second,selector<outer,inner,index>)
+	        Zip: function (second, selector)
+	        {
+	            selector = Utils.CreateLambda(selector);
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var firstEnumerator;
+	                var secondEnumerator;
+	                var index = 0;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        firstEnumerator = source.GetEnumerator();
+	                        secondEnumerator = Enumerable.From(second).GetEnumerator();
+	                    },
+	                    function ()
+	                    {
+	                        if (firstEnumerator.MoveNext() && secondEnumerator.MoveNext())
+	                        {
+	                            return this.Yield(selector(firstEnumerator.Current(), secondEnumerator.Current(), index++));
+	                        }
+	                        return false;
+	                    },
+	                    function ()
+	                    {
+	                        try { Utils.Dispose(firstEnumerator); }
+	                        finally { Utils.Dispose(secondEnumerator); }
+	                    })
+	            });
+	        },
+	
+	        /* Join Methods */
+	
+	        // Overload:function (inner, outerKeySelector, innerKeySelector, resultSelector)
+	        // Overload:function (inner, outerKeySelector, innerKeySelector, resultSelector, compareSelector)
+	        Join: function (inner, outerKeySelector, innerKeySelector, resultSelector, compareSelector)
+	        {
+	            outerKeySelector = Utils.CreateLambda(outerKeySelector);
+	            innerKeySelector = Utils.CreateLambda(innerKeySelector);
+	            resultSelector = Utils.CreateLambda(resultSelector);
+	            compareSelector = Utils.CreateLambda(compareSelector);
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var outerEnumerator;
+	                var lookup;
+	                var innerElements = null;
+	                var innerCount = 0;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        outerEnumerator = source.GetEnumerator();
+	                        lookup = Enumerable.From(inner).ToLookup(innerKeySelector, Functions.Identity, compareSelector);
+	                    },
+	                    function ()
+	                    {
+	                        while (true)
+	                        {
+	                            if (innerElements != null)
+	                            {
+	                                var innerElement = innerElements[innerCount++];
+	                                if (innerElement !== undefined)
+	                                {
+	                                    return this.Yield(resultSelector(outerEnumerator.Current(), innerElement));
+	                                }
+	
+	                                innerElement = null;
+	                                innerCount = 0;
+	                            }
+	
+	                            if (outerEnumerator.MoveNext())
+	                            {
+	                                var key = outerKeySelector(outerEnumerator.Current());
+	                                innerElements = lookup.Get(key).ToArray();
+	                            }
+	                            else
+	                            {
+	                                return false;
+	                            }
+	                        }
+	                    },
+	                    function () { Utils.Dispose(outerEnumerator); })
+	            });
+	        },
+	
+	        // Overload:function (inner, outerKeySelector, innerKeySelector, resultSelector)
+	        // Overload:function (inner, outerKeySelector, innerKeySelector, resultSelector, compareSelector)
+	        GroupJoin: function (inner, outerKeySelector, innerKeySelector, resultSelector, compareSelector)
+	        {
+	            outerKeySelector = Utils.CreateLambda(outerKeySelector);
+	            innerKeySelector = Utils.CreateLambda(innerKeySelector);
+	            resultSelector = Utils.CreateLambda(resultSelector);
+	            compareSelector = Utils.CreateLambda(compareSelector);
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator = source.GetEnumerator();
+	                var lookup = null;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        enumerator = source.GetEnumerator();
+	                        lookup = Enumerable.From(inner).ToLookup(innerKeySelector, Functions.Identity, compareSelector);
+	                    },
+	                    function ()
+	                    {
+	                        if (enumerator.MoveNext())
+	                        {
+	                            var innerElement = lookup.Get(outerKeySelector(enumerator.Current()));
+	                            return this.Yield(resultSelector(enumerator.Current(), innerElement));
+	                        }
+	                        return false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); })
+	            });
+	        },
+	
+	        /* Set Methods */
+	
+	        All: function (predicate)
+	        {
+	            predicate = Utils.CreateLambda(predicate);
+	
+	            var result = true;
+	            this.ForEach(function (x)
+	            {
+	                if (!predicate(x))
+	                {
+	                    result = false;
+	                    return false; // break
+	                }
+	            });
+	            return result;
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(predicate)
+	        Any: function (predicate)
+	        {
+	            predicate = Utils.CreateLambda(predicate);
+	
+	            var enumerator = this.GetEnumerator();
+	            try
+	            {
+	                if (arguments.length == 0) return enumerator.MoveNext(); // case:function()
+	
+	                while (enumerator.MoveNext()) // case:function(predicate)
+	                {
+	                    if (predicate(enumerator.Current())) return true;
+	                }
+	                return false;
+	            }
+	            finally { Utils.Dispose(enumerator); }
+	        },
+	
+	        Concat: function (second)
+	        {
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var firstEnumerator;
+	                var secondEnumerator;
+	
+	                return new IEnumerator(
+	                    function () { firstEnumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        if (secondEnumerator == null)
+	                        {
+	                            if (firstEnumerator.MoveNext()) return this.Yield(firstEnumerator.Current());
+	                            secondEnumerator = Enumerable.From(second).GetEnumerator();
+	                        }
+	                        if (secondEnumerator.MoveNext()) return this.Yield(secondEnumerator.Current());
+	                        return false;
+	                    },
+	                    function ()
+	                    {
+	                        try { Utils.Dispose(firstEnumerator); }
+	                        finally { Utils.Dispose(secondEnumerator); }
+	                    })
+	            });
+	        },
+	
+	        Insert: function (index, second)
+	        {
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var firstEnumerator;
+	                var secondEnumerator;
+	                var count = 0;
+	                var isEnumerated = false;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        firstEnumerator = source.GetEnumerator();
+	                        secondEnumerator = Enumerable.From(second).GetEnumerator();
+	                    },
+	                    function ()
+	                    {
+	                        if (count == index && secondEnumerator.MoveNext())
+	                        {
+	                            isEnumerated = true;
+	                            return this.Yield(secondEnumerator.Current());
+	                        }
+	                        if (firstEnumerator.MoveNext())
+	                        {
+	                            count++;
+	                            return this.Yield(firstEnumerator.Current());
+	                        }
+	                        if (!isEnumerated && secondEnumerator.MoveNext())
+	                        {
+	                            return this.Yield(secondEnumerator.Current());
+	                        }
+	                        return false;
+	                    },
+	                    function ()
+	                    {
+	                        try { Utils.Dispose(firstEnumerator); }
+	                        finally { Utils.Dispose(secondEnumerator); }
+	                    })
+	            });
+	        },
+	
+	        Alternate: function (value)
+	        {
+	            value = Enumerable.Return(value);
+	            return this.SelectMany(function (elem)
+	            {
+	                return Enumerable.Return(elem).Concat(value);
+	            }).TakeExceptLast();
+	        },
+	
+	        // Overload:function(value)
+	        // Overload:function(value, compareSelector)
+	        Contains: function (value, compareSelector)
+	        {
+	            compareSelector = Utils.CreateLambda(compareSelector);
+	            var enumerator = this.GetEnumerator();
+	            try
+	            {
+	                while (enumerator.MoveNext())
+	                {
+	                    if (compareSelector(enumerator.Current()) === value) return true;
+	                }
+	                return false;
+	            }
+	            finally { Utils.Dispose(enumerator) }
+	        },
+	
+	        DefaultIfEmpty: function (defaultValue)
+	        {
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var isFirst = true;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        if (enumerator.MoveNext())
+	                        {
+	                            isFirst = false;
+	                            return this.Yield(enumerator.Current());
+	                        }
+	                        else if (isFirst)
+	                        {
+	                            isFirst = false;
+	                            return this.Yield(defaultValue);
+	                        }
+	                        return false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); })
+	            });
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(compareSelector)
+	        Distinct: function (compareSelector)
+	        {
+	            return this.Except(Enumerable.Empty(), compareSelector);
+	        },
+	
+	        // Overload:function(second)
+	        // Overload:function(second, compareSelector)
+	        Except: function (second, compareSelector)
+	        {
+	            compareSelector = Utils.CreateLambda(compareSelector);
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var keys;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        enumerator = source.GetEnumerator();
+	                        keys = new Dictionary(compareSelector);
+	                        Enumerable.From(second).ForEach(function (key) { keys.Add(key); });
+	                    },
+	                    function ()
+	                    {
+	                        while (enumerator.MoveNext())
+	                        {
+	                            var current = enumerator.Current();
+	                            if (!keys.Contains(current))
+	                            {
+	                                keys.Add(current);
+	                                return this.Yield(current);
+	                            }
+	                        }
+	                        return false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); })
+	            });
+	        },
+	
+	        // Overload:function(second)
+	        // Overload:function(second, compareSelector)
+	        Intersect: function (second, compareSelector)
+	        {
+	            compareSelector = Utils.CreateLambda(compareSelector);
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var keys;
+	                var outs;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        enumerator = source.GetEnumerator();
+	
+	                        keys = new Dictionary(compareSelector);
+	                        Enumerable.From(second).ForEach(function (key) { keys.Add(key); });
+	                        outs = new Dictionary(compareSelector);
+	                    },
+	                    function ()
+	                    {
+	                        while (enumerator.MoveNext())
+	                        {
+	                            var current = enumerator.Current();
+	                            if (!outs.Contains(current) && keys.Contains(current))
+	                            {
+	                                outs.Add(current);
+	                                return this.Yield(current);
+	                            }
+	                        }
+	                        return false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); })
+	            });
+	        },
+	
+	        // Overload:function(second)
+	        // Overload:function(second, compareSelector)
+	        SequenceEqual: function (second, compareSelector)
+	        {
+	            compareSelector = Utils.CreateLambda(compareSelector);
+	
+	            var firstEnumerator = this.GetEnumerator();
+	            try
+	            {
+	                var secondEnumerator = Enumerable.From(second).GetEnumerator();
+	                try
+	                {
+	                    while (firstEnumerator.MoveNext())
+	                    {
+	                        if (!secondEnumerator.MoveNext()
+	                            || compareSelector(firstEnumerator.Current()) !== compareSelector(secondEnumerator.Current()))
+	                        {
+	                            return false;
 	                        }
 	                    }
 	
-	                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
-	                    $(".error-img").toggleClass("hide", hasItemsChecked);
+	                    if (secondEnumerator.MoveNext()) return false;
+	                    return true;
+	                }
+	                finally { Utils.Dispose(secondEnumerator); }
+	            }
+	            finally { Utils.Dispose(firstEnumerator); }
+	        },
+	
+	        Union: function (second, compareSelector)
+	        {
+	            compareSelector = Utils.CreateLambda(compareSelector);
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var firstEnumerator;
+	                var secondEnumerator;
+	                var keys;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        firstEnumerator = source.GetEnumerator();
+	                        keys = new Dictionary(compareSelector);
+	                    },
+	                    function ()
+	                    {
+	                        var current;
+	                        if (secondEnumerator === undefined)
+	                        {
+	                            while (firstEnumerator.MoveNext())
+	                            {
+	                                current = firstEnumerator.Current();
+	                                if (!keys.Contains(current))
+	                                {
+	                                    keys.Add(current);
+	                                    return this.Yield(current);
+	                                }
+	                            }
+	                            secondEnumerator = Enumerable.From(second).GetEnumerator();
+	                        }
+	                        while (secondEnumerator.MoveNext())
+	                        {
+	                            current = secondEnumerator.Current();
+	                            if (!keys.Contains(current))
+	                            {
+	                                keys.Add(current);
+	                                return this.Yield(current);
+	                            }
+	                        }
+	                        return false;
+	                    },
+	                    function ()
+	                    {
+	                        try { Utils.Dispose(firstEnumerator); }
+	                        finally { Utils.Dispose(secondEnumerator); }
+	                    })
+	            });
+	        },
+	
+	        /* Ordering Methods */
+	
+	        OrderBy: function (keySelector)
+	        {
+	            return new OrderedEnumerable(this, keySelector, false);
+	        },
+	
+	        OrderByDescending: function (keySelector)
+	        {
+	            return new OrderedEnumerable(this, keySelector, true);
+	        },
+	
+	        Reverse: function ()
+	        {
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var buffer;
+	                var index;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        buffer = source.ToArray();
+	                        index = buffer.length;
+	                    },
+	                    function ()
+	                    {
+	                        return (index > 0)
+	                            ? this.Yield(buffer[--index])
+	                            : false;
+	                    },
+	                    Functions.Blank)
+	            });
+	        },
+	
+	        Shuffle: function ()
+	        {
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var buffer;
+	
+	                return new IEnumerator(
+	                    function () { buffer = source.ToArray(); },
+	                    function ()
+	                    {
+	                        if (buffer.length > 0)
+	                        {
+	                            var i = Math.floor(Math.random() * buffer.length);
+	                            return this.Yield(buffer.splice(i, 1)[0]);
+	                        }
+	                        return false;
+	                    },
+	                    Functions.Blank)
+	            });
+	        },
+	
+	        /* Grouping Methods */
+	
+	        // Overload:function(keySelector)
+	        // Overload:function(keySelector,elementSelector)
+	        // Overload:function(keySelector,elementSelector,resultSelector)
+	        // Overload:function(keySelector,elementSelector,resultSelector,compareSelector)
+	        GroupBy: function (keySelector, elementSelector, resultSelector, compareSelector)
+	        {
+	            var source = this;
+	            keySelector = Utils.CreateLambda(keySelector);
+	            elementSelector = Utils.CreateLambda(elementSelector);
+	            if (resultSelector != null) resultSelector = Utils.CreateLambda(resultSelector);
+	            compareSelector = Utils.CreateLambda(compareSelector);
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        enumerator = source.ToLookup(keySelector, elementSelector, compareSelector)
+	                            .ToEnumerable()
+	                            .GetEnumerator();
+	                    },
+	                    function ()
+	                    {
+	                        while (enumerator.MoveNext())
+	                        {
+	                            return (resultSelector == null)
+	                                ? this.Yield(enumerator.Current())
+	                                : this.Yield(resultSelector(enumerator.Current().Key(), enumerator.Current()));
+	                        }
+	                        return false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); })
+	            });
+	        },
+	
+	        // Overload:function(keySelector)
+	        // Overload:function(keySelector,elementSelector)
+	        // Overload:function(keySelector,elementSelector,resultSelector)
+	        // Overload:function(keySelector,elementSelector,resultSelector,compareSelector)
+	        PartitionBy: function (keySelector, elementSelector, resultSelector, compareSelector)
+	        {
+	
+	            var source = this;
+	            keySelector = Utils.CreateLambda(keySelector);
+	            elementSelector = Utils.CreateLambda(elementSelector);
+	            compareSelector = Utils.CreateLambda(compareSelector);
+	            var hasResultSelector;
+	            if (resultSelector == null)
+	            {
+	                hasResultSelector = false;
+	                resultSelector = function (key, group) { return new Grouping(key, group) }
+	            }
+	            else
+	            {
+	                hasResultSelector = true;
+	                resultSelector = Utils.CreateLambda(resultSelector);
+	            }
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var key;
+	                var compareKey;
+	                var group = [];
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        enumerator = source.GetEnumerator();
+	                        if (enumerator.MoveNext())
+	                        {
+	                            key = keySelector(enumerator.Current());
+	                            compareKey = compareSelector(key);
+	                            group.push(elementSelector(enumerator.Current()));
+	                        }
+	                    },
+	                    function ()
+	                    {
+	                        var hasNext;
+	                        while ((hasNext = enumerator.MoveNext()) == true)
+	                        {
+	                            if (compareKey === compareSelector(keySelector(enumerator.Current())))
+	                            {
+	                                group.push(elementSelector(enumerator.Current()));
+	                            }
+	                            else break;
+	                        }
+	
+	                        if (group.length > 0)
+	                        {
+	                            var result = (hasResultSelector)
+	                                ? resultSelector(key, Enumerable.From(group))
+	                                : resultSelector(key, group);
+	                            if (hasNext)
+	                            {
+	                                key = keySelector(enumerator.Current());
+	                                compareKey = compareSelector(key);
+	                                group = [elementSelector(enumerator.Current())];
+	                            }
+	                            else group = [];
+	
+	                            return this.Yield(result);
+	                        }
+	
+	                        return false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); })
+	            });
+	        },
+	
+	        BufferWithCount: function (count)
+	        {
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	
+	                return new IEnumerator(
+	                function () { enumerator = source.GetEnumerator(); },
+	                function ()
+	                {
+	                    var array = [];
+	                    var index = 0;
+	                    while (enumerator.MoveNext())
+	                    {
+	                        array.push(enumerator.Current());
+	                        if (++index >= count) return this.Yield(array);
+	                    }
+	                    if (array.length > 0) return this.Yield(array);
+	                    return false;
+	                },
+	                function () { Utils.Dispose(enumerator); })
+	            });
+	        },
+	
+	        /* Aggregate Methods */
+	
+	        // Overload:function(func)
+	        // Overload:function(seed,func)
+	        // Overload:function(seed,func,resultSelector)
+	        Aggregate: function (seed, func, resultSelector)
+	        {
+	            return this.Scan(seed, func, resultSelector).Last();
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(selector)
+	        Average: function (selector)
+	        {
+	            selector = Utils.CreateLambda(selector);
+	
+	            var sum = 0;
+	            var count = 0;
+	            this.ForEach(function (x)
+	            {
+	                sum += selector(x);
+	                ++count;
+	            });
+	
+	            return sum / count;
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(predicate)
+	        Count: function (predicate)
+	        {
+	            predicate = (predicate == null) ? Functions.True : Utils.CreateLambda(predicate);
+	
+	            var count = 0;
+	            this.ForEach(function (x, i)
+	            {
+	                if (predicate(x, i)) ++count;
+	            });
+	            return count;
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(selector)
+	        Max: function (selector)
+	        {
+	            if (selector == null) selector = Functions.Identity;
+	            return this.Select(selector).Aggregate(function (a, b) { return (a > b) ? a : b; });
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(selector)
+	        Min: function (selector)
+	        {
+	            if (selector == null) selector = Functions.Identity;
+	            return this.Select(selector).Aggregate(function (a, b) { return (a < b) ? a : b; });
+	        },
+	
+	        MaxBy: function (keySelector)
+	        {
+	            keySelector = Utils.CreateLambda(keySelector);
+	            return this.Aggregate(function (a, b) { return (keySelector(a) > keySelector(b)) ? a : b });
+	        },
+	
+	        MinBy: function (keySelector)
+	        {
+	            keySelector = Utils.CreateLambda(keySelector);
+	            return this.Aggregate(function (a, b) { return (keySelector(a) < keySelector(b)) ? a : b });
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(selector)
+	        Sum: function (selector)
+	        {
+	            if (selector == null) selector = Functions.Identity;
+	            return this.Select(selector).Aggregate(0, function (a, b) { return a + b; });
+	        },
+	
+	        /* Paging Methods */
+	
+	        ElementAt: function (index)
+	        {
+	            var value;
+	            var found = false;
+	            this.ForEach(function (x, i)
+	            {
+	                if (i == index)
+	                {
+	                    value = x;
+	                    found = true;
+	                    return false;
 	                }
 	            });
+	
+	            if (!found) throw new Error("index is less than 0 or greater than or equal to the number of elements in source.");
+	            return value;
+	        },
+	
+	        ElementAtOrDefault: function (index, defaultValue)
+	        {
+	            var value;
+	            var found = false;
+	            this.ForEach(function (x, i)
+	            {
+	                if (i == index)
+	                {
+	                    value = x;
+	                    found = true;
+	                    return false;
+	                }
+	            });
+	
+	            return (!found) ? defaultValue : value;
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(predicate)
+	        First: function (predicate)
+	        {
+	            if (predicate != null) return this.Where(predicate).First();
+	
+	            var value;
+	            var found = false;
+	            this.ForEach(function (x)
+	            {
+	                value = x;
+	                found = true;
+	                return false;
+	            });
+	
+	            if (!found) throw new Error("First:No element satisfies the condition.");
+	            return value;
+	        },
+	
+	        // Overload:function(defaultValue)
+	        // Overload:function(defaultValue,predicate)
+	        FirstOrDefault: function (defaultValue, predicate)
+	        {
+	            if (predicate != null) return this.Where(predicate).FirstOrDefault(defaultValue);
+	
+	            var value;
+	            var found = false;
+	            this.ForEach(function (x)
+	            {
+	                value = x;
+	                found = true;
+	                return false;
+	            });
+	            return (!found) ? defaultValue : value;
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(predicate)
+	        Last: function (predicate)
+	        {
+	            if (predicate != null) return this.Where(predicate).Last();
+	
+	            var value;
+	            var found = false;
+	            this.ForEach(function (x)
+	            {
+	                found = true;
+	                value = x;
+	            });
+	
+	            if (!found) throw new Error("Last:No element satisfies the condition.");
+	            return value;
+	        },
+	
+	        // Overload:function(defaultValue)
+	        // Overload:function(defaultValue,predicate)
+	        LastOrDefault: function (defaultValue, predicate)
+	        {
+	            if (predicate != null) return this.Where(predicate).LastOrDefault(defaultValue);
+	
+	            var value;
+	            var found = false;
+	            this.ForEach(function (x)
+	            {
+	                found = true;
+	                value = x;
+	            });
+	            return (!found) ? defaultValue : value;
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(predicate)
+	        Single: function (predicate)
+	        {
+	            if (predicate != null) return this.Where(predicate).Single();
+	
+	            var value;
+	            var found = false;
+	            this.ForEach(function (x)
+	            {
+	                if (!found)
+	                {
+	                    found = true;
+	                    value = x;
+	                }
+	                else throw new Error("Single:sequence contains more than one element.");
+	            });
+	
+	            if (!found) throw new Error("Single:No element satisfies the condition.");
+	            return value;
+	        },
+	
+	        // Overload:function(defaultValue)
+	        // Overload:function(defaultValue,predicate)
+	        SingleOrDefault: function (defaultValue, predicate)
+	        {
+	            if (predicate != null) return this.Where(predicate).SingleOrDefault(defaultValue);
+	
+	            var value;
+	            var found = false;
+	            this.ForEach(function (x)
+	            {
+	                if (!found)
+	                {
+	                    found = true;
+	                    value = x;
+	                }
+	                else throw new Error("Single:sequence contains more than one element.");
+	            });
+	
+	            return (!found) ? defaultValue : value;
+	        },
+	
+	        Skip: function (count)
+	        {
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var index = 0;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        enumerator = source.GetEnumerator();
+	                        while (index++ < count && enumerator.MoveNext()) { };
+	                    },
+	                    function ()
+	                    {
+	                        return (enumerator.MoveNext())
+	                            ? this.Yield(enumerator.Current())
+	                            : false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); })
+	            });
+	        },
+	
+	        // Overload:function(predicate<element>)
+	        // Overload:function(predicate<element,index>)
+	        SkipWhile: function (predicate)
+	        {
+	            predicate = Utils.CreateLambda(predicate);
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var index = 0;
+	                var isSkipEnd = false;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        while (!isSkipEnd)
+	                        {
+	                            if (enumerator.MoveNext())
+	                            {
+	                                if (!predicate(enumerator.Current(), index++))
+	                                {
+	                                    isSkipEnd = true;
+	                                    return this.Yield(enumerator.Current());
+	                                }
+	                                continue;
+	                            }
+	                            else return false;
+	                        }
+	
+	                        return (enumerator.MoveNext())
+	                            ? this.Yield(enumerator.Current())
+	                            : false;
+	
+	                    },
+	                    function () { Utils.Dispose(enumerator); });
+	            });
+	        },
+	
+	        Take: function (count)
+	        {
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var index = 0;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        return (index++ < count && enumerator.MoveNext())
+	                            ? this.Yield(enumerator.Current())
+	                            : false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); }
+	                )
+	            });
+	        },
+	
+	        // Overload:function(predicate<element>)
+	        // Overload:function(predicate<element,index>)
+	        TakeWhile: function (predicate)
+	        {
+	            predicate = Utils.CreateLambda(predicate);
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var index = 0;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        return (enumerator.MoveNext() && predicate(enumerator.Current(), index++))
+	                            ? this.Yield(enumerator.Current())
+	                            : false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); });
+	            });
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(count)
+	        TakeExceptLast: function (count)
+	        {
+	            if (count == null) count = 1;
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                if (count <= 0) return source.GetEnumerator(); // do nothing
+	
+	                var enumerator;
+	                var q = [];
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        while (enumerator.MoveNext())
+	                        {
+	                            if (q.length == count)
+	                            {
+	                                q.push(enumerator.Current());
+	                                return this.Yield(q.shift());
+	                            }
+	                            q.push(enumerator.Current());
+	                        }
+	                        return false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); });
+	            });
+	        },
+	
+	        TakeFromLast: function (count)
+	        {
+	            if (count <= 0 || count == null) return Enumerable.Empty();
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var sourceEnumerator;
+	                var enumerator;
+	                var q = [];
+	
+	                return new IEnumerator(
+	                    function () { sourceEnumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        while (sourceEnumerator.MoveNext())
+	                        {
+	                            if (q.length == count) q.shift()
+	                            q.push(sourceEnumerator.Current());
+	                        }
+	                        if (enumerator == null)
+	                        {
+	                            enumerator = Enumerable.From(q).GetEnumerator();
+	                        }
+	                        return (enumerator.MoveNext())
+	                            ? this.Yield(enumerator.Current())
+	                            : false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); });
+	            });
+	        },
+	
+	        IndexOf: function (item)
+	        {
+	            var found = null;
+	            this.ForEach(function (x, i)
+	            {
+	                if (x === item)
+	                {
+	                    found = i;
+	                    return true;
+	                }
+	            });
+	
+	            return (found !== null) ? found : -1;
+	        },
+	
+	        LastIndexOf: function (item)
+	        {
+	            var result = -1;
+	            this.ForEach(function (x, i)
+	            {
+	                if (x === item) result = i;
+	            });
+	
+	            return result;
+	        },
+	
+	        /* Convert Methods */
+	
+	        ToArray: function ()
+	        {
+	            var array = [];
+	            this.ForEach(function (x) { array.push(x) });
+	            return array;
+	        },
+	
+	        // Overload:function(keySelector)
+	        // Overload:function(keySelector, elementSelector)
+	        // Overload:function(keySelector, elementSelector, compareSelector)
+	        ToLookup: function (keySelector, elementSelector, compareSelector)
+	        {
+	            keySelector = Utils.CreateLambda(keySelector);
+	            elementSelector = Utils.CreateLambda(elementSelector);
+	            compareSelector = Utils.CreateLambda(compareSelector);
+	
+	            var dict = new Dictionary(compareSelector);
+	            this.ForEach(function (x)
+	            {
+	                var key = keySelector(x);
+	                var element = elementSelector(x);
+	
+	                var array = dict.Get(key);
+	                if (array !== undefined) array.push(element);
+	                else dict.Add(key, [element]);
+	            });
+	            return new Lookup(dict);
+	        },
+	
+	        ToObject: function (keySelector, elementSelector)
+	        {
+	            keySelector = Utils.CreateLambda(keySelector);
+	            elementSelector = Utils.CreateLambda(elementSelector);
+	
+	            var obj = {};
+	            this.ForEach(function (x)
+	            {
+	                obj[keySelector(x)] = elementSelector(x);
+	            });
+	            return obj;
+	        },
+	
+	        // Overload:function(keySelector, elementSelector)
+	        // Overload:function(keySelector, elementSelector, compareSelector)
+	        ToDictionary: function (keySelector, elementSelector, compareSelector)
+	        {
+	            keySelector = Utils.CreateLambda(keySelector);
+	            elementSelector = Utils.CreateLambda(elementSelector);
+	            compareSelector = Utils.CreateLambda(compareSelector);
+	
+	            var dict = new Dictionary(compareSelector);
+	            this.ForEach(function (x)
+	            {
+	                dict.Add(keySelector(x), elementSelector(x));
+	            });
+	            return dict;
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(replacer)
+	        // Overload:function(replacer, space)
+	        ToJSON: function (replacer, space)
+	        {
+	            return JSON.stringify(this.ToArray(), replacer, space);
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(separator)
+	        // Overload:function(separator,selector)
+	        ToString: function (separator, selector)
+	        {
+	            if (separator == null) separator = "";
+	            if (selector == null) selector = Functions.Identity;
+	
+	            return this.Select(selector).ToArray().join(separator);
+	        },
+	
+	
+	        /* Action Methods */
+	
+	        // Overload:function(action<element>)
+	        // Overload:function(action<element,index>)
+	        Do: function (action)
+	        {
+	            var source = this;
+	            action = Utils.CreateLambda(action);
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	                var index = 0;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        if (enumerator.MoveNext())
+	                        {
+	                            action(enumerator.Current(), index++);
+	                            return this.Yield(enumerator.Current());
+	                        }
+	                        return false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); });
+	            });
+	        },
+	
+	        // Overload:function(action<element>)
+	        // Overload:function(action<element,index>)
+	        // Overload:function(func<element,bool>)
+	        // Overload:function(func<element,index,bool>)
+	        ForEach: function (action)
+	        {
+	            action = Utils.CreateLambda(action);
+	
+	            var index = 0;
+	            var enumerator = this.GetEnumerator();
+	            try
+	            {
+	                while (enumerator.MoveNext())
+	                {
+	                    if (action(enumerator.Current(), index++) === false) break;
+	                }
+	            }
+	            finally { Utils.Dispose(enumerator); }
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(separator)
+	        // Overload:function(separator,selector)
+	        Write: function (separator, selector)
+	        {
+	            if (separator == null) separator = "";
+	            selector = Utils.CreateLambda(selector);
+	
+	            var isFirst = true;
+	            this.ForEach(function (item)
+	            {
+	                if (isFirst) isFirst = false;
+	                else document.write(separator);
+	                document.write(selector(item));
+	            });
+	        },
+	
+	        // Overload:function()
+	        // Overload:function(selector)
+	        WriteLine: function (selector)
+	        {
+	            selector = Utils.CreateLambda(selector);
+	
+	            this.ForEach(function (item)
+	            {
+	                document.write(selector(item));
+	                document.write("<br />");
+	            });
+	        },
+	
+	        Force: function ()
+	        {
+	            var enumerator = this.GetEnumerator();
+	
+	            try { while (enumerator.MoveNext()) { } }
+	            finally { Utils.Dispose(enumerator); }
+	        },
+	
+	        /* Functional Methods */
+	
+	        Let: function (func)
+	        {
+	            func = Utils.CreateLambda(func);
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        enumerator = Enumerable.From(func(source)).GetEnumerator();
+	                    },
+	                    function ()
+	                    {
+	                        return (enumerator.MoveNext())
+	                            ? this.Yield(enumerator.Current())
+	                            : false;
+	                    },
+	                    function () { Utils.Dispose(enumerator); })
+	            });
+	        },
+	
+	        Share: function ()
+	        {
+	            var source = this;
+	            var sharedEnumerator;
+	
+	            return new Enumerable(function ()
+	            {
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        if (sharedEnumerator == null)
+	                        {
+	                            sharedEnumerator = source.GetEnumerator();
+	                        }
+	                    },
+	                    function ()
+	                    {
+	                        return (sharedEnumerator.MoveNext())
+	                            ? this.Yield(sharedEnumerator.Current())
+	                            : false;
+	                    },
+	                    Functions.Blank
+	                )
+	            });
+	        },
+	
+	        MemoizeAll: function ()
+	        {
+	            var source = this;
+	            var cache;
+	            var enumerator;
+	
+	            return new Enumerable(function ()
+	            {
+	                var index = -1;
+	
+	                return new IEnumerator(
+	                    function ()
+	                    {
+	                        if (enumerator == null)
+	                        {
+	                            enumerator = source.GetEnumerator();
+	                            cache = [];
+	                        }
+	                    },
+	                    function ()
+	                    {
+	                        index++;
+	                        if (cache.length <= index)
+	                        {
+	                            return (enumerator.MoveNext())
+	                                ? this.Yield(cache[index] = enumerator.Current())
+	                                : false;
+	                        }
+	
+	                        return this.Yield(cache[index]);
+	                    },
+	                    Functions.Blank
+	                )
+	            });
+	        },
+	
+	        /* Error Handling Methods */
+	
+	        Catch: function (handler)
+	        {
+	            handler = Utils.CreateLambda(handler);
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        try
+	                        {
+	                            return (enumerator.MoveNext())
+	                               ? this.Yield(enumerator.Current())
+	                               : false;
+	                        }
+	                        catch (e)
+	                        {
+	                            handler(e);
+	                            return false;
+	                        }
+	                    },
+	                    function () { Utils.Dispose(enumerator); });
+	            });
+	        },
+	
+	        Finally: function (finallyAction)
+	        {
+	            finallyAction = Utils.CreateLambda(finallyAction);
+	            var source = this;
+	
+	            return new Enumerable(function ()
+	            {
+	                var enumerator;
+	
+	                return new IEnumerator(
+	                    function () { enumerator = source.GetEnumerator(); },
+	                    function ()
+	                    {
+	                        return (enumerator.MoveNext())
+	                           ? this.Yield(enumerator.Current())
+	                           : false;
+	                    },
+	                    function ()
+	                    {
+	                        try { Utils.Dispose(enumerator); }
+	                        finally { finallyAction(); }
+	                    });
+	            });
+	        },
+	
+	        /* For Debug Methods */
+	
+	        // Overload:function()
+	        // Overload:function(message)
+	        // Overload:function(message,selector)
+	        Trace: function (message, selector)
+	        {
+	            if (message == null) message = "Trace";
+	            selector = Utils.CreateLambda(selector);
+	
+	            return this.Do(function (item)
+	            {
+	                console.log(message, ":", selector(item));
+	            });
 	        }
+	    }
+	
+	    // private
+	
+	    // static functions
+	    var Functions =
+	    {
+	        Identity: function (x) { return x; },
+	        True: function () { return true; },
+	        Blank: function () { }
+	    }
+	
+	    // static const
+	    var Types =
+	    {
+	        Boolean: typeof true,
+	        Number: typeof 0,
+	        String: typeof "",
+	        Object: typeof {},
+	        Undefined: typeof undefined,
+	        Function: typeof function () { }
+	    }
+	
+	    // static utility methods
+	    var Utils =
+	    {
+	        // Create anonymous function from lambda expression string
+	        CreateLambda: function (expression)
+	        {
+	            if (expression == null) return Functions.Identity;
+	            if (typeof expression == Types.String)
+	            {
+	                if (expression == "")
+	                {
+	                    return Functions.Identity;
+	                }
+	                else if (expression.indexOf("=>") == -1)
+	                {
+	                    return new Function("$,$$,$$$,$$$$", "return " + expression);
+	                }
+	                else
+	                {
+	                    var expr = expression.match(/^[(\s]*([^()]*?)[)\s]*=>(.*)/);
+	                    return new Function(expr[1], "return " + expr[2]);
+	                }
+	            }
+	            return expression;
+	        },
+	
+	        IsIEnumerable: function (obj)
+	        {
+	            if (typeof Enumerator != Types.Undefined)
+	            {
+	                try
+	                {
+	                    new Enumerator(obj);
+	                    return true;
+	                }
+	                catch (e) { }
+	            }
+	            return false;
+	        },
+	
+	        Compare: function (a, b)
+	        {
+	            return (a === b) ? 0
+	                : (a > b) ? 1
+	                : -1;
+	        },
+	
+	        Dispose: function (obj)
+	        {
+	            if (obj != null) obj.Dispose();
+	        }
+	    }
+	
+	    // IEnumerator State
+	    var State = { Before: 0, Running: 1, After: 2 }
+	
+	    // name "Enumerator" is conflict JScript's "Enumerator"
+	    var IEnumerator = function (initialize, tryGetNext, dispose)
+	    {
+	        var yielder = new Yielder();
+	        var state = State.Before;
+	
+	        this.Current = yielder.Current;
+	        this.MoveNext = function ()
+	        {
+	            try
+	            {
+	                switch (state)
+	                {
+	                    case State.Before:
+	                        state = State.Running;
+	                        initialize(); // fall through
+	                    case State.Running:
+	                        if (tryGetNext.apply(yielder))
+	                        {
+	                            return true;
+	                        }
+	                        else
+	                        {
+	                            this.Dispose();
+	                            return false;
+	                        }
+	                    case State.After:
+	                        return false;
+	                }
+	            }
+	            catch (e)
+	            {
+	                this.Dispose();
+	                throw e;
+	            }
+	        }
+	        this.Dispose = function ()
+	        {
+	            if (state != State.Running) return;
+	
+	            try { dispose(); }
+	            finally { state = State.After; }
+	        }
+	    }
+	
+	    // for tryGetNext
+	    var Yielder = function ()
+	    {
+	        var current = null;
+	        this.Current = function () { return current; }
+	        this.Yield = function (value)
+	        {
+	            current = value;
+	            return true;
+	        }
+	    }
+	
+	    // for OrderBy/ThenBy
+	
+	    var OrderedEnumerable = function (source, keySelector, descending, parent)
+	    {
+	        this.source = source;
+	        this.keySelector = Utils.CreateLambda(keySelector);
+	        this.descending = descending;
+	        this.parent = parent;
+	    }
+	    OrderedEnumerable.prototype = new Enumerable();
+	
+	    OrderedEnumerable.prototype.CreateOrderedEnumerable = function (keySelector, descending)
+	    {
+	        return new OrderedEnumerable(this.source, keySelector, descending, this);
+	    }
+	
+	    OrderedEnumerable.prototype.ThenBy = function (keySelector)
+	    {
+	        return this.CreateOrderedEnumerable(keySelector, false);
+	    }
+	
+	    OrderedEnumerable.prototype.ThenByDescending = function (keySelector)
+	    {
+	        return this.CreateOrderedEnumerable(keySelector, true);
+	    }
+	
+	    OrderedEnumerable.prototype.GetEnumerator = function ()
+	    {
+	        var self = this;
+	        var buffer;
+	        var indexes;
+	        var index = 0;
+	
+	        return new IEnumerator(
+	            function ()
+	            {
+	                buffer = [];
+	                indexes = [];
+	                self.source.ForEach(function (item, index)
+	                {
+	                    buffer.push(item);
+	                    indexes.push(index);
+	                });
+	                var sortContext = SortContext.Create(self, null);
+	                sortContext.GenerateKeys(buffer);
+	
+	                indexes.sort(function (a, b) { return sortContext.Compare(a, b); });
+	            },
+	            function ()
+	            {
+	                return (index < indexes.length)
+	                    ? this.Yield(buffer[indexes[index++]])
+	                    : false;
+	            },
+	            Functions.Blank
+	        )
+	    }
+	
+	    var SortContext = function (keySelector, descending, child)
+	    {
+	        this.keySelector = keySelector;
+	        this.descending = descending;
+	        this.child = child;
+	        this.keys = null;
+	    }
+	
+	    SortContext.Create = function (orderedEnumerable, currentContext)
+	    {
+	        var context = new SortContext(orderedEnumerable.keySelector, orderedEnumerable.descending, currentContext);
+	        if (orderedEnumerable.parent != null) return SortContext.Create(orderedEnumerable.parent, context);
+	        return context;
+	    }
+	
+	    SortContext.prototype.GenerateKeys = function (source)
+	    {
+	        var len = source.length;
+	        var keySelector = this.keySelector;
+	        var keys = new Array(len);
+	        for (var i = 0; i < len; i++) keys[i] = keySelector(source[i]);
+	        this.keys = keys;
+	
+	        if (this.child != null) this.child.GenerateKeys(source);
+	    }
+	
+	    SortContext.prototype.Compare = function (index1, index2)
+	    {
+	        var comparison = Utils.Compare(this.keys[index1], this.keys[index2]);
+	
+	        if (comparison == 0)
+	        {
+	            if (this.child != null) return this.child.Compare(index1, index2)
+	            comparison = Utils.Compare(index1, index2);
+	        }
+	
+	        return (this.descending) ? -comparison : comparison;
+	    }
+	
+	    // optimize array or arraylike object
+	
+	    var ArrayEnumerable = function (source)
+	    {
+	        this.source = source;
+	    }
+	    ArrayEnumerable.prototype = new Enumerable();
+	
+	    ArrayEnumerable.prototype.Any = function (predicate)
+	    {
+	        return (predicate == null)
+	            ? (this.source.length > 0)
+	            : Enumerable.prototype.Any.apply(this, arguments);
+	    }
+	
+	    ArrayEnumerable.prototype.Count = function (predicate)
+	    {
+	        return (predicate == null)
+	            ? this.source.length
+	            : Enumerable.prototype.Count.apply(this, arguments);
+	    }
+	
+	    ArrayEnumerable.prototype.ElementAt = function (index)
+	    {
+	        return (0 <= index && index < this.source.length)
+	            ? this.source[index]
+	            : Enumerable.prototype.ElementAt.apply(this, arguments);
+	    }
+	
+	    ArrayEnumerable.prototype.ElementAtOrDefault = function (index, defaultValue)
+	    {
+	        return (0 <= index && index < this.source.length)
+	            ? this.source[index]
+	            : defaultValue;
+	    }
+	
+	    ArrayEnumerable.prototype.First = function (predicate)
+	    {
+	        return (predicate == null && this.source.length > 0)
+	            ? this.source[0]
+	            : Enumerable.prototype.First.apply(this, arguments);
+	    }
+	
+	    ArrayEnumerable.prototype.FirstOrDefault = function (defaultValue, predicate)
+	    {
+	        if (predicate != null)
+	        {
+	            return Enumerable.prototype.FirstOrDefault.apply(this, arguments);
+	        }
+	
+	        return this.source.length > 0 ? this.source[0] : defaultValue;
+	    }
+	
+	    ArrayEnumerable.prototype.Last = function (predicate)
+	    {
+	        return (predicate == null && this.source.length > 0)
+	            ? this.source[this.source.length - 1]
+	            : Enumerable.prototype.Last.apply(this, arguments);
+	    }
+	
+	    ArrayEnumerable.prototype.LastOrDefault = function (defaultValue, predicate)
+	    {
+	        if (predicate != null)
+	        {
+	            return Enumerable.prototype.LastOrDefault.apply(this, arguments);
+	        }
+	
+	        return this.source.length > 0 ? this.source[this.source.length - 1] : defaultValue;
+	    }
+	
+	    ArrayEnumerable.prototype.Skip = function (count)
+	    {
+	        var source = this.source;
+	
+	        return new Enumerable(function ()
+	        {
+	            var index;
+	
+	            return new IEnumerator(
+	                function () { index = (count < 0) ? 0 : count },
+	                function ()
+	                {
+	                    return (index < source.length)
+	                        ? this.Yield(source[index++])
+	                        : false;
+	                },
+	                Functions.Blank);
+	        });
 	    };
 	
-	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    ArrayEnumerable.prototype.TakeExceptLast = function (count)
+	    {
+	        if (count == null) count = 1;
+	        return this.Take(this.source.length - count);
+	    }
+	
+	    ArrayEnumerable.prototype.TakeFromLast = function (count)
+	    {
+	        return this.Skip(this.source.length - count);
+	    }
+	
+	    ArrayEnumerable.prototype.Reverse = function ()
+	    {
+	        var source = this.source;
+	
+	        return new Enumerable(function ()
+	        {
+	            var index;
+	
+	            return new IEnumerator(
+	                function ()
+	                {
+	                    index = source.length;
+	                },
+	                function ()
+	                {
+	                    return (index > 0)
+	                        ? this.Yield(source[--index])
+	                        : false;
+	                },
+	                Functions.Blank)
+	        });
+	    }
+	
+	    ArrayEnumerable.prototype.SequenceEqual = function (second, compareSelector)
+	    {
+	        if ((second instanceof ArrayEnumerable || second instanceof Array)
+	            && compareSelector == null
+	            && Enumerable.From(second).Count() != this.Count())
+	        {
+	            return false;
+	        }
+	
+	        return Enumerable.prototype.SequenceEqual.apply(this, arguments);
+	    }
+	
+	    ArrayEnumerable.prototype.ToString = function (separator, selector)
+	    {
+	        if (selector != null || !(this.source instanceof Array))
+	        {
+	            return Enumerable.prototype.ToString.apply(this, arguments);
+	        }
+	
+	        if (separator == null) separator = "";
+	        return this.source.join(separator);
+	    }
+	
+	    ArrayEnumerable.prototype.GetEnumerator = function ()
+	    {
+	        var source = this.source;
+	        var index = 0;
+	
+	        return new IEnumerator(
+	            Functions.Blank,
+	            function ()
+	            {
+	                return (index < source.length)
+	                    ? this.Yield(source[index++])
+	                    : false;
+	            },
+	            Functions.Blank);
+	    }
+	
+	    // Collections
+	
+	    var Dictionary = (function ()
+	    {
+	        // static utility methods
+	        var HasOwnProperty = function (target, key)
+	        {
+	            return Object.prototype.hasOwnProperty.call(target, key);
+	        }
+	
+	        var ComputeHashCode = function (obj)
+	        {
+	            if (obj === null) return "null";
+	            if (obj === undefined) return "undefined";
+	
+	            return (typeof obj.toString === Types.Function)
+	                ? obj.toString()
+	                : Object.prototype.toString.call(obj);
+	        }
+	
+	        // LinkedList for Dictionary
+	        var HashEntry = function (key, value)
+	        {
+	            this.Key = key;
+	            this.Value = value;
+	            this.Prev = null;
+	            this.Next = null;
+	        }
+	
+	        var EntryList = function ()
+	        {
+	            this.First = null;
+	            this.Last = null;
+	        }
+	        EntryList.prototype =
+	        {
+	            AddLast: function (entry)
+	            {
+	                if (this.Last != null)
+	                {
+	                    this.Last.Next = entry;
+	                    entry.Prev = this.Last;
+	                    this.Last = entry;
+	                }
+	                else this.First = this.Last = entry;
+	            },
+	
+	            Replace: function (entry, newEntry)
+	            {
+	                if (entry.Prev != null)
+	                {
+	                    entry.Prev.Next = newEntry;
+	                    newEntry.Prev = entry.Prev;
+	                }
+	                else this.First = newEntry;
+	
+	                if (entry.Next != null)
+	                {
+	                    entry.Next.Prev = newEntry;
+	                    newEntry.Next = entry.Next;
+	                }
+	                else this.Last = newEntry;
+	
+	            },
+	
+	            Remove: function (entry)
+	            {
+	                if (entry.Prev != null) entry.Prev.Next = entry.Next;
+	                else this.First = entry.Next;
+	
+	                if (entry.Next != null) entry.Next.Prev = entry.Prev;
+	                else this.Last = entry.Prev;
+	            }
+	        }
+	
+	        // Overload:function()
+	        // Overload:function(compareSelector)
+	        var Dictionary = function (compareSelector)
+	        {
+	            this.count = 0;
+	            this.entryList = new EntryList();
+	            this.buckets = {}; // as Dictionary<string,List<object>>
+	            this.compareSelector = (compareSelector == null) ? Functions.Identity : compareSelector;
+	        }
+	
+	        Dictionary.prototype =
+	        {
+	            Add: function (key, value)
+	            {
+	                var compareKey = this.compareSelector(key);
+	                var hash = ComputeHashCode(compareKey);
+	                var entry = new HashEntry(key, value);
+	                if (HasOwnProperty(this.buckets, hash))
+	                {
+	                    var array = this.buckets[hash];
+	                    for (var i = 0; i < array.length; i++)
+	                    {
+	                        if (this.compareSelector(array[i].Key) === compareKey)
+	                        {
+	                            this.entryList.Replace(array[i], entry);
+	                            array[i] = entry;
+	                            return;
+	                        }
+	                    }
+	                    array.push(entry);
+	                }
+	                else
+	                {
+	                    this.buckets[hash] = [entry];
+	                }
+	                this.count++;
+	                this.entryList.AddLast(entry);
+	            },
+	
+	            Get: function (key)
+	            {
+	                var compareKey = this.compareSelector(key);
+	                var hash = ComputeHashCode(compareKey);
+	                if (!HasOwnProperty(this.buckets, hash)) return undefined;
+	
+	                var array = this.buckets[hash];
+	                for (var i = 0; i < array.length; i++)
+	                {
+	                    var entry = array[i];
+	                    if (this.compareSelector(entry.Key) === compareKey) return entry.Value;
+	                }
+	                return undefined;
+	            },
+	
+	            Set: function (key, value)
+	            {
+	                var compareKey = this.compareSelector(key);
+	                var hash = ComputeHashCode(compareKey);
+	                if (HasOwnProperty(this.buckets, hash))
+	                {
+	                    var array = this.buckets[hash];
+	                    for (var i = 0; i < array.length; i++)
+	                    {
+	                        if (this.compareSelector(array[i].Key) === compareKey)
+	                        {
+	                            var newEntry = new HashEntry(key, value);
+	                            this.entryList.Replace(array[i], newEntry);
+	                            array[i] = newEntry;
+	                            return true;
+	                        }
+	                    }
+	                }
+	                return false;
+	            },
+	
+	            Contains: function (key)
+	            {
+	                var compareKey = this.compareSelector(key);
+	                var hash = ComputeHashCode(compareKey);
+	                if (!HasOwnProperty(this.buckets, hash)) return false;
+	
+	                var array = this.buckets[hash];
+	                for (var i = 0; i < array.length; i++)
+	                {
+	                    if (this.compareSelector(array[i].Key) === compareKey) return true;
+	                }
+	                return false;
+	            },
+	
+	            Clear: function ()
+	            {
+	                this.count = 0;
+	                this.buckets = {};
+	                this.entryList = new EntryList();
+	            },
+	
+	            Remove: function (key)
+	            {
+	                var compareKey = this.compareSelector(key);
+	                var hash = ComputeHashCode(compareKey);
+	                if (!HasOwnProperty(this.buckets, hash)) return;
+	
+	                var array = this.buckets[hash];
+	                for (var i = 0; i < array.length; i++)
+	                {
+	                    if (this.compareSelector(array[i].Key) === compareKey)
+	                    {
+	                        this.entryList.Remove(array[i]);
+	                        array.splice(i, 1);
+	                        if (array.length == 0) delete this.buckets[hash];
+	                        this.count--;
+	                        return;
+	                    }
+	                }
+	            },
+	
+	            Count: function ()
+	            {
+	                return this.count;
+	            },
+	
+	            ToEnumerable: function ()
+	            {
+	                var self = this;
+	                return new Enumerable(function ()
+	                {
+	                    var currentEntry;
+	
+	                    return new IEnumerator(
+	                        function () { currentEntry = self.entryList.First },
+	                        function ()
+	                        {
+	                            if (currentEntry != null)
+	                            {
+	                                var result = { Key: currentEntry.Key, Value: currentEntry.Value };
+	                                currentEntry = currentEntry.Next;
+	                                return this.Yield(result);
+	                            }
+	                            return false;
+	                        },
+	                        Functions.Blank);
+	                });
+	            }
+	        }
+	
+	        return Dictionary;
+	    })();
+	
+	    // dictionary = Dictionary<TKey, TValue[]>
+	    var Lookup = function (dictionary)
+	    {
+	        this.Count = function ()
+	        {
+	            return dictionary.Count();
+	        }
+	
+	        this.Get = function (key)
+	        {
+	            return Enumerable.From(dictionary.Get(key));
+	        }
+	
+	        this.Contains = function (key)
+	        {
+	            return dictionary.Contains(key);
+	        }
+	
+	        this.ToEnumerable = function ()
+	        {
+	            return dictionary.ToEnumerable().Select(function (kvp)
+	            {
+	                return new Grouping(kvp.Key, kvp.Value);
+	            });
+	        }
+	    }
+	
+	    var Grouping = function (key, elements)
+	    {
+	        this.Key = function ()
+	        {
+	            return key;
+	        }
+	
+	        ArrayEnumerable.call(this, elements);
+	    }
+	    Grouping.prototype = new ArrayEnumerable();
+	
+	    // out to global
+	    return Enumerable;
+	})()
 
-/***/ },
+/***/ }),
 
-/***/ 247:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 263:
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(248)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(264)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	        "use strict";
 	        var PICKER_SELECTOR = "#month-picker";
 	
@@ -3953,10 +6970,10 @@ webpackJsonp([53],{
 	        };
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 248:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 264:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
 	/*
@@ -4764,67 +7781,855 @@ webpackJsonp([53],{
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 254:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 270:
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(255)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(271)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
 	    "use strict";
 	    $(PlatformWinLoss.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 255:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 271:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
 	    __webpack_require__(1),
 	    __webpack_require__(8),
-	    __webpack_require__(7), __webpack_require__(236),
-	    __webpack_require__(256),
-	    __webpack_require__(193),
-	    __webpack_require__(247),
-	    __webpack_require__(244),
-	    __webpack_require__(196),
-	    __webpack_require__(197)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect) {
+	    __webpack_require__(7),
+	    __webpack_require__(253),
+	    __webpack_require__(272),
+	    __webpack_require__(206),
+	    __webpack_require__(263),
+	    __webpack_require__(227),
+	    __webpack_require__(9),
+	    __webpack_require__(209),
+	    __webpack_require__(210),
+	    __webpack_require__(229),
+	    __webpack_require__(260)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup) {
 	        "use strict";
+	
+	        var BETLIST_IGNORED_PRODUCTS = ["AB"];
+	        var platforms = {};
+	
+	        var _cacheData = [];
+	        var _submitData = {}; // cache submit data of level 0
+	        var _drilldownData = {};
+	
+	        var gridControl = {
+	            level: 0,
+	            pageSize: 50,
+	            sortColumnName: null,
+	            sortOrder: "desc",
+	            removerSorting: true
+	        };
+	
+	        function initEvent() {
+	            $('#SubmitButton').click(function () {
+	                gridControl.removeSorting = true;
+	                submit();
+	            });
+	
+	            $("body").on("click", ".drilldown", function () {
+	                var dataDrillDown = $.parseJSON($(this).attr("data-drill-down"));
+	                drillDown(dataDrillDown);
+	            });
+	
+	            $("body").on("click", ".bet-list-link", function () {
+	                var dataDrillDown = $.parseJSON($(this).attr("data-drill-down"));
+	                openBetlistPopUp(dataDrillDown);
+	            });
+	
+	            $("#level-link-container").on("click", ".level-link", function () {
+	                var level = Number($(this).attr("data-level"));
+	                gridControl.level = level;
+	                if (level === 0) {
+	                    goBackLevel0();
+	                }
+	            });
+	
+	            $('#ExportToExcel').click(function () {
+	                var data = gridControl.level === 0 ? Site.clone(_submitData) : Site.clone(_drilldownData);
+	                data.IsExportExcel = true;
+	                data.Level = gridControl.level;
+	                Site.exportExcel(data, Site.resolveClientUrl(PlatformWinLossOption.urlExcelData));
+	                return false;
+	            });
+	        }
+	
+	        function initSetting() {
+	            gridControl.pageSize = PlatformWinLossOption.pageSize;
+	            PlatformWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
+	            PlatformWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+	
+	            PlatformWinLossOption.gridOption.onSortCol = function (index) {
+	                Site.blockUI();
+	                gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
+	                window.setTimeout(function () {
+	                    gridControl.removeSorting = false;
+	                    if (gridControl.sortColumnName === index) {
+	                        gridControl.sortOrder = gridControl.sortOrder === "asc" ? "desc" : "asc";
+	                    } else {
+	                        gridControl.sortOrder = "asc";
+	                        gridControl.sortColumnName = index;
+	                    }
+	
+	                    _cacheData[gridControl.level].Data = sortData(_cacheData[gridControl.level].Data);
+	
+	                    bindData(gridControl.level, _cacheData[gridControl.level], _drilldownData.ProductList);
+	
+	                    Site.unBlockUI();
+	                }, 100);
+	                return 'stop';
+	            };
+	        }
+	
+	        function submit() {
+	            var validProduct = Report.ValidProducts();
+	            if (!validProduct) {
+	                return false;
+	            }
+	
+	            gridControl.level = 0;
+	            var data = $("#platformwinloss").serializeObject();
+	            data.Level = gridControl.level;
+	            Report.CleanProductOptions(data, Number($("#ProductListCount").val()));
+	
+	            $.ajax({
+	                type: "POST",
+	                data: data,
+	                dataType: "json",
+	                cache: false,
+	                url: Site.resolveClientUrl(PlatformWinLossOption.urlData),
+	                success: function (response) {
+	                    _submitData = {
+	                        FromDay: data.FromDay,
+	                        ToDay: data.ToDay,
+	                        Month: data.Month,
+	                        Year: data.Year,
+	                        DrawFilter: data.DrawFilter,
+	                        PlatformType: data.PlatformType,
+	                        CurrencyId: data.CurrencyId,
+	                        FromDate: new Date(data.FromDate),
+	                        ToDate: new Date(data.ToDate),
+	                        CurrencyName: data.CurrencyName,
+	                        IsExcludeTest: data.IsExcludeTest,
+	                        BaseCurrency: data.BaseCurrency,
+	                        ProductList: data.ProductList
+	                    };
+	                    _cacheData[gridControl.level] = response;
+	                    setReportTitle(_submitData);
+	                    Report.renderBreadCrumb(gridControl.level, PlatformWinLossOption.licenseeId);
+	                    bindData(gridControl.level, response, _submitData.ProductList);
+	                },
+	                beforeSend: Site.blockUI,
+	                complete: Site.unBlockUI
+	            });
+	
+	            return true;
+	        }
+	
+	        function bindData(level, response, productList) {
+	            jqGridAdditional.clearGrid("ReportGrid");
+	
+	            var numOfRow = response.Data.length;
+	            if (numOfRow === 0) {
+	                jqGridAdditional.setNoInfo();
+	                return;
+	            }
+	
+	            var reportGrid = $("#ReportGrid");
+	            var onPaging = false;
+	            var gridOption = PlatformWinLossOption.getGridOption(level, productList);
+	            gridOption.datastr = response.Data;
+	            gridOption.rowNum = level === 1 ? gridControl.pageSize : -1;;
+	            gridOption.treeGrid = level === 0;
+	            gridOption.onPaging = function (pgButton) {
+	                gridControl.pageSize = Number($("#ReportGrid").getGridParam("rowNum"));
+	
+	                if (numOfRow > PlatformWinLossOption.pageSize) {
+	                    onPaging = true;
+	                    if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
+	                        Site.blockUI();
+	                    }
+	                }
+	                else {
+	                    return 'stop';
+	                }
+	            };
+	            gridOption.gridComplete = function () {
+	                jqGridAdditional.gridComplete();
+	
+	                if (level === 1 && numOfRow > PlatformWinLossOption.pageSize) {
+	                    $("#pg_ppdata").show();
+	                }
+	                else {
+	                    $("#pg_ppdata").hide();
+	                }
+	
+	                if (onPaging) {
+	                    $(".ui-jqgrid-ftable").html($("#footer").html());
+	                }
+	                else {
+	                    bindTotal(level, response.Total, response.SummaryTotal);
+	                    $("#footer").html($(".ui-jqgrid-ftable").html());
+	                }
+	
+	                onPaging = false;
+	                resizeGrid();
+	
+	                if (gridControl.level === 0) {
+	                    $("th[role='columnheader']").find("div").removeClass("ui-jqgrid-sortable");
+	                }
+	
+	                Site.unBlockUI();
+	            };
+	
+	            reportGrid.jqGrid(gridOption);
+	
+	            /*group header*/
+	            if (PlatformWinLossOption.hasCustomerComm) {
+	                jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
+	            }
+	
+	            if (level === 1 && !gridControl.removeSorting) {
+	                jqGridAdditional.addSortableHeader(reportGrid, gridControl.sortColumnName, gridControl.sortOrder);
+	            }
+	        }
+	
+	        function bindTotal(level, totalData, summaryTotal) {
+	            var columnModel = PlatformWinLossOption.getColModel(level, _submitData.ProductList);
+	
+	            if (level === 0) {
+	                jqGridAdditional.assignTotal(totalData, columnModel);
+	                jqGridAdditional.setGroupFooters(1);
+	            }
+	            else {
+	                var colspan = PlatformWinLossOption.totalColspan[level];
+	
+	                var summaryColspan = colspan + 1;
+	                jqGridAdditional.assignTotal(totalData, columnModel);
+	
+	                var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
+	                jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
+	            }
+	        }
+	
+	        function setReportTitle(data) {
+	            var titlePattern = Site.getSingleResource('PlatformWinLoss')
+	                + ', {0} → {1} - {2} - {3} - '
+	                + Site.getSingleResource('Platform') + ': {4}{5}';
+	
+	            var selectedCurrency = $('#CurrencyId option[value="' + data.CurrencyId + '"]').text();
+	            var currencyText = data.CurrencyId === "0" ?
+	                Site.getSingleResource('AllCurrencies') :
+	                Site.getSingleResource('Currency') + " " + selectedCurrency;
+	
+	            var viewinKey = Site.getSingleResource("Viewin");
+	            var baseCurrency = {
+	                "gbp": viewinKey.replace("{0}", "GBP"),
+	                "usd": viewinKey.replace("{0}", "USD"),
+	                "eur": viewinKey.replace("{0}", "EUR")
+	            };
+	            var baseCurrencyKey = $('#BaseCurrency').val();
+	            var baseCurrencyText = baseCurrency[baseCurrencyKey] === undefined
+	                ? viewinKey.replace("{0}", selectedCurrency)
+	                : baseCurrency[baseCurrencyKey];
+	
+	            var platformName = platforms[data.PlatformType];
+	
+	            var productText = Site.getSingleResource('Product') + ': ';
+	            productText = (data.ProductList && data.ProductList.length === 1) ?
+	                productText + data.ProductList[0] :
+	                getProductText(data.ProductList);
+	
+	            var title = $.format(titlePattern, _submitData.FromDate.toStringFormat("MM/dd/yyyy"), _submitData.ToDate.toStringFormat("MM/dd/yyyy"),
+	                        currencyText, baseCurrencyText, platformName, ', ' + productText);
+	
+	            $(".report-title").html(title);
+	            $(".panel-heading").removeClass("hide");
+	        }
+	
+	        function drillDown(data) {
+	            gridControl.level = 1;
+	            gridControl.pageSize = PlatformWinLossOption.pageSize;
+	
+	            var productList;
+	            if (data.ProductCode) {
+	                productList = [data.ProductCode];
+	            }
+	            else {
+	                productList = _submitData.ProductList;
+	            }
+	
+	            _drilldownData =
+	            {
+	                Level: gridControl.level,
+	                FromDay: _submitData.FromDay,
+	                ToDay: _submitData.ToDay,
+	                Month: _submitData.Month,
+	                Year: _submitData.Year,
+	                FromDate: _submitData.FromDate,
+	                ToDate: _submitData.ToDate,
+	                ProductList: productList,
+	                PlatformType: data.PlatformType,
+	                DrawFilter: _submitData.DrawFilter,
+	                IsExcludeTest: _submitData.IsExcludeTest,
+	                CurrencyId: _submitData.CurrencyId,
+	                BaseCurrency: _submitData.BaseCurrency,
+	                CurrencyName: _submitData.CurrencyName
+	            };
+	            $.ajax({
+	                type: "POST",
+	                data: _drilldownData,
+	                dataType: "json",
+	                cache: false,
+	                url: Site.resolveClientUrl(PlatformWinLossOption.urlData),
+	                success: function (response) {
+	                    _cacheData[gridControl.level] = response;
+	                    setReportTitle(_drilldownData);
+	                    Report.renderBreadCrumb(gridControl.level, PlatformWinLossOption.licenseeId);
+	                    bindData(gridControl.level, response, productList);
+	                },
+	                beforeSend: Site.blockUI,
+	                complete: Site.unBlockUI
+	            });
+	        }
+	
+	        function openBetlistPopUp(dataDrillDown) {
+	            var url = Site.resolveClientUrl("PlatformWinLossBetList/Index");
+	
+	            url = QueryString.setParams(url, {
+	                fromdate: _submitData.FromDate.toStringFormat("MM/dd/yyyy"),
+	                todate: _submitData.ToDate.toStringFormat("MM/dd/yyyy"),
+	                PlatformType: _drilldownData.PlatformType,
+	                excludetest: _drilldownData.IsExcludeTest,
+	                CurrencyId: dataDrillDown.DrillDownCurrencyId,
+	                CurrencyName: dataDrillDown.DrillDownCurrencyName,
+	                drawfilter: _submitData.DrawFilter,
+	                custid: dataDrillDown.CustomerId,
+	                systemId: dataDrillDown.SystemId,
+	                externalId: dataDrillDown.ExternalId,
+	                BaseCurrency: _submitData.BaseCurrency
+	            });
+	
+	            var count = 0;
+	            for (var i = 0; i < _drilldownData.ProductList.length; i++) {
+	                var product = _drilldownData.ProductList[i];
+	                if ($.inArray(product, BETLIST_IGNORED_PRODUCTS)) {
+	                    url = Site.setProductOptionParam(url, count, product, true);
+	                    count++;
+	                }
+	            }
+	
+	            var popH = Math.min($(window).height() - 100, 650), popW = 920;
+	            var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
+	            Popup.openPopupWithIframe(url, popupOption);
+	        }
+	
+	        function goBackLevel0() {
+	            Report.renderBreadCrumb(0, PlatformWinLossOption.licenseeId);
+	            bindData(0, _cacheData[0], _submitData.ProductList);
+	        }
+	
+	        function sortData(arrayData) {
+	            var data = gridControl.sortOrder === "asc" ?
+	                Enumerable.From(arrayData).OrderBy(function (x) {
+	                    return x[gridControl.sortColumnName];
+	                }).ToArray()
+	                : Enumerable.From(arrayData).OrderByDescending(function (x) {
+	                    return x[gridControl.sortColumnName];
+	                }).ToArray();
+	
+	            for (var i = 0; i < data.length; i++) {
+	                data[i].Index = i + 1;
+	            }
+	
+	            return data;
+	        }
+	
+	        function getProductText(productList) {
+	            var productTitle = Site.getSingleResource("Product") + ": ";
+	            var allProductCount = Number($("#ProductListCount").val());
+	
+	            if (productList.length === allProductCount) {
+	                return productTitle + Site.getSingleResource('All');
+	            }
+	
+	            var productText = "";
+	            $.each(productList, function (index, item) {
+	                productText += productText.length === 0 ? item : ", " + item;
+	            });
+	
+	            return productTitle + productText;
+	        }
+	
+	        function resizeGrid() {
+	            var reportGrid = $("#ReportGrid");
+	            jqGridAdditional.updateGridHeight();
+	            jqGridAdditional.updateGridWidth(reportGrid);
+	        }
 	
 	        var _me = {
 	            initialize: function () {
 	                Site.initialize();
-	                _me.initEvent();
-	                _me.initSetting();
-	
 	                Site.addUserGuide({
 	                    resourceName: "PlatformWinLoss",
 	                    title: Site.getSingleResource("PlatformWinLoss")
 	                });
 	
-	                MultiSelect.initialize('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+	                initEvent();
+	                initSetting();
+	
+	                MultiSelect.initProductList();
 	                MonthPicker.initMonthPicker();
+	
+	                platforms = {
+	                    "0": Site.getSingleResource("All"),
+	                    "1": Site.getSingleResource("Asia"),
+	                    "2": Site.getSingleResource("NewAsia"),
+	                    "3": Site.getSingleResource("Euro"),
+	                    "4": Site.getSingleResource("Wap"),
+	                    "5": Site.getSingleResource("SmartSite")
+	                };
+	
+	                $(window).on("resize", function () {
+	                    resizeGrid();
+	                });
+	
+	                $(window).on("unload", function () {
+	                    $(window).off("resize");
+	                });
+	            },
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 272:
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
+	/*
+	* Note:in this report, parameter level have 2 value
+	*  "0" for master and "1" for member
+	*/
+	
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(206), __webpack_require__(260)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
+	        "use strict";
+	        var BA_PRODUCTCODE = "BA";
+	        var RB_PRODUCTCODE = "RB";
+	
+	        var betlistLink = function (cellvalue, options, rowObject) {
+	            var param =
+	            {
+	                DrillDownCurrencyId: rowObject.CurrencyId,
+	                DrillDownCurrencyName: rowObject.CurrencyName,
+	                CustomerId: rowObject.CustomerId,
+	                ExternalId: rowObject.ExternalId,
+	                SystemId: rowObject.SystemId
+	            };
+	            return "<a class='bet-list-link' href='javascript:;' data-drill-down=" + JSON.stringify(param) + ">" + cellvalue + "</a>";
+	        };
+	        var drilldownLink = function (cellvalue, options, rowObject) {
+	            var param =
+	            {
+	                PlatformType: rowObject.PlatformType > 0 ? rowObject.PlatformType : Number(rowObject.Parent),
+	                ProductCode: rowObject.PlatformType < 0 ? rowObject.ProductCode : undefined
+	            };
+	
+	            return "<a class='drilldown' href='javascript:;' data-drill-down=" + JSON.stringify(param) + ">" + cellvalue + "</a>";
+	        };
+	        var idColumn = {
+	            name: "PlatformType",
+	            index: "PlatformType",
+	            key: true,
+	            hidden: true,
+	            align: "center"
+	        };
+	        var platformNameColumn = {
+	            name: "Name",
+	            index: "Name",
+	            width: 120,
+	            align: "left",
+	            valign: "middle",
+	            sortable: false,
+	            resizable: false,
+	            formatter: drilldownLink
+	        };
+	        var indexColumn = {
+	            name: "Index",
+	            index: "Index",
+	            width: 60,
+	            align: "center",
+	            valign: "middle",
+	            sortable: false,
+	            resizable: false,
+	            cellattr: jqGridAdditional.rowSpanSetting
+	        };
+	        var externalIdColumn = {
+	            name: "ExternalId",
+	            index: "ExternalId",
+	            width: 85,
+	            align: "left",
+	            sortable: true,
+	            resizable: false,
+	            formatter: betlistLink
+	        };
+	        var systemIdColumn = {
+	            name: "SystemId",
+	            index: "SystemId",
+	            width: 120,
+	            align: "left",
+	            sortable: true,
+	            resizable: false,
+	            formatter: betlistLink
+	        };
+	        var currencyColumn = {
+	            name: "CurrencyName",
+	            index: "CurrencyName",
+	            width: 60,
+	            align: "center",
+	            sortable: true,
+	            resizable: false
+	        };
+	        var turnoverColumn = {
+	            name: "Turnover",
+	            index: "Turnover",
+	            resizable: false,
+	            width: 85,
+	            align: "right",
+	            sortable: true,
+	            formatter: "currency",
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	        var turnoverPercentColumn = {
+	            name: "TurnoverPercent",
+	            index: "TurnoverPercent",
+	            resizable: false,
+	            width: 85,
+	            align: "right",
+	            sortable: true,
+	            formatter: "currency",
+	            formatoptions: { decimalPlaces: 2, suffix: "%" }
+	        };
+	        var totalTransColumn = {
+	            name: "TotalTransactions",
+	            index: "TotalTransactions",
+	            width: 95,
+	            align: "right",
+	            sortable: true,
+	            resizable: false,
+	            formatter: "integer",
+	            frozen: true,
+	            formatoptions:
+	            {
+	                thousandsSeparator: ","
+	            }
+	        };
+	        var customerWlColumn = {
+	            name: "CustomerWinLoss",
+	            index: "CustomerWinLoss",
+	            width: 90,
+	            align: "right",
+	            sortable: true,
+	            resizable: false,
+	            frozen: true,
+	            formatter: jqGridAdditional.formatDecimal
+	        };
+	        var playerCommColumn = {
+	            name: "CustomerComm",
+	            index: "CustomerComm",
+	            width: 50,
+	            align: "right",
+	            sortable: true,
+	            resizable: false,
+	            frozen: true,
+	            formatter: jqGridAdditional.formatDecimal
+	        };
+	        var customerWlTotalColumn = {
+	            name: "CustomerTotal",
+	            index: "CustomerTotal",
+	            width: 90,
+	            align: "right",
+	            sortable: true,
+	            resizable: false,
+	            frozen: true,
+	            formatter: jqGridAdditional.formatDecimal
+	        };
+	        var licenseeWlColumn = {
+	            name: "LicenseeWL",
+	            index: "LicenseeWL",
+	            width: 85,
+	            align: "right",
+	            sortable: true,
+	            resizable: false,
+	            frozen: true,
+	            title: true,
+	            formatter: jqGridAdditional.formatLicenseeWl
+	        };
+	        var baCommissionColumn = {
+	            name: "BACommission",
+	            index: "BACommission",
+	            width: 70,
+	            align: "right",
+	            sortable: true,
+	            resizable: false,
+	            formatter: "currency",
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	        var racingRevenueColumn = {
+	            name: "RacingRevenue",
+	            index: "RacingRevenue",
+	            width: 70,
+	            align: "right",
+	            sortable: true,
+	            resizable: false,
+	            formatter: "currency",
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	        var amtDueToBaColumn = {
+	            name: "AmtDueToBA",
+	            index: "AmtDueToBA",
+	            width: 60,
+	            align: "right",
+	            sortable: true,
+	            resizable: false,
+	            formatter: "currency",
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	        var amtDueToRacingColumn = {
+	            name: "AmtDueToRacing",
+	            index: "AmtDueToRacing",
+	            width: 70,
+	            align: "right",
+	            sortable: true,
+	            resizable: false,
+	            formatter: "currency",
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	        var currencyIdColumn = {
+	            name: "CurrencyId",
+	            index: "CurrencyId",
+	            width: 0,
+	            align: "center",
+	            sortable: false,
+	            resizable: false,
+	            hidden: true
+	        };
+	        var customerIdColumn = {
+	            name: "CustomerId",
+	            index: "CustomerId",
+	            width: 0,
+	            align: "center",
+	            sortable: false,
+	            resizable: false,
+	            hidden: true
+	        };
+	        var columnConfigLevel0 = {
+	            colNames: [           
+	                "Platform",
+	                "Turnover",
+	                "%Turnover",
+	                "TotalTransaction",
+	                "LicenseeW_L",
+	                "Id",
+	                "CurrencyId",
+	                "CustomerId"],
+	            colModels: [              
+	                platformNameColumn,
+	                turnoverColumn,
+	                turnoverPercentColumn,
+	                totalTransColumn,
+	                licenseeWlColumn,
+	                idColumn,
+	                currencyIdColumn,
+	                customerIdColumn]
+	        };
+	        var columnConfigLevel1 = {
+	            colNames: [               
+	                "#",
+	                "ExternalId",
+	                "SystemId",
+	                "Currency",
+	                "Turnover",
+	                "TotalTransaction",
+	                "LicenseeW_L",
+	                "Id",
+	                "CurrencyId",
+	                "CustomerId"],
+	            colModels: [               
+	                indexColumn,
+	                externalIdColumn,
+	                systemIdColumn,
+	                currencyColumn,
+	                turnoverColumn,
+	                totalTransColumn,
+	                licenseeWlColumn,
+	                idColumn,
+	                currencyIdColumn,
+	                customerIdColumn]
+	        };
+	        var columnConfigCustomerComm = {
+	            colsCustomerComm: {
+	                colNames: ["@[Win]/@[Loss]", "Comm", "Total"],
+	                colModels: [customerWlColumn, playerCommColumn, customerWlTotalColumn]
+	            },
+	            colsWithoutComm: {
+	                colNames: ["Customer W/L"],
+	                colModels: [customerWlTotalColumn]
+	            }
+	        };
+	        var columnConfigBA = {
+	            colNames: ["BA<br/>@[Commission]", "@[AmtDueToBA]"],
+	            colModels: [baCommissionColumn, amtDueToBaColumn]
+	        };
+	        var columnConfigRB = {
+	            colNames: ["@[RacingRevenue]", "@[AmtDueToRacing]"],
+	            colModels: [racingRevenueColumn, amtDueToRacingColumn]
+	        };
+	
+	        function getColConfigLevel0(cols, customerWL) {
+	            var customerWlIndex = 3;
+	
+	            customerWL.forEach(function (item) {
+	                cols.insertAfter(item, customerWlIndex);
+	                ++customerWlIndex;
+	            });
+	
+	            return cols;
+	        }
+	
+	        function getColConfigLevel1(cols, customerWL, colsBA, colsRB) {
+	            var customerWlIndex = 5;
+	            customerWL.forEach(function (item) {
+	                cols.insertAfter(item, customerWlIndex);
+	                ++customerWlIndex;
+	            });
+	
+	            if (colsBA != null) {
+	                var bAIndex = customerWlIndex + 1;
+	                colsBA.forEach(function (item) {
+	                    cols.insertAfter(item, bAIndex);
+	                    ++bAIndex;
+	                });
+	            }
+	
+	            if (colsRB != null) {
+	                var rBIndex = colsBA != null ? customerWlIndex + 2 : customerWlIndex + 1;
+	                colsRB.forEach(function (item) {
+	                    cols.insertAfter(item, rBIndex);
+	                    rBIndex = colsBA != null ? rBIndex + 2 : rBIndex + 1;
+	                });
+	            }
+	
+	            return cols;
+	        }
+	
+	        function isProductChecked(productList, productCode) {
+	            var length = productList.length;
+	
+	            for (var i = 0; i < length; i++) {
+	                if (productList[i] === productCode) {
+	                    return true;
+	                }
+	            }
+	
+	            return false;
+	        }
+	
+	        var _me = {
+	            licenseeId: 0,
+	            hasCustomerComm: true,
+	            pageSize: 50,         
+	            totalColspan: [0, 4],
+	            urlData: "api/PlatformWinLossReport/Index",
+	            urlExcelData: "api/PlatformWinLossReport/Index",
+	            gridOption: {
+	                datatype: "jsonstring",
+	                colNames: [],
+	                colModel: [],
+	                data: [],
+	                viewrecords: true,
+	                height: "100%",
+	                autowidth: false,
+	                forceFit: false,
+	                shrinkToFit: true,
+	                loadtext: "loading...",
+	                loadui: "disable",
+	                loadonce: true,
+	                gridview: true,
+	                footerrow: true,
+	                cmTemplate: { title: true }, //enable tooltip
+	                treeGrid: true,
+	                treeGridModel: "adjacency",
+	                treedatatype: "local",
+	                ExpandColumn: "Name",
+	                treeReader: {
+	                    level_field: "Level",       // jshint ignore:line
+	                    parent_id_field: "Parent",  // jshint ignore:line
+	                    leaf_field: "IsLeaf"        // jshint ignore:line
+	                },
+	                treeIcons: {plus:"ui-icon-circlesmall-plus icon-arrow", minus:"ui-icon-circlesmall-minus icon-arrow", leaf:""},
+	                pager: "#ppdata",
+	                rowNum: 50,
+	                rowList: [50, 100, 200, 300, 400, 500, 1000, 2000]
 	            },
 	
-	            initEvent: function () {
+	            getColName: function (level, productList) {
+	                var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colNames : columnConfigCustomerComm.colsWithoutComm.colNames;
+	
+	                if (level === 0) {                  
+	                    return Site.getResources(getColConfigLevel0(Site.clone(columnConfigLevel0.colNames), customerWL));
+	                }
+	
+	                var allowedBa = isProductChecked(productList, BA_PRODUCTCODE);
+	                var allowedRacing = isProductChecked(productList, RB_PRODUCTCODE);
+	                var colsBA = allowedBa ? columnConfigBA.colNames : null;
+	                var colsRB = allowedRacing ? columnConfigRB.colNames : null;
+	
+	                return Site.getResources(getColConfigLevel1(Site.clone(columnConfigLevel1.colNames), customerWL, colsBA, colsRB));
 	            },
 	
-	            initSetting: function () {
+	            getColModel: function (level, productList) {
+	                var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colModels : columnConfigCustomerComm.colsWithoutComm.colModels;
+	
+	                if (level === 0) {
+	                    var colModels = getColConfigLevel0(Site.clone(columnConfigLevel0.colModels), customerWL);
+	
+	                    colModels.forEach(function (item) {
+	                        item.sortable = false;
+	                    });
+	
+	                    return colModels;
+	                }
+	
+	                var allowedBa = isProductChecked(productList, BA_PRODUCTCODE);
+	                var allowedRacing = isProductChecked(productList, RB_PRODUCTCODE);
+	                var colsBA = allowedBa ? columnConfigBA.colModels : null;
+	                var colsRB = allowedRacing ? columnConfigRB.colModels : null;
+	
+	                return getColConfigLevel1(Site.clone(columnConfigLevel1.colModels), customerWL, colsBA, colsRB);
+	            },
+	
+	            getGridOption: function (level, productList) {
+	                _me.gridOption.colNames = _me.getColName(level, productList);
+	                _me.gridOption.colModel = _me.getColModel(level, productList);
+	
+	                return _me.gridOption;
 	            }
 	        };
 	
 	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
-
-/***/ 256:
-/***/ function(module, exports) {
-
-
-
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=platformwinloss.chunk.js.map

@@ -215,7 +215,38 @@
   .breadcrumb.flat a.active:hover {
     background: #4C6375; }
 
+.sortable {
+  cursor: pointer; }
+  .sortable:hover .sort-heading {
+    text-decoration: underline; }
+
+.sorted-heading {
+  text-decoration: underline; }
+
+.sort-icon {
+  display: inline-block;
+  margin-left: 4px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent; }
+  .sort-icon-asc {
+    border-bottom: 5px solid #2c3d4b; }
+    .sort-icon-asc.light {
+      border-bottom-color: #fff; }
+  .sort-icon-desc {
+    border-top: 5px solid #2c3d4b; }
+    .sort-icon-desc.light {
+      border-top-color: #fff; }
+
 .platform-data-info {
   margin-top: 20px; }
+
+.ui-icon-circlesmall-plus {
+  transform: rotate(-90deg); }
+
+.ui-jqgrid .tree-wrap-ltr {
+  float: right; }
+
+.cell-wrapperleaf {
+  padding-left: 18px; }
 
 /*# sourceMappingURL=platformwinloss.css.map*/

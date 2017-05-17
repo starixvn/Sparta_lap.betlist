@@ -213,47 +213,78 @@
     min-width: 65px;
     border: 1px solid #e2d6d6; }
 
-.decimal-odds {
-  color: #850012; }
+input[type="checkbox"] {
+  position: absolute;
+  left: -9999px;
+  opacity: 0; }
+  input[type="checkbox"] + label {
+    position: relative;
+    padding-left: 20px;
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    font-size: 13px;
+    color: #2c2c2c;
+    top: 10px;
+    left: 0;
+    margin-right: 10px; }
+    input[type="checkbox"] + label:before, input[type="checkbox"] + label:after {
+      content: '';
+      left: 0;
+      position: absolute;
+      z-index: 1; }
+    input[type="checkbox"] + label:before {
+      width: 6px;
+      height: 12px;
+      border: 1px solid transparent;
+      -webkit-transform-origin: 20% 40%;
+      transform-origin: 100% 100%;
+      transform: rotateZ(37deg); }
+    input[type="checkbox"] + label:after {
+      top: 0;
+      width: 15px;
+      height: 15px;
+      background-color: transparent;
+      z-index: 0;
+      border: 1px solid #2c2c2c; }
+  input[type="checkbox"]:checked + label:before {
+    top: 0;
+    left: 1px;
+    border-right: 1px solid #2c2c2c;
+    border-bottom: 1px solid #2c2c2c; }
 
-/*override*/
-a {
-  text-decoration: none !important; }
+.popup-notification .notification {
+  font-size: 14px;
+  text-align: center;
+  padding: 20px; }
 
-/*/override*/
-.licenseewl {
-  padding-left: 10px; }
+#TickerFilter > label {
+  left: 0;
+  color: #2c2c2c;
+  font-size: 1.3rem; }
 
-/*filter*/
-.report-by-monthly {
-  margin-left: 10px !important;
-  margin-left: 11px\9  !important; }
+.panel-heading {
+  position: relative; }
 
-.exclude-data-no {
-  margin-left: 13px !important; }
-
-:root .exclude-data-no {
-  margin-left: 16px \0/IE9 !important; }
-
-/* Bread Crumb */
-.breadCrumb {
-  padding-left: 0;
-  width: 100%; }
-
-.breadCrumb ul {
-  margin-left: 2px; }
-
-/* Content */
-a.drilldown, a.bet-list-link {
-  font-weight: normal !important;
-  color: #1E1EEB !important; }
-
-/* Float Clearing
- ---------------------------------------------------------------------*/
-.date-grouping {
-  background: none repeat scroll 0 0 #DCFFFA !important; }
-
-.date-grouping td {
-  color: #454545 !important; }
+.excel-container {
+  background: #fff;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 27px;
+  text-align: center;
+  position: absolute;
+  top: 1px;
+  right: 1px; }
+  .excel-container .icon-back {
+    display: inline-block;
+    font-size: 16px;
+    vertical-align: top;
+    line-height: 27px;
+    margin-right: 5px;
+    color: #555; }
+  .excel-container .icon-excel {
+    display: inline-block;
+    margin-top: 4px; }
 
 /*# sourceMappingURL=winlossbyleague.css.map*/

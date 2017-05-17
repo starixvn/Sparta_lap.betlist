@@ -37,7 +37,7 @@ var PlatformWinLoss = (function ($) {
         }
 
         var productText = "";
-        productList.each(function (item) {
+        $.each(productList, function (index, item) {
             productText += productText.length === 0 ? item : ", " + item;
         });
 
@@ -351,7 +351,7 @@ var PlatformWinLoss = (function ($) {
                 productList = [data.ProductCode];
             }
             else {
-                productList = $.parseJSON(_submitData.ProductList);
+                productList = _submitData.ProductList;
             }
 
             _drilldownData =
