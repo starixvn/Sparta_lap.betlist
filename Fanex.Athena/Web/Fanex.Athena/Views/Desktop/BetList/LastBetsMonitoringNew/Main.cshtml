@@ -1,59 +1,78 @@
 ﻿@{
     var formatTitle = "{0} {1} {2} - {3}";
     ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.Report, ViewResources.LastBetsMonitoring);
-    Layout = "~/Views/Desktop/Shared/_BetListLayout.cshtml";
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
 }
 @model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
-@section pagecss {
+@section css {
     <link href="@Url.ContentLinkByEnv("/www/css/build/pages/betlist/lastbetmonitoring.css")" rel="stylesheet" />
 }
-@section pagejs {
+@section js {
     <script src="@Url.ContentLinkByEnv("/www/js/build/pages/betlist/lastbetmonitoring.chunk.js")"></script>
 }
-@{
-    var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
-    var isAppModeSelf = userSession == null ? true : userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Self;
+
+@helper RenderFirstRow()
+{
+    <tr class="first-row">
+        <td class="col-small" data-name="Platform"></td>
+        <td class="col-child" data-name="ExternalId"></td>
+        <td class="col-child" data-name="SystemId"></td>
+        <td class="col-child" data-name="TransTime"></td>
+        <td class="col-large" data-name="Choice"></td>
+        <td class="col-small" data-name="Odds"></td>
+        <td class="col-child medium" data-name="Stake"></td>
+        <td class="col-child medium" data-name="Status"></td>
+    </tr>
 }
 
-@section ContentFilter
-{
+@*----- Filter -----*@
+<div class="page-form">
     @{
         Html.RenderPartial("~/Views/Desktop/BetList/LastBetsMonitoringNew/Filter.cshtml");
     }
-}
-@{
-    <div id="betlist_content" class="betlistcontent header-content" style="min-width: 1040px;">
-        <table id="last-bets-monitoring" class="table">
-            <thead>
-                <tr id="monitor-header" class="report-table-header">
-                    <th width="60" data-name="Platform">
-                        @ViewResources.Platform
-                    </th>
-                    <th width="120" data-name="ExternalId">
-                        @ViewResources.ExternalId
-                    </th>
-                    <th width="120" data-name="SystemId">
-                        @ViewResources.SystemId
-                    </th>
-                    <th width="120" data-name="TransTime">
-                        @ViewResources.TransTime
-                    </th>
-                    <th class="bl-choice" data-name="Choice">
-                        @ViewResources.Choice
-                    </th>
-                    <th width="60" data-name="Odds">
-                        @ViewResources.Odds
-                    </th>
-                    <th width="60" data-name="Stake">
-                        @ViewResources.Stake
-                    </th>
-                    <th width="60" data-name="Status">
-                        @ViewResources.Status
-                    </th>
-                </tr>
-            </thead>
-        </table>
-    </div>
+</div>
 
-        <input type="hidden" id="BetListMetaModel" value="@Model.Param.ToJson()" />
-}
+@*----- Content -----*@
+<div class="page-results">
+    <div class="result-content">
+        <div class="main-content">
+            <div id="betlist_content" class="betlist-container">
+                <table id="last-bets-monitoring" class="table">
+                    <thead>
+                        @RenderFirstRow()
+                        <tr id="monitor-header" class="report-table-header">
+                            <th data-name="Platform">
+                                @ViewResources.Platform
+                            </th>
+                            <th data-name="ExternalId">
+                                @ViewResources.ExternalId
+                            </th>
+                            <th data-name="SystemId">
+                                @ViewResources.SystemId
+                            </th>
+                            <th data-name="TransTime">
+                                @ViewResources.TransTime
+                            </th>
+                            <th class="bl-choice" data-name="Choice">
+                                @ViewResources.Choice
+                            </th>
+                            <th data-name="Odds">
+                                @ViewResources.Odds
+                            </th>
+                            <th data-name="Stake">
+                                @ViewResources.Stake
+                            </th>
+                            <th data-name="Status">
+                                @ViewResources.Status
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <input type="hidden" id="BetListMetaModel" value="@Model.Param.ToJson()" />
+        </div>
+    </div>
+</div>

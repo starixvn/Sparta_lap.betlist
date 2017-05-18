@@ -1,2 +1,115 @@
-﻿@import '../../components/label/label';
+﻿@import '../common/reportcommon.main';
+@import '../../components/label/label';
 @import "../../components/multiselect/multiselect.main";
+@import "betlist";
+@import 'Microgaming';
+@import 'AGCasino';
+@import 'Allbet';
+
+.label{
+    padding: 0 8px;
+    margin-top: 6px;
+}
+.table > thead > tr {
+    > th {
+        background: $bgHeaderTableLevel1;
+        color: $white;
+    }
+}
+
+.table > tbody {
+    > tr {
+        td {
+            text-align: center;
+
+            &.bl-event {
+                text-align: right;
+            }
+
+            &.bl-username {
+                text-align: left;
+            }
+
+            &.bl-odds, &.bl-stake {
+                font-weight: bold;
+                text-align: right;
+            }
+        }
+
+        &.monitor-keep {
+            > td {
+                background: $colorSelectedRow !important;
+            }
+        }
+
+        .bl-status {
+            font-weight: bold;
+
+            > label {
+                font-size: 1.2rem;
+            }
+        }
+    }
+}
+
+.first-row {
+    height: auto;
+
+    > td {
+        height: 0;
+        border: none !important;
+        padding: 0 !important;
+        line-height: 0;
+    }
+}
+
+/*-----------------Color-------------------*/
+
+.special-color-0 {
+    color: #fcfcfc;
+}
+
+.special-color-1 {
+    color: #98b516 !important;
+}
+
+.special-color-2 {
+    color: #007d00 !important;
+}
+
+.special-color-3 {
+    color: #b87856 !important;
+}
+
+.special-color-4 {
+    color: #fcc50f !important;
+}
+
+.special-color-5 {
+    color: #418a86 !important;
+}
+
+.special-color-6 {
+    color: #969036 !important;
+}
+
+.special-color-7 {
+    color: #944937 !important;
+}
+
+.special-color-8 {
+    color: #3297fc !important;
+}
+
+.special-color-9 {
+    color: #c98402 !important;
+}
+
+.special-color-10 {
+    color: #fc0000 !important;
+}
+
+/*-------------Hight light-----------------*/
+.monitor-hightlight {
+    background: #FFDBA8;
+}

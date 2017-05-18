@@ -41,11 +41,15 @@ define(
                         },
                         success: function (data) {
                             _currentMatchList = data.MatchList;
-                            var leagueDropdown = $("#league");
+                            var $leagueDropdown = $("#league");
                             _currentLeagueList = data.LeagueList;
+
+                            var htmlOption = "";
                             $(data.LeagueList).each(function (i, e) {
-                                leagueDropdown.append("<option value='" + e.LeagueId + "'>" + e.LeagueName + "</option>");
+                                htmlOption += "<option value='" + e.LeagueId + "'>" + e.LeagueName + "</option>";
                             });
+
+                            $leagueDropdown.append(htmlOption);
                         }
                     });
                 }
@@ -69,14 +73,19 @@ define(
                 }
                 else {
                     // Bind match league
-                    var leagueItem = JSLINQ(_currentLeagueList).First(function (item) { return Number(item.LeagueId) === leagueId; });
-                    if (leagueItem !== undefined && leagueItem !== null && Site.asBool(leagueItem.IsOutRight) === false) {
-                        var matchList = JSLINQ(_currentMatchList).Where(function (item) { return Number(item.LeagueId) === leagueId; })
-                                            .ToArray();
-                        var matchDropdown = $("#match");
+                    var filteredLeague = _currentLeagueList.filter(function (item) { return item.leagueId === leagueId; });
+                    var leagueItem = filteredLeague.length ? filteredLeague[0] : null;
+                    if (leagueItem && Site.asBool(leagueItem.IsOutRight) === false) {
+                        var matchList = _currentMatchList.filter(function (item) { return item.leagueId === leagueId; });
+                        var $matchDropdown = $("#match");
+
+                        var htmlOption = "";
                         $(matchList).each(function (i, e) {
-                            matchDropdown.append("<option value='" + e.MatchId + "'>" + e.MatchName + "</option>");
+                            htmlOption += "<option value='" + e.MatchId + "'>" + e.MatchName + "</option>";
                         });
+
+                        $matchDropdown.append(htmlOption);
+
                         if (matchList.length > 0) {
                             $("#match").prop("disabled", false);
                         }
@@ -136,8 +145,7 @@ define(
                 });
             }
 
-            $("#special-level").multiSelect(
-            {
+            $("#special-level").multiSelect({
                 minWidth: 130,
                 maxHeight: 400,
                 shadow: true,
@@ -174,8 +182,7 @@ define(
 
             var currencyCount = currencyList.length;
             $("#currency").html("");
-            $("#currency").multiSelect(
-            {
+            $("#currency").multiSelect({
                 minWidth: 100,
                 maxHeight: 400,
                 shadow: true,
@@ -283,7 +290,7 @@ define(
 
         _me.initFreezeButton = function () {
             $("#FreezeButton").click(function () {
-                var currentStatus = Number($(this).attr("data-status"));
+                var currentStatus = Number($(this).data("status"));
                 var newStatus = currentStatus === 1 ? 0 : 1;
                 var newValue = newStatus ? Site.getSingleResource("Freeze") : Site.getSingleResource("Unfreeze");
                 if (newStatus) {
@@ -294,7 +301,7 @@ define(
                 }
 
                 $(this).val(newValue);
-                $(this).attr("data-status", newStatus);
+                $(this).data("status", newStatus);
             });
         };
 
@@ -311,7 +318,7 @@ define(
             $("#SubmitButton").click(function () {
                 clearInterval(_highLightSubmitIntervalId);
                 $("#SubmitButton").css("background-color", "");
-                var freeStatus = $("#FreezeButton").attr("data-status");
+                var freeStatus = $("#FreezeButton").data("status");
                 LastBetGrid.Submit(freeStatus);
             });
         };
@@ -348,22 +355,12 @@ define(
                 listData: columns,
                 onCheck: function () {
                     var selectedLevel = $("#se-column").multiSelect("getCheckedItems");
-                    if (selectedLevel.length === 8) {
-                        $.each(LastBetGrid.columns, function (i, e) {
-                            e.IsShow = 1; $('td[data-name="' + e.Name + '"]').show();
-                        });
-                    } else {
-                        $.each(LastBetGrid.columns, function (i, e) {
-                            var showItem = $.inArray(e.Name, selectedLevel);
-                            if (showItem > -1) {
-                                e.IsShow = 1;
-                                $('td[data-name="' + e.Name + '"]').show();
-                            } else {
-                                e.IsShow = 0;
-                                $('td[data-name="' + e.Name + '"]').hide();
-                            }
-                        });
-                    }
+                    var isShowAll = selectedLevel.length === 8;
+                    $.each(LastBetGrid.columns, function (i, e) {
+                        var showItem = selectedLevel.indexOf(e.Name) > -1;
+                        e.IsShow = isShowAll || showItem ? 1 : 0;
+                        $('tr').find('[data-name="' + e.Name + '"]').toggle(isShowAll || showItem);
+                    });
                 }
             });
         };

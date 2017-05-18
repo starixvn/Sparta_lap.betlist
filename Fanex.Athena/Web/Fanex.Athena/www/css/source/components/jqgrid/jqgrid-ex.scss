@@ -15,7 +15,7 @@ $colorDisabledPgButton: $colorLightGray;
 
     .ui-jqgrid {
         .highlight {
-            background-color: #F8F1A0;
+            background-color: $colorHighlight;
         }
 
         .ui-jqgrid-view {
