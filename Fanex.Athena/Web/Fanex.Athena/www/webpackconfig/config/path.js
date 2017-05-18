@@ -8,6 +8,7 @@ var cssPaths = {
     home: ["./www/css/source/pages/home/home.scss"],
     main: ["./www/css/source/main.scss"],
     error: ["./www/css/source/pages/utility/error.scss"],
+    um: ["./www/css/source/pages/utility/um.scss"],
 
     reportjqgridlayout: ["./www/css/source/pages/common/reportjqgridlayout.main.scss"],
     betlistLayout: ["./www/css/source/pages/betlist/betlistcommon.main.scss"],

@@ -733,6 +733,8 @@
     <Content Include="Content\Plugin\ColorPicker\images\transparent.png" />
     <Content Include="Content\Plugin\ColorPicker\images\checked-light.png" />
     <Content Include="Content\Report\cashoutwinloss.css" />
+    <Content Include="Content\Utility\images\UM.png" />
+    <Content Include="Content\Utility\UM.css" />
     <Content Include="jasmine-specs\BetList\lastbet.filter-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new-dev.conf.js" />
@@ -813,14 +815,18 @@
     <Content Include="www\css\build\dev\pages\totalbet\totalbetlayout.css" />
     <Content Include="www\css\build\dev\pages\utility\error.chunk.js" />
     <Content Include="www\css\build\dev\pages\utility\error.css" />
+    <Content Include="www\css\build\dev\um.css" />
     <Content Include="www\css\build\fonts\flags\flags\cn.svg" />
     <Content Include="www\css\build\fonts\flags\flags\gb.svg" />
     <Content Include="www\css\build\fonts\flags\flags\kr.svg" />
     <Content Include="www\css\build\fonts\flags\flags\tw.svg" />
     <Content Include="www\css\build\fonts\font-icon\fonts\icomoon.svg" />
+    <Content Include="www\css\build\dev\um.css.map" />
+    <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
     <Content Include="www\css\build\images\excel-icon.svg" />
     <Content Include="www\css\build\images\ic-calendar.png" />
+    <Content Include="www\css\build\images\UM.png" />
     <Content Include="www\css\build\pro\home.css" />
     <Content Include="www\css\build\pro\main.css" />
     <Content Include="www\css\build\pro\pages\betlist\betlistdaily.css" />
@@ -877,6 +883,9 @@
     <Content Include="SiteConfig\WebConfigTransforms\PROStatic.config" />
     <Content Include="SiteConfig\WebConfigTransforms\DEV.config" />
     <Content Include="App_Data\Template\Reports\CashOutWinLoss.xls" />
+    <Content Include="Content\Utility\font\Roboto-Regular.ttf" />
+    <Content Include="Content\Utility\font\Roboto-Regular.woff" />
+    <Content Include="Content\Utility\font\Roboto-Regular.woff2" />
     <None Include="SiteConfig\Web.DEV.config" />
     <Content Include="Views\Customer\BetSetting\CashOut.cshtml" />
     <Content Include="www\css\source\components\selectlist\selectlist.scss" />
@@ -961,6 +970,9 @@
     <Content Include="www\css\build\dev\pages\betlist\lastbetmonitoring.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\betlist\lastbetmonitoring.css.map" />
     <Content Include="www\css\source\components\jqgrid\_multipletotalblock.scss" />
+    <Content Include="www\css\build\fonts\roboto\Roboto-Regular.ttf" />
+    <Content Include="www\css\build\fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="www\css\build\fonts\roboto\Roboto-Regular.woff2" />
     <None Include="www\css\source\pages\report\turnover.scss" />
     <Content Include="www\css\source\pages\report\winlossbybettype.scss" />
     <None Include="www\css\source\pages\report\winlossbyleague.scss" />
@@ -1864,6 +1876,9 @@
     <Content Include="www\js\build\dev\pages\reports\winlossbyleague.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\winlossbybettype.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\betlist\lastbetmonitoring.chunk.js.map" />
+    <Content Include="www\css\source\scss\fonts\roboto\Roboto-Regular.ttf" />
+    <Content Include="www\css\source\scss\fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="www\css\source\scss\fonts\roboto\Roboto-Regular.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

@@ -1,34 +1,30 @@
 ﻿@{
-    Layout = "~/Views/Desktop/Shared/_ErrorLayout.cshtml";
-    Page.Title = Fanex.Athena.Resources.ViewResources.UnderMaintenance;
+    Layout = null;
 }
-
-@section head{
-    <style type="text/css">
-        .text_time {
-            color: #F00;
-            font-weight: bold;
-        }
-    </style>
-
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Fanex.Athena.Resources.ViewResources.UnderMaintenance</title>
+    <link href="@Url.ContentLinkByEnv("/www/css/build/um.css")" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="img">
+            <img src="/www/css/build/images/UM.png" />
+        </div>
+        <div class="caption">
+            <p>Risk & Forecast System servers are currently</p>
+            <p>unavailable and scheduled to be back at </p>
+            <p>@ViewBag.UmTimeTo (HK Time GMT +8).</p>
+            <p>We apologize for the inconvenience.</p>
+            <p>Thank you for your patience.</p>
+        </div>
+    </div>
     <script type="text/javascript">
         if (window.parent != window) {
             window.parent.location = location.href;
         }
     </script>
-}
-
-@section message{
-    @Fanex.Athena.Resources.ViewResources.UnderMaintenance
-}
-
-<p class="text_time">
-    @ViewBag.UmTimeFrom
-    <font color="#555">until</font>
-    @ViewBag.UmTimeTo
-</p>
-<p class="text_time">
-    @ViewBag.UmTimeFrom
-    <font color="#555">至</font>
-    @ViewBag.UmTimeTo
-</p>
+</body>
+</html>

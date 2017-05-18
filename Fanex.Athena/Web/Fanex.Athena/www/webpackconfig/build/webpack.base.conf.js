@@ -64,6 +64,7 @@ function generateConfig(environment) {
             [`${cssPath}/main`]: pathConfig.cssPaths.main,
             [`${cssPath}/pages/utility/error`]: pathConfig.cssPaths.error,
             [`${cssPath}/home`]: pathConfig.cssPaths.home,
+            [`${cssPath}/um`]: pathConfig.cssPaths.um,
             [`${cssPath}/pages/login/login`]: pathConfig.cssPaths.login,
             [`${cssPath}/pages/reports/licenseewinloss`]: pathConfig.cssPaths.licenseewinloss,
 
