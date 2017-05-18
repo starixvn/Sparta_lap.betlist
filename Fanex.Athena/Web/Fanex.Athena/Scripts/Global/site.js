@@ -55,6 +55,10 @@ var Site = (function ($) {
                     0: function () {
                         Site.unBlockUI();
                     },
+                    400: function () {
+                        Site.unBlockUI();
+                        alert(Site.getSingleResource("InvalidRequestMsg"));
+                    },
                     401: function (/*jqXHR, textStatus, errorThrown*/) {
                         window.location.href = Site.resolveClientUrl("Utility/LocationRestriction");
                     },

@@ -100,6 +100,10 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                 headers: { '__RequestVerificationToken': REQUEST_VERIFICATION_TOKEN },
                 statusCode: {
                     0: unBlockUI(),
+                    400: function () {
+                        Site.unBlockUI();
+                        alert(Site.getSingleResource("InvalidRequestMsg"));
+                    },
                     401: function () {
                         window.location.href = resolveClientUrl("Utility/LocationRestriction");
                     },

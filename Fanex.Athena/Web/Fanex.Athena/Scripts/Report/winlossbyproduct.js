@@ -89,9 +89,6 @@ var WinLossByProduct = (function ($) {
     },
 
     initEvent: function () {
-        /// <summary>
-        /// Inititalize events
-        /// </summary>
         $("body").on("click", ".bet-list-link", function () {
             var dataDrillDown = $(this).attr("data-drill-down");
             WinLossByProduct.openBetlistPopUp(dataDrillDown);

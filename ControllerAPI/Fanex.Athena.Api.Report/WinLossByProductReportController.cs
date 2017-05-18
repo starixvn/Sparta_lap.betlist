@@ -10,7 +10,6 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Net;
     using System.Net.Http;
     using System.Web;
     using System.Web.Http;
@@ -24,7 +23,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Resources;
-    using Service.Core.Utility;
+    using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
 
@@ -37,6 +36,12 @@ namespace Fanex.Athena.Api.Report
         public WinLossByProductReportController()
         {
             _winlossByProductService = new WinLossByProductService();
+        }
+
+        public WinLossByProductReportController(ISessionService sessionService, IWinLossByProductService winlossByProductService)
+            : base(sessionService)
+        {
+            _winlossByProductService = winlossByProductService;
         }
 
         [HttpPost]
@@ -226,14 +231,6 @@ namespace Fanex.Athena.Api.Report
             }
         }
 
-        private bool IsValidRequest(WinLossByProductMetaModel metaModel, int currencyId = 0)
-        {
-            var currencyList = SessionService.UserSession.CurrencyList;
-            return (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
-                  || currencyList.ContainsKey(metaModel.CurrencyId)
-                  || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
-        }
-
         [SuppressMessage(
            "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
@@ -251,7 +248,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (!IsValidRequest(metaModel, currencyId))
             {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
+                return BadRequest(ViewResources.InvalidParams);
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);

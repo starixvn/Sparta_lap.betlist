@@ -10348,7 +10348,7 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery, $, __webpack_provided_window_dot_jQuery) {// Check for jQuery.
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery, $, __webpack_provided_window_dot_jQuery) {// Check for jQuery.
 	if (typeof(jQuery) === 'undefined') {
 	  var jQuery;
 	  // Check if require is a defined function.
@@ -14288,6 +14288,10 @@
 	                headers: { '__RequestVerificationToken': REQUEST_VERIFICATION_TOKEN },
 	                statusCode: {
 	                    0: unBlockUI(),
+	                    400: function () {
+	                        Site.unBlockUI();
+	                        alert(Site.getSingleResource("InvalidRequestMsg"));
+	                    },
 	                    401: function () {
 	                        window.location.href = resolveClientUrl("Utility/LocationRestriction");
 	                    },
