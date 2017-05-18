@@ -8231,7 +8231,7 @@ webpackJsonp([56],{
 	            return "<a class='bet-list-link' href='javascript:;' data-drill-down=" + JSON.stringify(param) + ">" + cellvalue + "</a>";
 	        };
 	        var drilldownLink = function (cellvalue, options, rowObject) {
-	            var parentClassName = !rowObject.IsLeaf ? " text-bold" : "";
+	            var parentClassName = rowObject.IsLeaf ? "" : " text-bold";
 	            var param =
 	            {
 	                PlatformType: rowObject.PlatformType > 0 ? rowObject.PlatformType : Number(rowObject.Parent),
@@ -8427,7 +8427,7 @@ webpackJsonp([56],{
 	            hidden: true
 	        };
 	        var columnConfigLevel0 = {
-	            colNames: [           
+	            colNames: [
 	                "Platform",
 	                "Turnover",
 	                "%Turnover",
@@ -8436,7 +8436,7 @@ webpackJsonp([56],{
 	                "Id",
 	                "CurrencyId",
 	                "CustomerId"],
-	            colModels: [              
+	            colModels: [
 	                platformNameColumn,
 	                turnoverColumn,
 	                turnoverPercentColumn,
@@ -8447,7 +8447,7 @@ webpackJsonp([56],{
 	                customerIdColumn]
 	        };
 	        var columnConfigLevel1 = {
-	            colNames: [               
+	            colNames: [
 	                "#",
 	                "ExternalId",
 	                "SystemId",
@@ -8458,7 +8458,7 @@ webpackJsonp([56],{
 	                "Id",
 	                "CurrencyId",
 	                "CustomerId"],
-	            colModels: [               
+	            colModels: [
 	                indexColumn,
 	                externalIdColumn,
 	                systemIdColumn,
@@ -8507,7 +8507,7 @@ webpackJsonp([56],{
 	                ++customerWlIndex;
 	            });
 	
-	            if (colsBA != null) {
+	            if (colsBA !== null) {
 	                var bAIndex = customerWlIndex + 1;
 	                colsBA.forEach(function (item) {
 	                    cols.insertAfter(item, bAIndex);
@@ -8515,11 +8515,11 @@ webpackJsonp([56],{
 	                });
 	            }
 	
-	            if (colsRB != null) {
-	                var rBIndex = colsBA != null ? customerWlIndex + 2 : customerWlIndex + 1;
+	            if (colsRB !== null) {
+	                var rBIndex = colsBA !== null ? customerWlIndex + 2 : customerWlIndex + 1;
 	                colsRB.forEach(function (item) {
 	                    cols.insertAfter(item, rBIndex);
-	                    rBIndex = colsBA != null ? rBIndex + 2 : rBIndex + 1;
+	                    rBIndex = colsBA !== null ? rBIndex + 2 : rBIndex + 1;
 	                });
 	            }
 	
@@ -8541,7 +8541,7 @@ webpackJsonp([56],{
 	        var _me = {
 	            licenseeId: 0,
 	            hasCustomerComm: true,
-	            pageSize: 50,         
+	            pageSize: 50,
 	            totalColspan: [0, 4],
 	            urlData: "api/PlatformWinLossReport/Index",
 	            urlExcelData: "api/PlatformWinLossReport/Index",
@@ -8570,7 +8570,7 @@ webpackJsonp([56],{
 	                    parent_id_field: "Parent",  // jshint ignore:line
 	                    leaf_field: "IsLeaf"        // jshint ignore:line
 	                },
-	                treeIcons: {plus:"ui-icon-circlesmall-plus icon-arrow", minus:"ui-icon-circlesmall-minus icon-arrow", leaf:""},
+	                treeIcons: { plus: "ui-icon-circlesmall-plus icon-arrow", minus: "ui-icon-circlesmall-minus icon-arrow", leaf: "" },
 	                pager: "#ppdata",
 	                rowNum: 50,
 	                rowList: [50, 100, 200, 300, 400, 500, 1000, 2000]
@@ -8579,7 +8579,7 @@ webpackJsonp([56],{
 	            getColName: function (level, productOptions) {
 	                var customerWL = _me.hasCustomerComm ? columnConfigCustomerComm.colsCustomerComm.colNames : columnConfigCustomerComm.colsWithoutComm.colNames;
 	
-	                if (level === 0) {                  
+	                if (level === 0) {
 	                    return Site.getResources(getColConfigLevel0(Site.clone(columnConfigLevel0.colNames), customerWL));
 	                }
 	
@@ -8612,7 +8612,7 @@ webpackJsonp([56],{
 	                return getColConfigLevel1(Site.clone(columnConfigLevel1.colModels), customerWL, colsBA, colsRB);
 	            },
 	
-	            getGridOption : function (level, productOptions) {
+	            getGridOption: function (level, productOptions) {
 	                _me.gridOption.colNames = _me.getColName(level, productOptions);
 	                _me.gridOption.colModel = _me.getColModel(level, productOptions);
 	

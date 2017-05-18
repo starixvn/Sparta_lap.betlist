@@ -383,11 +383,9 @@
     display: none; }
 
 .breadcrumb {
-  background: #fff;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  position: relative;
+  text-align: center;
   display: inline-block;
-  text-align: center; }
+  overflow: hidden; }
   .breadcrumb > a {
     text-decoration: none;
     outline: none;
@@ -395,37 +393,43 @@
     float: left;
     font-size: 12px;
     line-height: 30px;
-    padding: 0 15px 0 25px;
+    color: #fff;
+    padding: 0 10px 0 25px;
     position: relative; }
     .breadcrumb > a:first-child {
       padding-left: 10px; }
       .breadcrumb > a:first-child::before {
+        left: 14px; }
+    .breadcrumb > a:last-child {
+      padding-right: 20px; }
+      .breadcrumb > a:last-child::after {
         content: none; }
-    .breadcrumb > a::before {
-      content: '//';
-      color: #4C6375 !important;
-      cursor: default !important;
-      left: -10px;
+    .breadcrumb > a::after {
+      content: '';
       position: absolute;
       top: 0;
+      right: -16px;
       width: 30px;
-      height: 30px; }
-  .breadcrumb.flat::after {
-    content: '';
+      height: 30px;
+      transform: scale(0.8) rotate(45deg);
+      z-index: 1;
+      border-right: 3px solid #ca1e58;
+      border-top: 3px solid #ca1e58;
+      border-radius: 0 5px 0 50px; }
+  .breadcrumb.flat a, .breadcrumb.flat a::after {
     background: #fff;
-    border-radius: 20px 0 14px 50px;
-    box-shadow: 4px -1px 3px -1px rgba(0, 0, 0, 0.3);
-    position: absolute;
-    right: -15px;
-    width: 33px;
-    height: 33px;
-    top: -2px;
-    transform: scale(0.75) rotate(45deg); }
-  .breadcrumb.flat a {
-    color: #147ccc; }
-  .breadcrumb.flat a.active {
-    color: #4C6375;
-    cursor: default; }
+    color: #4C6375; }
+  .breadcrumb.flat a::before {
+    background: #fff;
+    box-shadow: 0 0 0 1px #ec407a; }
+  .breadcrumb.flat a:hover, .breadcrumb.flat a.active {
+    color: #fff; }
+    .breadcrumb.flat a:hover, .breadcrumb.flat a:hover::after, .breadcrumb.flat a.active, .breadcrumb.flat a.active::after {
+      background: #4C6375; }
+    .breadcrumb.flat a:hover::before, .breadcrumb.flat a.active::before {
+      color: #4C6375; }
+  .breadcrumb.flat a.active:hover {
+    background: #4C6375; }
 
 .sortable {
   cursor: pointer; }
