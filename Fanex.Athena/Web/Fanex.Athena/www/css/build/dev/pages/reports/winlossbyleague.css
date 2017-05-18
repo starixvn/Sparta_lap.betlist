@@ -219,16 +219,15 @@ input[type="checkbox"] {
   opacity: 0; }
   input[type="checkbox"] + label {
     position: relative;
-    padding-left: 20px;
+    padding-left: 18px;
     cursor: pointer;
     display: inline-block;
-    height: 20px;
-    line-height: 20px;
+    height: 26px;
     font-size: 13px;
     color: #2c2c2c;
     top: 10px;
     left: 0;
-    margin-right: 10px; }
+    margin: 0 5px 10px 0; }
     input[type="checkbox"] + label:before, input[type="checkbox"] + label:after {
       content: '';
       left: 0;
@@ -254,10 +253,63 @@ input[type="checkbox"] {
     border-right: 1px solid #2c2c2c;
     border-bottom: 1px solid #2c2c2c; }
 
+.invalid input[type="checkbox"] + label:after {
+  border: 2px solid #d91a1a; }
+
 .popup-notification .notification {
   font-size: 14px;
   text-align: center;
   padding: 20px; }
+
+.breadCrumbHolder {
+  display: none; }
+  .breadCrumbHolder .level {
+    display: none; }
+
+.breadcrumb {
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  position: relative;
+  display: inline-block;
+  text-align: center; }
+  .breadcrumb > a {
+    text-decoration: none;
+    outline: none;
+    display: block;
+    float: left;
+    font-size: 12px;
+    line-height: 30px;
+    padding: 0 15px 0 25px;
+    position: relative; }
+    .breadcrumb > a:first-child {
+      padding-left: 10px; }
+      .breadcrumb > a:first-child::before {
+        content: none; }
+    .breadcrumb > a::before {
+      content: '//';
+      color: #4C6375 !important;
+      cursor: default !important;
+      left: -10px;
+      position: absolute;
+      top: 0;
+      width: 30px;
+      height: 30px; }
+  .breadcrumb.flat::after {
+    content: '';
+    background: #fff;
+    border-radius: 20px 0 14px 50px;
+    box-shadow: 4px -1px 3px -1px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    right: -15px;
+    width: 33px;
+    height: 33px;
+    top: -2px;
+    transform: scale(0.75) rotate(45deg); }
+  .breadcrumb.flat a {
+    color: #147ccc; }
+  .breadcrumb.flat a.active {
+    color: #4C6375;
+    cursor: default; }
 
 #TickerFilter > label {
   left: 0;

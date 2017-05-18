@@ -424,7 +424,14 @@ Rad tree view css
 
 .multiselect-container > label {
   position: absolute;
-  top: -14px; }
+  top: -10px;
+  width: 100%; }
+  .multiselect-container > label:after {
+    content: '';
+    position: absolute;
+    top: 40px;
+    opacity: 0;
+    left: 0; }
 
 .multiselect-container > a.ui-multiselect {
   height: 26px;
@@ -450,6 +457,9 @@ Rad tree view css
       top: 7px;
       right: -5px;
       line-height: 1; }
+
+.multiselect-container.invalid > a.ui-multiselect {
+  border-bottom: 2px solid #d91a1a; }
 
 .ui-multiselect-shadow {
   box-shadow: 0 1px 12px rgba(0, 0, 0, 0.175);

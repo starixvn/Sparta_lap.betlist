@@ -102,6 +102,9 @@
       color: #2c2c2c; }
     .page-form .input-field.input label {
       top: 8px; }
+      .page-form .input-field.input label.active {
+        top: -10px;
+        transform: none; }
     .page-form .input-field .icon-calendar {
       position: absolute;
       right: 10px;
@@ -145,7 +148,7 @@
   background: #fcf4df; }
 
 .table > tbody tr.total td {
-  background: #fff; }
+  background: #B8C3C9; }
 
 .table > tbody tr.highlight td {
   background: #f7dbb6;
@@ -182,7 +185,7 @@
 
 .input-field label {
   position: absolute;
-  top: -14px; }
+  top: -10px; }
 
 .select-list-container {
   position: relative;
@@ -339,6 +342,9 @@ table tbody tr.row-group-level1 td {
     list-style-type: circle; }
     #UserGuidePopup ul li ul li ul li {
       list-style-type: square; }
+
+.disabled {
+  pointer-events: none; }
 
 .popup-block-body {
   background: transparent;
@@ -1164,7 +1170,7 @@ tr.ui-search-toolbar select {
     .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable tr.footrow > td:first-child {
       border-left-color: #d1dae1; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .grandTotal > td {
-    background: #fff; }
+    background: #B8C3C9; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .summarytotal > td {
     background: #B8C3C9; }
   .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv.jqgrid-footer-scroll-hacking {
