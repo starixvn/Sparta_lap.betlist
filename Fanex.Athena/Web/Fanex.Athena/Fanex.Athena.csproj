@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -1934,7 +1934,6 @@
     <Content Include="Content\Global\images\flag_zh-TW.png" />
     <Content Include="Content\Global\images\mu_hdl.gif" />
     <Content Include="Content\Global\images\new_icon.gif" />
-    <Content Include="Content\Global\images\UnderMaintenance.gif" />
     <Content Include="Content\Global\images\up.png" />
     <Content Include="Content\Layout\images\Checked.png" />
     <Content Include="Content\Layout\images\Chrome.png" />
@@ -1987,50 +1986,6 @@
     <Content Include="Content\Utility\ChangePass.css" />
     <Content Include="Content\Utility\images\banner.jpg" />
     <Content Include="Content\Utility\images\bg.jpg" />
-    <Content Include="Content\Utility\images\bg_btn_login.png" />
-    <Content Include="Content\Utility\images\bg_btn_login_o.png" />
-    <Content Include="Content\Utility\images\bg_header.jpg" />
-    <Content Include="Content\Utility\images\bg_main.jpg" />
-    <Content Include="Content\Utility\images\bg_menu.jpg" />
-    <Content Include="Content\Utility\images\bg_title.jpg" />
-    <Content Include="Content\Utility\images\bg_title1.jpg" />
-    <Content Include="Content\Utility\images\border.png" />
-    <Content Include="Content\Utility\images\box.jpg" />
-    <Content Include="Content\Utility\images\box.png" />
-    <Content Include="Content\Utility\images\btnlogin.gif" />
-    <Content Include="Content\Utility\images\but.png" />
-    <Content Include="Content\Utility\images\but1.png" />
-    <Content Include="Content\Utility\images\emsg_1_1.gif" />
-    <Content Include="Content\Utility\images\emsg_1_2.gif" />
-    <Content Include="Content\Utility\images\emsg_1_3.gif" />
-    <Content Include="Content\Utility\images\emsg_2_1.gif" />
-    <Content Include="Content\Utility\images\emsg_2_2.gif" />
-    <Content Include="Content\Utility\images\emsg_3_1.gif" />
-    <Content Include="Content\Utility\images\emsg_3_2.gif" />
-    <Content Include="Content\Utility\images\emsg_3_3.gif" />
-    <Content Include="Content\Utility\images\error-icon.gif" />
-    <Content Include="Content\Utility\images\icon_pen.gif" />
-    <Content Include="Content\Utility\images\index_fotbg.gif" />
-    <Content Include="Content\Utility\images\index_logo.jpg" />
-    <Content Include="Content\Utility\images\index_pic01.jpg" />
-    <Content Include="Content\Utility\images\index_pic02.jpg" />
-    <Content Include="Content\Utility\images\index_pic03.jpg" />
-    <Content Include="Content\Utility\images\index_pic04.jpg" />
-    <Content Include="Content\Utility\images\logo.png" />
-    <Content Include="Content\Utility\images\message-content-bg.png" />
-    <Content Include="Content\Utility\images\message-content-bottom.png" />
-    <Content Include="Content\Utility\images\restriction.png" />
-    <Content Include="Content\Utility\images\session-timeout.png" />
-    <Content Include="Content\Utility\images\Success.gif" />
-    <Content Include="Content\Utility\images\succ_1_1.gif" />
-    <Content Include="Content\Utility\images\succ_1_2.gif" />
-    <Content Include="Content\Utility\images\succ_1_3.gif" />
-    <Content Include="Content\Utility\images\succ_2_1.gif" />
-    <Content Include="Content\Utility\images\succ_2_2.gif" />
-    <Content Include="Content\Utility\images\succ_3_1.gif" />
-    <Content Include="Content\Utility\images\succ_3_2.gif" />
-    <Content Include="Content\Utility\images\succ_3_3.gif" />
-    <Content Include="Content\Utility\images\valid.png" />
     <Content Include="Content\Utility\LocationRestriction.css" />
     <Content Include="Content\Utility\SelectLicensee.css" />
     <Content Include="Form\GenHistoryImg.aspx">
@@ -4651,22 +4606,6 @@
     <Content Include="Content\Forecast\images\minus.gif" />
     <Content Include="Content\Forecast\images\plus.png" />
     <Content Include="Content\Forecast\images\tab_topbg.gif" />
-    <Content Include="Content\Global\Global.css" />
-    <Content Include="Content\Global\images\arrow-back.png" />
-    <Content Include="Content\Global\images\bg_clock.jpg" />
-    <Content Include="Content\Global\images\btDown.png" />
-    <Content Include="Content\Global\images\btRefresh.png" />
-    <Content Include="Content\Global\images\check.png" />
-    <Content Include="Content\Global\images\down.png" />
-    <Content Include="Content\Global\images\error2.png" />
-    <Content Include="Content\Global\images\flag_en-US.png" />
-    <Content Include="Content\Global\images\flag_ko-KR.png" />
-    <Content Include="Content\Global\images\flag_zh-CN.png" />
-    <Content Include="Content\Global\images\flag_zh-TW.png" />
-    <Content Include="Content\Global\images\mu_hdl.gif" />
-    <Content Include="Content\Global\images\new_icon.gif" />
-    <Content Include="Content\Global\images\UnderMaintenance.gif" />
-    <Content Include="Content\Global\images\up.png" />
     <Content Include="Content\Layout\images\Checked.png" />
     <Content Include="Content\Layout\images\Chrome.png" />
     <Content Include="Content\Layout\images\close_hover.png" />
@@ -4693,10 +4632,7 @@
     <Content Include="Content\Library\ui.jqgrid\jqgrid.extension.css" />
     <Content Include="Content\Plugin\ColorPicker\spectrum.css" />
     <Content Include="Content\Plugin\Common\bread-crumb.css" />
-    <Content Include="Content\Global\images\collapse.png" />
-    <Content Include="Content\Global\images\expand.png" />
     <Content Include="Content\Plugin\Common\images\Chevron.gif" />
-    <Content Include="Content\Global\images\collapse_expand_sprites.png" />
     <Content Include="Content\Report\playtechcasino.css" />
     <Content Include="Content\SignIn\images\bg-loop.png" />
     <Content Include="Content\SignIn\images\bg-main.png" />
@@ -4714,9 +4650,6 @@
     <Content Include="Content\Themes\12Bet\images\bg_header03.jpg" />
     <Content Include="Content\Themes\12Bet\images\logo1.png" />
     <Content Include="Content\Themes\12Bet\images\logo2.png" />
-    <Content Include="Content\Utility\ChangePass.css" />
-    <Content Include="Content\Utility\images\banner.jpg" />
-    <Content Include="Content\Utility\images\bg.jpg" />
     <Content Include="Content\Utility\images\bg_btn_login.png" />
     <Content Include="Content\Utility\images\bg_btn_login_o.png" />
     <Content Include="Content\Utility\images\bg_header.jpg" />
@@ -4761,8 +4694,6 @@
     <Content Include="Content\Utility\images\succ_3_2.gif" />
     <Content Include="Content\Utility\images\succ_3_3.gif" />
     <Content Include="Content\Utility\images\valid.png" />
-    <Content Include="Content\Utility\LocationRestriction.css" />
-    <Content Include="Content\Utility\SelectLicensee.css" />
     <Content Include="Scripts\BetList\runningbetlist.multiplebettypes.js" />
     <Content Include="Scripts\ChangePass.js" />
     <Content Include="Scripts\Customer\BetSetting\agcasino.js" />
