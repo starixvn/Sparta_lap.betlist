@@ -50,7 +50,7 @@ var WinLossByProduct = (function ($) {
     }
 
     function getLicenseeWLNote(productOptionJson, caption) {
-        var productOptions = $.parseJSON(productOptionJson);
+        var productOptions = productOptionJson ? $.parseJSON(productOptionJson) : [];
         var resultProducts = [];
         var availableProducts = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
         $.each(productOptions, function (index, item) {

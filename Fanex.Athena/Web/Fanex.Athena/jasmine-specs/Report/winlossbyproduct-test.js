@@ -17,7 +17,7 @@
         it("WinLossByProduct.initSetting() should be called", function () {
             expect(WinLossByProduct.initSetting).toHaveBeenCalled();
         });
-        
+
         it("Site.setConstraintMonthRange(monthRange, url) should be called with correct parameter", function () {
             expect(Site.setConstraintMonthRange).toHaveBeenCalledWith(3, "api/WinLossByProductReport/Index");
         });
@@ -47,7 +47,7 @@
 
     describe("initEvent()", function () {
         var $betlistLink, $submitButton, $levelLink;
-        beforeEach(function () {           
+        beforeEach(function () {
             $betlistLink = affix(".bet-list-link");
             $betlistLink.attr("data-drill-down", 2);
 
@@ -57,7 +57,7 @@
             affix("#level-link-container .level-link");
             $levelLink = $(".level-link");
             $levelLink.attr("data-level", 3);
-           
+
             $("body").off("click", "**");
             WinLossByProduct.initEvent();
         });
@@ -103,7 +103,7 @@
             WinLossByProduct.setExcelUrl(0, 2, 221, "Apr 15, 2016", "Apr 20, 2016", "UUS");
 
             expect(WinLossByProductOption.urlExcelData).toBe(expected);
-        });       
+        });
     });
 
     describe("renderBreadCrumb(level)", function () {
@@ -128,7 +128,6 @@
     describe("setReportTitle(currencyId, fromdate, todate, currencyName)", function () {
         it("'div.report-title' should be correct", function () {
             var $reportTitle = affix(".report-title");
-            spyOn(jqGridAdditional, "getLicenseeWLNote").and.callFake(function () { return ""; });
 
             WinLossByProduct.setReportTitle(1, new Date("Apr 10, 2015"), new Date("Apr 15, 2015"), "USD");
 

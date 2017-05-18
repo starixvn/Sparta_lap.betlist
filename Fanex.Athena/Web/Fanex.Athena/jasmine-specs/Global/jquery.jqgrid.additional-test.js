@@ -4,10 +4,9 @@
             return text;
         });
     });
-    
-    describe("formatInteger(value)", function () {
 
-        it("format number by adding commas", function () {            
+    describe("formatInteger(value)", function () {
+        it("format number by adding commas", function () {
             var result = jqGridAdditional.formatInteger(1234567);
             expect(result).toBe("1,234,567");
         });
@@ -29,15 +28,6 @@
             var excludeColumns = ["C", "B"];
             var result = jqGridAdditional.excludeCol(columnNames, columnModels, excludeColumns);
             expect(result).toEqual({ colName: ["A"], colModel: [{ name: "A" }] });
-        });
-    });
-
-    describe("getLicenseeWLNote(productOptionJson, caption)", function () {
-        it("return a note string for valid products", function () {
-            var productOptions = '[{ "Code": "SB", "Status": false }, { "Code": "LC", "Status": true }]';
-
-            var result = jqGridAdditional.getLicenseeWLNote(productOptions, "Hello");
-            expect(result).toBe("Hello(LC)");
         });
     });
 
@@ -78,11 +68,9 @@
             jqGridAdditional.setNoInfo([], "No Info Message");
             expect($("table.ui-jqgrid-htable td:first").text()).toBe('No Info Message');
         });
-
     });
 
     describe("setNoInfoWithColspan(columnModel, message)", function () {
-
         it("div.ui-jqgrid-sdiv should be hidden", function () {
             affix("div.ui-jqgrid-sdiv");
             jqGridAdditional.setNoInfoWithColspan(1);
