@@ -192,7 +192,7 @@ namespace Fanex.Athena.Controllers
 
         protected override ViewResult View(string viewName, string masterName, object model)
         {
-            var option = (ClientViewType)int.Parse(ConfigurationManager.AppSettings["ClientViewType"]);
+            var option = (ClientViewType)int.Parse(ConfigurationManager.AppSettings["ClientViewType"] ?? "0");
 
             var viewByOption = ClientViewHelper.GetViewPath(viewName, option);
             return base.View(viewByOption, masterName, model);

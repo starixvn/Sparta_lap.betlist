@@ -224,7 +224,7 @@
                 FromDate = fromDate
             };
 
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
@@ -272,7 +272,7 @@
                 DrillDownToDate = inputedMetaModel.DrillDownToDate
             };
 
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), inputedMetaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), inputedMetaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
@@ -315,7 +315,7 @@
                 FromDate = new DateTime(2017, 4, 1)
             };
 
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), inputedMetaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), inputedMetaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
@@ -366,7 +366,7 @@
                 ToDate = toDate
             };
 
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
@@ -412,7 +412,7 @@
                 ToDate = initialToDate
             };
 
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
