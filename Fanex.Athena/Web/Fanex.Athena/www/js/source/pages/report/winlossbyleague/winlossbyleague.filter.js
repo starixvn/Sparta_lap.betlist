@@ -1,5 +1,5 @@
-﻿define(["jquery", "common/site", "components/pluginhelper/monthpicker", "components/pluginhelper/multiselect", "common/popup", "extensions/jquery.extension"],
-    function ($, Site, MonthPicker, MultiSelect, Popup) {
+﻿define(["jquery", "common/site", "components/pluginhelper/monthpicker", "components/pluginhelper/multiselect", "extensions/jquery.extension"],
+    function ($, Site, MonthPicker, MultiSelect) {
         var ajaxLeagues = null;
         var ajaxMatches = null;
 
@@ -33,6 +33,17 @@
                 });
 
                 $("#TickerFilter input[type=checkbox]").checkboxgroup();
+
+                $("#TickerFilter input[type=checkbox], #ProductList input[type=checkbox]").on("change", function () {
+                    var hasCheckedProduct = $("#ProductList .childCheckbox:checked").length > 0;
+                    var isValid = $("#TickerFilter input:checked").length > 0 && hasCheckedProduct;
+
+                    if ($(this).attr("id") === "AllTicket") {
+                        isValid = $(this).prop("checked") && hasCheckedProduct;
+                    }
+
+                    $("#SubmitButton").toggleClass("disabled", !isValid);
+                });
 
                 $("#Odds").keypress(function (event) {
                     _me.handleOddInput(event);
@@ -157,31 +168,6 @@
                 var ticketFilterCount = $("#TickerFilter input:checked").length;
 
                 if (checkedProductCount === 0 || ticketFilterCount === 0) {
-                    var message = !checkedProductCount ? Site.getSingleResource("AlertChooseProductMsg") : "Please select Ticket Filter";
-                    var title = Site.getSingleResource("LrfNotification");
-
-                    var $popup = $("#popup-notification");
-                    if ($popup.length) {
-                        $popup.find("p.notification").text(message);
-                        Popup.show($popup);
-                    }
-                    else {
-                        var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
-                        Popup.openPopup($dialog, {
-                            width: 380,
-                            height: 150,
-                            title: title,
-                            id: "popup-notification",
-                            className: "popup-notification",
-                            onOpen: function () {
-                                $('#SubmitButton').prop('disabled', true);
-                            },
-                            onClose: function () {
-                                $('#SubmitButton').removeAttr('disabled');
-                            }
-                        });
-                    }
-
                     return false;
                 }
 

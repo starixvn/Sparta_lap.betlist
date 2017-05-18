@@ -101,6 +101,7 @@
                 var minOddStr = Site.getSingleResource("MinimumOdds") + " : " + minOdds;
                 var title = $.format(titlePattern, moment(fromdate).format("M/DD/YYYY"), moment(todate).format("M/DD/YYYY"), currencyStr, minOddStr);
 
+                _postdata.ReportTitle = title;
                 $(".report-title").html(title);
                 $(".panel-heading").removeClass("hide");
             },
