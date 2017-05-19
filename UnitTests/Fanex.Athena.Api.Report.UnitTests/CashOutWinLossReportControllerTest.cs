@@ -16,11 +16,13 @@
     using NSubstitute;
     using NUnit.Framework;
     using Report;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
 
     public class CashOutWinLossReportControllerTest
     {
         private ISessionService _sessionService;
+        private IProductService _productService;
         private ICashOutWinLossService _service;
         private CashOutWinLossReportController _controller;
         private JavaScriptSerializer _serializer;
@@ -29,8 +31,9 @@
         public void SetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
+            _productService = Substitute.For<IProductService>();
             _service = Substitute.For<ICashOutWinLossService>();
-            _controller = Substitute.ForPartsOf<CashOutWinLossReportController>(_service, _sessionService);
+            _controller = Substitute.ForPartsOf<CashOutWinLossReportController>(_service, _sessionService, _productService);
             _serializer = new JavaScriptSerializer();
             CreateSession();
         }
@@ -132,7 +135,7 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
-        }       
+        }
 
         [Test]
         public void Index_WhenDataListParamReturnEmpty_ReturnEmptyResult()
@@ -201,7 +204,7 @@
 
             // Assert
             _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
-        }      
+        }
 
         [TestCase(0, -2)]
         [TestCase(1, -2)]
