@@ -1,6 +1,6 @@
 ﻿"use strict";
 define(
-    ['jquery', 'common/site', "lib/linq"],
+    ['jquery', 'common/site'],
     function ($, Site) {
         var _me = {};
 
@@ -39,6 +39,7 @@ define(
         var MIN_LOADING_MILISECONDS = 1000;
         var MIN_INTERVAL = 3000;
         var HIGHLIGHT_CLASS = "monitor-hightlight";
+        var SELECTED_CLASS = "monitor-keep";
         var MAX_STAKE = 999999999;
 
         _me.columns =
@@ -68,7 +69,7 @@ define(
             _$tableHeader = $("#last-bets-monitoring thead");
             _$tableBody = $("#last-bets-monitoring tbody");
             _$tableBody.on("click", "tr", function () {
-                $(this).toggleClass("monitor-keep");
+                $(this).toggleClass(SELECTED_CLASS);
             });
 
             _params.BasedCurrency = $("#last-bet-monitor-base-currency").val();
@@ -206,7 +207,7 @@ define(
 
                 var rowCount = $("tr.content-row", _$tableBody).length;
                 if (rowCount === 0) {
-                    _me.bindNoInfoRow(message);
+                    _me.bindNoInfoRow();
                 }
 
                 return;
@@ -219,17 +220,16 @@ define(
             --------------------------------------------------------------------------------------------*/
             //get hide columns
             var hideColumns = _me.columns.filter(function (item) { return item.IsShow === 0; });
+            var rows = _betListResult.Rows;
             if (hideColumns.length > 0) {
-                var rows = _betListResult.Rows;
                 var display = " style=\"display:none;\"";
                 $.each(hideColumns, function (index, value) {
                     var name = "data-name=\"" + value.Name + "\"";
                     rows = rows.replaceAll(name, name + display);
                 });
-                _$tableBody.append(rows);
-            } else {
-                _$tableBody.append(_betListResult.Rows);
             }
+
+            _$tableBody.append(rows);
             $("tr:gt(" + (_params.PageSize - 1) + ")", _$tableBody).remove();
 
             if (_betListResult) {
@@ -237,9 +237,8 @@ define(
                 _params.TransId = _lastTransId;
             }
             setTimeout(function () {
-                return _me.unHighlight(_lastTransId);
-            },
-             6000);
+                _me.unHighlight(_lastTransId);
+            }, 6000);
 
             _isLoading = false;
         };
@@ -249,7 +248,7 @@ define(
 
             var htmlNoInfor = '<p id="noInfoRow" class="no-info-row">' + noInfoMessage + '</p>';
             $('#noInfoRow').remove();
-            _$tableBody.parent().append(htmlNoInfor);
+            $('#betlist_content').append(htmlNoInfor);
         };
 
         /*------------------------------------------------------------------------------------------
@@ -257,7 +256,7 @@ define(
         ------------------------------------------------------------------------------------------*/
         _me.unHighlight = function (lastTransId) {
             $("tr.content-row", _$tableBody).each(function (i, e) {
-                var transId = $(e).attr("data-transid");
+                var transId = $(e).data("transid");
                 if (transId <= lastTransId) {
                     $(e).removeClass(HIGHLIGHT_CLASS);
                 }

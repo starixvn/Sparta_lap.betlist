@@ -10,23 +10,33 @@ define(
         var _currentMatchList = [];
         var _currentLeagueList = [];
 
+        var SPECIAL_LEVEL_LENGTH = 11;
+        var NUMBER_PARAM_METHOD = "numberParam";
+        var STRING_PARAM_METHOD = "stringParam";
+
+        var Selector = {
+            League: "#league",
+            Match: "#match"
+        }
+
         _me.initSports = function () {
             $("#sports").change(function () {
-                _me.setHighlightSubmit();
                 var sportId = Number($(this).val());
-                LastBetGrid.numberParam("SportId", sportId);
+                _me.doNormalChange(NUMBER_PARAM_METHOD, "SportId", sportId);
 
                 var mixParlaySportId = 999;
-                $("#league").html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
-                $("#match").prop("disabled", true);
+                var $leagueDropdown = $(Selector.League);
+                var $matchDropdown = $(Selector.Match);
 
-                if (sportId === 0 || sportId === mixParlaySportId) {
-                    $("#league").prop("disabled", true);
-                }
-                else {
-                    $("#league").prop("disabled", false);
+                var htmlAllOption = "<option value='0'>" + Site.getSingleResource("All") + "</option>";
+                $leagueDropdown.html(htmlAllOption);
+                $matchDropdown.html(htmlAllOption);
+                $matchDropdown.prop("disabled", true);
 
-                    // Reload league list & match list
+                var isDisableLeague = sportId === 0 || sportId === mixParlaySportId;
+                $leagueDropdown.prop("disabled", isDisableLeague);
+
+                if(!isDisableLeague) {
                     $.ajax({
                         url: Site.resolveClientUrl('api/LastBetMonitoringBetList/GetRunningMatchList'),
                         data: "sportid=" + sportId,
@@ -41,7 +51,6 @@ define(
                         },
                         success: function (data) {
                             _currentMatchList = data.MatchList;
-                            var $leagueDropdown = $("#league");
                             _currentLeagueList = data.LeagueList;
 
                             var htmlOption = "";
@@ -54,30 +63,30 @@ define(
                     });
                 }
 
-                $("#match").html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
-                //update leagueId and matchId
-                LastBetGrid.numberParam("LeagueId", $("#league").val());
-                LastBetGrid.numberParam("MatchId", $("#match").val());
+                $leagueDropdown.selectList("update");
+                $matchDropdown.selectList("update");
+                LastBetGrid.numberParam("LeagueId", $leagueDropdown.val());
+                LastBetGrid.numberParam("MatchId", $matchDropdown.val());
             });
         };
 
         _me.initLeague = function () {
-            $("#league").change(function () {
-                _me.setHighlightSubmit();
+            $(Selector.League).change(function () {
                 var leagueId = Number($(this).val());
-                LastBetGrid.numberParam("LeagueId", leagueId);
-                $("#match").html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
+                _me.doNormalChange(NUMBER_PARAM_METHOD, "LeagueId", leagueId);
+
+                var $matchDropdown = $(Selector.Match);
+                $matchDropdown.html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
 
                 if (leagueId === 0) {
-                    $("#match").prop("disabled", true);
+                    $matchDropdown.prop("disabled", true);
                 }
                 else {
-                    // Bind match league
-                    var filteredLeague = _currentLeagueList.filter(function (item) { return item.leagueId === leagueId; });
+                    var filteredLeague = _currentLeagueList.filter(function (item) { return item.LeagueId === leagueId; });
                     var leagueItem = filteredLeague.length ? filteredLeague[0] : null;
                     if (leagueItem && Site.asBool(leagueItem.IsOutRight) === false) {
-                        var matchList = _currentMatchList.filter(function (item) { return item.leagueId === leagueId; });
-                        var $matchDropdown = $("#match");
+                        var matchList = _currentMatchList.filter(function (item) { return item.LeagueId === leagueId; });
+                        
 
                         var htmlOption = "";
                         $(matchList).each(function (i, e) {
@@ -87,47 +96,40 @@ define(
                         $matchDropdown.append(htmlOption);
 
                         if (matchList.length > 0) {
-                            $("#match").prop("disabled", false);
+                            $matchDropdown.prop("disabled", false);
                         }
                     }
                     else {
-                        $("#match").prop("disabled", true);
+                        $matchDropdown.prop("disabled", true);
                     }
                 }
-                //update matchId
-                LastBetGrid.numberParam("MatchId", $("#match").val());
+
+                $matchDropdown.selectList("update");
+                LastBetGrid.numberParam("MatchId", $matchDropdown.val());
             });
         };
 
         _me.initMatch = function () {
-            $("#match").change(function () {
-                _me.setHighlightSubmit();
-
-                LastBetGrid.numberParam("MatchId", $("#match").val());
+            $(Selector.Match).change(function () {
+                _me.doNormalChange(NUMBER_PARAM_METHOD, "MatchId", $(this).val());
             });
         };
 
         _me.initBetType = function () {
             $("#bet-type").change(function () {
-                _me.setHighlightSubmit();
-
-                LastBetGrid.stringParam("BetType", $("#bet-type").val());
+                _me.doNormalChange(STRING_PARAM_METHOD, "BetType", $("#bet-type").val());
             });
         };
 
         _me.initLiveStatus = function () {
             $("#live-status").change(function () {
-                _me.setHighlightSubmit();
-
-                LastBetGrid.stringParam("LiveStatus", $("#live-status").val());
+                _me.doNormalChange(STRING_PARAM_METHOD, "LiveStatus", $("#live-status").val());
             });
         };
 
         _me.initOddsType = function () {
             $("#odds-type").change(function () {
-                _me.setHighlightSubmit();
-
-                LastBetGrid.stringParam("OddsType", $("#odds-type").val());
+                _me.doNormalChange(STRING_PARAM_METHOD, "OddsType", $("#odds-type").val());
             });
         };
 
@@ -157,11 +159,10 @@ define(
                 selectedText: Site.getSingleResource("SelectedItemCount"), // Text show when item was selected
                 listData: specialList,
                 onCheck: function () {
-                    _me.setHighlightSubmit();
-
                     var selectedLevel = $("#special-level").multiSelect("getCheckedItems");
-                    selectedLevel = selectedLevel.length === 11 ? "" : selectedLevel.join(",");
-                    LastBetGrid.stringParam("Level", selectedLevel);
+                    selectedLevel = selectedLevel.length === SPECIAL_LEVEL_LENGTH ? "" : selectedLevel.join(",");
+
+                    _me.doNormalChange(STRING_PARAM_METHOD, "Level", selectedLevel);
                 }
             });
         };
@@ -194,10 +195,9 @@ define(
                 selectedText: Site.getSingleResource("SelectedItemCount"), // Text show when item was selected
                 listData: currencyList,
                 onCheck: function () {
-                    _me.setHighlightSubmit();
-
                     var selectedCurrency = $("#currency").multiSelect("getCheckedItems");
                     selectedCurrency = currencyCount === selectedCurrency.length ? "" : selectedCurrency.join(",");
+                    _me.doNormalChange(STRING_PARAM_METHOD, "Currency", selectedCurrency);
 
                     // Update based currency
                     var selectedCurrencyText = $("#currency").multiSelect("getCheckedItemsByText");
@@ -223,7 +223,7 @@ define(
                             baseCurrencyObj.val("");
                         }
                     }
-                    LastBetGrid.stringParam("Currency", selectedCurrency);
+                    Site.initSelectElements();
                     LastBetGrid.stringParam("BasedCurrency", $("#based-currency option:selected").text());
                 }
             });
@@ -231,17 +231,13 @@ define(
 
         _me.initTimeZone = function () {
             $("#time-zone").change(function () {
-                _me.setHighlightSubmit();
-
-                LastBetGrid.numberParam("TimeZone", $("#time-zone").val());
+                _me.doNormalChange(NUMBER_PARAM_METHOD, "TimeZone", $("#time-zone").val());
             });
         };
 
         _me.initBasedCurrency = function () {
             $("#based-currency").change(function () {
-                _me.setHighlightSubmit();
-
-                LastBetGrid.stringParam("BasedCurrency", $("#based-currency").val());
+                _me.doNormalChange(STRING_PARAM_METHOD, "BasedCurrency", $("#based-currency").val());
             });
         };
 
@@ -253,44 +249,40 @@ define(
                 _me.setHighlightSubmit();
             });
 
-            $("#stake-from").change(function () {
-                _me.setHighlightSubmit();
-
-                var stake = $("#stake-from").val();
+            function changeHandler(paramName, defaultValue) {
+                var stake = $(this).val();
                 stake = stake.replace(/,/g, '');
-                stake = stake === "" ? 0 : parseInt(stake);
-                LastBetGrid.numberParam("StakeFrom", stake);
+                stake = stake === "" ? defaultValue : parseInt(stake);
+                _me.doNormalChange(NUMBER_PARAM_METHOD, paramName, stake);
+            }
+
+            $("#stake-from").change(function () {
+                changeHandler.call(this, "StakeFrom", 0);
             });
 
             $("#stake-to").change(function () {
-                _me.setHighlightSubmit();
-
-                var stake = $("#stake-to").val();
-
-                stake = stake.replace(/,/g, '');
-                stake = stake === "" ? maxStake : parseInt(stake);
-                LastBetGrid.numberParam("StakeTo", stake);
+                changeHandler.call(this, "StakeTo", maxStake);
             });
         };
 
         _me.initPageSizeControl = function () {
-            $("#pagesize a").click(function () {
+            $("#pagesize a.label").click(function () {
                 var $this = $(this);
                 if ($this.hasClass("active")) {
                     return;
                 }
 
-                _me.setHighlightSubmit();
-
-                $("#pagesize a").removeClass("active");
+                $("#pagesize a.label").removeClass("active");
                 $this.addClass("active");
-                LastBetGrid.numberParam("PageSize", $this.html());
+
+                _me.doNormalChange(NUMBER_PARAM_METHOD, "PageSize", $this.text());
             });
         };
 
         _me.initFreezeButton = function () {
             $("#FreezeButton").click(function () {
-                var currentStatus = Number($(this).data("status"));
+                var $this = $(this);
+                var currentStatus = Number($this.data("status"));
                 var newStatus = currentStatus === 1 ? 0 : 1;
                 var newValue = newStatus ? Site.getSingleResource("Freeze") : Site.getSingleResource("Unfreeze");
                 if (newStatus) {
@@ -300,24 +292,24 @@ define(
                     LastBetGrid.stopMonitor();
                 }
 
-                $(this).val(newValue);
-                $(this).data("status", newStatus);
+                $this.text(newValue);
+                $this.data("status", newStatus);
             });
         };
 
         _me.setHighlightSubmit = function () {
             clearInterval(_highLightSubmitIntervalId);
             _highLightSubmitIntervalId = setInterval(function () {
-                $("#SubmitButton").css("background-color", "rgb(211,211,211)");
+                $("#SubmitButton").addClass("btn-alert");
                 setTimeout(function () {
-                    $("#SubmitButton").css("background-color", "buttonface");
+                    $("#SubmitButton").removeClass("btn-alert");
                 }, 500);
             }, 1000);
         };
         _me.initSubmit = function () {
             $("#SubmitButton").click(function () {
                 clearInterval(_highLightSubmitIntervalId);
-                $("#SubmitButton").css("background-color", "");
+                $("#SubmitButton").removeClass("btn-alert");
                 var freeStatus = $("#FreezeButton").data("status");
                 LastBetGrid.Submit(freeStatus);
             });
@@ -330,19 +322,18 @@ define(
                     Id: "column-" + i,
                     Value: e.Name,
                     Text: Site.getSingleResource(e.Name),
-                    Checked: Number(e.IsShow) === 1 ? true : false,
+                    Checked: e.IsShow === 1 ? true : false,
                     Enable: true,
                     Css: "",
                     CssClass: ""
                 });
-                if (Number(e.IsShow) === 0) {
+                if (e.IsShow === 0) {
                     $("td[data-name=\"" + e.Name + "\"]").hide();
                 }
                 $("#se-column").append('<option value="' + e.Name + '">' + e.Name + " " + '</option>');
             });
 
-            $("#se-column").multiSelect(
-            {
+            $("#se-column").multiSelect({
                 minWidth: 200,
                 maxHeight: 400,
                 shadow: true,
@@ -366,11 +357,15 @@ define(
         };
         _me.initPlatForm = function () {
             $("#bet-form").change(function () {
-                _me.setHighlightSubmit();
-                var value = $(this).val();
-                LastBetGrid.numberParam("BetFrom", value);
+                _me.doNormalChange(NUMBER_PARAM_METHOD, "BetFrom", $(this).val());
             });
         };
+
+        _me.doNormalChange = function (method, paramName, value) {
+            _me.setHighlightSubmit();
+            LastBetGrid[method](paramName, value);
+        };
+
         _me.initialize = function () {
             Site.initialize();
             _me.initSports();

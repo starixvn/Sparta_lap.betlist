@@ -6,10 +6,13 @@
 @import 'AGCasino';
 @import 'Allbet';
 
-.label{
+$bgNewRow: #fcf4df;
+
+.label {
     padding: 0 8px;
     margin-top: 6px;
 }
+
 .table > thead > tr {
     > th {
         background: $bgHeaderTableLevel1;
@@ -38,7 +41,13 @@
 
         &.monitor-keep {
             > td {
-                background: $colorSelectedRow !important;
+                background-color: $colorSelectedRow;
+            }
+        }
+
+        &.monitor-hightlight {
+            > td{
+                background-color: $bgNewRow;
             }
         }
 
@@ -109,7 +118,8 @@
     color: #fc0000 !important;
 }
 
-/*-------------Hight light-----------------*/
-.monitor-hightlight {
-    background: #FFDBA8;
+.btn {
+    &.btn-alert {
+        background-color: #26a69a;
+    }
 }

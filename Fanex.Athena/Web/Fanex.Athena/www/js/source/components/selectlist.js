@@ -55,11 +55,6 @@
             var selectedKey = $(this).data("key");
             $originalSelectElement.val(selectedKey);
 
-            var $resultContainer = $(this).closest(".select-list-result-container");
-            var $selectionLabel = $originalSelectElement.siblings(".select-list-container").find(".selection-label");
-            $selectionLabel.text($(this).text());
-
-            $resultContainer.remove();
             $originalSelectElement.trigger("change");
         });
 
@@ -132,25 +127,37 @@
             $.extend(selectListOption, options || {});
 
             return this.each(function () {
-                var $self = $(this);
-                $self.siblings(".select-list-container").remove();
-                var optionSelected = $self.find("option:selected");
-                var selectedValue = optionSelected.length ? optionSelected.text() : "";
+                var _this = this;
+                var $element = $(_this);
+                _methods.buildLabel.call(_this, selectListOption);
 
-                var selectionId = generateId($self);
-                var $selectionLabel = $(getLabelHtml(selectedValue, selectionId));
-
-                $selectionLabel.find(".selection").on("click", function (e) {
+                var $container = $element.parent();
+                $container.on("click", ".selection", function (e) {
                     e.stopPropagation();
-                    _methods.toggle.call($self, $(this), selectListOption.canSearch);
+                    var $this = $(this);
+                    _methods.toggle.call(_this, $this, selectListOption.canSearch);
+                });
+
+                $element.on("change", function () {
+                    _methods.update.call(_this);
                 });
 
                 $(document).click(function () {
                     closeAll();
                 });
-
-                $self.hide().parent().append($selectionLabel);
             });
+        },
+
+        buildLabel: function () {
+            var $self = $(this);
+            $self.siblings(".select-list-container").remove();
+            var optionSelected = $self.find("option:selected");
+            var selectedValue = optionSelected.length ? optionSelected.text() : "";
+
+            var selectionId = generateId($self);
+            var $selectionLabel = $(getLabelHtml(selectedValue, selectionId));
+
+            $self.hide().parent().append($selectionLabel);
         },
 
         open: function (resultContainerId, canSearch) {
@@ -188,6 +195,10 @@
                     _methods.open.call(this, resultContainerId, canSearch);
                 }
             }
+        },
+
+        update: function () {
+            _methods.buildLabel.call(this);
         }
     };
 
