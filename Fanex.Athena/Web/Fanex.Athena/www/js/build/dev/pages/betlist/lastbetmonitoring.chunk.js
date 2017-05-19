@@ -387,7 +387,7 @@ webpackJsonp([43],{
 	                listData: columns,
 	                onCheck: function () {
 	                    var selectedLevel = $("#se-column").multiSelect("getCheckedItems");
-	                    var isShowAll = selectedLevel.length === 8;
+	                    var isShowAll = selectedLevel.length === LastBetGrid.columns.length;
 	                    $.each(LastBetGrid.columns, function (i, e) {
 	                        var showItem = selectedLevel.indexOf(e.Name) > -1;
 	                        e.IsShow = isShowAll || showItem ? 1 : 0;
@@ -709,7 +709,7 @@ webpackJsonp([43],{
 	            Update last transId
 	            --------------------------------------------------------------------------------------------*/
 	            //get hide columns
-	            var hideColumns = _me.columns.filter(function (item) { return item.IsShow === 0 });
+	            var hideColumns = _me.columns.filter(function (item) { return item.IsShow === 0; });
 	            if (hideColumns.length > 0) {
 	                var rows = _betListResult.Rows;
 	                var display = " style=\"display:none;\"";
