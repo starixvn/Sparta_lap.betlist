@@ -330,7 +330,6 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
         }
 
         var _me = {
-            licenseeId: 0,
             hasCustomerComm: true,
             pageSize: 50,
             totalColspan: [0, 4],
