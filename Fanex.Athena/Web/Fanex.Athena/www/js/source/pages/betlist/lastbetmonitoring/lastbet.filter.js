@@ -355,7 +355,7 @@ define(
                 listData: columns,
                 onCheck: function () {
                     var selectedLevel = $("#se-column").multiSelect("getCheckedItems");
-                    var isShowAll = selectedLevel.length === 8;
+                    var isShowAll = selectedLevel.length === LastBetGrid.columns.length;
                     $.each(LastBetGrid.columns, function (i, e) {
                         var showItem = selectedLevel.indexOf(e.Name) > -1;
                         e.IsShow = isShowAll || showItem ? 1 : 0;

@@ -18,9 +18,8 @@
         var BETLIST_IGNORED_PRODUCTS = ["AB"];
         var platforms = {};
 
-        var _cacheData = [];
-        var _filterData = []
-        var _submitData = {}; // cache submit data of level 0
+        var _cacheData = {};
+        var _filterData = {};
         var _drilldownData = {};
 
         var gridControl = {
@@ -38,12 +37,6 @@
                 title: Site.getSingleResource("PlatformWinLoss")
             });
 
-            _me.initEvent();
-            _me.initSetting();
-
-            MultiSelect.initProductList();
-            MonthPicker.initMonthPicker();
-
             platforms = {
                 "0": Site.getSingleResource("All"),
                 "1": Site.getSingleResource("Asia"),
@@ -52,6 +45,12 @@
                 "4": Site.getSingleResource("Wap"),
                 "5": Site.getSingleResource("SmartSite")
             };
+
+            _me.initEvent();
+            _me.initSetting();
+
+            MultiSelect.initProductList();
+            MonthPicker.initMonthPicker();
 
             $(window).on("resize", function () {
                 resizeGrid();
@@ -135,8 +134,8 @@
                     DrawFilter: data.DrawFilter,
                     PlatformType: data.PlatformType,
                     CurrencyId: data.CurrencyId,
-                    FromDate: (new Date(data.FromDate)).toStringFormat("MM/dd/yyyy"),
-                    ToDate: (new Date(data.ToDate)).toStringFormat("MM/dd/yyyy"),
+                    FromDate: data.FromDate,
+                    ToDate: data.ToDate,
                     CurrencyName: data.CurrencyName,
                     Excludetest: data.IsExcludeTest,
                     BaseCurrency: data.BaseCurrency
@@ -152,7 +151,7 @@
         }
 
         function exportToExcel(level) {
-            var data = Site.clone(_filterData[level]);// gridControl.level === 0 ? Site.clone(_submitData) : Site.clone(_drilldownData);
+            var data = Site.clone(_filterData[level]);
             data.IsExportExcel = true;
             data.Level = level;
             Site.exportExcel(data, Site.resolveClientUrl(PlatformWinLossOption.urlExcelData));
@@ -190,12 +189,8 @@
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete();
 
-                if (level === 1 && numOfRow > PlatformWinLossOption.pageSize) {
-                    $("#pg_ppdata").show();
-                }
-                else {
-                    $("#pg_ppdata").hide();
-                }
+                var showPaging = level === 1 && numOfRow > PlatformWinLossOption.pageSize;
+                $("#pg_ppdata").toggle(showPaging);
 
                 if (onPaging) {
                     $(".ui-jqgrid-ftable").html($("#footer").html());
@@ -262,14 +257,14 @@
                 "eur": viewinKey.replace("{0}", "EUR")
             };
             var baseCurrencyKey = $('#BaseCurrency').val();
-            var baseCurrencyText = baseCurrency[baseCurrencyKey] === undefined
-                ? viewinKey.replace("{0}", selectedCurrency)
-                : baseCurrency[baseCurrencyKey];
+            var baseCurrencyText = baseCurrency[baseCurrencyKey] ?
+                baseCurrency[baseCurrencyKey]
+                : viewinKey.replace("{0}", selectedCurrency);
 
             var platformName = platforms[data.PlatformType];
 
             var productText = Site.getSingleResource('Product') + ': ';
-            productText = (data.ProductOptions && data.ProductOptions.length === 1) ?
+            productText = data.ProductOptions && data.ProductOptions.length === 1 ?
                 productText + data.ProductOptions[0].Code :
                 getProductText(data.ProductOptions);
 
@@ -300,7 +295,7 @@
 
             getData(drilldownData, Site.resolveClientUrl(PlatformWinLossOption.urlData), function (response) {
                 _cacheData[level] = response;
-                _filterData[level] = drilldownData
+                _filterData[level] = drilldownData;
                 _me.setReportTitle(drilldownData);
                 Report.renderBreadCrumb(level);
                 _me.bindData(level, response, productOptions);
@@ -349,12 +344,11 @@
             Popup.openPopupWithIframe(url, popupOption);
         }
 
-
         function sortData(arrayData) {
             var sortType = gridControl.sortOrder === "asc" ? "OrderBy" : "OrderByDescending";
-            var sortFunction = (function (row) {
+            var sortFunction = function (row) {
                 return row[gridControl.sortColumnName];
-            });
+            };
 
             var data = Enumerable.From(arrayData)[sortType](sortFunction).ToArray();
 
@@ -367,9 +361,9 @@
 
         function getProductText(productOptions) {
             var productSeleted = Enumerable.From(productOptions)
-                .Where(function (x) { return x.Status })
-                .Select(function (x) { return x.Code })
-                .ToArray();           
+                .Where(function (x) { return x.Status; })
+                .Select(function (x) { return x.Code; })
+                .ToArray();
 
             var productName = productSeleted.length === productOptions.length
                 ? Site.getSingleResource('All')

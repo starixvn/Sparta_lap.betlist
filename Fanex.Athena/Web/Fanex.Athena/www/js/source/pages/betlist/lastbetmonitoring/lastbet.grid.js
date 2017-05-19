@@ -218,7 +218,7 @@ define(
             Update last transId
             --------------------------------------------------------------------------------------------*/
             //get hide columns
-            var hideColumns = _me.columns.filter(function (item) { return item.IsShow === 0 });
+            var hideColumns = _me.columns.filter(function (item) { return item.IsShow === 0; });
             if (hideColumns.length > 0) {
                 var rows = _betListResult.Rows;
                 var display = " style=\"display:none;\"";
