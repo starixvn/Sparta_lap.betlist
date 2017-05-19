@@ -26,7 +26,6 @@
         private IProductService _productService;
         private IWinLossByProductService _service;
         private WinLossByProductReportController _controller;
-        private JavaScriptSerializer _serializer;
 
         [SetUp]
         public void SetUp()
@@ -35,7 +34,6 @@
             _productService = Substitute.For<IProductService>();
             _service = Substitute.For<IWinLossByProductService>();
             _controller = Substitute.ForPartsOf<WinLossByProductReportController>(_sessionService, _productService, _service);
-            _serializer = new JavaScriptSerializer();
             CreateSession();
         }
 

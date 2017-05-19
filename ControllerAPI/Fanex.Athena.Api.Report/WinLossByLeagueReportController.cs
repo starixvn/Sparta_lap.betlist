@@ -20,8 +20,10 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Resources;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
 
@@ -38,12 +40,23 @@ namespace Fanex.Athena.Api.Report
             _balanceUpService = new BalanceUpService();
         }
 
+        public WinLossByLeagueReportController(
+            ISessionService sessionService,
+            IProductService productService,
+            IBalanceUpService balanceUpService,
+            IWinLossByLeagueService winlossByLeagueService)
+            : base(sessionService, productService)
+        {
+            _balanceUpService = balanceUpService;
+            _winlossByLeagueService = winlossByLeagueService;
+        }
+
         [HttpPost]
         public dynamic Index([FromBody] WinLossByLeagueMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel))
             {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
+                return BadRequest(ViewResources.InvalidParams);
             }
 
             WinLossByLeague grandTotal;
