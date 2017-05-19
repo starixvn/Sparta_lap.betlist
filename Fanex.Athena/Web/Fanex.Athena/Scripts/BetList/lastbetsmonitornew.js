@@ -117,7 +117,7 @@ var MonitorBetList = function () {
             BetFrom: $this.betFrom
         };
 
-        $this.currentParam = Site.clone($this.params);
+     
     };
 
     $this.Submit = function (freeStatus) {
