@@ -321,12 +321,19 @@
             var url = Site.resolveClientUrl("PlatformWinLossBetList/Index");
             var onLevelData = _filterData[onlevel];
 
-            var param = Site.clone(onLevelData);
-            param.Custid = dataDrillDown.CustomerId;
-            param.SystemId = dataDrillDown.SystemId;
-            param.ExternalId = dataDrillDown.ExternalId;
-            param.CurrencyId = dataDrillDown.DrillDownCurrencyId;
-            param.CurrencyName = dataDrillDown.DrillDownCurrencyName;
+            var param = {
+                FromDate: onLevelData.FromDate,
+                ToDate: onLevelData.ToDate,
+                PlatformType: onLevelData.PlatformType,
+                Excludetest: onLevelData.IsExcludeTest,
+                CurrencyId: dataDrillDown.DrillDownCurrencyId,
+                CurrencyName: dataDrillDown.DrillDownCurrencyName,
+                Drawfilter: onLevelData.DrawFilter,
+                CustId: dataDrillDown.CustomerId,
+                SystemId: dataDrillDown.SystemId,
+                ExternalId: dataDrillDown.ExternalId,
+                BaseCurrency: onLevelData.BaseCurrency
+            };
 
             url = QueryString.setParams(url, param);
 
