@@ -126,6 +126,7 @@
             gridControl.level = 0;
             var data = $("#platformwinloss").serializeObject();
             data.Level = gridControl.level;
+            addDateParam(data);
 
             getData(data, Site.resolveClientUrl(PlatformWinLossOption.urlData), function (response) {
                 var submitData = {
@@ -352,6 +353,15 @@
             var popH = Math.min($(window).height() - 100, 650), popW = 920;
             var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
             Popup.openPopupWithIframe(url, popupOption);
+        }
+
+        function addDateParam(data) {
+            var fromDate = new Date($("#FromDate").val());
+            var toDate = new Date($("#ToDate").val());
+            data.FromDay = fromDate.getDate();
+            data.ToDay = toDate.getDate();
+            data.Month = fromDate.getMonth() + 1;
+            data.Year = fromDate.getFullYear();
         }
 
         function sortData(arrayData) {
