@@ -16344,7 +16344,7 @@ webpackJsonp([55],[
 	                    }
 	                    
 	                    $("#ProductList").toggleClass("invalid", !hasItemsChecked);
-	                    $("#SubmitButton").toggleClass("disabled", !hasItemsChecked);
+	                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
 	                }
 	            });
 	        }

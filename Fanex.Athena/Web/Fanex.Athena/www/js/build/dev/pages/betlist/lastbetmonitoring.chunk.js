@@ -47,11 +47,11 @@ webpackJsonp([43],{
 	            NUMBER: "number",
 	            STRING: "string"
 	        };
-	        
+	
 	        var Selector = {
 	            League: "#league",
 	            Match: "#match"
-	        }
+	        };
 	
 	        _me.initSports = function () {
 	            $("#sports").change(function () {
@@ -65,12 +65,9 @@ webpackJsonp([43],{
 	                var htmlAllOption = "<option value='0'>" + Site.getSingleResource("All") + "</option>";
 	                $leagueDropdown.html(htmlAllOption);
 	                $matchDropdown.html(htmlAllOption);
-	                $matchDropdown.prop("disabled", true);
 	
-	                var isDisableLeague = sportId === 0 || sportId === mixParlaySportId;
-	                $leagueDropdown.prop("disabled", isDisableLeague);
-	
-	                if(!isDisableLeague) {
+	                var canRequest = !(sportId === 0 || sportId === mixParlaySportId);
+	                if (canRequest) {
 	                    $.ajax({
 	                        url: Site.resolveClientUrl('api/LastBetMonitoringBetList/GetRunningMatchList'),
 	                        data: "sportid=" + sportId,
@@ -112,15 +109,11 @@ webpackJsonp([43],{
 	                var $matchDropdown = $(Selector.Match);
 	                $matchDropdown.html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
 	
-	                if (leagueId === 0) {
-	                    $matchDropdown.prop("disabled", true);
-	                }
-	                else {
+	                if (leagueId !== 0) {
 	                    var filteredLeague = _currentLeagueList.filter(function (item) { return item.LeagueId === leagueId; });
 	                    var leagueItem = filteredLeague.length ? filteredLeague[0] : null;
 	                    if (leagueItem && Site.asBool(leagueItem.IsOutRight) === false) {
 	                        var matchList = _currentMatchList.filter(function (item) { return item.LeagueId === leagueId; });
-	                        
 	
 	                        var htmlOption = "";
 	                        $(matchList).each(function (i, e) {
@@ -128,13 +121,6 @@ webpackJsonp([43],{
 	                        });
 	
 	                        $matchDropdown.append(htmlOption);
-	
-	                        if (matchList.length > 0) {
-	                            $matchDropdown.prop("disabled", false);
-	                        }
-	                    }
-	                    else {
-	                        $matchDropdown.prop("disabled", true);
 	                    }
 	                }
 	
@@ -474,7 +460,7 @@ webpackJsonp([43],{
 	                    }
 	                    
 	                    $("#ProductList").toggleClass("invalid", !hasItemsChecked);
-	                    $("#SubmitButton").toggleClass("disabled", !hasItemsChecked);
+	                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
 	                }
 	            });
 	        }
@@ -513,6 +499,7 @@ webpackJsonp([43],{
 	            TransId: _lastTransId,
 	            BetFrom: 0
 	        };
+	        var _postedParam;
 	        var _intervalId;
 	        var _errorMessage;
 	        var _isLoading;
@@ -561,6 +548,7 @@ webpackJsonp([43],{
 	            });
 	
 	            _params.BasedCurrency = $("#last-bet-monitor-base-currency").val();
+	            _postedParam = Site.clone(_params);
 	        };
 	        _me.getMaxStake = function () {
 	            return MAX_STAKE;
@@ -574,7 +562,7 @@ webpackJsonp([43],{
 	        };
 	
 	        _me.isValidParam = function () {
-	            return _params.StakeFrom <= _params.StakeTo
+	            return _postedParam.StakeFrom <= _postedParam.StakeTo
 	                && $("#currency").multiSelect("getCheckedItems").length > 0
 	                && $("#special-level").multiSelect("getCheckedItems").length > 0;
 	        };
@@ -596,6 +584,7 @@ webpackJsonp([43],{
 	            _me.stopMonitor();
 	            _me.tryUpdateStake();
 	            _isCriteriaChange = true;
+	            _postedParam = Site.clone(_params);
 	
 	            if (parseInt(freezeStatus) === 1) {
 	                _me.startMonitor();
@@ -628,19 +617,19 @@ webpackJsonp([43],{
 	            $.ajax({
 	                url: Site.resolveClientUrl('api/LastBetMonitoringBetList/Index'),
 	                type: "POST",
-	                data: JSON.stringify(_params),
+	                data: JSON.stringify(_postedParam),
 	                contentType: 'application/json; charset=utf-8',
 	                dataType: "json",
 	                async: true,
 	                cache: false,
 	                timeout: 10000,
 	                beforeSend: function () {
-	                    $(".loading").show();
+	                    $("#monitorLoader").show();
 	                    _isLoading = true;
 	                    _isCriteriaChange = false;
 	                },
 	                complete: function () {
-	                    $(".loading").hide();
+	                    $("#monitorLoader").hide();
 	                    var rowCount = $("tr", _$tableBody).length;
 	                    if (rowCount > 0) {
 	                        $("#noInfoRow").remove();
@@ -671,7 +660,7 @@ webpackJsonp([43],{
 	                        return;
 	                    }
 	
-	                    $(".loading").hide();
+	                    $("#monitorLoader").hide();
 	
 	                    _betListResult.Updated = false;
 	                    _betListResult.Rows = "";
@@ -718,11 +707,11 @@ webpackJsonp([43],{
 	            }
 	
 	            _$tableBody.append(rows);
-	            $("tr:gt(" + (_params.PageSize - 1) + ")", _$tableBody).remove();
+	            $("tr:gt(" + (_postedParam.PageSize - 1) + ")", _$tableBody).remove();
 	
 	            if (_betListResult) {
 	                _lastTransId = _betListResult.LastTransId;
-	                _params.TransId = _lastTransId;
+	                _postedParam.TransId = _lastTransId;
 	            }
 	            setTimeout(function () {
 	                _me.unHighlight(_lastTransId);
@@ -753,7 +742,7 @@ webpackJsonp([43],{
 	
 	        _me.clearContent = function () {
 	            _lastTransId = 0;
-	            _params.TransId = _lastTransId;
+	            _postedParam.TransId = _lastTransId;
 	            _me.bindNoInfoRow();
 	        };
 	

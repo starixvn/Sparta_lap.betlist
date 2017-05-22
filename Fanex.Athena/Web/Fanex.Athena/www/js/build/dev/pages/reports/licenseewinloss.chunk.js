@@ -20003,7 +20003,7 @@ webpackJsonp([52],[
 	                    }
 	                    
 	                    $("#ProductList").toggleClass("invalid", !hasItemsChecked);
-	                    $("#SubmitButton").toggleClass("disabled", !hasItemsChecked);
+	                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
 	                }
 	            });
 	        }

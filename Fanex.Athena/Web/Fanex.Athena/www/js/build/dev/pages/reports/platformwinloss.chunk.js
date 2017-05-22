@@ -3724,7 +3724,7 @@ webpackJsonp([56],{
 	                    }
 	                    
 	                    $("#ProductList").toggleClass("invalid", !hasItemsChecked);
-	                    $("#SubmitButton").toggleClass("disabled", !hasItemsChecked);
+	                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
 	                }
 	            });
 	        }
@@ -6935,7 +6935,7 @@ webpackJsonp([56],{
 	                afterChangeDay: function () {
 	                    $fromDate.val($picker.monPickr("getFromDate", "MM/dd/yyyy"));
 	                    $todate.val($picker.monPickr("getToDate", "MM/dd/yyyy"));
-	                    if (typeof (option.customAfterChangeDay) === "function") {
+	                    if (option && typeof option.customAfterChangeDay === "function") {
 	                        option.customAfterChangeDay();
 	                    }
 	                }
@@ -7464,6 +7464,9 @@ webpackJsonp([56],{
 	
 	                    // Toggle the dropdown when users click on selected month label
 	                    data.wrap.on('click', function (e) {
+	                        _hideDropDown(data, data.ddlFromDate);
+	                        _hideDropDown(data, data.ddlToDate);
+	
 	                        if ($(e.target).hasClass('selectedMonth')) {
 	                            if (data.dropDown.is(':hidden')) {
 	                                _showDropDown(data, data);
@@ -7604,6 +7607,14 @@ webpackJsonp([56],{
 	                                }
 	
 	                                var target = e.data.target;
+	
+	                                _hideDropDown(data, data);
+	                                if (target == data.ddlFromDate) {
+	                                    _hideDropDown(data, data.ddlToDate);
+	                                }
+	                                else {
+	                                    _hideDropDown(data, data.ddlFromDate);
+	                                }
 	
 	                                if (target.dropDown.is(':hidden')) {
 	                                    _showDropDown(data, target);
