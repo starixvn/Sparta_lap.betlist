@@ -1490,6 +1490,7 @@
     </Content>
     <Content Include="SiteConfig\Web.UAT.config">
       <DependentUpon>Web.config.tt</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="SiteConfig\Web.SIT.config">
       <DependentUpon>Web.config.tt</DependentUpon>
