@@ -4575,9 +4575,6 @@
     <Content Include="Views\Report\GoldDeluxeWinLoss\Content.cshtml" />
     <Content Include="Views\Report\GoldDeluxeWinLoss\Filter.cshtml" />
     <Content Include="Views\Report\GoldDeluxeWinLoss\Main.cshtml" />
-    <Content Include="Views\Report\MacauWinLoss\Content.cshtml" />
-    <Content Include="Views\Report\MacauWinLoss\Filter.cshtml" />
-    <Content Include="Views\Report\MacauWinLoss\Main.cshtml" />
     <Content Include="Views\Customer\BetSetting\MicroGamingLiveCasino.cshtml" />
     <Content Include="Views\Customer\BetSetting\BetTrade.cshtml" />
   </ItemGroup>
