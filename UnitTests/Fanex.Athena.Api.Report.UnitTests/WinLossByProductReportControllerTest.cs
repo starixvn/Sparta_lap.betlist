@@ -88,6 +88,7 @@
             // Assert
             Assert.Multiple(() =>
             {
+                _service.Received().GetWinlossByProducts(Arg.Any<WinLossByProductMetaModel>(), out summaryData, out resultInfo);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
                 Assert.That(result.ErrorMessage, Is.EqualTo(ViewResources.ResourceManager.GetString(errorMessageKey)));
@@ -142,6 +143,7 @@
             // Assert
             Assert.Multiple(() =>
             {
+                _service.Received().GetWinlossByProductAgents(Arg.Any<WinLossByProductMetaModel>(), out summaryData);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
             });
@@ -171,6 +173,7 @@
             // Assert
             Assert.Multiple(() =>
             {
+                _service.Received().GetWinlossByProductCustomers(Arg.Any<WinLossByProductMetaModel>(), out summaryData);
                 Assert.That(result.Data.Count, Is.EqualTo(1));
                 Assert.That(result.SummaryTotal.Count, Is.EqualTo(1));
             });
