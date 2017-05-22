@@ -29,7 +29,7 @@
                 afterChangeDay: function () {
                     $fromDate.val($picker.monPickr("getFromDate", "MM/dd/yyyy"));
                     $todate.val($picker.monPickr("getToDate", "MM/dd/yyyy"));
-                    if (typeof (option.customAfterChangeDay) === "function") {
+                    if (option && typeof option.customAfterChangeDay === "function") {
                         option.customAfterChangeDay();
                     }
                 }

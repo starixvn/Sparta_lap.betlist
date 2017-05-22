@@ -494,6 +494,9 @@ define(["common/site"], function (Site) {
 
                     // Toggle the dropdown when users click on selected month label
                     data.wrap.on('click', function (e) {
+                        _hideDropDown(data, data.ddlFromDate);
+                        _hideDropDown(data, data.ddlToDate);
+
                         if ($(e.target).hasClass('selectedMonth')) {
                             if (data.dropDown.is(':hidden')) {
                                 _showDropDown(data, data);
@@ -634,6 +637,14 @@ define(["common/site"], function (Site) {
                                 }
 
                                 var target = e.data.target;
+
+                                _hideDropDown(data, data);
+                                if (target == data.ddlFromDate) {
+                                    _hideDropDown(data, data.ddlToDate);
+                                }
+                                else {
+                                    _hideDropDown(data, data.ddlFromDate);
+                                }
 
                                 if (target.dropDown.is(':hidden')) {
                                     _showDropDown(data, target);
