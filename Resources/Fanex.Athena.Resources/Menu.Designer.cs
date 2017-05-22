@@ -583,15 +583,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Macau Win Loss.
-        /// </summary>
-        public static string Menu_66 {
-            get {
-                return ResourceManager.GetString("Menu_66", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Microgaming Win Loss.
         /// </summary>
         public static string Menu_67 {
