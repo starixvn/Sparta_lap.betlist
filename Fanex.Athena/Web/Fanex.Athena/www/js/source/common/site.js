@@ -417,7 +417,7 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                 $baseCurrency.val(basedCurrency);
             }
 
-            $("select#BaseCurrency").selectList("update");
+            $("select#BaseCurrency").selectList();
         }
 
         function sortReport(sortColumn) {
