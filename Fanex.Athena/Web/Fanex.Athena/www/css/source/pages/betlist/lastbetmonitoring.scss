@@ -123,3 +123,35 @@ $bgNewRow: #fcf4df;
         background-color: #26a69a;
     }
 }
+
+/*-----------------Loader-------------------*/
+.loader {
+  border: 5px solid #e4d8d8;
+  border-radius: 50%;
+  border-top: 5px solid #4C6375;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 0.8s linear infinite;
+  animation: spin 0.8s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

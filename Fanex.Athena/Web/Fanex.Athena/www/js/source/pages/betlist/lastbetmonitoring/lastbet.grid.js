@@ -150,12 +150,12 @@ define(
                 cache: false,
                 timeout: 10000,
                 beforeSend: function () {
-                    $(".loading").show();
+                    $("#monitorLoader").show();
                     _isLoading = true;
                     _isCriteriaChange = false;
                 },
                 complete: function () {
-                    $(".loading").hide();
+                    $("#monitorLoader").hide();
                     var rowCount = $("tr", _$tableBody).length;
                     if (rowCount > 0) {
                         $("#noInfoRow").remove();
@@ -186,7 +186,7 @@ define(
                         return;
                     }
 
-                    $(".loading").hide();
+                    $("#monitorLoader").hide();
 
                     _betListResult.Updated = false;
                     _betListResult.Rows = "";

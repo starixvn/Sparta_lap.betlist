@@ -15,7 +15,7 @@ define(
             NUMBER: "number",
             STRING: "string"
         };
-        
+
         var Selector = {
             League: "#league",
             Match: "#match"
@@ -33,12 +33,9 @@ define(
                 var htmlAllOption = "<option value='0'>" + Site.getSingleResource("All") + "</option>";
                 $leagueDropdown.html(htmlAllOption);
                 $matchDropdown.html(htmlAllOption);
-                $matchDropdown.prop("disabled", true);
 
-                var isDisableLeague = sportId === 0 || sportId === mixParlaySportId;
-                $leagueDropdown.prop("disabled", isDisableLeague);
-
-                if(!isDisableLeague) {
+                var canRequest = !(sportId === 0 || sportId === mixParlaySportId);
+                if (canRequest) {
                     $.ajax({
                         url: Site.resolveClientUrl('api/LastBetMonitoringBetList/GetRunningMatchList'),
                         data: "sportid=" + sportId,
@@ -80,15 +77,11 @@ define(
                 var $matchDropdown = $(Selector.Match);
                 $matchDropdown.html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
 
-                if (leagueId === 0) {
-                    $matchDropdown.prop("disabled", true);
-                }
-                else {
+                if (leagueId !== 0) {
                     var filteredLeague = _currentLeagueList.filter(function (item) { return item.LeagueId === leagueId; });
                     var leagueItem = filteredLeague.length ? filteredLeague[0] : null;
                     if (leagueItem && Site.asBool(leagueItem.IsOutRight) === false) {
                         var matchList = _currentMatchList.filter(function (item) { return item.LeagueId === leagueId; });
-                        
 
                         var htmlOption = "";
                         $(matchList).each(function (i, e) {
@@ -96,13 +89,6 @@ define(
                         });
 
                         $matchDropdown.append(htmlOption);
-
-                        if (matchList.length > 0) {
-                            $matchDropdown.prop("disabled", false);
-                        }
-                    }
-                    else {
-                        $matchDropdown.prop("disabled", true);
                     }
                 }
 
