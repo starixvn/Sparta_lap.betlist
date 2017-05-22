@@ -44,7 +44,7 @@ define(["jquery", "common/site", "lib/jquery.multiselect"], function ($, Site) {
                     }
                     
                     $("#ProductList").toggleClass("invalid", !hasItemsChecked);
-                    $("#SubmitButton").toggleClass("disabled", !hasItemsChecked);
+                    $("#SubmitButton").prop("disabled", !hasItemsChecked);
                 }
             });
         }

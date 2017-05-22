@@ -42,7 +42,7 @@
                         isValid = $(this).prop("checked") && hasCheckedProduct;
                     }
 
-                    $("#SubmitButton").toggleClass("disabled", !isValid);
+                    $("#SubmitButton").prop("disabled", !isValid);
                 });
 
                 $("#Odds").keypress(function (event) {
