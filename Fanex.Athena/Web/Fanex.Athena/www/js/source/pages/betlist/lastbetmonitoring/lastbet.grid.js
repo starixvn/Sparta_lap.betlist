@@ -77,12 +77,12 @@ define(
         _me.getMaxStake = function () {
             return MAX_STAKE;
         };
-        _me.numberParam = function (name, value) {
-            _params[name] = value ? parseInt(value) : 0;
-        };
-
-        _me.stringParam = function (name, value) {
-            _params[name] = value ? $.trim(value) : "";
+        _me.updateParam = function (type, name, value) {
+            if (type === "number") {
+                _params[name] = value ? parseInt(value) : 0;
+            } else {
+                _params[name] = value ? $.trim(value) : "";
+            }
         };
 
         _me.isValidParam = function () {

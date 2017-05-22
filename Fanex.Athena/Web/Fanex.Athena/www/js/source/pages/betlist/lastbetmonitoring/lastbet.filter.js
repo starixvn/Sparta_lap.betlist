@@ -11,9 +11,11 @@ define(
         var _currentLeagueList = [];
 
         var SPECIAL_LEVEL_LENGTH = 11;
-        var NUMBER_PARAM_METHOD = "numberParam";
-        var STRING_PARAM_METHOD = "stringParam";
-
+        var DataType = {
+            NUMBER: "number",
+            STRING: "string"
+        };
+        
         var Selector = {
             League: "#league",
             Match: "#match"
@@ -22,7 +24,7 @@ define(
         _me.initSports = function () {
             $("#sports").change(function () {
                 var sportId = Number($(this).val());
-                _me.doNormalChange(NUMBER_PARAM_METHOD, "SportId", sportId);
+                _me.changeFilterParam(DataType.NUMBER, "SportId", sportId);
 
                 var mixParlaySportId = 999;
                 var $leagueDropdown = $(Selector.League);
@@ -65,15 +67,15 @@ define(
 
                 $leagueDropdown.selectList("update");
                 $matchDropdown.selectList("update");
-                LastBetGrid.numberParam("LeagueId", $leagueDropdown.val());
-                LastBetGrid.numberParam("MatchId", $matchDropdown.val());
+                LastBetGrid.updateParam(DataType.NUMBER, "LeagueId", $leagueDropdown.val());
+                LastBetGrid.updateParam(DataType.NUMBER, "MatchId", $matchDropdown.val());
             });
         };
 
         _me.initLeague = function () {
             $(Selector.League).change(function () {
                 var leagueId = Number($(this).val());
-                _me.doNormalChange(NUMBER_PARAM_METHOD, "LeagueId", leagueId);
+                _me.changeFilterParam(DataType.NUMBER, "LeagueId", leagueId);
 
                 var $matchDropdown = $(Selector.Match);
                 $matchDropdown.html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
@@ -105,31 +107,31 @@ define(
                 }
 
                 $matchDropdown.selectList("update");
-                LastBetGrid.numberParam("MatchId", $matchDropdown.val());
+                LastBetGrid.updateParam(DataType.NUMBER, "MatchId", $matchDropdown.val());
             });
         };
 
         _me.initMatch = function () {
             $(Selector.Match).change(function () {
-                _me.doNormalChange(NUMBER_PARAM_METHOD, "MatchId", $(this).val());
+                _me.changeFilterParam(DataType.NUMBER, "MatchId", $(this).val());
             });
         };
 
         _me.initBetType = function () {
             $("#bet-type").change(function () {
-                _me.doNormalChange(STRING_PARAM_METHOD, "BetType", $("#bet-type").val());
+                _me.changeFilterParam(DataType.STRING, "BetType", $("#bet-type").val());
             });
         };
 
         _me.initLiveStatus = function () {
             $("#live-status").change(function () {
-                _me.doNormalChange(STRING_PARAM_METHOD, "LiveStatus", $("#live-status").val());
+                _me.changeFilterParam(DataType.STRING, "LiveStatus", $("#live-status").val());
             });
         };
 
         _me.initOddsType = function () {
             $("#odds-type").change(function () {
-                _me.doNormalChange(STRING_PARAM_METHOD, "OddsType", $("#odds-type").val());
+                _me.changeFilterParam(DataType.STRING, "OddsType", $("#odds-type").val());
             });
         };
 
@@ -162,7 +164,7 @@ define(
                     var selectedLevel = $("#special-level").multiSelect("getCheckedItems");
                     selectedLevel = selectedLevel.length === SPECIAL_LEVEL_LENGTH ? "" : selectedLevel.join(",");
 
-                    _me.doNormalChange(STRING_PARAM_METHOD, "Level", selectedLevel);
+                    _me.changeFilterParam(DataType.STRING, "Level", selectedLevel);
                 }
             });
         };
@@ -197,7 +199,7 @@ define(
                 onCheck: function () {
                     var selectedCurrency = $("#currency").multiSelect("getCheckedItems");
                     selectedCurrency = currencyCount === selectedCurrency.length ? "" : selectedCurrency.join(",");
-                    _me.doNormalChange(STRING_PARAM_METHOD, "Currency", selectedCurrency);
+                    _me.changeFilterParam(DataType.STRING, "Currency", selectedCurrency);
 
                     // Update based currency
                     var selectedCurrencyText = $("#currency").multiSelect("getCheckedItemsByText");
@@ -224,20 +226,20 @@ define(
                         }
                     }
                     Site.initSelectElements();
-                    LastBetGrid.stringParam("BasedCurrency", $("#based-currency option:selected").text());
+                    LastBetGrid.updateParam(DataType.STRING, "BasedCurrency", $("#based-currency option:selected").text());
                 }
             });
         };
 
         _me.initTimeZone = function () {
             $("#time-zone").change(function () {
-                _me.doNormalChange(NUMBER_PARAM_METHOD, "TimeZone", $("#time-zone").val());
+                _me.changeFilterParam(DataType.NUMBER, "TimeZone", $("#time-zone").val());
             });
         };
 
         _me.initBasedCurrency = function () {
             $("#based-currency").change(function () {
-                _me.doNormalChange(STRING_PARAM_METHOD, "BasedCurrency", $("#based-currency").val());
+                _me.changeFilterParam(DataType.STRING, "BasedCurrency", $("#based-currency").val());
             });
         };
 
@@ -253,7 +255,7 @@ define(
                 var stake = $(this).val();
                 stake = stake.replace(/,/g, '');
                 stake = stake === "" ? defaultValue : parseInt(stake);
-                _me.doNormalChange(NUMBER_PARAM_METHOD, paramName, stake);
+                _me.changeFilterParam(DataType.NUMBER, paramName, stake);
             }
 
             $("#stake-from").change(function () {
@@ -275,7 +277,7 @@ define(
                 $("#pagesize a.label").removeClass("active");
                 $this.addClass("active");
 
-                _me.doNormalChange(NUMBER_PARAM_METHOD, "PageSize", $this.text());
+                _me.changeFilterParam(DataType.NUMBER, "PageSize", $this.text());
             });
         };
 
@@ -357,13 +359,13 @@ define(
         };
         _me.initPlatForm = function () {
             $("#bet-form").change(function () {
-                _me.doNormalChange(NUMBER_PARAM_METHOD, "BetFrom", $(this).val());
+                _me.changeFilterParam(DataType.NUMBER, "BetFrom", $(this).val());
             });
         };
 
-        _me.doNormalChange = function (method, paramName, value) {
+        _me.changeFilterParam = function (type, paramName, value) {
             _me.setHighlightSubmit();
-            LastBetGrid[method](paramName, value);
+            LastBetGrid.updateParam(type, paramName, value);
         };
 
         _me.initialize = function () {
