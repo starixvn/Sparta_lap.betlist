@@ -88,6 +88,38 @@
             });
         }
 
+        [Test]
+        public void Index_WhenCallWithLevel1_CallAndGetCorrectDataFromService()
+        {
+            // Arrange
+            const int ExpectedCustomerComm = 999;
+            var dataListResult = new List<PlatformWinLossSummary>
+            {
+                new PlatformWinLossSummary(),
+                new PlatformWinLossSummary()
+            };
+            PlatformWinLossSummary totalData;
+            _service.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalData).Returns(x =>
+            {
+                x[1] = new PlatformWinLossSummary
+                {
+                    CustomerComm = ExpectedCustomerComm
+                };
+                return dataListResult;
+            });
+
+            // Action
+            var result = _controller.Index(new PlatformWinLossMetaModel());
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _service.Received().GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalData);
+                Assert.That(result.Data.Count, Is.EqualTo(2));
+                Assert.That(result.Total.CustomerComm, Is.EqualTo(ExpectedCustomerComm));
+            });
+        }
+
         private void CreateSession()
         {
             var userSession = new UserSession
