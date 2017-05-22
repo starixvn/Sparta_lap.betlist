@@ -4,8 +4,8 @@
 *  "0" for master and "1" for member
 */
 
-define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "lib/linq"],
-    function ($, QueryString, Site, jqGridAdditional) {
+define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
+    function ($, Site, jqGridAdditional) {
         "use strict";
         var BA_PRODUCTCODE = "BA";
         var RB_PRODUCTCODE = "RB";
@@ -19,7 +19,7 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                 ExternalId: rowObject.ExternalId,
                 SystemId: rowObject.SystemId
             };
-            return "<a class='bet-list-link' href='javascript:;' data-drill-down=" + JSON.stringify(param) + ">" + cellvalue + "</a>";
+            return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
         };
         var drilldownLink = function (cellvalue, options, rowObject) {
             var parentClassName = rowObject.IsLeaf ? "" : " text-bold";
@@ -29,7 +29,7 @@ define(["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid
                 ProductCode: rowObject.PlatformType < 0 ? rowObject.ProductCode : undefined
             };
 
-            return "<a class='drilldown" + parentClassName + "' href='javascript:;' data-drill-down=" + JSON.stringify(param) + ">" + cellvalue + "</a>";
+            return '<a class="drilldown' + parentClassName + '" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
         };
         var idColumn = {
             name: "PlatformType",

@@ -20,7 +20,6 @@
 
         var _cacheData = {};
         var _filterData = {};
-        var _drilldownData = {};
 
         var gridControl = {
             level: 0,
@@ -130,6 +129,10 @@
 
             getData(data, Site.resolveClientUrl(PlatformWinLossOption.urlData), function (response) {
                 var submitData = {
+                    FromDay: data.FromDay,
+                    ToDay: data.ToDay,
+                    Month: data.Month,
+                    Year: data.Year,
                     ProductOptions: $.parseJSON(response.ProductOptions),
                     DrawFilter: data.DrawFilter,
                     PlatformType: data.PlatformType,
@@ -137,7 +140,7 @@
                     FromDate: data.FromDate,
                     ToDate: data.ToDate,
                     CurrencyName: data.CurrencyName,
-                    Excludetest: data.IsExcludeTest,
+                    IsExcludeTest: data.IsExcludeTest,
                     BaseCurrency: data.BaseCurrency
                 };
                 _filterData[gridControl.level] = submitData;
@@ -203,7 +206,7 @@
                 onPaging = false;
                 resizeGrid();
 
-                if (gridControl.level === 0) {
+                if (level === 0) {
                     $("th[role='columnheader']").find("div").removeClass("ui-jqgrid-sortable");
                 }
 
@@ -325,10 +328,10 @@
                 FromDate: onLevelData.FromDate,
                 ToDate: onLevelData.ToDate,
                 PlatformType: onLevelData.PlatformType,
-                Excludetest: onLevelData.IsExcludeTest,
+                ExcludeTest: onLevelData.IsExcludeTest,
                 CurrencyId: dataDrillDown.DrillDownCurrencyId,
                 CurrencyName: dataDrillDown.DrillDownCurrencyName,
-                Drawfilter: onLevelData.DrawFilter,
+                DrawFilter: onLevelData.DrawFilter,
                 CustId: dataDrillDown.CustomerId,
                 SystemId: dataDrillDown.SystemId,
                 ExternalId: dataDrillDown.ExternalId,
