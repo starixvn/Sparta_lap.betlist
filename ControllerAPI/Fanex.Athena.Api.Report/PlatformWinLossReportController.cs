@@ -8,7 +8,6 @@ namespace Fanex.Athena.Api.Report
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
     using System.Net.Http;
     using System.Web;
     using System.Web.Http;
@@ -22,6 +21,8 @@ namespace Fanex.Athena.Api.Report
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Resources;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
 
@@ -33,6 +34,15 @@ namespace Fanex.Athena.Api.Report
         public PlatformWinLossReportController()
         {
             _platformWinLossService = new PlatformWinLossService();
+        }
+
+        public PlatformWinLossReportController(
+            ISessionService sessionService,
+            IProductService productService,
+            IPlatformWinLossService platformWinLossService)
+            : base(sessionService, productService)
+        {
+            _platformWinLossService = platformWinLossService;
         }
 
         [HttpPost]
@@ -116,7 +126,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (!IsValidRequest(metaModel))
             {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
+                return BadRequest(ViewResources.InvalidParams);
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
