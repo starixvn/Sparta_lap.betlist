@@ -19,7 +19,7 @@ define(
         var Selector = {
             League: "#league",
             Match: "#match"
-        }
+        };
 
         _me.initSports = function () {
             $("#sports").change(function () {

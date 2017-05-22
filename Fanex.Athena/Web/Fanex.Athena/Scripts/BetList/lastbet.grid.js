@@ -29,6 +29,8 @@ var LastBetGrid = (function () {
         TransId: _lastTransId,
         BetFrom: 0
     };
+    var _postedParam;
+
     var _intervalId;
     var _errorMessage;
     var _isLoading;
@@ -44,7 +46,7 @@ var LastBetGrid = (function () {
     var MIN_INTERVAL = 3000;
     var HIGHLIGHT_CLASS = "monitor-hightlight";
     var MAX_STAKE = 999999999;
-    
+
     _me.columns =
         [{ Name: "Platform", IsShow: 1 },
          { Name: "ExternalId", IsShow: 1 },
@@ -76,6 +78,7 @@ var LastBetGrid = (function () {
         });
 
         _params.BasedCurrency = $("#last-bet-monitor-base-currency").val();
+        _postedParam = Site.clone(_params);
     };
     _me.getMaxStake = function () {
         return MAX_STAKE;
@@ -93,7 +96,7 @@ var LastBetGrid = (function () {
     };
 
     _me.isValidParam = function () {
-        return _params.StakeFrom <= _params.StakeTo
+        return _postedParam.StakeFrom <= _postedParam.StakeTo
             && $("#currency").multiSelect("getCheckedItems").length > 0
             && $("#special-level").multiSelect("getCheckedItems").length > 0;
     };
@@ -115,6 +118,7 @@ var LastBetGrid = (function () {
         _me.stopMonitor();
         _me.tryUpdateStake();
         _isCriteriaChange = true;
+        _postedParam = Site.clone(_params);
 
         if (parseInt(freezeStatus) === 1) {
             _me.startMonitor();
@@ -147,7 +151,7 @@ var LastBetGrid = (function () {
         $.ajax({
             url: Site.resolveClientUrl('api/LastBetMonitoringBetList/Index'),
             type: "POST",
-            data: JSON.stringify(_params),
+            data: JSON.stringify(_postedParam),
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
             async: true,
@@ -185,8 +189,7 @@ var LastBetGrid = (function () {
                 _me.doMonitor();
             },
             error: function (jqXHR) {
-                if (jqXHR.status === 403)
-                {
+                if (jqXHR.status === 403) {
                     Site.reload();
                     return;
                 }
@@ -240,11 +243,11 @@ var LastBetGrid = (function () {
         } else {
             _$headerRow.after(_betListResult.Rows);
         }
-        $("tr:gt(" + _params.PageSize + ")", _$containerTable).remove();
+        $("tr:gt(" + _postedParam.PageSize + ")", _$containerTable).remove();
 
         if (_betListResult) {
             _lastTransId = _betListResult.LastTransId;
-            _params.TransId = _lastTransId;
+            _postedParam.TransId = _lastTransId;
         }
         setTimeout(function () {
             return _me.unHighlight(_lastTransId);
@@ -279,7 +282,7 @@ var LastBetGrid = (function () {
 
     _me.clearContent = function () {
         _lastTransId = 0;
-        _params.TransId = _lastTransId;
+        _postedParam.TransId = _lastTransId;
         _me.bindNoInfoRow();
     };
 

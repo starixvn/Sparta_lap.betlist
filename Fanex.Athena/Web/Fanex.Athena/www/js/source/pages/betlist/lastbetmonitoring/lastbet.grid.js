@@ -25,6 +25,7 @@ define(
             TransId: _lastTransId,
             BetFrom: 0
         };
+        var _postedParam;
         var _intervalId;
         var _errorMessage;
         var _isLoading;
@@ -73,6 +74,7 @@ define(
             });
 
             _params.BasedCurrency = $("#last-bet-monitor-base-currency").val();
+            _postedParam = Site.clone(_params);
         };
         _me.getMaxStake = function () {
             return MAX_STAKE;
@@ -86,7 +88,7 @@ define(
         };
 
         _me.isValidParam = function () {
-            return _params.StakeFrom <= _params.StakeTo
+            return _postedParam.StakeFrom <= _postedParam.StakeTo
                 && $("#currency").multiSelect("getCheckedItems").length > 0
                 && $("#special-level").multiSelect("getCheckedItems").length > 0;
         };
@@ -108,6 +110,7 @@ define(
             _me.stopMonitor();
             _me.tryUpdateStake();
             _isCriteriaChange = true;
+            _postedParam = Site.clone(_params);
 
             if (parseInt(freezeStatus) === 1) {
                 _me.startMonitor();
@@ -140,7 +143,7 @@ define(
             $.ajax({
                 url: Site.resolveClientUrl('api/LastBetMonitoringBetList/Index'),
                 type: "POST",
-                data: JSON.stringify(_params),
+                data: JSON.stringify(_postedParam),
                 contentType: 'application/json; charset=utf-8',
                 dataType: "json",
                 async: true,
@@ -230,11 +233,11 @@ define(
             }
 
             _$tableBody.append(rows);
-            $("tr:gt(" + (_params.PageSize - 1) + ")", _$tableBody).remove();
+            $("tr:gt(" + (_postedParam.PageSize - 1) + ")", _$tableBody).remove();
 
             if (_betListResult) {
                 _lastTransId = _betListResult.LastTransId;
-                _params.TransId = _lastTransId;
+                _postedParam.TransId = _lastTransId;
             }
             setTimeout(function () {
                 _me.unHighlight(_lastTransId);
@@ -265,7 +268,7 @@ define(
 
         _me.clearContent = function () {
             _lastTransId = 0;
-            _params.TransId = _lastTransId;
+            _postedParam.TransId = _lastTransId;
             _me.bindNoInfoRow();
         };
 
