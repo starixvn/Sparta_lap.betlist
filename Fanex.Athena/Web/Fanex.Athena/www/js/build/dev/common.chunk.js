@@ -15946,6 +15946,8 @@
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	    "use strict";
 	
+	    var CONTAINER_SELECTOR = ".select-list-container";
+	
 	    function getLabelHtml(labelText, selectionId) {
 	        var targetDropdownId = selectionId + "-result-container";
 	        return '<div class="select-list-container">' +
@@ -15994,17 +15996,12 @@
 	        var $dropdown = $(dropdownListHtml);
 	        $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass("highlighted");
 	
-	        $dropdown.find(".option-item").on("click", function () {
+	        $dropdown.on("click", ".option-item", function () {
 	            $(".option-item").removeClass("highlighted");
 	            $(this).addClass("highlighted");
 	            var selectedKey = $(this).data("key");
 	            $originalSelectElement.val(selectedKey);
 	
-	            var $resultContainer = $(this).closest(".select-list-result-container");
-	            var $selectionLabel = $originalSelectElement.siblings(".select-list-container").find(".selection-label");
-	            $selectionLabel.text($(this).text());
-	
-	            $resultContainer.remove();
 	            $originalSelectElement.trigger("change");
 	        });
 	
@@ -16077,25 +16074,38 @@
 	            $.extend(selectListOption, options || {});
 	
 	            return this.each(function () {
-	                var $self = $(this);
-	                $self.siblings(".select-list-container").remove();
-	                var optionSelected = $self.find("option:selected");
-	                var selectedValue = optionSelected.length ? optionSelected.text() : "";
+	                var self = this;
+	                var $element = $(self);
+	                _methods.buildLabel.call(self);
 	
-	                var selectionId = generateId($self);
-	                var $selectionLabel = $(getLabelHtml(selectedValue, selectionId));
-	
-	                $selectionLabel.find(".selection").on("click", function (e) {
+	                var $container = $element.parent();
+	                $container.off("click", ".selection");
+	                $container.on("click", ".selection", function (e) {
 	                    e.stopPropagation();
-	                    _methods.toggle.call($self, $(this), selectListOption.canSearch);
+	                    var $selection = $(this);
+	                    _methods.toggle.call(self, $selection, selectListOption.canSearch);
+	                });
+	
+	                $element.on("change", function () {
+	                    _methods.update.call(self);
 	                });
 	
 	                $(document).click(function () {
 	                    closeAll();
 	                });
-	
-	                $self.hide().parent().append($selectionLabel);
 	            });
+	        },
+	
+	        buildLabel: function () {
+	            var $self = $(this);
+	            $self.siblings(CONTAINER_SELECTOR).remove();
+	            var optionSelected = $self.find("option:selected");
+	            var selectedValue = optionSelected.length ? optionSelected.text() : "";
+	
+	            var selectionId = generateId($self);
+	            var $selectionLabel = $(getLabelHtml(selectedValue, selectionId));
+	
+	            $self.hide().parent().append($selectionLabel);
 	        },
 	
 	        open: function (resultContainerId, canSearch) {
@@ -16104,7 +16114,7 @@
 	            var $self = $(this);
 	            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch);
 	
-	            var $selection = $self.siblings(".select-list-container").find(".selection");
+	            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
 	            var offset = $selection.offset();
 	            $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 	
@@ -16112,9 +16122,9 @@
 	            $dropdown.find(".select-list-search-results").focus();
 	        },
 	
-	        close: function(){
+	        close: function () {
 	            var $this = $(this);
-	            var $selection = $this.siblings(".select-list-container").find(".selection");
+	            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
 	            var resultContainerId = $selection.attr("aria-targetDropdown");
 	            $("#" + resultContainerId).remove();
 	        },
@@ -16133,6 +16143,10 @@
 	                    _methods.open.call(this, resultContainerId, canSearch);
 	                }
 	            }
+	        },
+	
+	        update: function () {
+	            _methods.buildLabel.call(this);
 	        }
 	    };
 	

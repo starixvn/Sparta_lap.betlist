@@ -1195,7 +1195,10 @@ ul.ui-multiselect-checkboxes {
     text-align: right; }
 
 .table > tbody > tr.monitor-keep > td {
-  background: #FFE7C5 !important; }
+  background-color: #FFE7C5; }
+
+.table > tbody > tr.monitor-hightlight > td {
+  background-color: #fcf4df; }
 
 .table > tbody > tr .bl-status {
   font-weight: bold; }
@@ -1244,8 +1247,7 @@ ul.ui-multiselect-checkboxes {
 .special-color-10 {
   color: #fc0000 !important; }
 
-/*-------------Hight light-----------------*/
-.monitor-hightlight {
-  background: #FFDBA8; }
+.btn.btn-alert {
+  background-color: #26a69a; }
 
 /*# sourceMappingURL=lastbetmonitoring.css.map*/

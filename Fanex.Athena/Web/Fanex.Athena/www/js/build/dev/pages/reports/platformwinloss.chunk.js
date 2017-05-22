@@ -3736,6 +3736,434 @@ webpackJsonp([56],{
 /***/ },
 
 /***/ 220:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
+	"use strict";
+	(function ($) {
+	    $.fn.checkboxgroup = function () {
+	        var $parent = $(this).parent();
+	        var allChk = this.first();
+	        var elseChk = this.slice(1);
+	
+	        allChk.prop('checked', elseChk.filter(":checked").length === elseChk.length);
+	
+	        allChk.change(function () {
+	            var thisIsChecked = $(this).is(':checked');
+	            elseChk.prop('checked', thisIsChecked);
+	            $parent.toggleClass("invalid", !thisIsChecked);
+	        });
+	
+	        elseChk.change(function () {
+	            if ($(this).is(':checked')) {
+	                allChk.prop('checked', elseChk.filter(":checked").length === elseChk.length);
+	            } else {
+	                allChk.prop('checked', false);
+	            }
+	
+	            $parent.toggleClass("invalid", elseChk.filter(":checked").length === 0);
+	        });
+	
+	        return this;
+	    };
+	
+	    $.fn.showHide = function (isShow) {
+	        if (isShow) {
+	            this.show();
+	        } else {
+	            this.hide();
+	        }
+	
+	        return this;
+	    };
+	
+	    jQuery.fn.serializeObject = function () {
+	        var o = {};
+	        var a = this.serializeArray();
+	        $.each(a, function () {
+	            if (o[this.name] !== undefined) {
+	                if (!o[this.name].push) {
+	                    o[this.name] = [o[this.name]];
+	                }
+	                o[this.name].push(this.value || '');
+	            } else {
+	                o[this.name] = this.value || '';
+	            }
+	        });
+	        return o;
+	    };
+	
+	    $.fn.getStyleObject = function () {
+	        /// <summary>
+	        /// don't work on ie8
+	        /// </summary>
+	        /// <returns type=""></returns>
+	        var dom = this.get(0);
+	        if(!dom)
+	        {
+	            return;
+	        }
+	
+	        var style;
+	        var returns = {};
+	
+	        if (window.getComputedStyle) {
+	            var camelize = function (a, b) {
+	                return b.toUpperCase();
+	            };
+	            style = window.getComputedStyle(dom, null);
+	            for (var i = 0, l = style.length; i < l; i++) {
+	                var prop = style[i];
+	                var camel = prop.replace(/\-([a-z])/, camelize);
+	                var val = style.getPropertyValue(prop);
+	                returns[camel] = val;
+	            }
+	            return returns;
+	        }
+	        try {
+	            if (dom.currentStyle) {
+	                style = dom.currentStyle;
+	                for (var p1 in style) {
+	                    returns[p1] = style[p1];
+	                }
+	                return returns;
+	            }
+	            if (style === dom.style) {
+	                for (var p2 in style) {
+	                    if (typeof style[p2] !== 'function') {
+	                        returns[p2] = style[p2];
+	                    }
+	                }
+	                return returns;
+	            }
+	        } catch (err) {
+	        }
+	        return returns;
+	    };
+	
+	    jQuery.fn.tableRowSpan = function (colIndexs, effectToIndex) {
+	        /// <summary>
+	        /// Created by Alex@20130228
+	        /// set table rowspan
+	        /// </summary>
+	        /// <param name="colIndexs">column indexs</param>
+	        /// <param name="effectToIndex">set rowspan for this columns base on lasted column in [colIndexs]</param>
+	        if (effectToIndex !== undefined) {
+	            if ($.inArray(effectToIndex, colIndexs) > -1) {
+	                return;
+	            }
+	        }
+	
+	        function process(table, colIdx) {
+	            var that;
+	            var ethat;
+	            var ethis;
+	            var rowspan = 1;
+	            var len = table.rows.length - 1;
+	            for(var index = 0; index <= len; index++)
+	            {
+	                var currentRow = table.rows[index];                
+	                var td = currentRow.cells[colIdx];
+	                if(td) {
+	                    ethis = currentRow.cells[effectToIndex];
+	                    var found = that != null && $(td).html() === $(that).html();
+	                    if (found && index < len) {
+	                        rowspan++;
+	                        $(td).hide();
+	                        if (effectToIndex !== undefined) {
+	                            $(ethis).hide();
+	                        }
+	                        //.remove// do your action for the old cell here
+	                    }
+	                    else if (found && index === len) {
+	                        //do your action for lasted row
+	                        $(td).hide();
+	                        rowspan++;
+	                        $(that).attr("rowSpan", rowspan);
+	                        that = td;
+	                        if (effectToIndex !== undefined) {
+	                            $(ethis).hide();
+	                            $(ethat).attr("rowSpan", rowspan);
+	                            ethat = ethis;
+	                        }
+	                        rowspan = 1;
+	                        // do your action for the colSpan cell here
+	                    }
+	                    else {
+	                        if (effectToIndex !== undefined) {
+	                            $(ethat).attr("rowSpan", rowspan);
+	                            ethat = ethis;
+	                        }
+	                        $(that).attr("rowSpan", rowspan);
+	                        // do your action for the colSpan cell here
+	                        that = td;
+	                        rowspan = 1;
+	                    }
+	                    that = (that == null) ? td : that;
+	                    if (effectToIndex !== undefined) {
+	                        ethat = (ethat == null) ? ethis : ethat;
+	                    }
+	                    // set the that if not already set
+	                }
+	            }
+	        }
+	
+	        return this.each(function () {
+	            for (var i = 0; i < colIndexs.length; i++) {
+	                process(this, colIndexs[i]);
+	            }
+	        });
+	    };
+	
+	    jQuery.fn.numbericTextBox = function (min, max) {
+	        var thousandFormater = function (x) {
+	            x = x.toString();
+	            var pattern = /(-?\d+)(\d{3})/;
+	            while (pattern.test(x)) {
+	                x = x.replace(pattern, "$1,$2");
+	            }
+	            return x;
+	        };
+	
+	        this.each(function (i, e) {
+	            $(e).keydown(function (event) {
+	                // Allow: backspace, delete, tab, escape, and enter
+	                if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
+	                // Allow: Ctrl+A
+	                    (event.keyCode === 65 && event.ctrlKey === true) ||
+	                // Allow: home, end, left, right
+	                    (event.keyCode >= 35 && event.keyCode <= 39)) {
+	                    // let it happen, don't do anything
+	                    return;
+	                }
+	                else {
+	                    // Ensure that it is a number and stop the keypress
+	                    if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+	                        event.preventDefault();
+	                    }
+	                }
+	            }).keyup(function (event) {
+	                var textBox = event.target;
+	                var value = textBox.value;
+	                value = value.replace(/,/g, '');
+	
+	                var isNotInRange = (value < min) || (value > max);
+	                if (isNotInRange) {
+	                    textBox.value = textBox.value.slice(0, -1);
+	                    value = textBox.value.replace(/,/g, '');
+	                }
+	
+	                textBox.value = thousandFormater(value);
+	            });
+	        });
+	
+	        return this;
+	    };
+	
+	    $.fn.hasVerticalScrollBar = function () {
+	        return this.get(0).scrollHeight > this.height();
+	    };
+	    $.fn.hasHorizontalScrollBar = function () {
+	        return this.get(0).scrollWidth > this.width();
+	    };
+	})(jQuery);
+	
+	jQuery.extend({
+	    format: function () {
+	        /// <summary>
+	        /// simply format method
+	        /// </summary>
+	        /// <returns type="string">formated string</returns>
+	        var formatted = arguments[0];
+	        var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
+	        for (var arg in passValue) {
+	            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+	        }
+	        return formatted;
+	    }
+	});
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+
+/***/ 244:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	    "use strict";
+	    var REPORT_BY_MONTHLY = 2;
+	    var LICENSEE_12BET = 1;
+	    function lastDateOfMonth(year, month) {
+	        return new Date(year, month + 1, 0);
+	    }
+	
+	    var _me = {
+	        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
+	            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
+	            var tdate = fdate;
+	            if (Number(reportBy) === REPORT_BY_MONTHLY) {
+	                var fday = 1;
+	                var month = fdate.getMonth();
+	                var year = fdate.getFullYear();
+	                var orignalFDate = new Date(fromDate);
+	                if (month === orignalFDate.getMonth()) {
+	                    fday = orignalFDate.getDate();
+	                }
+	                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+	                var originalTDate = new Date(toDate);
+	
+	                if (month === originalTDate.getMonth()) {
+	                    var tday = originalTDate.getDate();
+	                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+	                }
+	                else {
+	                    tdate = lastDateOfMonth(year, month);
+	                }
+	            }
+	
+	            return {
+	                FromDate: fdate,
+	                ToDate: tdate
+	            };
+	        },
+	        ValidProducts: function () {
+	            var temp = true;
+	            if ($(".childCheckbox:checked").length === 0) {
+	                temp = false;
+	                var title = Site.getSingleResource("LrfNotification");
+	                var message = Site.getSingleResource("AlertChooseProductMsg");
+	                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+	
+	                Popup.openPopup($dialog, {
+	                    width: 380,
+	                    height: 150,
+	                    title: title,
+	                    className: "popup-notification",
+	                    onOpen: function () {
+	                        $('#SubmitButton').prop('disabled', true);
+	                    },
+	                    onClose: function () {
+	                        $('#SubmitButton').removeAttr('disabled');
+	                    }
+	                });
+	            }
+	
+	            return temp;
+	        },
+	
+	        setOriginalProduct: function () {
+	            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
+	                var isCheck = $(this).is(":checked");
+	                $(element).attr({ 'data-original': isCheck });
+	            });
+	        },
+	
+	        bindSummaryTotal: function (columnModel, summaryTotal) {
+	            /// <summary>
+	            /// Bind summary total data to footer rows
+	            /// </summary>
+	            /// <param name="columnModel"></param>
+	            /// <param name="summaryTotal"></param>
+	            /// <returns type="int">Number of iserted row</returns>
+	            if (!summaryTotal || summaryTotal.length === 0) {
+	                return;
+	            }
+	
+	            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
+	            var rowCount = 0;
+	            var currencyList = [];
+	
+	            function processColumnModel(columnModel, dataItem) {
+	                var firstCell = null;
+	
+	                var row = mainFooter.clone();
+	                row.insertAfter(mainFooter);
+	                var cellList = $("td", row);
+	
+	                $(columnModel).each(function (cellIndex, modelElement) {
+	                    var cell = cellList.get(cellIndex);
+	                    var isCustomFormater = typeof modelElement.formatter === "function";
+	                    var rawValue = dataItem[modelElement.name];
+	                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+	                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
+	                    var titleValue = value;
+	                    if ($.isNumeric(rawValue) && rawValue < 0) {
+	                        var wrapper = document.createElement('div');
+	                        wrapper.innerHTML = value;
+	                        titleValue = wrapper.outerHtml;
+	                    }
+	
+	                    $(cell).html(value).attr("title", titleValue);
+	                    firstCell = !firstCell ? $(cell) : firstCell;
+	                });
+	
+	                return firstCell;
+	            }
+	
+	            function renderDataForSummaryTotalRow(dataRow) {
+	                var currentFirstCell = processColumnModel(columnModel, dataRow);
+	
+	                currentFirstCell.html("Total in " + currency);
+	                currentFirstCell.addClass("group-" + currency);
+	                rowCount++;
+	            }
+	
+	            for (var currency in summaryTotal) {
+	                currencyList.push(currency);
+	                var summaryData = summaryTotal[currency];
+	                if (Array.isArray(summaryData)) {
+	                    summaryData.forEach(renderDataForSummaryTotalRow);
+	                }
+	                else {
+	                    renderDataForSummaryTotalRow(summaryData);
+	                }
+	            }
+	
+	            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+	            mainFooter.remove();
+	
+	            return rowCount;
+	        },
+	
+	        getCurrencyNameForReportTitle: function (currencyId) {
+	            var viewinKey = Site.getSingleResource("Viewin");
+	            var currencyTextList = {
+	                "-3": viewinKey.replace("{0}", "GBP"),
+	                "-2": viewinKey.replace("{0}", "USD"),
+	                "-1": viewinKey.replace("{0}", "EUR"),
+	                "0": Site.getSingleResource('AllCurrencies')
+	            };
+	
+	            return currencyTextList[currencyId] === undefined
+	                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+	                : currencyTextList[currencyId];
+	        },
+	
+	        renderBreadCrumb: function (level, licenseeId) {
+	            level = Number(level);
+	            if (level === 0) {
+	                $(".breadCrumbHolder").hide();
+	            }
+	            else {
+	                $(".breadCrumbHolder").show();
+	                $("#level-link-container .level0").show();
+	
+	                var isLevel2 = level === 2;
+	                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+	                
+	                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+	                $("#level-link-container .level1").toggle(allowShowLevel1);
+	                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+	            }
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 251:
 /***/ function(module, exports) {
 
 	/*--------------------------------------------------------------------------
@@ -6474,434 +6902,6 @@ webpackJsonp([56],{
 
 /***/ },
 
-/***/ 221:
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
-	"use strict";
-	(function ($) {
-	    $.fn.checkboxgroup = function () {
-	        var $parent = $(this).parent();
-	        var allChk = this.first();
-	        var elseChk = this.slice(1);
-	
-	        allChk.prop('checked', elseChk.filter(":checked").length === elseChk.length);
-	
-	        allChk.change(function () {
-	            var thisIsChecked = $(this).is(':checked');
-	            elseChk.prop('checked', thisIsChecked);
-	            $parent.toggleClass("invalid", !thisIsChecked);
-	        });
-	
-	        elseChk.change(function () {
-	            if ($(this).is(':checked')) {
-	                allChk.prop('checked', elseChk.filter(":checked").length === elseChk.length);
-	            } else {
-	                allChk.prop('checked', false);
-	            }
-	
-	            $parent.toggleClass("invalid", elseChk.filter(":checked").length === 0);
-	        });
-	
-	        return this;
-	    };
-	
-	    $.fn.showHide = function (isShow) {
-	        if (isShow) {
-	            this.show();
-	        } else {
-	            this.hide();
-	        }
-	
-	        return this;
-	    };
-	
-	    jQuery.fn.serializeObject = function () {
-	        var o = {};
-	        var a = this.serializeArray();
-	        $.each(a, function () {
-	            if (o[this.name] !== undefined) {
-	                if (!o[this.name].push) {
-	                    o[this.name] = [o[this.name]];
-	                }
-	                o[this.name].push(this.value || '');
-	            } else {
-	                o[this.name] = this.value || '';
-	            }
-	        });
-	        return o;
-	    };
-	
-	    $.fn.getStyleObject = function () {
-	        /// <summary>
-	        /// don't work on ie8
-	        /// </summary>
-	        /// <returns type=""></returns>
-	        var dom = this.get(0);
-	        if(!dom)
-	        {
-	            return;
-	        }
-	
-	        var style;
-	        var returns = {};
-	
-	        if (window.getComputedStyle) {
-	            var camelize = function (a, b) {
-	                return b.toUpperCase();
-	            };
-	            style = window.getComputedStyle(dom, null);
-	            for (var i = 0, l = style.length; i < l; i++) {
-	                var prop = style[i];
-	                var camel = prop.replace(/\-([a-z])/, camelize);
-	                var val = style.getPropertyValue(prop);
-	                returns[camel] = val;
-	            }
-	            return returns;
-	        }
-	        try {
-	            if (dom.currentStyle) {
-	                style = dom.currentStyle;
-	                for (var p1 in style) {
-	                    returns[p1] = style[p1];
-	                }
-	                return returns;
-	            }
-	            if (style === dom.style) {
-	                for (var p2 in style) {
-	                    if (typeof style[p2] !== 'function') {
-	                        returns[p2] = style[p2];
-	                    }
-	                }
-	                return returns;
-	            }
-	        } catch (err) {
-	        }
-	        return returns;
-	    };
-	
-	    jQuery.fn.tableRowSpan = function (colIndexs, effectToIndex) {
-	        /// <summary>
-	        /// Created by Alex@20130228
-	        /// set table rowspan
-	        /// </summary>
-	        /// <param name="colIndexs">column indexs</param>
-	        /// <param name="effectToIndex">set rowspan for this columns base on lasted column in [colIndexs]</param>
-	        if (effectToIndex !== undefined) {
-	            if ($.inArray(effectToIndex, colIndexs) > -1) {
-	                return;
-	            }
-	        }
-	
-	        function process(table, colIdx) {
-	            var that;
-	            var ethat;
-	            var ethis;
-	            var rowspan = 1;
-	            var len = table.rows.length - 1;
-	            for(var index = 0; index <= len; index++)
-	            {
-	                var currentRow = table.rows[index];                
-	                var td = currentRow.cells[colIdx];
-	                if(td) {
-	                    ethis = currentRow.cells[effectToIndex];
-	                    var found = that != null && $(td).html() === $(that).html();
-	                    if (found && index < len) {
-	                        rowspan++;
-	                        $(td).hide();
-	                        if (effectToIndex !== undefined) {
-	                            $(ethis).hide();
-	                        }
-	                        //.remove// do your action for the old cell here
-	                    }
-	                    else if (found && index === len) {
-	                        //do your action for lasted row
-	                        $(td).hide();
-	                        rowspan++;
-	                        $(that).attr("rowSpan", rowspan);
-	                        that = td;
-	                        if (effectToIndex !== undefined) {
-	                            $(ethis).hide();
-	                            $(ethat).attr("rowSpan", rowspan);
-	                            ethat = ethis;
-	                        }
-	                        rowspan = 1;
-	                        // do your action for the colSpan cell here
-	                    }
-	                    else {
-	                        if (effectToIndex !== undefined) {
-	                            $(ethat).attr("rowSpan", rowspan);
-	                            ethat = ethis;
-	                        }
-	                        $(that).attr("rowSpan", rowspan);
-	                        // do your action for the colSpan cell here
-	                        that = td;
-	                        rowspan = 1;
-	                    }
-	                    that = (that == null) ? td : that;
-	                    if (effectToIndex !== undefined) {
-	                        ethat = (ethat == null) ? ethis : ethat;
-	                    }
-	                    // set the that if not already set
-	                }
-	            }
-	        }
-	
-	        return this.each(function () {
-	            for (var i = 0; i < colIndexs.length; i++) {
-	                process(this, colIndexs[i]);
-	            }
-	        });
-	    };
-	
-	    jQuery.fn.numbericTextBox = function (min, max) {
-	        var thousandFormater = function (x) {
-	            x = x.toString();
-	            var pattern = /(-?\d+)(\d{3})/;
-	            while (pattern.test(x)) {
-	                x = x.replace(pattern, "$1,$2");
-	            }
-	            return x;
-	        };
-	
-	        this.each(function (i, e) {
-	            $(e).keydown(function (event) {
-	                // Allow: backspace, delete, tab, escape, and enter
-	                if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
-	                // Allow: Ctrl+A
-	                    (event.keyCode === 65 && event.ctrlKey === true) ||
-	                // Allow: home, end, left, right
-	                    (event.keyCode >= 35 && event.keyCode <= 39)) {
-	                    // let it happen, don't do anything
-	                    return;
-	                }
-	                else {
-	                    // Ensure that it is a number and stop the keypress
-	                    if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
-	                        event.preventDefault();
-	                    }
-	                }
-	            }).keyup(function (event) {
-	                var textBox = event.target;
-	                var value = textBox.value;
-	                value = value.replace(/,/g, '');
-	
-	                var isNotInRange = (value < min) || (value > max);
-	                if (isNotInRange) {
-	                    textBox.value = textBox.value.slice(0, -1);
-	                    value = textBox.value.replace(/,/g, '');
-	                }
-	
-	                textBox.value = thousandFormater(value);
-	            });
-	        });
-	
-	        return this;
-	    };
-	
-	    $.fn.hasVerticalScrollBar = function () {
-	        return this.get(0).scrollHeight > this.height();
-	    };
-	    $.fn.hasHorizontalScrollBar = function () {
-	        return this.get(0).scrollWidth > this.width();
-	    };
-	})(jQuery);
-	
-	jQuery.extend({
-	    format: function () {
-	        /// <summary>
-	        /// simply format method
-	        /// </summary>
-	        /// <returns type="string">formated string</returns>
-	        var formatted = arguments[0];
-	        var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
-	        for (var arg in passValue) {
-	            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
-	        }
-	        return formatted;
-	    }
-	});
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ },
-
-/***/ 245:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
-	    "use strict";
-	    var REPORT_BY_MONTHLY = 2;
-	    var LICENSEE_12BET = 1;
-	    function lastDateOfMonth(year, month) {
-	        return new Date(year, month + 1, 0);
-	    }
-	
-	    var _me = {
-	        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-	            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-	            var tdate = fdate;
-	            if (Number(reportBy) === REPORT_BY_MONTHLY) {
-	                var fday = 1;
-	                var month = fdate.getMonth();
-	                var year = fdate.getFullYear();
-	                var orignalFDate = new Date(fromDate);
-	                if (month === orignalFDate.getMonth()) {
-	                    fday = orignalFDate.getDate();
-	                }
-	                fdate = new Date(year, month, fday, 0, 0, 0, 0);
-	                var originalTDate = new Date(toDate);
-	
-	                if (month === originalTDate.getMonth()) {
-	                    var tday = originalTDate.getDate();
-	                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
-	                }
-	                else {
-	                    tdate = lastDateOfMonth(year, month);
-	                }
-	            }
-	
-	            return {
-	                FromDate: fdate,
-	                ToDate: tdate
-	            };
-	        },
-	        ValidProducts: function () {
-	            var temp = true;
-	            if ($(".childCheckbox:checked").length === 0) {
-	                temp = false;
-	                var title = Site.getSingleResource("LrfNotification");
-	                var message = Site.getSingleResource("AlertChooseProductMsg");
-	                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
-	
-	                Popup.openPopup($dialog, {
-	                    width: 380,
-	                    height: 150,
-	                    title: title,
-	                    className: "popup-notification",
-	                    onOpen: function () {
-	                        $('#SubmitButton').prop('disabled', true);
-	                    },
-	                    onClose: function () {
-	                        $('#SubmitButton').removeAttr('disabled');
-	                    }
-	                });
-	            }
-	
-	            return temp;
-	        },
-	
-	        setOriginalProduct: function () {
-	            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-	                var isCheck = $(this).is(":checked");
-	                $(element).attr({ 'data-original': isCheck });
-	            });
-	        },
-	
-	        bindSummaryTotal: function (columnModel, summaryTotal) {
-	            /// <summary>
-	            /// Bind summary total data to footer rows
-	            /// </summary>
-	            /// <param name="columnModel"></param>
-	            /// <param name="summaryTotal"></param>
-	            /// <returns type="int">Number of iserted row</returns>
-	            if (!summaryTotal || summaryTotal.length === 0) {
-	                return;
-	            }
-	
-	            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-	            var rowCount = 0;
-	            var currencyList = [];
-	
-	            function processColumnModel(columnModel, dataItem) {
-	                var firstCell = null;
-	
-	                var row = mainFooter.clone();
-	                row.insertAfter(mainFooter);
-	                var cellList = $("td", row);
-	
-	                $(columnModel).each(function (cellIndex, modelElement) {
-	                    var cell = cellList.get(cellIndex);
-	                    var isCustomFormater = typeof modelElement.formatter === "function";
-	                    var rawValue = dataItem[modelElement.name];
-	                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
-	                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
-	                    var titleValue = value;
-	                    if ($.isNumeric(rawValue) && rawValue < 0) {
-	                        var wrapper = document.createElement('div');
-	                        wrapper.innerHTML = value;
-	                        titleValue = wrapper.outerHtml;
-	                    }
-	
-	                    $(cell).html(value).attr("title", titleValue);
-	                    firstCell = !firstCell ? $(cell) : firstCell;
-	                });
-	
-	                return firstCell;
-	            }
-	
-	            function renderDataForSummaryTotalRow(dataRow) {
-	                var currentFirstCell = processColumnModel(columnModel, dataRow);
-	
-	                currentFirstCell.html("Total in " + currency);
-	                currentFirstCell.addClass("group-" + currency);
-	                rowCount++;
-	            }
-	
-	            for (var currency in summaryTotal) {
-	                currencyList.push(currency);
-	                var summaryData = summaryTotal[currency];
-	                if (Array.isArray(summaryData)) {
-	                    summaryData.forEach(renderDataForSummaryTotalRow);
-	                }
-	                else {
-	                    renderDataForSummaryTotalRow(summaryData);
-	                }
-	            }
-	
-	            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
-	            mainFooter.remove();
-	
-	            return rowCount;
-	        },
-	
-	        getCurrencyNameForReportTitle: function (currencyId) {
-	            var viewinKey = Site.getSingleResource("Viewin");
-	            var currencyTextList = {
-	                "-3": viewinKey.replace("{0}", "GBP"),
-	                "-2": viewinKey.replace("{0}", "USD"),
-	                "-1": viewinKey.replace("{0}", "EUR"),
-	                "0": Site.getSingleResource('AllCurrencies')
-	            };
-	
-	            return currencyTextList[currencyId] === undefined
-	                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
-	                : currencyTextList[currencyId];
-	        },
-	
-	        renderBreadCrumb: function (level, licenseeId) {
-	            level = Number(level);
-	            if (level === 0) {
-	                $(".breadCrumbHolder").hide();
-	            }
-	            else {
-	                $(".breadCrumbHolder").show();
-	                $("#level-link-container .level0").show();
-	
-	                var isLevel2 = level === 2;
-	                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
-	                
-	                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-	                $("#level-link-container .level1").toggle(allowShowLevel1);
-	                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
-	            }
-	        }
-	    };
-	
-	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ },
-
 /***/ 254:
 /***/ function(module, exports, __webpack_require__) {
 
@@ -7794,7 +7794,7 @@ webpackJsonp([56],{
 	    __webpack_require__(1),
 	    __webpack_require__(8),
 	    __webpack_require__(7),
-	    __webpack_require__(245),
+	    __webpack_require__(244),
 	    __webpack_require__(263),
 	    __webpack_require__(197),
 	    __webpack_require__(254),
@@ -7802,8 +7802,8 @@ webpackJsonp([56],{
 	    __webpack_require__(9),
 	    __webpack_require__(200),
 	    __webpack_require__(201),
-	    __webpack_require__(221),
-	    __webpack_require__(220)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup) {
+	    __webpack_require__(220),
+	    __webpack_require__(251)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup) {
 	        "use strict";
 	
 	        var BETLIST_IGNORED_PRODUCTS = ["AB"];
@@ -7811,7 +7811,6 @@ webpackJsonp([56],{
 	
 	        var _cacheData = {};
 	        var _filterData = {};
-	        var _drilldownData = {};
 	
 	        var gridControl = {
 	            level: 0,
@@ -7921,6 +7920,10 @@ webpackJsonp([56],{
 	
 	            getData(data, Site.resolveClientUrl(PlatformWinLossOption.urlData), function (response) {
 	                var submitData = {
+	                    FromDay: data.FromDay,
+	                    ToDay: data.ToDay,
+	                    Month: data.Month,
+	                    Year: data.Year,
 	                    ProductOptions: $.parseJSON(response.ProductOptions),
 	                    DrawFilter: data.DrawFilter,
 	                    PlatformType: data.PlatformType,
@@ -7928,7 +7931,7 @@ webpackJsonp([56],{
 	                    FromDate: data.FromDate,
 	                    ToDate: data.ToDate,
 	                    CurrencyName: data.CurrencyName,
-	                    Excludetest: data.IsExcludeTest,
+	                    IsExcludeTest: data.IsExcludeTest,
 	                    BaseCurrency: data.BaseCurrency
 	                };
 	                _filterData[gridControl.level] = submitData;
@@ -7994,7 +7997,7 @@ webpackJsonp([56],{
 	                onPaging = false;
 	                resizeGrid();
 	
-	                if (gridControl.level === 0) {
+	                if (level === 0) {
 	                    $("th[role='columnheader']").find("div").removeClass("ui-jqgrid-sortable");
 	                }
 	
@@ -8112,12 +8115,19 @@ webpackJsonp([56],{
 	            var url = Site.resolveClientUrl("PlatformWinLossBetList/Index");
 	            var onLevelData = _filterData[onlevel];
 	
-	            var param = Site.clone(onLevelData);
-	            param.Custid = dataDrillDown.CustomerId;
-	            param.SystemId = dataDrillDown.SystemId;
-	            param.ExternalId = dataDrillDown.ExternalId;
-	            param.CurrencyId = dataDrillDown.DrillDownCurrencyId;
-	            param.CurrencyName = dataDrillDown.DrillDownCurrencyName;
+	            var param = {
+	                FromDate: onLevelData.FromDate,
+	                ToDate: onLevelData.ToDate,
+	                PlatformType: onLevelData.PlatformType,
+	                ExcludeTest: onLevelData.IsExcludeTest,
+	                CurrencyId: dataDrillDown.DrillDownCurrencyId,
+	                CurrencyName: dataDrillDown.DrillDownCurrencyName,
+	                DrawFilter: onLevelData.DrawFilter,
+	                CustId: dataDrillDown.CustomerId,
+	                SystemId: dataDrillDown.SystemId,
+	                ExternalId: dataDrillDown.ExternalId,
+	                BaseCurrency: onLevelData.BaseCurrency
+	            };
 	
 	            url = QueryString.setParams(url, param);
 	
@@ -8196,7 +8206,7 @@ webpackJsonp([56],{
 	*  "0" for master and "1" for member
 	*/
 	
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(197), __webpack_require__(220)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(197)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
 	        "use strict";
 	        var BA_PRODUCTCODE = "BA";
 	        var RB_PRODUCTCODE = "RB";
@@ -8210,7 +8220,7 @@ webpackJsonp([56],{
 	                ExternalId: rowObject.ExternalId,
 	                SystemId: rowObject.SystemId
 	            };
-	            return "<a class='bet-list-link' href='javascript:;' data-drill-down=" + JSON.stringify(param) + ">" + cellvalue + "</a>";
+	            return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
 	        };
 	        var drilldownLink = function (cellvalue, options, rowObject) {
 	            var parentClassName = rowObject.IsLeaf ? "" : " text-bold";
@@ -8220,7 +8230,7 @@ webpackJsonp([56],{
 	                ProductCode: rowObject.PlatformType < 0 ? rowObject.ProductCode : undefined
 	            };
 	
-	            return "<a class='drilldown" + parentClassName + "' href='javascript:;' data-drill-down=" + JSON.stringify(param) + ">" + cellvalue + "</a>";
+	            return '<a class="drilldown' + parentClassName + '" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
 	        };
 	        var idColumn = {
 	            name: "PlatformType",
