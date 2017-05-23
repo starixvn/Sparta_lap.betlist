@@ -18,6 +18,7 @@ module.exports = function (config) {
             { pattern: 'www/js/tests/lib/**/jquery.jqgrid.additional-spec.js', included: false },
             { pattern: 'www/js/tests/extensions/**/*-spec.js', included: false },
             { pattern: 'www/js/tests/components/**/*-spec.js', included: false },
+            { pattern: 'www/js/tests/helpers/**/*-spec.js', included: false },
             { pattern: 'www/js/tests/pages/**/*-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
@@ -29,7 +30,8 @@ module.exports = function (config) {
         preprocessors: {
             'www/js/source/common/**/*.js': ['coverage'],
             'www/js/source/extensions/**/*.js': ['coverage'],
-            'www/js/source/pages/**/*.js': ['coverage']
+            'www/js/source/pages/**/*.js': ['coverage'],
+            'www/js/source/helpers/**/*.js': ['coverage']
         },
         port: 9875,
         colors: true,

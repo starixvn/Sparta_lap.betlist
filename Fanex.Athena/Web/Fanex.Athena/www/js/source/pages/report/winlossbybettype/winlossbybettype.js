@@ -5,14 +5,15 @@ define([
     "common/querystring",
     "components/pluginhelper/daterangepicker",
     "components/scrollablegrid",
+    "helpers/sortableheader",
     "extensions/jquery.extension"],
-    function ($, Site, QueryString, DatePicker, GridHelper) {
+    function ($, Site, QueryString, DatePicker, GridHelper, SortableHeader) {
         var _me = {
             initialize: function () {
                 Site.initialize();
                 GridHelper.resizeGrid();
                 _me.initDateRangePicker();
-                Site.createSortingIcon(_me.submitForm);
+                SortableHeader.createSortingIcon(_me.submitForm);
                 Site.addUserGuide({
                     resourceName: "WinLossByBetType",
                     title: Site.getSingleResource("WinLossByBetType")

@@ -84,7 +84,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             if (userCurrencies) {
                 _userCurrencies = JSON.parse(userCurrencies);
             }
-            initBlockUI();
             addNoticationPopup();
             overrideInnerSize();
         }
@@ -369,17 +368,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             return url;
         }
 
-        function initBlockUI() {
-            try {
-                $(".blockui").click(function () {
-                    blockUI();
-                });
-
-                unBlockUI();
-            } catch (err) {
-            }
-        }
-
         function currencyConstraint(userChange) {
             var currency = Number($("#CurrencyId").val());
             var currencyName = $("#CurrencyId option:selected").text();
@@ -418,42 +406,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             }
 
             $("select#BaseCurrency").selectList();
-        }
-
-        function sortReport(sortColumn) {
-            var sortDirection = $("#SortColumn").val() === sortColumn ? $("#SortDirection").val() === "DESC" ? "ASC" : "DESC" : "ASC";
-
-            $("#SortColumn").val(sortColumn);
-            $("#SortDirection").val(sortDirection);
-
-            var currencyName = $("#CurrencyId option:selected").text();
-            currencyName = $.trim(currencyName);
-            $("#CurrencyName").val(currencyName);
-        }
-
-        function createSortingIcon(sortHandler) {
-            if ($("#RowCount").val() <= 1) {
-                $("#header-content .sortable").removeClass("sort-heading");
-            }
-            else {
-                $("#header-content .sortable").each(function (index, element) {
-                    var $sortHeader = $(element).find(".sort-heading");
-                    var sortColumn = $sortHeader.attr("data-column-name");
-                    if (sortColumn === $("#SortColumn").val()) {
-                        $sortHeader.addClass("sorted-heading");
-
-                        var sortClass = $("#SortDirection").val() === "DESC" ? "sort-icon-desc" : "sort-icon-asc";
-                        var sortSpan = $("<span class='sort-icon'></span>");
-                        sortSpan.addClass(sortClass);
-                        sortSpan.appendTo($sortHeader);
-                    }
-
-                    $(element).click(function () {
-                        sortReport($sortHeader.attr("data-column-name"));
-                        sortHandler($sortHeader.attr("data-column-name"));
-                    });
-                });
-            }
         }
 
         function clone(obj) {
@@ -604,8 +556,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             setDateRangeParam: setDateRangeParam,
             setDateRangeOriginalParam: setDateRangeOriginalParam,
             currencyConstraint: currencyConstraint,
-            sortReport: sortReport,
-            createSortingIcon: createSortingIcon,
             clone: clone,
             asBool: asBool,
             getSingleResource: getSingleResource,

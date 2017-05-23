@@ -1,6 +1,6 @@
 ﻿define(["jquery", "common/site", "common/querystring", "components/pluginhelper/daterangepicker", "components/paging",
-    "components/scrollablegrid", "pages/report/racingcommission/racingcommission", "extensions/jquery.extension"],
-    function ($, Site, QueryString, DatePicker, Paging, GridHelper, RacingCommission) {
+    "components/scrollablegrid", "helpers/sortableheader", "pages/report/racingcommission/racingcommission", "extensions/jquery.extension"],
+    function ($, Site, QueryString, DatePicker, Paging, GridHelper, SortableHeader, RacingCommission) {
         describe("RacingCommission", function () {
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (text) {
@@ -12,7 +12,7 @@
                 beforeEach(function () {
                     spyOn(Site, "initialize");
                     spyOn(RacingCommission, "initEvent");
-                    spyOn(Site, "createSortingIcon");
+                    spyOn(SortableHeader, "createSortingIcon");
                     spyOn(Site, "addUserGuide");
                     spyOn(RacingCommission, "initDateRangePicker");
                     spyOn(GridHelper, "resizeGrid");
@@ -27,8 +27,8 @@
                 it("RacingCommission.initEvent() should be called", function () {
                     expect(RacingCommission.initEvent).toHaveBeenCalled();
                 });
-                it("Site.createSortingIcon() should be called with correct parameter", function () {
-                    expect(Site.createSortingIcon).toHaveBeenCalledWith(RacingCommission.submitForm);
+                it("SortableHeader.createSortingIcon() should be called with correct parameter", function () {
+                    expect(SortableHeader.createSortingIcon).toHaveBeenCalledWith(RacingCommission.submitForm);
                 });
                 it("Site.addUserGuide() should be called with correct parameter", function () {
                     expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "RacingCommission", title: "RacingCommission" });

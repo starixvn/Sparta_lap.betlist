@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -1091,6 +1091,7 @@
     <Content Include="www\js\source\components\pluginhelper\multiselect.js" />
     <Content Include="www\js\source\components\scrollablegrid.js" />
     <Content Include="www\js\source\components\selectlist.js" />
+    <Content Include="www\js\source\helpers\sortableheader.js" />
     <Content Include="www\js\source\lib\select2.js" />
     <Content Include="www\js\source\pages\betlist\betlist.js" />
     <Content Include="www\js\source\pages\betlist\betlist.option.js" />
@@ -1201,6 +1202,7 @@
     <Content Include="www\js\tests\common\site-spec.js" />
     <Content Include="www\js\tests\components\refreshcountdown-spec.js" />
     <Content Include="www\js\tests\extensions\jquery.extension-spec.js" />
+    <Content Include="www\js\tests\helpers\sortableheader-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlist-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistcancelledbets-spec.js" />
     <Content Include="www\js\tests\pages\betlist\betlistdaily-spec.js" />
