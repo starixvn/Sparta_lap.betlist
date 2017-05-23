@@ -1,5 +1,8 @@
-﻿$height: 26px;
+﻿@import "../../scss/abstracts/variables";
+
+$height: 26px;
 $font-size: 12px;
+$colorDisableDropdown: $colorDisabled;
 
 .input-field {
     label {
@@ -38,6 +41,16 @@ $font-size: 12px;
                     border-style: solid;
                     display: inline-block;
                     vertical-align: middle;
+                }
+            }
+
+            &.disabled {
+                color: $colorDisableDropdown !important;
+                cursor: default;
+                pointer-events: none;
+
+                .selection-icon-arrow{
+                    border-color: $colorDisableDropdown transparent transparent transparent;
                 }
             }
         }

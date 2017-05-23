@@ -34,7 +34,8 @@ define(
                 $leagueDropdown.html(htmlAllOption);
                 $matchDropdown.html(htmlAllOption);
 
-                var canRequest = !(sportId === 0 || sportId === mixParlaySportId);
+                var canRequest = sportId !== 0 && sportId !== mixParlaySportId;
+                $leagueDropdown.selectList("disabled", !canRequest);
                 if (canRequest) {
                     $.ajax({
                         url: Site.resolveClientUrl('api/LastBetMonitoringBetList/GetRunningMatchList'),
@@ -62,8 +63,8 @@ define(
                     });
                 }
 
-                $leagueDropdown.selectList("update");
-                $matchDropdown.selectList("update");
+                $leagueDropdown.selectList("update", { isDisabled: !canRequest });
+                $matchDropdown.selectList("update", { isDisabled: true });
                 LastBetGrid.updateParam(DataType.NUMBER, "LeagueId", $leagueDropdown.val());
                 LastBetGrid.updateParam(DataType.NUMBER, "MatchId", $matchDropdown.val());
             });
@@ -76,11 +77,15 @@ define(
 
                 var $matchDropdown = $(Selector.Match);
                 $matchDropdown.html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
-
-                if (leagueId !== 0) {
+                
+                var isShowAllLeague = leagueId === 0;
+                var canShowMatch = !isShowAllLeague;
+                if (!isShowAllLeague) {
                     var filteredLeague = _currentLeagueList.filter(function (item) { return item.LeagueId === leagueId; });
                     var leagueItem = filteredLeague.length ? filteredLeague[0] : null;
-                    if (leagueItem && Site.asBool(leagueItem.IsOutRight) === false) {
+
+                    canShowMatch = leagueItem && Site.asBool(leagueItem.IsOutRight) === false;
+                    if (canShowMatch) {
                         var matchList = _currentMatchList.filter(function (item) { return item.LeagueId === leagueId; });
 
                         var htmlOption = "";
@@ -92,7 +97,8 @@ define(
                     }
                 }
 
-                $matchDropdown.selectList("update");
+                $matchDropdown.selectList("disabled", isShowAllLeague && !canShowMatch);
+                $matchDropdown.selectList("update", { isDisabled: isShowAllLeague && !canShowMatch });
                 LastBetGrid.updateParam(DataType.NUMBER, "MatchId", $matchDropdown.val());
             });
         };
@@ -105,19 +111,19 @@ define(
 
         _me.initBetType = function () {
             $("#bet-type").change(function () {
-                _me.changeFilterParam(DataType.STRING, "BetType", $("#bet-type").val());
+                _me.changeFilterParam(DataType.STRING, "BetType", $(this).val());
             });
         };
 
         _me.initLiveStatus = function () {
             $("#live-status").change(function () {
-                _me.changeFilterParam(DataType.STRING, "LiveStatus", $("#live-status").val());
+                _me.changeFilterParam(DataType.STRING, "LiveStatus", $(this).val());
             });
         };
 
         _me.initOddsType = function () {
             $("#odds-type").change(function () {
-                _me.changeFilterParam(DataType.STRING, "OddsType", $("#odds-type").val());
+                _me.changeFilterParam(DataType.STRING, "OddsType", $(this).val());
             });
         };
 
@@ -219,13 +225,13 @@ define(
 
         _me.initTimeZone = function () {
             $("#time-zone").change(function () {
-                _me.changeFilterParam(DataType.NUMBER, "TimeZone", $("#time-zone").val());
+                _me.changeFilterParam(DataType.NUMBER, "TimeZone", $(this).val());
             });
         };
 
         _me.initBasedCurrency = function () {
-            $("#based-currency").change(function () {
-                _me.changeFilterParam(DataType.STRING, "BasedCurrency", $("#based-currency").val());
+            $("#BaseCurrency").change(function () {
+                _me.changeFilterParam(DataType.STRING, "BasedCurrency", $(this).val());
             });
         };
 
@@ -372,6 +378,9 @@ define(
             _me.initSubmit();
             _me.initPlatForm();
             _me.initColumns();
+
+            $(Selector.League).selectList("disabled", true);
+            $(Selector.Match).selectList("disabled", true);
         };
 
         return _me;

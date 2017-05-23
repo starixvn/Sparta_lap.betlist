@@ -2,12 +2,14 @@
     "use strict";
 
     var CONTAINER_SELECTOR = ".select-list-container";
+    var DISABLED_CLASS = "disabled";
 
-    function getLabelHtml(labelText, selectionId) {
-        var targetDropdownId = selectionId + "-result-container";
+    function getLabelHtml(option) {
+        var targetDropdownId = option.selectionId + "-result-container";
+        var className = option.isDisabled ? "selection disabled" : "selection";
         return '<div class="select-list-container">' +
-                '<div class="selection" id="' + selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
-                    '<div class="selection-label">' + labelText + '</div>' +
+                '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
+                    '<div class="selection-label">' + option.labelText + '</div>' +
                     '<div class="selection-icon"><span class="selection-icon-arrow"></span></div>' +
                 '</div>' +
             '</div>';
@@ -138,7 +140,9 @@
                 $container.on("click", ".selection", function (e) {
                     e.stopPropagation();
                     var $selection = $(this);
-                    _methods.toggle.call(self, $selection, selectListOption.canSearch);
+                    if (!$selection.hasClass(DISABLED_CLASS)) {
+                        _methods.toggle.call(self, $selection, selectListOption.canSearch);
+                    }
                 });
 
                 $element.on("change", function () {
@@ -151,14 +155,17 @@
             });
         },
 
-        buildLabel: function () {
+        buildLabel: function (option) {
+            option = option || {};
             var $self = $(this);
             $self.siblings(CONTAINER_SELECTOR).remove();
             var optionSelected = $self.find("option:selected");
-            var selectedValue = optionSelected.length ? optionSelected.text() : "";
-
+            var labelText = optionSelected.length ? optionSelected.text() : "";
             var selectionId = generateId($self);
-            var $selectionLabel = $(getLabelHtml(selectedValue, selectionId));
+
+            option.labelText = labelText;
+            option.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(option));
 
             $self.hide().parent().append($selectionLabel);
         },
@@ -200,8 +207,13 @@
             }
         },
 
-        update: function () {
-            _methods.buildLabel.call(this);
+        update: function (option) {
+            _methods.buildLabel.call(this, option);
+        },
+
+        disabled: function (isDisabled) {
+            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
 
