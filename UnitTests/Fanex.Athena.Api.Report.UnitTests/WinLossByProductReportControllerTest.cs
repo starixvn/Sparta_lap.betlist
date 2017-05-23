@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Http.Results;
-    using System.Web.Script.Serialization;
     using Excel.Base.Entities;
     using Excel.Report;
     using Fanex.Athena.Service.Report.Interfaces;

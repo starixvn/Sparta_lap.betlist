@@ -5,10 +5,13 @@
     using System.Web.Http;
     using System.Web.Http.Hosting;
     using System.Web.Http.Results;
+    using Excel.Base.Entities;
+    using Excel.Report;
     using Fanex.Athena.Service.Report.Interfaces;
     using Model.Core.DTO.Users;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
     using Report;
@@ -18,13 +21,15 @@
 
     public class PlatformWinLossReportTest
     {
+        private const int ExpectedCustomerComm = 999;
+
         private ISessionService _sessionService;
         private IProductService _productService;
         private IPlatformWinLossService _service;
         private PlatformWinLossReportController _controller;
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeSetUp]
+        public void FixtureSetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
             _productService = Substitute.For<IProductService>();
@@ -32,11 +37,47 @@
             _controller = Substitute.ForPartsOf<PlatformWinLossReportController>(_sessionService, _productService, _service);
             _controller.Request = new HttpRequestMessage();
             _controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
+            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
+            _sessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns("XmlData");
+
+            // Mock data for Level = 0
+            var summaryData = new List<PlatformWinLossSummary>
+            {
+                new PlatformWinLossSummary(),
+                new PlatformWinLossSummary()
+            };
+            PlatformWinLossSummary totalSummaryData;
+            _service.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalSummaryData).Returns(x =>
+            {
+                x[1] = new PlatformWinLossSummary
+                {
+                    CustomerComm = ExpectedCustomerComm
+                };
+                return summaryData;
+            });
+
+            // Mock data for Level = 1
+            var memberData = new List<PlatformWinLossMember>
+            {
+                new PlatformWinLossMember(),
+                new PlatformWinLossMember(),
+                new PlatformWinLossMember()
+            };
+            PlatformWinLossMember totalMemberData;
+            _service.GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalMemberData).Returns(x =>
+            {
+                x[1] = new PlatformWinLossMember
+                {
+                    CustomerComm = ExpectedCustomerComm
+                };
+                return memberData;
+            });
+
             CreateSession();
         }
 
-        [TearDown]
-        public void TearDown()
+        [OneTimeTearDown]
+        public void FixtureTearDown()
         {
             _service = null;
             _controller = null;
@@ -60,24 +101,13 @@
         public void Index_WhenCallWithLevel0_CallAndGetCorrectDataFromService()
         {
             // Arrange
-            const int ExpectedCustomerComm = 999;
-            var dataListResult = new List<PlatformWinLossSummary>
-            {
-                new PlatformWinLossSummary(),
-                new PlatformWinLossSummary()
-            };
             PlatformWinLossSummary totalData;
-            _service.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalData).Returns(x =>
-            {
-                x[1] = new PlatformWinLossSummary
-                {
-                    CustomerComm = ExpectedCustomerComm
-                };
-                return dataListResult;
-            });
 
             // Action
-            var result = _controller.Index(new PlatformWinLossMetaModel());
+            var result = _controller.Index(new PlatformWinLossMetaModel
+            {
+                Level = 0
+            });
 
             // Assert
             Assert.Multiple(() =>
@@ -92,31 +122,67 @@
         public void Index_WhenCallWithLevel1_CallAndGetCorrectDataFromService()
         {
             // Arrange
-            const int ExpectedCustomerComm = 999;
-            var dataListResult = new List<PlatformWinLossSummary>
+            PlatformWinLossMember totalData;
+            var metaModel = new PlatformWinLossMetaModel
             {
-                new PlatformWinLossSummary(),
-                new PlatformWinLossSummary()
+                Level = 1
             };
-            PlatformWinLossSummary totalData;
-            _service.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalData).Returns(x =>
-            {
-                x[1] = new PlatformWinLossSummary
-                {
-                    CustomerComm = ExpectedCustomerComm
-                };
-                return dataListResult;
-            });
 
             // Action
-            var result = _controller.Index(new PlatformWinLossMetaModel());
+            var result = _controller.Index(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _service.Received().GetSummaryData(Arg.Any<PlatformWinLossMetaModel>(), out totalData);
-                Assert.That(result.Data.Count, Is.EqualTo(2));
+                _service.Received().GetMemberData(Arg.Any<PlatformWinLossMetaModel>(), out totalData);
+                Assert.That(result.Data.Count, Is.EqualTo(3));
                 Assert.That(result.Total.CustomerComm, Is.EqualTo(ExpectedCustomerComm));
+            });
+        }
+
+        [Test]
+        public void Index_ExportExcelLevel0_PassCorrectParamsToCreateExcel()
+        {
+            // Arrange
+            const string ExpectedBaseCurrency = "ABC";
+            const string ExpectedCurrencyName = "123";
+            var metaModel = new PlatformWinLossMetaModel
+            {
+                Level = 0,
+                IsExportExcel = true,
+                BaseCurrency = ExpectedBaseCurrency,
+                CurrencyName = ExpectedCurrencyName
+            };
+
+            var excel = Substitute.ForPartsOf<PlatformWinLossSummaryExcel>(
+                string.Empty,
+                metaModel,
+                Arg.Any<IList<PlatformWinLossSummary>>(),
+                Arg.Any<PlatformWinLossSummary>(),
+                Arg.Any<ConvertingOption>());
+            excel.When(x => x.Export()).DoNotCallBase();
+
+            _controller.CreateExcelSummary(
+                null,
+                metaModel,
+                Arg.Any<IList<PlatformWinLossSummary>>(),
+                Arg.Any<PlatformWinLossSummary>(),
+                Arg.Any<ConvertingOption>())
+                .Returns(excel);
+
+            // Action
+            var result = _controller.Index(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _controller.Received().CreateExcelSummary(
+                    Arg.Any<string>(),
+                    metaModel,
+                    Arg.Is<IList<PlatformWinLossSummary>>(x => x.Count == 2),
+                    Arg.Is<PlatformWinLossSummary>(x => x.CustomerComm == ExpectedCustomerComm),
+                    Arg.Is<ConvertingOption>(x => x.BaseCurrency == ExpectedBaseCurrency.ToLower() && x.CurrencyName == ExpectedCurrencyName));
+                Assert.That(metaModel.AgentListXml, Is.EqualTo("XmlData"));
             });
         }
 

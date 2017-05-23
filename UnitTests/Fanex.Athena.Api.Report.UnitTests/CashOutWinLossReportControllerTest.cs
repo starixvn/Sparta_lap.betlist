@@ -27,8 +27,8 @@
         private CashOutWinLossReportController _controller;
         private JavaScriptSerializer _serializer;
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeSetUp]
+        public void FixtureSetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
             _productService = Substitute.For<IProductService>();
@@ -38,8 +38,8 @@
             CreateSession();
         }
 
-        [TearDown]
-        public void TearDown()
+        [OneTimeTearDown]
+        public void FixtureTearDown()
         {
             _service = null;
             _controller = null;
