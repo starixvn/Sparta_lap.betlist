@@ -1,4 +1,5 @@
-﻿/*
+﻿@import "../../scss/abstracts/variables";
+/*
 * monPickr - jQuery Plugin
 * Just a simple month picker
 *
@@ -17,11 +18,11 @@
     color: #000;
 }
 
-.monPickrWrapParent, .selectedDayWrapParent{
+.monPickrWrapParent, .selectedDayWrapParent {
     margin-bottom: 10px;
 }
 
-.monPickrDropDown, .dayPickrDropDown{
+.monPickrDropDown, .dayPickrDropDown {
     background: #fff;
 }
 
@@ -36,20 +37,10 @@
         color: #000;
     }
 
-    .disable {
-        b:after {
-            color: #ccc;
-        }
-    }
-
-    .prev {
-        float: left;
-
+    .prev, .next {
         b {
-            float: left;
             color: #fff;
             font-weight: 500;
-            transform: rotate(90deg);
 
             &:after {
                 font-family: 'icomoon' !important;
@@ -58,6 +49,24 @@
                 font-size: 17px;
                 position: absolute;
                 top: -3px;
+            }
+        }
+
+        &.disable {
+            b:after {
+                color: $colorDisabled;
+            }
+        }
+    }
+
+    .prev {
+        float: left;
+
+        b {
+            float: left;
+            transform: rotate(90deg);
+
+            &:after {
                 left: -5px;
             }
         }
@@ -68,17 +77,9 @@
 
         b {
             float: right;
-            color: #fff;
-            font-weight: 500;
             transform: rotate(-90deg);
 
             &:after {
-                font-family: 'icomoon' !important;
-                content: "\e916";
-                color: #444;
-                font-size: 17px;
-                position: absolute;
-                top: -3px;
                 right: -5px;
             }
         }

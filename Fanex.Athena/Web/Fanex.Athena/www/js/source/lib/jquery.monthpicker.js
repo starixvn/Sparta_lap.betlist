@@ -176,6 +176,12 @@ define(["common/site"], function (Site) {
                 } else {
                     data.toDay = parseInt(value, 10);
                     data.toDate = new Date(data.year, data.month, value);
+
+                    data.ddlFromDate.dropDown.find('li').each(function (index) {
+                        var day = index + 1;
+                        var isShow = day <= data.toDay;
+                        $(this).toggle(isShow);
+                    });
                 }
             },
 

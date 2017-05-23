@@ -175,9 +175,7 @@ var i = 0;
     <div class="input-field col l@(colLg) m@(colMd) s12">
         <div class="multiselect-container" id="ProductList">
             <select id="grid-products-multiselect" name="grid-products-multiselect"></select>
-            <label>
-                @ViewResources.Product
-            </label>
+            <label>@ViewResources.Product *</label>
 
             <div class="hide" id="product-container">
                 @foreach (var product in productOptions)
@@ -387,7 +385,7 @@ var Url = new UrlHelper(Context.Request.RequestContext);
         <label for="ShowDraw">@ViewResources.Draw</label>
         <img src="@Url.Content("/Content/Report/Images/icon_error.gif")" alt="" id="ticket-null" class="hide" />
     </div>
-    <label>@ViewResources.TicketFilter</label>
+    <label>@ViewResources.TicketFilter *</label>
 }
 
 @helper DrawFilter(int drawFilterType)

@@ -35,11 +35,12 @@
                 $("#TickerFilter input[type=checkbox]").checkboxgroup();
 
                 $("#TickerFilter input[type=checkbox], #ProductList input[type=checkbox]").on("change", function () {
-                    var hasCheckedProduct = $("#ProductList .childCheckbox:checked").length > 0;
-                    var isValid = $("#TickerFilter input:checked").length > 0 && hasCheckedProduct;
+                    var validProduct = $("#ProductList .childCheckbox:checked").length > 0;
+                    var validTicketFilter = $("#TickerFilter input:checked").length > 0;
+                    var isValid = validProduct && validTicketFilter;
 
                     if ($(this).attr("id") === "AllTicket") {
-                        isValid = $(this).prop("checked") && hasCheckedProduct;
+                        isValid = $(this).prop("checked") && validProduct;
                     }
 
                     $("#SubmitButton").prop("disabled", !isValid);

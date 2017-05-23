@@ -2,6 +2,7 @@
     function ($) {
         "use strict";
         var PICKER_SELECTOR = "#month-picker";
+        var FORMAT = "MM/dd/yyyy";
 
         var _historyDate = new Date($("#HistoryDate").val());
 
@@ -18,17 +19,18 @@
                 showDateRange: true,
                 fromDayId: 'fDay',
                 toDayId: 'tDay',
-                format: 'MM/dd/yyyy',
+                format: FORMAT,
                 month: fromdate,
                 fromDay: fromdate.getDate(),
                 toDay: todate.getDate(),
                 afterChangeMonth: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", "MM/dd/yyyy"));
-                    $todate.val($picker.monPickr("getToDate", "MM/dd/yyyy"));
+                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
+                    $todate.val($picker.monPickr("getToDate", FORMAT));
                 },
                 afterChangeDay: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", "MM/dd/yyyy"));
-                    $todate.val($picker.monPickr("getToDate", "MM/dd/yyyy"));
+                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
+                    $todate.val($picker.monPickr("getToDate", FORMAT));
+
                     if (option && typeof option.customAfterChangeDay === "function") {
                         option.customAfterChangeDay();
                     }
