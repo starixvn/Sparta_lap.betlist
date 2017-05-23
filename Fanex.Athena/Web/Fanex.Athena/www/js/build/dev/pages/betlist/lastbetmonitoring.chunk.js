@@ -1,17 +1,17 @@
 webpackJsonp([43],{
 
 /***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(227);
+	module.exports = __webpack_require__(216);
 
 
-/***/ }),
+/***/ },
 
-/***/ 227:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 216:
+/***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(228), __webpack_require__(230)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LastBetFilter, LastBetGrid) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(217), __webpack_require__(219)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LastBetFilter, LastBetGrid) {
 	    "use strict";
 	
 	    $(function () {
@@ -27,14 +27,14 @@ webpackJsonp([43],{
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 228:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 217:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(229),
-	    __webpack_require__(230), __webpack_require__(11), __webpack_require__(231)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, MultiSelect, LastBetGrid) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(218),
+	    __webpack_require__(219), __webpack_require__(11), __webpack_require__(220)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, MultiSelect, LastBetGrid) {
 	        var _me = {};
 	
 	        var _highLightSubmitIntervalId = 0;
@@ -66,7 +66,8 @@ webpackJsonp([43],{
 	                $leagueDropdown.html(htmlAllOption);
 	                $matchDropdown.html(htmlAllOption);
 	
-	                var canRequest = !(sportId === 0 || sportId === mixParlaySportId);
+	                var canRequest = sportId !== 0 && sportId !== mixParlaySportId;
+	                $leagueDropdown.selectList("disabled", !canRequest);
 	                if (canRequest) {
 	                    $.ajax({
 	                        url: Site.resolveClientUrl('api/LastBetMonitoringBetList/GetRunningMatchList'),
@@ -94,8 +95,8 @@ webpackJsonp([43],{
 	                    });
 	                }
 	
-	                $leagueDropdown.selectList("update");
-	                $matchDropdown.selectList("update");
+	                $leagueDropdown.selectList("update", { isDisabled: !canRequest });
+	                $matchDropdown.selectList("update", { isDisabled: true });
 	                LastBetGrid.updateParam(DataType.NUMBER, "LeagueId", $leagueDropdown.val());
 	                LastBetGrid.updateParam(DataType.NUMBER, "MatchId", $matchDropdown.val());
 	            });
@@ -108,11 +109,15 @@ webpackJsonp([43],{
 	
 	                var $matchDropdown = $(Selector.Match);
 	                $matchDropdown.html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
-	
-	                if (leagueId !== 0) {
+	                
+	                var isShowAllLeague = leagueId === 0;
+	                var canShowMatch = !isShowAllLeague;
+	                if (!isShowAllLeague) {
 	                    var filteredLeague = _currentLeagueList.filter(function (item) { return item.LeagueId === leagueId; });
 	                    var leagueItem = filteredLeague.length ? filteredLeague[0] : null;
-	                    if (leagueItem && Site.asBool(leagueItem.IsOutRight) === false) {
+	
+	                    canShowMatch = leagueItem && Site.asBool(leagueItem.IsOutRight) === false;
+	                    if (canShowMatch) {
 	                        var matchList = _currentMatchList.filter(function (item) { return item.LeagueId === leagueId; });
 	
 	                        var htmlOption = "";
@@ -124,7 +129,8 @@ webpackJsonp([43],{
 	                    }
 	                }
 	
-	                $matchDropdown.selectList("update");
+	                $matchDropdown.selectList("disabled", isShowAllLeague && !canShowMatch);
+	                $matchDropdown.selectList("update", { isDisabled: isShowAllLeague && !canShowMatch });
 	                LastBetGrid.updateParam(DataType.NUMBER, "MatchId", $matchDropdown.val());
 	            });
 	        };
@@ -137,19 +143,19 @@ webpackJsonp([43],{
 	
 	        _me.initBetType = function () {
 	            $("#bet-type").change(function () {
-	                _me.changeFilterParam(DataType.STRING, "BetType", $("#bet-type").val());
+	                _me.changeFilterParam(DataType.STRING, "BetType", $(this).val());
 	            });
 	        };
 	
 	        _me.initLiveStatus = function () {
 	            $("#live-status").change(function () {
-	                _me.changeFilterParam(DataType.STRING, "LiveStatus", $("#live-status").val());
+	                _me.changeFilterParam(DataType.STRING, "LiveStatus", $(this).val());
 	            });
 	        };
 	
 	        _me.initOddsType = function () {
 	            $("#odds-type").change(function () {
-	                _me.changeFilterParam(DataType.STRING, "OddsType", $("#odds-type").val());
+	                _me.changeFilterParam(DataType.STRING, "OddsType", $(this).val());
 	            });
 	        };
 	
@@ -251,13 +257,13 @@ webpackJsonp([43],{
 	
 	        _me.initTimeZone = function () {
 	            $("#time-zone").change(function () {
-	                _me.changeFilterParam(DataType.NUMBER, "TimeZone", $("#time-zone").val());
+	                _me.changeFilterParam(DataType.NUMBER, "TimeZone", $(this).val());
 	            });
 	        };
 	
 	        _me.initBasedCurrency = function () {
-	            $("#based-currency").change(function () {
-	                _me.changeFilterParam(DataType.STRING, "BasedCurrency", $("#based-currency").val());
+	            $("#BaseCurrency").change(function () {
+	                _me.changeFilterParam(DataType.STRING, "BasedCurrency", $(this).val());
 	            });
 	        };
 	
@@ -404,15 +410,18 @@ webpackJsonp([43],{
 	            _me.initSubmit();
 	            _me.initPlatForm();
 	            _me.initColumns();
+	
+	            $(Selector.League).selectList("disabled", true);
+	            $(Selector.Match).selectList("disabled", true);
 	        };
 	
 	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 229:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 218:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(11)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
@@ -469,10 +478,10 @@ webpackJsonp([43],{
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 230:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 219:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
@@ -771,10 +780,10 @@ webpackJsonp([43],{
 	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 231:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 220:
+/***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
 	"use strict";
@@ -1022,7 +1031,7 @@ webpackJsonp([43],{
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ })
+/***/ }
 
 });
 //# sourceMappingURL=lastbetmonitoring.chunk.js.map

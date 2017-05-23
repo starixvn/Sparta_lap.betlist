@@ -29,37 +29,31 @@
     display: block;
     text-decoration: none;
     color: #000; }
-  .monPickr .disable b:after {
-    color: #ccc; }
+  .monPickr .prev b, .monPickr .next b {
+    color: #fff;
+    font-weight: 500; }
+    .monPickr .prev b:after, .monPickr .next b:after {
+      font-family: 'icomoon' !important;
+      content: "\E916";
+      color: #444;
+      font-size: 17px;
+      position: absolute;
+      top: -3px; }
+  .monPickr .prev.disable b:after, .monPickr .next.disable b:after {
+    color: rgba(0, 0, 0, 0.26); }
   .monPickr .prev {
     float: left; }
     .monPickr .prev b {
       float: left;
-      color: #fff;
-      font-weight: 500;
       transform: rotate(90deg); }
       .monPickr .prev b:after {
-        font-family: 'icomoon' !important;
-        content: "\E916";
-        color: #444;
-        font-size: 17px;
-        position: absolute;
-        top: -3px;
         left: -5px; }
   .monPickr .next {
     float: right; }
     .monPickr .next b {
       float: right;
-      color: #fff;
-      font-weight: 500;
       transform: rotate(-90deg); }
       .monPickr .next b:after {
-        font-family: 'icomoon' !important;
-        content: "\E916";
-        color: #444;
-        font-size: 17px;
-        position: absolute;
-        top: -3px;
         right: -5px; }
 
 .selectedMonth {
@@ -322,6 +316,9 @@ input[type="checkbox"] {
 
 .panel-heading {
   position: relative; }
+
+.decimal-odds {
+  color: #d91a1a; }
 
 .excel-container {
   background: #fff;
