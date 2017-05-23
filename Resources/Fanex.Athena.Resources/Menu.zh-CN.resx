@@ -317,10 +317,6 @@
     <value>会员日志</value>
     <comment>Customer Log</comment>
   </data>
-  <data name="Menu_58" xml:space="preserve">
-    <value>AGENCY SYSTEM</value>
-    <comment>#9502</comment>
-  </data>
   <data name="Menu_59" xml:space="preserve">
     <value>Win Loss By Leagues</value>
     <comment>Win Loss By Leagues</comment>
@@ -328,10 +324,6 @@
   <data name="Menu_6" xml:space="preserve">
     <value>帐户管理</value>
     <comment>ACCOUNT MANAGEMENT</comment>
-  </data>
-  <data name="Menu_60" xml:space="preserve">
-    <value>Internal Login</value>
-    <comment>#9502</comment>
   </data>
   <data name="Menu_64" xml:space="preserve">
     <value>活跃会员人数摘要</value>

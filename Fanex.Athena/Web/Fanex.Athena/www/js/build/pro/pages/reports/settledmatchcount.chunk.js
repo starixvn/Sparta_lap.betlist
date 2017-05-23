@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 webpackJsonp([59],{0:function(t,i,e){t.exports=e(270)},270:function(t,i,e){var n,o;(function(a){n=[e(271)],o=function(t){"use strict";a(t.initialize)}.apply(i,n),!(void 0!==o&&(t.exports=o))}).call(i,e(1))},271:function(t,i,e){var n,o;n=[e(1),e(7)],o=function(t,i){var e={initialize:function(){i.initialize(),i.addUserGuide({resourceName:"SettledMatchCount",title:i.getSingleResource("SettledMatchCount"),height:220})}};return e}.apply(i,n),!(void 0!==o&&(t.exports=o))}});
+=======
+webpackJsonp([47],{0:function(t,i,e){t.exports=e(254)},254:function(t,i,e){var n,o;(function(a){n=[e(255)],o=function(t){"use strict";a(t.initialize)}.apply(i,n),!(void 0!==o&&(t.exports=o))}).call(i,e(1))},255:function(t,i,e){var n,o;n=[e(1),e(7)],o=function(t,i){var e={initialize:function(){i.initialize(),i.addUserGuide({resourceName:"SettledMatchCount",title:i.getSingleResource("SettledMatchCount"),height:220})}};return e}.apply(i,n),!(void 0!==o&&(t.exports=o))}});
+>>>>>>> e1e9143... #76967 - Remove resource menu for AGENCY SYSTEM(58) and Internal Login(60)

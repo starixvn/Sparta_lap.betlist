@@ -35,8 +35,7 @@ namespace Fanex.Athena.Api.Report
         private readonly IDictionary<int, string> _productPermissionMap =
             new Dictionary<int, string>
             {
-                { ProductTypes.GoldDeluxe, PermissionKeys.ReportGoldDeluxeWinloss },
-                { ProductTypes.Macau, PermissionKeys.ReportMacauWinloss },
+                { ProductTypes.GoldDeluxe, PermissionKeys.ReportGoldDeluxeWinloss }
             };
 
         public ThirdPartyWinLossReportController()
@@ -91,10 +90,7 @@ namespace Fanex.Athena.Api.Report
             var templatePath = HttpContext.Current.Server.MapPath(@"~/App_Data/Template/Reports/ThirdPartyWinLoss.xls");
             var currency = userSession.CurrencyList.SingleOrDefault(i => i.Key == (metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId));
 
-            // Use product code of Vegas Games to Macau
-            var productCodeExport = metaModel.ProductCode == "VG" ? "MC" : metaModel.ProductCode;
-
-            var exportedFileName = GetExcelFileName(metaModel, ref currency, productCodeExport);
+            var exportedFileName = GetExcelFileName(metaModel, ref currency, metaModel.ProductCode);
 
             var convertingOption = new ConvertingOption
             {
