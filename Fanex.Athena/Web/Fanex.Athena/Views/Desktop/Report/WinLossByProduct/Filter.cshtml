@@ -8,16 +8,16 @@
         @Html.AntiForgeryToken()
 
         <div class="row">
-            <div class="input-field input col l3 m3 s12 calendar date-range">
+            <div class="input-field input col l3 m4 s12 calendar date-range">
                 @RazorHelperDesktop.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, appSettings.HistoryDate, appSettings.MaxDate)
             </div>
 
-            <div class="input-field col l2 m3 s12">
+            <div class="input-field col l2 m2 s12">
                 @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true)
                 <label>@ViewResources.Currency</label>
             </div>
 
-            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions)
+            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions, 3, 3)
 
             <div class="input-field col l2 m3 s12">
                 @Html.TextBox("Username", Model.Param.Username, new { placeholder = ViewResources.ExternalIdOrSystemId, autocomplete = "off" })
