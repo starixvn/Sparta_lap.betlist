@@ -10,6 +10,14 @@
 @section pagejs {
     <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/livereport.chunk.js")"></script>
 }
+@helper LiveStatus(int selectedStatus)
+{
+    <select class="live-status select hide" name="LiveIndicator" id="LiveIndicator" data-original="@selectedStatus">
+        <option value="2" @(selectedStatus.Equals(2) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.All</option>
+        <option value="1" @(selectedStatus.Equals(1) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.Live</option>
+        <option value="0" @(selectedStatus.Equals(0) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.NoneLive</option>
+    </select>
+}
 @section Filter
 {
     @if (Model.Param.IsViewedHistory)

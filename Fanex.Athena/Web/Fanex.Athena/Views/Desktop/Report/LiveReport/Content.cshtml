@@ -1,10 +1,19 @@
 ﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportViewModel
 
+@helper LiveStatus(int selectedStatus)
+{
+    <select class="live-status select hide" name="LiveIndicator" id="LiveIndicator" data-original="@selectedStatus">
+        <option value="2" @(selectedStatus.Equals(2) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.All</option>
+        <option value="1" @(selectedStatus.Equals(1) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.Live</option>
+        <option value="0" @(selectedStatus.Equals(0) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.NoneLive</option>
+    </select>
+}
+
 <div class="page-results">
     <div class="result-content">
         <div class="panel-heading active">
             <div class="panel-title">
-                @ViewResources.LiveReport - @RazorHelperDesktop.ViewLiveStatus(Model.Param.LiveIndicator), @RazorHelperDesktop.TitleDateTime(Model.Param.FromDate, Model.Param.ToDate)
+                @ViewResources.LiveReport - @DesktopLiveReportRazorHelper.ViewLiveStatus(Model.Param.LiveIndicator), @RazorHelperDesktop.TitleDateTime(Model.Param.FromDate, Model.Param.ToDate)
                 - @RazorHelperDesktop.ViewCurrencyBasedOnConverter(Model.Param.IsConvert, Model.Param.BaseCurrency, Model.Param.CurrencyName)
             </div>
         </div>
@@ -15,7 +24,6 @@
         }
         else
         {
-
             <div class="main-content">
                 <div class="panel-body">
                     <div class="table-title"><span>@ViewResources.Summary</span></div>

@@ -119,38 +119,10 @@ selectedBasedCurrency = selectedBasedCurrency.ToLower();
     </select>
 }
 
-@helper LiveStatus(int selectedStatus)
-{
-    <select class="live-status select hide" name="LiveIndicator" id="LiveIndicator" data-original="@selectedStatus">
-        <option value="2" @(selectedStatus.Equals(2) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.All</option>
-        <option value="1" @(selectedStatus.Equals(1) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.Live</option>
-        <option value="0" @(selectedStatus.Equals(0) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.NoneLive</option>
-    </select>
-}
-
 @helper HighlightNegativeFormat(decimal value, bool isHiglight = true)
 {
     <span@(isHiglight && value < 0 ? new HtmlString(" class='negative-number'") : new HtmlString(""))>
         @value.ToStringExt()</span>
-}
-
-@helper ViewLiveStatus(int liveStatus)
-{
-string title = string.Empty;
-switch (liveStatus)
-{
-    case 0:
-        title = ViewResources.NoneLive;
-        break;
-    case 1:
-        title = ViewResources.Live;
-        break;
-    case 2:
-        title = ViewResources.LiveAndNonLive;
-        break;
-}
-
-    @(title + ViewResources.Data)
 }
 
 @helper TitleDateTime(DateTime fromDate, DateTime? toDate)

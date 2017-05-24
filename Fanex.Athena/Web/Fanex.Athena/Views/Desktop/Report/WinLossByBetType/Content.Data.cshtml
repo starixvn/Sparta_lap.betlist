@@ -13,7 +13,7 @@
         </td>
         <td class="right-align">@item.Turnover.ToStringExt()</td>
 
-        @ReportContentHelperDesktop.RenderCustomerWinLossData(item as Fanex.Athena.Model.Report.DTO.ICustomerWinLoss, Model.IsAllowedCustomerCommission)
+        @DesktopReportRazorHelper.RenderCustomerWinLossData(item as Fanex.Athena.Model.Report.DTO.ICustomerWinLoss, Model.IsAllowedCustomerCommission)
 
         <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(item.LicenseeWL)</td>
 

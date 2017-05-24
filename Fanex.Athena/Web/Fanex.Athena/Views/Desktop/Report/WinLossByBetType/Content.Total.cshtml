@@ -4,7 +4,7 @@
     <td colspan="2" class="center-align text-bold">@ViewResources.Total</td>
     <td class="right-align text-bold">@Model.Total.Turnover.ToStringExt()</td>
 
-    @ReportContentHelperDesktop.RenderCustomerWinLossData(Model.Total as Fanex.Athena.Model.Report.DTO.ICustomerWinLoss,
+    @DesktopReportRazorHelper.RenderCustomerWinLossData(Model.Total as Fanex.Athena.Model.Report.DTO.ICustomerWinLoss,
                                                             Model.IsAllowedCustomerCommission, false, "text-bold")
 
     <td class="right-align text-bold">@RazorHelperDesktop.HighlightNegativeFormat(Model.Total.LicenseeWL)</td>
