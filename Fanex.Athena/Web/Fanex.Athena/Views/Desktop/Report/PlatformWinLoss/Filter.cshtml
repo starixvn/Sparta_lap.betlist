@@ -5,6 +5,7 @@
     var appSettings = new AppSettings();
     var platformList = new Dictionary<int, string>
     {
+        {0, ViewResources.All},
         {PlatformType.Asia, ViewResources.Asia},
         {PlatformType.NewAsia, ViewResources.NewAsia},
         {PlatformType.Euro, ViewResources.Euro},
@@ -27,39 +28,23 @@
                 <label>@ViewResources.Based</label>
             </div>
             <div class="input-field col l2 m2 s12">
-                @RazorHelperDesktop.PlatformList(platformList, Model.Param.CurrencyId)
+                <select name="PlatformType" id="PlatformType" class="select hide">
+                    @foreach (var item in platformList)
+                    {
+                        <option value="@item.Key">@item.Value</option>
+                    }
+                </select>
                 <label>@ViewResources.Platform</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field input col l4 m4 s12">
-                <input type="radio" value="1" class="with-gap" @(Model.Param.DrawFilter == DrawFilterType.Normal ? "checked=checked" : "") name="DrawFilter" id="DrawFilter" />
-                <label for="DrawFilter">
-                    @ViewResources.Normal
-                </label>
-                <input type="radio" value="2" class="with-gap" @(Model.Param.DrawFilter == DrawFilterType.NoDraws ? "checked=checked" : "") name="DrawFilter" id="DrawFilterNoDraw" />
-                <label for="DrawFilterNoDraw">
-                    @ViewResources.NoDraws
-                </label>
-                <input type="radio" value="3" class="with-gap" @(Model.Param.DrawFilter == DrawFilterType.NoDrawsForTurnoverOnly ? "checked=checked" : "") name="DrawFilter" id="DrawFilterNoDrawsForTurnoverOnly" />
-                <label for="DrawFilterNoDrawsForTurnoverOnly">
-                    @ViewResources.NoDrawsForTurnoverOnly
-                </label>
-
-                <label class="active">@ViewResources.DrawFilter</label>
+                @RazorHelperDesktop.DrawFilter(Model.Param.DrawFilter)
             </div>
             <div class="input-field input col l2 m2 s12">
-                <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludeTest == true ? "checked=checked" : "") name="IsExcludeTest" id="IsExcludeTest0" />
-                <label for="IsExcludedTestData0">
-                    @ViewResources.Yes
-                </label>
-                <input type="radio" class="with-gap" value="false" @(Model.Param.IsExcludeTest == false ? "checked=checked" : "") name="IsExcludeTest" id="IsExcludeTest1" />
-                <label for="IsExcludedTestData1">
-                    @ViewResources.No
-                </label>
-
-                <label class="active">@ViewResources.ExcludeTestData</label>
+                @RazorHelperDesktop.ExcludeTestData(Model.Param.IsExcludeTest)
             </div>
+
             @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions)
         </div>
         <div class="row">

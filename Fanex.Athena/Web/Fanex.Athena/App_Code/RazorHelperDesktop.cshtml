@@ -449,36 +449,3 @@ productText = string.IsNullOrEmpty(productText) ? string.Empty : string.Format("
 
     @productText
 }
-
-@helper PlatformList(
-    IDictionary<int, string> platformList,
-    int selected = 0,
-    string className = "select",
-    string nameAttribute = "PlatformType",
-    string idAttribute = "PlatformType",
-    bool addMoreAllOption = true)
-{
-    var items = platformList
-     .Select(c => new System.Web.WebPages.Html.SelectListItem
-     {
-         Value = c.Key.ToString(),
-         Text = c.Value,
-         Selected = selected == c.Key
-     }).ToList();
-          
-    if (addMoreAllOption)
-    {
-        items.Insert(0, new System.Web.WebPages.Html.SelectListItem
-        {
-            Text = ViewResources.All.ToUpper(),
-            Value = PlatformType.All.ToString(),
-            Selected = PlatformType.All == selected
-        });
-    }
-    <select name="@nameAttribute" id="@idAttribute" class="@className hide" data-original="@selected">
-        @foreach (var item in items)
-        {
-            <option value="@item.Value" @(item.Selected ? new HtmlString("selected=selected") : new HtmlString(""))>@item.Text</option>
-        }
-    </select>
-}

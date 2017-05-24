@@ -123,12 +123,16 @@
         $(".select-list-result-container").remove();
     }
 
+    var defaultOption = {
+        canSearch: false,
+        isDisabled: false,
+        beforeOpen: function () { },
+        afterOpen: function () { }
+    }
+
     var _methods = {
         init: function (options) {
-            var selectListOption = {
-                canSearch: false
-            };
-            $.extend(selectListOption, options || {});
+            var selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
                 var self = this;
@@ -138,10 +142,9 @@
                 var $container = $element.parent();
                 $container.off("click", ".selection");
                 $container.on("click", ".selection", function (e) {
-                    e.stopPropagation();
                     var $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
-                        _methods.toggle.call(self, $selection, selectListOption.canSearch);
+                        _methods.toggle.call(self, selectListOption);
                     }
                 });
 
@@ -149,8 +152,12 @@
                     _methods.update.call(self);
                 });
 
-                $(document).click(function () {
-                    closeAll();
+                $("html").on("click", function (e) {
+                    var $target = $(e.target);
+
+                    if (!$target.closest(CONTAINER_SELECTOR).length) {
+                        closeAll();
+                    }
                 });
             });
         },
@@ -191,8 +198,10 @@
             $("#" + resultContainerId).remove();
         },
 
-        toggle: function ($sourceElement, canSearch) {
-            var resultContainerId = $sourceElement.attr("aria-targetDropdown");
+        toggle: function (option) {
+            var $this = $(this);
+            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
+            var resultContainerId = $selection.attr("aria-targetDropdown");
 
             if (resultContainerId && resultContainerId.length > 0) {
                 var $currentDropdown = $("#" + resultContainerId);
@@ -202,7 +211,15 @@
                     $currentDropdown.remove();
                 }
                 else {
-                    _methods.open.call(this, resultContainerId, canSearch);
+                    if (typeof option.beforeOpen === "function") {
+                        option.beforeOpen.call(this);
+                    }
+
+                    _methods.open.call(this, resultContainerId, option.canSearch);
+
+                    if (typeof option.afterOpen === "function") {
+                        option.afterOpen.call(this);
+                    }
                 }
             }
         },

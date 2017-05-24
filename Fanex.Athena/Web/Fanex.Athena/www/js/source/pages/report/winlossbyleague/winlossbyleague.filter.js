@@ -34,7 +34,7 @@
 
                 $("#TickerFilter input[type=checkbox]").checkboxgroup();
 
-                $("#TickerFilter input[type=checkbox], #ProductList input[type=checkbox]").on("change", function () {
+                $("#TickerFilter, #ProductList").on("change", "input[type=checkbox]", function () {
                     var validProduct = $("#ProductList .childCheckbox:checked").length > 0;
                     var validTicketFilter = $("#TickerFilter input:checked").length > 0;
                     var isValid = validProduct && validTicketFilter;
@@ -88,7 +88,8 @@
 
                 Site.blockUI();
                 $(Selector.SubmitButton).prop("disabled", true);
-                $(Selector.League).html("");
+                var $league = $(Selector.League);
+                $league.html("");
 
                 ajaxLeagues = $.ajax({
                     type: "POST",
@@ -104,7 +105,8 @@
                         $.each(data, function () {
                             str += _me.renderHtmlOption(this.Key, this.Value);
                         });
-                        $(Selector.League).html(str);
+                        $league.html(str);
+                        $league.selectList("update");
                         _me.loadMatches(false);
                     }
                 });
@@ -120,9 +122,11 @@
                 }
 
                 $(Selector.SubmitButton).prop("disabled", true);
-                $(Selector.Match).html("");
+                var $match = $(Selector.Match);
+                $match.html("");
                 var leagueid = $(Selector.League).val();
                 if (!leagueid) {
+                    $match.selectList("update");
                     Site.unBlockUI();
                     return;
                 }
@@ -141,12 +145,12 @@
                         $.each(data, function () {
                             str += _me.renderHtmlOption(this.Key, this.Value);
                         });
-                        $(Selector.Match).html(str);
+                        $match.html(str);
                         if (data.length > 0) {
                             $(Selector.SubmitButton).prop("disabled", false);
                         }
 
-                        Site.initSelectElements();
+                        $match.selectList("update");
                         Site.unBlockUI();
                     }
                 });
