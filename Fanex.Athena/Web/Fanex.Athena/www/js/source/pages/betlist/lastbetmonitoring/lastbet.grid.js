@@ -150,12 +150,12 @@ define(
                 cache: false,
                 timeout: 10000,
                 beforeSend: function () {
-                    $("#monitorLoader").show();
+                    $("#monitorLoader").css("visibility", "visible");
                     _isLoading = true;
                     _isCriteriaChange = false;
                 },
                 complete: function () {
-                    $("#monitorLoader").hide();
+                    $("#monitorLoader").css("visibility", "hidden");
                     var rowCount = $("tr", _$tableBody).length;
                     if (rowCount > 0) {
                         $("#noInfoRow").remove();
@@ -186,7 +186,7 @@ define(
                         return;
                     }
 
-                    $("#monitorLoader").hide();
+                    $("#monitorLoader").css("visibility", "hidden");
 
                     _betListResult.Updated = false;
                     _betListResult.Rows = "";
@@ -232,8 +232,7 @@ define(
                 });
             }
 
-            _$tableBody.append(rows);
-            $("tr:gt(" + (_postedParam.PageSize - 1) + ")", _$tableBody).remove();
+            _$tableBody.html(rows);
 
             if (_betListResult) {
                 _lastTransId = _betListResult.LastTransId;
@@ -250,6 +249,7 @@ define(
             var noInfoMessage = text ? text : Site.getSingleResource("NoInfo");
 
             var htmlNoInfor = '<p id="noInfoRow" class="no-info-row">' + noInfoMessage + '</p>';
+            _$tableBody.empty();
             $('#noInfoRow').remove();
             $('#betlist_content').append(htmlNoInfor);
         };
