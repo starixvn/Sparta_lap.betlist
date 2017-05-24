@@ -18,41 +18,41 @@
             }
         </td>
 
-        <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.LicWinLoss)</td>
+        <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.LicWinLoss)</td>
 
         @if (Model.ProductAccess.IsAllowBT)
         {
-            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.BetTradeCommission)</td>
+            <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.BetTradeCommission)</td>
         }
 
         @if (Model.ProductAccess.IsAllowBA)
         {
-            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.BACommission)</td>
+            <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.BACommission)</td>
         }
 
         @if (Model.ProductAccess.IsAllowRB)
         {
-            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.RacingWinLoss)</td>
+            <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.RacingWinLoss)</td>
         }
 
         @if (Model.ProductAccess.IsAllowBT)
         {
-            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.AmtDueToBetTrade)</td>
+            <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.AmtDueToBetTrade)</td>
         }
 
         @if (Model.ProductAccess.IsAllowBA)
         {
-            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.AmtDueToBA)</td>
+            <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.AmtDueToBA)</td>
         }
 
         @if (Model.ProductAccess.IsAllowRB)
         {
-            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.AmtDueToRacing)</td>
+            <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.AmtDueToRacing)</td>
         }
 
         @if (Model.IsAllowedCustomerCommission)
         {
-            <td class="right-align">@RazorHelperDesktop.HighlightNegativeFormat(balanceDetails.CustomerCommission)</td>
+            <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.CustomerCommission)</td>
         }
     </tr>
 }

@@ -7,14 +7,14 @@
     <form id="livereport" name="livereport" method="post" action="@Url.Content("~/LiveReport?isViewedHistory=true")">
         @Html.AntiForgeryToken()
         <div class="row">
-            @RazorHelperDesktop.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
+            @DesktopRazorHelper.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
             
             <div class="input-field col l2 m2 s12">
-                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
                 <label>@ViewResources.Currency</label>
             </div>
             <div class="input-field col l2 m2 s12">
-                @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
                 <label>@ViewResources.Based</label>
             </div>
             <div class="input-field col l2 m2 s12">

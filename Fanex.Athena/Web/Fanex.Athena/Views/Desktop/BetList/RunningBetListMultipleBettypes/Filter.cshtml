@@ -2,11 +2,11 @@
 
 <div class="row">
     <div class="input-field col l2 m3 s12">
-        @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, false)
+        @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, false)
         <label>@ViewResources.Currency</label>
     </div>
     <div class="input-field col l2 m3 s12">
-        @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
+        @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency)
         <label>@ViewResources.Based</label>
     </div>
     <div class="col l2 m2 s12 button-block">

@@ -1251,7 +1251,7 @@
     <Content Include="www\webpackconfig\config\loader.js" />
     <Content Include="www\webpackconfig\config\path.js" />
     <Content Include="www\webpackconfig\config\plugin.js" />
-    <Content Include="App_Code\RazorHelperDesktop.cshtml" />
+    <Content Include="App_Code\DesktopRazorHelper.cshtml" />
     <Content Include="App_Code\DesktopReportRazorHelper.cshtml" />
     <Content Include="App_Data\PortalSystemFunction.json" />
     <None Include="App_Data\SpNameConfig\FanexSpNameOriginal.xml">

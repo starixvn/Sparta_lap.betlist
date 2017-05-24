@@ -15,7 +15,7 @@
            @{var curencyId = Model.IsConvert ? Model.BaseCurrencyId : Model.CurrencyId;}
 
         
-            @RazorHelperDesktop.ViewInCurrency(curencyId, Model.CurrencyName)
+            @DesktopRazorHelper.ViewInCurrency(curencyId, Model.CurrencyName)
         
     </span>
 }

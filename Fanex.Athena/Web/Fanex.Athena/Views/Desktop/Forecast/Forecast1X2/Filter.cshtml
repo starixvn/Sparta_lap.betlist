@@ -11,7 +11,7 @@
         @Html.Hidden("BaseCurrency-Hidden", Model.Param.BaseCurrency)
 
         <div class="timer form-popup">
-            @RazorHelperDesktop.TimerCountDown("forecastonextwo", 15)
+            @DesktopRazorHelper.TimerCountDown("forecastonextwo", 15)
         </div>
     }
     else
@@ -20,13 +20,13 @@
             <div class="row">
                 @*// -----------------------------Currency-----------------------------------//*@
                 <div class="col l2 m1 s12 input-field">
-                    @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select currencylist", Model.Param.CurrencyId)
+                    @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select currencylist", Model.Param.CurrencyId)
                     <label>@ViewResources.Currency</label>
                 </div>
 
                 @*// -----------------------------Base Currency-----------------------------------//*@
                 <div class="col l2 m1 s12 input-field">
-                    @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
+                    @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency)
                     <label>@ViewResources.Based</label>
                 </div>
 
@@ -54,7 +54,7 @@
 
                 @*// -----------------------------Refresh countdown------------------------ //*@
                 <div class="col l1 m2 s12 button-block">
-                    @RazorHelperDesktop.TimerCountDown("forecastonextwo", 15)
+                    @DesktopRazorHelper.TimerCountDown("forecastonextwo", 15)
                 </div>
 
                 <div class="col right icon-block">

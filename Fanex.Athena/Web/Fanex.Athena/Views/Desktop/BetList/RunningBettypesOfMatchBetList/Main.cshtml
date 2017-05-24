@@ -16,7 +16,7 @@
             bettype = Model.MultipleBettype.Split(',')[0];
         }
     }
-    <span class="league-name-title"></span>@CacheRef.GetBettype(bettype) <span class="base-currency">-@RazorHelperDesktop.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
+    <span class="league-name-title"></span>@CacheRef.GetBettype(bettype) <span class="base-currency">-@DesktopRazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 }
 @section BackButton
 {

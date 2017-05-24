@@ -8,18 +8,18 @@
         <div class="row">
             @*// ----------------------------Date---------------------------//*@
             <div class="col l2 m2 s12 input-field calendar single-date">
-                @RazorHelperDesktop.SingleDatePicker(Model.Param.Date, Convert.ToDateTime(Model.Param.BalanceUpDay), DateTime.Today, "Date")
+                @DesktopRazorHelper.SingleDatePicker(Model.Param.Date, Convert.ToDateTime(Model.Param.BalanceUpDay), DateTime.Today, "Date")
             </div>
 
             @*// -----------------------------Currency-----------------------------------//*@
             <div class="col l2 m2 s12 input-field">
-                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
                 <label>@ViewResources.Currency</label>
             </div>
 
             @*// -----------------------------Base Currency-----------------------------------//*@
             <div class="col l2 m2 s12 input-field">
-                @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency)
                 <label>@ViewResources.Based</label>
             </div>
 

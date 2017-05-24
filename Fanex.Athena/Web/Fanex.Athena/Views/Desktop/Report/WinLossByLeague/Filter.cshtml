@@ -19,14 +19,14 @@
         @Html.AntiForgeryToken()
 
         <div class="row">
-            @RazorHelperDesktop.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
+            @DesktopRazorHelper.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
 
             <div class="input-field col l2 m2 s12">
-                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true)
                 <label>@ViewResources.Currency</label>
             </div>
             <div class="input-field col l2 m2 s12">
-                @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
                 <label>@ViewResources.Based</label>
             </div>
             <div class="input-field col l3 m3 s12">
@@ -40,10 +40,10 @@
                 @Html.DropDownList("Match", matches, new { @class = "select hide" })
                 <label>@ViewResources.Match</label>
             </div>
-            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions, 2)
+            @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions, 2)
 
             <div class="input-field col l6 m4 s12">
-                @RazorHelperDesktop.TicketFilter()
+                @DesktopRazorHelper.TicketFilter()
             </div>
 
         </div>

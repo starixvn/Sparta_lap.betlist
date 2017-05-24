@@ -125,19 +125,19 @@
             }
 
             <td class="right-align text-bold">
-                @RazorHelperDesktop.NegativeFormat(matchWinLoss.LicenseeWL)
+                @DesktopRazorHelper.NegativeFormat(matchWinLoss.LicenseeWL)
             </td>
             
             @if (Model.ProductAccess.IsAllowBA)
             {
                 <td class="right-align text-bold">
-                    @RazorHelperDesktop.NegativeFormat(matchWinLoss.BACommission)
+                    @DesktopRazorHelper.NegativeFormat(matchWinLoss.BACommission)
                 </td>
             }
             @if (Model.ProductAccess.IsAllowRB)
             {
                 <td class="right-align text-bold">
-                    @RazorHelperDesktop.NegativeFormat(matchWinLoss.RacingRevenue)
+                    @DesktopRazorHelper.NegativeFormat(matchWinLoss.RacingRevenue)
                     @string.Empty
                 </td>
             }

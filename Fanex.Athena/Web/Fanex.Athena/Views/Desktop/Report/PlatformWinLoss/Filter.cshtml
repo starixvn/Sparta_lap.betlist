@@ -18,13 +18,13 @@
     <form id="platformwinloss" name="platformwinloss" method="post" action="">
         @Html.AntiForgeryToken()
         <div class="row">
-            @RazorHelperDesktop.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
+            @DesktopRazorHelper.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
             <div class="input-field col l2 m2 s12">
-                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, false)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, false)
                 <label>@ViewResources.Currency</label>
             </div>
             <div class="input-field col l1 m2 s12">
-                @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
                 <label>@ViewResources.Based</label>
             </div>
             <div class="input-field col l2 m2 s12">
@@ -39,13 +39,13 @@
         </div>
         <div class="row">
             <div class="input-field input col l4 m4 s12">
-                @RazorHelperDesktop.DrawFilter(Model.Param.DrawFilter)
+                @DesktopRazorHelper.DrawFilter(Model.Param.DrawFilter)
             </div>
             <div class="input-field input col l2 m2 s12">
-                @RazorHelperDesktop.ExcludeTestData(Model.Param.IsExcludeTest)
+                @DesktopRazorHelper.ExcludeTestData(Model.Param.IsExcludeTest)
             </div>
 
-            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions)
+            @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions)
         </div>
         <div class="row">
             <div class="col">

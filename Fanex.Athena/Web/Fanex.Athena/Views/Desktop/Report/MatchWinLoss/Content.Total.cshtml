@@ -34,20 +34,20 @@
                 </td>
             }
             <td class="right-align text-bold">
-                @RazorHelperDesktop.NegativeFormat(dataTotal.LicenseeWL)
+                @DesktopRazorHelper.NegativeFormat(dataTotal.LicenseeWL)
             </td>
 
             @if (Model.ProductAccess.IsAllowBA)
                 {
                 <td class="right-align text-bold">
-                    @RazorHelperDesktop.NegativeFormat(dataTotal.BACommission)
+                    @DesktopRazorHelper.NegativeFormat(dataTotal.BACommission)
                 </td>
             }
 
             @if (Model.ProductAccess.IsAllowRB)
             {
                 <td class="right-align text-bold">
-                    @RazorHelperDesktop.NegativeFormat(dataTotal.RacingRevenue)
+                    @DesktopRazorHelper.NegativeFormat(dataTotal.RacingRevenue)
                 </td>
             }
             @if (Model.ProductAccess.IsAllowBA)
@@ -100,18 +100,18 @@
                 </td>
             }
             <td class="right-align text-bold">
-                @RazorHelperDesktop.NegativeFormat(itemOutRight.LicenseeWL)
+                @DesktopRazorHelper.NegativeFormat(itemOutRight.LicenseeWL)
             </td>
             @if (Model.ProductAccess.IsAllowBA)
             {
                 <td class="right-align text-bold">
-                    @RazorHelperDesktop.NegativeFormat(itemOutRight.BACommission)
+                    @DesktopRazorHelper.NegativeFormat(itemOutRight.BACommission)
                 </td>
             }
             @if (Model.ProductAccess.IsAllowRB)
             {
                 <td class="right-align text-bold">
-                    @RazorHelperDesktop.NegativeFormat(itemOutRight.RacingRevenue)
+                    @DesktopRazorHelper.NegativeFormat(itemOutRight.RacingRevenue)
                 </td>
             }
             @if (Model.ProductAccess.IsAllowBA)

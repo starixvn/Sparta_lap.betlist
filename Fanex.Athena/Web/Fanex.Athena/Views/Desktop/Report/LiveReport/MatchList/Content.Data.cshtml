@@ -41,7 +41,7 @@
 
             <td class="right-align" title="@turnOver">@turnOver</td>
             <td class="right-align" title="@betCount">@betCount</td>
-            <td class="right-align" title="@licenseeWL.ToStringExt()">@RazorHelperDesktop.HighlightNegativeFormat(licenseeWL)</td>
+            <td class="right-align" title="@licenseeWL.ToStringExt()">@DesktopRazorHelper.HighlightNegativeFormat(licenseeWL)</td>
 
             @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
             {

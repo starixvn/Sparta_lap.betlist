@@ -48,7 +48,7 @@
                 @if (match.BetCountHomeNoBet != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="121" href="javascript:;">
-                        @RazorHelperDesktop.NegativeFormat(match.HomeNoBet, true, false)
+                        @DesktopRazorHelper.NegativeFormat(match.HomeNoBet, true, false)
                     </a>
                 }
             </td>
@@ -57,7 +57,7 @@
                 @if (match.BetCountDrawNoBet != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="25" href="javascript:;">
-                        @RazorHelperDesktop.NegativeFormat(match.DrawNoBet, true, false)
+                        @DesktopRazorHelper.NegativeFormat(match.DrawNoBet, true, false)
                     </a>
                 }
             </td>
@@ -66,7 +66,7 @@
                 @if (match.BetCountAwayNoBet != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="122" href="javascript:;">
-                        @RazorHelperDesktop.NegativeFormat(match.AwayNoBet, true, false)
+                        @DesktopRazorHelper.NegativeFormat(match.AwayNoBet, true, false)
                     </a>
                 }
             </td>

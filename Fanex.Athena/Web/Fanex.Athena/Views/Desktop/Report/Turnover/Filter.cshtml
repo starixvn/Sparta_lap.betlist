@@ -13,10 +13,10 @@
         @Html.Hidden("IsAllowedCasinoTransfer", Model.IsAllowedCasinoTransfer)
         @Html.Hidden("IsAllowBa", Model.ProductAccess.IsAllowBA)
         <div class="row">
-            @RazorHelperDesktop.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
+            @DesktopRazorHelper.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
 
             <div class="input-field col l2 m3 s12">
-                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "currency", Model.Param.CurrencyId, false, true)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "currency", Model.Param.CurrencyId, false, true)
                 <label>@ViewResources.Currency</label>
             </div>
 
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="row">
-            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions)
+            @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions)
             
             <div class="input-field input col l2 m3 s12 offset-l1">
                 <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludeTest == true ? "checked=checked" : "") name="IsExcludeTest" id="IsExcludeTest0" />
