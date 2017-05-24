@@ -594,7 +594,8 @@ table tbody tr.row-group-level1 td {
 
 .dayPickr {
   padding: 3px 0;
-  border-bottom: 1px solid #ccc; }
+  border-bottom: 1px solid #ccc;
+  cursor: pointer; }
   .dayPickr .selectedDay:hover {
     cursor: default; }
   .dayPickr .darr {

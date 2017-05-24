@@ -16742,6 +16742,12 @@ webpackJsonp([53],[
 	                if (isFromDay) {
 	                    data.fromDay = parseInt(value, 10);
 	                    data.fromDate = new Date(data.year, data.month, value);
+	
+	                    data.ddlToDate.dropDown.find('li').each(function (index) {
+	                        var day = index + 1;
+	                        var isShow = day >= data.fromDay;
+	                        $(this).toggle(isShow);
+	                    });
 	                } else {
 	                    data.toDay = parseInt(value, 10);
 	                    data.toDate = new Date(data.year, data.month, value);
@@ -17079,12 +17085,16 @@ webpackJsonp([53],[
 	                                _hideDropDown(data, data);
 	                            }
 	                        }
-	                        e.stopPropagation();
 	                    });
 	
 	                    // Collapse all dropdowns when users click outside the picker
-	                    $('html').on('click', function () {
-	                        _hideDropDown(data, data);
+	                    $('html').on('click', function (e) {
+	                        var $target = $(e.target);
+	                        var pickerId = "#" + data.target.attr("id");
+	
+	                        if (!$target.closest(pickerId).length) {
+	                            _hideDropDown(data, data);
+	                        }
 	                    });
 	
 	                    // Toggle a dropdown when users click/hover on its "the year" link
@@ -17226,7 +17236,6 @@ webpackJsonp([53],[
 	                                } else {
 	                                    _hideDropDown(data, target);
 	                                }
-	                                e.stopPropagation();
 	                            };
 	
 	                        // Toggle the day picker dropdown when users click/hover on selected day label
@@ -17235,9 +17244,19 @@ webpackJsonp([53],[
 	
 	                        if (!data.expandDayOnhover) {
 	                            // Collapse all day picker dropdowns when users click outside the picker
-	                            $('html').on('click', function () {
-	                                _hideDropDown(data, data.ddlFromDate);
-	                                _hideDropDown(data, data.ddlToDate);
+	                            $('html').on('click', function (e) {
+	                                var targetId = $(e.target).attr("id");
+	
+	                                if (targetId !== data.fromDayId && targetId !== data.toDayId) {
+	                                    _hideDropDown(data, data.ddlFromDate);
+	                                    _hideDropDown(data, data.ddlToDate);
+	                                }
+	                                else if (targetId !== data.fromDayId) {
+	                                    _hideDropDown(data, data.ddlFromDate);
+	                                }
+	                                else {
+	                                    _hideDropDown(data, data.ddlToDate);
+	                                }
 	                            });
 	                        }
 	
