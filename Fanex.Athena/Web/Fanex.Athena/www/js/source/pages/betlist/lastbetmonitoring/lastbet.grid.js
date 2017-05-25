@@ -1,7 +1,7 @@
 ﻿"use strict";
 define(
-    ['jquery', 'common/site'],
-    function ($, Site) {
+    ['jquery', 'common/site', '../betlist'],
+    function ($, Site, BetList) {
         var _me = {};
 
         // Param
@@ -75,6 +75,8 @@ define(
 
             _params.BasedCurrency = $("#last-bet-monitor-base-currency").val();
             _postedParam = Site.clone(_params);
+
+            BetList.registerBetListGlobalFunctions();
         };
         _me.getMaxStake = function () {
             return MAX_STAKE;
