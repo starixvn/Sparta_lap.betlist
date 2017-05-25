@@ -234,7 +234,8 @@ define(
                 });
             }
 
-            _$tableBody.html(rows);
+            _$tableBody.prepend(rows);
+            $("tr:gt(" + (_postedParam.PageSize - 1) + ")", _$tableBody).remove();
 
             if (_betListResult) {
                 _lastTransId = _betListResult.LastTransId;
@@ -252,8 +253,9 @@ define(
 
             var htmlNoInfor = '<p id="noInfoRow" class="no-info-row">' + noInfoMessage + '</p>';
             _$tableBody.empty();
-            $('#noInfoRow').remove();
-            $('#betlist_content').append(htmlNoInfor);
+            if (!$('#noInfoRow').length) {
+                $('#betlist_content').append(htmlNoInfor);
+            }
         };
 
         /*------------------------------------------------------------------------------------------
