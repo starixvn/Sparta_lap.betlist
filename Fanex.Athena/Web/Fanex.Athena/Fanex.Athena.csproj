@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -840,6 +840,7 @@
     <Content Include="www\css\build\pro\pages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\q_Icon_2.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\tab_topbg.gif" />
+    <Content Include="www\css\build\pro\pages\betlist\lastbetmonitoring.css" />
     <Content Include="www\css\build\pro\pages\betlist\systemparlaydetail.css" />
     <Content Include="www\css\build\pro\pages\forecast\ahforecast.css" />
     <Content Include="www\css\build\pro\pages\forecast\forecastonextwo.css" />
