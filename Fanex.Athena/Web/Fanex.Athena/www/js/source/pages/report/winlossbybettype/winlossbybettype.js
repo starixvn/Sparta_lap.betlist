@@ -51,10 +51,11 @@ define([
             viewBetList: function (betType) {
                 var url = Site.resolveClientUrl("WinLossByBetTypeBetList/Index");
                 url = Site.setLicenseeOptionOriginalParam(url);
-                url = QueryString.setParam(url, "fromdate", $("#FromDate").val());
-                url = QueryString.setParam(url, "todate", $("#ToDate").val());
-                url = QueryString.setParam(url, "bettype", betType);
-
+                url = QueryString.setParams(url, {
+                    fromdate: $("#FromDate").val(),
+                    todate: $("#ToDate").val(),
+                    bettype: betType
+                });
                 Site.blockUI();
                 Site.redirect(url);
             },
