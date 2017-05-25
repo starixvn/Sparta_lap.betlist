@@ -299,10 +299,19 @@
                 var colspan = WinLossByProductOption.totalColspan[level];
                 var summaryColspan = colspan + 1;
                 jqGridAdditional.assignTotal(totalData, columnModel);
-                var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
+                var summaryRowCount = Report.bindSummaryTotal(columnModel, _me.reverse(summaryTotal));
 
                 var allowScrolling = true;
                 jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount, allowScrolling);
+            },
+
+            reverse: function (objectData) {
+                var reversedData = Site.clone(objectData);
+                for (var property in reversedData) {
+                    reversedData[property].reverse();
+                }
+
+                return reversedData;
             },
 
             goBack: function (level) {
