@@ -7120,18 +7120,6 @@ webpackJsonp([56],{
 	                    // change fromDate and toDate
 	                    _selectDay(data, data.ddlFromDate, minDayInMonth, true);
 	                    _selectDay(data, data.ddlToDate, maxDayInMonth, false);
-	
-	                    // re-render fromDay & toDay range
-	                    var limitDayRange = function (idx) {
-	                        var $this = $(this),
-	                        day = idx + 1;
-	
-	                        if (day < minDayInMonth || maxDayInMonth < day) $this.hide();
-	                        else $this.show();
-	                    };
-	
-	                    data.ddlFromDate.dropDown.find('li').each(limitDayRange);
-	                    data.ddlToDate.dropDown.find('li').each(limitDayRange);
 	                }
 	
 	                _checkReachBound(data, year, month);
