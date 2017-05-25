@@ -100,8 +100,8 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                 statusCode: {
                     0: unBlockUI(),
                     400: function () {
-                        Site.unBlockUI();
-                        alert(Site.getSingleResource("InvalidRequestMsg"));
+                        unBlockUI();
+                        alert(getSingleResource("InvalidRequestMsg"));
                     },
                     401: function () {
                         window.location.href = resolveClientUrl("Utility/LocationRestriction");

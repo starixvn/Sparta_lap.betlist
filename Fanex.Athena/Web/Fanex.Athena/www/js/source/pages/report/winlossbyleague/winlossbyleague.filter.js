@@ -1,5 +1,6 @@
 ﻿define(["jquery", "common/site", "components/pluginhelper/monthpicker", "components/pluginhelper/multiselect", "extensions/jquery.extension"],
     function ($, Site, MonthPicker, MultiSelect) {
+        "use strict";
         var ajaxLeagues = null;
         var ajaxMatches = null;
 

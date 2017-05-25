@@ -243,19 +243,18 @@ define(
                 _me.setHighlightSubmit();
             });
 
-            function changeHandler(paramName, defaultValue) {
-                var stake = $(this).val();
+            function changeHandler(paramName, stake, defaultValue) {
                 stake = stake.replace(/,/g, '');
                 stake = stake === "" ? defaultValue : parseInt(stake);
                 _me.changeFilterParam(DataType.NUMBER, paramName, stake);
             }
 
             $("#stake-from").change(function () {
-                changeHandler.call(this, "StakeFrom", 0);
+                changeHandler("StakeFrom", $(this).val(), 0);
             });
 
             $("#stake-to").change(function () {
-                changeHandler.call(this, "StakeTo", maxStake);
+                changeHandler("StakeTo", $(this).val(), maxStake);
             });
         };
 

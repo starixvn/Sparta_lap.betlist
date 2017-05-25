@@ -128,7 +128,7 @@
         isDisabled: false,
         beforeOpen: function () { },
         afterOpen: function () { }
-    }
+    };
 
     var _methods = {
         init: function (options) {
@@ -141,7 +141,7 @@
 
                 var $container = $element.parent();
                 $container.off("click", ".selection");
-                $container.on("click", ".selection", function (e) {
+                $container.on("click", ".selection", function () {
                     var $selection = $(this);
                     if (!$selection.hasClass(DISABLED_CLASS)) {
                         _methods.toggle.call(self, selectListOption);

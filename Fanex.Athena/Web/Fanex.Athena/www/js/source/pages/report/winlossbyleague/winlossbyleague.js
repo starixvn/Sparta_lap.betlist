@@ -235,7 +235,6 @@
 
                 var reportGrid = $("#ReportGrid");
                 $("#paging").hide();
-                var numOfTotalRow = response.Total.length;
                 var gridOption = WinLossByLeagueOption.getGridOption(level);
 
                 gridOption.data = response.Data;
