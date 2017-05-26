@@ -24,6 +24,7 @@
 
     public class PlatformWinLossReportController_ExportExcelTest
     {
+        private const bool IsAllowedCustomerComm = true;
         private const int ExpectedCustomerComm = 999;
         private const string Language = "en-US";
         private const int LicenseeId = 1;
@@ -33,7 +34,7 @@
         private IPlatformWinLossService _service;
         private ISessionService _sessionService;
         private PlatformWinLossMetaModel _metalModel;
-        private const bool IsAllowedCustomerComm = true;
+
         [SetUp]
         public void SetUp()
         {
@@ -68,14 +69,13 @@
         public void TearDown()
         {
             _metalModel = null;
-
         }
 
         [TestCase(true)]
         [TestCase(false)]
         public void Index_ExportExcelMember_PassCustomerCommVisibleToExcelCorrectly(bool hasLicenseeComm)
         {
-            //Arrange
+            // Arrange
             FakeLicenseeSession(hasLicenseeComm);
             _metalModel.Level = 1;
             _metalModel.ProductOptions = RandomProductOption();
@@ -98,18 +98,18 @@
                 Arg.Any<ShowingOption>(),
                 Arg.Any<ConvertingOption>())
                 .ReturnsForAnyArgs(excel);
-            //Action
 
+            // Action
             _controller.Index(_metalModel);
 
-            //Assert
+            // Assert
             Assert.IsTrue(expetedShowingOption.CustomerCommVisible == hasLicenseeComm);
         }
 
         [Test]
         public void Index_ExportExcelMember_PassProductionOptionToExcelCorrectly()
         {
-            //Arrange
+            // Arrange
             _metalModel.Level = 1;
             _metalModel.ProductOptions = RandomProductOption();
             FakeMemberData();
@@ -132,11 +132,11 @@
                 Arg.Any<ShowingOption>(),
                 Arg.Any<ConvertingOption>())
                 .ReturnsForAnyArgs(excel);
-            //Action
 
+            // Action
             _controller.Index(_metalModel);
 
-            //Assert
+            // Assert
             VerifyShowingOption(_metalModel.ProductOptions, expetedShowingOption);
         }
 
@@ -144,7 +144,6 @@
         {
             Assert.Multiple(() =>
             {
-
                 Assert.IsTrue(expetedShowingOption.SBVisible == productOptions.Any(i => i.Code == Product.SB && i.Status));
                 Assert.IsTrue(expetedShowingOption.BAVisible == productOptions.Any(i => i.Code == Product.BA && i.Status));
                 Assert.IsTrue(expetedShowingOption.BGVisible == productOptions.Any(i => i.Code == Product.BG && i.Status));
@@ -156,8 +155,26 @@
                 Assert.IsTrue(expetedShowingOption.NGVisible == productOptions.Any(i => i.Code == Product.NG && i.Status));
                 Assert.IsTrue(expetedShowingOption.RBVisible == productOptions.Any(i => i.Code == Product.RB && i.Status));
                 Assert.IsTrue(expetedShowingOption.VSVisible == productOptions.Any(i => i.Code == Product.VS && i.Status));
-            }
-            );
+            });
+        }
+
+        private static IList<ProductOption> RandomProductOption()
+        {
+            var productOptions = new List<string>
+            {
+                Product.BA,
+                Product.RB,
+                Product.NG,
+                Product.LC,
+                Product.SB,
+                Product.VS,
+                Product.CS,
+                Product.KN
+            };
+
+            var rand = new Random();
+
+            return productOptions.Select(p => new ProductOption { Code = p, Status = rand.Next(1, 13) % 2 == 0 }).ToList();
         }
 
         private void FakeProductAccess()
@@ -210,25 +227,6 @@
                 IsAllowedCustomerComm = isAllowCustomerComm
             };
             _sessionService.LicenseeSession.Returns(licenseeSession);
-        }
-
-        private static IList<ProductOption> RandomProductOption()
-        {
-            var productOptions = new List<string>
-            {
-                Product.BA,
-                Product.RB,
-                Product.NG,
-                Product.LC,
-                Product.SB,
-                Product.VS,
-                Product.CS,
-                Product.KN
-            };
-
-            var rand = new Random();
-
-            return productOptions.Select(p => new ProductOption { Code = p, Status = rand.Next(1, 13) % 2 == 0 }).ToList();
         }
     }
 }

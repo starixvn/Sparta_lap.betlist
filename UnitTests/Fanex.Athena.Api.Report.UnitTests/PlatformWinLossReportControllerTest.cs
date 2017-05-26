@@ -33,8 +33,6 @@
             _controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
             _sessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns("XmlData");
 
-          
-
             // Mock data for Level = 1
             var memberData = new List<PlatformWinLossMember>
             {
