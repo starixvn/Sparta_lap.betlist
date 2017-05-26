@@ -1233,6 +1233,8 @@
     <Content Include="www\js\tests\pages\report\turnover\turnover-spec.js" />
     <Content Include="www\js\tests\pages\report\weeklylivematch\weeklylivematch-spec.js" />
     <Content Include="www\js\tests\pages\report\weeklylivematch\weeklylivematch.option-spec.js" />
+    <Content Include="www\js\tests\pages\report\winlossbyleague\winlossbyleague-spec.js" />
+    <Content Include="www\js\tests\pages\report\winlossbyleague\winlossbyleague.option-spec.js" />
     <Content Include="www\js\tests\pages\report\winlossbyproduct\winlossbyproduct-spec.js" />
     <Content Include="www\js\tests\pages\report\winlossbyproduct\winlossbyproduct.option-spec.js" />
     <Content Include="www\js\tests\pages\totalbet\firstgoallastgoal\firstgoallastgoal-spec.js" />

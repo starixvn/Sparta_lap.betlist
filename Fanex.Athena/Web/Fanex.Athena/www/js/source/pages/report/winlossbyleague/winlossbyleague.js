@@ -99,7 +99,12 @@
                 var currencyStr = viewinKey + " " + (_postdata.BaseCurrency === "" ? _currencyName : _postdata.BaseCurrency);
 
                 var minOddStr = Site.getSingleResource("MinimumOdds") + " : " + minOdds;
-                var title = $.format(titlePattern, moment(fromdate).format("M/DD/YYYY"), moment(todate).format("M/DD/YYYY"), currencyStr, minOddStr);
+                var title = $.format(
+                    titlePattern,
+                    moment(new Date(fromdate)).format("M/DD/YYYY"),
+                    moment(new Date(todate)).format("M/DD/YYYY"),
+                    currencyStr,
+                    minOddStr);
 
                 _postdata.ReportTitle = title;
                 $(".report-title").html(title);

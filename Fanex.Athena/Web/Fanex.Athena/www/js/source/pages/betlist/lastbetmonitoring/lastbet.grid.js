@@ -29,7 +29,6 @@ define(
         var _intervalId;
         var _errorMessage;
         var _isLoading;
-        var _isCriteriaChange;
         var _intervalMiliseconds;
 
         // Object
