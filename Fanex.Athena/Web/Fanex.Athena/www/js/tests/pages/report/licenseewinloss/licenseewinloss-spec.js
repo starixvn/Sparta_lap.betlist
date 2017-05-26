@@ -69,8 +69,6 @@
                         LicenseeWinLoss.ajaxComplete(0, { Data: "Hello" }); //set value for cache data
                         LicenseeWinLossOption.gridOption.onSortCol(_sortColumn);
                         jasmine.clock().tick(101);
-                    });
-                    afterEach(function () {
                         jasmine.clock().uninstall();
                     });
 
