@@ -40,7 +40,6 @@
                     });
                 });
 
-
                 describe("initEvent()", function () {
                     var $submitButton;
 
@@ -89,6 +88,57 @@
                         WinLossByLeague.setReportTitle(0, 1, "2016/02/01", "2016/02/29");
 
                         expect($("#caption").html()).toBe(titleExpected);
+                    });
+                });
+
+
+                describe("bindTotal(level, totalData)", function () {
+                    it("WinLossByLeagueOption.getColModel(level) should be called with correct parameter", function () {
+                        spyOn(WinLossByLeagueOption, "getColModel");
+
+                        WinLossByLeague.bindTotal(0, 100);
+
+                        expect(WinLossByLeagueOption.getColModel).toHaveBeenCalledWith(0);
+                    });
+
+                    it("jqGridAdditional.assignTotal(totalData, columnModel) should be called", function () {
+                        spyOn(jqGridAdditional, "assignTotal");
+
+                        WinLossByLeague.bindTotal(0, 100);
+
+                        expect(jqGridAdditional.assignTotal).toHaveBeenCalled();
+                    });
+
+                    it("jqGridAdditional.assignTotal(totalData, columnModel) should be called with correct parameter", function () {
+                        spyOn(jqGridAdditional, "setGroupFooters");
+
+                        WinLossByLeague.bindTotal(0, 100);
+
+                        expect(jqGridAdditional.setGroupFooters).toHaveBeenCalledWith(2, 0, 0);
+                    });
+                });
+
+                describe("bindData(level, response)", function () {
+                    beforeEach(function () {
+                        setFixtures("<div id='ReportGrid'></div>");
+
+                        spyOn(jqGridAdditional, "clearGrid");
+                        spyOn(WinLossByLeagueOption, "getGridOption").and.returnValue({});
+                        spyOn($.fn, "jqGrid");
+                        spyOn(jqGridAdditional, "gridComplete");
+                        spyOn(WinLossByLeague, "resizeGrid");
+
+                        WinLossByLeague.bindData(2, { Data: [1, 2, 3], Total: [4, 5, 6] });
+                    });
+
+                    it("jqGridAdditional.clearGrid(reportId) should be called with correct parameter", function () {
+                        expect(jqGridAdditional.clearGrid).toHaveBeenCalledWith("ReportGrid");
+                    });
+                    it("WinLossByLeagueOption.getGridOption(level) should be called with correct parameter", function () {
+                        expect(WinLossByLeagueOption.getGridOption).toHaveBeenCalledWith(2);
+                    });
+                    it("jqGrid function of jquery should be called", function () {
+                        expect($.fn.jqGrid).toHaveBeenCalled();
                     });
                 });
             });
