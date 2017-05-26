@@ -77,7 +77,7 @@ define(
 
                 var $matchDropdown = $(Selector.Match);
                 $matchDropdown.html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
-                
+
                 var isShowAllLeague = leagueId === 0;
                 var canShowMatch = !isShowAllLeague;
                 if (!isShowAllLeague) {
@@ -340,10 +340,10 @@ define(
                 onCheck: function () {
                     var selectedLevel = $("#se-column").multiSelect("getCheckedItems");
                     var isShowAll = selectedLevel.length === LastBetGrid.columns.length;
-                    $.each(LastBetGrid.columns, function (i, e) {
-                        var showItem = selectedLevel.indexOf(e.Name) > -1;
-                        e.IsShow = isShowAll || showItem ? 1 : 0;
-                        $('tr').find('[data-name="' + e.Name + '"]').toggle(isShowAll || showItem);
+                    $.each(LastBetGrid.columns, function (index, item) {
+                        var showItem = selectedLevel.indexOf(item.Name) > -1;
+                        item.IsShow = isShowAll || showItem ? 1 : 0;
+                        $('tr').find('[data-name="' + item.Name + '"]').toggle(isShowAll || showItem);
                     });
                 }
             });
@@ -361,6 +361,11 @@ define(
 
         _me.initialize = function () {
             Site.initialize();
+            Site.addUserGuide({
+                resourceName: "LastBetsMonitoring",
+                title: Site.getSingleResource("LastBetsMonitoring")
+            });
+
             _me.initSports();
             _me.initLeague();
             _me.initMatch();

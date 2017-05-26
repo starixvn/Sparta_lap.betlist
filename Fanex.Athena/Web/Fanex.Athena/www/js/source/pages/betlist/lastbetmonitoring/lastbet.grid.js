@@ -34,7 +34,6 @@ define(
 
         // Object
         var _$tableBody;
-        var _$tableHeader;
 
         // Config
         var MIN_LOADING_MILISECONDS = 1000;
@@ -56,18 +55,8 @@ define(
             _intervalId = 0;
             _errorMessage = null;
             _isLoading = false;
-            _isCriteriaChange = false;
             _intervalMiliseconds = 3000;
 
-            _$tableBody = null;
-            _$tableHeader = null;
-
-            Site.addUserGuide({
-                resourceName: "LastBetsMonitoring",
-                title: Site.getSingleResource("LastBetsMonitoring")
-            });
-
-            _$tableHeader = $("#last-bets-monitoring thead");
             _$tableBody = $("#last-bets-monitoring tbody");
             _$tableBody.on("click", "tr", function () {
                 $(this).toggleClass(SELECTED_CLASS);
@@ -111,14 +100,11 @@ define(
         _me.Submit = function (freezeStatus) {
             _me.stopMonitor();
             _me.tryUpdateStake();
-            _isCriteriaChange = true;
+            _lastTransId = 0;
             _postedParam = Site.clone(_params);
 
             if (parseInt(freezeStatus) === 1) {
                 _me.startMonitor();
-            }
-            else {
-                _me.stopMonitor();
             }
         };
 
@@ -138,7 +124,7 @@ define(
             _isLoading = true;
 
             var loadingTickBegin = (new Date()).getTime();
-            if (Number(_lastTransId) === 0 || _isCriteriaChange) {
+            if (Number(_lastTransId) === 0) {
                 _me.clearContent();
             }
 
@@ -154,7 +140,6 @@ define(
                 beforeSend: function () {
                     $("#monitorLoader").css("visibility", "visible");
                     _isLoading = true;
-                    _isCriteriaChange = false;
                 },
                 complete: function () {
                     $("#monitorLoader").css("visibility", "hidden");
@@ -164,12 +149,6 @@ define(
                     }
                 },
                 success: function (result) {
-                    if (_isCriteriaChange) {
-                        _isLoading = false;
-                        _me.doMonitor();
-                        return;
-                    }
-
                     // Only bind data if current mode == mode at the begining of request
                     _betListResult = result;
                     _me.bindData();
@@ -229,8 +208,9 @@ define(
             if (hideColumns.length > 0) {
                 var display = " style=\"display:none;\"";
                 $.each(hideColumns, function (index, value) {
-                    var name = "data-name=\"" + value.Name + "\"";
-                    rows = rows.replaceAll(name, name + display);
+                    var newString = "data-name='" + value.Name + "'" + display;
+                    var regex = new RegExp("data-name=('|\")" + value.Name + "('|\")", "g");
+                    rows = rows.replace(regex, newString);
                 });
             }
 
@@ -271,8 +251,7 @@ define(
         };
 
         _me.clearContent = function () {
-            _lastTransId = 0;
-            _postedParam.TransId = _lastTransId;
+            _postedParam.TransId = 0;
             _me.bindNoInfoRow();
         };
 

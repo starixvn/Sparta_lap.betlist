@@ -35,7 +35,6 @@ var LastBetGrid = (function () {
     var _intervalId;
     var _errorMessage;
     var _isLoading;
-    var _isCriteriaChange;
     var _intervalMiliseconds;
 
     // Object
@@ -61,7 +60,6 @@ var LastBetGrid = (function () {
         _intervalId = 0;
         _errorMessage = null;
         _isLoading = false;
-        _isCriteriaChange = false;
         _intervalMiliseconds = 3000;
 
         _$containerTable = null;
@@ -118,14 +116,11 @@ var LastBetGrid = (function () {
     _me.Submit = function (freezeStatus) {
         _me.stopMonitor();
         _me.tryUpdateStake();
-        _isCriteriaChange = true;
+        _lastTransId = 0;
         _postedParam = Site.clone(_params);
 
         if (parseInt(freezeStatus) === 1) {
             _me.startMonitor();
-        }
-        else {
-            _me.stopMonitor();
         }
     };
 
@@ -145,7 +140,7 @@ var LastBetGrid = (function () {
         _isLoading = true;
 
         var loadingTickBegin = (new Date()).getTime();
-        if (Number(_lastTransId) === 0 || _isCriteriaChange) {
+        if (Number(_lastTransId) === 0) {
             _me.clearContent();
         }
 
@@ -161,7 +156,6 @@ var LastBetGrid = (function () {
             beforeSend: function () {
                 $("#div-loading").show();
                 _isLoading = true;
-                _isCriteriaChange = false;
             },
             complete: function () {
                 $("#div-loading").hide();
@@ -171,12 +165,6 @@ var LastBetGrid = (function () {
                 }
             },
             success: function (result) {
-                if (_isCriteriaChange) {
-                    _isLoading = false;
-                    _me.doMonitor();
-                    return;
-                }
-
                 // Only bind data if current mode == mode at the begining of request
                 _betListResult = result;
                 _me.bindData();
@@ -237,8 +225,9 @@ var LastBetGrid = (function () {
             var rows = _betListResult.Rows;
             var display = " style=\"display:none;\"";
             $.each(hideColumns, function (index, value) {
-                var name = "data-name=\"" + value.Name + "\"";
-                rows = rows.replaceAll(name, name + display);
+                var newString = "data-name='" + value.Name + "'" + display;
+                var regex = new RegExp("data-name=('|\")" + value.Name + "('|\")", "g");
+                rows = rows.replace(regex, newString);
             });
             _$headerRow.after(rows);
         } else {
@@ -282,8 +271,7 @@ var LastBetGrid = (function () {
     };
 
     _me.clearContent = function () {
-        _lastTransId = 0;
-        _postedParam.TransId = _lastTransId;
+        _postedParam.TransId = 0;
         _me.bindNoInfoRow();
     };
 

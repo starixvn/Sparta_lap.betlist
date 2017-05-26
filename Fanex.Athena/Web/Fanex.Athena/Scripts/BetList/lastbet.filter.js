@@ -343,22 +343,12 @@ var LastBetFilter = (function () {
             listData: columns,
             onCheck: function () {
                 var selectedLevel = $("#se-column").multiSelect("getCheckedItems");
-                if (selectedLevel.length === 8) {
-                    $.each(LastBetGrid.columns, function (i, e) {
-                        e.IsShow = 1; $('td[data-name="' + e.Name + '"]').show();
-                    });
-                } else {
-                    $.each(LastBetGrid.columns, function (i, e) {
-                        var showItem = $.inArray(e.Name, selectedLevel);
-                        if (showItem > -1) {
-                            e.IsShow = 1;
-                            $('td[data-name="' + e.Name + '"]').show();
-                        } else {
-                            e.IsShow = 0;
-                            $('td[data-name="' + e.Name + '"]').hide();
-                        }
-                    });
-                }
+                var isShowAll = selectedLevel.length === LastBetGrid.columns.length;
+                $.each(LastBetGrid.columns, function (index, item) {
+                    var showItem = selectedLevel.indexOf(item.Name) > -1;
+                    item.IsShow = isShowAll || showItem ? 1 : 0;
+                    $('td[data-name="' + item.Name + '"]').toggle(isShowAll || showItem);
+                });
             }
         });
     };
