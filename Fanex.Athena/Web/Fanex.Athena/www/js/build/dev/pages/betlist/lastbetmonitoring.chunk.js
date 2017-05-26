@@ -19726,10 +19726,9 @@ webpackJsonp([43],[
 	            _$tableBody.prepend(rows);
 	            $("tr:gt(" + (_postedParam.PageSize - 1) + ")", _$tableBody).remove();
 	
-	            if (_betListResult) {
-	                _lastTransId = _betListResult.LastTransId;
-	                _postedParam.TransId = _lastTransId;
-	            }
+	            _lastTransId = _betListResult.LastTransId;
+	            _postedParam.TransId = _lastTransId;
+	
 	            setTimeout(function () {
 	                _me.unHighlight(_lastTransId);
 	            }, 6000);
