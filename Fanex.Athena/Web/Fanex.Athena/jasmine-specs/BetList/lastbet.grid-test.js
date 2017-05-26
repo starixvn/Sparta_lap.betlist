@@ -36,9 +36,9 @@
             expect(LastBetGrid.tryUpdateStake).toHaveBeenCalled();
         });
 
-        it("LastBetGrid.stopMonitor() should be called twice with freeStatus is 0", function () {
+        it("LastBetGrid.stopMonitor() should be called once with freeStatus is 0", function () {
             LastBetGrid.Submit(0);
-            expect(LastBetGrid.stopMonitor.calls.count()).toBe(2);
+            expect(LastBetGrid.stopMonitor.calls.count()).toBe(1);
         });
     });
 
