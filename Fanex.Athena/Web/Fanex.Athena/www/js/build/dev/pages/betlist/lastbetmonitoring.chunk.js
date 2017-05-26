@@ -19133,7 +19133,7 @@ webpackJsonp([43],[
 	
 	                var $matchDropdown = $(Selector.Match);
 	                $matchDropdown.html("<option value='0'>" + Site.getSingleResource("All") + "</option>");
-	                
+	
 	                var isShowAllLeague = leagueId === 0;
 	                var canShowMatch = !isShowAllLeague;
 	                if (!isShowAllLeague) {
@@ -19299,19 +19299,18 @@ webpackJsonp([43],[
 	                _me.setHighlightSubmit();
 	            });
 	
-	            function changeHandler(paramName, defaultValue) {
-	                var stake = $(this).val();
+	            function changeHandler(paramName, stake, defaultValue) {
 	                stake = stake.replace(/,/g, '');
 	                stake = stake === "" ? defaultValue : parseInt(stake);
 	                _me.changeFilterParam(DataType.NUMBER, paramName, stake);
 	            }
 	
 	            $("#stake-from").change(function () {
-	                changeHandler.call(this, "StakeFrom", 0);
+	                changeHandler("StakeFrom", $(this).val(), 0);
 	            });
 	
 	            $("#stake-to").change(function () {
-	                changeHandler.call(this, "StakeTo", maxStake);
+	                changeHandler("StakeTo", $(this).val(), maxStake);
 	            });
 	        };
 	
@@ -19397,10 +19396,10 @@ webpackJsonp([43],[
 	                onCheck: function () {
 	                    var selectedLevel = $("#se-column").multiSelect("getCheckedItems");
 	                    var isShowAll = selectedLevel.length === LastBetGrid.columns.length;
-	                    $.each(LastBetGrid.columns, function (i, e) {
-	                        var showItem = selectedLevel.indexOf(e.Name) > -1;
-	                        e.IsShow = isShowAll || showItem ? 1 : 0;
-	                        $('tr').find('[data-name="' + e.Name + '"]').toggle(isShowAll || showItem);
+	                    $.each(LastBetGrid.columns, function (index, item) {
+	                        var showItem = selectedLevel.indexOf(item.Name) > -1;
+	                        item.IsShow = isShowAll || showItem ? 1 : 0;
+	                        $('tr').find('[data-name="' + item.Name + '"]').toggle(isShowAll || showItem);
 	                    });
 	                }
 	            });
@@ -19418,6 +19417,11 @@ webpackJsonp([43],[
 	
 	        _me.initialize = function () {
 	            Site.initialize();
+	            Site.addUserGuide({
+	                resourceName: "LastBetsMonitoring",
+	                title: Site.getSingleResource("LastBetsMonitoring")
+	            });
+	
 	            _me.initSports();
 	            _me.initLeague();
 	            _me.initMatch();
@@ -19539,7 +19543,6 @@ webpackJsonp([43],[
 	
 	        // Object
 	        var _$tableBody;
-	        var _$tableHeader;
 	
 	        // Config
 	        var MIN_LOADING_MILISECONDS = 1000;
@@ -19561,18 +19564,8 @@ webpackJsonp([43],[
 	            _intervalId = 0;
 	            _errorMessage = null;
 	            _isLoading = false;
-	            _isCriteriaChange = false;
 	            _intervalMiliseconds = 3000;
 	
-	            _$tableBody = null;
-	            _$tableHeader = null;
-	
-	            Site.addUserGuide({
-	                resourceName: "LastBetsMonitoring",
-	                title: Site.getSingleResource("LastBetsMonitoring")
-	            });
-	
-	            _$tableHeader = $("#last-bets-monitoring thead");
 	            _$tableBody = $("#last-bets-monitoring tbody");
 	            _$tableBody.on("click", "tr", function () {
 	                $(this).toggleClass(SELECTED_CLASS);
@@ -19616,14 +19609,11 @@ webpackJsonp([43],[
 	        _me.Submit = function (freezeStatus) {
 	            _me.stopMonitor();
 	            _me.tryUpdateStake();
-	            _isCriteriaChange = true;
+	            _lastTransId = 0;
 	            _postedParam = Site.clone(_params);
 	
 	            if (parseInt(freezeStatus) === 1) {
 	                _me.startMonitor();
-	            }
-	            else {
-	                _me.stopMonitor();
 	            }
 	        };
 	
@@ -19643,7 +19633,7 @@ webpackJsonp([43],[
 	            _isLoading = true;
 	
 	            var loadingTickBegin = (new Date()).getTime();
-	            if (Number(_lastTransId) === 0 || _isCriteriaChange) {
+	            if (Number(_lastTransId) === 0) {
 	                _me.clearContent();
 	            }
 	
@@ -19659,7 +19649,6 @@ webpackJsonp([43],[
 	                beforeSend: function () {
 	                    $("#monitorLoader").css("visibility", "visible");
 	                    _isLoading = true;
-	                    _isCriteriaChange = false;
 	                },
 	                complete: function () {
 	                    $("#monitorLoader").css("visibility", "hidden");
@@ -19669,12 +19658,6 @@ webpackJsonp([43],[
 	                    }
 	                },
 	                success: function (result) {
-	                    if (_isCriteriaChange) {
-	                        _isLoading = false;
-	                        _me.doMonitor();
-	                        return;
-	                    }
-	
 	                    // Only bind data if current mode == mode at the begining of request
 	                    _betListResult = result;
 	                    _me.bindData();
@@ -19734,8 +19717,9 @@ webpackJsonp([43],[
 	            if (hideColumns.length > 0) {
 	                var display = " style=\"display:none;\"";
 	                $.each(hideColumns, function (index, value) {
-	                    var name = "data-name=\"" + value.Name + "\"";
-	                    rows = rows.replaceAll(name, name + display);
+	                    var newString = "data-name='" + value.Name + "'" + display;
+	                    var regex = new RegExp("data-name=('|\")" + value.Name + "('|\")", "g");
+	                    rows = rows.replace(regex, newString);
 	                });
 	            }
 	
@@ -19776,8 +19760,7 @@ webpackJsonp([43],[
 	        };
 	
 	        _me.clearContent = function () {
-	            _lastTransId = 0;
-	            _postedParam.TransId = _lastTransId;
+	            _postedParam.TransId = 0;
 	            _me.bindNoInfoRow();
 	        };
 	
@@ -20033,10 +20016,10 @@ webpackJsonp([43],[
 	    };
 	
 	    $.fn.hasVerticalScrollBar = function () {
-	        return this.get(0).scrollHeight > this.height();
+	        return this.length > 0 ? this.get(0).scrollHeight > this.height() : false;
 	    };
 	    $.fn.hasHorizontalScrollBar = function () {
-	        return this.get(0).scrollWidth > this.width();
+	        return this.length > 0 ? this.get(0).scrollWidth > this.width() : false;
 	    };
 	})(jQuery);
 	

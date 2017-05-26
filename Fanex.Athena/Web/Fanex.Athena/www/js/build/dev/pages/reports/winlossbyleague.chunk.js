@@ -18474,10 +18474,10 @@ webpackJsonp([63],[
 	    };
 	
 	    $.fn.hasVerticalScrollBar = function () {
-	        return this.get(0).scrollHeight > this.height();
+	        return this.length > 0 ? this.get(0).scrollHeight > this.height() : false;
 	    };
 	    $.fn.hasHorizontalScrollBar = function () {
-	        return this.get(0).scrollWidth > this.width();
+	        return this.length > 0 ? this.get(0).scrollWidth > this.width() : false;
 	    };
 	})(jQuery);
 	
@@ -20057,7 +20057,6 @@ webpackJsonp([63],[
 	
 	                var reportGrid = $("#ReportGrid");
 	                $("#paging").hide();
-	                var numOfTotalRow = response.Total.length;
 	                var gridOption = WinLossByLeagueOption.getGridOption(level);
 	
 	                gridOption.data = response.Data;
@@ -20311,6 +20310,7 @@ webpackJsonp([63],[
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(254), __webpack_require__(218), __webpack_require__(220)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, MonthPicker, MultiSelect) {
+	        "use strict";
 	        var ajaxLeagues = null;
 	        var ajaxMatches = null;
 	

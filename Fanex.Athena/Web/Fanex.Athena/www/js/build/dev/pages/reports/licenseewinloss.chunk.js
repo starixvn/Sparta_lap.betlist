@@ -20240,10 +20240,10 @@ webpackJsonp([52],[
 	    };
 	
 	    $.fn.hasVerticalScrollBar = function () {
-	        return this.get(0).scrollHeight > this.height();
+	        return this.length > 0 ? this.get(0).scrollHeight > this.height() : false;
 	    };
 	    $.fn.hasHorizontalScrollBar = function () {
-	        return this.get(0).scrollWidth > this.width();
+	        return this.length > 0 ? this.get(0).scrollWidth > this.width() : false;
 	    };
 	})(jQuery);
 	

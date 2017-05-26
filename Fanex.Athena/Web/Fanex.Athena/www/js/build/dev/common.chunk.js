@@ -14288,8 +14288,8 @@
 	                statusCode: {
 	                    0: unBlockUI(),
 	                    400: function () {
-	                        Site.unBlockUI();
-	                        alert(Site.getSingleResource("InvalidRequestMsg"));
+	                        unBlockUI();
+	                        alert(getSingleResource("InvalidRequestMsg"));
 	                    },
 	                    401: function () {
 	                        window.location.href = resolveClientUrl("Utility/LocationRestriction");
@@ -16023,7 +16023,7 @@
 	        isDisabled: false,
 	        beforeOpen: function () { },
 	        afterOpen: function () { }
-	    }
+	    };
 	
 	    var _methods = {
 	        init: function (options) {
@@ -16036,7 +16036,7 @@
 	
 	                var $container = $element.parent();
 	                $container.off("click", ".selection");
-	                $container.on("click", ".selection", function (e) {
+	                $container.on("click", ".selection", function () {
 	                    var $selection = $(this);
 	                    if (!$selection.hasClass(DISABLED_CLASS)) {
 	                        _methods.toggle.call(self, selectListOption);

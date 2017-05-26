@@ -16523,10 +16523,10 @@ webpackJsonp([62],[
 	    };
 	
 	    $.fn.hasVerticalScrollBar = function () {
-	        return this.get(0).scrollHeight > this.height();
+	        return this.length > 0 ? this.get(0).scrollHeight > this.height() : false;
 	    };
 	    $.fn.hasHorizontalScrollBar = function () {
-	        return this.get(0).scrollWidth > this.width();
+	        return this.length > 0 ? this.get(0).scrollWidth > this.width() : false;
 	    };
 	})(jQuery);
 	
@@ -16761,10 +16761,11 @@ webpackJsonp([62],[
 	            viewBetList: function (betType) {
 	                var url = Site.resolveClientUrl("WinLossByBetTypeBetList/Index");
 	                url = Site.setLicenseeOptionOriginalParam(url);
-	                url = QueryString.setParam(url, "fromdate", $("#FromDate").val());
-	                url = QueryString.setParam(url, "todate", $("#ToDate").val());
-	                url = QueryString.setParam(url, "bettype", betType);
-	
+	                url = QueryString.setParams(url, {
+	                    fromdate: $("#FromDate").val(),
+	                    todate: $("#ToDate").val(),
+	                    bettype: betType
+	                });
 	                Site.blockUI();
 	                Site.redirect(url);
 	            },

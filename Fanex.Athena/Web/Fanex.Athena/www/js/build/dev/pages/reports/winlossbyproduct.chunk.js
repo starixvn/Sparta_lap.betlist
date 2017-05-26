@@ -20240,10 +20240,10 @@ webpackJsonp([64],[
 	    };
 	
 	    $.fn.hasVerticalScrollBar = function () {
-	        return this.get(0).scrollHeight > this.height();
+	        return this.length > 0 ? this.get(0).scrollHeight > this.height() : false;
 	    };
 	    $.fn.hasHorizontalScrollBar = function () {
-	        return this.get(0).scrollWidth > this.width();
+	        return this.length > 0 ? this.get(0).scrollWidth > this.width() : false;
 	    };
 	})(jQuery);
 	
@@ -21001,7 +21001,7 @@ webpackJsonp([64],[
 	        }
 	
 	        function getLicenseeWLNote(productOptionJson, caption) {
-	            var productOptions = $.parseJSON(productOptionJson);
+	            var productOptions = $.parseJSON(productOptionJson || "[]");
 	            var resultProducts = [];
 	            var availableProducts = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
 	            $.each(productOptions, function (index, item) {
@@ -21325,17 +21325,19 @@ webpackJsonp([64],[
 	                var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
 	                url = Site.setProductOptionOriginalParamList(url);
 	                url = Site.setLicenseeOptionOriginalParam(url);
-	                url = QueryString.setParam(url, "fromdate", moment(dateRange.FromDate).format("MM/DD/YYYY"));
-	                url = QueryString.setParam(url, "todate", moment(dateRange.ToDate).format("MM/DD/YYYY"));
-	                url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
-	                url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
-	                url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
-	                url = QueryString.setParam(url, "drawfilter", dataDrillDown.DrawFilter);
-	                url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
-	                url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
-	                url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
-	                url = QueryString.setParam(url, "OriginalCurrenceId", dataDrillDown.CurrencyId);
-	                url = QueryString.setParam(url, "OriginalCurrencyName", dataDrillDown.CurrencyName);
+	                url = QueryString.setParams(url, {
+	                    fromdate: moment(dateRange.FromDate).format("MM/DD/YYYY"),
+	                    todate: moment(dateRange.ToDate).format("MM/DD/YYYY"),
+	                    excludetest: dataDrillDown.IsExcludedTestData,
+	                    CurrencyId: dataDrillDown.DrillDownCurrencyId,
+	                    CurrencyName: dataDrillDown.DrillDownCurrencyName,
+	                    drawfilter: dataDrillDown.DrawFilter,
+	                    custid: dataDrillDown.CustomerId,
+	                    systemId: dataDrillDown.SystemId,
+	                    externalId: dataDrillDown.ExternalId,
+	                    OriginalCurrenceId: dataDrillDown.CurrencyId,
+	                    OriginalCurrencyName: dataDrillDown.CurrencyName
+	                });
 	
 	                var popH = Math.min($(window).height() - 100, 500), popW = 920;
 	                var popupOption = { id: "betlist-popup", width: popW + 30, height: popH + 50, title: "Customer Bet List" };
