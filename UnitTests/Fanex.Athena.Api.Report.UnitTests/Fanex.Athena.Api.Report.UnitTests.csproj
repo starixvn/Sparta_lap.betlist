@@ -86,7 +86,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="PlatformWinLossReportTest.cs" />
+    <Compile Include="PlatformWinLossReportController_ExportExcelTest.cs" />
+    <Compile Include="PlatformWinLossReportControllerTest.cs" />
     <Compile Include="WinLossByLeagueReportControllerTest.cs" />
     <Compile Include="WinLossByProductReportControllerTest.cs" />
     <Compile Include="CashOutWinLossReportControllerTest.cs" />

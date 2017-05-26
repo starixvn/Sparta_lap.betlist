@@ -107,7 +107,6 @@ namespace Fanex.Athena.Api.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/PlatformWinLossMember.xls");
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.PlatformWinloss);
 
             var showingOption = new ShowingOption
             {
@@ -121,12 +120,15 @@ namespace Fanex.Athena.Api.Report
                 KNVisible = metaModel.ProductOptions.Any(p => p.Code == Product.KN && p.Status),
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
+
             var convertingOption = new ConvertingOption
             {
                 IsConvert = metaModel.IsConvert,
                 BaseCurrency = metaModel.BaseCurrency,
                 CurrencyName = metaModel.CurrencyName
             };
+
+            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.PlatformWinloss);
 
             var excelModel = new PlatformWinLossViewModel
             {
