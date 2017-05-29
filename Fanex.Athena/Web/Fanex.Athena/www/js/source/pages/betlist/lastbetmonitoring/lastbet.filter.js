@@ -195,7 +195,7 @@ define(
 
                     // Update based currency
                     var selectedCurrencyText = $("#currency").multiSelect("getCheckedItemsByText");
-                    var baseCurrencyObj = $("#based-currency");
+                    var baseCurrencyObj = $("#BaseCurrency");
                     var noConvertOption = $("option[value='']", baseCurrencyObj);
 
                     if (selectedCurrencyText.length > 1) {
@@ -217,8 +217,8 @@ define(
                             baseCurrencyObj.val("");
                         }
                     }
-                    Site.initSelectElements();
-                    LastBetGrid.updateParam(DataType.STRING, "BasedCurrency", $("#based-currency option:selected").text());
+                    baseCurrencyObj.selectList("update");
+                    LastBetGrid.updateParam(DataType.STRING, "BasedCurrency", $("#BaseCurrency option:selected").text());
                 }
             });
         };

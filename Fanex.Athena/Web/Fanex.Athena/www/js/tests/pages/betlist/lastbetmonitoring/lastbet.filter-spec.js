@@ -458,7 +458,7 @@
 
                 describe("call onCheck function", function () {
                     beforeEach(function () {
-                        appendSetFixtures('<select id="based-currency"><option value="eur">EUR</option><option value="usd">USD</option></select>');
+                        appendSetFixtures('<select id="BaseCurrency"><option value="eur">EUR</option><option value="usd">USD</option></select>');
                         spyOn(LastBetFilter, "changeFilterParam");
                         spyOn(LastBetGrid, "updateParam");
                         spyOn(Site, "initSelectElements");
