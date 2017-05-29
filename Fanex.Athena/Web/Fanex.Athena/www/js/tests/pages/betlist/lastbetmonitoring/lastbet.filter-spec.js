@@ -407,10 +407,21 @@
                     expect(method).toBe("getCheckedItems");
                     expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("string", "Level", "1");
                 });
+
+                it("call onCheck function and select all level - LastBetFilter.changeFilterParam should be called with correct parameter", function () {
+                    spyOn(LastBetFilter, "changeFilterParam");
+                    checkedItems.length = 11;
+
+                    multiselectOption.onCheck();
+
+                    expect(method).toBe("getCheckedItems");
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("string", "Level", "");
+                });
             });
 
             describe("initCurrency()", function () {
                 var selectedCurrencyText = "USD";
+                var checkedItemsByText = [selectedCurrencyText];
                 var checkedItems = [1];
                 var currencyList = [
                     {
@@ -433,7 +444,7 @@
                             return checkedItems;
                         }
                         else if (option === "getCheckedItemsByText") {
-                            return [selectedCurrencyText];
+                            return checkedItemsByText;
                         }
                         else {
                             multiselectOption = option;
@@ -441,6 +452,10 @@
                     });
 
                     LastBetFilter.initCurrency();
+                });
+
+                afterEach(function () {
+                    checkedItems = [1];
                 });
 
                 it("multiselect jquery should be called with correct parameter", function () {
@@ -457,12 +472,17 @@
                 });
 
                 describe("call onCheck function", function () {
+                    var isBasedCurrency = true;
                     beforeEach(function () {
                         appendSetFixtures('<select id="BaseCurrency"><option value="eur">EUR</option><option value="usd">USD</option></select>');
                         spyOn(LastBetFilter, "changeFilterParam");
                         spyOn(LastBetGrid, "updateParam");
-                        spyOn(Site, "initSelectElements");
-                        spyOn(Site, "isBaseCurrency").and.returnValues(true);
+                        spyOn($.fn, "selectList");
+                        spyOn(Site, "isBaseCurrency").and.returnValues(isBasedCurrency);
+                    });
+
+                    afterEach(function () {
+                        isBasedCurrency = false;
                     });
 
                     it("LastBetFilter.changeFilterParam should be called with correct parameter", function () {
@@ -471,16 +491,63 @@
                         expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("string", "Currency", "");
                     });
 
-                    it("Site.initSelectElements() should be called", function () {
+                    it("LastBetFilter.changeFilterParam should be called with select multiple currencies", function () {
+                        checkedItems = [1, 2];
                         multiselectOption.onCheck();
 
-                        expect(Site.initSelectElements).toHaveBeenCalled();
+                        expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("string", "Currency", "1,2");
+                    });
+
+                    it("selectList jquery function should be called with correct parameter", function () {
+                        multiselectOption.onCheck();
+
+                        expect($.fn.selectList).toHaveBeenCalledWith("update");
                     });
 
                     it("LastBetGrid.updateParam should be called with correct parameter", function () {
                         multiselectOption.onCheck();
 
                         expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "USD");
+                    });
+
+                    it("LastBetGrid.updateParam should be called with correct parameter when select multiple currency", function () {
+                        checkedItemsByText = [selectedCurrencyText, "EUR"];
+                        multiselectOption.onCheck();
+
+                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "EUR");
+                    });
+
+                    it("LastBetGrid.updateParam should be called with correct parameter when selected currency is not based", function () {
+                        checkedItemsByText = ["UUS"];
+                        isBasedCurrency = false;
+                        multiselectOption.onCheck();
+
+                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "UUS");
+                    });
+
+                    it("LastBetGrid.updateParam should be called with correct parameter when selected currency is not based and empty value is existing", function () {
+                        spyOn($.fn, "text").and.callThrough();
+                        checkedItemsByText = ["AUD"];
+                        isBasedCurrency = false;
+                        $("#BaseCurrency").append("<option value=''></option>");
+                        multiselectOption.onCheck();
+
+                        expect($.fn.text).toHaveBeenCalledWith("AUD");
+                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "AUD");
+                    });
+
+                    it("Nothing happen and LastBetGrid.updateParam should be called with correct parameter when not selecting any currency", function () {
+                        checkedItemsByText = [];
+                        spyOn($.fn, "remove").and.callThrough();
+                        spyOn($.fn, "appendTo").and.callThrough();
+                        spyOn($.fn, "text").and.callThrough();
+
+                        multiselectOption.onCheck();
+
+                        expect($.fn.remove).not.toHaveBeenCalled();
+                        expect($.fn.appendTo).not.toHaveBeenCalled();
+                        expect($.fn.text.calls.count()).toBe(1);
+                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "EUR");
                     });
                 });
             });
@@ -532,6 +599,12 @@
                     $("#stake-from").val(1);
                     $("#stake-from").change();
                     expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("number", "StakeFrom", 1);
+                });
+
+                it("LastBetGrid.changeFilterParam(type, name, value) should be called with correct parameters and default value when $('#stake-from') fired change event", function () {
+                    $("#stake-from").val("");
+                    $("#stake-from").change();
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("number", "StakeFrom", 0);
                 });
 
                 it("LastBetGrid.changeFilterParam(type, name, value) should be called with correct parameters when $('#stake-to') fired change event", function () {
@@ -654,6 +727,140 @@
 
                     expect(resultAfterOneSecond).toBe(true);
                     expect(resultAfterOneDotFiveSecond).toBe(false);
+                });
+            });
+
+            describe("initSubmit()", function () {
+                beforeEach(function () {
+                    setFixtures('<button id="SubmitButton">Submit</button><button id="FreezeButton" data-status="1"></button>');
+
+                    spyOn(LastBetGrid, "Submit");
+                    LastBetFilter.initSubmit();
+                    $("#SubmitButton").click();
+                });
+
+                it("LastBetGrid.Submit should be called with correct parameters", function () {
+                    expect(LastBetGrid.Submit).toHaveBeenCalledWith(1);
+                });
+            });
+
+            describe("initPlatForm()", function () {
+                beforeEach(function () {
+                    setFixtures('<input id="bet-form" value="1" />');
+                    spyOn(LastBetFilter, "changeFilterParam");
+
+                    LastBetFilter.initPlatForm();
+                    $('#bet-form').change();
+                });
+
+                it("LastBetFilter.changeFilterParam() should be called with correct parameter", function () {
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("number", "BetFrom", "1");
+                });
+            });
+
+            describe("changeFilterParam", function () {
+                beforeEach(function () {
+                    spyOn(LastBetFilter, "setHighlightSubmit");
+                    spyOn(LastBetGrid, "updateParam");
+
+                    LastBetFilter.changeFilterParam("string", "Param", "Value");
+                });
+
+                it("LastBetFilter.setHighlightSubmit() should be called", function () {
+                    expect(LastBetFilter.setHighlightSubmit).toHaveBeenCalled();
+                });
+
+                it("LastBetGrid.updateParam() should be called with correct parameter", function () {
+                    expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "Param", "Value");
+                });
+            });
+
+            describe("initColumns()", function () {
+                var multiselectOption;
+                var originalColumns;
+                var initialHtml = '<table id="last-bets-monitoring"><tbody><tr><td data-name="Col1">Col1</td><td data-name="Col2">Col2</td></tr></tbody></table>';
+                var columns = [
+                    {
+                        Id: "column-0",
+                        Value: "Col1",
+                        Text: "Col1",
+                        Checked: true,
+                        Enable: true,
+                        Css: "",
+                        CssClass: ""
+                    },
+                    {
+                        Id: "column-1",
+                        Value: "Col2",
+                        Text: "Col2",
+                        Checked: false,
+                        Enable: true,
+                        Css: "",
+                        CssClass: ""
+                    }
+                ];
+
+                beforeEach(function () {
+                    originalColumns = LastBetGrid.columns;
+                    setFixtures(initialHtml + '<select id="se-column"></select>');
+
+                    var checkedItems = ["Col2"];
+                    spyOn($.fn, "multiSelect").and.callFake(function (option) {
+                        if (typeof option === "string") {
+                            return checkedItems;
+                        }
+                        else {
+                            multiselectOption = option;
+                        }
+                    });
+
+                    LastBetGrid.columns = [
+                        { Name: "Col1", IsShow: 1 },
+                        { Name: "Col2", IsShow: 0 }
+                    ];
+                    LastBetFilter.initColumns();
+                });
+
+                afterEach(function () {
+                    LastBetGrid.columns = originalColumns;
+                });
+
+                it("tbody of table should has correct html content", function () {
+                    var expctedResult = '<tr><td data-name="Col1">Col1</td><td data-name="Col2" style="display: none;">Col2</td></tr>';
+
+                    var result = $("#last-bets-monitoring tbody").html();
+
+                    expect(result).toBe(expctedResult);
+                });
+
+                it("'#se-column' should has correct html content", function () {
+                    var expectedResult = '<option value="Col1">Col1 </option><option value="Col2">Col2 </option>';
+
+                    var result = $("#se-column").html();
+
+                    expect(result).toBe(expectedResult);
+                });
+
+                it("multiselect jquery should be called with correct parameter", function () {
+                    expect(multiselectOption.minWidth).toBe(200);
+                    expect(multiselectOption.maxHeight).toBe(400);
+                    expect(multiselectOption.shadow).toBe(true);
+                    expect(multiselectOption.showHeader).toBe(true);
+                    expect(multiselectOption.isCheckAll).toBe(true);
+                    expect(multiselectOption.showFooter).toBe(false);
+                    expect(multiselectOption.checkAllText).toBe("All");
+                    expect(multiselectOption.noneSelectedText).toBe("None");
+                    expect(multiselectOption.selectedText).toBe("SelectedItemCount");
+                    expect(multiselectOption.listData).toEqual(columns);
+                });
+
+                it("onCheck - tbody of table should has correct html content", function () {
+                    multiselectOption.onCheck();
+                    var expctedResult = '<tr><td data-name="Col1" style="display: none;">Col1</td><td data-name="Col2" style="display: table-cell;">Col2</td></tr>';
+
+                    var result = $("#last-bets-monitoring tbody").html();
+
+                    expect(result).toBe(expctedResult);
                 });
             });
         });
