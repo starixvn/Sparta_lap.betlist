@@ -307,5 +307,354 @@
                     });
                 });
             });
+
+            describe("initMatch()", function () {
+                it("LastBetFilter.changeFilterParam function should be called with correct parameter when '#match' fired change event", function () {
+                    setFixtures('<input id="match" value="1" />');
+                    spyOn(LastBetFilter, "changeFilterParam");
+                    LastBetFilter.initMatch();
+
+                    $("#match").change();
+
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("number", "MatchId", "1");
+                });
+            });
+
+            describe("initBetType()", function () {
+                it("LastBetFilter.changeFilterParam function should be called with correct parameter when '#bet-type' fired change event", function () {
+                    setFixtures('<input id="bet-type" value="1" />');
+                    spyOn(LastBetFilter, "changeFilterParam");
+                    LastBetFilter.initBetType();
+
+                    $("#bet-type").change();
+
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("string", "BetType", "1");
+                });
+            });
+
+            describe("initLiveStatus()", function () {
+                it("LastBetFilter.changeFilterParam function should be called with correct parameter when '#live-status' fired change event", function () {
+                    setFixtures('<input id="live-status" value="1" />');
+                    spyOn(LastBetFilter, "changeFilterParam");
+                    LastBetFilter.initLiveStatus();
+
+                    $("#live-status").change();
+
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("string", "LiveStatus", "1");
+                });
+            });
+
+            describe("initOddsType()", function () {
+                it("LastBetFilter.changeFilterParam function should be called with correct parameter when '#odds-type' fired change event", function () {
+                    setFixtures('<input id="odds-type" value="1" />');
+                    spyOn(LastBetFilter, "changeFilterParam");
+                    LastBetFilter.initOddsType();
+
+                    $("#odds-type").change();
+
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("string", "OddsType", "1");
+                });
+            });
+
+            describe("initSpecialLevel()", function () {
+                var multiselectOption, method;
+                var checkedItems = [1];
+                var specialList = [];
+                beforeEach(function () {
+                    setFixtures('<div id="special-level"></div>');
+                    spyOn($.fn, "multiSelect").and.callFake(function (option) {
+                        if (typeof option === "string") {
+                            method = option;
+                            return checkedItems;
+                        }
+                        else {
+                            multiselectOption = option;
+                        }
+                    });
+                    LastBetFilter.initSpecialLevel();
+
+                    for (var i = 0; i <= 10; i++) {
+                        specialList.push({
+                            Id: "special-option-" + i,
+                            Value: i.toString(),
+                            Text: i === 0 ? "None" : i.toString(),
+                            Checked: true,
+                            Enable: true,
+                            Css: "",
+                            CssClass: ""
+                        });
+                    }
+                });
+
+                it("multiselect jquery should be called with correct parameter", function () {
+                    expect(multiselectOption.minWidth).toBe(130);
+                    expect(multiselectOption.maxHeight).toBe(400);
+                    expect(multiselectOption.shadow).toBe(true);
+                    expect(multiselectOption.showHeader).toBe(true);
+                    expect(multiselectOption.isCheckAll).toBe(true);
+                    expect(multiselectOption.showFooter).toBe(false);
+                    expect(multiselectOption.checkAllText).toBe("All");
+                    expect(multiselectOption.noneSelectedText).toBe("NoneLevel");
+                    expect(multiselectOption.selectedText).toBe("SelectedItemCount");
+                    expect(multiselectOption.listData).toEqual(specialList);
+                });
+
+                it("call onCheck function - LastBetFilter.changeFilterParam should be called with correct parameter", function () {
+                    spyOn(LastBetFilter, "changeFilterParam");
+
+                    multiselectOption.onCheck();
+
+                    expect(method).toBe("getCheckedItems");
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("string", "Level", "1");
+                });
+            });
+
+            describe("initCurrency()", function () {
+                var selectedCurrencyText = "USD";
+                var checkedItems = [1];
+                var currencyList = [
+                    {
+                        Id: "currency-0",
+                        Value: "1",
+                        Text: selectedCurrencyText,
+                        Checked: true,
+                        Enable: true,
+                        Css: "",
+                        CssClass: ""
+                    }
+                ];
+
+                var multiselectOption;
+
+                beforeEach(function () {
+                    setFixtures('<select id="currency"><option value="1">USD</option></select>');
+                    spyOn($.fn, "multiSelect").and.callFake(function (option) {
+                        if (option === "getCheckedItems") {
+                            return checkedItems;
+                        }
+                        else if (option === "getCheckedItemsByText") {
+                            return [selectedCurrencyText];
+                        }
+                        else {
+                            multiselectOption = option;
+                        }
+                    });
+
+                    LastBetFilter.initCurrency();
+                });
+
+                it("multiselect jquery should be called with correct parameter", function () {
+                    expect(multiselectOption.minWidth).toBe(100);
+                    expect(multiselectOption.maxHeight).toBe(400);
+                    expect(multiselectOption.shadow).toBe(true);
+                    expect(multiselectOption.showHeader).toBe(true);
+                    expect(multiselectOption.isCheckAll).toBe(true);
+                    expect(multiselectOption.showFooter).toBe(false);
+                    expect(multiselectOption.checkAllText).toBe("All");
+                    expect(multiselectOption.noneSelectedText).toBe("NoneCurrency");
+                    expect(multiselectOption.selectedText).toBe("SelectedItemCount");
+                    expect(multiselectOption.listData).toEqual(currencyList);
+                });
+
+                describe("call onCheck function", function () {
+                    beforeEach(function () {
+                        appendSetFixtures('<select id="based-currency"><option value="eur">EUR</option><option value="usd">USD</option></select>');
+                        spyOn(LastBetFilter, "changeFilterParam");
+                        spyOn(LastBetGrid, "updateParam");
+                        spyOn(Site, "initSelectElements");
+                        spyOn(Site, "isBaseCurrency").and.returnValues(true);
+                    });
+
+                    it("LastBetFilter.changeFilterParam should be called with correct parameter", function () {
+                        multiselectOption.onCheck();
+
+                        expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("string", "Currency", "");
+                    });
+
+                    it("Site.initSelectElements() should be called", function () {
+                        multiselectOption.onCheck();
+
+                        expect(Site.initSelectElements).toHaveBeenCalled();
+                    });
+
+                    it("LastBetGrid.updateParam should be called with correct parameter", function () {
+                        multiselectOption.onCheck();
+
+                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "USD");
+                    });
+                });
+            });
+
+            describe("initTimeZone()", function () {
+                it("LastBetFilter.changeFilterParam function should be called with correct parameter when '#time-zone' fired change event", function () {
+                    setFixtures('<input id="time-zone" value="1" />');
+                    spyOn(LastBetFilter, "changeFilterParam");
+                    LastBetFilter.initTimeZone();
+
+                    $("#time-zone").change();
+
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("number", "TimeZone", "1");
+                });
+            });
+
+            describe("initBasedCurrency()", function () {
+                it("LastBetFilter.changeFilterParam function should be called with correct parameter when '#BaseCurrency' fired change event", function () {
+                    setFixtures('<input id="BaseCurrency" value="1" />');
+                    spyOn(LastBetFilter, "changeFilterParam");
+                    LastBetFilter.initBasedCurrency();
+
+                    $("#BaseCurrency").change();
+
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("string", "BasedCurrency", "1");
+                });
+            });
+
+            describe("initStake()", function () {
+                beforeEach(function () {
+                    setFixtures('<input id="stake-from" /><input id="stake-to" />');
+                    spyOn(LastBetFilter, "setHighlightSubmit");
+                    spyOn(LastBetFilter, "changeFilterParam");
+
+                    LastBetFilter.initStake();
+                });
+
+                it("LastBetFilter.setHighlightSubmit() should be called when $('#stake-from') fired keyup event", function () {
+                    $("#stake-from").keyup();
+                    expect(LastBetFilter.setHighlightSubmit).toHaveBeenCalled();
+                });
+
+                it("LastBetFilter.setHighlightSubmit() should be called when $('#stake-to') fired keyup event", function () {
+                    $("#stake-to").keyup();
+                    expect(LastBetFilter.setHighlightSubmit).toHaveBeenCalled();
+                });
+
+                it("LastBetGrid.changeFilterParam(type, name, value) should be called with correct parameters when $('#stake-from') fired change event", function () {
+                    $("#stake-from").val(1);
+                    $("#stake-from").change();
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("number", "StakeFrom", 1);
+                });
+
+                it("LastBetGrid.changeFilterParam(type, name, value) should be called with correct parameters when $('#stake-to') fired change event", function () {
+                    $("#stake-to").val(2);
+                    $("#stake-to").change();
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("number", "StakeTo", 2);
+                });
+            });
+
+            describe("initPageSizeControl()", function () {
+                beforeEach(function () {
+                    setFixtures('<div id="pagesize"><a class="label">10</a></div>');
+                    spyOn(LastBetFilter, "changeFilterParam");
+                    spyOn($.fn, "removeClass");
+
+                    LastBetFilter.initPageSizeControl();
+                });
+
+                it("LastBetFilter.changeFilterParam() should be called with correct parameter when $('#pagesize a.label') fired click event", function () {
+                    $("#pagesize a.label").click();
+
+                    expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("number", "PageSize", "10");
+                });
+
+                it("removeClass jquery function should be called with correct parameter", function () {
+                    $("#pagesize a.label").click();
+
+                    expect($.fn.removeClass).toHaveBeenCalledWith("active");
+                });
+
+                it("First item of 'a.label' should has class 'active'", function () {
+                    $("#pagesize a.label").click();
+
+                    var result = $("a.label").eq(0).hasClass("active");
+
+                    expect(result).toBe(true);
+                });
+
+                it("If 'a.label' clicked and had class 'active', then nothing happen", function () {
+                    $("a.label").addClass("active");
+                    $("#pagesize a.label").click();
+
+                    expect($.fn.removeClass).not.toHaveBeenCalled();
+                    expect(LastBetFilter.changeFilterParam).not.toHaveBeenCalled();
+                });
+            });
+
+            describe("initFreezeButton()", function () {
+                describe("currentStatus is 1", function () {
+                    beforeEach(function () {
+                        setFixtures('<button id="FreezeButton" data-status="1">ABC</button>');
+                        spyOn(LastBetGrid, "stopMonitor");
+
+                        LastBetFilter.initFreezeButton();
+                        $("#FreezeButton").click();
+                    });
+
+                    it("'#FreezeButton' should has correct text", function () {
+                        var result = $("#FreezeButton").text();
+
+                        expect(result).toBe("Unfreeze");
+                    });
+
+                    it("LastBetGrid.stopMonitor() should be callled when $('#FreezeButton') fired click event", function () {
+                        expect(LastBetGrid.stopMonitor).toHaveBeenCalled();
+                    });
+                });
+
+                describe("currentStatus not equal 1", function () {
+                    beforeEach(function () {
+                        setFixtures('<button id="FreezeButton" data-status="0">ABC</button>');
+
+                        spyOn(LastBetGrid, "startMonitor");
+
+                        LastBetFilter.initFreezeButton();
+                        $("#FreezeButton").click();
+                    });
+
+                    it("'#FreezeButton' should has correct text", function () {
+                        var result = $("#FreezeButton").text();
+
+                        expect(result).toBe("Freeze");
+                    });
+
+                    it("LastBetGrid.startMonitor() should be callled when $('#freeze-button') fired click event", function () {
+                        expect(LastBetGrid.startMonitor).toHaveBeenCalled();
+                    });
+                });
+            });
+
+            describe("setHighlightSubmit()", function () {
+                beforeEach(function () {
+                    jasmine.clock().install();
+                    setFixtures('<button id="SubmitButton"></button>');
+
+                    LastBetFilter.setHighlightSubmit();
+                });
+                afterEach(function () {
+                    jasmine.clock().uninstall();
+                });
+                
+                it("$('#SubmitButton') should not have class 'btn-alert'", function () {
+                    var result = $("#SubmitButton").hasClass("btn-alert");
+
+                    expect(result).toBe(false);
+                });
+
+                it("$('#SubmitButton') should have class 'btn-alert' after 1 second", function () {
+                    jasmine.clock().tick(1000);
+                    var result = $("#SubmitButton").hasClass("btn-alert");
+
+                    expect(result).toBe(true);
+                });
+
+                it("class 'btn-alert should be added to '#SubmitButton' after 1 second and removed after 1.5 second", function () {
+                    jasmine.clock().tick(1001);
+                    var resultAfterOneSecond = $("#SubmitButton").hasClass("btn-alert");
+                    jasmine.clock().tick(500);
+                    var resultAfterOneDotFiveSecond = $("#SubmitButton").hasClass("btn-alert");
+
+                    expect(resultAfterOneSecond).toBe(true);
+                    expect(resultAfterOneDotFiveSecond).toBe(false);
+                });
+            });
         });
     });
