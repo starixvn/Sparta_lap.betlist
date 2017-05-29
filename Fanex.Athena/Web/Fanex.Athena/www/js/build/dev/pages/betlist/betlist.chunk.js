@@ -18352,7 +18352,7 @@ webpackJsonp([36],[
 	    {
 	        name: 'Index',
 	        index: 'Index',
-	        width: 30,
+	        width: 50,
 	        align: 'center',
 	        sortable: false,
 	        resizable: false
@@ -18361,7 +18361,7 @@ webpackJsonp([36],[
 	    {
 	        name: 'ExternalId',
 	        index: 'ExternalId',
-	        width: 120,
+	        width: 100,
 	        align: 'left',
 	        sortable: false
 	    };
@@ -18436,7 +18436,7 @@ webpackJsonp([36],[
 	    {
 	        name: 'LicenseeWL',
 	        index: 'LicenseeWL',
-	        width: 100,
+	        width: 85,
 	        align: 'right',
 	        sortable: true,
 	        resizable: false,
