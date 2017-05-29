@@ -1,24 +1,15 @@
 webpackJsonp([54],{
 
 /***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
 	module.exports = __webpack_require__(257);
-=======
-	module.exports = __webpack_require__(246);
->>>>>>> e1e9143... #76967 - Remove resource menu for AGENCY SYSTEM(58) and Internal Login(60)
 
 
-/***/ }),
+/***/ },
 
-<<<<<<< HEAD
 /***/ 256:
 /***/ function(module, exports, __webpack_require__) {
-=======
-/***/ 245:
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> e1e9143... #76967 - Remove resource menu for AGENCY SYSTEM(58) and Internal Login(60)
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {
 	    "use strict";
@@ -71,37 +62,23 @@ webpackJsonp([54],{
 	    };
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-<<<<<<< HEAD
 /***/ 257:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(258)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchList) {
-=======
-/***/ 246:
-/***/ (function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(247)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchList) {
->>>>>>> e1e9143... #76967 - Remove resource menu for AGENCY SYSTEM(58) and Internal Login(60)
 	    "use strict";
 	    $(MatchList.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-<<<<<<< HEAD
 /***/ 258:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8), __webpack_require__(7), __webpack_require__(256)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
-=======
-/***/ 247:
-/***/ (function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(8), __webpack_require__(7), __webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
->>>>>>> e1e9143... #76967 - Remove resource menu for AGENCY SYSTEM(58) and Internal Login(60)
 	    "use strict";
 	
 	    function initialize() {
@@ -147,7 +124,7 @@ webpackJsonp([54],{
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ })
+/***/ }
 
 });
 //# sourceMappingURL=livereportmatchlist.chunk.js.map

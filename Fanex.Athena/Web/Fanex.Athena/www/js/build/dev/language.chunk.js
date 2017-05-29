@@ -1,7 +1,7 @@
 webpackJsonp([35],{
 
 /***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(84);
 	__webpack_require__(85);
@@ -10,15 +10,10 @@ webpackJsonp([35],{
 	module.exports = __webpack_require__(88);
 
 
-/***/ }),
+/***/ },
 
-<<<<<<< HEAD
 /***/ 84:
 /***/ function(module, exports) {
-=======
-/***/ 68:
-/***/ (function(module, exports) {
->>>>>>> e1e9143... #76967 - Remove resource menu for AGENCY SYSTEM(58) and Internal Login(60)
 
 	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_en_US = {
@@ -948,15 +943,10 @@ webpackJsonp([35],{
 	};
 
 
-/***/ }),
+/***/ },
 
-<<<<<<< HEAD
 /***/ 85:
 /***/ function(module, exports) {
-=======
-/***/ 69:
-/***/ (function(module, exports) {
->>>>>>> e1e9143... #76967 - Remove resource menu for AGENCY SYSTEM(58) and Internal Login(60)
 
 	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_zh_CN = {
@@ -1741,15 +1731,10 @@ webpackJsonp([35],{
 	};
 
 
-/***/ }),
+/***/ },
 
-<<<<<<< HEAD
 /***/ 86:
 /***/ function(module, exports) {
-=======
-/***/ 70:
-/***/ (function(module, exports) {
->>>>>>> e1e9143... #76967 - Remove resource menu for AGENCY SYSTEM(58) and Internal Login(60)
 
 	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_zh_TW = {
@@ -2534,15 +2519,10 @@ webpackJsonp([35],{
 	};
 
 
-/***/ }),
+/***/ },
 
-<<<<<<< HEAD
 /***/ 87:
 /***/ function(module, exports) {
-=======
-/***/ 71:
-/***/ (function(module, exports) {
->>>>>>> e1e9143... #76967 - Remove resource menu for AGENCY SYSTEM(58) and Internal Login(60)
 
 	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_zh_Hans = {
@@ -3322,15 +3302,10 @@ webpackJsonp([35],{
 	};
 
 
-/***/ }),
+/***/ },
 
-<<<<<<< HEAD
 /***/ 88:
 /***/ function(module, exports) {
-=======
-/***/ 72:
-/***/ (function(module, exports) {
->>>>>>> e1e9143... #76967 - Remove resource menu for AGENCY SYSTEM(58) and Internal Login(60)
 
 	// Generated at: 5/9/2017 10:28:25 AM
 	window._language_ko_KR = {
@@ -4099,7 +4074,7 @@ webpackJsonp([35],{
 	};
 
 
-/***/ })
+/***/ }
 
 });
 //# sourceMappingURL=language.chunk.js.map
