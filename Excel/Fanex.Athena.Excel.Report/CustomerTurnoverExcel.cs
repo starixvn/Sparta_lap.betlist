@@ -47,12 +47,11 @@ namespace Fanex.Athena.Excel.Report
 
         public CustomerTurnoverExcel(
                                      string templatePath,
-                                     string exportingFileName,
                                      ShowingOption showingOption,
                                      IList<CustTurnover> customerTurnoverList,
                                      CustTurnover total,
                                      string formatDateTime)
-            : base(templatePath, exportingFileName, showingOption, new ConvertingOption())
+            : base(templatePath, showingOption, new ConvertingOption())
         {
             _customerTurnoverList = customerTurnoverList;
             _total = total;

@@ -1,11 +1,11 @@
 ﻿@model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportDetailViewModel
 
 @{ 
-    var columnCount = Model.IsAllowedCustomerCommission ? 10 : 7;
+    var columnCount = Model.IsAllowedCustomerCommission ? 8 : 6;
 
     if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
     {
-        columnCount -= 1;
+        columnCount += 1;
     }
 }
 
@@ -23,7 +23,7 @@
                 @item.ProductName
             </td>
 
-            @ReportContentHelperDesktop.RenderDataForLiveReport(Model, item)
+            @DesktopLiveReportRazorHelper.RenderData(Model, item)
         </tr>
     }
 }

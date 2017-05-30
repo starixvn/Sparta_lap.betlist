@@ -3,9 +3,7 @@
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -31,7 +29,6 @@
         protected const int MicroGamingRngTransTypeTodayRunning = 3;
 
         protected const int PageSizeExcel = 63000;
-        protected const int MaxPageSizeDailyBetlist = int.MaxValue - 1000;
 
         protected const int LicenseeId12Bet = 1;
 
@@ -41,26 +38,17 @@
         protected const int BetEffectiveColumn = 8;
         protected const int LicenseeWLColumn = 9;
 
-        #region Fields
-
-        /// <summary>
-        /// Hidden column indexes. WinLoss: 7, LicenseeWL: 8.
-        /// </summary>
         protected static readonly ReadOnlyCollection<int> HiddenColumnIndexes =
-            new ReadOnlyCollection<int>(new List<int> { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
+            new ReadOnlyCollection<int>(new int[] { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
 
-        /// <summary>
-        /// The list contains all bet type of racing.
-        /// </summary>
-        protected static readonly int[] RacingBetType = { 31, 32, 33, 41, 42, 43 };
+        protected static readonly ReadOnlyCollection<int> RacingBetType =
+            new ReadOnlyCollection<int>(new int[] { 31, 32, 33, 41, 42, 43 });
 
         private readonly IBalanceUpService _balanceUpService;
 
         private readonly IProductService _productService;
 
         private readonly IBetListService _betListService;
-
-        #endregion Fields
 
         public BetListBaseController()
         {

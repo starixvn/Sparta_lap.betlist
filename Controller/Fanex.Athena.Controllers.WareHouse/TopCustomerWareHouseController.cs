@@ -128,7 +128,7 @@ namespace Fanex.Athena.Controllers.WareHouse
 
             var exportData = _topCustomerService.GetDataForExcel(metaModel);
 
-            var topCustExcel = new TopCustomer(templatePath, FileName, currencyConvert, showingOption, exportData)
+            var topCustExcel = new TopCustomer(templatePath, currencyConvert, showingOption, exportData)
             {
                 ReportTitle = titleText
             };

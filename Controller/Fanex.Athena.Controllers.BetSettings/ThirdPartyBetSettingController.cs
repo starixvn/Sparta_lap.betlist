@@ -57,7 +57,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                     return View("~/Views/Customer/BetSetting/CashOut.cshtml", viewModel);
 
                 default:
-                    throw new Exception("Not a thirdparty product.");
+                    throw new ArgumentException("Not a thirdparty product.");
             }
         }
 

@@ -57,7 +57,7 @@
 
         it("Site.redirect(url) should be called with 'IsExportExcel' query string is true when $('#ExportToExcel') fired click event", function () {
             $("#ExportToExcel").click();
-            expect(Site.redirect).toHaveBeenCalledWith(jasmine.stringMatching(/isexportexcel=true/));
+            expect(Site.redirect).toHaveBeenCalledWith(jasmine.stringMatching(/isexportexcel=true/i));
         });
 
         it("Site.redirect(url) should be called when $('#ExportToExcel') fired click event", function () {

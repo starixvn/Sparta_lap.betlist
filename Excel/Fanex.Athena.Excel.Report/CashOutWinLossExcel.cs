@@ -58,11 +58,10 @@ namespace Fanex.Athena.Excel.Report
 
         public CashOutWinLossExcel(
                 string templatePath,
-                string exportingFileName,
                 ConvertingOption convertingOption,
                 CashOutWinLossMetaModel metaModel,
                 CashOutWinLossViewModel viewModel)
-            : base(templatePath, exportingFileName, null, convertingOption)
+            : base(templatePath, null, convertingOption)
         {
             _metaModel = metaModel;
             _dataList = viewModel.MainResult;

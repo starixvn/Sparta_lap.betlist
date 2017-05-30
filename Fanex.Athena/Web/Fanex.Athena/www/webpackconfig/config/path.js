@@ -8,6 +8,7 @@ var cssPaths = {
     home: ["./www/css/source/pages/home/home.scss"],
     main: ["./www/css/source/main.scss"],
     error: ["./www/css/source/pages/utility/error.scss"],
+    um: ["./www/css/source/pages/utility/um.scss"],
 
     reportjqgridlayout: ["./www/css/source/pages/common/reportjqgridlayout.main.scss"],
     betlistLayout: ["./www/css/source/pages/betlist/betlistcommon.main.scss"],
@@ -37,7 +38,15 @@ var cssPaths = {
     turnover: ["./www/css/source/pages/report/turnover.scss"],
     result: ["./www/css/source/pages/report/result.scss"],
     cashoutwinloss: ["./www/css/source/pages/report/cashoutwinloss.scss"],
-    cashouthistory: ["./www/css/source/pages/betlist/cashouthistory.main.scss", "./www/css/source/extensions/popup-ex.scss"]
+    cashouthistory: ["./www/css/source/pages/betlist/cashouthistory.main.scss", "./www/css/source/extensions/popup-ex.scss"],
+
+    winlossbyproduct: ["./www/css/source/pages/report/winlossbyproduct.scss"],
+    dailyracingwinloss: ["./www/css/source/pages/report/dailyracingwinloss.scss"],
+    winlossbyleague: ["./www/css/source/pages/report/winlossbyleague.scss"],
+    matchwinloss: ["./www/css/source/pages/report/matchwinloss.scss"],
+    platformwinloss: ["./www/css/source/pages/report/platformwinloss.scss"],
+    winlossbybettype: ["./www/css/source/pages/report/winlossbybettype.scss"],
+    lastbetmonitoring: ["./www/css/source/pages/betlist/lastbetmonitoring.scss"]
 };
 
 var scriptPaths = {
@@ -77,7 +86,15 @@ var scriptPaths = {
     racingcommission: "./www/js/source/pages/report/racingcommission/main-racingcommission.js",
     turnover: "./www/js/source/pages/report/turnover/main.js",
     result: "./www/js/source/pages/report/result/main-result.js",
-    cashoutwinloss: "./www/js/source/pages/report/cashoutwinloss/main.js"
+    cashoutwinloss: "./www/js/source/pages/report/cashoutwinloss/main.js",
+
+    winlossbyproduct: "./www/js/source/pages/report/winlossbyproduct/main-winlossbyproduct.js",
+    dailyracingwinloss: "./www/js/source/pages/report/dailyracingwinloss/main-dailyracingwinloss.js",
+    winlossbyleague: "./www/js/source/pages/report/winlossbyleague/main.js",
+    matchwinloss: "./www/js/source/pages/report/matchwinloss/main.js",
+    platformwinloss: "./www/js/source/pages/report/platformwinloss/main-platformwinloss.js",
+    winlossbybettype: "./www/js/source/pages/report/winlossbybettype/main.js",
+    lastbetmonitoring: "./www/js/source/pages/betlist/lastbetmonitoring/main.js"
 };
 
 module.exports = {

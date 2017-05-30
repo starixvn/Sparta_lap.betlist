@@ -67,6 +67,11 @@
         &.input {
             label {
                 top: 8px;
+
+                &.active {
+                    top: -10px;
+                    transform: none;
+                }
             }
         }
 

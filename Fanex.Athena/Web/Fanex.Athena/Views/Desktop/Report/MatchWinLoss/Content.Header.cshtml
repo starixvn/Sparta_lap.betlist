@@ -1,0 +1,40 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.MatchWinLossViewModel
+@{
+    var rowSpan = Model.IsAllowedCustomerCommission ? 2 : 1;
+    var isAllowCustomerComm = Model.IsAllowedCustomerCommission;
+}
+
+<tr>
+    <th rowspan="@rowSpan">#</th>
+    <th rowspan="@rowSpan">@ViewResources.Match</th>
+    <th rowspan="@rowSpan">@ViewResources.Turnover</th>
+    <th rowspan="@rowSpan">@ViewResources.TotalTransaction</th>
+    <th colspan="@(isAllowCustomerComm ? 3 : 1)">@ViewResources.CustomerW_L</th>
+    <th rowspan="@rowSpan">@ViewResources.LicenseeW_L</th>
+
+    @if (Model.ProductAccess.IsAllowBA)
+    {
+        <th rowspan="@rowSpan">@ViewResources.BACommission</th>
+    }
+    @if (Model.ProductAccess.IsAllowRB)
+    {
+        <th rowspan="@rowSpan">@ViewResources.RacingRevenue</th>
+    }
+    @if (Model.ProductAccess.IsAllowBA)
+    {
+        <th rowspan="@rowSpan">@ViewResources.AmtDueToBA</th>
+    }
+    @if (Model.ProductAccess.IsAllowRB)
+    {
+        <th rowspan="@rowSpan">@ViewResources.AmtDueToRacing</th>
+    }
+</tr>
+
+@if (isAllowCustomerComm)
+{
+    <tr>
+        <th>@ViewResources.WinLoss</th>
+        <th>@ViewResources.Commission</th>
+        <th>@ViewResources.Total</th>
+    </tr>
+}

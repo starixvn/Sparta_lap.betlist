@@ -18,7 +18,6 @@
     using Model.Core.DTO.Users;
     using Newtonsoft.Json;
     using Resources;
-    using User.Common;
     using Utility;
 
     public class OneAuthenticationService : IOneAuthenticationService

@@ -86,7 +86,7 @@ if (!window._IsInJsTestingMode) {
     $(window).load(function () {
         var parentWindow;
         try {
-            parentWindow = window.parent.location.host == window.location.host ? window.parent : window;
+            parentWindow = window.parent.location.host === window.location.host ? window.parent : window;
         }catch(exception) {
             parentWindow = window;
         }

@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.MatchWinLoss;
+    Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
+}
+
+@model Fanex.Athena.Model.Report.ViewModel.MatchWinLossViewModel
+
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/matchwinloss.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/matchwinloss.chunk.js")"></script>
+}
+@section Filter
+{
+    @{ Html.RenderPartial("~/Views/Desktop/Report/MatchWinLoss/Filter.cshtml"); }
+}
+@section Content
+{
+    @if (!Model.ShowEmptyContent)
+    {
+        Html.RenderPartial("~/Views/Desktop/Report/MatchWinLoss/Content.cshtml");
+    }
+}

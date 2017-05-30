@@ -12,9 +12,6 @@ namespace Fanex.Athena.Model.Casino.MetaModel
 
     #endregion Using
 
-    /// <summary>
-    /// CasinoStatusMetaModel class.
-    /// </summary>
     public class CasinoStatusMetaModel : CustomerStatusMetaModel
     {
         public int SystemId

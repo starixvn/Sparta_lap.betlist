@@ -9,7 +9,7 @@
     @ViewResources.CustomerBetList @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
         →
     </span>@Model.ToDate.ToShortDateString() - @(Model.ExternalId)(@(Model.SystemId))
-    - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
+    - <span class="base-currency">@DesktopRazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 }
 @section BackButton
 {

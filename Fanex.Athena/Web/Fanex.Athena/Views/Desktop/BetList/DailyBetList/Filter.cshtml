@@ -5,18 +5,18 @@
     <div class="row">
         @*// ----------------------------Date---------------------------//*@
         <div class="col l2 m2 s12 input-field calendar single-date">
-            @RazorHelperDesktop.SingleDatePicker(Model.Param.Date, Convert.ToDateTime(Model.Param.BalanceUpDay), appSettings.MaxDate, "Date")
+            @DesktopRazorHelper.SingleDatePicker(Model.Param.Date, Convert.ToDateTime(Model.Param.BalanceUpDay), appSettings.MaxDate, "Date")
         </div>
 
         @*// -----------------------------Currency-----------------------------------//*@
         <div class="col l2 m2 s12 input-field">
-            @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
+            @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
             <label>@ViewResources.Currency</label>
         </div>
 
         @*// -----------------------------Base Currency-----------------------------------//*@
         <div class="col l2 m2 s12 input-field">
-            @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
+            @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency)
             <label>@ViewResources.Based</label>
         </div>
 
@@ -42,7 +42,7 @@
         </div>
 
         <div class="col l1 m2 s12 button-block">
-            <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+            <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
         </div>
 
         <div class="col right icon-block">

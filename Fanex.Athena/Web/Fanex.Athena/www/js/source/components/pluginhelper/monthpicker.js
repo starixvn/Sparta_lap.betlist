@@ -1,11 +1,13 @@
-﻿define(["jquery", "common/site", "lib/jquery.monthpicker"],
-    function ($, Site) {
+﻿define(["jquery", "lib/jquery.monthpicker"],
+    function ($) {
         "use strict";
+        var PICKER_SELECTOR = "#month-picker";
+        var FORMAT = "MM/dd/yyyy";
 
         var _historyDate = new Date($("#HistoryDate").val());
 
         function initMonthPicker(option) {
-            var $picker = $('#month-picker');
+            var $picker = $(PICKER_SELECTOR);
             var $fromDate = $('#FromDate');
             var $todate = $('#ToDate');
 
@@ -17,17 +19,21 @@
                 showDateRange: true,
                 fromDayId: 'fDay',
                 toDayId: 'tDay',
-                format: 'MM/dd/yyyy',
+                format: FORMAT,
                 month: fromdate,
                 fromDay: fromdate.getDate(),
                 toDay: todate.getDate(),
                 afterChangeMonth: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", "MM/dd/yyyy"));
-                    $todate.val($picker.monPickr("getToDate", "MM/dd/yyyy"));
+                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
+                    $todate.val($picker.monPickr("getToDate", FORMAT));
                 },
                 afterChangeDay: function () {
-                    $fromDate.val($picker.monPickr("getFromDate", "MM/dd/yyyy"));
-                    $todate.val($picker.monPickr("getToDate", "MM/dd/yyyy"));
+                    $fromDate.val($picker.monPickr("getFromDate", FORMAT));
+                    $todate.val($picker.monPickr("getToDate", FORMAT));
+
+                    if (option && typeof option.customAfterChangeDay === "function") {
+                        option.customAfterChangeDay();
+                    }
                 }
             };
 
@@ -38,7 +44,17 @@
             $picker.monPickr(defaultOption);
         }
 
+        function getFromDateString() {
+            return $(PICKER_SELECTOR).monPickr("getFromDate", "dd MMM yyyy");
+        }
+
+        function getToDateString() {
+            return $(PICKER_SELECTOR).monPickr("getToDate", "dd MMM yyyy");
+        }
+
         return {
-            initMonthPicker: initMonthPicker
+            initMonthPicker: initMonthPicker,
+            getFromDateString: getFromDateString,
+            getToDateString: getToDateString
         };
     });

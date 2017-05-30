@@ -92,12 +92,11 @@ namespace Fanex.Athena.Excel.Report
         public LicenseeWinLossExcel(
                 ILicenseeWinLossService licenseeWinLossService,
                 string templatePath,
-                string exportingFileName,
                 ConvertingOption convertingOption,
                 ShowingOption showingOption,
                 LicenseeWinLossMetaModel metaModel,
                 LicenseeWinLossViewModel viewModel)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _licenseeWinLossService = licenseeWinLossService ?? new LicenseeWinLossService();
             _metaModel = metaModel;

@@ -1,0 +1,29 @@
+﻿@using Fanex.Athena.Extension.Helper
+@using Fanex.Athena.Model.Report.DTO
+
+@functions
+{
+    public static string GetToolTip(string data)
+    {
+        return string.Format("title={0}", data);
+    }
+}
+
+@helper RenderCustomerWinLossData(ICustomerWinLoss data, bool isAllowedCustomerCommission, bool isShowToolTip = false, string className = "")
+{
+var customerWinLoss = data.CustomerWinLoss.ToStringExt();
+
+if (isAllowedCustomerCommission)
+{
+    var customerComm = data.CustomerComm.ToStringExt();
+    var customerTotal = data.CustomerTotal.ToStringExt();
+
+        <td class="right-align @className" @(isShowToolTip ? GetToolTip(customerWinLoss) : null)>@customerWinLoss</td>
+            <td class="right-align @className" @(isShowToolTip ? GetToolTip(customerComm) : null)>@customerComm</td>
+            <td class="right-align @className" @(isShowToolTip ? GetToolTip(customerTotal) : null)>@customerTotal</td>
+}
+else
+{
+        <td class="right-align" @(isShowToolTip ? GetToolTip(customerWinLoss) : null)>@customerWinLoss</td>
+}
+}

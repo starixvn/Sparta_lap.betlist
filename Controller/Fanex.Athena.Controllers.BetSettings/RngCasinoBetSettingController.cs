@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings;
+    using Service.BetSettings.Interfaces;
 
     public class RngCasinoBetSettingController : BetSettingBaseController
     {
@@ -79,7 +80,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            if (ProductAccess.IsAllowCS == false || 
+            if (ProductAccess.IsAllowCS == false ||
                 CustomerService.GetCustomerInfo(licenseeId, custId).SyncCasino == false ||
                 !IsBetSettingEditable())
             {

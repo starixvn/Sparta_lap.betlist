@@ -1,0 +1,45 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.WinLossByBetTypeViewModel
+
+@{ 
+    var appSettings = new AppSettings();
+}
+
+<div class="page-form">
+    @using (Html.BeginForm("Index", "WinLossByBetTypeReport", FormMethod.Post, new { @id = "WinLossByBetTypeForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="input-field input col l3 m3 s12 calendar date-range">
+                @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, Model.Param.BalanceUpDay, appSettings.MaxDate)
+            </div>
+
+            @*// -----------------------------Currency-----------------------------------//*@
+            <div class="col l2 m2 s12 input-field">
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
+                <label>@ViewResources.Currency</label>
+            </div>
+
+            @*// -----------------------------Base Currency-----------------------------------//*@
+            <div class="col l2 m2 s12 input-field">
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+                <label>@ViewResources.Based</label>
+            </div>
+
+            <div class="col l2 m2 s12 button-block">
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
+            </div>
+
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
+        </div>
+
+        //-----------------------------Hidden Field-------------------------------//
+        @Html.Hidden("BalanceUpDay", Model.Param.BalanceUpDay)
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+        @Html.Hidden("SortDirection", Model.Param.SortDirection)
+        @Html.Hidden("SortColumn", Model.Param.SortColumn)
+    }
+</div>

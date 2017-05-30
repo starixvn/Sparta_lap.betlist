@@ -6,6 +6,9 @@
 
 namespace Fanex.Athena.Excel.Customer
 {
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.IO;
     using Fanex.Athena.Excel.Base;
     using Fanex.Athena.Excel.Base.Extension;
     using Fanex.Athena.Extension.Helper;
@@ -13,9 +16,6 @@ namespace Fanex.Athena.Excel.Customer
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using Resources;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.IO;
 
     /// <summary>
     /// TODO: Update summary.
@@ -56,14 +56,16 @@ namespace Fanex.Athena.Excel.Customer
             { OddsGroupColumn, "OddsGroup" }
         };
 
-        private CustomerListViewModel _exportData;
-        private string _templatePath;
+        private readonly CustomerListViewModel _exportData;
+        private readonly string _templatePath;
+
+        private readonly string _reporTitle;
+        private readonly IList<string> _headerTexts;
+        private readonly IList<string> _showedGridColumns;
+
         private ISheet _templateSheet;
         private ICellStyle _defaultStyle;
         private int _columnTemplateCount = 13;
-        private string _reporTitle;
-        private IList<string> _headerTexts;
-        private IList<string> _showedGridColumns;
 
         public CustomerListExcel(string templatePath, string reportTitle, CustomerListViewModel model)
         {
@@ -105,11 +107,6 @@ namespace Fanex.Athena.Excel.Customer
             RemoveTemplate();
         }
 
-        /// <summary>
-        ///     Clear the template from header row.
-        /// </summary>
-        /// <param name="sheet">The excel sheet.</param>
-        /// <param name="startRowIndex">The starting row index of sheet.</param>
         private static void ClearTemplate(ISheet sheet, int startRowIndex)
         {
             var lastRowNum = sheet.LastRowNum;
@@ -119,9 +116,6 @@ namespace Fanex.Athena.Excel.Customer
             }
         }
 
-        /// <summary>
-        /// Assign data to sheet.
-        /// </summary>
         private void AssignData()
         {
             var sheet = Workbook.CloneSheet("Template", "Data");

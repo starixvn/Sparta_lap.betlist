@@ -6,11 +6,12 @@
 
 namespace Fanex.Athena.Api.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Excel.Base.Entities;
@@ -20,8 +21,10 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Resources;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
 
@@ -38,12 +41,23 @@ namespace Fanex.Athena.Api.Report
             _balanceUpService = new BalanceUpService();
         }
 
+        public WinLossByLeagueReportController(
+            ISessionService sessionService,
+            IProductService productService,
+            IBalanceUpService balanceUpService,
+            IWinLossByLeagueService winlossByLeagueService)
+            : base(sessionService, productService)
+        {
+            _balanceUpService = balanceUpService;
+            _winlossByLeagueService = winlossByLeagueService;
+        }
+
         [HttpPost]
         public dynamic Index([FromBody] WinLossByLeagueMetaModel metaModel)
         {
             if (!IsValidRequest(metaModel))
             {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
+                return BadRequest(ViewResources.InvalidParams);
             }
 
             WinLossByLeague grandTotal;
@@ -62,7 +76,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (!IsValidRequest(metaModel))
             {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, ViewResources.InvalidParams + "1");
             }
 
             metaModel.PageIndex = 1;
@@ -71,7 +85,7 @@ namespace Fanex.Athena.Api.Report
             var totalrows = 0;
             var dataList = GetData(metaModel, out grandTotal, ref totalrows);
             const string FileName = "WinLossByLeague.xls";
-            var templatePath = HttpContext.Current.Server.MapPath("~/App_Data/Template/Reports/WinLossByLeagues.xls");
+            var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/Reports/WinLossByLeagues.xls");
 
             var currencyList = SessionService.UserSession.CurrencyList;
             var currency = currencyList.SingleOrDefault(i => i.Key == metaModel.CurrencyId);
@@ -88,13 +102,24 @@ namespace Fanex.Athena.Api.Report
                 MainResult = dataList
             };
 
-            var winlossByLeague = new WinlossByLeagueExcel(templatePath, FileName, convertingOption, metaModel, viewModel, grandTotal)
-            {
-                Level = metaModel.Level
-            };
+            var winlossByLeague = CreateExcel(templatePath, convertingOption, grandTotal, metaModel, viewModel);
             winlossByLeague.Export();
 
             return ExcelStream(winlossByLeague.Workbook, FileName);
+        }
+
+        [CLSCompliant(false)]
+        protected internal virtual WinlossByLeagueExcel CreateExcel(
+            string templatePath,
+            ConvertingOption convertingOption,
+            WinLossByLeague grandTotal,
+            WinLossByLeagueMetaModel metaModel,
+            WinLossByLeagueViewModel viewModel)
+        {
+            return new WinlossByLeagueExcel(templatePath, convertingOption, metaModel, viewModel, grandTotal)
+            {
+                Level = metaModel.Level
+            };
         }
 
         private static WinLossByLeague CalculateTotal(IEnumerable<WinLossByLeague> dataList)
@@ -122,12 +147,12 @@ namespace Fanex.Athena.Api.Report
             IEnumerable<WinLossByLeague> dataList = null;
             if (metaModel.Level == 0)
             {
-                dataList = _winlossByLeagueService.GetWinlossByLeagues(metaModel);
+                dataList = _winlossByLeagueService.GetSummary(metaModel);
                 grandTotal = CalculateTotal(dataList);
             }
             else
             {
-                dataList = _winlossByLeagueService.GetWinlossByLeagueCustomers(metaModel, out grandTotal, ref totalrows);
+                dataList = _winlossByLeagueService.GetCustomers(metaModel, out grandTotal, ref totalrows);
             }
 
             return dataList;

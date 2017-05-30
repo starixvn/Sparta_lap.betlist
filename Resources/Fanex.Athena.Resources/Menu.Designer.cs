@@ -511,15 +511,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AGENCY SYSTEM.
-        /// </summary>
-        public static string Menu_58 {
-            get {
-                return ResourceManager.GetString("Menu_58", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Win Loss By Leagues.
         /// </summary>
         public static string Menu_59 {
@@ -534,15 +525,6 @@ namespace Fanex.Athena.Resources {
         public static string Menu_6 {
             get {
                 return ResourceManager.GetString("Menu_6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Internal Login.
-        /// </summary>
-        public static string Menu_60 {
-            get {
-                return ResourceManager.GetString("Menu_60", resourceCulture);
             }
         }
         
@@ -579,15 +561,6 @@ namespace Fanex.Athena.Resources {
         public static string Menu_65 {
             get {
                 return ResourceManager.GetString("Menu_65", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Macau Win Loss.
-        /// </summary>
-        public static string Menu_66 {
-            get {
-                return ResourceManager.GetString("Menu_66", resourceCulture);
             }
         }
         

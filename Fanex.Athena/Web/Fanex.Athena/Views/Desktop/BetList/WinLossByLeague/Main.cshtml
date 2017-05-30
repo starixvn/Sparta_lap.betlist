@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = string.Format("LRF - {0}", ViewResources.BetList);
+    Layout = "~/Views/Desktop/Shared/_BetListSimpleLayout.cshtml";
+}
+
+@model Fanex.Athena.Model.BetList.MetaModel.BetListMetaModel
+@section pagecss {}
+@section pagejs {
+}
+@section ContentTitle
+{
+  @ViewResources.CustomerBetList @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
+        → </span>@Model.ToDate.ToShortDateString()
+    - @(Model.ExternalId)(@(Model.SystemId)) - <span class="base-currency">
+           @{var curencyId = Model.IsConvert ? Model.BaseCurrencyId : Model.CurrencyId;}
+
+        
+            @DesktopRazorHelper.ViewInCurrency(curencyId, Model.CurrencyName)
+        
+    </span>
+}
+@section BackButton
+{
+}
+@{
+    <input type="hidden" id="ApiUrl" value="api/WinLossByLeagueBetList/Index" />
+    <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
+    <input type="hidden" id="HiddenColumnList" value="externalid,systemid" />
+}

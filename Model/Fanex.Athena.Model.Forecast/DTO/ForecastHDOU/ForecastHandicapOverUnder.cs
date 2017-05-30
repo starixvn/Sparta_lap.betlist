@@ -6,12 +6,8 @@
 
 namespace Fanex.Athena.Model.Forecast.DTO.ForecastHdou
 {
-    /// <summary>
-    /// ForecastHandicapOverUnder class.
-    /// </summary>
     public class ForecastHandicapOverUnder : ForecastBase
     {
-        // Offset
         public int OffsetHdpMinus1 { get; set; }
 
         public int OffsetHdp { get; set; }

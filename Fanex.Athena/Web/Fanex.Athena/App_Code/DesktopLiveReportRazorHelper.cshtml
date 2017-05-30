@@ -1,0 +1,81 @@
+﻿@using Fanex.Athena.Resources;
+@using Fanex.Athena.Model.Report.DTO.LiveReports
+@using Fanex.Athena.Model.Core.ViewModel
+@using Fanex.Athena.Extension.Helper
+
+@helper LiveStatus(int selectedStatus)
+{
+    <select class="live-status select hide" name="LiveIndicator" id="LiveIndicator" data-original="@selectedStatus">
+        <option value="2" @(selectedStatus.Equals(2) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.All</option>
+        <option value="1" @(selectedStatus.Equals(1) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.Live</option>
+        <option value="0" @(selectedStatus.Equals(0) ? new HtmlString("selected=selected") : new HtmlString(""))>@ViewResources.NoneLive</option>
+    </select>
+}
+
+@helper ViewLiveStatus(int liveStatus)
+{
+string title = string.Empty;
+switch (liveStatus)
+{
+    case 0:
+        title = ViewResources.NoneLive;
+        break;
+    case 1:
+        title = ViewResources.Live;
+        break;
+    case 2:
+        title = ViewResources.LiveAndNonLive;
+        break;
+}
+
+    @(title + ViewResources.Data)
+}
+
+@helper RenderData(BaseViewModel model, LiveReport data)
+{
+    @DesktopReportRazorHelper.RenderCustomerWinLossData(data, model.IsAllowedCustomerCommission, true)
+var turnOver = data.TurnOver.ToStringExt();
+var betCount = data.BetCount.ToStringExt();
+var licenseeWL = data.LicenseeWinLoss;
+var amountDue = data.AmountDue.ToStringExt();
+
+    <td class="right-align" title="@turnOver">@turnOver</td>
+    <td class="right-align" title="@betCount">@betCount</td>
+    <td class="right-align" title="@licenseeWL.ToStringExt()">@DesktopRazorHelper.HighlightNegativeFormat(licenseeWL)</td>
+
+if (model.ProductAccess.IsAllowRB || model.ProductAccess.IsAllowBA)
+{
+    var licenseeComm = data.LicenseeComm.ToStringExt();
+        <td class="right-align" title="@licenseeComm">@licenseeComm</td>
+}
+
+    <td class="right-align" title="@amountDue">@amountDue</td>
+}
+
+@helper RenderHeader(BaseViewModel model, string firstColumnHeader)
+{
+var rowspanText = model.IsAllowedCustomerCommission ? "rowspan=2" : "";
+var colspanText = model.IsAllowedCustomerCommission ? "colspan=3" : "";
+
+    <tr>
+        <th @rowspanText>@firstColumnHeader</th>
+        <th @colspanText>@ViewResources.CustomerW_L</th>
+        <th @rowspanText>@ViewResources.Turnover</th>
+        <th class="header-small" @rowspanText>@ViewResources.BetCount</th>
+        <th @rowspanText>@ViewResources.LicenseeW_L</th>
+        @if (model.ProductAccess.IsAllowRB || model.ProductAccess.IsAllowBA)
+        {
+            <th class="header-small" @rowspanText>@ViewResources.Comm</th>
+        }
+        <th @rowspanText>@ViewResources.AmountDueTo</th>
+    </tr>
+
+if (model.IsAllowedCustomerCommission)
+{
+        <tr>
+            <th>@ViewResources.WinLoss</th>
+            <th>@ViewResources.Comm</th>
+            <th style="border-right-color: #fff !important;">@ViewResources.Total</th>
+        </tr>
+}
+}

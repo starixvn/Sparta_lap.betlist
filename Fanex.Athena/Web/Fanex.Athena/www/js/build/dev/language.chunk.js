@@ -1,18 +1,18 @@
-webpackJsonp([27],{
+webpackJsonp([35],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(68);
-	__webpack_require__(69);
-	__webpack_require__(70);
-	__webpack_require__(71);
-	module.exports = __webpack_require__(72);
+	__webpack_require__(84);
+	__webpack_require__(85);
+	__webpack_require__(86);
+	__webpack_require__(87);
+	module.exports = __webpack_require__(88);
 
 
 /***/ },
 
-/***/ 68:
+/***/ 84:
 /***/ function(module, exports) {
 
 	// Generated at: 5/9/2017 10:28:25 AM
@@ -503,8 +503,6 @@ webpackJsonp([27],{
 	LrfNotification:"LRF-Notification",
 	Macau:"Macau",
 	MacauNotOfferCurrency:"Macau is not offered for this currency.",
-	MacauWinLoss:"Macau Win Loss",
-	MacauWinLossGuidelineContent:"Any query before 4PM GMT-4 will return the data up to 4PM of the day before. You can filter data up to 1 month per query.",
 	Main:"Main",
 	ManageAccount:"Manage Account",
 	ManageCustomer:"Manage Customer",
@@ -947,7 +945,7 @@ webpackJsonp([27],{
 
 /***/ },
 
-/***/ 69:
+/***/ 85:
 /***/ function(module, exports) {
 
 	// Generated at: 5/9/2017 10:28:25 AM
@@ -1356,7 +1354,6 @@ webpackJsonp([27],{
 	Lose:"输",
 	Loss:"输",
 	LrfNotification:"LRF-通知",
-	MacauWinLossGuidelineContent:"在GMT-4下午4点之前的任何查询将依据前一天下午4点的数据。您每次查询可以过滤最多1个月内的数据。",
 	Main:"主",
 	ManageAccount:"账号管理",
 	ManageCustomer:"会员管理",
@@ -1736,7 +1733,7 @@ webpackJsonp([27],{
 
 /***/ },
 
-/***/ 70:
+/***/ 86:
 /***/ function(module, exports) {
 
 	// Generated at: 5/9/2017 10:28:25 AM
@@ -2145,7 +2142,6 @@ webpackJsonp([27],{
 	Lose:"輸",
 	Loss:"輸",
 	LrfNotification:"LRF通知",
-	MacauWinLossGuidelineContent:"在GMT-4下午4點之前的任何查詢將依據前一天下午4點的數據。您每次查詢可以過濾最多1個月內的數據。",
 	Main:"主",
 	ManageAccount:"賬號管理",
 	ManageCustomer:"會員管理",
@@ -2525,7 +2521,7 @@ webpackJsonp([27],{
 
 /***/ },
 
-/***/ 71:
+/***/ 87:
 /***/ function(module, exports) {
 
 	// Generated at: 5/9/2017 10:28:25 AM
@@ -3308,7 +3304,7 @@ webpackJsonp([27],{
 
 /***/ },
 
-/***/ 72:
+/***/ 88:
 /***/ function(module, exports) {
 
 	// Generated at: 5/9/2017 10:28:25 AM

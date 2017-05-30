@@ -40,16 +40,15 @@ namespace Fanex.Athena.Excel.Report
         private readonly ActiveCustomerMetaModel _metaModel;
         private readonly IList<ProductOption> _allProductOptions;
         private readonly int _totalCustomer;
-        private IList<int> _hiddenColumnIndexes = new List<int>();
+        private readonly IList<int> _hiddenColumnIndexes = new List<int>();
 
         public ActiveCustomerSummaryExcel(
                 string templatePath,
-                string exportingFileName,
                 ConvertingOption convertingOption,
                 ShowingOption showingOption,
                 ActiveCustomerMetaModel metaModel,
                 ActiveCustomerViewModel viewModel)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _metaModel = metaModel;
             _activeCustomerList = viewModel.MainResult;

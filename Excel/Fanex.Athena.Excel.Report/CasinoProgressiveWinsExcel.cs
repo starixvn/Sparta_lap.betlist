@@ -42,11 +42,10 @@ namespace Fanex.Athena.Excel.Report
 
         public CasinoProgressiveWinsExcel(
                 string templatePath,
-                string exportingFileName,
                 ConvertingOption convertingOption,
                 CasinoProgressiveWinsMetaModel metaModel,
                 CasinoProgressiveWinsViewModel viewModel)
-            : base(templatePath, exportingFileName, null, convertingOption)
+            : base(templatePath, null, convertingOption)
         {
             _metaModel = metaModel;
             _dataList = viewModel.DataList;

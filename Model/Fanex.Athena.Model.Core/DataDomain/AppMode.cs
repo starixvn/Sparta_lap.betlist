@@ -3,9 +3,9 @@
     using System;
 
     [Flags]
-    public enum AppMode : byte
+    public enum AppMode : int
     {
-        Self = 0x0,
-        Parasitic = 0x1
+        Self = 0,
+        Parasitic = 1
     }
 }

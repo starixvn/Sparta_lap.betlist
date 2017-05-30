@@ -2,16 +2,16 @@
 
 <div class="row">
     <div class="input-field col l2 m3 s12">
-        @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, false)
+        @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, false)
         <label>@ViewResources.Currency</label>
     </div>
 
     <div class="input-field col l2 m3 s12">
-        @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
+        @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency)
         <label>@ViewResources.Based</label>
     </div>
     <div class="col l2 m2 s12 button-block">
-        <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+        <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
     </div>
     <div class="col right icon-block">
         <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>

@@ -105,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
             var usernameExcelTitle = string.IsNullOrEmpty(metaModel.Username) ?
                 string.Empty
                 : "- " + ViewResources.Username + ": " + metaModel.Username;
-            var excel = new CustomerTurnoverExcel(templatePath, FileName, showingOption, data, totalData, formatDateTime)
+            var excel = new CustomerTurnoverExcel(templatePath, showingOption, data, totalData, formatDateTime)
             {
                 ReportTitle = string.Format(
                 "{0}, {1} --> {2} - {3}: {4} - {5}: {6} {7}",

@@ -148,18 +148,6 @@ define(["common/site"], function (Site) {
                     // change fromDate and toDate
                     _selectDay(data, data.ddlFromDate, minDayInMonth, true);
                     _selectDay(data, data.ddlToDate, maxDayInMonth, false);
-
-                    // re-render fromDay & toDay range
-                    var limitDayRange = function (idx) {
-                        var $this = $(this),
-                        day = idx + 1;
-
-                        if (day < minDayInMonth || maxDayInMonth < day) $this.hide();
-                        else $this.show();
-                    };
-
-                    data.ddlFromDate.dropDown.find('li').each(limitDayRange);
-                    data.ddlToDate.dropDown.find('li').each(limitDayRange);
                 }
 
                 _checkReachBound(data, year, month);
@@ -170,12 +158,27 @@ define(["common/site"], function (Site) {
             },
 
             _setDay = function (data, value, isFromDay) {
+                var minDayInMonth = _getMinDayInMonth(data.minDate, data.year, data.month),
+                    maxDayInMonth = _getMaxDayInMonth(data.maxDate, data.year, data.month);
+
                 if (isFromDay) {
                     data.fromDay = parseInt(value, 10);
                     data.fromDate = new Date(data.year, data.month, value);
+
+                    data.ddlToDate.dropDown.find('li').each(function (index) {
+                        var day = index + 1;
+                        var isShow = day >= data.fromDay && day >= minDayInMonth && day <= maxDayInMonth;
+                        $(this).toggle(isShow);
+                    });
                 } else {
                     data.toDay = parseInt(value, 10);
                     data.toDate = new Date(data.year, data.month, value);
+
+                    data.ddlFromDate.dropDown.find('li').each(function (index) {
+                        var day = index + 1;
+                        var isShow = day <= data.toDay && day >= minDayInMonth && day <= maxDayInMonth;
+                        $(this).toggle(isShow);
+                    });
                 }
             },
 
@@ -494,6 +497,9 @@ define(["common/site"], function (Site) {
 
                     // Toggle the dropdown when users click on selected month label
                     data.wrap.on('click', function (e) {
+                        _hideDropDown(data, data.ddlFromDate);
+                        _hideDropDown(data, data.ddlToDate);
+
                         if ($(e.target).hasClass('selectedMonth')) {
                             if (data.dropDown.is(':hidden')) {
                                 _showDropDown(data, data);
@@ -501,12 +507,16 @@ define(["common/site"], function (Site) {
                                 _hideDropDown(data, data);
                             }
                         }
-                        e.stopPropagation();
                     });
 
                     // Collapse all dropdowns when users click outside the picker
-                    $('html').on('click', function () {
-                        _hideDropDown(data, data);
+                    $('html').on('click', function (e) {
+                        var $target = $(e.target);
+                        var pickerId = "#" + data.target.attr("id");
+
+                        if (!$target.closest(pickerId).length) {
+                            _hideDropDown(data, data);
+                        }
                     });
 
                     // Toggle a dropdown when users click/hover on its "the year" link
@@ -635,12 +645,19 @@ define(["common/site"], function (Site) {
 
                                 var target = e.data.target;
 
+                                _hideDropDown(data, data);
+                                if (target == data.ddlFromDate) {
+                                    _hideDropDown(data, data.ddlToDate);
+                                }
+                                else {
+                                    _hideDropDown(data, data.ddlFromDate);
+                                }
+
                                 if (target.dropDown.is(':hidden')) {
                                     _showDropDown(data, target);
                                 } else {
                                     _hideDropDown(data, target);
                                 }
-                                e.stopPropagation();
                             };
 
                         // Toggle the day picker dropdown when users click/hover on selected day label
@@ -649,9 +666,19 @@ define(["common/site"], function (Site) {
 
                         if (!data.expandDayOnhover) {
                             // Collapse all day picker dropdowns when users click outside the picker
-                            $('html').on('click', function () {
-                                _hideDropDown(data, data.ddlFromDate);
-                                _hideDropDown(data, data.ddlToDate);
+                            $('html').on('click', function (e) {
+                                var targetId = $(e.target).attr("id");
+
+                                if (targetId !== data.fromDayId && targetId !== data.toDayId) {
+                                    _hideDropDown(data, data.ddlFromDate);
+                                    _hideDropDown(data, data.ddlToDate);
+                                }
+                                else if (targetId !== data.fromDayId) {
+                                    _hideDropDown(data, data.ddlFromDate);
+                                }
+                                else {
+                                    _hideDropDown(data, data.ddlToDate);
+                                }
                             });
                         }
 

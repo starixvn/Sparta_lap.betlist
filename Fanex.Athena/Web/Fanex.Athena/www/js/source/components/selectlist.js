@@ -1,10 +1,15 @@
-﻿"use strict";
-define(['jquery'], function ($) {
-    function getLabelHtml(labelText, selectionId) {
-        var targetDropdownId = selectionId + "-result-container";
+﻿define(['jquery'], function ($) {
+    "use strict";
+
+    var CONTAINER_SELECTOR = ".select-list-container";
+    var DISABLED_CLASS = "disabled";
+
+    function getLabelHtml(option) {
+        var targetDropdownId = option.selectionId + "-result-container";
+        var className = option.isDisabled ? "selection disabled" : "selection";
         return '<div class="select-list-container">' +
-                '<div class="selection" id="' + selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
-                    '<div class="selection-label">' + labelText + '</div>' +
+                '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
+                    '<div class="selection-label">' + option.labelText + '</div>' +
                     '<div class="selection-icon"><span class="selection-icon-arrow"></span></div>' +
                 '</div>' +
             '</div>';
@@ -32,6 +37,7 @@ define(['jquery'], function ($) {
     }
 
     function getDropdownList(resultContainerId, canSearch) {
+        /*jshint validthis: true*/
         var $originalSelectElement = $(this);
         var dataList = $originalSelectElement.find("option").map(function (index, item) {
             var key = item.value;
@@ -47,17 +53,12 @@ define(['jquery'], function ($) {
         var $dropdown = $(dropdownListHtml);
         $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass("highlighted");
 
-        $dropdown.find(".option-item").on("click", function () {
+        $dropdown.on("click", ".option-item", function () {
             $(".option-item").removeClass("highlighted");
             $(this).addClass("highlighted");
             var selectedKey = $(this).data("key");
             $originalSelectElement.val(selectedKey);
 
-            var $resultContainer = $(this).closest(".select-list-result-container");
-            var $selectionLabel = $originalSelectElement.siblings(".select-list-container").find(".selection-label");
-            $selectionLabel.text($(this).text());
-
-            $resultContainer.remove();
             $originalSelectElement.trigger("change");
         });
 
@@ -67,7 +68,7 @@ define(['jquery'], function ($) {
             e.stopPropagation();
         });
 
-        $searchBox.on("keyup", function (e) {
+        $searchBox.on("keyup", function () {
             var $this = $(this);
 
             setTimeout(function () {
@@ -122,33 +123,58 @@ define(['jquery'], function ($) {
         $(".select-list-result-container").remove();
     }
 
+    var defaultOption = {
+        canSearch: false,
+        isDisabled: false,
+        beforeOpen: function () { },
+        afterOpen: function () { }
+    };
+
     var _methods = {
         init: function (options) {
-            var selectListOption = {
-                canSearch: false
-            };
-            $.extend(selectListOption, options || {});
+            var selectListOption = $.extend({}, defaultOption, options || {});
 
             return this.each(function () {
-                var $self = $(this);
-                $self.siblings(".select-list-container").remove();
-                var optionSelected = $self.find("option:selected");
-                var selectedValue = optionSelected.length ? optionSelected.text() : "";
+                var self = this;
+                var $element = $(self);
+                _methods.buildLabel.call(self);
 
-                var selectionId = generateId($self);
-                var $selectionLabel = $(getLabelHtml(selectedValue, selectionId));
-
-                $selectionLabel.find(".selection").on("click", function (e) {
-                    e.stopPropagation();
-                    _methods.toggle.call($self, $(this), selectListOption.canSearch);
+                var $container = $element.parent();
+                $container.off("click", ".selection");
+                $container.on("click", ".selection", function () {
+                    var $selection = $(this);
+                    if (!$selection.hasClass(DISABLED_CLASS)) {
+                        _methods.toggle.call(self, selectListOption);
+                    }
                 });
 
-                $(document).click(function () {
-                    closeAll();
+                $element.on("change", function () {
+                    _methods.update.call(self);
                 });
 
-                $self.hide().parent().append($selectionLabel);
+                $("html").on("click", function (e) {
+                    var $target = $(e.target);
+
+                    if (!$target.closest(CONTAINER_SELECTOR).length) {
+                        closeAll();
+                    }
+                });
             });
+        },
+
+        buildLabel: function (option) {
+            option = option || {};
+            var $self = $(this);
+            $self.siblings(CONTAINER_SELECTOR).remove();
+            var optionSelected = $self.find("option:selected");
+            var labelText = optionSelected.length ? optionSelected.text() : "";
+            var selectionId = generateId($self);
+
+            option.labelText = labelText;
+            option.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(option));
+
+            $self.hide().parent().append($selectionLabel);
         },
 
         open: function (resultContainerId, canSearch) {
@@ -157,7 +183,7 @@ define(['jquery'], function ($) {
             var $self = $(this);
             var $dropdown = getDropdownList.call(this, resultContainerId, canSearch);
 
-            var $selection = $self.siblings(".select-list-container").find(".selection");
+            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
             var offset = $selection.offset();
             $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 
@@ -165,15 +191,17 @@ define(['jquery'], function ($) {
             $dropdown.find(".select-list-search-results").focus();
         },
 
-        close: function(){
+        close: function () {
             var $this = $(this);
-            var $selection = $this.siblings(".select-list-container").find(".selection");
+            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
             var resultContainerId = $selection.attr("aria-targetDropdown");
             $("#" + resultContainerId).remove();
         },
 
-        toggle: function ($sourceElement, canSearch) {
-            var resultContainerId = $sourceElement.attr("aria-targetDropdown");
+        toggle: function (option) {
+            var $this = $(this);
+            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
+            var resultContainerId = $selection.attr("aria-targetDropdown");
 
             if (resultContainerId && resultContainerId.length > 0) {
                 var $currentDropdown = $("#" + resultContainerId);
@@ -183,9 +211,26 @@ define(['jquery'], function ($) {
                     $currentDropdown.remove();
                 }
                 else {
-                    _methods.open.call(this, resultContainerId, canSearch);
+                    if (typeof option.beforeOpen === "function") {
+                        option.beforeOpen.call(this);
+                    }
+
+                    _methods.open.call(this, resultContainerId, option.canSearch);
+
+                    if (typeof option.afterOpen === "function") {
+                        option.afterOpen.call(this);
+                    }
                 }
             }
+        },
+
+        update: function (option) {
+            _methods.buildLabel.call(this, option);
+        },
+
+        disabled: function (isDisabled) {
+            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
         }
     };
 

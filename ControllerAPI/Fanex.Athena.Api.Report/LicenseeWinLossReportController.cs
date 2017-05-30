@@ -215,7 +215,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal,
             };
 
-            var licenseeWinLoss = new LicenseeWinLossExcel(_licenseeWinLossService, templatePath, FileName, convertingOption, showingOption, metaModel, excelModel)
+            var licenseeWinLoss = new LicenseeWinLossExcel(_licenseeWinLossService, templatePath, convertingOption, showingOption, metaModel, excelModel)
             {
                 Level = metaModel.DrillDownLevel,
             };

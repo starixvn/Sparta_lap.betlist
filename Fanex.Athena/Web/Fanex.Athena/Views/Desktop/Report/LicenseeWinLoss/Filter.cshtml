@@ -11,15 +11,15 @@
         @Html.AntiForgeryToken()
         <div class="row">
             <div class="input-field input col l3 m3 s12 calendar date-range">
-                @RazorHelperDesktop.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, maxDate)
+                @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, maxDate)
             </div>
 
             <div class="input-field col l2 m3 s12">
-                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true)
                 <label>@ViewResources.Currency</label>
             </div>
 
-            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions)
+            @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions)
 
             <div class="col right icon-block">
                 <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
@@ -72,7 +72,7 @@
             </div>
 
             <div class="col l2 m2 s12 button-block">
-                <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
             </div>
         </div>
 

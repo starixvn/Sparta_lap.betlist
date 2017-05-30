@@ -20,7 +20,7 @@
             TurnoverOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
             TurnoverOption.hasCasinoTransfer = Site.asBool($("#IsAllowedCasinoTransfer").val());
             TurnoverOption.isAllowBa = Site.asBool($("#IsAllowBa").val());
-            MultiSelect.initialize('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+            MultiSelect.initProductList();
             Site.addUserGuide({
                 resourceName: "Turnover",
                 title: Site.getSingleResource("Turnover")
@@ -117,7 +117,8 @@
                     "0": Site.getSingleResource('AllCurrencies')
                 };
 
-            var currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId] : $('#CurrencyId option[value="' + _currencyId + '"]').text().trim();
+            var currencyName = currencyTextList[_currencyId] ? currencyTextList[_currencyId]
+                                                            : $('#CurrencyId option[value="' + _currencyId + '"]').text().trim();
             var dateString = _fromDate.format("MM/DD/YYYY") + ' → ' + _toDate.format("MM/DD/YYYY");
             currencyName = currencyName.toUpperCase();
             if (username === _me.defaultUserName) {

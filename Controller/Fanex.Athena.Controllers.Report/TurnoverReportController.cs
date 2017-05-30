@@ -128,7 +128,7 @@ namespace Fanex.Athena.Controllers.Report
                 viewModel.Param.BaseCurrency
                 : viewModel.CurrencyList.FirstOrDefault(a => a.Key == viewModel.Param.CurrencyId).Value;
 
-            var turnoverExcel = new TurnoverExcel(templatePath, FileName, convertingOption, showingOption, viewModel) { LicenseeId = licenseeId };
+            var turnoverExcel = new TurnoverExcel(templatePath, convertingOption, showingOption, viewModel) { LicenseeId = licenseeId };
 
             turnoverExcel.Export();
 

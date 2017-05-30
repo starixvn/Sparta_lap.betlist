@@ -23,7 +23,7 @@
             workbook.GetSheetIndex(sourceSheetName).Returns(sourceSheetIndex);
             workbook.CloneSheet(sourceSheetIndex).Returns(sheet);
 
-            var report = Substitute.ForPartsOf<ReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
+            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
             report.Workbook = workbook;
 
             // Action
@@ -45,7 +45,7 @@
             workbook.GetSheetIndex(sourceSheetName).Returns(sourceSheetIndex);
             workbook.CloneSheet(sourceSheetIndex).Returns(sheet);
 
-            var report = Substitute.ForPartsOf<ReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
+            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
             report.Workbook = workbook;
 
             report.ExportData = GetDataTable(new string[] { "Col1", "Col2" });
@@ -61,7 +61,7 @@
         public void Export_WhenCall_AssignDataMethodIsCalled()
         {
             // Arrange
-            var report = Substitute.ForPartsOf<ReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
+            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
             report.When(x => x.AssignData()).DoNotCallBase();
             report.When(x => x.LoadTemplate()).DoNotCallBase();
             report.When(x => x.RemoveTemplate()).DoNotCallBase();
@@ -84,7 +84,7 @@
             var excelRow = Substitute.For<IRow>();
             var cell = Substitute.For<ICell>();
             excelRow.Cells.Returns(new List<ICell>() { cell, cell });
-            var report = Substitute.ForPartsOf<ReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
+            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
 
             // Action
             report.AssignRowContent(excelRow, dataRow, columns, 0);
@@ -100,7 +100,7 @@
         public void GetExactTitleCurrencyName_CurrencyIdInRange_ReturnCorrectValue(int currencyId, string expected)
         {
             // Arrange
-            var report = Substitute.ForPartsOf<ReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
+            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
 
             // Action
             var result = report.GetExactTitleCurrencyName(currencyId);
@@ -116,7 +116,7 @@
         {
             // Arrange
             var convertingOption = new ConvertingOption { IsConvert = convertOption, BaseCurrency = "EUR", CurrencyName = currencyName };
-            var report = Substitute.ForPartsOf<ReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), convertingOption, 0);
+            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), convertingOption, 0);
 
             // Action
             var result = report.GetExactTitleCurrencyName(currencyId);
@@ -130,7 +130,7 @@
         public void GetLicenseeWLProduct_ProductOptionListHasData_ReturnCorrectValue(string caption, string expected)
         {
             // Arrange
-            var report = Substitute.ForPartsOf<ReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
+            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
             report.ProductOptions = GetProductOption();
 
             // Action
@@ -145,7 +145,7 @@
         public void GetLicenseeWLProduct_ProductOptionListDoesNotHaveData_ReturnCorrectValue(string caption, string expected)
         {
             // Arrange
-            var report = Substitute.ForPartsOf<ReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
+            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
             report.ProductOptions = new List<ProductOption>();
 
             // Action
@@ -160,7 +160,7 @@
         public void SetTextRowValue_WhenCall_SetCellValueMethodIsCalled(int sourceRowIndex, int destRowIndex)
         {
             // Arrange
-            var report = Substitute.ForPartsOf<ReportBase>("TestPath.xls", "ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
+            var report = Substitute.ForPartsOf<ReportBase>("ExportFileName", new ShowingOption(), new ConvertingOption(), 0);
             report.TemplateSheet = Substitute.For<ISheet>();
             var sheet = Substitute.For<ISheet>();
             var row = Substitute.For<IRow>();

@@ -48,7 +48,7 @@
                 @if (match.BetCountHandicap != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="1" href="javascript:;">
-                        @RazorHelperDesktop.NegativeFormat(match.FullTimeHandicap, true, false)
+                        @DesktopRazorHelper.NegativeFormat(match.FullTimeHandicap, true, false)
                     </a>
                 }
 
@@ -60,7 +60,7 @@
                 @if (match.BetCountOverUnder != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="3" href="javascript:;">
-                        @RazorHelperDesktop.NegativeFormat(match.FullTimeOverUnder, true, false)
+                        @DesktopRazorHelper.NegativeFormat(match.FullTimeOverUnder, true, false)
                     </a>
                 }
 
@@ -73,7 +73,7 @@
                 @if (match.BetCountHandicap1StHalf != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="7" href="javascript:;">
-                        @RazorHelperDesktop.NegativeFormat(match.FirstTimeHandicap, true, false)
+                        @DesktopRazorHelper.NegativeFormat(match.FirstTimeHandicap, true, false)
                     </a>
                 }
 
@@ -85,7 +85,7 @@
                 @if (match.BetCountOverUnder1StHalf != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="8" href="javascript:;">
-                        @RazorHelperDesktop.NegativeFormat(match.FirstTimeOverUnder, true, false)
+                        @DesktopRazorHelper.NegativeFormat(match.FirstTimeOverUnder, true, false)
                     </a>
                 }
 

@@ -4435,24 +4435,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Macau Win Loss.
-        /// </summary>
-        public static string MacauWinLoss {
-            get {
-                return ResourceManager.GetString("MacauWinLoss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Any query before 4PM GMT-4 will return the data up to 4PM of the day before. You can filter data up to 1 month per query..
-        /// </summary>
-        public static string MacauWinLossGuidelineContent {
-            get {
-                return ResourceManager.GetString("MacauWinLossGuidelineContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
         public static string Main {

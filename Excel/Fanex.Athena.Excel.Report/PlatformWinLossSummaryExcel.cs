@@ -32,22 +32,19 @@
         private const int RowNoInfoTemplate = 6;
 
         private readonly string _templatePath;
-        private readonly string _fileName;
         private readonly PlatformWinLossMetaModel _model;
         private readonly IList<PlatformWinLossSummary> _dataList;
         private readonly PlatformWinLossSummary _total;
 
         public PlatformWinLossSummaryExcel(
             string templatePath,
-            string fileName,
             PlatformWinLossMetaModel metaModel,
             IList<PlatformWinLossSummary> dataList,
             PlatformWinLossSummary total,
             ConvertingOption convertingOption)
-            : base(templatePath, fileName, new ShowingOption(), convertingOption)
+            : base(templatePath, new ShowingOption(), convertingOption)
         {
             _templatePath = templatePath;
-            _fileName = fileName;
             _model = metaModel;
             _dataList = dataList;
             _total = total;

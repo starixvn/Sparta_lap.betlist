@@ -1,10 +1,13 @@
-﻿$height: 28px;
+﻿@import "../../scss/abstracts/variables";
+
+$height: 26px;
 $font-size: 12px;
+$colorDisableDropdown: $colorDisabled;
 
 .input-field {
     label {
         position: absolute;
-        top: -14px;
+        top: -10px;
     }
 }
 
@@ -40,11 +43,22 @@ $font-size: 12px;
                     vertical-align: middle;
                 }
             }
+
+            &.disabled {
+                color: $colorDisableDropdown !important;
+                cursor: default;
+                pointer-events: none;
+
+                .selection-icon-arrow{
+                    border-color: $colorDisableDropdown transparent transparent transparent;
+                }
+            }
         }
     }
 
     &-result-container {
         position: absolute;
+        z-index: 100;
 
         .select-list-dropdown {
             background-color: #fff;

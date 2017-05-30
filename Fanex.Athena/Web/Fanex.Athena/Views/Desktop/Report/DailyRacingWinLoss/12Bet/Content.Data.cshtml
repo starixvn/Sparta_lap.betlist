@@ -1,0 +1,56 @@
+﻿@using Fanex.Athena.Model.Core.Helper
+@model Fanex.Athena.Model.Report.ViewModel.DailyRacingWinLossViewModel
+@{
+    var contentData = Model.DailyRacingWinLossData.ContentData;
+    var contentTotalData = Model.DailyRacingWinLossData.ContentTotalData;
+    var leagueCurrencyList = contentData.Keys;
+    var colSpan = Model.IsAllowedCustomerCommission ? 15 : 14;
+}
+
+@foreach (var leagueCurrency in leagueCurrencyList)
+{
+    var leagueCurrencyData = contentData[leagueCurrency];
+    var firstRow = leagueCurrencyData.First();
+
+    <tr class="row-group-level1">
+        <td colspan="@colSpan">@CacheRef.GetLeagueName(firstRow.LeagueId) - @firstRow.CurrencyName</td>
+    </tr>
+
+    // Race
+    foreach (var dailyRacing in leagueCurrencyData)
+    {
+        <tr>
+            <td colspan="2" class="center-align">
+                <a href="javascript:;" class="number-circle bet-list-link" data-league="@dailyRacing.LeagueId" data-race-no="@dailyRacing.RaceNo" data-currency="@dailyRacing.Currency">
+                    @dailyRacing.RaceNo
+                </a>
+            </td>
+
+            @*----- Customer (Overall) -----*@
+            <td class="right-align">@dailyRacing.WinTO.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.PlaceTO.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.WPTO.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.TotalTO.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.DividendWon.ToStringExt()</td>
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <td class="right-align">@dailyRacing.CustomerCommission.ToStringExt()</td>
+            }
+
+            @*----- 12Bet Licensee -----*@
+            <td class="right-align">@dailyRacing.WinTO12Bet.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.PlaceTO12Bet.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.WPTO12Bet.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.TotalTO12Bet.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.WinLoss12Bet.ToStringExt()</td>
+            <td class="right-align">@dailyRacing.CommIncome.ToStringExt()</td>
+
+            <td class="right-align">@dailyRacing.AmountDueToRacing.ToStringExt()</td>
+        </tr>
+    }
+
+    Html.RenderPartial("~/Views/Desktop/Report/DailyRacingWinLoss/12Bet/Content.TotalCommon.cshtml", contentTotalData[leagueCurrency]);
+}
+
+@*Currency Total*@
+@{Html.RenderPartial("~/Views/Desktop/Report/DailyRacingWinLoss/12Bet/Content.TotalCurrency.cshtml", Model);}

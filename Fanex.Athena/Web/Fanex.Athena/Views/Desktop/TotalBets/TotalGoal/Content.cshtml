@@ -67,10 +67,10 @@ else
                         @ViewResources.Total
                     </td>
                     <td class="right-align no-margin" colspan="4">
-                        @RazorHelperDesktop.DecFormat(Model.TotalData.Total01, true, false)
+                        @DesktopRazorHelper.DecFormat(Model.TotalData.Total01, true, false)
                     </td>
                     <td class="right-align no-margin" colspan="3">
-                        @RazorHelperDesktop.DecFormat(Model.TotalData.TotalFirstHalf01 ?? 0, true, false)
+                        @DesktopRazorHelper.DecFormat(Model.TotalData.TotalFirstHalf01 ?? 0, true, false)
                     </td>
                 </tr>
             </tbody>

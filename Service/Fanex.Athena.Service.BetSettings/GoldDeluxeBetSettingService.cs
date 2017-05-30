@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.BetSettings
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Interfaces;
-    using Model.BetSettings.DTO.AgCasino;
+    using Model.BetSettings.DTO.GoldDeluxe;
     using Model.BetSettings.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;

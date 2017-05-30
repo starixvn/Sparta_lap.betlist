@@ -29,13 +29,16 @@
   border-radius: 2px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   height: 32px;
-  line-height: 32px; }
+  line-height: 32px;
+  transition: none; }
 
 .btn-primary {
   background: #f05b1f;
   color: #fff; }
   .btn-primary:hover {
     background: #f37e4f; }
+  .btn-primary:focus {
+    background: #f05b1f; }
 
 .button-collapse .material-icons {
   color: #fff;
@@ -102,6 +105,9 @@
       color: #2c2c2c; }
     .page-form .input-field.input label {
       top: 8px; }
+      .page-form .input-field.input label.active {
+        top: -10px;
+        transform: none; }
     .page-form .input-field .icon-calendar {
       position: absolute;
       right: 10px;
@@ -139,16 +145,13 @@
   border: 1px solid #d6d6d6;
   color: #404040;
   padding: 2px 5px;
-  background: #ededed; }
-
-.table > tbody tr:nth-child(odd) td {
   background: #fff; }
 
 .table > tbody tr:hover td {
   background: #fcf4df; }
 
 .table > tbody tr.total td {
-  background: #ffb391; }
+  background: #B8C3C9; }
 
 .table > tbody tr.highlight td {
   background: #f7dbb6;
@@ -185,7 +188,7 @@
 
 .input-field label {
   position: absolute;
-  top: -14px; }
+  top: -10px; }
 
 .select-list-container {
   position: relative;
@@ -194,8 +197,8 @@
   .select-list-container .selection {
     background: transparent;
     border-bottom: 1px solid #ccc;
-    height: 28px;
-    line-height: 28px;
+    height: 26px;
+    line-height: 26px;
     display: inline-block;
     width: 100%;
     position: relative; }
@@ -211,9 +214,16 @@
         border-style: solid;
         display: inline-block;
         vertical-align: middle; }
+    .select-list-container .selection.disabled {
+      color: rgba(0, 0, 0, 0.26) !important;
+      cursor: default;
+      pointer-events: none; }
+      .select-list-container .selection.disabled .selection-icon-arrow {
+        border-color: rgba(0, 0, 0, 0.26) transparent transparent transparent; }
 
 .select-list-result-container {
-  position: absolute; }
+  position: absolute;
+  z-index: 100; }
   .select-list-result-container .select-list-dropdown {
     background-color: #fff;
     border: 1px solid #ccc;
@@ -306,7 +316,7 @@
 table td, table th {
   border-radius: 0; }
 
-table tbody tr.row-group-level1 {
+table tbody tr.row-group-level1 td {
   background: #D1DAE1;
   font-weight: bold; }
 
@@ -320,6 +330,8 @@ table tbody tr.row-group-level1 {
   width: 15%; }
   .col-medium.small {
     width: 10%; }
+  .col-medium.large {
+    width: 20%; }
 
 .col-large {
   width: 40%; }
@@ -330,6 +342,8 @@ table tbody tr.row-group-level1 {
   width: 10%; }
   .col-child.small {
     width: 6%; }
+  .col-child.medium {
+    width: 7.5%; }
 
 #UserGuidePopup ul li {
   list-style-type: disc; }
@@ -337,6 +351,9 @@ table tbody tr.row-group-level1 {
     list-style-type: circle; }
     #UserGuidePopup ul li ul li ul li {
       list-style-type: square; }
+
+.disabled {
+  pointer-events: none; }
 
 .popup-block-body {
   background: transparent;
@@ -862,8 +879,7 @@ table tbody tr.row-group-level1 {
       background: #4C6375; }
     .label-default.active {
       color: #fff;
-      background: #4C6375;
-      border: none; }
+      background: #4C6375; }
   .label-primary {
     color: #fff;
     background: #4C6375;

@@ -283,7 +283,7 @@
 
         it("the dialog container should contain an iframe with correct src attribute", function () {
             var $iframe = $dialogContainer.find('iframe');
-            expect($iframe.attr('src')).toBe('MicroGamingRngBetList/Detail?transid=0&custid=0&transtype=0');
+            expect($iframe.attr('src').toLowerCase()).toBe('MicroGamingRngBetList/Detail?transid=0&custid=0&transtype=0'.toLowerCase());
         });
     });
 
@@ -305,7 +305,7 @@
 
         it("the dialog container should contain an iframe with correct src attribute", function () {
             var $iframe = $dialogContainer.find('iframe');
-            expect($iframe.attr('src')).toBe('AGCasinoBetList/Detail?transid=0&custid=0&transtype=0');
+            expect($iframe.attr('src').toLowerCase()).toBe('AGCasinoBetList/Detail?transid=0&custid=0&transtype=0'.toLowerCase());
         });
     });
 

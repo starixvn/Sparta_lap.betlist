@@ -20,6 +20,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
@@ -34,8 +35,11 @@ namespace Fanex.Athena.Api.Report
             _cashOutWinLossService = new CashOutWinLossService();
         }
 
-        public CashOutWinLossReportController(ICashOutWinLossService cashOutWinLossService, ISessionService sessionService)
-            : base(sessionService)
+        public CashOutWinLossReportController(
+            ICashOutWinLossService cashOutWinLossService,
+            ISessionService sessionService,
+            IProductService productService)
+            : base(sessionService, productService)
         {
             _cashOutWinLossService = cashOutWinLossService;
         }
@@ -66,7 +70,7 @@ namespace Fanex.Athena.Api.Report
             CashOutWinLossMetaModel metaModel,
             CashOutWinLossViewModel viewModel)
         {
-            return new CashOutWinLossExcel(templatePath, exportingFileName, convertingOption, metaModel, viewModel)
+            return new CashOutWinLossExcel(templatePath, convertingOption, metaModel, viewModel)
             {
                 Level = metaModel.DrillDownLevel,
             };

@@ -46,7 +46,7 @@
                     resourceName: "LicenseeWL",
                     title: Site.getSingleResource("LicenseeWinLoss")
                 });
-                MultiSelect.initialize('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
+                MultiSelect.initProductList();
                 DatePicker.initDateRangePicker();
             },
 
@@ -122,8 +122,12 @@
 
             setReportTitle: function (currencyId, fromdate, todate, currencyName) {
                 var titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-                var currencyNameOnTitle = currencyName ? currencyName : Report.getCurrencyNameForReportTitle(currencyId);
-                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyNameOnTitle);
+                var currencyNameOnTitle = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName)
+                                                        : Report.getCurrencyNameForReportTitle(currencyId);
+                var title = $.format(titlePattern,
+                    moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"),
+                    moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"),
+                    currencyNameOnTitle);
                 $(".report-title").html(title);
                 $(".panel-heading").removeClass("hide");
             },

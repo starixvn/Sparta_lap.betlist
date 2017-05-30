@@ -14,7 +14,7 @@
                     return url;
                 });
                 spyOn(Site, "initialize");
-                spyOn(MultiSelect, "initialize");
+                spyOn(MultiSelect, "initProductList");
                 spyOn(DatePicker, "initDateRangePicker");
             });
 
@@ -69,8 +69,6 @@
                         LicenseeWinLoss.ajaxComplete(0, { Data: "Hello" }); //set value for cache data
                         LicenseeWinLossOption.gridOption.onSortCol(_sortColumn);
                         jasmine.clock().tick(101);
-                    });
-                    afterEach(function () {
                         jasmine.clock().uninstall();
                     });
 
@@ -801,7 +799,7 @@
                         var args = Popup.openPopupWithIframe.calls.mostRecent().args;
                         var optionResult = args[1];
 
-                        expect(args[0]).toBe(url);
+                        expect(args[0].toLowerCase()).toBe(url.toLowerCase());
                         expect(optionResult.id).toBe(popupOption.id);
                         expect(optionResult.width).toBe(popupOption.width);
                         expect(optionResult.title).toBe(popupOption.title);
@@ -824,7 +822,7 @@
                         var args = Popup.openPopupWithIframe.calls.mostRecent().args;
                         var optionResult = args[1];
 
-                        expect(args[0]).toBe(url);
+                        expect(args[0].toLowerCase()).toBe(url.toLowerCase());
                         expect(optionResult.id).toBe(popupOption.id);
                         expect(optionResult.width).toBe(popupOption.width);
                         expect(optionResult.title).toBe(popupOption.title);
@@ -859,7 +857,7 @@
                         var args = Popup.openPopupWithIframe.calls.mostRecent().args;
                         var optionResult = args[1];
 
-                        expect(args[0]).toBe(url);
+                        expect(args[0].toLowerCase()).toBe(url.toLowerCase());
                         expect(optionResult.id).toBe(popupOption.id);
                         expect(optionResult.width).toBe(popupOption.width);
                         expect(optionResult.title).toBe(popupOption.title);

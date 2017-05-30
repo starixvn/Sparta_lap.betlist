@@ -1,0 +1,25 @@
+﻿@import '../common/reportcommon.main';
+@import '../../components/scrollablegrid/scrollablegrid';
+@import '../../components/daterangepicker/daterangepicker-ex';
+
+.header-content {
+    .table {
+        th {
+            background: $bgHeaderTableLevel2;
+            color: $black;
+            font-weight: bold;
+        }
+    }
+}
+
+.col-customer-comm {
+    width: 7.5%;
+}
+
+.number-circle {
+    border: 1px solid $colorHyperlink;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}

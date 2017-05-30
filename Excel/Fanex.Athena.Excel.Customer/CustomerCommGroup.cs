@@ -38,10 +38,9 @@ namespace Fanex.Athena.Excel.Customer
 
         public CustomerCommGroup(
                                  string templatePath,
-                                 string exportingFileName,
                                  DataTable exportData,
                                  ShowingOption showingOption)
-            : base(templatePath, exportingFileName, showingOption, new ConvertingOption())
+            : base(templatePath, showingOption, new ConvertingOption())
         {
             _exportData = exportData;
             ExportData = exportData;

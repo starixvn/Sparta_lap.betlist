@@ -42,18 +42,17 @@ namespace Fanex.Athena.Excel.Warehouse
             { (int)WarehouseReportBy.League, (int)WarehouseReportBy.League },
          };
 
-        private IList<Fanex.Athena.Model.Warehouse.DTO.WinLoss> _dataList;
+        private readonly IList<WinLoss> _dataList;
 
-        private IDictionary<string, decimal> _totalValues;
+        private readonly IDictionary<string, decimal> _totalValues;
 
         public TopWinLoss(
                 string templatePath,
-                string exportingFileName,
                 ConvertingOption convertingOption,
                 ShowingOption showingOption,
                 IList<Fanex.Athena.Model.Warehouse.DTO.WinLoss> dataList,
                 IDictionary<string, decimal> totalValues)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _dataList = dataList;
 

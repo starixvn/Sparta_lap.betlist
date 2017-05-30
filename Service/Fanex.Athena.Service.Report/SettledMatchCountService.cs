@@ -16,9 +16,6 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Report.Interfaces;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class SettledMatchCountService : ISettledMatchCountService
     {
         #region Field

@@ -111,7 +111,7 @@ namespace Fanex.Athena.Api.Report
                 TotalCustomer = totalCustomer,
             };
 
-            var excel = new ActiveCustomerSummaryExcel(templatePath, FileName, convertingOption, showingOption, metaModel, excelModel);
+            var excel = new ActiveCustomerSummaryExcel(templatePath, convertingOption, showingOption, metaModel, excelModel);
 
             excel.Export();
 

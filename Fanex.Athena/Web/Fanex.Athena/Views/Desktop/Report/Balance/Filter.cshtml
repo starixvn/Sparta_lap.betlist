@@ -13,30 +13,30 @@
         <div class="row">
             @*// -----------------------------Currency-----------------------------------//*@
             <div class="col l2 m2 s12 input-field">
-                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select CurrencyId", Model.Param.CurrencyId)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select CurrencyId", Model.Param.CurrencyId)
                 <label>@ViewResources.Currency</label>
             </div>
 
             @*// -----------------------------Base Currency-----------------------------------//*@
             <div class="col l2 m2 s12 input-field">
-                @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency)
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency)
                 <label>@ViewResources.Based</label>
             </div>
 
             @*// -----------------------------Month-----------------------------------//*@
             <div class="col l2 m2 s12 input-field">
-                @RazorHelperDesktop.MonthDropDownList(Model.Param.FromDate.Month)
+                @DesktopRazorHelper.MonthDropDownList(Model.Param.FromDate.Month)
                 <label>@ViewResources.Month</label>
             </div>
 
             @*// -----------------------------Year-----------------------------------//*@
             <div class="col l2 m2 s12 input-field">
-                @RazorHelperDesktop.YearDropDownList(Model.Param.FromDate.Year, 5)
+                @DesktopRazorHelper.YearDropDownList(Model.Param.FromDate.Year, 5)
                 <label>@ViewResources.Year</label>
             </div>
 
             <div class="col l1 m2 s12 button-block">
-                <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
             </div>
 
             <div class="col right icon-block">

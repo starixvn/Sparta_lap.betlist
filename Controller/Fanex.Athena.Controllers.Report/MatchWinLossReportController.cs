@@ -1,14 +1,7 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ReportController.MatchWinLoss.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Fanex.Athena.Controllers.Report
+﻿namespace Fanex.Athena.Controllers.Report
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
@@ -27,10 +20,38 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Fanex.Common;
     using Resources;
+    using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossReportController : ReportBaseController
     {
+        private const int LCSport = 162;
+        private const int BetType81 = 81;
+        private const int BetType120 = 120;
+        private const int BetType31 = 31;
+        private const int BetType33 = 33;
+        private const int BetType1101 = 1101;
+        private const int BetType1199 = 1199;
+        private const int BetType1021 = 1021;
+        private const int BetType1299 = 1299;
+        private const int LCProductId = 4;
+        private const int RBProductId = 2;
+        private const int VSProductId = 5;
+        private const int SBProductId = 1;
+        private const int NGProductId = 3;
+        private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
+        private readonly IMatchWinLossService _matchWinLossService;
+
+        public MatchWinLossReportController()
+        {
+            _matchWinLossService = new MatchWinLossService();
+        }
+
+        public MatchWinLossReportController(IMatchWinLossService matchWinLossService)
+        {
+            _matchWinLossService = matchWinLossService ?? new MatchWinLossService();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -48,14 +69,13 @@ namespace Fanex.Athena.Controllers.Report
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.MatchWinLoss);
-            var productOption = productAccess.ProductList
+            metaModel.ProductOptions = productAccess.ProductList
                                              .Select(i => new ProductOption
                                              {
                                                  Code = i.ProductCode,
                                                  Name = i.ProductName,
                                                  Status = i.ProductCode == Product.SB
                                              }).ToList();
-            metaModel.ProductOptions = productOption;
 
             var model = new MatchWinLossViewModel
             {
@@ -69,10 +89,6 @@ namespace Fanex.Athena.Controllers.Report
             return View("~/Views/Report/MatchWinLoss/Main.cshtml", model);
         }
 
-        [SuppressMessage(
-          "StyleCop.CSharp.StylecopPlus.Rules",
-          "SP2101:MethodMustNotContainMoreLinesThan",
-          Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [CustomValidateAntiForgery]
         public ActionResult Index(MatchWinLossMetaModel metaModel)
@@ -91,24 +107,12 @@ namespace Fanex.Athena.Controllers.Report
                 return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
             }
 
-            var matchWinLossService = new MatchWinLossService();
-
-            var reportData = matchWinLossService.GetDataList(metaModel);
+            var reportData = _matchWinLossService.GetDataList(metaModel);
             var reportDataOutrightParlay = new List<MatchWinLoss>();
 
-            if (metaModel.ProductOptions.Count(i => (i.Code == Product.BA || i.Code == Product.SB) && i.Status) > 0)
+            if (metaModel.ProductOptions.Any(i => (i.Code == Product.BA || i.Code == Product.SB) && i.Status))
             {
-                reportDataOutrightParlay = matchWinLossService.GetOutrightParlayList(metaModel).ToList();
-            }
-
-            // Calculate the league list
-            var leagueList = new Dictionary<int, string>();
-            for (int i = 0, count = reportData.Count; i < count; i++)
-            {
-                if (!leagueList.ContainsKey(reportData[i].LeagueId))
-                {
-                    leagueList.Add(reportData[i].LeagueId, reportData[i].LeagueName);
-                }
+                reportDataOutrightParlay = _matchWinLossService.GetOutrightParlayList(metaModel).ToList();
             }
 
             var total = GetTotal(reportData);
@@ -118,7 +122,7 @@ namespace Fanex.Athena.Controllers.Report
             {
                 Param = metaModel,
                 MainResult = reportData,
-                LeagueList = leagueList,
+                LeagueList = CreateLeagueList(reportData),
                 SpecialBetTypeResult = reportDataOutrightParlay,
 
                 CurrencyList = currencies,
@@ -136,17 +140,12 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Detail(MatchWinLossMetaModel metaModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var matchWinLossService = new MatchWinLossService();
-            var reportData = matchWinLossService.GetDetailDataList(metaModel);
-
-            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
-
+            var reportData = _matchWinLossService.GetDetailDataList(metaModel);
             var model = new MatchWinLossViewModel
             {
                 MainResult = reportData,
-                ProductAccess = productAccess,
+                ProductAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.MatchWinLoss),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
@@ -157,12 +156,13 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult Excel(MatchWinLossMetaModel metaModel)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            const int PageSize = 63000;
             const string FileName = nameof(MatchWinLoss);
+
+            var licenseeSession = SessionService.LicenseeSession;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var templatePath = Server.MapPath(@"~/App_Data/Template/Reports/MatchWinLoss.xls");
-            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, userSession.Language, FunctionNames.MatchWinLoss);
+            var productAccess = ProductService.GetSingleWalletProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language, FunctionNames.MatchWinLoss);
             var showingOption = new ShowingOption
             {
                 BAVisible = productAccess.IsAllowBA,
@@ -181,16 +181,14 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyName = metaModel.CurrencyName
             };
 
-            metaModel.PageSize = 63000;
-            var matchWinLossService = new MatchWinLossService();
-            var reportData = matchWinLossService.GetDetailDataSet(metaModel);
+            metaModel.PageSize = PageSize;
+            var reportData = _matchWinLossService.GetDetailDataSet(metaModel);
             var mainTable = reportData.Tables[0];
-            mainTable = SortMatchWinlossTable(mainTable);
+            mainTable = AddColumnsForSorting(mainTable);
             mainTable.DefaultView.Sort = "newproductid asc, leaguename asc, matchname ASC";
             mainTable = mainTable.DefaultView.ToTable();
             var matchWinLossExcel = new MatchWinLossExcel(
                 templatePath,
-                FileName,
                 convertingOption,
                 showingOption,
                 mainTable,
@@ -203,6 +201,16 @@ namespace Fanex.Athena.Controllers.Report
             matchWinLossExcel.Export();
 
             return new ExcelResult(matchWinLossExcel.Workbook, FileName);
+        }
+
+        private static IDictionary<int, string> CreateLeagueList(IList<MatchWinLoss> reportData)
+        {
+            if (reportData == null || reportData.Count == 0)
+            {
+                return new Dictionary<int, string>();
+            }
+
+            return reportData.GroupBy(i => i.LeagueId).ToDictionary(i => i.Key, i => i.FirstOrDefault().LeagueName);
         }
 
         private static MatchWinLoss GetTotal(IList<MatchWinLoss> dataList)
@@ -225,147 +233,125 @@ namespace Fanex.Athena.Controllers.Report
 
         private static MatchWinLoss GetGrandTotal(IList<MatchWinLoss> dataListOutright, MatchWinLoss total)
         {
-            var grandTotalMatchWinLoss = new MatchWinLoss
+            return new MatchWinLoss
             {
-                Turnover =
-                    dataListOutright.Sum(item => item.Turnover) + total.Turnover,
-                TotalTransaction =
-                    dataListOutright.Sum(item => item.TotalTransaction) + total.TotalTransaction,
-                CustomerWL =
-                    dataListOutright.Sum(item => item.CustomerWL) +
-                    total.CustomerWL,
-                CustomerComm =
-                    dataListOutright.Sum(item => item.CustomerComm) +
-                    total.CustomerComm,
-                LicenseeWL =
-                    dataListOutright.Sum(item => item.LicenseeWL) +
-                    total.LicenseeWL,
-                BACommission = dataListOutright.Sum(item => item.BACommission) +
-                               total.BACommission,
-                AmtDueToBA = dataListOutright.Sum(item => item.AmtDueToBA) +
-                             total.AmtDueToBA,
-                RacingRevenue = dataListOutright.Sum(item => item.RacingRevenue) +
-                                total.RacingRevenue,
-                AmtDueToRacing = dataListOutright.Sum(item => item.AmtDueToRacing) +
-                                 total.AmtDueToRacing
+                Turnover = dataListOutright.Sum(item => item.Turnover) + total.Turnover,
+                TotalTransaction = dataListOutright.Sum(item => item.TotalTransaction) + total.TotalTransaction,
+                CustomerWL = dataListOutright.Sum(item => item.CustomerWL) + total.CustomerWL,
+                CustomerComm = dataListOutright.Sum(item => item.CustomerComm) + total.CustomerComm,
+                LicenseeWL = dataListOutright.Sum(item => item.LicenseeWL) + total.LicenseeWL,
+                BACommission = dataListOutright.Sum(item => item.BACommission) + total.BACommission,
+                AmtDueToBA = dataListOutright.Sum(item => item.AmtDueToBA) + total.AmtDueToBA,
+                RacingRevenue = dataListOutright.Sum(item => item.RacingRevenue) + total.RacingRevenue,
+                AmtDueToRacing = dataListOutright.Sum(item => item.AmtDueToRacing) + total.AmtDueToRacing
             };
-
-            return grandTotalMatchWinLoss;
         }
 
         #region Obsolete
 
-        /// <summary>
-        ///     This function is obsolete, and will be replaced by newer function soon.
-        ///     Recalculate extra column such as product name, match name, league name, for easy to sort.
-        ///     This function is obsolete, and will be replaced by newer function soon.
-        /// </summary>
-        /// <param name="mainTable">The main table data.</param>
-        /// <returns>The data table.</returns>
-        [SuppressMessage(
-              "StyleCop.CSharp.StylecopPlus.Rules",
-              "SP2101:MethodMustNotContainMoreLinesThan",
-              Justification = "Reviewed. Suppression is OK here.")]
-        private static DataTable SortMatchWinlossTable(DataTable mainTable)
+        private static DataTable AddColumnsForSorting(DataTable mainTable)
         {
             mainTable.Columns.Add("productname", typeof(string));
             mainTable.Columns.Add("newproductid", typeof(int));
             mainTable.Columns.Add("matchname", typeof(string));
             mainTable.Columns.Add("leaguename", typeof(string));
 
-            /*Sort data*/
             foreach (DataRow row in mainTable.Rows)
             {
-                /* by product name*/
                 var betType = Converter.ToInt(row["bettype"]);
-                if (betType >= 81 && betType < 120)
-                {
-                    row["productname"] = Product.NG;
-                    row["newproductid"] = 3;
-                }
-                else if (betType >= 31 && betType <= 33)
-                {
-                    row["productname"] = Product.RB;
-                    row["newproductid"] = 2;
-                }
-                else if (betType >= 1101 && betType <= 1199)
-                {
-                    row["productname"] = Product.LC;
-                    row["newproductid"] = 4;
-                }
-                else if (betType >= 1021 && betType <= 1299)
-                {
-                    row["productname"] = Product.VS;
-                    row["newproductid"] = 5;
-                }
-                else
-                {
-                    row["productname"] = Product.SB;
-                    row["newproductid"] = 1;
-                }
+                AssignProduct(row, betType);
 
-                /* by Match name*/
-                switch (row["productname"].ToString())
-                {
-                    case Product.RB:
-                        {
-                            row["matchname"] = ViewResources.Race + Converter.ToString2(row["race"]);
-                            break;
-                        }
+                AssignMatchName(row, betType);
 
-                    case Product.NG:
-                        {
-                            row["matchname"] = ViewResources.NumberGameNo + " " + row["matchcode"];
-                            break;
-                        }
-
-                    case Product.LC:
-                        {
-                            row["matchname"] = string.Format("{0} {1} {2} ", CacheRef.GetSportName(162), CacheRef.GetBettype(row["bettype"]), row["showtime"]);
-                            break;
-                        }
-
-                    default:
-                        {
-                            // Virtual Horse Racing
-                            var virtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
-                            if (virtualHrBettypes.Contains(betType))
-                            {
-                                var culture = new CultureInfo("en-US");
-                                const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
-                                var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
-                                row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
-                                break;
-                            }
-
-                            var homeName = CacheRef.GetTeamName(row["homeid"]) +
-                                           (Converter.ToBool(row["isneutral"])
-                                                ? " " + ViewResources.IsNeutral
-                                                : string.Empty);
-                            var awayName = CacheRef.GetTeamName(row["awayid"]);
-                            row["matchname"] = homeName + "-vs-" + awayName;
-
-                            break;
-                        }
-                }
-
-                switch (row["productname"].ToString())
-                {
-                    case Product.RB:
-                        row["leaguename"] = ViewResources.ProductRB + " - " + CacheRef.GetLeagueName(row["leagueid"]);
-                        break;
-
-                    case Product.NG:
-                        row["leaguename"] = ViewResources.ProductNG;
-                        break;
-
-                    default:
-                        row["leaguename"] = CacheRef.GetLeagueName(row["leagueid"]);
-                        break;
-                }
+                AssignLeagueName(row);
             }
 
             return mainTable;
+        }
+
+        private static void AssignProduct(DataRow row, int betType)
+        {
+            if (betType >= BetType81 && betType < BetType120)
+            {
+                row["productname"] = Product.NG;
+                row["newproductid"] = NGProductId;
+            }
+            else if (betType >= BetType31 && betType <= BetType33)
+            {
+                row["productname"] = Product.RB;
+                row["newproductid"] = RBProductId;
+            }
+            else if (betType >= BetType1101 && betType <= BetType1199)
+            {
+                row["productname"] = Product.LC;
+                row["newproductid"] = LCProductId;
+            }
+            else if (betType >= BetType1021 && betType <= BetType1299)
+            {
+                row["productname"] = Product.VS;
+                row["newproductid"] = VSProductId;
+            }
+            else
+            {
+                row["productname"] = Product.SB;
+                row["newproductid"] = SBProductId;
+            }
+        }
+
+        private static void AssignMatchName(DataRow row, int betType)
+        {
+            switch (row["productname"].ToString())
+            {
+                case Product.RB:
+                    row["matchname"] = ViewResources.Race + Converter.ToString2(row["race"]);
+                    break;
+
+                case Product.NG:
+                    row["matchname"] = string.Format("{0} {1}", ViewResources.NumberGameNo, row["matchcode"]);
+                    break;
+
+                case Product.LC:
+                    row["matchname"] = string.Format("{0} {1} {2}", CacheRef.GetSportName(LCSport), CacheRef.GetBettype(row["bettype"]), row["showtime"]);
+                    break;
+
+                default:
+
+                    if (VirtualHrBettypes.Contains(betType))
+                    {
+                        var culture = new CultureInfo("en-US");
+                        const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
+                        var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
+                        row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
+                        break;
+                    }
+
+                    var homeName = CacheRef.GetTeamName(row["homeid"]) +
+                                   (Converter.ToBool(row["isneutral"])
+                                        ? " " + ViewResources.IsNeutral
+                                        : string.Empty);
+                    var awayName = CacheRef.GetTeamName(row["awayid"]);
+                    row["matchname"] = homeName + "-vs-" + awayName;
+
+                    break;
+            }
+        }
+
+        private static void AssignLeagueName(DataRow row)
+        {
+            switch (row["productname"].ToString())
+            {
+                case Product.RB:
+                    row["leaguename"] = ViewResources.ProductRB + "-" + CacheRef.GetLeagueName(row["leagueid"]);
+                    break;
+
+                case Product.NG:
+                    row["leaguename"] = ViewResources.ProductNG;
+                    break;
+
+                default:
+                    row["leaguename"] = CacheRef.GetLeagueName(row["leagueid"]);
+                    break;
+            }
         }
 
         #endregion Obsolete

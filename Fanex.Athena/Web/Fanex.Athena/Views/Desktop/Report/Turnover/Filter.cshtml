@@ -13,23 +13,23 @@
         @Html.Hidden("IsAllowedCasinoTransfer", Model.IsAllowedCasinoTransfer)
         @Html.Hidden("IsAllowBa", Model.ProductAccess.IsAllowBA)
         <div class="row">
-            @RazorHelperDesktop.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
+            @DesktopRazorHelper.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
 
             <div class="input-field col l2 m3 s12">
-                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "currency", Model.Param.CurrencyId, false, true)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "currency", Model.Param.CurrencyId, false, true)
                 <label>@ViewResources.Currency</label>
             </div>
-        </div>
-        <div class="row">
+
             <div class="input-field col l2 m3 s12">
                 @Html.TextBox("Username", Model.Param.Username, new { placeholder = ViewResources.ExternalIdOrSystemId })
                 <label>@ViewResources.Username</label>
                 <ul id="suggestionDropdown" class="dropdown-content ac-dropdown"></ul>
             </div>
-
-            @RazorHelperDesktop.RenderProductFilter(Model.Param.ProductOptions)
+        </div>
+        <div class="row">
+            @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions)
             
-            <div class="input-field input col l2 m3 s12">
+            <div class="input-field input col l2 m3 s12 offset-l1">
                 <input type="radio" value="true" class="with-gap" @(Model.Param.IsExcludeTest == true ? "checked=checked" : "") name="IsExcludeTest" id="IsExcludeTest0" />
                 <label for="IsExcludeTest0">
                     @ViewResources.Yes
@@ -43,7 +43,7 @@
             </div>
 
             <div class="col l1 m2 s12 button-block">
-                <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
             </div>
 
             <div class="col right icon-block">

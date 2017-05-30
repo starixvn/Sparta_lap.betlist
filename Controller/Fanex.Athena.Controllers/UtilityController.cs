@@ -190,6 +190,14 @@ namespace Fanex.Athena.Controllers
             _languageService.SetPageCulture(currentLanguage);
         }
 
+        protected override ViewResult View(string viewName, string masterName, object model)
+        {
+            var option = (ClientViewType)int.Parse(ConfigurationManager.AppSettings["ClientViewType"] ?? "0");
+
+            var viewByOption = ClientViewHelper.GetViewPath(viewName, option);
+            return base.View(viewByOption, masterName, model);
+        }
+
         private static string GetMessageRestriction(int code)
         {
             switch (code)

@@ -11,7 +11,7 @@
                 </a>
             </td>
 
-            @ReportContentHelperDesktop.RenderDataForLiveReport(Model, item)
+            @DesktopLiveReportRazorHelper.RenderData(Model, item)
         </tr>
     }
 }
@@ -47,12 +47,12 @@
 
     <td class="right-align" title="@sumTurnOver">@sumTurnOver</td>
     <td class="right-align" title="@sumBetCount">@sumBetCount</td>
-    <td class="right-align highlight" title="@sumLicenseeWL.ToStringExt()">@RazorHelperDesktop.HighlightNegativeFormat(sumLicenseeWL)</td>
+    <td class="right-align" title="@sumLicenseeWL.ToStringExt()">@DesktopRazorHelper.HighlightNegativeFormat(sumLicenseeWL)</td>
 
     @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
     {
         var sumLicenseeComm = Model.MainResult.Sum(i => i.LicenseeComm).ToStringExt();
-        <td class="right-align highlight" title="@sumLicenseeComm">@sumLicenseeComm</td>
+        <td class="right-align" title="@sumLicenseeComm">@sumLicenseeComm</td>
     }
 
     <td class="right-align" title="@sumAmountDue">@sumAmountDue</td>

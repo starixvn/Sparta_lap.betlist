@@ -3,12 +3,16 @@
     using Base;
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Core.MetaModel;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
 
     public class ApiReportBaseController : BaseApiController
     {
-        protected ApiReportBaseController(ISessionService sessionService) : base(sessionService)
+        protected ApiReportBaseController(
+            ISessionService sessionService,
+            IProductService productService)
+            : base(sessionService, productService)
         {
         }
 

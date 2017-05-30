@@ -26,6 +26,8 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportDailyBetList)]
     public class DailyBetListController : BetListBaseController
     {
+        private const int MaxPageSize = int.MaxValue - 1000;
+
         private const string BetListDailyBetListName = "BetList_DailyBetList";
 
         [HttpGet]
@@ -67,7 +69,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             metaModel.IsServerPaging = true;
-            metaModel.PageSize = MaxPageSizeDailyBetlist;
+            metaModel.PageSize = MaxPageSize;
             metaModel.PageIndex = 1;
             var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
 

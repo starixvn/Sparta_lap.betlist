@@ -34,12 +34,11 @@ namespace Fanex.Athena.Excel.Report
 
         public WeeklyLiveMatchExcel(
                 string templatePath,
-                string exportingFileName,
                 WeeklyLiveMatchMetaModel metaModel,
                 IEnumerable<WeeklyLiveMatch> dataList,
                 int[] totalData,
                 IEnumerable<string> weekHeaders)
-            : base(templatePath, exportingFileName, null, null)
+            : base(templatePath, null, null)
         {
             _totalData = totalData;
             _metaModel = metaModel;

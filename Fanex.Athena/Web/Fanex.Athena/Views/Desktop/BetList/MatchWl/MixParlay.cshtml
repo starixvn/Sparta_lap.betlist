@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = string.Format("LRF - {0}", ViewResources.BetList);
+    Layout = "~/Views/Desktop/Shared/_BetListSimpleLayout.cshtml";
+}
+
+@using Fanex.Athena.Model.Core.Helper
+@model Fanex.Athena.Model.BetList.MetaModel.BetListMetaModel
+
+@section ContentTitle
+{
+    @ViewResources.BetList - @CacheRef.GetBettype(Model.BetType) - @Model.FromDate.ToShortDateString()
+    - <span class="base-currency">@DesktopRazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
+}
+@section BackButton
+{
+    <a href="javascript:window.history.back();" class="icon-back"></a>
+}
+@{
+    <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
+    <input type="hidden" id="HiddenColumnList" value="" />
+    <input type="hidden" id="IsServerPaging" value="1" />
+    <input type="hidden" id="ApiUrl" value="api/MatchWinLossBetList/MixParlay" />
+}
+<script>
+    window.serverPaging = true; // used in betlist.js
+</script>

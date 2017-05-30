@@ -148,7 +148,7 @@ namespace Fanex.Athena.Controllers.Report
                 CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
-            var winLossByBetTypeExcel = new WinLossByBetTypeExcel(templatePath, FileName, currencyConvert, showingOption, viewModel);
+            var winLossByBetTypeExcel = new WinLossByBetTypeExcel(templatePath, currencyConvert, showingOption, viewModel);
 
             winLossByBetTypeExcel.Export();
 

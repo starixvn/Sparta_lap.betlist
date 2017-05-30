@@ -246,10 +246,10 @@
                         WeeklyLiveMatch.setTotalRow();
                     });
 
-                    it("total row of '.ui-jqgrid-ftable' should has class 'total'", function () {
+                    it("total row of '.ui-jqgrid-ftable' should has class 'grandTotal'", function () {
                         var $totalRow = $('.ui-jqgrid-ftable').find('.footrow');
 
-                        expect($totalRow.hasClass("total")).toBe(true);
+                        expect($totalRow.hasClass("grandTotal")).toBe(true);
                     });
 
                     it("second cell in total row of '.ui-jqgrid-ftable' should be hidden", function () {

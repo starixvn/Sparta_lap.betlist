@@ -1,0 +1,20 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.DailyRacingWinLossViewModel
+
+<tr>
+    <th>@ViewResources.MeettingCurrency</th>
+    <th>@ViewResources.Race</th>
+
+    <th>@ViewResources.WinTO</th>
+    <th>@ViewResources.PlaceTO</th>
+    <th>@ViewResources.WPTO</th>
+    <th>@ViewResources.TotalTO</th>
+    <th>@ViewResources.DividendWon</th>
+
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <th>@ViewResources.CustomerCommission</th>
+    }
+
+    <th>@ViewResources.Comm</th>
+    <th>@ViewResources.AmtDueToRacing</th>
+</tr>

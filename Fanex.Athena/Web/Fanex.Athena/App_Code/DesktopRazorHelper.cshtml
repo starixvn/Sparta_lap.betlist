@@ -1,0 +1,423 @@
+﻿@using System.Web.Mvc;
+@using Fanex.Athena.Extension.Helper;
+@using Fanex.Athena.Model.Core.MetaModel.Product;
+@using Fanex.Athena.Model.Core.DataDomain;
+@using Fanex.Athena.Model.Core.DTO.Common;
+@using Fanex.Athena.Resources;
+
+@helper DateRangePicker(DateTime fromDate, DateTime toDate, DateTime minDate, DateTime maxDate)
+{
+    <input name="DateRange" id="DateRange" class="datepicker" type="text" readonly="readonly" autocomplete="off"
+           data-mindate="@minDate.ToString("MM/dd/yyyy")" data-maxdate="@maxDate.ToString("MM/dd/yyyy")" data-today="@DateTime.Today.ToString("MM/dd/yyyy")" />
+        <input name="FromDate" id="FromDate" type="hidden" data-original-from="@fromDate.ToString("MM/dd/yyyy")" value="@fromDate.ToString("MM/dd/yyyy")" />
+        <input name="ToDate" id="ToDate" type="hidden" data-original-to="@toDate.ToString("MM/dd/yyyy")" value="@toDate.ToString("MM/dd/yyyy")" />
+
+        <label for="DateRange" class="active">@ViewResources.Date</label>
+        <span class="icon icon-calendar"></span>
+}
+
+@helper SingleDatePicker(DateTime date, DateTime minDate, DateTime maxDate, string id = "FromDate", string className = "")
+{
+    <input name="@(id)" id="@(id)" class="@(className)" type="text" readonly="readonly" autocomplete="off"
+           data-original="@date.ToString("MM/dd/yyyy")" data-mindate="@minDate.ToString("MM/dd/yyyy")" data-maxdate="@maxDate.ToString("MM/dd/yyyy")" />
+        <label>@ViewResources.Date</label>
+        <span class="icon icon-calendar"></span>
+}
+
+@helper MonthPicker(DateTime fromDate, DateTime toDate)
+{
+    <div class="input-field input col l2 m2 s6 month-picker">
+        <div id="month-picker"></div>
+        <input name="FromDate" id="FromDate" type="hidden" data-original-from="@fromDate.ToString("MM/dd/yyyy")" value="@fromDate.ToString("MM/dd/yyyy")" />
+        <input name="ToDate" id="ToDate" type="hidden" data-original-to="@toDate.ToString("MM/dd/yyyy")" value="@toDate.ToString("MM/dd/yyyy")" />
+        <label class="active">@ViewResources.ViewDataInMonth</label>
+    </div>
+    <div class="input-field input col l1 m1 s3">
+        <label class="active">@ViewResources.From</label>
+        <div id="fDay">
+        </div>
+    </div>
+    <div class="input-field input col l1 m1 s3">
+        <label class="active">@ViewResources.To</label>
+        <div id="tDay">
+        </div>
+    </div>
+}
+
+@helper CurrencyList(IDictionary<int, string> currencyList,
+string className = "", int selected = 0,
+bool addMoreAllOption = true,
+bool addBasedOption = false)
+{
+var selectedName = currencyList.Where(p => p.Key == selected).FirstOrDefault().Key;
+var selectedBaseCurrency = selected == BaseCurrencyType.Gbp ? "gbp" :
+                           (selected == BaseCurrencyType.Usd ? "usd" :
+                           (selected == BaseCurrencyType.Eur ? "eur" : string.Empty));
+var items = currencyList
+ .Select(c => new System.Web.WebPages.Html.SelectListItem
+ {
+     Value = c.Key.ToString(),
+     Text = c.Value,
+     Selected = selected == c.Key
+ }).ToList();
+if (addBasedOption)
+{
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+    {
+        Text = ViewResources.Based + " GBP",
+        Value = BaseCurrencyType.Gbp.ToString(),
+        Selected = BaseCurrencyType.Gbp == selected
+    });
+
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+    {
+        Text = ViewResources.Based + " USD",
+        Value = BaseCurrencyType.Usd.ToString(),
+        Selected = BaseCurrencyType.Usd == selected
+    });
+
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+    {
+        Text = ViewResources.Based + " EUR",
+        Value = BaseCurrencyType.Eur.ToString(),
+        Selected = BaseCurrencyType.Eur == selected
+    });
+
+}
+if (addMoreAllOption)
+{
+    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+    {
+        Text = ViewResources.All.ToUpper(),
+        Value = BaseCurrencyType.All.ToString(),
+        Selected = BaseCurrencyType.All == selected
+    });
+}
+    <input type="hidden" id="CurrencyName" name="CurrencyName" value="@selectedName" data-original="@selectedName" />
+if (addBasedOption)
+{
+        <input type="hidden" id="BaseCurrency" name="BaseCurrency" value="@selectedBaseCurrency" data-original="@selectedBaseCurrency" />
+}
+    <select name="CurrencyId" id="CurrencyId" class="@className hide" data-original="@selected">
+        @foreach (var item in items)
+        {
+            <option value="@item.Value" @(item.Selected ? new HtmlString("selected=selected") : new HtmlString(""))>@item.Text</option>
+        }
+    </select>
+}
+
+@helper BasedCurrency(string selectedBasedCurrency, string CurrencyName = null)
+{
+selectedBasedCurrency = string.IsNullOrEmpty(selectedBasedCurrency) ? string.Empty : selectedBasedCurrency;
+selectedBasedCurrency = selectedBasedCurrency.ToLower();
+
+    <select class="based-currency hide" name="BaseCurrency" id="BaseCurrency" data-original="@selectedBasedCurrency">
+        <option value="eur" @(selectedBasedCurrency == "eur" ? new HtmlString("selected=selected") : new HtmlString(""))>EUR</option>
+        <option value="usd" @(selectedBasedCurrency == "usd" ? new HtmlString("selected=selected") : new HtmlString(""))>USD</option>
+        <option value="gbp" @(selectedBasedCurrency == "gbp" ? new HtmlString("selected=selected") : new HtmlString(""))>GBP</option>
+        <option value="" @(selectedBasedCurrency == "" ? new HtmlString("selected=selected") : new HtmlString(""))>@CurrencyName</option>
+    </select>
+}
+
+@helper HighlightNegativeFormat(decimal value, bool isHiglight = true)
+{
+    <span@(isHiglight && value < 0 ? new HtmlString(" class='negative-number'") : new HtmlString(""))>
+        @value.ToStringExt()</span>
+}
+
+@helper TitleDateTime(DateTime fromDate, DateTime? toDate)
+{
+        @(fromDate.ToString("MM/dd/yyyy"))
+if (toDate != null)
+{
+        @(" → ")@(toDate.Value.ToString("MM/dd/yyyy"))
+}
+}
+
+@helper ViewCurrencyBasedOnConverter(bool converter, string BaseCurrency, string CurrencyName)
+{
+        @(string.Format(ViewResources.Viewin, converter ? BaseCurrency.ToUpper() : CurrencyName))
+}
+
+@helper RenderProductFilter(IEnumerable<ProductOption> productOptions, int colLg = 3, int colMd = 4)
+{
+// initial script in: components/pluginhelper/multiselect.js
+var Url = new UrlHelper(Context.Request.RequestContext);
+var i = 0;
+    <div class="input-field col l@(colLg) m@(colMd) s12">
+        <div class="multiselect-container" id="ProductList">
+            <select id="grid-products-multiselect" name="grid-products-multiselect"></select>
+            <label>@ViewResources.Product *</label>
+
+            <div class="hide" id="product-container">
+                @foreach (var product in productOptions)
+                {
+                    <input type="hidden" name="ProductOptions[@i].Code" value="@product.Code" />
+                    <input type="hidden" name="ProductOptions[@i].Name" value="@product.Name" />
+                    <input type="checkbox" class="childCheckbox" data-original="@product.Status.ToString()" id="@product.Code" data-product-code="@product.Code" @(product.Status ? "checked" : "") name="ProductOptions[@i].Status" value="True" />
+                    i++;
+                }
+            </div>
+            <input type="hidden" id="productsData" value="@productOptions.ToJson()" />
+        </div>
+    </div>
+}
+
+<!--Total bets-->
+<!--Timer countdown control-->
+@helper TimerCountDown(string name, int start)
+{
+        <input type="hidden" id="count-down-of" name="@name" data-default-value="@start" />
+        <div class="timer-countdown">
+            <a href="javascript:;" class="right-align button-refresh">
+                <span class="center-align" id="count"></span>
+                <i class="icon icon-refresh"></i>
+            </a>
+
+            <a href="javascript:;" class="dropdown-button button-select" data-activates="countdown-menu"><i class="icon icon-menu-down"></i></a>
+        </div>
+        <ul id="countdown-menu" class="countdown-menu dropdown-content">
+            @for (var i = 1; i <= 5; i++)
+            {
+                <li id="option-@(start)" data-count-down="@start" class="menu-item"><a href="javascript:;" class="menu-item-text">@start sec</a></li>
+                start += 15;
+            }
+        </ul>
+}
+
+@helper NegativeFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
+{
+if (value != 0)
+{
+        <span @(value < 0 ? "class=negative-number" : string.Empty)>@value.ToString("#,##0.00")</span>
+}
+else
+{
+        <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
+}
+}
+
+@helper DecFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
+{
+if (isDisplayZero)
+{
+        <span class="total-cell">@value.ToString((value != 0 || isFormatZero) ? "#,##0.00" : "0")</span>
+}
+else
+{
+        <span>@(value == 0 ? string.Empty : value.ToString("#,##0.00"))</span>
+}
+}
+@helper PositiveFormat(decimal value, bool isDisplayZero = true, bool isFormatZero = true)
+{
+if (value != 0)
+{
+        <span @(value > 0 ? "class=positive-number" : string.Empty)>@value.ToString("#,##0.00")</span>
+}
+else
+{
+        <span>@(isDisplayZero == false ? string.Empty : (isFormatZero ? "0.00" : "0"))</span>
+}
+}
+
+@helper PositiveFormatExt(decimal? value)
+{
+if ((value.HasValue))
+{
+        @PositiveFormat(Convert.ToDecimal(value), true, false);
+    }
+}
+
+@helper ViewBaseCurrency(string currencyName, string basedCurrencyName)
+{
+        @(string.IsNullOrEmpty(basedCurrencyName) ? string.Format(ViewResources.Viewin, currencyName) : string.Format(ViewResources.Viewin, basedCurrencyName.ToUpper()))
+
+}
+
+@helper MonthDropDownList(int selectedMonth)
+{
+        <select class="select hide" id="Month">
+            <option @(selectedMonth == 1 ? "selected = selected" : string.Empty) value="0">@ViewResources.January</option>
+            <option @(selectedMonth == 2 ? "selected = selected" : string.Empty) value="1">@ViewResources.February</option>
+            <option @(selectedMonth == 3 ? "selected = selected" : string.Empty) value="2">@ViewResources.March</option>
+            <option @(selectedMonth == 4 ? "selected = selected" : string.Empty) value="3">@ViewResources.April</option>
+            <option @(selectedMonth == 5 ? "selected = selected" : string.Empty) value="4">@ViewResources.May</option>
+            <option @(selectedMonth == 6 ? "selected = selected" : string.Empty) value="5">@ViewResources.June</option>
+            <option @(selectedMonth == 7 ? "selected = selected" : string.Empty) value="6">@ViewResources.July</option>
+            <option @(selectedMonth == 8 ? "selected = selected" : string.Empty) value="7">@ViewResources.August</option>
+            <option @(selectedMonth == 9 ? "selected = selected" : string.Empty) value="8">@ViewResources.September</option>
+            <option @(selectedMonth == 10 ? "selected = selected" : string.Empty) value="9">@ViewResources.October</option>
+            <option @(selectedMonth == 11 ? "selected = selected" : string.Empty) value="10">@ViewResources.November</option>
+            <option @(selectedMonth == 12 ? "selected = selected" : string.Empty) value="11">@ViewResources.December</option>
+        </select>
+}
+
+@helper YearDropDownList(int selectedYear, int itemCount)
+{
+var currentYear = DateTime.Now.Year;
+    <select class="select hide" id="Year">
+        @for (int i = currentYear; i > currentYear - itemCount && i >= 2012; i--)
+        {
+            <option @(selectedYear == i ? "selected = selected" : string.Empty) value="@i.ToString()">@i.ToString()</option>
+        }
+    </select>
+}
+
+@helper TruncateWithTip(String value, Int32 maxLength, bool hasSpanReturn = false)
+{
+if (value.Length > maxLength)
+{
+        <span title="@value.Replace("'", "&#39;")">@HttpUtility.HtmlEncode(value.Substring(0, maxLength - 2) + "..")</span>
+
+}
+else if (hasSpanReturn)
+{
+        <span>@HttpUtility.HtmlEncode(value)</span>
+
+}
+else
+{
+        @value
+}
+}
+
+<!--Example:@RazorHelper.Paging("WarehouseWinLossForm", 5000, 1)-->
+@helper Paging(string formId, int NoOfItems, int currentIndex = 1, int pageSize = 1000, string method = "POST")
+{
+var noOfPage = NoOfItems / pageSize + (NoOfItems % pageSize == 0 ? 0 : 1);
+var pagingVisible = NoOfItems > 1000;
+if (pagingVisible)
+{
+        <div class="pagingContainer center-align">
+            <a href="javascript:;" class="icon pagingFirst @(currentIndex == 1 ? "pagingDisable" : string.Empty)"></a>
+            <a href="javascript:;" class="icon pagingPrev @(currentIndex == 1 ? "pagingDisable" : string.Empty)"></a>
+            <span class="pagingSeperator"></span>
+            <div class="paging-info">
+                @ViewResources.Page
+                <input type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="@currentIndex" />
+                @ViewResources.of @noOfPage
+            </div>
+            <span class="pagingSeperator"></span>
+            <a href="javascript:;" class="icon pagingNext @(currentIndex == noOfPage ? "pagingDisable" : string.Empty)"></a>
+            <a href="javascript:;" class="icon pagingLast @(currentIndex == noOfPage ? "pagingDisable" : string.Empty)"></a>
+
+            <select class="pageSizeSelected">
+                @for (var i = 1000; i <= 2000; i += 1000)
+                {
+                    <option value="@i" @(pageSize == i ? "selected=selected" : string.Empty)>
+                        @i
+                    </option>
+                }
+            </select>
+
+            <input type="hidden" name="PageSize" value="@pageSize" />
+            <input type="hidden" name="Method" value="@method" />
+            <input type="hidden" name="FormName" value="@formId" />
+            <input type="hidden" name="NoOfPage" value="@noOfPage" />
+        </div>
+}
+}
+
+@helper ViewInCurrency(int currencyId, string currencyName)
+{
+string title;
+
+switch (currencyId)
+{
+    case BaseCurrencyType.All:
+        title = ViewResources.AllCurrencies;
+        break;
+    case BaseCurrencyType.Eur:
+        title = string.Format(ViewResources.Viewin, FormatKey.Eur);
+        break;
+    case BaseCurrencyType.Usd:
+        title = string.Format(ViewResources.Viewin, FormatKey.Usd);
+        break;
+    case BaseCurrencyType.Gbp:
+        title = string.Format(ViewResources.Viewin, FormatKey.Gbp);
+        break;
+    default:
+        title = string.Format(ViewResources.Viewin, currencyName);
+        break;
+}
+    @(title)
+}
+
+@helper TicketFilter()
+        {
+var Url = new UrlHelper(Context.Request.RequestContext);
+    <div id="TickerFilter">
+        <input type="checkbox" id="AllTicket" />
+        <label for="AllTicket">@ViewResources.All</label>
+        <input type="checkbox" id="ShowWin" name="ShowWin" value="true" checked />
+        <label for="ShowWin">@ViewResources.Win</label>
+        <input type="checkbox" id="ShowLoss" name="ShowLoss" value="true" checked />
+        <label for="ShowLoss">@ViewResources.Loss</label>
+        <input type="checkbox" id="ShowDraw" name="ShowDraw" value="true" checked />
+        <label for="ShowDraw">@ViewResources.Draw</label>
+        <img src="@Url.Content("/Content/Report/Images/icon_error.gif")" alt="" id="ticket-null" class="hide" />
+    </div>
+    <label>@ViewResources.TicketFilter *</label>
+}
+
+@helper DrawFilter(int drawFilterType)
+{
+        <input type="radio" value="1" class="with-gap" @(drawFilterType == DrawFilterType.Normal ? "checked=checked" : "") name="DrawFilter" id="DrawFilter" />
+        <label for="DrawFilter">
+            @ViewResources.Normal
+        </label>
+        <input type="radio" value="2" class="with-gap" @(drawFilterType == DrawFilterType.NoDraws ? "checked=checked" : "") name="DrawFilter" id="DrawFilterNoDraw" />
+        <label for="DrawFilterNoDraw">
+            @ViewResources.NoDraws
+        </label>
+        <input type="radio" value="3" class="with-gap" @(drawFilterType == DrawFilterType.NoDrawsForTurnoverOnly ? "checked=checked" : "") name="DrawFilter" id="DrawFilterNoDrawsForTurnoverOnly" />
+        <label for="DrawFilterNoDrawsForTurnoverOnly">
+            @ViewResources.NoDrawsForTurnoverOnly
+        </label>
+
+        <label class="active">@ViewResources.DrawFilter</label>
+}
+
+@helper ReportBy(int reportByType)
+{
+        <input type="radio" class="with-gap" value="1" @(reportByType == ReportByType.Daily ? "checked=checked" : "") name="ReportBy" id="reportbydaily" />
+        <label for="reportbydaily">
+            @ViewResources.Daily
+        </label>
+        <input type="radio" class="with-gap" value="2" @(reportByType == ReportByType.Monthly ? "checked=checked" : "") name="ReportBy" id="reportbymonthly" />
+        <label for="reportbymonthly">
+            @ViewResources.Monthly
+        </label>
+
+        <label class="active">@ViewResources.ReportBy</label>
+}
+
+@helper ExcludeTestData(bool isExcludedTestData)
+{
+        <input type="radio" value="true" class="with-gap" @(isExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData0" />
+        <label for="IsExcludedTestData0">
+            @ViewResources.Yes
+        </label>
+        <input type="radio" class="with-gap" value="false" @(isExcludedTestData == false ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData1" />
+        <label for="IsExcludedTestData1">
+            @ViewResources.No
+        </label>
+
+        <label class="active">@ViewResources.ExcludeTestData</label>
+}
+
+@helper TitleLicenseeWLPrefix(IEnumerable<ProductOption> productOptions)
+{
+var productOptionTitleList = productOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
+var productText = string.Empty;
+foreach (var product in productOptionTitleList)
+{
+    if (product.Status)
+    {
+        productText += string.IsNullOrEmpty(productText) ? product.Code : ", " + product.Code;
+    }
+}
+productText = string.IsNullOrEmpty(productText) ? string.Empty : string.Format(", {0} ({1})", ViewResources.LicenseeW_L, productText);
+
+    @productText
+}

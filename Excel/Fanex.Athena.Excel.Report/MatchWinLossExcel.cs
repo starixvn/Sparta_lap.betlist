@@ -54,13 +54,12 @@ namespace Fanex.Athena.Excel.Report
 
         public MatchWinLossExcel(
                                 string templatePath,
-                                string exportingFileName,
                                 ConvertingOption convertingOption,
                                 ShowingOption showingOption,
                                 DataTable exportData,
                                 DataTable totalData,
                                 MatchWinLossMetaModel model)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _model = model;
             ExportData = exportData;
@@ -245,6 +244,17 @@ namespace Fanex.Athena.Excel.Report
             };
         }
 
+        private static int AssignDecimalData(IRow row, int cellIndex, params decimal[] decimalValues)
+        {
+            for (int i = 0, j = decimalValues.Length; i < j && cellIndex < row.Cells.Count; i++)
+            {
+                row.Cells[cellIndex].SetCellValue(decimalValues[i]);
+                cellIndex++;
+            }
+
+            return cellIndex;
+        }
+
         /// <summary>
         /// Sum column: race book revenue, total win loss, sum total win loss, sum race book revenue.
         /// </summary>
@@ -294,6 +304,10 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="currentRow">Excel row index.</param>
         /// <param name="currentIndex">Index of match.</param>
         /// <returns>The row index after assign data.</returns>
+        [SuppressMessage(
+        "StyleCop.CSharp.StylecopPlus.Rules",
+        "SP2101:MethodMustNotContainMoreLinesThan",
+        Justification = "Reviewed. Suppression is OK here.")]
         private int AssignMatchData(ISheet sheet, IList<DataRow> matchInfoList, string matchName, int currentRow, int currentIndex)
         {
             if (matchInfoList.Count == 0)
@@ -325,6 +339,10 @@ namespace Fanex.Athena.Excel.Report
             }
 
             currentRow++;
+            if (matchName.Contains('\n'))
+            {
+                matchRow.Height = (short)(matchRow.Height * 2);
+            }
 
             // Assign bettype
             for (int i = 0; i < rowCount; i++)

@@ -12,7 +12,7 @@ namespace Fanex.Athena.Extension.Helper
     /// </summary>
     public static class NumberHelper
     {
-        private static CultureInfo _culture = new CultureInfo("en-US");
+        private static readonly CultureInfo DefaultCulture = new CultureInfo("en-US");
 
         /// <summary>
         /// Formatting numbers for decimals and two significant digits.
@@ -35,7 +35,7 @@ namespace Fanex.Athena.Extension.Helper
             if (value is decimal)
             {
                 var format = "N" + digit.ToString();
-                return ((decimal)value).ToString(format, _culture.NumberFormat);
+                return ((decimal)value).ToString(format, DefaultCulture.NumberFormat);
             }
 
             if (value is int)
@@ -49,7 +49,7 @@ namespace Fanex.Athena.Extension.Helper
         public static string DecFormat(decimal value, byte digit = 2)
         {
             var format = "N" + digit.ToString();
-            return value.ToString(format, _culture.NumberFormat);
+            return value.ToString(format, DefaultCulture.NumberFormat);
         }
     }
 }

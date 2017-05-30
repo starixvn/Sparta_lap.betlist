@@ -49,11 +49,10 @@ namespace Fanex.Athena.Excel.Report
 
         public ColossusBetsWinLossExcel(
                 string templatePath,
-                string exportingFileName,
                 ConvertingOption convertingOption,
                 ThirdPartyWinLossMetaModel metaModel,
                 ColossusBetWinLossViewModel viewModel)
-            : base(templatePath, exportingFileName, null, convertingOption)
+            : base(templatePath, null, convertingOption)
         {
             _metaModel = metaModel;
             _winLossList = viewModel.MainResult;

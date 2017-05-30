@@ -55,6 +55,10 @@ var Site = (function ($) {
                     0: function () {
                         Site.unBlockUI();
                     },
+                    400: function () {
+                        Site.unBlockUI();
+                        alert(Site.getSingleResource("InvalidRequestMsg"));
+                    },
                     401: function (/*jqXHR, textStatus, errorThrown*/) {
                         window.location.href = Site.resolveClientUrl("Utility/LocationRestriction");
                     },
@@ -69,7 +73,12 @@ var Site = (function ($) {
                 }
             });
         },
-        exportExcel: function (data, url, method) {
+        reload: function () {
+            window.location.reload();
+        },
+        exportExcel: function (postData, url, method) {
+            var data = Site.clone(postData);
+            data.IsExportExcel = true;
             var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
                 .appendTo('body');
             for (var property in data) {
@@ -82,14 +91,16 @@ var Site = (function ($) {
                             $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
                             $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
                         }
-                    }
-                    else {
+                    } else {
                         $('<input type="hidden">').attr({ name: property, value: value }).appendTo($form);
                     }
                 }
             }
 
-            $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: REQUEST_VERIFICATION_TOKEN }).appendTo($form);
+            if (!data["__RequestVerificationToken"]) {
+                $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: REQUEST_VERIFICATION_TOKEN }).appendTo($form);
+            }
+
             $form.submit();
             $form.remove();
         },
@@ -152,11 +163,11 @@ var Site = (function ($) {
             var isRequesting = false;
 
             $(options.buttonSelector).click(function () {
-                var $userGuidePopup = $("#UserGuidePopup");              
+                var $userGuidePopup = $("#UserGuidePopup");
 
                 if ($userGuidePopup.is(":visible")) {
                     return;
-                }               
+                }
 
                 if (!popup) {
                     if (isRequesting === false) {
@@ -165,8 +176,8 @@ var Site = (function ($) {
                             .load(url, function (response, status) {
                                 if (status === "success") {
                                     setTimeout(function () {
-                                            popup = $userGuidePopup.flatPopup(options);
-                                            popup.show();
+                                        popup = $userGuidePopup.flatPopup(options);
+                                        popup.show();
                                     }, 50);
                                 } else {
                                     $userGuidePopup.hide();

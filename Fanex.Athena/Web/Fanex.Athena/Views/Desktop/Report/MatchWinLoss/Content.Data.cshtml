@@ -1,0 +1,160 @@
+﻿@using Fanex.Common
+@using Fanex.Athena.Extension.Helper
+@using Fanex.Athena.Model.Core.DTO.Common
+@using Fanex.Athena.Model.Report.DTO
+@model Fanex.Athena.Model.Report.ViewModel.MatchWinLossViewModel
+
+@{
+    var dataList = Model.MainResult;
+    var leagueList = Model.LeagueList;
+    var rowNumber = 1;
+    var productOptions = Model.Param.ProductOptions;
+}
+
+@functions{
+    static IList<string> specialProducts = new List<string> { Product.RB, Product.NG, Product.LC };
+    static IList<int> racingSportTypes = new List<int> { 181, 182, 183, 184, 185 };
+    static int maxLength = 36;
+
+    public static string GetMatchName(MatchWinLoss matchWinLoss)
+    {
+        var matchName = matchWinLoss.MatchName;
+        var homeName = matchWinLoss.HomeName;
+        var awayName = matchWinLoss.AwayName;
+
+        if (specialProducts.Contains(matchWinLoss.ProductName))
+        {
+            if (matchName.Length > maxLength)
+            {
+                matchName = String.Format("<span title='{0}'>{1}...</span>", matchName.Replace("'", "&#39;"),
+                    HttpUtility.HtmlEncode(matchName.Substring(0, maxLength - 3)));
+            }
+        }
+        else if (!racingSportTypes.Contains(matchWinLoss.SportType))
+        {
+            /*
+             * in case sport's virtual horse racing , match-name was gotten from kickofftiem column.
+             * therefor we no need do anything when matchWinLoss.SportType equals 181
+             */
+
+            if (homeName.Length > maxLength || awayName.Length > maxLength)
+            {
+                if (homeName.Length > maxLength)
+                {
+                    homeName = String.Format("<span title='{0}'>{1}</span>",
+                        homeName.Replace("'", "&#39;"),
+                        HttpUtility.HtmlEncode(homeName.Substring(0, maxLength - 3)) + "...");
+                }
+
+                if (awayName.Length > maxLength)
+                {
+                    awayName = String.Format("<span title='{0}'>{1}</span>",
+                        awayName.Replace("'", "&#39;"),
+                        HttpUtility.HtmlEncode(awayName.Substring(0, maxLength - 3)) + "...");
+                }
+            }
+
+            matchName = String.Format("{0}<br />{1}", homeName, awayName);
+        }
+
+        return matchName;
+    }
+}
+
+@foreach (var league in leagueList)
+{
+    <tr class="row-group-level1">
+        <td colspan="@Model.ColumnCount">
+            @league.Value
+        </td>
+    </tr>
+
+    var matchWinLossList = dataList.Where(m => m.LeagueId == league.Key).ToList();
+    foreach (var matchWinLoss in matchWinLossList)
+    {
+        var matchName = GetMatchName(matchWinLoss);
+        var productName = matchWinLoss.ProductName;
+
+        var drilldownParams = new
+        {
+            LeagueId = matchWinLoss.LeagueId,
+            MatchId = matchWinLoss.MatchId == 0 ? Converter.ToInt(matchWinLoss.RaceNo) : matchWinLoss.MatchId,
+            ProductCode = productName,
+            RaceNo = matchWinLoss.RaceNo,
+            HomeId = matchWinLoss.HomeId,
+            AwayId = matchWinLoss.AwayId
+        };
+
+        <tr data-match="@(drilldownParams.ToJson())">
+            <td class="center-align">@rowNumber</td>
+
+            <td>
+                <div class="match-container">
+                    <a href="javascript:;" class="text-bold cell @(productName.Equals(Product.SB) ? "bet-list-link" : null)" data-islive="@(matchWinLoss.IsLive ? "1" : "0")">
+                        @(new HtmlString(matchName))
+                    </a>
+
+                    <a href="javascript:;" class="icon-wrapper cell view-match-detail"><i class="icon-arrow"></i></a>
+                </div>
+            </td>
+
+            <td class="right-align text-bold">
+                @NumberHelper.DecFormat(matchWinLoss.Turnover)
+            </td>
+            <td class="right-align text-bold">
+                @matchWinLoss.TotalTransaction.ToString("#,###")
+            </td>
+
+            @if (Model.IsAllowedCustomerCommission)
+            {
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(matchWinLoss.CustomerWL)
+                </td>
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(matchWinLoss.CustomerComm)
+                </td>
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(matchWinLoss.CustomerWL + matchWinLoss.CustomerComm)
+                </td>
+            }
+            else
+            {
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(matchWinLoss.CustomerWL)
+                </td>
+            }
+
+            <td class="right-align text-bold">
+                @DesktopRazorHelper.NegativeFormat(matchWinLoss.LicenseeWL)
+            </td>
+            
+            @if (Model.ProductAccess.IsAllowBA)
+            {
+                <td class="right-align text-bold">
+                    @DesktopRazorHelper.NegativeFormat(matchWinLoss.BACommission)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowRB)
+            {
+                <td class="right-align text-bold">
+                    @DesktopRazorHelper.NegativeFormat(matchWinLoss.RacingRevenue)
+                    @string.Empty
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowBA)
+            {
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(matchWinLoss.AmtDueToBA)
+                </td>
+            }
+            @if (Model.ProductAccess.IsAllowRB)
+            {
+                <td class="right-align text-bold">
+                    @NumberHelper.DecFormat(matchWinLoss.AmtDueToRacing)
+                </td>
+            }
+        </tr>
+
+        rowNumber++;
+    }
+}

@@ -48,7 +48,7 @@
 
             it("return an url with query string if 'urlOrParams' is a string", function () {
                 var result = Site.setLicenseeOptionParam("localhost");
-                expect(result).toBe("localhost?currencyid=1&currencyname=&basecurrency=USD");
+                expect(result).toBe("localhost?CurrencyId=1&CurrencyName=&BaseCurrency=USD");
             });
 
             it("return an object with query string if 'urlOrParams' is an object", function () {
@@ -60,7 +60,7 @@
                 $("#CurrencyId").html("");
 
                 var result = Site.setLicenseeOptionParam("localhost");
-                expect(result).toBe("localhost?currencyname=AAA&basecurrency=USD");
+                expect(result).toBe("localhost?CurrencyName=AAA&BaseCurrency=USD");
             });
         });
 
@@ -69,7 +69,7 @@
                 setFixtures('<select id="CurrencyId" data-original="2" /> <input id="BaseCurrency" data-original="USD" />');
 
                 var result = Site.setLicenseeOptionOriginalParam("localhost");
-                expect(result).toBe("localhost?currencyid=2&currencyname=&basecurrency=USD");
+                expect(result).toBe("localhost?CurrencyId=2&CurrencyName=&BaseCurrency=USD");
             });
 
             it("url should return correct value when currency name not in option tag", function () {
@@ -77,7 +77,7 @@
                     '<input id="CurrencyName" value="AAA" /> <input id="BaseCurrency" data-original="USD" />');
 
                 var result = Site.setLicenseeOptionOriginalParam("localhost");
-                expect(result).toBe("localhost?currencyid=2&currencyname=AAA&basecurrency=USD");
+                expect(result).toBe("localhost?CurrencyId=2&CurrencyName=AAA&BaseCurrency=USD");
             });
         });
 
@@ -95,18 +95,7 @@
         describe("setProductOptionParam(url, counter, productCode, status)", function () {
             it("build an url with production options", function () {
                 var result = Site.setProductOptionParam("localhost", 1, "SB", true);
-                expect(result).toBe("localhost?productoptions[1].code=SB&productoptions[1].name=SB&productoptions[1].status=true");
-            });
-        });
-
-        describe("initBlockUI()", function () {
-            it(".block-body should be display when clicking on .blockui element.", function () {
-                setFixtures('<div class="blockui"></div>');
-                appendSetFixtures('<div class="block-body" style="display:none"></div>');
-
-                Site.initialize();
-                $('.blockui').click();
-                expect($('.block-body').is(':visible')).toBe(true);
+                expect(result).toBe("localhost?ProductOptions[1].Code=SB&ProductOptions[1].Name=SB&ProductOptions[1].Status=true");
             });
         });
 
@@ -253,126 +242,6 @@
             });
         });
 
-        describe("createSortingIcon(sortHandler)", function () {
-            describe("when Row Count less or equal 1", function () {
-                it(".sort-heading class should be removed", function () {
-                    setFixtures('<input id="RowCount" value="1" />' +
-                        '<div id="header-content"><div class="sortable sort-heading"><div></div>'
-                        );
-
-                    Site.createSortingIcon();
-
-                    var result = $("#header-content .sortable").hasClass("sort-heading");
-
-                    expect(result).toBe(false);
-                });
-            });
-
-            describe("when Row Count greater than 1", function () {
-                beforeEach(function () {
-                    setFixtures('<input id="RowCount" value="2" /> <input id="SortColumn" value="Col1" /> <input id="SortDirection" value="DESC" />' +
-                        '<div id="header-content">' +
-                        '<div class="sortable"><div class="sort-heading" data-column-name="Col1"></div></div>' +
-                        '<div class="sortable"><div class="sort-heading" data-column-name="Col2"></div></div>' +
-                        '</div>' +
-                        '<select id="CurrencyId"><option selected>USD<option></select>' +
-                        '<input id="CurrencyName" value="" />'
-                        );
-                });
-
-                it("Col1 should has class 'sorted-heading'", function () {
-                    Site.createSortingIcon();
-
-                    var result = $("#header-content .sortable .sort-heading[data-column-name='Col1']").hasClass("sorted-heading");
-
-                    expect(result).toBe(true);
-                });
-
-                it("Col1 should has correct html content when SortDirection is DESC", function () {
-                    Site.createSortingIcon();
-
-                    var expected = '<span class="sort-icon sort-icon-desc"></span>';
-                    var result = $("#header-content .sortable .sort-heading[data-column-name='Col1']").html();
-
-                    expect(result).toBe(expected);
-                });
-
-                it("Col1 should has correct html content when SortDirection is ASC", function () {
-                    $("#SortDirection").val("ASC");
-                    Site.createSortingIcon();
-
-                    var expected = '<span class="sort-icon sort-icon-asc"></span>';
-                    var result = $("#header-content .sortable .sort-heading[data-column-name='Col1']").html();
-
-                    expect(result).toBe(expected);
-                });
-
-                describe("Click on header to sort", function () {
-                    var sortHandler;
-                    beforeEach(function () {
-                        sortHandler = jasmine.createSpy('sortHandler');
-                        Site.createSortingIcon(sortHandler);
-                    });
-
-                    it("#SortColumn should has correct value when clicking on Col2", function () {
-                        var $col2 = $(".sort-heading[data-column-name='Col2']").closest(".sortable");
-
-                        $col2.click();
-                        var result = $("#SortColumn").val();
-
-                        expect(result).toBe("Col2");
-                    });
-
-                    it("#SortDirection should has correct value when clicking on Col1", function () {
-                        var $col1 = $(".sort-heading[data-column-name='Col1']").closest(".sortable");
-
-                        $col1.click();
-                        var result = $("#SortDirection").val();
-
-                        expect(result).toBe("ASC");
-                    });
-
-                    it("#SortDirection should has correct value when clicking on Col2 and current value is 'DESC'", function () {
-                        var $col2 = $(".sort-heading[data-column-name='Col2']").closest(".sortable");
-
-                        $col2.click();
-                        var result = $("#SortDirection").val();
-
-                        expect(result).toBe("ASC");
-                    });
-
-                    it("#SortDirection should has correct value when clicking on Col2 and current value is 'ASC'", function () {
-                        $("#SortDirection").val("ASC");
-                        sortHandler = function () { };
-                        Site.createSortingIcon(sortHandler);
-                        var $col2 = $(".sort-heading[data-column-name='Col2']").closest(".sortable");
-
-                        $col2.click();
-                        var result = $("#SortDirection").val();
-
-                        expect(result).toBe("DESC");
-                    });
-
-                    it("#CurrencyName should has correct value", function () {
-                        var $col2 = $(".sort-heading[data-column-name='Col2']").closest(".sortable");
-
-                        $col2.click();
-                        var result = $("#CurrencyName").val();
-
-                        expect(result).toBe("USD");
-                    });
-
-                    it("sortHandler function should be called with correct parameter", function () {
-                        var $col2 = $(".sort-heading[data-column-name='Col2']").closest(".sortable");
-
-                        $col2.click();
-
-                        expect(sortHandler).toHaveBeenCalledWith("Col2");
-                    });
-                });
-            });
-        });
-
         describe("currencyConstraint(userChange)", function () {
             beforeEach(function () {
                 setFixtures('<select id="CurrencyId"><option value="0">All</option><option value="1" selected>USD</option><option value="2">ABC</option></select>' +
@@ -459,7 +328,7 @@
             it("url should return correct value", function () {
                 setFixtures('<input id="FromDate" data-original="1/1/2017" /> <input id="ToDate" data-original="4/13/2017" />');
                 var url = "localhosttest";
-                var expectedResult = "localhosttest?fromdate=1/1/2017&todate=4/13/2017";
+                var expectedResult = "localhosttest?FromDate=1/1/2017&ToDate=4/13/2017";
 
                 var result = Site.setDateRangeOriginalParam(url);
 
@@ -471,7 +340,7 @@
             it("url should return correct value", function () {
                 setFixtures('<input id="FromDate" value="1/1/2017" /> <input id="ToDate" value="4/13/2017" />');
                 var url = "localhosttest";
-                var expectedResult = "localhosttest?fromdate=1/1/2017&todate=4/13/2017";
+                var expectedResult = "localhosttest?FromDate=1/1/2017&ToDate=4/13/2017";
 
                 var result = Site.setDateRangeParam(url);
 
@@ -488,7 +357,7 @@
 
             it("param is query string - url should return correct value", function () {
                 var url = "localhosttest";
-                var expectedUrl = "localhosttest?productoptions[0].code=SB&productoptions[0].name=SB&productoptions[0].status=true";
+                var expectedUrl = "localhosttest?ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
 
                 var result = Site.setProductOptionOriginalParamList(url);
 
@@ -517,7 +386,7 @@
 
             it("param is query string - url should return correct value", function () {
                 var url = "localhosttest";
-                var expectedUrl = "localhosttest?productoptions[0].code=SB&productoptions[0].name=SB&productoptions[0].status=true";
+                var expectedUrl = "localhosttest?ProductOptions[0].Code=SB&ProductOptions[0].Name=SB&ProductOptions[0].Status=true";
 
                 var result = Site.setProductOptionParamList(url);
 

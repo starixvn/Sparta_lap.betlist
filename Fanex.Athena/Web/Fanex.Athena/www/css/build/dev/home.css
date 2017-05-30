@@ -5817,7 +5817,7 @@ header nav {
 
 .input-field label {
   position: absolute;
-  top: -14px; }
+  top: -10px; }
 
 .select-list-container {
   position: relative;
@@ -5826,8 +5826,8 @@ header nav {
   .select-list-container .selection {
     background: transparent;
     border-bottom: 1px solid #ccc;
-    height: 28px;
-    line-height: 28px;
+    height: 26px;
+    line-height: 26px;
     display: inline-block;
     width: 100%;
     position: relative; }
@@ -5843,9 +5843,16 @@ header nav {
         border-style: solid;
         display: inline-block;
         vertical-align: middle; }
+    .select-list-container .selection.disabled {
+      color: rgba(0, 0, 0, 0.26) !important;
+      cursor: default;
+      pointer-events: none; }
+      .select-list-container .selection.disabled .selection-icon-arrow {
+        border-color: rgba(0, 0, 0, 0.26) transparent transparent transparent; }
 
 .select-list-result-container {
-  position: absolute; }
+  position: absolute;
+  z-index: 100; }
   .select-list-result-container .select-list-dropdown {
     background-color: #fff;
     border: 1px solid #ccc;

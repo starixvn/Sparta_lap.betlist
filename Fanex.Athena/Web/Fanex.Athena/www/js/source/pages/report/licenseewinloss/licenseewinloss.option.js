@@ -242,7 +242,6 @@ define(
         var licenseeWlColumn =
         {
             name: 'TotalLicenseeWLSingle',
-            classes: 'highlight',
             index: 'TotalLicenseeWLSingle',
             width: 120,
             align: 'right',
@@ -256,7 +255,6 @@ define(
         var betTradeCommissionColumn =
         {
             name: 'BetTradeCommission',
-            classes: 'highlight',
             index: 'BetTradeCommission',
             width: 120,
             align: 'right',
@@ -269,7 +267,6 @@ define(
         var cashOutCommissionColumn =
         {
             name: 'CashOutCommission',
-            classes: 'highlight',
             index: 'CashOutCommission',
             width: 120,
             align: 'right',
@@ -282,7 +279,6 @@ define(
         var baCommissionColumn =
         {
             name: 'BACommission',
-            classes: 'highlight',
             index: 'BACommission',
             width: 95,
             align: 'right',
@@ -295,7 +291,6 @@ define(
         var racingRevenueColumn =
         {
             name: 'RacingRevenue',
-            classes: 'highlight',
             index: 'RacingRevenue',
             width: 100,
             align: 'right',
@@ -378,9 +373,27 @@ define(
 
         //#endregion
 
-        var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency", 'Turnover', 'ActualStake', 'BuyBackAmount',
-         'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'LicenseeW_L', '@[ProductBT]<br/>@[Commission]', '@[ProductCO]<br/>@[Commission]', 'BA<br/>@[Commission]',
-         '@[RacingRevenue]', '@[AmtDueToBetTrade]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId'];
+        var colNameList = [
+            '#',
+            'Date',
+            'ExternalId',
+            "SystemId",
+            "Currency",
+            'Turnover',
+            'ActualStake',
+            'BuyBackAmount',
+             'TotalTransaction',
+             '@[Win]/@[Loss]', 'Comm',
+             'Total', 'LicenseeW_L',
+             '@[ProductBT]<br/>@[Commission]',
+             '@[ProductCO]<br/>@[Commission]',
+             'BA<br/>@[Commission]',
+             '@[RacingRevenue]',
+             '@[AmtDueToBetTrade]',
+             '@[AmtDueToBA]',
+             '@[AmtDueToRacing]',
+             'CurrencyId',
+             'CustomerId'];
 
         var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
             turnoverColumn, actualStakeColumn, buybackColumn, totalTransColumn, customerWlColumn, playerCommColumn,
@@ -582,7 +595,6 @@ define(
                         var licenseeWL = Site.clone(productColumn);
                         licenseeWL.name = "LicenseeWL" + item.Code;
                         licenseeWL.index = "LicenseeWL" + item.Code;
-                        licenseeWL.classes = 'highlight';
                         licenseeWL.sortable = true;
 
                         temp.insertAfter(licenseeWL, customerWLTotalIndex);
@@ -601,7 +613,6 @@ define(
             var licenseeWLTotal = Site.clone(productColumn);
             licenseeWLTotal.name = "TotalLicenseeWL";
             licenseeWLTotal.index = "TotalLicenseeWL";
-            licenseeWLTotal.classes = 'highlight';
             temp.insertBefore(licenseeWLTotal, licenseeIndex);
 
             if (allowedBa !== null) {

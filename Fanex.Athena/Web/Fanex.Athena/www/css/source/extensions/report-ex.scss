@@ -5,8 +5,6 @@
 @import "../components/selectlist/selectlist";
 @import "../scss/components/radio-button";
 
-$bgRowGroupLevel1: #D1DAE1;
-
 .page-form {
     .input-field {
         input[type=radio] + label {
@@ -56,7 +54,7 @@ $bgRowGroupLevel1: #D1DAE1;
 }
 
 .highlight, .table > tbody > tr > td.highlight {
-    background-color: #F8F1A0;
+    background-color: $colorHighlight;
 }
 
 //---------------------- Form input style customize ----------------------//
@@ -69,8 +67,10 @@ table {
     tbody {
         tr {
             &.row-group-level1 {
-                background: $bgRowGroupLevel1;
-                font-weight: bold;
+                td {
+                    background: $bgRowGroupLevel1;
+                    font-weight: bold;
+                }
             }
         }
     }
@@ -91,6 +91,10 @@ table {
     &.small {
         width: 10%;
     }
+
+    &.large {
+        width: 20%;
+    }
 }
 
 .col-large {
@@ -107,6 +111,10 @@ table {
     &.small {
         width: 6%;
     }
+
+    &.medium {
+        width: 7.5%;
+    }
 }
 
 //----- User Guide -----//
@@ -122,4 +130,8 @@ table {
             }
         }
     }
+}
+
+.disabled {
+    pointer-events: none;
 }

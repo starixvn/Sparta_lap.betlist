@@ -607,7 +607,7 @@
                 url = QueryString.setParam(url, "transType", transType);
                 url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
 
-                var popH = Math.min($(window).height() - 100, 550), popW = 840;
+                var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("ProductFW") + " - " +
                     Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
 

@@ -345,7 +345,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             var mainTable = _customerComService.GetDataForExcel(licenseeId);
 
-            var custmerCommGroupExcel = new CustomerCommGroup(templatePath, FileName, mainTable, showingOption);
+            var custmerCommGroupExcel = new CustomerCommGroup(templatePath, mainTable, showingOption);
 
             custmerCommGroupExcel.Export();
 

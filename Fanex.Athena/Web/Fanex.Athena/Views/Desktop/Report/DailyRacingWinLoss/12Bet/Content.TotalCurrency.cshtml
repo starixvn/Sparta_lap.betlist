@@ -1,0 +1,41 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.DailyRacingWinLossViewModel
+@{
+    var currencyTotalData = Model.DailyRacingWinLossData.CurrencyTotalData;
+    var rowSpan = currencyTotalData.Count;
+    var isFirstRow = true;
+}
+
+@foreach (var currencyName in currencyTotalData.Keys)
+{
+    var item = currencyTotalData[currencyName];
+
+    <tr>
+        @if (isFirstRow)
+        {
+            <td class="center-align text-bold" rowspan="@rowSpan">@ViewResources.Total</td>
+        }
+
+        <td class="center-align text-bold">@currencyName</td>
+
+        <td class="right-align text-bold">@item.WinTO.ToStringExt()</td>
+        <td class="right-align text-bold">@item.PlaceTO.ToStringExt()</td>
+        <td class="right-align text-bold">@item.WPTO.ToStringExt()</td>
+        <td class="right-align text-bold">@item.TotalTO.ToStringExt()</td>
+        <td class="right-align text-bold">@item.DividendWon.ToStringExt()</td>
+        @if (Convert.ToBoolean(ViewBag.IsAllowedCustomerCommission))
+        {
+            <td class="right-align text-bold">@item.CustomerCommission.ToStringExt()</td>
+        }
+
+        <td class="right-align text-bold">@item.WinTO12Bet.ToStringExt()</td>
+        <td class="right-align text-bold">@item.PlaceTO12Bet.ToStringExt()</td>
+        <td class="right-align text-bold">@item.WPTO12Bet.ToStringExt()</td>
+        <td class="right-align text-bold">@item.TotalTO12Bet.ToStringExt()</td>
+        <td class="right-align text-bold">@item.WinLoss12Bet.ToStringExt()</td>
+        <td class="right-align text-bold">@item.CommIncome.ToStringExt()</td>
+
+        <td class="right-align text-bold">@item.AmountDueToRacing.ToStringExt()</td>
+    </tr>
+
+    isFirstRow = false;
+}

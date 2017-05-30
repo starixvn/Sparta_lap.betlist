@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, CashOutWinLossOption, Report, Site */
+﻿/*global jqGridAdditional, CashOutWinLossOption, Report, Site, QueryString */
 /// <reference path="/@JSense.js" />
 ///
 var CashOutWinLoss = (function ($) {

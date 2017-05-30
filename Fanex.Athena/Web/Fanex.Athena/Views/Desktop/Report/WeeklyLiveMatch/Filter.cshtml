@@ -9,11 +9,11 @@
 
         <div class="row">
             <div class="input-field input col l3 m3 s12 calendar date-range">
-                @RazorHelperDesktop.DateRangePicker(Model.FromDate, Model.ToDate, appSettings.HistoryDate.AddDays(-1), appSettings.MaxDate.AddDays(-1))
+                @DesktopRazorHelper.DateRangePicker(Model.FromDate, Model.ToDate, appSettings.HistoryDate.AddDays(-1), appSettings.MaxDate.AddDays(-1))
             </div>
 
             <div class="col l2 m2 s12 button-block">
-                <a id="SubmitButton" class="waves-effect waves-light btn btn-primary">@ViewResources.Submit</a>
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
             </div>
 
             <div class="col right icon-block">

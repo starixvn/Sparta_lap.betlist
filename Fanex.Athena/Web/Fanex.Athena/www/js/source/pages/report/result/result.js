@@ -169,9 +169,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                         Site.unBlockUI();
                     }
                 };
-                if (kenoAjaxRequest !== null) {
-                    kenoAjaxRequest.abort();
-                }
+                _me.stopAjaxRequest(kenoAjaxRequest);
                 kenoAjaxRequest = $.ajax(option);
             },
 
@@ -183,9 +181,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                         data: "userid=" + kenoUserId,
                         url: Site.resolveClientUrl(kenoResultApi)
                     };
-                    if (kenoAjaxRequest !== null) {
-                        kenoAjaxRequest.abort();
-                    }
+                    _me.stopAjaxRequest(kenoAjaxRequest);
                     kenoAjaxRequest = $.ajax(option);
                 }, 6000);
             },
@@ -231,12 +227,8 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                         Site.blockUI();
                     }
                 };
-                if (ajaxFilterRequest !== null) {
-                    ajaxFilterRequest.abort();
-                }
-                if (ajaxRequest !== null) {
-                    ajaxRequest.abort();
-                }
+                _me.stopAjaxRequest(ajaxFilterRequest);
+                _me.stopAjaxRequest(ajaxRequest);
                 ajaxFilterRequest = $.ajax(option);
             },
 
@@ -266,9 +258,7 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
                         Site.unBlockUI();
                     }
                 };
-                if (ajaxRequest !== null) {
-                    ajaxRequest.abort();
-                }
+                _me.stopAjaxRequest(ajaxRequest);
                 ajaxRequest = $.ajax(option);
             },
 
@@ -363,6 +353,12 @@ define(["jquery", "common/site", "components/pluginhelper/daterangepicker", "com
 
             canSubmit: function (element) {
                 return !$(element).hasClass(ACTIVE_CLASS);
+            },
+
+            stopAjaxRequest: function (request) {
+                if (request !== null) {
+                    request.abort();
+                }
             }
         };
 

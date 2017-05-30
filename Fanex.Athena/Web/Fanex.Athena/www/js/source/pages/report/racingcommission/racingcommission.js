@@ -1,11 +1,19 @@
 ﻿"use strict";
-define(["jquery", "common/site", "common/querystring", "components/pluginhelper/daterangepicker", "components/paging", "components/scrollablegrid", "extensions/jquery.extension"],
-    function ($, Site, QueryString, DatePicker, Paging, GridHelper) {
+define([
+    "jquery",
+    "common/site",
+    "common/querystring",
+    "components/pluginhelper/daterangepicker",
+    "components/paging",
+    "components/scrollablegrid",
+    "helpers/sortableheader",
+    "extensions/jquery.extension"],
+    function ($, Site, QueryString, DatePicker, Paging, GridHelper, SortableHeader) {
         var _me = {
             initialize: function () {
                 Site.initialize();
                 _me.initEvent();
-                Site.createSortingIcon(_me.submitForm);
+                SortableHeader.createSortingIcon(_me.submitForm);
                 Site.addUserGuide({
                     resourceName: "RacingCommission",
                     title: Site.getSingleResource("RacingCommission")

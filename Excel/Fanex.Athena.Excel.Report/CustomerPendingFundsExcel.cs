@@ -35,10 +35,9 @@ namespace Fanex.Athena.Excel.Report
 
         public CustomerPendingFundsExcel(
                                          string templatePath,
-                                         string exportingFileName,
                                          ConvertingOption convertingOption,
                                          CustomerPendingFundsViewModel viewModel)
-            : base(templatePath, exportingFileName, new ShowingOption(), convertingOption)
+            : base(templatePath, new ShowingOption(), convertingOption)
         {
             _customerPendingFundsList = viewModel.DataList;
             _total = viewModel.TotalData;

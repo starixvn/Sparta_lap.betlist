@@ -332,9 +332,29 @@ var LicenseeWinLossOption = (function () {
 
     //#endregion
 
-    var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency", 'Turnover', 'ActualStake', 'BuyBackAmount',
-     'TotalTransaction', '@[Win]/@[Loss]', 'Comm', 'Total', 'LicenseeW_L', '@[ProductBT]<br/>@[Commission]', '@[ProductCO]<br/>@[Commission]', 'BA<br/>@[Commission]',
-     '@[RacingRevenue]', '@[AmtDueToBetTrade]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId'];
+    var colNameList = [
+        '#',
+        'Date',
+        'ExternalId',
+        "SystemId",
+        "Currency",
+        'Turnover',
+        'ActualStake',
+        'BuyBackAmount',
+        'TotalTransaction',
+        '@[Win]/@[Loss]',
+        'Comm',
+        'Total',
+        'LicenseeW_L',
+        '@[ProductBT]<br/>@[Commission]',
+        '@[ProductCO]<br/>@[Commission]',
+        'BA<br/>@[Commission]',
+        '@[RacingRevenue]',
+        '@[AmtDueToBetTrade]',
+        '@[AmtDueToBA]',
+        '@[AmtDueToRacing]',
+        'CurrencyId',
+        'CustomerId'];
 
     var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
         turnoverColumn, actualStakeColumn, buybackColumn, totalTransColumn, customerWlColumn, playerCommColumn,
@@ -721,7 +741,7 @@ var LicenseeWinLossOption = (function () {
             addLicenseeWlCollapse();
 
             addBuyBackCollapse();
-            
+
             //update footer row
             $("#footer").html($(".ui-jqgrid-ftable").html());
 

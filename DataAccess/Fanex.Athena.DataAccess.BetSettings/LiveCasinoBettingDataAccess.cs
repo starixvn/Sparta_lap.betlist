@@ -18,7 +18,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
     public class LiveCasinoBetSettingDataAccess : CasinoBettingBaseDataAccess, ILiveCasinoBetSettingDataAccess
     {
-        protected const int LiveCasinoSportId = 162;
+        private const int LiveCasinoSportId = 162;
 
         public IList<LiveCasinoBetSetting> GetBetSetting(int custId, string language)
         {

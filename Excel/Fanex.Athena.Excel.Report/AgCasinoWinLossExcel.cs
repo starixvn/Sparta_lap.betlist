@@ -17,9 +17,6 @@ namespace Fanex.Athena.Excel.Report
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// Ag Casino Win Loss - Export excel.
-    /// </summary>
     public class AgCasinoWinLossExcel : ReportBase
     {
         private const int ColumnTemplateCount = 9;
@@ -47,11 +44,10 @@ namespace Fanex.Athena.Excel.Report
 
         public AgCasinoWinLossExcel(
                 string templatePath,
-                string exportingFileName,
                 ConvertingOption convertingOption,
                 AgCasinoWinLossMetaModel metaModel,
                 AgCasinoWinLossViewModel viewModel)
-            : base(templatePath, exportingFileName, null, convertingOption)
+            : base(templatePath, null, convertingOption)
         {
             _metaModel = metaModel;
             _winLossList = viewModel.MainResult;
@@ -88,10 +84,6 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to header section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignHeader(ISheet sheet)
         {
             IRow row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
@@ -176,10 +168,6 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        /// <summary>
-        /// Process UI, hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
             switch (Level)
@@ -198,17 +186,27 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign common data to excel row.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="data">Licensee win loss data.</param>
-        protected void AssignCommonData(IRow row, AgCasinoWinLoss data)
+        private static void AssignCommonData(IRow row, AgCasinoWinLoss data)
         {
             row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
             row.Cells[ColumnCustomerWl].SetCellValue(data.CustomerWinLoss);
             row.Cells[ColumnLicenseeWl].SetCellValue(data.LicenseeWL);
+        }
+
+        private static List<AgCasinoWinLoss> GetTotalCurrency(IEnumerable<AgCasinoWinLoss> dataList)
+        {
+            var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
+                    .Select(group => new AgCasinoWinLoss
+                    {
+                        CurrencyName = group.Key.CurrencyName,
+                        TurnOver = group.Sum(a => a.TurnOver),
+                        TotalTransaction = group.Sum(a => a.TotalTransaction),
+                        CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
+                        LicenseeWL = group.Sum(a => a.LicenseeWL),
+                    }).ToList();
+
+            return listTotalCurrency;
         }
 
         /// <summary>
@@ -217,7 +215,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        protected int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
+        private int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -246,14 +244,13 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        protected int AssignTotalData(ISheet sheet, int rowIndex)
+        private int AssignTotalData(ISheet sheet, int rowIndex)
         {
             int beginTotalRow = rowIndex;
-            List<AgCasinoWinLoss> totalCurrencyList = GetTotalCurrency(_winLossList);
+            var totalCurrencyList = GetTotalCurrency(_winLossList);
 
             foreach (AgCasinoWinLoss totalCurrency in totalCurrencyList)
             {
-                // Copy template
                 IRow row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
 
                 if (rowIndex == beginTotalRow)
@@ -273,26 +270,6 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
 
             return rowIndex;
-        }
-
-        /// <summary>
-        /// Get total currency data.
-        /// </summary>
-        /// <param name="dataList">Report data.</param>
-        /// <returns>List of AgCasinoWinLoss entity.</returns>
-        private static List<AgCasinoWinLoss> GetTotalCurrency(IEnumerable<AgCasinoWinLoss> dataList)
-        {
-            var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
-                    .Select(group => new AgCasinoWinLoss
-                    {
-                        CurrencyName = group.Key.CurrencyName,
-                        TurnOver = group.Sum(a => a.TurnOver),
-                        TotalTransaction = group.Sum(a => a.TotalTransaction),
-                        CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
-                        LicenseeWL = group.Sum(a => a.LicenseeWL),
-                    }).ToList();
-
-            return listTotalCurrency;
         }
     }
 }

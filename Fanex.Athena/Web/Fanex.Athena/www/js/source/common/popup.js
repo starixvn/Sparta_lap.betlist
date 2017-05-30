@@ -44,6 +44,10 @@
             }
 
             return $popUp.flatPopup(option);
+        },
+
+        show: function ($popup, isModal) {
+            $popup.flatPopup("show", isModal);
         }
     };
 

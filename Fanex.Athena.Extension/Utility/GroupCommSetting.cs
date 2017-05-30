@@ -17,8 +17,8 @@ namespace Fanex.Athena.Extension.Utility
 
         public static readonly double MinValue = 0.0;
         public static readonly double MaxValue = 0.15;
-        private static double _rangValueKey = 0.0005;
-        private static double _rangeKey = 0.05;
+        private static readonly decimal RangValueKey = 0.0005m;
+        private static readonly decimal RangeKey = 0.05m;
 
         private static Dictionary<decimal, decimal> commissions;
         private static Dictionary<decimal, decimal> validCommissions;
@@ -30,7 +30,7 @@ namespace Fanex.Athena.Extension.Utility
                 if (commissions == null)
                 {
                     commissions = new Dictionary<decimal, decimal>();
-                    for (decimal i = MinKey, j = MaxKey + (decimal)_rangeKey, value = (decimal)MinValue; i < j; i += (decimal)_rangeKey, value += (decimal)_rangValueKey)
+                    for (decimal i = MinKey, j = MaxKey + (decimal)RangeKey, value = (decimal)MinValue; i < j; i += (decimal)RangeKey, value += (decimal)RangValueKey)
                     {
                         commissions.Add(i, value);
                     }
@@ -51,7 +51,7 @@ namespace Fanex.Athena.Extension.Utility
                 if (validCommissions == null)
                 {
                     validCommissions = new Dictionary<decimal, decimal>();
-                    for (decimal i = MinKey, j = MaxKey + (decimal)_rangeKey, value = (decimal)MinValue; i < j; i += (decimal)_rangeKey, value += (decimal)_rangValueKey)
+                    for (decimal i = MinKey, j = MaxKey + (decimal)RangeKey, value = (decimal)MinValue; i < j; i += (decimal)RangeKey, value += (decimal)RangValueKey)
                     {
                         validCommissions.Add(i, value);
                     }

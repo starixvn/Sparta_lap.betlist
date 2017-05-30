@@ -6,7 +6,7 @@ var cssRootPath = pathConfig.cssPaths.build;
 
 function generatePlugins(environment) {
     var commonPlugins = [
-        new CleanWebpackPlugin([pathConfig.scriptPaths.build], {
+        new CleanWebpackPlugin([pathConfig.scriptPaths.build + "/" + environment], {
             root: process.cwd()
         }),
         new CleanWebpackPlugin([cssRootPath], {

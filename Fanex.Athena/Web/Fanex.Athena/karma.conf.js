@@ -45,7 +45,8 @@ module.exports = function(config) {
 		'Scripts/BetList/customer.dailystatement.option.js',
 		'Scripts/BetList/customer.outstandingbetlist.js',
 		'Scripts/BetList/dailybetlist.js',
-		'Scripts/BetList/lastbetsmonitornew.js',
+        'Scripts/BetList/lastbet.filter.js',
+		'Scripts/BetList/lastbet.grid.js',
 		'Scripts/BetList/runningbetlist.js',
 		'Scripts/BetList/runningbetlist.multiplebettypes.js',
 		
@@ -57,7 +58,8 @@ module.exports = function(config) {
 		'jasmine-specs/BetList/customer.dailystatement.option-test.js',
 		'jasmine-specs/BetList/customer.outstandingbetlist-test.js',
 		'jasmine-specs/BetList/dailybetlist-test.js',
-		'jasmine-specs/BetList/lastbetsmonitornew-test.js',
+        'jasmine-specs/BetList/lastbet.filter-test.js',
+		'jasmine-specs/BetList/lastbet.grid-test.js',
 		 'jasmine-specs/BetList/runningbetlist-test.js',
 		'jasmine-specs/BetList/runningbetlist.multiplebettypes-test.js',
 		

@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Service.Core.UnitTests.Common
+﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
     using System.Collections.Generic;
     using System.IO;
@@ -18,12 +18,6 @@
     {
         private const int DefaultUserId = 1;
 
-        private static readonly Licensee DefaultLicensee = new Licensee
-        {
-            Id = 1,
-            Name = "12bet"
-        };
-
         private IFunctionService _functionService;
         private ILicenseeService _licenseeService;
         private ICurrencyService _currencyService;
@@ -34,7 +28,14 @@
         {
             _functionService = Substitute.For<IFunctionService>();
             _licenseeService = Substitute.For<ILicenseeService>();
-            var licenseeList = new List<Licensee> { DefaultLicensee };
+            var licenseeList = new List<Licensee>
+            {
+                new Licensee
+                {
+                    Id = 1,
+                    Name = "12bet"
+                }
+            };
             _licenseeService.GetByUser(DefaultUserId).Returns<IList<Licensee>>(i => licenseeList);
             _currencyService = Substitute.For<ICurrencyService>();
             _sessionService = new SessionService(_functionService, _licenseeService, _currencyService);

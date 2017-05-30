@@ -16,27 +16,30 @@
     using NSubstitute;
     using NUnit.Framework;
     using Report;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
 
     public class CashOutWinLossReportControllerTest
     {
         private ISessionService _sessionService;
+        private IProductService _productService;
         private ICashOutWinLossService _service;
         private CashOutWinLossReportController _controller;
         private JavaScriptSerializer _serializer;
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeSetUp]
+        public void FixtureSetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
+            _productService = Substitute.For<IProductService>();
             _service = Substitute.For<ICashOutWinLossService>();
-            _controller = Substitute.ForPartsOf<CashOutWinLossReportController>(_service, _sessionService);
+            _controller = Substitute.ForPartsOf<CashOutWinLossReportController>(_service, _sessionService, _productService);
             _serializer = new JavaScriptSerializer();
             CreateSession();
         }
 
-        [TearDown]
-        public void TearDown()
+        [OneTimeTearDown]
+        public void FixtureTearDown()
         {
             _service = null;
             _controller = null;
@@ -132,7 +135,7 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
-        }       
+        }
 
         [Test]
         public void Index_WhenDataListParamReturnEmpty_ReturnEmptyResult()
@@ -185,7 +188,7 @@
                 FromDate = fromDate
             };
 
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
@@ -201,7 +204,7 @@
 
             // Assert
             _controller.Received().ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>());
-        }      
+        }
 
         [TestCase(0, -2)]
         [TestCase(1, -2)]
@@ -224,7 +227,7 @@
                 FromDate = fromDate
             };
 
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
@@ -272,7 +275,7 @@
                 DrillDownToDate = inputedMetaModel.DrillDownToDate
             };
 
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), inputedMetaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), inputedMetaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
@@ -315,7 +318,7 @@
                 FromDate = new DateTime(2017, 4, 1)
             };
 
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), inputedMetaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), inputedMetaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
@@ -366,7 +369,7 @@
                 ToDate = toDate
             };
 
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
@@ -412,7 +415,7 @@
                 ToDate = initialToDate
             };
 
-            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
+            var excel = Substitute.ForPartsOf<CashOutWinLossExcel>(string.Empty, new ConvertingOption(), metaModel, new CashOutWinLossViewModel());
             excel.When(x => x.Export()).DoNotCallBase();
             _controller.CreateExcel(
                 Arg.Any<string>(),
@@ -441,14 +444,18 @@
 
         private void CreateSession()
         {
-            var userSession = new UserSession();
-            userSession.CurrencyList = new Dictionary<int, string>
+            var userSession = new UserSession
+            {
+                CurrencyList = new Dictionary<int, string>
             {
                 { -1, "EUR" }, { -2, "USD" }
+            }
             };
 
-            var licenseeSession = new LicenseeSession();
-            licenseeSession.LicenseeId = 1;
+            var licenseeSession = new LicenseeSession
+            {
+                LicenseeId = 1
+            };
 
             _sessionService.UserSession.Returns(userSession);
             _sessionService.LicenseeSession.Returns(licenseeSession);

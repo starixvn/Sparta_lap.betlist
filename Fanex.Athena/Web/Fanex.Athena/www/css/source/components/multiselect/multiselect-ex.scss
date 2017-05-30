@@ -1,16 +1,23 @@
 ﻿@import "../../scss/abstracts/_variables";
 
 .multiselect-container {
-    min-width: 250px;
-
     > label {
         position: absolute;
-        top: -14px;
+        top: -10px;
+        width: 100%;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            opacity: 0;
+            left: 0;
+        }
     }
 
     > a.ui-multiselect {
-        height: 2.5rem;
-        line-height: 2.5rem;
+        height: 26px;
+        line-height: 26px;
         border: none;
         border-bottom: 1px solid #ccc;
         cursor: pointer;
@@ -37,6 +44,12 @@
                 right: -5px;
                 line-height: 1;
             }
+        }
+    }
+
+    &.invalid {
+        > a.ui-multiselect {
+            border-bottom: 2px solid $red;
         }
     }
 }

@@ -86,7 +86,7 @@ namespace Fanex.Athena.DataAccess.Warehouse
             }
         }
 
-        private object CreateParams(TopCustomerMetaModel metaModel)
+        private static object CreateParams(TopCustomerMetaModel metaModel)
         {
             return new
             {

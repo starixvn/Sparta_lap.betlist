@@ -3,8 +3,6 @@
     #region Using
 
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
     using System.Linq;
     using System.Web.Http;
     using Base;
@@ -94,17 +92,23 @@
 
             var ticketResult = _lastBetsMonitoringBetListService.GetLastBetsMonitoringData(metaModel);
 
-            return ticketResult == null || ticketResult.MainTicketList.Count == 0
-                ? (dynamic)new
-                {
-                    NewRow = false
-                }
-                : new
+            if (ticketResult.MainTicketList.Any())
+            {
+                var rows = GetLastMonitorBetListContent(metaModel, ticketResult);
+                return new
                 {
                     NewRow = true,
-                    Rows = GetLastMonitorBetListContent(metaModel, ticketResult),
+                    Rows = rows,
                     LastTransId = ticketResult.MainTicketList.Max(t => t.TransId),
                 };
+            }
+            else
+            {
+                return new
+                {
+                    NewRow = false
+                };
+            }
         }
 
         private static void BuildOdds(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult, LrfTicket ticket, BetListHTMLBuilder builder)
@@ -174,9 +178,6 @@
             {
                 switch (ticket.LiveHomeScore)
                 {
-                    case 0:
-                        return string.Format(PatternStatusBetlist, "#000", ViewResources.NoneLive);
-
                     case 1:
                         return string.Format(PatternStatusBetlist, "#cc0033", ViewResources.Live);
 
@@ -193,16 +194,6 @@
                 : string.Format(PatternStatusBetlist, "#000", ViewResources.NoneLive);
         }
 
-        /// <summary>
-        /// Render bet list content.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="ticketResult">Ticket result.</param>
-        /// <returns>Bet list in html, using in last bet monitoring.</returns>
-        [SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private string GetLastMonitorBetListContent(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult)
         {
             var builder = new BetListHTMLBuilder();
@@ -210,53 +201,23 @@
             {
                 _ticketHelper.ClientDetailSystemParlayFunction = GetClientDetailSystemParlayFunction(metaModel, ticket);
 
-                // Begin of row
                 var row = $"<tr class='content-row monitor-hightlight' id='trans-{ticket.TransId}' data-transid='{ticket.TransId}'>";
                 builder.Append(row);
 
-                // Platform
-                builder.Append("<td data-name=\"Platform\" >");
-                builder.Append(MapPlatForm(ticket.BetFrom));
-                builder.Append("</td>");
-
-                // External Id
-                builder.Append("<td data-name=\"ExternalId\" class='special-color-");
-                builder.Append(ticket.SpecialLevel.ToString(CultureInfo.InvariantCulture));
-                builder.Append("'>");
-                builder.Append(ticket.ExternalId);
-                builder.Append("</td>");
-
-                // Username
-                builder.Append("<td data-name=\"SystemId\" class='special-color-");
-                builder.Append(ticket.SpecialLevel.ToString(CultureInfo.InvariantCulture));
-                builder.Append("'>");
-                builder.Append(ticket.UserName);
-                builder.Append("</td>");
-
-                // Trans time
-                builder.AddTrans(ticket, "<td data-name=\"TransTime\" class='special-color-0'>", "</td>");
-
-                // Choice
+                builder.Append($"<td data-name='Platform'>{MapPlatForm(ticket.BetFrom)}</td>");
+                builder.Append($"<td data-name='ExternalId' class='special-color-{ticket.SpecialLevel}'>{ticket.ExternalId}</td>");
+                builder.Append($"<td data-name='SystemId' class='special-color-{ticket.SpecialLevel}'>{ticket.UserName}</td>");
+                builder.AddTrans(ticket, "<td data-name='TransTime' class='special-color-0'>", "</td>");
                 builder.AddChoice(
                     ticket,
                     _ticketHelper,
                     ticketResult.TicketDataList,
-                    "<td data-name=\"Choice\" class='bl-event'>",
+                    "<td data-name='Choice' class='bl-event'>",
                     "</td>",
                     false);
-
-                // Odds
                 BuildOdds(metaModel, ticketResult, ticket, builder);
-
-                // Stake
-                builder.AddStake(
-                    ticket,
-                    "<td data-name=\"Stake\" class='bl-stake'>",
-                    "</td>");
-
-                builder.Append("<td data-name=\"Status\" class='bl-status'>");
-                builder.Append(GetLasBetMonitoringStatus(ticket));
-                builder.Append("</td></tr>");
+                builder.AddStake(ticket, "<td data-name='Stake' class='bl-stake'>", "</td>");
+                builder.Append($"<td data-name='Status' class='bl-status'>{GetLasBetMonitoringStatus(ticket)}</td></tr>");
             }
 
             return builder.GetBetList();

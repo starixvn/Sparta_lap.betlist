@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
+﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests
 {
     using System;
     using System.Collections.Generic;
@@ -45,13 +45,17 @@
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        [Test]
-        public void ReadLrfTicket_WhenCall_DataReturnedCorrectly()
+        [TestCase(null, false)]
+        [TestCase(0, false)]
+        [TestCase(1, true)]
+        [TestCase(1d, false)]
+        [TestCase(true, true)]
+        public void ReadLrfTicket_WhenCall_DataReturnedCorrectly(object isNeutral, bool expectedIsNeutral)
         {
             // Arrange
             var currency = "UUS";
             var expected = GetFakeTicket();
-            var dataList = GetFakeBetListData(currency, expected);
+            var dataList = GetFakeBetListData(currency, expected, isNeutral);
             _reader.Read().Returns(true, false);
             ConfigureReader(dataList);
 
@@ -73,7 +77,7 @@
             Assert.That(result.BetCheck, Is.EqualTo(expected.BetCheck));
 
             Assert.That(result.IsLive, Is.EqualTo(expected.IsLive));
-            Assert.That(result.IsNeutral, Is.EqualTo(expected.IsNeutral));
+            Assert.That(result.IsNeutral, Is.EqualTo(expectedIsNeutral));
 
             Assert.That(result.SportTypeId, Is.EqualTo(expected.SportTypeId));
             Assert.That(result.BetTypeId, Is.EqualTo(expected.BetTypeId));
@@ -112,7 +116,7 @@
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private IDictionary<string, object> GetFakeBetListData(string baseCurrency, LrfTicket ticket)
+        private IDictionary<string, object> GetFakeBetListData(string baseCurrency, LrfTicket ticket, object isNeutral)
         {
             var playerCommCol = "playercomm" + baseCurrency;
             var commCol = "comm" + baseCurrency;
@@ -137,7 +141,7 @@
             dataList.Add("betcheck", ticket.BetCheck);
 
             dataList.Add("liveindicator", ticket.IsLive);
-            dataList.Add("isneutral", ticket.IsNeutral);
+            dataList.Add("isneutral", isNeutral);
 
             dataList.Add("sporttype", ticket.SportTypeId);
             dataList.Add("bettype", ticket.BetTypeId);

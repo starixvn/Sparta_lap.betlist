@@ -11,7 +11,8 @@
     [System.CLSCompliant(false)]
     public static class BetListParameterBuilder
     {
-        private static Dictionary<string, Action<IObjectDb, BetListMetaModel>> addSqlParameters = new Dictionary<string, Action<IObjectDb, BetListMetaModel>>
+        private static readonly Dictionary<string, Action<IObjectDb, BetListMetaModel>> AddingSqlParameters = 
+            new Dictionary<string, Action<IObjectDb, BetListMetaModel>>
         {
             { "Lrf_BetList_WinlostByLeague_Mem", (db, metalModel) => CreateWinlossByLeagueParameters(db, metalModel) },
             { "Lrf_BetList_SelDeleted", (db, metalModel) => CreateCancelBetListParameters(db, metalModel) },
@@ -49,7 +50,7 @@
 
         public static void CreateBetListParameters(IObjectDb db, string uspKey, BetListMetaModel metaModel)
         {
-            addSqlParameters[uspKey](db, metaModel);
+            AddingSqlParameters[uspKey](db, metaModel);
         }
 
         public static void CreateBetListDateRangeParameters(IObjectDb db, BetListMetaModel metaModel)

@@ -1,0 +1,76 @@
+﻿@model Fanex.Athena.Model.Report.ViewModel.WinLossByLeagueViewModel
+@{
+    var appSettings = new AppSettings();
+    var sportList = this.Model.Sports
+           .Select(item => new SelectListItem { Value = item.Key.ToString(), Text = item.Value })
+           .ToList();
+    sportList.Insert(0, new SelectListItem { Value = "0", Text = ViewResources.All, Selected = true });
+
+    var leagues = this.Model.Leagues
+            .Select(x => new SelectListItem { Value = x.Key.ToString(), Text = x.Value }).ToList();
+
+    var matches = this.Model.Matches
+            .Select(x => new SelectListItem { Value = x.Key.ToString(), Text = x.Value }).ToList();
+    matches.Insert(0, new SelectListItem { Value = "0", Text = ViewResources.All, Selected = true });
+}
+
+<div class="page-form">
+    <form id="SearchForm" name="SearchForm" method="post" action="">
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            @DesktopRazorHelper.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
+
+            <div class="input-field col l2 m2 s12">
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true)
+                <label>@ViewResources.Currency</label>
+            </div>
+            <div class="input-field col l2 m2 s12">
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                <label>@ViewResources.Based</label>
+            </div>
+            <div class="input-field col l3 m3 s12">
+                @Html.DropDownList("League", leagues, new { @class = "select hide" })
+                <label>@ViewResources.League</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col l4 m4 s12">
+                @Html.DropDownList("Match", matches, new { @class = "select hide" })
+                <label>@ViewResources.Match</label>
+            </div>
+            @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions, 2)
+
+            <div class="input-field col l6 m4 s12">
+                @DesktopRazorHelper.TicketFilter()
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="input-field col l2 m4 s12">
+                <input id="Odds" name="Odds" type="text" value="0"  />
+                <label>@ViewResources.MinimumOdds <span class="decimal-odds">(@ViewResources.DecimalOdds)</span></label>
+            </div>
+
+            <div class="input-field col l2 m4 s12">
+                @Html.DropDownList("Sport", sportList, new { @class = "select hide" })
+                <label>@ViewResources.Sport</label>
+            </div>
+
+            <div class="col l2 m2 s12 button-block">
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span class="circle"></span>
+                <span>
+                    @ViewResources.OANDANote
+                </span>
+            </div>
+        </div>
+        @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
+    </form>       
+</div>

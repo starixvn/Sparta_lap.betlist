@@ -259,7 +259,7 @@ tr.ui-search-toolbar select
     padding: 0;
     overflow: hidden;
     border-left: 0 none !important;
-    border-top: 0 none !important;
+    border-top: 0 none;
     border-right: 0 none !important;
 }
 .ui-jqgrid .ui-jqgrid-ftable

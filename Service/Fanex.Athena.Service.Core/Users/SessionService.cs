@@ -26,7 +26,7 @@ namespace Fanex.Athena.Service.Core.Users
     {
         private const int ReportBalanceId = 42;
 
-        private const string ReportBalanceUrl = "BalanceReport";
+        private const string ReportBalancePath = "BalanceReport";
 
         private const string LicenseeSessionKey = "LicenseeSessionKey";
 
@@ -227,7 +227,7 @@ namespace Fanex.Athena.Service.Core.Users
                 }
             }
 
-            return ReportBalanceUrl;
+            return ReportBalancePath;
         }
 
         private static LicenseeSession GenerateLicenseeInfo(Licensee selectedLicensee)

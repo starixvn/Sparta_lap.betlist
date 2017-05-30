@@ -126,7 +126,10 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
             setReportTitle: function (currencyId, fromdate, todate) {
                 var titlePattern = Site.getSingleResource('CashOutWinLoss') + ', {0} → {1} - {2}';
                 var currencyName = Report.getCurrencyNameForReportTitle(currencyId);
-                var title = $.format(titlePattern, moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"), moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"), currencyName);
+                var title = $.format(titlePattern,
+                    moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"),
+                    moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"),
+                    currencyName);
                 $(".report-title").html(title);
                 $(".panel-heading").removeClass("hide");
             },

@@ -18,9 +18,6 @@ namespace Fanex.Athena.Excel.Report
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// Ag Casino Win Loss - Export excel.
-    /// </summary>
     public class AgCasinoBalanceExcel : ReportBase
     {
         private const int ColumnTemplateCount = 13;
@@ -52,11 +49,10 @@ namespace Fanex.Athena.Excel.Report
 
         public AgCasinoBalanceExcel(
                 string templatePath,
-                string exportingFileName,
                 ConvertingOption convertingOption,
                 AgCasinoBalanceMetaModel metaModel,
                 AgCasinoBalanceViewModel viewModel)
-            : base(templatePath, exportingFileName, null, convertingOption)
+            : base(templatePath, null, convertingOption)
         {
             _metaModel = metaModel;
             _casinoList = viewModel.MainResult;
@@ -70,9 +66,6 @@ namespace Fanex.Athena.Excel.Report
             set;
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
         protected override void AssignData()
         {
             int numOfDataRow = _casinoList.Count;

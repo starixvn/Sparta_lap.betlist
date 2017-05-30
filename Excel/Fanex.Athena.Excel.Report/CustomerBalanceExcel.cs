@@ -52,12 +52,11 @@ namespace Fanex.Athena.Excel.Report
 
         public CustomerBalanceExcel(
                                     string templatePath,
-                                    string exportingFileName,
                                     CustomerBalanceViewModel model,
                                     ShowingOption showingOption,
                                     ConvertingOption convertingOption,
                                     string sortBy)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _model = model;
             _sortBy = sortBy;

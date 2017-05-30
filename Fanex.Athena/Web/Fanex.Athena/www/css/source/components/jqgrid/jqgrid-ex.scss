@@ -15,7 +15,7 @@ $colorDisabledPgButton: $colorLightGray;
 
     .ui-jqgrid {
         .highlight {
-            background-color: #F8F1A0;
+            background-color: $colorHighlight;
         }
 
         .ui-jqgrid-view {
@@ -25,6 +25,7 @@ $colorDisabledPgButton: $colorLightGray;
 
         .ui-jqgrid-htable {
             border-right: 1px solid $colorBorderTable;
+
             thead {
                 border: none;
 
@@ -92,9 +93,9 @@ $colorDisabledPgButton: $colorLightGray;
         }
 
         .ui-jqgrid-sdiv {
-            .ui-jqgrid-ftable {
-                border-top: 3px solid #a7a1a1;
+            border-top: 3px solid #a7a1a1;
 
+            .ui-jqgrid-ftable {
                 .footer-firstrow {
                     > td {
                         padding: 0;
@@ -111,10 +112,22 @@ $colorDisabledPgButton: $colorLightGray;
                         }
                     }
                 }
+
+                .grandTotal {
+                    > td {
+                        background: $bgTotal;
+                    }
+                }
+
+                .summarytotal {
+                    > td {
+                        background: $bgSummaryTotal;
+                    }
+                }
             }
 
             &.jqgrid-footer-scroll-hacking {
-                max-height: 260px;
+                max-height: 250px;
                 overflow-y: auto;
             }
         }

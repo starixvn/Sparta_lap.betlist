@@ -22,32 +22,15 @@ namespace Fanex.Athena.Service.Report
 
     public class WinLossByProductService : IWinLossByProductService
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///     The _balance service.
-        /// </summary>
         private readonly IBalanceUpService _balanceService;
 
-        /// <summary>
-        ///     The _licensee win loss data access.
-        /// </summary>
         private readonly IWinLossByProductDataAccess _winLossByProductDataAccess;
 
-        #endregion Constants and Fields
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="WinLossByProductService" /> class.
-        /// </summary>
         public WinLossByProductService()
         {
             this._balanceService = new BalanceUpService();
             this._winLossByProductDataAccess = new WinLossByProductDataAccess(this._balanceService.BalanceUpInfo);
         }
-
-        #endregion Constructors and Destructors
 
         #region IWinLossByProductService Members
 

@@ -103,7 +103,7 @@
                     spyOn(Site, "initialize");
                     spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR" });
                     spyOn(BetList, "loadDataPaging");
-                    var expectedUrl = "api/DailyBetList/index?currencyid=1&basecurrency=EUR&productcode=2&status=won&date=03/28/2017";
+                    var expectedUrl = "api/DailyBetList/index?currencyid=1&basecurrency=EUR&productCode=2&status=won&date=03/28/2017";
 
                     BetListDaily.submit();
 
@@ -124,8 +124,7 @@
                     spyOn(Site, "setLicenseeOptionParam").and.callFake(function (url) { return url + "?currencyid=1&basecurrency=EUR" });
                     spyOn(BetList, "getSortParams").and.returnValue({ SortBy: "test-column", SortOrder: "asc" });
 
-                    var expectedUrl = "localhost?currencyid=1&basecurrency=EUR&isexportexcel=true&date=03/28/2017&productcode=2&dailybetliststatus=won&" +
-                        "pageindex=1&pagesize=10&sortby=test-column&sortorder=asc";
+                    var expectedUrl = "localhost?currencyid=1&basecurrency=EUR&IsExportExcel=true&date=03/28/2017&productCode=2&DailyBetListStatus=won&PageIndex=1&PageSize=10&SortBy=test-column&SortOrder=asc";
 
                     BetListDaily.exportToExcel();
 

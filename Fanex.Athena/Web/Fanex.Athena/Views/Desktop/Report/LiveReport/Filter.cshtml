@@ -10,18 +10,18 @@
         @Html.AntiForgeryToken()
         <div class="row">
             <div class="input-field input col l3 m3 s12 calendar date-range">
-                @RazorHelperDesktop.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, maxDate)
+                @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, maxDate)
             </div>
             <div class="input-field col l2 m2 s12">
-                @RazorHelperDesktop.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
                 <label>@ViewResources.Currency</label>
             </div>
             <div class="input-field col l2 m2 s12">
-                @RazorHelperDesktop.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
                 <label>@ViewResources.Based</label>
             </div>
             <div class="input-field col l2 m2 s12">
-                @RazorHelperDesktop.LiveStatus(Model.Param.LiveIndicator)
+                @DesktopLiveReportRazorHelper.LiveStatus(Model.Param.LiveIndicator)
                 <label>@ViewResources.LiveStatus</label>
             </div>
             <div class="col l2 m2 s12 button-block">

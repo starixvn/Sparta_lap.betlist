@@ -178,26 +178,6 @@ var jqGridAdditional = (function () {
             $(".ui-jqgrid-htable>thead>tr.ui-jqgrid-labels > th.ui-th-column div").addClass("header-two-line");
         },
 
-        getLicenseeWLNote: function (productOptionJson, caption) {
-            var productOptions = $.parseJSON(productOptionJson);
-            var temp = caption || Site.getSingleResource("LicenseeW_L");
-            var productTemp = "";
-            var productAds = ["SB", "LC", "NG", "VS", "CS", "BG", "KN", "BT", "MGCLC", "MGCRNG", "VB"];
-            for (var i = 0; i < productOptions.length; i++) {
-                if ($.inArray(productOptions[i].Code, productAds) > -1 && Site.asBool(productOptions[i].Status)) {
-                    productTemp += productTemp.length === 0 ? productOptions[i].Code : ", " + productOptions[i].Code;
-                }
-            }
-            if (productTemp.length > 0) {
-                temp += "(" + productTemp + ")";
-            }
-            else {
-                return caption || "";
-            }
-
-            return temp;
-        },
-
         gridComplete: function (grid, gridOption, totalRowCount) {
             totalRowCount = totalRowCount === undefined ? 0 : totalRowCount;
             var refineHeight = function (bodyHeight, gridId) {

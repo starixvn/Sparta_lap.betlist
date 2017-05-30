@@ -99,7 +99,6 @@ namespace Fanex.Athena.Controllers.Report
 
             var balance = new BalanceExcel(
                 templatePath,
-                FileName,
                 showingOption,
                 convertingOption,
                 model.MainData,

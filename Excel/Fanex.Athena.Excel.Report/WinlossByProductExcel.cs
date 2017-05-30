@@ -53,14 +53,13 @@ namespace Fanex.Athena.Excel.Report
 
         public WinlossByProductExcel(
                                      string templatePath,
-                                     string exportingFileName,
                                      ConvertingOption convertingOption,
                                      ShowingOption showingOption,
                                      WinLossByProductMetaModel metaModel,
                                      WinLossByProductViewModel viewModel,
                                      string systemId,
                                      string errorMessage)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _metaModel = metaModel;
             _winlossByProductList = viewModel.MainResult;

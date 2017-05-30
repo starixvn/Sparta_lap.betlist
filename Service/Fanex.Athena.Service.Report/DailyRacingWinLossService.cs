@@ -15,9 +15,6 @@ namespace Fanex.Athena.Service.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class DailyRacingWinLossService : IDailyRacingWinLossService
     {
         #region Fields
@@ -72,95 +69,95 @@ namespace Fanex.Athena.Service.Report
 
         #region Private
 
-        /// <summary>
-        /// Get summary daily racing win-loss.
-        /// </summary>
-        /// <param name="rawData">The raw data .</param>
-        /// <param name="currencyName">The currency name.</param>
-        /// <returns>The daily racing win-loss.</returns>
         [SuppressMessage(
            "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
         private static DailyRacingWinLoss GetSumDailyRacingWinLoss(IList<DailyRacingWinLoss> rawData, string currencyName)
         {
-            return new DailyRacingWinLoss
+            var result = new DailyRacingWinLoss
             {
-                CurrencyName = currencyName,
-                WinTO = rawData.Sum(a => a.WinTO),
-                PlaceTO = rawData.Sum(a => a.PlaceTO),
-                WPTO = rawData.Sum(a => a.WPTO),
-                TotalTO = rawData.Sum(a => a.TotalTO),
-                DividendWon = rawData.Sum(a => a.DividendWon),
-                CustomerCommission = rawData.Sum(a => a.CustomerCommission),
-                WinTO12Bet = rawData.Sum(a => a.WinTO12Bet),
-                PlaceTO12Bet = rawData.Sum(a => a.PlaceTO12Bet),
-                WPTO12Bet = rawData.Sum(a => a.WPTO12Bet),
-                TotalTO12Bet = rawData.Sum(a => a.TotalTO12Bet),
-                WinLoss12Bet = rawData.Sum(a => a.WinLoss12Bet),
-                CommIncome = rawData.Sum(a => a.CommIncome),
-                AmountDueToRacing = rawData.Sum(a => a.AmountDueToRacing),
+                CurrencyName = currencyName
+            };
+
+            foreach (var item in rawData)
+            {
+                result.WinTO += item.WinTO;
+                result.PlaceTO += item.PlaceTO;
+                result.WPTO += item.WPTO;
+                result.TotalTO += item.TotalTO;
+                result.DividendWon += item.DividendWon;
+                result.CustomerCommission += item.CustomerCommission;
+                result.WinTO12Bet += item.WinTO12Bet;
+                result.PlaceTO12Bet += item.PlaceTO12Bet;
+                result.WPTO12Bet += item.WPTO12Bet;
+                result.TotalTO12Bet += item.TotalTO12Bet;
+                result.WinLoss12Bet += item.WinLoss12Bet;
+                result.CommIncome += item.CommIncome;
+                result.AmountDueToRacing += item.AmountDueToRacing;
 
                 // MYR
-                WinTOMYR = rawData.Sum(a => a.WinTOMYR),
-                PlaceTOMYR = rawData.Sum(a => a.PlaceTOMYR),
-                WPTOMYR = rawData.Sum(a => a.WPTOMYR),
-                TotalTOMYR = rawData.Sum(a => a.TotalTOMYR),
-                DividendWonMYR = rawData.Sum(a => a.DividendWonMYR),
-                CustomerCommissionMYR = rawData.Sum(a => a.CustomerCommissionMYR),
-                WinTO12BetMYR = rawData.Sum(a => a.WinTO12BetMYR),
-                PlaceTO12BetMYR = rawData.Sum(a => a.PlaceTO12BetMYR),
-                WPTO12BetMYR = rawData.Sum(a => a.WPTO12BetMYR),
-                TotalTO12BetMYR = rawData.Sum(a => a.TotalTO12BetMYR),
-                WinLoss12BetMYR = rawData.Sum(a => a.WinLoss12BetMYR),
-                CommIncomeMYR = rawData.Sum(a => a.CommIncomeMYR),
-                AmountDueToRacingMYR = rawData.Sum(a => a.AmountDueToRacingMYR),
+                result.WinTOMYR += item.WinTOMYR;
+                result.PlaceTOMYR += item.PlaceTOMYR;
+                result.WPTOMYR += item.WPTOMYR;
+                result.TotalTOMYR += item.TotalTOMYR;
+                result.DividendWonMYR += item.DividendWonMYR;
+                result.CustomerCommissionMYR += item.CustomerCommissionMYR;
+                result.WinTO12BetMYR += item.WinTO12BetMYR;
+                result.PlaceTO12BetMYR += item.PlaceTO12BetMYR;
+                result.WPTO12BetMYR += item.WPTO12BetMYR;
+                result.TotalTO12BetMYR += item.TotalTO12BetMYR;
+                result.WinLoss12BetMYR += item.WinLoss12BetMYR;
+                result.CommIncomeMYR += item.CommIncomeMYR;
+                result.AmountDueToRacingMYR += item.AmountDueToRacingMYR;
 
                 // EUR
-                WinTOEUR = rawData.Sum(a => a.WinTOEUR),
-                PlaceTOEUR = rawData.Sum(a => a.PlaceTOEUR),
-                WPTOEUR = rawData.Sum(a => a.WPTOEUR),
-                TotalTOEUR = rawData.Sum(a => a.TotalTOEUR),
-                DividendWonEUR = rawData.Sum(a => a.DividendWonEUR),
-                CustomerCommissionEUR = rawData.Sum(a => a.CustomerCommissionEUR),
-                WinTO12BetEUR = rawData.Sum(a => a.WinTO12BetEUR),
-                PlaceTO12BetEUR = rawData.Sum(a => a.PlaceTO12BetEUR),
-                WPTO12BetEUR = rawData.Sum(a => a.WPTO12BetEUR),
-                TotalTO12BetEUR = rawData.Sum(a => a.TotalTO12BetEUR),
-                WinLoss12BetEUR = rawData.Sum(a => a.WinLoss12BetEUR),
-                CommIncomeEUR = rawData.Sum(a => a.CommIncomeEUR),
-                AmountDueToRacingEUR = rawData.Sum(a => a.AmountDueToRacingEUR),
+                result.WinTOEUR += item.WinTOEUR;
+                result.PlaceTOEUR += item.PlaceTOEUR;
+                result.WPTOEUR += item.WPTOEUR;
+                result.TotalTOEUR += item.TotalTOEUR;
+                result.DividendWonEUR += item.DividendWonEUR;
+                result.CustomerCommissionEUR += item.CustomerCommissionEUR;
+                result.WinTO12BetEUR += item.WinTO12BetEUR;
+                result.PlaceTO12BetEUR += item.PlaceTO12BetEUR;
+                result.WPTO12BetEUR += item.WPTO12BetEUR;
+                result.TotalTO12BetEUR += item.TotalTO12BetEUR;
+                result.WinLoss12BetEUR += item.WinLoss12BetEUR;
+                result.CommIncomeEUR += item.CommIncomeEUR;
+                result.AmountDueToRacingEUR += item.AmountDueToRacingEUR;
 
                 // USD
-                WinTOUSD = rawData.Sum(a => a.WinTOUSD),
-                PlaceTOUSD = rawData.Sum(a => a.PlaceTOUSD),
-                WPTOUSD = rawData.Sum(a => a.WPTOUSD),
-                TotalTOUSD = rawData.Sum(a => a.TotalTOUSD),
-                DividendWonUSD = rawData.Sum(a => a.DividendWonUSD),
-                CustomerCommissionUSD = rawData.Sum(a => a.CustomerCommissionUSD),
-                WinTO12BetUSD = rawData.Sum(a => a.WinTO12BetUSD),
-                PlaceTO12BetUSD = rawData.Sum(a => a.PlaceTO12BetUSD),
-                WPTO12BetUSD = rawData.Sum(a => a.WPTO12BetUSD),
-                TotalTO12BetUSD = rawData.Sum(a => a.TotalTO12BetUSD),
-                WinLoss12BetUSD = rawData.Sum(a => a.WinLoss12BetUSD),
-                CommIncomeUSD = rawData.Sum(a => a.CommIncomeUSD),
-                AmountDueToRacingUSD = rawData.Sum(a => a.AmountDueToRacingUSD),
+                result.WinTOUSD += item.WinTOUSD;
+                result.PlaceTOUSD += item.PlaceTOUSD;
+                result.WPTOUSD += item.WPTOUSD;
+                result.TotalTOUSD += item.TotalTOUSD;
+                result.DividendWonUSD += item.DividendWonUSD;
+                result.CustomerCommissionUSD += item.CustomerCommissionUSD;
+                result.WinTO12BetUSD += item.WinTO12BetUSD;
+                result.PlaceTO12BetUSD += item.PlaceTO12BetUSD;
+                result.WPTO12BetUSD += item.WPTO12BetUSD;
+                result.TotalTO12BetUSD += item.TotalTO12BetUSD;
+                result.WinLoss12BetUSD += item.WinLoss12BetUSD;
+                result.CommIncomeUSD += item.CommIncomeUSD;
+                result.AmountDueToRacingUSD += item.AmountDueToRacingUSD;
 
                 // GBP
-                WinTOGBP = rawData.Sum(a => a.WinTOGBP),
-                PlaceTOGBP = rawData.Sum(a => a.PlaceTOGBP),
-                WPTOGBP = rawData.Sum(a => a.WPTOGBP),
-                TotalTOGBP = rawData.Sum(a => a.TotalTOGBP),
-                DividendWonGBP = rawData.Sum(a => a.DividendWonGBP),
-                CustomerCommissionGBP = rawData.Sum(a => a.CustomerCommissionGBP),
-                WinTO12BetGBP = rawData.Sum(a => a.WinTO12BetGBP),
-                PlaceTO12BetGBP = rawData.Sum(a => a.PlaceTO12BetGBP),
-                WPTO12BetGBP = rawData.Sum(a => a.WPTO12BetGBP),
-                TotalTO12BetGBP = rawData.Sum(a => a.TotalTO12BetGBP),
-                WinLoss12BetGBP = rawData.Sum(a => a.WinLoss12BetGBP),
-                CommIncomeGBP = rawData.Sum(a => a.CommIncomeGBP),
-                AmountDueToRacingGBP = rawData.Sum(a => a.AmountDueToRacingGBP)
-            };
+                result.WinTOGBP += item.WinTOGBP;
+                result.PlaceTOGBP += item.PlaceTOGBP;
+                result.WPTOGBP += item.WPTOGBP;
+                result.TotalTOGBP += item.TotalTOGBP;
+                result.DividendWonGBP += item.DividendWonGBP;
+                result.CustomerCommissionGBP += item.CustomerCommissionGBP;
+                result.WinTO12BetGBP += item.WinTO12BetGBP;
+                result.PlaceTO12BetGBP += item.PlaceTO12BetGBP;
+                result.WPTO12BetGBP += item.WPTO12BetGBP;
+                result.TotalTO12BetGBP += item.TotalTO12BetGBP;
+                result.WinLoss12BetGBP += item.WinLoss12BetGBP;
+                result.CommIncomeGBP += item.CommIncomeGBP;
+                result.AmountDueToRacingGBP += item.AmountDueToRacingGBP;
+            }
+
+            return result;
         }
 
         #endregion Private

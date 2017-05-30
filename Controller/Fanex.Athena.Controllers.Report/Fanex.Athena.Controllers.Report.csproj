@@ -205,7 +205,6 @@
     <Compile Include="CustomerWinLossReportController.cs" />
     <Compile Include="DailyRacingWinLossReportController.cs" />
     <Compile Include="GoldDeluxeWinLossReportController.cs" />
-    <Compile Include="MacauWinlossReportController.cs" />
     <Compile Include="MatchWinLossReportController.cs" />
     <Compile Include="MicrogamingWinlossReportController.cs" />
     <Compile Include="PlatformWinLossReportController.cs" />

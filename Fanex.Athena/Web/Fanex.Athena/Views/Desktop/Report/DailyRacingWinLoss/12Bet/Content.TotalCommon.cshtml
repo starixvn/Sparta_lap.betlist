@@ -1,0 +1,55 @@
+﻿@model Fanex.Athena.Model.Report.DTO.DailyRacingWinLoss
+
+@{
+    var isAllowCustomerComm = Convert.ToBoolean(ViewBag.IsAllowedCustomerCommission);
+}
+
+@*-----------------------------------Total Currency---------------------------------*@
+<tr>
+    <td rowspan="2" class="center-align text-bold">@ViewResources.Total</td>
+
+    <td class="center-align text-bold">@Model.CurrencyName</td>
+
+    <td class="right-align text-bold">@Model.WinTO.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.PlaceTO.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.WPTO.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.TotalTO.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.DividendWon.ToStringExt()</td>
+    @if (isAllowCustomerComm)
+    {
+        <td class="right-align text-bold">@Model.CustomerCommission.ToStringExt()</td>
+    }
+
+    <td class="right-align text-bold">@Model.WinTO12Bet.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.PlaceTO12Bet.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.WPTO12Bet.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.TotalTO12Bet.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.WinLoss12Bet.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.CommIncome.ToStringExt()</td>
+
+    <td class="right-align text-bold">@Model.AmountDueToRacing.ToStringExt()</td>
+</tr>
+
+@*-----------------------------------Total MYR---------------------------------------*@
+<tr>
+    <td class="center-align text-bold">@ViewResources.MYR</td>
+
+    <td class="right-align text-bold">@Model.WinTOMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.PlaceTOMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.WPTOMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.TotalTOMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.DividendWonMYR.ToStringExt()</td>
+    @if (isAllowCustomerComm)
+    {
+        <td class="right-align text-bold">@Model.CustomerCommissionMYR.ToStringExt()</td>
+    }
+
+    <td class="right-align text-bold">@Model.WinTO12BetMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.PlaceTO12BetMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.WPTO12BetMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.TotalTO12BetMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.WinLoss12BetMYR.ToStringExt()</td>
+    <td class="right-align text-bold">@Model.CommIncomeMYR.ToStringExt()</td>
+
+    <td class="right-align text-bold">@Model.AmountDueToRacingMYR.ToStringExt()</td>
+</tr>

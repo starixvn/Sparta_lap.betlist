@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/cashouthistory","8":"www/css/build/dev/pages/betlist/colossusbetdetail","9":"www/css/build/dev/pages/betlist/systemparlaydetail","10":"www/css/build/dev/pages/forecast/ahforecast","11":"www/css/build/dev/pages/forecast/forecastonextwo","12":"www/css/build/dev/pages/forecast/newforecast","13":"www/css/build/dev/pages/login/login","14":"www/css/build/dev/pages/reports/balance","15":"www/css/build/dev/pages/reports/cashoutwinloss","16":"www/css/build/dev/pages/reports/licenseewinloss","17":"www/css/build/dev/pages/reports/livereport","18":"www/css/build/dev/pages/reports/racingcommission","19":"www/css/build/dev/pages/reports/reportjqgridlayout","20":"www/css/build/dev/pages/reports/result","21":"www/css/build/dev/pages/reports/settledmatchcount","22":"www/css/build/dev/pages/reports/turnover","23":"www/css/build/dev/pages/reports/weeklylivematch","24":"www/css/build/dev/pages/totalbet/mixparlay","25":"www/css/build/dev/pages/totalbet/totalbetlayout","26":"www/css/build/dev/pages/utility/error","27":"www/js/build/dev/language","28":"www/js/build/dev/pages/betlist/betlist","29":"www/js/build/dev/pages/betlist/betlistcancelledbets","30":"www/js/build/dev/pages/betlist/betlistcorrectscore","31":"www/js/build/dev/pages/betlist/betlistdaily","32":"www/js/build/dev/pages/betlist/betlistrunning","33":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","34":"www/js/build/dev/pages/betlist/betlistsimple","35":"www/js/build/dev/pages/forecast/ahforecast","36":"www/js/build/dev/pages/forecast/forecasthdpou","37":"www/js/build/dev/pages/forecast/forecastonextwo","38":"www/js/build/dev/pages/forecast/newforecasthdpou","39":"www/js/build/dev/pages/home/home","40":"www/js/build/dev/pages/reports/balance","41":"www/js/build/dev/pages/reports/cashoutwinloss","42":"www/js/build/dev/pages/reports/licenseewinloss","43":"www/js/build/dev/pages/reports/livereport","44":"www/js/build/dev/pages/reports/livereportmatchlist","45":"www/js/build/dev/pages/reports/racingcommission","46":"www/js/build/dev/pages/reports/result","47":"www/js/build/dev/pages/reports/settledmatchcount","48":"www/js/build/dev/pages/reports/turnover","49":"www/js/build/dev/pages/reports/weeklylivematch","50":"www/js/build/dev/pages/signin/signin","51":"www/js/build/dev/pages/totalbet/firstgoallastgoal","52":"www/js/build/dev/pages/totalbet/halftimefulltime","53":"www/js/build/dev/pages/totalbet/handicapoverunder","54":"www/js/build/dev/pages/totalbet/homedrawawaynobet","55":"www/js/build/dev/pages/totalbet/moneyline","56":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","57":"www/js/build/dev/pages/totalbet/outright","58":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/cashouthistory","8":"www/css/build/dev/pages/betlist/colossusbetdetail","9":"www/css/build/dev/pages/betlist/lastbetmonitoring","10":"www/css/build/dev/pages/betlist/systemparlaydetail","11":"www/css/build/dev/pages/forecast/ahforecast","12":"www/css/build/dev/pages/forecast/forecastonextwo","13":"www/css/build/dev/pages/forecast/newforecast","14":"www/css/build/dev/pages/login/login","15":"www/css/build/dev/pages/reports/balance","16":"www/css/build/dev/pages/reports/cashoutwinloss","17":"www/css/build/dev/pages/reports/dailyracingwinloss","18":"www/css/build/dev/pages/reports/licenseewinloss","19":"www/css/build/dev/pages/reports/livereport","20":"www/css/build/dev/pages/reports/matchwinloss","21":"www/css/build/dev/pages/reports/platformwinloss","22":"www/css/build/dev/pages/reports/racingcommission","23":"www/css/build/dev/pages/reports/reportjqgridlayout","24":"www/css/build/dev/pages/reports/result","25":"www/css/build/dev/pages/reports/settledmatchcount","26":"www/css/build/dev/pages/reports/turnover","27":"www/css/build/dev/pages/reports/weeklylivematch","28":"www/css/build/dev/pages/reports/winlossbybettype","29":"www/css/build/dev/pages/reports/winlossbyleague","30":"www/css/build/dev/pages/reports/winlossbyproduct","31":"www/css/build/dev/pages/totalbet/mixparlay","32":"www/css/build/dev/pages/totalbet/totalbetlayout","33":"www/css/build/dev/pages/utility/error","34":"www/css/build/dev/um","35":"www/js/build/dev/language","36":"www/js/build/dev/pages/betlist/betlist","37":"www/js/build/dev/pages/betlist/betlistcancelledbets","38":"www/js/build/dev/pages/betlist/betlistcorrectscore","39":"www/js/build/dev/pages/betlist/betlistdaily","40":"www/js/build/dev/pages/betlist/betlistrunning","41":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","42":"www/js/build/dev/pages/betlist/betlistsimple","43":"www/js/build/dev/pages/betlist/lastbetmonitoring","44":"www/js/build/dev/pages/forecast/ahforecast","45":"www/js/build/dev/pages/forecast/forecasthdpou","46":"www/js/build/dev/pages/forecast/forecastonextwo","47":"www/js/build/dev/pages/forecast/newforecasthdpou","48":"www/js/build/dev/pages/home/home","49":"www/js/build/dev/pages/reports/balance","50":"www/js/build/dev/pages/reports/cashoutwinloss","51":"www/js/build/dev/pages/reports/dailyracingwinloss","52":"www/js/build/dev/pages/reports/licenseewinloss","53":"www/js/build/dev/pages/reports/livereport","54":"www/js/build/dev/pages/reports/livereportmatchlist","55":"www/js/build/dev/pages/reports/matchwinloss","56":"www/js/build/dev/pages/reports/platformwinloss","57":"www/js/build/dev/pages/reports/racingcommission","58":"www/js/build/dev/pages/reports/result","59":"www/js/build/dev/pages/reports/settledmatchcount","60":"www/js/build/dev/pages/reports/turnover","61":"www/js/build/dev/pages/reports/weeklylivematch","62":"www/js/build/dev/pages/reports/winlossbybettype","63":"www/js/build/dev/pages/reports/winlossbyleague","64":"www/js/build/dev/pages/reports/winlossbyproduct","65":"www/js/build/dev/pages/signin/signin","66":"www/js/build/dev/pages/totalbet/firstgoallastgoal","67":"www/js/build/dev/pages/totalbet/halftimefulltime","68":"www/js/build/dev/pages/totalbet/handicapoverunder","69":"www/js/build/dev/pages/totalbet/homedrawawaynobet","70":"www/js/build/dev/pages/totalbet/moneyline","71":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","72":"www/js/build/dev/pages/totalbet/outright","73":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -14199,6 +14199,10 @@
 	        var _pageLanguage = null;
 	        var _userCurrencies = null;
 	
+	        function reload() {
+	            window.location.reload();
+	        }
+	
 	        function addNoticationPopup() {
 	            var $marquee = $("#notification-marquee");
 	            if ("marquee" in $marquee) {
@@ -14268,7 +14272,6 @@
 	            if (userCurrencies) {
 	                _userCurrencies = JSON.parse(userCurrencies);
 	            }
-	            initBlockUI();
 	            addNoticationPopup();
 	            overrideInnerSize();
 	        }
@@ -14284,6 +14287,10 @@
 	                headers: { '__RequestVerificationToken': REQUEST_VERIFICATION_TOKEN },
 	                statusCode: {
 	                    0: unBlockUI(),
+	                    400: function () {
+	                        unBlockUI();
+	                        alert(getSingleResource("InvalidRequestMsg"));
+	                    },
 	                    401: function () {
 	                        window.location.href = resolveClientUrl("Utility/LocationRestriction");
 	                    },
@@ -14299,7 +14306,9 @@
 	            });
 	        }
 	
-	        function exportExcel(data, url, method) {
+	        function exportExcel(postData, url, method) {
+	            var data = clone(postData);
+	            data.IsExportExcel = true;
 	            var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
 	                .appendTo('body');
 	            for (var property in data) {
@@ -14312,14 +14321,15 @@
 	                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Code', value: product.Code }).appendTo($form);
 	                            $('<input type="hidden">').attr({ name: 'ProductOptions[' + i + '].Status', value: product.Status }).appendTo($form);
 	                        }
-	                    }
-	                    else {
+	                    } else {
 	                        $('<input type="hidden">').attr({ name: property, value: value }).appendTo($form);
 	                    }
 	                }
 	            }
+	            if (!data["__RequestVerificationToken"]) {
+	                $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: REQUEST_VERIFICATION_TOKEN }).appendTo($form);
+	            }
 	
-	            $('<input type="hidden">').attr({ name: '__RequestVerificationToken', value: REQUEST_VERIFICATION_TOKEN }).appendTo($form);
 	            $form.submit();
 	            $form.remove();
 	        }
@@ -14547,17 +14557,6 @@
 	            return url;
 	        }
 	
-	        function initBlockUI() {
-	            try {
-	                $(".blockui").click(function () {
-	                    blockUI();
-	                });
-	
-	                unBlockUI();
-	            } catch (err) {
-	            }
-	        }
-	
 	        function currencyConstraint(userChange) {
 	            var currency = Number($("#CurrencyId").val());
 	            var currencyName = $("#CurrencyId option:selected").text();
@@ -14596,42 +14595,6 @@
 	            }
 	
 	            $("select#BaseCurrency").selectList();
-	        }
-	
-	        function sortReport(sortColumn) {
-	            var sortDirection = $("#SortColumn").val() === sortColumn ? $("#SortDirection").val() === "DESC" ? "ASC" : "DESC" : "ASC";
-	
-	            $("#SortColumn").val(sortColumn);
-	            $("#SortDirection").val(sortDirection);
-	
-	            var currencyName = $("#CurrencyId option:selected").text();
-	            currencyName = $.trim(currencyName);
-	            $("#CurrencyName").val(currencyName);
-	        }
-	
-	        function createSortingIcon(sortHandler) {
-	            if ($("#RowCount").val() <= 1) {
-	                $("#header-content .sortable").removeClass("sort-heading");
-	            }
-	            else {
-	                $("#header-content .sortable").each(function (index, element) {
-	                    var $sortHeader = $(element).find(".sort-heading");
-	                    var sortColumn = $sortHeader.attr("data-column-name");
-	                    if (sortColumn === $("#SortColumn").val()) {
-	                        $sortHeader.addClass("sorted-heading");
-	
-	                        var sortClass = $("#SortDirection").val() === "DESC" ? "sort-icon-desc" : "sort-icon-asc";
-	                        var sortSpan = $("<span class='sort-icon'></span>");
-	                        sortSpan.addClass(sortClass);
-	                        sortSpan.appendTo($sortHeader);
-	                    }
-	
-	                    $(element).click(function () {
-	                        sortReport($sortHeader.attr("data-column-name"));
-	                        sortHandler($sortHeader.attr("data-column-name"));
-	                    });
-	                });
-	            }
 	        }
 	
 	        function clone(obj) {
@@ -14758,6 +14721,7 @@
 	
 	        return {
 	            initialize: initialize,
+	            reload: reload,
 	            resolveClientUrl: resolveClientUrl,
 	            exportExcel: exportExcel,
 	            setConstraintMonthRange: setConstraintMonthRange,
@@ -14781,8 +14745,6 @@
 	            setDateRangeParam: setDateRangeParam,
 	            setDateRangeOriginalParam: setDateRangeOriginalParam,
 	            currencyConstraint: currencyConstraint,
-	            sortReport: sortReport,
-	            createSortingIcon: createSortingIcon,
 	            clone: clone,
 	            asBool: asBool,
 	            getSingleResource: getSingleResource,
@@ -14801,27 +14763,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	    "use strict";
-	    function parseQueryString(queryString) {
-	        var args = queryString.split('&');
-	        var argsList = {};
-	
-	        for (var i = 0; i < args.length; i++) {
-	            var arg = unescape(args[i]);
-	            if (arg.length > 0) {
-	                if (arg.indexOf('=') === -1) {
-	                    argsList[$.trim(arg.toLowerCase())] = null;
-	                }
-	                else {
-	                    var keyValuePair = arg.split('=');
-	                    argsList[$.trim(keyValuePair[0].toLowerCase())] = $.trim(keyValuePair[1]);
-	                }
-	            }
-	        }
-	
-	        return argsList;
-	    }
 	
 	    function getQueryString(url) {
 	        var index = url.indexOf("?");
@@ -14833,60 +14776,47 @@
 	        return index < 0 ? url : url.substring(0, index);
 	    }
 	
-	    function setParam(url, name, value) {
-	        var rawUrl = getRawUrl(url);
-	        var queryString = getQueryString(url);
-	        var args = parseQueryString(queryString);
+	    function setParam(url, key, value) {
+	        var isRemoving = value === null || value === undefined;
 	
-	        if (name == null || name === undefined) {
-	            return url;
+	        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+	        var separator = url.indexOf('?') !== -1 ? "&" : "?";
+	        if (url.match(re)) {
+	            return url.replace(re, '$1' + (isRemoving ? '' : key + "=" + value + '$2')).replace("&&", "&");
 	        }
+	        else {
+	            return url + (isRemoving ? '' : separator + key + "=" + value).replace("&&", "&");
+	        }
+	    }
 	
-	        // Update value
-	        var found = false;
-	        for (var key in args) {
-	            if (key != null && key !== undefined && key.toLowerCase() === name.toLowerCase()) {
-	                // Does not update data if value = undefined
-	                if (value !== undefined) {
-	                    args[key] = value;
-	                }
-	                found = true;
+	    function setParams(url, parameters) {
+	        for (var property in parameters) {
+	            if (parameters.hasOwnProperty(property)) {
+	                url = setParam(url, property, parameters[property]);
 	            }
 	        }
 	
-	        if (!found) {
-	            args[name.toLowerCase()] = value;
-	        }
-	
-	        var queryArray = [];
-	
-	        // Rebuild query string, ignore null value
-	        for (var key1 in args) {
-	            if (args[key1] != null && args[key1] !== undefined) {
-	                queryArray.push(key1.toLowerCase() + "=" + args[key1]);
-	            }
-	        }
-	
-	        return rawUrl + "?" + queryArray.join("&");
+	        return url;
 	    }
 	
 	    function getParam(url, name) {
-	        var queryString = getQueryString(url);
-	        var args = parseQueryString(queryString);
-	
-	        for (var key in args) {
-	            if (key != null && key.toLowerCase() === name.toLowerCase()) {
-	                return args[key];
-	            }
+	        name = name.replace(/[\[\]]/g, "\\$&");
+	        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	            results = regex.exec(url);
+	        if (!results) {
+	            return null;
 	        }
-	
-	        return null;
+	        if (!results[2]) {
+	            return '';
+	        }
+	        return decodeURIComponent(results[2].replace(/\+/g, " "));
 	    }
 	
 	    return {
 	        getQueryString: getQueryString,
 	        getRawUrl: getRawUrl,
 	        setParam: setParam,
+	        setParams: setParams,
 	        getParam: getParam
 	    };
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -14941,6 +14871,10 @@
 	            }
 	
 	            return $popUp.flatPopup(option);
+	        },
+	
+	        show: function ($popup, isModal) {
+	            $popup.flatPopup("show", isModal);
 	        }
 	    };
 	
@@ -14987,7 +14921,9 @@
 	                    $self.addClass("flat-popup " + options.className);
 	                    $self.children().wrapAll("<div class='wrapContent'></div>");
 	                    $self.hide()
-	                         .prepend('<div class="title-bar popup-title"><div class="txt-title">' + options.title + '</div><a class="popup-close" href="javascript:;"><i class="icon-close"></i></a></div>');
+	                         .prepend('<div class="title-bar popup-title"><div class="txt-title">'
+	                             + options.title
+	                             + '</div><a class="popup-close" href="javascript:;"><i class="icon-close"></i></a></div>');
 	
 	                    $self.find('a.popup-close').on('click', function () {
 	                        if (options.onClose) {
@@ -15958,13 +15894,18 @@
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
-	    function getLabelHtml(labelText, selectionId) {
-	        var targetDropdownId = selectionId + "-result-container";
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	    "use strict";
+	
+	    var CONTAINER_SELECTOR = ".select-list-container";
+	    var DISABLED_CLASS = "disabled";
+	
+	    function getLabelHtml(option) {
+	        var targetDropdownId = option.selectionId + "-result-container";
+	        var className = option.isDisabled ? "selection disabled" : "selection";
 	        return '<div class="select-list-container">' +
-	                '<div class="selection" id="' + selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
-	                    '<div class="selection-label">' + labelText + '</div>' +
+	                '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
+	                    '<div class="selection-label">' + option.labelText + '</div>' +
 	                    '<div class="selection-icon"><span class="selection-icon-arrow"></span></div>' +
 	                '</div>' +
 	            '</div>';
@@ -15992,6 +15933,7 @@
 	    }
 	
 	    function getDropdownList(resultContainerId, canSearch) {
+	        /*jshint validthis: true*/
 	        var $originalSelectElement = $(this);
 	        var dataList = $originalSelectElement.find("option").map(function (index, item) {
 	            var key = item.value;
@@ -16007,17 +15949,12 @@
 	        var $dropdown = $(dropdownListHtml);
 	        $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass("highlighted");
 	
-	        $dropdown.find(".option-item").on("click", function () {
+	        $dropdown.on("click", ".option-item", function () {
 	            $(".option-item").removeClass("highlighted");
 	            $(this).addClass("highlighted");
 	            var selectedKey = $(this).data("key");
 	            $originalSelectElement.val(selectedKey);
 	
-	            var $resultContainer = $(this).closest(".select-list-result-container");
-	            var $selectionLabel = $originalSelectElement.siblings(".select-list-container").find(".selection-label");
-	            $selectionLabel.text($(this).text());
-	
-	            $resultContainer.remove();
 	            $originalSelectElement.trigger("change");
 	        });
 	
@@ -16027,7 +15964,7 @@
 	            e.stopPropagation();
 	        });
 	
-	        $searchBox.on("keyup", function (e) {
+	        $searchBox.on("keyup", function () {
 	            var $this = $(this);
 	
 	            setTimeout(function () {
@@ -16082,33 +16019,58 @@
 	        $(".select-list-result-container").remove();
 	    }
 	
+	    var defaultOption = {
+	        canSearch: false,
+	        isDisabled: false,
+	        beforeOpen: function () { },
+	        afterOpen: function () { }
+	    };
+	
 	    var _methods = {
 	        init: function (options) {
-	            var selectListOption = {
-	                canSearch: false
-	            };
-	            $.extend(selectListOption, options || {});
+	            var selectListOption = $.extend({}, defaultOption, options || {});
 	
 	            return this.each(function () {
-	                var $self = $(this);
-	                $self.siblings(".select-list-container").remove();
-	                var optionSelected = $self.find("option:selected");
-	                var selectedValue = optionSelected.length ? optionSelected.text() : "";
+	                var self = this;
+	                var $element = $(self);
+	                _methods.buildLabel.call(self);
 	
-	                var selectionId = generateId($self);
-	                var $selectionLabel = $(getLabelHtml(selectedValue, selectionId));
-	
-	                $selectionLabel.find(".selection").on("click", function (e) {
-	                    e.stopPropagation();
-	                    _methods.toggle.call($self, $(this), selectListOption.canSearch);
+	                var $container = $element.parent();
+	                $container.off("click", ".selection");
+	                $container.on("click", ".selection", function () {
+	                    var $selection = $(this);
+	                    if (!$selection.hasClass(DISABLED_CLASS)) {
+	                        _methods.toggle.call(self, selectListOption);
+	                    }
 	                });
 	
-	                $(document).click(function () {
-	                    closeAll();
+	                $element.on("change", function () {
+	                    _methods.update.call(self);
 	                });
 	
-	                $self.hide().parent().append($selectionLabel);
+	                $("html").on("click", function (e) {
+	                    var $target = $(e.target);
+	
+	                    if (!$target.closest(CONTAINER_SELECTOR).length) {
+	                        closeAll();
+	                    }
+	                });
 	            });
+	        },
+	
+	        buildLabel: function (option) {
+	            option = option || {};
+	            var $self = $(this);
+	            $self.siblings(CONTAINER_SELECTOR).remove();
+	            var optionSelected = $self.find("option:selected");
+	            var labelText = optionSelected.length ? optionSelected.text() : "";
+	            var selectionId = generateId($self);
+	
+	            option.labelText = labelText;
+	            option.selectionId = selectionId;
+	            var $selectionLabel = $(getLabelHtml(option));
+	
+	            $self.hide().parent().append($selectionLabel);
 	        },
 	
 	        open: function (resultContainerId, canSearch) {
@@ -16117,7 +16079,7 @@
 	            var $self = $(this);
 	            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch);
 	
-	            var $selection = $self.siblings(".select-list-container").find(".selection");
+	            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
 	            var offset = $selection.offset();
 	            $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
 	
@@ -16125,15 +16087,17 @@
 	            $dropdown.find(".select-list-search-results").focus();
 	        },
 	
-	        close: function(){
+	        close: function () {
 	            var $this = $(this);
-	            var $selection = $this.siblings(".select-list-container").find(".selection");
+	            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
 	            var resultContainerId = $selection.attr("aria-targetDropdown");
 	            $("#" + resultContainerId).remove();
 	        },
 	
-	        toggle: function ($sourceElement, canSearch) {
-	            var resultContainerId = $sourceElement.attr("aria-targetDropdown");
+	        toggle: function (option) {
+	            var $this = $(this);
+	            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
+	            var resultContainerId = $selection.attr("aria-targetDropdown");
 	
 	            if (resultContainerId && resultContainerId.length > 0) {
 	                var $currentDropdown = $("#" + resultContainerId);
@@ -16143,9 +16107,26 @@
 	                    $currentDropdown.remove();
 	                }
 	                else {
-	                    _methods.open.call(this, resultContainerId, canSearch);
+	                    if (typeof option.beforeOpen === "function") {
+	                        option.beforeOpen.call(this);
+	                    }
+	
+	                    _methods.open.call(this, resultContainerId, option.canSearch);
+	
+	                    if (typeof option.afterOpen === "function") {
+	                        option.afterOpen.call(this);
+	                    }
 	                }
 	            }
+	        },
+	
+	        update: function (option) {
+	            _methods.buildLabel.call(this, option);
+	        },
+	
+	        disabled: function (isDisabled) {
+	            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+	            $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
 	        }
 	    };
 	

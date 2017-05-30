@@ -2,6 +2,7 @@
 @import '../../components/daterangepicker/daterangepicker-ex';
 @import '../../components/breadcrumb/breadcrumb';
 @import '../../components/sortableheader/sortableheader';
+@import "../../components/jqgrid/multipletotalblock";
 
 $bgheaderButton: #2c3d4b;
 $colorTextTotal: $black;
@@ -38,30 +39,6 @@ $colorTextTotal: $black;
     }
 }
 
-.ui-jqgrid .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th {
-    &.ui-th-column-header, &.ui-th-column {
-        background: $bgHeaderTableLevel2;
-        color: #2c3d4b;
-        font-weight: bold;
-    }
-}
-
 .grandTotal, .total-eur {
     color: $colorTextTotal;
-
-    > td {
-        border: 1px solid $white !important;
-
-        &:first-child {
-            border-left-color: $colorBorderTable !important;
-        }
-    }
-}
-
-.grandTotal {
-    background: $bgTotalLevel1;
-}
-
-.total-eur {
-    background-color: $bgTotalLevel3;
 }

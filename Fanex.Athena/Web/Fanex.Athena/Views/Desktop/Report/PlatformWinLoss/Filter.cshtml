@@ -1,0 +1,68 @@
+﻿@using Fanex.Athena.Model.Core.DataDomain
+@model Fanex.Athena.Model.Report.ViewModel.PlatformWinLossViewModel
+@{
+    Layout = null;
+    var appSettings = new AppSettings();
+    var platformList = new Dictionary<int, string>
+    {
+        {0, ViewResources.All},
+        {PlatformType.Asia, ViewResources.Asia},
+        {PlatformType.NewAsia, ViewResources.NewAsia},
+        {PlatformType.Euro, ViewResources.Euro},
+        {PlatformType.Wap, ViewResources.Wap},
+        {PlatformType.SmartSite, ViewResources.SmartSite}
+    };
+}
+
+<div class="page-form">
+    <form id="platformwinloss" name="platformwinloss" method="post" action="">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            @DesktopRazorHelper.MonthPicker(Model.Param.FromDate, Model.Param.ToDate)
+            <div class="input-field col l2 m2 s12">
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, false)
+                <label>@ViewResources.Currency</label>
+            </div>
+            <div class="input-field col l1 m2 s12">
+                @DesktopRazorHelper.BasedCurrency(Model.Param.BaseCurrency, Model.Param.CurrencyName)
+                <label>@ViewResources.Based</label>
+            </div>
+            <div class="input-field col l2 m2 s12">
+                <select name="PlatformType" id="PlatformType" class="select hide">
+                    @foreach (var item in platformList)
+                    {
+                        <option value="@item.Key">@item.Value</option>
+                    }
+                </select>
+                <label>@ViewResources.Platform</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field input col l4 m4 s12">
+                @DesktopRazorHelper.DrawFilter(Model.Param.DrawFilter)
+            </div>
+            <div class="input-field input col l2 m2 s12">
+                @DesktopRazorHelper.ExcludeTestData(Model.Param.IsExcludeTest)
+            </div>
+
+            @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions)
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="platform-data-info">
+                    <span class="circle"></span> Platform data is available from 27 Feb 2016.
+                </div>
+            </div>
+            <div class="col l2 m2 s12 button-block">
+                <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
+            </div>
+            <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
+        </div>
+        
+        @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+        <input type="hidden" id="MaxDate" value="@appSettings.MaxDate.ToString("yyyy/M/d")" />
+    </form>
+</div>

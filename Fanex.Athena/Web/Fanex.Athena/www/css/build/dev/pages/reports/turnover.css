@@ -29,37 +29,31 @@
     display: block;
     text-decoration: none;
     color: #000; }
-  .monPickr .disable b:after {
-    color: #ccc; }
+  .monPickr .prev b, .monPickr .next b {
+    color: #fff;
+    font-weight: 500; }
+    .monPickr .prev b:after, .monPickr .next b:after {
+      font-family: 'icomoon' !important;
+      content: "\E916";
+      color: #444;
+      font-size: 17px;
+      position: absolute;
+      top: -3px; }
+  .monPickr .prev.disable b:after, .monPickr .next.disable b:after {
+    color: rgba(0, 0, 0, 0.26); }
   .monPickr .prev {
     float: left; }
     .monPickr .prev b {
       float: left;
-      color: #fff;
-      font-weight: 500;
       transform: rotate(90deg); }
       .monPickr .prev b:after {
-        font-family: 'icomoon' !important;
-        content: "\E916";
-        color: #444;
-        font-size: 17px;
-        position: absolute;
-        top: -3px;
         left: -5px; }
   .monPickr .next {
     float: right; }
     .monPickr .next b {
       float: right;
-      color: #fff;
-      font-weight: 500;
       transform: rotate(-90deg); }
       .monPickr .next b:after {
-        font-family: 'icomoon' !important;
-        content: "\E916";
-        color: #444;
-        font-size: 17px;
-        position: absolute;
-        top: -3px;
         right: -5px; }
 
 .selectedMonth {
@@ -116,7 +110,8 @@
 
 .dayPickr {
   padding: 3px 0;
-  border-bottom: 1px solid #ccc; }
+  border-bottom: 1px solid #ccc;
+  cursor: pointer; }
   .dayPickr .selectedDay:hover {
     cursor: default; }
   .dayPickr .darr {
@@ -164,12 +159,5 @@
 .dropdown-content {
   opacity: 1;
   top: 25px; }
-
-.theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column, .theme_jqGrid .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column-header {
-  background: #9eb4c3;
-  font-weight: bold; }
-
-.theme_jqGrid .grandTotal {
-  background: #FFB391; }
 
 /*# sourceMappingURL=turnover.css.map*/

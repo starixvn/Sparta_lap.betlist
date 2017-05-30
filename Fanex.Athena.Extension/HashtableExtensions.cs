@@ -8,9 +8,6 @@ namespace Fanex.Athena.Extension
 {
     using System.Collections;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public static class HashtableExtensions
     {
         public static void UpdateWith(this Hashtable first, Hashtable second)

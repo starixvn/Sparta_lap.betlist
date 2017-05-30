@@ -11,7 +11,6 @@ namespace Fanex.Athena.Excel.Base
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
-    using System.Web;
     using Excel.Base.Entities;
     using Excel.Base.Utility;
     using Fanex.Athena.Excel.Base.Extension;
@@ -32,13 +31,11 @@ namespace Fanex.Athena.Excel.Base
 
         protected ReportBase(
             string templatePath,
-            string exportingFileName,
             ShowingOption showingOption,
             ConvertingOption convertingOption,
             int pageSize = 0)
         {
             TemplatePath = templatePath;
-            ExportingFileName = exportingFileName;
             ShowingOption = showingOption;
             ConvertingOption = convertingOption;
             PageSize = pageSize;
@@ -70,12 +67,6 @@ namespace Fanex.Athena.Excel.Base
         }
 
         public DataTable ExportData
-        {
-            get;
-            set;
-        }
-
-        protected string ExportingFileName
         {
             get;
             set;
@@ -223,31 +214,7 @@ namespace Fanex.Athena.Excel.Base
             Workbook.RemoveSheet("Template");
         }
 
-        protected virtual void Write(HttpResponse response)
-        {
-            response.ContentType = "application/vnd.ms-excel";
-            response.AddHeader("Content-Disposition", "attachment;filename={0}" + ExportingFileName);
-            response.Clear();
-
-            var excelStream = new MemoryStream();
-            Workbook.Write(excelStream);
-
-            response.BinaryWrite(excelStream.GetBuffer());
-            response.End();
-        }
-
-        protected virtual int AssignDecimalData(IRow row, int cellIndex, params decimal[] decimalValues)
-        {
-            for (int i = 0, j = decimalValues.Length; i < j && cellIndex < row.Cells.Count; i++)
-            {
-                row.Cells[cellIndex].SetCellValue(decimalValues[i]);
-                cellIndex++;
-            }
-
-            return cellIndex;
-        }
-
-        protected internal virtual int AssignRowContent(IRow row, DataRow data, IList<string> columnNameList, int columnStart = 0)
+        protected internal virtual int AssignRowContent(IRow row, DataRow data, IEnumerable<string> columnNameList, int columnStart = 0)
         {
             foreach (string columnName in columnNameList)
             {

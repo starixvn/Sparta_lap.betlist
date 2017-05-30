@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Model.Customer.DTO;
     using Resources;
     using Service.BetSettings;
+    using Service.BetSettings.Interfaces;
 
     public class LiveCasinoBetSettingController : BetSettingBaseController
     {

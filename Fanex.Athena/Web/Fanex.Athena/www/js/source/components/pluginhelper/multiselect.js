@@ -1,29 +1,30 @@
 ﻿"use strict";
 define(["jquery", "common/site", "lib/jquery.multiselect"], function ($, Site) {
     var _me = {
-        initialize: function (dropDownListId, dataSource, valueField, textField, checkField) {
-            var data = $.parseJSON(dataSource);
+        initProductList: function () {
+            var selector = "#grid-products-multiselect";
+            var data = $.parseJSON($("#productsData").val());
             var length = data.length;
             var dataUI = [];
             var checkedCount = 0;
             for (var i = 0; i < length; i++) {
                 var item = data[i];
-                var isChecked = item[checkField];
+                var isChecked = item["Status"];
                 if (isChecked) {
                     checkedCount++;
                 }
 
                 dataUI.push({
-                    Id: item[valueField],
-                    Value: item[valueField],
-                    Text: Site.getSingleResource(item[textField]),
+                    Id: item["Code"],
+                    Value: item["Code"],
+                    Text: Site.getSingleResource(item["Name"]),
                     Checked: isChecked,
                     Enable: true
                 });
             }
 
             var isCheckAll = checkedCount === length;
-            $("#" + dropDownListId).multiSelect({
+            $(selector).multiSelect({
                 minWidth: 200,
                 maxHeight: 400,
                 shadow: true,
@@ -33,7 +34,7 @@ define(["jquery", "common/site", "lib/jquery.multiselect"], function ($, Site) {
                 showFooter: false,
                 listData: dataUI,
                 onCheck: function () {
-                    var checkedItems = $("#" + dropDownListId).multiSelect("getCheckedItems");
+                    var checkedItems = $(selector).multiSelect("getCheckedItems");
                     $("#product-container input[type=checkbox]:checked").prop("checked", false);
                     var hasItemsChecked = checkedItems.length > 0;
                     if (hasItemsChecked) {
@@ -41,9 +42,9 @@ define(["jquery", "common/site", "lib/jquery.multiselect"], function ($, Site) {
                             $('#product-container #' + checkedItems[i]).prop("checked", true);
                         }
                     }
-
+                    
+                    $("#ProductList").toggleClass("invalid", !hasItemsChecked);
                     $("#SubmitButton").prop("disabled", !hasItemsChecked);
-                    $(".error-img").toggleClass("hide", hasItemsChecked);
                 }
             });
         }

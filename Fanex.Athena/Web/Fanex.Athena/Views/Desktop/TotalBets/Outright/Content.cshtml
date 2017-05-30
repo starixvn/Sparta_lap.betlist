@@ -50,7 +50,7 @@ else
                         @ViewResources.Total
                     </td>
                     <td class="right-align no-margin">
-                        @RazorHelperDesktop.DecFormat(Model.MainData.Sum(x => x.Balance), true)
+                        @DesktopRazorHelper.DecFormat(Model.MainData.Sum(x => x.Balance), true)
                     </td>
                     <td></td>
                 </tr>

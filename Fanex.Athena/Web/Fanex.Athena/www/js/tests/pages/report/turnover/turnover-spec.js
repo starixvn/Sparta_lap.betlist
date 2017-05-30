@@ -20,7 +20,7 @@
                     spyOn(Site, "initialize");
                     spyOn(Turnover, "initEvent");
                     spyOn(MonthPicker, "initMonthPicker");
-                    spyOn(MultiSelect, "initialize");
+                    spyOn(MultiSelect, "initProductList");
                     spyOn(Site, "addUserGuide");
                     spyOn(Turnover, "initAutoComplete");
                     Turnover.initialize();
@@ -38,8 +38,8 @@
                 it("MonthPicker.initMonthPicker() should be called", function () {
                     expect(MonthPicker.initMonthPicker).toHaveBeenCalled();
                 });
-                it("MultiSelect.initialize() should be called with correct parameter", function () {
-                    expect(MultiSelect.initialize).toHaveBeenCalledWith('grid-products-multiselect', "SB,RC", 'Code', 'Name', 'Status');
+                it("MultiSelect.initProductList() should be called with correct parameter", function () {
+                    expect(MultiSelect.initProductList).toHaveBeenCalled();
                 });
                 it("Site.addUserGuide() should be called with correct parameter", function () {
                     expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "Turnover", title: "Turnover" });
@@ -71,7 +71,7 @@
                     beforeEach(function () {
                         spyOn(Site, "initialize");
                         spyOn(MonthPicker, "initMonthPicker");
-                        spyOn(MultiSelect, "initialize");
+                        spyOn(MultiSelect, "initProductList");
                         spyOn(Site, "addUserGuide");
 
                         $autocomplete = $("#Username");
@@ -275,7 +275,7 @@
                     spyOn(Turnover, "initEvent");
                     spyOn(Turnover, "initAutoComplete");
                     spyOn(MonthPicker, "initMonthPicker");
-                    spyOn(MultiSelect, "initialize");
+                    spyOn(MultiSelect, "initProductList");
                     spyOn(Site, "addUserGuide");
 
                     setFixtures('<div id="suggestionDropdown" style="width: 200px;"></div> <input id="Username" />');

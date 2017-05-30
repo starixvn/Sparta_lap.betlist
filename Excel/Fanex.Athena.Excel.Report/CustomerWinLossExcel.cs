@@ -48,11 +48,10 @@ namespace Fanex.Athena.Excel.Report
 
         public CustomerWinLossExcel(
                                     string templatePath,
-                                    string exportingFileName,
                                     ShowingOption showingOption,
                                     ConvertingOption convertingOption,
                                     CustomerWinLossViewModel viewModel)
-            : base(templatePath, exportingFileName, showingOption, convertingOption)
+            : base(templatePath, showingOption, convertingOption)
         {
             _viewModel = viewModel;
             _customerWinlossList = viewModel.DataList;

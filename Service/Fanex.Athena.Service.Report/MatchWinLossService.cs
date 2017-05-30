@@ -23,34 +23,28 @@ namespace Fanex.Athena.Service.Report
 
     public class MatchWinLossService : IMatchWinLossService
     {
-        private const string KICKOFFTIMEFORMATER = "{0:MM/dd/yyyy hh:mm:ss tt}";
+        private const string KickOfTimeFormat = "{0:MM/dd/yyyy hh:mm:ss tt}";
 
-        private readonly CultureInfo _culturelEnglish;
+        private static readonly IEnumerable<int> RacingSportTypes = new List<int>
+                    {
+                        (int)SportType.VirtualHorseRacing,
+                        (int)SportType.VirtualGreyhound,
+                        (int)SportType.VirtualMotoRacing,
+                        (int)SportType.VirtualSpeedway,
+                        (int)SportType.VirtualCycling
+                    };
 
-        #region Field and constants
+        private static readonly CultureInfo EnglishCulture = new CultureInfo("en-US");
 
-        /// <summary>
-        ///     The _balance up service.
-        /// </summary>
         private readonly IBalanceUpService _balanceUpService;
 
-        /// <summary>
-        ///     The match win loss data access.
-        /// </summary>
         private readonly MatchWinLossDataAccess _matchWinLossDataAccess;
-
-        #endregion Field and constants
-
-        #region Constructor
 
         public MatchWinLossService()
         {
             this._balanceUpService = new BalanceUpService();
             this._matchWinLossDataAccess = new MatchWinLossDataAccess(this._balanceUpService.BalanceUpInfo);
-            this._culturelEnglish = new CultureInfo("en-US");
         }
-
-        #endregion Constructor
 
         #region IMatchWinLossService Members
 
@@ -99,55 +93,32 @@ namespace Fanex.Athena.Service.Report
 
         #region Utility
 
-        /// <summary>
-        /// Get home team name.
-        /// </summary>
-        /// <param name="matchWinLoss">The match win-loss.</param>
-        /// <returns>The home team name.</returns>
         private static string GetHomeName(MatchWinLoss matchWinLoss)
         {
             switch (matchWinLoss.ProductName)
             {
                 case Product.RB:
-                    return string.Empty;
-
                 case Product.NG:
                     return string.Empty;
 
                 default:
-                    var homeName = CacheRef.GetTeamName(matchWinLoss.HomeId) +
-                                   (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
-                    return homeName;
+                    return CacheRef.GetTeamName(matchWinLoss.HomeId) + (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
             }
         }
 
-        /// <summary>
-        /// Get away team name.
-        /// </summary>
-        /// <param name="matchWinLoss">The match win-loss.</param>
-        /// <returns>The away team name.</returns>
         private static string GetAwayName(MatchWinLoss matchWinLoss)
         {
             switch (matchWinLoss.ProductName)
             {
                 case Product.RB:
-                    return string.Empty;
-
                 case Product.NG:
                     return string.Empty;
 
                 default:
-                    var awayName = CacheRef.GetTeamName(matchWinLoss.AwayId);
-
-                    return awayName;
+                    return CacheRef.GetTeamName(matchWinLoss.AwayId);
             }
         }
 
-        /// <summary>
-        /// Order data list.
-        /// </summary>
-        /// <param name="dataList">The original data list.</param>
-        /// <returns>The ordered data list.</returns>
         private static IList<MatchWinLoss> OrderByProduct(IList<MatchWinLoss> dataList)
         {
             var result = dataList.Where(p => p.ProductName == Product.SB || p.ProductName == Product.BA)
@@ -194,11 +165,6 @@ namespace Fanex.Athena.Service.Report
             return result;
         }
 
-        /// <summary>
-        /// Get league name.
-        /// </summary>
-        /// <param name="matchWinLoss">The match win-loss DTO.</param>
-        /// <returns>The league name.</returns>
         private static string GetLeagueName(MatchWinLoss matchWinLoss)
         {
             switch (matchWinLoss.ProductName)
@@ -211,11 +177,6 @@ namespace Fanex.Athena.Service.Report
             }
         }
 
-        /// <summary>
-        /// Get match name.
-        /// </summary>
-        /// <param name="matchWinLoss">The match win-loss.</param>
-        /// <returns>The match name.</returns>
         private string GetMatchName(MatchWinLoss matchWinLoss)
         {
             switch (matchWinLoss.ProductName)
@@ -234,25 +195,16 @@ namespace Fanex.Athena.Service.Report
                         matchWinLoss.ShowTime);
 
                 default:
-                    var racingSportTypes = new List<int>
-                    {
-                        (int)SportType.VirtualHorseRacing,
-                        (int)SportType.VirtualGreyhound,
-                        (int)SportType.VirtualMotoRacing,
-                        (int)SportType.VirtualSpeedway,
-                        (int)SportType.VirtualCycling
-                    };
 
-                    if (racingSportTypes.Contains(matchWinLoss.SportType))
+                    if (RacingSportTypes.Contains(matchWinLoss.SportType))
                     {
-                        return string.Format(_culturelEnglish, KICKOFFTIMEFORMATER, matchWinLoss.KickofTime);
+                        return string.Format(EnglishCulture, KickOfTimeFormat, matchWinLoss.KickofTime);
                     }
 
                     var homeName = CacheRef.GetTeamName(matchWinLoss.HomeId) +
                                    (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
                     var awayName = CacheRef.GetTeamName(matchWinLoss.AwayId);
-                    var matchName = homeName + "-vs-" + awayName;
-                    return matchName;
+                    return homeName + "-vs-" + awayName;
             }
         }
 

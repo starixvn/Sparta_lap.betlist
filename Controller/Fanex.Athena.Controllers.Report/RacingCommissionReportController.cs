@@ -95,7 +95,6 @@ namespace Fanex.Athena.Controllers.Report
 
             var racingWinLossExcel = new RacingCommissionExcel(
                     templatePath,
-                    FileName,
                     currencyConvert,
                     showingOption,
                     viewModel);

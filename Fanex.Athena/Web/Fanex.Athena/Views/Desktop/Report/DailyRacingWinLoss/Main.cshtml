@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.DailyRacingWinLoss;
+    Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
+}
+
+@model Fanex.Athena.Model.Report.ViewModel.DailyRacingWinLossViewModel
+
+@{ 
+    ViewBag.IsAllowedCustomerCommission = Model.IsAllowedCustomerCommission;
+}
+
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/dailyracingwinloss.css")" rel="stylesheet" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/reports/dailyracingwinloss.chunk.js")"></script>
+}
+@section Filter
+{
+    @Html.Partial("~/Views/Desktop/Report/DailyRacingWinLoss/Filter.cshtml", Model)
+}
+@section Content
+{
+    @if (!Model.ShowEmptyContent)
+    {
+        var stringContentView = Model.LicenseeId == 1 ? "~/Views/Desktop/Report/DailyRacingWinLoss/12Bet/Content.cshtml" : "~/Views/Desktop/Report/DailyRacingWinLoss/Content.cshtml";
+        Html.RenderPartial(stringContentView);
+    }
+}

@@ -10,9 +10,8 @@ namespace Fanex.Athena.Api.Report
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Net;
     using System.Net.Http;
-    using System.Web;
+    using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Excel.Base.Entities;
@@ -24,7 +23,8 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Resources;
-    using Service.Core.Utility;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
 
@@ -37,6 +37,15 @@ namespace Fanex.Athena.Api.Report
         public WinLossByProductReportController()
         {
             _winlossByProductService = new WinLossByProductService();
+        }
+
+        public WinLossByProductReportController(
+            ISessionService sessionService,
+            IProductService productService,
+            IWinLossByProductService winlossByProductService)
+            : base(sessionService, productService)
+        {
+            _winlossByProductService = winlossByProductService;
         }
 
         [HttpPost]
@@ -58,6 +67,24 @@ namespace Fanex.Athena.Api.Report
         public dynamic Index([FromBody] WinLossByProductMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
+        }
+
+        [CLSCompliant(false)]
+        protected internal virtual WinlossByProductExcel CreateExcel(
+            WinLossByProductMetaModel metaModel,
+            string systemId,
+            string errorMessage,
+            string templatePath,
+            ShowingOption showingOption,
+            ConvertingOption convertingOption,
+            WinLossByProductViewModel viewModel)
+        {
+            return new WinlossByProductExcel(templatePath, convertingOption, showingOption, metaModel, viewModel, systemId, errorMessage)
+            {
+                Level = metaModel.Level,
+                EnableReportByMonth = metaModel.ReportBy,
+                ProductOptions = metaModel.ProductOptions
+            };
         }
 
         #region Private Utility
@@ -146,15 +173,6 @@ namespace Fanex.Athena.Api.Report
 
         #region ProcessRequest
 
-        /// <summary>
-        /// Win Loss By Product - Export excel.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <param name="dataList">Output parameter - report data list.</param>
-        /// <param name="summaryTotal">Output parameter - summary data.</param>
-        /// <param name="systemId">System Id.</param>
-        /// <param name="errorMessage">Error Message.</param>
-        /// <returns>Http Response Message.</returns>
         private HttpResponseMessage ExportExcel(
             WinLossByProductMetaModel metaModel,
             IList<WinLossByProduct> dataList,
@@ -163,7 +181,7 @@ namespace Fanex.Athena.Api.Report
             string errorMessage)
         {
             const string FileName = "WinLossByProduct.xls";
-            var templatePath = HttpContext.Current.Server.MapPath("~/App_Data/Template/Reports/WinLossByProducts.xls");
+            var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/Reports/WinLossByProducts.xls");
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
@@ -196,12 +214,7 @@ namespace Fanex.Athena.Api.Report
                 SummaryTotal = summaryTotal
             };
 
-            var winlossByProduct = new WinlossByProductExcel(templatePath, FileName, convertingOption, showingOption, metaModel, viewModel, systemId, errorMessage)
-            {
-                Level = metaModel.Level,
-                EnableReportByMonth = metaModel.ReportBy,
-                ProductOptions = metaModel.ProductOptions
-            };
+            WinlossByProductExcel winlossByProduct = CreateExcel(metaModel, systemId, errorMessage, templatePath, showingOption, convertingOption, viewModel);
             winlossByProduct.Export();
 
             return ExcelStream(winlossByProduct.Workbook, FileName);
@@ -226,14 +239,6 @@ namespace Fanex.Athena.Api.Report
             }
         }
 
-        private bool IsValidRequest(WinLossByProductMetaModel metaModel, int currencyId = 0)
-        {
-            var currencyList = SessionService.UserSession.CurrencyList;
-            return (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
-                  || currencyList.ContainsKey(metaModel.CurrencyId)
-                  || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
-        }
-
         [SuppressMessage(
            "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
@@ -251,7 +256,7 @@ namespace Fanex.Athena.Api.Report
         {
             if (!IsValidRequest(metaModel, currencyId))
             {
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ViewResources.InvalidParams));
+                return BadRequest(ViewResources.InvalidParams);
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
@@ -300,7 +305,7 @@ namespace Fanex.Athena.Api.Report
             }
 
             return dataList.Count > 0
-                ? (dynamic)new
+                ? new
                 {
                     Data = WinLossByProductRestructureData(dataList, level),
                     Total = _winlossByProductService.TotalCalc(dataList),

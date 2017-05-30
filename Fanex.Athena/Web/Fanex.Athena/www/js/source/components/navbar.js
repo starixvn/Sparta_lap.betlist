@@ -1,4 +1,6 @@
-﻿'use strict';
+﻿/*jshint camelcase: false */
+
+'use strict';
 
 define(["jquery"], function ($) {
 
@@ -13,10 +15,11 @@ define(["jquery"], function ($) {
 
             $(this).each(function () {
                 var $this = $(this);
+                
                 var menu_id = $("#" + $this.attr('data-activates'));
 
                 // Set to width
-                if (options.menuWidth != 260) {
+                if (options.menuWidth !== 260) {
                     menu_id.css('width', options.menuWidth);
                 }
 
@@ -24,7 +27,7 @@ define(["jquery"], function ($) {
                 var dragTarget = $('<div class="drag-target"></div>');
                 $('body').append(dragTarget);
 
-                if (options.edge == 'left') {
+                if (options.edge === 'left') {
                     menu_id.css('transform', 'translateX(-100%)');
                     dragTarget.css({ 'left': 0 }); // Add Touch Area
                 } else {
@@ -141,12 +144,9 @@ define(["jquery"], function ($) {
                     prevent_default: false
                 }).bind('pan', function (e) {
 
-                    if (e.gesture.pointerType == "touch") {
+                    if (e.gesture.pointerType === "touch") {
 
-                        var direction = e.gesture.direction;
                         var x = e.gesture.center.x;
-                        var y = e.gesture.center.y;
-                        var velocityX = e.gesture.velocityX;
 
                         // Disable Scrolling
                         var $body = $('body');
@@ -211,7 +211,7 @@ define(["jquery"], function ($) {
                     }
                 }).bind('panend', function (e) {
 
-                    if (e.gesture.pointerType == "touch") {
+                    if (e.gesture.pointerType === "touch") {
                         var velocityX = e.gesture.velocityX;
                         var x = e.gesture.center.x;
                         var leftPos = x - options.menuWidth;
@@ -242,7 +242,13 @@ define(["jquery"], function ($) {
                                     width: ''
                                 });
                                 // Slide menu closed
-                                menu_id.velocity({ 'translateX': [-1 * options.menuWidth - 10, leftPos] }, { duration: 200, queue: false, easing: 'easeOutQuad' });
+                                menu_id.velocity({
+                                    'translateX': [-1 * options.menuWidth - 10, leftPos]
+                                }, {
+                                    duration: 200,
+                                    queue: false,
+                                    easing: 'easeOutQuad'
+                                });
                                 $('#sidenav-overlay').velocity({ opacity: 0 }, {
                                     duration: 200, queue: false, easing: 'easeOutQuad',
                                     complete: function complete() {
