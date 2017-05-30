@@ -14306,7 +14306,8 @@
 	            });
 	        }
 	
-	        function exportExcel(data, url, method) {
+	        function exportExcel(postData, url, method) {
+	            var data = clone(postData);
 	            data.IsExportExcel = true;
 	            var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
 	                .appendTo('body');
