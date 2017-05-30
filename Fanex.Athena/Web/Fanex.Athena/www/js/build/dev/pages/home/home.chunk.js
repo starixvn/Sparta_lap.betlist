@@ -1119,7 +1119,7 @@ webpackJsonp([48],{
 	            }
 	        });
 	
-	        $('body').click(function () {
+	        $('html').click(function () {
 	            _autocomplete.$dropdown.html('').hide();
 	        });
 	
@@ -1135,11 +1135,10 @@ webpackJsonp([48],{
 	            $("#page-title").text($currentMenuItem.text());
 	        });
 	
-	        $("#mainFrame").on("load", function () {
-	            $(window.frames["main"]).click(function () {
-	                $('.dropdown-button').dropdown('close');
-	                $('#ddlLicensee').selectList("close");
-	            });
+	        $(window).on('blur', function () {
+	            $('.dropdown-button').dropdown('close');
+	            $('#ddlLicensee').selectList("close");
+	            _autocomplete.$dropdown.html('').hide();
 	        });
 	    }
 	
