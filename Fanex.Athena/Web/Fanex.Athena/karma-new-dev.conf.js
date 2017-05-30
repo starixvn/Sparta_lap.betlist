@@ -41,7 +41,7 @@
             //{ pattern: 'www/js/tests/pages/report/licenseewinloss/licenseewinloss-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/report/cashoutwinloss/cashoutwinloss-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/betlist/lastbetmonitoring/lastbet.grid-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/report/matchwinloss/matchwinloss-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/report/winlossbyproduct/winlossbyproduct.option-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {

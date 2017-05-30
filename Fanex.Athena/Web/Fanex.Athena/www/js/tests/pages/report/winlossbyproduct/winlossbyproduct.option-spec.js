@@ -1,6 +1,5 @@
 ﻿define(["jquery", "common/site", "pages/report/winlossbyproduct/winlossbyproduct.option"],
     function ($, Site, WinLossByProductOption) {
-        
         describe("WinLossByProductOption", function () {
             beforeAll(function () {
                 spyOn(Site, "getResources").and.callFake(function (resource) { return resource; });
@@ -92,6 +91,21 @@
                     var dateColumn = colModel[1];
                     expect(dateColumn.formatoptions.newformat).toBe("m/d/Y");
                 });
+
+                it("LicenseeWlCommColumn should be hidden when IsAllowBA and IsAllowRB are false", function () {
+                    var originalIsAllowBA = WinLossByProductOption.IsAllowBA;
+                    var originalIsAllowRB = WinLossByProductOption.IsAllowRB;
+
+                    WinLossByProductOption.IsAllowBA = false;
+                    WinLossByProductOption.IsAllowRB = false;
+                    var colModel = WinLossByProductOption.getColModel(0, 1);
+                    var LicenseeWlCommColumn = colModel[12];
+
+                    WinLossByProductOption.IsAllowBA = originalIsAllowBA;
+                    WinLossByProductOption.IsAllowRB = originalIsAllowRB;
+
+                    expect(LicenseeWlCommColumn.hidden).toBe(true);
+                });
             });
 
             describe("getGridOption(level, reportBy)", function () {
@@ -131,6 +145,122 @@
 
                     expect(colModel[4].formatter).toBe(null);
                 });
+            });
+
+            describe("formatter of column model", function () {
+                var originalLicenseeId;
+                beforeEach(function () {
+                    originalLicenseeId = WinLossByProductOption.licenseeId;
+                });
+
+                afterEach(function () {
+                    WinLossByProductOption.licenseeId = originalLicenseeId;
+                });
+
+                it("format of currencyColumn with licenseeId is 1 should be correct", function () {
+                    WinLossByProductOption.licenseeId = 1;
+                    var cellValue = "Test";
+                    var dataDrilldown = {
+                        level: 1,
+                        currencyId: 1,
+                        custId: 0,
+                        datetime: "05/01/2017",
+                        currencyName: "EUR"
+                    };
+                    var drilldownJson = JSON.stringify(dataDrilldown);
+                    var expectedResult = '<a class="drilldown" href="javascript:;" data-drill-down=' + drilldownJson + '>' + cellValue + '</a>';
+
+                    var currencyColumn = WinLossByProductOption.getColModel(0, 1)[4];
+                    var rowObject = {
+                        CurrencyId: 1,
+                        Date: "05/01/2017",
+                        CurrencyName: "EUR"
+                    };
+
+                    var result = currencyColumn.formatter(cellValue, null, rowObject);
+
+                    expect(result).toBe(expectedResult);
+                });
+
+                it("format of currencyColumn with licenseeId is not 1 should be correct", function () {
+                    WinLossByProductOption.licenseeId = 2;
+                    var cellValue = "Test";
+                    var dataDrilldown = {
+                        level: 2,
+                        currencyId: 1,
+                        custId: 0,
+                        datetime: "05/01/2017",
+                        currencyName: "EUR"
+                    };
+                    var drilldownJson = JSON.stringify(dataDrilldown);
+                    var expectedResult = '<a class="drilldown" href="javascript:;" data-drill-down=' + drilldownJson + '>' + cellValue + '</a>';
+
+                    var currencyColumn = WinLossByProductOption.getColModel(0, 1)[4];
+                    var rowObject = {
+                        CurrencyId: 1,
+                        Date: "05/01/2017",
+                        CurrencyName: "EUR"
+                    };
+
+                    var result = currencyColumn.formatter(cellValue, null, rowObject);
+
+                    expect(result).toBe(expectedResult);
+                });
+
+                it("format of systemIdColumn should be correct", function () {
+                    WinLossByProductOption.licenseeId = 1;
+                    var cellValue = "Test";
+                    var dataDrilldown = {
+                        level: 2,
+                        currencyId: 1,
+                        custId: 1,
+                        datetime: "05/01/2017",
+                        currencyName: "EUR"
+                    };
+                    var drilldownJson = JSON.stringify(dataDrilldown);
+                    var expectedResult = '<a class="drilldown" href="javascript:;" data-drill-down=' + drilldownJson + '>' + cellValue + '</a>';
+
+                    var systemIdColumn = WinLossByProductOption.getColModel(1, 1)[3];
+                    var rowObject = {
+                        CurrencyId: 1,
+                        CustomerId: 1,
+                        Date: "05/01/2017",
+                        CurrencyName: "EUR"
+                    };
+
+                    var result = systemIdColumn.formatter(cellValue, null, rowObject);
+
+                    expect(result).toBe(expectedResult);
+                });
+            });
+
+            it("format of currencyColumn should be correct with betlist link", function () {
+                var cellValue = "Test";
+                var param = {
+                    DrillDownFromDate: "05/01/2017",
+                    DrillDownToDate: "05/01/2017",
+                    DrillDownCurrencyId: 1,
+                    DrillDownCurrencyName: "EUR",
+                    CustomerId: 2,
+                    ExternalId: 3,
+                    SystemId: 4
+                };
+                var paramJson = JSON.stringify(param);
+                var expectedResult = '<a class="bet-list-link" href="javascript:;" data-drill-down=' + paramJson + '>' + cellValue + '</a>';
+
+                var systemIdColumn = WinLossByProductOption.getColModel(2, 1)[3];
+                var rowObject = {
+                    CurrencyId: 1,
+                    CustomerId: 2,
+                    ExternalId: 3,
+                    SystemId: 4,
+                    Date: "05/01/2017",
+                    CurrencyName: "EUR"
+                };
+
+                var result = systemIdColumn.formatter(cellValue, null, rowObject);
+
+                expect(result).toBe(expectedResult);
             });
         });
     });
