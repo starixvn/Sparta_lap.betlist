@@ -260,6 +260,120 @@
                     });
                 });
 
+                describe("drillDown(leagueid, leaguename)", function () {
+                    var leagueid = 1000;
+                    var submitData;
+                    beforeEach(function () {
+                        submitData = {};
+
+                        spyOn(WinLossByLeagueFilter, "buildProductsParams");
+                        spyOn(WinLossByLeague, "setReportTitle");
+                        spyOn(WinLossByLeague, "ajaxComplete");
+                        spyOn($, "ajax").and.returnValue({ abort: function () { } });
+                    });
+                    afterEach(function () {
+                        submitData = {
+                            ProductOptions: '["SB","RC"]',
+                            DrawFilter: 0,
+                            CurrencyId: 1,
+                            ReportBy: 2,
+                            FromDate: "2017-03-01T00:00:00",
+                            ToDate: "2017-03-31T00:00:00",
+                            CurrencyName: "EUR",
+                            IsExcludedTestData: true
+                        };
+                    });
+
+                    it("leagueid should be posted to server", function () {
+                       
+                        WinLossByLeague.drillDown(leagueid, "leaguename");
+
+                        var postdata = $.ajax.calls.mostRecent().args[0].data;
+                        expect(postdata.League).toBe(leagueid);
+                    });
+
+                    it("request url should be correct", function () {
+                        WinLossByLeague.drillDown(leagueid, "leaguename");
+                        var requestUrl = $.ajax.calls.mostRecent().args[0].url;
+
+                        expect(requestUrl).toBe("api/WinLossByLeagueReport/Index");
+                    });
+
+                    it("Site.blockUI() should be called with beforeSend function of ajax option", function () {
+                        spyOn(Site, "blockUI");
+                        WinLossByLeague.drillDown(leagueid, "leaguename");
+                        var ajaxOption = $.ajax.calls.mostRecent().args[0];
+
+                        expect(Site.blockUI).not.toHaveBeenCalled();
+
+                        ajaxOption.beforeSend();
+
+                        expect(Site.blockUI).toHaveBeenCalled();
+                    });
+                    it("Site.unBlockUI() should be called with complete function of ajax option", function () {
+                        spyOn(Site, "unBlockUI");
+                        WinLossByLeague.drillDown(leagueid, "leaguename");
+                        var ajaxOption = $.ajax.calls.mostRecent().args[0];
+
+                        expect(Site.unBlockUI).not.toHaveBeenCalled();
+
+                        ajaxOption.complete();
+
+                        expect(Site.unBlockUI).toHaveBeenCalled();
+                    });
+
+                    describe("success function of ajax option", function () {
+                        it("WinLossByLeague.ajaxComplete(level, response) should be called with correct parameter", function () {
+                            WinLossByLeague.drillDown(leagueid, "leaguename");
+                            var ajaxOption = $.ajax.calls.mostRecent().args[0];
+
+                            ajaxOption.success({ Data: [] });
+
+                            expect(WinLossByLeague.ajaxComplete.calls.mostRecent().args).toEqual([jasmine.any(Number), { Data: [] }]);
+                        });
+
+                        it("WinLossByLeague.setReportTitle() should be called with correct level", function () {
+                            WinLossByLeague.drillDown(leagueid, "leaguename");
+                            var ajaxOption = $.ajax.calls.mostRecent().args[0];
+
+                            ajaxOption.success({ Data: [ 1 ] });
+
+                            var args = WinLossByLeague.setReportTitle.calls.mostRecent().args;
+                            expect(args[0]).toBe(1);
+                        });
+
+                        it("#paging is hidden if totalrows = 0", function () {
+                            spyOn(PagingHelper, "render");
+                            spyOn(WinLossByLeague, "resizeGrid");
+                            setFixtures('<div id="paging" style="display: none"></div>');
+
+                            WinLossByLeague.drillDown(leagueid, "leaguename");
+                            var ajaxOption = $.ajax.calls.mostRecent().args[0];
+
+                            ajaxOption.success({ Data: [ 1 ], TotalRows: 0 });
+
+                            expect($("#paging").is(":hidden")).toBe(true);
+                            expect(PagingHelper.render).not.toHaveBeenCalled();
+                            expect(WinLossByLeague.resizeGrid).not.toHaveBeenCalled();
+                        });
+
+                        it("#paging is show if totalrows > 0", function () {
+                            spyOn(PagingHelper, "render");
+                            spyOn(WinLossByLeague, "resizeGrid");
+                            setFixtures('<div id="paging" style="display: none"></div>');
+
+                            WinLossByLeague.drillDown(leagueid, "leaguename");
+                            var ajaxOption = $.ajax.calls.mostRecent().args[0];
+
+                            ajaxOption.success({ Data: [1], TotalRows: 1 });
+
+                            expect($("#paging").is(":hidden")).toBe(false);
+                            expect(PagingHelper.render).toHaveBeenCalled();
+                            expect(WinLossByLeague.resizeGrid).toHaveBeenCalled();
+                        });
+                    });
+                });
+
                 describe("bindTotal(level, totalData)", function () {
                     it("WinLossByLeagueOption.getColModel(level) should be called with correct parameter", function () {
                         spyOn(WinLossByLeagueOption, "getColModel");
@@ -287,11 +401,12 @@
                 });
 
                 describe("bindData(level, response)", function () {
+                    var gridOption = {};
                     beforeEach(function () {
                         setFixtures("<div id='ReportGrid'></div>");
 
                         spyOn(jqGridAdditional, "clearGrid");
-                        spyOn(WinLossByLeagueOption, "getGridOption").and.returnValue({});
+                        spyOn(WinLossByLeagueOption, "getGridOption").and.returnValue(gridOption);
                         spyOn($.fn, "jqGrid");
                         spyOn(jqGridAdditional, "gridComplete");
                         spyOn(WinLossByLeague, "resizeGrid");
@@ -307,6 +422,34 @@
                     });
                     it("jqGrid function of jquery should be called", function () {
                         expect($.fn.jqGrid).toHaveBeenCalled();
+                    });
+                    it("Corresponding methods should be called when calling gridOption.gridComplete()", function () {
+                        spyOn(WinLossByLeague, "bindTotal");
+                        spyOn(Site, "unBlockUI");
+
+                        gridOption.gridComplete();
+
+                        expect(jqGridAdditional.gridComplete).toHaveBeenCalled();
+                        expect(WinLossByLeague.bindTotal).toHaveBeenCalled();
+                        expect(WinLossByLeague.resizeGrid).toHaveBeenCalled();
+                        expect(Site.unBlockUI).toHaveBeenCalled();
+                    });
+
+                    it("jqGridAdditional.setNoInfo() should be called if response data is empty", function () {
+                        spyOn(jqGridAdditional, 'setNoInfo');
+
+                        WinLossByLeague.bindData(2, { Data: [] });
+
+                        expect(jqGridAdditional.setNoInfo).toHaveBeenCalled();
+                    });
+
+                    it("WinLossByLeagueOption.addLeagueGroupRow() should be called with correct params if level = 0", function () {
+                        setFixtures("<select id='League'><option value='999' selected>League Name</option></select>");
+                        spyOn(WinLossByLeagueOption, "addLeagueGroupRow");
+
+                        WinLossByLeague.bindData(0, { Data: [ 0 ] });
+
+                        expect(WinLossByLeagueOption.addLeagueGroupRow).toHaveBeenCalledWith('999', 'League Name');
                     });
                 });
             });
