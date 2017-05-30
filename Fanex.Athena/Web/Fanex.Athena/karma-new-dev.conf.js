@@ -41,7 +41,7 @@
             //{ pattern: 'www/js/tests/pages/report/licenseewinloss/licenseewinloss-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/report/cashoutwinloss/cashoutwinloss-spec.js', included: false },
             //{ pattern: 'www/js/tests/pages/betlist/lastbetmonitoring/lastbet.grid-spec.js', included: false },
-            { pattern: 'www/js/tests/pages/report/winlossbybettype/winlossbybettype-spec.js', included: false
+            { pattern: 'www/js/tests/pages/report/dailyracingwinloss/dailyracingwinloss-spec.js', included: false
         },
             'www/js/tests/test-main.js'
         ],

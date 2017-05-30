@@ -16,7 +16,6 @@
 
             describe("initialize", function () {
                 beforeEach(function () {
-                    $("body").off();
                     spyOn(Site, "initialize");
                     spyOn(GridHelper, "resizeGrid");
                     spyOn(WinLossByBetType, "initDateRangePicker");
@@ -25,10 +24,6 @@
                     spyOn(WinLossByBetType, "initEvent");
 
                     WinLossByBetType.initialize();
-                });
-
-                afterEach(function () {
-                    $("body").off();
                 });
 
                 it("Site.initialize() should be called", function () {
@@ -68,11 +63,16 @@
 
             describe("initEvent()", function () {
                 beforeEach(function () {
+                    $("body").off();
                     setFixtures('<button id="ExportToExcel"></button><input id="IsExportExcel" /><div id="WinLossByBetTypeForm"></div>' +
                         '<button id="SubmitButton"></button>' +
                         '<div class="body-content"><a class="bet-list-link" data-bettype="1"></a></div>');
 
                     WinLossByBetType.initEvent();
+                });
+
+                afterEach(function () {
+                    $("body").off();
                 });
 
                 it("'#ExportToExcel' fired click event - '#IsExportExcel' should has correct value", function () {
@@ -153,13 +153,13 @@
                     WinLossByBetType.submitForm();
                 });
 
-                it("'#ExportToExcel' fired click event - '#IsExportExcel' should has correct value", function () {
+                it("'#IsExportExcel' should has correct value", function () {
                     var result = $("#IsExportExcel").val();
 
                     expect(result).toBe("false");
                 });
 
-                it("'#ExportToExcel' fired click event - '#WinLossByBetTypeForm' fire submit event", function () {
+                it("'#WinLossByBetTypeForm' fire submit event", function () {
                     expect($.fn.submit).toHaveBeenCalled();
                 });
             });
