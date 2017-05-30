@@ -1226,6 +1226,7 @@
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss.option-spec.js" />
     <Content Include="www\js\tests\pages\report\livereport\livereport-spec.js" />
     <Content Include="www\js\tests\pages\report\livereport\helper-spec.js" />
+    <Content Include="www\js\tests\pages\report\matchwinloss\matchwinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\platformwinloss\platformwinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\platformwinloss\platformwinloss.option-spec.js" />
     <Content Include="www\js\tests\pages\report\racingcommission\racingcommission-spec.js" />
