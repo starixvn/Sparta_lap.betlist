@@ -45,9 +45,10 @@
 
                     beforeEach(function () {
                         setFixtures("<input type='button' id='SubmitButton' />");
-
+                        appendSetFixtures("<div id='leagueHeader' data-leagueid='1'>League Name Here</div>");
                         appendSetFixtures("<div id='level-link-container'><div class='level-link' data-level='0'></div></div>");
                         appendSetFixtures("<div class='drilldown' data-custid='1' data-externalid='2' data-systemid='3' />");
+                        appendSetFixtures("<div id='ExportToExcel'></div>");
                         $submitButton = $('#SubmitButton');
 
                         WinLossByLeague.initEvent();
@@ -69,6 +70,14 @@
                         expect(WinLossByLeague.submit).toHaveBeenCalled();
                     });
 
+                    it("WinLossByLeague.drillDown(leagueid, leaguename) should be called when '#leagueHeader' is clicked", function () {
+                        spyOn(WinLossByLeague, "drillDown");
+
+                        $('#leagueHeader').click();
+
+                        expect(WinLossByLeague.drillDown).toHaveBeenCalledWith(1, 'League Name Here');
+                    });
+
                     it("WinLossByLeague.drillDownBetList(custid, leagueid, leaguename) should be called when '.drilldown' fired click event", function () {
                         spyOn(WinLossByLeague, "drillDownBetList");
 
@@ -76,10 +85,47 @@
 
                         expect(WinLossByLeague.drillDownBetList).toHaveBeenCalledWith(1, 2, 3);
                     });
+
+                    it("Site.exportExcel() should be called when '#ExportToExcel' is clicked", function () {
+                        spyOn(Site, "exportExcel");
+
+                        $('#ExportToExcel').click();
+
+                        expect(Site.exportExcel).toHaveBeenCalledWith(jasmine.any(Object), "api/WinLossByLeagueReport/Excel");
+                    });
+
+                    it("WinLossByLeague.resizeGrid() function should be called when window fire resize event", function () {
+                        spyOn(WinLossByLeague, "resizeGrid");
+
+                        $(window).resize();
+
+                        expect(WinLossByLeague.resizeGrid).toHaveBeenCalled();
+                    });
+
+                    it("$(window).off() should be called with correct parameter when window fire unload event", function () {
+                        spyOn($.fn, "off");
+
+                        $(window).unload();
+
+                        expect($.fn.off).toHaveBeenCalledWith("resize");
+                    });
+                });
+
+                describe("resizeGrid()", function () {
+                    it("Corresponding methods should be called", function () {
+                        setFixtures('<div id="ReportGrid"></div>');
+                        spyOn(jqGridAdditional, "updateGridHeight");
+                        spyOn(jqGridAdditional, "updateGridWidth");
+
+                        WinLossByLeague.resizeGrid();
+
+                        expect(jqGridAdditional.updateGridHeight).toHaveBeenCalled();
+                        expect(jqGridAdditional.updateGridWidth).toHaveBeenCalledWith($("#ReportGrid"));
+                    });
                 });
 
                 describe("setReportTitle(level, minOdds, fromdate, todate)", function () {
-                    it("Report title should be correct text", function () {
+                    it("Report title should be correct text when level = 0", function () {
                         var titleExpected = 'WinLossByLeague, 2/01/2016 → 2/29/2016 - Currency:  undefined - MinimumOdds : 1';
 
                         setFixtures("<div class='report-title' id='caption' />");
@@ -89,8 +135,130 @@
 
                         expect($("#caption").html()).toBe(titleExpected);
                     });
+
+                    it("Report title should be correct text  when level = 1", function () {
+                        var titleExpected = 'null &gt; CustomerWinLoss, 2/01/2016 → 2/29/2016 - Currency:  undefined - MinimumOdds : 1';
+
+                        setFixtures("<div class='report-title' id='caption' />");
+                        var minOddStr = Site.getSingleResource("MinimumOdds") + " : 1";
+
+                        WinLossByLeague.setReportTitle(1, 1, "2016/02/01", "2016/02/29");
+
+                        expect($("#caption").html()).toBe(titleExpected);
+                    });
                 });
 
+                describe("ajaxComplete", function () {
+                    beforeEach(function () {
+                        spyOn(Report, "renderBreadCrumb");
+                        spyOn(WinLossByLeague, "bindData");
+                        spyOn(WinLossByLeague, "setReportTitle");
+                    });
+
+                    it("Nothing happen if response param has null value", function () {
+                        WinLossByLeague.ajaxComplete(0, null);
+
+                        expect(WinLossByLeague.bindData).not.toHaveBeenCalled();
+                        expect(Report.renderBreadCrumb).not.toHaveBeenCalled();
+                    });
+
+                    it("WinLossByLeague.setReportTitle() should be called if level is 0", function () {
+                        WinLossByLeague.ajaxComplete(0, {});
+
+                        expect(WinLossByLeague.setReportTitle).toHaveBeenCalled();
+                    });
+
+                    it("WinLossByLeague.setReportTitle() should NOT be called if level param greater than 0", function () {
+                        WinLossByLeague.ajaxComplete(1, {});
+
+                        expect(WinLossByLeague.setReportTitle).not.toHaveBeenCalled();
+                    });
+
+                    it("Report.renderBreadCrumb(level) should be called with correct parameter", function () {
+                        var level = 1;
+                        WinLossByLeague.ajaxComplete(level, {});
+
+                        expect(Report.renderBreadCrumb).toHaveBeenCalledWith(level);
+                    });
+
+                    it("WinLossByLeague.bindData(level) should be called with correct parameter", function () {
+                        var level = 1;
+                        var response = { Data: "Hello" };
+
+                        WinLossByLeague.ajaxComplete(level, response);
+
+                        expect(WinLossByLeague.bindData).toHaveBeenCalledWith(level, response);
+                    });
+                });
+
+                describe("submit()", function () {
+                    var request;
+                    beforeEach(function (done) {
+                        jasmine.Ajax.install();
+
+                        var submitData = {
+                            BaseCurrency: "eur"
+                        };
+
+                        setFixtures('<form id="SearchForm"></form>');
+                        appendSetFixtures('<input id="CurrencyName" value="ABC" />');
+                        appendSetFixtures('<select id="League"><option value="100" selected>League Test</option></select>');
+                        spyOn(WinLossByLeagueFilter, "isValid").and.returnValue(true);
+                        spyOn($.fn, "serializeObject").and.returnValue(submitData);
+                        spyOn(WinLossByLeague, "ajaxComplete");
+                        spyOn(Site, "blockUI");
+                        spyOn(Site, "unBlockUI");
+
+                        jasmine.Ajax
+                                .stubRequest("api/WinLossByLeagueReport/Index")
+                                .andReturn({
+                                    'status': 200,
+                                    'contentType': 'application/json',
+                                    'responseText': '{ "ProductOptions": "SB,RC" }'
+                                });
+
+                        WinLossByLeague.submit();
+                        request = jasmine.Ajax.requests.mostRecent();
+
+                        setTimeout(done, 10);
+                    });
+                    afterEach(function () {
+                        jasmine.Ajax.uninstall();
+                    });
+
+                    it("request url should be correct", function () {
+                        var expectedUrl = "api/WinLossByLeagueReport/Index";
+
+                        expect(request.url).toBe(expectedUrl);
+                    });
+                    it("Site.blockUI() should be called", function () {
+                        expect(Site.blockUI).toHaveBeenCalled();
+                    });
+                    it("Site.unBlockUI() should be called", function () {
+                        expect(Site.unBlockUI).toHaveBeenCalled();
+                    });
+                    it("WinLossByLeague.ajaxComplete(level, response) should be called with correct parameters", function () {
+                        expect(WinLossByLeague.ajaxComplete).toHaveBeenCalledWith(0, { ProductOptions: "SB,RC" });
+                    });
+                });
+
+                describe("drillDownBetList(custId, externalId, systemId)", function () {
+                    it("WinLossByLeagueFilter.buildProductsParams() should be called", function () {
+                        spyOn(WinLossByLeagueFilter, "buildProductsParams");
+
+                        WinLossByLeague.drillDownBetList(0, 0, 0);
+
+                        expect(WinLossByLeagueFilter.buildProductsParams).toHaveBeenCalled();
+                    });
+
+                    it("window.open() should be called", function () {
+                        spyOn(window, "open");
+
+                        WinLossByLeague.drillDownBetList(0, 0, 0);
+
+                        expect(window.open).toHaveBeenCalledWith(jasmine.stringMatching(/WinlossByLeagueBetList\/Index\?.*/), "", 'modal=no');
+                    });
+                });
 
                 describe("bindTotal(level, totalData)", function () {
                     it("WinLossByLeagueOption.getColModel(level) should be called with correct parameter", function () {

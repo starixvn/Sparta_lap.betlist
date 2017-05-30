@@ -273,7 +273,7 @@
             //#endregion
 
             ajaxPaging: function () {
-                _pagingOption = PagingHeper.getSetting();
+                _pagingOption = PagingHeper.getSetting() || {};
                 _me.drillDown(_leagueid, _leaguename);
             }
         };
