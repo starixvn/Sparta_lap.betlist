@@ -76,7 +76,8 @@ var Site = (function ($) {
         reload: function () {
             window.location.reload();
         },
-        exportExcel: function (data, url, method) {
+        exportExcel: function (postData, url, method) {
+            var data = Site.clone(postData);
             data.IsExportExcel = true;
             var $form = $('<form id="ExportExcelForm">').attr({ action: url, method: method || 'post' })
                 .appendTo('body');
