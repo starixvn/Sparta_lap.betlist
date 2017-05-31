@@ -44,16 +44,12 @@ namespace Fanex.Athena.Controllers.Customer
 
         public CustomerComGroupController()
         {
-            this._customerComService = new GroupComService();
-            this._productService = new ProductService();
+            _customerComService = new GroupComService();
+            _productService = new ProductService();
         }
 
         #region Get data
 
-        /// <summary>
-        ///     Get all groups.
-        /// </summary>
-        /// <returns>The action result.</returns>
         [HttpGet]
         public ActionResult Index()
         {
@@ -73,7 +69,7 @@ namespace Fanex.Athena.Controllers.Customer
         [CustomValidateAntiForgery]
         public ActionResult Index(bool isExportExcel)
         {
-            return isExportExcel ? this.ExportExcel() : this.Index();
+            return isExportExcel ? ExportExcel() : Index();
         }
 
         #endregion Get data
@@ -83,20 +79,9 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpGet]
         public ActionResult Create()
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
-            var groupList = _customerComService.GetAll(licenseeSession.LicenseeId);
+            var model = new GroupCommMetaModel();
 
-            var defaultGroupId = _customerComService.GetDefaultGroup(groupList);
-            var model = new GroupCommMetaModel
-            {
-                LicenseeId = licenseeSession.LicenseeId,
-                IsUpdateNG = productAccess.IsAllowNG,
-                IsUpdateRacing = productAccess.IsAllowRB,
-                IsUpdateLC = productAccess.IsAllowLC,
-                IsUpdateCS = productAccess.IsAllowCS,
-                DefaultGroupId = defaultGroupId
-            };
+            CreateMetaModel(model);
 
             return View("~/Views/Customer/CustomerComm/CreateNewGroup.cshtml", model);
         }
@@ -109,23 +94,14 @@ namespace Fanex.Athena.Controllers.Customer
             var userSession = SessionService.UserSession;
             var result = new ResultViewModel { Success = false };
             metaModel.LicenseeId = licenseeSession.LicenseeId;
+
             if (ModelState.IsValid)
             {
                 if (metaModel.GroupName.Trim().Equals("none", StringComparison.OrdinalIgnoreCase))
                 {
                     result.ErrorMessage = ViewResources.ChooseGroupNameMsg;
-                    ViewBag.Result = result;
-                    return View("~/Views/Customer/CustomerComm/CreateNewGroup.cshtml", metaModel);
                 }
-
-                var validComms = GroupCommSetting.ValidCommissions;
-                var valid = validComms.Any(i => i.Value == metaModel.SBComm) &&
-                            validComms.Any(i => i.Value == metaModel.ParlayComm) &&
-                            validComms.Any(i => i.Value == metaModel.RCComm) &&
-                            validComms.Any(i => i.Value == metaModel.NGComm) &&
-                            validComms.Any(i => i.Value == metaModel.LCComm) &&
-                            validComms.Any(i => i.Value == metaModel.CSComm);
-                if (valid)
+                else if (ValidateCommissions(metaModel))
                 {
                     var request = new Request
                     {
@@ -149,7 +125,7 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpGet]
         public string Validate(string groupName)
         {
-            return string.IsNullOrEmpty(groupName) || _customerComService.CheckByName(SessionService.LicenseeSession.LicenseeId, groupName)
+            return string.IsNullOrEmpty(groupName) || _customerComService.CheckExistingGroupByName(SessionService.LicenseeSession.LicenseeId, groupName)
                 ? "NO" : "OK";
         }
 
@@ -160,22 +136,11 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpGet]
         public ActionResult Update(int groupId)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language);
-
-            var groupList = _customerComService.GetAll(licenseeSession.LicenseeId);
-
-            var defaultGroupId = _customerComService.GetDefaultGroup(groupList);
-
             var model = _customerComService.GetById(groupId);
+
             if (model != null)
             {
-                model.LicenseeId = licenseeSession.LicenseeId;
-                model.IsUpdateNG = productAccess.IsAllowNG;
-                model.IsUpdateRacing = productAccess.IsAllowRB;
-                model.IsUpdateLC = productAccess.IsAllowLC;
-                model.IsUpdateCS = productAccess.IsAllowCS;
-                model.DefaultGroupId = defaultGroupId;
+                CreateMetaModel(model);
             }
 
             /*Convert decimal of each comm to int value to display in web.*/
@@ -193,50 +158,17 @@ namespace Fanex.Athena.Controllers.Customer
         public ActionResult Update(GroupCommMetaModel metaModel)
         {
             var result = new ResultViewModel();
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
             if (ModelState.IsValid)
             {
                 if (metaModel.GroupName.Trim().ToLower(CultureInfo.CurrentCulture).Equals("none"))
                 {
                     result.ErrorMessage = ViewResources.ChooseGroupNameMsg;
-                    ViewBag.Result = result;
-
-                    return View("~/Views/Customer/CustomerComm/UpdateGroup.cshtml", metaModel);
                 }
-
-                var validComms = GroupCommSetting.ValidCommissions;
-                var valid = validComms.Any(i => i.Value == metaModel.SBComm) &&
-                            validComms.Any(i => i.Value == metaModel.ParlayComm) &&
-                            validComms.Any(i => i.Value == metaModel.RCComm) &&
-                            validComms.Any(i => i.Value == metaModel.NGComm) &&
-                            validComms.Any(i => i.Value == metaModel.LCComm) &&
-                            validComms.Any(i => i.Value == metaModel.CSComm);
-
-                if (valid)
+                else if (ValidateCommissions(metaModel))
                 {
-                    var request = new Request
-                    {
-                        Language = userSession.Language,
-                        Ip = Request.UserHostAddress
-                    };
-                    var currentGroup = _customerComService.GetById(metaModel.GroupCommId);
-                    if (currentGroup != null && !currentGroup.Equals(metaModel))
-                    {
-                        _customerComService.UpdateGroup(metaModel, request, userSession, out result);
-
-                        if (string.IsNullOrWhiteSpace(result.ErrorMessage))
-                        {
-                            GetUpdateGroupErrorMessage(result);
-                        }
-                    }
-                    else
-                    {
-                        result.Success = true;
-                        result.Message = ViewResources.MessageSuccess;
-                    }
+                    UpdateGroupComm(metaModel, result);
                 }
                 else
                 {
@@ -254,46 +186,39 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Delete group
 
-        /// <summary>
-        /// Delete a group commission.
-        /// </summary>
-        /// <param name="groupId">The group Id.</param>
-        /// <param name="isRemovePlayerComm">If this value equals true, removing all commission of customers belong to this group.</param>
-        /// <param name="isResetDefault">Reset default commission for customers  belong to this group.</param>
-        /// <returns>The JSON result.</returns>
         [HttpPost]
         [CustomValidateAntiForgery]
         public JsonResult Delete(int groupId, bool isRemovePlayerComm, bool isResetDefault)
         {
             var result = new ResultViewModel();
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var licenseeId = SessionService.LicenseeSession.LicenseeId;
-                var userSession = SessionService.UserSession;
-                var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
 
-                _customerComService.DeleteGroup(
-                    new DeleteGroupMetaModel
-                    {
-                        GroupId = groupId,
-                        LicenseeId = licenseeId,
-                        UserId = userSession.UserId,
-                        UserName = userSession.UserName,
-                        Ip = Request.UserHostAddress,
-                        Language = userSession.Language,
-                        IsRemoveCommSetting = isRemovePlayerComm,
-                        IsAllowedCSComm = productAccess.IsAllowCS,
-                        IsResetDefault = isResetDefault
-                    },
-                    out result);
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var userSession = SessionService.UserSession;
+            var productAccess = _productService.GetProductAccess(licenseeId, userSession.Language);
 
-                if (result.ErrorCode == 0)
+            _customerComService.DeleteGroup(
+                new DeleteGroupMetaModel
                 {
-                    result.Message = isRemovePlayerComm
-                                                ? ViewResources.CommIsClear
-                                                : ViewResources.CommIsUnChange;
-                }
+                    GroupId = groupId,
+                    LicenseeId = licenseeId,
+                    UserId = userSession.UserId,
+                    UserName = userSession.UserName,
+                    Ip = Request.UserHostAddress,
+                    Language = userSession.Language,
+                    IsRemoveCommSetting = isRemovePlayerComm,
+                    IsAllowedCSComm = productAccess.IsAllowCS,
+                    IsResetDefault = isResetDefault
+                },
+                out result);
+
+            if (result.ErrorCode == 0)
+            {
+                result.Message = isRemovePlayerComm ? ViewResources.CommIsClear : ViewResources.CommIsUnChange;
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -303,19 +228,14 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Group Comm API
 
-        /// <summary>
-        /// Get default group commission.
-        /// </summary>
-        /// <returns>The JSON result.</returns>
         [HttpGet]
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         public JsonResult GetDefaultGroup()
         {
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
-
             /* Gathering group list*/
-            var groupList = _customerComService.GetAll(licenseeId);
-            var defaultGroupId = _customerComService.GetDefaultGroup(groupList);
+            var groupList = _customerComService.GetAll(SessionService.LicenseeSession.LicenseeId);
+            var defaultGroupId = groupList.FirstOrDefault(x => x.IsDefaultGroup)?.GroupCommId ?? 0;
+
             return Json(new { id = defaultGroupId }, JsonRequestBehavior.AllowGet);
         }
 
@@ -329,6 +249,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             const string FileName = "CustomerCommGroup";
             var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerGroup/CustomerCommGroup.xls");
+
             if (!System.IO.File.Exists(templatePath))
             {
                 throw new FileNotFoundException(templatePath);
@@ -404,12 +325,6 @@ namespace Fanex.Athena.Controllers.Customer
             }
         }
 
-        /// <summary>
-        /// Set commission.
-        /// </summary>
-        /// <param name="comm">Commission after * 10000 (for easy calculating  value for each drop-down-list).</param>
-        /// <param name="position">A position of number (First, Second and Last).</param>
-        /// <returns>The commission.</returns>
         private static int SetComm(decimal comm, int position)
         {
             var intComm = 0;
@@ -470,6 +385,60 @@ namespace Fanex.Athena.Controllers.Customer
             model.CSComm3 = SetComm(decCsComm, 3);
         }
 
+        private static bool ValidateCommissions(GroupCommMetaModel metaModel)
+        {
+            var validComms = GroupCommSetting.ValidCommissions;
+            var valid = validComms.Any(i => i.Value == metaModel.SBComm) &&
+                        validComms.Any(i => i.Value == metaModel.ParlayComm) &&
+                        validComms.Any(i => i.Value == metaModel.RCComm) &&
+                        validComms.Any(i => i.Value == metaModel.NGComm) &&
+                        validComms.Any(i => i.Value == metaModel.LCComm) &&
+                        validComms.Any(i => i.Value == metaModel.CSComm);
+
+            return valid;
+        }
+
+        private void CreateMetaModel(GroupCommMetaModel metaModel)
+        {
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var productAccess = _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
+            var groupList = _customerComService.GetAll(licenseeId);
+            var defaultGroupId = groupList.FirstOrDefault(x => x.IsDefaultGroup)?.GroupCommId ?? 0;
+
+            metaModel.LicenseeId = licenseeId;
+            metaModel.IsUpdateNG = productAccess.IsAllowNG;
+            metaModel.IsUpdateRacing = productAccess.IsAllowRB;
+            metaModel.IsUpdateLC = productAccess.IsAllowLC;
+            metaModel.IsUpdateCS = productAccess.IsAllowCS;
+            metaModel.DefaultGroupId = defaultGroupId;
+        }
+
+        private void UpdateGroupComm(GroupCommMetaModel metaModel, ResultViewModel result)
+        {
+            var userSession = SessionService.UserSession;
+
+            var request = new Request
+            {
+                Language = userSession.Language,
+                Ip = Request.UserHostAddress
+            };
+            var currentGroup = _customerComService.GetById(metaModel.GroupCommId);
+
+            if (currentGroup != null && !currentGroup.Equals(metaModel))
+            {
+                _customerComService.UpdateGroup(metaModel, request, userSession, out result);
+
+                if (string.IsNullOrWhiteSpace(result.ErrorMessage))
+                {
+                    GetUpdateGroupErrorMessage(result);
+                }
+            }
+            else
+            {
+                result.Success = true;
+                result.Message = ViewResources.MessageSuccess;
+            }
+        }
         #endregion Utility
     }
 }

@@ -18,16 +18,8 @@ namespace Fanex.Athena.DataAccess.Customer
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    ///     Group commission Data Access.
-    /// </summary>
     public class GroupComDataAccess : BaseDataAccess, IGroupComDataAccess
     {
-        /// <summary>
-        ///     Get Commission Group by Licensee.
-        /// </summary>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <returns>The result value.</returns>
         public IList<GroupCommMetaModel> GetAll(int licenseeId)
         {
             const string UspName = "Lrf_LicenseeGroupCommSel";
@@ -70,11 +62,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        ///     Get Data for Excel.
-        /// </summary>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <returns>The result value.</returns>
         public DataTable GetDataForExcel(int licenseeId)
         {
             const string UspName = "Lrf_LicenseeGroupCommSel";
@@ -95,11 +82,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        ///     Get group by ID.
-        /// </summary>
-        /// <param name="groupCommId">Group ID value.</param>
-        /// <returns>The result value.</returns>
         public GroupCommMetaModel GetById(int groupCommId)
         {
             const string UspName = "Lrf_GroupCommGetById";
@@ -139,14 +121,6 @@ namespace Fanex.Athena.DataAccess.Customer
             return null;
         }
 
-        /// <summary>
-        /// Insert group.
-        /// </summary>
-        /// <param name="item">Item value.</param>
-        /// <param name="request">Request value.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <param name="resultInfo">Result information value.</param>
-        /// <returns>The result value.</returns>
         public int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out IResultInfo resultInfo)
         {
             const string UspName = "Lrf_LicenseeGroupCommIns";
@@ -188,14 +162,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        ///     Update commission group.
-        /// </summary>
-        /// <param name="newItem">New item value.</param>
-        /// <param name="request">Request value.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <param name="resultInfo">Result information value.</param>
-        /// <returns>The result value.</returns>
         public bool UpdateGroup(GroupCommMetaModel newItem, IRequest request, int userId, out IResultInfo resultInfo)
         {
             const string UspName = "Lrf_LicenseeGroupCommUpd";
@@ -239,18 +205,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        ///     Delete commission group.
-        /// </summary>
-        /// <param name="groupId">Group ID value.</param>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <param name="userId">User ID value.</param>
-        /// <param name="ip">IP parameter value.</param>
-        /// <param name="language">Language value.</param>
-        /// <param name="isRemoveCommSetting">Is remove commission value.</param>
-        /// <param name="isResetDefault">Reset default value.</param>
-        /// <param name="resultInfo">Result information value.</param>
-        /// <returns>The result value.</returns>
         public int DeleteGroup(
             int groupId,
             int licenseeId,
@@ -289,12 +243,6 @@ namespace Fanex.Athena.DataAccess.Customer
             }
         }
 
-        /// <summary>
-        /// Check by name.
-        /// </summary>
-        /// <param name="licenseeId">Licensee ID value.</param>
-        /// <param name="groupName">Group name value.</param>
-        /// <returns>The result value.</returns>
         public bool CheckByName(int licenseeId, string groupName)
         {
             const string UspName = "Lrf_GroupCommCheckByName";

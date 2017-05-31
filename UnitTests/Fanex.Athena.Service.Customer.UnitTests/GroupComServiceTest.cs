@@ -290,7 +290,7 @@
             _groupDataAccess.CheckByName(LicenseeId, GroupName).Returns(true);
 
             // Action
-            var result = _groupComService.CheckByName(LicenseeId, GroupName);
+            var result = _groupComService.CheckExistingGroupByName(LicenseeId, GroupName);
 
             // Assert
             Assert.That(result, Is.True);

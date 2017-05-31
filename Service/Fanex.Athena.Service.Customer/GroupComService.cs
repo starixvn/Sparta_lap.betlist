@@ -24,16 +24,10 @@ namespace Fanex.Athena.Service.Customer
 
     #endregion
 
-    /// <summary>
-    ///     Group service.
-    /// </summary>
     public class GroupComService : IGroupComService
     {
         #region Constants and Fields
 
-        /// <summary>
-        ///     The _group data access.
-        /// </summary>
         private readonly IGroupComDataAccess _groupDataAccess;
 
         #endregion
@@ -54,7 +48,7 @@ namespace Fanex.Athena.Service.Customer
 
         public IList<GroupCommMetaModel> GetAll(int licenseeId)
         {
-            return this._groupDataAccess.GetAll(licenseeId);
+            return _groupDataAccess.GetAll(licenseeId);
         }
 
         public DataTable GetDataForExcel(int licenseeId)
@@ -138,7 +132,7 @@ namespace Fanex.Athena.Service.Customer
         public int DeleteGroup(DeleteGroupMetaModel model, out ResultViewModel result)
         {
             IResultInfo dataResultInfo;
-            var returnValue = this._groupDataAccess.DeleteGroup(
+            var returnValue = _groupDataAccess.DeleteGroup(
                 model.GroupId,
                 model.LicenseeId,
                 model.UserId,
@@ -184,9 +178,9 @@ namespace Fanex.Athena.Service.Customer
             return returnValue;
         }
 
-        public bool CheckByName(int licenseeId, string groupName)
+        public bool CheckExistingGroupByName(int licenseeId, string groupName)
         {
-            return this._groupDataAccess.CheckByName(licenseeId, groupName);
+            return _groupDataAccess.CheckByName(licenseeId, groupName);
         }
     }
 }

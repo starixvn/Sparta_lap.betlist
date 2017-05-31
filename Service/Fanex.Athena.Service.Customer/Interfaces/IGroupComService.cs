@@ -31,7 +31,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
         int GetDefaultGroup(IList<GroupCommMetaModel> groupList);
 
-        bool CheckByName(int licenseeId, string groupName);
+        bool CheckExistingGroupByName(int licenseeId, string groupName);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
             Justification = "Reviewed. Suppression is OK here.")]
