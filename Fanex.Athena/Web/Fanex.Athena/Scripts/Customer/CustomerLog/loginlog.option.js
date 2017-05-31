@@ -54,34 +54,21 @@ var LogInLogOption = (function () {
         height: 650,
         url: {},
         datatype: 'json',
-        colNames: colNameList,
+        colNames: Site.getResources(colNameList),
         colModel: colModelList,
         rowNum: 50,
         rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
         viewrecords: true,
-        loadtext: 'loading...',
         loadui: 'disable',
         autowidth: true,
         scroll: false,
         loadonce: true,
         gridview: true,
         sortorder: "desc",
-        pager: null,
-        beforeSelectRow: function () {
-            return false;
-        },
-        onRightClickRow: function () {
-            return false;
-        }
+        pager: null
     };
 
     return {
-        gridOption: gridOption,
-        getColumnNames: function () {
-            return Site.getResources(colNameList);
-        },
-        getColModels: function () {
-            return colModelList;
-        }
+        gridOption: gridOption
     };
 })(jQuery);

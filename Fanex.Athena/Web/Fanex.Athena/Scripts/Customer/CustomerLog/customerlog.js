@@ -17,7 +17,7 @@ var CustomerLog = (function ($) {
         dateConstraint: function () {
             var fromDay = parseInt($('#MonthPickerFromDay .selectedDay').html());
             var toDay = parseInt($('#MonthPickerToDay .selectedDay').html());
-            return fromDay > toDay ? false : true;
+            return toDay >= fromDay;
         },
         setDefaultUsername: function () {
             var username = $('#Username').val();

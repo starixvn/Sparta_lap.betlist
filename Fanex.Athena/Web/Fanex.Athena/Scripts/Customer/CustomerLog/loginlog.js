@@ -29,19 +29,9 @@ var LogInLog = (function ($) {
 
             // Submit button click
             $('#SubmitButton').on('click', function () {
-                if (LogInLog.dateConstraint()) {
-                    Site.blockUI();
-                    LogInLog.loadGrid();
-                }
-                else {
-                    alert(Site.getSingleResource("AlertLoginLogValidDayMsg"));
-                }
+                Site.blockUI();
+                LogInLog.loadGrid();
             });
-        },
-        dateConstraint: function () {
-            var fromDay = parseInt($('#MonthPickerFromDay .selectedDay').html());
-            var toDay = parseInt($('#MonthPickerToDay .selectedDay').html());
-            return fromDay > toDay ? false : true;
         },
         loadGrid: function () {
             $('#LogInLogGrid').jqGrid('GridUnload');
@@ -49,10 +39,6 @@ var LogInLog = (function ($) {
 
             var gridOption = LogInLogOption.gridOption;
             gridOption.url = LogInLog.initParam();
-
-            // Get colList, colModels
-            gridOption.colNames = LogInLogOption.getColumnNames();
-            gridOption.colModel = LogInLogOption.getColModels();
 
             // Grid load complete
             gridOption.gridComplete = function () {

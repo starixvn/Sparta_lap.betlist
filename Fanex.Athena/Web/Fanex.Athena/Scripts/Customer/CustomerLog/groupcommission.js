@@ -43,9 +43,6 @@ var GroupCommLog = (function ($) {
                 afterChangeDay: function () {
                     $('#FromDay').val(new Date($("#DateControl").monPickr("getFromDate", "MM/dd/yyyy")).getDate());
                     $('#ToDay').val(new Date($("#DateControl").monPickr("getToDate", "MM/dd/yyyy")).getDate());
-                },
-                log: function (/*msg*/) {
-                    // console.warn(msg);
                 }
             });
         },
@@ -87,10 +84,6 @@ var GroupCommLog = (function ($) {
 
             // Grid url
             grid.url = url;
-
-            // Get colList, colModels
-            grid.colNames = grid.getColumnNames();
-            grid.colModel = grid.getColModels();
 
             // Grid pager
             grid.pager = '#GroupCommLogPager';
