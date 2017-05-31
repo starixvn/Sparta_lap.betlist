@@ -82,7 +82,7 @@ var CustomersOption = (function () {
                 return jqGridAdditional.formatDecimal(cellValue);
             }
             else {
-                return "<a style='color: #1E1EEB' href=\"javascript:CustomerList.viewRunningBetlist(" +
+                return "<a style='color: #1E1EEB' href=\"javascript:CustomerListCustOption.viewRunningBetlist(" +
                     rowObject.CustId + ",'" + rowObject.SystemId + "','" + rowObject.ExternalId + "')\">"
                     + jqGridAdditional.formatDecimal(cellValue) + "</a>";
             }

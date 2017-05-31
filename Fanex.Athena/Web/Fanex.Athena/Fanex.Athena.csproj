@@ -745,6 +745,7 @@
     <Content Include="Scripts\Helper\ProductListHelper.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Customer\customerlist.service.js" />
+    <Content Include="Scripts\Customer\CustomerList\customerlist.custoption.js" />
     <Content Include="Scripts\Report\cashoutwinloss.js" />
     <Content Include="Scripts\Report\cashoutwinloss.option.js" />
     <Content Include="www\assets\images\15.jpg" />
@@ -4728,8 +4729,8 @@
     <Content Include="Scripts\BetList\runningbetlist.multiplebettypes.js" />
     <Content Include="Scripts\ChangePass.js" />
     <Content Include="Scripts\Customer\BetSetting\agcasino.js" />
-    <Content Include="Scripts\Customer\customerlist.js" />
-    <Content Include="Scripts\Customer\customerlist.option.js" />
+    <Content Include="Scripts\Customer\CustomerList\customerlist.js" />
+    <Content Include="Scripts\Customer\CustomerList\customerlist.option.js" />
     <Content Include="Scripts\Header\header.js" />
     <Content Include="Scripts\Library\jquery.jclock.js" />
     <Content Include="Scripts\Header\ReCheckIn.js" />
@@ -4945,7 +4946,7 @@
     <Content Include="Scripts\Casino\RNGCasinoResult.option.js" />
     <Content Include="Scripts\Customer\BetSetting\betsetting.js" />
     <Content Include="Scripts\Customer\BetSetting\rngcasino.js" />
-    <Content Include="Scripts\Customer\customercommlist.js" />
+    <Content Include="Scripts\Customer\CustomerList\customercommlist.js" />
     <Content Include="Scripts\Customer\CustomerComm\updategroup.js" />
     <Content Include="Scripts\Customer\CustomerComm\createnewgroup.js" />
     <Content Include="Scripts\Customer\CustomerComm\groupcomm.js" />

@@ -739,9 +739,10 @@
             var bundle = new ScriptBundle("~/bundles/CustomerLogCustomersScripts")
                 .Include(
                         "~/Scripts/Global/Paging.js",
-                        "~/Scripts/Customer/Customers.option.js",
-                        "~/Scripts/Customer/Customers.js",
-                        "~/Scripts/Customer/CustomerCommList.js");
+                        "~/Scripts/Customer/CustomerList/Customerlist.custoption.js",
+                        "~/Scripts/Customer/CustomerList/Customerlist.option.js",
+                        "~/Scripts/Customer/CustomerList/Customerlist.js",
+                        "~/Scripts/Customer/CustomerList/CustomerCommList.js");
             AddNewScriptBundle(bundles, bundle);
         }
 
