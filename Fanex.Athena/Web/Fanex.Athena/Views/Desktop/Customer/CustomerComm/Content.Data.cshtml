@@ -1,0 +1,62 @@
+﻿<tbody>
+    @{
+        int number = 1;
+        foreach (var groupComm in Model)
+        {
+            <tr>
+                <td style="width: 4%" class="title-text">@(number++)</td>
+                <td class="middle-text" style="width: 8%">@groupComm.GroupCommId</td>
+                <td style="width: 20%;" class="left-text">
+                    <a href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
+                        @groupComm.GroupName
+                    </a>
+                </td>
+                <td style="width:8%;" class="middle-text @(groupComm.IsDefaultGroup ? "default-group" : string.Empty)"></td>
+                <td style="width: 10%;" class="middle-text">
+                    <div class="no-customer-border" onclick="javascript:GroupComm.navigateNoOfCustomer(@groupComm.GroupCommId)">
+                        <span class="no-cus-font">@groupComm.NumberOfCustomer</span>
+                    </div>
+                </td>
+                <td style="width: 8%;" class="middle-text">
+                    @(groupComm.SBComm.ToString("P2"))
+                </td>
+                @if (ViewBag.IsAllowRC)
+                {
+                    <td style="width: 8%;" class="middle-text">
+                        @(groupComm.RCComm.ToString("P2"))
+                    </td>
+                }
+                @if (ViewBag.IsAllowNG)
+                {
+                    <td style="width: 8%; text-align: center">
+                        @(groupComm.NGComm.ToString("P2"))
+                    </td>
+                }
+                @if (ViewBag.IsAllowLC)
+                {
+                    <td style="width: 8%; text-align: center">
+                        @(groupComm.LCComm.ToString("P2"))
+                    </td>
+                }
+                @if (ViewBag.IsAllowCS)
+                {
+                    <td style="width: 8%; text-align: center">
+                        @(groupComm.CSComm.ToString("P2"))
+                    </td>
+                }
+                <td style="width: 10%; text-align: center;">
+                    <div class="group-color-box" style="background-color:@groupComm.GroupColor;"></div>
+                </td>
+                <td style="width: 10%; text-align: center">
+                    <a class="underline" href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
+                        <img src="@Url.ContentLink("/Content/Customer/images/edit.png")"
+                             style="width:16px; height: 16px;" />
+                    </a>&nbsp; <a class="underline" href="javascript:GroupComm.initDeleteGroup('@groupComm.GroupCommId')" title="@ViewResources.DeleteGroup">
+                        <img src="@Url.ContentLink("/Content/Customer/images/validatefail.png")"
+                             style="width:16px; height: 16px;" />
+                    </a>
+                </td>
+            </tr>
+        }
+    }
+</tbody>

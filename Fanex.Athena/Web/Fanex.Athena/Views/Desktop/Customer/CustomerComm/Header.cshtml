@@ -1,0 +1,24 @@
+﻿<div class="header-content">
+    @using (Html.BeginForm("Index", "CustomerComGroup", FormMethod.Post, new { @id = "CommissionGroupForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("IsExportExcel", false)
+        <div class="row">
+            <div class="col">
+                <span class="circle"></span>
+                <span>
+                    @ViewResources.GroupCommNote
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col l2 m2 s12 button-block">
+                <button type="button" id="NewGroupButton" class="btn btn-back">@ViewResources.Submit</button>
+            </div>
+            <div class="col icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
+                <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+            </div>
+        </div>
+    }
+</div>

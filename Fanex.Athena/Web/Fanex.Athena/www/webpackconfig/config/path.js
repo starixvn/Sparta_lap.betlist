@@ -46,7 +46,8 @@ var cssPaths = {
     matchwinloss: ["./www/css/source/pages/report/matchwinloss.scss"],
     platformwinloss: ["./www/css/source/pages/report/platformwinloss.scss"],
     winlossbybettype: ["./www/css/source/pages/report/winlossbybettype.scss"],
-    lastbetmonitoring: ["./www/css/source/pages/betlist/lastbetmonitoring.scss"]
+    lastbetmonitoring: ["./www/css/source/pages/betlist/lastbetmonitoring.scss"],
+    customercommgrouplist: ["./www/css/source/pages/customer/commgrouplist.scss"]
 };
 
 var scriptPaths = {
@@ -94,7 +95,8 @@ var scriptPaths = {
     matchwinloss: "./www/js/source/pages/report/matchwinloss/main.js",
     platformwinloss: "./www/js/source/pages/report/platformwinloss/main-platformwinloss.js",
     winlossbybettype: "./www/js/source/pages/report/winlossbybettype/main.js",
-    lastbetmonitoring: "./www/js/source/pages/betlist/lastbetmonitoring/main.js"
+    lastbetmonitoring: "./www/js/source/pages/betlist/lastbetmonitoring/main.js",
+    customercommgrouplist: "./www/js/source/pages/customer/customercomm/main-commgrouplist.js"
 };
 
 module.exports = {

@@ -1,0 +1,20 @@
+﻿@model IList<Fanex.Athena.Model.Customer.MetaModel.GroupCommMetaModel>
+@{
+    ViewBag.Title = "LRF - " + ViewResources.GroupManagement;
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+}
+@section css {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/customer/commgrouplist.css")" rel="stylesheet" />
+}
+@section js {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/commgrouplist.chunk.js")"></script>
+}
+
+<div class="page-results">
+    <div class="result-content">
+        @{
+            Html.RenderPartial("~/Views/Desktop/Customer/CustomerComm/Header.cshtml");
+            Html.RenderPartial("~/Views/Desktop/Customer/CustomerComm/Content.cshtml");
+        }
+    </div>
+</div>
