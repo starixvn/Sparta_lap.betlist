@@ -39,7 +39,7 @@ namespace Fanex.Athena.Service.Customer
 
         public IList<LogInLog> GetDataList(int licenseeId, string username, string agentListXml)
         {
-            return this._logInLogDataAccess.GetDataList(licenseeId, username, agentListXml);
+            return _logInLogDataAccess.GetDataList(licenseeId, username, agentListXml);
         }
     }
 }

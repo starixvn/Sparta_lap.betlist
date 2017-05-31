@@ -11,17 +11,9 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.MetaModel.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
-    using Fanex.Athena.Web.ActionFilter;
 
-    /// <summary>
-    /// Customer setting log.
-    /// </summary>
     public partial class CustomerLogController
     {
-        /// <summary>
-        /// Customer setting action.
-        /// </summary>
-        /// <returns>Customer setting log view.</returns>
         [HttpGet]
         public ActionResult CustomerSetting()
         {

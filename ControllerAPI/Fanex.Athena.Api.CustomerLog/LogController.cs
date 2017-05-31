@@ -9,6 +9,8 @@ namespace Fanex.Athena.Api.CustomerLog
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
+    using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Web.Hosting;
     using System.Xml;
     using Base;
@@ -26,20 +28,29 @@ namespace Fanex.Athena.Api.CustomerLog
     {
         #region Field
 
-        /// <summary>
-        /// Customer log service .
-        /// </summary>
         private readonly CustomerLogService _customerLogService;
 
-        /// <summary>
-        /// Log in log service .
-        /// </summary>
         private readonly LogInLogService _logInLogService;
 
-        /// <summary>
-        /// Resources Map.
-        /// </summary>
-        private IDictionary<string, string> _resourcesMap;
+        private readonly IDictionary<string, string> _resourcesMap = new Dictionary<string, string>
+        {
+            { "Closed", ViewResources.Closed },
+            { "Suspended", ViewResources.Suspended },
+            { "SpecialLevel", ViewResources.SpecialLevel },
+            { "GroupId", ViewResources.GroupId },
+            { "GroupName", ViewResources.GroupName },
+            { "GroupColor", ViewResources.GroupColor },
+            { "SBComm", ViewResources.SBComm },
+            { "RBComm", ViewResources.RBComm },
+            { "NGComm", ViewResources.NGComm },
+            { "LCComm", ViewResources.LCComm },
+            { "CSComm", ViewResources.CS + " " + ViewResources.Comm },
+            { "Yes", ViewResources.Yes },
+            { "No", ViewResources.No },
+            { "OldColor", ViewResources.OldColor }
+        };
+
+        private readonly IEnumerable<int> _actionIdListForBA = new List<int> { 2401, 2403, 2801 };
 
         #endregion Field
 
@@ -64,11 +75,8 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <returns>Tracking Value has been removed HTML Tag.</returns>
         private static string StripTags(string source)
         {
-            source = source.Replace(@"/", string.Empty);
-            source = source.Replace(@"<", string.Empty);
-            source = source.Replace(@">", string.Empty);
-
-            return source;
+            var regex = new Regex("[/<>]");
+            return regex.Replace(source, string.Empty);
         }
 
         #endregion Remove HTML tag
@@ -191,35 +199,12 @@ namespace Fanex.Athena.Api.CustomerLog
         }
 
         #region Get detail data
-
-        /// <summary>
-        /// Get details column.
-        /// </summary>
-        /// <param name="dataList">A list of customer log.</param>
-        /// <returns>A list has been formatted.</returns>
         private IList<CustomerLog> GetDetails(IList<CustomerLog> dataList)
         {
-            _resourcesMap = new Dictionary<string, string>
-            {
-                { "Closed", ViewResources.Closed },
-                { "Suspended", ViewResources.Suspended },
-                { "SpecialLevel", ViewResources.SpecialLevel },
-                { "GroupId", ViewResources.GroupId },
-                { "GroupName", ViewResources.GroupName },
-                { "GroupColor", ViewResources.GroupColor },
-                { "SBComm", ViewResources.SBComm },
-                { "RBComm", ViewResources.RBComm },
-                { "NGComm", ViewResources.NGComm },
-                { "LCComm", ViewResources.LCComm },
-                { "CSComm", ViewResources.CS + " " + ViewResources.Comm },
-                { "Yes", ViewResources.Yes },
-                { "No", ViewResources.No },
-                { "OldColor", ViewResources.OldColor }
-            };
             foreach (var item in dataList)
             {
                 // No need to read xml data for BA
-                if (item.ActionId == 2401 || item.ActionId == 2403 || item.ActionId == 2801)
+                if (_actionIdListForBA.Contains(item.ActionId))
                 {
                     item.Details = string.Empty;
                     continue;
@@ -232,7 +217,6 @@ namespace Fanex.Athena.Api.CustomerLog
 
             return dataList;
         }
-
         #endregion Get detail data
     }
 }
