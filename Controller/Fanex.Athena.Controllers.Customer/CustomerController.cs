@@ -29,9 +29,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Newtonsoft.Json;
     using Resources;
 
-    /// <summary>
-    /// The customer controller.
-    /// </summary>
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class CustomerController : BaseController
     {
@@ -40,7 +37,16 @@ namespace Fanex.Athena.Controllers.Customer
         private const string CUSTOMERCOMM = "Commission";
         private const string STATUS = "Status";
 
-        private readonly string[] _gridColumNames;
+        private static readonly IEnumerable<string> GridColumns = new string[]
+        {
+            "ExternalId",
+            "SystemId",
+            "AvailableFunds",
+            "PendingFunds",
+            "SpecialLevel",
+            "OddsGroup",
+            "CustomerOption"
+        };
 
         private readonly ICustomerService _customerService;
         private readonly IGroupComService _groupComService;
@@ -53,19 +59,6 @@ namespace Fanex.Athena.Controllers.Customer
             _customerService = new CustomerService();
             _groupComService = new GroupComService();
             _productService = new ProductService();
-
-            var columnNames = new List<string>
-            {
-                "ExternalId",
-                "SystemId",
-                "AvailableFunds",
-                "PendingFunds",
-                "SpecialLevel",
-                "OddsGroup",
-                "CustomerOption"
-            };
-
-            _gridColumNames = columnNames.ToArray();
         }
 
         #region Action
@@ -83,7 +76,7 @@ namespace Fanex.Athena.Controllers.Customer
                 GroupCommId = groupId,
                 LicenseeId = licenseeSession.LicenseeId,
                 AllowLicensees = allowLicensees,
-                GridColumns = this.IniGridColumns(productAccess.IsAllowBA, allowLicensees),
+                GridColumns = this.InitGridColumns(productAccess.IsAllowBA, allowLicensees),
                 OddsGroups = GetOddsGroups()
             };
 
@@ -119,11 +112,6 @@ namespace Fanex.Athena.Controllers.Customer
             };
         }
 
-        /// <summary>
-        /// Export excel.
-        /// </summary>
-        /// <param name="excelParam">The excel parameter.</param>
-        /// <returns>The excel file.</returns>
         [HttpPost]
         [CustomValidateAntiForgery]
         public ActionResult ExportExcel(string excelParam)
@@ -165,11 +153,6 @@ namespace Fanex.Athena.Controllers.Customer
             return File(ExcelBase.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        /// <summary>
-        /// The log info report.
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <returns>The action result.</returns>
         [CustomValidateAntiForgery]
         public ActionResult LogInfo(int custId)
         {
@@ -267,51 +250,29 @@ namespace Fanex.Athena.Controllers.Customer
             model.CanUpdateBAMessage = canUpdateBaMessage;
         }
 
-        private IList<CheckedItem> IniGridColumns(bool isAllowBA, IList<string> allowLicensees)
+        private IList<CheckedItem> InitGridColumns(bool isAllowBA, IList<string> allowLicensees)
         {
             var items = new List<CheckedItem>();
-            foreach (var name in _gridColumNames)
+            foreach (var name in GridColumns)
             {
-                items.Add(new CheckedItem
-                {
-                    Name = name,
-                    Checked = true
-                });
+                items.Add(new CheckedItem { Name = name, Checked = true });
             }
 
             if (isAllowBA)
             {
-                items.Add(new CheckedItem
-                {
-                    Name = BASTATUS,
-                    Checked = true
-                });
+                items.Add(new CheckedItem { Name = BASTATUS, Checked = true });
             }
 
             var licenseeSession = SessionService.LicenseeSession;
             if (licenseeSession.IsAllowedCustomerComm)
             {
-                items.Insert(
-                 0,
-                 new CheckedItem
-                 {
-                     Name = GROUP,
-                     Checked = true
-                 });
-                items.Add(new CheckedItem
-                {
-                    Name = CUSTOMERCOMM,
-                    Checked = true
-                });
+                items.Insert(0, new CheckedItem { Name = GROUP, Checked = true });
+                items.Add(new CheckedItem { Name = CUSTOMERCOMM, Checked = true });
             }
 
             if (allowLicensees.Contains(licenseeSession.LicenseeId.ToString()))
             {
-                items.Add(new CheckedItem
-                {
-                    Name = STATUS,
-                    Checked = true
-                });
+                items.Add(new CheckedItem { Name = STATUS, Checked = true });
             }
 
             return items;

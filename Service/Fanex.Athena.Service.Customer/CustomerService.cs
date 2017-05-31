@@ -27,13 +27,8 @@ namespace Fanex.Athena.Service.Customer
 
     #endregion Using
 
-    /// <summary>
-    /// Customer service class.
-    /// </summary>
     public class CustomerService : ICustomerService
     {
-        #region Varialbes
-
         private readonly ICustomerDataAccess _customerDataAccess;
 
         private readonly ICasinoSetting _casinoSetting;
@@ -48,9 +43,7 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly IAppSettings _appSettings;
 
-        #endregion Varialbes
-
-        #region Constructors
+        private readonly IGroupComService _groupComService;
 
         public CustomerService()
         {
@@ -61,6 +54,7 @@ namespace Fanex.Athena.Service.Customer
             _sessionService = new SessionService();
             _rngCasinoService = new RNGCasinoService();
             _appSettings = new AppSettings();
+            _groupComService = new GroupComService();
         }
 
         public CustomerService(
@@ -81,10 +75,6 @@ namespace Fanex.Athena.Service.Customer
             _appSettings = appSettings;
         }
 
-        #endregion Constructors
-
-        #region Read
-
         public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
         {
             return _customerDataAccess.SearchCustomers(userId, userName, agentListXml);
@@ -102,16 +92,6 @@ namespace Fanex.Athena.Service.Customer
                 : new CustomerInfo();
         }
 
-        #endregion Read
-
-        #region LogInfo
-
-        /// <summary>
-        /// Get customer login information, last transfer time, ...
-        /// </summary>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <returns>The login information.</returns>
         public LogInfo GetCustomerLoginInfo(int custId, int licenseeId)
         {
             return _authorizationService.HasPermissionOnData(licenseeId, custId, 0)
@@ -119,16 +99,8 @@ namespace Fanex.Athena.Service.Customer
                 : new LogInfo();
         }
 
-        #endregion LogInfo
-
         #region Group Commission
 
-        /// <summary>
-        ///  Update customer commission setting.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="isSyncCSComm">Sync RNG commission or not.</param>
-        /// <returns>The information of result.</returns>
         public IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel, bool isSyncCSComm = false)
         {
             var result = _customerDataAccess.UpdateCustomersCommission(metaModel);
@@ -165,9 +137,8 @@ namespace Fanex.Athena.Service.Customer
         /// <returns>The result information.</returns>
         public IResultInfo MoveCustomersToGroup(MoveToGroupComMetaModel metaModel)
         {
-            var groupService = new GroupComService();
             IResultInfo result = null;
-            var groupInfo = groupService.GetById(metaModel.GroupComId);
+            var groupInfo = _groupComService.GetById(metaModel.GroupComId);
             var callApiSuccess = true;
             if (groupInfo != null)
             {
@@ -198,12 +169,6 @@ namespace Fanex.Athena.Service.Customer
             };
         }
 
-        /// <summary>
-        /// Remove customer from commission group.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="isAllowedRNGCasino">Allow RNG Casino or not.</param>
-        /// <returns>The result information.</returns>
         public IResultInfo RemoveCustomersFromGroup(RemoveFromGroupComMetaModel metaModel, bool isAllowedRNGCasino)
         {
             var result = _customerDataAccess.RemoveCustomersFromGroup(metaModel);
@@ -236,40 +201,21 @@ namespace Fanex.Athena.Service.Customer
 
         #region Update
 
-        /// <summary>
-        /// Update customer odds group.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The result information.</returns>
         public IResultInfo UpdateOddsGroup(CustomerOddsGroupMetaModel metaModel)
         {
             if (!_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0))
             {
-                return new ResultInfo
-                {
-                    Code = 1,
-                    Message = ViewResources.UpdateSpecialLevelMsg
-                };
+                return CreateErrorResult();
             }
 
             return _customerDataAccess.UpdateOddsGroup(metaModel);
         }
 
-        /// <summary>
-        /// Update customer closed status.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <returns>The result information.</returns>
         public IResultInfo UpdateCustClosed(CustomerStatusMetaModel metaModel, string languageCode)
         {
             if (!_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0))
             {
-                return new ResultInfo
-                {
-                    Code = 1,
-                    Message = ViewResources.UpdateSpecialLevelMsg
-                };
+                return CreateErrorResult();
             }
 
             var customerInfo = _customerDataAccess.GetCustomerInfo(metaModel.CustId);
@@ -303,21 +249,11 @@ namespace Fanex.Athena.Service.Customer
                 : new ResultInfo { Code = 1, Message = "Error when update closed status on casino db" };
         }
 
-        /// <summary>
-        /// Update customer suspend status.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <param name="languageCode">The language code.</param>
-        /// <returns>The result information.</returns>
         public IResultInfo UpdateCustSuspend(CustomerStatusMetaModel metaModel, string languageCode)
         {
             if (!_authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, 0))
             {
-                return new ResultInfo
-                {
-                    Code = 1,
-                    Message = ViewResources.UpdateSpecialLevelMsg
-                };
+                return CreateErrorResult();
             }
 
             var customerInfo = _customerDataAccess.GetCustomerInfo(metaModel.CustId);
@@ -352,15 +288,6 @@ namespace Fanex.Athena.Service.Customer
                 : new ResultInfo { Code = 1, Message = "Error when update suspend status on casino db" };
         }
 
-        /// <summary>
-        /// Update customer ba status.
-        /// </summary>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="custId">The customer id.</param>
-        /// <param name="modifiedBy">The modifier.</param>
-        /// <param name="allowBA">Is allowed BA.</param>
-        /// <param name="request">The request information.</param>
-        /// <returns>The result information.</returns>
         public IResultInfo UpdateCustomerBAStatus(
             int licenseeId,
             int custId,
@@ -370,11 +297,7 @@ namespace Fanex.Athena.Service.Customer
         {
             if (!_authorizationService.HasPermissionOnData(licenseeId, custId, 0))
             {
-                return new ResultInfo
-                {
-                    Code = 1,
-                    Message = ViewResources.UpdateSpecialLevelMsg
-                };
+                return CreateErrorResult();
             }
 
             return this._customerDataAccess.UpdateCustomerBAStatus(
@@ -389,14 +312,19 @@ namespace Fanex.Athena.Service.Customer
         {
             if (!_authorizationService.HasPermissionOnData(licenseeId, custId, 0))
             {
-                return new ResultInfo
-                {
-                    Code = 1,
-                    Message = ViewResources.UpdateSpecialLevelMsg
-                };
+                return CreateErrorResult();
             }
 
             return _customerDataAccess.UpdateSpecialLevel(userId, custId, level, ip, language);
+        }
+
+        private static IResultInfo CreateErrorResult()
+        {
+            return new ResultInfo
+            {
+                Code = 1,
+                Message = ViewResources.UpdateSpecialLevelMsg
+            };
         }
 
         #endregion Update
