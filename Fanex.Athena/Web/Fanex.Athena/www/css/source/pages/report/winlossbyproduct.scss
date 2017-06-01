@@ -1,14 +1,10 @@
 ﻿@import "../../scss/abstracts/_variables.scss";
+@import "../../components/autocomplete/autocomplete";
 @import '../../components/daterangepicker/daterangepicker-ex';
 @import '../../components/breadcrumb/breadcrumb';
 @import "../../components/jqgrid/multipletotalblock";
 
 $colorBorderGroupingRow: #c5c3c3;
-
-.dropdown-content {
-    opacity: 1;
-    top: 25px;
-}
 
 .theme_jqGrid {
     .ui-jqgrid {

@@ -841,10 +841,13 @@
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.css.map" />
     <Content Include="Views\Desktop\Shared\_CustomerLogLayout.cshtml" />
-    <Content Include="Views\Desktop\Customer\Menu.cshtml" />
+    <Content Include="Views\Desktop\Customer\CustomerLog\Menu.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerLog\LoginLog\Main.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerLog\LoginLog\Filter.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerLog\LoginLog\Content.cshtml" />
+    <Content Include="www\css\source\pages\customer\customerlog.scss" />
+    <Content Include="www\css\source\components\tab\_tab.scss" />
+    <Content Include="www\css\source\components\autocomplete\_autocomplete.scss" />
     <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
     <Content Include="www\css\build\images\excel-icon.svg" />
@@ -1155,6 +1158,9 @@
     <Content Include="www\js\source\components\sidebar.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgrouplist.js" />
     <Content Include="www\js\source\pages\customer\customercomm\main-commgrouplist.js" />
+    <Content Include="www\js\source\pages\customer\customerlog\loginlog\loginlog.js" />
+    <Content Include="www\js\source\pages\customer\customerlog\loginlog\loginlog.option.js" />
+    <Content Include="www\js\source\pages\customer\customerlog\loginlog\main.js" />
     <Content Include="www\js\source\pages\forecast\forecast.ah.main.js" />
     <Content Include="www\js\source\pages\forecast\forecast.handicapoverunder.main.js" />
     <Content Include="www\js\source\pages\forecast\forecast.handicapoverunder.js" />

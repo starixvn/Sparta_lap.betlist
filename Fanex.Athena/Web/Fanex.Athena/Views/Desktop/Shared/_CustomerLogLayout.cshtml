@@ -8,16 +8,16 @@
 }
 @section js
 {
-    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/customerlog.chunk.js")"></script>
     @RenderSection("pagejs", required: false)
 }
 
-@RenderSection("Menu", required: false)
+<div id="report-container" class="report-container">
+    @RenderSection("Menu", required: false)
 
-<div id="report-container">
     <div class="page-form">
         @RenderSection("Filter", required: false)
     </div>
+
     <div class="page-results">
         <div class="main-content">
             <div class="panel-body">

@@ -1,0 +1,21 @@
+﻿@import "../../components/tab/tab";
+@import "../../components/autocomplete/autocomplete";
+@import "../common/reportjqgridlayout.main";
+
+.report-container {
+    margin: 1.5rem;
+    background-color: $white;
+
+    .header-tab {
+        margin: 0 1.5rem;
+    }
+
+    .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column {
+        background: $bgHeaderTableLevel1;
+        color: $white;
+    }
+
+    .main-content{
+        padding-bottom: 1.5rem;
+    }
+}
