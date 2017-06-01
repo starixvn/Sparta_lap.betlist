@@ -738,9 +738,11 @@
     <Content Include="Content\Utility\images\UM.png" />
     <Content Include="Content\Utility\UM.css" />
     <Content Include="jasmine-specs\BetList\lastbet.filter-test.js" />
+    <Content Include="jasmine-specs\Customer\CustomerList\customerlist.custoption-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
+    <Content Include="karma.conf-dev.js" />
     <Content Include="Scripts\BetList\lastbet.filter.js" />
     <Content Include="Scripts\Helper\ProductListHelper.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
@@ -1400,7 +1402,7 @@
     <Content Include="jasmine-specs\Customer\BetSetting\betsetting-test.js" />
     <Content Include="jasmine-specs\Customer\BetSetting\golddeluxe-test.js" />
     <Content Include="jasmine-specs\Customer\BetSetting\rngcasino-test.js" />
-    <Content Include="jasmine-specs\Customer\customercommlist-test.js" />
+    <Content Include="jasmine-specs\Customer\CustomerList\customercommlist-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerComm\createnewgroup-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerComm\groupcomm-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerComm\updategroup-test.js" />
@@ -1410,8 +1412,8 @@
     <Content Include="jasmine-specs\Customer\CustomerLog\groupcommission-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerLog\loginlog-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerLog\loginlog.option-test.js" />
-    <Content Include="jasmine-specs\Customer\customers-test.js" />
-    <Content Include="jasmine-specs\Customer\customers.option-test.js" />
+    <Content Include="jasmine-specs\Customer\CustomerList\customers-test.js" />
+    <Content Include="jasmine-specs\Customer\CustomerList\customers.option-test.js" />
     <Content Include="jasmine-specs\Extension\jquery.extension-test.js" />
     <Content Include="jasmine-specs\Forecast\forecast.ah-test.js" />
     <Content Include="jasmine-specs\Forecast\forecast.handicapoverunder-test.js" />

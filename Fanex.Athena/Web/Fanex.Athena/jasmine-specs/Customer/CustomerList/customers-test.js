@@ -71,7 +71,7 @@
 
             affix(".custoptionlink");
             $("#report-content").append($(".custoptionlink")[0]);
-            spyOn(CustomerList, "viewCustOption");
+            spyOn(CustomerListCustOption, "viewCustOption");
 
             affix("#popup-update");
             spyOn(CustomerList, "updateCustStatus");
@@ -85,19 +85,19 @@
             spyOn(CustomerList, "custStatusCheckedChanged");
 
             affix("#bet-setting-link");
-            spyOn(CustomerList, "viewBetSetting");
+            spyOn(CustomerListCustOption, "viewBetSetting");
 
             affix("#bet-list-link");
-            spyOn(CustomerList, "viewBetList");
+            spyOn(CustomerListCustOption, "viewBetList");
 
             affix("#statement-link");
-            spyOn(CustomerList, "viewStatement");
+            spyOn(CustomerListCustOption, "viewStatement");
 
             affix("#login-info-link");
-            spyOn(CustomerList, "viewLogInfo");
+            spyOn(CustomerListCustOption, "viewLogInfo");
 
             affix("#close-cust-option-link");
-            spyOn(CustomerList, "closeCustOption");
+            spyOn(CustomerListCustOption, "closeCustOption");
 
             CustomerList.initEvent();
         });
@@ -136,9 +136,9 @@
             expect(CustomerList.viewUpdatePopUp).toHaveBeenCalled();
         });
 
-        it("CustomerList.viewCustOption() should be called when $('.custoptionlink') fired click event", function () {
+        it("CustomerListCustOption.viewCustOption() should be called when $('.custoptionlink') fired click event", function () {
             $('#report-content .custoptionlink').click();
-            expect(CustomerList.viewCustOption).toHaveBeenCalled();
+            expect(CustomerListCustOption.viewCustOption).toHaveBeenCalled();
         });
 
         it("CustomerList.updateCustStatus() should be called when $('#popup-update') fired click event", function () {
@@ -161,29 +161,29 @@
             expect(CustomerList.custStatusCheckedChanged).toHaveBeenCalled();
         });
 
-        it("CustomerList.viewBetSetting() should be called when $('#bet-setting-link') fired click event", function () {
+        it("CustomerListCustOption.viewBetSetting() should be called when $('#bet-setting-link') fired click event", function () {
             $('#bet-setting-link').click();
-            expect(CustomerList.viewBetSetting).toHaveBeenCalled();
+            expect(CustomerListCustOption.viewBetSetting).toHaveBeenCalled();
         });
 
-        it("CustomerList.viewBetList() should be called when $('#bet-list-link') fired click event", function () {
+        it("CustomerListCustOption.viewBetList() should be called when $('#bet-list-link') fired click event", function () {
             $('#bet-list-link').click();
-            expect(CustomerList.viewBetList).toHaveBeenCalled();
+            expect(CustomerListCustOption.viewBetList).toHaveBeenCalled();
         });
 
-        it("CustomerList.viewStatement() should be called when $('#statement-link') fired click event", function () {
+        it("CustomerListCustOption.viewStatement() should be called when $('#statement-link') fired click event", function () {
             $('#statement-link').click();
-            expect(CustomerList.viewStatement).toHaveBeenCalled();
+            expect(CustomerListCustOption.viewStatement).toHaveBeenCalled();
         });
 
-        it("CustomerList.viewLogInfo() should be called when $('#login-info-link') fired click event", function () {
+        it("CustomerListCustOption.viewLogInfo() should be called when $('#login-info-link') fired click event", function () {
             $('#login-info-link').click();
-            expect(CustomerList.viewLogInfo).toHaveBeenCalled();
+            expect(CustomerListCustOption.viewLogInfo).toHaveBeenCalled();
         });
 
-        it("CustomerList.closeCustOption() should be called when $('#close-cust-option-link') fired click event", function () {
+        it("CustomerListCustOption.closeCustOption() should be called when $('#close-cust-option-link') fired click event", function () {
             $('#close-cust-option-link').click();
-            expect(CustomerList.closeCustOption).toHaveBeenCalled();
+            expect(CustomerListCustOption.closeCustOption).toHaveBeenCalled();
         });
     });
 
@@ -289,29 +289,6 @@
         });
     });
 
-    describe("viewCustOption", function () {
-        it("#view-cust-option should be showed", function () {
-            affix("#context");
-            $("#context").attr("custId", 1);
-            affix("#view-cust-option");
-            $("#view-cust-option").attr("custId", 2);
-
-            CustomerList.viewCustOption($("#context"));
-            
-            expect($("#view-cust-option").is(":visible")).toBe(true);
-        });
-    });
-
-    describe("closeCustOption()", function () {
-        it("#view-cust-option should be hidden", function () {
-            affix("#view-cust-option");
-
-            CustomerList.closeCustOption();
-
-            expect($("#view-cust-option").is(":visible")).toBe(false);
-        });
-    });
-
     describe("custStatusCheckedChanged()", function () {
         it("#popup-update should be enable", function () {
             affix("#update-cust-status-popup");
@@ -390,73 +367,4 @@
             expect(request.url).toBe("CustomerAPI/UpdateBAStatus");
         });
     });
-
-    describe("Customer Option", function () {
-        beforeEach(function () {
-            affix("#view-cust-option");
-            $("#view-cust-option").attr({
-                custid: "1020055",
-                systemid: "12BETAUD01001",
-                externalid: "alvinaud"
-            });
-        });
-
-        describe("viewBetSetting()", function () {
-            it("dialog function of jquery should be called", function () {
-                affix("#bet-setting-dialog");
-
-                spyOn($.fn, "dialog");
-
-                CustomerList.viewBetSetting();
-
-                expect($.fn.dialog).toHaveBeenCalled();
-            });
-        });
-
-        describe("viewLogInfo()", function () {
-            beforeEach(function () {
-                spyOn(window, "alert");
-                spyOn($.fn, "dialog");
-                spyOn($.fn, "load");
-                CustomerList.viewLogInfo();
-            });
-
-            it("dialog function of jquery should be called", function () {                                
-                expect($.fn.dialog).toHaveBeenCalled();
-            });
-
-            it("load function of jquery should be called", function () {                               
-                expect($.fn.load).toHaveBeenCalled();
-            });
-        });
-
-        describe("viewBetList()", function () {
-            it("dialog function of jquery should be called", function () {
-                spyOn($.fn, "dialog");
-                
-                CustomerList.viewBetList();
-
-                expect($.fn.dialog).toHaveBeenCalled();
-            });
-        });
-
-        describe("viewStatement()", function () {
-            it("dialog function of jquery should be called", function () {
-                spyOn($.fn, "dialog");
-
-                CustomerList.viewStatement();
-
-                expect($.fn.dialog).toHaveBeenCalled();
-            });
-        });
-
-        describe("viewRunningBetlist()", function () {
-            it("dialog function of jquery should be called", function () {
-                spyOn($.fn, "dialog");
-                CustomerList.viewRunningBetlist("1020055", "12BETAUD01001", "alvinaud");
-
-                expect($.fn.dialog).toHaveBeenCalled();
-            });
-        });
-    })
 });

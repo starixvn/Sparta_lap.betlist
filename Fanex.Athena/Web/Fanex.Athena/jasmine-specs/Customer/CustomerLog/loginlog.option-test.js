@@ -9,17 +9,6 @@
         expect(LogInLogOption.gridOption.colModel.length).toBe(3);
     });
 
-    describe("getColumnNames()", function () {
-        it("Site.getResources(arrayText) should be called with correct parameters", function () {
-            var colNameList = ['Username', 'CreatedDate', 'LastTxn'];
-            spyOn(Site, "getResources");
-
-            LogInLogOption.getColumnNames();
-
-            expect(Site.getResources).toHaveBeenCalledWith(colNameList);
-        });
-    });
-
     it("LogInLogOption.gridOption.pager should has value 'null'", function () {
         expect(LogInLogOption.gridOption.pager).toBe(null);
     });

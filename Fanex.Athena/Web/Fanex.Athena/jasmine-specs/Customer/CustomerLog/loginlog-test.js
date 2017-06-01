@@ -52,16 +52,6 @@
         });
 
         describe("'#SubmitButton' click event", function () {
-            beforeEach(function () {
-                spyOn(LogInLog, "dateConstraint").and.returnValue(true);
-            });
-
-            it("LogInLog.dateConstraint() should be called when '#SubmitButton' fired click event", function () {
-                $("#SubmitButton").click();
-
-                expect(LogInLog.dateConstraint).toHaveBeenCalled();
-            });
-
             it("Site.blockUI() should be called when '#SubmitButton' fired click event", function () {
                 spyOn(Site, "blockUI");
 
@@ -80,51 +70,17 @@
         });
     });
 
-    describe("dateConstraint()", function () {
-        beforeEach(function () {
-            affix("#MonthPickerFromDay .selectedDay");
-            affix("#MonthPickerToDay .selectedDay");
-        });
-
-        it("value should be returned 'false' when fromDate greater than toDay", function () {
-            $("#MonthPickerFromDay .selectedDay").text("12");
-            $("#MonthPickerToDay .selectedDay").text("8");
-
-            var result = LogInLog.dateConstraint();
-
-            expect(result).toBe(false);
-        });
-
-        it("value should be returned 'true' when fromDate less than toDay", function () {
-            $("#MonthPickerFromDay .selectedDay").text("12");
-            $("#MonthPickerToDay .selectedDay").text("20");
-
-            var result = LogInLog.dateConstraint();
-
-            expect(result).toBe(true);
-        });
-    });
-
     describe("loadGrid()", function () {
         beforeEach(function () {
             affix("#LogInLogGrid");
 
             spyOn($.fn, "jqGrid");
-            spyOn(LogInLogOption, "getColumnNames");
-            spyOn(LogInLogOption, "getColModels");
 
             LogInLog.loadGrid();
         });
 
         it("jqGrid function of jquery should be called with correct parameter", function () {
             expect($.fn.jqGrid).toHaveBeenCalledWith("GridUnload");
-        });
-
-        it("LogInLogOption.getColumnNames() should be called", function () {
-            expect(LogInLogOption.getColumnNames).toHaveBeenCalled();
-        });
-        it("LogInLogOption.getColModels() should be called", function () {
-            expect(LogInLogOption.getColModels).toHaveBeenCalled();
         });
 
         it("jqGrid function of jquery should be called two times", function () {

@@ -213,8 +213,8 @@
             expect(CustomerList.getCheckedCustomers).toHaveBeenCalled();
         });
 
-        it("CustomerComm.initCommissionParam(id) should be called four times", function () {
-            expect(CustomerComm.initCommissionParam.calls.count()).toBe(5);
+        it("CustomerComm.initCommissionParam(id) should be called six times", function () {
+            expect(CustomerComm.initCommissionParam.calls.count()).toBe(6);
         });
 
         it("ajax request should be called with url is 'CustomerAPI/UpdateCustomerCom'", function () {
