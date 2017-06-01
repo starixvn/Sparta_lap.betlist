@@ -26,12 +26,6 @@
             GroupComm.initEvent();
         });
 
-        it("'#IsExportExcel' should has value is true when '#ExportToExcel' fired click event", function () {
-            $("#ExportToExcel").click();
-
-            expect($("#IsExportExcel").val()).toBe("true");
-        });
-
         it("submit function of jquery should be called when '#ExportToExcel' fired click event", function () {
             spyOn($.fn, "submit");
 
