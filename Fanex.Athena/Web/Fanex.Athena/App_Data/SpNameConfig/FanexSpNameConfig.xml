@@ -7,4 +7,12 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_ReCheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_TotalBets_Sel430" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelRunningByBettypeList" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelRunningByMultipleBettypeMatch" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelRunningByBettype" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_Forecast_SelByMatch" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_LicenseeBonus_Detail" EnvironmentText="_UAT1"></SpNameConfig>
+  
 </Root>
