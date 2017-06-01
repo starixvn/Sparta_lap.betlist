@@ -76,8 +76,6 @@ namespace Fanex.Athena.DataAccess.Customer
                 LogService.Error(sqlException.Message, sqlException);
                 throw new DataAccessException(sqlException.Message, UspName);
             }
-
-            return null;
         }
 
         public int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out IResultInfo resultInfo)
