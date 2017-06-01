@@ -774,27 +774,26 @@ $(window).unload(function () {
 });
 
 $(function () {
+    var apiUrl = Site.resolveClientUrl("api/CommonApi/GetMoveBetNotification");
     var $marquee = $("#notification-marquee");
-    if ("marquee" in $marquee) {
-        $marquee.marquee({ speed: 30 });
-    }
 
-    if (Site.isLoadedNotificationPopup === true) {
-        return;
-    }
+    function processNotification() {
+        $.get(apiUrl, function (message) {
+            if (message) {
+                if ($marquee.parent().is(":hidden")) {
+                    $marquee.parent().show();
+                }
 
-    var $popup = $("#NotificationPopup");
-    if ($popup.length > 0) {
-        var options = {
-            height: 160,
-            title: Site.getSingleResource("Notification")
-        };
-        var popup = $popup.flatPopup(options);
-        popup.show();
-
-        $popup.find(".popup-close").click(function () {
-            $.cookie("isClosedNotification", "1", { path: '/' });
+                if (message !== $marquee.text() && "marquee" in $marquee) {
+                    $marquee.text(message);
+                    $marquee.marquee({ speed: 3 });
+                }
+            } else {
+                $marquee.marquee("stop");
+                $marquee.parent().hide();
+            }
         });
-        Site.isLoadedNotificationPopup = true;
     }
+    processNotification();
+    setInterval(processNotification, 3000);
 });

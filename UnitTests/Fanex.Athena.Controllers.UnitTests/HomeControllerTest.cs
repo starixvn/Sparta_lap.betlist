@@ -48,7 +48,7 @@
         public void Index_ValidSessionUser_ReturnCorrectView()
         {
             // Arrange
-            _moveBetService.GetMoveBet().Returns(new MoveBet());
+            _moveBetService.GetMoveBetNotification().Returns(new MoveBetNotification());
             using (var controller = CreateController())
             {
                 controller.ControllerContext.HttpContext.Response.IsRequestBeingRedirected.Returns(false);
@@ -65,7 +65,7 @@
         public void IndexIpad_ValidSessionUser_ReturnCorrectView()
         {
             // Arrange
-            _moveBetService.GetMoveBet().Returns(new MoveBet());
+            _moveBetService.GetMoveBetNotification().Returns(new MoveBetNotification());
             using (var controller = CreateController())
             {
                 controller.ControllerContext.HttpContext.Response.IsRequestBeingRedirected.Returns(false);
@@ -83,7 +83,7 @@
         {
             // Arrange
             SessionService.UserSession.ViewType = ClientViewType.None;
-            
+
             using (var controller = CreateController())
             {
                 // Action
@@ -114,11 +114,7 @@
 
         private HomeController CreateController()
         {
-            var controller = new HomeController(
-                LangService,
-                SessionService,
-                AppSettings,
-                _moveBetService);
+            var controller = new HomeController(LangService, SessionService, AppSettings);
 
             controller.ControllerContext = this.ControllerContext;
 

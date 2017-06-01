@@ -47,10 +47,6 @@
 
         DateTime MaxDate { get; }
 
-        DateTime? MoveBetDayEnd { get; }
-
-        DateTime? MoveBetDayStart { get; }
-
         string RemoteRefUrl { get; }
 
         string ClientViewType { get; }

@@ -2459,9 +2459,6 @@
     <value>Transfer Out</value>
     <comment>#26990</comment>
   </data>
-  <data name="NotificationMessage" xml:space="preserve">
-    <value>数据正在处理中，在{0}后的数据将受到影响. 预计完成时间为 {1} GMT-4. 很抱歉造成您的困扰.</value>
-  </data>
   <data name="ProductBG" xml:space="preserve">
     <value>宾果</value>
     <comment>#49196</comment>

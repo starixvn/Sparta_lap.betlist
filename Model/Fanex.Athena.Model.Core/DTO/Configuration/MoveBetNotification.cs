@@ -7,15 +7,16 @@
 namespace Fanex.Athena.Model.Core.DTO.Configuration
 {
     using System;
+    using System.Collections.Generic;
 
-    /// <summary>
-    /// MoveBet class.
-    /// </summary>
     [Serializable]
-    public class MoveBet
+    public class MoveBetNotification
     {
-        public DateTime AvailableWinlostDate { get; set; }
+        public MoveBetNotification()
+        {
+            ContentByLanguage = new Dictionary<string, string>();
+        }
 
-        public DateTime? EstimatedTime { get; set; }
+        public IDictionary<string, string> ContentByLanguage { get; set; }
     }
 }

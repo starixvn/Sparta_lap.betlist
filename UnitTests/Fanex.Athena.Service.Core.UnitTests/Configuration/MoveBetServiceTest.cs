@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Configuration
 {
     using System;
+    using System.Collections.Generic;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
@@ -36,58 +37,21 @@
         public void GetMoveBet_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new MoveBet
+            const string ExpectedMessage = "Sample Message";
+            var expectedResult = new MoveBetNotification
             {
-                AvailableWinlostDate = new DateTime(2016, 1, 1)
+                ContentByLanguage = new Dictionary<string, string>
+                {
+                    { "en-US", ExpectedMessage }
+                }
             };
-            _moveBetDataAccess.GetMoveBet().Returns(expectedResult);
+            _moveBetDataAccess.GetMoveBetNotification().Returns(expectedResult);
 
             // Action
-            var result = _moveBetService.GetMoveBet();
+            var result = _moveBetService.GetMoveBetNotification();
 
             // Assert
-            Assert.That(result.AvailableWinlostDate, Is.EqualTo(expectedResult.AvailableWinlostDate));
-        }
-
-        [Test]
-        public void GetMoveBet_GetDataFromCache_ReturnCachedData()
-        {
-            // Arrange
-            var expectedResult = new MoveBet
-            {
-                AvailableWinlostDate = new DateTime(2016, 1, 1)
-            };
-            _moveBetDataAccess.GetMoveBet().Returns(expectedResult);
-            var firstGetting = _moveBetService.GetMoveBet();
-
-            // Action
-            var result = _moveBetService.GetMoveBet();
-
-            // Assert
-            Assert.That(result.AvailableWinlostDate, Is.EqualTo(expectedResult.AvailableWinlostDate));
-        }
-
-        [Test]
-        public void GetMoveBet_WhenCall_ReturnResultFromAppSetting()
-        {
-            // Arrange
-            var expectedResult = new MoveBet
-            {
-                AvailableWinlostDate = new DateTime(2016, 1, 1),
-                EstimatedTime = new DateTime(2017, 1, 1)
-            };
-            _appSettings.MoveBetDayStart.Returns(new DateTime(2016, 1, 1));
-            _appSettings.MoveBetDayEnd.Returns(new DateTime(2017, 1, 1));
-
-            // Action
-            var result = _moveBetService.GetMoveBet();
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.AvailableWinlostDate, Is.EqualTo(expectedResult.AvailableWinlostDate));
-                Assert.That(result.EstimatedTime, Is.EqualTo(expectedResult.EstimatedTime));
-            });
+            Assert.That(result.ContentByLanguage["en-US"], Is.EqualTo(ExpectedMessage));
         }
     }
 }

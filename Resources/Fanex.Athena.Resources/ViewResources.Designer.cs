@@ -5236,15 +5236,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data processing is in progress, and thus data after {0} will be affected. The expected time to finish is {1} GMT-4. We are sorry for any inconvenience caused..
-        /// </summary>
-        public static string NotificationMessage {
-            get {
-                return ResourceManager.GetString("NotificationMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This game type has not been supported yet!.
         /// </summary>
         public static string NotSupportYet {

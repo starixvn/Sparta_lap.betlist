@@ -11,6 +11,6 @@ namespace Fanex.Athena.DataAccess.Core.Configuration.Interfaces
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate",
             Justification = "Reviewed. Suppression is OK here.")]
-        MoveBet GetMoveBet();
+        MoveBetNotification GetMoveBetNotification();
     }
 }

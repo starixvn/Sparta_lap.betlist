@@ -40,8 +40,6 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult Index(BalanceMetaModel metaModel)
         {
-            AddNotificationMessageToViewBag();
-
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
