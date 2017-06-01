@@ -5,65 +5,87 @@
 //$('h5').marquee({ count: 1, speed: 2 }).done(function () { $('h5').css('color', '#f00'); })
 
 (function ($) {
-    $.fn.textWidth = function () {
-        var calc = '<span style="display:none">' + $(this).text() + '</span>';
+    var _timer = 0;
+    var _offsetX = 150;
+    function getTextWidth(text) {
+        var calc = '<span style="display:none">' + text + '</span>';
         $('body').append(calc);
-        var width = $('body').find('span:last').width();
+        var _offsetX = $('body').find('span:last').width();
         $('body').find('span:last').remove();
-        return width;
-    };
+        return _offsetX;
+    }
 
-    $.fn.marquee = function (args) {
-        var that = $(this);
-        var textWidth = that.textWidth(),
-                offset = that.width(),
-                width = 150, //offset,
+    function init(options) {
+        clearTimeout(_timer);
+        var $self = $(this);
+        _isRunning = true;
+        var textWidth = getTextWidth($self.text()),
+                offset = $self.width(),
                 css = {
-                    'text-indent': that.css('text-indent'),
-                    'overflow': that.css('overflow'),
-                    'white-space': that.css('white-space')
+                    'text-indent': $self.css('text-indent'),
+                    'overflow': $self.css('overflow'),
+                    'white-space': $self.css('white-space')
                 },
                 marqueeCss = {
-                    'text-indent': width,
+                    'text-indent': _offsetX,
                     'overflow': 'hidden',
                     'white-space': 'nowrap'
                 },
-                args = $.extend(true, { count: -1, speed: 1e1, leftToRight: false }, args),
+                options = $.extend(true, { count: -1, speed: 1e1, leftToRight: false }, options),
                 i = 0,
-                stop = textWidth * -1,
-                dfd = $.Deferred();
+                stop = textWidth * -1;
 
         function go() {
-            if (!that.length) return dfd.reject();
-            if (width == stop) {
+            if (!$self.length) return;
+            if (_offsetX == stop) {
                 i++;
-                if (i == args.count) {
-                    that.css(css);
-                    return dfd.resolve();
+                if (i == options.count) {
+                    $self.css(css);
+                    return;
                 }
-                if (args.leftToRight) {
-                    width = textWidth * -1;
+                if (options.leftToRight) {
+                    _offsetX = textWidth * -1;
                 } else {
-                    width = offset;
+                    _offsetX = offset;
                 }
             }
-            that.css('text-indent', width + 'px');
-            if (args.leftToRight) {
-                width++;
+            $self.css('text-indent', _offsetX + 'px');
+            if (options.leftToRight) {
+                _offsetX++;
             } else {
-                width--;
+                _offsetX--;
             }
-            setTimeout(go, args.speed);
+
+            _timer = setTimeout(go, options.speed);
         };
-        if (args.leftToRight) {
-            width = textWidth * -1;
-            width++;
+        if (options.leftToRight) {
+            _offsetX = textWidth * -1;
+            _offsetX++;
             stop = offset;
         } else {
-            width--;
+            _offsetX--;
         }
-        that.css(marqueeCss);
+        $self.css(marqueeCss);
         go();
-        return dfd.promise();
+    }
+
+    function stop() {
+        clearTimeout(_timer);
+    }
+
+    var methods = {
+        init: init,
+        stop: stop
+    };
+
+    $.fn.marquee = function (methodOrOptions) {
+        if (methods[methodOrOptions]) {
+            return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
+        } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
+            // Default to "init"
+            return methods.init.apply(this, arguments);
+        } else {
+            $.error('Method ' + methodOrOptions + ' does not exist on jQuery.marquee');
+        }
     };
 })(jQuery);
