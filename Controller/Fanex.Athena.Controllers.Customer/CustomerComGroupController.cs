@@ -102,6 +102,7 @@ namespace Fanex.Athena.Controllers.Customer
                     };
                     _customerComService.InsertGroup(metaModel, request, userSession.UserId, out result);
                     result.ErrorMessage = GetCreateErrorMessage(result.ErrorCode);
+                    result.Message = string.IsNullOrEmpty(result.ErrorMessage) ? ViewResources.MessageSuccess : result.Message;
                 }
                 else
                 {
@@ -156,7 +157,7 @@ namespace Fanex.Athena.Controllers.Customer
                 }
                 else if (ValidateCommissions(metaModel))
                 {
-                    UpdateGroupComm(metaModel, result);
+                    result = UpdateGroupComm(metaModel);
                 }
                 else
                 {
@@ -281,7 +282,7 @@ namespace Fanex.Athena.Controllers.Customer
                     return ViewResources.GroupSetAsDefaultMsg;
 
                 default:
-                    return ViewResources.MessageSuccess;
+                    return string.Empty;
             }
         }
 
@@ -299,7 +300,7 @@ namespace Fanex.Athena.Controllers.Customer
                     return ViewResources.GroupNameExistedMsg;
 
                 default:
-                    return ViewResources.MessageSuccess;
+                    return string.Empty;
             }
         }
 
@@ -391,16 +392,16 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.DefaultGroupId = defaultGroupId;
         }
 
-        private void UpdateGroupComm(GroupCommMetaModel metaModel, ResultViewModel result)
+        private ResultViewModel UpdateGroupComm(GroupCommMetaModel metaModel)
         {
             var userSession = SessionService.UserSession;
-
             var request = new Request
             {
                 Language = userSession.Language,
                 Ip = Request.UserHostAddress
             };
             var currentGroup = _customerComService.GetById(metaModel.GroupCommId);
+            var result = new ResultViewModel();
 
             if (currentGroup != null && !currentGroup.Equals(metaModel))
             {
@@ -409,6 +410,7 @@ namespace Fanex.Athena.Controllers.Customer
                 if (string.IsNullOrWhiteSpace(result.ErrorMessage))
                 {
                     result.ErrorMessage = GetUpdateGroupErrorMessage(result.ErrorCode);
+                    result.Message = string.IsNullOrEmpty(result.ErrorMessage) ? ViewResources.MessageSuccess : result.Message;
                 }
             }
             else
@@ -416,6 +418,8 @@ namespace Fanex.Athena.Controllers.Customer
                 result.Success = true;
                 result.Message = ViewResources.MessageSuccess;
             }
+
+            return result;
         }
         #endregion Utility
     }
