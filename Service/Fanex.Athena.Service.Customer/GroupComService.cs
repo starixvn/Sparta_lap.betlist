@@ -86,7 +86,7 @@ namespace Fanex.Athena.Service.Customer
         {
             IResultInfo dataResultInfo;
 
-            var data = this._groupDataAccess.UpdateGroup(newItem, request, user.UserId, out dataResultInfo);
+            var data = _groupDataAccess.UpdateGroup(newItem, request, user.UserId, out dataResultInfo);
             var callApiSuccess = true;
             result = new ResultViewModel
             {
@@ -125,10 +125,6 @@ namespace Fanex.Athena.Service.Customer
             return data;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public int DeleteGroup(DeleteGroupMetaModel model, out ResultViewModel result)
         {
             IResultInfo dataResultInfo;

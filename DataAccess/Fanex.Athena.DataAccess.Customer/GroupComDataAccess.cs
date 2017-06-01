@@ -8,13 +8,13 @@ namespace Fanex.Athena.DataAccess.Customer
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Common;
-    using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
 
@@ -25,35 +25,12 @@ namespace Fanex.Athena.DataAccess.Customer
             const string UspName = "Lrf_LicenseeGroupCommSel";
             try
             {
-                var entityList = new List<GroupCommMetaModel>();
-                using (var db = this.GetObjectDb(UspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var entity = new GroupCommMetaModel
-                            {
-                                GroupCommId = reader.ToInt("GroupCommId"),
-                                GroupName = reader.ToString("GroupName"),
-                                SBComm = reader.ToDecimal("SBComm"),
-                                ParlayComm = reader.ToDecimal("Parlaycomm"),
-                                RCComm = reader.ToDecimal("RacingComm"),
-                                NGComm = reader.ToDecimal("NGComm"),
-                                LCComm = reader.ToDecimal("LCComm"),
-                                CSComm = reader.ToDecimal("RNGComm"),
-                                GroupColor = reader.ToString("GroupColor"),
-                                NumberOfCustomer = reader.ToInt("NumberOfCustomer"),
-                                IsDefaultGroup = reader.ToBool("IsDefault")
-                            };
 
-                            entityList.Add(entity);
-                        }
-                    }
+                    return db.Query<GroupCommMetaModel>().ToList();
                 }
-
-                return entityList;
             }
             catch (ObjectDbException sqlException)
             {
@@ -67,7 +44,7 @@ namespace Fanex.Athena.DataAccess.Customer
             const string UspName = "Lrf_LicenseeGroupCommSel";
             try
             {
-                using (var db = this.GetObjectDb(UspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
 
@@ -87,29 +64,11 @@ namespace Fanex.Athena.DataAccess.Customer
             const string UspName = "Lrf_GroupCommGetById";
             try
             {
-                using (var db = this.GetObjectDb(UspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     db.AddInParameter("GroupCommID", DbType.Int32, groupCommId);
 
-                    using (var reader = db.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            return new GroupCommMetaModel
-                            {
-                                GroupCommId = groupCommId,
-                                GroupName = reader.ToString("GroupName"),
-                                SBComm = reader.ToDecimal("SBComm"),
-                                ParlayComm = reader.ToDecimal("Parlaycomm"),
-                                RCComm = reader.ToDecimal("RacingComm"),
-                                NGComm = reader.ToDecimal("NGComm"),
-                                LCComm = reader.ToDecimal("LCComm"),
-                                CSComm = reader.ToDecimal("RNGComm"),
-                                GroupColor = reader.To<string>("GroupColor"),
-                                IsDefaultGroup = reader.ToBool("IsDefault")
-                            };
-                        }
-                    }
+                    return db.QueryEntity<GroupCommMetaModel>();
                 }
             }
             catch (ObjectDbException sqlException)
@@ -126,7 +85,7 @@ namespace Fanex.Athena.DataAccess.Customer
             const string UspName = "Lrf_LicenseeGroupCommIns";
             try
             {
-                using (var db = this.GetObjectDb(UspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, item.LicenseeId);
                     db.AddInParameter("GroupName", DbType.String, item.GroupName);
@@ -167,7 +126,7 @@ namespace Fanex.Athena.DataAccess.Customer
             const string UspName = "Lrf_LicenseeGroupCommUpd";
             try
             {
-                using (var db = this.GetObjectDb(UspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeID", DbType.Int32, newItem.LicenseeId);
                     db.AddInParameter("GroupCommId", DbType.Int32, newItem.GroupCommId);
@@ -218,7 +177,7 @@ namespace Fanex.Athena.DataAccess.Customer
             const string UspName = "Lrf_LicenseeGroupCommDel";
             try
             {
-                using (var db = this.GetObjectDb(UspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
                     db.AddInParameter("GroupCommId", DbType.Int32, groupId);
@@ -248,7 +207,7 @@ namespace Fanex.Athena.DataAccess.Customer
             const string UspName = "Lrf_GroupCommCheckByName";
             try
             {
-                using (var db = this.GetObjectDb(UspName))
+                using (var db = GetObjectDb(UspName))
                 {
                     db.AddInParameter("LicenseeId", DbType.Int32, licenseeId);
                     db.AddInParameter("GroupName", DbType.String, groupName);

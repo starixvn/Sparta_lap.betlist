@@ -19,7 +19,7 @@
 </div>
 <div class="clear" style="height: 5px">
 </div>
-@using (Html.BeginForm("Index", "CustomerComGroup", FormMethod.Post, new { @id = "CommissionGroupForm" }))
+@using (Html.BeginForm("ExportExcel", "CustomerComGroup", FormMethod.Post, new { @id = "CommissionGroupForm" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("IsExportExcel", false)

@@ -12,7 +12,6 @@
 namespace Fanex.Athena.Controllers.Customer
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
     using System.Linq;
@@ -65,13 +64,6 @@ namespace Fanex.Athena.Controllers.Customer
             return View("~/Views/Customer/CustomerComm/GroupCommList.cshtml", model);
         }
 
-        [HttpPost]
-        [CustomValidateAntiForgery]
-        public ActionResult Index(bool isExportExcel)
-        {
-            return isExportExcel ? ExportExcel() : Index();
-        }
-
         #endregion Get data
 
         #region Create group
@@ -109,7 +101,7 @@ namespace Fanex.Athena.Controllers.Customer
                         Ip = Request.UserHostAddress
                     };
                     _customerComService.InsertGroup(metaModel, request, userSession.UserId, out result);
-                    GetCreateErrorMessage(result);
+                    result.ErrorMessage = GetCreateErrorMessage(result.ErrorCode);
                 }
                 else
                 {
@@ -149,10 +141,6 @@ namespace Fanex.Athena.Controllers.Customer
             return View("~/Views/Customer/CustomerComm/UpdateGroup.cshtml", model);
         }
 
-        [SuppressMessage(
-                  "StyleCop.CSharp.StylecopPlus.Rules",
-                  "SP2101:MethodMustNotContainMoreLinesThan",
-                  Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         [CustomValidateAntiForgery]
         public ActionResult Update(GroupCommMetaModel metaModel)
@@ -229,7 +217,6 @@ namespace Fanex.Athena.Controllers.Customer
         #region Group Comm API
 
         [HttpGet]
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         public JsonResult GetDefaultGroup()
         {
             /* Gathering group list*/
@@ -277,51 +264,42 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Utility
 
-        private static void GetUpdateGroupErrorMessage(ResultViewModel result)
+        private static string GetUpdateGroupErrorMessage(int errorCode)
         {
-            switch (result.ErrorCode)
+            switch (errorCode)
             {
                 case 100:
-                    result.ErrorMessage = ViewResources.MessageCommCannotGreaterThan;
-                    break;
+                    return ViewResources.MessageCommCannotGreaterThan;
 
                 case 101:
-                    result.ErrorMessage = ViewResources.MessageGroupDoesNotExistMsg;
-                    break;
+                    return ViewResources.MessageGroupDoesNotExistMsg;
 
                 case 102:
-                    result.ErrorMessage = ViewResources.MessageGroupHasAlreadyChoosen;
-                    break;
+                    return ViewResources.MessageGroupHasAlreadyChoosen;
 
                 case 103:
-                    result.ErrorMessage = ViewResources.GroupSetAsDefaultMsg;
-                    break;
+                    return ViewResources.GroupSetAsDefaultMsg;
 
                 default:
-                    result.Message = ViewResources.MessageSuccess;
-                    break;
+                    return ViewResources.MessageSuccess;
             }
         }
 
-        private static void GetCreateErrorMessage(ResultViewModel result)
+        private static string GetCreateErrorMessage(int errorCode)
         {
-            switch (result.ErrorCode)
+            switch (errorCode)
             {
                 case 100:
-                    result.ErrorMessage = ViewResources.MessageCommCannotGreaterThan;
-                    break;
+                    return ViewResources.MessageCommCannotGreaterThan;
 
                 case 101:
-                    result.ErrorMessage = ViewResources.MessageGroupCreationFail;
-                    break;
+                    return ViewResources.MessageGroupCreationFail;
 
                 case 102:
-                    result.ErrorMessage = ViewResources.GroupNameExistedMsg;
-                    break;
+                    return ViewResources.GroupNameExistedMsg;
 
                 default:
-                    result.Message = ViewResources.MessageSuccess;
-                    break;
+                    return ViewResources.MessageSuccess;
             }
         }
 
@@ -430,7 +408,7 @@ namespace Fanex.Athena.Controllers.Customer
 
                 if (string.IsNullOrWhiteSpace(result.ErrorMessage))
                 {
-                    GetUpdateGroupErrorMessage(result);
+                    result.ErrorMessage = GetUpdateGroupErrorMessage(result.ErrorCode);
                 }
             }
             else
