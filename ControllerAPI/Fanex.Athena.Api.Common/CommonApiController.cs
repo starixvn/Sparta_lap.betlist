@@ -34,8 +34,9 @@ namespace Fanex.Athena.Api.Base
         public string GetMoveBetNotification()
         {
             var moveBet = _moveBetService.GetMoveBetNotification();
+            var language = _languageService.GetCurrentLanguage();
 
-            return moveBet.ContentByLanguage[_languageService.GetCurrentLanguage()];
+            return moveBet.ContentByLanguage.ContainsKey(language) ? moveBet.ContentByLanguage[language] : string.Empty;
         }
     }
 }

@@ -2,7 +2,7 @@
 //$('h2').marquee({ count: 2 });
 //$('h3').marquee({ speed: 5 });
 //$('h4').marquee({ leftToRight: true });
-//$('h5').marquee({ count: 1, speed: 2 }).done(function () { $('h5').css('color', '#f00'); })
+//$('h5').marquee({ count: 1, speed: 2 });
 
 (function ($) {
     var _timer = 0;
@@ -57,7 +57,8 @@
             }
 
             _timer = setTimeout(go, options.speed);
-        };
+        }
+
         if (options.leftToRight) {
             _offsetX = textWidth * -1;
             _offsetX++;

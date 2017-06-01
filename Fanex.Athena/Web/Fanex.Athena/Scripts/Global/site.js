@@ -786,7 +786,7 @@ $(function () {
 
                 if (message !== $marquee.text() && "marquee" in $marquee) {
                     $marquee.text(message);
-                    $marquee.marquee({ speed: 3 });
+                    $marquee.marquee({ speed: 30 });
                 }
             } else {
                 $marquee.marquee("stop");
@@ -795,5 +795,5 @@ $(function () {
         });
     }
     processNotification();
-    setInterval(processNotification, 3000);
+    setInterval(processNotification, 60000);
 });
