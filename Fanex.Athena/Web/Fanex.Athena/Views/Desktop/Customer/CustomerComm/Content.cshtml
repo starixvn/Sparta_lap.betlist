@@ -17,11 +17,11 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th class="col-extra-small">#</th>
+                    <th class="col-small">#</th>
                     <th class="col-child medium">@ViewResources.GroupId</th>
                     <th class="col-medium large">@ViewResources.GroupName</th>
                     <th class="col-child medium">@ViewResources.DefaultGroup</th>
-                    <th class="col-child">@ViewResources.NoOfCustmer</th>
+                    <th class="col-child medium">@ViewResources.NoOfCustmer</th>
                     <th class="col-child medium">@ViewResources.SBComm (%)</th>
                     @if (isAllowRc)
                     {
@@ -39,8 +39,8 @@
                     {
                         <th class="col-child medium">@ViewResources.CSComm (%)</th>
                     }
-                    <th class="col-child">@ViewResources.GroupColor</th>
-                    <th class="col-child">@ViewResources.EditGroup</th>
+                    <th class="col-child medium">@ViewResources.GroupColor</th>
+                    <th class="col-child medium">@ViewResources.EditGroup</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,56 +49,53 @@
                     foreach (var groupComm in Model)
                     {
                         <tr>
-                            <td class="middle-text">@(number++)</td>
-                            <td class="middle-text">@groupComm.GroupCommId</td>
-                            <td class="left-text">
-                                <a href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
+                            <td class="center-align">@(number++)</td>
+                            <td class="center-align">@groupComm.GroupCommId</td>
+                            <td class="left-align">
+                                <a href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup" class="truncate">
                                     @groupComm.GroupName
                                 </a>
                             </td>
-                            <td class="middle-text @(groupComm.IsDefaultGroup ? "default-group" : string.Empty)"></td>
-                            <td class="middle-text">
+                            <td class="center-align @(groupComm.IsDefaultGroup ? "icon-checkmark" : string.Empty)"></td>
+                            <td class="center-align">
                                 <a href="@Url.Action("CustomerList", "Customer", new { groupId = groupComm.GroupCommId })" class="no-customer-border">
                                     @groupComm.NumberOfCustomer
                                 </a>
                             </td>
-                            <td class="middle-text">
+                            <td class="center-align">
                                 @(groupComm.SBComm.ToString("P2"))
                             </td>
                             @if (isAllowRc)
                             {
-                                <td class="middle-text">
+                                <td class="center-align">
                                     @(groupComm.RCComm.ToString("P2"))
                                 </td>
                             }
                             @if (isAllowNg)
                             {
-                                <td class="middle-text">
+                                <td class="center-align">
                                     @(groupComm.NGComm.ToString("P2"))
                                 </td>
                             }
                             @if (isAllowLc)
                             {
-                                <td class="middle-text">
+                                <td class="center-align">
                                     @(groupComm.LCComm.ToString("P2"))
                                 </td>
                             }
                             @if (isAllowCs)
                             {
-                                <td class="middle-text">
+                                <td class="center-align">
                                     @(groupComm.CSComm.ToString("P2"))
                                 </td>
                             }
-                            <td class="middle-text">
+                            <td class="center-align">
                                 <div class="group-color-box" style="background-color:@groupComm.GroupColor;"></div>
                             </td>
-                            <td class="middle-text">
-                                <a class="underline" href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
-                                    <img src="@Url.ContentLink("/Content/Customer/images/edit.png")"
-                                         style="width:16px; height: 16px;" />
-                                </a>&nbsp; <a class="underline" href="javascript:GroupComm.initDeleteGroup('@groupComm.GroupCommId')" title="@ViewResources.DeleteGroup">
-                                    <img src="@Url.ContentLink("/Content/Customer/images/validatefail.png")"
-                                         style="width:16px; height: 16px;" />
+                            <td class="center-align">
+                                <a class="icon-pencil" href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
+                                </a>
+                                <a class="icon-bin" href="javascript:GroupComm.initDeleteGroup('@groupComm.GroupCommId')" title="@ViewResources.DeleteGroup">
                                 </a>
                             </td>
                         </tr>

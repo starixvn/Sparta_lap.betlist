@@ -1,6 +1,9 @@
-﻿define(["jquery", "common/site", "common/querystring", "components/scrollablegrid"],
-    function ($, Site, QueryString, GridHelper) {
+﻿define(["jquery", "common/site", "common/querystring"],
+    function ($, Site, QueryString) {
         "use strict";
+
+        var formSelector = "#CommissionGroupForm";
+        var excelButtonSeletor = "#ExportToExcel";
 
         function initialize() {
             Site.initialize();
@@ -13,7 +16,9 @@
         }
 
         function initEvent() {
-
+            $(excelButtonSeletor).click(function () {
+                $(formSelector).submit();
+            });
         }
 
         var _me = {

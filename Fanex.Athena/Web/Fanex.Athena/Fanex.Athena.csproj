@@ -838,8 +838,6 @@
     <Content Include="www\css\build\pro\pages\customer\commgrouplist.chunk.js" />
     <Content Include="www\css\build\pro\pages\customer\commgrouplist.css" />
     <Content Include="www\css\source\pages\customer\commgrouplist.scss" />
-    <Content Include="Views\Desktop\Customer\CustomerComm\Content.Header.cshtml" />
-    <Content Include="Views\Desktop\Customer\CustomerComm\Content.Data.cshtml" />
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.css.map" />
     <Content Include="Views\Desktop\Shared\_CustomerLogLayout.cshtml" />

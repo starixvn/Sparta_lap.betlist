@@ -1,8 +1,7 @@
 ﻿<div class="header-content">
-    @using (Html.BeginForm("Index", "CustomerComGroup", FormMethod.Post, new { @id = "CommissionGroupForm" }))
+    @using (Html.BeginForm("ExportExcel", "CustomerComGroup", FormMethod.Post, new { @id = "CommissionGroupForm" }))
     {
         @Html.AntiForgeryToken()
-        @Html.Hidden("IsExportExcel", false)
         <div class="row">
             <div class="col">
                 <span class="circle"></span>
@@ -13,7 +12,7 @@
         </div>
         <div class="row">
             <div class="col l2 m2 s12 button-block">
-                <button type="button" id="NewGroupButton" class="btn btn-back">@ViewResources.Submit</button>
+                <a id="NewGroupButton" class="btn btn-back" href="@Url.Action("Create", "CustomerComGroup")" title="@ViewResources.CreateNewGroup">@ViewResources.NewGroup</a>
             </div>
             <div class="col icon-block">
                 <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
