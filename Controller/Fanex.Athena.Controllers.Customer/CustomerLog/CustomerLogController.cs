@@ -12,13 +12,14 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
+    using Service.Core.Common.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
     public partial class CustomerLogController : BaseController
     {
-        private readonly ProductService _productService;
+        private readonly IProductService _productService;
 
         public CustomerLogController()
         {

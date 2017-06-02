@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Controllers
+﻿namespace Fanex.Athena.Service.Core.Helpers
 {
     using System.Collections.Generic;
     using System.IO;

@@ -13,6 +13,7 @@ namespace Fanex.Athena.Api.CustomerLog
     using System.Text.RegularExpressions;
     using System.Web.Hosting;
     using System.Xml;
+    using Extension.Utility;
     using Base;
     using Base.Attributes;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
@@ -22,15 +23,23 @@ namespace Fanex.Athena.Api.CustomerLog
     using RazorEngine;
     using RazorEngine.Templating;
     using Resources;
+    using Service.Core.Helpers;
+    using Service.Core.Users;
+    using Service.Core.Users.Interfaces;
+    using Service.Customer.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
     public partial class LogController : BaseApiController
     {
         #region Field
 
-        private readonly CustomerLogService _customerLogService;
+        private readonly ICustomerLogService _customerLogService;
 
-        private readonly LogInLogService _logInLogService;
+        private readonly ILogInLogService _logInLogService;
+
+        private readonly ISessionService _sessionService;
+
+        private readonly IAppSettings _appSettings;
 
         private readonly IDictionary<string, string> _resourcesMap = new Dictionary<string, string>
         {
@@ -60,6 +69,8 @@ namespace Fanex.Athena.Api.CustomerLog
         {
             _customerLogService = new CustomerLogService();
             _logInLogService = new LogInLogService();
+            _sessionService = new SessionService();
+            _appSettings = new AppSettings();
         }
 
         #endregion Constructor
@@ -89,11 +100,23 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <param name="actionId">Action id.</param>
         /// <param name="viewModel">View Model.</param>
         /// <returns> HTML string.</returns>
-        private static string ParseDictonaryToRazorView(int actionId, ActionViewModel viewModel)
+        private string ParseDictonaryToRazorView(int actionId, ActionViewModel viewModel)
         {
-            var templatePath = HostingEnvironment.MapPath($"~/Views/Customer/CustomerLog/Action/{actionId}.cshtml");
+            var viewName = GetActionViewName(actionId);
+            var templatePath = HostingEnvironment.MapPath(viewName);
             var template = File.ReadAllText(templatePath);
             return Engine.Razor.RunCompile(template, actionId.ToString(), null, viewModel);
+        }
+
+        private string GetActionViewName(int actionId)
+        {
+            var actionView = $"~/Views/Customer/CustomerLog/Action/{actionId}.cshtml";
+            var userSession = _sessionService.UserSession;
+
+            var option = userSession != null && userSession.ViewType != ClientViewType.None ?
+                userSession.ViewType : (ClientViewType)int.Parse(_appSettings.ClientViewType);
+
+            return ClientViewHelper.GetViewPath(actionView, option);
         }
 
         #endregion Parse dictonary to razor view
