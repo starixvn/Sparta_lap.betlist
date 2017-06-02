@@ -31,6 +31,25 @@
     margin: auto;
 }
 
+.wrapContent {
+    padding: 15px;
+}
+
+.popup-button {
+    .btn {
+        margin: 10px 0 10px 10px;
+    }
+}
+
+#confirm-delete-comm-group{
+    display: none;
+}
+
+[type="radio"] + label {
+    color: inherit;
+    font-size: inherit !important;
+}
+
 @media only screen and (min-width: 993px) {
     .no-customer-border {
         width: 30%;

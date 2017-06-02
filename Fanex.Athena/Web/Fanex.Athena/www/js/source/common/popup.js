@@ -48,6 +48,23 @@
 
         show: function ($popup, isModal) {
             $popup.flatPopup("show", isModal);
+        },
+
+        openPopupWithButton(element, option, buttons) {
+            var $element = $(element);
+
+            if ($("#" + option.id).length === 0) {
+                $element.append('<div class="right popup-button"></div>');
+                var $blockButton = $element.find(".popup-button");
+
+                $.each(buttons, function (i, e) {
+                    var button = '<button type="button" id="' + e.id + '" class="' + e.classes + '">' + e.title + '</button>';
+                    $blockButton.append(button);
+                    $blockButton.find("#" + e.id).on("click", e.method);
+                });
+            }
+
+            return $element.flatPopup(option);
         }
     };
 
