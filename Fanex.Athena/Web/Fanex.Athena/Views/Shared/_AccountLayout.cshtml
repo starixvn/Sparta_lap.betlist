@@ -11,9 +11,9 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/AccountLayoutScripts")
     @RenderSection("pagejs", required: false)
 }
-
+@RazorHelper.MoveBetNotification()
 <div class="container_26">
-    <div class="grid_26">
+    <div class="grid_26" style="position: relative">
         <div class="content-title">
             @RenderSection("ContentTitle", required: false)
         </div>

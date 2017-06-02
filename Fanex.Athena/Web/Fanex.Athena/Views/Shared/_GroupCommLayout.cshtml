@@ -15,6 +15,7 @@
     var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
     var isAppModeSelf = userSession == null ? true : userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Self;
 }
+@RazorHelper.MoveBetNotification()
 <div class="content-title @(isAppModeSelf ? string.Empty: "hide")">
     @RenderSection("ContentTitle")
 </div>

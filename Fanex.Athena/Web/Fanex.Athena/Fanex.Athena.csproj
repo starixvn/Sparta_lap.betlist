@@ -738,6 +738,7 @@
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
     <Content Include="Scripts\BetList\lastbet.filter.js" />
+    <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Report\cashoutwinloss.js" />
     <Content Include="Scripts\Report\cashoutwinloss.option.js" />
     <Content Include="www\assets\images\15.jpg" />
@@ -1468,8 +1469,6 @@
     <Content Include="Scripts\Languages\ViewResources.zh-TW.js">
       <DependentUpon>ViewResources.tt</DependentUpon>
     </Content>
-    <Content Include="Scripts\Library\jquery.marquee.js" />
-    <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Library\moment.min.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />

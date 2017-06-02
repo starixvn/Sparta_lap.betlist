@@ -6,6 +6,11 @@
 @using Fanex.Athena.Model.Core.DataDomain;
 @using Fanex.Athena.Resources;
 
+@helper MoveBetNotification() {
+    <div class="new-line notification-marquee-container" style="display: none;">
+        <div id="notification-marquee" style="color: #C02603"></div>
+    </div>
+}
 @helper TitleLicenseeWLPrefix(IEnumerable<ProductOption> productOptions)
 {
 var prdOptionTitleList = productOptions.Where(p => p.Code != Product.BA && p.Code != Product.RB);
