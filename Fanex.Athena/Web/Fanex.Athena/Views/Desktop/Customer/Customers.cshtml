@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.CustomerList;
+    Layout = "~/Views/Desktop/Shared/_Report.jqGridLayout.cshtml";
+}
+@model Fanex.Athena.Model.Customer.ViewModel.CustomerListViewModel
+@section pagecss {
+    @*@Styles.Render("~/bundles/CustomerLogCustomersViewStyles")*@
+}
+@section pagejs {
+    @Scripts.Render("~/bundles/CustomerLogCustomersScripts")
+}
+@section Filter
+{
+    @{Html.RenderPartial("~/Views/Customer/Filter.cshtml", Model);}
+}
+<div id="ajax-panel">
+    @if (Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
+    {
+        <div class="grid_9 filter-input new-line" style="padding-bottom: 2px;">
+            <input type="button" id="MoveToGroup" value="@ViewResources.MoveToGroup" class="button" />&nbsp;&nbsp;&nbsp;
+            <input type="button" id="UpdateComm" value="@ViewResources.UpdateCommission" class="button" data-group-id="@Model.Param.GroupCommId"/>&nbsp;&nbsp;&nbsp;
+            <input type="button" id="RemoveFromGroup" value="@ViewResources.RemoveFromGroup" class="button" />&nbsp;&nbsp;&nbsp;
+        </div>
+    }
+
+    <div class="theme_jqGrid container_25">
+        <div class="grid_25 new-line"  style="margin-left: 0px">
+            <div class="report-title hide" style="">
+                @ViewResources.SearchResult:
+                <label id="num-of-customer" class="num-of-customer">0 </label>@ViewResources.Customers.ToLower()
+                <div style="float: right;">
+                    @using (Html.BeginForm("ExportExcel", "Customer", FormMethod.Post, new { @id = "CustomerExcelForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="excelParam" id="excelParam" value="@Model.Param.ToJson()" />
+                        <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
+               type="image" id="ExportToExcel" name="exporttoexcel"
+               title="@ViewResources.ExportToExcel" class="hand" />
+                    }
+                </div>
+                <label class="ba-time-notice">@Model.BATimeCheck</label>
+            </div>
+            <div id="report-content" class="report-content" style="">
+                <div class="paging">
+                </div>
+                <div style="width: 100%">
+                    <table id="ReportGrid" data-hidden-column="">
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="paging">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--popup-->
+    <div title="@ViewResources.BetSetting" id="bet-setting-dialog" class="hide" style="overflow: hidden">
+        <iframe id="bet-setting-frame" style="border: none;" src=""></iframe>
+    </div>
+    @if (Model.IsAllowedCustomerCommission)
+    {
+        <div id="MoveToGroupPopUp" class="hide" title="@ViewResources.MoveToGroup">
+            @{
+        Html.RenderPartial("~/Views/Customer/CustomerDialog/MoveToGroup.cshtml");   
+            }
+        </div>
+        <div id="UpdateCustCommPopUp" class="hide" title="@ViewResources.UpdateCustomerCommission">
+            @{
+        Html.RenderPartial("~/Views/Customer/CustomerDialog/UpdateCustComm.cshtml", Model.ProductAccess);   
+            }
+        </div>
+        <div id="ConfirmRemoveFromGroupPopUp" class="hide" title="@ViewResources.RemoveFromGroup">
+            @{
+        Html.RenderPartial("~/Views/Customer/CustomerDialog/RemoveFromGroup.cshtml");   
+            }
+        </div>
+  
+    }
+    @if (Model.DataList != null)
+    {
+        @Html.Hidden("NumOfCheckBox", Model.DataList.Count)
+    }
+    @{ Html.RenderPartial("~/Views/Customer/ContextMenu.cshtml",Model); }
+    <!--/popup-->
+    <input type="hidden" id="IsAllowedCustomerCommission" value="@(Model.IsAllowedCustomerCommission.ToString())" />
+    <input type="hidden" id="ProductAccess" value="@(Model.ProductAccess.ToJson())" />
+</div>

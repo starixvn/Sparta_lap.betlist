@@ -848,6 +848,9 @@
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
     <Content Include="www\css\source\components\autocomplete\_autocomplete.scss" />
+    <Content Include="Views\Desktop\Customer\ContextMenu.cshtml" />
+    <Content Include="Views\Desktop\Customer\Customers.cshtml" />
+    <Content Include="Views\Desktop\Customer\Filter.cshtml" />
     <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
     <Content Include="www\css\build\images\excel-icon.svg" />
@@ -1158,6 +1161,11 @@
     <Content Include="www\js\source\components\sidebar.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgrouplist.js" />
     <Content Include="www\js\source\pages\customer\customercomm\main-commgrouplist.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.commision.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.custoption.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.option.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\main.js" />
     <Content Include="www\js\source\pages\customer\customerlog\loginlog\loginlog.js" />
     <Content Include="www\js\source\pages\customer\customerlog\loginlog\loginlog.option.js" />
     <Content Include="www\js\source\pages\customer\customerlog\loginlog\main.js" />

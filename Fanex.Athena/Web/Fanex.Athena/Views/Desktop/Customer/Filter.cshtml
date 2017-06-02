@@ -1,0 +1,173 @@
+﻿@using System.Linq
+@using Fanex.Athena.Model.Report.ViewModel
+@using Fanex.Athena.Model.Customer.ViewModel;
+@using Fanex.Athena.Model.Customer.MetaModel;
+@using Fanex.Athena.Model.Core.DTO.Common
+@model CustomerListViewModel
+@{
+    var showOddsGroupFilter = Model.Param.OddsGroups != null;
+}
+<div class="page-form">
+    @using (Html.BeginForm("CustomerList", "Customer", FormMethod.Post, new { @id = "CustomerForm" }))
+    {
+        <div class="grid_2 filter-label">
+            <label>@ViewResources.Currency</label>
+        </div>
+        <div class="grid_2 filter-input">
+            @RazorHelper.CurrencyList(Model.CurrencyList, "currencyid", Model.Param.CurrencyId, true, false)
+        </div>
+        <div class="grid_2 convert-option filter-label">
+            <label for="BaseCurrency">
+                @ViewResources.Based
+        </label>
+    </div>
+        <div class="grid_3 filter-input">
+            @RazorHelper.BasedCurrency(Model.Param.BaseCurrency)
+        </div>
+
+        <div class="grid_2 filter-label ">
+            <label>@ViewResources.Username</label>
+        </div>
+        <div class="grid_4 filter-input">
+            <input type="text" id="txtUsername" class="text_f1" style="width: 160px" />
+        </div>
+
+        if (showOddsGroupFilter)
+        {
+            <div class="grid_2 filter-label ">
+                <label>@ViewResources.OddsGroup</label>
+            </div>
+            <div class="grid_4 filter-input">
+                <select id="odds-group-multiselect" name="odds-group-multiselect"></select>
+                <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="odds-group-multiselect-null" class="hide" />
+            </div>
+        }
+
+        <div class="grid_2 note-group">
+            <div>
+                <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">
+                </div>
+            </div>
+        </div>
+        if (Model.Param.AllowLicensees.Contains(Model.Param.LicenseeId.ToString()))
+        {
+            <div class="grid_2 filter-label new-line">
+                <label>
+                    @ViewResources.Status
+            </label>
+        </div>
+        <div class="grid_2 filter-input">
+            @Html.DropDownList("CustStatusOption", new SelectList(new Dictionary<string, string>
+                       {
+                           {"",ViewResources.All},
+                           {"Open", ViewResources.Open},
+                           {"Closed", ViewResources.Closed},
+                           {"Suspended",ViewResources.Suspended},
+                       },
+                        "Key", "Value",
+               Model.Param.CustStatus),
+                new { @style = "position: relative" })
+        </div>
+        <div class="grid_2 filter-label">
+            <label>@ViewResources.SpecialLevel</label>
+        </div>
+        }
+        else
+        {
+
+            <div class="grid_2 filter-label new-line">
+                <label>@ViewResources.SpecialLevel</label>
+            </div>
+        }
+
+        <div class="grid_2 filter-input">
+            @RazorHelper.SpecialLevelListSearch(Model.Param.SpecialLevel)
+        </div>
+
+        if (Model.ProductAccess.IsAllowBA)
+        {
+            <div class="grid_2 filter-label">
+                <label>@ViewResources.ProductBA</label>
+            </div>
+            <div class="grid_2 filter-input">
+                @Html.DropDownList("BAFilterOption", new SelectList(new Dictionary<string, string>
+                       {
+                           {"0", ViewResources.All},
+                           {"1",Fanex.Athena.Model.Core.DTO.Common.Product.BA},
+                           {"2",ViewResources.Normal},
+                       },
+                       "Key", "Value",
+               Model.Param.BAFilter),
+               new { @style = "position: relative" })
+            </div>
+        }
+
+        var oldGroup = new GroupCommMetaModel();
+        if (Model.IsAllowedCustomerCommission)
+        {
+            <div class="grid_2 filter-label">
+                <label>@ViewResources.Group</label>
+            </div>
+            <div class="grid_3 filter-input">
+                <select id="DdlGroupCommId" style="width: 122px">
+                    @{
+                        var groupList = Model.GroupCommDataList;
+                        groupList.Insert(0, new GroupCommMetaModel { GroupCommId = -1, GroupName = ViewResources.All });
+                        groupList.Insert(1, new GroupCommMetaModel { GroupCommId = 0, GroupName = ViewResources.None });
+                    }
+                    @foreach (GroupCommMetaModel group in groupList)
+                    {
+                        var selected = string.Empty;
+                        if (group.GroupCommId == Model.Param.GroupCommId)
+                        {
+                            selected = "selected=selected";
+                            oldGroup = group;
+                        }
+                        <option @selected value="@group.GroupCommId">@group.GroupName</option>
+                    }
+                </select>
+            </div>
+                        }
+                        <div class="grid_2 filter-label">
+                            <label>@ViewResources.Show/@ViewResources.hide</label>
+                        </div>
+                        <div class="grid_5 filter-input">
+                            <select id="grid-columns-multiselect" name="grid-columns-multiselect"></select>
+                            <img src="@Url.ContentLink("/Content/Report/Images/icon_error.gif")" alt="" id="grid-columns-multiselect-null" class="hide" />
+                            <div class="hide" id="grid-columns-option-container">
+                                @for (var i = 0; i < Model.Param.GridColumns.Count; i++)
+                {
+                                    <input type="hidden" name="GridColumns[@i.ToString()].ID" value="@Model.Param.GridColumns[i].ID" />
+                                    <input type="hidden" name="GridColumns[@i.ToString()].Name" value="@Model.Param.GridColumns[i].Name" />
+                                    <input type="checkbox" id="@Model.Param.GridColumns[i].Name" @(Model.Param.GridColumns[i].Checked ? "checked=checked" : "") name="GridColumns[@i.ToString()].Checked" value="True" />
+                                }
+                            </div>
+                        </div>
+
+                        <div class="grid_3 filter-input" style="left: 90px;">
+                            <input type="button" id="SubmitButtonComm" value="@ViewResources.Submit" class="button" />
+                        </div>
+
+                        <div id="hiddenfield">
+                            @Html.Hidden("CurrencyId", Model.Param.CurrencyId)
+                            @Html.Hidden("BaFilter", Model.Param.BAFilter)
+                            @Html.Hidden("CustStatus", Model.Param.CustStatus)
+                            @Html.Hidden("SpecialLevel", Model.Param.SpecialLevel)
+                            @Html.Hidden("GroupCommId", Model.Param.GroupCommId)
+                            @Html.Hidden("Username", Model.Param.Username)
+                            @Html.Hidden("OldSbComm", oldGroup.SBComm)
+                            @Html.Hidden("OldRbComm", oldGroup.RCComm)
+                            @Html.Hidden("OldNgComm", oldGroup.NGComm)
+                            @Html.Hidden("OldLcComm", oldGroup.LCComm)
+                            @if (Model.Param.AllowLicensees.Contains(Model.Param.LicenseeId.ToString()))
+                            {
+                                <input type="hidden" name="CustStatusOption" id="CustStatusOption" value="" />
+                            }
+                        </div>
+                        }
+</div>
+@Html.Hidden("AllowedGridColumns", Model.Param.GridColumns.ToJson())
+@if (showOddsGroupFilter)
+{
+    @Html.Hidden("OddsGroups", Model.Param.OddsGroups.ToJson())
+}

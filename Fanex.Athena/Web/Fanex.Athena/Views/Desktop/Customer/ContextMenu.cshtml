@@ -1,0 +1,61 @@
+﻿@using Fanex.Athena.Model.Report.ViewModel
+@model Fanex.Athena.Model.Customer.ViewModel.CustomerListViewModel
+<div id="ajaxLoaDingUpdateBA" class="hide">
+    <img alt="update BA.." style="border: none; float: left" src="@Url.ContentLink("/Content/Customer/images/ajax-loader_arrow.gif")" />
+</div>
+<input id="CanUpdateBAMessage" type="hidden" value="@Model.CanUpdateBAMessage" />
+<input id="CanUpdateBA" type="hidden" value="@(Model.CanUpdateBA ? 1 : 0)" />
+<div id="update-cust-status-popup" class="update-cust-status-popup" style="display: none">
+    <div>
+        @Html.Raw(string.Format(ViewResources.ChangeStatus, "<b id='popup-external-id'></b>"))
+    </div>
+    <br />
+    <div>
+        <input type="checkbox" id="popup-suspended" />
+        <label for="popup-suspended">
+            &nbsp; @ViewResources.Suspended</label>
+    </div>
+    <div>
+        <input type="checkbox" id="popup-closed" />
+        <label for="popup-closed">
+            &nbsp;
+            @ViewResources.Close</label>
+    </div>
+    <br />
+    <input type="button" value="@ViewResources.Update" class="button" id="popup-update" disabled="disabled" />
+    <input type="button" value="@ViewResources.Cancel" class="button" id="popup-close" />
+</div>
+<div id="view-cust-option" class="view-cust-option" style="display: none">
+    <a id="bet-setting-link" class="link" title="@ViewResources.View @ViewResources.BetSetting">@ViewResources.BetSetting</a><br />
+    <br />
+    <a id="bet-list-link" class="link" title="@ViewResources.View @ViewResources.BetList">@ViewResources.BetList</a><br />
+    <br />
+    <a id="statement-link" class="link" title="@ViewResources.View @ViewResources.Statement">@ViewResources.Statement</a><br />
+    <br />
+    <a id="login-info-link" class="link" title="@ViewResources.View @ViewResources.LogInfo">@ViewResources.LogInfo</a><br />
+    <a id="close-cust-option-link" class="link" title="Close Option">
+        <img alt="" src="@Url.ContentLink("/Content/Customer/images/arrow-up-left.gif")" class="popup-close-button" />
+    </a>
+</div>
+
+ <!-- /Dropdown Special Level -->
+<div id="LevelListContainer" >
+    <div id="LevelList" style="width:100%" class="level-0">
+    <div id="" class="levelLink level-0" data-level="0" title="None">None</div>
+    @for (var i = 1; i <= 10; i++)
+    {
+        <div id="" class="levelLink level-@(i)"  data-level="@(i)">@(i)</div>
+    }
+    </div>    
+</div>    
+<!-- /Dropdown Special Level -->
+ <!-- /Dropdown Odds Group -->
+<div id="OddsGroupListContainer" >
+    <div id="OddsGroupList" style="width:100%">
+    <div class="oddsGroupLink group-A" data-group="A" title="A">A</div>
+    <div class="oddsGroupLink group-B" data-group="B" title="B">B</div>
+    <div class="oddsGroupLink group-C" data-group="C" title="C">C</div>
+    <div class="oddsGroupLink group-D" data-group="D" title="D">D</div>
+    </div>
+</div>    
+<!-- /Dropdown Odds Group  -->

@@ -60,6 +60,7 @@ function generateConfig(environment) {
             [`${jsPath}/pages/betlist/lastbetmonitoring`]: [pathConfig.scriptPaths.lastbetmonitoring],
             [`${jsPath}/pages/customer/commgrouplist`]: [pathConfig.scriptPaths.customercommgrouplist],
             [`${jsPath}/pages/customer/loginlog`]: [pathConfig.scriptPaths.loginlog],
+            [`${jsPath}/pages/customer/customerlist`]: [pathConfig.scriptPaths.customerlist],
 
             [`${cssPath}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
             [`${cssPath}/pages/reports/livereport`]: pathConfig.cssPaths.livereport,
