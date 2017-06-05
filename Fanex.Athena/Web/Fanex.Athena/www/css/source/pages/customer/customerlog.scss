@@ -40,7 +40,7 @@ $bgHeader: #BCC5CC;
         width: 40%;
         border: 1px solid #d6d6d6;
         border-radius: 3px;
-        margin: 3px auto;
+        margin: 2px auto;
 
         &:before {
             content: "\A0";
@@ -53,10 +53,10 @@ $bgHeader: #BCC5CC;
         th, td {
             border-right: 1px solid $colorBorderTable;
             text-align: center !important;
-            padding: 2px;
+            padding: 2px 0 !important;
 
             &:last-child {
-                border-right: none;
+                border-right: none !important;
             }
         }
 
@@ -73,6 +73,10 @@ $bgHeader: #BCC5CC;
                 border: none;
                 border-top: 1px solid $colorBorderTable;
                 text-align: center;
+
+                .old-value {
+                    border-top: 1px solid $colorBorder;
+                }
             }
         }
 
