@@ -14,5 +14,6 @@
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelRunningByBettype" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_Forecast_SelByMatch" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_LicenseeBonus_Detail" EnvironmentText="_UAT1"></SpNameConfig>
-  
+
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
