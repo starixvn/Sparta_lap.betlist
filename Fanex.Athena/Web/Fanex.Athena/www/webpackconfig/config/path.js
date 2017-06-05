@@ -48,6 +48,7 @@ var cssPaths = {
     winlossbybettype: ["./www/css/source/pages/report/winlossbybettype.scss"],
     lastbetmonitoring: ["./www/css/source/pages/betlist/lastbetmonitoring.scss"],
     customercommgrouplist: ["./www/css/source/pages/customer/commgrouplist.scss"],
+    customercommgroupdetail: ["./www/css/source/pages/customer/commgrouplist-detail.scss"],
     customerlog: ["./www/css/source/pages/customer/customerlog.scss"],
     customerlist: ["./www/css/source/pages/customer/customerlist.scss"]
 };
@@ -99,6 +100,7 @@ var scriptPaths = {
     winlossbybettype: "./www/js/source/pages/report/winlossbybettype/main.js",
     lastbetmonitoring: "./www/js/source/pages/betlist/lastbetmonitoring/main.js",
     customercommgrouplist: "./www/js/source/pages/customer/customercomm/main-commgrouplist.js",
+    customercommgroupdetail: "./www/js/source/pages/customer/customercomm/main-commgroupdetail.js",
     loginlog: "./www/js/source/pages/customer/customerlog/loginlog/main.js",
     customerlist: "./www/js/source/pages/customer/customerlist/main.js",
     loginlog: "./www/js/source/pages/customer/customerlog/loginlog/main.js",

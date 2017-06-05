@@ -1,4 +1,4 @@
-﻿@import '../common/reportcommon.main';
+﻿@import "commgroupcommon.scss";
 
 .header-content {
     position: relative;
@@ -29,16 +29,6 @@
     width: 60%;
     display: block;
     margin: auto;
-}
-
-.wrapContent {
-    padding: 15px;
-}
-
-.popup-button {
-    .btn {
-        margin: 10px 0 10px 10px;
-    }
 }
 
 #confirm-delete-comm-group{

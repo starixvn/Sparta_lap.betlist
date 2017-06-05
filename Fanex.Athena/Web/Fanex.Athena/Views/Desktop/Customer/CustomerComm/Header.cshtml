@@ -1,4 +1,8 @@
-﻿<div class="header-content">
+﻿@{
+    Layout = null;
+}
+
+<div class="header-content">
     @using (Html.BeginForm("ExportExcel", "CustomerComGroup", FormMethod.Post, new { @id = "CommissionGroupForm" }))
     {
         @Html.AntiForgeryToken()

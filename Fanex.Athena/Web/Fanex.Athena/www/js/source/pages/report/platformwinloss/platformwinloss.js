@@ -49,7 +49,10 @@
             _me.initSetting();
 
             MultiSelect.initProductList();
-            MonthPicker.initMonthPicker();
+            MonthPicker.initMonthPicker({
+                minDate: Site.getHistoryDate(),
+                maxDate: $("#MaxDate").val()
+            });
 
             $(window).on("resize", function () {
                 resizeGrid();

@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.GroupManagement + " - " + @ViewResources.CreateNewGroup;
+    Layout = "~/Views/Desktop/Shared/_Layout.cshtml";
+}
+@section css {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/customer/commgroupdetail.css")" rel="stylesheet" />
+}
+@section js {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/commgroupdetail.chunk.js")"></script>
+}
+
+@model Fanex.Athena.Model.Customer.MetaModel.GroupCommMetaModel
+
+<div class="row page-form">
+    <form class="col" id="customer-comm-group-add" action=@Url.Content("~/CustomerComGroup/Create") method="post">
+        @Html.AntiForgeryToken()
+        <div id="form_result">
+            @Html.ValidationSummary(true)
+            @if (ViewBag.Result != null)
+            {
+                var errorMsg = ViewBag.Result.ErrorMessage;
+
+                <div class="@(ViewBag.Result.Success ? "response-area field-validation-success" : "response-area field-validation-error")">
+                    @(ViewBag.Result.Success ? ViewBag.Result.Message : string.IsNullOrEmpty(errorMsg) ? Html.ValidationMessageFor(model => model.GroupName) : errorMsg)
+                </div>
+            }
+            else
+            {
+                <div class="validate-result response-area field-validation-error" style="display: none">
+                    @ViewResources.ChooseGroupNameMsg
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="input-field col l5 m9 s12">
+                <input type="text" id="GroupName" name="GroupName" class="validate" />
+                <label for="GroupName" data-error="" data-sucess="">@ViewResources.GroupName</label>
+            </div>
+            <div class="input-field col s5">
+                <input type="button" class="btn btn-primary" id="Validate" value="@ViewResources.Checkavailability" />
+            </div>
+        </div>
+        @{ Html.RenderPartial("~/Views/Desktop/Customer/CustomerComm/CommGroup.cshtml");}
+        <div class="row">
+            <div class="col s12">
+                <input type="checkbox" id="IsDefaultGroup" name="IsDefaultGroup" />
+                <label for="IsDefaultGroup">@ViewResources.SetAsDefaultGroup</label>
+                @Html.HiddenFor(model => model.IsResetDefault)
+                @Html.HiddenFor(model => model.DefaultGroupId)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span class="circle"></span>
+                <span>
+                    @ViewResources.GroupCommNote
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 text-bold input-field">
+                @ViewResources.GroupColor
+            </div>
+        </div>
+        <div class="row">
+            <div class="col input-field">
+                <input class="hide" id="showInput" type="text" name="showInput" />
+                @Html.HiddenFor(model => model.GroupColor)
+                @Html.ValidationMessageFor(model => model.GroupColor)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col input-field">
+                <button type="button" id="Add" class="btn btn-primary">@ViewResources.CreateGroup</button>
+                <button type="button" id="Cancel" class="btn btn-back">@ViewResources.Cancel</button>
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.LicenseeId)
+        @Html.ValidationMessageFor(model => model.LicenseeId)
+        @Html.HiddenFor(model => model.GroupCommId)
+        @Html.ValidationMessageFor(model => model.GroupCommId)
+        @Html.HiddenFor(model => model.IsUpdateNG)
+        @Html.HiddenFor(model => model.IsUpdateRacing)
+        @Html.HiddenFor(model => model.IsUpdateLC)
+        @Html.HiddenFor(model => model.IsUpdateCS)
+    </form>
+</div>

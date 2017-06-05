@@ -1,0 +1,11 @@
+﻿@import "../../components/colorpicker/spectrum";
+@import "../../components/checkbox/_checkbox";
+@import "commgroupcommon.scss";
+
+.btn-back {
+    margin: 0 10px;
+}
+
+input[type=text] + label:after {
+    top: 40px;
+}

@@ -777,6 +777,8 @@
     <Content Include="www\css\build\dev\pages\betlist\lastbetmonitoring.css" />
     <Content Include="www\css\build\dev\pages\betlist\systemparlaydetail.chunk.js" />
     <Content Include="www\css\build\dev\pages\betlist\systemparlaydetail.css" />
+    <Content Include="www\css\build\dev\pages\customer\commgroupdetail.chunk.js" />
+    <Content Include="www\css\build\dev\pages\customer\commgroupdetail.css" />
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.chunk.js" />
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.css" />
     <Content Include="www\css\build\dev\pages\customer\customerlist.chunk.js" />
@@ -837,8 +839,14 @@
     <Content Include="Views\Desktop\Customer\CustomerComm\GroupCommList.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerComm\Header.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerComm\Content.cshtml" />
+    <Content Include="www\css\build\images\checked-dark.png" />
+    <Content Include="www\css\build\images\checked-light.png" />
+    <Content Include="www\css\build\images\transparent.png" />
+    <Content Include="www\css\build\pro\pages\customer\commgroupdetail.chunk.js" />
+    <Content Include="www\css\build\pro\pages\customer\commgroupdetail.css" />
     <Content Include="www\css\build\pro\pages\customer\commgrouplist.chunk.js" />
     <Content Include="www\css\build\pro\pages\customer\commgrouplist.css" />
+    <Content Include="www\css\source\components\colorpicker\spectrum.css" />
     <Content Include="www\css\source\pages\customer\commgrouplist.scss" />
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.css.map" />
@@ -867,6 +875,12 @@
     <Content Include="Views\Desktop\Customer\CustomerLog\Action\2801.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerLog\GroupCommLog\Main.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerLog\GroupCommLog\Filter.cshtml" />
+    <Content Include="www\css\source\pages\customer\commgrouplist-detail.scss" />
+    <Content Include="Views\Desktop\Customer\CustomerComm\CommGroup.cshtml" />
+    <Content Include="Views\Desktop\Customer\CustomerComm\CreateNewGroup.cshtml" />
+    <Content Include="www\css\source\pages\customer\commgroupcommon.scss" />
+    <Content Include="www\css\build\dev\pages\customer\commgroupdetail.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\customer\commgroupdetail.css.map" />
     <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
     <Content Include="www\css\build\images\excel-icon.svg" />
@@ -1032,6 +1046,7 @@
     <Content Include="www\js\build\dev\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\lastbetmonitoring.chunk.js" />
+    <Content Include="www\js\build\dev\pages\customer\commgroupdetail.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\commgrouplist.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\customerlist.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\ahforecast.chunk.js" />
@@ -1074,6 +1089,7 @@
     <Content Include="www\js\build\pro\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\lastbetmonitoring.chunk.js" />
+    <Content Include="www\js\build\pro\pages\customer\commgroupdetail.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\commgrouplist.chunk.js" />
     <Content Include="www\js\build\pro\pages\forecast\ahforecast.chunk.js" />
     <Content Include="www\js\build\pro\pages\forecast\forecasthdpou.chunk.js" />
@@ -1175,7 +1191,9 @@
     <Content Include="www\js\source\components\navbar.js" />
     <Content Include="www\js\source\components\refreshcountdown.js" />
     <Content Include="www\js\source\components\sidebar.js" />
+    <Content Include="www\js\source\pages\customer\customercomm\commgroupdetail.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgrouplist.js" />
+    <Content Include="www\js\source\pages\customer\customercomm\main-commgroupdetail.js" />
     <Content Include="www\js\source\pages\customer\customercomm\main-commgrouplist.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.commision.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.custoption.js" />
@@ -1959,6 +1977,7 @@
     <Content Include="www\css\source\scss\fonts\roboto\Roboto-Regular.woff2" />
     <Content Include="www\js\build\dev\pages\customer\commgrouplist.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\customerlist.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\customer\commgroupdetail.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

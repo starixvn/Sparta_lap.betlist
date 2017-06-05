@@ -1,0 +1,127 @@
+﻿@{
+    Layout = null;
+}
+@model Fanex.Athena.Model.Customer.MetaModel.GroupCommMetaModel
+<div class="row">
+    <div class="col s12 text-bold input-field">
+        @ViewResources.Commission (%)
+    </div>
+</div>
+<div class="row">
+    <div class="col l2 m3 s12 input-field">
+        @ViewResources.Sportsbook
+    </div>
+    <div class="col l1 m3 s4">
+        @DesktopRazorHelper.GroupComSettingDropDownList("SBComm1", GroupCommSetting.GetCommValue(15, 1), Model.SBComm1, "select")
+        @Html.HiddenFor(model => model.SBComm)
+    </div>
+    <div class="col l1 m3 s4">
+        @DesktopRazorHelper.GroupComSettingDropDownList("SBComm2", GroupCommSetting.GetCommValue(9, 1), Model.SBComm2, "select")
+    </div>
+    <div class="col l1 m3 s4">
+        @DesktopRazorHelper.GroupComSettingDropDownList("SBComm3", GroupCommSetting.GetCommValue(1, 5), Model.SBComm3, "select")
+    </div>
+</div>
+<div class="row">
+    <div class="col l2 m3 s12 input-field">
+        @ViewResources.Parlay
+    </div>
+    <div class="col l1 m3 s4">
+        @DesktopRazorHelper.GroupComSettingDropDownList("ParlayComm1", GroupCommSetting.GetCommValue(15, 1), Model.ParlayComm1, "select")
+        @Html.HiddenFor(model => model.ParlayComm)
+    </div>
+    <div class="col l1 m3 s4">
+        @DesktopRazorHelper.GroupComSettingDropDownList("ParlayComm2", GroupCommSetting.GetCommValue(9, 1), Model.ParlayComm2, "select")
+    </div>
+    <div class="col l1 m3 s4">
+        @DesktopRazorHelper.GroupComSettingDropDownList("ParlayComm3", GroupCommSetting.GetCommValue(1, 5), Model.ParlayComm3, "select")
+    </div>
+</div>
+@if (Model.IsUpdateRacing)
+{
+    <div class="row">
+        <div class="col l2 m3 s12 input-field">
+            @ViewResources.ProductRB
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("RCComm1", GroupCommSetting.GetCommValue(15, 1), Model.RCComm1, "select")
+            @Html.HiddenFor(model => model.RCComm)
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("RCComm2", GroupCommSetting.GetCommValue(9, 1), Model.RCComm2, "select")
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("RCComm3", GroupCommSetting.GetCommValue(1, 5), Model.RCComm3, "select")
+        </div>
+    </div>
+}
+else
+{
+    @Html.HiddenFor(model => model.RCComm)
+}
+@if (Model.IsUpdateNG)
+{
+    <div class="row">
+        <div class="col l2 m3 s12 input-field">
+            @ViewResources.ProductNG
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("NGComm1", GroupCommSetting.GetCommValue(15, 1), Model.NGComm1, "select")
+            @Html.HiddenFor(model => model.NGComm)
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("NGComm2", GroupCommSetting.GetCommValue(9, 1), Model.NGComm2, "select")
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("NGComm3", GroupCommSetting.GetCommValue(1, 5), Model.NGComm3, "select")
+        </div>
+    </div>
+}
+else
+{
+    @Html.HiddenFor(model => model.NGComm)
+}
+@if (Model.IsUpdateLC)
+{
+    <div class="row">
+        <div class="col l2 m3 s12 input-field">
+            @ViewResources.ProductLC
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("LCComm1", GroupCommSetting.GetCommValue(15, 1), Model.LCComm1, "select")
+            @Html.HiddenFor(model => model.LCComm)
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("LCComm2", GroupCommSetting.GetCommValue(9, 1), Model.LCComm2, "select")
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("LCComm3", GroupCommSetting.GetCommValue(1, 5), Model.LCComm3, "select")
+        </div>
+    </div>
+}
+else
+{
+    @Html.HiddenFor(model => model.LCComm)
+}
+@if (Model.IsUpdateCS)
+ {
+    <div class="row">
+        <div class="col l2 m3 s12 input-field">
+            @ViewResources.ProductCS
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("CSComm1", GroupCommSetting.GetCommValue(15, 1), Model.CSComm1, "select")
+            @Html.HiddenFor(model => model.CSComm)
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("CSComm2", GroupCommSetting.GetCommValue(9, 1), Model.CSComm2, "select")
+        </div>
+        <div class="col l1 m3 s4">
+            @DesktopRazorHelper.GroupComSettingDropDownList("CSComm3", GroupCommSetting.GetCommValue(1, 5), Model.CSComm3, "select")
+        </div>
+    </div>
+}
+else
+{
+    @Html.HiddenFor(model => model.CSComm)
+}
