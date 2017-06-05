@@ -1,0 +1,83 @@
+﻿@using Fanex.Common
+@{
+    const string FormatComm = "0.####";
+    var sbComm = Converter.ToDecimal(Model.Data["SBComm"]);
+    var sbCommOld = Converter.ToDecimal(Model.Data["SBCommOld"]);
+    var rbComm = Converter.ToDecimal(Model.Data["RacingComm"]);
+    var rbCommOld = Converter.ToDecimal(Model.Data["RacingCommOld"]);
+    var ngComm = Converter.ToDecimal(Model.Data["NGComm"]);
+    var ngCommOld = Converter.ToDecimal(Model.Data["NGCommOld"]);
+    var lcComm = Converter.ToDecimal(Model.Data["LCComm"]);
+    var lcCommOld = Converter.ToDecimal(Model.Data["LCCommOld"]);
+    var csComm = Converter.ToDecimal(Model.Data["RNGComm"]);
+    var csCommOld = Converter.ToDecimal(Model.Data["RNGCommOld"]);
+    var groupId = Model.Data["GroupCommID"];
+    var groupOld = Model.Data["GroupCommIDOld"];
+
+    var isChangeSbComm = sbComm != sbCommOld;
+    var isChangeRacingComm = rbComm != rbCommOld;
+    var isChangeNgComm = ngComm != ngCommOld;
+    var isChangeLcComm = lcComm != lcCommOld;
+    var isChangeCsComm = csComm != csCommOld;
+    var isChangeGroupId = groupId != groupOld;
+
+    var sbCommTitle = sbCommOld.ToString(FormatComm) + "-->" + sbComm.ToString(FormatComm);
+    var RacingCommTitle = rbCommOld.ToString(FormatComm) + "-->" + rbComm.ToString(FormatComm);
+    var ngCommTitle = ngCommOld.ToString(FormatComm) + "-->" + ngComm.ToString(FormatComm);
+    var lcCommTitle = lcCommOld.ToString(FormatComm) + "-->" + lcComm.ToString(FormatComm);
+    var csCommTitle = csCommOld.ToString(FormatComm) + "-->" + csComm.ToString(FormatComm);
+}
+
+@functions
+{
+    public static string GetClassName(bool isDataChanged)
+    {
+        return isDataChanged ? "old-value" : "old-value hide";
+    }
+}
+
+<table class="nested-table">
+    <thead>
+        <tr>
+            <th>@Model.Resource["SBComm"]</th>
+            <th>@Model.Resource["RBComm"]</th>
+            <th>@Model.Resource["NGComm"]</th>
+            <th>@Model.Resource["LCComm"]</th>
+            <th>@Model.Resource["CSComm"]</th>
+            <th>@Model.Resource["GroupId"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <p>@sbComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeSbComm)">@sbCommOld.ToString(FormatComm)</p>
+            </td>
+
+            <td>
+                <p>@rbComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeRacingComm)">@rbCommOld.ToString(FormatComm)</p>
+            </td>
+
+            <td>
+                <p>@ngComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeNgComm)">@ngCommOld.ToString(FormatComm)</p>
+            </td>
+
+            <td>
+                <p>@lcComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeLcComm)">@lcCommOld.ToString(FormatComm)</p>
+            </td>
+
+            <td>
+                <p>@csComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeCsComm)">@csCommOld.ToString(FormatComm)</p>
+            </td>
+
+            <td>
+                <p>@groupId</p>
+                <p class="@GetClassName(isChangeGroupId)">@groupOld</p>
+            </td>
+        </tr>
+    </tbody>
+</table>

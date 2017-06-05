@@ -1,0 +1,13 @@
+﻿@{
+
+    var status = Model.Data["Suspended"];
+}
+
+<table class="nested-table table-2-column">
+    <tbody>
+        <tr>
+            <td>@Model.Resource["Suspended"]</td>
+            <td>@(status == "1" ? Model.Resource["Yes"] : Model.Resource["No"])</td>
+        </tr>
+    </tbody>
+</table>

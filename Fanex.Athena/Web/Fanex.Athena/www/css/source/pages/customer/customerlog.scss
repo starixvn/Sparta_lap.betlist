@@ -1,6 +1,12 @@
 ﻿@import "../../components/tab/tab";
 @import "../../components/autocomplete/autocomplete";
+@import "../../components/monthpicker/monpickr";
+@import "../../components/checkbox/checkbox";
 @import "../common/reportjqgridlayout.main";
+
+$colorBorder: #ccc;
+$colorHeader: $bgHeaderTableLevel1;
+$bgHeader: #BCC5CC;
 
 .report-container {
     margin: 1.5rem;
@@ -13,9 +19,60 @@
     .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column {
         background: $bgHeaderTableLevel1;
         color: $white;
+        font-weight: normal;
     }
 
-    .main-content{
+    .main-content {
         padding-bottom: 1.5rem;
+
+        .ui-jqgrid tr.jqgrow {
+            td {
+                white-space: normal;
+
+                &.jqgrid-detail-col {
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+    .nested-table {
+        height: 100%;
+
+        th, td {
+            border-right: 1px solid $colorBorderTable;
+            text-align: center !important;
+            padding: 2px;
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+
+        thead {
+            th {
+                background-color: $bgHeader;
+                color: $colorHeader;
+                font-weight: bold;
+            }
+        }
+
+        tbody {
+            td {
+                border: none;
+                border-top: 1px solid $colorBorderTable;
+                text-align: center;
+            }
+        }
+
+        .red {
+            color: $red;
+        }
+
+        &.table-2-column {
+            td {
+                width: 50%;
+            }
+        }
     }
 }

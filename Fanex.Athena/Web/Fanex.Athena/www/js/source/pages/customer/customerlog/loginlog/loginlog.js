@@ -41,7 +41,8 @@ define(["jquery", "common/site", "components/pluginhelper/autocomplete", "./logi
                 var $reportGrid = $('#ReportGrid');
 
                 var gridOption = LoginLogOption.gridOption;
-                gridOption.colNames = Site.getSingleResource(gridOption.colNames);
+                var colNames = Site.clone(LoginLogOption.getColNames());
+                gridOption.colNames = Site.getResources(colNames);
                 gridOption.url = _me.getUrl();
 
                 gridOption.gridComplete = function () {

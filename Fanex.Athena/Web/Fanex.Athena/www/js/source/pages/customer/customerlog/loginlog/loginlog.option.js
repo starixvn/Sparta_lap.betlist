@@ -51,7 +51,7 @@ define(["jquery"], function ($) {
             rownumbers: true,
             datatype: 'json',
             height: 'auto',
-            colNames: colNameList,
+            colNames: [],
             colModel: colModelList,
             rowNum: 50,
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
@@ -65,6 +65,10 @@ define(["jquery"], function ($) {
             gridview: true,
             sortorder: "desc",
             pager: null
+        },
+
+        getColNames: function () {
+            return colNameList;
         }
     };
 
