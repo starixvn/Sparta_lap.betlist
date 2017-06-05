@@ -50,7 +50,7 @@
             $popup.flatPopup("show", isModal);
         },
 
-        openPopupWithButton(element, option, buttons) {
+        openPopupWithButton: function(element, option, buttons) {
             var $element = $(element);
 
             if ($("#" + option.id).length === 0) {

@@ -1,9 +1,10 @@
-﻿define(["jquery", "common/site", "common/querystring", "common/popup"],
-    function ($, Site, QueryString, Popup) {
+﻿define(["jquery", "common/site", "common/popup"],
+    function ($, Site, Popup) {
         "use strict";
 
-        var formSelector = "#CommissionGroupForm";
-        var excelButtonSeletor = "#ExportToExcel";
+        var FORMSELECTOR = "#CommissionGroupForm";
+        var EXCELBUTTONSELECTOR = "#ExportToExcel";
+
         var optionDeletePopup = null;
         var deleteGroupData = {
             groupId: 0,
@@ -23,8 +24,8 @@
         }
 
         function initEvent() {
-            $(excelButtonSeletor).click(function () {
-                $(formSelector).submit();
+            $(EXCELBUTTONSELECTOR).click(function () {
+                $(FORMSELECTOR).submit();
             });
         }
 
