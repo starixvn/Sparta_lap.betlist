@@ -1,6 +1,6 @@
 ﻿/*global Site,JSLINQ, QueryString, PagingHeper, jqGridAdditional, CustomerListCustOption, CustomersOption */
 /// <reference path="/@JSense.js" />
-define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './customerlist.custoption'],
+define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './customerlist.custoption', "lib/jquery.multiselect"],
     function ($, Site, jqGridAdditional, CustomerListCustOption) {
         "use strict";
 
@@ -296,7 +296,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
             }
             Site.unBlockUI();
 
-            CustomerList.addGridScrollEventToHidePopups();
+            _me.addGridScrollEventToHidePopups();
         }
 
         function convertCustomerArrayToObject(array) {
@@ -354,7 +354,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
             });
         }
 
-        return {
+        var _me = {
             updateGridGroup: function (groupid, groupName, groupColor) {
                 var count = 0;
                 var length = _checkedCustomerArray.length;
@@ -404,15 +404,17 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
             },
             ajaxPaging: function () {
                 _pagingOption = PagingHeper.getSetting();
-                CustomerList.submit();
+                _me.submit();
             },
             initialize: function () {
+                Site.initialize();
+                
                 $("#SubmitButtonComm").prop("disabled", true);
-                CustomerList.initEvent();
-                CustomerList.initPopup();
-                CustomerList.initAutoComplete();
-                CustomerList.initGridColumnOption();
-                CustomerList.initOddGroupOption();
+                _me.initEvent();
+                _me.initPopup();
+                _me.initAutoComplete();
+                _me.initGridColumnOption();
+                _me.initOddGroupOption();
                 $("#SubmitButtonComm").prop("disabled", false);
                 _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
                 _productAccess = JSON.parse($("#ProductAccess").val());
@@ -423,7 +425,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
                 });
             },
             initEvent: function () {
-                CustomerList.loadPostbackParam();
+                _me.loadPostbackParam();
 
                 $("#report-content").on("click", ".specialLevel *", function () {
                     _$specialLevelCell = $(this).parent().find("div");
@@ -447,19 +449,19 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
 
                 $('#SubmitButtonComm').click(function () {
                     _pagingOption.pageindex = 1;
-                    CustomerList.submit();
+                    _me.submit();
                 });
 
-                $("#txtUsername").click(CustomerList.setUsernameOnFocus)
-                                 .blur(CustomerList.setDefaultUsername);
+                $("#txtUsername").click(_me.setUsernameOnFocus)
+                                 .blur(_me.setDefaultUsername);
 
                 $("#report-content").on("click", ".ba-off, .ba-on", function (event) {
                     event.preventDefault();
-                    return CustomerList.updateBASetting(this);
+                    return _me.updateBASetting(this);
                 });
 
                 $("#report-content").on("click", ".cust-status-option", function () {
-                    CustomerList.viewUpdatePopUp($(this));
+                    _me.viewUpdatePopUp($(this));
                     return false;
                 });
 
@@ -468,16 +470,16 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
                     return false;
                 });
 
-                $("#popup-update").on("click", CustomerList.updateCustStatus);
-                $("#popup-close").on("click", CustomerList.closeUpdatePopUp);
+                $("#popup-update").on("click", _me.updateCustStatus);
+                $("#popup-close").on("click", _me.closeUpdatePopUp);
 
-                $("#popup-suspended").change(CustomerList.custStatusCheckedChanged);
-                $("#popup-closed").change(CustomerList.custStatusCheckedChanged);
+                $("#popup-suspended").change(_me.custStatusCheckedChanged);
+                $("#popup-closed").change(_me.custStatusCheckedChanged);
 
-                $("#bet-setting-link").on("click", CustomerListCustOption.viewBetSetting);
-                $("#bet-list-link").on("click", CustomerListCustOption.viewBetList);
-                $("#statement-link").on("click", CustomerListCustOption.viewStatement);
-                $("#login-info-link").on("click", CustomerListCustOption.viewLogInfo);
+                $("#bet-setting-link").on("click", _me.viewBetSetting);
+                $("#bet-list-link").on("click", _me.viewBetList);
+                $("#statement-link").on("click", _me.viewStatement);
+                $("#login-info-link").on("click", _me.viewLogInfo);
 
                 $("#close-cust-option-link").on("click", CustomerListCustOption.closeCustOption);
             },
@@ -590,7 +592,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
                 var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
                 if ($username.length > 0) {
                     $username.autocomplete({ serviceUrl: serUrl, minChars: 2 });
-                    CustomerList.setDefaultUsername();
+                    _me.setDefaultUsername();
                 }
             },
             initPopup: function () {
@@ -632,7 +634,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
                         Checked: element.checked
                     });
                 });
-                if (!CustomerList.hasSelectedMultiselectData(data.GridColumns)) {
+                if (!_me.hasSelectedMultiselectData(data.GridColumns)) {
                     return;
                 }
 
@@ -646,7 +648,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
                         });
                     });
 
-                    if (!CustomerList.hasSelectedMultiselectData(data.OddsGroups)) {
+                    if (!_me.hasSelectedMultiselectData(data.OddsGroups)) {
                         return;
                     }
                 }
@@ -801,7 +803,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
             // ---------------update cust status------------------------------------------------
             updateCustStatus: function () {
                 if (!window.confirm(Site.getSingleResource('ChangeStatusOfThisCustomerMsg'))) {
-                    CustomerList.closeUpdatePopUp();
+                    _me.closeUpdatePopUp();
                     return;
                 }
 
@@ -827,7 +829,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
                     },
                     complete: function () {
                         Site.unBlockUI();
-                        CustomerList.closeUpdatePopUp(custId);
+                        _me.closeUpdatePopUp(custId);
                     },
                     success: function (result) {
                         if (Number(result.Code) === 0) {
@@ -910,4 +912,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
                 }
             }
         };
+
+        return _me;
     });

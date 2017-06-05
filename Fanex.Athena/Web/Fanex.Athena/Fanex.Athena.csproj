@@ -1018,6 +1018,7 @@
     <Content Include="www\js\build\dev\pages\betlist\lastbetmonitoring.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\commgrouplist.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\commgrouplist.css" />
+    <Content Include="www\js\build\dev\pages\customer\customerlist.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\ahforecast.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\forecasthdpou.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\forecastonextwo.chunk.js" />
@@ -1937,6 +1938,7 @@
     <Content Include="www\css\source\scss\fonts\roboto\Roboto-Regular.woff2" />
     <Content Include="www\js\build\dev\pages\customer\commgrouplist.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\commgrouplist.css.map" />
+    <Content Include="www\js\build\dev\pages\customer\customerlist.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

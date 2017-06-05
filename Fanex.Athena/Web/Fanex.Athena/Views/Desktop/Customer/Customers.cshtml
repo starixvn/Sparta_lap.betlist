@@ -7,12 +7,14 @@
     @*@Styles.Render("~/bundles/CustomerLogCustomersViewStyles")*@
 }
 @section pagejs {
-    @Scripts.Render("~/bundles/CustomerLogCustomersScripts")
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/customerlist.chunk.js")"></script>
 }
 @section Filter
 {
-    @{Html.RenderPartial("~/Views/Customer/Filter.cshtml", Model);}
+    @{Html.RenderPartial("~/Views/Desktop/Customer/Filter.cshtml", Model);}
 }
+@section Content
+{
 <div id="ajax-panel">
     @if (Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
     {
@@ -88,3 +90,4 @@
     <input type="hidden" id="IsAllowedCustomerCommission" value="@(Model.IsAllowedCustomerCommission.ToString())" />
     <input type="hidden" id="ProductAccess" value="@(Model.ProductAccess.ToJson())" />
 </div>
+}

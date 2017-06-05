@@ -1,5 +1,5 @@
-﻿define(["jquery", "common/querystring", "./customerlist", "./customerlist.commision"],
-    function ($, QueryString, CustomerList, CustomerComm) {
+﻿define(["jquery", "common/site", "common/querystring", "./customerlist", "./customerlist.commision"],
+    function ($, Site, QueryString, CustomerList, CustomerComm) {
         "use strict";
 
         $(document).ready(function () {
@@ -9,7 +9,6 @@
             }
             catch (e) { }
             CustomerList.initialize();
-            Site.keepBlockingAfterInit = true;
 
             if (QueryString.getParam(window.location.href, "userName") ||
                 QueryString.getParam(window.location.href, "groupId")) {
