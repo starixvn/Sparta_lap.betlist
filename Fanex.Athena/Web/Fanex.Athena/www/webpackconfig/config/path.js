@@ -48,7 +48,8 @@ var cssPaths = {
     winlossbybettype: ["./www/css/source/pages/report/winlossbybettype.scss"],
     lastbetmonitoring: ["./www/css/source/pages/betlist/lastbetmonitoring.scss"],
     customercommgrouplist: ["./www/css/source/pages/customer/commgrouplist.scss"],
-    customerlog: ["./www/css/source/pages/customer/customerlog.scss"]
+    customerlog: ["./www/css/source/pages/customer/customerlog.scss"],
+    customerlist: ["./www/css/source/pages/customer/customerlist.scss"]
 };
 
 var scriptPaths = {

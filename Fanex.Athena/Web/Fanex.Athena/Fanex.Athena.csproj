@@ -779,6 +779,8 @@
     <Content Include="www\css\build\dev\pages\betlist\systemparlaydetail.css" />
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.chunk.js" />
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.css" />
+    <Content Include="www\css\build\dev\pages\customer\customerlist.chunk.js" />
+    <Content Include="www\css\build\dev\pages\customer\customerlist.css" />
     <Content Include="www\css\build\dev\pages\forecast\ahforecast.chunk.js" />
     <Content Include="www\css\build\dev\pages\forecast\ahforecast.css" />
     <Content Include="www\css\build\dev\pages\forecast\forecastonextwo.chunk.js" />
@@ -845,6 +847,9 @@
     <Content Include="Views\Desktop\Customer\CustomerLog\LoginLog\Main.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerLog\LoginLog\Filter.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerLog\LoginLog\Content.cshtml" />
+    <Content Include="www\css\build\dev\pages\customer\customerlist.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\customer\customerlist.css.map" />
+    <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
     <Content Include="www\css\source\components\autocomplete\_autocomplete.scss" />

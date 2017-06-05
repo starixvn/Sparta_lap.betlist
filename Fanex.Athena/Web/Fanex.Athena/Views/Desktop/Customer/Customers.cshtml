@@ -4,7 +4,7 @@
 }
 @model Fanex.Athena.Model.Customer.ViewModel.CustomerListViewModel
 @section pagecss {
-    @*@Styles.Render("~/bundles/CustomerLogCustomersViewStyles")*@
+    <link href="@Url.ContentLinkByEnv("/www/css/build/pages/customer/customerlist.css")" rel="stylesheet" />
 }
 @section pagejs {
     <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/customerlist.chunk.js")"></script>
