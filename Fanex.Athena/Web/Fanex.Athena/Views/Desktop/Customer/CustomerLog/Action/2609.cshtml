@@ -43,7 +43,7 @@
 {
     public static string GetClassName(bool isDataChanged)
     {
-        return isDataChanged ? "old-value" : "old-value hide";
+        return isDataChanged ? "old-value" : "hide";
     }
 }
 
@@ -73,29 +73,32 @@
 
             <td>
                 <p style="background-color:@groupColor;" class="group-color-box"></p>
-                <div class="@GetClassName(isChangeGroupColor)">
-                    <p title="@Model.Resource["OldColor"]" style="background-color:@groupColorOld;" class="group-color-box"></p>
-                </div>
+                <p title="@Model.Resource["OldColor"]" style="background-color:@groupColorOld;" class="group-color-box @GetClassName(isChangeGroupColor)"></p>
             </td>
 
             <td title="@sbCommTitle">
-                <p class="@GetClassName(isChangeSbComm) red">@sbCommOld.ToString(FormatComm)</p>
+                <p>@sbComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeSbComm) red-text-text">@sbCommOld.ToString(FormatComm)</p>
             </td>
 
             <td title="@RacingCommTitle">
-                <p class="@GetClassName(isChangeRacingComm) red">@rbCommOld.ToString(FormatComm)</p>
+                <p>@rbComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeRacingComm) red-text">@rbCommOld.ToString(FormatComm)</p>
             </td>
 
             <td title="@ngCommTitle">
-                <p class="@GetClassName(isChangeNgComm) red">@ngCommOld.ToString(FormatComm)</p>
+                <p>@ngComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeNgComm) red-text">@ngCommOld.ToString(FormatComm)</p>
             </td>
 
             <td title="@lcCommTitle">
-                <p class="@GetClassName(isChangeLcComm) red">@lcCommOld.ToString(FormatComm)</p>
+                <p>@lcComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeLcComm) red-text">@lcCommOld.ToString(FormatComm)</p>
             </td>
 
             <td title="@csCommTitle">
-                <p class="@GetClassName(isChangeCsComm) red">@csCommOld.ToString(FormatComm)</p>
+                <p>@csComm.ToString(FormatComm)</p>
+                <p class="@GetClassName(isChangeCsComm) red-text">@csCommOld.ToString(FormatComm)</p>
             </td>
         </tr>
     </tbody>

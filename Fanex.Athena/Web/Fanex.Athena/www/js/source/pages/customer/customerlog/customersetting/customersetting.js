@@ -1,22 +1,19 @@
 ﻿"use strict";
-define(["jquery", "common/site", "components/pluginhelper/autocomplete", "../common.option", "components/pluginhelper/monthpicker",
-    "lib/jqgrid/jquery.jqgrid.additional", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, Site, AutoComplete, CommonOption, MonthPicker, jqGridAdditional) {
+define(["jquery", "common/site", "components/pluginhelper/autocomplete", "../common.option",
+    "components/pluginhelper/monthpicker", "../customerlog.service"],
+    function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLog) {
         var _me = {
             initialize: function () {
-                Site.initialize();
-                Site.addUserGuide({
-                    resourceName: "CustomerLog",
-                    title: Site.getSingleResource("CustomerLog")
-                });
+                CustomerLog.initialize();
+                _me.initEvent();
+
                 AutoComplete.initialize({
                     url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
                     target: "#Username"
                 });
 
                 MonthPicker.initMonthPicker({ minDate: $('#MinDate').val() });
-
-                _me.initEvent();
+                
 
                 // Set menu active
                 $('#customersettinglogTab').addClass('active');
@@ -24,60 +21,30 @@ define(["jquery", "common/site", "components/pluginhelper/autocomplete", "../com
 
             initEvent: function () {
                 $('#SubmitButton').on('click', function () {
-                    _me.submit();
+                    _me.loadGrid();
                 });
 
                 $('#Username').keyup(function (e) {
                     if (e.keyCode === 13) {
-                        _me.submit();
+                        _me.loadGrid();
                     }
                 });
 
                 $('#showall').on('change', function () {
-                    _me.checkShowAll();
+                    CustomerLog.checkShowAll();
                 });
             },
 
-            checkShowAll: function(){
-                var checked = $('#showall').is(':checked');
-                $('.old-value').toggle(checked);
-            },
-
-            submit: function () {
-                Site.blockUI();
-                _me.loadGrid();
-            },
-
             loadGrid: function () {
-                var ReportId = "ReportGrid";
-                jqGridAdditional.clearGrid(ReportId);
-                var $reportGrid = $('#ReportGrid');
-
-                var colNames = Site.clone(CommonOption.getColNames());
-                CommonOption.colNames = Site.getResources(colNames);
-
                 var gridOption = CommonOption.gridOption;
                 var url = _me.getUrl();
                 gridOption.url = url + '&ViewById=' + $('#ViewBy').val();
+                
+                var colNames = Site.clone(CommonOption.getColNames());
+                gridOption.colNames = Site.getResources(colNames);
 
-                gridOption.gridComplete = function () {
-                    jqGridAdditional.gridComplete();
-
-                    // Check noinfo
-                    var recCount = $reportGrid.getGridParam("reccount");
-                    if (recCount === 0) {
-                        jqGridAdditional.clearGrid(ReportId);
-                        jqGridAdditional.setNoInfo();
-                    }
-                    else {
-                        _me.checkShowAll();
-                        jqGridAdditional.updateGridHeight();
-                        jqGridAdditional.updateGridWidth($reportGrid);
-                    }
-
-                    Site.unBlockUI();
-                };
-                $reportGrid.jqGrid(gridOption);
+                var hasCheckbox = true;
+                CustomerLog.loadGrid(gridOption, hasCheckbox);
             },
 
             getUrl: function () {

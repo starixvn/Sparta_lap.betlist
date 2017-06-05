@@ -102,7 +102,8 @@ var scriptPaths = {
     loginlog: "./www/js/source/pages/customer/customerlog/loginlog/main.js"
     customerlist: "./www/js/source/pages/customer/customerlist/main.js",
     loginlog: "./www/js/source/pages/customer/customerlog/loginlog/main.js",
-    customersetting: "./www/js/source/pages/customer/customerlog/customersetting/main.js"
+    customersetting: "./www/js/source/pages/customer/customerlog/customersetting/main.js",
+    groupcommission: "./www/js/source/pages/customer/customerlog/groupcommission/main.js"
 };
 
 module.exports = {

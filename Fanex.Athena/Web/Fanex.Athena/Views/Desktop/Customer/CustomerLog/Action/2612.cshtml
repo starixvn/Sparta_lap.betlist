@@ -32,7 +32,12 @@
 {
     public static string GetClassName(bool isDataChanged)
     {
-        return isDataChanged ? "old-value" : "old-value hide";
+        return isDataChanged ? "old-value" : "hide";
+    }
+
+    public static string GetCellStyle(bool isDataChange, string title)
+    {
+        return isDataChange ? "class=red-text title=" + title + "" : string.Empty;
     }
 }
 
@@ -49,32 +54,32 @@
     </thead>
     <tbody>
         <tr>
-            <td>
+            <td @GetCellStyle(isChangeSbComm, sbCommTitle)>
                 <p>@sbComm.ToString(FormatComm)</p>
                 <p class="@GetClassName(isChangeSbComm)">@sbCommOld.ToString(FormatComm)</p>
             </td>
 
-            <td>
+            <td @GetCellStyle(isChangeRacingComm, RacingCommTitle)>
                 <p>@rbComm.ToString(FormatComm)</p>
                 <p class="@GetClassName(isChangeRacingComm)">@rbCommOld.ToString(FormatComm)</p>
             </td>
 
-            <td>
+            <td  @GetCellStyle(isChangeNgComm, ngCommTitle)>
                 <p>@ngComm.ToString(FormatComm)</p>
                 <p class="@GetClassName(isChangeNgComm)">@ngCommOld.ToString(FormatComm)</p>
             </td>
 
-            <td>
+            <td  @GetCellStyle(isChangeLcComm, lcCommTitle)>
                 <p>@lcComm.ToString(FormatComm)</p>
                 <p class="@GetClassName(isChangeLcComm)">@lcCommOld.ToString(FormatComm)</p>
             </td>
 
-            <td>
+            <td  @GetCellStyle(isChangeCsComm, csCommTitle)>
                 <p>@csComm.ToString(FormatComm)</p>
                 <p class="@GetClassName(isChangeCsComm)">@csCommOld.ToString(FormatComm)</p>
             </td>
 
-            <td>
+            <td @(isChangeGroupId ? "class='red-text'" : string.Empty)>
                 <p>@groupId</p>
                 <p class="@GetClassName(isChangeGroupId)">@groupOld</p>
             </td>

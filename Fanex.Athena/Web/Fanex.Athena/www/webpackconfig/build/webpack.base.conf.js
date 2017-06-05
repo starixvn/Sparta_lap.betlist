@@ -62,6 +62,7 @@ function generateConfig(environment) {
             [`${jsPath}/pages/customer/loginlog`]: [pathConfig.scriptPaths.loginlog],
             [`${jsPath}/pages/customer/customerlist`]: [pathConfig.scriptPaths.customerlist],
             [`${jsPath}/pages/customer/customersetting`]: [pathConfig.scriptPaths.customersetting],
+            [`${jsPath}/pages/customer/groupcommission`]: [pathConfig.scriptPaths.groupcommission],
 
             [`${cssPath}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
             [`${cssPath}/pages/reports/livereport`]: pathConfig.cssPaths.livereport,

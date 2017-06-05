@@ -36,6 +36,17 @@ $bgHeader: #BCC5CC;
         }
     }
 
+    .group-color-box {
+        width: 40%;
+        border: 1px solid #d6d6d6;
+        border-radius: 3px;
+        margin: 3px auto;
+
+        &:before {
+            content: "\A0";
+        }
+    }
+
     .nested-table {
         height: 100%;
 
@@ -63,10 +74,6 @@ $bgHeader: #BCC5CC;
                 border-top: 1px solid $colorBorderTable;
                 text-align: center;
             }
-        }
-
-        .red {
-            color: $red;
         }
 
         &.table-2-column {

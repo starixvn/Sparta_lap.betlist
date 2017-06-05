@@ -846,7 +846,6 @@
     <Content Include="Views\Desktop\Customer\CustomerLog\Menu.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerLog\LoginLog\Main.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerLog\LoginLog\Filter.cshtml" />
-    <Content Include="Views\Desktop\Customer\CustomerLog\LoginLog\Content.cshtml" />
     <Content Include="www\css\build\dev\pages\customer\customerlist.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\customer\customerlist.css.map" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
@@ -866,6 +865,8 @@
     <Content Include="Views\Desktop\Customer\CustomerLog\Action\2610.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerLog\Action\2611.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerLog\Action\2801.cshtml" />
+    <Content Include="Views\Desktop\Customer\CustomerLog\GroupCommLog\Main.cshtml" />
+    <Content Include="Views\Desktop\Customer\CustomerLog\GroupCommLog\Filter.cshtml" />
     <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
     <Content Include="www\css\build\images\excel-icon.svg" />
@@ -1182,8 +1183,11 @@
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.option.js" />
     <Content Include="www\js\source\pages\customer\customerlist\main.js" />
     <Content Include="www\js\source\pages\customer\customerlog\common.option.js" />
+    <Content Include="www\js\source\pages\customer\customerlog\customerlog.service.js" />
     <Content Include="www\js\source\pages\customer\customerlog\customersetting\customersetting.js" />
     <Content Include="www\js\source\pages\customer\customerlog\customersetting\main.js" />
+    <Content Include="www\js\source\pages\customer\customerlog\groupcommission\groupcommission.js" />
+    <Content Include="www\js\source\pages\customer\customerlog\groupcommission\main.js" />
     <Content Include="www\js\source\pages\customer\customerlog\loginlog\loginlog.js" />
     <Content Include="www\js\source\pages\customer\customerlog\loginlog\loginlog.option.js" />
     <Content Include="www\js\source\pages\customer\customerlog\loginlog\main.js" />

@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_CustomerLogLayout.cshtml";
+    ViewBag.Title = "LRF - Customer Log - Group Commission Log";
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/groupcommission.chunk.js")"></script>
+}
+@section Menu
+{
+    @{
+        Html.RenderPartial("~/Views/Desktop/Customer/CustomerLog/Menu.cshtml");
+    }
+}
+@section Filter
+{
+    @{
+        Html.RenderPartial("~/Views/Desktop/Customer/CustomerLog/GroupCommLog/Filter.cshtml");
+    }
+}

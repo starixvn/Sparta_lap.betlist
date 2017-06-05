@@ -28,7 +28,7 @@ define(["jquery"], function ($) {
         index: 'EditedBy',
         resizable: false,
         width: 80,
-        align: 'left',
+        align: 'center',
         valign: 'middle',
         sortable: true
     };
