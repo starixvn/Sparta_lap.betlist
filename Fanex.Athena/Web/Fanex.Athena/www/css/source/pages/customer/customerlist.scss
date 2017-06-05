@@ -1,4 +1,6 @@
-﻿/* Common element*/
+﻿@import '../../components/label/label';
+@import '../../components/paging/paging';
+/* Common element*/
 
 
 .specialLevel div
@@ -107,11 +109,12 @@ a.underline
     text-align: right;
     float: right;
     padding-right: 5px;
+    color: #fff;
 }
 
 .num-of-customer
 {
-    color: Red;
+    color: #FFCE33;
 }
 .commission-color
 {

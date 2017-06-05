@@ -1,7 +1,7 @@
-﻿/*global Site,JSLINQ, QueryString, PagingHeper, jqGridAdditional, CustomerListCustOption, CustomersOption */
-/// <reference path="/@JSense.js" />
-define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './customerlist.custoption', "lib/jquery.multiselect"],
-    function ($, Site, jqGridAdditional, CustomerListCustOption) {
+﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './customerlist.custoption', './customerlist.option',
+    "components/paging",
+    "lib/jquery.multiselect", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension"],
+    function ($, Site, jqGridAdditional, CustomerListCustOption, CustomerListOption, PagingHelper) {
         "use strict";
 
         var ajaxRequest = null;
@@ -194,7 +194,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
         }
 
         function processGridOption(hasData, showingColumns) {
-            var gridOption = CustomersOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
+            var gridOption = CustomerListOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
 
             // Change formatter for Index col
             if (hasData && _isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
@@ -243,7 +243,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
             _pagingOption.totalrow = parseInt(response.TotalRows);
             if (_pagingOption.totalrow > 0) {
                 $(".paging").show();
-                PagingHeper.render(_pagingOption);
+                PagingHelper.render(_pagingOption);
             }
 
             var hasData = response !== null && response.TotalRows > 0;
@@ -257,7 +257,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
             $(".report-title").removeClass("hide");
             // Show the grid
             reportGrid.jqGrid(gridOption);
-            CustomersOption.setGroupHeaderColumns(reportGrid);
+            CustomerListOption.setGroupHeaderColumns(reportGrid);
 
             if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
                 $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' class='' id='CheckAll' />");
@@ -277,6 +277,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
 
             $(".paging").width(gridWidth);
             $(".report-title").width(gridWidth - 25);
+            $(".panel-heading").removeClass("hide");
             $(".content-filter").width(Math.max(1040, gridWidth));
             var gridTop = reportGrid.offset().top;
             var gridHeight = $(window).height() - gridTop - 50;
@@ -290,7 +291,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
                 $("div.paging").hide();
             }
 
-            jqGridAdditional.resizeGrid();
             if (keepScrollPosition === true) {
                 $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
             }
@@ -447,7 +447,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
                     setOddsGroup(_$oddsGroupCell, group);
                 });
 
-                $('#SubmitButtonComm').click(function () {
+                $('#SubmitButton').click(function () {
                     _pagingOption.pageindex = 1;
                     _me.submit();
                 });
@@ -680,7 +680,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './custo
                     dataType: "json",
                     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                     cache: false,
-                    url: Site.resolveClientUrl(CustomersOption.urlData),
+                    url: Site.resolveClientUrl(CustomerListOption.urlData),
                     success: function (response) {
                         _cacheData = response;
                         bindData(response);
