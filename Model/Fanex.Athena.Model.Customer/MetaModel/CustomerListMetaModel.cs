@@ -24,7 +24,6 @@ namespace Fanex.Athena.Model.Customer.MetaModel
             CustStatus = string.Empty;
             SpecialLevel = -1;
             GroupCommId = 0;
-            AllowLicensees = new List<string>();
         }
 
         public string Username { get; set; }
@@ -46,7 +45,7 @@ namespace Fanex.Athena.Model.Customer.MetaModel
 
         public int GroupCommId { get; set; }
 
-        public IList<string> AllowLicensees { get; set; }
+        public bool IsShowStatusDropdown { get; set; }
 
         public IList<CheckedItem> GridColumns { get; set; }
 

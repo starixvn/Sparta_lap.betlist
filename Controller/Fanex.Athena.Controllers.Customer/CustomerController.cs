@@ -66,16 +66,16 @@ namespace Fanex.Athena.Controllers.Customer
         [HttpGet]
         public ActionResult CustomerList(string userName = "", int groupId = -1)
         {
-            var licenseeSession = SessionService.LicenseeSession;
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userSession = SessionService.UserSession;
-            var productAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+            var productAccess = this._productService.GetProductAccess(licenseeId, userSession.Language);
             var allowLicensees = GetAllowLicenseesForStatusFunction();
             var metaModel = new CustomerListMetaModel
             {
                 Username = userName == ViewResources.ExternalIdOrSystemId ? string.Empty : userName,
                 GroupCommId = groupId,
-                LicenseeId = licenseeSession.LicenseeId,
-                AllowLicensees = allowLicensees,
+                LicenseeId = licenseeId,
+                IsShowStatusDropdown = allowLicensees.Contains(licenseeId.ToString()),
                 GridColumns = this.InitGridColumns(productAccess.IsAllowBA, allowLicensees),
                 OddsGroups = GetOddsGroups()
             };
@@ -96,7 +96,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
+            metaModel.IsShowStatusDropdown = GetAllowLicenseesForStatusFunction().Contains(metaModel.LicenseeId.ToString());
             metaModel.Username = metaModel.Username == ViewResources.ExternalIdOrSystemId ? string.Empty : metaModel.Username;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var totalRows = 0;
@@ -124,9 +124,9 @@ namespace Fanex.Athena.Controllers.Customer
             var metaModel = JsonConvert.DeserializeObject<CustomerListMetaModel>(excelParam);
             if (metaModel != null)
             {
-                var licenseeSession = SessionService.LicenseeSession;
-                metaModel.AllowLicensees = GetAllowLicenseesForStatusFunction();
-                metaModel.LicenseeId = licenseeSession.LicenseeId;
+                var licenseeId = SessionService.LicenseeSession.LicenseeId;
+                metaModel.IsShowStatusDropdown = GetAllowLicenseesForStatusFunction().Contains(licenseeId.ToString());
+                metaModel.LicenseeId = licenseeId;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
                 if (metaModel.GridColumns.Any(i => i.Checked))
