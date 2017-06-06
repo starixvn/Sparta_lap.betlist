@@ -4,7 +4,7 @@ define(["jquery"], function ($) {
         name: 'LogId',
         index: 'LogId',
         resizable: false,
-        width: 50,
+        width: 62,
         align: 'center',
         sortable: false
     };
@@ -12,7 +12,7 @@ define(["jquery"], function ($) {
         name: 'LogDate',
         index: 'LogDate',
         resizable: false,
-        width: 60,
+        width: 80,
         align: 'center',
         valign: 'middle',
         sortable: false,
@@ -44,7 +44,7 @@ define(["jquery"], function ($) {
         name: 'Details',
         index: 'Details',
         resizable: false,
-        width: 600,
+        width: 500,
         align: 'center',
         title: false,
         sortable: false,
