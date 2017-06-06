@@ -175,6 +175,7 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "lib/jquery.marquee",
                 if (message) {
                     if ($parent.is(":hidden")) {
                         $parent.slideDown('fast');
+                        $('#mainFrame').css('height', 'calc(100% - 30px)');
                     }
 
                     if (message !== previousText && "marquee" in $marquee) {
@@ -185,9 +186,11 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "lib/jquery.marquee",
                 } else {
                     $marquee.marquee("stop");
                     $parent.slideUp('fast');
+                    $('#mainFrame').css('height', '100%');
                 }
             });
         }
+
         processNotification();
         setInterval(processNotification, 60000);
     }

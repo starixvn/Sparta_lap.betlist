@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Api.Base
 {
-    using System.Configuration;
     using System.Web.Http;
     using Attributes;
     using ONEbook.UM.Filters;
@@ -20,6 +19,8 @@ namespace Fanex.Athena.Api.Base
     [XFrameOptionApi]
     public class CommonApiController : ApiController
     {
+        private const string DefaultLanguage = "en-US";
+
         private readonly IMoveBetService _moveBetService;
 
         private readonly ILanguageService _languageService;
@@ -35,8 +36,17 @@ namespace Fanex.Athena.Api.Base
         {
             var moveBet = _moveBetService.GetMoveBetNotification();
             var language = _languageService.GetCurrentLanguage();
+            var result = string.Empty;
+            if (moveBet.ContentByLanguage.ContainsKey(language))
+            {
+                result = moveBet.ContentByLanguage[language];
+            }
+            else if (moveBet.ContentByLanguage.ContainsKey(DefaultLanguage))
+            {
+                result = moveBet.ContentByLanguage[DefaultLanguage];
+            }
 
-            return moveBet.ContentByLanguage.ContainsKey(language) ? moveBet.ContentByLanguage[language] : string.Empty;
+            return result ?? string.Empty;
         }
     }
 }
