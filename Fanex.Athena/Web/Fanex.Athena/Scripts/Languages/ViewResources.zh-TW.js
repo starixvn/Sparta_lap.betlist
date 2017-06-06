@@ -1,4 +1,4 @@
-﻿// Generated at: 5/9/2017 10:28:41 AM
+﻿// Generated at: 6/6/2017 11:25:19 AM
 var _language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -81,6 +81,10 @@ BySportsType:"根據運動類型",
 Cancel:"取消",
 CancelledBets:"已刪除/作廢注單",
 CancelledBetsTitle:"作廢/已刪除注單（3天紀錄）",
+CashOutAmount:"即時兌現金額",
+CashOutDetails:"即時兌現詳情",
+CashOutStake:"即時兌現本金",
+CashOutTicketsList:"即時兌現注單",
 CashOutWinLoss:"即時兌現輸贏",
 CASINOHANDHISTORY:"賭場下注歷史",
 CasinoProgressiveWinsGuidelineContent:"此報告提供最新數據。 您每次查詢可以過濾最多12個月內的數據。",

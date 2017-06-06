@@ -2510,4 +2510,16 @@
     <value>即时兑现输赢</value>
     <comment>Cash Out Win Loss</comment>
   </data>
+  <data name="CashOutAmount" xml:space="preserve">
+    <value>预先兑现金额</value>
+  </data>
+  <data name="CashOutDetails" xml:space="preserve">
+    <value>预先兑现详情</value>
+  </data>
+  <data name="CashOutStake" xml:space="preserve">
+    <value>预先兑现赌注</value>
+  </data>
+  <data name="CashOutTicketsList" xml:space="preserve">
+    <value>预先兑现投注单</value>
+  </data>
 </root>

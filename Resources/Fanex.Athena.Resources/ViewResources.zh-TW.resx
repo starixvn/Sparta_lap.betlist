@@ -2509,4 +2509,16 @@
     <value>即時兌現輸贏</value>
     <comment>Cash Out Win Loss</comment>
   </data>
+  <data name="CashOutAmount" xml:space="preserve">
+    <value>即時兌現金額</value>
+  </data>
+  <data name="CashOutDetails" xml:space="preserve">
+    <value>即時兌現詳情</value>
+  </data>
+  <data name="CashOutStake" xml:space="preserve">
+    <value>即時兌現本金</value>
+  </data>
+  <data name="CashOutTicketsList" xml:space="preserve">
+    <value>即時兌現注單</value>
+  </data>
 </root>
