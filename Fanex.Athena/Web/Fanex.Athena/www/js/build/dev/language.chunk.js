@@ -15,7 +15,7 @@ webpackJsonp([35],{
 /***/ 84:
 /***/ function(module, exports) {
 
-	// Generated at: 6/6/2017 11:25:35 AM
+	// Generated at: 6/6/2017 1:23:39 PM
 	window._language_en_US = {
 	AA:"AA",
 	AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -948,7 +948,7 @@ webpackJsonp([35],{
 /***/ 85:
 /***/ function(module, exports) {
 
-	// Generated at: 6/6/2017 11:25:35 AM
+	// Generated at: 6/6/2017 1:23:39 PM
 	window._language_zh_CN = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1025,6 +1025,10 @@ webpackJsonp([35],{
 	BingoExcludedNote:"Bingo is not included in the report",
 	BONTeamToScore:"双方/一方/两者皆不得分",
 	Bonus:"红利",
+	BoughtAmount:"买的金额",
+	BoughtDetails:"买的详细资料",
+	BoughtStake:"买的投注额",
+	BoughtTicketsList:"买的注单",
 	ByBetType:"根据投注类型",
 	ByCurrency:"根据货币",
 	BySportsType:"根据运动类型",
@@ -1740,7 +1744,7 @@ webpackJsonp([35],{
 /***/ 86:
 /***/ function(module, exports) {
 
-	// Generated at: 6/6/2017 11:25:35 AM
+	// Generated at: 6/6/2017 1:23:39 PM
 	window._language_zh_TW = {
 	AA:"客客",
 	AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -1817,6 +1821,10 @@ webpackJsonp([35],{
 	BingoExcludedNote:"Bingo is not included in the report",
 	BONTeamToScore:"雙方/一方/兩者皆不得分",
 	Bonus:"紅利",
+	BoughtAmount:"買的金額",
+	BoughtDetails:"買的詳細資料",
+	BoughtStake:"買的投注額",
+	BoughtTicketsList:"買的注單",
 	ByBetType:"根據投注類型",
 	ByCurrency:"根據貨幣",
 	BySportsType:"根據運動類型",
@@ -2532,7 +2540,7 @@ webpackJsonp([35],{
 /***/ 87:
 /***/ function(module, exports) {
 
-	// Generated at: 6/6/2017 11:25:35 AM
+	// Generated at: 6/6/2017 1:23:39 PM
 	window._language_zh_Hans = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -3315,7 +3323,7 @@ webpackJsonp([35],{
 /***/ 88:
 /***/ function(module, exports) {
 
-	// Generated at: 6/6/2017 11:25:35 AM
+	// Generated at: 6/6/2017 1:23:39 PM
 	window._language_ko_KR = {
 	AA:"AA",
 	AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
