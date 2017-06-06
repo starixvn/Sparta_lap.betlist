@@ -1232,16 +1232,21 @@ webpackJsonp([48],{
 	        var apiUrl = Site.resolveClientUrl("api/CommonApi/GetMoveBetNotification");
 	        function processNotification() {
 	            $.get(apiUrl, function (message) {
+	                if (message === previousText)
+	                {
+	                    return;
+	                }
+	
+	                previousText = message;
 	                if (message) {
 	                    if ($parent.is(":hidden")) {
 	                        $parent.slideDown('fast');
 	                        $('#mainFrame').css('height', 'calc(100% - 30px)');
 	                    }
 	
-	                    if (message !== previousText && "marquee" in $marquee) {
+	                    if ("marquee" in $marquee) {
 	                        $marquee.text(message);
 	                        $marquee.marquee({ speed: 30 });
-	                        previousText = message;
 	                    }
 	                } else {
 	                    $marquee.marquee("stop");
