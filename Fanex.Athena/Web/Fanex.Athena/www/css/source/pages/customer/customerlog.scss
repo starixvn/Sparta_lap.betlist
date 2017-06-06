@@ -25,14 +25,19 @@ $bgHeader: #BCC5CC;
     .main-content {
         padding-bottom: 1.5rem;
 
-        .ui-jqgrid tr.jqgrow {
-            td {
-                white-space: normal;
+        .ui-jqgrid {
+            tr.jqgrow {
+                td {
+                    white-space: normal;
 
-                &.jqgrid-detail-col {
-                    padding: 0;
-                    height: auto;
+                    &.jqgrid-detail-col {
+                        padding: 0;
+                    }
                 }
+            }
+
+            .ui-jqgrid-btable {
+                height: 0; // Hack for IE's bug
             }
         }
     }
