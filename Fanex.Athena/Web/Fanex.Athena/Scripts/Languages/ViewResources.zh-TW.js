@@ -1,4 +1,4 @@
-﻿// Generated at: 6/6/2017 11:25:19 AM
+﻿// Generated at: 6/6/2017 1:23:23 PM
 var _language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -75,6 +75,10 @@ Bingo:"賓果",
 BingoExcludedNote:"Bingo is not included in the report",
 BONTeamToScore:"雙方/一方/兩者皆不得分",
 Bonus:"紅利",
+BoughtAmount:"買的金額",
+BoughtDetails:"買的詳細資料",
+BoughtStake:"買的投注額",
+BoughtTicketsList:"買的注單",
 ByBetType:"根據投注類型",
 ByCurrency:"根據貨幣",
 BySportsType:"根據運動類型",

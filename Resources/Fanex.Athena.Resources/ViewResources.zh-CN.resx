@@ -2522,4 +2522,16 @@
   <data name="CashOutTicketsList" xml:space="preserve">
     <value>预先兑现投注单</value>
   </data>
+  <data name="BoughtAmount" xml:space="preserve">
+    <value>买的金额</value>
+  </data>
+  <data name="BoughtDetails" xml:space="preserve">
+    <value>买的详细资料</value>
+  </data>
+  <data name="BoughtStake" xml:space="preserve">
+    <value>买的投注额</value>
+  </data>
+  <data name="BoughtTicketsList" xml:space="preserve">
+    <value>买的注单</value>
+  </data>
 </root>
