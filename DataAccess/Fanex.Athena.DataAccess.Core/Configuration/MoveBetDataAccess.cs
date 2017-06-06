@@ -31,6 +31,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
                             moveBet.ContentByLanguage.Add("en-US", reader.ToString("Content_EN"));
                             moveBet.ContentByLanguage.Add("zh-CN", reader.ToString("Content_CS"));
                             moveBet.ContentByLanguage.Add("zh-TW", reader.ToString("Content_CH"));
+                            moveBet.ContentByLanguage.Add("zh-Hans", reader.ToString("Content_CN"));
                             moveBet.ContentByLanguage.Add("th-TH", reader.ToString("Content_TH"));
                             moveBet.ContentByLanguage.Add("ja-JP", reader.ToString("Content_JP"));
                             moveBet.ContentByLanguage.Add("ko-KR", reader.ToString("Content_KO"));
