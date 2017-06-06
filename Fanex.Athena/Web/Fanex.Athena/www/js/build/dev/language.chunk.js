@@ -15,7 +15,7 @@ webpackJsonp([35],{
 /***/ 84:
 /***/ function(module, exports) {
 
-	// Generated at: 5/9/2017 10:28:25 AM
+	// Generated at: 6/6/2017 11:25:35 AM
 	window._language_en_US = {
 	AA:"AA",
 	AccessDeniedMsg:"Sorry, You don&apos;t have permission to access this page.",
@@ -948,7 +948,7 @@ webpackJsonp([35],{
 /***/ 85:
 /***/ function(module, exports) {
 
-	// Generated at: 5/9/2017 10:28:25 AM
+	// Generated at: 6/6/2017 11:25:35 AM
 	window._language_zh_CN = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -1031,6 +1031,10 @@ webpackJsonp([35],{
 	Cancel:"取消",
 	CancelledBets:"已删除/作废注单",
 	CancelledBetsTitle:"作废/已删除注单(3天纪录)",
+	CashOutAmount:"预先兑现金额",
+	CashOutDetails:"预先兑现详情",
+	CashOutStake:"预先兑现赌注",
+	CashOutTicketsList:"预先兑现投注单",
 	CashOutWinLoss:"即时兑现输赢",
 	CASINOHANDHISTORY:"赌场下注历史",
 	CasinoProgressiveWinsGuidelineContent:"此报告提供最新数据。您每次查询可以过滤最多12个月内的数据。",
@@ -1736,7 +1740,7 @@ webpackJsonp([35],{
 /***/ 86:
 /***/ function(module, exports) {
 
-	// Generated at: 5/9/2017 10:28:25 AM
+	// Generated at: 6/6/2017 11:25:35 AM
 	window._language_zh_TW = {
 	AA:"客客",
 	AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -1819,6 +1823,10 @@ webpackJsonp([35],{
 	Cancel:"取消",
 	CancelledBets:"已刪除/作廢注單",
 	CancelledBetsTitle:"作廢/已刪除注單（3天紀錄）",
+	CashOutAmount:"即時兌現金額",
+	CashOutDetails:"即時兌現詳情",
+	CashOutStake:"即時兌現本金",
+	CashOutTicketsList:"即時兌現注單",
 	CashOutWinLoss:"即時兌現輸贏",
 	CASINOHANDHISTORY:"賭場下注歷史",
 	CasinoProgressiveWinsGuidelineContent:"此報告提供最新數據。 您每次查詢可以過濾最多12個月內的數據。",
@@ -2524,7 +2532,7 @@ webpackJsonp([35],{
 /***/ 87:
 /***/ function(module, exports) {
 
-	// Generated at: 5/9/2017 10:28:25 AM
+	// Generated at: 6/6/2017 11:25:35 AM
 	window._language_zh_Hans = {
 	AA:"客客",
 	AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -3307,7 +3315,7 @@ webpackJsonp([35],{
 /***/ 88:
 /***/ function(module, exports) {
 
-	// Generated at: 5/9/2017 10:28:25 AM
+	// Generated at: 6/6/2017 11:25:35 AM
 	window._language_ko_KR = {
 	AA:"AA",
 	AccessDeniedMsg:"죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
