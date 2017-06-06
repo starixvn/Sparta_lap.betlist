@@ -1,7 +1,6 @@
 ﻿//$('h1').marquee();
 //$('h2').marquee({ count: 2 });
 //$('h3').marquee({ speed: 5 });
-//$('h4').marquee({ leftToRight: true });
 //$('h5').marquee({ count: 1, speed: 2 });
 
 (function ($) {
@@ -31,41 +30,28 @@
                     'overflow': 'hidden',
                     'white-space': 'nowrap'
                 },
-                options = $.extend(true, { count: -1, speed: 1e1, leftToRight: false }, options),
+                options = $.extend(true, { count: -1, speed: 1e1 }, options),
                 i = 0,
                 stop = textWidth * -1;
 
         function go() {
             if (!$self.length) return;
-            if (_offsetX == stop) {
+            if (_offsetX <= stop){
                 i++;
                 if (i == options.count) {
                     $self.css(css);
                     return;
                 }
-                if (options.leftToRight) {
-                    _offsetX = textWidth * -1;
-                } else {
-                    _offsetX = offset;
-                }
+                
+                _offsetX = offset;
             }
             $self.css('text-indent', _offsetX + 'px');
-            if (options.leftToRight) {
-                _offsetX++;
-            } else {
-                _offsetX--;
-            }
-
+            _offsetX--;
+            
             _timer = setTimeout(go, options.speed);
         }
 
-        if (options.leftToRight) {
-            _offsetX = textWidth * -1;
-            _offsetX++;
-            stop = offset;
-        } else {
-            _offsetX--;
-        }
+        _offsetX--;
         $self.css(marqueeCss);
         go();
     }

@@ -1092,6 +1092,7 @@
     <Content Include="www\js\source\components\scrollablegrid.js" />
     <Content Include="www\js\source\components\selectlist.js" />
     <Content Include="www\js\source\helpers\sortableheader.js" />
+    <Content Include="www\js\source\lib\jquery.marquee.js" />
     <Content Include="www\js\source\lib\select2.js" />
     <Content Include="www\js\source\pages\betlist\betlist.js" />
     <Content Include="www\js\source\pages\betlist\betlist.option.js" />
