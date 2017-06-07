@@ -1,52 +1,52 @@
 ﻿/*global Site, CustomerList, JSLINQ*/
 /// <reference path="/@JSense.js" />
-define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
-    function ($, Site, jqGridAdditional) {
+define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/popup'],
+    function ($, Site, jqGridAdditional, Popup) {
         "use strict";
 
-        return {
+        var _me = {
             initialize: function () {
                 // bind customer button event
                 $('#MoveToGroup').click(function () {
-                    CustomerComm.showMoveCustomerToGroup();
+                    _me.showMoveCustomerToGroup();
                 });
 
                 $('#UpdateComm').click(function () {
                     var groupCommId = $('#UpdateComm').attr('data-group-id');
-                    CustomerComm.showUpdateCustComm(groupCommId);
+                    _me.showUpdateCustComm(groupCommId);
                 });
 
                 $('#RemoveFromGroup').click(function () {
-                    CustomerComm.showRemoveFromGroup();
+                    _me.showRemoveFromGroup();
                 });
 
                 $("#GroupListSelect").change(function () {
-                    CustomerComm.newGroupChanged(this);
+                    _me.newGroupChanged(this);
                 });
 
                 // Commission dropdownlist change
                 $('#CustSBComm1').on('change', function () {
-                    CustomerComm.commissionOnChange($(this).val(), '#CustSBComm');
+                    _me.commissionOnChange($(this).val(), '#CustSBComm');
                 });
 
                 $('#CustParlayComm1').on('change', function () {
-                    CustomerComm.commissionOnChange($(this).val(), '#CustParlayComm');
+                    _me.commissionOnChange($(this).val(), '#CustParlayComm');
                 });
 
                 $('#CustRBComm1').on('change', function () {
-                    CustomerComm.commissionOnChange($(this).val(), '#CustRBComm');
+                    _me.commissionOnChange($(this).val(), '#CustRBComm');
                 });
 
                 $('#CustNGComm1').on('change', function () {
-                    CustomerComm.commissionOnChange($(this).val(), '#CustNGComm');
+                    _me.commissionOnChange($(this).val(), '#CustNGComm');
                 });
 
                 $('#CustLCComm1').on('change', function () {
-                    CustomerComm.commissionOnChange($(this).val(), '#CustLCComm');
+                    _me.commissionOnChange($(this).val(), '#CustLCComm');
                 });
 
                 $('#CustCSComm1').on('change', function () {
-                    CustomerComm.commissionOnChange($(this).val(), '#CustCSComm');
+                    _me.commissionOnChange($(this).val(), '#CustCSComm');
                 });
             },
 
@@ -77,28 +77,28 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             /* move customer to group*/
             showMoveCustomerToGroup: function () {
                 $('#lblMoveToGroupMsg').html("");
-                CustomerComm.clearNotification();
+                _me.clearNotification();
 
-                $("#MoveToGroupPopUp").dialog({
-                    resizable: false,
-                    height: 330,
-                    width: 320,
-                    modal: true,
-                    buttons: [
+                Popup.openPopupWithButton($("#MoveToGroupPopUp"),
+                    {
+                        title: "abc",
+                        id: 'MoveToGroupPopUp',
+                        height: 330,
+                        width: 320
+                    },   
+                    [
                         {
                             text: Site.getSingleResource('OK'),
                             click: function () {
-                                CustomerComm.moveCustomerToGroup($(this));
+                                _me.moveCustomerToGroup($(this));
                             }
                         },
                         {
                             text: Site.getSingleResource('Cancel'),
-                            click: function () {
-                                $(this).dialog("close");
-                            }
+                            isClosedOnClick: true
                         }
                     ]
-                });
+                );
             },
 
             moveCustomerToGroup: function () {
@@ -114,17 +114,17 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                 }
 
                 if (checkedCustomers.length === 0) {
-                    CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
+                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
                     return;
                 }
 
                 //GroupId = - 1 is show all group.
                 if (groupid === -1) {
-                    CustomerComm.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
+                    _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
                     return;
                 }
                 if (checkedCustomers.length > 0 && custList.length === 0) {
-                    CustomerComm.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false);
+                    _me.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false);
                     return;
                 }
                 var param =
@@ -138,14 +138,14 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                     url: Site.resolveClientUrl("CustomerAPI/MoveToGroupCom"),
                     dataType: "json",
                     beforeSend: function () {
-                        CustomerComm.ajaxStart();
+                        _me.ajaxStart();
                     },
                     complete: function () {
-                        CustomerComm.ajaxStop();
+                        _me.ajaxStop();
                     },
                     success: function (result) {
                         if (result.Success) {
-                            CustomerComm.showMsg(Site.getSingleResource('MoveSuccessfullyMsg'), result.Success);
+                            _me.showMsg(Site.getSingleResource('MoveSuccessfullyMsg'), result.Success);
 
                             var groupName = result.ExtendedData.GroupName;
                             if (groupName.length > 17) {
@@ -159,7 +159,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                                                 result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
                         }
                         else {
-                            CustomerComm.showMsg(result.ErrorMessage, result.Success);
+                            _me.showMsg(result.ErrorMessage, result.Success);
                         }
                     }
                 });
@@ -178,7 +178,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                 }
 
                 $('#InfoMsg').css('display', isShowInfo ? 'block' : 'none');
-                CustomerComm.clearNotification();
+                _me.clearNotification();
 
                 $("#UpdateCustCommPopUp").dialog({
                     resizable: false,
@@ -190,7 +190,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                         {
                             text: Site.getSingleResource('Save'),
                             click: function () {
-                                CustomerComm.updateCustomerComm($(this), groupCommId);
+                                _me.updateCustomerComm($(this), groupCommId);
                             }
                         },
                         {
@@ -214,16 +214,16 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                 var custList = JSLINQ(checkedCustomers).Select(function (x) { return x.Id; }).ToArray();
 
                 if (custList.length === 0) {
-                    CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
+                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
                     return;
                 }
 
-                var sbcom = CustomerComm.initCommissionParam('#CustSBComm');
-                var parlayCom = CustomerComm.initCommissionParam('#CustParlayComm');
-                var rbcom = CustomerComm.initCommissionParam('#CustRBComm');
-                var ngcom = CustomerComm.initCommissionParam('#CustNGComm');
-                var lccom = CustomerComm.initCommissionParam('#CustLCComm');
-                var cscom = CustomerComm.initCommissionParam('#CustCSComm');
+                var sbcom = _me.initCommissionParam('#CustSBComm');
+                var parlayCom = _me.initCommissionParam('#CustParlayComm');
+                var rbcom = _me.initCommissionParam('#CustRBComm');
+                var ngcom = _me.initCommissionParam('#CustNGComm');
+                var lccom = _me.initCommissionParam('#CustLCComm');
+                var cscom = _me.initCommissionParam('#CustCSComm');
                 var param =
                 {
                     GroupId: groupCommId,
@@ -243,22 +243,22 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     dataType: 'json',
                     beforeSend: function () {
-                        CustomerComm.ajaxStart();
+                        _me.ajaxStart();
                     },
                     complete: function () {
-                        CustomerComm.ajaxStop();
+                        _me.ajaxStop();
                     },
                     success: function (result) {
                         if (result.Success) {
                             //updated = true;
-                            CustomerComm.showMsg(Site.getSingleResource('UpdateCommSucessfulMsg'), result.Success);
+                            _me.showMsg(Site.getSingleResource('UpdateCommSucessfulMsg'), result.Success);
 
                             CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
                                                 result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
                         }
                         else {
-                            CustomerComm.showMsg(result.ErrorMessage, result.Success);
+                            _me.showMsg(result.ErrorMessage, result.Success);
                         }
                     }
                 });
@@ -275,7 +275,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
 
                 $("#RemoveConfirmMsg").html(msg);
 
-                CustomerComm.clearNotification();
+                _me.clearNotification();
 
                 $("#ConfirmRemoveFromGroupPopUp").dialog({
                     resizable: false,
@@ -287,7 +287,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                         {
                             text: Site.getSingleResource('OK'),
                             click: function () {
-                                CustomerComm.removeFromGroupComm($(this));
+                                _me.removeFromGroupComm($(this));
                             }
                         },
                         {
@@ -312,11 +312,11 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                 }
 
                 if (checkedCustomers.length === 0) {
-                    CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
+                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
                     return;
                 }
                 if (checkedCustomers.length > 0 && custList.length === 0) {
-                    CustomerComm.showMsg(Site.getSingleResource('CustomerNotBelongAnyGroupMsg'), false);
+                    _me.showMsg(Site.getSingleResource('CustomerNotBelongAnyGroupMsg'), false);
                     return;
                 }
 
@@ -333,20 +333,20 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                     url: Site.resolveClientUrl("CustomerAPI/RemoveFromGroupCom"),
                     dataType: "json",
                     beforeSend: function () {
-                        CustomerComm.ajaxStart();
+                        _me.ajaxStart();
                     },
                     complete: function () {
-                        CustomerComm.ajaxStop();
+                        _me.ajaxStop();
                     },
                     success: function (result) {
                         if (result.Success) {
                             //removed = true;
 
                             if (checkedCustomers.length > 0 && custList.length > 0 && custList.length < checkedCustomers.length) {
-                                CustomerComm.showMsg(result.Message + "! </br> " + Site.getSingleResource('CustomersBelongGroupsBeRemovedMsg'), true);
+                                _me.showMsg(result.Message + "! </br> " + Site.getSingleResource('CustomersBelongGroupsBeRemovedMsg'), true);
                             }
                             else {
-                                CustomerComm.showMsg(result.Message, result.Success);
+                                _me.showMsg(result.Message, result.Success);
                             }
                             if (param.isRemovePlayercomm) {
                                 CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
@@ -358,7 +358,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                             }
                         }
                         else {
-                            CustomerComm.showMsg(result.ErrorMessage, result.Success);
+                            _me.showMsg(result.ErrorMessage, result.Success);
                         }
                     }
                 });
@@ -411,4 +411,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                 $('#NewCsComm').val($("#CSComm" + groupId).val());
             }
         };
+
+        return _me;
     });

@@ -27,9 +27,8 @@ define(['jquery'], function ($) {
                     $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
                     $container.append($blockBody);
                 }
-
-                var isNew = $("#" + options.id).length === 0;
-                if (isNew) {
+                
+                if ($self.hasClass('flat-popup') === false) {
                     $self.attr("id", options.id);
                     $self.addClass("flat-popup " + options.className);
                     $self.children().wrapAll("<div class='wrapContent'></div>");

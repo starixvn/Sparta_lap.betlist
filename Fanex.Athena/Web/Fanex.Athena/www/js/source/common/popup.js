@@ -79,7 +79,7 @@
         openPopupWithButton: function(element, option, buttons) {
             var $element = $(element);
 
-            if ($("#" + option.id).length === 0) {
+            if ($element.hasClass('flat-popup') === false) {
                 $element.append('<div class="right popup-button"></div>');
                 var $blockButton = $element.find(".popup-button");
 

@@ -19,7 +19,7 @@
     {
         <div style="margin: 1.5rem 1.5rem 0;">
             <button type="button" id="MoveToGroup" class="center-align label label-default active">@ViewResources.MoveToGroup</button>
-            <input type="button" id="UpdateComm" value="@ViewResources.UpdateCommission" class="center-align label label-default active" data-group-id="@Model.Param.GroupCommId"/>&nbsp;&nbsp;&nbsp;
+            <input type="button" id="UpdateComm" value="@ViewResources.UpdateCommission" class="center-align label label-default active" data-group-id="@Model.Param.GroupCommId" />&nbsp;&nbsp;&nbsp;
             <input type="button" id="RemoveFromGroup" value="@ViewResources.RemoveFromGroup" class="center-align label label-default active" />&nbsp;&nbsp;&nbsp;
         </div>
     }
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
     <!--popup-->
@@ -64,19 +64,19 @@
     </div>
     @if (Model.IsAllowedCustomerCommission)
     {
-        <div id="MoveToGroupPopUp" class="hide" title="@ViewResources.MoveToGroup">
+        <div id="MoveToGroupPopUp" title="@ViewResources.MoveToGroup" style="display: none">
             @{
-        Html.RenderPartial("~/Views/Customer/CustomerDialog/MoveToGroup.cshtml");   
+                Html.RenderPartial("~/Views/Customer/CustomerDialog/MoveToGroup.cshtml");
             }
         </div>
-        <div id="UpdateCustCommPopUp" class="hide" title="@ViewResources.UpdateCustomerCommission">
+        <div id="UpdateCustCommPopUp" class="hide" title="@ViewResources.UpdateCustomerCommission" style="display: none">
             @{
-        Html.RenderPartial("~/Views/Customer/CustomerDialog/UpdateCustComm.cshtml", Model.ProductAccess);   
+                Html.RenderPartial("~/Views/Customer/CustomerDialog/UpdateCustComm.cshtml", Model.ProductAccess);
             }
         </div>
-        <div id="ConfirmRemoveFromGroupPopUp" class="hide" title="@ViewResources.RemoveFromGroup">
+        <div id="ConfirmRemoveFromGroupPopUp" class="hide" title="@ViewResources.RemoveFromGroup" style="display: none">
             @{
-        Html.RenderPartial("~/Views/Customer/CustomerDialog/RemoveFromGroup.cshtml");   
+                Html.RenderPartial("~/Views/Customer/CustomerDialog/RemoveFromGroup.cshtml");
             }
         </div>
     }
@@ -84,7 +84,7 @@
     {
         @Html.Hidden("NumOfCheckBox", Model.DataList.Count)
     }
-    @{ Html.RenderPartial("~/Views/Customer/ContextMenu.cshtml",Model); }
+    @{ Html.RenderPartial("~/Views/Customer/ContextMenu.cshtml", Model); }
     <!--/popup-->
     <input type="hidden" id="IsAllowedCustomerCommission" value="@(Model.IsAllowedCustomerCommission.ToString())" />
     <input type="hidden" id="ProductAccess" value="@(Model.ProductAccess.ToJson())" />
