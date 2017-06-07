@@ -783,6 +783,8 @@
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.css" />
     <Content Include="www\css\build\dev\pages\customer\customerlist.chunk.js" />
     <Content Include="www\css\build\dev\pages\customer\customerlist.css" />
+    <Content Include="www\css\build\dev\pages\customer\customerlog.chunk.js" />
+    <Content Include="www\css\build\dev\pages\customer\customerlog.css" />
     <Content Include="www\css\build\dev\pages\forecast\ahforecast.chunk.js" />
     <Content Include="www\css\build\dev\pages\forecast\ahforecast.css" />
     <Content Include="www\css\build\dev\pages\forecast\forecastonextwo.chunk.js" />
@@ -846,6 +848,10 @@
     <Content Include="www\css\build\pro\pages\customer\commgroupdetail.css" />
     <Content Include="www\css\build\pro\pages\customer\commgrouplist.chunk.js" />
     <Content Include="www\css\build\pro\pages\customer\commgrouplist.css" />
+    <Content Include="www\css\build\pro\pages\customer\customerlist.chunk.js" />
+    <Content Include="www\css\build\pro\pages\customer\customerlist.css" />
+    <Content Include="www\css\build\pro\pages\customer\customerlog.chunk.js" />
+    <Content Include="www\css\build\pro\pages\customer\customerlog.css" />
     <Content Include="www\css\source\components\colorpicker\spectrum.css" />
     <Content Include="www\css\source\pages\customer\commgrouplist.scss" />
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.chunk.js.map" />
@@ -856,6 +862,8 @@
     <Content Include="Views\Desktop\Customer\CustomerLog\LoginLog\Filter.cshtml" />
     <Content Include="www\css\build\dev\pages\customer\customerlist.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\customer\customerlist.css.map" />
+    <Content Include="www\css\build\dev\pages\customer\customerlog.chunk.js.map" />
+    <Content Include="www\css\build\dev\pages\customer\customerlog.css.map" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
@@ -1049,6 +1057,9 @@
     <Content Include="www\js\build\dev\pages\customer\commgroupdetail.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\commgrouplist.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\customerlist.chunk.js" />
+    <Content Include="www\js\build\dev\pages\customer\customersetting.chunk.js" />
+    <Content Include="www\js\build\dev\pages\customer\groupcommission.chunk.js" />
+    <Content Include="www\js\build\dev\pages\customer\loginlog.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\ahforecast.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\forecasthdpou.chunk.js" />
     <Content Include="www\js\build\dev\pages\forecast\forecastonextwo.chunk.js" />
@@ -1091,6 +1102,10 @@
     <Content Include="www\js\build\pro\pages\betlist\lastbetmonitoring.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\commgroupdetail.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\commgrouplist.chunk.js" />
+    <Content Include="www\js\build\pro\pages\customer\customerlist.chunk.js" />
+    <Content Include="www\js\build\pro\pages\customer\customersetting.chunk.js" />
+    <Content Include="www\js\build\pro\pages\customer\groupcommission.chunk.js" />
+    <Content Include="www\js\build\pro\pages\customer\loginlog.chunk.js" />
     <Content Include="www\js\build\pro\pages\forecast\ahforecast.chunk.js" />
     <Content Include="www\js\build\pro\pages\forecast\forecasthdpou.chunk.js" />
     <Content Include="www\js\build\pro\pages\forecast\forecastonextwo.chunk.js" />
@@ -1978,6 +1993,9 @@
     <Content Include="www\js\build\dev\pages\customer\commgrouplist.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\customerlist.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\commgroupdetail.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\customer\customersetting.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\customer\groupcommission.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\customer\loginlog.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

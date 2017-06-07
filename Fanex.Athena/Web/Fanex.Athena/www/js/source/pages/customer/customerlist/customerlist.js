@@ -1,6 +1,6 @@
 ﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", './customerlist.custoption', './customerlist.option',
     "components/paging",
-    "lib/jquery.multiselect", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension"],
+    "lib/jquery.multiselect", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "lib/linq"],
     function ($, Site, jqGridAdditional, CustomerListCustOption, CustomerListOption, PagingHelper) {
         "use strict";
 
@@ -280,8 +280,6 @@
             // $(".select-cust-checkbox").checkboxgroup();
 
             var gridWidth = reportGrid.width();
-
-            $(".paging").width(gridWidth);
             $(".panel-heading").removeClass("hide");
             $(".content-filter").width(Math.max(1040, gridWidth));
             var gridTop = reportGrid.offset().top;
@@ -316,11 +314,11 @@
         }
 
         function addGridCheckBoxesEvent() {
-            $("#report-content").on("change", "#CheckAll", function () {
+            $(".main-content").on("change", "#CheckAll", function () {
                 _checkedAllRows = this.checked;
 
                 if (_checkedAllRows) {
-                    _checkedCustomerArray = JSLINQ(_cacheData.Data).Select(function (x) { return { Id: x.CustId, Group: x.GroupCommId }; }).ToArray();
+                    _checkedCustomerArray = Enumerable.From(_cacheData.Data).Select(function (x) { return { Id: x.CustId, Group: x.GroupCommId }; }).ToArray();
                     _checkedCustomerObject = convertCustomerArrayToObject(_checkedCustomerArray);
                 } else {
                     _checkedCustomerArray = [];
@@ -410,10 +408,14 @@
                 return _checkedCustomerArray;
             },
             ajaxPaging: function () {
-                _pagingOption = PagingHeper.getSetting();
+                _pagingOption = PagingHelper.getSetting();
                 _me.submit();
             },
             initialize: function () {
+                window.CustomerList = {
+                    ajaxPaging: _me.ajaxPaging
+                };
+
                 Site.initialize();
                 $("#SubmitButtonComm").prop("disabled", true);
                 _me.initEvent();

@@ -1,8 +1,8 @@
-webpackJsonp([52],[
+webpackJsonp([62],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(249);
+	module.exports = __webpack_require__(280);
 
 
 /***/ },
@@ -95,7 +95,15 @@ webpackJsonp([52],[
 /* 87 */,
 /* 88 */,
 /* 89 */,
-/* 90 */
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
@@ -1894,7 +1902,7 @@ webpackJsonp([52],[
 	                module && module.exports) {
 	            try {
 	                oldLocale = globalLocale._abbr;
-	                __webpack_require__(92)("./" + name);
+	                __webpack_require__(100)("./" + name);
 	                // because defineLocale currently also sets the global locale, we
 	                // want to undo that for lazy loaded locales
 	                locale_locales__getSetGlobalLocale(oldLocale);
@@ -4332,10 +4340,10 @@ webpackJsonp([52],[
 	    return _moment;
 	
 	}));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(91)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(99)(module)))
 
 /***/ },
-/* 91 */
+/* 99 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -4351,218 +4359,218 @@ webpackJsonp([52],[
 
 
 /***/ },
-/* 92 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./af": 93,
-		"./af.js": 93,
-		"./ar": 94,
-		"./ar-ly": 95,
-		"./ar-ly.js": 95,
-		"./ar-ma": 96,
-		"./ar-ma.js": 96,
-		"./ar-sa": 97,
-		"./ar-sa.js": 97,
-		"./ar-tn": 98,
-		"./ar-tn.js": 98,
-		"./ar.js": 94,
-		"./az": 99,
-		"./az.js": 99,
-		"./be": 100,
-		"./be.js": 100,
-		"./bg": 101,
-		"./bg.js": 101,
-		"./bn": 102,
-		"./bn.js": 102,
-		"./bo": 103,
-		"./bo.js": 103,
-		"./br": 104,
-		"./br.js": 104,
-		"./bs": 105,
-		"./bs.js": 105,
-		"./ca": 106,
-		"./ca.js": 106,
-		"./cs": 107,
-		"./cs.js": 107,
-		"./cv": 108,
-		"./cv.js": 108,
-		"./cy": 109,
-		"./cy.js": 109,
-		"./da": 110,
-		"./da.js": 110,
-		"./de": 111,
-		"./de-at": 112,
-		"./de-at.js": 112,
-		"./de.js": 111,
-		"./dv": 113,
-		"./dv.js": 113,
-		"./el": 114,
-		"./el.js": 114,
-		"./en-au": 115,
-		"./en-au.js": 115,
-		"./en-ca": 116,
-		"./en-ca.js": 116,
-		"./en-gb": 117,
-		"./en-gb.js": 117,
-		"./en-ie": 118,
-		"./en-ie.js": 118,
-		"./en-nz": 119,
-		"./en-nz.js": 119,
-		"./eo": 120,
-		"./eo.js": 120,
-		"./es": 121,
-		"./es-do": 122,
-		"./es-do.js": 122,
-		"./es.js": 121,
-		"./et": 123,
-		"./et.js": 123,
-		"./eu": 124,
-		"./eu.js": 124,
-		"./fa": 125,
-		"./fa.js": 125,
-		"./fi": 126,
-		"./fi.js": 126,
-		"./fo": 127,
-		"./fo.js": 127,
-		"./fr": 128,
-		"./fr-ca": 129,
-		"./fr-ca.js": 129,
-		"./fr-ch": 130,
-		"./fr-ch.js": 130,
-		"./fr.js": 128,
-		"./fy": 131,
-		"./fy.js": 131,
-		"./gd": 132,
-		"./gd.js": 132,
-		"./gl": 133,
-		"./gl.js": 133,
-		"./he": 134,
-		"./he.js": 134,
-		"./hi": 135,
-		"./hi.js": 135,
-		"./hr": 136,
-		"./hr.js": 136,
-		"./hu": 137,
-		"./hu.js": 137,
-		"./hy-am": 138,
-		"./hy-am.js": 138,
-		"./id": 139,
-		"./id.js": 139,
-		"./is": 140,
-		"./is.js": 140,
-		"./it": 141,
-		"./it.js": 141,
-		"./ja": 142,
-		"./ja.js": 142,
-		"./jv": 143,
-		"./jv.js": 143,
-		"./ka": 144,
-		"./ka.js": 144,
-		"./kk": 145,
-		"./kk.js": 145,
-		"./km": 146,
-		"./km.js": 146,
-		"./ko": 147,
-		"./ko.js": 147,
-		"./ky": 148,
-		"./ky.js": 148,
-		"./lb": 149,
-		"./lb.js": 149,
-		"./lo": 150,
-		"./lo.js": 150,
-		"./lt": 151,
-		"./lt.js": 151,
-		"./lv": 152,
-		"./lv.js": 152,
-		"./me": 153,
-		"./me.js": 153,
-		"./mi": 154,
-		"./mi.js": 154,
-		"./mk": 155,
-		"./mk.js": 155,
-		"./ml": 156,
-		"./ml.js": 156,
-		"./mr": 157,
-		"./mr.js": 157,
-		"./ms": 158,
-		"./ms-my": 159,
-		"./ms-my.js": 159,
-		"./ms.js": 158,
-		"./my": 160,
-		"./my.js": 160,
-		"./nb": 161,
-		"./nb.js": 161,
-		"./ne": 162,
-		"./ne.js": 162,
-		"./nl": 163,
-		"./nl.js": 163,
-		"./nn": 164,
-		"./nn.js": 164,
-		"./pa-in": 165,
-		"./pa-in.js": 165,
-		"./pl": 166,
-		"./pl.js": 166,
-		"./pt": 167,
-		"./pt-br": 168,
-		"./pt-br.js": 168,
-		"./pt.js": 167,
-		"./ro": 169,
-		"./ro.js": 169,
-		"./ru": 170,
-		"./ru.js": 170,
-		"./se": 171,
-		"./se.js": 171,
-		"./si": 172,
-		"./si.js": 172,
-		"./sk": 173,
-		"./sk.js": 173,
-		"./sl": 174,
-		"./sl.js": 174,
-		"./sq": 175,
-		"./sq.js": 175,
-		"./sr": 176,
-		"./sr-cyrl": 177,
-		"./sr-cyrl.js": 177,
-		"./sr.js": 176,
-		"./ss": 178,
-		"./ss.js": 178,
-		"./sv": 179,
-		"./sv.js": 179,
-		"./sw": 180,
-		"./sw.js": 180,
-		"./ta": 181,
-		"./ta.js": 181,
-		"./te": 182,
-		"./te.js": 182,
-		"./th": 183,
-		"./th.js": 183,
-		"./tl-ph": 184,
-		"./tl-ph.js": 184,
-		"./tlh": 185,
-		"./tlh.js": 185,
-		"./tr": 186,
-		"./tr.js": 186,
-		"./tzl": 187,
-		"./tzl.js": 187,
-		"./tzm": 188,
-		"./tzm-latn": 189,
-		"./tzm-latn.js": 189,
-		"./tzm.js": 188,
-		"./uk": 190,
-		"./uk.js": 190,
-		"./uz": 191,
-		"./uz.js": 191,
-		"./vi": 192,
-		"./vi.js": 192,
-		"./x-pseudo": 193,
-		"./x-pseudo.js": 193,
-		"./zh-cn": 194,
-		"./zh-cn.js": 194,
-		"./zh-hk": 195,
-		"./zh-hk.js": 195,
-		"./zh-tw": 196,
-		"./zh-tw.js": 196
+		"./af": 101,
+		"./af.js": 101,
+		"./ar": 102,
+		"./ar-ly": 103,
+		"./ar-ly.js": 103,
+		"./ar-ma": 104,
+		"./ar-ma.js": 104,
+		"./ar-sa": 105,
+		"./ar-sa.js": 105,
+		"./ar-tn": 106,
+		"./ar-tn.js": 106,
+		"./ar.js": 102,
+		"./az": 107,
+		"./az.js": 107,
+		"./be": 108,
+		"./be.js": 108,
+		"./bg": 109,
+		"./bg.js": 109,
+		"./bn": 110,
+		"./bn.js": 110,
+		"./bo": 111,
+		"./bo.js": 111,
+		"./br": 112,
+		"./br.js": 112,
+		"./bs": 113,
+		"./bs.js": 113,
+		"./ca": 114,
+		"./ca.js": 114,
+		"./cs": 115,
+		"./cs.js": 115,
+		"./cv": 116,
+		"./cv.js": 116,
+		"./cy": 117,
+		"./cy.js": 117,
+		"./da": 118,
+		"./da.js": 118,
+		"./de": 119,
+		"./de-at": 120,
+		"./de-at.js": 120,
+		"./de.js": 119,
+		"./dv": 121,
+		"./dv.js": 121,
+		"./el": 122,
+		"./el.js": 122,
+		"./en-au": 123,
+		"./en-au.js": 123,
+		"./en-ca": 124,
+		"./en-ca.js": 124,
+		"./en-gb": 125,
+		"./en-gb.js": 125,
+		"./en-ie": 126,
+		"./en-ie.js": 126,
+		"./en-nz": 127,
+		"./en-nz.js": 127,
+		"./eo": 128,
+		"./eo.js": 128,
+		"./es": 129,
+		"./es-do": 130,
+		"./es-do.js": 130,
+		"./es.js": 129,
+		"./et": 131,
+		"./et.js": 131,
+		"./eu": 132,
+		"./eu.js": 132,
+		"./fa": 133,
+		"./fa.js": 133,
+		"./fi": 134,
+		"./fi.js": 134,
+		"./fo": 135,
+		"./fo.js": 135,
+		"./fr": 136,
+		"./fr-ca": 137,
+		"./fr-ca.js": 137,
+		"./fr-ch": 138,
+		"./fr-ch.js": 138,
+		"./fr.js": 136,
+		"./fy": 139,
+		"./fy.js": 139,
+		"./gd": 140,
+		"./gd.js": 140,
+		"./gl": 141,
+		"./gl.js": 141,
+		"./he": 142,
+		"./he.js": 142,
+		"./hi": 143,
+		"./hi.js": 143,
+		"./hr": 144,
+		"./hr.js": 144,
+		"./hu": 145,
+		"./hu.js": 145,
+		"./hy-am": 146,
+		"./hy-am.js": 146,
+		"./id": 147,
+		"./id.js": 147,
+		"./is": 148,
+		"./is.js": 148,
+		"./it": 149,
+		"./it.js": 149,
+		"./ja": 150,
+		"./ja.js": 150,
+		"./jv": 151,
+		"./jv.js": 151,
+		"./ka": 152,
+		"./ka.js": 152,
+		"./kk": 153,
+		"./kk.js": 153,
+		"./km": 154,
+		"./km.js": 154,
+		"./ko": 155,
+		"./ko.js": 155,
+		"./ky": 156,
+		"./ky.js": 156,
+		"./lb": 157,
+		"./lb.js": 157,
+		"./lo": 158,
+		"./lo.js": 158,
+		"./lt": 159,
+		"./lt.js": 159,
+		"./lv": 160,
+		"./lv.js": 160,
+		"./me": 161,
+		"./me.js": 161,
+		"./mi": 162,
+		"./mi.js": 162,
+		"./mk": 163,
+		"./mk.js": 163,
+		"./ml": 164,
+		"./ml.js": 164,
+		"./mr": 165,
+		"./mr.js": 165,
+		"./ms": 166,
+		"./ms-my": 167,
+		"./ms-my.js": 167,
+		"./ms.js": 166,
+		"./my": 168,
+		"./my.js": 168,
+		"./nb": 169,
+		"./nb.js": 169,
+		"./ne": 170,
+		"./ne.js": 170,
+		"./nl": 171,
+		"./nl.js": 171,
+		"./nn": 172,
+		"./nn.js": 172,
+		"./pa-in": 173,
+		"./pa-in.js": 173,
+		"./pl": 174,
+		"./pl.js": 174,
+		"./pt": 175,
+		"./pt-br": 176,
+		"./pt-br.js": 176,
+		"./pt.js": 175,
+		"./ro": 177,
+		"./ro.js": 177,
+		"./ru": 178,
+		"./ru.js": 178,
+		"./se": 179,
+		"./se.js": 179,
+		"./si": 180,
+		"./si.js": 180,
+		"./sk": 181,
+		"./sk.js": 181,
+		"./sl": 182,
+		"./sl.js": 182,
+		"./sq": 183,
+		"./sq.js": 183,
+		"./sr": 184,
+		"./sr-cyrl": 185,
+		"./sr-cyrl.js": 185,
+		"./sr.js": 184,
+		"./ss": 186,
+		"./ss.js": 186,
+		"./sv": 187,
+		"./sv.js": 187,
+		"./sw": 188,
+		"./sw.js": 188,
+		"./ta": 189,
+		"./ta.js": 189,
+		"./te": 190,
+		"./te.js": 190,
+		"./th": 191,
+		"./th.js": 191,
+		"./tl-ph": 192,
+		"./tl-ph.js": 192,
+		"./tlh": 193,
+		"./tlh.js": 193,
+		"./tr": 194,
+		"./tr.js": 194,
+		"./tzl": 195,
+		"./tzl.js": 195,
+		"./tzm": 196,
+		"./tzm-latn": 197,
+		"./tzm-latn.js": 197,
+		"./tzm.js": 196,
+		"./uk": 198,
+		"./uk.js": 198,
+		"./uz": 199,
+		"./uz.js": 199,
+		"./vi": 200,
+		"./vi.js": 200,
+		"./x-pseudo": 201,
+		"./x-pseudo.js": 201,
+		"./zh-cn": 202,
+		"./zh-cn.js": 202,
+		"./zh-hk": 203,
+		"./zh-hk.js": 203,
+		"./zh-tw": 204,
+		"./zh-tw.js": 204
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -4575,11 +4583,11 @@ webpackJsonp([52],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 92;
+	webpackContext.id = 100;
 
 
 /***/ },
-/* 93 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -4587,7 +4595,7 @@ webpackJsonp([52],[
 	//! author : Werner Mollentze : https://github.com/wernerm
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -4656,7 +4664,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 94 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -4666,7 +4674,7 @@ webpackJsonp([52],[
 	//! author : forabi https://github.com/forabi
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -4797,7 +4805,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 95 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -4805,7 +4813,7 @@ webpackJsonp([52],[
 	//! author : Ali Hmer: https://github.com/kikoanis
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -4923,7 +4931,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 96 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -4932,7 +4940,7 @@ webpackJsonp([52],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -4987,7 +4995,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 97 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -4995,7 +5003,7 @@ webpackJsonp([52],[
 	//! author : Suhail Alkowaileet : https://github.com/xsoh
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5095,7 +5103,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 98 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5103,7 +5111,7 @@ webpackJsonp([52],[
 	//! author : Nader Toukabri : https://github.com/naderio
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5158,7 +5166,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 99 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5166,7 +5174,7 @@ webpackJsonp([52],[
 	//! author : topchiyev : https://github.com/topchiyev
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5267,7 +5275,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 100 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5277,7 +5285,7 @@ webpackJsonp([52],[
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5405,7 +5413,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 101 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5413,7 +5421,7 @@ webpackJsonp([52],[
 	//! author : Krasen Borisov : https://github.com/kraz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5499,7 +5507,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 102 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5507,7 +5515,7 @@ webpackJsonp([52],[
 	//! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5622,7 +5630,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 103 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5630,7 +5638,7 @@ webpackJsonp([52],[
 	//! author : Thupten N. Chakrishar : https://github.com/vajradog
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5745,7 +5753,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 104 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5753,7 +5761,7 @@ webpackJsonp([52],[
 	//! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -5857,7 +5865,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 105 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -5866,7 +5874,7 @@ webpackJsonp([52],[
 	//! based on (hr) translation by Bojan Marković
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6004,7 +6012,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 106 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6012,7 +6020,7 @@ webpackJsonp([52],[
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6089,7 +6097,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 107 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6097,7 +6105,7 @@ webpackJsonp([52],[
 	//! author : petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6265,7 +6273,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 108 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6273,7 +6281,7 @@ webpackJsonp([52],[
 	//! author : Anatoly Mironov : https://github.com/mirontoli
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6332,7 +6340,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 109 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6341,7 +6349,7 @@ webpackJsonp([52],[
 	//! author : https://github.com/ryangreaves
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6417,7 +6425,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 110 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6425,7 +6433,7 @@ webpackJsonp([52],[
 	//! author : Ulrik Nielsen : https://github.com/mrbase
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6481,7 +6489,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 111 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6491,7 +6499,7 @@ webpackJsonp([52],[
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6563,7 +6571,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 112 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6574,7 +6582,7 @@ webpackJsonp([52],[
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6646,7 +6654,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 113 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6654,7 +6662,7 @@ webpackJsonp([52],[
 	//! author : Jawish Hameed : https://github.com/jawish
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6749,7 +6757,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 114 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6757,7 +6765,7 @@ webpackJsonp([52],[
 	//! author : Aggelos Karalias : https://github.com/mehiel
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6851,7 +6859,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 115 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6859,7 +6867,7 @@ webpackJsonp([52],[
 	//! author : Jared Morse : https://github.com/jarcoal
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6922,7 +6930,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 116 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6930,7 +6938,7 @@ webpackJsonp([52],[
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -6989,7 +6997,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 117 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -6997,7 +7005,7 @@ webpackJsonp([52],[
 	//! author : Chris Gedrim : https://github.com/chrisgedrim
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7060,7 +7068,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 118 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7068,7 +7076,7 @@ webpackJsonp([52],[
 	//! author : Chris Cartlidge : https://github.com/chriscartlidge
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7131,7 +7139,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 119 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7139,7 +7147,7 @@ webpackJsonp([52],[
 	//! author : Luke McGregor : https://github.com/lukemcgregor
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7202,7 +7210,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 120 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7212,7 +7220,7 @@ webpackJsonp([52],[
 	//!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7279,7 +7287,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 121 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7287,7 +7295,7 @@ webpackJsonp([52],[
 	//! author : Julio Napurí : https://github.com/julionc
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7364,14 +7372,14 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 122 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : Spanish (Dominican Republic) [es-do]
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7448,7 +7456,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 123 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7457,7 +7465,7 @@ webpackJsonp([52],[
 	//! improvements : Illimar Tambek : https://github.com/ragulka
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7532,7 +7540,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 124 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7540,7 +7548,7 @@ webpackJsonp([52],[
 	//! author : Eneko Illarramendi : https://github.com/eillarra
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7602,7 +7610,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 125 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7610,7 +7618,7 @@ webpackJsonp([52],[
 	//! author : Ebrahim Byagowi : https://github.com/ebraminio
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7712,7 +7720,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 126 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7720,7 +7728,7 @@ webpackJsonp([52],[
 	//! author : Tarmo Aidantausta : https://github.com/bleadof
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7823,7 +7831,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 127 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7831,7 +7839,7 @@ webpackJsonp([52],[
 	//! author : Ragnar Johannesen : https://github.com/ragnar123
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7887,7 +7895,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 128 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7895,7 +7903,7 @@ webpackJsonp([52],[
 	//! author : John Fischer : https://github.com/jfroffice
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -7955,7 +7963,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 129 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -7963,7 +7971,7 @@ webpackJsonp([52],[
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8019,7 +8027,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 130 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8027,7 +8035,7 @@ webpackJsonp([52],[
 	//! author : Gaspard Bucher : https://github.com/gaspard
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8087,7 +8095,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 131 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8095,7 +8103,7 @@ webpackJsonp([52],[
 	//! author : Robin van der Vliet : https://github.com/robin0van0der0v
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8164,7 +8172,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 132 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8172,7 +8180,7 @@ webpackJsonp([52],[
 	//! author : Jon Ashdown : https://github.com/jonashdown
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8244,7 +8252,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 133 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8252,7 +8260,7 @@ webpackJsonp([52],[
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8325,7 +8333,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 134 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8335,7 +8343,7 @@ webpackJsonp([52],[
 	//! author : Tal Ater : https://github.com/TalAter
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8428,7 +8436,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 135 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8436,7 +8444,7 @@ webpackJsonp([52],[
 	//! author : Mayank Singhal : https://github.com/mayanksinghal
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8556,7 +8564,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 136 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8564,7 +8572,7 @@ webpackJsonp([52],[
 	//! author : Bojan Marković : https://github.com/bmarkovic
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8705,7 +8713,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 137 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8713,7 +8721,7 @@ webpackJsonp([52],[
 	//! author : Adam Brunner : https://github.com/adambrunner
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8818,7 +8826,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 138 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8826,7 +8834,7 @@ webpackJsonp([52],[
 	//! author : Armendarabyan : https://github.com/armendarabyan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8917,7 +8925,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 139 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8926,7 +8934,7 @@ webpackJsonp([52],[
 	//! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9004,7 +9012,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 140 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9012,7 +9020,7 @@ webpackJsonp([52],[
 	//! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9135,7 +9143,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 141 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9144,7 +9152,7 @@ webpackJsonp([52],[
 	//! author: Mattia Larentis: https://github.com/nostalgiaz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9209,7 +9217,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 142 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9217,7 +9225,7 @@ webpackJsonp([52],[
 	//! author : LI Long : https://github.com/baryon
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9289,7 +9297,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 143 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9298,7 +9306,7 @@ webpackJsonp([52],[
 	//! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9376,7 +9384,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 144 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9384,7 +9392,7 @@ webpackJsonp([52],[
 	//! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9469,7 +9477,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 145 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9477,7 +9485,7 @@ webpackJsonp([52],[
 	//! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9560,7 +9568,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 146 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9568,7 +9576,7 @@ webpackJsonp([52],[
 	//! author : Kruy Vanna : https://github.com/kruyvanna
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9622,7 +9630,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 147 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9631,7 +9639,7 @@ webpackJsonp([52],[
 	//! author : Jeeeyul Lee <jeeeyul@gmail.com>
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9691,7 +9699,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 148 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9699,7 +9707,7 @@ webpackJsonp([52],[
 	//! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9783,7 +9791,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 149 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9792,7 +9800,7 @@ webpackJsonp([52],[
 	//! author : David Raison : https://github.com/kwisatz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9924,7 +9932,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 150 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9932,7 +9940,7 @@ webpackJsonp([52],[
 	//! author : Ryan Hart : https://github.com/ryanhart2
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9998,7 +10006,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 151 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10006,7 +10014,7 @@ webpackJsonp([52],[
 	//! author : Mindaugas Mozūras : https://github.com/mmozuras
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10119,7 +10127,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 152 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10128,7 +10136,7 @@ webpackJsonp([52],[
 	//! author : Jānis Elmeris : https://github.com/JanisE
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10220,7 +10228,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 153 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10228,7 +10236,7 @@ webpackJsonp([52],[
 	//! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10335,7 +10343,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 154 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10343,7 +10351,7 @@ webpackJsonp([52],[
 	//! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10403,7 +10411,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 155 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10411,7 +10419,7 @@ webpackJsonp([52],[
 	//! author : Borislav Mickov : https://github.com/B0k0
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10497,7 +10505,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 156 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10505,7 +10513,7 @@ webpackJsonp([52],[
 	//! author : Floyd Pink : https://github.com/floydpink
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10582,7 +10590,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 157 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10591,7 +10599,7 @@ webpackJsonp([52],[
 	//! author : Vivek Athalye : https://github.com/vnathalye
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10745,7 +10753,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 158 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10753,7 +10761,7 @@ webpackJsonp([52],[
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10831,7 +10839,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 159 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10840,7 +10848,7 @@ webpackJsonp([52],[
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10918,7 +10926,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 160 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10928,7 +10936,7 @@ webpackJsonp([52],[
 	//! author : Tin Aung Lin : https://github.com/thanyawzinmin
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11017,7 +11025,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 161 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11026,7 +11034,7 @@ webpackJsonp([52],[
 	//!           Sigurd Gartmann : https://github.com/sigurdga
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11084,7 +11092,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 162 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11092,7 +11100,7 @@ webpackJsonp([52],[
 	//! author : suvash : https://github.com/suvash
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11211,7 +11219,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 163 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11220,7 +11228,7 @@ webpackJsonp([52],[
 	//! author : Jacob Middag : https://github.com/middagj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11301,7 +11309,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 164 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11309,7 +11317,7 @@ webpackJsonp([52],[
 	//! author : https://github.com/mechuwind
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11365,7 +11373,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 165 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11373,7 +11381,7 @@ webpackJsonp([52],[
 	//! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11493,7 +11501,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 166 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11501,7 +11509,7 @@ webpackJsonp([52],[
 	//! author : Rafal Hirsz : https://github.com/evoL
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11602,7 +11610,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 167 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11610,7 +11618,7 @@ webpackJsonp([52],[
 	//! author : Jefferson : https://github.com/jalex79
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11671,7 +11679,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 168 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11679,7 +11687,7 @@ webpackJsonp([52],[
 	//! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11736,7 +11744,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 169 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11745,7 +11753,7 @@ webpackJsonp([52],[
 	//! author : Valentin Agachi : https://github.com/avaly
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11815,7 +11823,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 170 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11825,7 +11833,7 @@ webpackJsonp([52],[
 	//! author : Коренберг Марк : https://github.com/socketpair
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12002,7 +12010,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 171 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12010,7 +12018,7 @@ webpackJsonp([52],[
 	//! authors : Bård Rolstad Henriksen : https://github.com/karamell
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12067,7 +12075,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 172 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12075,7 +12083,7 @@ webpackJsonp([52],[
 	//! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12142,7 +12150,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 173 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12151,7 +12159,7 @@ webpackJsonp([52],[
 	//! based on work of petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12296,7 +12304,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 174 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12304,7 +12312,7 @@ webpackJsonp([52],[
 	//! author : Robert Sedovšek : https://github.com/sedovsek
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12462,7 +12470,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 175 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12472,7 +12480,7 @@ webpackJsonp([52],[
 	//! author : Oerd Cukalla : https://github.com/oerd
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12536,7 +12544,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 176 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12544,7 +12552,7 @@ webpackJsonp([52],[
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12650,7 +12658,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 177 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12658,7 +12666,7 @@ webpackJsonp([52],[
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12764,7 +12772,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 178 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12772,7 +12780,7 @@ webpackJsonp([52],[
 	//! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12857,7 +12865,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 179 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12865,7 +12873,7 @@ webpackJsonp([52],[
 	//! author : Jens Alm : https://github.com/ulmus
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12930,7 +12938,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 180 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12938,7 +12946,7 @@ webpackJsonp([52],[
 	//! author : Fahad Kassim : https://github.com/fadsel
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12993,7 +13001,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 181 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13001,7 +13009,7 @@ webpackJsonp([52],[
 	//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13126,7 +13134,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 182 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13134,7 +13142,7 @@ webpackJsonp([52],[
 	//! author : Krishna Chaitanya Thota : https://github.com/kcthota
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13219,7 +13227,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 183 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13227,7 +13235,7 @@ webpackJsonp([52],[
 	//! author : Kridsada Thanabulpong : https://github.com/sirn
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13290,7 +13298,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 184 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13298,7 +13306,7 @@ webpackJsonp([52],[
 	//! author : Dan Hagman : https://github.com/hagmandan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13356,7 +13364,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 185 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13364,7 +13372,7 @@ webpackJsonp([52],[
 	//! author : Dominika Kruk : https://github.com/amaranthrose
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13480,7 +13488,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 186 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13489,7 +13497,7 @@ webpackJsonp([52],[
 	//!           Burak Yiğit Kaya: https://github.com/BYK
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13574,7 +13582,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 187 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13583,7 +13591,7 @@ webpackJsonp([52],[
 	//! author : Iustì Canun
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13669,7 +13677,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 188 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13677,7 +13685,7 @@ webpackJsonp([52],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13731,7 +13739,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 189 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13739,7 +13747,7 @@ webpackJsonp([52],[
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13793,7 +13801,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 190 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13802,7 +13810,7 @@ webpackJsonp([52],[
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13943,7 +13951,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 191 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13951,7 +13959,7 @@ webpackJsonp([52],[
 	//! author : Sardor Muminov : https://github.com/muminoff
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14005,7 +14013,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 192 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14013,7 +14021,7 @@ webpackJsonp([52],[
 	//! author : Bang Nguyen : https://github.com/bangnk
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14088,7 +14096,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 193 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14096,7 +14104,7 @@ webpackJsonp([52],[
 	//! author : Andrew Hood : https://github.com/andrewhood125
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14160,7 +14168,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 194 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14169,7 +14177,7 @@ webpackJsonp([52],[
 	//! author : Zeno Zeng : https://github.com/zenozeng
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14291,7 +14299,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 195 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14301,7 +14309,7 @@ webpackJsonp([52],[
 	//! author : Konstantin : https://github.com/skfd
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14400,7 +14408,7 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 196 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14409,7 +14417,7 @@ webpackJsonp([52],[
 	//! author : Chris Lam : https://github.com/hehachris
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(90)) :
+	    true ? factory(__webpack_require__(98)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14508,12 +14516,12 @@ webpackJsonp([52],[
 	}));
 
 /***/ },
-/* 197 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
 	///
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(198)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(206)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
 	    "use strict";
 	    var jqGridAdditional = (function () {
 	        return {
@@ -14901,7 +14909,7 @@ webpackJsonp([52],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 198 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/MikeMcl/bignumber.js/LICENCE */
@@ -17644,8 +17652,8 @@ webpackJsonp([52],[
 
 
 /***/ },
-/* 199 */,
-/* 200 */
+/* 207 */,
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
@@ -17822,7 +17830,7 @@ webpackJsonp([52],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 201 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* 
@@ -18172,16 +18180,16 @@ webpackJsonp([52],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(90), __webpack_require__(209)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, moment) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(98), __webpack_require__(217)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, moment) {
 	        "use strict";
 	
 	        var _daysOfWeek, _monthNames;
@@ -18322,7 +18330,7 @@ webpackJsonp([52],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 209 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18336,7 +18344,7 @@ webpackJsonp([52],[
 	(function (root, factory) {
 	    if (true) {
 	        // AMD. Make globaly available as well
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(90), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(98), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
 	            return (root.daterangepicker = factory(moment, jquery));
 	        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof module === 'object' && module.exports) {
@@ -19946,15 +19954,15 @@ webpackJsonp([52],[
 
 
 /***/ },
-/* 210 */,
-/* 211 */,
-/* 212 */,
-/* 213 */,
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -20013,8 +20021,8 @@ webpackJsonp([52],[
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
-/* 219 */,
-/* 220 */
+/* 227 */,
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -20264,14 +20272,6 @@ webpackJsonp([52],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 221 */,
-/* 222 */,
-/* 223 */,
-/* 224 */,
-/* 225 */,
-/* 226 */,
-/* 227 */,
-/* 228 */,
 /* 229 */,
 /* 230 */,
 /* 231 */,
@@ -20282,1464 +20282,7 @@ webpackJsonp([52],[
 /* 236 */,
 /* 237 */,
 /* 238 */,
-/* 239 */,
-/* 240 */,
-/* 241 */,
-/* 242 */,
-/* 243 */,
-/* 244 */,
-/* 245 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
-	    "use strict";
-	    var REPORT_BY_MONTHLY = 2;
-	    var LICENSEE_12BET = 1;
-	    function lastDateOfMonth(year, month) {
-	        return new Date(year, month + 1, 0);
-	    }
-	
-	    var _me = {
-	        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
-	            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-	            var tdate = fdate;
-	            if (Number(reportBy) === REPORT_BY_MONTHLY) {
-	                var fday = 1;
-	                var month = fdate.getMonth();
-	                var year = fdate.getFullYear();
-	                var orignalFDate = new Date(fromDate);
-	                if (month === orignalFDate.getMonth()) {
-	                    fday = orignalFDate.getDate();
-	                }
-	                fdate = new Date(year, month, fday, 0, 0, 0, 0);
-	                var originalTDate = new Date(toDate);
-	
-	                if (month === originalTDate.getMonth()) {
-	                    var tday = originalTDate.getDate();
-	                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
-	                }
-	                else {
-	                    tdate = lastDateOfMonth(year, month);
-	                }
-	            }
-	
-	            return {
-	                FromDate: fdate,
-	                ToDate: tdate
-	            };
-	        },
-	        ValidProducts: function () {
-	            var temp = true;
-	            if ($(".childCheckbox:checked").length === 0) {
-	                temp = false;
-	                var title = Site.getSingleResource("LrfNotification");
-	                var message = Site.getSingleResource("AlertChooseProductMsg");
-	                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
-	
-	                Popup.openPopup($dialog, {
-	                    width: 380,
-	                    height: 150,
-	                    title: title,
-	                    className: "popup-notification",
-	                    onOpen: function () {
-	                        $('#SubmitButton').prop('disabled', true);
-	                    },
-	                    onClose: function () {
-	                        $('#SubmitButton').removeAttr('disabled');
-	                    }
-	                });
-	            }
-	
-	            return temp;
-	        },
-	
-	        setOriginalProduct: function () {
-	            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
-	                var isCheck = $(this).is(":checked");
-	                $(element).attr({ 'data-original': isCheck });
-	            });
-	        },
-	
-	        bindSummaryTotal: function (columnModel, summaryTotal) {
-	            /// <summary>
-	            /// Bind summary total data to footer rows
-	            /// </summary>
-	            /// <param name="columnModel"></param>
-	            /// <param name="summaryTotal"></param>
-	            /// <returns type="int">Number of iserted row</returns>
-	            if (!summaryTotal || summaryTotal.length === 0) {
-	                return;
-	            }
-	
-	            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
-	            var rowCount = 0;
-	            var currencyList = [];
-	
-	            function processColumnModel(columnModel, dataItem) {
-	                var firstCell = null;
-	
-	                var row = mainFooter.clone();
-	                row.insertAfter(mainFooter);
-	                var cellList = $("td", row);
-	
-	                $(columnModel).each(function (cellIndex, modelElement) {
-	                    var cell = cellList.get(cellIndex);
-	                    var isCustomFormater = typeof modelElement.formatter === "function";
-	                    var rawValue = dataItem[modelElement.name];
-	                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
-	                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
-	                    var titleValue = value;
-	                    if ($.isNumeric(rawValue) && rawValue < 0) {
-	                        var wrapper = document.createElement('div');
-	                        wrapper.innerHTML = value;
-	                        titleValue = wrapper.outerHtml;
-	                    }
-	
-	                    $(cell).html(value).attr("title", titleValue);
-	                    firstCell = !firstCell ? $(cell) : firstCell;
-	                });
-	
-	                return firstCell;
-	            }
-	
-	            function renderDataForSummaryTotalRow(dataRow) {
-	                var currentFirstCell = processColumnModel(columnModel, dataRow);
-	
-	                currentFirstCell.html("Total in " + currency);
-	                currentFirstCell.addClass("group-" + currency);
-	                rowCount++;
-	            }
-	
-	            for (var currency in summaryTotal) {
-	                currencyList.push(currency);
-	                var summaryData = summaryTotal[currency];
-	                if (Array.isArray(summaryData)) {
-	                    summaryData.forEach(renderDataForSummaryTotalRow);
-	                }
-	                else {
-	                    renderDataForSummaryTotalRow(summaryData);
-	                }
-	            }
-	
-	            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
-	            mainFooter.remove();
-	
-	            return rowCount;
-	        },
-	
-	        getCurrencyNameForReportTitle: function (currencyId) {
-	            var viewinKey = Site.getSingleResource("Viewin");
-	            var currencyTextList = {
-	                "-3": viewinKey.replace("{0}", "GBP"),
-	                "-2": viewinKey.replace("{0}", "USD"),
-	                "-1": viewinKey.replace("{0}", "EUR"),
-	                "0": Site.getSingleResource('AllCurrencies')
-	            };
-	
-	            return currencyTextList[currencyId] === undefined
-	                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
-	                : currencyTextList[currencyId];
-	        },
-	
-	        renderBreadCrumb: function (level, licenseeId) {
-	            level = Number(level);
-	            if (level === 0) {
-	                $(".breadCrumbHolder").hide();
-	            }
-	            else {
-	                $(".breadCrumbHolder").show();
-	                $("#level-link-container .level0").show();
-	
-	                var isLevel2 = level === 2;
-	                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
-	                
-	                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
-	                $("#level-link-container .level1").toggle(allowShowLevel1);
-	                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
-	            }
-	        }
-	    };
-	
-	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ },
-/* 246 */,
-/* 247 */,
-/* 248 */,
-/* 249 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
-	    "use strict";
-	    $(LicenseeWinLoss.initialize);
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ },
-/* 250 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(245), __webpack_require__(251), __webpack_require__(197),
-	        __webpack_require__(208), __webpack_require__(90), __webpack_require__(9), __webpack_require__(218),
-	        __webpack_require__(200), __webpack_require__(201), __webpack_require__(220), __webpack_require__(252)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect) {
-	        "use strict";
-	        var REPORT_BY_MONTHLY = 2;
-	
-	        var cacheData = {};
-	        var ajaxRequest = null;
-	        var _sortColumnName = null;
-	        var _sortOrder = "desc";
-	        var _level = 0;
-	        var _removeSorting = false;
-	        var _reportBy = null;
-	        var _submitData; // cache submit data of level 0.
-	
-	        var _me = {
-	            initialize: function () {
-	                Site.initialize();
-	                _me.initEvent();
-	                _me.initSetting();
-	                _me.registerGlobalFunction();
-	
-	                LicenseeWinLossOption.gridOption.onSortCol = function (index) {
-	                    Site.blockUI();
-	                    window.setTimeout(function () {
-	                        _removeSorting = false;
-	                        if (_sortColumnName === index) {
-	                            _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
-	                        } else {
-	                            _sortOrder = "asc";
-	                            _sortColumnName = index;
-	                        }
-	
-	                        cacheData[_level].Data = _me.sortData(cacheData[_level].Data);
-	
-	                        _me.bindData(_level, _reportBy, cacheData[_level]);
-	
-	                        Site.unBlockUI();
-	                    }, 100);
-	                    return 'stop';
-	                };
-	
-	                Site.addUserGuide({
-	                    resourceName: "LicenseeWL",
-	                    title: Site.getSingleResource("LicenseeWinLoss")
-	                });
-	                MultiSelect.initProductList();
-	                DatePicker.initDateRangePicker();
-	            },
-	
-	            registerGlobalFunction: function () {
-	                window.licenseewinlossDrilldown = _me.drillDown;
-	            },
-	
-	            sortData: function (arrayData) {
-	                var data = _sortOrder === "asc" ?
-	                 Enumerable.From(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).ToArray()
-	                 : Enumerable.From(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).ToArray();
-	                for (var i = 0; i < data.length; i++) {
-	                    data[i].Index = i + 1;
-	                }
-	
-	                return data;
-	            },
-	
-	            initSetting: function () {
-	                LicenseeWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
-	                LicenseeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
-	            },
-	
-	            initEvent: function () {
-	                $("body").on("click", ".bet-list-link", function () {
-	                    var dataDrillDown = $(this).attr("data-drill-down");
-	                    _me.openBetlistPopUp(dataDrillDown);
-	                });
-	
-	                $('#SubmitButton').click(function () {
-	                    $('#IsExportExcel').val(false);
-	                    _level = 0;
-	                    _me.submit();
-	                });
-	
-	                $('#ExportToExcel').click(function () {
-	                    $('#IsExportExcel').val(true);
-	                    var mainForm = $("#licenseewinloss");
-	                    var url = Site.resolveClientUrl(LicenseeWinLossOption.urlExcelData);
-	                    mainForm.attr("action", url);
-	                    mainForm.submit();
-	                    $('#IsExportExcel').val(false);
-	                    return false;
-	                });
-	
-	                $("#level-link-container").on("click", ".level-link", function () {
-	                    var level = Number($(this).attr("data-level"));
-	                    _level = level;
-	                    if (level < 2) {
-	                        _me.goBack(level);
-	                    }
-	                });
-	
-	                $(window).on("resize", function () {
-	                    _me.resizeGrid();
-	                });
-	
-	                $(window).on("unload", function () {
-	                    $(window).off("resize");
-	                });
-	            },
-	
-	            //#region Layout
-	            setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
-	                var temp = 'api/LicenseeWinLossReport/Index';
-	                if (level > 0) {
-	                    temp += "?level=" + level + "&currencyId="
-	                    + currencyId + "&custId=" + custId + "&fdate=" + moment(fdate).format("MM/DD/YYYY")
-	                     + "&tdate=" + moment(tdate).format("MM/DD/YYYY") + "&currencyName=" + currencyName;
-	                }
-	                LicenseeWinLossOption.urlExcelData = temp;
-	            },
-	
-	            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
-	                var titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
-	                var currencyNameOnTitle = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName)
-	                                                        : Report.getCurrencyNameForReportTitle(currencyId);
-	                var title = $.format(titlePattern,
-	                    moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"),
-	                    moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"),
-	                    currencyNameOnTitle);
-	                $(".report-title").html(title);
-	                $(".panel-heading").removeClass("hide");
-	            },
-	            //#end
-	
-	            //#Get Data
-	            ajaxComplete: function (level, response) {
-	                level = Number(level);
-	                if (response !== null) {
-	                    var reportBy = $("input[name='ReportBy']:checked").val();
-	                    _reportBy = reportBy;
-	                    cacheData[level] = response;
-	                    //reset layout
-	                    if (level === 0) {
-	                        _me.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
-	                    }
-	
-	                    Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
-	                    _me.bindData(level, reportBy, response);
-	                }
-	            },
-	
-	            submit: function () {
-	                Report.setOriginalProduct();
-	                Site.updateOriginalLicenseeOption();
-	
-	                var validProduct = Report.ValidProducts();
-	                if (!validProduct) {
-	                    return false;
-	                }
-	
-	                var mainForm = $("#licenseewinloss");
-	                var data = mainForm.serializeObject();
-	                var option = {
-	                    type: "POST",
-	                    data: mainForm.serialize() +
-	                        (_sortColumnName ?
-	                            "&sortby=" + encodeURI(_sortColumnName) + "&sortOrder=" + _sortOrder : ""),
-	                    dataType: "json",
-	                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-	                    cache: false,
-	                    url: Site.resolveClientUrl(LicenseeWinLossOption.urlData),
-	                    success: function (response) {
-	                        _submitData = {
-	                            ProductOptions: response.ProductOptions,
-	                            DrawFilter: data.DrawFilter,
-	                            CurrencyId: data.CurrencyId,
-	                            ReportBy: Number(data.ReportBy),
-	                            FromDate: new Date(data.FromDate),
-	                            ToDate: new Date(data.ToDate),
-	                            CurrencyName: data.CurrencyName,
-	                            IsExcludedTestData: data.IsExcludedTestData
-	                        };
-	
-	                        _me.setExcelUrl(0, 0, 0, "", "", "");
-	                        _me.ajaxComplete(0, response);
-	                    },
-	                    beforeSend: function () {
-	                        Site.blockUI();
-	                    },
-	                    complete: function () {
-	                        Site.unBlockUI();
-	                    }
-	                };
-	                if (ajaxRequest !== null) {
-	                    ajaxRequest.abort();
-	                }
-	                ajaxRequest = $.ajax(option);
-	
-	                return true;
-	            },
-	
-	            lastDateOfMonth: function (year, month) {
-	                return new Date(year, month + 1, 0);
-	            },
-	
-	            drillDown: function (level, currencyId, customerId, datetime, currencyName, keepSorting) {
-	                level = Number(level);
-	                if (!keepSorting) {
-	                    _removeSorting = true;
-	                }
-	
-	                if (_level !== level) {
-	                    _level = level;
-	                }
-	                var param =
-	                {
-	                    ProductOptions: $.parseJSON(_submitData.ProductOptions),
-	                    DrawFilter: _submitData.DrawFilter,
-	                    IsExcludedTestData: _submitData.IsExcludedTestData,
-	                    CurrencyId: _submitData.CurrencyId,
-	                    ReportBy: _submitData.ReportBy,
-	                    FromDate: _submitData.FromDate,
-	                    ToDate: _submitData.ToDate,
-	                    BaseCurrency: $("#BaseCurrency").attr("data-original")
-	                };
-	
-	                var drilldownDate = new Date(datetime);
-	                var dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
-	
-	                if (keepSorting && _sortColumnName) {
-	                    param.SortBy = _sortColumnName;
-	                    param.SortOrder = _sortOrder;
-	                }
-	
-	                var postData = JSON.stringify(param);
-	
-	                var option = {
-	                    type: "POST",
-	                    data: postData,
-	                    dataType: "json",
-	                    contentType: "application/json",
-	                    cache: false,
-	
-	                    url: Site.resolveClientUrl(LicenseeWinLossOption.urlData +
-	                        "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
-	                        moment(dateRange.FromDate).format("MM/DD/YYYY") + "&tdate=" + moment(dateRange.ToDate).format("MM/DD/YYYY")),
-	                    success: function (response) {
-	                        _me.ajaxComplete(level, response);
-	                        if (response !== null && response.Data.length > 0) {
-	                            if (level > 0 && Number(param.CurrencyId) === 0) {
-	                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
-	                            } else {
-	                                _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
-	                            }
-	                        }
-	
-	                        //update excel ULR
-	                        _me.setExcelUrl(level, currencyId, customerId, dateRange.FromDate, dateRange.ToDate, currencyName);
-	                    },
-	                    beforeSend: function () {
-	                        Site.blockUI();
-	                    },
-	                    complete: function () {
-	                        Site.unBlockUI();
-	                    }
-	                };
-	                if (ajaxRequest !== null) {
-	                    ajaxRequest.abort();
-	                }
-	                ajaxRequest = $.ajax(option);
-	            },
-	
-	            goBack: function (level) {
-	                var reportBy = _submitData.ReportBy;
-	                Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
-	                _me.bindData(level, reportBy, cacheData[level]);
-	
-	                if (level === 0) {
-	                    _me.setExcelUrl(0, 0, 0, "", "", "");
-	                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
-	                }
-	                else if (level === 1) {
-	                    LicenseeWinLossOption.urlExcelData = LicenseeWinLossOption.urlExcelData.replace("level=2", "level=1");
-	                }
-	            },
-	
-	            //#BindReport
-	
-	            bindTotal: function (level, totalData, summaryTotal) {
-	                var productOptions = $.parseJSON(_submitData.ProductOptions);
-	                productOptions = productOptions.reverse(); //make orders of product columns like excel file
-	                var columnModel = LicenseeWinLossOption.getTotalColModel(level, productOptions);
-	                var colspan = LicenseeWinLossOption.totalColspan[level];
-	                var summaryColspan = colspan + 1;
-	
-	                jqGridAdditional.assignTotal(totalData, columnModel);
-	                var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
-	                jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
-	            },
-	
-	            bindData: function (level, reportBy, response) {
-	                jqGridAdditional.clearGrid("ReportGrid");
-	                var numOfRow = response.Data.length;
-	                if (numOfRow === 0) {
-	                    jqGridAdditional.setNoInfo();
-	                    return;
-	                }
-	
-	                level = Number(level);
-	                var reportGrid = $("#ReportGrid");
-	                var productOptions = $.parseJSON(_submitData.ProductOptions);
-	                productOptions = productOptions.reverse(); //make orders of product columns like excel file
-	
-	                var numOfTotalRow = response.Total.length;
-	                var onPaging = false;
-	
-	                var gridOption = LicenseeWinLossOption.getGridOption(level, reportBy, productOptions);
-	                gridOption.rownumbers = true;
-	                gridOption.data = response.Data;
-	                gridOption.userData = {};
-	                gridOption.rowNum = level === 2 ? LicenseeWinLossOption.pageSize : LicenseeWinLossOption.nonePagingSize;
-	                gridOption.rowList = LicenseeWinLossOption.rowList;
-	                gridOption.rowTotal = numOfRow;
-	                gridOption.pager = '#ppdata';
-	                gridOption.onPaging = function (pgButton) {
-	                    if (level === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
-	                        if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
-	                            Site.blockUI();
-	                        }
-	                        onPaging = true;
-	                    }
-	                    else {
-	                        return 'stop';
-	                    }
-	                };
-	                gridOption.gridComplete = function () {
-	                    level = Number(level);
-	                    jqGridAdditional.gridComplete();
-	                    if (level === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
-	                        $("#pg_ppdata").show();
-	                    }
-	                    else {
-	                        $("#pg_ppdata").hide();
-	                    }
-	
-	                    if (onPaging && level === 2) {
-	                        $(".ui-jqgrid-ftable").html($("#footer").html());
-	                    }
-	                    else {
-	                        _me.bindTotal(level, response.Total, response.SummaryTotal);
-	                        $("#footer").html($(".ui-jqgrid-ftable").html());
-	                    }
-	
-	                    onPaging = false;
-	                    _me.resizeGrid();
-	
-	                    /*group header*/
-	                    if (numOfTotalRow > 0) {
-	                        LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
-	                    }
-	
-	                    Site.unBlockUI();
-	                };
-	
-	                // Show the grid
-	                reportGrid.jqGrid(gridOption);
-	
-	                if (!_removeSorting) {
-	                    jqGridAdditional.addSortableHeader(reportGrid, _sortColumnName, _sortOrder);
-	                }
-	
-	                LicenseeWinLossOption.setGroupHeaderColumns(reportGrid, productOptions);
-	
-	                LicenseeWinLossOption.restoreExpanse();
-	            },
-	
-	            //#end
-	
-	            openBetlistPopUp: function (dataDrillDown) {
-	                dataDrillDown = $.parseJSON(dataDrillDown);
-	                dataDrillDown.DrawFilter = _submitData.DrawFilter;
-	                dataDrillDown.IsExcludedTestData = _submitData.IsExcludedTestData;
-	                dataDrillDown.CurrencyId = _submitData.CurrencyId;
-	                dataDrillDown.CurrencyName = _submitData.CurrencyName;
-	                dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
-	
-	                if (typeof dataDrillDown.DrillDownFromDate === 'string') {
-	                    dataDrillDown.DrillDownFromDate = new Date(dataDrillDown.DrillDownFromDate);
-	                    dataDrillDown.DrillDownToDate = new Date(dataDrillDown.DrillDownToDate);
-	                }
-	
-	                if (_submitData.ReportBy === REPORT_BY_MONTHLY) {
-	                    var fday = 1;
-	                    var month = dataDrillDown.DrillDownFromDate.getMonth();
-	                    var year = dataDrillDown.DrillDownFromDate.getFullYear();
-	
-	                    var orignalFDate = _submitData.FromDate;
-	                    var originalTDate = _submitData.ToDate;
-	
-	                    if (month === orignalFDate.getMonth()) {
-	                        fday = orignalFDate.getDate();
-	                    }
-	                    dataDrillDown.DrillDownFromDate = new Date(year, month, fday, 0, 0, 0, 0);
-	                    if (month === originalTDate.getMonth()) {
-	                        var tday = originalTDate.getDate();
-	                        dataDrillDown.DrillDownToDate = new Date(year, month, tday, 0, 0, 0, 0);
-	                    }
-	                    else {
-	                        dataDrillDown.DrillDownToDate = _me.lastDateOfMonth(year, month);
-	                    }
-	                }
-	
-	                var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
-	                url = QueryString.setParam(url, "fromdate", moment(dataDrillDown.DrillDownFromDate).format("MM/DD/YYYY"));
-	                url = QueryString.setParam(url, "todate", moment(dataDrillDown.DrillDownToDate).format("MM/DD/YYYY"));
-	                url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
-	                url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
-	                url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
-	                url = QueryString.setParam(url, "drawfilter", dataDrillDown.DrawFilter);
-	                url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
-	                url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
-	                url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
-	                url = QueryString.setParam(url, "BaseCurrency", dataDrillDown.BaseCurrency);
-	
-	                url = Site.setProductOptionOriginalParamList(url);
-	
-	                var popH = Math.min($(window).height() - 100, 650), popW = 920;
-	                var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
-	                Popup.openPopupWithIframe(url, popupOption);
-	            },
-	
-	            resizeGrid: function () {
-	                var reportGrid = $("#ReportGrid");
-	                jqGridAdditional.updateGridHeight();
-	                jqGridAdditional.updateGridWidth(reportGrid);
-	            }
-	        };
-	
-	        return _me;
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ },
-/* 251 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
-	/*
-	* Note:in this report, parameter level have 3 value
-	*  "0" for master,"1" for agent and "2" for member
-	*/
-	
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(197), __webpack_require__(252)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
-	        "use strict";
-	        var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA", "CO"];
-	        var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
-	        var _me =
-	        {
-	            licenseeId: 0,
-	            currencyIndex: 4,
-	            turnoverIndex: 5,
-	            licenseeWlIndex: 12,
-	            customerWlTotalIndex: 11,
-	            hasCustomerComm: true,
-	            pageSize: 50,
-	            nonePagingSize: 2000,
-	            rowNum: 50,
-	            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
-	            totalColspan: [2, 2, 3],
-	            //level 0,1,2
-	            urlData: 'api/LicenseeWinLossReport/Index',
-	            urlExcelData: 'api/LicenseeWinLossReport/Index',
-	            gridOption:
-	            {
-	                datatype: 'local',
-	                colNames: [],
-	                colModel: [],
-	                data: [],
-	                height: '100%',
-	                autowidth: false,
-	                forceFit: false,
-	                shrinkToFit: true,
-	                loadtext: 'loading...',
-	                loadui: 'disable',
-	                loadonce: true,
-	                footerrow: true,
-	                userDataOnFooter: true,
-	                userData: [],
-	                grouping: true,
-	                viewrecords: true,
-	                gridview: true,
-	                rownumbers: true
-	            },
-	            restoreExpanse: function () {
-	                for (var property in _expanseTypes) {
-	                    if (_expanseTypes.hasOwnProperty(property)) {
-	                        _me.toggle(_expanseTypes[property], property);
-	                    }
-	                }
-	            }
-	        };
-	
-	        // store state of toggle() function
-	        var _expanseTypes = {};
-	
-	        var setDrillDownLink = function (level, currencyId, custId, datetime, currencyName, cellvalue) {
-	            return '<a class="drilldown" href="javascript:;" onclick="return licenseewinlossDrilldown(' + level + ',' +
-	             currencyId + ',' + custId + ',\'' + datetime + '\',\'' + currencyName + '\');">' + cellvalue + '</a>';
-	        };
-	
-	        var currencyFormatter = function (cellvalue, options, rowObject) {
-	            var level = Number(_me.licenseeId) === 1 ? 1 : 2;
-	            return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, rowObject.CurrencyName, cellvalue);
-	        };
-	
-	        var systemIdFormatter = function (cellvalue, options, rowObject) {
-	            return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, rowObject.CurrencyName, cellvalue);
-	        };
-	
-	        var betlistLink = function (cellvalue, options, rowObject) {
-	            var param =
-	            {
-	                DrillDownFromDate: rowObject.Date,
-	                DrillDownToDate: rowObject.Date,
-	                DrillDownCurrencyId: rowObject.CurrencyId,
-	                DrillDownCurrencyName: rowObject.CurrencyName,
-	                CustomerId: rowObject.CustomerId,
-	                ExternalId: rowObject.ExternalId,
-	                SystemId: rowObject.SystemId
-	            };
-	
-	            return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
-	        };
-	
-	        //#region Columns
-	
-	        var indexColumn =
-	        {
-	            name: 'Index',
-	            index: 'Index',
-	            resizable: false,
-	            width: 45,
-	            align: 'center',
-	            valign: 'middle',
-	            sortable: false
-	        };
-	
-	        var dateColumn =
-	        {
-	            name: 'Date',
-	            index: 'Date',
-	            resizable: false,
-	            width: 100,
-	            align: 'center',
-	            valign: 'middle',
-	            sortable: true,
-	            formatter: 'date',
-	            formatoptions:
-	            {
-	                newformat: 'm/d/Y'
-	            }
-	        };
-	
-	        var externalIdColumn =
-	        {
-	            name: 'ExternalId',
-	            index: 'ExternalId',
-	            resizable: false,
-	            width: 120,
-	            align: 'left',
-	            sortable: true
-	        };
-	
-	        var systemIdColumn =
-	        {
-	            name: 'SystemId',
-	            index: 'SystemId',
-	            resizable: false,
-	            width: 150,
-	            align: 'left',
-	            sortable: true,
-	            formatter: function (cellvalue, options, rowObject) {
-	                return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
-	            }
-	        };
-	
-	        var currencyColumn =
-	        {
-	            name: 'CurrencyName',
-	            index: 'CurrencyName',
-	            width: 80,
-	            align: 'center',
-	            sortable: true,
-	            resizable: false,
-	            formatter: currencyFormatter
-	        };
-	
-	        var turnoverColumn =
-	        {
-	            name: 'TotalTurnOverSingle',
-	            index: 'TotalTurnOverSingle',
-	            width: 120,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: 'currency',
-	            hidden: false,
-	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-	        };
-	
-	        var actualStakeColumn =
-	        {
-	            name: 'ActualStake',
-	            index: 'ActualStake',
-	            width: 100,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: 'currency',
-	            hidden: false,
-	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-	        };
-	
-	        var buybackColumn =
-	        {
-	            name: 'TotalBuyBackAmountSingle',
-	            index: 'TotalBuyBackAmountSingle',
-	            width: 100,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: 'currency',
-	            hidden: false,
-	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-	        };
-	
-	        var totalTransColumn =
-	        {
-	            name: 'TotalTransaction',
-	            index: 'TotalTransaction',
-	            width: 90,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: 'integer',
-	            frozen: true,
-	            formatoptions:
-	            {
-	                thousandsSeparator: ","
-	            }
-	        };
-	
-	        var customerWlColumn =
-	        {
-	            name: 'CustomerWinLoss',
-	            index: 'CustomerWinLoss',
-	            width: 120,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: jqGridAdditional.formatDecimal
-	        };
-	
-	        var playerCommColumn =
-	        {
-	            name: 'CustomerComm',
-	            index: 'CustomerComm',
-	            width: 70,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: jqGridAdditional.formatDecimal
-	        };
-	
-	        var customerWlTotalColumn =
-	        {
-	            name: 'CustomerTotal',
-	            index: 'CustomerTotal',
-	            width: 120,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: jqGridAdditional.formatDecimal
-	        };
-	
-	        var licenseeWlColumn =
-	        {
-	            name: 'TotalLicenseeWLSingle',
-	            index: 'TotalLicenseeWLSingle',
-	            width: 120,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            hidden: false,
-	            title: true,
-	            formatter: jqGridAdditional.formatLicenseeWl
-	        };
-	
-	        var betTradeCommissionColumn =
-	        {
-	            name: 'BetTradeCommission',
-	            index: 'BetTradeCommission',
-	            width: 120,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: 'currency',
-	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-	        };
-	
-	        var cashOutCommissionColumn =
-	        {
-	            name: 'CashOutCommission',
-	            index: 'CashOutCommission',
-	            width: 120,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: 'currency',
-	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-	        };
-	
-	        var baCommissionColumn =
-	        {
-	            name: 'BACommission',
-	            index: 'BACommission',
-	            width: 95,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: 'currency',
-	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-	        };
-	
-	        var racingRevenueColumn =
-	        {
-	            name: 'RacingRevenue',
-	            index: 'RacingRevenue',
-	            width: 100,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: 'currency',
-	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-	        };
-	
-	        var amtDueToBetTradeColumn =
-	        {
-	            name: 'AmtDueToBetTrade',
-	            index: 'AmtDueToBetTrade',
-	            width: 85,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: 'currency',
-	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-	        };
-	
-	        var amtDueToBaColumn =
-	        {
-	            name: 'AmtDueToBA',
-	            index: 'AmtDueToBA',
-	            width: 85,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: 'currency',
-	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-	        };
-	
-	        var amtDueToRacingColumn =
-	        {
-	            name: 'AmtDueToRacing',
-	            index: 'AmtDueToRacing',
-	            width: 85,
-	            align: 'right',
-	            sortable: true,
-	            resizable: false,
-	            formatter: 'currency',
-	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-	        };
-	
-	        var currencyIdColumn =
-	        {
-	            name: 'CurrencyId',
-	            index: 'CurrencyId',
-	            width: 2,
-	            align: 'center',
-	            sortable: true,
-	            resizable: false,
-	            hidden: true
-	        };
-	
-	        var customerIdColumn =
-	        {
-	            name: 'CustomerId',
-	            index: 'CustomerId',
-	            width: 2,
-	            align: 'center',
-	            sortable: true,
-	            resizable: false,
-	            hidden: true
-	        };
-	
-	        var productColumn =
-	        {
-	            name: 'productName',
-	            index: 'productName',
-	            width: 120,
-	            sortable: true,
-	            resizable: false,
-	            align: "right",
-	            hidden: true,
-	            title: true,
-	            formatter: jqGridAdditional.formatLicenseeWl
-	        };
-	
-	        //#endregion
-	
-	        var colNameList = [
-	            '#',
-	            'Date',
-	            'ExternalId',
-	            "SystemId",
-	            "Currency",
-	            'Turnover',
-	            'ActualStake',
-	            'BuyBackAmount',
-	             'TotalTransaction',
-	             '@[Win]/@[Loss]', 'Comm',
-	             'Total', 'LicenseeW_L',
-	             '@[ProductBT]<br/>@[Commission]',
-	             '@[ProductCO]<br/>@[Commission]',
-	             'BA<br/>@[Commission]',
-	             '@[RacingRevenue]',
-	             '@[AmtDueToBetTrade]',
-	             '@[AmtDueToBA]',
-	             '@[AmtDueToRacing]',
-	             'CurrencyId',
-	             'CustomerId'];
-	
-	        var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
-	            turnoverColumn, actualStakeColumn, buybackColumn, totalTransColumn, customerWlColumn, playerCommColumn,
-	            customerWlTotalColumn, licenseeWlColumn, betTradeCommissionColumn, cashOutCommissionColumn, baCommissionColumn, racingRevenueColumn,
-	            amtDueToBetTradeColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
-	
-	        function isProductChecked(productOptions, productCode) {
-	            var length = productOptions.length;
-	
-	            for (var i = 0; i < length; i++) {
-	                if (productOptions[i].Code === productCode) {
-	                    return productOptions[i].Status;
-	                }
-	            }
-	
-	            return null;
-	        }
-	
-	        function isIgnoredTurnoverProduct(productCode) {
-	            return $.inArray(productCode, IGNORED_TURNOVER_PRODUCTS) >= 0;
-	        }
-	
-	        function isIgnoredLicenseeWLProduct(productCode) {
-	            return $.inArray(productCode, IGNORED_LICENSEEWL_PRODUCTS) >= 0;
-	        }
-	
-	        function turnoverProductsFilter(item) {
-	            return item.Status === true && isIgnoredTurnoverProduct(item.Code) === false;
-	        }
-	
-	        function licenseeWLProductsFilter(item) {
-	            return item.Status === true && isIgnoredLicenseeWLProduct(item.Code) === false;
-	        }
-	
-	        function addBuyBackAmountColumns(columns, columnIndex) {
-	            var buyBackAmountColumn = Site.clone(productColumn);
-	            buyBackAmountColumn.name = "TotalBuyBackAmount";
-	            buyBackAmountColumn.index = "TotalBuyBackAmount";
-	
-	            var buyBackAmountSBColumn = Site.clone(productColumn);
-	            buyBackAmountSBColumn.name = "BuyBackAmountSB";
-	            buyBackAmountSBColumn.index = "BuyBackAmountSB";
-	
-	            var buyBackAmountBAColumn = Site.clone(productColumn);
-	            buyBackAmountBAColumn.name = "BuyBackAmountBA";
-	            buyBackAmountBAColumn.index = "BuyBackAmountBA";
-	
-	            columns.insertAfter(buyBackAmountColumn, columnIndex);
-	            columns.insertAfter(buyBackAmountBAColumn, columnIndex);
-	            columns.insertAfter(buyBackAmountSBColumn, columnIndex);
-	        }
-	
-	        _me.setGroupHeaderColumns = function (grid, productOptions) {
-	            var numOfTurnover = Enumerable.From(productOptions).Count(turnoverProductsFilter) + 1;
-	            var lastOfTurnover = numOfTurnover > 1 ? Enumerable.From(productOptions).Last(turnoverProductsFilter) : null;
-	
-	            var numOfLicenseeWL = Enumerable.From(productOptions).Count(licenseeWLProductsFilter) + 1;
-	            var lastOfLicenseeWL = numOfLicenseeWL > 1 ? Enumerable.From(productOptions).Last(licenseeWLProductsFilter) : null;
-	
-	            var groupCustomerWinloss = _me.hasCustomerComm ? {
-	                startColumnName: 'CustomerWinLoss',
-	                numberOfColumns: 3,
-	                titleText: Site.getSingleResource('CustomerW_L')
-	            } : {};
-	
-	            var groupTurnoverWL = lastOfTurnover !== null ? {
-	                startColumnName: "TurnOver" + lastOfTurnover.Code,
-	                numberOfColumns: numOfTurnover,
-	                titleText: Site.getSingleResource('Turnover')
-	            } : {};
-	
-	            var groupLicenseeWL = lastOfLicenseeWL !== null ? {
-	                startColumnName: "LicenseeWL" + lastOfLicenseeWL.Code,
-	                numberOfColumns: numOfLicenseeWL,
-	                titleText: Site.getSingleResource('LicenseeW_L')
-	            } : {};
-	
-	            var groupBuyBackAmount = lastOfLicenseeWL !== null ? {
-	                startColumnName: "BuyBackAmountSB",
-	                numberOfColumns: 3,
-	                titleText: Site.getSingleResource('BuyBackAmount')
-	            } : {};
-	
-	            grid.jqGrid('setGroupHeaders',
-	            {
-	                useColSpanStyle: true,
-	                groupHeaders: [groupTurnoverWL, groupLicenseeWL, groupCustomerWinloss, groupBuyBackAmount]
-	            });
-	        };
-	
-	        _me.getColName = function (productOptions) {
-	            // Column Customer Wl
-	            var temp = Site.clone(colNameList);
-	            var turnOverIndex = _me.turnoverIndex;
-	            var licenseeIndex = _me.licenseeWlIndex;
-	            var customerWLTotalIndex = _me.customerWlTotalIndex;
-	            temp[_me.customerWlTotalIndex] = _me.hasCustomerComm ? 'Total' : 'CustomerW_L';
-	            $.each(productOptions, function (index, item) {
-	                //insert turn over column
-	                if (item.Status === true) {
-	                    if (isIgnoredTurnoverProduct(item.Code) === false) {
-	                        temp.insertAfter(item.Name, _me.currencyIndex);
-	                        turnOverIndex++;
-	                        licenseeIndex++;
-	                        customerWLTotalIndex++;
-	                    }
-	                    if (isIgnoredLicenseeWLProduct(item.Code) === false) {
-	                        temp.insertAfter(item.Name, customerWLTotalIndex);
-	                        licenseeIndex++;
-	                    }
-	                }
-	            });
-	            //add total column
-	            temp.insertBefore("Total", turnOverIndex);
-	            licenseeIndex++;
-	            temp.insertBefore("Total", licenseeIndex);
-	
-	            var buyBackIndex = turnOverIndex + 2;
-	            if (isProductChecked(productOptions, "BA") !== null) {
-	                temp.insertAfter("Total", buyBackIndex);
-	                temp.insertAfter("BA", buyBackIndex);
-	                temp.insertAfter("Sportsbook", buyBackIndex);
-	            }
-	
-	            return Site.getResources(temp);
-	        };
-	
-	        _me.getColModel = function (level, reportBy, productOptions) {
-	            reportBy = Number(reportBy);
-	
-	            // Column hidden by customer comm
-	            customerWlColumn.hidden = !_me.hasCustomerComm;
-	            playerCommColumn.hidden = !_me.hasCustomerComm;
-	            level = Number(level);
-	            //set width of licenseeWL column
-	            if (!_me.hasCustomerComm) { licenseeWlColumn.width = 90; }
-	            // Column hidden by level
-	            currencyColumn.formatter = level === 0 ? currencyFormatter : null;
-	            systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
-	
-	            dateColumn.hidden = level > 0;
-	            externalIdColumn.hidden = level < 2;
-	            systemIdColumn.hidden = level === 0;
-	
-	            // Column hidden by product
-	            var allowedSb = isProductChecked(productOptions, "SB");
-	            var allowedBa = isProductChecked(productOptions, "BA");
-	            var allowedRacing = isProductChecked(productOptions, "RB");
-	            var allowedBetTrade = isProductChecked(productOptions, "BT");
-	            var allowedCashOut = isProductChecked(productOptions, "CO");
-	            buybackColumn.hidden = !allowedBetTrade;
-	            actualStakeColumn.hidden = !allowedBetTrade;
-	            baCommissionColumn.hidden = !allowedBa;
-	            amtDueToBaColumn.hidden = !allowedBa;
-	            racingRevenueColumn.hidden = !allowedRacing;
-	            amtDueToRacingColumn.hidden = !allowedRacing;
-	            betTradeCommissionColumn.hidden = !allowedBetTrade;
-	            amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
-	            cashOutCommissionColumn.hidden = !allowedCashOut;
-	
-	            if (level === 2) {
-	                externalIdColumn.formatter = betlistLink;
-	                systemIdColumn.formatter = betlistLink;
-	            }
-	            if (reportBy === 2) {
-	                dateColumn.formatoptions = {
-	                    newformat: 'm/Y'
-	                };
-	            } else {
-	                dateColumn.formatoptions = {
-	                    newformat: 'm/d/Y'
-	                };
-	            }
-	
-	            var temp = Site.clone(colModelList);
-	
-	            var turnOverIndex = _me.turnoverIndex;
-	
-	            var licenseeIndex = _me.licenseeWlIndex;
-	
-	            var customerWLTotalIndex = _me.customerWlTotalIndex;
-	            $.each(productOptions, function (index, item) {
-	                //insert turn over column
-	                if (item.Status === true) {
-	                    // Exclude bettrade
-	                    if (isIgnoredTurnoverProduct(item.Code) === false) {
-	                        var turnOver = Site.clone(productColumn);
-	                        turnOver.name = "TurnOver" + item.Code;
-	                        turnOver.index = "TurnOver" + item.Code;
-	                        turnOver.sortable = true;
-	
-	                        temp.insertAfter(turnOver, _me.currencyIndex);
-	                        turnOverIndex++;
-	                        licenseeIndex++;
-	                        customerWLTotalIndex++;
-	                    }
-	
-	                    if (isIgnoredLicenseeWLProduct(item.Code) === false) {
-	                        var licenseeWL = Site.clone(productColumn);
-	                        licenseeWL.name = "LicenseeWL" + item.Code;
-	                        licenseeWL.index = "LicenseeWL" + item.Code;
-	                        licenseeWL.sortable = true;
-	
-	                        temp.insertAfter(licenseeWL, customerWLTotalIndex);
-	                        licenseeIndex++;
-	                    }
-	                }
-	            });
-	
-	            //add total
-	
-	            var turnOverTotal = Site.clone(productColumn);
-	            turnOverTotal.name = "TotalTurnOver";
-	            turnOverTotal.index = "TotalTurnOver";
-	            temp.insertBefore(turnOverTotal, turnOverIndex);
-	            licenseeIndex++;
-	            var licenseeWLTotal = Site.clone(productColumn);
-	            licenseeWLTotal.name = "TotalLicenseeWL";
-	            licenseeWLTotal.index = "TotalLicenseeWL";
-	            temp.insertBefore(licenseeWLTotal, licenseeIndex);
-	
-	            if (allowedBa !== null) {
-	                addBuyBackAmountColumns(temp, turnOverIndex + 2);
-	            }
-	
-	            return temp;
-	        };
-	
-	        _me.getGridOption = function (level, reportBy, productOptions) {
-	            _me.gridOption.colNames = _me.getColName(productOptions);
-	            _me.gridOption.colModel = _me.getColModel(level, reportBy, productOptions);
-	            return Site.clone(_me.gridOption);
-	        };
-	
-	        _me.getTotalColModel = function (level, productOptions) {
-	            var colModel = _me.getColModel(level, -1, productOptions);
-	            // Not show drill down link on total link
-	            var curCol = Enumerable.From(colModel).First(function (item) {
-	                return item.name === "CurrencyName";
-	            });
-	
-	            curCol.formatter = null;
-	            return colModel;
-	        };
-	
-	        _me.addProductButton = function (grid, gridId, gridName, productOptions) {
-	            /// <summary>
-	            /// add collapse/expand button to header product columns
-	            /// </summary>
-	            /// <param name="grid">grid instance</param>
-	
-	            var numOfActiveLicPro = Enumerable.From(productOptions).Count(licenseeWLProductsFilter);
-	            var numOfActiveTurnPro = Enumerable.From(productOptions).Count(turnoverProductsFilter);
-	            var isAllowedBetTrade = isProductChecked(productOptions, "BT");
-	            var isAllowBA = isProductChecked(productOptions, "BA");
-	            var clear = function (button) {
-	                $(button).off("click").remove();
-	            };
-	            //reset licenseWL column
-	            var curWidth = $("#ReportGrid_TotalLicenseeWLSingle div").width();
-	
-	            if (curWidth < 100) {
-	                $("#ReportGrid_TotalLicenseeWLSingle div").css("width", "100px");
-	            }
-	
-	            //#region Toggle
-	            // column params: TurnOver, LicenseeWL, BuyBackAmount
-	            var toggle = function (isShow, column) {
-	                if ((column === "LicenseeWL" && numOfActiveLicPro <= 1) ||
-	                    (column === "TurnOver" && numOfActiveTurnPro <= 1) ||
-	                    (column === "BuyBackAmount" && (!isAllowedBetTrade || isAllowBA === null))) {
-	                    return;
-	                }
-	                _expanseTypes[column] = isShow;
-	
-	                var param = isShow ? "showCol" : "hideCol";
-	                var fColumns = [];
-	                var productColumnNames = [];
-	
-	                if (column === "BuyBackAmount") {
-	                    var sbColumnName = column + "SB";
-	                    var baColumnName = column + "BA";
-	                    fColumns = [gridName + "_" + sbColumnName, gridName + "_" + baColumnName];
-	                    productColumnNames.push(sbColumnName, baColumnName);
-	                } else {
-	                    $.each(productOptions, function (index, value) {
-	                        if (value.Status === true) {
-	                            var columnName = column + value.Code;
-	                            productColumnNames.push(columnName);
-	                            fColumns.push(gridName + "_" + columnName);
-	                        }
-	                    });
-	                }
-	
-	                var totalColumn = 'Total' + column;
-	                productColumnNames.push(totalColumn);
-	
-	                grid.jqGrid(param, productColumnNames);
-	
-	                var fTotalColumn = gridName + "_" + totalColumn;
-	                fColumns.push(fTotalColumn);
-	
-	                /*show /hide single column*/
-	                var singleColumn = totalColumn + 'Single';
-	                var singleParam = isShow ? "hideCol" : "showCol";
-	                grid.jqGrid(singleParam, singleColumn);
-	
-	                /*show/hide footer column*/
-	                jqGridAdditional.setFooterColumns(param, fColumns);
-	
-	                var singleFColumn = gridName + "_" + singleColumn;
-	                jqGridAdditional.setFooterColumns(singleParam, [singleFColumn]);
-	
-	                if (column === "TurnOver") {
-	                    addTurnOverExpand();
-	                }
-	                else if (column === "LicenseeWL") {
-	                    addLicenseeExpand();
-	                }
-	                else {
-	                    addBuyBackExpand();
-	                }
-	
-	                /*jqgrid always clears grouping header after events complete*/
-	                addTurnOverCollapse();
-	                addLicenseeWlCollapse();
-	                addBuyBackCollapse();
-	
-	                //update footer row
-	                $("#footer").html($(".ui-jqgrid-ftable").html());
-	                $('.report-content').css('cursor', 'default');
-	
-	                jqGridAdditional.updateGridHeight();
-	                jqGridAdditional.updateGridWidth(grid);
-	                return false;
-	            };
-	
-	            _me.toggle = toggle;
-	            //#end
-	
-	            function addToggleButton($container, $element, isToggle, column) {
-	                $element.appendTo($container).append('<i class="btn-icon icon-arrow"></i>')
-	                .click(function () { return toggle(isToggle, column); });
-	            }
-	
-	            var addTurnOverExpand = function () {
-	                if (numOfActiveTurnPro > 1) {
-	                    clear("#btnTurnOverExpand");
-	                    var $container = $("#" + gridId + "_" + "TotalTurnOverSingle");
-	                    var $button = $('<button title="Expand to view details" id="btnTurnOverExpand" class="header-button btn"></button>');
-	                    addToggleButton($container, $button, true, "TurnOver");
-	                }
-	            };
-	
-	            var addTurnOverCollapse = function () {
-	                if (numOfActiveTurnPro > 1) {
-	                    clear("#btnTurnOverCollapse");
-	
-	                    var $container = $(grid).closest(".ui-jqgrid-view")
-	                            .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:first");
-	
-	                    var $button = $('<button class="header-button btnCollapse btn" id="btnTurnOverCollapse"></button>');
-	                    addToggleButton($container, $button, false, "TurnOver");
-	                }
-	            };
-	
-	            var addLicenseeExpand = function () {
-	                if (numOfActiveLicPro > 1) {
-	                    clear("#btnLicenseeWLExpand");
-	                    var $container = $("#" + gridId + "_" + "TotalLicenseeWLSingle");
-	                    var $button = $('<button title="Expand to view details" id="btnLicenseeWLExpand" class="header-button btn"></button>');
-	                    addToggleButton($container, $button, true, "LicenseeWL");
-	                }
-	            };
-	
-	            var addLicenseeWlCollapse = function () {
-	                if (numOfActiveLicPro > 1) {
-	                    clear("#btnLicenseeWLCollapse");
-	
-	                    var $container = $(grid).closest(".ui-jqgrid-view")
-	                            .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:last");
-	                    var $button = $('<button class="header-button btnCollapse btn" id="btnLicenseeWLCollapse">');
-	                    addToggleButton($container, $button, false, "LicenseeWL");
-	                }
-	            };
-	
-	            var addBuyBackExpand = function () {
-	                if (isAllowBA !== null) {
-	                    clear("#btnBuyBackExpand");
-	                    var $container = $("#" + gridId + "_" + "TotalBuyBackAmountSingle");
-	                    var $button = $('<button title="Expand to view details" id="btnBuyBackExpand" class="header-button btn"></button>');
-	                    addToggleButton($container, $button, true, "BuyBackAmount");
-	                }
-	            };
-	
-	            var addBuyBackCollapse = function () {
-	                if (isAllowBA !== null) {
-	                    clear("#btnBuyBackCollapse");
-	                    var $container = $(grid).closest(".ui-jqgrid-view")
-	                            .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header");
-	                    $container = $container[$container.length - (_me.hasCustomerComm ? 3 : 2)];
-	                    var $button = $('<button class="header-button btnCollapse btn" id="btnBuyBackCollapse">');
-	                    addToggleButton($container, $button, false, "BuyBackAmount");
-	                }
-	            };
-	
-	            // Collapsing when loading completed
-	            addTurnOverCollapse();
-	            addTurnOverExpand();
-	
-	            addLicenseeExpand();
-	            addLicenseeWlCollapse();
-	
-	            addBuyBackCollapse();
-	            addBuyBackExpand();
-	        };
-	
-	        return _me;
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ },
-/* 252 */
+/* 239 */
 /***/ function(module, exports) {
 
 	/*--------------------------------------------------------------------------
@@ -24475,6 +23018,1495 @@ webpackJsonp([52],[
 	    // out to global
 	    return Enumerable;
 	})()
+
+/***/ },
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	    "use strict";
+	    var REPORT_BY_MONTHLY = 2;
+	    var LICENSEE_12BET = 1;
+	    function lastDateOfMonth(year, month) {
+	        return new Date(year, month + 1, 0);
+	    }
+	
+	    var _me = {
+	        GetDrilldownDateRange: function (reportBy, fromDate, toDate, drilldownDate) {
+	            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
+	            var tdate = fdate;
+	            if (Number(reportBy) === REPORT_BY_MONTHLY) {
+	                var fday = 1;
+	                var month = fdate.getMonth();
+	                var year = fdate.getFullYear();
+	                var orignalFDate = new Date(fromDate);
+	                if (month === orignalFDate.getMonth()) {
+	                    fday = orignalFDate.getDate();
+	                }
+	                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+	                var originalTDate = new Date(toDate);
+	
+	                if (month === originalTDate.getMonth()) {
+	                    var tday = originalTDate.getDate();
+	                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+	                }
+	                else {
+	                    tdate = lastDateOfMonth(year, month);
+	                }
+	            }
+	
+	            return {
+	                FromDate: fdate,
+	                ToDate: tdate
+	            };
+	        },
+	        ValidProducts: function () {
+	            var temp = true;
+	            if ($(".childCheckbox:checked").length === 0) {
+	                temp = false;
+	                var title = Site.getSingleResource("LrfNotification");
+	                var message = Site.getSingleResource("AlertChooseProductMsg");
+	                var $dialog = $('<div title="' + title + '"><p class="notification">' + message + '</p></div>');
+	
+	                Popup.openPopup($dialog, {
+	                    width: 380,
+	                    height: 150,
+	                    title: title,
+	                    className: "popup-notification",
+	                    onOpen: function () {
+	                        $('#SubmitButton').prop('disabled', true);
+	                    },
+	                    onClose: function () {
+	                        $('#SubmitButton').removeAttr('disabled');
+	                    }
+	                });
+	            }
+	
+	            return temp;
+	        },
+	
+	        setOriginalProduct: function () {
+	            $(".childCheckbox[type='checkbox']", "#ProductList").each(function (index, element) {
+	                var isCheck = $(this).is(":checked");
+	                $(element).attr({ 'data-original': isCheck });
+	            });
+	        },
+	
+	        bindSummaryTotal: function (columnModel, summaryTotal) {
+	            /// <summary>
+	            /// Bind summary total data to footer rows
+	            /// </summary>
+	            /// <param name="columnModel"></param>
+	            /// <param name="summaryTotal"></param>
+	            /// <returns type="int">Number of iserted row</returns>
+	            if (!summaryTotal || summaryTotal.length === 0) {
+	                return;
+	            }
+	
+	            var mainFooter = $(".ui-jqgrid-ftable tr:last-child");
+	            var rowCount = 0;
+	            var currencyList = [];
+	
+	            function processColumnModel(columnModel, dataItem) {
+	                var firstCell = null;
+	
+	                var row = mainFooter.clone();
+	                row.insertAfter(mainFooter);
+	                var cellList = $("td", row);
+	
+	                $(columnModel).each(function (cellIndex, modelElement) {
+	                    var cell = cellList.get(cellIndex);
+	                    var isCustomFormater = typeof modelElement.formatter === "function";
+	                    var rawValue = dataItem[modelElement.name];
+	                    var value = isCustomFormater ? modelElement.formatter(rawValue, modelElement.formatoptions, row) :
+	                                $.fn.fmatter(modelElement.formatter, rawValue, modelElement.formatoptions);
+	                    var titleValue = value;
+	                    if ($.isNumeric(rawValue) && rawValue < 0) {
+	                        var wrapper = document.createElement('div');
+	                        wrapper.innerHTML = value;
+	                        titleValue = wrapper.outerHtml;
+	                    }
+	
+	                    $(cell).html(value).attr("title", titleValue);
+	                    firstCell = !firstCell ? $(cell) : firstCell;
+	                });
+	
+	                return firstCell;
+	            }
+	
+	            function renderDataForSummaryTotalRow(dataRow) {
+	                var currentFirstCell = processColumnModel(columnModel, dataRow);
+	
+	                currentFirstCell.html("Total in " + currency);
+	                currentFirstCell.addClass("group-" + currency);
+	                rowCount++;
+	            }
+	
+	            for (var currency in summaryTotal) {
+	                currencyList.push(currency);
+	                var summaryData = summaryTotal[currency];
+	                if (Array.isArray(summaryData)) {
+	                    summaryData.forEach(renderDataForSummaryTotalRow);
+	                }
+	                else {
+	                    renderDataForSummaryTotalRow(summaryData);
+	                }
+	            }
+	
+	            $(".ui-jqgrid-ftable").attr("data-total-currency-list", currencyList.join());
+	            mainFooter.remove();
+	
+	            return rowCount;
+	        },
+	
+	        getCurrencyNameForReportTitle: function (currencyId) {
+	            var viewinKey = Site.getSingleResource("Viewin");
+	            var currencyTextList = {
+	                "-3": viewinKey.replace("{0}", "GBP"),
+	                "-2": viewinKey.replace("{0}", "USD"),
+	                "-1": viewinKey.replace("{0}", "EUR"),
+	                "0": Site.getSingleResource('AllCurrencies')
+	            };
+	
+	            return currencyTextList[currencyId] === undefined
+	                ? viewinKey.replace("{0}", $('#CurrencyId option[value="' + currencyId + '"]').text())
+	                : currencyTextList[currencyId];
+	        },
+	
+	        renderBreadCrumb: function (level, licenseeId) {
+	            level = Number(level);
+	            if (level === 0) {
+	                $(".breadCrumbHolder").hide();
+	            }
+	            else {
+	                $(".breadCrumbHolder").show();
+	                $("#level-link-container .level0").show();
+	
+	                var isLevel2 = level === 2;
+	                $("#level-link-container .level2").toggle(isLevel2).toggleClass("active", isLevel2);
+	                
+	                var allowShowLevel1 = licenseeId ? licenseeId === LICENSEE_12BET : true;
+	                $("#level-link-container .level1").toggle(allowShowLevel1);
+	                $("#level-link-container .level1").toggleClass("active", allowShowLevel1 && !isLevel2);
+	            }
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(281)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
+	    "use strict";
+	    $(LicenseeWinLoss.initialize);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(276), __webpack_require__(282), __webpack_require__(205),
+	        __webpack_require__(216), __webpack_require__(98), __webpack_require__(9), __webpack_require__(226),
+	        __webpack_require__(208), __webpack_require__(209), __webpack_require__(228), __webpack_require__(239)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup, MultiSelect) {
+	        "use strict";
+	        var REPORT_BY_MONTHLY = 2;
+	
+	        var cacheData = {};
+	        var ajaxRequest = null;
+	        var _sortColumnName = null;
+	        var _sortOrder = "desc";
+	        var _level = 0;
+	        var _removeSorting = false;
+	        var _reportBy = null;
+	        var _submitData; // cache submit data of level 0.
+	
+	        var _me = {
+	            initialize: function () {
+	                Site.initialize();
+	                _me.initEvent();
+	                _me.initSetting();
+	                _me.registerGlobalFunction();
+	
+	                LicenseeWinLossOption.gridOption.onSortCol = function (index) {
+	                    Site.blockUI();
+	                    window.setTimeout(function () {
+	                        _removeSorting = false;
+	                        if (_sortColumnName === index) {
+	                            _sortOrder = _sortOrder === "asc" ? "desc" : "asc";
+	                        } else {
+	                            _sortOrder = "asc";
+	                            _sortColumnName = index;
+	                        }
+	
+	                        cacheData[_level].Data = _me.sortData(cacheData[_level].Data);
+	
+	                        _me.bindData(_level, _reportBy, cacheData[_level]);
+	
+	                        Site.unBlockUI();
+	                    }, 100);
+	                    return 'stop';
+	                };
+	
+	                Site.addUserGuide({
+	                    resourceName: "LicenseeWL",
+	                    title: Site.getSingleResource("LicenseeWinLoss")
+	                });
+	                MultiSelect.initProductList();
+	                DatePicker.initDateRangePicker();
+	            },
+	
+	            registerGlobalFunction: function () {
+	                window.licenseewinlossDrilldown = _me.drillDown;
+	            },
+	
+	            sortData: function (arrayData) {
+	                var data = _sortOrder === "asc" ?
+	                 Enumerable.From(arrayData).OrderBy(function (x) { return x[_sortColumnName]; }).ToArray()
+	                 : Enumerable.From(arrayData).OrderByDescending(function (x) { return x[_sortColumnName]; }).ToArray();
+	                for (var i = 0; i < data.length; i++) {
+	                    data[i].Index = i + 1;
+	                }
+	
+	                return data;
+	            },
+	
+	            initSetting: function () {
+	                LicenseeWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
+	                LicenseeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
+	            },
+	
+	            initEvent: function () {
+	                $("body").on("click", ".bet-list-link", function () {
+	                    var dataDrillDown = $(this).attr("data-drill-down");
+	                    _me.openBetlistPopUp(dataDrillDown);
+	                });
+	
+	                $('#SubmitButton').click(function () {
+	                    $('#IsExportExcel').val(false);
+	                    _level = 0;
+	                    _me.submit();
+	                });
+	
+	                $('#ExportToExcel').click(function () {
+	                    $('#IsExportExcel').val(true);
+	                    var mainForm = $("#licenseewinloss");
+	                    var url = Site.resolveClientUrl(LicenseeWinLossOption.urlExcelData);
+	                    mainForm.attr("action", url);
+	                    mainForm.submit();
+	                    $('#IsExportExcel').val(false);
+	                    return false;
+	                });
+	
+	                $("#level-link-container").on("click", ".level-link", function () {
+	                    var level = Number($(this).attr("data-level"));
+	                    _level = level;
+	                    if (level < 2) {
+	                        _me.goBack(level);
+	                    }
+	                });
+	
+	                $(window).on("resize", function () {
+	                    _me.resizeGrid();
+	                });
+	
+	                $(window).on("unload", function () {
+	                    $(window).off("resize");
+	                });
+	            },
+	
+	            //#region Layout
+	            setExcelUrl: function (level, currencyId, custId, fdate, tdate, currencyName) {
+	                var temp = 'api/LicenseeWinLossReport/Index';
+	                if (level > 0) {
+	                    temp += "?level=" + level + "&currencyId="
+	                    + currencyId + "&custId=" + custId + "&fdate=" + moment(fdate).format("MM/DD/YYYY")
+	                     + "&tdate=" + moment(tdate).format("MM/DD/YYYY") + "&currencyName=" + currencyName;
+	                }
+	                LicenseeWinLossOption.urlExcelData = temp;
+	            },
+	
+	            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
+	                var titlePattern = Site.getSingleResource('LicenseeWinLoss') + ', {0} → {1} - {2}';
+	                var currencyNameOnTitle = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName)
+	                                                        : Report.getCurrencyNameForReportTitle(currencyId);
+	                var title = $.format(titlePattern,
+	                    moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"),
+	                    moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"),
+	                    currencyNameOnTitle);
+	                $(".report-title").html(title);
+	                $(".panel-heading").removeClass("hide");
+	            },
+	            //#end
+	
+	            //#Get Data
+	            ajaxComplete: function (level, response) {
+	                level = Number(level);
+	                if (response !== null) {
+	                    var reportBy = $("input[name='ReportBy']:checked").val();
+	                    _reportBy = reportBy;
+	                    cacheData[level] = response;
+	                    //reset layout
+	                    if (level === 0) {
+	                        _me.setReportTitle($("#CurrencyId").val(), $("#FromDate").val(), $("#ToDate").val());
+	                    }
+	
+	                    Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
+	                    _me.bindData(level, reportBy, response);
+	                }
+	            },
+	
+	            submit: function () {
+	                Report.setOriginalProduct();
+	                Site.updateOriginalLicenseeOption();
+	
+	                var validProduct = Report.ValidProducts();
+	                if (!validProduct) {
+	                    return false;
+	                }
+	
+	                var mainForm = $("#licenseewinloss");
+	                var data = mainForm.serializeObject();
+	                var option = {
+	                    type: "POST",
+	                    data: mainForm.serialize() +
+	                        (_sortColumnName ?
+	                            "&sortby=" + encodeURI(_sortColumnName) + "&sortOrder=" + _sortOrder : ""),
+	                    dataType: "json",
+	                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	                    cache: false,
+	                    url: Site.resolveClientUrl(LicenseeWinLossOption.urlData),
+	                    success: function (response) {
+	                        _submitData = {
+	                            ProductOptions: response.ProductOptions,
+	                            DrawFilter: data.DrawFilter,
+	                            CurrencyId: data.CurrencyId,
+	                            ReportBy: Number(data.ReportBy),
+	                            FromDate: new Date(data.FromDate),
+	                            ToDate: new Date(data.ToDate),
+	                            CurrencyName: data.CurrencyName,
+	                            IsExcludedTestData: data.IsExcludedTestData
+	                        };
+	
+	                        _me.setExcelUrl(0, 0, 0, "", "", "");
+	                        _me.ajaxComplete(0, response);
+	                    },
+	                    beforeSend: function () {
+	                        Site.blockUI();
+	                    },
+	                    complete: function () {
+	                        Site.unBlockUI();
+	                    }
+	                };
+	                if (ajaxRequest !== null) {
+	                    ajaxRequest.abort();
+	                }
+	                ajaxRequest = $.ajax(option);
+	
+	                return true;
+	            },
+	
+	            lastDateOfMonth: function (year, month) {
+	                return new Date(year, month + 1, 0);
+	            },
+	
+	            drillDown: function (level, currencyId, customerId, datetime, currencyName, keepSorting) {
+	                level = Number(level);
+	                if (!keepSorting) {
+	                    _removeSorting = true;
+	                }
+	
+	                if (_level !== level) {
+	                    _level = level;
+	                }
+	                var param =
+	                {
+	                    ProductOptions: $.parseJSON(_submitData.ProductOptions),
+	                    DrawFilter: _submitData.DrawFilter,
+	                    IsExcludedTestData: _submitData.IsExcludedTestData,
+	                    CurrencyId: _submitData.CurrencyId,
+	                    ReportBy: _submitData.ReportBy,
+	                    FromDate: _submitData.FromDate,
+	                    ToDate: _submitData.ToDate,
+	                    BaseCurrency: $("#BaseCurrency").attr("data-original")
+	                };
+	
+	                var drilldownDate = new Date(datetime);
+	                var dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
+	
+	                if (keepSorting && _sortColumnName) {
+	                    param.SortBy = _sortColumnName;
+	                    param.SortOrder = _sortOrder;
+	                }
+	
+	                var postData = JSON.stringify(param);
+	
+	                var option = {
+	                    type: "POST",
+	                    data: postData,
+	                    dataType: "json",
+	                    contentType: "application/json",
+	                    cache: false,
+	
+	                    url: Site.resolveClientUrl(LicenseeWinLossOption.urlData +
+	                        "?level=" + level + "&currencyId=" + currencyId + "&custId=" + customerId + "&fdate=" +
+	                        moment(dateRange.FromDate).format("MM/DD/YYYY") + "&tdate=" + moment(dateRange.ToDate).format("MM/DD/YYYY")),
+	                    success: function (response) {
+	                        _me.ajaxComplete(level, response);
+	                        if (response !== null && response.Data.length > 0) {
+	                            if (level > 0 && Number(param.CurrencyId) === 0) {
+	                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
+	                            } else {
+	                                _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
+	                            }
+	                        }
+	
+	                        //update excel ULR
+	                        _me.setExcelUrl(level, currencyId, customerId, dateRange.FromDate, dateRange.ToDate, currencyName);
+	                    },
+	                    beforeSend: function () {
+	                        Site.blockUI();
+	                    },
+	                    complete: function () {
+	                        Site.unBlockUI();
+	                    }
+	                };
+	                if (ajaxRequest !== null) {
+	                    ajaxRequest.abort();
+	                }
+	                ajaxRequest = $.ajax(option);
+	            },
+	
+	            goBack: function (level) {
+	                var reportBy = _submitData.ReportBy;
+	                Report.renderBreadCrumb(level, LicenseeWinLossOption.licenseeId);
+	                _me.bindData(level, reportBy, cacheData[level]);
+	
+	                if (level === 0) {
+	                    _me.setExcelUrl(0, 0, 0, "", "", "");
+	                    _me.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
+	                }
+	                else if (level === 1) {
+	                    LicenseeWinLossOption.urlExcelData = LicenseeWinLossOption.urlExcelData.replace("level=2", "level=1");
+	                }
+	            },
+	
+	            //#BindReport
+	
+	            bindTotal: function (level, totalData, summaryTotal) {
+	                var productOptions = $.parseJSON(_submitData.ProductOptions);
+	                productOptions = productOptions.reverse(); //make orders of product columns like excel file
+	                var columnModel = LicenseeWinLossOption.getTotalColModel(level, productOptions);
+	                var colspan = LicenseeWinLossOption.totalColspan[level];
+	                var summaryColspan = colspan + 1;
+	
+	                jqGridAdditional.assignTotal(totalData, columnModel);
+	                var summaryRowCount = Report.bindSummaryTotal(columnModel, summaryTotal);
+	                jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
+	            },
+	
+	            bindData: function (level, reportBy, response) {
+	                jqGridAdditional.clearGrid("ReportGrid");
+	                var numOfRow = response.Data.length;
+	                if (numOfRow === 0) {
+	                    jqGridAdditional.setNoInfo();
+	                    return;
+	                }
+	
+	                level = Number(level);
+	                var reportGrid = $("#ReportGrid");
+	                var productOptions = $.parseJSON(_submitData.ProductOptions);
+	                productOptions = productOptions.reverse(); //make orders of product columns like excel file
+	
+	                var numOfTotalRow = response.Total.length;
+	                var onPaging = false;
+	
+	                var gridOption = LicenseeWinLossOption.getGridOption(level, reportBy, productOptions);
+	                gridOption.rownumbers = true;
+	                gridOption.data = response.Data;
+	                gridOption.userData = {};
+	                gridOption.rowNum = level === 2 ? LicenseeWinLossOption.pageSize : LicenseeWinLossOption.nonePagingSize;
+	                gridOption.rowList = LicenseeWinLossOption.rowList;
+	                gridOption.rowTotal = numOfRow;
+	                gridOption.pager = '#ppdata';
+	                gridOption.onPaging = function (pgButton) {
+	                    if (level === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
+	                        if ($("#" + pgButton).hasClass("ui-state-disabled") === false) {
+	                            Site.blockUI();
+	                        }
+	                        onPaging = true;
+	                    }
+	                    else {
+	                        return 'stop';
+	                    }
+	                };
+	                gridOption.gridComplete = function () {
+	                    level = Number(level);
+	                    jqGridAdditional.gridComplete();
+	                    if (level === 2 && numOfRow > LicenseeWinLossOption.pageSize) {
+	                        $("#pg_ppdata").show();
+	                    }
+	                    else {
+	                        $("#pg_ppdata").hide();
+	                    }
+	
+	                    if (onPaging && level === 2) {
+	                        $(".ui-jqgrid-ftable").html($("#footer").html());
+	                    }
+	                    else {
+	                        _me.bindTotal(level, response.Total, response.SummaryTotal);
+	                        $("#footer").html($(".ui-jqgrid-ftable").html());
+	                    }
+	
+	                    onPaging = false;
+	                    _me.resizeGrid();
+	
+	                    /*group header*/
+	                    if (numOfTotalRow > 0) {
+	                        LicenseeWinLossOption.addProductButton(reportGrid, "jqgh_ReportGrid", "ReportGrid", productOptions);
+	                    }
+	
+	                    Site.unBlockUI();
+	                };
+	
+	                // Show the grid
+	                reportGrid.jqGrid(gridOption);
+	
+	                if (!_removeSorting) {
+	                    jqGridAdditional.addSortableHeader(reportGrid, _sortColumnName, _sortOrder);
+	                }
+	
+	                LicenseeWinLossOption.setGroupHeaderColumns(reportGrid, productOptions);
+	
+	                LicenseeWinLossOption.restoreExpanse();
+	            },
+	
+	            //#end
+	
+	            openBetlistPopUp: function (dataDrillDown) {
+	                dataDrillDown = $.parseJSON(dataDrillDown);
+	                dataDrillDown.DrawFilter = _submitData.DrawFilter;
+	                dataDrillDown.IsExcludedTestData = _submitData.IsExcludedTestData;
+	                dataDrillDown.CurrencyId = _submitData.CurrencyId;
+	                dataDrillDown.CurrencyName = _submitData.CurrencyName;
+	                dataDrillDown.BaseCurrency = $("#BaseCurrency").attr("data-original");
+	
+	                if (typeof dataDrillDown.DrillDownFromDate === 'string') {
+	                    dataDrillDown.DrillDownFromDate = new Date(dataDrillDown.DrillDownFromDate);
+	                    dataDrillDown.DrillDownToDate = new Date(dataDrillDown.DrillDownToDate);
+	                }
+	
+	                if (_submitData.ReportBy === REPORT_BY_MONTHLY) {
+	                    var fday = 1;
+	                    var month = dataDrillDown.DrillDownFromDate.getMonth();
+	                    var year = dataDrillDown.DrillDownFromDate.getFullYear();
+	
+	                    var orignalFDate = _submitData.FromDate;
+	                    var originalTDate = _submitData.ToDate;
+	
+	                    if (month === orignalFDate.getMonth()) {
+	                        fday = orignalFDate.getDate();
+	                    }
+	                    dataDrillDown.DrillDownFromDate = new Date(year, month, fday, 0, 0, 0, 0);
+	                    if (month === originalTDate.getMonth()) {
+	                        var tday = originalTDate.getDate();
+	                        dataDrillDown.DrillDownToDate = new Date(year, month, tday, 0, 0, 0, 0);
+	                    }
+	                    else {
+	                        dataDrillDown.DrillDownToDate = _me.lastDateOfMonth(year, month);
+	                    }
+	                }
+	
+	                var url = Site.resolveClientUrl("LicenseeWinLossBetList/Index");
+	                url = QueryString.setParam(url, "fromdate", moment(dataDrillDown.DrillDownFromDate).format("MM/DD/YYYY"));
+	                url = QueryString.setParam(url, "todate", moment(dataDrillDown.DrillDownToDate).format("MM/DD/YYYY"));
+	                url = QueryString.setParam(url, "excludetest", dataDrillDown.IsExcludedTestData);
+	                url = QueryString.setParam(url, "CurrencyId", dataDrillDown.DrillDownCurrencyId);
+	                url = QueryString.setParam(url, "CurrencyName", dataDrillDown.DrillDownCurrencyName);
+	                url = QueryString.setParam(url, "drawfilter", dataDrillDown.DrawFilter);
+	                url = QueryString.setParam(url, "custid", dataDrillDown.CustomerId);
+	                url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
+	                url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
+	                url = QueryString.setParam(url, "BaseCurrency", dataDrillDown.BaseCurrency);
+	                url = QueryString.setParam(url, "OriginalCurrenceId", dataDrillDown.CurrencyId);
+	                url = QueryString.setParam(url, "OriginalCurrencyName", dataDrillDown.CurrencyName);
+	
+	                url = Site.setProductOptionOriginalParamList(url);
+	
+	                var popH = Math.min($(window).height() - 100, 650), popW = 920;
+	                var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
+	                Popup.openPopupWithIframe(url, popupOption);
+	            },
+	
+	            resizeGrid: function () {
+	                var reportGrid = $("#ReportGrid");
+	                jqGridAdditional.updateGridHeight();
+	                jqGridAdditional.updateGridWidth(reportGrid);
+	            }
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
+	/*
+	* Note:in this report, parameter level have 3 value
+	*  "0" for master,"1" for agent and "2" for member
+	*/
+	
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(8), __webpack_require__(7), __webpack_require__(205), __webpack_require__(239)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
+	        "use strict";
+	        var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA", "CO"];
+	        var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
+	        var _me =
+	        {
+	            licenseeId: 0,
+	            currencyIndex: 4,
+	            turnoverIndex: 5,
+	            licenseeWlIndex: 12,
+	            customerWlTotalIndex: 11,
+	            hasCustomerComm: true,
+	            pageSize: 50,
+	            nonePagingSize: 2000,
+	            rowNum: 50,
+	            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
+	            totalColspan: [2, 2, 3],
+	            //level 0,1,2
+	            urlData: 'api/LicenseeWinLossReport/Index',
+	            urlExcelData: 'api/LicenseeWinLossReport/Index',
+	            gridOption:
+	            {
+	                datatype: 'local',
+	                colNames: [],
+	                colModel: [],
+	                data: [],
+	                height: '100%',
+	                autowidth: false,
+	                forceFit: false,
+	                shrinkToFit: true,
+	                loadtext: 'loading...',
+	                loadui: 'disable',
+	                loadonce: true,
+	                footerrow: true,
+	                userDataOnFooter: true,
+	                userData: [],
+	                grouping: true,
+	                viewrecords: true,
+	                gridview: true,
+	                rownumbers: true
+	            },
+	            restoreExpanse: function () {
+	                for (var property in _expanseTypes) {
+	                    if (_expanseTypes.hasOwnProperty(property)) {
+	                        _me.toggle(_expanseTypes[property], property);
+	                    }
+	                }
+	            }
+	        };
+	
+	        // store state of toggle() function
+	        var _expanseTypes = {};
+	
+	        var setDrillDownLink = function (level, currencyId, custId, datetime, currencyName, cellvalue) {
+	            return '<a class="drilldown" href="javascript:;" onclick="return licenseewinlossDrilldown(' + level + ',' +
+	             currencyId + ',' + custId + ',\'' + datetime + '\',\'' + currencyName + '\');">' + cellvalue + '</a>';
+	        };
+	
+	        var currencyFormatter = function (cellvalue, options, rowObject) {
+	            var level = Number(_me.licenseeId) === 1 ? 1 : 2;
+	            return setDrillDownLink(level, rowObject.CurrencyId, 0, rowObject.Date, rowObject.CurrencyName, cellvalue);
+	        };
+	
+	        var systemIdFormatter = function (cellvalue, options, rowObject) {
+	            return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, rowObject.CurrencyName, cellvalue);
+	        };
+	
+	        var betlistLink = function (cellvalue, options, rowObject) {
+	            var param =
+	            {
+	                DrillDownFromDate: rowObject.Date,
+	                DrillDownToDate: rowObject.Date,
+	                DrillDownCurrencyId: rowObject.CurrencyId,
+	                DrillDownCurrencyName: rowObject.CurrencyName,
+	                CustomerId: rowObject.CustomerId,
+	                ExternalId: rowObject.ExternalId,
+	                SystemId: rowObject.SystemId
+	            };
+	
+	            return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+	        };
+	
+	        //#region Columns
+	
+	        var indexColumn =
+	        {
+	            name: 'Index',
+	            index: 'Index',
+	            resizable: false,
+	            width: 45,
+	            align: 'center',
+	            valign: 'middle',
+	            sortable: false
+	        };
+	
+	        var dateColumn =
+	        {
+	            name: 'Date',
+	            index: 'Date',
+	            resizable: false,
+	            width: 100,
+	            align: 'center',
+	            valign: 'middle',
+	            sortable: true,
+	            formatter: 'date',
+	            formatoptions:
+	            {
+	                newformat: 'm/d/Y'
+	            }
+	        };
+	
+	        var externalIdColumn =
+	        {
+	            name: 'ExternalId',
+	            index: 'ExternalId',
+	            resizable: false,
+	            width: 120,
+	            align: 'left',
+	            sortable: true
+	        };
+	
+	        var systemIdColumn =
+	        {
+	            name: 'SystemId',
+	            index: 'SystemId',
+	            resizable: false,
+	            width: 150,
+	            align: 'left',
+	            sortable: true,
+	            formatter: function (cellvalue, options, rowObject) {
+	                return setDrillDownLink(2, rowObject.CurrencyId, rowObject.CustomerId, rowObject.Date, cellvalue);
+	            }
+	        };
+	
+	        var currencyColumn =
+	        {
+	            name: 'CurrencyName',
+	            index: 'CurrencyName',
+	            width: 80,
+	            align: 'center',
+	            sortable: true,
+	            resizable: false,
+	            formatter: currencyFormatter
+	        };
+	
+	        var turnoverColumn =
+	        {
+	            name: 'TotalTurnOverSingle',
+	            index: 'TotalTurnOverSingle',
+	            width: 120,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: 'currency',
+	            hidden: false,
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	
+	        var actualStakeColumn =
+	        {
+	            name: 'ActualStake',
+	            index: 'ActualStake',
+	            width: 100,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: 'currency',
+	            hidden: false,
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	
+	        var buybackColumn =
+	        {
+	            name: 'TotalBuyBackAmountSingle',
+	            index: 'TotalBuyBackAmountSingle',
+	            width: 100,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: 'currency',
+	            hidden: false,
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	
+	        var totalTransColumn =
+	        {
+	            name: 'TotalTransaction',
+	            index: 'TotalTransaction',
+	            width: 90,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: 'integer',
+	            frozen: true,
+	            formatoptions:
+	            {
+	                thousandsSeparator: ","
+	            }
+	        };
+	
+	        var customerWlColumn =
+	        {
+	            name: 'CustomerWinLoss',
+	            index: 'CustomerWinLoss',
+	            width: 120,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: jqGridAdditional.formatDecimal
+	        };
+	
+	        var playerCommColumn =
+	        {
+	            name: 'CustomerComm',
+	            index: 'CustomerComm',
+	            width: 70,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: jqGridAdditional.formatDecimal
+	        };
+	
+	        var customerWlTotalColumn =
+	        {
+	            name: 'CustomerTotal',
+	            index: 'CustomerTotal',
+	            width: 120,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: jqGridAdditional.formatDecimal
+	        };
+	
+	        var licenseeWlColumn =
+	        {
+	            name: 'TotalLicenseeWLSingle',
+	            index: 'TotalLicenseeWLSingle',
+	            width: 120,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            hidden: false,
+	            title: true,
+	            formatter: jqGridAdditional.formatLicenseeWl
+	        };
+	
+	        var betTradeCommissionColumn =
+	        {
+	            name: 'BetTradeCommission',
+	            index: 'BetTradeCommission',
+	            width: 120,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: 'currency',
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	
+	        var cashOutCommissionColumn =
+	        {
+	            name: 'CashOutCommission',
+	            index: 'CashOutCommission',
+	            width: 120,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: 'currency',
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	
+	        var baCommissionColumn =
+	        {
+	            name: 'BACommission',
+	            index: 'BACommission',
+	            width: 95,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: 'currency',
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	
+	        var racingRevenueColumn =
+	        {
+	            name: 'RacingRevenue',
+	            index: 'RacingRevenue',
+	            width: 100,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: 'currency',
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	
+	        var amtDueToBetTradeColumn =
+	        {
+	            name: 'AmtDueToBetTrade',
+	            index: 'AmtDueToBetTrade',
+	            width: 85,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: 'currency',
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	
+	        var amtDueToBaColumn =
+	        {
+	            name: 'AmtDueToBA',
+	            index: 'AmtDueToBA',
+	            width: 85,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: 'currency',
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	
+	        var amtDueToRacingColumn =
+	        {
+	            name: 'AmtDueToRacing',
+	            index: 'AmtDueToRacing',
+	            width: 85,
+	            align: 'right',
+	            sortable: true,
+	            resizable: false,
+	            formatter: 'currency',
+	            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+	        };
+	
+	        var currencyIdColumn =
+	        {
+	            name: 'CurrencyId',
+	            index: 'CurrencyId',
+	            width: 2,
+	            align: 'center',
+	            sortable: true,
+	            resizable: false,
+	            hidden: true
+	        };
+	
+	        var customerIdColumn =
+	        {
+	            name: 'CustomerId',
+	            index: 'CustomerId',
+	            width: 2,
+	            align: 'center',
+	            sortable: true,
+	            resizable: false,
+	            hidden: true
+	        };
+	
+	        var productColumn =
+	        {
+	            name: 'productName',
+	            index: 'productName',
+	            width: 120,
+	            sortable: true,
+	            resizable: false,
+	            align: "right",
+	            hidden: true,
+	            title: true,
+	            formatter: jqGridAdditional.formatLicenseeWl
+	        };
+	
+	        //#endregion
+	
+	        var colNameList = [
+	            '#',
+	            'Date',
+	            'ExternalId',
+	            "SystemId",
+	            "Currency",
+	            'Turnover',
+	            'ActualStake',
+	            'BuyBackAmount',
+	             'TotalTransaction',
+	             '@[Win]/@[Loss]', 'Comm',
+	             'Total', 'LicenseeW_L',
+	             '@[ProductBT]<br/>@[Commission]',
+	             '@[ProductCO]<br/>@[Commission]',
+	             'BA<br/>@[Commission]',
+	             '@[RacingRevenue]',
+	             '@[AmtDueToBetTrade]',
+	             '@[AmtDueToBA]',
+	             '@[AmtDueToRacing]',
+	             'CurrencyId',
+	             'CustomerId'];
+	
+	        var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
+	            turnoverColumn, actualStakeColumn, buybackColumn, totalTransColumn, customerWlColumn, playerCommColumn,
+	            customerWlTotalColumn, licenseeWlColumn, betTradeCommissionColumn, cashOutCommissionColumn, baCommissionColumn, racingRevenueColumn,
+	            amtDueToBetTradeColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
+	
+	        function isProductChecked(productOptions, productCode) {
+	            var length = productOptions.length;
+	
+	            for (var i = 0; i < length; i++) {
+	                if (productOptions[i].Code === productCode) {
+	                    return productOptions[i].Status;
+	                }
+	            }
+	
+	            return null;
+	        }
+	
+	        function isIgnoredTurnoverProduct(productCode) {
+	            return $.inArray(productCode, IGNORED_TURNOVER_PRODUCTS) >= 0;
+	        }
+	
+	        function isIgnoredLicenseeWLProduct(productCode) {
+	            return $.inArray(productCode, IGNORED_LICENSEEWL_PRODUCTS) >= 0;
+	        }
+	
+	        function turnoverProductsFilter(item) {
+	            return item.Status === true && isIgnoredTurnoverProduct(item.Code) === false;
+	        }
+	
+	        function licenseeWLProductsFilter(item) {
+	            return item.Status === true && isIgnoredLicenseeWLProduct(item.Code) === false;
+	        }
+	
+	        function addBuyBackAmountColumns(columns, columnIndex) {
+	            var buyBackAmountColumn = Site.clone(productColumn);
+	            buyBackAmountColumn.name = "TotalBuyBackAmount";
+	            buyBackAmountColumn.index = "TotalBuyBackAmount";
+	
+	            var buyBackAmountSBColumn = Site.clone(productColumn);
+	            buyBackAmountSBColumn.name = "BuyBackAmountSB";
+	            buyBackAmountSBColumn.index = "BuyBackAmountSB";
+	
+	            var buyBackAmountBAColumn = Site.clone(productColumn);
+	            buyBackAmountBAColumn.name = "BuyBackAmountBA";
+	            buyBackAmountBAColumn.index = "BuyBackAmountBA";
+	
+	            columns.insertAfter(buyBackAmountColumn, columnIndex);
+	            columns.insertAfter(buyBackAmountBAColumn, columnIndex);
+	            columns.insertAfter(buyBackAmountSBColumn, columnIndex);
+	        }
+	
+	        _me.setGroupHeaderColumns = function (grid, productOptions) {
+	            var numOfTurnover = Enumerable.From(productOptions).Count(turnoverProductsFilter) + 1;
+	            var lastOfTurnover = numOfTurnover > 1 ? Enumerable.From(productOptions).Last(turnoverProductsFilter) : null;
+	
+	            var numOfLicenseeWL = Enumerable.From(productOptions).Count(licenseeWLProductsFilter) + 1;
+	            var lastOfLicenseeWL = numOfLicenseeWL > 1 ? Enumerable.From(productOptions).Last(licenseeWLProductsFilter) : null;
+	
+	            var groupCustomerWinloss = _me.hasCustomerComm ? {
+	                startColumnName: 'CustomerWinLoss',
+	                numberOfColumns: 3,
+	                titleText: Site.getSingleResource('CustomerW_L')
+	            } : {};
+	
+	            var groupTurnoverWL = lastOfTurnover !== null ? {
+	                startColumnName: "TurnOver" + lastOfTurnover.Code,
+	                numberOfColumns: numOfTurnover,
+	                titleText: Site.getSingleResource('Turnover')
+	            } : {};
+	
+	            var groupLicenseeWL = lastOfLicenseeWL !== null ? {
+	                startColumnName: "LicenseeWL" + lastOfLicenseeWL.Code,
+	                numberOfColumns: numOfLicenseeWL,
+	                titleText: Site.getSingleResource('LicenseeW_L')
+	            } : {};
+	
+	            var groupBuyBackAmount = lastOfLicenseeWL !== null ? {
+	                startColumnName: "BuyBackAmountSB",
+	                numberOfColumns: 3,
+	                titleText: Site.getSingleResource('BuyBackAmount')
+	            } : {};
+	
+	            grid.jqGrid('setGroupHeaders',
+	            {
+	                useColSpanStyle: true,
+	                groupHeaders: [groupTurnoverWL, groupLicenseeWL, groupCustomerWinloss, groupBuyBackAmount]
+	            });
+	        };
+	
+	        _me.getColName = function (productOptions) {
+	            // Column Customer Wl
+	            var temp = Site.clone(colNameList);
+	            var turnOverIndex = _me.turnoverIndex;
+	            var licenseeIndex = _me.licenseeWlIndex;
+	            var customerWLTotalIndex = _me.customerWlTotalIndex;
+	            temp[_me.customerWlTotalIndex] = _me.hasCustomerComm ? 'Total' : 'CustomerW_L';
+	            $.each(productOptions, function (index, item) {
+	                //insert turn over column
+	                if (item.Status === true) {
+	                    if (isIgnoredTurnoverProduct(item.Code) === false) {
+	                        temp.insertAfter(item.Name, _me.currencyIndex);
+	                        turnOverIndex++;
+	                        licenseeIndex++;
+	                        customerWLTotalIndex++;
+	                    }
+	                    if (isIgnoredLicenseeWLProduct(item.Code) === false) {
+	                        temp.insertAfter(item.Name, customerWLTotalIndex);
+	                        licenseeIndex++;
+	                    }
+	                }
+	            });
+	            //add total column
+	            temp.insertBefore("Total", turnOverIndex);
+	            licenseeIndex++;
+	            temp.insertBefore("Total", licenseeIndex);
+	
+	            var buyBackIndex = turnOverIndex + 2;
+	            if (isProductChecked(productOptions, "BA") !== null) {
+	                temp.insertAfter("Total", buyBackIndex);
+	                temp.insertAfter("BA", buyBackIndex);
+	                temp.insertAfter("Sportsbook", buyBackIndex);
+	            }
+	
+	            return Site.getResources(temp);
+	        };
+	
+	        _me.getColModel = function (level, reportBy, productOptions) {
+	            reportBy = Number(reportBy);
+	
+	            // Column hidden by customer comm
+	            customerWlColumn.hidden = !_me.hasCustomerComm;
+	            playerCommColumn.hidden = !_me.hasCustomerComm;
+	            level = Number(level);
+	            //set width of licenseeWL column
+	            if (!_me.hasCustomerComm) { licenseeWlColumn.width = 90; }
+	            // Column hidden by level
+	            currencyColumn.formatter = level === 0 ? currencyFormatter : null;
+	            systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
+	
+	            dateColumn.hidden = level > 0;
+	            externalIdColumn.hidden = level < 2;
+	            systemIdColumn.hidden = level === 0;
+	
+	            // Column hidden by product
+	            var allowedSb = isProductChecked(productOptions, "SB");
+	            var allowedBa = isProductChecked(productOptions, "BA");
+	            var allowedRacing = isProductChecked(productOptions, "RB");
+	            var allowedBetTrade = isProductChecked(productOptions, "BT");
+	            var allowedCashOut = isProductChecked(productOptions, "CO");
+	            buybackColumn.hidden = !allowedBetTrade;
+	            actualStakeColumn.hidden = !allowedBetTrade;
+	            baCommissionColumn.hidden = !allowedBa;
+	            amtDueToBaColumn.hidden = !allowedBa;
+	            racingRevenueColumn.hidden = !allowedRacing;
+	            amtDueToRacingColumn.hidden = !allowedRacing;
+	            betTradeCommissionColumn.hidden = !allowedBetTrade;
+	            amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
+	            cashOutCommissionColumn.hidden = !allowedCashOut;
+	
+	            if (level === 2) {
+	                externalIdColumn.formatter = betlistLink;
+	                systemIdColumn.formatter = betlistLink;
+	            }
+	            if (reportBy === 2) {
+	                dateColumn.formatoptions = {
+	                    newformat: 'm/Y'
+	                };
+	            } else {
+	                dateColumn.formatoptions = {
+	                    newformat: 'm/d/Y'
+	                };
+	            }
+	
+	            var temp = Site.clone(colModelList);
+	
+	            var turnOverIndex = _me.turnoverIndex;
+	
+	            var licenseeIndex = _me.licenseeWlIndex;
+	
+	            var customerWLTotalIndex = _me.customerWlTotalIndex;
+	            $.each(productOptions, function (index, item) {
+	                //insert turn over column
+	                if (item.Status === true) {
+	                    // Exclude bettrade
+	                    if (isIgnoredTurnoverProduct(item.Code) === false) {
+	                        var turnOver = Site.clone(productColumn);
+	                        turnOver.name = "TurnOver" + item.Code;
+	                        turnOver.index = "TurnOver" + item.Code;
+	                        turnOver.sortable = true;
+	
+	                        temp.insertAfter(turnOver, _me.currencyIndex);
+	                        turnOverIndex++;
+	                        licenseeIndex++;
+	                        customerWLTotalIndex++;
+	                    }
+	
+	                    if (isIgnoredLicenseeWLProduct(item.Code) === false) {
+	                        var licenseeWL = Site.clone(productColumn);
+	                        licenseeWL.name = "LicenseeWL" + item.Code;
+	                        licenseeWL.index = "LicenseeWL" + item.Code;
+	                        licenseeWL.sortable = true;
+	
+	                        temp.insertAfter(licenseeWL, customerWLTotalIndex);
+	                        licenseeIndex++;
+	                    }
+	                }
+	            });
+	
+	            //add total
+	
+	            var turnOverTotal = Site.clone(productColumn);
+	            turnOverTotal.name = "TotalTurnOver";
+	            turnOverTotal.index = "TotalTurnOver";
+	            temp.insertBefore(turnOverTotal, turnOverIndex);
+	            licenseeIndex++;
+	            var licenseeWLTotal = Site.clone(productColumn);
+	            licenseeWLTotal.name = "TotalLicenseeWL";
+	            licenseeWLTotal.index = "TotalLicenseeWL";
+	            temp.insertBefore(licenseeWLTotal, licenseeIndex);
+	
+	            if (allowedBa !== null) {
+	                addBuyBackAmountColumns(temp, turnOverIndex + 2);
+	            }
+	
+	            return temp;
+	        };
+	
+	        _me.getGridOption = function (level, reportBy, productOptions) {
+	            _me.gridOption.colNames = _me.getColName(productOptions);
+	            _me.gridOption.colModel = _me.getColModel(level, reportBy, productOptions);
+	            return Site.clone(_me.gridOption);
+	        };
+	
+	        _me.getTotalColModel = function (level, productOptions) {
+	            var colModel = _me.getColModel(level, -1, productOptions);
+	            // Not show drill down link on total link
+	            var curCol = Enumerable.From(colModel).First(function (item) {
+	                return item.name === "CurrencyName";
+	            });
+	
+	            curCol.formatter = null;
+	            return colModel;
+	        };
+	
+	        _me.addProductButton = function (grid, gridId, gridName, productOptions) {
+	            /// <summary>
+	            /// add collapse/expand button to header product columns
+	            /// </summary>
+	            /// <param name="grid">grid instance</param>
+	
+	            var numOfActiveLicPro = Enumerable.From(productOptions).Count(licenseeWLProductsFilter);
+	            var numOfActiveTurnPro = Enumerable.From(productOptions).Count(turnoverProductsFilter);
+	            var isAllowedBetTrade = isProductChecked(productOptions, "BT");
+	            var isAllowBA = isProductChecked(productOptions, "BA");
+	            var clear = function (button) {
+	                $(button).off("click").remove();
+	            };
+	            //reset licenseWL column
+	            var curWidth = $("#ReportGrid_TotalLicenseeWLSingle div").width();
+	
+	            if (curWidth < 100) {
+	                $("#ReportGrid_TotalLicenseeWLSingle div").css("width", "100px");
+	            }
+	
+	            //#region Toggle
+	            // column params: TurnOver, LicenseeWL, BuyBackAmount
+	            var toggle = function (isShow, column) {
+	                if ((column === "LicenseeWL" && numOfActiveLicPro <= 1) ||
+	                    (column === "TurnOver" && numOfActiveTurnPro <= 1) ||
+	                    (column === "BuyBackAmount" && (!isAllowedBetTrade || isAllowBA === null))) {
+	                    return;
+	                }
+	                _expanseTypes[column] = isShow;
+	
+	                var param = isShow ? "showCol" : "hideCol";
+	                var fColumns = [];
+	                var productColumnNames = [];
+	
+	                if (column === "BuyBackAmount") {
+	                    var sbColumnName = column + "SB";
+	                    var baColumnName = column + "BA";
+	                    fColumns = [gridName + "_" + sbColumnName, gridName + "_" + baColumnName];
+	                    productColumnNames.push(sbColumnName, baColumnName);
+	                } else {
+	                    $.each(productOptions, function (index, value) {
+	                        if (value.Status === true) {
+	                            var columnName = column + value.Code;
+	                            productColumnNames.push(columnName);
+	                            fColumns.push(gridName + "_" + columnName);
+	                        }
+	                    });
+	                }
+	
+	                var totalColumn = 'Total' + column;
+	                productColumnNames.push(totalColumn);
+	
+	                grid.jqGrid(param, productColumnNames);
+	
+	                var fTotalColumn = gridName + "_" + totalColumn;
+	                fColumns.push(fTotalColumn);
+	
+	                /*show /hide single column*/
+	                var singleColumn = totalColumn + 'Single';
+	                var singleParam = isShow ? "hideCol" : "showCol";
+	                grid.jqGrid(singleParam, singleColumn);
+	
+	                /*show/hide footer column*/
+	                jqGridAdditional.setFooterColumns(param, fColumns);
+	
+	                var singleFColumn = gridName + "_" + singleColumn;
+	                jqGridAdditional.setFooterColumns(singleParam, [singleFColumn]);
+	
+	                if (column === "TurnOver") {
+	                    addTurnOverExpand();
+	                }
+	                else if (column === "LicenseeWL") {
+	                    addLicenseeExpand();
+	                }
+	                else {
+	                    addBuyBackExpand();
+	                }
+	
+	                /*jqgrid always clears grouping header after events complete*/
+	                addTurnOverCollapse();
+	                addLicenseeWlCollapse();
+	                addBuyBackCollapse();
+	
+	                //update footer row
+	                $("#footer").html($(".ui-jqgrid-ftable").html());
+	                $('.report-content').css('cursor', 'default');
+	
+	                jqGridAdditional.updateGridHeight();
+	                jqGridAdditional.updateGridWidth(grid);
+	                return false;
+	            };
+	
+	            _me.toggle = toggle;
+	            //#end
+	
+	            function addToggleButton($container, $element, isToggle, column) {
+	                $element.appendTo($container).append('<i class="btn-icon icon-arrow"></i>')
+	                .click(function () { return toggle(isToggle, column); });
+	            }
+	
+	            var addTurnOverExpand = function () {
+	                if (numOfActiveTurnPro > 1) {
+	                    clear("#btnTurnOverExpand");
+	                    var $container = $("#" + gridId + "_" + "TotalTurnOverSingle");
+	                    var $button = $('<button title="Expand to view details" id="btnTurnOverExpand" class="header-button btn"></button>');
+	                    addToggleButton($container, $button, true, "TurnOver");
+	                }
+	            };
+	
+	            var addTurnOverCollapse = function () {
+	                if (numOfActiveTurnPro > 1) {
+	                    clear("#btnTurnOverCollapse");
+	
+	                    var $container = $(grid).closest(".ui-jqgrid-view")
+	                            .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:first");
+	
+	                    var $button = $('<button class="header-button btnCollapse btn" id="btnTurnOverCollapse"></button>');
+	                    addToggleButton($container, $button, false, "TurnOver");
+	                }
+	            };
+	
+	            var addLicenseeExpand = function () {
+	                if (numOfActiveLicPro > 1) {
+	                    clear("#btnLicenseeWLExpand");
+	                    var $container = $("#" + gridId + "_" + "TotalLicenseeWLSingle");
+	                    var $button = $('<button title="Expand to view details" id="btnLicenseeWLExpand" class="header-button btn"></button>');
+	                    addToggleButton($container, $button, true, "LicenseeWL");
+	                }
+	            };
+	
+	            var addLicenseeWlCollapse = function () {
+	                if (numOfActiveLicPro > 1) {
+	                    clear("#btnLicenseeWLCollapse");
+	
+	                    var $container = $(grid).closest(".ui-jqgrid-view")
+	                            .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header:last");
+	                    var $button = $('<button class="header-button btnCollapse btn" id="btnLicenseeWLCollapse">');
+	                    addToggleButton($container, $button, false, "LicenseeWL");
+	                }
+	            };
+	
+	            var addBuyBackExpand = function () {
+	                if (isAllowBA !== null) {
+	                    clear("#btnBuyBackExpand");
+	                    var $container = $("#" + gridId + "_" + "TotalBuyBackAmountSingle");
+	                    var $button = $('<button title="Expand to view details" id="btnBuyBackExpand" class="header-button btn"></button>');
+	                    addToggleButton($container, $button, true, "BuyBackAmount");
+	                }
+	            };
+	
+	            var addBuyBackCollapse = function () {
+	                if (isAllowBA !== null) {
+	                    clear("#btnBuyBackCollapse");
+	                    var $container = $(grid).closest(".ui-jqgrid-view")
+	                            .find(".ui-jqgrid-htable .ui-jqgrid-labels > .ui-th-column-header");
+	                    $container = $container[$container.length - (_me.hasCustomerComm ? 3 : 2)];
+	                    var $button = $('<button class="header-button btnCollapse btn" id="btnBuyBackCollapse">');
+	                    addToggleButton($container, $button, false, "BuyBackAmount");
+	                }
+	            };
+	
+	            // Collapsing when loading completed
+	            addTurnOverCollapse();
+	            addTurnOverExpand();
+	
+	            addLicenseeExpand();
+	            addLicenseeWlCollapse();
+	
+	            addBuyBackCollapse();
+	            addBuyBackExpand();
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }
 ]);

@@ -3933,7 +3933,7 @@ textarea {
   content: "\E904"; }
 
 .icon-customer:before {
-  content: "\E905"; }
+  content: "\E906"; }
 
 .icon-home:before {
   content: "\E908"; }
@@ -3956,14 +3956,20 @@ textarea {
 .icon-xs-arrow:before {
   content: "\E90E"; }
 
-.icon-spinner6:before {
-  content: "\E97F"; }
-
 .icon-back:before {
   content: "\EA38"; }
 
 .icon-refresh:before {
   content: "\EA2E"; }
+
+.icon-pencil:before {
+  content: "\E905"; }
+
+.icon-bin:before {
+  content: "\E9AC"; }
+
+.icon-checkmark:before {
+  content: "\EA10"; }
 
 @font-face {
   font-family: 'Montserrat Regular';
@@ -4078,6 +4084,15 @@ main {
   cursor: pointer; }
   .icon-book.right {
     margin-left: 10px; }
+
+.icon-pencil {
+  color: #066CC0 !important; }
+
+.icon-bin {
+  color: #d91a1a !important; }
+
+.icon-checkmark {
+  color: #4eb85e !important; }
 
 .text-center {
   text-align: center; }

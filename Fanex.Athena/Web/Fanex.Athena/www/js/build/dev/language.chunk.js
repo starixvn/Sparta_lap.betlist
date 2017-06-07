@@ -1,18 +1,18 @@
-webpackJsonp([35],{
+webpackJsonp([39],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(84);
-	__webpack_require__(85);
-	__webpack_require__(86);
-	__webpack_require__(87);
-	module.exports = __webpack_require__(88);
+	__webpack_require__(92);
+	__webpack_require__(93);
+	__webpack_require__(94);
+	__webpack_require__(95);
+	module.exports = __webpack_require__(96);
 
 
 /***/ },
 
-/***/ 84:
+/***/ 92:
 /***/ function(module, exports) {
 
 	// Generated at: 6/6/2017 1:23:39 PM
@@ -945,7 +945,7 @@ webpackJsonp([35],{
 
 /***/ },
 
-/***/ 85:
+/***/ 93:
 /***/ function(module, exports) {
 
 	// Generated at: 6/6/2017 1:23:39 PM
@@ -1735,15 +1735,13 @@ webpackJsonp([35],{
 	Year:"年份",
 	Yes:"是",
 	Yesterday:"昨日",
-	YouNotChooseAnyCustomerMsg: "您还没有选择任何会员",
-	AmtLessThan30kGBP: "金额< 30,000英镑",
-	AmtGreaterThan30kGBP: "金额≥ 30,000英镑"
+	YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 	};
 
 
 /***/ },
 
-/***/ 86:
+/***/ 94:
 /***/ function(module, exports) {
 
 	// Generated at: 6/6/2017 1:23:39 PM
@@ -2533,15 +2531,13 @@ webpackJsonp([35],{
 	Year:"年份",
 	Yes:"是",
 	Yesterday:"昨日",
-	YouNotChooseAnyCustomerMsg: "您還沒有選擇任何會員",
-	AmtLessThan30kGBP: "金額< 30,000英鎊",
-	AmtGreaterThan30kGBP: "金額≥ 30,000英鎊"
+	YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 	};
 
 
 /***/ },
 
-/***/ 87:
+/***/ 95:
 /***/ function(module, exports) {
 
 	// Generated at: 6/6/2017 1:23:39 PM
@@ -3318,15 +3314,13 @@ webpackJsonp([35],{
 	Year:"年份",
 	Yes:"是",
 	Yesterday:"昨日",
-	YouNotChooseAnyCustomerMsg: "您还没有选择任何会员",
-	AmtLessThan30kGBP: "金额< 30,000英镑",
-	AmtGreaterThan30kGBP: "金额≥ 30,000英镑"
+	YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 	};
 
 
 /***/ },
 
-/***/ 88:
+/***/ 96:
 /***/ function(module, exports) {
 
 	// Generated at: 6/6/2017 1:23:39 PM

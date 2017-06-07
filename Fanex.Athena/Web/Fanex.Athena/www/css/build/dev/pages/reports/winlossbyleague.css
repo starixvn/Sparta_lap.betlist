@@ -315,30 +315,7 @@ input[type="checkbox"] {
   color: #2c2c2c;
   font-size: 1.3rem; }
 
-.panel-heading {
-  position: relative; }
-
 .decimal-odds {
   color: #d91a1a; }
-
-.excel-container {
-  background: #fff;
-  padding-left: 5px;
-  padding-right: 5px;
-  height: 27px;
-  text-align: center;
-  position: absolute;
-  top: 1px;
-  right: 1px; }
-  .excel-container .icon-back {
-    display: inline-block;
-    font-size: 16px;
-    vertical-align: top;
-    line-height: 27px;
-    margin-right: 5px;
-    color: #555; }
-  .excel-container .icon-excel {
-    display: inline-block;
-    margin-top: 4px; }
 
 /*# sourceMappingURL=winlossbyleague.css.map*/

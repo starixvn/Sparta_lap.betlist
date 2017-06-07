@@ -1,3 +1,10 @@
+.dropdown-content {
+  opacity: 1;
+  top: 25px; }
+
+.ac-hover {
+  background-color: #eee; }
+
 .daterangepicker {
   position: absolute;
   color: inherit;
@@ -433,10 +440,6 @@
 
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-sdiv .ui-jqgrid-ftable .grandTotal > td {
   background: #fff; }
-
-.dropdown-content {
-  opacity: 1;
-  top: 25px; }
 
 .theme_jqGrid .ui-jqgrid .ui-jqgrid-sortable {
   cursor: default; }

@@ -31,7 +31,7 @@
                     <div class="report-title hide" style="">
                         @ViewResources.SearchResult:
                         <span id="num-of-customer" class="num-of-customer">0 </span>@ViewResources.Customers.ToLower()
-                        <span class="ba-time-notice" style="">@Model.BATimeCheck</span>
+                        <span class="ba-time-notice">@Model.BATimeCheck</span>
                     </div>
                 </div>
                 <div class="excel-container">
@@ -39,7 +39,7 @@
                     {
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="excelParam" id="excelParam" value="@Model.Param.ToJson()" />
-                                <i class="icon-excel" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+                        <i class="icon-excel" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
                     }
                 </div>
             </div>
@@ -79,7 +79,6 @@
         Html.RenderPartial("~/Views/Customer/CustomerDialog/RemoveFromGroup.cshtml");   
             }
         </div>
-  
     }
     @if (Model.DataList != null)
     {

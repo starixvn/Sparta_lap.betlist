@@ -1,30 +1,40 @@
-webpackJsonp([45],{
+webpackJsonp([49],{
 
 /***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(234);
+	module.exports = __webpack_require__(232);
 
 
-/***/ }),
+/***/ },
 
-/***/ 234:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 232:
+/***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(235)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupList) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(233)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupList) {
 	    "use strict";
 	
 	    $(CustomerCommGroupList.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 235:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 233:
+/***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(236)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, GridHelper) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
 	        "use strict";
+	
+	        var FORMSELECTOR = "#CommissionGroupForm";
+	        var EXCELBUTTONSELECTOR = "#ExportToExcel";
+	
+	        var optionDeletePopup = null;
+	        var deleteGroupData = {
+	            groupId: 0,
+	            isRemovePlayerComm: false,
+	            isResetDefault: false
+	        };
 	
 	        function initialize() {
 	            Site.initialize();
@@ -34,63 +44,201 @@ webpackJsonp([45],{
 	            });
 	
 	            _me.initEvent();
+	            _me.publicFunctions();
 	        }
 	
 	        function initEvent() {
+	            $(EXCELBUTTONSELECTOR).click(function () {
+	                $(FORMSELECTOR).submit();
+	            });
+	        }
 	
+	        function publicFunctions() {
+	            window.CustomerCommGroup = {
+	                DeleteCommGroup: _me.deleteCommGroup
+	            };
+	        }
+	
+	        function deleteCommGroup(groupId) {
+	            $.ajax({
+	                url: Site.resolveClientUrl("CustomerComGroup/GetDefaultGroup"),
+	                type: 'GET',
+	                dataType: 'JSon',
+	                cache: false,
+	                success: function (response) {
+	                    deleteGroupData.groupId = groupId;
+	                    if (response.id.toString() === groupId.toString()) {
+	                        deleteGroupData.isResetDefault = true;
+	                        showConfirmDeleteDefaulCommGroupPopup();
+	                    }
+	                    else {
+	                        deleteGroupData.isResetDefault = false;
+	                        showOptionDeleteCommGroupPopup();
+	                    }
+	                }
+	            });
+	        }
+	
+	        function doDeleteCommGroup() {
+	            $.ajax({
+	                type: 'POST',
+	                url: Site.resolveClientUrl("CustomerComGroup/Delete"),
+	                data: deleteGroupData,
+	                success: function (result) {
+	                    if (result.ErrorCode > 0 || result.ErrorMessage.lengh > 0) {
+	                        showResultPopup(result.ErrorCode > 0 ? "Error" : "Successful", result.ErrorMessage);
+	                    } else {
+	                        window.location.href = Site.resolveClientUrl("CustomerComGroup/Index");
+	                    }
+	
+	                    Site.unBlockUI();
+	                },
+	                beforeSend: function () {
+	                    Site.blockUI();
+	                },
+	            });
+	        }
+	
+	        function showConfirmDeleteDefaulCommGroupPopup() {
+	            var options = {
+	                model: true,
+	                title: Site.getSingleResource("Confirm"),
+	                height: 150,
+	                id: "del-default-comm-group"
+	            };
+	
+	            var buttons = [
+	                {
+	                    title: "OK",
+	                    method: function () {
+	                        closePopup(options.id);
+	                        showOptionDeleteCommGroupPopup();
+	                    },
+	                    classes: "btn btn-primary",
+	                    id: "confirm-del-default-ok"
+	                }, {
+	                    title: "Cancel",
+	                    method: function () {
+	                        closePopup(options.id);
+	                    },
+	                    classes: "btn btn-back",
+	                    id: "confirm-del-default-cancel"
+	                }];
+	
+	            Popup.openPopupWithButton('<div><p>' + Site.getSingleResource("DefaultGroupMsg") + '</p></div>', options, buttons);
+	        }
+	
+	        function showOptionDeleteCommGroupPopup() {
+	            if (optionDeletePopup === null) {
+	                optionDeletePopup = $("#confirm-delete-comm-group");
+	                optionDeletePopup.remove();
+	                optionDeletePopup.find('input[name="IsRemovePlayerComm"]').on("click", function () {
+	                    $(this).prop("checked", true);
+	                });
+	            }
+	
+	            var options = {
+	                model: true,
+	                title: Site.getSingleResource("DeleteCommissionGroup"),
+	                height: 150,
+	                id: "option-del-comm-group"
+	            };
+	
+	            var buttons = [
+	                {
+	                    title: "Delete",
+	                    method: function () {
+	                        deleteGroupData.isRemovePlayerComm = $('input[name="IsRemovePlayerComm"]:checked').val();
+	                        closePopup(options.id);
+	                        showConfirmDeleteCommGroupPopup();
+	                    },
+	                    classes: "btn btn-primary",
+	                    id: "option-del-ok"
+	                }, {
+	                    title: "Cancel",
+	                    method: function () {
+	                        $('#IsRemovePlayerComm').prop("checked", true);
+	                        closePopup(options.id);
+	                    },
+	                    classes: "btn btn-back",
+	                    id: "option-del-cancel"
+	                }];
+	
+	            Popup.openPopupWithButton(optionDeletePopup, options, buttons);
+	        }
+	
+	        function showConfirmDeleteCommGroupPopup() {
+	            var options = {
+	                model: true,
+	                title: Site.getSingleResource("Confirm"),
+	                height: 150,
+	                id: "confirm-del-comm-group"
+	            };
+	
+	            var buttons = [
+	                {
+	                    title: "OK",
+	                    method: function () {
+	                        closePopup(options.id);
+	                        doDeleteCommGroup();
+	                    },
+	                    classes: "btn btn-primary",
+	                    id: "confirm-del-ok"
+	                }, {
+	                    title: "Cancel",
+	                    method: function () {
+	                        closePopup(options.id);
+	                        showOptionDeleteCommGroupPopup();
+	                    },
+	                    classes: "btn btn-back",
+	                    id: "confirm-del-cancel"
+	                }];
+	
+	            Popup.openPopupWithButton('<div><p>' + Site.getSingleResource("AreYouSure") + '</p></div>', options, buttons);
+	        }
+	
+	        function showResultPopup(title, message) {
+	            var options = {
+	                model: true,
+	                title: "",
+	                height: 150,
+	                id: "result-del-comm-group"
+	            };
+	
+	            if ($("#result-del-comm-group").lengh > 0)
+	            {
+	                $("#result-msg").html(message);
+	            }
+	
+	            var buttons = [
+	                {
+	                    title: "OK",
+	                    method: function () {
+	                        closePopup(options.id);
+	                    },
+	                    classes: "btn btn-back",
+	                    id: "result-OK"
+	                }];
+	
+	            Popup.openPopupWithButton('<div><p id="result-msg">' + message + '</p></div>', options, buttons);
+	        }
+	
+	        function closePopup(id) {
+	            $("#" + id).fadeOut(300);
+	            $(".popup-block-body").hide();
 	        }
 	
 	        var _me = {
 	            initialize: initialize,
-	            initEvent: initEvent
+	            initEvent: initEvent,
+	            deleteCommGroup: deleteCommGroup,
+	            publicFunctions: publicFunctions
 	        };
 	
 	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
-
-/***/ 236:
-/***/ (function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
-	    var _me = {
-	        resizeGrid: function ($scrollableContent) {
-	            var $grid = $scrollableContent || $(".body-content");
-	            if ($grid.length === 0) {
-	                return;
-	            }
-	
-	            _me.updateHeight($grid);
-	            _me.updateWidth($grid);
-	        },
-	
-	        updateHeight: function ($grid) {
-	            var gridTop = $grid.offset().top;
-	            var footerSite = 18;
-	            var footerHeight = $(".footer-content").length > 0 ? $(".footer-content").height() : 0;
-	            var pagingHeight = $(".pagingContainer").length > 0 ? $(".pagingContainer").height() : 0;
-	
-	            var gridHeight = window.innerHeight - gridTop - footerHeight - pagingHeight - footerSite - 10;
-	            gridHeight = Math.max(150, gridHeight);
-	            $grid.css("max-height", gridHeight);
-	        },
-	
-	        updateWidth: function ($grid) {
-	            if (!$grid.hasVerticalScrollBar()) {
-	                $grid.addClass("noScroll");
-	            }
-	            else {
-	                $grid.find("table").width($grid.width() - 17);
-	            }
-	        }
-	    };
-	
-	    return _me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ })
+/***/ }
 
 });
 //# sourceMappingURL=commgrouplist.chunk.js.map

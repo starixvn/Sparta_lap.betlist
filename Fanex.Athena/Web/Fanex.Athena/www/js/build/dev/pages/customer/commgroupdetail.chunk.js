@@ -1,29 +1,29 @@
-webpackJsonp([47],{
+webpackJsonp([48],{
 
 /***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(238);
+	module.exports = __webpack_require__(229);
 
 
-/***/ }),
+/***/ },
 
-/***/ 238:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 229:
+/***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(239)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupDetail) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(230)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupDetail) {
 	    "use strict";
 	
 	    $(CustomerCommGroupDetail.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 239:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 230:
+/***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(240)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(231)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
 	         "use strict";
 	
 	         function initialize() {
@@ -291,10 +291,10 @@ webpackJsonp([47],{
 	         return _me;
 	     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 240:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 231:
+/***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
 	/// // Spectrum Colorpicker v1.0.9
@@ -2011,7 +2011,7 @@ webpackJsonp([47],{
 	})(window, jQuery);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ })
+/***/ }
 
 });
 //# sourceMappingURL=commgroupdetail.chunk.js.map

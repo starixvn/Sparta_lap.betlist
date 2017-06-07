@@ -3,11 +3,6 @@
         "use strict";
 
         $(document).ready(function () {
-            
-            try {
-                parent.document.title = 'LRF - ' + $('.content-title').html();
-            }
-            catch (e) { }
             CustomerList.initialize();
 
             if (QueryString.getParam(window.location.href, "userName") ||

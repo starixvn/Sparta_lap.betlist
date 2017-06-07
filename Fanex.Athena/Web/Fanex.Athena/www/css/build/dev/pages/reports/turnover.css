@@ -1,3 +1,10 @@
+.dropdown-content {
+  opacity: 1;
+  top: 25px; }
+
+.ac-hover {
+  background-color: #eee; }
+
 /*
 * monPickr - jQuery Plugin
 * Just a simple month picker
@@ -155,9 +162,5 @@
       .dayPickrDropDown li:hover a {
         color: #000;
         cursor: default; }
-
-.dropdown-content {
-  opacity: 1;
-  top: 25px; }
 
 /*# sourceMappingURL=turnover.css.map*/

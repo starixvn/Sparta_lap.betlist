@@ -1,3 +1,85 @@
+.label {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin-right: 10px;
+  font-size: 12px;
+  margin-bottom: 10px; }
+  .label:last-child {
+    margin-right: 0; }
+  .label-default {
+    border: 1px solid #4C6375;
+    color: #4C6375;
+    background: transparent; }
+    .label-default:hover {
+      color: #fff;
+      background: #4C6375; }
+    .label-default.active {
+      color: #fff;
+      background: #4C6375; }
+  .label-primary {
+    color: #fff;
+    background: #4C6375;
+    border: none; }
+    .label-primary:hover {
+      color: #fff;
+      background: #9eb4c3; }
+    .label-primary.active {
+      color: #fff;
+      background: #9eb4c3; }
+
+.pagingContainer {
+  padding: 3px;
+  font-size: 1.1rem; }
+  .pagingContainer .icon {
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    font-size: 1.2rem;
+    color: #4c6375;
+    cursor: pointer; }
+  .pagingContainer .pagingDisable {
+    color: #ccc;
+    cursor: default; }
+  .pagingContainer .pagingFirst:before {
+    content: "\EA21"; }
+  .pagingContainer .pagingPrev:before {
+    content: "\EA1F"; }
+  .pagingContainer .pagingNext:before {
+    content: "\EA20"; }
+  .pagingContainer .pagingLast:before {
+    content: "\EA22"; }
+  .pagingContainer .paging-form {
+    width: auto;
+    height: auto;
+    font-size: inherit;
+    padding: 2px;
+    text-align: center;
+    margin: 0; }
+    .pagingContainer .paging-form, .pagingContainer .paging-form:focus {
+      background: #fff;
+      border: 1px solid #e2d6d6;
+      box-shadow: none; }
+  .pagingContainer .paging-info {
+    display: inline-block;
+    margin: 0 5px; }
+  .pagingContainer .pagingSeperator {
+    width: 4px;
+    height: 18px;
+    margin: 0;
+    border: 1px solid #ccc; }
+  .pagingContainer .pageSizeSelected {
+    height: auto;
+    font-size: inherit;
+    padding: 2px;
+    min-width: 65px;
+    border: 1px solid #e2d6d6; }
+
 /* Common element*/
 .specialLevel div {
   cursor: pointer; }
@@ -71,10 +153,12 @@ a.underline {
 .ba-time-notice {
   text-align: right;
   float: right;
-  padding-right: 5px; }
+  padding-right: 5px;
+  color: #fff;
+  margin-right: 20px; }
 
 .num-of-customer {
-  color: Red; }
+  color: #FFCE33; }
 
 .commission-color {
   width: 90px;

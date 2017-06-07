@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/cashouthistory","8":"www/css/build/dev/pages/betlist/colossusbetdetail","9":"www/css/build/dev/pages/betlist/lastbetmonitoring","10":"www/css/build/dev/pages/betlist/systemparlaydetail","11":"www/css/build/dev/pages/forecast/ahforecast","12":"www/css/build/dev/pages/forecast/forecastonextwo","13":"www/css/build/dev/pages/forecast/newforecast","14":"www/css/build/dev/pages/login/login","15":"www/css/build/dev/pages/reports/balance","16":"www/css/build/dev/pages/reports/cashoutwinloss","17":"www/css/build/dev/pages/reports/dailyracingwinloss","18":"www/css/build/dev/pages/reports/licenseewinloss","19":"www/css/build/dev/pages/reports/livereport","20":"www/css/build/dev/pages/reports/matchwinloss","21":"www/css/build/dev/pages/reports/platformwinloss","22":"www/css/build/dev/pages/reports/racingcommission","23":"www/css/build/dev/pages/reports/reportjqgridlayout","24":"www/css/build/dev/pages/reports/result","25":"www/css/build/dev/pages/reports/settledmatchcount","26":"www/css/build/dev/pages/reports/turnover","27":"www/css/build/dev/pages/reports/weeklylivematch","28":"www/css/build/dev/pages/reports/winlossbybettype","29":"www/css/build/dev/pages/reports/winlossbyleague","30":"www/css/build/dev/pages/reports/winlossbyproduct","31":"www/css/build/dev/pages/totalbet/mixparlay","32":"www/css/build/dev/pages/totalbet/totalbetlayout","33":"www/css/build/dev/pages/utility/error","34":"www/css/build/dev/um","35":"www/js/build/dev/language","36":"www/js/build/dev/pages/betlist/betlist","37":"www/js/build/dev/pages/betlist/betlistcancelledbets","38":"www/js/build/dev/pages/betlist/betlistcorrectscore","39":"www/js/build/dev/pages/betlist/betlistdaily","40":"www/js/build/dev/pages/betlist/betlistrunning","41":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","42":"www/js/build/dev/pages/betlist/betlistsimple","43":"www/js/build/dev/pages/betlist/lastbetmonitoring","44":"www/js/build/dev/pages/forecast/ahforecast","45":"www/js/build/dev/pages/forecast/forecasthdpou","46":"www/js/build/dev/pages/forecast/forecastonextwo","47":"www/js/build/dev/pages/forecast/newforecasthdpou","48":"www/js/build/dev/pages/home/home","49":"www/js/build/dev/pages/reports/balance","50":"www/js/build/dev/pages/reports/cashoutwinloss","51":"www/js/build/dev/pages/reports/dailyracingwinloss","52":"www/js/build/dev/pages/reports/licenseewinloss","53":"www/js/build/dev/pages/reports/livereport","54":"www/js/build/dev/pages/reports/livereportmatchlist","55":"www/js/build/dev/pages/reports/matchwinloss","56":"www/js/build/dev/pages/reports/platformwinloss","57":"www/js/build/dev/pages/reports/racingcommission","58":"www/js/build/dev/pages/reports/result","59":"www/js/build/dev/pages/reports/settledmatchcount","60":"www/js/build/dev/pages/reports/turnover","61":"www/js/build/dev/pages/reports/weeklylivematch","62":"www/js/build/dev/pages/reports/winlossbybettype","63":"www/js/build/dev/pages/reports/winlossbyleague","64":"www/js/build/dev/pages/reports/winlossbyproduct","65":"www/js/build/dev/pages/signin/signin","66":"www/js/build/dev/pages/totalbet/firstgoallastgoal","67":"www/js/build/dev/pages/totalbet/halftimefulltime","68":"www/js/build/dev/pages/totalbet/handicapoverunder","69":"www/js/build/dev/pages/totalbet/homedrawawaynobet","70":"www/js/build/dev/pages/totalbet/moneyline","71":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","72":"www/js/build/dev/pages/totalbet/outright","73":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/cashouthistory","8":"www/css/build/dev/pages/betlist/colossusbetdetail","9":"www/css/build/dev/pages/betlist/lastbetmonitoring","10":"www/css/build/dev/pages/betlist/systemparlaydetail","11":"www/css/build/dev/pages/customer/commgroupdetail","12":"www/css/build/dev/pages/customer/commgrouplist","13":"www/css/build/dev/pages/customer/customerlist","14":"www/css/build/dev/pages/customer/customerlog","15":"www/css/build/dev/pages/forecast/ahforecast","16":"www/css/build/dev/pages/forecast/forecastonextwo","17":"www/css/build/dev/pages/forecast/newforecast","18":"www/css/build/dev/pages/login/login","19":"www/css/build/dev/pages/reports/balance","20":"www/css/build/dev/pages/reports/cashoutwinloss","21":"www/css/build/dev/pages/reports/dailyracingwinloss","22":"www/css/build/dev/pages/reports/licenseewinloss","23":"www/css/build/dev/pages/reports/livereport","24":"www/css/build/dev/pages/reports/matchwinloss","25":"www/css/build/dev/pages/reports/platformwinloss","26":"www/css/build/dev/pages/reports/racingcommission","27":"www/css/build/dev/pages/reports/reportjqgridlayout","28":"www/css/build/dev/pages/reports/result","29":"www/css/build/dev/pages/reports/settledmatchcount","30":"www/css/build/dev/pages/reports/turnover","31":"www/css/build/dev/pages/reports/weeklylivematch","32":"www/css/build/dev/pages/reports/winlossbybettype","33":"www/css/build/dev/pages/reports/winlossbyleague","34":"www/css/build/dev/pages/reports/winlossbyproduct","35":"www/css/build/dev/pages/totalbet/mixparlay","36":"www/css/build/dev/pages/totalbet/totalbetlayout","37":"www/css/build/dev/pages/utility/error","38":"www/css/build/dev/um","39":"www/js/build/dev/language","40":"www/js/build/dev/pages/betlist/betlist","41":"www/js/build/dev/pages/betlist/betlistcancelledbets","42":"www/js/build/dev/pages/betlist/betlistcorrectscore","43":"www/js/build/dev/pages/betlist/betlistdaily","44":"www/js/build/dev/pages/betlist/betlistrunning","45":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","46":"www/js/build/dev/pages/betlist/betlistsimple","47":"www/js/build/dev/pages/betlist/lastbetmonitoring","48":"www/js/build/dev/pages/customer/commgroupdetail","49":"www/js/build/dev/pages/customer/commgrouplist","50":"www/js/build/dev/pages/customer/customerlist","51":"www/js/build/dev/pages/customer/customersetting","52":"www/js/build/dev/pages/customer/groupcommission","53":"www/js/build/dev/pages/customer/loginlog","54":"www/js/build/dev/pages/forecast/ahforecast","55":"www/js/build/dev/pages/forecast/forecasthdpou","56":"www/js/build/dev/pages/forecast/forecastonextwo","57":"www/js/build/dev/pages/forecast/newforecasthdpou","58":"www/js/build/dev/pages/home/home","59":"www/js/build/dev/pages/reports/balance","60":"www/js/build/dev/pages/reports/cashoutwinloss","61":"www/js/build/dev/pages/reports/dailyracingwinloss","62":"www/js/build/dev/pages/reports/licenseewinloss","63":"www/js/build/dev/pages/reports/livereport","64":"www/js/build/dev/pages/reports/livereportmatchlist","65":"www/js/build/dev/pages/reports/matchwinloss","66":"www/js/build/dev/pages/reports/platformwinloss","67":"www/js/build/dev/pages/reports/racingcommission","68":"www/js/build/dev/pages/reports/result","69":"www/js/build/dev/pages/reports/settledmatchcount","70":"www/js/build/dev/pages/reports/turnover","71":"www/js/build/dev/pages/reports/weeklylivematch","72":"www/js/build/dev/pages/reports/winlossbybettype","73":"www/js/build/dev/pages/reports/winlossbyleague","74":"www/js/build/dev/pages/reports/winlossbyproduct","75":"www/js/build/dev/pages/signin/signin","76":"www/js/build/dev/pages/totalbet/firstgoallastgoal","77":"www/js/build/dev/pages/totalbet/halftimefulltime","78":"www/js/build/dev/pages/totalbet/handicapoverunder","79":"www/js/build/dev/pages/totalbet/homedrawawaynobet","80":"www/js/build/dev/pages/totalbet/moneyline","81":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","82":"www/js/build/dev/pages/totalbet/outright","83":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -14914,6 +14914,23 @@
 	
 	        show: function ($popup, isModal) {
 	            $popup.flatPopup("show", isModal);
+	        },
+	
+	        openPopupWithButton: function(element, option, buttons) {
+	            var $element = $(element);
+	
+	            if ($("#" + option.id).length === 0) {
+	                $element.append('<div class="right popup-button"></div>');
+	                var $blockButton = $element.find(".popup-button");
+	
+	                $.each(buttons, function (i, e) {
+	                    var button = '<button type="button" id="' + e.id + '" class="' + e.classes + '">' + e.title + '</button>';
+	                    $blockButton.append(button);
+	                    $blockButton.find("#" + e.id).on("click", e.method);
+	                });
+	            }
+	
+	            return $element.flatPopup(option);
 	        }
 	    };
 	
@@ -15954,16 +15971,16 @@
 	        return isShow ? '<div class="select-list-dropdown-search"><input class="select-list-search-results" autocomplete="off" /></div>' : '';
 	    }
 	
-	    function getOptionItemHtml(key, value) {
-	        return '<li class="option-item" data-key="' + key + '">' + value + '</li>';
+	    function getOptionItemHtml(dataItem) {
+	        return '<li class="option-item ' +  dataItem.className + '" data-key="' + dataItem.key + '">' + dataItem.value + '</li>';
 	    }
 	
 	    function getOptionListHtml(dataList) {
 	        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 	
 	        for (var i = 0; i < dataList.length; i++) {
-	            var item = dataList[i];
-	            htmlArray.push(getOptionItemHtml(item.key, item.value));
+	            var dataItem = dataList[i];
+	            htmlArray.push(getOptionItemHtml(dataItem));
 	        }
 	
 	        htmlArray.push('</ul></div>');
@@ -15978,7 +15995,7 @@
 	            var key = item.value;
 	            var text = item.text;
 	
-	            return { key: key, value: text };
+	            return { key: key, value: text, className: item.className };
 	        });
 	        var selectedValue = $originalSelectElement.val();
 	
