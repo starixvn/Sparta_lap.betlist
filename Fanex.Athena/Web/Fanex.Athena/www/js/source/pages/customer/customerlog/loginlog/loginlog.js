@@ -30,9 +30,9 @@ define(["jquery", "common/site", "components/pluginhelper/autocomplete", "./logi
                 var gridOption = LoginLogOption.gridOption;
                 var colNames = Site.clone(LoginLogOption.getColNames());
                 gridOption.colNames = Site.getResources(colNames);
-                gridOption.url = _me.getUrl();
+                var url = _me.getUrl();
 
-                CustomerLog.loadGrid(gridOption);
+                CustomerLog.loadGrid(url, gridOption);
             },
 
             getUrl: function () {

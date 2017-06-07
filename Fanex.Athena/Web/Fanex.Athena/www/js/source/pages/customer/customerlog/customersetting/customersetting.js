@@ -1,10 +1,10 @@
 ﻿"use strict";
 define(["jquery", "common/site", "components/pluginhelper/autocomplete", "../common.option",
     "components/pluginhelper/monthpicker", "../customerlog.service"],
-    function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLog) {
+    function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLogService) {
         var _me = {
             initialize: function () {
-                CustomerLog.initialize();
+                CustomerLogService.initialize();
                 _me.initEvent();
 
                 AutoComplete.initialize({
@@ -13,7 +13,6 @@ define(["jquery", "common/site", "components/pluginhelper/autocomplete", "../com
                 });
 
                 MonthPicker.initMonthPicker({ minDate: $('#MinDate').val() });
-                
 
                 // Set menu active
                 $('#customersettinglogTab').addClass('active');
@@ -31,20 +30,19 @@ define(["jquery", "common/site", "components/pluginhelper/autocomplete", "../com
                 });
 
                 $('#showall').on('change', function () {
-                    CustomerLog.checkShowAll();
+                    CustomerLogService.checkShowAll();
                 });
             },
 
             loadGrid: function () {
                 var gridOption = CommonOption.gridOption;
                 var url = _me.getUrl();
-                gridOption.url = url + '&ViewById=' + $('#ViewBy').val();
                 
                 var colNames = Site.clone(CommonOption.getColNames());
                 gridOption.colNames = Site.getResources(colNames);
 
                 var hasCheckbox = true;
-                CustomerLog.loadGrid(gridOption, hasCheckbox);
+                CustomerLogService.loadGrid(url, gridOption, hasCheckbox);
             },
 
             getUrl: function () {
@@ -54,7 +52,8 @@ define(["jquery", "common/site", "components/pluginhelper/autocomplete", "../com
 
                 return Site.resolveClientUrl('api/Log/CustomerSetting?UserName=' + encodeURIComponent(userName)
                     + '&Year=' + fromDate.getFullYear() + '&Month=' + (fromDate.getMonth() + 1)
-                    + '&FromDay=' + fromDate.getDate() + '&ToDay=' + toDate.getDate());
+                    + '&FromDay=' + fromDate.getDate() + '&ToDay=' + toDate.getDate()
+                    + '&ViewById=' + $('#ViewBy').val());
             }
         };
 

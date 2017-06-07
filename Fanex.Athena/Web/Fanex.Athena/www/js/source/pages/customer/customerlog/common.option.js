@@ -56,13 +56,8 @@ define(["jquery"], function ($) {
 
     var _me = {
         gridOption: {
-            jsonReader: {
-                root: "rows",
-                repeatitems: false
-            },
             height: "auto",
-            url: {},
-            datatype: 'json',
+            datatype: 'local',
             colNames: [],
             colModel: colModelList,
             rowNum: 50,

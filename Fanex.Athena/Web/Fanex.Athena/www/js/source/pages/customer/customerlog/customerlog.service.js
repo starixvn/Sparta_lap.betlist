@@ -3,6 +3,7 @@ define(["jquery", "common/site",
     "lib/jqgrid/jquery.jqgrid.additional", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
     function ($, Site, jqGridAdditional) {
         var GRID_ID = "ReportGrid";
+        var _ajaxRequest = null;
 
         var _me = {
             initialize: function () {
@@ -21,36 +22,48 @@ define(["jquery", "common/site",
                 });
             },
 
-            loadGrid: function (gridOption, hasCheckbox) {
-                Site.blockUI();
-                jqGridAdditional.clearGrid(GRID_ID);
+            loadGrid: function (url, gridOption, hasCheckbox) {
+                var option = {
+                    type: "GET",
+                    url: url,
+                    dataType: "json",
+                    contentType: "application/json",
+                    cache: false,
+                    success: function (response) {
+                        jqGridAdditional.clearGrid(GRID_ID);
+
+                        var data = response.rows;
+                        if (data.length === 0) {
+                            jqGridAdditional.setNoInfo();
+                            return;
+                        }
+
+                        _me.bindData(data, gridOption, hasCheckbox);
+                    },
+                    beforeSend: function () {
+                        Site.blockUI();
+                    },
+                    complete: function () {
+                        Site.unBlockUI();
+                    }
+                }
+
+                _me.stopAjaxRequest();
+                _ajaxRequest = $.ajax(option);
+            },
+
+            bindData: function (data, gridOption, hasCheckbox) {
+                gridOption.data = data;
                 gridOption.gridComplete = function () {
                     if (hasCheckbox) {
                         _me.checkShowAll();
                     }
-                    _me.gridComplete();
-                };
-                $('#ReportGrid').jqGrid(gridOption);
-            },
 
-            gridComplete: function () {
-                jqGridAdditional.gridComplete();
-                var $grid = $("#" + GRID_ID);
-
-                // Check noinfo
-                var recCount = $grid.getGridParam("reccount");
-                var hasData = recCount !== 0;
-                if (hasData) {
+                    jqGridAdditional.gridComplete();
                     _me.resizeGrid();
-                }
-                else {
-                    jqGridAdditional.setNoInfo();
-                }
+                };
 
-                // Can not clear grid because jqgrid's bug
-                // https://stackoverflow.com/questions/37917624/error-cannot-read-property-bdiv-of-null-after-unloading-loading-jqgrid
-                $("#gbox_ReportGrid").toggle(hasData);
-                Site.unBlockUI();
+                $('#ReportGrid').jqGrid(gridOption);
             },
 
             resizeGrid: function () {
@@ -62,6 +75,12 @@ define(["jquery", "common/site",
             checkShowAll: function () {
                 var checked = $('#showall').is(':checked');
                 $('.old-value').toggleClass("hide", !checked);
+            },
+
+            stopAjaxRequest: function () {
+                if (_ajaxRequest !== null) {
+                    _ajaxRequest.abort();
+                }
             }
         };
 

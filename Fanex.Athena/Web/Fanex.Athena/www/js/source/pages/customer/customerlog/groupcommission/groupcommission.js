@@ -1,10 +1,10 @@
 ﻿"use strict";
 define(["jquery", "common/site", "components/pluginhelper/autocomplete", "../common.option",
     "components/pluginhelper/monthpicker", "../customerlog.service"],
-    function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLog) {
+    function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLogService) {
         var _me = {
             initialize: function () {
-                CustomerLog.initialize();
+                CustomerLogService.initialize();
                 MonthPicker.initMonthPicker({ minDate: $('#MinDate').val() });
                 _me.initEvent();
 
@@ -18,19 +18,19 @@ define(["jquery", "common/site", "components/pluginhelper/autocomplete", "../com
                 });
 
                 $('#showall').on('change', function () {
-                    CustomerLog.checkShowAll();
+                    CustomerLogService.checkShowAll();
                 });
             },
 
             loadGrid: function () {
                 var gridOption = CommonOption.gridOption;
-                gridOption.url = _me.getUrl();
+                var url = _me.getUrl();
 
                 var colNames = Site.clone(CommonOption.getColNames());
                 gridOption.colNames = Site.getResources(colNames);
 
                 var hasCheckbox = true;
-                CustomerLog.loadGrid(gridOption, hasCheckbox);
+                CustomerLogService.loadGrid(url, gridOption, hasCheckbox);
             },
 
             getUrl: function () {
