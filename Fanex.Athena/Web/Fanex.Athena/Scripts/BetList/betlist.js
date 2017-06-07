@@ -793,6 +793,10 @@ var BetList = (function ($) {
                 width: popW + 50,
                 height: popH + 50
             });
+        },
+
+        showBonusDetails: function (refCode, transId) {
+
         }
     };
 })(jQuery);
@@ -828,3 +832,4 @@ var showTodayRunningBetsDetails = BetList.showAllBetDetails;
 var showColossusBetsDetails = BetList.showColossusBetsDetails;
 var showGlobalGaming = BetList.showGlobalGamingDetails;
 var ViewCashOutHistory = BetList.viewCashOutHistory;
+var ShowBonusDetails = BetList.showBonusDetails;
