@@ -18,7 +18,7 @@
         openPopup: function (element, option) {
             return $(element).flatPopup(option);
         },
-        closePopup: function(id){
+        closePopup: function (id) {
             $("#" + id).fadeOut(300);
             $(".popup-block-body").hide();
         },
@@ -72,7 +72,8 @@
                     text: "OK",
                     click: function () { },
                     classes: "btn btn-primary",
-                    id: "confirm-del-ok"
+                    id: "confirm-del-ok",
+                    isClosedOnClick: false
                 }];
         */
         openPopupWithButton: function(element, option, buttons) {
@@ -84,7 +85,20 @@
 
                 $.each(buttons, function (index, button) {
                     $blockButton.append('<button type="button" id="' + button.id + '" class="' + button.classes + '">' + button.text + '</button>');
-                    $blockButton.find("#" + button.id).on("click", button.click);
+                    var $button = $blockButton.find("#" + button.id);
+                    if (button.isClosedOnClick) {
+                        $button.on("click", function () {
+                            if (typeof button.click === "function") {
+                                button.click();
+                            }
+
+                            _me.closePopup(option.id)
+                        });
+                    }
+                    else
+                    {
+                        $button.on("click", button.click);
+                    }
                 });
             }
 

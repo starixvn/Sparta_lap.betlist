@@ -208,17 +208,15 @@
              var buttons = [
                  {
                      text: "OK",
+                     isClosedOnClick: true,
                      click: function () {
-                         Popup.closePopup(options.id);
                          callback(groupId, isResetDefault);
                      },
                      classes: "btn btn-primary",
                      id: "confirm-action-ok"
                  }, {
                      text: "Cancel",
-                     click: function () {
-                         Popup.closePopup(options.id);
-                     },
+                     isClosedOnClick: true,
                      classes: "btn btn-back",
                      id: "confirm-action-cancel"
                  }];
