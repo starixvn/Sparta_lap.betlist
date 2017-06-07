@@ -19,14 +19,4 @@
 
             CustomerComm.initialize();
         });
-
-        $(window).resize(function () {
-            "use strict";
-            jqGridAdditional.resizeGrid();
-        });
-
-        $(window).unload(function () {
-            "use strict";
-            $(window).unbind("resize");
-        });
     });

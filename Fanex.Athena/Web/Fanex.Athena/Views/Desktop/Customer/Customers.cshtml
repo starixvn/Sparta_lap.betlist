@@ -31,24 +31,20 @@
                     <div class="report-title hide" style="">
                         @ViewResources.SearchResult:
                         <span id="num-of-customer" class="num-of-customer">0 </span>@ViewResources.Customers.ToLower()
-                        <div style="float: right;">
-                            @using (Html.BeginForm("ExportExcel", "Customer", FormMethod.Post, new { @id = "CustomerExcelForm" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="excelParam" id="excelParam" value="@Model.Param.ToJson()" />
-                                <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
-                                       type="image" id="ExportToExcel" name="exporttoexcel"
-                                       title="@ViewResources.ExportToExcel" class="hand" />
-                            }
-                        </div>
-                        <span class="ba-time-notice">@Model.BATimeCheck</span>
+                        <span class="ba-time-notice" style="">@Model.BATimeCheck</span>
                     </div>
+                </div>
+                <div class="excel-container">
+                    @using (Html.BeginForm("ExportExcel", "Customer", FormMethod.Post, new { @id = "CustomerExcelForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="excelParam" id="excelParam" value="@Model.Param.ToJson()" />
+                                <i class="icon-excel" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+                    }
                 </div>
             </div>
             <div class="main-content">
                 <div class="theme_jqGrid">
-                    <div class="paging">
-                    </div>
                     <div style="width: 100%">
                         <table id="ReportGrid" data-hidden-column="">
                             <tr>

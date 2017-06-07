@@ -114,7 +114,17 @@ function generateConfig(environment) {
         module: {
             loaders: loader.commonLoaders
         },
-        plugins: pluginGenerator(environment)
+        plugins: pluginGenerator(environment),
+        stats: {
+            assets: false,
+            colors: true,
+            version: false,
+            hash: false,
+            timings: true,
+            chunks: false,
+            chunkModules: false,
+            children: true
+        }
     };
 
     return commonConfigs;

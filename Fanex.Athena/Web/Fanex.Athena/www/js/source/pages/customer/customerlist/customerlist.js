@@ -26,6 +26,12 @@
                 alwayshow: true
             };
 
+        function resizeGrid() {
+            var reportGrid = $("#ReportGrid");
+            jqGridAdditional.updateGridHeight();
+            jqGridAdditional.updateGridWidth(reportGrid);
+        }
+
         function setSpecialLevel($listItem, level) {
             level = Number(level);
             var oldValue = Number($listItem.attr("data-level"));
@@ -276,7 +282,6 @@
             var gridWidth = reportGrid.width();
 
             $(".paging").width(gridWidth);
-            $(".report-title").width(gridWidth - 25);
             $(".panel-heading").removeClass("hide");
             $(".content-filter").width(Math.max(1040, gridWidth));
             var gridTop = reportGrid.offset().top;
@@ -294,6 +299,8 @@
             if (keepScrollPosition === true) {
                 $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
             }
+
+            resizeGrid();
             Site.unBlockUI();
 
             _me.addGridScrollEventToHidePopups();
@@ -408,7 +415,6 @@
             },
             initialize: function () {
                 Site.initialize();
-                
                 $("#SubmitButtonComm").prop("disabled", true);
                 _me.initEvent();
                 _me.initPopup();
@@ -425,7 +431,18 @@
                 });
             },
             initEvent: function () {
+                $(window).on("resize", function () {
+                    resizeGrid();
+                });
+                $(window).on("unload", function () {
+                    $(window).off("resize");
+                });
+
                 _me.loadPostbackParam();
+
+                $('#ExportToExcel').click(function () {
+                    $(this).closest('form').submit();
+                });
 
                 $("#report-content").on("click", ".specialLevel *", function () {
                     _$specialLevelCell = $(this).parent().find("div");
