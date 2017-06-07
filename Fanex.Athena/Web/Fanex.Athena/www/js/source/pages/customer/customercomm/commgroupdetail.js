@@ -150,14 +150,24 @@
          }
 
          function commissionOnChange(value, idName) {
-             var selectList = "#select-list-" + idName + "2" + "," + "#select-list-" + idName + "3";
+             var comm2 = "#" + idName + "2", comm3 = "#" + idName + "3";
 
              if (Number(value) === 15) {
-                 var id = "#" + idName + "2" + ", " + "#" + idName + "3";
-                 $(id).val(0);
-                 $(selectList).addClass("disabled").find(".selection-label").text(0);
+                 $(comm2).val(0);
+                 $(comm2).selectList("update", {
+                     isDisabled: true,
+                     selectionId: "select-list-" + idName + "2",
+                     labelText: "0"
+                 });
+                 $(comm3).val(0);
+                 $(comm3).selectList("update", {
+                     isDisabled: true,
+                     selectionId: "select-list-" + idName + "3",
+                     labelText: "0"
+                 });
              } else {
-                 $(selectList).removeClass("disabled");
+                 $(comm2).selectList("disabled", false);
+                 $(comm3).selectList("disabled", false);
              }
          }      
 
@@ -176,8 +186,12 @@
              var isDefault = $("#IsDefaultGroup").is(":checked");
              var defaultGroupId = parseInt($('#DefaultGroupId').val());
              var currentGroupId = parseFloat($('#GroupCommId').val());
+             $("#IsDefaultGroup").val(isDefault);
              if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
-                 showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), addCommGroup);
+                 showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
+                     $('#IsResetDefault').val(true);
+                     $("form").submit();
+                 });
              } else {
                  $("form").submit();
              }
@@ -213,11 +227,6 @@
                  }];
 
              Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
-         }
-
-         function addCommGroup() {
-             $("#IsResetDefault").val(true);
-             $("form").submit();
          }
 
          function getcolorPalette() {

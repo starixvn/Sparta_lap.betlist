@@ -14,27 +14,27 @@
 <div class="row page-form">
     <form class="col" id="customer-comm-group-add" action=@Url.Content("~/CustomerComGroup/Create") method="post">
         @Html.AntiForgeryToken()
-        <div id="form_result">
-            @Html.ValidationSummary(true)
-            @if (ViewBag.Result != null)
-            {
-                var errorMsg = ViewBag.Result.ErrorMessage;
-
-                <div class="@(ViewBag.Result.Success ? "response-area field-validation-success" : "response-area field-validation-error")">
-                    @(ViewBag.Result.Success ? ViewBag.Result.Message : string.IsNullOrEmpty(errorMsg) ? Html.ValidationMessageFor(model => model.GroupName) : errorMsg)
-                </div>
-            }
-            else
-            {
-                <div class="validate-result response-area field-validation-error" style="display: none">
-                    @ViewResources.ChooseGroupNameMsg
-                </div>
-            }
-        </div>
+        @Html.ValidationSummary(true)
         <div class="row">
             <div class="input-field col l5 m9 s12">
-                <input type="text" id="GroupName" name="GroupName" class="validate" />
-                <label for="GroupName" data-error="" data-sucess="">@ViewResources.GroupName</label>
+                @{
+                    if (ViewBag.Result != null)
+                    {
+                        var errorMsg = ViewBag.Result.ErrorMessage;
+                        var msg = ViewBag.Result.Message;
+                        errorMsg = string.IsNullOrEmpty(ViewBag.Result.ErrorMessage)
+                            ? (ViewData.ModelState["GroupName"].Errors.Any() ? ViewData.ModelState["GroupName"].Errors[0].ErrorMessage : string.Empty)
+                            : ViewBag.Result.ErrorMessage;
+
+                        @Html.TextBoxFor(model => model.GroupName, new { @class = ViewBag.Result.Success ? "validate valid" : "validate invalid" })
+                        <label for="GroupName" data-error="@errorMsg" data-success="@msg">@ViewResources.GroupName</label>
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(model => model.GroupName, new { @class = "validate" })
+                        <label for="GroupName" data-error="" data-success="">@ViewResources.GroupName</label>
+                    }
+                }
             </div>
             <div class="input-field col s5">
                 <input type="button" class="btn btn-primary" id="Validate" value="@ViewResources.Checkavailability" />
@@ -43,7 +43,7 @@
         @{ Html.RenderPartial("~/Views/Desktop/Customer/CustomerComm/CommGroup.cshtml");}
         <div class="row">
             <div class="col s12">
-                <input type="checkbox" id="IsDefaultGroup" name="IsDefaultGroup" />
+                <input type="checkbox" id="IsDefaultGroup" name="IsDefaultGroup" @(Model.IsDefaultGroup ? "checked = checked" : string.Empty) />
                 <label for="IsDefaultGroup">@ViewResources.SetAsDefaultGroup</label>
                 @Html.HiddenFor(model => model.IsResetDefault)
                 @Html.HiddenFor(model => model.DefaultGroupId)

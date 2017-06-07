@@ -10,11 +10,7 @@
     <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/commgrouplist.chunk.js")"></script>
 }
 
-<div class="page-results">
-    <div class="result-content">
-        @{
-            Html.RenderPartial("~/Views/Desktop/Customer/CustomerComm/Header.cshtml");
-            Html.RenderPartial("~/Views/Desktop/Customer/CustomerComm/Content.cshtml");
-        }
-    </div>
-</div>
+@{ 
+    Html.RenderPartial("~/Views/Desktop/Customer/CustomerComm/Header.cshtml");
+    Html.RenderPartial("~/Views/Desktop/Customer/CustomerComm/Content.cshtml"); 
+}
