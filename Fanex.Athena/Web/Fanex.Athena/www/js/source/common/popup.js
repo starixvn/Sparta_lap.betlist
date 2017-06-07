@@ -84,8 +84,8 @@
                 var $blockButton = $element.find(".popup-button");
 
                 $.each(buttons, function (index, button) {
-                    $blockButton.append('<button type="button" id="' + button.id + '" class="' + button.classes + '">' + button.text + '</button>');
-                    var $button = $blockButton.find("#" + button.id);
+                    var $button = $('<button type="button"' + (button.id ? 'id="' + button.id + '"' : '') + ' class="' + button.classes + '">' + button.text + '</button>');
+                    $blockButton.append($button);
                     if (button.isClosedOnClick) {
                         $button.on("click", function () {
                             if (typeof button.click === "function") {

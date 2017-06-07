@@ -212,13 +212,11 @@
                      click: function () {
                          callback(groupId, isResetDefault);
                      },
-                     classes: "btn btn-primary",
-                     id: "confirm-action-ok"
+                     classes: "btn btn-primary"
                  }, {
                      text: "Cancel",
                      isClosedOnClick: true,
-                     classes: "btn btn-back",
-                     id: "confirm-action-cancel"
+                     classes: "btn btn-back"
                  }];
 
              Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
