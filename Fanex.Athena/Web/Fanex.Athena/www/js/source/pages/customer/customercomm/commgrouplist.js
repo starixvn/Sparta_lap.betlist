@@ -85,16 +85,16 @@
 
             var buttons = [
                 {
-                    title: "OK",
-                    method: function () {
+                    text: "OK",
+                    click: function () {
                         closePopup(options.id);
                         showOptionDeleteCommGroupPopup();
                     },
                     classes: "btn btn-primary",
                     id: "confirm-del-default-ok"
                 }, {
-                    title: "Cancel",
-                    method: function () {
+                    text: "Cancel",
+                    click: function () {
                         closePopup(options.id);
                     },
                     classes: "btn btn-back",
@@ -122,8 +122,8 @@
 
             var buttons = [
                 {
-                    title: "Delete",
-                    method: function () {
+                    text: "Delete",
+                    click: function () {
                         deleteGroupData.isRemovePlayerComm = $('input[name="IsRemovePlayerComm"]:checked').val();
                         closePopup(options.id);
                         showConfirmDeleteCommGroupPopup();
@@ -131,8 +131,8 @@
                     classes: "btn btn-primary",
                     id: "option-del-ok"
                 }, {
-                    title: "Cancel",
-                    method: function () {
+                    text: "Cancel",
+                    click: function () {
                         $('#IsRemovePlayerComm').prop("checked", true);
                         closePopup(options.id);
                     },
@@ -153,16 +153,16 @@
 
             var buttons = [
                 {
-                    title: "OK",
-                    method: function () {
+                    text: "OK",
+                    click: function () {
                         closePopup(options.id);
                         doDeleteCommGroup();
                     },
                     classes: "btn btn-primary",
                     id: "confirm-del-ok"
                 }, {
-                    title: "Cancel",
-                    method: function () {
+                    text: "Cancel",
+                    click: function () {
                         closePopup(options.id);
                         showOptionDeleteCommGroupPopup();
                     },
@@ -188,8 +188,8 @@
 
             var buttons = [
                 {
-                    title: "OK",
-                    method: function () {
+                    text: "OK",
+                    click: function () {
                         closePopup(options.id);
                     },
                     classes: "btn btn-back",

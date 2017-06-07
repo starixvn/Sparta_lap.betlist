@@ -1,5 +1,18 @@
 ﻿define(['jquery', 'components/jquery.flatpopup'], function ($) {
     "use strict";
+    /*
+    var defaultOptions = {
+        width: 640,
+        height: 480,
+        id: "popup-content",
+        className: "",
+        title: "&nbsp;",
+        container: "body",
+        modal: DEFAULT_MODAL,
+        onOpen: null,
+        onClose: null
+    };
+    */
 
     var _me = {
         openPopup: function (element, option) {
@@ -50,6 +63,15 @@
             $popup.flatPopup("show", isModal);
         },
 
+        /*
+        var buttons = [
+                {
+                    text: "OK",
+                    click: function () { },
+                    classes: "btn btn-primary",
+                    id: "confirm-del-ok"
+                }];
+        */
         openPopupWithButton: function(element, option, buttons) {
             var $element = $(element);
 
@@ -57,10 +79,9 @@
                 $element.append('<div class="right popup-button"></div>');
                 var $blockButton = $element.find(".popup-button");
 
-                $.each(buttons, function (i, e) {
-                    var button = '<button type="button" id="' + e.id + '" class="' + e.classes + '">' + e.title + '</button>';
-                    $blockButton.append(button);
-                    $blockButton.find("#" + e.id).on("click", e.method);
+                $.each(buttons, function (index, button) {
+                    $blockButton.append('<button type="button" id="' + button.id + '" class="' + button.classes + '">' + button.text + '</button>');
+                    $blockButton.find("#" + button.id).on("click", button.click);
                 });
             }
 

@@ -212,16 +212,16 @@
 
              var buttons = [
                  {
-                     title: "OK",
-                     method: function () {
+                     text: "OK",
+                     click: function () {
                          closePopup();
                          callback(groupId, isResetDefault);
                      },
                      classes: "btn btn-primary",
                      id: "confirm-action-ok"
                  }, {
-                     title: "Cancel",
-                     method: closePopup,
+                     text: "Cancel",
+                     click: closePopup,
                      classes: "btn btn-back",
                      id: "confirm-action-cancel"
                  }];
