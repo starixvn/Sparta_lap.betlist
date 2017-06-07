@@ -88,11 +88,11 @@
                     text: "OK",
                     isClosedOnClick: true,
                     click: showOptionDeleteCommGroupPopup,
-                    classes: "btn btn-primary"
+                    classes: "btn btn-submit"
                 }, {
                     text: "Cancel",
                     isClosedOnClick: true,
-                    classes: "btn btn-back"
+                    classes: "btn btn-cancel"
                 }];
 
             Popup.openPopupWithButton('<div><p>' + Site.getSingleResource("DefaultGroupMsg") + '</p></div>', options, buttons);
@@ -122,14 +122,14 @@
                         deleteGroupData.isRemovePlayerComm = $('input[name="IsRemovePlayerComm"]:checked').val();
                         showConfirmDeleteCommGroupPopup();
                     },
-                    classes: "btn btn-primary"
+                    classes: "btn btn-submit"
                 }, {
                     text: "Cancel",
                     isClosedOnClick: true,
                     click: function () {
                         $('#IsRemovePlayerComm').prop("checked", true);
                     },
-                    classes: "btn btn-back"
+                    classes: "btn btn-cancel"
                 }];
 
             Popup.openPopupWithButton(optionDeletePopup, options, buttons);
@@ -148,12 +148,12 @@
                     text: "OK",
                     isClosedOnClick: true,
                     click: doDeleteCommGroup,
-                    classes: "btn btn-primary"
+                    classes: "btn btn-submit"
                 }, {
                     text: "Cancel",
                     isClosedOnClick: true,
                     click: showOptionDeleteCommGroupPopup,
-                    classes: "btn btn-back"
+                    classes: "btn btn-cancel"
                 }];
 
             Popup.openPopupWithButton('<div><p>' + Site.getSingleResource("AreYouSure") + '</p></div>', options, buttons);
@@ -176,7 +176,7 @@
                 {
                     text: "OK",
                     isClosedOnClick: true,
-                    classes: "btn btn-back",
+                    classes: "btn btn-cancel",
                     id: "result-OK"
                 }];
 

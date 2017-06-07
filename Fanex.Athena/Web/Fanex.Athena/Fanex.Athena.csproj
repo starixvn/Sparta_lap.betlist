@@ -864,6 +864,7 @@
     <Content Include="www\css\build\dev\pages\customer\customerlist.css.map" />
     <Content Include="www\css\build\dev\pages\customer\customerlog.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\customer\customerlog.css.map" />
+    <Content Include="Views\Desktop\Customer\CustomerComm\UpdateGroup.cshtml" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
@@ -1054,7 +1055,8 @@
     <Content Include="www\js\build\dev\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\lastbetmonitoring.chunk.js" />
-    <Content Include="www\js\build\dev\pages\customer\commgroupdetail.chunk.js" />
+    <Content Include="www\js\build\dev\pages\customer\commgroupadd.chunk.js" />
+    <Content Include="www\js\build\dev\pages\customer\commgroupedit.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\commgrouplist.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\customerlist.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\customersetting.chunk.js" />
@@ -1100,7 +1102,8 @@
     <Content Include="www\js\build\pro\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\lastbetmonitoring.chunk.js" />
-    <Content Include="www\js\build\pro\pages\customer\commgroupdetail.chunk.js" />
+    <Content Include="www\js\build\pro\pages\customer\commgroupadd.chunk.js" />
+    <Content Include="www\js\build\pro\pages\customer\commgroupedit.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\commgrouplist.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\customerlist.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\customersetting.chunk.js" />
@@ -1206,9 +1209,12 @@
     <Content Include="www\js\source\components\navbar.js" />
     <Content Include="www\js\source\components\refreshcountdown.js" />
     <Content Include="www\js\source\components\sidebar.js" />
+    <Content Include="www\js\source\pages\customer\customercomm\commgroupadd.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgroupdetail.js" />
+    <Content Include="www\js\source\pages\customer\customercomm\commgroupedit.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgrouplist.js" />
-    <Content Include="www\js\source\pages\customer\customercomm\main-commgroupdetail.js" />
+    <Content Include="www\js\source\pages\customer\customercomm\main-commgroupadd.js" />
+    <Content Include="www\js\source\pages\customer\customercomm\main-commgroupedit.js" />
     <Content Include="www\js\source\pages\customer\customercomm\main-commgrouplist.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.commision.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.custoption.js" />
@@ -1992,10 +1998,11 @@
     <Content Include="www\css\source\scss\fonts\roboto\Roboto-Regular.woff2" />
     <Content Include="www\js\build\dev\pages\customer\commgrouplist.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\customerlist.chunk.js.map" />
-    <Content Include="www\js\build\dev\pages\customer\commgroupdetail.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\customersetting.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\groupcommission.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\loginlog.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\customer\commgroupadd.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\customer\commgroupedit.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

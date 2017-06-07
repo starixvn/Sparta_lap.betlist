@@ -2,25 +2,23 @@
      function ($, Site, Popup) {
          "use strict";
 
-         function initialize() {
+         function initialize(titleResource) {
              Site.initialize();
           
              initColorPicker();
-             setPageTitle();
+             setPageTitle(Site.getSingleResource(titleResource));
              _me.initEvent();
          }
 
          function initEvent() {
-             $("#Validate").click(function () {
-                 checkAvailability();
+             $("#GroupName").keyup(function () {
+                 $("#GroupName").removeClass("invalid");
+                 $("#GroupName").removeClass("valid");
+                 $("#Add").prop("disabled", false);
              });
 
              $("#Cancel").click(function () {
-                 window.location.href = Site.resolveClientUrl("CustomerComGroup/Index");
-             });
-
-             $("#GroupName").keyup(function () {
-                 $("#Add").prop("disabled", false);
+                 _me.goToSite("CustomerComGroup/Index");
              });
 
              // Commission dropdownlist change
@@ -47,18 +45,16 @@
              $("#CSComm1").on("change", function () {
                  commissionOnChange($(this).val(), "CSComm");
              });
+         }
 
-             $('#Add').click(function () {
-                 // Init param
-                 initCommParam("#SBComm");
-                 initCommParam("#ParlayComm");
-                 initCommParam("#RCComm");
-                 initCommParam("#NGComm");
-                 initCommParam("#LCComm");
-                 initCommParam("#CSComm");
-
-                 initAddParam();
-             });
+         function goToSite(relativeUrl, paramString)
+         {
+             var href = Site.resolveClientUrl(relativeUrl);
+             if (paramString)
+             {
+                 href += paramString;
+             }
+             window.location.href = href;
          }
 
          function initColorPicker() {
@@ -84,13 +80,11 @@
              });
          }
 
-         function setPageTitle() {
-             $("#page-title", window.parent.document).text(Site.getSingleResource("CreateNewGroup"));
+         function setPageTitle(title) {
+             $("#page-title", window.parent.document).text(title);
          }
 
-         function checkAvailability() {
-             var groupName = $("#GroupName").val();
-
+         function checkAvailableGroup(groupName) {
              //Check empty group name
              if (groupName.length < 1) {
                  displayGroupNameError(Site.getSingleResource("GroupNameNotEmptyMsg"));
@@ -132,6 +126,7 @@
                  success: function (result) {
                      if (result === "OK") {
                          $("#GroupName").removeClass("invalid");
+                         $("#GroupName").addClass("valid");
                          $("#Add").prop("disabled", false);
                      }
                      else {
@@ -171,6 +166,18 @@
              }
          }      
 
+         function submit(formId) {
+             // Init param
+             initCommParam("#SBComm");
+             initCommParam("#ParlayComm");
+             initCommParam("#RCComm");
+             initCommParam("#NGComm");
+             initCommParam("#LCComm");
+             initCommParam("#CSComm");
+
+             initDefaultParam(formId);
+         }
+
          function initCommParam(id) {
              var comm1 = parseInt($(id + "1").val());
              var comm2 = parseInt($(id + "2").val());
@@ -182,18 +189,18 @@
              $(id).val(comm);
          }         
 
-         function initAddParam() {
+         function initDefaultParam(formId) {
              var isDefault = $("#IsDefaultGroup").is(":checked");
              var defaultGroupId = parseInt($('#DefaultGroupId').val());
              var currentGroupId = parseFloat($('#GroupCommId').val());
-             $("#IsDefaultGroup").val(isDefault);
+             $("#IsDefaultGroup", formId).val(isDefault);
              if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
                  showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
-                     $('#IsResetDefault').val(true);
-                     $("form").submit();
+                     $("#IsResetDefault", formId).val(true);
+                     $(formId).submit();
                  });
              } else {
-                 $("form").submit();
+                 $(formId).submit();
              }
          }
 
@@ -263,7 +270,11 @@
 
          var _me = {
              initialize: initialize,
-             initEvent: initEvent
+             initEvent: initEvent,
+             submit: submit,
+             checkAvailableGroup: checkAvailableGroup,
+             setPageTitle: setPageTitle,
+             goToSite: goToSite
          };
 
          return _me;
