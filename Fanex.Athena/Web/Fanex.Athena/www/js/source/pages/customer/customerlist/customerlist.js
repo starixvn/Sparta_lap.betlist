@@ -207,7 +207,8 @@
                 gridOption.colModel[0].formatter = function (cellValue, options, rowObject) {
                     var checkedText = _checkedAllRows || _checkedCustomerObject[rowObject.CustId] === true ? "checked" : "";
                     return "<input type='checkbox' " + checkedText + " title='" + rowObject.CustId +
-                            "' id='" + rowObject.CustId + "' data-group-comm-id='" + rowObject.GroupCommId + "' class='select-cust-checkbox check-child' />";
+                            "' id='" + rowObject.CustId + "' data-group-comm-id='" + rowObject.GroupCommId + "' class='select-cust-checkbox check-child' />" +
+                        "<label for='" + rowObject.CustId + "'></label>";
                 };
             } else {
                 gridOption.colModel[0].formatter = undefined;
@@ -266,7 +267,7 @@
             CustomerListOption.setGroupHeaderColumns(reportGrid);
 
             if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
-                $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' class='' id='CheckAll' />");
+                $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' id='CheckAll' /><label for='CheckAll'></label>");
             } else {
                 $("#jqgh_ReportGrid_Index").html("#");
             }

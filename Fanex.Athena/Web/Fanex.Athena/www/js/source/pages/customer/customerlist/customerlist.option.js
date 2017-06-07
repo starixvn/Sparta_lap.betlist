@@ -10,6 +10,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             key: true,
             name: 'Index',
             index: 'Index',
+            resizable: false,
             width: 30,
             align: 'center',
             valign: 'middle',
@@ -111,8 +112,9 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             formatter: function (cellValue, options, rowObject) {
                 var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
                 return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId +
-                        "' style='white-space: normal' class='ba-" + (cellValue ? "on" : "off") + "'>" +
-                        (cellValue ? Site.getSingleResource("On") : Site.getSingleResource("Off")).toUpperCase() + "</div>";
+                        "' class='center-align switch ba-" + (cellValue ? "on" : "off") + "'>" +
+                        "<label><input type='checkbox'" + (cellValue ? " checked" : "") + "><span class='lever'></span><label>" +
+                    "</div>";
             }
         };
         var specialLevelColumn = {
@@ -120,7 +122,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             index: 'SpecialLevel',
             resizable: false,
             width: 90,
-            align: 'right',
+            align: 'center',
             sortable: false,
             frozen: true,
             classes: "specialLevel",
@@ -136,7 +138,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             index: 'OddsGroup',
             resizable: false,
             width: 90,
-            align: 'right',
+            align: 'center',
             sortable: false,
             frozen: true,
             classes: "oddsGroup",

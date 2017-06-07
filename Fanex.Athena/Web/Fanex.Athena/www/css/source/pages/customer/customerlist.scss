@@ -1,367 +1,75 @@
-﻿@import '../../components/label/label';
+﻿@import "../../vendors/materialize/components/color";
+@import "../../vendors/materialize/components/variables";
+@import "../../vendors/materialize/components/forms/switches";
+@import "../../components/checkbox/checkbox";
+@import '../../components/label/label';
+@import "../../components/switch/switch";
 @import '../../components/paging/paging';
-/* Common element*/
-
-
-.specialLevel div
-{
-    cursor: pointer;
-}
-
-.levelLink:hover
-{
-    opacity: 0.6;
-}
-
-.levelLink
-{
-    width: 80px;
-    height: 15px;
-    cursor: pointer;
-    margin-top: 1px;
-}
-
-select
-{
-    width: 100px;
-    height: 20px;
-}
-
-img
-{
-    border: none;
-}
-
-a
-{
-    font-weight: bold;
-    text-decoration: none !important;
-}
-
-a.icon-link
-{
-    text-decoration: none !important;
-}
-
-a.underline
-{
-    color: #ffffff !important;
-    padding-right: 10px;
-}
-
-.default-username
-{
-    color: #F19D49;
-    font-style: italic;
-}
 
 /* Special Level */
-
-.level-0
-{
+.level-0 {
     background-color: #fcfcfc;
 }
-.level-1
-{
+
+.level-1 {
     background-color: #98b516;
 }
-.level-2
-{
+
+.level-2 {
     background-color: #007d00;
 }
-.level-3
-{
+
+.level-3 {
     background-color: #b87856;
 }
-.level-4
-{
+
+.level-4 {
     background-color: #fcc50f;
 }
-.level-5
-{
+
+.level-5 {
     background-color: #418a86;
 }
-.level-6
-{
+
+.level-6 {
     background-color: #969036;
 }
-.level-7
-{
+
+.level-7 {
     background-color: #944937;
 }
-.level-8
-{
+
+.level-8 {
     background-color: #3297fc;
 }
-.level-9
-{
+
+.level-9 {
     background-color: #c98402;
 }
-.level-10
-{
+
+.level-10 {
     background-color: #fc0000;
 }
 
-/* Filter */
-
-.ba-time-notice
-{
-    text-align: right;
-    float: right;
-    padding-right: 5px;
-    color: #fff;
-    margin-right: 20px;
-}
-
-.num-of-customer
-{
+.num-of-customer {
     color: #FFCE33;
-}
-.commission-color
-{
-    width: 90px;
-    height: 18px;
-    margin-left: 2px;
 }
 
 /* Odds Group */
-.group-A
-{
+.group-A {
     background-color: #007C00;
     color: white !important;
 }
 
-.group-B
-{
+.group-B {
     background-color: #3298FD;
     color: white !important;
 }
 
-.oddsGroupLink:hover
-{
-    cursor: pointer;
-}
-
-.oddsGroupLink:hover
-{
-    opacity: 0.7;
-}
-
-.oddsGroup div
-{
-    cursor: pointer;	
-}
-
-.oddsGroup div.disabled
-{
-    cursor: default;	
-}
-
-/* Popup */
-
-#OddsGroupListContainer
-{
-    display: none;
-    position: absolute;
-    text-align: left !important;
-    background-color: #FFFFFF;
-    border: 2px solid #666666;
-    width: 80px;
-    font-size: small;	
-}
-
-#LevelListContainer
-{
-    display: none;
-    position: absolute;
-    text-align: left !important;
-    background-color: #FFFFFF;
-    border: 2px solid #666666;
-    width: 80px;
-    height: 175px;
-}
-
-.view-cust-option
-{
-    display: none;
-    position: absolute;
-    text-align: left !important;
-    background-color: #FFFFFF;
-    border: 2px solid #666666;
-    padding-left: 20px;
-    padding-top: 10px;
-    width: 90px;
-    height: 115px;
-}
-
-.update-cust-status-popup
-{
-    display: none;
-    position: absolute;
-    text-align: left !important;
-    background-color: #FFFFFF;
-    border: 2px solid #666666;
-    padding-left: 10px;
-    padding-top: 10px;
-    width: 200px;
-    height: 120px;
-    z-index: 999;
-}
-
-.success-message
-{
-    color: #3399ff;
-    background: none repeat scroll 0 0 #CCFFFF;
-    border: 1px solid #336666;
-    display: none;
-    min-height: 25px;
-    margin-top: 8px;
-    text-align: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-.error-message
-{
-    background: none repeat scroll 0 0 #CCFFFF;
-    border: 1px solid #336666;
-    color: #FF0000;
-    display: none;
-    min-height: 25px;
-    margin-top: 8px;
-    text-align: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.attention-message
-{
-    color: #FF0000;
-}
-
-.popup-close-button
-{
-    float: right;
-    width: 10px;
-    height: 10px;
-    margin-right: 3px;
-}
-
-/* Data content */
-.data-content
-{
-    max-height: 550px !important;
-    border-bottom: 1px solid #A3D1E1;
-}
-.ba-status
-{
-    cursor: pointer;
-    padding-top: 4px;
-}
-.ba-disabled
-{
-    cursor: help;
-    opacity: .7;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-    filter: alpha(opacity=70);
-}
-
-.closed
-{
-    background: #ccc7ba;
-}
-.suspended
-{
-    background: #f8ded7;
-}
-.hide
-{
-    display: none;
-}
-/* Utility */
-
-.ajax-loading
-{
-    margin-top: 15px;
-    text-align: center;
+#LevelListContainer, #OddsGroupListContainer {
     display: none;
 }
 
-.no-info
-{
-    font-weight: normal;
-    text-align: center !important;
-    vertical-align: middle !important;
-    height: 20px;
-}
-
-/* Log Info */
-
-.log-info
-{
-    margin: 10px;
-    width: 320px;
-    border-left: 1px solid #E0E0E0;
-    border-top: 1px solid #E0E0E0;
-}
-
-.log-info td
-{
-    border-bottom: 1px solid #E0E0E0;
-    border-right: 1px solid #E0E0E0;
-    font-family: Tahoma,Arial,helvetica,sans-serif;
-    font-size: 11px;
-    padding: 0 5px;
-    text-align: right;
-    height: 22px;
-}
-
-/* Ba */
-.ba-on, .ba-off, .ba-off-disable
-{
-    margin: auto;
-    font-weight: bold;
-    font-size: 10px;
-    padding-top: 1px;
-    height: 17px;
-    white-space: normal;
-}
-
-.ba-on
-{
-    background: url("images/off-on_hr.png") no-repeat 0 0;
-    cursor: pointer;
-    padding-left: 8px;
-    width: 46px;
-    color: #fff;
-    text-shadow: 0px 0px #ccc;
-}
-.ba-on:hover
-{
-    opacity: 0.75;
-    filter: alpha(opacity=75); /* IE patch */
-}
-.ba-off
-{
-    background: url("images/off-on_hr.png") no-repeat -54px 0;
-    cursor: pointer;
-    padding-left: 27px;
-    width: 27px;
-    color: rgb(102, 98, 98);
-    text-shadow: 0px 0px #8B8488;
-}
-
-/* Status*/
-.arrow1
-{
-    background: url("images/arrow.gif") no-repeat scroll 0 0 transparent;
-    cursor: pointer;
-    display: inline;
-}
-
-/* Cust Option */
-
-.cust-option-link
-{
-    position: relative;
-    text-align: center;
+input[type="checkbox"] + label {
+    margin: 0;
 }
