@@ -205,23 +205,20 @@
                  id: "confirm-action"
              };
 
-             var closePopup = function () {
-                 $("#" + options.id).fadeOut(300);
-                 $(".popup-block-body").hide();
-             };
-
              var buttons = [
                  {
                      text: "OK",
                      click: function () {
-                         closePopup();
+                         Popup.closePopup(options.id);
                          callback(groupId, isResetDefault);
                      },
                      classes: "btn btn-primary",
                      id: "confirm-action-ok"
                  }, {
                      text: "Cancel",
-                     click: closePopup,
+                     click: function () {
+                         Popup.closePopup(options.id);
+                     },
                      classes: "btn btn-back",
                      id: "confirm-action-cancel"
                  }];

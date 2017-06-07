@@ -18,7 +18,10 @@
         openPopup: function (element, option) {
             return $(element).flatPopup(option);
         },
-
+        closePopup: function(id){
+            $("#" + id).fadeOut(300);
+            $(".popup-block-body").hide();
+        },
         openPopupWithIframe: function (url, option) {
             var $popUp = $("#" + option.id);
             var iframe = '<iframe id="popupFrame" src="' + url + '" ></iframe>';

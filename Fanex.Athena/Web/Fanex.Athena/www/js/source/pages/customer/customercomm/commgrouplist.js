@@ -87,7 +87,7 @@
                 {
                     text: "OK",
                     click: function () {
-                        closePopup(options.id);
+                        Popup.closePopup(options.id);
                         showOptionDeleteCommGroupPopup();
                     },
                     classes: "btn btn-primary",
@@ -95,7 +95,7 @@
                 }, {
                     text: "Cancel",
                     click: function () {
-                        closePopup(options.id);
+                        Popup.closePopup(options.id);
                     },
                     classes: "btn btn-back",
                     id: "confirm-del-default-cancel"
@@ -125,7 +125,7 @@
                     text: "Delete",
                     click: function () {
                         deleteGroupData.isRemovePlayerComm = $('input[name="IsRemovePlayerComm"]:checked').val();
-                        closePopup(options.id);
+                        Popup.closePopup(options.id);
                         showConfirmDeleteCommGroupPopup();
                     },
                     classes: "btn btn-primary",
@@ -134,7 +134,7 @@
                     text: "Cancel",
                     click: function () {
                         $('#IsRemovePlayerComm').prop("checked", true);
-                        closePopup(options.id);
+                        Popup.closePopup(options.id);
                     },
                     classes: "btn btn-back",
                     id: "option-del-cancel"
@@ -155,7 +155,7 @@
                 {
                     text: "OK",
                     click: function () {
-                        closePopup(options.id);
+                        Popup.closePopup(options.id);
                         doDeleteCommGroup();
                     },
                     classes: "btn btn-primary",
@@ -163,7 +163,7 @@
                 }, {
                     text: "Cancel",
                     click: function () {
-                        closePopup(options.id);
+                        Popup.closePopup(options.id);
                         showOptionDeleteCommGroupPopup();
                     },
                     classes: "btn btn-back",
@@ -190,18 +190,13 @@
                 {
                     text: "OK",
                     click: function () {
-                        closePopup(options.id);
+                        Popup.closePopup(options.id);
                     },
                     classes: "btn btn-back",
                     id: "result-OK"
                 }];
 
             Popup.openPopupWithButton('<div><p id="result-msg">' + message + '</p></div>', options, buttons);
-        }
-
-        function closePopup(id) {
-            $("#" + id).fadeOut(300);
-            $(".popup-block-body").hide();
         }
 
         var _me = {
