@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/cashouthistory","8":"www/css/build/dev/pages/betlist/colossusbetdetail","9":"www/css/build/dev/pages/betlist/lastbetmonitoring","10":"www/css/build/dev/pages/betlist/systemparlaydetail","11":"www/css/build/dev/pages/customer/commgroupdetail","12":"www/css/build/dev/pages/customer/commgrouplist","13":"www/css/build/dev/pages/customer/customerlist","14":"www/css/build/dev/pages/customer/customerlog","15":"www/css/build/dev/pages/forecast/ahforecast","16":"www/css/build/dev/pages/forecast/forecastonextwo","17":"www/css/build/dev/pages/forecast/newforecast","18":"www/css/build/dev/pages/login/login","19":"www/css/build/dev/pages/reports/balance","20":"www/css/build/dev/pages/reports/cashoutwinloss","21":"www/css/build/dev/pages/reports/dailyracingwinloss","22":"www/css/build/dev/pages/reports/licenseewinloss","23":"www/css/build/dev/pages/reports/livereport","24":"www/css/build/dev/pages/reports/matchwinloss","25":"www/css/build/dev/pages/reports/platformwinloss","26":"www/css/build/dev/pages/reports/racingcommission","27":"www/css/build/dev/pages/reports/reportjqgridlayout","28":"www/css/build/dev/pages/reports/result","29":"www/css/build/dev/pages/reports/settledmatchcount","30":"www/css/build/dev/pages/reports/turnover","31":"www/css/build/dev/pages/reports/weeklylivematch","32":"www/css/build/dev/pages/reports/winlossbybettype","33":"www/css/build/dev/pages/reports/winlossbyleague","34":"www/css/build/dev/pages/reports/winlossbyproduct","35":"www/css/build/dev/pages/totalbet/mixparlay","36":"www/css/build/dev/pages/totalbet/totalbetlayout","37":"www/css/build/dev/pages/utility/error","38":"www/css/build/dev/um","39":"www/js/build/dev/language","40":"www/js/build/dev/pages/betlist/betlist","41":"www/js/build/dev/pages/betlist/betlistcancelledbets","42":"www/js/build/dev/pages/betlist/betlistcorrectscore","43":"www/js/build/dev/pages/betlist/betlistdaily","44":"www/js/build/dev/pages/betlist/betlistrunning","45":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","46":"www/js/build/dev/pages/betlist/betlistsimple","47":"www/js/build/dev/pages/betlist/lastbetmonitoring","48":"www/js/build/dev/pages/customer/commgroupdetail","49":"www/js/build/dev/pages/customer/commgrouplist","50":"www/js/build/dev/pages/customer/customerlist","51":"www/js/build/dev/pages/customer/customersetting","52":"www/js/build/dev/pages/customer/groupcommission","53":"www/js/build/dev/pages/customer/loginlog","54":"www/js/build/dev/pages/forecast/ahforecast","55":"www/js/build/dev/pages/forecast/forecasthdpou","56":"www/js/build/dev/pages/forecast/forecastonextwo","57":"www/js/build/dev/pages/forecast/newforecasthdpou","58":"www/js/build/dev/pages/home/home","59":"www/js/build/dev/pages/reports/balance","60":"www/js/build/dev/pages/reports/cashoutwinloss","61":"www/js/build/dev/pages/reports/dailyracingwinloss","62":"www/js/build/dev/pages/reports/licenseewinloss","63":"www/js/build/dev/pages/reports/livereport","64":"www/js/build/dev/pages/reports/livereportmatchlist","65":"www/js/build/dev/pages/reports/matchwinloss","66":"www/js/build/dev/pages/reports/platformwinloss","67":"www/js/build/dev/pages/reports/racingcommission","68":"www/js/build/dev/pages/reports/result","69":"www/js/build/dev/pages/reports/settledmatchcount","70":"www/js/build/dev/pages/reports/turnover","71":"www/js/build/dev/pages/reports/weeklylivematch","72":"www/js/build/dev/pages/reports/winlossbybettype","73":"www/js/build/dev/pages/reports/winlossbyleague","74":"www/js/build/dev/pages/reports/winlossbyproduct","75":"www/js/build/dev/pages/signin/signin","76":"www/js/build/dev/pages/totalbet/firstgoallastgoal","77":"www/js/build/dev/pages/totalbet/halftimefulltime","78":"www/js/build/dev/pages/totalbet/handicapoverunder","79":"www/js/build/dev/pages/totalbet/homedrawawaynobet","80":"www/js/build/dev/pages/totalbet/moneyline","81":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","82":"www/js/build/dev/pages/totalbet/outright","83":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/cashouthistory","8":"www/css/build/dev/pages/betlist/colossusbetdetail","9":"www/css/build/dev/pages/betlist/lastbetmonitoring","10":"www/css/build/dev/pages/betlist/systemparlaydetail","11":"www/css/build/dev/pages/customer/commgroupdetail","12":"www/css/build/dev/pages/customer/commgrouplist","13":"www/css/build/dev/pages/customer/customerlist","14":"www/css/build/dev/pages/customer/customerlog","15":"www/css/build/dev/pages/forecast/ahforecast","16":"www/css/build/dev/pages/forecast/forecastonextwo","17":"www/css/build/dev/pages/forecast/newforecast","18":"www/css/build/dev/pages/login/login","19":"www/css/build/dev/pages/reports/balance","20":"www/css/build/dev/pages/reports/cashoutwinloss","21":"www/css/build/dev/pages/reports/dailyracingwinloss","22":"www/css/build/dev/pages/reports/licenseewinloss","23":"www/css/build/dev/pages/reports/livereport","24":"www/css/build/dev/pages/reports/matchwinloss","25":"www/css/build/dev/pages/reports/platformwinloss","26":"www/css/build/dev/pages/reports/racingcommission","27":"www/css/build/dev/pages/reports/reportjqgridlayout","28":"www/css/build/dev/pages/reports/result","29":"www/css/build/dev/pages/reports/settledmatchcount","30":"www/css/build/dev/pages/reports/turnover","31":"www/css/build/dev/pages/reports/weeklylivematch","32":"www/css/build/dev/pages/reports/winlossbybettype","33":"www/css/build/dev/pages/reports/winlossbyleague","34":"www/css/build/dev/pages/reports/winlossbyproduct","35":"www/css/build/dev/pages/totalbet/mixparlay","36":"www/css/build/dev/pages/totalbet/totalbetlayout","37":"www/css/build/dev/pages/utility/error","38":"www/css/build/dev/um","39":"www/js/build/dev/language","40":"www/js/build/dev/pages/betlist/betlist","41":"www/js/build/dev/pages/betlist/betlistcancelledbets","42":"www/js/build/dev/pages/betlist/betlistcorrectscore","43":"www/js/build/dev/pages/betlist/betlistdaily","44":"www/js/build/dev/pages/betlist/betlistrunning","45":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","46":"www/js/build/dev/pages/betlist/betlistsimple","47":"www/js/build/dev/pages/betlist/lastbetmonitoring","48":"www/js/build/dev/pages/customer/commgroupadd","49":"www/js/build/dev/pages/customer/commgroupedit","50":"www/js/build/dev/pages/customer/commgrouplist","51":"www/js/build/dev/pages/customer/customerlist","52":"www/js/build/dev/pages/customer/customersetting","53":"www/js/build/dev/pages/customer/groupcommission","54":"www/js/build/dev/pages/customer/loginlog","55":"www/js/build/dev/pages/forecast/ahforecast","56":"www/js/build/dev/pages/forecast/forecasthdpou","57":"www/js/build/dev/pages/forecast/forecastonextwo","58":"www/js/build/dev/pages/forecast/newforecasthdpou","59":"www/js/build/dev/pages/home/home","60":"www/js/build/dev/pages/reports/balance","61":"www/js/build/dev/pages/reports/cashoutwinloss","62":"www/js/build/dev/pages/reports/dailyracingwinloss","63":"www/js/build/dev/pages/reports/licenseewinloss","64":"www/js/build/dev/pages/reports/livereport","65":"www/js/build/dev/pages/reports/livereportmatchlist","66":"www/js/build/dev/pages/reports/matchwinloss","67":"www/js/build/dev/pages/reports/platformwinloss","68":"www/js/build/dev/pages/reports/racingcommission","69":"www/js/build/dev/pages/reports/result","70":"www/js/build/dev/pages/reports/settledmatchcount","71":"www/js/build/dev/pages/reports/turnover","72":"www/js/build/dev/pages/reports/weeklylivematch","73":"www/js/build/dev/pages/reports/winlossbybettype","74":"www/js/build/dev/pages/reports/winlossbyleague","75":"www/js/build/dev/pages/reports/winlossbyproduct","76":"www/js/build/dev/pages/signin/signin","77":"www/js/build/dev/pages/totalbet/firstgoallastgoal","78":"www/js/build/dev/pages/totalbet/halftimefulltime","79":"www/js/build/dev/pages/totalbet/handicapoverunder","80":"www/js/build/dev/pages/totalbet/homedrawawaynobet","81":"www/js/build/dev/pages/totalbet/moneyline","82":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","83":"www/js/build/dev/pages/totalbet/outright","84":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -14866,12 +14866,28 @@
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	    "use strict";
+	    /*
+	    var defaultOptions = {
+	        width: 640,
+	        height: 480,
+	        id: "popup-content",
+	        className: "",
+	        title: "&nbsp;",
+	        container: "body",
+	        modal: DEFAULT_MODAL,
+	        onOpen: null,
+	        onClose: null
+	    };
+	    */
 	
 	    var _me = {
 	        openPopup: function (element, option) {
 	            return $(element).flatPopup(option);
 	        },
-	
+	        closePopup: function (id) {
+	            $("#" + id).fadeOut(300);
+	            $(".popup-block-body").hide();
+	        },
 	        openPopupWithIframe: function (url, option) {
 	            var $popUp = $("#" + option.id);
 	            var iframe = '<iframe id="popupFrame" src="' + url + '" ></iframe>';
@@ -14916,21 +14932,49 @@
 	            $popup.flatPopup("show", isModal);
 	        },
 	
-	        openPopupWithButton: function(element, option, buttons) {
+	        /*
+	        var buttons = [
+	                {
+	                    text: "OK",
+	                    click: function () { },
+	                    classes: "btn btn-primary",
+	                    id: "confirm-del-ok",
+	                    isClosedOnClick: false
+	                }];
+	        */
+	        openPopupWithButton: function (element, option, buttons) {
+	            var defaultOption = {
+	                padding: 10
+	            };
+	
+	            $.extend(defaultOption, option || {});
+	
 	            var $element = $(element);
 	
-	            if ($("#" + option.id).length === 0) {
+	            if ($element.hasClass('flat-popup') === false) {
 	                $element.append('<div class="right popup-button"></div>');
 	                var $blockButton = $element.find(".popup-button");
 	
-	                $.each(buttons, function (i, e) {
-	                    var button = '<button type="button" id="' + e.id + '" class="' + e.classes + '">' + e.title + '</button>';
-	                    $blockButton.append(button);
-	                    $blockButton.find("#" + e.id).on("click", e.method);
+	                $.each(buttons, function (index, button) {
+	                    var $button = $('<button type="button"' + (button.id ? 'id="' + button.id + '"' : '') + ' class="' + button.classes + '">' + button.text + '</button>');
+	                    $blockButton.append($button);
+	                    if (button.isClosedOnClick) {
+	                        $button.on("click", function () {
+	                            if (typeof button.click === "function") {
+	                                button.click();
+	                            }
+	
+	                            _me.closePopup(defaultOption.id)
+	                        });
+	                    }
+	                    else
+	                    {
+	                        $button.on("click", button.click);
+	                    }
 	                });
 	            }
 	
-	            return $element.flatPopup(option);
+	            return $element.flatPopup(defaultOption);
 	        }
 	    };
 	
@@ -14951,6 +14995,7 @@
 	            var defaultOptions = {
 	                width: 640,
 	                height: 480,
+	                padding: 0,
 	                id: "popup-content",
 	                className: "",
 	                title: "&nbsp;",
@@ -14970,12 +15015,11 @@
 	                    $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
 	                    $container.append($blockBody);
 	                }
-	
-	                var isNew = $("#" + options.id).length === 0;
-	                if (isNew) {
+	                
+	                if ($self.hasClass('flat-popup') === false) {
 	                    $self.attr("id", options.id);
 	                    $self.addClass("flat-popup " + options.className);
-	                    $self.children().wrapAll("<div class='wrapContent'></div>");
+	                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
 	                    $self.hide()
 	                         .prepend('<div class="title-bar popup-title"><div class="txt-title">'
 	                             + options.title
@@ -15016,6 +15060,10 @@
 	            //Set the center alignment padding + border see css style
 	            var left = ($(window).width() - $self.width()) / 2;
 	            var top = ($(window).height() - $self.height()) / 2;
+	
+	            if (top > 300) {
+	                top -= 100;
+	            }
 	
 	            $self.css({
 	                'top': top + "px",

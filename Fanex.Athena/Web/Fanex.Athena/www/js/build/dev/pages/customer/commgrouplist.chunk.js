@@ -1,17 +1,17 @@
-webpackJsonp([49],{
+webpackJsonp([50],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(232);
+	module.exports = __webpack_require__(235);
 
 
 /***/ },
 
-/***/ 232:
+/***/ 235:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(233)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupList) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(236)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupList) {
 	    "use strict";
 	
 	    $(CustomerCommGroupList.initialize);
@@ -20,7 +20,7 @@ webpackJsonp([49],{
 
 /***/ },
 
-/***/ 233:
+/***/ 236:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
@@ -109,20 +109,14 @@ webpackJsonp([49],{
 	
 	            var buttons = [
 	                {
-	                    title: "OK",
-	                    method: function () {
-	                        closePopup(options.id);
-	                        showOptionDeleteCommGroupPopup();
-	                    },
-	                    classes: "btn btn-primary",
-	                    id: "confirm-del-default-ok"
+	                    text: "OK",
+	                    isClosedOnClick: true,
+	                    click: showOptionDeleteCommGroupPopup,
+	                    classes: "btn btn-submit"
 	                }, {
-	                    title: "Cancel",
-	                    method: function () {
-	                        closePopup(options.id);
-	                    },
-	                    classes: "btn btn-back",
-	                    id: "confirm-del-default-cancel"
+	                    text: "Cancel",
+	                    isClosedOnClick: true,
+	                    classes: "btn btn-cancel"
 	                }];
 	
 	            Popup.openPopupWithButton('<div><p>' + Site.getSingleResource("DefaultGroupMsg") + '</p></div>', options, buttons);
@@ -146,22 +140,20 @@ webpackJsonp([49],{
 	
 	            var buttons = [
 	                {
-	                    title: "Delete",
-	                    method: function () {
+	                    text: "Delete",
+	                    isClosedOnClick: true,
+	                    click: function () {
 	                        deleteGroupData.isRemovePlayerComm = $('input[name="IsRemovePlayerComm"]:checked').val();
-	                        closePopup(options.id);
 	                        showConfirmDeleteCommGroupPopup();
 	                    },
-	                    classes: "btn btn-primary",
-	                    id: "option-del-ok"
+	                    classes: "btn btn-submit"
 	                }, {
-	                    title: "Cancel",
-	                    method: function () {
+	                    text: "Cancel",
+	                    isClosedOnClick: true,
+	                    click: function () {
 	                        $('#IsRemovePlayerComm').prop("checked", true);
-	                        closePopup(options.id);
 	                    },
-	                    classes: "btn btn-back",
-	                    id: "option-del-cancel"
+	                    classes: "btn btn-cancel"
 	                }];
 	
 	            Popup.openPopupWithButton(optionDeletePopup, options, buttons);
@@ -177,21 +169,15 @@ webpackJsonp([49],{
 	
 	            var buttons = [
 	                {
-	                    title: "OK",
-	                    method: function () {
-	                        closePopup(options.id);
-	                        doDeleteCommGroup();
-	                    },
-	                    classes: "btn btn-primary",
-	                    id: "confirm-del-ok"
+	                    text: "OK",
+	                    isClosedOnClick: true,
+	                    click: doDeleteCommGroup,
+	                    classes: "btn btn-submit"
 	                }, {
-	                    title: "Cancel",
-	                    method: function () {
-	                        closePopup(options.id);
-	                        showOptionDeleteCommGroupPopup();
-	                    },
-	                    classes: "btn btn-back",
-	                    id: "confirm-del-cancel"
+	                    text: "Cancel",
+	                    isClosedOnClick: true,
+	                    click: showOptionDeleteCommGroupPopup,
+	                    classes: "btn btn-cancel"
 	                }];
 	
 	            Popup.openPopupWithButton('<div><p>' + Site.getSingleResource("AreYouSure") + '</p></div>', options, buttons);
@@ -212,20 +198,13 @@ webpackJsonp([49],{
 	
 	            var buttons = [
 	                {
-	                    title: "OK",
-	                    method: function () {
-	                        closePopup(options.id);
-	                    },
-	                    classes: "btn btn-back",
+	                    text: "OK",
+	                    isClosedOnClick: true,
+	                    classes: "btn btn-cancel",
 	                    id: "result-OK"
 	                }];
 	
 	            Popup.openPopupWithButton('<div><p id="result-msg">' + message + '</p></div>', options, buttons);
-	        }
-	
-	        function closePopup(id) {
-	            $("#" + id).fadeOut(300);
-	            $(".popup-block-body").hide();
 	        }
 	
 	        var _me = {

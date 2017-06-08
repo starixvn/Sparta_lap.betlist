@@ -1,17 +1,17 @@
 webpackJsonp([49],{
 
 /***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(244);
+	module.exports = __webpack_require__(233);
 
 
-/***/ }),
+/***/ },
 
-/***/ 242:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 231:
+/***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(243)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(232)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
 	         "use strict";
 	
 	         function initialize(titleResource) {
@@ -224,25 +224,18 @@ webpackJsonp([49],{
 	                 id: "confirm-action"
 	             };
 	
-	             var closePopup = function () {
-	                 $("#" + options.id).fadeOut(300);
-	                 $(".popup-block-body").hide();
-	             };
-	
 	             var buttons = [
 	                 {
-	                     title: "OK",
-	                     method: function () {
-	                         closePopup();
+	                     text: "OK",
+	                     isClosedOnClick: true,
+	                     click: function () {
 	                         callback(groupId, isResetDefault);
 	                     },
-	                     classes: "btn btn-primary",
-	                     id: "confirm-action-ok"
+	                     classes: "btn btn-primary"
 	                 }, {
-	                     title: "Cancel",
-	                     method: closePopup,
-	                     classes: "btn btn-back",
-	                     id: "confirm-action-cancel"
+	                     text: "Cancel",
+	                     isClosedOnClick: true,
+	                     classes: "btn btn-back"
 	                 }];
 	
 	             Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
@@ -299,10 +292,10 @@ webpackJsonp([49],{
 	         return _me;
 	     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 243:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 232:
+/***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
 	/// // Spectrum Colorpicker v1.0.9
@@ -2019,24 +2012,24 @@ webpackJsonp([49],{
 	})(window, jQuery);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 244:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 233:
+/***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(234)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
 	    "use strict";
 	
 	    $(CustomerCommGroupEdit.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 245:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 234:
+/***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(242)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(231)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
 	         "use strict";
 	
 	         var _originalGroupName = "";
@@ -2096,7 +2089,7 @@ webpackJsonp([49],{
 	         return _me;
 	     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ })
+/***/ }
 
 });
 //# sourceMappingURL=commgroupedit.chunk.js.map

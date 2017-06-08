@@ -5867,11 +5867,11 @@ header nav {
 
 .select-list-result-container {
   position: absolute;
-  z-index: 100; }
+  z-index: 200; }
   .select-list-result-container .select-list-dropdown {
     background-color: #fff;
     border: 1px solid #ccc;
-    z-index: 1051; }
+    z-index: 201; }
     .select-list-result-container .select-list-dropdown-search {
       padding: 4px; }
       .select-list-result-container .select-list-dropdown-search .select-list-search-results {

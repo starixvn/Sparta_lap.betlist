@@ -1,9 +1,9 @@
-webpackJsonp([50],{
+webpackJsonp([51],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(234);
+	module.exports = __webpack_require__(237);
 
 
 /***/ },
@@ -3926,10 +3926,10 @@ webpackJsonp([50],{
 
 /***/ },
 
-/***/ 234:
+/***/ 237:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(235), __webpack_require__(240)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerList, CustomerComm) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(238), __webpack_require__(243)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerList, CustomerComm) {
 	        "use strict";
 	
 	        $(document).ready(function () {
@@ -3948,12 +3948,12 @@ webpackJsonp([50],{
 
 /***/ },
 
-/***/ 235:
+/***/ 238:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205), __webpack_require__(236), __webpack_require__(237),
-	    __webpack_require__(238),
-	    __webpack_require__(11), __webpack_require__(208), __webpack_require__(209), __webpack_require__(228), __webpack_require__(239)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, CustomerListCustOption, CustomerListOption, PagingHelper) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205), __webpack_require__(239), __webpack_require__(240),
+	    __webpack_require__(241),
+	    __webpack_require__(11), __webpack_require__(208), __webpack_require__(209), __webpack_require__(228), __webpack_require__(242)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, CustomerListCustOption, CustomerListOption, PagingHelper) {
 	        "use strict";
 	
 	        var ajaxRequest = null;
@@ -4159,7 +4159,8 @@ webpackJsonp([50],{
 	                gridOption.colModel[0].formatter = function (cellValue, options, rowObject) {
 	                    var checkedText = _checkedAllRows || _checkedCustomerObject[rowObject.CustId] === true ? "checked" : "";
 	                    return "<input type='checkbox' " + checkedText + " title='" + rowObject.CustId +
-	                            "' id='" + rowObject.CustId + "' data-group-comm-id='" + rowObject.GroupCommId + "' class='select-cust-checkbox check-child' />";
+	                            "' id='" + rowObject.CustId + "' data-group-comm-id='" + rowObject.GroupCommId + "' class='select-cust-checkbox check-child' />" +
+	                        "<label for='" + rowObject.CustId + "'></label>";
 	                };
 	            } else {
 	                gridOption.colModel[0].formatter = undefined;
@@ -4218,7 +4219,7 @@ webpackJsonp([50],{
 	            CustomerListOption.setGroupHeaderColumns(reportGrid);
 	
 	            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
-	                $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' class='' id='CheckAll' />");
+	                $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' id='CheckAll' /><label for='CheckAll'></label>");
 	            } else {
 	                $("#jqgh_ReportGrid_Index").html("#");
 	            }
@@ -4890,7 +4891,7 @@ webpackJsonp([50],{
 
 /***/ },
 
-/***/ 236:
+/***/ 239:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site, QueryString */
@@ -5065,7 +5066,7 @@ webpackJsonp([50],{
 
 /***/ },
 
-/***/ 237:
+/***/ 240:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site, jqGridAdditional */
@@ -5079,6 +5080,7 @@ webpackJsonp([50],{
 	            key: true,
 	            name: 'Index',
 	            index: 'Index',
+	            resizable: false,
 	            width: 30,
 	            align: 'center',
 	            valign: 'middle',
@@ -5180,8 +5182,9 @@ webpackJsonp([50],{
 	            formatter: function (cellValue, options, rowObject) {
 	                var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
 	                return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId +
-	                        "' style='white-space: normal' class='ba-" + (cellValue ? "on" : "off") + "'>" +
-	                        (cellValue ? Site.getSingleResource("On") : Site.getSingleResource("Off")).toUpperCase() + "</div>";
+	                        "' class='center-align switch ba-" + (cellValue ? "on" : "off") + "'>" +
+	                        "<label><input type='checkbox'" + (cellValue ? " checked" : "") + "><span class='lever'></span><label>" +
+	                    "</div>";
 	            }
 	        };
 	        var specialLevelColumn = {
@@ -5189,7 +5192,7 @@ webpackJsonp([50],{
 	            index: 'SpecialLevel',
 	            resizable: false,
 	            width: 90,
-	            align: 'right',
+	            align: 'center',
 	            sortable: false,
 	            frozen: true,
 	            classes: "specialLevel",
@@ -5205,7 +5208,7 @@ webpackJsonp([50],{
 	            index: 'OddsGroup',
 	            resizable: false,
 	            width: 90,
-	            align: 'right',
+	            align: 'center',
 	            sortable: false,
 	            frozen: true,
 	            classes: "oddsGroup",
@@ -5363,7 +5366,7 @@ webpackJsonp([50],{
 
 /***/ },
 
-/***/ 238:
+/***/ 241:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -5541,7 +5544,7 @@ webpackJsonp([50],{
 
 /***/ },
 
-/***/ 239:
+/***/ 242:
 /***/ function(module, exports) {
 
 	/*--------------------------------------------------------------------------
@@ -8280,57 +8283,58 @@ webpackJsonp([50],{
 
 /***/ },
 
-/***/ 240:
+/***/ 243:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site, CustomerList, JSLINQ*/
 	/// <reference path="/@JSense.js" />
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205), __webpack_require__(9),
+	__webpack_require__(238)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, Popup, CustomerList) {
 	        "use strict";
 	
-	        return {
+	        var _me = {
 	            initialize: function () {
 	                // bind customer button event
 	                $('#MoveToGroup').click(function () {
-	                    CustomerComm.showMoveCustomerToGroup();
+	                    _me.showMoveCustomerToGroup();
 	                });
 	
 	                $('#UpdateComm').click(function () {
 	                    var groupCommId = $('#UpdateComm').attr('data-group-id');
-	                    CustomerComm.showUpdateCustComm(groupCommId);
+	                    _me.showUpdateCustComm(groupCommId);
 	                });
 	
 	                $('#RemoveFromGroup').click(function () {
-	                    CustomerComm.showRemoveFromGroup();
+	                    _me.showRemoveFromGroup();
 	                });
 	
 	                $("#GroupListSelect").change(function () {
-	                    CustomerComm.newGroupChanged(this);
+	                    _me.newGroupChanged(this);
 	                });
 	
 	                // Commission dropdownlist change
 	                $('#CustSBComm1').on('change', function () {
-	                    CustomerComm.commissionOnChange($(this).val(), '#CustSBComm');
+	                    _me.commissionOnChange($(this).val(), '#CustSBComm');
 	                });
 	
 	                $('#CustParlayComm1').on('change', function () {
-	                    CustomerComm.commissionOnChange($(this).val(), '#CustParlayComm');
+	                    _me.commissionOnChange($(this).val(), '#CustParlayComm');
 	                });
 	
 	                $('#CustRBComm1').on('change', function () {
-	                    CustomerComm.commissionOnChange($(this).val(), '#CustRBComm');
+	                    _me.commissionOnChange($(this).val(), '#CustRBComm');
 	                });
 	
 	                $('#CustNGComm1').on('change', function () {
-	                    CustomerComm.commissionOnChange($(this).val(), '#CustNGComm');
+	                    _me.commissionOnChange($(this).val(), '#CustNGComm');
 	                });
 	
 	                $('#CustLCComm1').on('change', function () {
-	                    CustomerComm.commissionOnChange($(this).val(), '#CustLCComm');
+	                    _me.commissionOnChange($(this).val(), '#CustLCComm');
 	                });
 	
 	                $('#CustCSComm1').on('change', function () {
-	                    CustomerComm.commissionOnChange($(this).val(), '#CustCSComm');
+	                    _me.commissionOnChange($(this).val(), '#CustCSComm');
 	                });
 	            },
 	
@@ -8361,28 +8365,30 @@ webpackJsonp([50],{
 	            /* move customer to group*/
 	            showMoveCustomerToGroup: function () {
 	                $('#lblMoveToGroupMsg').html("");
-	                CustomerComm.clearNotification();
+	                _me.clearNotification();
 	
-	                $("#MoveToGroupPopUp").dialog({
-	                    resizable: false,
-	                    height: 330,
-	                    width: 320,
-	                    modal: true,
-	                    buttons: [
+	                Popup.openPopupWithButton($("#MoveToGroupPopUp"),
+	                    {
+	                        title: Site.getSingleResource('MoveToGroup'),
+	                        id: 'MoveToGroupPopUp',
+	                        height: 470,
+	                        width: 350
+	                    },   
+	                    [
 	                        {
 	                            text: Site.getSingleResource('OK'),
 	                            click: function () {
-	                                CustomerComm.moveCustomerToGroup($(this));
-	                            }
+	                                _me.moveCustomerToGroup($(this));
+	                            },
+	                            classes: "btn btn-submit"
 	                        },
 	                        {
 	                            text: Site.getSingleResource('Cancel'),
-	                            click: function () {
-	                                $(this).dialog("close");
-	                            }
+	                            isClosedOnClick: true,
+	                            classes: "btn btn-cancel"
 	                        }
 	                    ]
-	                });
+	                );
 	            },
 	
 	            moveCustomerToGroup: function () {
@@ -8398,17 +8404,17 @@ webpackJsonp([50],{
 	                }
 	
 	                if (checkedCustomers.length === 0) {
-	                    CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
+	                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
 	                    return;
 	                }
 	
 	                //GroupId = - 1 is show all group.
 	                if (groupid === -1) {
-	                    CustomerComm.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
+	                    _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
 	                    return;
 	                }
 	                if (checkedCustomers.length > 0 && custList.length === 0) {
-	                    CustomerComm.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false);
+	                    _me.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false);
 	                    return;
 	                }
 	                var param =
@@ -8422,14 +8428,14 @@ webpackJsonp([50],{
 	                    url: Site.resolveClientUrl("CustomerAPI/MoveToGroupCom"),
 	                    dataType: "json",
 	                    beforeSend: function () {
-	                        CustomerComm.ajaxStart();
+	                        _me.ajaxStart();
 	                    },
 	                    complete: function () {
-	                        CustomerComm.ajaxStop();
+	                        _me.ajaxStop();
 	                    },
 	                    success: function (result) {
 	                        if (result.Success) {
-	                            CustomerComm.showMsg(Site.getSingleResource('MoveSuccessfullyMsg'), result.Success);
+	                            _me.showMsg(Site.getSingleResource('MoveSuccessfullyMsg'), result.Success);
 	
 	                            var groupName = result.ExtendedData.GroupName;
 	                            if (groupName.length > 17) {
@@ -8443,7 +8449,7 @@ webpackJsonp([50],{
 	                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
 	                        }
 	                        else {
-	                            CustomerComm.showMsg(result.ErrorMessage, result.Success);
+	                            _me.showMsg(result.ErrorMessage, result.Success);
 	                        }
 	                    }
 	                });
@@ -8462,7 +8468,7 @@ webpackJsonp([50],{
 	                }
 	
 	                $('#InfoMsg').css('display', isShowInfo ? 'block' : 'none');
-	                CustomerComm.clearNotification();
+	                _me.clearNotification();
 	
 	                $("#UpdateCustCommPopUp").dialog({
 	                    resizable: false,
@@ -8474,7 +8480,7 @@ webpackJsonp([50],{
 	                        {
 	                            text: Site.getSingleResource('Save'),
 	                            click: function () {
-	                                CustomerComm.updateCustomerComm($(this), groupCommId);
+	                                _me.updateCustomerComm($(this), groupCommId);
 	                            }
 	                        },
 	                        {
@@ -8498,16 +8504,16 @@ webpackJsonp([50],{
 	                var custList = JSLINQ(checkedCustomers).Select(function (x) { return x.Id; }).ToArray();
 	
 	                if (custList.length === 0) {
-	                    CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
+	                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
 	                    return;
 	                }
 	
-	                var sbcom = CustomerComm.initCommissionParam('#CustSBComm');
-	                var parlayCom = CustomerComm.initCommissionParam('#CustParlayComm');
-	                var rbcom = CustomerComm.initCommissionParam('#CustRBComm');
-	                var ngcom = CustomerComm.initCommissionParam('#CustNGComm');
-	                var lccom = CustomerComm.initCommissionParam('#CustLCComm');
-	                var cscom = CustomerComm.initCommissionParam('#CustCSComm');
+	                var sbcom = _me.initCommissionParam('#CustSBComm');
+	                var parlayCom = _me.initCommissionParam('#CustParlayComm');
+	                var rbcom = _me.initCommissionParam('#CustRBComm');
+	                var ngcom = _me.initCommissionParam('#CustNGComm');
+	                var lccom = _me.initCommissionParam('#CustLCComm');
+	                var cscom = _me.initCommissionParam('#CustCSComm');
 	                var param =
 	                {
 	                    GroupId: groupCommId,
@@ -8527,22 +8533,22 @@ webpackJsonp([50],{
 	                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 	                    dataType: 'json',
 	                    beforeSend: function () {
-	                        CustomerComm.ajaxStart();
+	                        _me.ajaxStart();
 	                    },
 	                    complete: function () {
-	                        CustomerComm.ajaxStop();
+	                        _me.ajaxStop();
 	                    },
 	                    success: function (result) {
 	                        if (result.Success) {
 	                            //updated = true;
-	                            CustomerComm.showMsg(Site.getSingleResource('UpdateCommSucessfulMsg'), result.Success);
+	                            _me.showMsg(Site.getSingleResource('UpdateCommSucessfulMsg'), result.Success);
 	
 	                            CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
 	                                                 result.ExtendedData.SBComm, result.ExtendedData.NGComm,
 	                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
 	                        }
 	                        else {
-	                            CustomerComm.showMsg(result.ErrorMessage, result.Success);
+	                            _me.showMsg(result.ErrorMessage, result.Success);
 	                        }
 	                    }
 	                });
@@ -8559,7 +8565,7 @@ webpackJsonp([50],{
 	
 	                $("#RemoveConfirmMsg").html(msg);
 	
-	                CustomerComm.clearNotification();
+	                _me.clearNotification();
 	
 	                $("#ConfirmRemoveFromGroupPopUp").dialog({
 	                    resizable: false,
@@ -8571,7 +8577,7 @@ webpackJsonp([50],{
 	                        {
 	                            text: Site.getSingleResource('OK'),
 	                            click: function () {
-	                                CustomerComm.removeFromGroupComm($(this));
+	                                _me.removeFromGroupComm($(this));
 	                            }
 	                        },
 	                        {
@@ -8596,11 +8602,11 @@ webpackJsonp([50],{
 	                }
 	
 	                if (checkedCustomers.length === 0) {
-	                    CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
+	                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
 	                    return;
 	                }
 	                if (checkedCustomers.length > 0 && custList.length === 0) {
-	                    CustomerComm.showMsg(Site.getSingleResource('CustomerNotBelongAnyGroupMsg'), false);
+	                    _me.showMsg(Site.getSingleResource('CustomerNotBelongAnyGroupMsg'), false);
 	                    return;
 	                }
 	
@@ -8617,20 +8623,20 @@ webpackJsonp([50],{
 	                    url: Site.resolveClientUrl("CustomerAPI/RemoveFromGroupCom"),
 	                    dataType: "json",
 	                    beforeSend: function () {
-	                        CustomerComm.ajaxStart();
+	                        _me.ajaxStart();
 	                    },
 	                    complete: function () {
-	                        CustomerComm.ajaxStop();
+	                        _me.ajaxStop();
 	                    },
 	                    success: function (result) {
 	                        if (result.Success) {
 	                            //removed = true;
 	
 	                            if (checkedCustomers.length > 0 && custList.length > 0 && custList.length < checkedCustomers.length) {
-	                                CustomerComm.showMsg(result.Message + "! </br> " + Site.getSingleResource('CustomersBelongGroupsBeRemovedMsg'), true);
+	                                _me.showMsg(result.Message + "! </br> " + Site.getSingleResource('CustomersBelongGroupsBeRemovedMsg'), true);
 	                            }
 	                            else {
-	                                CustomerComm.showMsg(result.Message, result.Success);
+	                                _me.showMsg(result.Message, result.Success);
 	                            }
 	                            if (param.isRemovePlayercomm) {
 	                                CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
@@ -8642,7 +8648,7 @@ webpackJsonp([50],{
 	                            }
 	                        }
 	                        else {
-	                            CustomerComm.showMsg(result.ErrorMessage, result.Success);
+	                            _me.showMsg(result.ErrorMessage, result.Success);
 	                        }
 	                    }
 	                });
@@ -8695,6 +8701,8 @@ webpackJsonp([50],{
 	                $('#NewCsComm').val($("#CSComm" + groupId).val());
 	            }
 	        };
+	
+	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 

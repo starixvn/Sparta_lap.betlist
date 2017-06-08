@@ -11,10 +11,10 @@ webpackJsonp([48],{
 /***/ 229:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(230)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupDetail) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(230)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupAdd) {
 	    "use strict";
 	
-	    $(CustomerCommGroupDetail.initialize);
+	    $(CustomerCommGroupAdd.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
@@ -23,28 +23,60 @@ webpackJsonp([48],{
 /***/ 230:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(231)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(231)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
 	         "use strict";
 	
 	         function initialize() {
-	             Site.initialize();
-	          
-	             initColorPicker();
-	             setPageTitle();
+	             debugger;
+	             CommGroupDetail.initialize("CreateNewGroup");
+	
 	             _me.initEvent();
 	         }
 	
 	         function initEvent() {
 	             $("#Validate").click(function () {
-	                 checkAvailability();
+	                 var groupName = $("#GroupName").val();
+	                 CommGroupDetail.checkAvailableGroup(groupName);
+	             });
+	
+	             $("#Submit").click(function () {
+	                 CommGroupDetail.submit("#customer-comm-group-add");
+	             });
+	         }
+	
+	         var _me = {
+	             initialize: initialize,
+	             initEvent: initEvent
+	         };
+	
+	         return _me;
+	     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 231:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(232)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	         "use strict";
+	
+	         function initialize(titleResource) {
+	             Site.initialize();
+	          
+	             initColorPicker();
+	             setPageTitle(Site.getSingleResource(titleResource));
+	             _me.initEvent();
+	         }
+	
+	         function initEvent() {
+	             $("#GroupName").keyup(function () {
+	                 $("#GroupName").removeClass("invalid");
+	                 $("#GroupName").removeClass("valid");
+	                 $("#Add").prop("disabled", false);
 	             });
 	
 	             $("#Cancel").click(function () {
-	                 window.location.href = Site.resolveClientUrl("CustomerComGroup/Index");
-	             });
-	
-	             $("#GroupName").keyup(function () {
-	                 $("#Add").prop("disabled", false);
+	                 _me.goToSite("CustomerComGroup/Index");
 	             });
 	
 	             // Commission dropdownlist change
@@ -71,18 +103,16 @@ webpackJsonp([48],{
 	             $("#CSComm1").on("change", function () {
 	                 commissionOnChange($(this).val(), "CSComm");
 	             });
+	         }
 	
-	             $('#Add').click(function () {
-	                 // Init param
-	                 initCommParam("#SBComm");
-	                 initCommParam("#ParlayComm");
-	                 initCommParam("#RCComm");
-	                 initCommParam("#NGComm");
-	                 initCommParam("#LCComm");
-	                 initCommParam("#CSComm");
-	
-	                 initAddParam();
-	             });
+	         function goToSite(relativeUrl, paramString)
+	         {
+	             var href = Site.resolveClientUrl(relativeUrl);
+	             if (paramString)
+	             {
+	                 href += paramString;
+	             }
+	             window.location.href = href;
 	         }
 	
 	         function initColorPicker() {
@@ -108,13 +138,11 @@ webpackJsonp([48],{
 	             });
 	         }
 	
-	         function setPageTitle() {
-	             $("#page-title", window.parent.document).text(Site.getSingleResource("CreateNewGroup"));
+	         function setPageTitle(title) {
+	             $("#page-title", window.parent.document).text(title);
 	         }
 	
-	         function checkAvailability() {
-	             var groupName = $("#GroupName").val();
-	
+	         function checkAvailableGroup(groupName) {
 	             //Check empty group name
 	             if (groupName.length < 1) {
 	                 displayGroupNameError(Site.getSingleResource("GroupNameNotEmptyMsg"));
@@ -156,6 +184,7 @@ webpackJsonp([48],{
 	                 success: function (result) {
 	                     if (result === "OK") {
 	                         $("#GroupName").removeClass("invalid");
+	                         $("#GroupName").addClass("valid");
 	                         $("#Add").prop("disabled", false);
 	                     }
 	                     else {
@@ -174,16 +203,38 @@ webpackJsonp([48],{
 	         }
 	
 	         function commissionOnChange(value, idName) {
-	             var selectList = "#select-list-" + idName + "2" + "," + "#select-list-" + idName + "3";
+	             var comm2 = "#" + idName + "2", comm3 = "#" + idName + "3";
 	
 	             if (Number(value) === 15) {
-	                 var id = "#" + idName + "2" + ", " + "#" + idName + "3";
-	                 $(id).val(0);
-	                 $(selectList).addClass("disabled").find(".selection-label").text(0);
+	                 $(comm2).val(0);
+	                 $(comm2).selectList("update", {
+	                     isDisabled: true,
+	                     selectionId: "select-list-" + idName + "2",
+	                     labelText: "0"
+	                 });
+	                 $(comm3).val(0);
+	                 $(comm3).selectList("update", {
+	                     isDisabled: true,
+	                     selectionId: "select-list-" + idName + "3",
+	                     labelText: "0"
+	                 });
 	             } else {
-	                 $(selectList).removeClass("disabled");
+	                 $(comm2).selectList("disabled", false);
+	                 $(comm3).selectList("disabled", false);
 	             }
 	         }      
+	
+	         function submit(formId) {
+	             // Init param
+	             initCommParam("#SBComm");
+	             initCommParam("#ParlayComm");
+	             initCommParam("#RCComm");
+	             initCommParam("#NGComm");
+	             initCommParam("#LCComm");
+	             initCommParam("#CSComm");
+	
+	             initDefaultParam(formId);
+	         }
 	
 	         function initCommParam(id) {
 	             var comm1 = parseInt($(id + "1").val());
@@ -196,14 +247,18 @@ webpackJsonp([48],{
 	             $(id).val(comm);
 	         }         
 	
-	         function initAddParam() {
+	         function initDefaultParam(formId) {
 	             var isDefault = $("#IsDefaultGroup").is(":checked");
 	             var defaultGroupId = parseInt($('#DefaultGroupId').val());
 	             var currentGroupId = parseFloat($('#GroupCommId').val());
+	             $("#IsDefaultGroup", formId).val(isDefault);
 	             if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
-	                 showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), addCommGroup);
+	                 showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
+	                     $("#IsResetDefault", formId).val(true);
+	                     $(formId).submit();
+	                 });
 	             } else {
-	                 $("form").submit();
+	                 $(formId).submit();
 	             }
 	         }
 	
@@ -215,33 +270,21 @@ webpackJsonp([48],{
 	                 id: "confirm-action"
 	             };
 	
-	             var closePopup = function () {
-	                 $("#" + options.id).fadeOut(300);
-	                 $(".popup-block-body").hide();
-	             };
-	
 	             var buttons = [
 	                 {
-	                     title: "OK",
-	                     method: function () {
-	                         closePopup();
+	                     text: "OK",
+	                     isClosedOnClick: true,
+	                     click: function () {
 	                         callback(groupId, isResetDefault);
 	                     },
-	                     classes: "btn btn-primary",
-	                     id: "confirm-action-ok"
+	                     classes: "btn btn-primary"
 	                 }, {
-	                     title: "Cancel",
-	                     method: closePopup,
-	                     classes: "btn btn-back",
-	                     id: "confirm-action-cancel"
+	                     text: "Cancel",
+	                     isClosedOnClick: true,
+	                     classes: "btn btn-back"
 	                 }];
 	
 	             Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
-	         }
-	
-	         function addCommGroup() {
-	             $("#IsResetDefault").val(true);
-	             $("form").submit();
 	         }
 	
 	         function getcolorPalette() {
@@ -285,7 +328,11 @@ webpackJsonp([48],{
 	
 	         var _me = {
 	             initialize: initialize,
-	             initEvent: initEvent
+	             initEvent: initEvent,
+	             submit: submit,
+	             checkAvailableGroup: checkAvailableGroup,
+	             setPageTitle: setPageTitle,
+	             goToSite: goToSite
 	         };
 	
 	         return _me;
@@ -293,7 +340,7 @@ webpackJsonp([48],{
 
 /***/ },
 
-/***/ 231:
+/***/ 232:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -2014,4 +2061,4 @@ webpackJsonp([48],{
 /***/ }
 
 });
-//# sourceMappingURL=commgroupdetail.chunk.js.map
+//# sourceMappingURL=commgroupadd.chunk.js.map
