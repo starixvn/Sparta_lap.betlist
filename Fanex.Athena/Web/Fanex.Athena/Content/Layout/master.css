@@ -13,6 +13,19 @@
     position: relative;
     margin-left: 3px !important;
 }
+/* notification-marquee*/
+
+.notification-marquee-container
+{
+    margin-bottom: 2px;
+    padding-top: 4px;
+    padding-bottom: 3px;
+    font-size: 11px;
+    font-weight: normal;
+    background-color: #fff;
+    border: 1px solid #CACACA;
+}
+
 #notification_popup
 {
     display: none;

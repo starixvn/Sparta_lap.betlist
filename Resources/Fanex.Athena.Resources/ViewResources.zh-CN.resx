@@ -2459,9 +2459,6 @@
     <value>Transfer Out</value>
     <comment>#26990</comment>
   </data>
-  <data name="NotificationMessage" xml:space="preserve">
-    <value>数据正在处理中，在{0}后的数据将受到影响. 预计完成时间为 {1} GMT-4. 很抱歉造成您的困扰.</value>
-  </data>
   <data name="ProductBG" xml:space="preserve">
     <value>宾果</value>
     <comment>#49196</comment>
@@ -2512,5 +2509,29 @@
   <data name="CashOutWinLoss" xml:space="preserve">
     <value>即时兑现输赢</value>
     <comment>Cash Out Win Loss</comment>
+  </data>
+  <data name="CashOutAmount" xml:space="preserve">
+    <value>预先兑现金额</value>
+  </data>
+  <data name="CashOutDetails" xml:space="preserve">
+    <value>预先兑现详情</value>
+  </data>
+  <data name="CashOutStake" xml:space="preserve">
+    <value>预先兑现赌注</value>
+  </data>
+  <data name="CashOutTicketsList" xml:space="preserve">
+    <value>预先兑现投注单</value>
+  </data>
+  <data name="BoughtAmount" xml:space="preserve">
+    <value>买的金额</value>
+  </data>
+  <data name="BoughtDetails" xml:space="preserve">
+    <value>买的详细资料</value>
+  </data>
+  <data name="BoughtStake" xml:space="preserve">
+    <value>买的投注额</value>
+  </data>
+  <data name="BoughtTicketsList" xml:space="preserve">
+    <value>买的注单</value>
   </data>
 </root>

@@ -148,3 +148,41 @@ $(document).ready(function () {
     }
     lrf.layout.init();
 });
+
+
+$(function () {
+    var $marquee = $("#notification-marquee");
+
+    if ($marquee.length === 0) {
+        return;
+    }
+
+    var previousText = "";
+    var $parent = $marquee.parent();
+    var apiUrl = Site.resolveClientUrl("api/CommonApi/GetMoveBetNotification");
+    function processNotification() {
+        $.get(apiUrl, function (message) {
+            if (message === previousText) {
+                return;
+            }
+
+            previousText = message;
+
+            if (message) {
+                if ($parent.is(":hidden")) {
+                    $parent.slideDown('fast');
+                }
+
+                if ("marquee" in $marquee) {
+                    $marquee.text(message);
+                    $marquee.marquee({ speed: 30 });
+                }
+            } else {
+                $marquee.marquee("stop");
+                $parent.slideUp('fast');
+            }
+        });
+    }
+    processNotification();
+    setInterval(processNotification, 60000);
+});

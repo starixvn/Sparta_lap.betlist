@@ -772,29 +772,3 @@ $(window).resize(function () {
 $(window).unload(function () {
     $(window).unbind("resize");
 });
-
-$(function () {
-    var $marquee = $("#notification-marquee");
-    if ("marquee" in $marquee) {
-        $marquee.marquee({ speed: 30 });
-    }
-
-    if (Site.isLoadedNotificationPopup === true) {
-        return;
-    }
-
-    var $popup = $("#NotificationPopup");
-    if ($popup.length > 0) {
-        var options = {
-            height: 160,
-            title: Site.getSingleResource("Notification")
-        };
-        var popup = $popup.flatPopup(options);
-        popup.show();
-
-        $popup.find(".popup-close").click(function () {
-            $.cookie("isClosedNotification", "1", { path: '/' });
-        });
-        Site.isLoadedNotificationPopup = true;
-    }
-});

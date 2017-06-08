@@ -35,34 +35,20 @@ namespace Fanex.Athena.Service.Core.Configuration
             this._appSettings = appSettings;
         }
 
-        /// <summary>
-        ///     Gets GetBalanceUp.
-        /// </summary>
-        /// <value>The balance up day.</value>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Reviewed. Suppression is OK here.")]
-        public MoveBet GetMoveBet()
+        public MoveBetNotification GetMoveBetNotification()
         {
             try
             {
-                var endDate = _appSettings.MoveBetDayEnd;
-                if (endDate.HasValue)
-                {
-                    return new MoveBet
-                    {
-                        AvailableWinlostDate = _appSettings.MoveBetDayStart.Value,
-                        EstimatedTime = endDate
-                    };
-                }
-
-                var moveBet = CacheService.Get<MoveBet>(CacheKey.MemorycacheCommonMoveBet);
+                var moveBet = CacheService.Get<MoveBetNotification>(CacheKey.MemorycacheCommonMoveBet);
 
                 if (moveBet != null)
                 {
                     return moveBet;
                 }
 
-                moveBet = this._moveBetDataAccess.GetMoveBet();
+                moveBet = this._moveBetDataAccess.GetMoveBetNotification();
                 CacheService.Set(CacheKey.MemorycacheCommonMoveBet, moveBet, CacheTimeoutSeconds);
                 return moveBet;
             }
@@ -71,7 +57,7 @@ namespace Fanex.Athena.Service.Core.Configuration
                 LogHelper.WriteError(exception);
             }
 
-            return new MoveBet();
+            return new MoveBetNotification();
         }
     }
 }

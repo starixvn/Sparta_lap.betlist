@@ -26,36 +26,6 @@ namespace Fanex.Athena.Extension.Utility
             get { return GetValue("Environment"); }
         }
 
-        public DateTime? MoveBetDayStart
-        {
-            get
-            {
-                var value = GetValue("MoveBetDayStart");
-                DateTime date;
-                if (DateTime.TryParse(value, out date))
-                {
-                    return date;
-                }
-
-                return null;
-            }
-        }
-
-        public DateTime? MoveBetDayEnd
-        {
-            get
-            {
-                var value = GetValue("MoveBetDayEnd");
-                DateTime date;
-                if (DateTime.TryParse(value, out date))
-                {
-                    return date;
-                }
-
-                return null;
-            }
-        }
-
         public bool EnableSessionValidatingService
         {
             get { return int.Parse(GetValue("EnableSessionValidatingService")) != 0; }

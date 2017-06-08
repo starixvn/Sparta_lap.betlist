@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomplete", "components/selectlist"], function (Site, Recheckin) {
+define(["common/site", "./recheckin", "lib/jquery.cookie", "lib/jquery.marquee", "materialize-autocomplete", "components/selectlist"], function (Site, Recheckin) {
     var $searchBox;
     var _autocomplete;
 
@@ -8,6 +8,7 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomp
         Site.initialize();
         initVariables();
         initEvent();
+        checkMoveBetNotification();
         activeDefaultMenuItem();
         setTimeout(function () {
             var $mainFrame = $("#mainFrame");
@@ -157,6 +158,46 @@ define(["common/site", "./recheckin", "lib/jquery.cookie", "materialize-autocomp
         $("#page-title").text(menuItemName);
 
         document.title = 'LRF' + ' - ' + $(".active > .menu-title").text() + ' - ' + menuItemName;
+    }
+
+    function checkMoveBetNotification() {
+        var $marquee = $("#notification-marquee");
+
+        if ($marquee.length === 0) {
+            return;
+        }
+
+        var previousText = "";
+        var $parent = $marquee.parent();
+        var apiUrl = Site.resolveClientUrl("api/CommonApi/GetMoveBetNotification");
+        function processNotification() {
+            $.get(apiUrl, function (message) {
+                if (message === previousText)
+                {
+                    return;
+                }
+
+                previousText = message;
+                if (message) {
+                    if ($parent.is(":hidden")) {
+                        $parent.slideDown('fast');
+                        $('#mainFrame').css('height', 'calc(100% - 30px)');
+                    }
+
+                    if ("marquee" in $marquee) {
+                        $marquee.text(message);
+                        $marquee.marquee({ speed: 30 });
+                    }
+                } else {
+                    $marquee.marquee("stop");
+                    $parent.slideUp('fast');
+                    $('#mainFrame').css('height', '100%');
+                }
+            });
+        }
+
+        processNotification();
+        setInterval(processNotification, 60000);
     }
 
     return {

@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -89,7 +89,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.26.0.0\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.27.0.1\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.CashOut, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
@@ -100,8 +100,8 @@
       <HintPath>..\..\..\packages\Fanex.BetList.ColossusBets.1.0.1.7\lib\net40\Fanex.BetList.ColossusBets.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.26.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.26.0.0\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    <Reference Include="Fanex.BetList.Core, Version=2.27.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.27.0.1\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.GlobalGaming, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
@@ -443,8 +443,6 @@
     <Content Include="App_Data\UserGuide\WeeklyLiveMatches\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\WeeklyLiveMatches\zh-TW.htm" />
     <Content Include="Content\BetList\Allbet.css" />
-    <Content Include="App_Data\Notification\zh-CN.htm" />
-    <Content Include="App_Data\Notification\zh-TW.htm" />
     <Content Include="App_Data\SpNameConfig\FanexSpName.BACKUPMNL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
@@ -480,7 +478,6 @@
     <Content Include="App_Data\UserGuide\CommissionGroupList\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CommissionGroupList\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\ActiveCustomerSummary\en-US.htm" />
-    <Content Include="App_Data\Notification\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsMixParlay\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsMixParlay\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\TotalBetsMixParlay\zh-TW.htm" />
@@ -741,6 +738,7 @@
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
     <Content Include="Scripts\BetList\lastbet.filter.js" />
+    <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Report\cashoutwinloss.js" />
     <Content Include="Scripts\Report\cashoutwinloss.option.js" />
     <Content Include="www\assets\images\15.jpg" />
@@ -1094,6 +1092,7 @@
     <Content Include="www\js\source\components\scrollablegrid.js" />
     <Content Include="www\js\source\components\selectlist.js" />
     <Content Include="www\js\source\helpers\sortableheader.js" />
+    <Content Include="www\js\source\lib\jquery.marquee.js" />
     <Content Include="www\js\source\lib\select2.js" />
     <Content Include="www\js\source\pages\betlist\betlist.js" />
     <Content Include="www\js\source\pages\betlist\betlist.option.js" />
@@ -1471,8 +1470,6 @@
     <Content Include="Scripts\Languages\ViewResources.zh-TW.js">
       <DependentUpon>ViewResources.tt</DependentUpon>
     </Content>
-    <Content Include="Scripts\Library\jquery.marquee.js" />
-    <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Library\moment.min.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
@@ -5477,6 +5474,10 @@
       <Project>{16d39d7b-00c0-4cc3-82f5-44bbdee7ae51}</Project>
       <Name>Fanex.Athena.Api.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api.Common\Fanex.Athena.Api.Common.csproj">
+      <Project>{f97f88e3-5fe2-4ebd-afa2-d7aec0f655e4}</Project>
+      <Name>Fanex.Athena.Api.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api.CustomerLog\Fanex.Athena.Api.CustomerLog.csproj">
       <Project>{a765275a-f566-4122-8e8e-47defab7b56b}</Project>
       <Name>Fanex.Athena.Api.CustomerLog</Name>
@@ -5489,7 +5490,7 @@
       <Project>{8efb14a8-0a10-4095-a857-c6496e830458}</Project>
       <Name>Fanex.Athena.Api.Report</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api\Fanex.Athena.Api.BetList.csproj">
+    <ProjectReference Include="..\..\..\ControllerAPI\Fanex.Athena.Api.BetList\Fanex.Athena.Api.BetList.csproj">
       <Project>{0C22899B-6CE0-4187-9BCF-7F503213F207}</Project>
       <Name>Fanex.Athena.Api.BetList</Name>
     </ProjectReference>

@@ -1,11 +1,9 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
-    using System;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Fanex.Athena.Service.Core.Configuration.Interfaces;
     using ONEbook.UM.Filters;
-    using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration;
@@ -18,14 +16,12 @@
 
         private readonly IBalanceUpService _balanceUpService;
         private readonly IProductService _productService;
-        private readonly IMoveBetService _moveBetService;
 
         public ReportBaseController()
             : base()
         {
             _balanceUpService = new BalanceUpService();
             _productService = new ProductService();
-            _moveBetService = new MoveBetService();
         }
 
         protected IBalanceUpService BalanceUpService
@@ -36,21 +32,6 @@
         protected IProductService ProductService
         {
             get { return _productService; }
-        }
-
-        protected void AddNotificationMessageToViewBag()
-        {
-            var moveBet = _moveBetService.GetMoveBet();
-
-            if (!moveBet.EstimatedTime.HasValue || DateTime.Now > moveBet.EstimatedTime)
-            {
-                return;
-            }
-
-            var message = ViewResources.NotificationMessage;
-            var startDateString = moveBet.AvailableWinlostDate.ToString("MM/dd/yyyy");
-            var endDateString = moveBet.EstimatedTime.Value.ToString("HH:mm:ss MM/dd/yyyy");
-            ViewBag.NotificationMessage = string.Format(message, startDateString, endDateString);
         }
     }
 }

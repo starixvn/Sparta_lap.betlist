@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Extension", "F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena", "Fanex.Athena\Web\Fanex.Athena\Fanex.Athena.csproj", "{CE8FBEBC-3312-4881-8486-42C9F70DDADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.BetList", "ControllerAPI\Fanex.Athena.Api\Fanex.Athena.Api.BetList.csproj", "{0C22899B-6CE0-4187-9BCF-7F503213F207}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.BetList", "ControllerAPI\Fanex.Athena.Api.BetList\Fanex.Athena.Api.BetList.csproj", "{0C22899B-6CE0-4187-9BCF-7F503213F207}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Web", "Fanex.Athena.Web\Fanex.Athena.Web.csproj", "{DD931ADB-A994-49C0-95A3-72BCB6E22679}"
 EndProject
@@ -191,6 +191,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Service.Report.UnitTests", "UnitTests\Fanex.Athena.Service.Report.UnitTests\Fanex.Athena.Service.Report.UnitTests.csproj", "{342461F7-14F3-427B-B8C8-FEB64C06DD3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.Report.UnitTests", "UnitTests\Fanex.Athena.Api.Report.UnitTests\Fanex.Athena.Api.Report.UnitTests.csproj", "{BFF544B0-21CE-42DF-8A97-C37200BF309D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Api.Common", "ControllerAPI\Fanex.Athena.Api.Common\Fanex.Athena.Api.Common.csproj", "{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1116,6 +1118,18 @@ Global
 		{BFF544B0-21CE-42DF-8A97-C37200BF309D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BFF544B0-21CE-42DF-8A97-C37200BF309D}.Release|x86.ActiveCfg = Release|Any CPU
 		{BFF544B0-21CE-42DF-8A97-C37200BF309D}.Release|x86.Build.0 = Release|Any CPU
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}.Debug|x86.Build.0 = Debug|Any CPU
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}.Release|x86.ActiveCfg = Release|Any CPU
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1202,6 +1216,7 @@ Global
 		{05C71E2D-1F28-4542-B6FE-3E675483AFD3} = {8A922757-8C4B-44C0-9D3E-9B68E6AE956B}
 		{342461F7-14F3-427B-B8C8-FEB64C06DD3B} = {8A922757-8C4B-44C0-9D3E-9B68E6AE956B}
 		{BFF544B0-21CE-42DF-8A97-C37200BF309D} = {8124F11D-CD42-4473-AE75-80290172BE0A}
+		{F97F88E3-5FE2-4EBD-AFA2-D7AEC0F655E4} = {4D6B663E-04A8-4993-B33F-A445428FA349}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35

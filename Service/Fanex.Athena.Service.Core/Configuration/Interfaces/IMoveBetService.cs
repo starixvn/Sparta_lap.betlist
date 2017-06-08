@@ -9,6 +9,6 @@ namespace Fanex.Athena.Service.Core.Configuration.Interfaces
 
     public interface IMoveBetService
     {        
-        MoveBet GetMoveBet();
+        MoveBetNotification GetMoveBetNotification();
     }
 }

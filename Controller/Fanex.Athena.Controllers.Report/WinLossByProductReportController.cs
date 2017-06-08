@@ -22,8 +22,6 @@ namespace Fanex.Athena.Controllers.Report
         [HttpGet]
         public ActionResult Index()
         {
-            AddNotificationMessageToViewBag();
-
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var productAccess = this.ProductService.GetSingleWalletProductAccess(

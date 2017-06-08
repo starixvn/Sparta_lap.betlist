@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.DataAccess.Dashboard
 {
-    using System;
     using Core;
     using Core.Exception;
     using Data;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
+    using Fanex.Common.Extensions;
     using Logging;
     using Model.Dashboard.MetaModel;
 
@@ -24,8 +24,10 @@
                         ReportDate = metaModel.FromDate
                     };
 
-                    var result = db.ExecuteScalar(param);
-                    return result == DBNull.Value ? 0 : (decimal)result;
+                    using (var reader = db.ExecuteReader(param))
+                    {
+                        return reader.Read() ? reader.ToDecimal("ClosingBalance" + metaModel.BaseCurrency) : 0;
+                    }
                 }
             }
             catch (ObjectDbException sqlException)

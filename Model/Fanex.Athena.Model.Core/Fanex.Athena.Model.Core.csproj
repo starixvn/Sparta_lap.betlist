@@ -98,7 +98,7 @@
     <Compile Include="DTO\Common\SportProductItem.cs" />
     <Compile Include="DTO\Configuration\BalanceUp.cs" />
     <Compile Include="DTO\Configuration\CacheKey.cs" />
-    <Compile Include="DTO\Configuration\MoveBet.cs" />
+    <Compile Include="DTO\Configuration\MoveBetNotification.cs" />
     <Compile Include="DTO\PortalSystemFunction.cs" />
     <Compile Include="DTO\Users\CurrencyUser.cs" />
     <Compile Include="DTO\Users\LicenseeCustomer.cs" />

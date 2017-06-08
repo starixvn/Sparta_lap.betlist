@@ -6,35 +6,39 @@
 
 namespace Fanex.Athena.DataAccess.Core.Configuration
 {
-    using System;
-    using System.Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Configuration;
-    using Fanex.Common;
+    using Fanex.Common.Extensions;
     using Fanex.Data;
     using Fanex.Logging;
 
-    /// <summary>
-    /// Balance data access.
-    /// </summary>
     public class MoveBetDataAccess : BaseDataAccess, IMoveBetDataAccess
     {
-        public MoveBet GetMoveBet()
+        public MoveBetNotification GetMoveBetNotification()
         {
-            const string UspName = "Lrf_ShowNotificationWhenProcessingData";
+            const string UspName = "Acc_ShowNotificationWhenProcessingData";
             try
             {
                 using (var db = this.GetObjectDb(UspName))
                 {
-                    var moveBet = new MoveBet();
-                    db.AddOutParameter("AvailableWinlostDate", DbType.DateTime, 10);
-                    db.AddOutParameter("EstimatedTime", DbType.DateTime, 10);
-                    db.ExecuteNonQuery();
-                    moveBet.AvailableWinlostDate = Converter.ToDateTime(db.GetParameterValue("AvailableWinlostDate"));
-                    var estimatedTime = db.GetParameterValue("EstimatedTime");
-                    moveBet.EstimatedTime = estimatedTime == null || estimatedTime == DBNull.Value ? (DateTime?)null : Converter.ToDateTime(estimatedTime);
+                    var moveBet = new MoveBetNotification();
+                    using (var reader = db.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            moveBet.ContentByLanguage.Add("en-US", reader.ToString("Content_EN"));
+                            moveBet.ContentByLanguage.Add("zh-CN", reader.ToString("Content_CS"));
+                            moveBet.ContentByLanguage.Add("zh-TW", reader.ToString("Content_CH"));
+                            moveBet.ContentByLanguage.Add("zh-Hans", reader.ToString("Content_CN"));
+                            moveBet.ContentByLanguage.Add("th-TH", reader.ToString("Content_TH"));
+                            moveBet.ContentByLanguage.Add("ja-JP", reader.ToString("Content_JP"));
+                            moveBet.ContentByLanguage.Add("ko-KR", reader.ToString("Content_KO"));
+                            moveBet.ContentByLanguage.Add("vi-VN", reader.ToString("Content_VI"));
+                        }
+                    }
+
                     return moveBet;
                 }
             }

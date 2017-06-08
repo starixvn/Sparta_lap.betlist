@@ -28,12 +28,6 @@
     </style>
 </head>
 <body>
-    @if (string.IsNullOrEmpty(ViewBag.NotificationContent) == false)
-    {
-        <div id="NotificationPopup" style="display: none">
-            @Html.Raw(ViewBag.NotificationContent)
-        </div>
-    }
     <div class="ui-layout-north">
         <iframe src="@(Util.RootPath)Header/Index" id="header" name="header"
             width="100%" scrolling="no" frameborder="0" height="52px"></iframe>
@@ -47,6 +41,7 @@
             scrolling="no" frameborder="0" id="frFooter" name="frFooter"></iframe>
     </div>
     <div id="center" class="ui-layout-center">
+        @RazorHelper.MoveBetNotification()
         <iframe src="@(Util.RootPath + ViewBag.DefaultReportUrl)" id="main" name="main" scrolling="auto"
             width="100%" height="100%" frameborder="0"></iframe>
         <div id="notification_popup">
