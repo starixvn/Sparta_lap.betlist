@@ -73,3 +73,15 @@
 input[type="checkbox"] + label {
     margin: 0;
 }
+
+/* Move Group Popup*/
+.input-label {
+    background: transparent;
+    border-bottom: 1px solid #ccc;
+    height: 28px;
+    line-height: 26px;
+    display: inline-block;
+    width: 80%;
+    position: relative;
+    text-align: right;
+}

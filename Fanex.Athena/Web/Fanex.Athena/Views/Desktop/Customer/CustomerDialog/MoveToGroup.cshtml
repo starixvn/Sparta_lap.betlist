@@ -22,39 +22,44 @@
     </div>
     <div class="row">
         <div class="col l5 m5 s5 input-field">
-            <input id="NewSbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].SBComm * 100), 2) : string.Empty)" />
-            <label>@ViewResources.SBComm (%)</label>
+            <span class="input-label" id="NewSbComm" >@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].SBComm * 100), 2) : string.Empty)</span>
+            %
+            <label>@ViewResources.SBComm</label>
         </div>
     </div>
     <div class="row">
         <div class="col l5 m5 s5 input-field">
-            <input id="NewParlayComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].ParlayComm * 100), 2) : string.Empty)" />
-            (%)
+                <span class="input-label" id="NewParlayComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].ParlayComm * 100), 2) : string.Empty)</span>
+                %
             <label>@ViewResources.ParlayComm</label>
         </div>
     </div>
     <div class="row @(!Model.ProductAccess.IsAllowRB ? "hide" : "")">
         <div class="col l5 m5 s5 input-field">
-            <input id="NewRbComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].RCComm * 100), 2) : string.Empty)" />
-            <label>@ViewResources.RBComm (%)</label>
+            <span class="input-label" id="NewRbComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].RCComm * 100), 2) : string.Empty)</span>
+            %
+            <label>@ViewResources.RBComm</label>
         </div>
     </div>
     <div class="row @(!Model.ProductAccess.IsAllowNG ? "hide" : "")">
         <div class="col l5 m5 s5 input-field">
-            <input id="NewNgComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].NGComm * 100), 2) : string.Empty)" />
-            <label>@ViewResources.NGComm (%)</label>
+            <span class="input-label" id="NewNgComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].NGComm * 100), 2) : string.Empty)</span>
+            %
+            <label>@ViewResources.NGComm</label>
         </div>
     </div>
     <div class="row @(!Model.ProductAccess.IsAllowLC ? "hide" : "")">
         <div class="col l5 m5 s5 input-field">
-            <input id="NewLcComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].LCComm * 100), 2) : string.Empty)" />
-            <label>@ViewResources.LCComm (%)</label>
+            <span class="input-label" id="NewLcComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].LCComm * 100), 2) : string.Empty)</span>
+            %
+            <label>@ViewResources.LCComm</label>
         </div>
     </div>
     <div class="row @(!Model.ProductAccess.IsAllowCS ? "hide" : "")">
         <div class="col l5 m5 s5 input-field">
-            <input id="NewCsComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].CSComm * 100), 2) : string.Empty)" />
-            <label>@ViewResources.CSComm (%)</label>
+            <span class="input-label" id="NewCsComm">@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].CSComm * 100), 2) : string.Empty)</span>
+            %
+            <label>@ViewResources.CSComm</label>
         </div>
     </div>
     <div class="row">

@@ -107,6 +107,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
             moveCustomerToGroup: function () {
                 var groupid = parseInt($('#GroupListSelect').val(), 10);
                 var checkedCustomers = CustomerList.getCheckedCustomers();
+                
                 var custList = [];
 
                 for (var i = 0; i < checkedCustomers.length; i++) {
@@ -173,6 +174,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
             showUpdateCustComm: function (groupCommId) {
                 var isShowInfo = false;
                 var checkedCustomers = CustomerList.getCheckedCustomers();
+                
                 for (var i = 0; i < checkedCustomers.length; i++) {
                     if (Number(checkedCustomers[i].Group) !== 0) {
                         isShowInfo = true;
@@ -406,12 +408,12 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
 
             newGroupChanged: function (obj) {
                 var groupId = obj.options[obj.selectedIndex].value;
-                $('#NewSbComm').val($("#SBComm" + groupId).val());
-                $('#NewParlayComm').val($("#ParlayComm" + groupId).val());
-                $('#NewRbComm').val($("#RBComm" + groupId).val());
-                $('#NewNgComm').val($("#NGComm" + groupId).val());
-                $('#NewLcComm').val($("#LCComm" + groupId).val());
-                $('#NewCsComm').val($("#CSComm" + groupId).val());
+                $('#NewSbComm').text($("#SBComm" + groupId).val());
+                $('#NewParlayComm').text($("#ParlayComm" + groupId).val());
+                $('#NewRbComm').text($("#RBComm" + groupId).val());
+                $('#NewNgComm').text($("#NGComm" + groupId).val());
+                $('#NewLcComm').text($("#LCComm" + groupId).val());
+                $('#NewCsComm').text($("#CSComm" + groupId).val());
             }
         };
 

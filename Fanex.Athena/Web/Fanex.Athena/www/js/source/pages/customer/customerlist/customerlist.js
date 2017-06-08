@@ -329,7 +329,7 @@
                 bindData(_cacheData);
             });
 
-            $("#report-content").on("change", ".select-cust-checkbox", function () {
+            $(".main-content").on("change", ".select-cust-checkbox", function () {
                 var custid = Number(this.id);
                 var group = $(this).attr("data-group-comm-id");
                 if (this.checked) {
