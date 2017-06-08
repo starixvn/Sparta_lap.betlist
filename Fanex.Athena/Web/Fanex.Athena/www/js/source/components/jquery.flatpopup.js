@@ -8,6 +8,7 @@ define(['jquery'], function ($) {
             var defaultOptions = {
                 width: 640,
                 height: 480,
+                padding: 0,
                 id: "popup-content",
                 className: "",
                 title: "&nbsp;",
@@ -31,7 +32,7 @@ define(['jquery'], function ($) {
                 if ($self.hasClass('flat-popup') === false) {
                     $self.attr("id", options.id);
                     $self.addClass("flat-popup " + options.className);
-                    $self.children().wrapAll("<div class='wrapContent'></div>");
+                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
                     $self.hide()
                          .prepend('<div class="title-bar popup-title"><div class="txt-title">'
                              + options.title

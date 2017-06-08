@@ -76,7 +76,13 @@
                     isClosedOnClick: false
                 }];
         */
-        openPopupWithButton: function(element, option, buttons) {
+        openPopupWithButton: function (element, option, buttons) {
+            var defaultOption = {
+                padding: 10
+            };
+
+            $.extend(defaultOption, option || {});
+
             var $element = $(element);
 
             if ($element.hasClass('flat-popup') === false) {
@@ -92,7 +98,7 @@
                                 button.click();
                             }
 
-                            _me.closePopup(option.id)
+                            _me.closePopup(defaultOption.id)
                         });
                     }
                     else
@@ -102,7 +108,7 @@
                 });
             }
 
-            return $element.flatPopup(option);
+            return $element.flatPopup(defaultOption);
         }
     };
 

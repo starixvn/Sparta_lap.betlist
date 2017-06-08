@@ -1,7 +1,8 @@
 ﻿/*global Site, CustomerList, JSLINQ*/
 /// <reference path="/@JSense.js" />
-define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/popup'],
-    function ($, Site, jqGridAdditional, Popup) {
+define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/popup',
+'./customerlist'],
+    function ($, Site, jqGridAdditional, Popup, CustomerList) {
         "use strict";
 
         var _me = {
@@ -81,10 +82,10 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
 
                 Popup.openPopupWithButton($("#MoveToGroupPopUp"),
                     {
-                        title: "abc",
+                        title: Site.getSingleResource('MoveToGroup'),
                         id: 'MoveToGroupPopUp',
-                        height: 600,
-                        width: 400
+                        height: 470,
+                        width: 350
                     },   
                     [
                         {
