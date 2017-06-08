@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = string.Format("LRF - {0}", ViewResources.BetList);
+    Layout = "~/Views/Desktop/Shared/_BetListSimpleLayout.cshtml";
+}
+
+@section pagecss {}
+@section pagejs {}
+@section ContentTitle{}
+@section BackButton{}
+@{
+    <input type="hidden" id="ApiUrl" value="api/BonusBetList/Detail" />
+    <input type="hidden" id="HiddenColumnList" value="externalid,systemid" />
+    <input type="hidden" id="ShowSummary" value="0" />
+}

@@ -16,4 +16,5 @@
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_LicenseeBonus_Detail" EnvironmentText="_UAT1"></SpNameConfig>
 
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_BATimeCheck" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
