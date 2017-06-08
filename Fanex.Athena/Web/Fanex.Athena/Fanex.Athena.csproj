@@ -870,6 +870,7 @@
     <Content Include="Views\Customer\CustomerDialog\RemoveFromGroup.cshtml" />
     <Content Include="Views\Customer\CustomerDialog\UpdateCustComm.cshtml" />
     <Content Include="www\css\source\components\switch\_switch.scss" />
+    <Content Include="www\css\source\components\griddropdown\_griddropdown.scss" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />

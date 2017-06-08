@@ -127,10 +127,12 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             frozen: true,
             classes: "specialLevel",
             formatter: function (cellValue, options, rowObject) {
-                return "<div data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "' class='level-" + cellValue +
-                         "' style='text-align: center;color:black;width:80px;float:left'>" +
-                         (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
-                         "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("SpecialLevel") + "'>&nbsp;&nbsp;&nbsp;</span>";
+                return "<div class='grid-dropdown'>"
+                            + "<div data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "' class='grid-dropdown-item grid-dropdown-label level-" + cellValue + "'>"
+                                + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue)
+                             + "</div>"
+                            + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("SpecialLevel") + "'></i>"
+                    + "</div>";
             }
         };
         var oddsGroupColumn = {
@@ -143,13 +145,13 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             frozen: true,
             classes: "oddsGroup",
             formatter: function (cellValue, options, rowObject) {
-                var arrowHtml = rowObject.BAStatus ? "" :
-                                 "<span style='float:right' class='arrow1' title='" + Site.getSingleResource("OddsGroup") + "'>&nbsp;&nbsp;&nbsp;</span>";
-                return "<div data-custid='" + rowObject.CustId + "' data-group='" + cellValue +
-                        "' class='" + (rowObject.BAStatus ? "disabled" : "") + " group-" + cellValue +
-                         "' style='text-align: center;color:black;width:80px;float:left'>" +
-                         (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
-                         "</div>" + arrowHtml;
+                return "<div class='grid-dropdown " + (rowObject.BAStatus ? "disabled" : "") + "'>"
+                        + "<div data-custid='" + rowObject.CustId + "' data-group='" + cellValue
+                            + "' class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
+                             + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
+                             "</div>"
+                        + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"
+                    + "</div>";
             }
         };
         var customerOptionColumn = {
@@ -227,7 +229,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             numOfProductColumns = 1;
             var temp = Site.clone(colNameList);
             if (isAllowedCustomerCommission) {
-
                 temp.insertAfter("Group", 0);
 
                 firstProductCode = null;
