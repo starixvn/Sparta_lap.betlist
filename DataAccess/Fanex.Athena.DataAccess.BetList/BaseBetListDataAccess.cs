@@ -80,9 +80,12 @@ namespace Fanex.Athena.DataAccess.BetList
                     SpecialLevel = reader.GetInt("SpecialLevel"),
                     StatusId = reader.GetInt("StatusId"),
 
+                    WalletType = (sbyte)reader.GetValue("wallettype"),
+
                     // Long
                     TransId = reader.GetLong("transid"),
-                    BetId = reader.GetNullableLong("betid"),
+                    RefCode = reader.GetLong("refcode"),
+					BetId = reader.GetNullableLong("betid"),
 
                     // DateTime
                     WinlostDate = reader.GetDateTime("winlostdate", DateTime.Now),

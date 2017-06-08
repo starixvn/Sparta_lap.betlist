@@ -185,6 +185,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BonusBetListController.cs" />
     <Compile Include="ColossusBetBetListController.cs" />
     <Compile Include="AllBetBetListController.cs" />
     <Compile Include="BetListBaseController.cs" />

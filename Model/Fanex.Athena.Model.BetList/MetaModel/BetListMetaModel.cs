@@ -111,6 +111,8 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 
         public string Handicap { get; set; }
 
+        public long RefCode { get; set; }
+
         public virtual bool IsValid
         {
             get
