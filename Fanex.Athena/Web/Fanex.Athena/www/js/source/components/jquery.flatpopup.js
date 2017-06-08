@@ -73,6 +73,10 @@ define(['jquery'], function ($) {
             var left = ($(window).width() - $self.width()) / 2;
             var top = ($(window).height() - $self.height()) / 2;
 
+            if (top > 300) {
+                top -= 100;
+            }
+
             $self.css({
                 'top': top + "px",
                 'left': left + "px"

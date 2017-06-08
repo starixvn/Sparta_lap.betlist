@@ -83,19 +83,21 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                     {
                         title: "abc",
                         id: 'MoveToGroupPopUp',
-                        height: 330,
-                        width: 320
+                        height: 600,
+                        width: 400
                     },   
                     [
                         {
                             text: Site.getSingleResource('OK'),
                             click: function () {
                                 _me.moveCustomerToGroup($(this));
-                            }
+                            },
+                            classes: "btn btn-submit"
                         },
                         {
                             text: Site.getSingleResource('Cancel'),
-                            isClosedOnClick: true
+                            isClosedOnClick: true,
+                            classes: "btn btn-cancel"
                         }
                     ]
                 );

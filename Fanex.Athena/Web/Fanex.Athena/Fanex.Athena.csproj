@@ -865,6 +865,10 @@
     <Content Include="www\css\build\dev\pages\customer\customerlog.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\customer\customerlog.css.map" />
     <Content Include="Views\Desktop\Customer\CustomerComm\UpdateGroup.cshtml" />
+    <Content Include="Views\Customer\CustomerDialog\LogInfo.cshtml" />
+    <Content Include="Views\Customer\CustomerDialog\MoveToGroup.cshtml" />
+    <Content Include="Views\Customer\CustomerDialog\RemoveFromGroup.cshtml" />
+    <Content Include="Views\Customer\CustomerDialog\UpdateCustComm.cshtml" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
@@ -5202,8 +5206,8 @@
     <Content Include="Views\Shared\_GroupCommLayout.cshtml" />
     <Content Include="Views\Customer\CustomerComm\CreateNewGroup.cshtml" />
     <Content Include="Views\Customer\CustomerComm\UpdateGroup.cshtml" />
-    <Content Include="Views\Customer\CustomerDialog\MoveToGroup.cshtml" />
-    <Content Include="Views\Customer\CustomerDialog\UpdateCustComm.cshtml" />
+    <Content Include="Views\Desktop\Customer\CustomerDialog\MoveToGroup.cshtml" />
+    <Content Include="Views\Desktop\Customer\CustomerDialog\UpdateCustComm.cshtml" />
     <Content Include="App_Code\DatePickerHelper.cshtml" />
     <Content Include="App_Code\SplitingProductHelper.cshtml" />
     <Content Include="WhoAmI.aspx" />
@@ -5237,7 +5241,7 @@
     <Content Include="DBConnectionData\GlobalSetting.ini" />
     <Content Include="Integrate\RSAPrivateKey\12bet.snk" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
-    <Content Include="Views\Customer\CustomerDialog\RemoveFromGroup.cshtml" />
+    <Content Include="Views\Desktop\Customer\CustomerDialog\RemoveFromGroup.cshtml" />
     <Content Include="Views\Customer\Filter.cshtml" />
     <Content Include="Views\Report\DailyRacingWinLoss\Main.cshtml" />
     <Content Include="Views\Report\DailyRacingWinLoss\Filter.cshtml" />
@@ -5280,7 +5284,7 @@
     <Content Include="Views\Shared\_BetSettingLayout.cshtml" />
     <Content Include="Views\Customer\BetSetting\Menu.cshtml" />
     <Content Include="Views\Customer\BetSetting\LiveCasino.cshtml" />
-    <Content Include="Views\Customer\CustomerDialog\LogInfo.cshtml" />
+    <Content Include="Views\Desktop\Customer\CustomerDialog\LogInfo.cshtml" />
     <Content Include="Views\Customer\BetSetting\NumberGame.cshtml" />
     <Content Include="Views\Report\CustomerWinloss\Content.Data.cshtml" />
     <Content Include="Views\Report\CustomerWinloss\Content.Total.cshtml" />
