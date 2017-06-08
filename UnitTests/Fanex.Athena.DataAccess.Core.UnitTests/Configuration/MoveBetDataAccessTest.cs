@@ -16,6 +16,7 @@
             const string ExpectedContentEn = "hello";
             const string ExpectedContentCs = "nee how";
             const string ExpectedContentCh = "ne ho";
+            const string ExpectedContentCn = "nee how";
             const string ExpectedContentTh = "sawa dee-krap";
             const string ExpectedContentJp = "konnichi ha";
             const string ExpectedContentKo = "ahn nyeong ha se yo";
@@ -26,6 +27,7 @@
             reader["Content_EN"].Returns(ExpectedContentEn);
             reader["Content_CS"].Returns(ExpectedContentCs);
             reader["Content_CH"].Returns(ExpectedContentCh);
+            reader["Content_CN"].Returns(ExpectedContentCn);
             reader["Content_TH"].Returns(ExpectedContentTh);
             reader["Content_JP"].Returns(ExpectedContentJp);
             reader["Content_KO"].Returns(ExpectedContentKo);
@@ -45,6 +47,7 @@
                 Assert.That(result.ContentByLanguage["en-US"], Is.EqualTo(ExpectedContentEn));
                 Assert.That(result.ContentByLanguage["zh-CN"], Is.EqualTo(ExpectedContentCs));
                 Assert.That(result.ContentByLanguage["zh-TW"], Is.EqualTo(ExpectedContentCh));
+                Assert.That(result.ContentByLanguage["zh-Hans"], Is.EqualTo(ExpectedContentCn));
                 Assert.That(result.ContentByLanguage["th-TH"], Is.EqualTo(ExpectedContentTh));
                 Assert.That(result.ContentByLanguage["ja-JP"], Is.EqualTo(ExpectedContentJp));
                 Assert.That(result.ContentByLanguage["ko-KR"], Is.EqualTo(ExpectedContentKo));

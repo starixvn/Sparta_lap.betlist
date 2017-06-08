@@ -25,10 +25,12 @@
         public void GetData_WhenCall_PassCorrectParam()
         {
             // Arrange
-            var metaModel = new DashboardBaseModel { LicenseeId = 1, CurrencyId = 2, FromDate = new System.DateTime(2017, 1, 1) };
+            var metaModel = new DashboardBaseModel { BaseCurrency = "EUR", LicenseeId = 1, CurrencyId = 2, FromDate = new System.DateTime(2017, 1, 1) };
             object passedParam = null;
-            _customerBalanceDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetCustomerBalance"))
-                .ExecuteScalar(Arg.Do<object>(x => passedParam = x)).Returns(0M);
+            var reader = _customerBalanceDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetCustomerBalance"))
+                .ExecuteReader(Arg.Do<object>(x => passedParam = x));
+            reader.Read().Returns(true, false);
+            reader["ClosingBalanceEUR"].Returns(0M);
 
             // Action
             _customerBalanceDataAccess.GetData(metaModel);
@@ -44,15 +46,20 @@
         public void GetData_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var expected = 1570000M;
-            _customerBalanceDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetCustomerBalance"))
-                .ExecuteScalar(Arg.Any<object>()).Returns(expected);
+            const decimal Expected = 1570000M;
+            var reader = _customerBalanceDataAccess.GetObjectDb(Arg.Is<string>("Lrf_GetCustomerBalance"))
+                .ExecuteReader(Arg.Any<object>());
+            reader.Read().Returns(true, false);
+            reader["ClosingBalanceEUR"].Returns(Expected);
 
             // Action
-            var result = _customerBalanceDataAccess.GetData(new DashboardBaseModel());
+            var result = _customerBalanceDataAccess.GetData(new DashboardBaseModel
+            {
+                BaseCurrency = "EUR"
+            });
 
             // Assert
-            Assert.That(result, Is.EqualTo(expected));
+            Assert.That(result, Is.EqualTo(Expected));
         }
     }
 }
