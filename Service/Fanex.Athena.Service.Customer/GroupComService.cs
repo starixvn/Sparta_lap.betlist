@@ -41,7 +41,7 @@ namespace Fanex.Athena.Service.Customer
 
         public GroupComService(IGroupComDataAccess groupDataAccess)
         {
-            this._groupDataAccess = groupDataAccess;
+            _groupDataAccess = groupDataAccess;
         }
 
         #endregion
@@ -69,7 +69,7 @@ namespace Fanex.Athena.Service.Customer
         public int InsertGroup(GroupCommMetaModel item, IRequest request, int userId, out ResultViewModel result)
         {
             IResultInfo dataResultInfo;
-            var data = this._groupDataAccess.InsertGroup(item, request, userId, out dataResultInfo);
+            var data = _groupDataAccess.InsertGroup(item, request, userId, out dataResultInfo);
 
             result = new ResultViewModel
             {

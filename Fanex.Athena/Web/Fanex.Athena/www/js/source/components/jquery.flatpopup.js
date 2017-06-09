@@ -29,7 +29,7 @@ define(['jquery'], function ($) {
                     $container.append($blockBody);
                 }
                 
-                if ($self.hasClass('flat-popup') === false) {
+                if ($("#" + options.id).length === 0) {
                     $self.attr("id", options.id);
                     $self.addClass("flat-popup " + options.className);
                     $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");

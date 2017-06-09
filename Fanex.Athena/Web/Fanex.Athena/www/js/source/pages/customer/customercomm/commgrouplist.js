@@ -2,10 +2,6 @@
     function ($, Site, Popup) {
         "use strict";
 
-        var FORMSELECTOR = "#CommissionGroupForm";
-        var EXCELBUTTONSELECTOR = "#ExportToExcel";
-
-        var optionDeletePopup = null;
         var deleteGroupData = {
             groupId: 0,
             isRemovePlayerComm: false,
@@ -20,19 +16,16 @@
             });
 
             _me.initEvent();
-            _me.publicFunctions();
         }
 
         function initEvent() {
-            $(EXCELBUTTONSELECTOR).click(function () {
-                $(FORMSELECTOR).submit();
+            $("#ExportToExcel").click(function () {
+                $("#CommissionGroupForm").submit();
             });
-        }
 
-        function publicFunctions() {
-            window.CustomerCommGroup = {
-                DeleteCommGroup: _me.deleteCommGroup
-            };
+            $("#comm-group-list").on("click", ".delete-comm-group", function (e) {
+                _me.deleteCommGroup($(e.target).data("id"));
+            });
         }
 
         function deleteCommGroup(groupId) {
@@ -64,7 +57,7 @@
                     if (result.ErrorCode > 0 || result.ErrorMessage.lengh > 0) {
                         showResultPopup(result.ErrorCode > 0 ? "Error" : "Successful", result.ErrorMessage);
                     } else {
-                        window.location.href = Site.resolveClientUrl("CustomerComGroup/Index");
+                        Site.redirect("CustomerComGroup/Index");
                     }
 
                     Site.unBlockUI();
@@ -99,10 +92,12 @@
         }
 
         function showOptionDeleteCommGroupPopup() {
-            if (optionDeletePopup === null) {
-                optionDeletePopup = $("#confirm-delete-comm-group");
-                optionDeletePopup.remove();
-                optionDeletePopup.find('input[name="IsRemovePlayerComm"]').on("click", function () {
+            var popup = $("#option-del-comm-group");
+
+            if (popup.length === 0) {
+                popup = $("#confirm-delete-comm-group");
+                popup.remove();
+                popup.find('input[name="IsRemovePlayerComm"]').on("click", function () {
                     $(this).prop("checked", true);
                 });
             }
@@ -110,7 +105,7 @@
             var options = {
                 model: true,
                 title: Site.getSingleResource("DeleteCommissionGroup"),
-                height: 150,
+                height: 160,
                 id: "option-del-comm-group"
             };
 
@@ -129,10 +124,11 @@
                     click: function () {
                         $('#IsRemovePlayerComm').prop("checked", true);
                     },
-                    classes: "btn btn-cancel"
+                    classes: "btn btn-cancel",
+                    id: "option-del-comm-group-cancel"
                 }];
 
-            Popup.openPopupWithButton(optionDeletePopup, options, buttons);
+            Popup.openPopupWithButton(popup, options, buttons);
         }
 
         function showConfirmDeleteCommGroupPopup() {
@@ -153,7 +149,8 @@
                     text: "Cancel",
                     isClosedOnClick: true,
                     click: showOptionDeleteCommGroupPopup,
-                    classes: "btn btn-cancel"
+                    classes: "btn btn-cancel",
+                    id: "confirm-del-comm-group-cancel"
                 }];
 
             Popup.openPopupWithButton('<div><p>' + Site.getSingleResource("AreYouSure") + '</p></div>', options, buttons);
@@ -186,8 +183,7 @@
         var _me = {
             initialize: initialize,
             initEvent: initEvent,
-            deleteCommGroup: deleteCommGroup,
-            publicFunctions: publicFunctions
+            deleteCommGroup: deleteCommGroup
         };
 
         return _me;

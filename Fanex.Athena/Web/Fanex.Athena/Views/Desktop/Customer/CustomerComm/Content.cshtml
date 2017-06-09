@@ -15,7 +15,7 @@
             }
             else
             {
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="comm-group-list">
                     <thead>
                         <tr>
                             <th class="col-small">#</th>
@@ -96,7 +96,7 @@
                                     <td class="center-align">
                                         <a class="icon-pencil" href="@Url.Action("Update", "CustomerComGroup", new { groupId = @groupComm.GroupCommId })" title="@ViewResources.EditGroup">
                                         </a>
-                                        <a class="icon-bin" href="javascript:CustomerCommGroup.DeleteCommGroup(@groupComm.GroupCommId)" title="@ViewResources.DeleteGroup">
+                                        <a class="icon-bin delete-comm-group" data-id="@groupComm.GroupCommId" title="@ViewResources.DeleteGroup">
                                         </a>
                                     </td>
                                 </tr>

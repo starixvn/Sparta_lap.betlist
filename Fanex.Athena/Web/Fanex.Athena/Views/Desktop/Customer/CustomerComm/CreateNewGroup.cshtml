@@ -16,25 +16,24 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
         <div class="row">
-            <div class="input-field col l5 m9 s12">
+            <div class="input-field col l5 m8 s12">
                 @if (ViewBag.Result != null)
                 {
-                    var errorMsg = ViewBag.Result.ErrorMessage;
                     var msg = ViewBag.Result.Message;
-                    errorMsg = string.IsNullOrEmpty(ViewBag.Result.ErrorMessage)
+                    var errorMsg = string.IsNullOrEmpty(ViewBag.Result.ErrorMessage)
                         ? (ViewData.ModelState["GroupName"].Errors.Any() ? ViewData.ModelState["GroupName"].Errors[0].ErrorMessage : string.Empty)
                         : ViewBag.Result.ErrorMessage;
 
-                    @Html.TextBoxFor(model => model.GroupName, new { @class = ViewBag.Result.Success ? "validate valid" : "validate invalid" })
+                    @Html.TextBoxFor(model => model.GroupName, new { @class = ViewBag.Result.Success ? "validate valid" : "validate invalid", autofocus="autofocus" })
                     <label for="GroupName" data-error="@errorMsg" data-success="@msg">@ViewResources.GroupName</label>
                 }
                 else
                 {
-                    @Html.TextBoxFor(model => model.GroupName, new { @class = "validate" })
+                    @Html.TextBoxFor(model => model.GroupName, new { @class = "validate", autofocus = "autofocus" })
                     <label for="GroupName" data-error="" data-success="">@ViewResources.GroupName</label>
                 }
             </div>
-            <div class="input-field col s5">
+            <div class="input-field col l5 m4 s12">
                 <input type="button" class="btn btn-nav" id="Validate" value="@ViewResources.Checkavailability" />
             </div>
         </div>
@@ -43,8 +42,8 @@
             <div class="col s12">
                 <input type="checkbox" id="IsDefaultGroup" name="IsDefaultGroup" @(Model.IsDefaultGroup ? "checked = checked" : string.Empty) />
                 <label for="IsDefaultGroup">@ViewResources.SetAsDefaultGroup</label>
-                @Html.HiddenFor(model => model.IsResetDefault)
-                @Html.HiddenFor(model => model.DefaultGroupId)
+                <input type="hidden" id="IsResetDefault" name="IsResetDefault" value="@Model.IsResetDefault.ToString()" />
+                <input type="hidden" id="DefaultGroupId" name="DefaultGroupId" value="@Model.DefaultGroupId" />
             </div>
         </div>
         <div class="row">

@@ -90,19 +90,21 @@
                 var $blockButton = $element.find(".popup-button");
 
                 $.each(buttons, function (index, button) {
-                    var $button = $('<button type="button"' + (button.id ? 'id="' + button.id + '"' : '') + ' class="' + button.classes + '">' + button.text + '</button>');
+                    var $button = $('<button type="button"'
+                        + (button.id ? 'id="' + button.id + '"' : '')
+                        + ' class="' + button.classes + '">'
+                        + button.text + '</button>');
                     $blockButton.append($button);
                     if (button.isClosedOnClick) {
                         $button.on("click", function () {
+                            _me.closePopup(defaultOption.id);
+
                             if (typeof button.click === "function") {
                                 button.click();
-                            }
-
-                            _me.closePopup(defaultOption.id)
+                            }                            
                         });
                     }
-                    else
-                    {
+                    else {
                         $button.on("click", button.click);
                     }
                 });

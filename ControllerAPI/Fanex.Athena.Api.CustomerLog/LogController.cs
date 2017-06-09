@@ -13,9 +13,9 @@ namespace Fanex.Athena.Api.CustomerLog
     using System.Text.RegularExpressions;
     using System.Web.Hosting;
     using System.Xml;
-    using Extension.Utility;
     using Base;
     using Base.Attributes;
+    using Extension.Utility;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
     using Fanex.Athena.Service.Customer;
@@ -90,36 +90,34 @@ namespace Fanex.Athena.Api.CustomerLog
             return regex.Replace(source, string.Empty);
         }
 
-        #endregion Remove HTML tag
-
-        #region Parse dictonary to razor view
-
         /// <summary>
-        /// Parse dictionary to razor view.
+        /// Remove HTML Tag.
         /// </summary>
-        /// <param name="actionId">Action id.</param>
-        /// <param name="viewModel">View Model.</param>
-        /// <returns> HTML string.</returns>
-        private string ParseDictonaryToRazorView(int actionId, ActionViewModel viewModel)
+        /// <param name="datalist">A list of Customer Log.</param>
+        /// <returns>A list of customer log has been removed HTML tag.</returns>
+        private static IList<CustomerLog> RemoveHtmlTag(IList<CustomerLog> datalist)
         {
-            var viewName = GetActionViewName(actionId);
-            var templatePath = HostingEnvironment.MapPath(viewName);
-            var template = File.ReadAllText(templatePath);
-            return Engine.Razor.RunCompile(template, actionId.ToString(), null, viewModel);
+            foreach (var item in datalist)
+            {
+                var trackingCharCount = item.TrackingValue.Length;
+                var trackingOldCharCount = item.TrackingValueOld.Length;
+
+                // Remove HTML tag inside tracking value
+                if (trackingCharCount > 0 && trackingOldCharCount > 0)
+                {
+                    var trackingValue = item.TrackingValue.Substring(1, trackingCharCount - 3);
+                    var trackingValueOld = item.TrackingValueOld.Substring(1, trackingOldCharCount - 3);
+
+                    // Add </> tag after remove all html tag
+                    item.TrackingValue = "<" + StripTags(trackingValue) + "/>";
+                    item.TrackingValueOld = "<" + StripTags(trackingValueOld) + "/>";
+                }
+            }
+
+            return datalist;
         }
 
-        private string GetActionViewName(int actionId)
-        {
-            var actionView = $"~/Views/Customer/CustomerLog/Action/{actionId}.cshtml";
-            var userSession = _sessionService.UserSession;
-
-            var option = userSession != null && userSession.ViewType != ClientViewType.None ?
-                userSession.ViewType : (ClientViewType)int.Parse(_appSettings.ClientViewType);
-
-            return ClientViewHelper.GetViewPath(actionView, option);
-        }
-
-        #endregion Parse dictonary to razor view
+        #endregion Remove HTML tag
 
         #region Get XML attribute
 
@@ -192,36 +190,39 @@ namespace Fanex.Athena.Api.CustomerLog
 
         #endregion Get XML attribute
 
-        #endregion Utility
+        #region Parse dictonary to razor view
 
         /// <summary>
-        /// Remove HTML Tag.
+        /// Parse dictionary to razor view.
         /// </summary>
-        /// <param name="datalist">A list of Customer Log.</param>
-        /// <returns>A list of customer log has been removed HTML tag.</returns>
-        private static IList<CustomerLog> RemoveHtmlTag(IList<CustomerLog> datalist)
+        /// <param name="actionId">Action id.</param>
+        /// <param name="viewModel">View Model.</param>
+        /// <returns> HTML string.</returns>
+        private string ParseDictonaryToRazorView(int actionId, ActionViewModel viewModel)
         {
-            foreach (var item in datalist)
-            {
-                var trackingCharCount = item.TrackingValue.Length;
-                var trackingOldCharCount = item.TrackingValueOld.Length;
-
-                // Remove HTML tag inside tracking value
-                if (trackingCharCount > 0 && trackingOldCharCount > 0)
-                {
-                    var trackingValue = item.TrackingValue.Substring(1, trackingCharCount - 3);
-                    var trackingValueOld = item.TrackingValueOld.Substring(1, trackingOldCharCount - 3);
-
-                    // Add </> tag after remove all html tag
-                    item.TrackingValue = "<" + StripTags(trackingValue) + "/>";
-                    item.TrackingValueOld = "<" + StripTags(trackingValueOld) + "/>";
-                }
-            }
-
-            return datalist;
+            var viewName = GetActionViewName(actionId);
+            var templatePath = HostingEnvironment.MapPath(viewName);
+            var template = File.ReadAllText(templatePath);
+            return Engine.Razor.RunCompile(template, actionId.ToString(), null, viewModel);
         }
 
+        private string GetActionViewName(int actionId)
+        {
+            var actionView = $"~/Views/Customer/CustomerLog/Action/{actionId}.cshtml";
+            var userSession = _sessionService.UserSession;
+
+            var option = userSession != null && userSession.ViewType != ClientViewType.None ?
+                userSession.ViewType : (ClientViewType)int.Parse(_appSettings.ClientViewType);
+
+            return ClientViewHelper.GetViewPath(actionView, option);
+        }
+
+        #endregion Parse dictonary to razor view
+        
+        #endregion Utility
+
         #region Get detail data
+
         private IList<CustomerLog> GetDetails(IList<CustomerLog> dataList)
         {
             foreach (var item in dataList)
@@ -240,6 +241,7 @@ namespace Fanex.Athena.Api.CustomerLog
 
             return dataList;
         }
+
         #endregion Get detail data
     }
 }

@@ -3,7 +3,6 @@
          "use strict";
 
          function initialize() {
-             debugger;
              CommGroupDetail.initialize("CreateNewGroup");
 
              _me.initEvent();

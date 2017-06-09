@@ -6,7 +6,7 @@
              Site.initialize();
           
              initColorPicker();
-             setPageTitle(Site.getSingleResource(titleResource));
+             _me.setPageTitle(Site.getSingleResource(titleResource));
              _me.initEvent();
          }
 
@@ -18,6 +18,7 @@
              });
 
              $("#Cancel").click(function () {
+                 _me.setPageTitle("CommissionGroupList");
                  _me.goToSite("CustomerComGroup/Index");
              });
 
@@ -44,39 +45,6 @@
 
              $("#CSComm1").on("change", function () {
                  commissionOnChange($(this).val(), "CSComm");
-             });
-         }
-
-         function goToSite(relativeUrl, paramString)
-         {
-             var href = Site.resolveClientUrl(relativeUrl);
-             if (paramString)
-             {
-                 href += paramString;
-             }
-             window.location.href = href;
-         }
-
-         function initColorPicker() {
-             var currentGroupColor = $("#GroupColor").val();
-             $("#showInput").spectrum({
-                 chooseText: Site.getSingleResource("OK"),
-                 cancelText: Site.getSingleResource("Cancel"),
-                 palette: getcolorPalette(),
-                 color: currentGroupColor.length > 0 ? currentGroupColor : "#ffffff",
-                 showPalette: true,
-                 showInitial: true,
-                 move: function () {
-                 },
-                 show: function () {
-                 },
-                 beforeShow: function () {
-                 },
-                 hide: function () {
-                 },
-                 change: function (color) {
-                     $("#GroupColor").val(color.toHexString());
-                 }
              });
          }
 
@@ -167,7 +135,6 @@
          }      
 
          function submit(formId) {
-             // Init param
              initCommParam("#SBComm");
              initCommParam("#ParlayComm");
              initCommParam("#RCComm");
@@ -194,6 +161,7 @@
              var defaultGroupId = parseInt($('#DefaultGroupId').val());
              var currentGroupId = parseFloat($('#GroupCommId').val());
              $("#IsDefaultGroup", formId).val(isDefault);
+             $("#IsResetDefault", formId).val(false);
              if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
                  showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
                      $("#IsResetDefault", formId).val(true);
@@ -202,6 +170,23 @@
              } else {
                  $(formId).submit();
              }
+         }
+
+         function goToSite(relativeUrl, paramString) {
+             var href = Site.resolveClientUrl(relativeUrl);
+             if (paramString) {
+                 href += paramString;
+             }
+             Site.redirect(href);
+         }
+
+         function goToCustomerList(groupCommId) {
+             if (isParentSameOrigin()) {
+                 $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
+                 $("li>#MenuItem43", window.parent.document).parent().addClass("active");
+                 _me.setPageTitle("LRF - " + Site.getSingleResource("CustomerList"));
+             }
+             _me.goToSite("Customer/CustomerList", "?groupId=" + groupCommId);
          }
 
          function showConfirmAction(message, callback, groupId, isResetDefault) {
@@ -227,6 +212,32 @@
                  }];
 
              Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
+         }
+
+         function isParentSameOrigin() {
+             var sameOrigin;
+             try {
+                 sameOrigin = window.parent.location.host === window.location.host;
+             }
+             catch (e) {
+                 sameOrigin = false;
+             }
+             return sameOrigin;
+         }
+
+         function initColorPicker() {
+             var currentGroupColor = $("#GroupColor").val();
+             $("#showInput").spectrum({
+                 chooseText: Site.getSingleResource("OK"),
+                 cancelText: Site.getSingleResource("Cancel"),
+                 palette: getcolorPalette(),
+                 color: currentGroupColor.length > 0 ? currentGroupColor : "#ffffff",
+                 showPalette: true,
+                 showInitial: true,
+                 change: function (color) {
+                     $("#GroupColor").val(color.toHexString());
+                 }
+             });
          }
 
          function getcolorPalette() {
@@ -274,7 +285,8 @@
              submit: submit,
              checkAvailableGroup: checkAvailableGroup,
              setPageTitle: setPageTitle,
-             goToSite: goToSite
+             goToSite: goToSite,
+             goToCustomerList: goToCustomerList
          };
 
          return _me;
