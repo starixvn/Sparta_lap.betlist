@@ -71,8 +71,23 @@
     display: none;
 }
 
+/* Index column */
 input[type="checkbox"] + label {
     margin: 0;
+    padding: 0;
+    top: 0;
+    vertical-align: middle;
+    height: 15px;
+    width: 15px;
+}
+
+/* Customer Option */
+.custoptionlink{
+    .grid-dropdown-icon{
+        margin-left: 5px;
+        font-weight: 900;
+        color: #000;
+    }
 }
 
 /* Move Group Popup*/

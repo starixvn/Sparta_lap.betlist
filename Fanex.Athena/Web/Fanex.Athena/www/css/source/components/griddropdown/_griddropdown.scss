@@ -28,12 +28,12 @@ $colorBorder: #C0C0BE;
     }
 
     &-label {
-        width: 85%;
+        width: calc(100% - 15px);
         @include border(#fff);
     }
 
     &-icon {
-        width: 15%;
+        width: 15px;
         font-size: 7px;
     }
 }

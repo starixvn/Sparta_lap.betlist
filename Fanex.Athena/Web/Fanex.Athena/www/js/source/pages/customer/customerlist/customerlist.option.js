@@ -163,10 +163,11 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             resizable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                return "<div systemid='" + rowObject.SystemId + "' externalid='" + rowObject.ExternalId + "' custid='" + rowObject.CustId +
-                "' title='" + Site.getSingleResource("CustomerOption") +
-                "' class='link custoptionlink' id='cust-option-link-" + rowObject.CustId + "'>" + Site.getSingleResource("View") +
-                "<img alt='' style='width:10px;height:10px' src='" + Site.resolveClientUrl("Content/MemberInfo/images/arrow.gif?") + "'> </div>";
+                return "<a href='javascript:;' systemid='" + rowObject.SystemId + "' externalid='" + rowObject.ExternalId + "' custid='" + rowObject.CustId +
+                "' title='" + Site.getSingleResource("CustomerOption") + "' class='custoptionlink' id='cust-option-link-" + rowObject.CustId + "'>"
+                    + Site.getSingleResource("View")
+                    + "<i class='grid-dropdown-icon icon-arrow'></i>"
+                "</a>";
             }
         };
         var commissionColumn =
