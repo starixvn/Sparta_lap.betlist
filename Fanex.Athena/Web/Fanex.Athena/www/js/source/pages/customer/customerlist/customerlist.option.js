@@ -110,10 +110,12 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             align: 'left',
             sortable: false,
             formatter: function (cellValue, options, rowObject) {
+                var paramString = JSON.stringify({ custId: rowObject.CustId, isAllowBA: !cellValue, externalId: rowObject.ExternalId });
                 var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
-                return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId +
+
+                return "<div title='" + title + "' data-val='" + paramString +
                         "' class='center-align switch ba-" + (cellValue ? "on" : "off") + "'>" +
-                        "<label><input type='checkbox'" + (cellValue ? " checked" : "") + "><span class='lever'></span><label>" +
+                        "<label><input class='baStatus' type='checkbox'" + (cellValue ? " checked" : "") + "><span class='lever'></span><label>" +
                     "</div>";
             }
         };
@@ -125,10 +127,9 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             align: 'center',
             sortable: false,
             frozen: true,
-            classes: "specialLevel",
             formatter: function (cellValue, options, rowObject) {
-                return "<div class='grid-dropdown'>"
-                            + "<div data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "' class='grid-dropdown-item grid-dropdown-label level-" + cellValue + "'>"
+                return "<div class='grid-dropdown specialLevel level-" + cellValue + "' data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "'>"
+                            + "<div class='grid-dropdown-item grid-dropdown-label'>"
                                 + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue)
                              + "</div>"
                             + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("SpecialLevel") + "'></i>"
@@ -143,11 +144,9 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             align: 'center',
             sortable: false,
             frozen: true,
-            classes: "oddsGroup",
             formatter: function (cellValue, options, rowObject) {
-                return "<div class='grid-dropdown " + (rowObject.BAStatus ? "disabled" : "") + "'>"
-                        + "<div data-custid='" + rowObject.CustId + "' data-group='" + cellValue
-                            + "' class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
+                return "<div class='grid-dropdown oddsGroup " + (rowObject.BAStatus ? "disabled" : "") + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
+                        + "<div class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
                              + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
                              "</div>"
                         + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"

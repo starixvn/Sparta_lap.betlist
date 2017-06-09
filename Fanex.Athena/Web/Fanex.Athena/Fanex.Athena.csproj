@@ -1221,10 +1221,15 @@
     <Content Include="www\js\source\pages\customer\customercomm\main-commgroupadd.js" />
     <Content Include="www\js\source\pages\customer\customercomm\main-commgroupedit.js" />
     <Content Include="www\js\source\pages\customer\customercomm\main-commgrouplist.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.bastatus.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.commision.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.custoption.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.oddsgroup.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.option.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.state.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.service.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.speciallevel.js" />
     <Content Include="www\js\source\pages\customer\customerlist\main.js" />
     <Content Include="www\js\source\pages\customer\customerlog\common.option.js" />
     <Content Include="www\js\source\pages\customer\customerlog\customerlog.service.js" />

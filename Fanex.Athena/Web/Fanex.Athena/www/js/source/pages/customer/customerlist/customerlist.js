@@ -447,8 +447,8 @@
                     $(this).closest('form').submit();
                 });
 
-                $("#report-content").on("click", ".specialLevel *", function () {
-                    _$specialLevelCell = $(this).parent().find("div");
+                $("#report-content").on("click", ".specialLevel", function () {
+                    _$specialLevelCell = $(this);
                     viewSpecialLevelList(_$specialLevelCell);
                 });
 
