@@ -80,11 +80,11 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                 $('#lblMoveToGroupMsg').html("");
                 _me.clearNotification();
 
-                Popup.openPopupWithButton($("#MoveToGroupPopUp"),
+                Popup.openPopupWithButton($("#MoveToGroupPopUpTemplate").clone(),
                     {
                         title: Site.getSingleResource('MoveToGroup'),
                         id: 'MoveToGroupPopUp',
-                        height: 470,
+                        height: 450,
                         width: 350
                     },   
                     [

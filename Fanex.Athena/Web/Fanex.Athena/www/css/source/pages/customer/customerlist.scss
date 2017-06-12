@@ -102,3 +102,9 @@ input[type="checkbox"] + label {
     position: relative;
     text-align: right;
 }
+.error-message {
+    color: red;
+    margin: 15px 5px;
+    text-align: center;
+    border: 1px solid #bbb;
+}

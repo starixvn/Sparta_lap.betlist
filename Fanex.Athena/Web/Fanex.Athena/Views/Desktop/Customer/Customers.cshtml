@@ -64,17 +64,17 @@
     </div>
     @if (Model.IsAllowedCustomerCommission)
     {
-        <div id="MoveToGroupPopUp" title="@ViewResources.MoveToGroup" style="display: none">
+        <div id="MoveToGroupPopUpTemplate" title="@ViewResources.MoveToGroup" style="display: none">
             @{
                 Html.RenderPartial("~/Views/Desktop/Customer/CustomerDialog/MoveToGroup.cshtml");
             }
         </div>
-        <div id="UpdateCustCommPopUp" class="hide" title="@ViewResources.UpdateCustomerCommission" style="display: none">
+        <div id="UpdateCustCommPopUpTemplate" class="hide" title="@ViewResources.UpdateCustomerCommission" style="display: none">
             @{
                 Html.RenderPartial("~/Views/Desktop/Customer/CustomerDialog/UpdateCustComm.cshtml", Model.ProductAccess);
             }
         </div>
-        <div id="ConfirmRemoveFromGroupPopUp" class="hide" title="@ViewResources.RemoveFromGroup" style="display: none">
+        <div id="ConfirmRemoveFromGroupPopUpTemplate" class="hide" title="@ViewResources.RemoveFromGroup" style="display: none">
             @{
                 Html.RenderPartial("~/Views/Desktop/Customer/CustomerDialog/RemoveFromGroup.cshtml");
             }
