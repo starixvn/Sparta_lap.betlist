@@ -852,7 +852,7 @@
     <Content Include="www\css\build\pro\pages\customer\customerlist.css" />
     <Content Include="www\css\build\pro\pages\customer\customerlog.chunk.js" />
     <Content Include="www\css\build\pro\pages\customer\customerlog.css" />
-    <Content Include="www\css\source\components\colorpicker\spectrum.css" />
+    <Content Include="www\css\source\components\jquery.colorpicker\colorPicker.css" />
     <Content Include="www\css\source\pages\customer\commgrouplist.scss" />
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\customer\commgrouplist.css.map" />
@@ -1180,6 +1180,7 @@
     <Content Include="www\js\source\components\scrollablegrid.js" />
     <Content Include="www\js\source\components\selectlist.js" />
     <Content Include="www\js\source\helpers\sortableheader.js" />
+    <Content Include="www\js\source\lib\jquery.colorpicker.js" />
     <Content Include="www\js\source\lib\jquery.marquee.js" />
     <Content Include="www\js\source\lib\select2.js" />
     <Content Include="www\js\source\pages\betlist\betlist.js" />
