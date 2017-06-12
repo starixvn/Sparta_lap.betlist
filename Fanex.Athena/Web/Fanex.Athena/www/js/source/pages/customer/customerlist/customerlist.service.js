@@ -1,10 +1,11 @@
 ﻿"use strict";
-define(["jquery", "./customerlist.custoption", "lib/jqgrid/jquery.jqgrid.additional", "components/paging", "./customerlist.state",
+define(["jquery", "common/site", "./customerlist.option", "lib/jqgrid/jquery.jqgrid.additional", "components/paging", "./customerlist.state",
     "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension"],
-function ($, CustomerListOption, jqGridAdditional, PagingHeper, CustomerListState) {
+function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
     var _POPUP_LIST = ["#view-cust-option", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
     var _isAllowedCustomerCommission;
     var _productAccess;
+    var _ajaxRequest = null;
 
     var _state;
 
@@ -18,7 +19,7 @@ function ($, CustomerListOption, jqGridAdditional, PagingHeper, CustomerListStat
         submit: function () {
             _state.selectedCustomers = {};
             _state.checkedAllRows = false;
-            
+
             var data = _me.getPostData();
             var option = {
                 type: "POST",
@@ -39,13 +40,14 @@ function ($, CustomerListOption, jqGridAdditional, PagingHeper, CustomerListStat
                     alert(Site.getSingleResource("ErrorProcessingMsg"));
                 }
             };
-            if (ajaxRequest != null) {
-                ajaxRequest.abort();
+
+            if (_ajaxRequest !== null) {
+                _ajaxRequest.abort();
             }
-            ajaxRequest = $.ajax(option);
+            _ajaxRequest = $.ajax(option);
         },
 
-        getPostData: function(){
+        getPostData: function () {
             var data = {};
 
             data.GridColumns = [];
@@ -111,7 +113,7 @@ function ($, CustomerListOption, jqGridAdditional, PagingHeper, CustomerListStat
 
             var pagingOption = _state.pagingOption;
             pagingOption.totalrow = parseInt(response.TotalRows);
-            PagingHeper.render(pagingOption);
+            PagingHelper.render(pagingOption);
 
             var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
             var gridOption = _me.processGridOption(showingColumns);
@@ -122,7 +124,7 @@ function ($, CustomerListOption, jqGridAdditional, PagingHeper, CustomerListStat
             // Show the grid
             var reportGrid = $("#ReportGrid");
             reportGrid.jqGrid(gridOption);
-            CustomersOption.setGroupHeaderColumns(reportGrid);
+            CustomerListOption.setGroupHeaderColumns(reportGrid);
 
             if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
                 $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' id='CheckAll' /><label for='CheckAll'></label>");
@@ -165,8 +167,8 @@ function ($, CustomerListOption, jqGridAdditional, PagingHeper, CustomerListStat
             var gridOption = CustomerListOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
             var indexColumn = gridOption.colModel[0];
 
-            updateIndexColumnFormatter(indexColumn, showingColumns);
-            toggleColumn(gridOption, showingColumns);
+            _me.updateIndexColumnFormatter(indexColumn, showingColumns);
+            _me.toggleColumn(gridOption, showingColumns);
 
             return gridOption;
         },
@@ -213,4 +215,6 @@ function ($, CustomerListOption, jqGridAdditional, PagingHeper, CustomerListStat
             }
         }
     }
+
+    return _me;
 });

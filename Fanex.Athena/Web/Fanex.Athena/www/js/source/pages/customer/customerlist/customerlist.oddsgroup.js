@@ -28,7 +28,8 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
             var position = $context.offset();
             $popup.css({
                 top: position.top + $context.height(),
-                left: position.left
+                left: position.left,
+                width: $context.width()
             });
 
             if ($popup.attr("custid") === custId) {

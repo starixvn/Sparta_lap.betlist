@@ -113,9 +113,9 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                 var paramString = JSON.stringify({ custId: rowObject.CustId, isAllowBA: !cellValue, externalId: rowObject.ExternalId });
                 var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
 
-                return "<div title='" + title + "' data-val='" + paramString +
-                        "' class='center-align switch ba-" + (cellValue ? "on" : "off") + "'>" +
-                        "<label><input class='baStatus' type='checkbox'" + (cellValue ? " checked" : "") + "><span class='lever'></span><label>" +
+                return "<div title='" + title + "'" +
+                        " class='center-align switch ba-" + (cellValue ? "on" : "off") + "'>" +
+                        "<label><input class='baStatus' type='checkbox'" + (cellValue ? " checked" : "") + " data-val='" + paramString + "' /><span class='lever'></span><label>" +
                     "</div>";
             }
         };
@@ -128,8 +128,8 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             sortable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                return "<div class='grid-dropdown specialLevel level-" + cellValue + "' data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "'>"
-                            + "<div class='grid-dropdown-item grid-dropdown-label'>"
+                return "<div class='grid-dropdown specialLevel' data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "'>"
+                            + "<div class='grid-dropdown-item grid-dropdown-label level-" + cellValue + "'>"
                                 + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue)
                              + "</div>"
                             + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("SpecialLevel") + "'></i>"
