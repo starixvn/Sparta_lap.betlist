@@ -102,10 +102,11 @@ namespace Fanex.Athena.Controllers.Customer
                     };
                     _customerComService.InsertGroup(metaModel, request, userSession.UserId, out result);
 
-                    UpdateResultMessageForCreate(result);
+                    result.ErrorMessage = GetCreateGroupErrorMessage(result.ErrorCode);
 
                     if (result.Success)
                     {
+                        result.Message = ViewResources.MessageSuccess;
                         UpdateMetaModelAfterProcessSuccessfully(metaModel);
                     }
                 }
@@ -270,51 +271,42 @@ namespace Fanex.Athena.Controllers.Customer
 
         #region Utility
 
-        private static void UpdateResultMessageForUpdate(ResultViewModel result)
+        private static string GetUpdateGroupErrorMessage(int errorCode)
         {
-            switch (result.ErrorCode)
+            switch (errorCode)
             {
                 case 100:
-                    result.ErrorMessage = ViewResources.MessageCommCannotGreaterThan;
-                    break;
+                    return ViewResources.MessageCommCannotGreaterThan;
 
                 case 101:
-                    result.ErrorMessage = ViewResources.MessageGroupDoesNotExistMsg;
-                    break;
+                    return ViewResources.MessageGroupDoesNotExistMsg;
 
                 case 102:
-                    result.ErrorMessage = ViewResources.MessageGroupHasAlreadyChoosen;
-                    break;
+                    return ViewResources.MessageGroupHasAlreadyChoosen;
 
                 case 103:
-                    result.ErrorMessage = ViewResources.GroupSetAsDefaultMsg;
-                    break;
+                    return ViewResources.GroupSetAsDefaultMsg;
 
                 default:
-                    result.Message = ViewResources.MessageSuccess;
-                    break;
+                    return string.Empty;
             }
         }
 
-        private static void UpdateResultMessageForCreate(ResultViewModel result)
+        private static string GetCreateGroupErrorMessage(int errorCode)
         {
-            switch (result.ErrorCode)
+            switch (errorCode)
             {
                 case 100:
-                    result.ErrorMessage = ViewResources.MessageCommCannotGreaterThan;
-                    break;
+                    return ViewResources.MessageCommCannotGreaterThan;
 
                 case 101:
-                    result.ErrorMessage = ViewResources.MessageGroupCreationFail;
-                    break;
+                    return ViewResources.MessageGroupCreationFail;
 
                 case 102:
-                    result.ErrorMessage = ViewResources.GroupNameExistedMsg;
-                    break;
+                    return ViewResources.GroupNameExistedMsg;
 
                 default:
-                    result.Message = ViewResources.MessageSuccess;
-                    break;
+                    return string.Empty;
             }
         }
 
@@ -429,11 +421,12 @@ namespace Fanex.Athena.Controllers.Customer
 
                 if (string.IsNullOrWhiteSpace(result.ErrorMessage))
                 {
-                    UpdateResultMessageForUpdate(result);
+                    result.ErrorMessage = GetUpdateGroupErrorMessage(result.ErrorCode);
                 }
 
                 if (result.Success)
                 {
+                    result.Message = ViewResources.MessageSuccess;
                     UpdateMetaModelAfterProcessSuccessfully(metaModel);
                 }
             }

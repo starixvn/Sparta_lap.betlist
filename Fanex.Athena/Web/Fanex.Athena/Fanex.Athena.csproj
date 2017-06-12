@@ -1331,6 +1331,7 @@
     <Content Include="www\js\tests\pages\betlist\commonbetlist-spec.js" />
     <Content Include="www\js\tests\pages\betlist\lastbetmonitoring\lastbet.filter-spec.js" />
     <Content Include="www\js\tests\pages\betlist\lastbetmonitoring\lastbet.grid-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customercomm\commgrouplist-spec.js" />
     <Content Include="www\js\tests\pages\forecast\forecast.handicapoverunder-spec.js" />
     <Content Include="www\js\tests\pages\forecast\forecast.newforecasthdpou-spec.js" />
     <Content Include="www\js\tests\pages\forecast\forecast.onextwo-spec.js" />

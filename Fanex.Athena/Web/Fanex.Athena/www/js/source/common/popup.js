@@ -85,7 +85,7 @@
 
             var $element = $(element);
 
-            if ($element.hasClass('flat-popup') === false) {
+            if ($("#" + option.id).length === 0) {
                 $element.append('<div class="right popup-button"></div>');
                 var $blockButton = $element.find(".popup-button");
 

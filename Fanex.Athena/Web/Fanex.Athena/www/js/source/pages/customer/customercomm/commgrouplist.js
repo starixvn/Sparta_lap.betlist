@@ -24,11 +24,11 @@
             });
 
             $("#comm-group-list").on("click", ".delete-comm-group", function (e) {
-                _me.deleteCommGroup($(e.target).data("id"));
+                _me.confirmDeleteCommGroup($(e.target).data("id"));
             });
         }
 
-        function deleteCommGroup(groupId) {
+        function confirmDeleteCommGroup(groupId) {
             $.ajax({
                 url: Site.resolveClientUrl("CustomerComGroup/GetDefaultGroup"),
                 type: 'GET',
@@ -38,24 +38,24 @@
                     deleteGroupData.groupId = groupId;
                     if (response.id.toString() === groupId.toString()) {
                         deleteGroupData.isResetDefault = true;
-                        showConfirmDeleteDefaulCommGroupPopup();
+                        _me.showConfirmDeleteDefaulCommGroupPopup();
                     }
                     else {
                         deleteGroupData.isResetDefault = false;
-                        showOptionDeleteCommGroupPopup();
+                        _me.showOptionDeleteCommGroupPopup();
                     }
                 }
             });
         }
 
-        function doDeleteCommGroup() {
+        function deleteCommGroup() {
             $.ajax({
                 type: 'POST',
                 url: Site.resolveClientUrl("CustomerComGroup/Delete"),
                 data: deleteGroupData,
                 success: function (result) {
-                    if (result.ErrorCode > 0 || result.ErrorMessage.lengh > 0) {
-                        showResultPopup(result.ErrorCode > 0 ? "Error" : "Successful", result.ErrorMessage);
+                    if (result.ErrorCode > 0 || result.ErrorMessage.length > 0) {
+                        _me.showResultPopup(result.ErrorCode > 0 ? "Error" : "Successful", result.ErrorMessage);
                     } else {
                         Site.redirect("CustomerComGroup/Index");
                     }
@@ -80,7 +80,7 @@
                 {
                     text: "OK",
                     isClosedOnClick: true,
-                    click: showOptionDeleteCommGroupPopup,
+                    click: _me.showOptionDeleteCommGroupPopup,
                     classes: "btn btn-submit"
                 }, {
                     text: "Cancel",
@@ -115,7 +115,7 @@
                     isClosedOnClick: true,
                     click: function () {
                         deleteGroupData.isRemovePlayerComm = $('input[name="IsRemovePlayerComm"]:checked').val();
-                        showConfirmDeleteCommGroupPopup();
+                        _me.showConfirmDeleteCommGroupPopup();
                     },
                     classes: "btn btn-submit"
                 }, {
@@ -143,12 +143,12 @@
                 {
                     text: "OK",
                     isClosedOnClick: true,
-                    click: doDeleteCommGroup,
+                    click: _me.deleteCommGroup,
                     classes: "btn btn-submit"
                 }, {
                     text: "Cancel",
                     isClosedOnClick: true,
-                    click: showOptionDeleteCommGroupPopup,
+                    click: _me.showOptionDeleteCommGroupPopup,
                     classes: "btn btn-cancel",
                     id: "confirm-del-comm-group-cancel"
                 }];
@@ -159,12 +159,12 @@
         function showResultPopup(title, message) {
             var options = {
                 model: true,
-                title: "",
+                title: title,
                 height: 150,
                 id: "result-del-comm-group"
             };
 
-            if ($("#result-del-comm-group").lengh > 0)
+            if ($("#result-del-comm-group").length > 0)
             {
                 $("#result-msg").html(message);
             }
@@ -183,6 +183,11 @@
         var _me = {
             initialize: initialize,
             initEvent: initEvent,
+            confirmDeleteCommGroup: confirmDeleteCommGroup,
+            showConfirmDeleteDefaulCommGroupPopup: showConfirmDeleteDefaulCommGroupPopup,
+            showOptionDeleteCommGroupPopup: showOptionDeleteCommGroupPopup,
+            showConfirmDeleteCommGroupPopup: showConfirmDeleteCommGroupPopup,
+            showResultPopup: showResultPopup,
             deleteCommGroup: deleteCommGroup
         };
 
