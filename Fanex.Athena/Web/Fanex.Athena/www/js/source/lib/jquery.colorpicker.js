@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Really Simple Color Picker in jQuery
  *
  * Licensed under the MIT (MIT-LICENSE.txt) licenses.
@@ -29,11 +29,12 @@
     /**
      * Create a couple private variables.
     **/
+    var PICKER_PREVIEW_SELECTOR = ".colorPicker-preview";
     var selectorOwner,
         activePalette,
         cItterate       = 0,
         templates       = {
-            control : $('<div class="colorPicker-picker">&nbsp;</div>'),
+            control: $('<div class="colorPicker-container"><div class="colorPicker-preview"></div><div class="colorPicker-handler">▼</div></div>'),
             palette : $('<div id="colorPicker_palette" class="colorPicker-palette" />'),
             swatch  : $('<div class="colorPicker-swatch">&nbsp;</div>'),
             hexLabel: $('<label for="colorPicker_hex">Hex</label>'),
@@ -117,7 +118,7 @@
             /**
              * Build replacement interface for original color input.
             **/
-            newControl.css("background-color", defaultColor);
+            newControl.find(PICKER_PREVIEW_SELECTOR).css("background-color", defaultColor);
 
             newControl.bind("click", function () {
                 if( element.is( ':not(:disabled)' ) ) {
@@ -137,7 +138,7 @@
             element.after(newControl);
 
             element.bind("change", function () {
-                element.next(".colorPicker-picker").css(
+                element.find(PICKER_PREVIEW_SELECTOR).css(
                     "background-color", $.fn.colorPicker.toHex($(this).val())
                 );
             });
@@ -266,7 +267,7 @@
          * Update the input with a newly selected color.
         **/
         changeColor : function (value) {
-            selectorOwner.css("background-color", value);
+            selectorOwner.find(PICKER_PREVIEW_SELECTOR).css("background-color", value);
             selectorOwner.prev("input").val(value).change();
 
             $.fn.colorPicker.hidePalette();
@@ -279,7 +280,7 @@
          * Preview the input with a newly selected color.
         **/
         previewColor : function (value) {
-            selectorOwner.css("background-color", value);
+            selectorOwner.find(PICKER_PREVIEW_SELECTOR).css("background-color", value);
         },
 
         /**
@@ -304,7 +305,7 @@
                     $.fn.colorPicker.previewColor(color);
                 },
                 mouseout : function (ev) {
-                    $(this).css("border-color", "#000");
+                    $(this).css("border-color", "#fff");
 
                     paletteInput.val(selectorOwner.css("background-color"));
 
@@ -346,7 +347,7 @@
         addColors : [],
 
         // Show hex field
-        showHexField: true
+        showHexField: false
     };
 
 })(jQuery);
