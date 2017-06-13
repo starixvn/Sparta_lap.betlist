@@ -34,7 +34,7 @@
         activePalette,
         cItterate       = 0,
         templates       = {
-            control: $('<div class="colorPicker-container"><div class="colorPicker-preview"></div><div class="colorPicker-handler">▼</div></div>'),
+            control: $('<div class="colorPicker-container"><div class="colorPicker-preview"></div><div class="colorPicker-handler"><span class="colorPicker-icon-arrow"></span></div></div>'),
             palette : $('<div id="colorPicker_palette" class="colorPicker-palette" />'),
             swatch  : $('<div class="colorPicker-swatch">&nbsp;</div>'),
             hexLabel: $('<label for="colorPicker_hex">Hex</label>'),

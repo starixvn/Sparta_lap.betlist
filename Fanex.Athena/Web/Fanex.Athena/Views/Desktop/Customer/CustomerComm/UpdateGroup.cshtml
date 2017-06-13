@@ -62,7 +62,6 @@
         </div>
         <div class="row">
             <div class="col input-field">
-                <input class="hide" id="showInput" type="text" name="showInput" />
                 @Html.HiddenFor(model => model.GroupColor)
                 @Html.ValidationMessageFor(model => model.GroupColor)
             </div>
@@ -70,7 +69,11 @@
         <div class="row">
             <div class="col input-field">
                 <button type="button" id="Cancel" class="btn btn-cancel">@ViewResources.Cancel</button>
+            </div>
+            <div class="col input-field">
                 <button type="button" id="CustList" class="btn btn-back">@ViewResources.GotoCustomerList</button>
+            </div>
+            <div class="col input-field">
                 <button type="button" id="Submit" class="btn btn-submit">@ViewResources.Submit</button>
             </div>
         </div>

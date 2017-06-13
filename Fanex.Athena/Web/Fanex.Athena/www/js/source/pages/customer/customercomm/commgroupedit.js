@@ -2,10 +2,12 @@
      function ($, CommGroupDetail) {
          "use strict";
 
+         var FORMID = "#customer-comm-group-edit";
+         var TITLE = "EditGroup";
          var _originalGroupName = "";
 
          function initialize() {
-             CommGroupDetail.initialize("EditGroup");
+             CommGroupDetail.initialize(TITLE);
 
              _originalGroupName = $("#OriginalGroupName").val();
              _me.initEvent();
@@ -13,16 +15,16 @@
 
          function initEvent() {
              $("#Validate").click(function () {
-                 var groupName = $("#GroupName").val();
+                 var $groupName = $("#GroupName");
 
-                 if (groupName === _originalGroupName) {
-                     $("#GroupName").removeClass("invalid");
-                     $("#GroupName").addClass("valid");
+                 if ($groupName.val() === _originalGroupName) {
+                     $groupName.removeClass("invalid");
+                     $groupName.addClass("valid");
                      $("#Add").prop("disabled", false);
                      return;
                  }
 
-                 CommGroupDetail.checkAvailableGroup(groupName);
+                 CommGroupDetail.checkAvailableGroup($groupName.val());
              });
 
              $("#CustList").click(function () {
@@ -30,7 +32,7 @@
              });
 
              $("#Submit").click(function () {
-                 CommGroupDetail.submit("#customer-comm-group-edit");
+                 CommGroupDetail.submit(FORMID);
              });
          }         
 

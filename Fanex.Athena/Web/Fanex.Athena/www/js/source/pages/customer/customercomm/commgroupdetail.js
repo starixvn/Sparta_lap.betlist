@@ -1,5 +1,5 @@
-﻿define(["jquery", "common/site", "common/popup", "lib/jquery.colorpicker"],
-     function ($, Site, Popup) {
+﻿define(["jquery", "common/site", "common/popup", "components/pluginhelper/colorpicker"],
+     function ($, Site, Popup, ColorPicker) {
          "use strict";
 
          function initialize(titleResource) {
@@ -160,11 +160,11 @@
              var isDefault = $("#IsDefaultGroup").is(":checked");
              var defaultGroupId = parseInt($('#DefaultGroupId').val());
              var currentGroupId = parseFloat($('#GroupCommId').val());
-             $("#IsDefaultGroup", formId).val(isDefault);
-             $("#IsResetDefault", formId).val(false);
+             $("#IsDefaultGroup").val(isDefault);
+             $("#IsResetDefault").val(false);
              if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
                  showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
-                     $("#IsResetDefault", formId).val(true);
+                     $("#IsResetDefault").val(true);
                      $(formId).submit();
                  });
              } else {
@@ -184,7 +184,7 @@
              if (isParentSameOrigin()) {
                  $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
                  $("li>#MenuItem43", window.parent.document).parent().addClass("active");
-                 _me.setPageTitle("LRF - " + Site.getSingleResource("CustomerList"));
+                 _me.setPageTitle(Site.getSingleResource("CustomerList"));
              }
              _me.goToSite("Customer/CustomerList", "?groupId=" + groupCommId);
          }
@@ -226,15 +226,7 @@
          }
 
          function initColorPicker() {
-             var currentGroupColor = $("#GroupColor").val();
-             $("#showInput")
-                 .val(currentGroupColor)
-                 .colorPicker({ 
-                     transparency: true,
-                     onColorChange : function(id, newValue) { 
-                         $("#GroupColor").val(newValue);
-                     }
-                 });
+             ColorPicker.initColorPicker("#GroupColor");
          }
 
          var _me = {
