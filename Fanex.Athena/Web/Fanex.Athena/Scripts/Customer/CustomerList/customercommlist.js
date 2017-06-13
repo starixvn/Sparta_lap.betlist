@@ -191,7 +191,7 @@ var CustomerComm = (function ($) {
                     {
                         text: Site.getSingleResource('Save'),
                         click: function () {
-                            CustomerComm.updateCustomerComm($(this), groupCommId);
+                            CustomerComm.updateCustomerComm(groupCommId);
                         }
                     },
                     {
@@ -210,7 +210,7 @@ var CustomerComm = (function ($) {
             var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
             return comm;
         },
-        updateCustomerComm: function (ctx, groupCommId) {
+        updateCustomerComm: function (groupCommId) {
             var checkedCustomers = CustomerList.getCheckedCustomers();
             var custList = JSLINQ(checkedCustomers).Select(function (x) { return x.Id; }).ToArray();
 

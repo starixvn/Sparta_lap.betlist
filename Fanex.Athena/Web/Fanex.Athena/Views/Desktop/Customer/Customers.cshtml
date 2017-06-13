@@ -69,12 +69,12 @@
                 Html.RenderPartial("~/Views/Desktop/Customer/CustomerDialog/MoveToGroup.cshtml");
             }
         </div>
-        <div id="UpdateCustCommPopUp" class="hide" title="@ViewResources.UpdateCustomerCommission" style="display: none">
+        <div id="UpdateCustCommPopUp" title="@ViewResources.UpdateCustomerCommission" style="display: none">
             @{
                 Html.RenderPartial("~/Views/Desktop/Customer/CustomerDialog/UpdateCustComm.cshtml", Model.ProductAccess);
             }
         </div>
-        <div id="ConfirmRemoveFromGroupPopUp" class="hide" title="@ViewResources.RemoveFromGroup" style="display: none">
+        <div id="ConfirmRemoveFromGroupPopUp" title="@ViewResources.RemoveFromGroup" style="display: none">
             @{
                 Html.RenderPartial("~/Views/Desktop/Customer/CustomerDialog/RemoveFromGroup.cshtml");
             }

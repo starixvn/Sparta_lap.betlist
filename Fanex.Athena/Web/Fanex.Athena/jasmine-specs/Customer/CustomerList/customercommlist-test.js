@@ -187,7 +187,7 @@
         });
     });
 
-    describe("updateCustomerComm(ctx, groupCommId)", function () {
+    describe("updateCustomerComm(groupCommId)", function () {
         beforeEach(function (done) {
             spyOn(CustomerList, "getCheckedCustomers").and.returnValue([{ Id: 1, Group: 1 }, { Id: 2, Group: 1 }, { Id: 3, Group: 2 }]);
             spyOn(CustomerComm, "initCommissionParam").and.returnValue(0.1234);
@@ -200,7 +200,7 @@
                     'contentType': 'application/json',
                     'responseText': '{ }'
                 });
-            CustomerComm.updateCustomerComm(null, 1);
+            CustomerComm.updateCustomerComm(1);
             request = jasmine.Ajax.requests.mostRecent();
 
             setTimeout(done, 10);

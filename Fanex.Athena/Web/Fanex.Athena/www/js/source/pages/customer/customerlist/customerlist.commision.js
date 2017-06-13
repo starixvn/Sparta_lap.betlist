@@ -94,7 +94,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                         {
                             text: Site.getSingleResource('OK'),
                             click: function () {
-                                _me.moveCustomerToGroup($(this));
+                                _me.moveCustomerToGroup();
                             },
                             classes: "btn btn-submit"
                         },
@@ -180,39 +180,42 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
             /* update customer*/
             showUpdateCustComm: function (groupCommId) {
                 var isShowInfo = false;
-                var checkedCustomers = CustomerList.getCheckedCustomers();
+                var selectedCustomers = _state.selectedCustomers;
                 
-                for (var i = 0; i < checkedCustomers.length; i++) {
-                    if (Number(checkedCustomers[i].Group) !== 0) {
-                        isShowInfo = true;
-                        break;
+                for (var custId in selectedCustomers) {
+                    if (selectedCustomers.hasOwnProperty(custId)) {
+                        if (selectedCustomers[custId] !== "0") {
+                            isShowInfo = true;
+                            break;
+                        }
                     }
                 }
 
                 $('#InfoMsg').css('display', isShowInfo ? 'block' : 'none');
                 _me.clearNotification();
 
-                $("#UpdateCustCommPopUp").dialog({
-                    resizable: false,
-                    height: 350,
-                    width: 500,
-                    modal: true,
-                    buttons:
+                Popup.openPopupWithButton($("#UpdateCustCommPopUp"),
+                    {
+                        title: Site.getSingleResource("UpdateCustomerCommission"),
+                        id: 'UpdateCustCommPopUp',
+                        height: 350,
+                        width: 500
+                    },
                     [
                         {
                             text: Site.getSingleResource('Save'),
                             click: function () {
-                                _me.updateCustomerComm($(this), groupCommId);
-                            }
+                                _me.updateCustomerComm(groupCommId);
+                            },
+                            classes: "btn btn-submit"
                         },
                         {
                             text: Site.getSingleResource('Cancel'),
-                            click: function () {
-                                $(this).dialog("close");
-                            }
+                            isClosedOnClick: true,
+                            classes: "btn btn-cancel"
                         }
                     ]
-                });
+                );
             },
             initCommissionParam: function (id) {
                 var comm1 = parseInt($(id + 1).val());
@@ -221,7 +224,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                 var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
                 return comm;
             },
-            updateCustomerComm: function (ctx, groupCommId) {
+            updateCustomerComm: function (groupCommId) {
                 var checkedCustomers = CustomerList.getCheckedCustomers();
                 var custList = JSLINQ(checkedCustomers).Select(function (x) { return x.Id; }).ToArray();
 
