@@ -746,7 +746,6 @@
     <Content Include="Scripts\BetList\lastbet.filter.js" />
     <Content Include="Scripts\Helper\ProductListHelper.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
-    <Content Include="Scripts\Customer\customerlist.service.js" />
     <Content Include="Scripts\Customer\CustomerList\customerlist.custoption.js" />
     <Content Include="Scripts\Report\cashoutwinloss.js" />
     <Content Include="Scripts\Report\cashoutwinloss.option.js" />
