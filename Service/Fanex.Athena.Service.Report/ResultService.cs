@@ -80,19 +80,19 @@ namespace Fanex.Athena.Service.Report
             return this._dataAccess.GetSportsbookGameDetail(matchId);
         }
 
-        public IList<Sportsbook> GetPopUpMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId)
+        public IList<Sportsbook> GetPopUpMatch(int matchId, int bettypeId, long? betId)
         {
-            return this._dataAccess.GetPopUpMatches<Sportsbook>(matchId, -1, licenseeId, userId, bettypeId, betId);
+            return this._dataAccess.GetPopUpMatches<Sportsbook>(matchId, -1, bettypeId, betId);
         }
 
-        public IList<LiveCasino> GetPopUpLiveCasinoMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId)
+        public IList<LiveCasino> GetPopUpLiveCasinoMatch(int matchId, int bettypeId, long? betId)
         {
-            return this._dataAccess.GetPopUpMatches<LiveCasino>(matchId, -1, licenseeId, userId, bettypeId, betId);
+            return this._dataAccess.GetPopUpMatches<LiveCasino>(matchId, -1, bettypeId, betId);
         }
 
-        public IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int licenseeId, int userId, int bettypeId, long? betId)
+        public IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int bettypeId, long? betId)
         {
-            return this._dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, licenseeId, userId, bettypeId, betId);
+            return this._dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, bettypeId, betId);
         }
 
         public IList<Parlay> GetPopUpParlayMatch(long refNo)

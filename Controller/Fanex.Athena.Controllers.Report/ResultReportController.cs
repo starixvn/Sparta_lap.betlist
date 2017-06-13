@@ -388,9 +388,6 @@ namespace Fanex.Athena.Controllers.Report
            Justification = "Reviewed. Suppression is OK here.")]
         private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, ResultSetting setting)
         {
-            var userId = SessionService.UserSession.UserId;
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
-
             switch (sportType)
             {
                 case SportType.HorseRacing:
@@ -406,8 +403,6 @@ namespace Fanex.Athena.Controllers.Report
                         var dataRc = _resultService.GetPopUpRacingMatch(
                             metalModel.MatchId,
                             metalModel.RaceNo.Value,
-                            licenseeId,
-                            userId,
                             metalModel.Bettype,
                             metalModel.BetId);
                         if (dataRc != null)
@@ -422,8 +417,6 @@ namespace Fanex.Athena.Controllers.Report
 
                     var dataLc = _resultService.GetPopUpLiveCasinoMatch(
                         metalModel.MatchId,
-                        licenseeId,
-                        userId,
                         metalModel.Bettype,
                         metalModel.BetId);
                     if (dataLc != null)
@@ -443,7 +436,7 @@ namespace Fanex.Athena.Controllers.Report
                     break;
 
                 default:
-                    var data = _resultService.GetPopUpMatch(metalModel.MatchId, licenseeId, userId, metalModel.Bettype, metalModel.BetId);
+                    var data = _resultService.GetPopUpMatch(metalModel.MatchId, metalModel.Bettype, metalModel.BetId);
                     if (data != null)
                     {
                         _htmlResult = ResultEngine.HtmlParser(data, setting);

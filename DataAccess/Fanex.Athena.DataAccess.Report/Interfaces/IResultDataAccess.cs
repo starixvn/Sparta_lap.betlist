@@ -39,7 +39,7 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 
         #region Popup
 
-        IList<T> GetPopUpMatches<T>(int matchId, int raceNo, int licenseeId, int userId, int bettypeId, long? betId);
+        IList<T> GetPopUpMatches<T>(int matchId, int raceNo, int bettypeId, long? betId);
 
         IList<Parlay> GetPopUpParalayMatch(long refNo);
 
