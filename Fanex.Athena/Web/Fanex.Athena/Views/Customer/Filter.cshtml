@@ -110,7 +110,7 @@
         <div class="grid_3 filter-input">
             <select id="DdlGroupCommId" style="width: 122px">
                 @{
-            var groupList = Model.GroupCommDataList;
+            var groupList = new List<GroupCommMetaModel>(Model.GroupCommDataList);
             groupList.Insert(0, new GroupCommMetaModel { GroupCommId = -1, GroupName = ViewResources.All });
             groupList.Insert(1, new GroupCommMetaModel { GroupCommId = 0, GroupName = ViewResources.None });
                 }

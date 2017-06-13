@@ -101,7 +101,20 @@ var CustomerComm = (function ($) {
 
         moveCustomerToGroup: function () {
             var groupid = parseInt($('#GroupListSelect').val(), 10);
+
+            //GroupId = - 1 is show all group.
+            if (groupid === -1) {
+                CustomerComm.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
+                return;
+            }
+
             var checkedCustomers = CustomerList.getCheckedCustomers();
+
+            if (checkedCustomers.length === 0) {
+                CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
+                return;
+            }
+
             var custList = [];
 
             for (var i = 0; i < checkedCustomers.length; i++) {
@@ -111,17 +124,7 @@ var CustomerComm = (function ($) {
                 }
             }
 
-            if (checkedCustomers.length === 0) {
-                CustomerComm.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
-                return;
-            }
-
-            //GroupId = - 1 is show all group.
-            if (groupid === -1) {
-                CustomerComm.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
-                return;
-            }
-            if (checkedCustomers.length > 0 && custList.length === 0) {
+            if (custList.length === 0) {
                 CustomerComm.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false);
                 return;
             }

@@ -66,7 +66,7 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                     var selectedCustomers = _state.selectedCustomers;
 
                     if (this.checked) {
-                        selectedCustomers[custid] = true;
+                        selectedCustomers[custid] = group;
                     } else {
                         delete selectedCustomers[custid];
                     }

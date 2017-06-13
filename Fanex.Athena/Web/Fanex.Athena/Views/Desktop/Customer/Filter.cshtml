@@ -92,7 +92,7 @@
                 <div class="col l2 m2 s12 input-field">
                     <select id="DdlGroupCommId" class="select hide">
                         @{
-                            var groupList = Model.GroupCommDataList;
+                            var groupList = new List<GroupCommMetaModel>(Model.GroupCommDataList);
                             groupList.Insert(0, new GroupCommMetaModel { GroupCommId = -1, GroupName = ViewResources.All });
                             groupList.Insert(1, new GroupCommMetaModel { GroupCommId = 0, GroupName = ViewResources.None });
                         }

@@ -84,8 +84,8 @@
             $.extend(defaultOption, option || {});
 
             var $element = $(element);
-
-            if ($("#" + option.id).length === 0) {
+            var $popup = $("#" + option.id);
+            if ($popup.length === 0 || $popup.hasClass('flat-popup') === false) {
                 $element.append('<div class="right popup-button"></div>');
                 var $blockButton = $element.find(".popup-button");
 

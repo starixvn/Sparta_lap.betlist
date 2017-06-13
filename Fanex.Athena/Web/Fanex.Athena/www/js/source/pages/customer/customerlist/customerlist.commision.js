@@ -1,12 +1,16 @@
 ﻿/*global Site, CustomerList, JSLINQ*/
 /// <reference path="/@JSense.js" />
 define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/popup',
-'./customerlist'],
-    function ($, Site, jqGridAdditional, Popup, CustomerList) {
+'./customerlist', "./customerlist.state"],
+    function ($, Site, jqGridAdditional, Popup, CustomerList, CustomerListState) {
         "use strict";
+
+        var _state;
 
         var _me = {
             initialize: function () {
+                _state = CustomerListState.getState();
+
                 // bind customer button event
                 $('#MoveToGroup').click(function () {
                     _me.showMoveCustomerToGroup();
@@ -80,7 +84,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                 $('#lblMoveToGroupMsg').html("");
                 _me.clearNotification();
 
-                Popup.openPopupWithButton($("#MoveToGroupPopUpTemplate").clone(),
+                Popup.openPopupWithButton($("#MoveToGroupPopUp"),
                     {
                         title: Site.getSingleResource('MoveToGroup'),
                         id: 'MoveToGroupPopUp',
@@ -105,29 +109,33 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
             },
 
             moveCustomerToGroup: function () {
-                var groupid = parseInt($('#GroupListSelect').val(), 10);
-                var checkedCustomers = CustomerList.getCheckedCustomers();
+                var groupid = $('#GroupListSelect').val();
                 
-                var custList = [];
-
-                for (var i = 0; i < checkedCustomers.length; i++) {
-                    var currenntGroupId = Number(checkedCustomers[i].Group);
-                    if (currenntGroupId === 0 || currenntGroupId !== groupid) {
-                        custList.push(checkedCustomers[i].Id);
-                    }
+                //GroupId = - 1 is show all group.
+                if (groupid === "-1") {
+                    _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
+                    return;
                 }
 
-                if (checkedCustomers.length === 0) {
+                var selectedCustomers = _state.selectedCustomers
+
+                if (Object.keys(selectedCustomers).length === 0) {
                     _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
                     return;
                 }
 
-                //GroupId = - 1 is show all group.
-                if (groupid === -1) {
-                    _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
-                    return;
+                var custList = [];
+
+                for (var custId in selectedCustomers) {
+                    if (selectedCustomers.hasOwnProperty(custId)) {
+                        var currentGroupId = selectedCustomers[custId];
+                        if (currentGroupId === 0 || currentGroupId !== groupid) {
+                            custList.push(custId);
+                        }
+                    }
                 }
-                if (checkedCustomers.length > 0 && custList.length === 0) {
+
+                if (custList.length === 0) {
                     _me.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false);
                     return;
                 }
@@ -337,12 +345,8 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                     data: param,
                     url: Site.resolveClientUrl("CustomerAPI/RemoveFromGroupCom"),
                     dataType: "json",
-                    beforeSend: function () {
-                        _me.ajaxStart();
-                    },
-                    complete: function () {
-                        _me.ajaxStop();
-                    },
+                    beforeSend: _me.ajaxStart,
+                    complete: _me.ajaxStop,
                     success: function (result) {
                         if (result.Success) {
                             //removed = true;
