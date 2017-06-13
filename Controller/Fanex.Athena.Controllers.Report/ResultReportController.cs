@@ -359,7 +359,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsParlayPopUp = metalModel.Bettype == ParlayBetType || metalModel.Bettype == SystemParlayBetType,
                 IsPopUp = true,
                 LanguageCode = SessionService.UserSession.Language,
-                EnableCheckScoreCalculated = sportType == SportType.Soccer
+                EnableCheckScoreCalculated = true
             };
 
             if (setting.IsParlayPopUp)
