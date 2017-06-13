@@ -70,6 +70,20 @@
 #LevelListContainer, #OddsGroupListContainer {
     display: none;
     position: absolute;
+    border: 1px solid #969292;
+}
+
+#OddsGroupListContainer{
+    background-color: #fff;
+}
+
+.link {
+    cursor: pointer;
+    border-top: 1px solid $colorBorderTable;
+
+    &:hover{
+        opacity: 0.8;
+    }
 }
 
 /* Index column */
@@ -83,8 +97,8 @@ input[type="checkbox"] + label {
 }
 
 /* Customer Option */
-.custoptionlink{
-    .grid-dropdown-icon{
+.custoptionlink {
+    .grid-dropdown-icon {
         margin-left: 5px;
         font-weight: 900;
         color: #000;
@@ -102,6 +116,7 @@ input[type="checkbox"] + label {
     position: relative;
     text-align: right;
 }
+
 .error-message {
     color: red;
     margin: 15px 5px;

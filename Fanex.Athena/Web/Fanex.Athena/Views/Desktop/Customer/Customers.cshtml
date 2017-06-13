@@ -84,7 +84,7 @@
     {
         @Html.Hidden("NumOfCheckBox", Model.DataList.Count)
     }
-    @{ Html.RenderPartial("~/Views/Customer/ContextMenu.cshtml", Model); }
+    @{ Html.RenderPartial("~/Views/Desktop/Customer/ContextMenu.cshtml", Model); }
     <!--/popup-->
     <input type="hidden" id="IsAllowedCustomerCommission" value="@(Model.IsAllowedCustomerCommission.ToString())" />
     <input type="hidden" id="ProductAccess" value="@(Model.ProductAccess.ToJson())" />

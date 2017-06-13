@@ -108,6 +108,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                 return;
             }
 
+            var oldScrollTop = $(".ui-jqgrid-bdiv").scrollTop();
             jqGridAdditional.clearGrid("ReportGrid");
             $("#num-of-customer").html(response.TotalRows + " ");
 
@@ -133,13 +134,12 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             }
 
             $("#CheckAll").prop("checked", _state.checkedAllRows);
+            _me.resizeGrid();
 
             if (keepScrollPosition === true) {
-                var oldScrollTop = $(".ui-jqgrid-bdiv").scrollTop();
                 $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
             }
 
-            _me.resizeGrid();
             Site.unBlockUI();
 
             _me.addGridScrollEventToHidePopups();
@@ -213,6 +213,62 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                     colIndex++;
                 }
             }
+        },
+
+        showGridDropdownById: function (listId, $context) {
+            var $popup = $("#" + listId);
+            var position = $context.offset();
+            $popup.css({
+                top: position.top + $context.outerHeight() + 1,
+                left: position.left,
+                width: $context.outerWidth()
+            });
+
+            var custId = $context.attr("data-custid");
+            if ($popup.attr("custid") === custId) {
+                $popup.fadeToggle();
+            }
+            else {
+                var $customerOption = $("#cust-option-link-" + custId);
+                $popup.attr("custid", custId);
+                $popup.attr("externalid", $customerOption.attr("externalid"));
+                $popup.attr("systemid", $customerOption.attr("systemid"));
+                $popup.fadeIn();
+            }
+
+            return false;
+        },
+
+        updateGridData: function (option) {
+            _me.closePopup(option.popUpSelector);
+            var oldValue = option.oldValue;
+            var newValue = option.newValue;
+
+            if (oldValue === newValue || !window.confirm(option.confirmMessage)) {
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                data: option.param,
+                url: option.url,
+                dataType: "json",
+                success: function (data) {
+                    if (data.Success) {
+                        var rowIndex = (option.$context.closest("tr").attr("id") - 1) % _state.pagingOption.pagesize;
+                        var dataItem = _state.cachedData.Data[rowIndex];
+                        dataItem[option.dataField] = newValue;
+                        _me.bindData(_state.cachedData, true);
+                    }
+                    else {
+                        alert(data.ErrorMessage);
+                    }
+                }
+            });
+        },
+
+        closePopup: function (popUpSelector) {
+            $(popUpSelector).fadeOut();
         }
     }
 

@@ -9,94 +9,42 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
 
             $("#report-content").on("click", ".oddsGroup", function () {
                 _$oddsGroupCell = $(this);
-                _me.viewList(_$oddsGroupCell);
+                _me.showGridDropdown();
             });
 
-            $("#OddsGroupListContainer .oddsGroupLink").click(function () {
+            $("#OddsGroupListContainer").on("click", ".oddsGroupLink", function () {
                 var group = $(this).data("group");
-                _me.setValue(_$oddsGroupCell, group);
+                _me.setValue(group);
             });
         },
 
-        viewList: function ($context) {
-            if ($context.hasClass("disabled")) {
+        showGridDropdown: function () {
+            if (_$oddsGroupCell.hasClass("disabled")) {
                 return;
             }
 
-            var custId = $context.attr("data-custid");
-            var $popup = $("#OddsGroupListContainer");
-            var position = $context.offset();
-            $popup.css({
-                top: position.top + $context.height(),
-                left: position.left,
-                width: $context.width()
-            });
-
-            if ($popup.attr("custid") === custId) {
-                $popup.toggle();
-            }
-            else {
-                var $customerOption = $("#cust-option-link-" + custId);
-                $popup.attr("custid", custId);
-                $popup.attr("externalid", $customerOption.attr("externalid"));
-                $popup.attr("systemid", $customerOption.attr("systemid"));
-                $popup.show();
-            }
-
-            return false;
+            CustomerListService.showGridDropdownById("OddsGroupListContainer", _$oddsGroupCell);
         },
 
-        setValue: function ($listItem, oddsGroup) {
-            var oldValue = $listItem.data("group");
-            if (oldValue === oddsGroup) {
-                _me.close();
-                return;
-            }
+        setValue: function (oddsGroup) {
+            var confirmMessage = Site.getSingleResource('AlertSetOddsGroupForCustomerMsg');
+            confirmMessage = confirmMessage.replace("{0}", oddsGroup);
 
-            var message = Site.getSingleResource('AlertSetOddsGroupForCustomerMsg');
-            message = message.replace("{0}", oddsGroup);
-            if (!confirm(message)) {
-                return;
-            }
-
-            var custId = $listItem.data("custid");
-            $listItem.find(".grid-dropdown-label").html(oddsGroup === 0 ? Site.getSingleResource("None") : oddsGroup)
-                                                    .attr('class', 'group-' + oddsGroup);
-
-            var url = Site.resolveClientUrl("CustomerAPI/UpdateOddsGroup");
-            var param = {
-                custId: custId,
-                oddsGroup: oddsGroup
+            var option = {
+                dataField: "OddsGroup",
+                popUpSelector: "#OddsGroupListContainer",
+                $context: _$oddsGroupCell,
+                param: {
+                    custId: _$oddsGroupCell.data("custid"),
+                    oddsGroup: oddsGroup
+                },
+                url: Site.resolveClientUrl("CustomerAPI/UpdateOddsGroup"),
+                oldValue: _$oddsGroupCell.data("group"),
+                newValue: oddsGroup,
+                confirmMessage: confirmMessage
             };
 
-            $.ajax({
-                type: "POST",
-                data: param,
-                url: url,
-                dataType: "json",
-                success: function (data) {
-                    if (data.Success) {
-                        var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
-                        _state.cacheData.Data[rowIndex].OddsGroup = oddsGroup;
-                        CustomerService.bindData(_state.cacheData, true);
-                    }
-                    else {
-                        $listItem.find(".grid-dropdown-label").html(oldValue)
-                            .attr('class', 'group-' + oldValue);
-                        alert(data.ErrorMessage);
-                    }
-                    closeOddsGroupList();
-                },
-                error: function () {
-                    $listItem.find(".grid-dropdown-label").html(oldValue)
-                            .attr('class', 'group-' + oldValue);
-                    _me.close();
-                }
-            });
-        },
-
-        close: function () {
-            $("#OddsGroupListContainer").fadeOut();
+            CustomerListService.updateGridData(option);
         }
     };
 
