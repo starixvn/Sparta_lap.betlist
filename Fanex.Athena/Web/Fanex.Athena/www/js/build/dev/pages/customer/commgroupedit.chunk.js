@@ -1,17 +1,17 @@
 webpackJsonp([49],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(233);
+	module.exports = __webpack_require__(244);
 
 
-/***/ },
+/***/ }),
 
-/***/ 231:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 242:
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(232)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(243)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, ColorPicker) {
 	         "use strict";
 	
 	         function initialize(titleResource) {
@@ -172,11 +172,11 @@ webpackJsonp([49],{
 	             var isDefault = $("#IsDefaultGroup").is(":checked");
 	             var defaultGroupId = parseInt($('#DefaultGroupId').val());
 	             var currentGroupId = parseFloat($('#GroupCommId').val());
-	             $("#IsDefaultGroup", formId).val(isDefault);
-	             $("#IsResetDefault", formId).val(false);
+	             $("#IsDefaultGroup").val(isDefault);
+	             $("#IsResetDefault").val(false);
 	             if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
 	                 showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
-	                     $("#IsResetDefault", formId).val(true);
+	                     $("#IsResetDefault").val(true);
 	                     $(formId).submit();
 	                 });
 	             } else {
@@ -196,7 +196,7 @@ webpackJsonp([49],{
 	             if (isParentSameOrigin()) {
 	                 $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
 	                 $("li>#MenuItem43", window.parent.document).parent().addClass("active");
-	                 _me.setPageTitle("LRF - " + Site.getSingleResource("CustomerList"));
+	                 _me.setPageTitle(Site.getSingleResource("CustomerList"));
 	             }
 	             _me.goToSite("Customer/CustomerList", "?groupId=" + groupCommId);
 	         }
@@ -238,15 +238,9 @@ webpackJsonp([49],{
 	         }
 	
 	         function initColorPicker() {
-	             var currentGroupColor = $("#GroupColor").val();
-	             $("#showInput")
-	                 .val(currentGroupColor)
-	                 .colorPicker({ 
-	                     transparency: true,
-	                     onColorChange : function(id, newValue) { 
-	                         $("#GroupColor").val(newValue);
-	                     }
-	                 });
+	             $("#GroupColor").colorPicker({
+	                 transparency: true
+	             });
 	         }
 	
 	         var _me = {
@@ -262,10 +256,10 @@ webpackJsonp([49],{
 	         return _me;
 	     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 232:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 243:
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/**
 	 * Really Simple Color Picker in jQuery
@@ -303,7 +297,7 @@ webpackJsonp([49],{
 	        activePalette,
 	        cItterate       = 0,
 	        templates       = {
-	            control: $('<div class="colorPicker-container"><div class="colorPicker-preview"></div><div class="colorPicker-handler">▼</div></div>'),
+	            control: $('<div class="colorPicker-container"><div class="colorPicker-preview"></div><div class="colorPicker-handler"><span class="colorPicker-icon-arrow"></span></div></div>'),
 	            palette : $('<div id="colorPicker_palette" class="colorPicker-palette" />'),
 	            swatch  : $('<div class="colorPicker-swatch">&nbsp;</div>'),
 	            hexLabel: $('<label for="colorPicker_hex">Hex</label>'),
@@ -623,30 +617,32 @@ webpackJsonp([49],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 233:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 244:
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(234)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
 	    "use strict";
 	
 	    $(CustomerCommGroupEdit.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 234:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 245:
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(231)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(242)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
 	         "use strict";
 	
+	         var FORM_SELECTOR = "#customer-comm-group-edit";
+	         var TITLE = "EditGroup";
 	         var _originalGroupName = "";
 	
 	         function initialize() {
-	             CommGroupDetail.initialize("EditGroup");
+	             CommGroupDetail.initialize(TITLE);
 	
 	             _originalGroupName = $("#OriginalGroupName").val();
 	             _me.initEvent();
@@ -654,16 +650,16 @@ webpackJsonp([49],{
 	
 	         function initEvent() {
 	             $("#Validate").click(function () {
-	                 var groupName = $("#GroupName").val();
+	                 var $groupName = $("#GroupName");
 	
-	                 if (groupName === _originalGroupName) {
-	                     $("#GroupName").removeClass("invalid");
-	                     $("#GroupName").addClass("valid");
+	                 if ($groupName.val() === _originalGroupName) {
+	                     $groupName.removeClass("invalid");
+	                     $groupName.addClass("valid");
 	                     $("#Add").prop("disabled", false);
 	                     return;
 	                 }
 	
-	                 CommGroupDetail.checkAvailableGroup(groupName);
+	                 CommGroupDetail.checkAvailableGroup($groupName.val());
 	             });
 	
 	             $("#CustList").click(function () {
@@ -671,7 +667,7 @@ webpackJsonp([49],{
 	             });
 	
 	             $("#Submit").click(function () {
-	                 CommGroupDetail.submit("#customer-comm-group-edit");
+	                 CommGroupDetail.submit(FORM_SELECTOR);
 	             });
 	         }         
 	
@@ -683,7 +679,7 @@ webpackJsonp([49],{
 	         return _me;
 	     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=commgroupedit.chunk.js.map

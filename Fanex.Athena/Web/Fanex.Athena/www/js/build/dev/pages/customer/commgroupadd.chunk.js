@@ -1,33 +1,36 @@
 webpackJsonp([48],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(229);
+	module.exports = __webpack_require__(240);
 
 
-/***/ },
+/***/ }),
 
-/***/ 229:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 240:
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(230)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupAdd) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(241)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupAdd) {
 	    "use strict";
 	
 	    $(CustomerCommGroupAdd.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 230:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 241:
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(231)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(242)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
 	         "use strict";
 	
+	         var FORM_SELECTOR = "#customer-comm-group-add";
+	         var TITLE = "CreateNewGroup";
+	
 	         function initialize() {
-	             CommGroupDetail.initialize("CreateNewGroup");
+	             CommGroupDetail.initialize(TITLE);
 	
 	             _me.initEvent();
 	         }
@@ -39,7 +42,7 @@ webpackJsonp([48],{
 	             });
 	
 	             $("#Submit").click(function () {
-	                 CommGroupDetail.submit("#customer-comm-group-add");
+	                 CommGroupDetail.submit(FORM_SELECTOR);
 	             });
 	         }
 	
@@ -51,12 +54,12 @@ webpackJsonp([48],{
 	         return _me;
 	     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 231:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 242:
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(232)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(243)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, ColorPicker) {
 	         "use strict";
 	
 	         function initialize(titleResource) {
@@ -217,11 +220,11 @@ webpackJsonp([48],{
 	             var isDefault = $("#IsDefaultGroup").is(":checked");
 	             var defaultGroupId = parseInt($('#DefaultGroupId').val());
 	             var currentGroupId = parseFloat($('#GroupCommId').val());
-	             $("#IsDefaultGroup", formId).val(isDefault);
-	             $("#IsResetDefault", formId).val(false);
+	             $("#IsDefaultGroup").val(isDefault);
+	             $("#IsResetDefault").val(false);
 	             if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
 	                 showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
-	                     $("#IsResetDefault", formId).val(true);
+	                     $("#IsResetDefault").val(true);
 	                     $(formId).submit();
 	                 });
 	             } else {
@@ -241,7 +244,7 @@ webpackJsonp([48],{
 	             if (isParentSameOrigin()) {
 	                 $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
 	                 $("li>#MenuItem43", window.parent.document).parent().addClass("active");
-	                 _me.setPageTitle("LRF - " + Site.getSingleResource("CustomerList"));
+	                 _me.setPageTitle(Site.getSingleResource("CustomerList"));
 	             }
 	             _me.goToSite("Customer/CustomerList", "?groupId=" + groupCommId);
 	         }
@@ -283,15 +286,9 @@ webpackJsonp([48],{
 	         }
 	
 	         function initColorPicker() {
-	             var currentGroupColor = $("#GroupColor").val();
-	             $("#showInput")
-	                 .val(currentGroupColor)
-	                 .colorPicker({ 
-	                     transparency: true,
-	                     onColorChange : function(id, newValue) { 
-	                         $("#GroupColor").val(newValue);
-	                     }
-	                 });
+	             $("#GroupColor").colorPicker({
+	                 transparency: true
+	             });
 	         }
 	
 	         var _me = {
@@ -307,10 +304,10 @@ webpackJsonp([48],{
 	         return _me;
 	     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 232:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 243:
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/**
 	 * Really Simple Color Picker in jQuery
@@ -348,7 +345,7 @@ webpackJsonp([48],{
 	        activePalette,
 	        cItterate       = 0,
 	        templates       = {
-	            control: $('<div class="colorPicker-container"><div class="colorPicker-preview"></div><div class="colorPicker-handler">▼</div></div>'),
+	            control: $('<div class="colorPicker-container"><div class="colorPicker-preview"></div><div class="colorPicker-handler"><span class="colorPicker-icon-arrow"></span></div></div>'),
 	            palette : $('<div id="colorPicker_palette" class="colorPicker-palette" />'),
 	            swatch  : $('<div class="colorPicker-swatch">&nbsp;</div>'),
 	            hexLabel: $('<label for="colorPicker_hex">Hex</label>'),
@@ -668,7 +665,7 @@ webpackJsonp([48],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=commgroupadd.chunk.js.map

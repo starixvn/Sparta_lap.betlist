@@ -1,19 +1,19 @@
 webpackJsonp([54],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(261);
+	module.exports = __webpack_require__(272);
 
 
-/***/ },
+/***/ }),
 
-/***/ 205:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 216:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
 	///
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(206)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(217)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
 	    "use strict";
 	    var jqGridAdditional = (function () {
 	        return {
@@ -30,7 +30,7 @@ webpackJsonp([54],{
 	
 	                var gridTop = $bdiv.offset().top;
 	                var pagingHeight = $(".paging:visible").length ? $(".paging:visible").height() : 0;
-	                pagingHeight = pagingHeight || $("#paging:visible").length ? $("#paging:visible").height() : 0;
+	                pagingHeight = pagingHeight || ($("#paging:visible").length ? $("#paging:visible").height() : 0);
 	                var footerHeight = $(".ui-jqgrid-sdiv:visible").length ? $(".ui-jqgrid-sdiv:visible").height() : 0;
 	                var jqgridPagerHeight = $(".ui-jqgrid-pager:visible").length ? $(".ui-jqgrid-pager:visible").outerHeight(true) : 0;
 	                var footerSite = 18;
@@ -400,10 +400,10 @@ webpackJsonp([54],{
 	    return jqGridAdditional;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 206:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 217:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/MikeMcl/bignumber.js/LICENCE */
 	
@@ -3144,10 +3144,10 @@ webpackJsonp([54],{
 	})(this);
 
 
-/***/ },
+/***/ }),
 
-/***/ 208:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 219:
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
 	/**
@@ -3322,10 +3322,10 @@ webpackJsonp([54],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 209:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 220:
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* 
 	* jqGrid  4.6.0 - jQuery Grid 
@@ -3673,13 +3673,13 @@ webpackJsonp([54],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 253:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 254:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// require option properties: suggestionDropdown, url, target
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(254)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(255)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	    "use strict";
 	
 	    var mainOption = {
@@ -3763,10 +3763,10 @@ webpackJsonp([54],{
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 254:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 255:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
 	
@@ -3779,6 +3779,8 @@ webpackJsonp([54],{
 	    }
 	
 	}(this, function ($) {
+	
+	    var noop = function () {};
 	
 	    var template = function (text) {
 	        var matcher = new RegExp('<%=([\\s\\S]+?)%>|<%([\\s\\S]+?)%>|$', 'g');
@@ -3884,7 +3886,7 @@ webpackJsonp([54],{
 	            el: '',
 	            tagName: 'ul',
 	            className: 'ac-appender',
-	            tagTemplate: '<div class="chip" data-id="<%= item.id %>" data-text="<% item.text %>"><%= item.text %>(<%= item.id %>)<i class="material-icons close">close</i></div>'
+	            tagTemplate: '<div class="chip" data-id="<%= item.id %>" data-text="<%= item.text %>"><%= item.text %>(<%= item.id %>)<i class="material-icons close">close</i></div>'
 	        },
 	        dropdown: {
 	            el: '',
@@ -3893,13 +3895,10 @@ webpackJsonp([54],{
 	            itemTemplate: '<li class="ac-item" data-id="<%= item.id %>" data-text="<%= item.text %>"><a href="javascript:void(0)"><%= item.text %></a></li>',
 	            noItem: ''
 	        },
-	        handlers: {
-	            'setValue': '.ac-dropdown .ac-item',
-	            '.ac-appender .ac-tag .close': 'remove'
-	        },
 	        getData: function (value, callback) {
 	            callback(value, []);
 	        },
+	        onSelect: noop,
 	        ignoreCase: true,
 	        throttling: true
 	    };
@@ -4107,7 +4106,7 @@ webpackJsonp([54],{
 	                }
 	
 	                if (self.options.hidden.inputName) {
-	                    self.$el.attr('name', self.options.hidden.inputName);
+	                    self.$hidden.attr('name', self.options.hidden.inputName);
 	                }
 	
 	                if (self.options.hidden.required) {
@@ -4147,7 +4146,7 @@ webpackJsonp([54],{
 	            if (self.value.length >= self.options.multiple.maxSize) {
 	
 	                if ('function' === typeof self.options.multiple.onExceed) {
-	                    self.options.multiple.onExceed.call(this, self.options.multiple.maxSize);
+	                    self.options.multiple.onExceed.call(this, self.options.multiple.maxSize, item);
 	                }
 	
 	                return false;
@@ -4208,6 +4207,10 @@ webpackJsonp([54],{
 	            if (self.options.hidden.enable) {
 	                self.$hidden.val(item.id);
 	            }
+	
+	            if ('function' === typeof self.options.onSelect) {
+	                self.options.onSelect.call(self, item);
+	            }
 	        }
 	    };
 	
@@ -4229,14 +4232,14 @@ webpackJsonp([54],{
 	}));
 
 
-/***/ },
+/***/ }),
 
-/***/ 258:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 269:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7),
-	    __webpack_require__(205), __webpack_require__(208), __webpack_require__(209)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+	    __webpack_require__(216), __webpack_require__(219), __webpack_require__(220)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
 	        var GRID_ID = "ReportGrid";
 	        var _ajaxRequest = null;
 	
@@ -4322,24 +4325,24 @@ webpackJsonp([54],{
 	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 261:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 272:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(262)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LoginLog) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(273)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LoginLog) {
 	    $(LoginLog.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 262:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 273:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(253), __webpack_require__(263), __webpack_require__(258)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, LoginLogOption, CustomerLog) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(254), __webpack_require__(274), __webpack_require__(269)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, LoginLogOption, CustomerLog) {
 	        var _me = {
 	            initialize: function () {
 	                CustomerLog.initialize();
@@ -4383,10 +4386,10 @@ webpackJsonp([54],{
 	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 263:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 274:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
@@ -4461,7 +4464,7 @@ webpackJsonp([54],{
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=loginlog.chunk.js.map

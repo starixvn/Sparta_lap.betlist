@@ -14950,8 +14950,8 @@
 	            $.extend(defaultOption, option || {});
 	
 	            var $element = $(element);
-	
-	            if ($("#" + option.id).length === 0) {
+	            var $popup = $("#" + option.id);
+	            if ($popup.length === 0 || $popup.hasClass('flat-popup') === false) {
 	                $element.append('<div class="right popup-button"></div>');
 	                var $blockButton = $element.find(".popup-button");
 	
@@ -15018,7 +15018,8 @@
 	                    $container.append($blockBody);
 	                }
 	                
-	                if ($("#" + options.id).length === 0) {
+	                var $popupElement = $("#" + options.id);
+	                if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
 	                    $self.attr("id", options.id);
 	                    $self.addClass("flat-popup " + options.className);
 	                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");

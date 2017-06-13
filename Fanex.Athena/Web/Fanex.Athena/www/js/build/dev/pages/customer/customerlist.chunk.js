@@ -1,19 +1,19 @@
 webpackJsonp([51],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(237);
+	module.exports = __webpack_require__(248);
 
 
-/***/ },
+/***/ }),
 
-/***/ 205:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 216:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
 	///
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(206)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(217)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
 	    "use strict";
 	    var jqGridAdditional = (function () {
 	        return {
@@ -30,7 +30,7 @@ webpackJsonp([51],{
 	
 	                var gridTop = $bdiv.offset().top;
 	                var pagingHeight = $(".paging:visible").length ? $(".paging:visible").height() : 0;
-	                pagingHeight = pagingHeight || $("#paging:visible").length ? $("#paging:visible").height() : 0;
+	                pagingHeight = pagingHeight || ($("#paging:visible").length ? $("#paging:visible").height() : 0);
 	                var footerHeight = $(".ui-jqgrid-sdiv:visible").length ? $(".ui-jqgrid-sdiv:visible").height() : 0;
 	                var jqgridPagerHeight = $(".ui-jqgrid-pager:visible").length ? $(".ui-jqgrid-pager:visible").outerHeight(true) : 0;
 	                var footerSite = 18;
@@ -400,10 +400,10 @@ webpackJsonp([51],{
 	    return jqGridAdditional;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 206:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 217:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/MikeMcl/bignumber.js/LICENCE */
 	
@@ -3144,10 +3144,10 @@ webpackJsonp([51],{
 	})(this);
 
 
-/***/ },
+/***/ }),
 
-/***/ 208:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 219:
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
 	/**
@@ -3322,10 +3322,10 @@ webpackJsonp([51],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 209:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 220:
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* 
 	* jqGrid  4.6.0 - jQuery Grid 
@@ -3673,10 +3673,10 @@ webpackJsonp([51],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 228:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 239:
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
 	"use strict";
@@ -3924,13 +3924,13 @@ webpackJsonp([51],{
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ },
+/***/ }),
 
-/***/ 237:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 248:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(238), __webpack_require__(243), __webpack_require__(240), __webpack_require__(247)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerListFilter, CustomerListGrid, CustomerListService, CustomerComm) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(249), __webpack_require__(256), __webpack_require__(251), __webpack_require__(260)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerListFilter, CustomerListGrid, CustomerListService, CustomerComm) {
 	        $(document).ready(function () {
 	            Site.initialize();
 	            CustomerListService.initialize();
@@ -3948,18 +3948,22 @@ webpackJsonp([51],{
 	        });
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 238:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 249:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(239), __webpack_require__(240)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(250), __webpack_require__(251), __webpack_require__(254)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService, AutoComplete) {
 	    var _state;
 	
 	    var _me = {
 	        initialize: function () {
 	            _state = CustomerListState.getState();
+	            AutoComplete.initialize({
+	                url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
+	                target: "#Username"
+	            });
 	            _me.initEvent();
 	        },
 	
@@ -4008,7 +4012,7 @@ webpackJsonp([51],{
 	                onCheck: function () {
 	                    var checkedItems = $("#grid-columns-multiselect").multiSelect("getCheckedItems");
 	                    if (checkedItems.length === 0) {
-	                        $("#SubmitButtonComm").prop("disabled", true);
+	                        $("#SubmitButton").prop("disabled", true);
 	                        $("#grid-columns-multiselect-null").removeClass("hide");
 	                        $("#grid-columns-option-container input[type=checkbox]:checked").prop("checked", false);
 	                    }
@@ -4017,7 +4021,7 @@ webpackJsonp([51],{
 	                        for (var i = 0; i < checkedItems.length; i++) {
 	                            $('#grid-columns-option-container input#' + checkedItems[i]).prop("checked", true);
 	                        }
-	                        $("#SubmitButtonComm").prop("disabled", false);
+	                        $("#SubmitButton").prop("disabled", false);
 	                        $("#grid-columns-multiselect-null").addClass("hide");
 	                    }
 	                }
@@ -4066,11 +4070,11 @@ webpackJsonp([51],{
 	                onCheck: function () {
 	                    var checkedItems = $("#odds-group-multiselect").multiSelect("getCheckedItems");
 	                    if (checkedItems.length === 0) {
-	                        $("#SubmitButtonComm").prop("disabled", true);
+	                        $("#SubmitButton").prop("disabled", true);
 	                        $("#odds-group-multiselect-null").removeClass("hide");
 	                    }
 	                    else {
-	                        $("#SubmitButtonComm").prop("disabled", false);
+	                        $("#SubmitButton").prop("disabled", false);
 	                        $("#odds-group-multiselect-null").addClass("hide");
 	                    }
 	                }
@@ -4081,10 +4085,10 @@ webpackJsonp([51],{
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 239:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 250:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
@@ -4121,14 +4125,14 @@ webpackJsonp([51],{
 	    };
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 240:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 251:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(241), __webpack_require__(205), __webpack_require__(242), __webpack_require__(239),
-	    __webpack_require__(208), __webpack_require__(209), __webpack_require__(228)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(252), __webpack_require__(216), __webpack_require__(253), __webpack_require__(250),
+	    __webpack_require__(219), __webpack_require__(220), __webpack_require__(239)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
 	    var _POPUP_LIST = ["#view-cust-option", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
 	    var _isAllowedCustomerCommission;
 	    var _productAccess;
@@ -4211,7 +4215,7 @@ webpackJsonp([51],{
 	            data.PageSize = _state.pagingOption.pagesize;
 	            data.CurrencyId = $("#CurrencyId").val();
 	            data.SpecialLevel = $("#special-level-list-search").val();
-	            data.Username = Site.asNull($("#txtUsername").val());
+	            data.Username = Site.asNull($("#Username").val());
 	            data.CurrencyName = $("#CurrencyName").val();
 	            data.BaFilter = $("#BAFilterOption").val();
 	            data.GroupCommId = $("#DdlGroupCommId").val();
@@ -4235,6 +4239,7 @@ webpackJsonp([51],{
 	                return;
 	            }
 	
+	            var oldScrollTop = $(".ui-jqgrid-bdiv").scrollTop();
 	            jqGridAdditional.clearGrid("ReportGrid");
 	            $("#num-of-customer").html(response.TotalRows + " ");
 	
@@ -4260,13 +4265,12 @@ webpackJsonp([51],{
 	            }
 	
 	            $("#CheckAll").prop("checked", _state.checkedAllRows);
+	            _me.resizeGrid();
 	
 	            if (keepScrollPosition === true) {
-	                var oldScrollTop = $(".ui-jqgrid-bdiv").scrollTop();
 	                $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
 	            }
 	
-	            _me.resizeGrid();
 	            Site.unBlockUI();
 	
 	            _me.addGridScrollEventToHidePopups();
@@ -4340,22 +4344,78 @@ webpackJsonp([51],{
 	                    colIndex++;
 	                }
 	            }
+	        },
+	
+	        showGridDropdownById: function (listId, $context) {
+	            var $popup = $("#" + listId);
+	            var position = $context.offset();
+	            $popup.css({
+	                top: position.top + $context.outerHeight() + 1,
+	                left: position.left,
+	                width: $context.outerWidth()
+	            });
+	
+	            var custId = $context.attr("data-custid");
+	            if ($popup.attr("custid") === custId) {
+	                $popup.fadeToggle();
+	            }
+	            else {
+	                var $customerOption = $("#cust-option-link-" + custId);
+	                $popup.attr("custid", custId);
+	                $popup.attr("externalid", $customerOption.attr("externalid"));
+	                $popup.attr("systemid", $customerOption.attr("systemid"));
+	                $popup.fadeIn();
+	            }
+	
+	            return false;
+	        },
+	
+	        updateGridData: function (option) {
+	            _me.closePopup(option.popUpSelector);
+	            var oldValue = option.oldValue;
+	            var newValue = option.newValue;
+	
+	            if (oldValue === newValue || !window.confirm(option.confirmMessage)) {
+	                return;
+	            }
+	
+	            $.ajax({
+	                type: "POST",
+	                data: option.param,
+	                url: option.url,
+	                dataType: "json",
+	                success: function (data) {
+	                    if (data.Success) {
+	                        var rowIndex = (option.$context.closest("tr").attr("id") - 1) % _state.pagingOption.pagesize;
+	                        var dataItem = _state.cachedData.Data[rowIndex];
+	                        dataItem[option.dataField] = newValue;
+	                        _me.bindData(_state.cachedData, true);
+	                    }
+	                    else {
+	                        alert(data.ErrorMessage);
+	                    }
+	                }
+	            });
+	        },
+	
+	        closePopup: function (popUpSelector) {
+	            $(popUpSelector).fadeOut();
 	        }
 	    }
 	
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 241:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 252:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site, jqGridAdditional */
 	/*exported CustomersOption */
 	/// <reference path="/@JSense.js" />
 	
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(216)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
 	        "use strict";
 	
 	        var indexColumn = {
@@ -4432,8 +4492,8 @@ webpackJsonp([51],{
 	                    return jqGridAdditional.formatDecimal(cellValue);
 	                }
 	                else {
-	                    return "<a style='color: #1E1EEB' href=\"javascript:CustomerListCustOption.viewRunningBetlist(" +
-	                        rowObject.CustId + ",'" + rowObject.SystemId + "','" + rowObject.ExternalId + "')\">"
+	                    return "<a href='javascript:;' class='pendingFunds' " +
+	                    "data-custid='" + rowObject.CustId + "' data-systemid='" + rowObject.SystemId + "' data-externalid='" + rowObject.ExternalId + "'>"
 	                        + jqGridAdditional.formatDecimal(cellValue) + "</a>";
 	                }
 	            }
@@ -4560,7 +4620,6 @@ webpackJsonp([51],{
 	                gridview: true,
 	                footerrow: false,
 	                userDataOnFooter: true,
-	                scroll: 1,
 	                rowNum: 40,
 	                cmTemplate: { title: true }, //enable tooltip
 	                userData: [],
@@ -4647,10 +4706,10 @@ webpackJsonp([51],{
 	        return me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 242:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 253:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
@@ -4825,13 +4884,573 @@ webpackJsonp([51],{
 	    return me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 243:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 254:
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// require option properties: suggestionDropdown, url, target
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(255)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	    "use strict";
+	
+	    var mainOption = {
+	        suggestionDropdown: '#suggestionDropdown',
+	        url: null,
+	        target: null
+	    };
+	
+	    var _autoComplete;
+	
+	    var _me = {
+	        initialize: function (option) {
+	            _me.initAutoComplete(option);
+	            _me.initEvent();
+	        },
+	
+	        initEvent: function () {
+	            $('body').click(function () {
+	                _me.hideDropdown.call(_autoComplete);
+	            });
+	
+	            $(mainOption.target).keypress(function (e) {
+	                if (e.keyCode === 13) {
+	                    _me.hideDropdown.call(_autoComplete);
+	                }
+	            });
+	        },
+	
+	        initAutoComplete: function (option) {
+	            $.extend(mainOption, option);
+	            if (!mainOption.url || !mainOption.target) {
+	                throw Error("Missing data in option");
+	            }
+	
+	            _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
+	                ignoreCase: false,
+	                multiple: {
+	                    enable: false
+	                },
+	                dropdown: {
+	                    el: mainOption.suggestionDropdown
+	                },
+	                getData: function (value, callback) {
+	                    var url = mainOption.url + "?query=" + value;
+	
+	                    $.ajax({
+	                        type: "GET",
+	                        dataType: "json",
+	                        url: url,
+	                        success: function (response) {
+	                            var suggestions = response.suggestions;
+	
+	                            if (suggestions && suggestions.length > 0) {
+	                                var data = suggestions.map(function (item) {
+	                                    return { id: item, text: item };
+	                                });
+	
+	                                callback(value, data);
+	                            }
+	                        }
+	                    });
+	                }
+	            });
+	
+	            _me.updateWidthOfSuggestionDropdown();
+	        },
+	
+	        updateWidthOfSuggestionDropdown: function () {
+	            var $autoCompleteTarget = $(mainOption.target);
+	            var $suggestionDropdown = $(mainOption.suggestionDropdown);
+	            if ($suggestionDropdown.width() !== $autoCompleteTarget.width()) {
+	                $suggestionDropdown.width($autoCompleteTarget.width());
+	            }
+	        },
+	
+	        hideDropdown: function () {
+	            this.$dropdown.html('').hide();
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 255:
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
+	
+	    if(typeof module === 'object' && module.exports) {
+	        module.exports = factory(__webpack_require__(1));
+	    } else if(true) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else {
+	        factory(root.jQuery);
+	    }
+	
+	}(this, function ($) {
+	
+	    var noop = function () {};
+	
+	    var template = function (text) {
+	        var matcher = new RegExp('<%=([\\s\\S]+?)%>|<%([\\s\\S]+?)%>|$', 'g');
+	
+	        var escapes = {
+	            "'": "'",
+	            '\\': '\\',
+	            '\r': 'r',
+	            '\n': 'n',
+	            '\u2028': 'u2028',
+	            '\u2029': 'u2029'
+	        };
+	
+	        var escapeRegExp = /\\|'|\r|\n|\u2028|\u2029/g;
+	
+	        var escapeChar = function(match) {
+	            return '\\' + escapes[match];
+	        };
+	
+	        var index = 0;
+	        var source = "__p+='";
+	
+	        text.replace(matcher, function(match, interpolate, evaluate, offset) {
+	            source += text.slice(index, offset).replace(escapeRegExp, escapeChar);
+	            index = offset + match.length;
+	
+	            if (interpolate) {
+	                source += "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'";
+	            } else if (evaluate) {
+	                source += "';\n" + evaluate + "\n__p+='";
+	            }
+	
+	            return match;
+	        });
+	
+	        source += "';\n";
+	        source = 'with(obj||{}){\n' + source + '}\n';
+	        source = "var __t,__p='',__j=Array.prototype.join," +
+	            "print=function(){__p+=__j.call(arguments,'');};\n" +
+	            source + 'return __p;\n';
+	
+	        var render;
+	
+	        try {
+	            render = new Function('obj', source);
+	        } catch (e) {
+	            e.source = source;
+	            throw e;
+	        }
+	
+	        var _template = function(data) {
+	            return render.call(this, data);
+	        };
+	
+	        _template.source = 'function(obj){\n' + source + '}';
+	
+	        return _template;
+	    };
+	
+	    var Autocomplete = function (el, options) {
+	        this.options = $.extend(true, {}, Autocomplete.defaults, options);
+	        this.$el = $(el);
+	        this.$wrapper = this.$el.parent();
+	        this.compiled = {};
+	        this.$dropdown = null;
+	        this.$appender = null;
+	        this.$hidden = null;
+	        this.resultCache = {};
+	        this.value = '';
+	        this.initialize();
+	    };
+	
+	    Autocomplete.defaults = {
+	        cacheable: true,
+	        limit: 10,
+	        multiple: {
+	            enable: false,
+	            maxSize: 4,
+	            onExist: function (item) {
+	                Materialize.toast('Tag: ' + item.text + '(' + item.id + ') is already added!', 2000);
+	            },
+	            onExceed: function (maxSize, item) {
+	                Materialize.toast('Can\'t add over ' + maxSize + ' tags!', 2000);
+	            },
+	            onAppend: function (item) {
+	                var self = this;
+	                self.$el.removeClass('active');
+	                self.$el.click();
+	            },
+	            onRemove: function (item) {
+	                var self = this;
+	                self.$el.removeClass('active');
+	                self.$el.click();
+	            }
+	        },
+	        hidden: {
+	            enable: true,
+	            el: '',
+	            inputName: '',
+	            required: false
+	        },
+	        appender: {
+	            el: '',
+	            tagName: 'ul',
+	            className: 'ac-appender',
+	            tagTemplate: '<div class="chip" data-id="<%= item.id %>" data-text="<%= item.text %>"><%= item.text %>(<%= item.id %>)<i class="material-icons close">close</i></div>'
+	        },
+	        dropdown: {
+	            el: '',
+	            tagName: 'ul',
+	            className: 'ac-dropdown',
+	            itemTemplate: '<li class="ac-item" data-id="<%= item.id %>" data-text="<%= item.text %>"><a href="javascript:void(0)"><%= item.text %></a></li>',
+	            noItem: ''
+	        },
+	        getData: function (value, callback) {
+	            callback(value, []);
+	        },
+	        onSelect: noop,
+	        ignoreCase: true,
+	        throttling: true
+	    };
+	
+	    Autocomplete.prototype = {
+	        constructor: Autocomplete,
+	        initialize: function () {
+	            var self = this;
+	            var timer;
+	            var fetching = false;
+	
+	            function getItemsHtml (list) {
+	                var itemsHtml = '';
+	
+	                if (!list.length) {
+	                    return self.options.dropdown.noItem;
+	                }
+	
+	                list.forEach(function (item, idx) {
+	
+	                    if (idx >= self.options.limit) {
+	                        return false;
+	                    }
+	
+	                    itemsHtml += self.compiled.item({ 'item': item});
+	                });
+	
+	                return itemsHtml;
+	            }
+	
+	            function handleList (value, list) {
+	                var itemsHtml = getItemsHtml(list);
+	                var currentValue = self.$el.val();
+	
+	                if (self.options.ignoreCase) {
+	                    currentValue = currentValue.toUpperCase();
+	                }
+	
+	                if (self.options.cacheable && !self.resultCache.hasOwnProperty(value)) {
+	                    self.resultCache[value] = list;
+	                }
+	
+	                if (value !== currentValue) {
+	                    return false;
+	                }
+	
+	                if(itemsHtml) {
+	                    self.$dropdown.html(itemsHtml);
+	                    self.$dropdown.show();
+	                } else {
+	                    self.$dropdown.hide();
+	                }
+	
+	            }
+	
+	            self.value = self.options.multiple.enable ? [] : '';
+	
+	            self.compiled.tag = template(self.options.appender.tagTemplate);
+	            self.compiled.item = template(self.options.dropdown.itemTemplate);
+	
+	            self.render();
+	
+	            self.$el.on('input', function (e) {
+	                var $t = $(this);
+	                var value = $t.val();
+	
+	                if (!value) {
+	                    self.$dropdown.hide();
+	                    return false;
+	                }
+	
+	                if (self.options.ignoreCase) {
+	                    value = value.toUpperCase();
+	                }
+	
+	                if (self.resultCache.hasOwnProperty(value) && self.resultCache[value]) {
+	                    handleList(value, self.resultCache[value]);
+	                    return true;
+	                }
+	
+	                if (self.options.throttling) {
+	                    clearTimeout(timer);
+	                    timer = setTimeout(function () {
+	                        self.options.getData(value, handleList);
+	                    }, 200);
+	                    return true;
+	                }
+	
+	                self.options.getData(value, handleList);
+	            });
+	
+	            self.$el.on('keydown', function (e) {
+	                var $t = $(this);
+	                var keyCode = e.keyCode;
+	                var $items, $hover;
+	                // BACKSPACE KEY
+	                if (keyCode == '8' && !$t.val()) {
+	
+	                    if (!self.options.multiple.enable) {
+	                        return true;
+	                    }
+	
+	                    if (!self.value.length) {
+	                        return true;
+	                    }
+	
+	                    var lastItem = self.value[self.value.length - 1];
+	                    self.remove(lastItem);
+	                    return false;
+	                }
+	                // UP DOWN ARROW KEY
+	                if (keyCode == '38' || keyCode == '40') {
+	
+	                    $items = self.$dropdown.find('[data-id]');
+	
+	                    if (!$items.length) {
+	                        return false;
+	                    }
+	
+	                    $hover = $items.filter('.ac-hover');
+	
+	                    if (!$hover.length) {
+	                        $items.removeClass('ac-hover');
+	                        $items.eq(keyCode == '40' ? 0 : -1).addClass('ac-hover');
+	                    } else {
+	                        var index = $hover.index();
+	                        $items.removeClass('ac-hover');
+	                        $items.eq(keyCode == '40' ? (index + 1) % $items.length : index - 1).addClass('ac-hover');
+	                    }
+	
+	                    return false;
+	                }
+	                // ENTER KEY CODE
+	                if (keyCode == '13') {
+	                    $items = self.$dropdown.find('[data-id]');
+	
+	                    if (!$items.length) {
+	                        return false;
+	                    }
+	
+	                    $hover = $items.filter('.ac-hover');
+	
+	                    if (!$hover.length) {
+	                        return false;
+	                    }
+	
+	                    self.setValue({
+	                        id: $hover.data('id'),
+	                        text: $hover.data('text')
+	                    });
+	
+	                    return false;
+	                }
+	
+	            });
+	
+	            self.$dropdown.on('click', '[data-id]', function (e) {
+	                var $t = $(this);
+	                var item = {
+	                    id: $t.data('id'),
+	                    text: $t.data('text')
+	                };
+	
+	                self.setValue(item);
+	            });
+	
+	            self.$appender.on('click', '[data-id] .close', function (e) {
+	                var $t = $(this);
+	                var $li = $t.closest('[data-id]');
+	                var item = {
+	                    id: $li.data('id'),
+	                    text: $li.data('text')
+	                };
+	
+	                self.remove(item);
+	            });
+	
+	        },
+	        render: function () {
+	            var self = this;
+	
+	            if (self.options.dropdown.el) {
+	                self.$dropdown = $(self.options.dropdown.el);
+	            } else {
+	                self.$dropdown = $(document.createElement(self.options.dropdown.tagName));
+	                self.$dropdown.insertAfter(self.$el);
+	            }
+	
+	            self.$dropdown.addClass(self.options.dropdown.className);
+	
+	            if (self.options.appender.el) {
+	                self.$appender = $(self.options.appender.el);
+	            } else {
+	                self.$appender = $(document.createElement(self.options.appender.tagName));
+	                self.$appender.insertBefore(self.$el);
+	            }
+	
+	            if (self.options.hidden.enable) {
+	
+	                if (self.options.hidden.el) {
+	                    self.$hidden = $(self.options.hidden.el);
+	                } else {
+	                    self.$hidden = $('<input type="hidden" class="validate" />');
+	                    self.$wrapper.append(self.$hidden);
+	                }
+	
+	                if (self.options.hidden.inputName) {
+	                    self.$hidden.attr('name', self.options.hidden.inputName);
+	                }
+	
+	                if (self.options.hidden.required) {
+	                    self.$hidden.attr('required', 'required');
+	                }
+	
+	            }
+	
+	            self.$appender.addClass(self.options.appender.className);
+	
+	        },
+	        setValue: function (item) {
+	            var self = this;
+	
+	            if (self.options.multiple.enable) {
+	                self.append(item);
+	            } else {
+	                self.select(item);
+	            }
+	
+	        },
+	        append: function (item) {
+	            var self = this;
+	            var $tag = self.compiled.tag({ 'item': item });
+	
+	            if (self.value.some(function (selectedItem) {
+	                    return selectedItem.id === item.id;
+	                })) {
+	
+	                if ('function' === typeof self.options.multiple.onExist) {
+	                    self.options.multiple.onExist.call(this, item);
+	                }
+	
+	                return false;
+	            }
+	
+	            if (self.value.length >= self.options.multiple.maxSize) {
+	
+	                if ('function' === typeof self.options.multiple.onExceed) {
+	                    self.options.multiple.onExceed.call(this, self.options.multiple.maxSize, item);
+	                }
+	
+	                return false;
+	            }
+	
+	            self.value.push(item);
+	            self.$appender.append($tag);
+	
+	            var valueStr = self.value.map(function (selectedItem) {
+	                return selectedItem.id;
+	            }).join(',');
+	
+	            if (self.options.hidden.enable) {
+	                self.$hidden.val(valueStr);
+	            }
+	
+	            self.$el.val('');
+	            self.$el.data('value', valueStr);
+	            self.$dropdown.html('').hide();
+	
+	            if ('function' === typeof self.options.multiple.onAppend) {
+	                self.options.multiple.onAppend.call(self, item);
+	            }
+	
+	        },
+	        remove: function (item) {
+	            var self = this;
+	
+	            self.$appender.find('[data-id="' + item.id + '"]').remove();
+	            self.value = self.value.filter(function (selectedItem) {
+	                return selectedItem.id !== item.id;
+	            });
+	
+	            var valueStr = self.value.map(function (selectedItem) {
+	                return selectedItem.id;
+	            }).join(',');
+	
+	            if (self.options.hidden.enable) {
+	                self.$hidden.val(valueStr);
+	                self.$el.data('value', valueStr);
+	            }
+	
+	            self.$dropdown.html('').hide();
+	
+	            if ('function' === typeof self.options.multiple.onRemove) {
+	                self.options.multiple.onRemove.call(self, item);
+	            }
+	
+	        },
+	        select: function (item) {
+	            var self = this;
+	
+	            self.value = item.text;
+	            self.$el.val(item.text);
+	            self.$el.data('value', item.id);
+	            self.$dropdown.html('').hide();
+	
+	            if (self.options.hidden.enable) {
+	                self.$hidden.val(item.id);
+	            }
+	
+	            if ('function' === typeof self.options.onSelect) {
+	                self.options.onSelect.call(self, item);
+	            }
+	        }
+	    };
+	
+	    $.fn.materialize_autocomplete = function (options) {
+	        var el = this;
+	        var $el = $(el).eq(0);
+	        var instance = $el.data('autocomplete');
+	
+	        if (instance && arguments.length) {
+	            return instance;
+	        }
+	
+	        var autocomplete = new Autocomplete(el, options);
+	        $el.data('autocomplete', autocomplete);
+	        $el.dropdown();
+	        return autocomplete;
+	    };
+	
+	}));
+
+
+/***/ }),
+
+/***/ 256:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(239), __webpack_require__(240), __webpack_require__(244), __webpack_require__(245), __webpack_require__(246), __webpack_require__(242)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService, CustomerListBAStatus, CustomerListSpecialLevel, CustomerListOddsGroup, PagingHelper) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(250), __webpack_require__(251), __webpack_require__(257), __webpack_require__(258), __webpack_require__(259),
+	    __webpack_require__(253), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerListState, CustomerListService, CustomerListBAStatus, CustomerListSpecialLevel, CustomerListOddsGroup, PagingHelper, Popup) {
 	        var _state;
 	
 	        var _me = {
@@ -4841,14 +5460,14 @@ webpackJsonp([51],{
 	                    ajaxPaging: _me.ajaxPaging
 	                };
 	
-	                $("#SubmitButtonComm").prop("disabled", true);
+	                $("#SubmitButton").prop("disabled", true);
 	
 	                CustomerListBAStatus.initialize();
 	                CustomerListSpecialLevel.initialize();
 	                CustomerListOddsGroup.initialize();
 	
 	                _me.initEvent();
-	                $("#SubmitButtonComm").prop("disabled", false);
+	                $("#SubmitButton").prop("disabled", false);
 	            },
 	
 	            ajaxPaging: function () {
@@ -4862,6 +5481,15 @@ webpackJsonp([51],{
 	                });
 	
 	                _me.registerCheckboxEvent();
+	
+	                $("#report-content").on("click", ".pendingFunds", function () {
+	                    var $this = $(this);
+	                    var custId = $this.data("custid");
+	                    var systemId = $this.data("systemid");
+	                    var externalId = $this.data("externalid");
+	
+	                    _me.viewRunningBetlist(custId, systemId, externalId);
+	                });
 	
 	                $("#popup-update").on("click", _me.updateCustStatus);
 	                $("#popup-close").on("click", _me.closeUpdatePopUp);
@@ -4897,7 +5525,7 @@ webpackJsonp([51],{
 	                    var selectedCustomers = _state.selectedCustomers;
 	
 	                    if (this.checked) {
-	                        selectedCustomers[custid] = true;
+	                        selectedCustomers[custid] = group;
 	                    } else {
 	                        delete selectedCustomers[custid];
 	                    }
@@ -4971,19 +5599,32 @@ webpackJsonp([51],{
 	
 	                var changed = Site.asBool(popup.attr("closed")) !== isClosed || Site.asBool(popup.attr("suspended")) !== isSuspended;
 	                $("#popup-update").prop("disabled", !changed);
+	            },
+	
+	            viewRunningBetlist: function (custId, systemId, externalId) {
+	                var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
+	                url = QueryString.setParam(url, "custid", custId);
+	                url = QueryString.setParam(url, "externalid", externalId);
+	                url = QueryString.setParam(url, "systemid", systemId);
+	                url = QueryString.setParam(url, "betlistname", "betlistrunning");
+	                url = Site.setLicenseeOptionOriginalParam(url);
+	
+	                var popH = Math.min(window.innerHeight - 100, 700), popW = 900;
+	                var popupOption = { id: "betlist-popup", width: popW + 30, height: popH + 70, title: Site.getSingleResource('BetListRunning') };
+	                Popup.openPopupWithIframe(url, popupOption);
 	            }
 	        };
 	
 	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 244:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 257:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(239), __webpack_require__(240)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(250), __webpack_require__(251)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
 	    var _state;
 	
 	    var _me = {
@@ -5049,13 +5690,13 @@ webpackJsonp([51],{
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 245:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 258:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(239), __webpack_require__(240)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(250), __webpack_require__(251)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
 	    var _$specialLevelCell = null;
 	    var _state;
 	
@@ -5065,108 +5706,49 @@ webpackJsonp([51],{
 	
 	            $("#report-content").on("click", ".specialLevel", function () {
 	                _$specialLevelCell = $(this);
-	                _me.viewList(_$specialLevelCell);
+	                CustomerListService.showGridDropdownById("LevelListContainer", _$specialLevelCell);
 	            });
 	
-	            $("#LevelListContainer .levelLink").click(function () {
+	            $("#LevelListContainer").on("click", ".levelLink", function () {
 	                var level = $(this).data("level");
-	                _me.setValue(_$specialLevelCell, level);
+	                _me.setValue(level);
 	            });
 	        },
 	
-	        viewList: function ($context) {
-	            var custId = $context.attr("data-custid");
-	            var $popup = $("#LevelListContainer");
-	            var position = $context.offset();
-	            $popup.css({
-	                top: position.top + $context.height(),
-	                left: position.left,
-	                width: $context.width()
-	            });
-	
-	            if ($popup.attr("custid") === custId) {
-	                $popup.toggle();
-	            }
-	            else {
-	                var $customerOption = $("#cust-option-link-" + custId);
-	                $popup.attr("custid", custId);
-	                $popup.attr("externalid", $customerOption.attr("externalid"));
-	                $popup.attr("systemid", $customerOption.attr("systemid"));
-	                $popup.show();
-	            }
-	
-	            return false;
-	        },
-	
-	        setValue: function ($listItem, level) {
-	            var oldValue = $listItem.data("level");
-	            if (oldValue === level) {
-	                _me.close();
-	                return;
-	            }
-	
-	            if (!_me.isConfirmed()) {
-	                return;
-	            }
-	
-	            var custId = $listItem.data("custid");
-	            $listItem.find(".grid-dropdown-label").html(level === 0 ? Site.getSingleResource("None") : level)
-	                                                .attr('class', 'level-' + level);
-	            var param = {
-	                custId: custId,
-	                level: level
+	        setValue: function (level) {
+	            var option = {
+	                dataField: "SpecialLevel",
+	                popUpSelector: "#LevelListContainer",
+	                $context: _$specialLevelCell,
+	                param: {
+	                    custId: _$specialLevelCell.data("custid"),
+	                    level: level
+	                },
+	                url: Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel"),
+	                oldValue: _$specialLevelCell.data("level"),
+	                newValue: level,
+	                confirmMessage: _me.getConfirmMessage(level)
 	            };
 	
-	            $.ajax({
-	                type: "POST",
-	                data: param,
-	                url: Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel"),
-	                dataType: "json",
-	                success: function (data) {
-	                    if (data.Success) {
-	                        var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _state.pagingOption.pagesize;
-	                        _state.cacheData.Data[rowIndex].SpecialLevel = level;
-	                        CustomerListService.bindData(_state.cacheData, true);
-	                    }
-	                    else {
-	                        $listItem.html(oldValue === 0 ? Site.getSingleResource("None") : oldValue);
-	                        $listItem.attr('class', 'level-' + oldValue);
-	                        alert(data.ErrorMessage);
-	                    }
-	                },
-	                error: function () {
-	                    $listItem.html(oldValue === 0 ? Site.getSingleResource("None") : oldValue);
-	                    $listItem.attr('class', 'level-' + oldValue);
-	                },
-	                complete: function () {
-	                    _me.close();
-	                }
-	            });
+	            CustomerListService.updateGridData(option);
 	        },
 	
-	        isConfirmed: function () {
-	            var message = level === 0 ?
-	                            Site.getSingleResource('AlertRemoveSpecialLevelForCustomerMsg') :
-	                            Site.getSingleResource('AlertSetSpecialLevelForCustomerMsg');
-	
-	            return window.confirm(message);
-	        },
-	
-	        close: function () {
-	            $("#LevelListContainer").fadeOut();
+	        getConfirmMessage: function (level) {
+	            var resourceName = level === 0 ? "AlertRemoveSpecialLevelForCustomerMsg" : "AlertSetSpecialLevelForCustomerMsg";
+	            return Site.getSingleResource(resourceName);
 	        }
 	    };
 	
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 246:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 259:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(239), __webpack_require__(240)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(250), __webpack_require__(251)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
 	    var _$oddsGroupCell;
 	    var _state;
 	
@@ -5176,113 +5758,65 @@ webpackJsonp([51],{
 	
 	            $("#report-content").on("click", ".oddsGroup", function () {
 	                _$oddsGroupCell = $(this);
-	                _me.viewList(_$oddsGroupCell);
+	                _me.showGridDropdown();
 	            });
 	
-	            $("#OddsGroupListContainer .oddsGroupLink").click(function () {
+	            $("#OddsGroupListContainer").on("click", ".oddsGroupLink", function () {
 	                var group = $(this).data("group");
-	                _me.setValue(_$oddsGroupCell, group);
+	                _me.setValue(group);
 	            });
 	        },
 	
-	        viewList: function ($context) {
-	            if ($context.hasClass("disabled")) {
+	        showGridDropdown: function () {
+	            if (_$oddsGroupCell.hasClass("disabled")) {
 	                return;
 	            }
 	
-	            var custId = $context.attr("data-custid");
-	            var $popup = $("#OddsGroupListContainer");
-	            var position = $context.offset();
-	            $popup.css({
-	                top: position.top + $context.height(),
-	                left: position.left,
-	                width: $context.width()
-	            });
-	
-	            if ($popup.attr("custid") === custId) {
-	                $popup.toggle();
-	            }
-	            else {
-	                var $customerOption = $("#cust-option-link-" + custId);
-	                $popup.attr("custid", custId);
-	                $popup.attr("externalid", $customerOption.attr("externalid"));
-	                $popup.attr("systemid", $customerOption.attr("systemid"));
-	                $popup.show();
-	            }
-	
-	            return false;
+	            CustomerListService.showGridDropdownById("OddsGroupListContainer", _$oddsGroupCell);
 	        },
 	
-	        setValue: function ($listItem, oddsGroup) {
-	            var oldValue = $listItem.data("group");
-	            if (oldValue === oddsGroup) {
-	                _me.close();
-	                return;
-	            }
+	        setValue: function (oddsGroup) {
+	            var confirmMessage = Site.getSingleResource('AlertSetOddsGroupForCustomerMsg');
+	            confirmMessage = confirmMessage.replace("{0}", oddsGroup);
 	
-	            var message = Site.getSingleResource('AlertSetOddsGroupForCustomerMsg');
-	            message = message.replace("{0}", oddsGroup);
-	            if (!confirm(message)) {
-	                return;
-	            }
-	
-	            var custId = $listItem.data("custid");
-	            $listItem.find(".grid-dropdown-label").html(oddsGroup === 0 ? Site.getSingleResource("None") : oddsGroup)
-	                                                    .attr('class', 'group-' + oddsGroup);
-	
-	            var url = Site.resolveClientUrl("CustomerAPI/UpdateOddsGroup");
-	            var param = {
-	                custId: custId,
-	                oddsGroup: oddsGroup
+	            var option = {
+	                dataField: "OddsGroup",
+	                popUpSelector: "#OddsGroupListContainer",
+	                $context: _$oddsGroupCell,
+	                param: {
+	                    custId: _$oddsGroupCell.data("custid"),
+	                    oddsGroup: oddsGroup
+	                },
+	                url: Site.resolveClientUrl("CustomerAPI/UpdateOddsGroup"),
+	                oldValue: _$oddsGroupCell.data("group"),
+	                newValue: oddsGroup,
+	                confirmMessage: confirmMessage
 	            };
 	
-	            $.ajax({
-	                type: "POST",
-	                data: param,
-	                url: url,
-	                dataType: "json",
-	                success: function (data) {
-	                    if (data.Success) {
-	                        var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
-	                        _state.cacheData.Data[rowIndex].OddsGroup = oddsGroup;
-	                        CustomerService.bindData(_state.cacheData, true);
-	                    }
-	                    else {
-	                        $listItem.find(".grid-dropdown-label").html(oldValue)
-	                            .attr('class', 'group-' + oldValue);
-	                        alert(data.ErrorMessage);
-	                    }
-	                    closeOddsGroupList();
-	                },
-	                error: function () {
-	                    $listItem.find(".grid-dropdown-label").html(oldValue)
-	                            .attr('class', 'group-' + oldValue);
-	                    _me.close();
-	                }
-	            });
-	        },
-	
-	        close: function () {
-	            $("#OddsGroupListContainer").fadeOut();
+	            CustomerListService.updateGridData(option);
 	        }
 	    };
 	
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 247:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 260:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site, CustomerList, JSLINQ*/
 	/// <reference path="/@JSense.js" />
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205), __webpack_require__(9),
-	__webpack_require__(248)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, Popup, CustomerList) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(216), __webpack_require__(9),
+	__webpack_require__(261), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, Popup, CustomerList, CustomerListState) {
 	        "use strict";
+	
+	        var _state;
 	
 	        var _me = {
 	            initialize: function () {
+	                _state = CustomerListState.getState();
+	
 	                // bind customer button event
 	                $('#MoveToGroup').click(function () {
 	                    _me.showMoveCustomerToGroup();
@@ -5356,7 +5890,7 @@ webpackJsonp([51],{
 	                $('#lblMoveToGroupMsg').html("");
 	                _me.clearNotification();
 	
-	                Popup.openPopupWithButton($("#MoveToGroupPopUpTemplate").clone(),
+	                Popup.openPopupWithButton($("#MoveToGroupPopUp"),
 	                    {
 	                        title: Site.getSingleResource('MoveToGroup'),
 	                        id: 'MoveToGroupPopUp',
@@ -5381,29 +5915,33 @@ webpackJsonp([51],{
 	            },
 	
 	            moveCustomerToGroup: function () {
-	                var groupid = parseInt($('#GroupListSelect').val(), 10);
-	                var checkedCustomers = CustomerList.getCheckedCustomers();
+	                var groupid = $('#GroupListSelect').val();
 	                
-	                var custList = [];
-	
-	                for (var i = 0; i < checkedCustomers.length; i++) {
-	                    var currenntGroupId = Number(checkedCustomers[i].Group);
-	                    if (currenntGroupId === 0 || currenntGroupId !== groupid) {
-	                        custList.push(checkedCustomers[i].Id);
-	                    }
+	                //GroupId = - 1 is show all group.
+	                if (groupid === "-1") {
+	                    _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
+	                    return;
 	                }
 	
-	                if (checkedCustomers.length === 0) {
+	                var selectedCustomers = _state.selectedCustomers
+	
+	                if (Object.keys(selectedCustomers).length === 0) {
 	                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
 	                    return;
 	                }
 	
-	                //GroupId = - 1 is show all group.
-	                if (groupid === -1) {
-	                    _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
-	                    return;
+	                var custList = [];
+	
+	                for (var custId in selectedCustomers) {
+	                    if (selectedCustomers.hasOwnProperty(custId)) {
+	                        var currentGroupId = selectedCustomers[custId];
+	                        if (currentGroupId === 0 || currentGroupId !== groupid) {
+	                            custList.push(custId);
+	                        }
+	                    }
 	                }
-	                if (checkedCustomers.length > 0 && custList.length === 0) {
+	
+	                if (custList.length === 0) {
 	                    _me.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false);
 	                    return;
 	                }
@@ -5613,12 +6151,8 @@ webpackJsonp([51],{
 	                    data: param,
 	                    url: Site.resolveClientUrl("CustomerAPI/RemoveFromGroupCom"),
 	                    dataType: "json",
-	                    beforeSend: function () {
-	                        _me.ajaxStart();
-	                    },
-	                    complete: function () {
-	                        _me.ajaxStop();
-	                    },
+	                    beforeSend: _me.ajaxStart,
+	                    complete: _me.ajaxStop,
 	                    success: function (result) {
 	                        if (result.Success) {
 	                            //removed = true;
@@ -5697,14 +6231,14 @@ webpackJsonp([51],{
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 
-/***/ },
+/***/ }),
 
-/***/ 248:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 261:
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205), __webpack_require__(249), __webpack_require__(241),
-	    __webpack_require__(242),
-	    __webpack_require__(11), __webpack_require__(208), __webpack_require__(209), __webpack_require__(228), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, CustomerListCustOption, CustomerListOption, PagingHelper) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(216), __webpack_require__(262), __webpack_require__(252),
+	    __webpack_require__(253),
+	    __webpack_require__(11), __webpack_require__(219), __webpack_require__(220), __webpack_require__(239), __webpack_require__(263)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, CustomerListCustOption, CustomerListOption, PagingHelper) {
 	        "use strict";
 	
 	        var ajaxRequest = null;
@@ -6640,10 +7174,10 @@ webpackJsonp([51],{
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 
-/***/ },
+/***/ }),
 
-/***/ 249:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 262:
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site, QueryString */
 	/*exported CustomerListCustOption*/
@@ -6784,41 +7318,20 @@ webpackJsonp([51],{
 	            });
 	        }
 	
-	        function viewRunningBetlist(custId, systemId, externalId) {
-	            var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
-	            url = QueryString.setParam(url, "custid", custId);
-	            url = QueryString.setParam(url, "externalid", externalId);
-	            url = QueryString.setParam(url, "systemid", systemId);
-	            url = QueryString.setParam(url, "betlistname", "betlistrunning");
-	            url = Site.setLicenseeOptionOriginalParam(url);
-	
-	            var popH = Math.min(window.innerHeight - 100, 700), popW = 900;
-	
-	            var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('BetListRunning') + '"><iframe frameborder="0" width="' +
-	                         popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';
-	
-	            $(dialogForm).dialog({
-	                modal: true,
-	                width: popW + 30,
-	                height: popH + 70
-	            });
-	        }
-	
 	        return {
 	            viewCustOption: viewCustOption,
 	            closeCustOption: closeCustOption,
 	            viewBetSetting: viewBetSetting,
 	            viewLogInfo: viewLogInfo,
 	            viewBetList: viewBetList,
-	            viewStatement: viewStatement,
-	            viewRunningBetlist: viewRunningBetlist
+	            viewStatement: viewStatement
 	        };
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
+/***/ }),
 
-/***/ 250:
-/***/ function(module, exports) {
+/***/ 263:
+/***/ (function(module, exports) {
 
 	/*--------------------------------------------------------------------------
 	* linq.js - LINQ for JavaScript
@@ -9554,7 +10067,7 @@ webpackJsonp([51],{
 	    return Enumerable;
 	})()
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=customerlist.chunk.js.map

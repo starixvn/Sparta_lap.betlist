@@ -1813,6 +1813,13 @@ input[type="checkbox"] {
       color: #fff;
       background: #9eb4c3; }
 
+.dropdown-content {
+  opacity: 1;
+  top: 25px; }
+
+.ac-hover {
+  background-color: #eee; }
+
 .switch label .lever {
   background-color: #DFDFDF;
   width: 50px;
@@ -1962,7 +1969,17 @@ input[type="checkbox"] {
 
 #LevelListContainer, #OddsGroupListContainer {
   display: none;
-  position: absolute; }
+  position: absolute;
+  border: 1px solid #969292; }
+
+#OddsGroupListContainer {
+  background-color: #fff; }
+
+.link {
+  cursor: pointer;
+  border-top: 1px solid #d1dae1; }
+  .link:hover {
+    opacity: 0.8; }
 
 /* Index column */
 input[type="checkbox"] + label {
@@ -1990,10 +2007,12 @@ input[type="checkbox"] + label {
   position: relative;
   text-align: right; }
 
+.error-message, .ajax-loading {
+  margin: 15px 5px;
+  text-align: center; }
+
 .error-message {
   color: red;
-  margin: 15px 5px;
-  text-align: center;
   border: 1px solid #bbb; }
 
 /*# sourceMappingURL=customerlist.css.map*/
