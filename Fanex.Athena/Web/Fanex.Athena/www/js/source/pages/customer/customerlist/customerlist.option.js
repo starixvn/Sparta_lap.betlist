@@ -80,8 +80,8 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                     return jqGridAdditional.formatDecimal(cellValue);
                 }
                 else {
-                    return "<a style='color: #1E1EEB' href=\"javascript:CustomerListCustOption.viewRunningBetlist(" +
-                        rowObject.CustId + ",'" + rowObject.SystemId + "','" + rowObject.ExternalId + "')\">"
+                    return "<a href='javascript:;' class='pendingFunds' " +
+                    "data-custid='" + rowObject.CustId + "' data-systemid='" + rowObject.SystemId + "' data-externalid='" + rowObject.ExternalId + "'>"
                         + jqGridAdditional.formatDecimal(cellValue) + "</a>";
                 }
             }
@@ -208,7 +208,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                 gridview: true,
                 footerrow: false,
                 userDataOnFooter: true,
-                scroll: 1,
                 rowNum: 40,
                 cmTemplate: { title: true }, //enable tooltip
                 userData: [],

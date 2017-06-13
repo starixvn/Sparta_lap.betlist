@@ -138,33 +138,12 @@ define(["jquery", "common/site"],
             });
         }
 
-        function viewRunningBetlist(custId, systemId, externalId) {
-            var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
-            url = QueryString.setParam(url, "custid", custId);
-            url = QueryString.setParam(url, "externalid", externalId);
-            url = QueryString.setParam(url, "systemid", systemId);
-            url = QueryString.setParam(url, "betlistname", "betlistrunning");
-            url = Site.setLicenseeOptionOriginalParam(url);
-
-            var popH = Math.min(window.innerHeight - 100, 700), popW = 900;
-
-            var dialogForm = '<div class="popup-title" title="' + Site.getSingleResource('BetListRunning') + '"><iframe frameborder="0" width="' +
-                         popW + '" height="' + popH + '" src="' + url + '" ></iframe></div>';
-
-            $(dialogForm).dialog({
-                modal: true,
-                width: popW + 30,
-                height: popH + 70
-            });
-        }
-
         return {
             viewCustOption: viewCustOption,
             closeCustOption: closeCustOption,
             viewBetSetting: viewBetSetting,
             viewLogInfo: viewLogInfo,
             viewBetList: viewBetList,
-            viewStatement: viewStatement,
-            viewRunningBetlist: viewRunningBetlist
+            viewStatement: viewStatement
         };
     });

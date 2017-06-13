@@ -84,7 +84,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             data.PageSize = _state.pagingOption.pagesize;
             data.CurrencyId = $("#CurrencyId").val();
             data.SpecialLevel = $("#special-level-list-search").val();
-            data.Username = Site.asNull($("#txtUsername").val());
+            data.Username = Site.asNull($("#Username").val());
             data.CurrencyName = $("#CurrencyName").val();
             data.BaFilter = $("#BAFilterOption").val();
             data.GroupCommId = $("#DdlGroupCommId").val();

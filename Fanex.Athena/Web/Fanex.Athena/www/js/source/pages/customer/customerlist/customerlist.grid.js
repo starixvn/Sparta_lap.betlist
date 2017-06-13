@@ -1,6 +1,7 @@
 ﻿"use strict";
-define(["jquery", "common/site", "./customerlist.state", "./customerlist.service", "./customerlist.bastatus", "./customerlist.speciallevel", "./customerlist.oddsgroup", "components/paging"],
-    function ($, Site, CustomerListState, CustomerListService, CustomerListBAStatus, CustomerListSpecialLevel, CustomerListOddsGroup, PagingHelper) {
+define(["jquery", "common/site", "common/querystring", "./customerlist.state", "./customerlist.service", "./customerlist.bastatus", "./customerlist.speciallevel", "./customerlist.oddsgroup",
+    "components/paging", "common/popup"],
+    function ($, Site, QueryString, CustomerListState, CustomerListService, CustomerListBAStatus, CustomerListSpecialLevel, CustomerListOddsGroup, PagingHelper, Popup) {
         var _state;
 
         var _me = {
@@ -10,14 +11,14 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                     ajaxPaging: _me.ajaxPaging
                 };
 
-                $("#SubmitButtonComm").prop("disabled", true);
+                $("#SubmitButton").prop("disabled", true);
 
                 CustomerListBAStatus.initialize();
                 CustomerListSpecialLevel.initialize();
                 CustomerListOddsGroup.initialize();
 
                 _me.initEvent();
-                $("#SubmitButtonComm").prop("disabled", false);
+                $("#SubmitButton").prop("disabled", false);
             },
 
             ajaxPaging: function () {
@@ -31,6 +32,15 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                 });
 
                 _me.registerCheckboxEvent();
+
+                $("#report-content").on("click", ".pendingFunds", function () {
+                    var $this = $(this);
+                    var custId = $this.data("custid");
+                    var systemId = $this.data("systemid");
+                    var externalId = $this.data("externalid");
+
+                    _me.viewRunningBetlist(custId, systemId, externalId);
+                });
 
                 $("#popup-update").on("click", _me.updateCustStatus);
                 $("#popup-close").on("click", _me.closeUpdatePopUp);
@@ -140,6 +150,19 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
 
                 var changed = Site.asBool(popup.attr("closed")) !== isClosed || Site.asBool(popup.attr("suspended")) !== isSuspended;
                 $("#popup-update").prop("disabled", !changed);
+            },
+
+            viewRunningBetlist: function (custId, systemId, externalId) {
+                var url = Site.resolveClientUrl("CustomerOutstandingBetList/Index");
+                url = QueryString.setParam(url, "custid", custId);
+                url = QueryString.setParam(url, "externalid", externalId);
+                url = QueryString.setParam(url, "systemid", systemId);
+                url = QueryString.setParam(url, "betlistname", "betlistrunning");
+                url = Site.setLicenseeOptionOriginalParam(url);
+
+                var popH = Math.min(window.innerHeight - 100, 700), popW = 900;
+                var popupOption = { id: "betlist-popup", width: popW + 30, height: popH + 70, title: Site.getSingleResource('BetListRunning') };
+                Popup.openPopupWithIframe(url, popupOption);
             }
         };
 

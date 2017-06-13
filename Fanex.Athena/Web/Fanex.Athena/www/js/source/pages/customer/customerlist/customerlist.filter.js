@@ -1,10 +1,15 @@
 ﻿"use strict";
-define(["jquery", "common/site", "./customerlist.state", "./customerlist.service"], function ($, Site, CustomerListState, CustomerListService) {
+define(["jquery", "common/site", "./customerlist.state", "./customerlist.service", "components/pluginhelper/autocomplete"],
+    function ($, Site, CustomerListState, CustomerListService, AutoComplete) {
     var _state;
 
     var _me = {
         initialize: function () {
             _state = CustomerListState.getState();
+            AutoComplete.initialize({
+                url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
+                target: "#Username"
+            });
             _me.initEvent();
         },
 
@@ -53,7 +58,7 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                 onCheck: function () {
                     var checkedItems = $("#grid-columns-multiselect").multiSelect("getCheckedItems");
                     if (checkedItems.length === 0) {
-                        $("#SubmitButtonComm").prop("disabled", true);
+                        $("#SubmitButton").prop("disabled", true);
                         $("#grid-columns-multiselect-null").removeClass("hide");
                         $("#grid-columns-option-container input[type=checkbox]:checked").prop("checked", false);
                     }
@@ -62,7 +67,7 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                         for (var i = 0; i < checkedItems.length; i++) {
                             $('#grid-columns-option-container input#' + checkedItems[i]).prop("checked", true);
                         }
-                        $("#SubmitButtonComm").prop("disabled", false);
+                        $("#SubmitButton").prop("disabled", false);
                         $("#grid-columns-multiselect-null").addClass("hide");
                     }
                 }
@@ -111,11 +116,11 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                 onCheck: function () {
                     var checkedItems = $("#odds-group-multiselect").multiSelect("getCheckedItems");
                     if (checkedItems.length === 0) {
-                        $("#SubmitButtonComm").prop("disabled", true);
+                        $("#SubmitButton").prop("disabled", true);
                         $("#odds-group-multiselect-null").removeClass("hide");
                     }
                     else {
-                        $("#SubmitButtonComm").prop("disabled", false);
+                        $("#SubmitButton").prop("disabled", false);
                         $("#odds-group-multiselect-null").addClass("hide");
                     }
                 }
