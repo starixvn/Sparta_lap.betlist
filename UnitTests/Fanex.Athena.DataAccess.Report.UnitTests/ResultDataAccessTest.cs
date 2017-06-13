@@ -332,15 +332,15 @@
             _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
             dynamic param = null;
             objectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
-            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
             // Action
-            _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, licenseeId, userId, bettypeId, betId);
+            _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
             var result = new JavaScriptSerializer().Serialize(param);
 
             // Assert
-            Assert.That(result, Is.EqualTo("{\"matchid\":1,\"raceno\":\"2\",\"licenseeid\":3,\"userid\":4,\"bettype\":5,\"betid\":6}"));
+            Assert.That(result, Is.EqualTo("{\"matchid\":1,\"raceno\":\"2\",\"bettype\":5,\"betid\":6}"));
         }
 
         [Test]
@@ -363,14 +363,14 @@
             var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
             MapReaderData(reader, dataMapping);
-            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
             var serializer = new JavaScriptSerializer();
             var expectedResult = serializer.Serialize(new List<Sportsbook> { GetExpectedSportsbookData() });
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
+            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -398,7 +398,7 @@
             dataMappingForGameDetail["SettlementStatusID"] = DBNull.Value;
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
             MapReaderData(reader, dataMapping);
-            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
             var serializer = new JavaScriptSerializer();
@@ -412,7 +412,7 @@
             var expectedResult = serializer.Serialize(new List<Sportsbook> { sportsbookData });
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
+            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -439,7 +439,7 @@
             dataMappingForGameDetail["SettlementStatusID"] = DBNull.Value;
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
             MapReaderData(reader, dataMapping);
-            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
             var serializer = new JavaScriptSerializer();
@@ -453,7 +453,7 @@
             var expectedResult = serializer.Serialize(new List<Sportsbook> { sportsbookData });
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
+            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -477,7 +477,7 @@
             };
             MapReaderData(reader, readerDataMapping);
 
-            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
             var serializer = new JavaScriptSerializer();
@@ -502,7 +502,7 @@
             var expectedResult = serializer.Serialize(liveCasinoMatches);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
+            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, bettypeId, betId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -526,7 +526,7 @@
             };
             MapReaderData(reader, readerDataMapping);
 
-            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
             var serializer = new JavaScriptSerializer();
@@ -551,7 +551,7 @@
             var expectedResult = serializer.Serialize(liveCasinoMatches);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
+            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, bettypeId, betId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -575,7 +575,7 @@
             };
             MapReaderData(reader, readerDataMapping);
 
-            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
             var serializer = new JavaScriptSerializer();
@@ -602,7 +602,7 @@
             var expectedResult = serializer.Serialize(racingMatches);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
+            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, bettypeId, betId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -626,7 +626,7 @@
             };
             MapReaderData(reader, readerDataMapping);
 
-            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
             var serializer = new JavaScriptSerializer();
@@ -653,7 +653,7 @@
             var expectedResult = serializer.Serialize(racingMatches);
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, licenseeId, userId, bettypeId, betId));
+            var result = serializer.Serialize(_dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, bettypeId, betId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -668,11 +668,11 @@
             var reader = Substitute.For<IDataReader>();
             objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
 
-            int matchId = 1, raceNo = 2, licenseeId = 3, userId = 4, bettypeId = 5;
+            int matchId = 1, raceNo = 2, bettypeId = 5;
             long? betId = 6;
 
             // Action
-            TestDelegate result = () => _dataAccess.GetPopUpMatches<object>(matchId, raceNo, licenseeId, userId, bettypeId, betId);
+            TestDelegate result = () => _dataAccess.GetPopUpMatches<object>(matchId, raceNo, bettypeId, betId);
 
             // Assert
             Assert.Throws<NotSupportedException>(result, "The type 'object' is not supported.");
@@ -863,17 +863,6 @@
             var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
             MapReaderData(reader, dataMapping);
-
-            var sportsbookData1 = GetExpectedSportsbookData();
-            var parlay = new List<Parlay>
-            {
-                new Parlay
-                {
-                    LeagueId = sportsbookData1.LeagueId,
-                    SportId = 12,
-                    Sportbook = new List<Sportsbook> { sportsbookData1, GetExpectedSportsbookData() }
-                }
-            };
 
             // Action
             var result = _dataAccess.GetPopUpParalayMatch(refNo);

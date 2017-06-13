@@ -14,10 +14,16 @@ var QueryString = (function () {
     }
 
     function setParam(url, key, value) {
-        var isRemoving = value === null || value === undefined;
+        // Does not update data if value = undefined
+        if (value === undefined) {
+            return url;
+        }
+
+        var isRemoving = value === null;
 
         var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
         var separator = url.indexOf('?') !== -1 ? "&" : "?";
+        
         if (url.match(re)) {
             return url.replace(re, '$1' + (isRemoving ? '' : key + "=" + value + '$2')).replace("&&", "&");
         }

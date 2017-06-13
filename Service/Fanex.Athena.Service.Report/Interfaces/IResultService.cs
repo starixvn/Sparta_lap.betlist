@@ -81,40 +81,11 @@ namespace Fanex.Athena.Service.Report.Interfaces
 
         Sportsbook GetSportsbookGameDetail(int matchId);
 
-        /// <summary>
-        /// Get match for pop up pages.
-        /// Only used for sport-book and racing.
-        /// </summary>
-        /// <param name="matchId">The match id.</param>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="userId">The user id.</param>
-        /// <param name="bettypeId">Bet type id.</param>
-        /// <param name="betId">The bet id.</param>
-        /// <returns>The match info.</returns>
-        IList<Sportsbook> GetPopUpMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId);
+        IList<Sportsbook> GetPopUpMatch(int matchId, int bettypeId, long? betId);
 
-        /// <summary>
-        /// Get live casino match for pop up page.
-        /// </summary>
-        /// <param name="matchId">The match id.</param>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="userId">The user id.</param>
-        /// <param name="bettypeId">Bet type id.</param>
-        /// <param name="betId">The bet id.</param>
-        /// <returns>The match info.</returns>
-        IList<LiveCasino> GetPopUpLiveCasinoMatch(int matchId, int licenseeId, int userId, int bettypeId, long? betId);
+        IList<LiveCasino> GetPopUpLiveCasinoMatch(int matchId, int bettypeId, long? betId);
 
-        /// <summary>
-        /// Get the racing match for pop up page.
-        /// </summary>
-        /// <param name="matchId">The match id.</param>
-        /// <param name="raceNo">The race no.</param>
-        /// <param name="licenseeId">The licensee id.</param>
-        /// <param name="userId">The user id.</param>
-        /// <param name="bettypeId">Bet type id.</param>
-        /// <param name="betId">The bet id.</param>
-        /// <returns>The match info.</returns>
-        IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int licenseeId, int userId, int bettypeId, long? betId);
+        IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int bettypeId, long? betId);
 
         /// <summary>
         /// Select matches from BetTransM by reference no.
