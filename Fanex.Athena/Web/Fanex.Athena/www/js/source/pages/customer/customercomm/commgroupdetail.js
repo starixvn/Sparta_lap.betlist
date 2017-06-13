@@ -1,4 +1,4 @@
-﻿define(["jquery", "common/site", "common/popup", "components/pluginhelper/colorpicker"],
+﻿define(["jquery", "common/site", "common/popup", "lib/jquery.colorpicker"],
      function ($, Site, Popup, ColorPicker) {
          "use strict";
 
@@ -226,7 +226,9 @@
          }
 
          function initColorPicker() {
-             ColorPicker.initColorPicker("#GroupColor");
+             $("#GroupColor").colorPicker({
+                 transparency: true
+             });
          }
 
          var _me = {

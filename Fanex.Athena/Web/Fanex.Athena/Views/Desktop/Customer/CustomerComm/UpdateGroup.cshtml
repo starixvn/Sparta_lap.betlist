@@ -16,7 +16,7 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
         <div class="row">
-            <div class="input-field col l5 m9 s12">
+            <div class="input-field col l5 m8 s12">
                 @if (ViewBag.Result != null)
                 {
                     var msg = ViewBag.Result.Message;
@@ -34,7 +34,7 @@
                 }
                 <input type="hidden" id="OriginalGroupName" value="@(Model.GroupName)" />
             </div>
-            <div class="input-field col l5 m4 s12">
+            <div class="input-field col l5 m4 s12 button-block">
                 <input type="button" class="btn btn-nav" id="Validate" value="@ViewResources.Checkavailability" />
             </div>
         </div>

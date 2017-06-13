@@ -1173,7 +1173,6 @@
     <Content Include="www\js\source\common\site.js" />
     <Content Include="www\js\source\components\paging.js" />
     <Content Include="www\js\source\components\pluginhelper\autocomplete.js" />
-    <Content Include="www\js\source\components\pluginhelper\colorpicker.js" />
     <Content Include="www\js\source\components\pluginhelper\daterangepicker.js" />
     <Content Include="www\js\source\components\pluginhelper\monthpicker.js" />
     <Content Include="www\js\source\components\pluginhelper\multiselect.js" />

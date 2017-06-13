@@ -2,7 +2,7 @@
      function ($, CommGroupDetail) {
          "use strict";
 
-         var FORMID = "#customer-comm-group-edit";
+         var FORM_SELECTOR = "#customer-comm-group-edit";
          var TITLE = "EditGroup";
          var _originalGroupName = "";
 
@@ -32,7 +32,7 @@
              });
 
              $("#Submit").click(function () {
-                 CommGroupDetail.submit(FORMID);
+                 CommGroupDetail.submit(FORM_SELECTOR);
              });
          }         
 

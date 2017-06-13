@@ -2,7 +2,7 @@
      function ($, CommGroupDetail) {
          "use strict";
 
-         var FORMID = "#customer-comm-group-add";
+         var FORM_SELECTOR = "#customer-comm-group-add";
          var TITLE = "CreateNewGroup";
 
          function initialize() {
@@ -18,7 +18,7 @@
              });
 
              $("#Submit").click(function () {
-                 CommGroupDetail.submit(FORMID);
+                 CommGroupDetail.submit(FORM_SELECTOR);
              });
          }
 

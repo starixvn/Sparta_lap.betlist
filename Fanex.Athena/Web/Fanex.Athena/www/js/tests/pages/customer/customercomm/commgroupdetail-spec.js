@@ -1,5 +1,5 @@
-﻿define(["jquery", "common/site", "common/popup", "pages/customer/customercomm/commgroupdetail", "components/pluginhelper/colorpicker"],
-    function ($, Site, Popup, CustomerCommGroupDetail, ColorPicker) {
+﻿define(["jquery", "common/site", "common/popup", "pages/customer/customercomm/commgroupdetail", "lib/jquery.colorpicker"],
+    function ($, Site, Popup, CustomerCommGroupDetail) {
         describe("CustomerCommGroupDetail", function () {
             beforeAll(function () {
                 spyOn(Site, "initialize");
@@ -14,13 +14,13 @@
             describe("initialize(titleResource)", function () {
                 it("Site is initialized", function () {
                     spyOn(CustomerCommGroupDetail, "setPageTitle");
-                    spyOn(ColorPicker, "initColorPicker");
+                    spyOn($.fn, "colorPicker");
 
                     CustomerCommGroupDetail.initialize("title");
 
                     expect(Site.initialize).toHaveBeenCalled();
                     expect(CustomerCommGroupDetail.setPageTitle).toHaveBeenCalledWith("title");
-                    expect(ColorPicker.initColorPicker).toHaveBeenCalledWith("#GroupColor");
+                    expect($("#GroupColor").colorPicker).toHaveBeenCalled();
                 });
 
                 it("initEvent should be called", function () {                  
