@@ -57,7 +57,7 @@
                     if (result.ErrorCode > 0 || result.ErrorMessage.length > 0) {
                         _me.showResultPopup(result.ErrorCode > 0 ? "Error" : "Successful", result.ErrorMessage);
                     } else {
-                        Site.redirect("CustomerComGroup/Index");
+                        Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
                     }
 
                     Site.unBlockUI();
