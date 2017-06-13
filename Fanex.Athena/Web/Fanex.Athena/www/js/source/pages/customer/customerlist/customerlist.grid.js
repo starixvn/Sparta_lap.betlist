@@ -4,6 +4,15 @@ define(["jquery", "common/site", "common/querystring", "./customerlist.state", "
     function ($, Site, QueryString, CustomerListState, CustomerListService, CustomerListBAStatus, CustomerListSpecialLevel, CustomerListOddsGroup, PagingHelper, Popup) {
         var _state;
 
+        function updateGroupForCheckCustomerArray(groupid) {
+            var selectedCustomers = _state.selectedCustomers;
+            for (var custId in selectedCustomers) {
+                if (selectedCustomers.hasOwnProperty(custId)) {
+                    selectedCustomers[custId] = groupid;
+                }
+            }
+        }
+
         var _me = {
             initialize: function () {
                 _state = CustomerListState.getState();
@@ -163,7 +172,32 @@ define(["jquery", "common/site", "common/querystring", "./customerlist.state", "
                 var popH = Math.min(window.innerHeight - 100, 700), popW = 900;
                 var popupOption = { id: "betlist-popup", width: popW + 30, height: popH + 70, title: Site.getSingleResource('BetListRunning') };
                 Popup.openPopupWithIframe(url, popupOption);
-            }
+            },
+            updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, lcCom, csCom) {
+                var count = 0;
+                var length = Object.keys(_state.selectedCustomers).length;
+
+                $.each(_state.cachedData.Data, function (index, item) {
+                    if (count === length) {
+                        return false;
+                    }
+                    if (_state.selectedCustomers[item.CustId] !== undefined) {
+                        item.GroupCommId = groupid;
+                        item.Group = groupName;
+                        item.GroupColor = groupColor;
+                        item.SBComm = sbCom;
+                        item.NGComm = ngCom;
+                        item.RBComm = rbCom;
+                        item.LCComm = lcCom;
+                        item.CSComm = csCom;
+                        count++;
+                    }
+                });
+
+                updateGroupForCheckCustomerArray(groupid);
+                CustomerListService.bindData(_state.cachedData);
+            },
+
         };
 
         return _me;

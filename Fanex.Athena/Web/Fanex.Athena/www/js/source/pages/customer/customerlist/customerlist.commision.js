@@ -1,8 +1,7 @@
 ﻿/*global Site, CustomerList, JSLINQ*/
 /// <reference path="/@JSense.js" />
-define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/popup',
-'./customerlist', "./customerlist.state"],
-    function ($, Site, jqGridAdditional, Popup, CustomerList, CustomerListState) {
+define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/popup', "./customerlist.state", "./customerlist.grid"],
+    function ($, Site, jqGridAdditional, Popup, CustomerListState, CustomerListGrid) {
         "use strict";
 
         var _state;
@@ -166,7 +165,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                             }
                             var groupNameText = "<span title='" + result.ExtendedData.GroupName + "'>" + groupName + "</span>";
 
-                            CustomerList.updateGridGroupAndComm(groupid, groupNameText, result.ExtendedData.GroupColor,
+                            CustomerListGrid.updateGridGroupAndComm(groupid, groupNameText, result.ExtendedData.GroupColor,
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
                                                 result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
                         }
@@ -266,7 +265,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                             //updated = true;
                             _me.showMsg(Site.getSingleResource('UpdateCommSucessfulMsg'), result.Success);
 
-                            CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
+                            CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
                                                 result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
                         }
@@ -358,12 +357,12 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                                 _me.showMsg(result.Message, result.Success);
                             }
                             if (param.isRemovePlayercomm) {
-                                CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
+                                CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
                                                 result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
                             }
                             else {
-                                CustomerList.updateGridGroup(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor);
+                                CustomerListGrid.updateGridGroup(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor);
                             }
                         }
                         else {
