@@ -1173,6 +1173,7 @@
     <Content Include="www\js\source\common\site.js" />
     <Content Include="www\js\source\components\paging.js" />
     <Content Include="www\js\source\components\pluginhelper\autocomplete.js" />
+    <Content Include="www\js\source\components\pluginhelper\colorpicker.js" />
     <Content Include="www\js\source\components\pluginhelper\daterangepicker.js" />
     <Content Include="www\js\source\components\pluginhelper\monthpicker.js" />
     <Content Include="www\js\source\components\pluginhelper\multiselect.js" />
@@ -1330,6 +1331,9 @@
     <Content Include="www\js\tests\pages\betlist\commonbetlist-spec.js" />
     <Content Include="www\js\tests\pages\betlist\lastbetmonitoring\lastbet.filter-spec.js" />
     <Content Include="www\js\tests\pages\betlist\lastbetmonitoring\lastbet.grid-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customercomm\commgroupedit-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customercomm\commgroupadd-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customercomm\commgroupdetail-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgrouplist-spec.js" />
     <Content Include="www\js\tests\pages\forecast\forecast.handicapoverunder-spec.js" />
     <Content Include="www\js\tests\pages\forecast\forecast.newforecasthdpou-spec.js" />
