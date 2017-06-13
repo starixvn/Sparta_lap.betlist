@@ -13,6 +13,20 @@
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelRunningByMultipleBettypeMatch" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelRunningByBettype" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_Forecast_SelByMatch" EnvironmentText="_UAT1"></SpNameConfig>
+
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_MatchWL_Bettype" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_WinlostByLeague_Mem" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelDeleted" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelWinlossDaily" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_LiveReport_SelWinlossByMatch" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_PlatformWinLoss_Mem" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelAllByDate_Mem" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelByDayAll_Mem_Old" EnvironmentText="_UAT1"></SpNameConfig>
+  
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_LicenseeBonus_Detail" EnvironmentText="_UAT1"></SpNameConfig>
 
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_xtest"></SpNameConfig>
