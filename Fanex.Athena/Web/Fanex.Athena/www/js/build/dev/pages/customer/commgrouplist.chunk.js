@@ -26,10 +26,6 @@ webpackJsonp([50],{
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
 	        "use strict";
 	
-	        var FORMSELECTOR = "#CommissionGroupForm";
-	        var EXCELBUTTONSELECTOR = "#ExportToExcel";
-	
-	        var optionDeletePopup = null;
 	        var deleteGroupData = {
 	            groupId: 0,
 	            isRemovePlayerComm: false,
@@ -44,22 +40,19 @@ webpackJsonp([50],{
 	            });
 	
 	            _me.initEvent();
-	            _me.publicFunctions();
 	        }
 	
 	        function initEvent() {
-	            $(EXCELBUTTONSELECTOR).click(function () {
-	                $(FORMSELECTOR).submit();
+	            $("#ExportToExcel").click(function () {
+	                $("#CommissionGroupForm").submit();
+	            });
+	
+	            $("#comm-group-list").on("click", ".delete-comm-group", function (e) {
+	                _me.confirmDeleteCommGroup($(e.target).data("id"));
 	            });
 	        }
 	
-	        function publicFunctions() {
-	            window.CustomerCommGroup = {
-	                DeleteCommGroup: _me.deleteCommGroup
-	            };
-	        }
-	
-	        function deleteCommGroup(groupId) {
+	        function confirmDeleteCommGroup(groupId) {
 	            $.ajax({
 	                url: Site.resolveClientUrl("CustomerComGroup/GetDefaultGroup"),
 	                type: 'GET',
@@ -69,26 +62,26 @@ webpackJsonp([50],{
 	                    deleteGroupData.groupId = groupId;
 	                    if (response.id.toString() === groupId.toString()) {
 	                        deleteGroupData.isResetDefault = true;
-	                        showConfirmDeleteDefaulCommGroupPopup();
+	                        _me.showConfirmDeleteDefaulCommGroupPopup();
 	                    }
 	                    else {
 	                        deleteGroupData.isResetDefault = false;
-	                        showOptionDeleteCommGroupPopup();
+	                        _me.showOptionDeleteCommGroupPopup();
 	                    }
 	                }
 	            });
 	        }
 	
-	        function doDeleteCommGroup() {
+	        function deleteCommGroup() {
 	            $.ajax({
 	                type: 'POST',
 	                url: Site.resolveClientUrl("CustomerComGroup/Delete"),
 	                data: deleteGroupData,
 	                success: function (result) {
-	                    if (result.ErrorCode > 0 || result.ErrorMessage.lengh > 0) {
-	                        showResultPopup(result.ErrorCode > 0 ? "Error" : "Successful", result.ErrorMessage);
+	                    if (result.ErrorCode > 0 || result.ErrorMessage.length > 0) {
+	                        _me.showResultPopup(result.ErrorCode > 0 ? "Error" : "Successful", result.ErrorMessage);
 	                    } else {
-	                        window.location.href = Site.resolveClientUrl("CustomerComGroup/Index");
+	                        Site.redirect("CustomerComGroup/Index");
 	                    }
 	
 	                    Site.unBlockUI();
@@ -111,7 +104,7 @@ webpackJsonp([50],{
 	                {
 	                    text: "OK",
 	                    isClosedOnClick: true,
-	                    click: showOptionDeleteCommGroupPopup,
+	                    click: _me.showOptionDeleteCommGroupPopup,
 	                    classes: "btn btn-submit"
 	                }, {
 	                    text: "Cancel",
@@ -123,10 +116,12 @@ webpackJsonp([50],{
 	        }
 	
 	        function showOptionDeleteCommGroupPopup() {
-	            if (optionDeletePopup === null) {
-	                optionDeletePopup = $("#confirm-delete-comm-group");
-	                optionDeletePopup.remove();
-	                optionDeletePopup.find('input[name="IsRemovePlayerComm"]').on("click", function () {
+	            var popup = $("#option-del-comm-group");
+	
+	            if (popup.length === 0) {
+	                popup = $("#confirm-delete-comm-group");
+	                popup.remove();
+	                popup.find('input[name="IsRemovePlayerComm"]').on("click", function () {
 	                    $(this).prop("checked", true);
 	                });
 	            }
@@ -134,7 +129,7 @@ webpackJsonp([50],{
 	            var options = {
 	                model: true,
 	                title: Site.getSingleResource("DeleteCommissionGroup"),
-	                height: 150,
+	                height: 160,
 	                id: "option-del-comm-group"
 	            };
 	
@@ -144,7 +139,7 @@ webpackJsonp([50],{
 	                    isClosedOnClick: true,
 	                    click: function () {
 	                        deleteGroupData.isRemovePlayerComm = $('input[name="IsRemovePlayerComm"]:checked').val();
-	                        showConfirmDeleteCommGroupPopup();
+	                        _me.showConfirmDeleteCommGroupPopup();
 	                    },
 	                    classes: "btn btn-submit"
 	                }, {
@@ -153,10 +148,11 @@ webpackJsonp([50],{
 	                    click: function () {
 	                        $('#IsRemovePlayerComm').prop("checked", true);
 	                    },
-	                    classes: "btn btn-cancel"
+	                    classes: "btn btn-cancel",
+	                    id: "option-del-comm-group-cancel"
 	                }];
 	
-	            Popup.openPopupWithButton(optionDeletePopup, options, buttons);
+	            Popup.openPopupWithButton(popup, options, buttons);
 	        }
 	
 	        function showConfirmDeleteCommGroupPopup() {
@@ -171,13 +167,14 @@ webpackJsonp([50],{
 	                {
 	                    text: "OK",
 	                    isClosedOnClick: true,
-	                    click: doDeleteCommGroup,
+	                    click: _me.deleteCommGroup,
 	                    classes: "btn btn-submit"
 	                }, {
 	                    text: "Cancel",
 	                    isClosedOnClick: true,
-	                    click: showOptionDeleteCommGroupPopup,
-	                    classes: "btn btn-cancel"
+	                    click: _me.showOptionDeleteCommGroupPopup,
+	                    classes: "btn btn-cancel",
+	                    id: "confirm-del-comm-group-cancel"
 	                }];
 	
 	            Popup.openPopupWithButton('<div><p>' + Site.getSingleResource("AreYouSure") + '</p></div>', options, buttons);
@@ -186,12 +183,12 @@ webpackJsonp([50],{
 	        function showResultPopup(title, message) {
 	            var options = {
 	                model: true,
-	                title: "",
+	                title: title,
 	                height: 150,
 	                id: "result-del-comm-group"
 	            };
 	
-	            if ($("#result-del-comm-group").lengh > 0)
+	            if ($("#result-del-comm-group").length > 0)
 	            {
 	                $("#result-msg").html(message);
 	            }
@@ -210,8 +207,12 @@ webpackJsonp([50],{
 	        var _me = {
 	            initialize: initialize,
 	            initEvent: initEvent,
-	            deleteCommGroup: deleteCommGroup,
-	            publicFunctions: publicFunctions
+	            confirmDeleteCommGroup: confirmDeleteCommGroup,
+	            showConfirmDeleteDefaulCommGroupPopup: showConfirmDeleteDefaulCommGroupPopup,
+	            showOptionDeleteCommGroupPopup: showOptionDeleteCommGroupPopup,
+	            showConfirmDeleteCommGroupPopup: showConfirmDeleteCommGroupPopup,
+	            showResultPopup: showResultPopup,
+	            deleteCommGroup: deleteCommGroup
 	        };
 	
 	        return _me;

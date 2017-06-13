@@ -1841,6 +1841,27 @@ input[type="checkbox"] {
     background-color: #fff;
     left: 34px; }
 
+.grid-dropdown {
+  border: 1px solid #C0C0BE;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #f7f2f2; }
+  .grid-dropdown.disabled {
+    cursor: default;
+    pointer-events: none; }
+    .grid-dropdown.disabled .grid-dropdown-icon {
+      color: rgba(0, 0, 0, 0.26); }
+  .grid-dropdown-item {
+    display: inline-block;
+    color: #000; }
+  .grid-dropdown-label {
+    width: calc(100% - 15px);
+    border: 1px solid #fff;
+    border-radius: 3px; }
+  .grid-dropdown-icon {
+    width: 15px;
+    font-size: 7px; }
+
 .pagingContainer {
   padding: 3px;
   font-size: 1.1rem; }
@@ -1940,9 +1961,39 @@ input[type="checkbox"] {
   color: white !important; }
 
 #LevelListContainer, #OddsGroupListContainer {
-  display: none; }
+  display: none;
+  position: absolute; }
 
+/* Index column */
 input[type="checkbox"] + label {
-  margin: 0; }
+  margin: 0;
+  padding: 0;
+  top: 0;
+  vertical-align: middle;
+  height: 15px;
+  width: 15px; }
+
+/* Customer Option */
+.custoptionlink .grid-dropdown-icon {
+  margin-left: 5px;
+  font-weight: 900;
+  color: #000; }
+
+/* Move Group Popup*/
+.input-label {
+  background: transparent;
+  border-bottom: 1px solid #ccc;
+  height: 28px;
+  line-height: 26px;
+  display: inline-block;
+  width: 80%;
+  position: relative;
+  text-align: right; }
+
+.error-message {
+  color: red;
+  margin: 15px 5px;
+  text-align: center;
+  border: 1px solid #bbb; }
 
 /*# sourceMappingURL=customerlist.css.map*/

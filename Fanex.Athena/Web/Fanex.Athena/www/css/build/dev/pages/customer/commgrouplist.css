@@ -574,6 +574,9 @@ table tbody tr.row-group-level1 td {
   color: inherit;
   font-size: inherit !important; }
 
+.delete-comm-group {
+  cursor: pointer; }
+
 @media only screen and (min-width: 993px) {
   .no-customer-border {
     width: 30%; } }

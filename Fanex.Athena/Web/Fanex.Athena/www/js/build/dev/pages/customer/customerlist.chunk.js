@@ -3929,15 +3929,17 @@ webpackJsonp([51],{
 /***/ 237:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(238), __webpack_require__(243)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerList, CustomerComm) {
-	        "use strict";
-	
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(238), __webpack_require__(243), __webpack_require__(240), __webpack_require__(247)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerListFilter, CustomerListGrid, CustomerListService, CustomerComm) {
 	        $(document).ready(function () {
-	            CustomerList.initialize();
+	            Site.initialize();
+	            CustomerListService.initialize();
+	            CustomerListFilter.initialize();
+	            CustomerListGrid.initialize();
 	
 	            if (QueryString.getParam(window.location.href, "userName") ||
 	                QueryString.getParam(window.location.href, "groupId")) {
-	                setTimeout(CustomerList.submit, 500);
+	                setTimeout(CustomerListService.submit, 500);
 	            } else {
 	                Site.unBlockUI();
 	            }
@@ -3951,9 +3953,1758 @@ webpackJsonp([51],{
 /***/ 238:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205), __webpack_require__(239), __webpack_require__(240),
-	    __webpack_require__(241),
-	    __webpack_require__(11), __webpack_require__(208), __webpack_require__(209), __webpack_require__(228), __webpack_require__(242)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, CustomerListCustOption, CustomerListOption, PagingHelper) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(239), __webpack_require__(240)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
+	    var _state;
+	
+	    var _me = {
+	        initialize: function () {
+	            _state = CustomerListState.getState();
+	            _me.initEvent();
+	        },
+	
+	        initEvent: function () {
+	            $('#SubmitButton').click(function () {
+	                _state.pagingOption.pageindex = 1;
+	                CustomerListService.submit();
+	            });
+	
+	            _me.initGridColumnOption();
+	            _me.initOddGroupOption();
+	        },
+	
+	        initGridColumnOption: function () {
+	            var data = $.parseJSON($("#AllowedGridColumns").val());
+	            var totalColumns = data.length;
+	            var dataUI = [];
+	            var checkedCount = 0;
+	            for (var i = 0; i < totalColumns; i++) {
+	                var isChecked = Site.asBool(data[i].Checked);
+	                if (isChecked) {
+	                    checkedCount++;
+	                }
+	                dataUI.push({
+	                    Id: data[i].Name,
+	                    Value: data[i].Name,
+	                    Text: Site.getSingleResource(data[i].Name),
+	                    Checked: isChecked,
+	                    Enable: true,
+	                    Css: "",
+	                    CssClass: ""
+	                });
+	            }
+	            var ischeckAll = checkedCount === totalColumns;
+	            $("#grid-columns-multiselect").multiSelect({
+	                minWidth: 160,
+	                maxHeight: 400,
+	                shadow: true,
+	                showHeader: true,
+	                isCheckAll: ischeckAll,
+	                showFooter: false,
+	                checkAllText: Site.getSingleResource('All'),
+	                noneSelectedText: Site.getSingleResource("Columns"),
+	                selectedText: Site.getSingleResource("SelectedItemCount"),
+	                listData: dataUI,
+	                onCheck: function () {
+	                    var checkedItems = $("#grid-columns-multiselect").multiSelect("getCheckedItems");
+	                    if (checkedItems.length === 0) {
+	                        $("#SubmitButtonComm").prop("disabled", true);
+	                        $("#grid-columns-multiselect-null").removeClass("hide");
+	                        $("#grid-columns-option-container input[type=checkbox]:checked").prop("checked", false);
+	                    }
+	                    else {
+	                        $("#grid-columns-option-container input[type=checkbox]:checked").prop("checked", false);
+	                        for (var i = 0; i < checkedItems.length; i++) {
+	                            $('#grid-columns-option-container input#' + checkedItems[i]).prop("checked", true);
+	                        }
+	                        $("#SubmitButtonComm").prop("disabled", false);
+	                        $("#grid-columns-multiselect-null").addClass("hide");
+	                    }
+	                }
+	            });
+	        },
+	
+	        initOddGroupOption: function () {
+	            var data = $("#OddsGroups").val();
+	            if (!data) {
+	                return;
+	            }
+	
+	            data = $.parseJSON(data);
+	            var totalColumns = data.length;
+	            var dataUI = [];
+	            var checkedCount = 0;
+	            for (var i = 0; i < totalColumns; i++) {
+	                var isChecked = Site.asBool(data[i].Checked);
+	                if (isChecked) {
+	                    checkedCount++;
+	                }
+	
+	                dataUI.push({
+	                    Id: data[i].Name,
+	                    Value: data[i].Name,
+	                    Text: Site.getSingleResource(data[i].Name),
+	                    Checked: isChecked,
+	                    Enable: true,
+	                    Css: "",
+	                    CssClass: ""
+	                });
+	            }
+	
+	            var ischeckAll = checkedCount === totalColumns;
+	            $("#odds-group-multiselect").multiSelect({
+	                minWidth: 100,
+	                maxHeight: 400,
+	                shadow: true,
+	                showHeader: true,
+	                isCheckAll: ischeckAll,
+	                showFooter: false,
+	                checkAllText: Site.getSingleResource('All'),
+	                noneSelectedText: Site.getSingleResource("Odds"),
+	                selectedText: Site.getSingleResource("SelectedItemCount"),
+	                listData: dataUI,
+	                onCheck: function () {
+	                    var checkedItems = $("#odds-group-multiselect").multiSelect("getCheckedItems");
+	                    if (checkedItems.length === 0) {
+	                        $("#SubmitButtonComm").prop("disabled", true);
+	                        $("#odds-group-multiselect-null").removeClass("hide");
+	                    }
+	                    else {
+	                        $("#SubmitButtonComm").prop("disabled", false);
+	                        $("#odds-group-multiselect-null").addClass("hide");
+	                    }
+	                }
+	            });
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 239:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    var state;
+	
+	    var _pagingOption = {
+	        pageindex: 1,
+	        pagesize: 1000,
+	        pagelist: [1000, 2000, 3000, 4000],
+	        totalrow: 1,
+	        elementcontainer: ".paging",
+	        method: "AJAX",
+	        ajaxfunction: "CustomerList.ajaxPaging()",
+	        alwayshow: true
+	    };
+	
+	    function initState() {
+	        return {
+	            cachedData: {},
+	            selectedCustomers: {},
+	            checkedAllRows: false,
+	            pagingOption: _pagingOption
+	        };
+	    }
+	
+	    return {
+	        getState: function () {
+	            if (!state) {
+	                state = initState();
+	            }
+	
+	            return state;
+	        }
+	    };
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 240:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(241), __webpack_require__(205), __webpack_require__(242), __webpack_require__(239),
+	    __webpack_require__(208), __webpack_require__(209), __webpack_require__(228)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
+	    var _POPUP_LIST = ["#view-cust-option", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
+	    var _isAllowedCustomerCommission;
+	    var _productAccess;
+	    var _ajaxRequest = null;
+	
+	    var _state;
+	
+	    var _me = {
+	        initialize: function () {
+	            _isAllowedCustomerCommission = $("#IsAllowedCustomerCommission").val() === "True";
+	            _productAccess = JSON.parse($("#ProductAccess").val());
+	            _state = CustomerListState.getState();
+	        },
+	
+	        submit: function () {
+	            _state.selectedCustomers = {};
+	            _state.checkedAllRows = false;
+	
+	            var data = _me.getPostData();
+	            var option = {
+	                type: "POST",
+	                data: data,
+	                dataType: "json",
+	                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	                cache: false,
+	                url: Site.resolveClientUrl(CustomerListOption.urlData),
+	                success: function (response) {
+	                    _state.cachedData = response;
+	                    _me.bindData(response);
+	                },
+	                beforeSend: function () {
+	                    Site.blockUI();
+	                },
+	                error: function () {
+	                    Site.unBlockUI();
+	                    alert(Site.getSingleResource("ErrorProcessingMsg"));
+	                }
+	            };
+	
+	            if (_ajaxRequest !== null) {
+	                _ajaxRequest.abort();
+	            }
+	            _ajaxRequest = $.ajax(option);
+	        },
+	
+	        getPostData: function () {
+	            var data = {};
+	
+	            data.GridColumns = [];
+	            var $gridColumnMultiselect = $("#ui-multiselect-options-grid-columns-multiselect ul.ui-multiselect-checkboxes input");
+	            $gridColumnMultiselect.each(function (index, element) {
+	                data.GridColumns.push({
+	                    Name: element.name,
+	                    Checked: element.checked
+	                });
+	            });
+	
+	            var gridColumnCount = data.GridColumns.filter(function (item) { return item.Checked; }).length;
+	            if (gridColumnCount === 0) {
+	                return;
+	            }
+	
+	            if ($("#OddsGroups").length > 0) {
+	                data.OddsGroups = [];
+	                var $oddsGroupsMultiselect = $("#ui-multiselect-options-odds-group-multiselect .ui-multiselect-checkboxes input");
+	                $oddsGroupsMultiselect.each(function (index, element) {
+	                    data.OddsGroups.push({
+	                        Name: element.name,
+	                        Checked: element.checked
+	                    });
+	                });
+	
+	                var oddsGroupCount = data.OddsGroups.filter(function (item) { return item.Checked; }).length;
+	                if (oddsGroupCount === 0) {
+	                    return;
+	                }
+	            }
+	
+	            data.PageIndex = _state.pagingOption.pageindex;
+	            data.PageSize = _state.pagingOption.pagesize;
+	            data.CurrencyId = $("#CurrencyId").val();
+	            data.SpecialLevel = $("#special-level-list-search").val();
+	            data.Username = Site.asNull($("#txtUsername").val());
+	            data.CurrencyName = $("#CurrencyName").val();
+	            data.BaFilter = $("#BAFilterOption").val();
+	            data.GroupCommId = $("#DdlGroupCommId").val();
+	            data.BaseCurrency = $("#BaseCurrency").val();
+	            data.CustStatus = $("#CustStatusOption").val();
+	
+	            $("#excelParam").val(JSON.stringify(data));
+	
+	            $("#CurrencyId").attr('data-original', data.CurrencyId);
+	            $("#BaseCurrency").attr('data-original', data.BaseCurrency);
+	
+	            return data;
+	        },
+	
+	        bindData: function (response, keepScrollPosition) {
+	            var hasData = response && response.TotalRows > 0;
+	            $("div.paging").toggle(hasData);
+	
+	            if (!hasData) {
+	                jqGridAdditional.setNoInfo();
+	                return;
+	            }
+	
+	            jqGridAdditional.clearGrid("ReportGrid");
+	            $("#num-of-customer").html(response.TotalRows + " ");
+	
+	            var pagingOption = _state.pagingOption;
+	            pagingOption.totalrow = parseInt(response.TotalRows);
+	            PagingHelper.render(pagingOption);
+	
+	            var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
+	            var gridOption = _me.processGridOption(showingColumns);
+	            gridOption.data = response.Data;
+	
+	            //show report title
+	            $(".panel-heading").removeClass("hide");
+	            // Show the grid
+	            var reportGrid = $("#ReportGrid");
+	            reportGrid.jqGrid(gridOption);
+	            CustomerListOption.setGroupHeaderColumns(reportGrid);
+	
+	            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
+	                $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' id='CheckAll' /><label for='CheckAll'></label>");
+	            } else {
+	                $("#jqgh_ReportGrid_Index").html("#");
+	            }
+	
+	            $("#CheckAll").prop("checked", _state.checkedAllRows);
+	
+	            if (keepScrollPosition === true) {
+	                var oldScrollTop = $(".ui-jqgrid-bdiv").scrollTop();
+	                $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
+	            }
+	
+	            _me.resizeGrid();
+	            Site.unBlockUI();
+	
+	            _me.addGridScrollEventToHidePopups();
+	        },
+	
+	        resizeGrid: function () {
+	            var reportGrid = $("#ReportGrid");
+	            jqGridAdditional.updateGridHeight();
+	            jqGridAdditional.updateGridWidth(reportGrid);
+	        },
+	
+	        addGridScrollEventToHidePopups: function () {
+	            // Hide popup if scroll
+	            $(".ui-jqgrid-bdiv").on("scroll", function () {
+	                $(_POPUP_LIST).each(function (index, element) {
+	                    var popup = $(element);
+	                    if (popup.is(":visible")) {
+	                        popup.hide();
+	                    }
+	                });
+	            });
+	        },
+	
+	        processGridOption: function (showingColumns) {
+	            var gridOption = CustomerListOption.getGridOption(_productAccess, _isAllowedCustomerCommission);
+	            var indexColumn = gridOption.colModel[0];
+	
+	            _me.updateIndexColumnFormatter(indexColumn, showingColumns);
+	            _me.toggleColumn(gridOption, showingColumns);
+	
+	            return gridOption;
+	        },
+	
+	        updateIndexColumnFormatter: function (indexColumn, showingColumns) {
+	            var indexFormatter = function (cellValue, options, rowObject) {
+	                var checkedText = $("#CheckAll").prop("checked") || _state.selectedCustomers[rowObject.CustId] === true ? "checked" : "";
+	
+	                return "<input type='checkbox' " + checkedText + " title='" + rowObject.CustId +
+	                        "' id='" + rowObject.CustId + "' data-group-comm-id='" + rowObject.GroupCommId + "' class='select-cust-checkbox check-child' />" +
+	                    "<label for='" + rowObject.CustId + "'></label>";
+	            };
+	
+	            if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
+	                indexColumn.formatter = indexFormatter
+	            }
+	            else {
+	                indexColumn.formatter = undefined;
+	            }
+	        },
+	
+	        toggleColumn: function (gridOption, showingColumns) {
+	            var colNames = gridOption.colNames;
+	            var colModel = gridOption.colModel;
+	            var collength = colModel.length;
+	            var colIndex = 0;
+	            while (colIndex < collength) {
+	                var col = colModel[colIndex];
+	                if (!col.name || col.name === "Index") {
+	                    colIndex++;
+	                    continue;
+	                }
+	
+	                var colName = col.name.match(/^\w\wComm$/) !== null ? "Commission" : col.name;
+	
+	                if (showingColumns[colName] === undefined) {
+	                    colModel.splice(colIndex, 1);
+	                    colNames.splice(colIndex, 1);
+	                    collength--;
+	                }
+	                else {
+	                    colIndex++;
+	                }
+	            }
+	        }
+	    }
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 241:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site, jqGridAdditional */
+	/*exported CustomersOption */
+	/// <reference path="/@JSense.js" />
+	
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+	        "use strict";
+	
+	        var indexColumn = {
+	            key: true,
+	            name: 'Index',
+	            index: 'Index',
+	            resizable: false,
+	            width: 30,
+	            align: 'center',
+	            valign: 'middle',
+	            sortable: false
+	        };
+	
+	        var groupColumn =
+	        {
+	            name: 'Group',
+	            index: 'Group',
+	            resizable: false,
+	            width: 90,
+	            align: 'left',
+	            sortable: false,
+	            formatter: function (cellValue, options, rowObject) {
+	                if (Number(rowObject.GroupCommId) === 0) {
+	                    cellValue = Site.getSingleResource("None");
+	                }
+	
+	                return "<div id='groupName-" + rowObject.CustId + "' style='background-color:" + rowObject.GroupColor +
+	                         "' class='commission-color'>" + cellValue + "</div>";
+	            }
+	        };
+	
+	        var externalIdColumn =
+	        {
+	            name: 'ExternalId',
+	            index: 'ExternalId',
+	            resizable: false,
+	            width: 110,
+	            align: 'left',
+	            sortable: false
+	        };
+	
+	        var systemIdColumn =
+	        {
+	            name: 'SystemId',
+	            index: 'SystemId',
+	            resizable: false,
+	            width: 120,
+	            align: 'left',
+	            sortable: false
+	        };
+	
+	        var availableFundColumn = {
+	            name: 'AvailableFunds',
+	            index: 'AvailableFunds',
+	            width: 100,
+	            align: 'right',
+	            sortable: false,
+	            resizable: false,
+	            formatter: 'number',
+	            formatteroptions: { decimalSeparator: ".", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0.00' },
+	            frozen: true
+	        };
+	        var pedingFundColumn = {
+	            name: 'PendingFunds',
+	            index: 'PendindFunds',
+	            resizable: false,
+	            width: 100,
+	            align: 'right',
+	            sortable: false,
+	            frozen: true,
+	            formatter: function (cellValue, options, rowObject) {
+	                var number = Number(cellValue);
+	                if (number === 0) {
+	                    return jqGridAdditional.formatDecimal(cellValue);
+	                }
+	                else {
+	                    return "<a style='color: #1E1EEB' href=\"javascript:CustomerListCustOption.viewRunningBetlist(" +
+	                        rowObject.CustId + ",'" + rowObject.SystemId + "','" + rowObject.ExternalId + "')\">"
+	                        + jqGridAdditional.formatDecimal(cellValue) + "</a>";
+	                }
+	            }
+	        };
+	        var statusColumn =
+	        {
+	            name: 'Status',
+	            index: 'Status',
+	            resizable: false,
+	            width: 80,
+	            align: 'center',
+	            sortable: false,
+	            formatter: function (cellValue, options, rowObject) {
+	                return "<span custid='" + rowObject.CustId + "' class='link cust-status-option' issuspended='" +
+	                    rowObject.IsSuspended + "'  isclosed='" + rowObject.IsClosed + "' externalid='" + rowObject.ExternalId +
+	                    "' id='edit-cust-status-" + rowObject.CustId + "'>" + cellValue +
+	                    "<span class='arrow1' title='" + Site.getSingleResource("Status") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
+	            }
+	        };
+	        var baStatusColumn =
+	        {
+	            name: 'BAStatus',
+	            index: 'BAStatus',
+	            resizable: false,
+	            width: 80,
+	            align: 'left',
+	            sortable: false,
+	            formatter: function (cellValue, options, rowObject) {
+	                var paramString = JSON.stringify({ custId: rowObject.CustId, isAllowBA: !cellValue, externalId: rowObject.ExternalId });
+	                var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
+	
+	                return "<div title='" + title + "'" +
+	                        " class='center-align switch ba-" + (cellValue ? "on" : "off") + "'>" +
+	                        "<label><input class='baStatus' type='checkbox'" + (cellValue ? " checked" : "") + " data-val='" + paramString + "' /><span class='lever'></span><label>" +
+	                    "</div>";
+	            }
+	        };
+	        var specialLevelColumn = {
+	            name: 'SpecialLevel',
+	            index: 'SpecialLevel',
+	            resizable: false,
+	            width: 90,
+	            align: 'center',
+	            sortable: false,
+	            frozen: true,
+	            formatter: function (cellValue, options, rowObject) {
+	                return "<div class='grid-dropdown specialLevel' data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "'>"
+	                            + "<div class='grid-dropdown-item grid-dropdown-label level-" + cellValue + "'>"
+	                                + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue)
+	                             + "</div>"
+	                            + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("SpecialLevel") + "'></i>"
+	                    + "</div>";
+	            }
+	        };
+	        var oddsGroupColumn = {
+	            name: 'OddsGroup',
+	            index: 'OddsGroup',
+	            resizable: false,
+	            width: 90,
+	            align: 'center',
+	            sortable: false,
+	            frozen: true,
+	            formatter: function (cellValue, options, rowObject) {
+	                return "<div class='grid-dropdown oddsGroup " + (rowObject.BAStatus ? "disabled" : "") + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
+	                        + "<div class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
+	                             + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
+	                             "</div>"
+	                        + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"
+	                    + "</div>";
+	            }
+	        };
+	        var customerOptionColumn = {
+	            name: 'CustomerOption',
+	            index: 'CustomerOption',
+	            width: 80,
+	            align: 'center',
+	            sortable: false,
+	            resizable: false,
+	            frozen: true,
+	            formatter: function (cellValue, options, rowObject) {
+	                return "<a href='javascript:;' systemid='" + rowObject.SystemId + "' externalid='" + rowObject.ExternalId + "' custid='" + rowObject.CustId +
+	                "' title='" + Site.getSingleResource("CustomerOption") + "' class='custoptionlink' id='cust-option-link-" + rowObject.CustId + "'>"
+	                    + Site.getSingleResource("View")
+	                    + "<i class='grid-dropdown-icon icon-arrow'></i>"
+	                "</a>";
+	            }
+	        };
+	        var commissionColumn =
+	        {
+	            name: 'Commission',
+	            index: 'Commission',
+	            width: 40,
+	            align: 'right',
+	            sortable: false,
+	            resizable: false,
+	            title: true,
+	            formatter: 'number',
+	            formatteroptions: { decimalSeparator: ".", decimalPlaces: 2, defaultValue: '0.00' }
+	        };
+	        //#endregion
+	        var colNameList = ['#', 'ExternalId', "SystemId", "AvailableFunds", 'PendingFunds',
+	         'Status', 'BAStatus', 'SpecialLevel', 'OddsGroup', 'CustomerOption'];
+	
+	        var colModelList = [indexColumn, externalIdColumn, systemIdColumn, availableFundColumn,
+	                        pedingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, oddsGroupColumn, customerOptionColumn];
+	
+	        var me = {
+	            urlData: 'Customer/CustomerList',
+	            urlExcelData: 'Customer/ExportExcel',
+	            gridOption: {
+	                datatype: 'local',
+	                colNames: [],
+	                colModel: [],
+	                data: [],
+	                height: 'auto',
+	                viewrecords: false,
+	                autowidth: false,
+	                forceFit: false,
+	                shrinkToFit: true,
+	                minWidth: 800,
+	                loadtext: '',
+	                loadui: 'disable',
+	                loadonce: true,
+	                gridview: true,
+	                footerrow: false,
+	                userDataOnFooter: true,
+	                scroll: 1,
+	                rowNum: 40,
+	                cmTemplate: { title: true }, //enable tooltip
+	                userData: [],
+	                beforeSelectRow: function () {
+	                    return false;
+	                },
+	                onRightClickRow: function () {
+	                    return false;
+	                }
+	            }
+	        };
+	
+	        var products = ["SB", "RB", "NG", "LC", "CS"];
+	        var numOfProductColumns = 0;
+	        var firstProductCode;
+	
+	        var getColName = function (productAccess, isAllowedCustomerCommission) {
+	            numOfProductColumns = 1;
+	            var temp = Site.clone(colNameList);
+	            if (isAllowedCustomerCommission) {
+	                temp.insertAfter("Group", 0);
+	
+	                firstProductCode = null;
+	                for (var i = 0; i < products.length; i++) {
+	                    var productCode = products[i];
+	                    if (productAccess["IsAllow" + productCode]) {
+	                        if (!firstProductCode) {
+	                            firstProductCode = productCode.toUpperCase();
+	                        }
+	
+	                        numOfProductColumns++;
+	                        temp.push(Site.getSingleResource(productCode.toUpperCase()));
+	                    }
+	                }
+	            }
+	
+	            return Site.getResources(temp);
+	        };
+	
+	        var getColModel = function (productAccess, isAllowedCustomerCommission) {
+	            var temp = Site.clone(colModelList);
+	            if (isAllowedCustomerCommission) {
+	                var getCellAttrFunction = function (colName) {
+	                    return function (rowId, val, rowObj) {
+	                        return " id='" + colName + "-" + rowObj.CustId + "' ";
+	                    };
+	                };
+	
+	                var col = Site.clone(groupColumn);
+	                temp.insertAfter(col, 0);
+	
+	                $.each(products, function (index, value) {
+	                    if (productAccess["IsAllow" + value]) {
+	                        col = Site.clone(commissionColumn);
+	                        col.name = value + "Comm";
+	                        col.index = col.name;
+	                        col.cellattr = getCellAttrFunction(col.name);
+	                        temp.push(col);
+	                    }
+	                });
+	            }
+	
+	            return temp;
+	        };
+	
+	        me.setGroupHeaderColumns = function (grid) {
+	            grid.jqGrid('setGroupHeaders',
+	            {
+	                useColSpanStyle: true,
+	                groupHeaders: [{
+	                    startColumnName: firstProductCode + "Comm",
+	                    numberOfColumns: numOfProductColumns,
+	                    titleText: Site.getSingleResource('Commission') + " (%)"
+	                }]
+	            });
+	        };
+	
+	        me.getGridOption = function (productAccess, isAllowedCustomerCommission) {
+	            me.gridOption.colNames = getColName(productAccess, isAllowedCustomerCommission);
+	            me.gridOption.colModel = getColModel(productAccess, isAllowedCustomerCommission);
+	            return me.gridOption;
+	        };
+	
+	        return me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 242:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+	    var $pagingContainer, $pageIndex, $pageSize;
+	
+	    var me = {};
+	
+	    var setting = {
+	        pageindex: 1,
+	        pagesize: 50,
+	        pagelist: [50, 100, 1000],
+	        totalrow: 1,
+	        formId: "formreport",
+	        elementcontainer: "#page",
+	        method: "AJAX",
+	        ajaxfunction: "",
+	        alwayshow: false
+	    };
+	
+	    function goToPage(method, index) {
+	        if (method === "POST") {
+	            $("#IsExportExcel").val(false);
+	            var formName = $("input[name='FormName']", $pagingContainer).val();
+	            var form = $("#" + formName);
+	            var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
+	            var pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
+	            form.append(pageIndex);
+	            form.append(pageSize);
+	            Site.blockUI();
+	            form.submit();
+	        }
+	        else if (method === "AJAX") {
+	            $pageIndex.val(index);
+	            var fc = $("input[name='AjaxPagingFunction']", $pagingContainer).val();
+	            eval(fc); // jshint ignore:line
+	        } else {
+	            var url = Site.getCurrentUrl();
+	            url = QueryString.setParam(url, "PageSize", $pageSize.val());
+	            url = QueryString.setParam(url, "PageIndex", index);
+	
+	            Site.redirect(url);
+	        }
+	    }
+	
+	    function isVisible(element) {
+	        return !$(element).hasClass("pagingDisable");
+	    }
+	
+	    me.render = function (option) {
+	        /// <summary>
+	        ///
+	        /// </summary>
+	        /// <param name="pageindex"></param>
+	        /// <param name="pagesize"></param>
+	        /// <param name="totalrow"></param>
+	        /// <param name="elementcontainer">ex: "#page"</param>
+	        /// <param name="method">POST or GET or AJAX</param>
+	        var pageHtml = "";
+	        $.extend(setting, option);
+	        var noOfPage = 1;
+	        var pagingVisible = setting.totalrow > setting.pagesize;
+	
+	        if (pagingVisible) {
+	            noOfPage = parseInt(setting.totalrow / setting.pagesize
+	         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1));
+	        }
+	
+	        if (pagingVisible || setting.alwayshow) {
+	            var prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
+	            var pageControl = ['<div class="pagingContainer center-align">',
+	                          '<a href="javascript:;" class="icon pagingFirst' + prevPageDisabledHtml,
+	                          '<a href="javascript:;" class="icon pagingPrev' + prevPageDisabledHtml,
+	                          '<span class="pagingSeperator"></span>'];
+	
+	            var pagingInfo = '<div class="paging-info">' + Site.getSingleResource("Page") +
+	                '<input  type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="' + setting.pageindex + '" />'
+	            + "&nbsp;" + Site.getSingleResource("of") + "&nbsp;" + noOfPage + '</div>';
+	
+	            pageControl.push(pagingInfo);
+	
+	            pageControl.push('<span class="pagingSeperator"></span>');
+	
+	            var nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
+	            var pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
+	            pageControl.push(pageNext);
+	            var pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
+	            pageControl.push(pageLast);
+	
+	            var pageListLength = setting.pagelist.length;
+	            var pageSizeSelectHtml = '<select class="pageSizeSelected">';
+	            var pageSize = parseInt(setting.pagesize);
+	            for (var i = 0; i < pageListLength; i++) {
+	                pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
+	                + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
+	                + '>' + setting.pagelist[i] + '</option>';
+	            }
+	            pageSizeSelectHtml += '</select>';
+	            pageControl.push(pageSizeSelectHtml);
+	
+	            pageControl.push('<input type="hidden" name="PageSize" value="' + setting.pagesize + '" />');
+	            pageControl.push('<input type="hidden" name="Method" value="' + setting.method + '" />');
+	            pageControl.push('<input type="hidden" name="FormName" value="' + setting.formId + '" />');
+	            pageControl.push('<input type="hidden" name="NoOfPage" value="' + noOfPage + '" />');
+	            pageControl.push('<input type="hidden" name="AjaxPagingFunction" value="' + setting.ajaxfunction + '" />');
+	
+	            pageControl.push('</div>');
+	            pageHtml = pageControl.join("");
+	        }
+	
+	        $(setting.elementcontainer).html(pageHtml);
+	        me.initialize();
+	    };
+	    me.getSetting = function () {
+	        setting.pageindex = parseInt($pageIndex.val(), 10);
+	        setting.pagesize = $pageSize.val();
+	        return setting;
+	    };
+	    me.bindEvent = function () {
+	        var method = $('input[name="Method"]', $pagingContainer).val();
+	        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagingContainer).val(), 10);
+	
+	        $(".pagingFirst", $pagingContainer).on("click", function () {
+	            if (isVisible(this)) {
+	                goToPage(method, 1);
+	            }
+	        });
+	        $(".pagingPrev", $pagingContainer).on("click", function () {
+	            var currentPage = parseInt($pageIndex.val(), 10);
+	            if (isVisible(this) && currentPage > 1) {
+	                goToPage(method, currentPage - 1);
+	            }
+	        });
+	        $(".pagingLast", $pagingContainer).on("click", function () {
+	            if (isVisible(this)) {
+	                goToPage(method, noOfPage);
+	            }
+	        });
+	        $(".pagingNext", $pagingContainer).on("click", function () {
+	            if (isVisible(this)) {
+	                var currentPage = parseInt($pageIndex.val(), 10);
+	                goToPage(method, currentPage + 1);
+	            }
+	        });
+	
+	        $("select.pageSizeSelected", $pagingContainer).on("change", function () {
+	            var pageSize = $(this).val();
+	            $pageSize.val(pageSize);
+	            setting.pagesize = pageSize;
+	            goToPage(method, 1);
+	        });
+	
+	        $pageIndex.on("keyup", function (e) {
+	            var code = e.keyCode ? e.keyCode : e.which;
+	            if (code === 13) {
+	                var value = parseInt($(this).val());
+	                if (value > 0 && value <= noOfPage) {
+	                    $(this).val(value);
+	                    goToPage(method, value);
+	                }
+	            }
+	        });
+	    };
+	
+	    me.initialize = function () {
+	        $pagingContainer = $(".pagingContainer");
+	        $pageIndex = $("input[name='PageIndex']", $pagingContainer);
+	        $pageSize = $("input[name='PageSize']", $pagingContainer);
+	
+	        me.bindEvent();
+	    };
+	
+	    return me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 243:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(239), __webpack_require__(240), __webpack_require__(244), __webpack_require__(245), __webpack_require__(246), __webpack_require__(242)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService, CustomerListBAStatus, CustomerListSpecialLevel, CustomerListOddsGroup, PagingHelper) {
+	        var _state;
+	
+	        var _me = {
+	            initialize: function () {
+	                _state = CustomerListState.getState();
+	                window.CustomerList = {
+	                    ajaxPaging: _me.ajaxPaging
+	                };
+	
+	                $("#SubmitButtonComm").prop("disabled", true);
+	
+	                CustomerListBAStatus.initialize();
+	                CustomerListSpecialLevel.initialize();
+	                CustomerListOddsGroup.initialize();
+	
+	                _me.initEvent();
+	                $("#SubmitButtonComm").prop("disabled", false);
+	            },
+	
+	            ajaxPaging: function () {
+	                _state.pagingOption = PagingHelper.getSetting();
+	                CustomerListService.submit();
+	            },
+	
+	            initEvent: function () {
+	                $('#ExportToExcel').click(function () {
+	                    $(this).closest('form').submit();
+	                });
+	
+	                _me.registerCheckboxEvent();
+	
+	                $("#popup-update").on("click", _me.updateCustStatus);
+	                $("#popup-close").on("click", _me.closeUpdatePopUp);
+	
+	                $("#popup-suspended").change(_me.custStatusCheckedChanged);
+	                $("#popup-closed").change(_me.custStatusCheckedChanged);
+	
+	                $("#bet-setting-link").on("click", _me.viewBetSetting);
+	                $("#bet-list-link").on("click", _me.viewBetList);
+	                $("#statement-link").on("click", _me.viewStatement);
+	                $("#login-info-link").on("click", _me.viewLogInfo);
+	            },
+	
+	            registerCheckboxEvent: function(){
+	                $("#report-content").on("change", "#CheckAll", function () {
+	                    var isCheckedAll = this.checked;
+	                    var selectedCustomers = {};
+	
+	                    if (isCheckedAll) {
+	                        _state.cachedData.Data.map(function (item) {
+	                            selectedCustomers[item.CustId] = true;
+	                        });
+	                    }
+	
+	                    _state.selectedCustomers = selectedCustomers;
+	                    _state.checkedAllRows = isCheckedAll;
+	                    CustomerListService.bindData(_state.cachedData);
+	                });
+	
+	                $("#report-content").on("change", ".select-cust-checkbox", function () {
+	                    var custid = Number(this.id);
+	                    var group = $(this).attr("data-group-comm-id");
+	                    var selectedCustomers = _state.selectedCustomers;
+	
+	                    if (this.checked) {
+	                        selectedCustomers[custid] = true;
+	                    } else {
+	                        delete selectedCustomers[custid];
+	                    }
+	
+	                    _state.checkedAllRows = Object.keys(selectedCustomers).length === _state.cachedData.Data.length;
+	                    $("#CheckAll").prop("checked", _state.checkedAllRows);
+	                });
+	            },
+	
+	            updateCustStatus: function () {
+	                if (!window.confirm(Site.getSingleResource('ChangeStatusOfThisCustomerMsg'))) {
+	                    _me.closeUpdatePopUp();
+	                    return;
+	                }
+	
+	                var popup = $("#update-cust-status-popup");
+	                var custId = popup.attr("custid");
+	                var statusLink = $("#edit-cust-status-" + custId);
+	
+	                var isSuspended = $("#popup-suspended").is(':checked');
+	                var isClosed = $("#popup-closed").is(':checked');
+	                var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateCustStatus");
+	                $.ajax({
+	                    type: "POST",
+	                    data:
+	                    {
+	                        custId: custId,
+	                        isSuspended: isSuspended,
+	                        isClosed: isClosed
+	                    },
+	                    url: requestUrl,
+	                    dataType: "json",
+	                    beforeSend: function () {
+	                        Site.blockUI();
+	                    },
+	                    complete: function () {
+	                        Site.unBlockUI();
+	                        _me.closeUpdatePopUp(custId);
+	                    },
+	                    success: function (result) {
+	                        if (Number(result.Code) === 0) {
+	                            var color = isClosed === true ? "#ccc7ba" : isSuspended === true ? "#f8ded7" : "#F6F8F9";
+	
+	                            var statusText = isClosed === true ? Site.getSingleResource("Closed") :
+	                                        isSuspended === true ? Site.getSingleResource("Suspended") : Site.getSingleResource("Open");
+	
+	                            statusLink.html(statusText + '<span title="' + Site.getSingleResource('Status') + '" class="arrow1" >&nbsp;&nbsp;&nbsp;</span>');
+	                            statusLink.attr("isclosed", isClosed);
+	                            statusLink.attr("issuspended", isSuspended);
+	
+	                            $("#row" + custId).css("background-color", color);
+	                        }
+	                        else {
+	                            alert(result.Message);
+	                        }
+	                    }
+	                });
+	            },
+	
+	            closeUpdatePopUp: function () {
+	                var popup = $("#update-cust-status-popup");
+	                if (popup.is(":visible")) {
+	                    $("#update-cust-status-popup").hide();
+	                }
+	            },
+	
+	            custStatusCheckedChanged: function () {
+	                var popup = $("#update-cust-status-popup");
+	                var isSuspended = $("#popup-suspended").is(':checked');
+	                var isClosed = $("#popup-closed").is(':checked');
+	
+	                var changed = Site.asBool(popup.attr("closed")) !== isClosed || Site.asBool(popup.attr("suspended")) !== isSuspended;
+	                $("#popup-update").prop("disabled", !changed);
+	            }
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 244:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(239), __webpack_require__(240)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
+	    var _state;
+	
+	    var _me = {
+	        initialize: function () {
+	            _state = CustomerListState.getState();
+	
+	            $("#report-content").on("change", "input[type=checkbox].baStatus", function () {
+	                _me.updateBASetting($(this));
+	            });
+	        },
+	
+	        updateBASetting: function ($context) {
+	            var canUpdateBA = $("#CanUpdateBA").val();
+	            if (!canUpdateBA) {
+	                var canUpdateBAMessage = $("#CanUpdateBAMessage").val();
+	                alert(canUpdateBAMessage);
+	                return;
+	            }
+	
+	            var data = $context.data("val");
+	            var confirmMsg = data.isAllowBA ? Site.getSingleResource("AlertTurnOnBAMsg") : Site.getSingleResource("AlertTurnOffBAMsg");
+	
+	            if (window.confirm(confirmMsg)) {
+	                var url = Site.resolveClientUrl("CustomerAPI/UpdateBAStatus");
+	                var currentBAStatus = !data.isAllowBA;
+	                $.ajax({
+	                    type: "POST",
+	                    url: url,
+	                    data: data,
+	                    beforeSend: function () {
+	                        Site.blockUI();
+	                    },
+	                    success: function (response) {
+	                        if (response.IsSuccessful) {
+	                            var rowIndex = ($context.closest("tr").attr("id") - 1) % _state.pagingOption.pagesize;
+	                            _state.cacheData.Data[rowIndex].BAStatus = data.isAllowBA;
+	                            _state.cacheData.Data[rowIndex].OddsGroup = response.OddsGroup;
+	                            CustomerListService.bindData(_state.cacheData, true);
+	                        }
+	                        else {
+	                            $context.prop("checked", currentBAStatus);
+	                            alert(response.Message);
+	                        }
+	                    },
+	                    error: function () {
+	                        $context.prop("checked", currentBAStatus);
+	                    },
+	                    complete: function () {
+	                        Site.unBlockUI();
+	                    },
+	                    statusCode:
+	                    {
+	                        404: function () {
+	                            $context.prop("checked", currentBAStatus);
+	                            alert('Error-Page not found');
+	                        }
+	                    }
+	                });
+	            }
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 245:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(239), __webpack_require__(240)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
+	    var _$specialLevelCell = null;
+	    var _state;
+	
+	    var _me = {
+	        initialize: function () {
+	            _state = CustomerListState.getState();
+	
+	            $("#report-content").on("click", ".specialLevel", function () {
+	                _$specialLevelCell = $(this);
+	                _me.viewList(_$specialLevelCell);
+	            });
+	
+	            $("#LevelListContainer .levelLink").click(function () {
+	                var level = $(this).data("level");
+	                _me.setValue(_$specialLevelCell, level);
+	            });
+	        },
+	
+	        viewList: function ($context) {
+	            var custId = $context.attr("data-custid");
+	            var $popup = $("#LevelListContainer");
+	            var position = $context.offset();
+	            $popup.css({
+	                top: position.top + $context.height(),
+	                left: position.left,
+	                width: $context.width()
+	            });
+	
+	            if ($popup.attr("custid") === custId) {
+	                $popup.toggle();
+	            }
+	            else {
+	                var $customerOption = $("#cust-option-link-" + custId);
+	                $popup.attr("custid", custId);
+	                $popup.attr("externalid", $customerOption.attr("externalid"));
+	                $popup.attr("systemid", $customerOption.attr("systemid"));
+	                $popup.show();
+	            }
+	
+	            return false;
+	        },
+	
+	        setValue: function ($listItem, level) {
+	            var oldValue = $listItem.data("level");
+	            if (oldValue === level) {
+	                _me.close();
+	                return;
+	            }
+	
+	            if (!_me.isConfirmed()) {
+	                return;
+	            }
+	
+	            var custId = $listItem.data("custid");
+	            $listItem.find(".grid-dropdown-label").html(level === 0 ? Site.getSingleResource("None") : level)
+	                                                .attr('class', 'level-' + level);
+	            var param = {
+	                custId: custId,
+	                level: level
+	            };
+	
+	            $.ajax({
+	                type: "POST",
+	                data: param,
+	                url: Site.resolveClientUrl("CustomerAPI/UpdateSpecialLevel"),
+	                dataType: "json",
+	                success: function (data) {
+	                    if (data.Success) {
+	                        var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _state.pagingOption.pagesize;
+	                        _state.cacheData.Data[rowIndex].SpecialLevel = level;
+	                        CustomerListService.bindData(_state.cacheData, true);
+	                    }
+	                    else {
+	                        $listItem.html(oldValue === 0 ? Site.getSingleResource("None") : oldValue);
+	                        $listItem.attr('class', 'level-' + oldValue);
+	                        alert(data.ErrorMessage);
+	                    }
+	                },
+	                error: function () {
+	                    $listItem.html(oldValue === 0 ? Site.getSingleResource("None") : oldValue);
+	                    $listItem.attr('class', 'level-' + oldValue);
+	                },
+	                complete: function () {
+	                    _me.close();
+	                }
+	            });
+	        },
+	
+	        isConfirmed: function () {
+	            var message = level === 0 ?
+	                            Site.getSingleResource('AlertRemoveSpecialLevelForCustomerMsg') :
+	                            Site.getSingleResource('AlertSetSpecialLevelForCustomerMsg');
+	
+	            return window.confirm(message);
+	        },
+	
+	        close: function () {
+	            $("#LevelListContainer").fadeOut();
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 246:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(239), __webpack_require__(240)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, CustomerListState, CustomerListService) {
+	    var _$oddsGroupCell;
+	    var _state;
+	
+	    var _me = {
+	        initialize: function () {
+	            _state = CustomerListState.getState();
+	
+	            $("#report-content").on("click", ".oddsGroup", function () {
+	                _$oddsGroupCell = $(this);
+	                _me.viewList(_$oddsGroupCell);
+	            });
+	
+	            $("#OddsGroupListContainer .oddsGroupLink").click(function () {
+	                var group = $(this).data("group");
+	                _me.setValue(_$oddsGroupCell, group);
+	            });
+	        },
+	
+	        viewList: function ($context) {
+	            if ($context.hasClass("disabled")) {
+	                return;
+	            }
+	
+	            var custId = $context.attr("data-custid");
+	            var $popup = $("#OddsGroupListContainer");
+	            var position = $context.offset();
+	            $popup.css({
+	                top: position.top + $context.height(),
+	                left: position.left,
+	                width: $context.width()
+	            });
+	
+	            if ($popup.attr("custid") === custId) {
+	                $popup.toggle();
+	            }
+	            else {
+	                var $customerOption = $("#cust-option-link-" + custId);
+	                $popup.attr("custid", custId);
+	                $popup.attr("externalid", $customerOption.attr("externalid"));
+	                $popup.attr("systemid", $customerOption.attr("systemid"));
+	                $popup.show();
+	            }
+	
+	            return false;
+	        },
+	
+	        setValue: function ($listItem, oddsGroup) {
+	            var oldValue = $listItem.data("group");
+	            if (oldValue === oddsGroup) {
+	                _me.close();
+	                return;
+	            }
+	
+	            var message = Site.getSingleResource('AlertSetOddsGroupForCustomerMsg');
+	            message = message.replace("{0}", oddsGroup);
+	            if (!confirm(message)) {
+	                return;
+	            }
+	
+	            var custId = $listItem.data("custid");
+	            $listItem.find(".grid-dropdown-label").html(oddsGroup === 0 ? Site.getSingleResource("None") : oddsGroup)
+	                                                    .attr('class', 'group-' + oddsGroup);
+	
+	            var url = Site.resolveClientUrl("CustomerAPI/UpdateOddsGroup");
+	            var param = {
+	                custId: custId,
+	                oddsGroup: oddsGroup
+	            };
+	
+	            $.ajax({
+	                type: "POST",
+	                data: param,
+	                url: url,
+	                dataType: "json",
+	                success: function (data) {
+	                    if (data.Success) {
+	                        var rowIndex = ($listItem.closest("tr").attr("id") - 1) % _pagingOption.pagesize;
+	                        _state.cacheData.Data[rowIndex].OddsGroup = oddsGroup;
+	                        CustomerService.bindData(_state.cacheData, true);
+	                    }
+	                    else {
+	                        $listItem.find(".grid-dropdown-label").html(oldValue)
+	                            .attr('class', 'group-' + oldValue);
+	                        alert(data.ErrorMessage);
+	                    }
+	                    closeOddsGroupList();
+	                },
+	                error: function () {
+	                    $listItem.find(".grid-dropdown-label").html(oldValue)
+	                            .attr('class', 'group-' + oldValue);
+	                    _me.close();
+	                }
+	            });
+	        },
+	
+	        close: function () {
+	            $("#OddsGroupListContainer").fadeOut();
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 247:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site, CustomerList, JSLINQ*/
+	/// <reference path="/@JSense.js" />
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205), __webpack_require__(9),
+	__webpack_require__(248)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, Popup, CustomerList) {
+	        "use strict";
+	
+	        var _me = {
+	            initialize: function () {
+	                // bind customer button event
+	                $('#MoveToGroup').click(function () {
+	                    _me.showMoveCustomerToGroup();
+	                });
+	
+	                $('#UpdateComm').click(function () {
+	                    var groupCommId = $('#UpdateComm').attr('data-group-id');
+	                    _me.showUpdateCustComm(groupCommId);
+	                });
+	
+	                $('#RemoveFromGroup').click(function () {
+	                    _me.showRemoveFromGroup();
+	                });
+	
+	                $("#GroupListSelect").change(function () {
+	                    _me.newGroupChanged(this);
+	                });
+	
+	                // Commission dropdownlist change
+	                $('#CustSBComm1').on('change', function () {
+	                    _me.commissionOnChange($(this).val(), '#CustSBComm');
+	                });
+	
+	                $('#CustParlayComm1').on('change', function () {
+	                    _me.commissionOnChange($(this).val(), '#CustParlayComm');
+	                });
+	
+	                $('#CustRBComm1').on('change', function () {
+	                    _me.commissionOnChange($(this).val(), '#CustRBComm');
+	                });
+	
+	                $('#CustNGComm1').on('change', function () {
+	                    _me.commissionOnChange($(this).val(), '#CustNGComm');
+	                });
+	
+	                $('#CustLCComm1').on('change', function () {
+	                    _me.commissionOnChange($(this).val(), '#CustLCComm');
+	                });
+	
+	                $('#CustCSComm1').on('change', function () {
+	                    _me.commissionOnChange($(this).val(), '#CustCSComm');
+	                });
+	            },
+	
+	            commissionOnChange: function (value, id) {
+	                if (Number(value) === 15) {
+	                    $(id + 2 + ', ' + id + 3).val(0);
+	                    $(id + 2 + ', ' + id + 3).attr('disabled', 'disabled');
+	                } else {
+	                    $(id + 2 + ', ' + id + 3).removeAttr('disabled');
+	                }
+	            },
+	
+	            // This function used to remove data row after updated/remove or move group commission.
+	            processGroupCommItem: function (status) {
+	                var selectList = [];
+	                var list = $("input:checkbox.check-child:checked");
+	                for (var i = 0; i < list.length; i++) {
+	                    selectList.push(list[i].id);
+	                }
+	
+	                if (status) {
+	                    for (var j = 0; j < selectList.length; j++) {
+	                        $('#row' + selectList[j]).remove();
+	                    }
+	                }
+	            },
+	
+	            /* move customer to group*/
+	            showMoveCustomerToGroup: function () {
+	                $('#lblMoveToGroupMsg').html("");
+	                _me.clearNotification();
+	
+	                Popup.openPopupWithButton($("#MoveToGroupPopUpTemplate").clone(),
+	                    {
+	                        title: Site.getSingleResource('MoveToGroup'),
+	                        id: 'MoveToGroupPopUp',
+	                        height: 450,
+	                        width: 350
+	                    },   
+	                    [
+	                        {
+	                            text: Site.getSingleResource('OK'),
+	                            click: function () {
+	                                _me.moveCustomerToGroup($(this));
+	                            },
+	                            classes: "btn btn-submit"
+	                        },
+	                        {
+	                            text: Site.getSingleResource('Cancel'),
+	                            isClosedOnClick: true,
+	                            classes: "btn btn-cancel"
+	                        }
+	                    ]
+	                );
+	            },
+	
+	            moveCustomerToGroup: function () {
+	                var groupid = parseInt($('#GroupListSelect').val(), 10);
+	                var checkedCustomers = CustomerList.getCheckedCustomers();
+	                
+	                var custList = [];
+	
+	                for (var i = 0; i < checkedCustomers.length; i++) {
+	                    var currenntGroupId = Number(checkedCustomers[i].Group);
+	                    if (currenntGroupId === 0 || currenntGroupId !== groupid) {
+	                        custList.push(checkedCustomers[i].Id);
+	                    }
+	                }
+	
+	                if (checkedCustomers.length === 0) {
+	                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
+	                    return;
+	                }
+	
+	                //GroupId = - 1 is show all group.
+	                if (groupid === -1) {
+	                    _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
+	                    return;
+	                }
+	                if (checkedCustomers.length > 0 && custList.length === 0) {
+	                    _me.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false);
+	                    return;
+	                }
+	                var param =
+	                {
+	                    CustomerIds: custList.toString(),
+	                    GroupComId: groupid
+	                };
+	                $.ajax({
+	                    type: "POST",
+	                    data: param,
+	                    url: Site.resolveClientUrl("CustomerAPI/MoveToGroupCom"),
+	                    dataType: "json",
+	                    beforeSend: function () {
+	                        _me.ajaxStart();
+	                    },
+	                    complete: function () {
+	                        _me.ajaxStop();
+	                    },
+	                    success: function (result) {
+	                        if (result.Success) {
+	                            _me.showMsg(Site.getSingleResource('MoveSuccessfullyMsg'), result.Success);
+	
+	                            var groupName = result.ExtendedData.GroupName;
+	                            if (groupName.length > 17) {
+	                                groupName = groupName.substring(0, 14);
+	                                groupName += "...";
+	                            }
+	                            var groupNameText = "<span title='" + result.ExtendedData.GroupName + "'>" + groupName + "</span>";
+	
+	                            CustomerList.updateGridGroupAndComm(groupid, groupNameText, result.ExtendedData.GroupColor,
+	                                                 result.ExtendedData.SBComm, result.ExtendedData.NGComm,
+	                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
+	                        }
+	                        else {
+	                            _me.showMsg(result.ErrorMessage, result.Success);
+	                        }
+	                    }
+	                });
+	            },
+	            /* End- move customer to group*/
+	
+	            /* update customer*/
+	            showUpdateCustComm: function (groupCommId) {
+	                var isShowInfo = false;
+	                var checkedCustomers = CustomerList.getCheckedCustomers();
+	                
+	                for (var i = 0; i < checkedCustomers.length; i++) {
+	                    if (Number(checkedCustomers[i].Group) !== 0) {
+	                        isShowInfo = true;
+	                        break;
+	                    }
+	                }
+	
+	                $('#InfoMsg').css('display', isShowInfo ? 'block' : 'none');
+	                _me.clearNotification();
+	
+	                $("#UpdateCustCommPopUp").dialog({
+	                    resizable: false,
+	                    height: 350,
+	                    width: 500,
+	                    modal: true,
+	                    buttons:
+	                    [
+	                        {
+	                            text: Site.getSingleResource('Save'),
+	                            click: function () {
+	                                _me.updateCustomerComm($(this), groupCommId);
+	                            }
+	                        },
+	                        {
+	                            text: Site.getSingleResource('Cancel'),
+	                            click: function () {
+	                                $(this).dialog("close");
+	                            }
+	                        }
+	                    ]
+	                });
+	            },
+	            initCommissionParam: function (id) {
+	                var comm1 = parseInt($(id + 1).val());
+	                var comm2 = parseInt($(id + 2).val());
+	                var comm3 = parseInt($(id + 3).val());
+	                var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
+	                return comm;
+	            },
+	            updateCustomerComm: function (ctx, groupCommId) {
+	                var checkedCustomers = CustomerList.getCheckedCustomers();
+	                var custList = JSLINQ(checkedCustomers).Select(function (x) { return x.Id; }).ToArray();
+	
+	                if (custList.length === 0) {
+	                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
+	                    return;
+	                }
+	
+	                var sbcom = _me.initCommissionParam('#CustSBComm');
+	                var parlayCom = _me.initCommissionParam('#CustParlayComm');
+	                var rbcom = _me.initCommissionParam('#CustRBComm');
+	                var ngcom = _me.initCommissionParam('#CustNGComm');
+	                var lccom = _me.initCommissionParam('#CustLCComm');
+	                var cscom = _me.initCommissionParam('#CustCSComm');
+	                var param =
+	                {
+	                    GroupId: groupCommId,
+	                    CustomerIds: custList.toString(),
+	                    SBComm: sbcom,
+	                    ParlayComm: parlayCom,
+	                    RCComm: rbcom,
+	                    NGComm: ngcom,
+	                    LCComm: lccom,
+	                    CSComm: cscom
+	                };
+	
+	                $.ajax({
+	                    type: "POST",
+	                    data: param,
+	                    url: Site.resolveClientUrl("CustomerAPI/UpdateCustomerCom"),
+	                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+	                    dataType: 'json',
+	                    beforeSend: function () {
+	                        _me.ajaxStart();
+	                    },
+	                    complete: function () {
+	                        _me.ajaxStop();
+	                    },
+	                    success: function (result) {
+	                        if (result.Success) {
+	                            //updated = true;
+	                            _me.showMsg(Site.getSingleResource('UpdateCommSucessfulMsg'), result.Success);
+	
+	                            CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
+	                                                 result.ExtendedData.SBComm, result.ExtendedData.NGComm,
+	                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
+	                        }
+	                        else {
+	                            _me.showMsg(result.ErrorMessage, result.Success);
+	                        }
+	                    }
+	                });
+	            },
+	            /* end-update custom*/
+	
+	            /* remove from group*/
+	            showRemoveFromGroup: function () {
+	                var checkedCustomers = CustomerList.getCheckedCustomers();
+	
+	                var msg = checkedCustomers.length > 1
+	                    ? Site.getSingleResource('RemoveTheseCustomersFromGroupMsg')
+	                    : Site.getSingleResource('RemoveThisCustomerFromGroupMsg');
+	
+	                $("#RemoveConfirmMsg").html(msg);
+	
+	                _me.clearNotification();
+	
+	                $("#ConfirmRemoveFromGroupPopUp").dialog({
+	                    resizable: false,
+	                    height: 300,
+	                    width: 330,
+	                    modal: true,
+	                    buttons:
+	                    [
+	                        {
+	                            text: Site.getSingleResource('OK'),
+	                            click: function () {
+	                                _me.removeFromGroupComm($(this));
+	                            }
+	                        },
+	                        {
+	                            text: Site.getSingleResource('Cancel'),
+	                            click: function () {
+	                                $('input[name="RadioComm"]:eq(1)').attr("checked", "checked");
+	                                $(this).dialog("close");
+	                            }
+	                        }
+	                    ]
+	                });
+	            },
+	
+	            removeFromGroupComm: function () {
+	                var checkedCustomers = CustomerList.getCheckedCustomers();
+	                var custList = [];
+	
+	                for (var i = 0; i < checkedCustomers.length; i++) {
+	                    if (checkedCustomers[i].Group > 0) {
+	                        custList.push(checkedCustomers[i].Id);
+	                    }
+	                }
+	
+	                if (checkedCustomers.length === 0) {
+	                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
+	                    return;
+	                }
+	                if (checkedCustomers.length > 0 && custList.length === 0) {
+	                    _me.showMsg(Site.getSingleResource('CustomerNotBelongAnyGroupMsg'), false);
+	                    return;
+	                }
+	
+	                var iskeepcom = $('#KeepComm').is(':checked');
+	                var param =
+	                {
+	                    CustomerIds: custList.toString(),
+	                    isRemovePlayercomm: !iskeepcom
+	                };
+	
+	                $.ajax({
+	                    type: "POST",
+	                    data: param,
+	                    url: Site.resolveClientUrl("CustomerAPI/RemoveFromGroupCom"),
+	                    dataType: "json",
+	                    beforeSend: function () {
+	                        _me.ajaxStart();
+	                    },
+	                    complete: function () {
+	                        _me.ajaxStop();
+	                    },
+	                    success: function (result) {
+	                        if (result.Success) {
+	                            //removed = true;
+	
+	                            if (checkedCustomers.length > 0 && custList.length > 0 && custList.length < checkedCustomers.length) {
+	                                _me.showMsg(result.Message + "! </br> " + Site.getSingleResource('CustomersBelongGroupsBeRemovedMsg'), true);
+	                            }
+	                            else {
+	                                _me.showMsg(result.Message, result.Success);
+	                            }
+	                            if (param.isRemovePlayercomm) {
+	                                CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
+	                                                 result.ExtendedData.SBComm, result.ExtendedData.NGComm,
+	                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
+	                            }
+	                            else {
+	                                CustomerList.updateGridGroup(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor);
+	                            }
+	                        }
+	                        else {
+	                            _me.showMsg(result.ErrorMessage, result.Success);
+	                        }
+	                    }
+	                });
+	            },
+	
+	            /* end -remove from group*/
+	
+	            showMsg: function (msg, isSuccess) {
+	                if (isSuccess) {
+	                    $(".success-message").html(msg).show();
+	                    $(".error-message").hide();
+	                }
+	                else {
+	                    $(".error-message").html(msg).show();
+	                    $(".success-message").hide();
+	                }
+	            },
+	
+	            ajaxStart: function () {
+	                $(".error-message").hide();
+	                $(".success-message").hide();
+	                $(".ajax-loading").show();
+	                $(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", true).addClass("ui-state-disabled");
+	                $(".ui-dialog-buttonpane button:contains('OK')").attr("disabled", true).addClass("ui-state-disabled");
+	                $(".ui-dialog-buttonpane button:contains('Cancel')").attr("disabled", true).addClass("ui-state-disabled");
+	                $(".ui-dialog-titlebar-close").attr("disabled", true).css("display", "none").addClass("ui-state-disabled");
+	            },
+	
+	            ajaxStop: function () {
+	                $(".ajax-loading").hide();
+	                $(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", false).removeClass("ui-state-disabled");
+	                $(".ui-dialog-buttonpane button:contains('OK')").attr("disabled", false).removeClass("ui-state-disabled");
+	                $(".ui-dialog-buttonpane button:contains('Cancel')").attr("disabled", false).removeClass("ui-state-disabled");
+	                $(".ui-dialog-titlebar-close").attr("disabled", false).css("display", "inline").removeClass("ui-state-disabled");
+	            },
+	
+	            clearNotification: function () {
+	                $(".ajax-loading").hide();
+	                $(".error-message").hide();
+	                $(".success-message").hide();
+	            },
+	
+	            newGroupChanged: function (obj) {
+	                var groupId = obj.options[obj.selectedIndex].value;
+	                $('#NewSbComm').text($("#SBComm" + groupId).val());
+	                $('#NewParlayComm').text($("#ParlayComm" + groupId).val());
+	                $('#NewRbComm').text($("#RBComm" + groupId).val());
+	                $('#NewNgComm').text($("#NGComm" + groupId).val());
+	                $('#NewLcComm').text($("#LCComm" + groupId).val());
+	                $('#NewCsComm').text($("#CSComm" + groupId).val());
+	            }
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ },
+
+/***/ 248:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205), __webpack_require__(249), __webpack_require__(241),
+	    __webpack_require__(242),
+	    __webpack_require__(11), __webpack_require__(208), __webpack_require__(209), __webpack_require__(228), __webpack_require__(250)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, CustomerListCustOption, CustomerListOption, PagingHelper) {
 	        "use strict";
 	
 	        var ajaxRequest = null;
@@ -4281,7 +6032,7 @@ webpackJsonp([51],{
 	                bindData(_cacheData);
 	            });
 	
-	            $("#report-content").on("change", ".select-cust-checkbox", function () {
+	            $(".main-content").on("change", ".select-cust-checkbox", function () {
 	                var custid = Number(this.id);
 	                var group = $(this).attr("data-group-comm-id");
 	                if (this.checked) {
@@ -4399,8 +6150,8 @@ webpackJsonp([51],{
 	                    $(this).closest('form').submit();
 	                });
 	
-	                $("#report-content").on("click", ".specialLevel *", function () {
-	                    _$specialLevelCell = $(this).parent().find("div");
+	                $("#report-content").on("click", ".specialLevel", function () {
+	                    _$specialLevelCell = $(this);
 	                    viewSpecialLevelList(_$specialLevelCell);
 	                });
 	
@@ -4891,7 +6642,7 @@ webpackJsonp([51],{
 
 /***/ },
 
-/***/ 239:
+/***/ 249:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site, QueryString */
@@ -5066,485 +6817,7 @@ webpackJsonp([51],{
 
 /***/ },
 
-/***/ 240:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site, jqGridAdditional */
-	/*exported CustomersOption */
-	/// <reference path="/@JSense.js" />
-	
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
-	        "use strict";
-	
-	        var indexColumn = {
-	            key: true,
-	            name: 'Index',
-	            index: 'Index',
-	            resizable: false,
-	            width: 30,
-	            align: 'center',
-	            valign: 'middle',
-	            sortable: false
-	        };
-	
-	        var groupColumn =
-	        {
-	            name: 'Group',
-	            index: 'Group',
-	            resizable: false,
-	            width: 90,
-	            align: 'left',
-	            sortable: false,
-	            formatter: function (cellValue, options, rowObject) {
-	                if (Number(rowObject.GroupCommId) === 0) {
-	                    cellValue = Site.getSingleResource("None");
-	                }
-	
-	                return "<div id='groupName-" + rowObject.CustId + "' style='background-color:" + rowObject.GroupColor +
-	                         "' class='commission-color'>" + cellValue + "</div>";
-	            }
-	        };
-	
-	        var externalIdColumn =
-	        {
-	            name: 'ExternalId',
-	            index: 'ExternalId',
-	            resizable: false,
-	            width: 110,
-	            align: 'left',
-	            sortable: false
-	        };
-	
-	        var systemIdColumn =
-	        {
-	            name: 'SystemId',
-	            index: 'SystemId',
-	            resizable: false,
-	            width: 120,
-	            align: 'left',
-	            sortable: false
-	        };
-	
-	        var availableFundColumn = {
-	            name: 'AvailableFunds',
-	            index: 'AvailableFunds',
-	            width: 100,
-	            align: 'right',
-	            sortable: false,
-	            resizable: false,
-	            formatter: 'number',
-	            formatteroptions: { decimalSeparator: ".", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0.00' },
-	            frozen: true
-	        };
-	        var pedingFundColumn = {
-	            name: 'PendingFunds',
-	            index: 'PendindFunds',
-	            resizable: false,
-	            width: 100,
-	            align: 'right',
-	            sortable: false,
-	            frozen: true,
-	            formatter: function (cellValue, options, rowObject) {
-	                var number = Number(cellValue);
-	                if (number === 0) {
-	                    return jqGridAdditional.formatDecimal(cellValue);
-	                }
-	                else {
-	                    return "<a style='color: #1E1EEB' href=\"javascript:CustomerListCustOption.viewRunningBetlist(" +
-	                        rowObject.CustId + ",'" + rowObject.SystemId + "','" + rowObject.ExternalId + "')\">"
-	                        + jqGridAdditional.formatDecimal(cellValue) + "</a>";
-	                }
-	            }
-	        };
-	        var statusColumn =
-	        {
-	            name: 'Status',
-	            index: 'Status',
-	            resizable: false,
-	            width: 80,
-	            align: 'center',
-	            sortable: false,
-	            formatter: function (cellValue, options, rowObject) {
-	                return "<span custid='" + rowObject.CustId + "' class='link cust-status-option' issuspended='" +
-	                    rowObject.IsSuspended + "'  isclosed='" + rowObject.IsClosed + "' externalid='" + rowObject.ExternalId +
-	                    "' id='edit-cust-status-" + rowObject.CustId + "'>" + cellValue +
-	                    "<span class='arrow1' title='" + Site.getSingleResource("Status") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
-	            }
-	        };
-	        var baStatusColumn =
-	        {
-	            name: 'BAStatus',
-	            index: 'BAStatus',
-	            resizable: false,
-	            width: 80,
-	            align: 'left',
-	            sortable: false,
-	            formatter: function (cellValue, options, rowObject) {
-	                var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
-	                return "<div title='" + title + "' data-val='#" + rowObject.CustId + "#" + (!cellValue) + "#" + rowObject.ExternalId +
-	                        "' class='center-align switch ba-" + (cellValue ? "on" : "off") + "'>" +
-	                        "<label><input type='checkbox'" + (cellValue ? " checked" : "") + "><span class='lever'></span><label>" +
-	                    "</div>";
-	            }
-	        };
-	        var specialLevelColumn = {
-	            name: 'SpecialLevel',
-	            index: 'SpecialLevel',
-	            resizable: false,
-	            width: 90,
-	            align: 'center',
-	            sortable: false,
-	            frozen: true,
-	            classes: "specialLevel",
-	            formatter: function (cellValue, options, rowObject) {
-	                return "<div data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "' class='level-" + cellValue +
-	                         "' style='text-align: center;color:black;width:80px;float:left'>" +
-	                         (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
-	                         "</div><span style='float:right' class='arrow1' title='" + Site.getSingleResource("SpecialLevel") + "'>&nbsp;&nbsp;&nbsp;</span>";
-	            }
-	        };
-	        var oddsGroupColumn = {
-	            name: 'OddsGroup',
-	            index: 'OddsGroup',
-	            resizable: false,
-	            width: 90,
-	            align: 'center',
-	            sortable: false,
-	            frozen: true,
-	            classes: "oddsGroup",
-	            formatter: function (cellValue, options, rowObject) {
-	                var arrowHtml = rowObject.BAStatus ? "" :
-	                                 "<span style='float:right' class='arrow1' title='" + Site.getSingleResource("OddsGroup") + "'>&nbsp;&nbsp;&nbsp;</span>";
-	                return "<div data-custid='" + rowObject.CustId + "' data-group='" + cellValue +
-	                        "' class='" + (rowObject.BAStatus ? "disabled" : "") + " group-" + cellValue +
-	                         "' style='text-align: center;color:black;width:80px;float:left'>" +
-	                         (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
-	                         "</div>" + arrowHtml;
-	            }
-	        };
-	        var customerOptionColumn = {
-	            name: 'CustomerOption',
-	            index: 'CustomerOption',
-	            width: 80,
-	            align: 'center',
-	            sortable: false,
-	            resizable: false,
-	            frozen: true,
-	            formatter: function (cellValue, options, rowObject) {
-	                return "<div systemid='" + rowObject.SystemId + "' externalid='" + rowObject.ExternalId + "' custid='" + rowObject.CustId +
-	                "' title='" + Site.getSingleResource("CustomerOption") +
-	                "' class='link custoptionlink' id='cust-option-link-" + rowObject.CustId + "'>" + Site.getSingleResource("View") +
-	                "<img alt='' style='width:10px;height:10px' src='" + Site.resolveClientUrl("Content/MemberInfo/images/arrow.gif?") + "'> </div>";
-	            }
-	        };
-	        var commissionColumn =
-	        {
-	            name: 'Commission',
-	            index: 'Commission',
-	            width: 40,
-	            align: 'right',
-	            sortable: false,
-	            resizable: false,
-	            title: true,
-	            formatter: 'number',
-	            formatteroptions: { decimalSeparator: ".", decimalPlaces: 2, defaultValue: '0.00' }
-	        };
-	        //#endregion
-	        var colNameList = ['#', 'ExternalId', "SystemId", "AvailableFunds", 'PendingFunds',
-	         'Status', 'BAStatus', 'SpecialLevel', 'OddsGroup', 'CustomerOption'];
-	
-	        var colModelList = [indexColumn, externalIdColumn, systemIdColumn, availableFundColumn,
-	                        pedingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, oddsGroupColumn, customerOptionColumn];
-	
-	        var me = {
-	            urlData: 'Customer/CustomerList',
-	            urlExcelData: 'Customer/ExportExcel',
-	            gridOption: {
-	                datatype: 'local',
-	                colNames: [],
-	                colModel: [],
-	                data: [],
-	                height: 'auto',
-	                viewrecords: false,
-	                autowidth: false,
-	                forceFit: false,
-	                shrinkToFit: true,
-	                minWidth: 800,
-	                loadtext: '',
-	                loadui: 'disable',
-	                loadonce: true,
-	                gridview: true,
-	                footerrow: false,
-	                userDataOnFooter: true,
-	                scroll: 1,
-	                rowNum: 40,
-	                cmTemplate: { title: true }, //enable tooltip
-	                userData: [],
-	                beforeSelectRow: function () {
-	                    return false;
-	                },
-	                onRightClickRow: function () {
-	                    return false;
-	                }
-	            }
-	        };
-	
-	        var products = ["SB", "RB", "NG", "LC", "CS"];
-	        var numOfProductColumns = 0;
-	        var firstProductCode;
-	
-	        var getColName = function (productAccess, isAllowedCustomerCommission) {
-	            numOfProductColumns = 1;
-	            var temp = Site.clone(colNameList);
-	            if (isAllowedCustomerCommission) {
-	
-	                temp.insertAfter("Group", 0);
-	
-	                firstProductCode = null;
-	                for (var i = 0; i < products.length; i++) {
-	                    var productCode = products[i];
-	                    if (productAccess["IsAllow" + productCode]) {
-	                        if (!firstProductCode) {
-	                            firstProductCode = productCode.toUpperCase();
-	                        }
-	
-	                        numOfProductColumns++;
-	                        temp.push(Site.getSingleResource(productCode.toUpperCase()));
-	                    }
-	                }
-	            }
-	
-	            return Site.getResources(temp);
-	        };
-	
-	        var getColModel = function (productAccess, isAllowedCustomerCommission) {
-	            var temp = Site.clone(colModelList);
-	            if (isAllowedCustomerCommission) {
-	                var getCellAttrFunction = function (colName) {
-	                    return function (rowId, val, rowObj) {
-	                        return " id='" + colName + "-" + rowObj.CustId + "' ";
-	                    };
-	                };
-	
-	                var col = Site.clone(groupColumn);
-	                temp.insertAfter(col, 0);
-	
-	                $.each(products, function (index, value) {
-	                    if (productAccess["IsAllow" + value]) {
-	                        col = Site.clone(commissionColumn);
-	                        col.name = value + "Comm";
-	                        col.index = col.name;
-	                        col.cellattr = getCellAttrFunction(col.name);
-	                        temp.push(col);
-	                    }
-	                });
-	            }
-	
-	            return temp;
-	        };
-	
-	        me.setGroupHeaderColumns = function (grid) {
-	            grid.jqGrid('setGroupHeaders',
-	            {
-	                useColSpanStyle: true,
-	                groupHeaders: [{
-	                    startColumnName: firstProductCode + "Comm",
-	                    numberOfColumns: numOfProductColumns,
-	                    titleText: Site.getSingleResource('Commission') + " (%)"
-	                }]
-	            });
-	        };
-	
-	        me.getGridOption = function (productAccess, isAllowedCustomerCommission) {
-	            me.gridOption.colNames = getColName(productAccess, isAllowedCustomerCommission);
-	            me.gridOption.colModel = getColModel(productAccess, isAllowedCustomerCommission);
-	            return me.gridOption;
-	        };
-	
-	        return me;
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ },
-
-/***/ 241:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
-	    var $pagingContainer, $pageIndex, $pageSize;
-	
-	    var me = {};
-	
-	    var setting = {
-	        pageindex: 1,
-	        pagesize: 50,
-	        pagelist: [50, 100, 1000],
-	        totalrow: 1,
-	        formId: "formreport",
-	        elementcontainer: "#page",
-	        method: "AJAX",
-	        ajaxfunction: "",
-	        alwayshow: false
-	    };
-	
-	    function goToPage(method, index) {
-	        if (method === "POST") {
-	            $("#IsExportExcel").val(false);
-	            var formName = $("input[name='FormName']", $pagingContainer).val();
-	            var form = $("#" + formName);
-	            var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
-	            var pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
-	            form.append(pageIndex);
-	            form.append(pageSize);
-	            Site.blockUI();
-	            form.submit();
-	        }
-	        else if (method === "AJAX") {
-	            $pageIndex.val(index);
-	            var fc = $("input[name='AjaxPagingFunction']", $pagingContainer).val();
-	            eval(fc); // jshint ignore:line
-	        } else {
-	            var url = Site.getCurrentUrl();
-	            url = QueryString.setParam(url, "PageSize", $pageSize.val());
-	            url = QueryString.setParam(url, "PageIndex", index);
-	
-	            Site.redirect(url);
-	        }
-	    }
-	
-	    function isVisible(element) {
-	        return !$(element).hasClass("pagingDisable");
-	    }
-	
-	    me.render = function (option) {
-	        /// <summary>
-	        ///
-	        /// </summary>
-	        /// <param name="pageindex"></param>
-	        /// <param name="pagesize"></param>
-	        /// <param name="totalrow"></param>
-	        /// <param name="elementcontainer">ex: "#page"</param>
-	        /// <param name="method">POST or GET or AJAX</param>
-	        var pageHtml = "";
-	        $.extend(setting, option);
-	        var noOfPage = 1;
-	        var pagingVisible = setting.totalrow > setting.pagesize;
-	
-	        if (pagingVisible) {
-	            noOfPage = parseInt(setting.totalrow / setting.pagesize
-	         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1));
-	        }
-	
-	        if (pagingVisible || setting.alwayshow) {
-	            var prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
-	            var pageControl = ['<div class="pagingContainer center-align">',
-	                          '<a href="javascript:;" class="icon pagingFirst' + prevPageDisabledHtml,
-	                          '<a href="javascript:;" class="icon pagingPrev' + prevPageDisabledHtml,
-	                          '<span class="pagingSeperator"></span>'];
-	
-	            var pagingInfo = '<div class="paging-info">' + Site.getSingleResource("Page") +
-	                '<input  type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="' + setting.pageindex + '" />'
-	            + "&nbsp;" + Site.getSingleResource("of") + "&nbsp;" + noOfPage + '</div>';
-	
-	            pageControl.push(pagingInfo);
-	
-	            pageControl.push('<span class="pagingSeperator"></span>');
-	
-	            var nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
-	            var pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
-	            pageControl.push(pageNext);
-	            var pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
-	            pageControl.push(pageLast);
-	
-	            var pageListLength = setting.pagelist.length;
-	            var pageSizeSelectHtml = '<select class="pageSizeSelected">';
-	            var pageSize = parseInt(setting.pagesize);
-	            for (var i = 0; i < pageListLength; i++) {
-	                pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
-	                + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
-	                + '>' + setting.pagelist[i] + '</option>';
-	            }
-	            pageSizeSelectHtml += '</select>';
-	            pageControl.push(pageSizeSelectHtml);
-	
-	            pageControl.push('<input type="hidden" name="PageSize" value="' + setting.pagesize + '" />');
-	            pageControl.push('<input type="hidden" name="Method" value="' + setting.method + '" />');
-	            pageControl.push('<input type="hidden" name="FormName" value="' + setting.formId + '" />');
-	            pageControl.push('<input type="hidden" name="NoOfPage" value="' + noOfPage + '" />');
-	            pageControl.push('<input type="hidden" name="AjaxPagingFunction" value="' + setting.ajaxfunction + '" />');
-	
-	            pageControl.push('</div>');
-	            pageHtml = pageControl.join("");
-	        }
-	
-	        $(setting.elementcontainer).html(pageHtml);
-	        me.initialize();
-	    };
-	    me.getSetting = function () {
-	        setting.pageindex = parseInt($pageIndex.val(), 10);
-	        setting.pagesize = $pageSize.val();
-	        return setting;
-	    };
-	    me.bindEvent = function () {
-	        var method = $('input[name="Method"]', $pagingContainer).val();
-	        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagingContainer).val(), 10);
-	
-	        $(".pagingFirst", $pagingContainer).on("click", function () {
-	            if (isVisible(this)) {
-	                goToPage(method, 1);
-	            }
-	        });
-	        $(".pagingPrev", $pagingContainer).on("click", function () {
-	            var currentPage = parseInt($pageIndex.val(), 10);
-	            if (isVisible(this) && currentPage > 1) {
-	                goToPage(method, currentPage - 1);
-	            }
-	        });
-	        $(".pagingLast", $pagingContainer).on("click", function () {
-	            if (isVisible(this)) {
-	                goToPage(method, noOfPage);
-	            }
-	        });
-	        $(".pagingNext", $pagingContainer).on("click", function () {
-	            if (isVisible(this)) {
-	                var currentPage = parseInt($pageIndex.val(), 10);
-	                goToPage(method, currentPage + 1);
-	            }
-	        });
-	
-	        $("select.pageSizeSelected", $pagingContainer).on("change", function () {
-	            var pageSize = $(this).val();
-	            $pageSize.val(pageSize);
-	            setting.pagesize = pageSize;
-	            goToPage(method, 1);
-	        });
-	
-	        $pageIndex.on("keyup", function (e) {
-	            var code = e.keyCode ? e.keyCode : e.which;
-	            if (code === 13) {
-	                var value = parseInt($(this).val());
-	                if (value > 0 && value <= noOfPage) {
-	                    $(this).val(value);
-	                    goToPage(method, value);
-	                }
-	            }
-	        });
-	    };
-	
-	    me.initialize = function () {
-	        $pagingContainer = $(".pagingContainer");
-	        $pageIndex = $("input[name='PageIndex']", $pagingContainer);
-	        $pageSize = $("input[name='PageSize']", $pagingContainer);
-	
-	        me.bindEvent();
-	    };
-	
-	    return me;
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ },
-
-/***/ 242:
+/***/ 250:
 /***/ function(module, exports) {
 
 	/*--------------------------------------------------------------------------
@@ -8280,431 +9553,6 @@ webpackJsonp([51],{
 	    // out to global
 	    return Enumerable;
 	})()
-
-/***/ },
-
-/***/ 243:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global Site, CustomerList, JSLINQ*/
-	/// <reference path="/@JSense.js" />
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(205), __webpack_require__(9),
-	__webpack_require__(238)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, Popup, CustomerList) {
-	        "use strict";
-	
-	        var _me = {
-	            initialize: function () {
-	                // bind customer button event
-	                $('#MoveToGroup').click(function () {
-	                    _me.showMoveCustomerToGroup();
-	                });
-	
-	                $('#UpdateComm').click(function () {
-	                    var groupCommId = $('#UpdateComm').attr('data-group-id');
-	                    _me.showUpdateCustComm(groupCommId);
-	                });
-	
-	                $('#RemoveFromGroup').click(function () {
-	                    _me.showRemoveFromGroup();
-	                });
-	
-	                $("#GroupListSelect").change(function () {
-	                    _me.newGroupChanged(this);
-	                });
-	
-	                // Commission dropdownlist change
-	                $('#CustSBComm1').on('change', function () {
-	                    _me.commissionOnChange($(this).val(), '#CustSBComm');
-	                });
-	
-	                $('#CustParlayComm1').on('change', function () {
-	                    _me.commissionOnChange($(this).val(), '#CustParlayComm');
-	                });
-	
-	                $('#CustRBComm1').on('change', function () {
-	                    _me.commissionOnChange($(this).val(), '#CustRBComm');
-	                });
-	
-	                $('#CustNGComm1').on('change', function () {
-	                    _me.commissionOnChange($(this).val(), '#CustNGComm');
-	                });
-	
-	                $('#CustLCComm1').on('change', function () {
-	                    _me.commissionOnChange($(this).val(), '#CustLCComm');
-	                });
-	
-	                $('#CustCSComm1').on('change', function () {
-	                    _me.commissionOnChange($(this).val(), '#CustCSComm');
-	                });
-	            },
-	
-	            commissionOnChange: function (value, id) {
-	                if (Number(value) === 15) {
-	                    $(id + 2 + ', ' + id + 3).val(0);
-	                    $(id + 2 + ', ' + id + 3).attr('disabled', 'disabled');
-	                } else {
-	                    $(id + 2 + ', ' + id + 3).removeAttr('disabled');
-	                }
-	            },
-	
-	            // This function used to remove data row after updated/remove or move group commission.
-	            processGroupCommItem: function (status) {
-	                var selectList = [];
-	                var list = $("input:checkbox.check-child:checked");
-	                for (var i = 0; i < list.length; i++) {
-	                    selectList.push(list[i].id);
-	                }
-	
-	                if (status) {
-	                    for (var j = 0; j < selectList.length; j++) {
-	                        $('#row' + selectList[j]).remove();
-	                    }
-	                }
-	            },
-	
-	            /* move customer to group*/
-	            showMoveCustomerToGroup: function () {
-	                $('#lblMoveToGroupMsg').html("");
-	                _me.clearNotification();
-	
-	                Popup.openPopupWithButton($("#MoveToGroupPopUp"),
-	                    {
-	                        title: Site.getSingleResource('MoveToGroup'),
-	                        id: 'MoveToGroupPopUp',
-	                        height: 470,
-	                        width: 350
-	                    },   
-	                    [
-	                        {
-	                            text: Site.getSingleResource('OK'),
-	                            click: function () {
-	                                _me.moveCustomerToGroup($(this));
-	                            },
-	                            classes: "btn btn-submit"
-	                        },
-	                        {
-	                            text: Site.getSingleResource('Cancel'),
-	                            isClosedOnClick: true,
-	                            classes: "btn btn-cancel"
-	                        }
-	                    ]
-	                );
-	            },
-	
-	            moveCustomerToGroup: function () {
-	                var groupid = parseInt($('#GroupListSelect').val(), 10);
-	                var checkedCustomers = CustomerList.getCheckedCustomers();
-	                var custList = [];
-	
-	                for (var i = 0; i < checkedCustomers.length; i++) {
-	                    var currenntGroupId = Number(checkedCustomers[i].Group);
-	                    if (currenntGroupId === 0 || currenntGroupId !== groupid) {
-	                        custList.push(checkedCustomers[i].Id);
-	                    }
-	                }
-	
-	                if (checkedCustomers.length === 0) {
-	                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
-	                    return;
-	                }
-	
-	                //GroupId = - 1 is show all group.
-	                if (groupid === -1) {
-	                    _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
-	                    return;
-	                }
-	                if (checkedCustomers.length > 0 && custList.length === 0) {
-	                    _me.showMsg(Site.getSingleResource('CustomersExistedinGroupMsg'), false);
-	                    return;
-	                }
-	                var param =
-	                {
-	                    CustomerIds: custList.toString(),
-	                    GroupComId: groupid
-	                };
-	                $.ajax({
-	                    type: "POST",
-	                    data: param,
-	                    url: Site.resolveClientUrl("CustomerAPI/MoveToGroupCom"),
-	                    dataType: "json",
-	                    beforeSend: function () {
-	                        _me.ajaxStart();
-	                    },
-	                    complete: function () {
-	                        _me.ajaxStop();
-	                    },
-	                    success: function (result) {
-	                        if (result.Success) {
-	                            _me.showMsg(Site.getSingleResource('MoveSuccessfullyMsg'), result.Success);
-	
-	                            var groupName = result.ExtendedData.GroupName;
-	                            if (groupName.length > 17) {
-	                                groupName = groupName.substring(0, 14);
-	                                groupName += "...";
-	                            }
-	                            var groupNameText = "<span title='" + result.ExtendedData.GroupName + "'>" + groupName + "</span>";
-	
-	                            CustomerList.updateGridGroupAndComm(groupid, groupNameText, result.ExtendedData.GroupColor,
-	                                                 result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-	                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
-	                        }
-	                        else {
-	                            _me.showMsg(result.ErrorMessage, result.Success);
-	                        }
-	                    }
-	                });
-	            },
-	            /* End- move customer to group*/
-	
-	            /* update customer*/
-	            showUpdateCustComm: function (groupCommId) {
-	                var isShowInfo = false;
-	                var checkedCustomers = CustomerList.getCheckedCustomers();
-	                for (var i = 0; i < checkedCustomers.length; i++) {
-	                    if (Number(checkedCustomers[i].Group) !== 0) {
-	                        isShowInfo = true;
-	                        break;
-	                    }
-	                }
-	
-	                $('#InfoMsg').css('display', isShowInfo ? 'block' : 'none');
-	                _me.clearNotification();
-	
-	                $("#UpdateCustCommPopUp").dialog({
-	                    resizable: false,
-	                    height: 350,
-	                    width: 500,
-	                    modal: true,
-	                    buttons:
-	                    [
-	                        {
-	                            text: Site.getSingleResource('Save'),
-	                            click: function () {
-	                                _me.updateCustomerComm($(this), groupCommId);
-	                            }
-	                        },
-	                        {
-	                            text: Site.getSingleResource('Cancel'),
-	                            click: function () {
-	                                $(this).dialog("close");
-	                            }
-	                        }
-	                    ]
-	                });
-	            },
-	            initCommissionParam: function (id) {
-	                var comm1 = parseInt($(id + 1).val());
-	                var comm2 = parseInt($(id + 2).val());
-	                var comm3 = parseInt($(id + 3).val());
-	                var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
-	                return comm;
-	            },
-	            updateCustomerComm: function (ctx, groupCommId) {
-	                var checkedCustomers = CustomerList.getCheckedCustomers();
-	                var custList = JSLINQ(checkedCustomers).Select(function (x) { return x.Id; }).ToArray();
-	
-	                if (custList.length === 0) {
-	                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
-	                    return;
-	                }
-	
-	                var sbcom = _me.initCommissionParam('#CustSBComm');
-	                var parlayCom = _me.initCommissionParam('#CustParlayComm');
-	                var rbcom = _me.initCommissionParam('#CustRBComm');
-	                var ngcom = _me.initCommissionParam('#CustNGComm');
-	                var lccom = _me.initCommissionParam('#CustLCComm');
-	                var cscom = _me.initCommissionParam('#CustCSComm');
-	                var param =
-	                {
-	                    GroupId: groupCommId,
-	                    CustomerIds: custList.toString(),
-	                    SBComm: sbcom,
-	                    ParlayComm: parlayCom,
-	                    RCComm: rbcom,
-	                    NGComm: ngcom,
-	                    LCComm: lccom,
-	                    CSComm: cscom
-	                };
-	
-	                $.ajax({
-	                    type: "POST",
-	                    data: param,
-	                    url: Site.resolveClientUrl("CustomerAPI/UpdateCustomerCom"),
-	                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-	                    dataType: 'json',
-	                    beforeSend: function () {
-	                        _me.ajaxStart();
-	                    },
-	                    complete: function () {
-	                        _me.ajaxStop();
-	                    },
-	                    success: function (result) {
-	                        if (result.Success) {
-	                            //updated = true;
-	                            _me.showMsg(Site.getSingleResource('UpdateCommSucessfulMsg'), result.Success);
-	
-	                            CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
-	                                                 result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-	                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
-	                        }
-	                        else {
-	                            _me.showMsg(result.ErrorMessage, result.Success);
-	                        }
-	                    }
-	                });
-	            },
-	            /* end-update custom*/
-	
-	            /* remove from group*/
-	            showRemoveFromGroup: function () {
-	                var checkedCustomers = CustomerList.getCheckedCustomers();
-	
-	                var msg = checkedCustomers.length > 1
-	                    ? Site.getSingleResource('RemoveTheseCustomersFromGroupMsg')
-	                    : Site.getSingleResource('RemoveThisCustomerFromGroupMsg');
-	
-	                $("#RemoveConfirmMsg").html(msg);
-	
-	                _me.clearNotification();
-	
-	                $("#ConfirmRemoveFromGroupPopUp").dialog({
-	                    resizable: false,
-	                    height: 300,
-	                    width: 330,
-	                    modal: true,
-	                    buttons:
-	                    [
-	                        {
-	                            text: Site.getSingleResource('OK'),
-	                            click: function () {
-	                                _me.removeFromGroupComm($(this));
-	                            }
-	                        },
-	                        {
-	                            text: Site.getSingleResource('Cancel'),
-	                            click: function () {
-	                                $('input[name="RadioComm"]:eq(1)').attr("checked", "checked");
-	                                $(this).dialog("close");
-	                            }
-	                        }
-	                    ]
-	                });
-	            },
-	
-	            removeFromGroupComm: function () {
-	                var checkedCustomers = CustomerList.getCheckedCustomers();
-	                var custList = [];
-	
-	                for (var i = 0; i < checkedCustomers.length; i++) {
-	                    if (checkedCustomers[i].Group > 0) {
-	                        custList.push(checkedCustomers[i].Id);
-	                    }
-	                }
-	
-	                if (checkedCustomers.length === 0) {
-	                    _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
-	                    return;
-	                }
-	                if (checkedCustomers.length > 0 && custList.length === 0) {
-	                    _me.showMsg(Site.getSingleResource('CustomerNotBelongAnyGroupMsg'), false);
-	                    return;
-	                }
-	
-	                var iskeepcom = $('#KeepComm').is(':checked');
-	                var param =
-	                {
-	                    CustomerIds: custList.toString(),
-	                    isRemovePlayercomm: !iskeepcom
-	                };
-	
-	                $.ajax({
-	                    type: "POST",
-	                    data: param,
-	                    url: Site.resolveClientUrl("CustomerAPI/RemoveFromGroupCom"),
-	                    dataType: "json",
-	                    beforeSend: function () {
-	                        _me.ajaxStart();
-	                    },
-	                    complete: function () {
-	                        _me.ajaxStop();
-	                    },
-	                    success: function (result) {
-	                        if (result.Success) {
-	                            //removed = true;
-	
-	                            if (checkedCustomers.length > 0 && custList.length > 0 && custList.length < checkedCustomers.length) {
-	                                _me.showMsg(result.Message + "! </br> " + Site.getSingleResource('CustomersBelongGroupsBeRemovedMsg'), true);
-	                            }
-	                            else {
-	                                _me.showMsg(result.Message, result.Success);
-	                            }
-	                            if (param.isRemovePlayercomm) {
-	                                CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
-	                                                 result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-	                                                result.ExtendedData.RCComm, result.ExtendedData.LCComm, result.ExtendedData.RNGComm);
-	                            }
-	                            else {
-	                                CustomerList.updateGridGroup(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor);
-	                            }
-	                        }
-	                        else {
-	                            _me.showMsg(result.ErrorMessage, result.Success);
-	                        }
-	                    }
-	                });
-	            },
-	
-	            /* end -remove from group*/
-	
-	            showMsg: function (msg, isSuccess) {
-	                if (isSuccess) {
-	                    $(".success-message").html(msg).show();
-	                    $(".error-message").hide();
-	                }
-	                else {
-	                    $(".error-message").html(msg).show();
-	                    $(".success-message").hide();
-	                }
-	            },
-	
-	            ajaxStart: function () {
-	                $(".error-message").hide();
-	                $(".success-message").hide();
-	                $(".ajax-loading").show();
-	                $(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", true).addClass("ui-state-disabled");
-	                $(".ui-dialog-buttonpane button:contains('OK')").attr("disabled", true).addClass("ui-state-disabled");
-	                $(".ui-dialog-buttonpane button:contains('Cancel')").attr("disabled", true).addClass("ui-state-disabled");
-	                $(".ui-dialog-titlebar-close").attr("disabled", true).css("display", "none").addClass("ui-state-disabled");
-	            },
-	
-	            ajaxStop: function () {
-	                $(".ajax-loading").hide();
-	                $(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", false).removeClass("ui-state-disabled");
-	                $(".ui-dialog-buttonpane button:contains('OK')").attr("disabled", false).removeClass("ui-state-disabled");
-	                $(".ui-dialog-buttonpane button:contains('Cancel')").attr("disabled", false).removeClass("ui-state-disabled");
-	                $(".ui-dialog-titlebar-close").attr("disabled", false).css("display", "inline").removeClass("ui-state-disabled");
-	            },
-	
-	            clearNotification: function () {
-	                $(".ajax-loading").hide();
-	                $(".error-message").hide();
-	                $(".success-message").hide();
-	            },
-	
-	            newGroupChanged: function (obj) {
-	                var groupId = obj.options[obj.selectedIndex].value;
-	                $('#NewSbComm').val($("#SBComm" + groupId).val());
-	                $('#NewParlayComm').val($("#ParlayComm" + groupId).val());
-	                $('#NewRbComm').val($("#RBComm" + groupId).val());
-	                $('#NewNgComm').val($("#NGComm" + groupId).val());
-	                $('#NewLcComm').val($("#LCComm" + groupId).val());
-	                $('#NewCsComm').val($("#CSComm" + groupId).val());
-	            }
-	        };
-	
-	        return _me;
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
 
 /***/ }
 

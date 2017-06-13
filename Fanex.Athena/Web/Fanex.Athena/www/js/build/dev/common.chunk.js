@@ -14951,24 +14951,26 @@
 	
 	            var $element = $(element);
 	
-	            if ($element.hasClass('flat-popup') === false) {
+	            if ($("#" + option.id).length === 0) {
 	                $element.append('<div class="right popup-button"></div>');
 	                var $blockButton = $element.find(".popup-button");
 	
 	                $.each(buttons, function (index, button) {
-	                    var $button = $('<button type="button"' + (button.id ? 'id="' + button.id + '"' : '') + ' class="' + button.classes + '">' + button.text + '</button>');
+	                    var $button = $('<button type="button"'
+	                        + (button.id ? 'id="' + button.id + '"' : '')
+	                        + ' class="' + button.classes + '">'
+	                        + button.text + '</button>');
 	                    $blockButton.append($button);
 	                    if (button.isClosedOnClick) {
 	                        $button.on("click", function () {
+	                            _me.closePopup(defaultOption.id);
+	
 	                            if (typeof button.click === "function") {
 	                                button.click();
-	                            }
-	
-	                            _me.closePopup(defaultOption.id)
+	                            }                            
 	                        });
 	                    }
-	                    else
-	                    {
+	                    else {
 	                        $button.on("click", button.click);
 	                    }
 	                });
@@ -15016,7 +15018,7 @@
 	                    $container.append($blockBody);
 	                }
 	                
-	                if ($self.hasClass('flat-popup') === false) {
+	                if ($("#" + options.id).length === 0) {
 	                    $self.attr("id", options.id);
 	                    $self.addClass("flat-popup " + options.className);
 	                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
