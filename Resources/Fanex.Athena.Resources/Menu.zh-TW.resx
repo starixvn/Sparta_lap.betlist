@@ -349,4 +349,7 @@
     <value>即時兌現輸贏</value>
     <comment>Cash Out Win Loss</comment>
   </data>
+  <data name="Menu_71" xml:space="preserve">
+    <value>CB足彩輸贏</value>
+  </data>
 </root>

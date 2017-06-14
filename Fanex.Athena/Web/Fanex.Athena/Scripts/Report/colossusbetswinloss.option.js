@@ -218,7 +218,7 @@ var ColossusBetsOption = (function () {
     //#endregion
 
     var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
-      'Turnover', 'TotalTransaction', 'MemberWinnings', 'CashOutAmt', 'CashOutShare', 'CommissionShare',
+      'Turnover', 'TotalTransaction', 'CustomerWinnings', 'CashOutAmt', 'CashOutShare', 'CommissionShare',
       'AmountDueToCB', 'AmtGreaterThan30kGBP', 'CurrencyId', 'CustomerId'];
 
     var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,

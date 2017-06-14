@@ -2875,8 +2875,8 @@
     <value>Amt &lt; 30K GBP</value>
     <comment>#63785</comment>
   </data>
-  <data name="MemberWinnings" xml:space="preserve">
-    <value>Member's Winnings</value>
+  <data name="CustomerWinnings" xml:space="preserve">
+    <value>Customer's Winnings</value>
     <comment>#63785</comment>
   </data>
   <data name="TransactionType" xml:space="preserve">
