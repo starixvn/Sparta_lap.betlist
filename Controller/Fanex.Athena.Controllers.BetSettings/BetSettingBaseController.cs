@@ -93,10 +93,9 @@ namespace Fanex.Athena.Controllers.BetSettings
         protected bool IsBetSettingEditable()
         {
             var userSession = SessionService.UserSession;
-            var permissions = new string[] { PermissionKeys.CustomerInfoEditBetSetting };
             return userSession.ApplicationMode == AppMode.Parasitic ?
-                      _authorizationService.HasPermissions(userSession.PortalFunctionList, permissions) :
-                      _authorizationService.HasPermissions(userSession.FunctionIdList, permissions);
+                      _authorizationService.HasPermissions(userSession.PortalFunctionList, PermissionKeys.CustomerInfoEditBetSetting) :
+                      _authorizationService.HasPermissions(userSession.FunctionIdList, PermissionKeys.CustomerInfoEditBetSetting);
         }
 
         protected decimal GetDecimalRequest(string name, decimal defaultValue)

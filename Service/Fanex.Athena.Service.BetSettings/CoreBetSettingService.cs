@@ -30,10 +30,5 @@ namespace Fanex.Athena.Service.BetSettings
         {
             return _coreBetSettingDataAccess.GetBetSettingProducts(licenseeId);
         }
-
-        public bool IsBetSettingEditable(int licenseeId, int userId)
-        {
-            return _coreBetSettingDataAccess.IsBetSettingEditable(licenseeId, userId);
-        }
     }
 }

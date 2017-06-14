@@ -40,19 +40,5 @@
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
-
-        [Test]
-        public void IsBetSettingEditable_WhenCall_ReturnCorrectData()
-        {
-            // Arrange
-            var userId = 2;
-            _coreBetSettingDataAccess.IsBetSettingEditable(LicenseeId, userId).Returns(true);
-
-            // Action
-            var result = _coreBetSettingService.IsBetSettingEditable(LicenseeId, userId);
-
-            // Assert
-            Assert.That(result, Is.True);
-        }
     }
 }
