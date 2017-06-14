@@ -20,9 +20,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                     _me.showUpdateCustComm(groupCommId);
                 });
 
-                $('#RemoveFromGroup').click(function () {
-                    _me.showRemoveFromGroup();
-                });
+                $('#RemoveFromGroup').click(_me.showRemoveFromGroup);
 
                 $("#GroupListSelect").change(function () {
                     _me.newGroupChanged(this);
@@ -280,9 +278,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
 
             /* remove from group*/
             showRemoveFromGroup: function () {
-                var checkedCustomers = CustomerList.getCheckedCustomers();
-
-                var msg = checkedCustomers.length > 1
+                var msg = Object.keys(_state.selectedCustomers).length > 1
                     ? Site.getSingleResource('RemoveTheseCustomersFromGroupMsg')
                     : Site.getSingleResource('RemoveThisCustomerFromGroupMsg');
 
@@ -290,28 +286,31 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
 
                 _me.clearNotification();
 
-                $("#ConfirmRemoveFromGroupPopUp").dialog({
-                    resizable: false,
-                    height: 300,
-                    width: 330,
-                    modal: true,
-                    buttons:
+                Popup.openPopupWithButton($("#ConfirmRemoveFromGroupPopUp"),
+                    {
+                        title: Site.getSingleResource("UpdateCustomerCommission"),
+                        id: 'ConfirmRemoveFromGroupPopUp',
+                        height: 300,
+                        width: 330
+                    },
                     [
                         {
                             text: Site.getSingleResource('OK'),
                             click: function () {
-                                _me.removeFromGroupComm($(this));
-                            }
+                                _me.removeFromGroupComm();
+                            },
+                            classes: "btn btn-submit"
                         },
                         {
                             text: Site.getSingleResource('Cancel'),
-                            click: function () {
-                                $('input[name="RadioComm"]:eq(1)').attr("checked", "checked");
-                                $(this).dialog("close");
-                            }
+                            isClosedOnClick: true,
+                            click: function(){
+                                $('input[name="RadioComm"]:eq(1)').prop("checked", true);
+                            },
+                            classes: "btn btn-cancel"
                         }
                     ]
-                });
+                );
             },
 
             removeFromGroupComm: function () {
