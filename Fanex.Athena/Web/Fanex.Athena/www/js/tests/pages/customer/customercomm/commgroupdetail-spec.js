@@ -453,6 +453,27 @@
                     expect(CustomerCommGroupDetail.setPageTitle).toHaveBeenCalledWith("CustomerList");
                     expect(CustomerCommGroupDetail.goToSite).toHaveBeenCalledWith("Customer/CustomerList", "?groupId=1");
                 });
+
+                it("setPageTitle should not be called if parent host is not the same with current host", function () {
+                    spyOn(CustomerCommGroupDetail, "setPageTitle");
+                    spyOn(CustomerCommGroupDetail, "goToSite");
+                    window.parent = {
+                        location: {
+                            host: new Error()
+                        }
+                        
+                    };
+                    window = {
+                        location: {
+                            host: "child"
+                        }
+                    };
+
+                    CustomerCommGroupDetail.goToCustomerList(1);
+
+                    expect(CustomerCommGroupDetail.setPageTitle).not.toHaveBeenCalledWith("CustomerList");
+                    expect(CustomerCommGroupDetail.goToSite).toHaveBeenCalledWith("Customer/CustomerList", "?groupId=1");
+                });
             });
         });
     });

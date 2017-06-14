@@ -2,14 +2,6 @@
     ['jquery', 'common/site', 'common/querystring', 'lib/jqgrid/jquery.jqgrid.additional', 'pages/betlist/betlist.option', 'common/popup', 'pages/betlist/betlist'],
     function ($, Site, QueryString, jqGridAdditional, BetListOption, Popup, BetList, moment) {
         describe("BetList", function () {
-            function transformQueryParamNameToLowerCase(url) {
-                var paramNameRegex = /[&|?][^=]*/g;
-
-                return url.replace(paramNameRegex, function (match) {
-                    return match.toLowerCase();
-                });
-            }
-
             beforeAll(function () {
                 appendSetFixtures('<input id="SortBy" value="Foo" />');
                 appendSetFixtures('<input id="SortOrder" value="asc" />');
@@ -282,7 +274,7 @@
 
                     BetList.loadDataPaging(url);
 
-                    expect(gridOption.url).toEqual(transformQueryParamNameToLowerCase(expectedUrl));
+                    expect(gridOption.url).toEqual(expectedUrl);
                 });
 
                 it("should call .jqGrid('GridUnload')", function () {
@@ -637,6 +629,13 @@
                     var url = 'SystemParlayBetList/Detail?refno=0&betteam=2&basecurrency=eur';
                     expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 775, height: 500, title: 2, id: 'betlist-popup-detail' });
                 });
+
+                it("Popup.openPopupWithIframe(url, options) should not be called if transId is zero", function () {
+                    spyOn(Popup, 'openPopupWithIframe');
+                    BetList.showSystemParlayDetail(0, 0, 0, 0, 2, "eur");
+                    var url = 'SystemParlayBetList/Detail?refno=0&betteam=2&basecurrency=eur';
+                    expect(Popup.openPopupWithIframe).not.toHaveBeenCalled();
+                });
             });
 
             describe("showMicroGamingRnGBetsDetails(transId, winlostDate, custId, transType)", function () {
@@ -645,10 +644,9 @@
                     spyOn($.fn, 'height').and.returnValue(300);
                     BetList.showMicroGamingRnGBetsDetails(0, new Date('2015/2/1'), 0, 0);
                     var url = 'MicroGamingRngBetList/Detail?transid=0&custid=0&transType=0';
-                    var expectedUrl = transformQueryParamNameToLowerCase(url);
                     var title = 'Microgaming - DetailedBetlist - 02/01/2015';
 
-                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl, { width: 870, height: 250, title: title, id: 'betlist-popup-detail' });
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 870, height: 250, title: title, id: 'betlist-popup-detail' });
                 });
             });
 
@@ -658,10 +656,9 @@
                     spyOn($.fn, 'height').and.returnValue(300);
                     BetList.showAGCasinoDetails(0, new Date('2015/2/1'), 0, 0);
                     var url = 'AGCasinoBetList/Detail?transid=0&custid=0&transType=0';
-                    var expectedUrl = transformQueryParamNameToLowerCase(url);
                     var title = 'AGCasino - DetailedBetlist - 02/01/2015';
 
-                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl, { width: 870, height: 250, title: title, id: 'betlist-popup-detail' });
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 870, height: 250, title: title, id: 'betlist-popup-detail' });
                 });
             });
 
@@ -753,8 +750,6 @@
 
             describe("viewAllBetResult(trasdesc, betcheck, bettype, title)", function () {
                 it("shows showResultPopUp with correct params", function () {
-                    //spyOn(Site, "blockUI");
-                    //spyOn(Site, "unBlockUI");
                     spyOn(Popup, "openPopupWithIframe");
                     var trasdesc = "trasdesc", betcheck = "betcheck", bettype = "bettype", title = "title";
                     var url = "ResultReport/AllBetResult?transdesc=" + "trasdesc" + "&betcheck=" + betcheck + "&bettype=" + bettype;
@@ -769,14 +764,12 @@
                 it("shows showResultPopUp with correct params", function () {
                     var transId = 1, winlostDate = "01/05/2017", custId = 2, transType = 3;
                     var url = "RnGCasinoBetList/Detail?transId=" + transId + "&winlostDate=" + winlostDate + "&custId=" + custId + "&transType=" + transType;
-                    var expectedUrl = transformQueryParamNameToLowerCase(url);
-                    //spyOn(Site, "unBlockUI");
                     spyOn(Popup, "openPopupWithIframe");
                     spyOn($.fn, "height").and.returnValue(700);
 
                     BetList.showRnGCasinoDetails(transId, winlostDate, custId, transType);
 
-                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl, { width: 890, height: 600, title: "ProductCS - DetailedBetlist - 01/05/2017", id: "betlist-popup-detail" });
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 890, height: 600, title: "ProductCS - DetailedBetlist - 01/05/2017", id: "betlist-popup-detail" });
                 });
             });
 
@@ -784,14 +777,12 @@
                 it("shows showResultPopUp with correct params", function () {
                     var transId = 1, winlostDate = "01/05/2017", custId = 2, transType = 3;
                     var url = "VoidbridgeBetList/Detail?transId=" + transId + "&winlostDate=" + winlostDate + "&custId=" + custId + "&transType=" + transType;
-                    var expectedUrl = transformQueryParamNameToLowerCase(url);
-                    //spyOn(Site, "unBlockUI");
                     spyOn(Popup, "openPopupWithIframe");
                     spyOn($.fn, "height").and.returnValue(700);
 
                     BetList.showVoidBridgeDetails(transId, winlostDate, custId, transType);
 
-                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl, { width: 890, height: 600, title: "ProductVB - DetailedBetlist - 01/05/2017", id: "betlist-popup-detail" });
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 890, height: 600, title: "ProductVB - DetailedBetlist - 01/05/2017", id: "betlist-popup-detail" });
                 });
             });
 
@@ -799,14 +790,12 @@
                 it("shows showResultPopUp with correct params", function () {
                     var transId = 1, winlostDate = "01/05/2017", custId = 2, transType = 3;
                     var url = "AllBetBetList/Detail?transid=" + transId + "&custid=" + custId + "&transType=" + transType + "&date=" + winlostDate;
-                    var expectedUrl = transformQueryParamNameToLowerCase(url);
-                    //spyOn(Site, "unBlockUI");
                     spyOn(Popup, "openPopupWithIframe");
                     spyOn($.fn, "height").and.returnValue(700);
 
                     BetList.showAllBetDetails(transId, winlostDate, custId, transType);
 
-                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl, { width: 870, height: 600, title: "ProductAB - DetailedBetlist - 01/05/2017", id: "betlist-popup-detail" });
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 870, height: 600, title: "ProductAB - DetailedBetlist - 01/05/2017", id: "betlist-popup-detail" });
                 });
             });
 
@@ -814,14 +803,188 @@
                 it("shows showResultPopUp with correct params", function () {
                     var refNo = 1, transId = 2, betType = 1, betdaqId = 0;
                     var url = "CashOutBetList/Detail?transId=" + transId + "&refNo=" + refNo + "&betType=" + betType + "&betdaqId=" + betdaqId + "&BaseCurrency=" + "usd" + "&isCashout=true";
-                    var expectedUrl = transformQueryParamNameToLowerCase(url);
                     spyOn(Popup, "openPopupWithIframe");
                     spyOn($.fn, "height").and.returnValue(700);
                     appendSetFixtures('<input id="BaseCurrency" value="usd" />');
 
                     BetList.viewCashOutHistory(transId, refNo, betType, betdaqId);
 
-                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(expectedUrl, { width: 890, height: 600, title: "CashOutDetails", id: "betlist-popup-detail" });
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 890, height: 600, title: "CashOutDetails", id: "betlist-popup-detail" });
+                });
+            });
+
+            describe("viewVoidbridgeResult(custId, gamePlayId, title)", function () {
+                it("shows showResultPopUp with correct params if result is not empty", function () {
+                    var result = "viewVoidbridgeResult";
+                    spyOn($, "get").and.callFake(function (url, success) {
+                        success(result);
+                    });
+                    var title = "Void bridge Result";
+                    spyOn(Popup, "openPopupWithIframe");
+
+                    BetList.viewVoidbridgeResult(0, 0, title);
+
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(result, { width: 800, height: 380, title: title, id: 'betlist-popup-result' });
+                });
+
+                it("does not show showResultPopUp with correct params if result is empty", function () {
+                    var result = "";
+                    spyOn($, "get").and.callFake(function (url, success) {
+                        success(result);
+                    });
+                    var title = "Void bridge Result";
+                    spyOn(Popup, "openPopupWithIframe");
+
+                    BetList.viewVoidbridgeResult(0, 0, title);
+
+                    expect(Popup.openPopupWithIframe).not.toHaveBeenCalled();
+                });
+            });
+
+            describe("viewGlobalGamingResult(custId, gameId, title)", function () {
+                it("shows showResultPopUp with correct params if result is not empty", function () {
+                    var result = "viewGlobalGamingResult";
+                    spyOn($, "get").and.callFake(function (url, success) {
+                        success(result);
+                    });
+                    var title = "Global Gaming Result";
+                    spyOn(Popup, "openPopupWithIframe");
+
+                    BetList.viewGlobalGamingResult(0, 0, title);
+
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(result, { width: 800, height: 380, title: title, id: 'betlist-popup-result' });
+                });
+
+                it("does not show showResultPopUp with correct params if result is empty", function () {
+                    var result = "";
+                    spyOn($, "get").and.callFake(function (url, success) {
+                        success(result);
+                    });
+                    var title = "Void bridge Result";
+                    spyOn(Popup, "openPopupWithIframe");
+
+                    BetList.viewGlobalGamingResult(0, 0, title);
+
+                    expect(Popup.openPopupWithIframe).not.toHaveBeenCalled();
+                });
+            });
+
+            describe("showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam)", function () {
+                it("Combination Offer Name should be shown if divEvent is not hidden", function () {
+                    var transId = 1, transIndex = 2;
+                    setFixtures('<div id="divEvent_12">');
+                    appendSetFixtures('<div id="combinationOfferName_12" style="display:none">');
+
+                    BetList.showNewParlayDetail(transId, transIndex);
+
+                    expect($("#divEvent_12").is(":hidden")).toEqual(true);
+                    expect($("#combinationOfferName_12").is(":hidden")).toEqual(false);
+                });
+
+                it("Combination Offer Name should be shown if divEvent is not hidden but reponse ajax data is empty", function () {
+                    var transId = 1, transIndex = 2;
+                    setFixtures('<div id="divEvent_12" style="display:none">');
+                    appendSetFixtures('<div id="combinationOfferName_12">');
+                    spyOn(QueryString, "setParam");
+                    spyOn($, "ajax").and.callFake(function (option) {
+                        option.success({ Data: [] });
+                    });
+
+                    BetList.showNewParlayDetail(transId, transIndex);
+
+                    expect($("#divEvent_12").is(":hidden")).toEqual(true);
+                    expect($("#combinationOfferName_12").is(":hidden")).toEqual(false);
+                });
+
+                it("divEvent should be shown correct content if divEvent is not hidden and reponse ajax data is not empty", function () {
+                    var transId = 1, transIndex = 2;
+                    setFixtures('<div id="divEvent_12" style="display:none">');
+                    appendSetFixtures('<div id="combinationOfferName_12">');
+                    spyOn(QueryString, "setParam");
+                    spyOn($, "ajax").and.callFake(function (option) {
+                        option.success({
+                            Data: [{ Choice: "Choice1" }, { Choice: "Choice2" }],
+                            Texts: ["text1", "text2"]
+                        });
+                    });
+                    var expectedContent = 'text1text2Choice1<div class="line"></div>Choice2';
+
+                    BetList.showNewParlayDetail(transId, transIndex);
+
+                    expect($("#divEvent_12").is(":hidden")).toEqual(false);
+                    expect($("#divEvent_12").html()).toEqual(expectedContent);
+                    expect($("#combinationOfferName_12").is(":hidden")).toEqual(true);
+                });
+            });
+
+            describe("showColossusBetsDetails(refNo, winlostDate, transId, custId, betCheck)", function () {
+                it("shows showResultPopUp with correct params", function () {
+                    spyOn(Popup, "openPopupWithIframe");
+                    spyOn($, "parseJSON").and.returnValue({
+                        BaseCurrency : "usd"
+                    });
+                    spyOn($.fn, "height").and.returnValue(700);
+                    var refNo = "refNo", winlostDate = "winlostDate", transId = "transId", custId = "custId", betCheck = "betCheck";
+                    var url = "ColossusBetBetList/Detail?refNo=" + refNo +
+                        "&date=" + winlostDate +
+                        "&transid=" + transId +
+                        "&custid=" + custId +
+                        "&betCheck=" + betCheck +
+                        "&BaseCurrency=usd";
+                    var title = "TicketDetailOf";
+
+                    BetList.showColossusBetsDetails(refNo, winlostDate, transId, custId, betCheck);
+
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 890, height: 600, title: title, id: "betlist-popup-detail" });
+                });
+            });
+
+            describe("showGlobalGamingDetails(transId, winlostDate, custId, transType)", function () {
+                it("shows showResultPopUp with correct params", function () {
+                    spyOn(Popup, "openPopupWithIframe");
+                    spyOn($, "parseJSON").and.returnValue({
+                        BaseCurrency: "usd"
+                    });
+                    spyOn($.fn, "height").and.returnValue(700);
+                    var transId = "transId", winlostDate = "06/01/2017", custId = "custId", transType = "transType";
+                    var url = "GlobalGamingBetList/Detail?transId=" + transId +
+                        "&winlostDate=" + winlostDate +
+                        "&custId=" + custId +
+                        "&transType=" + transType +
+                        "&BaseCurrency=usd";
+                    var title = "ProductFW - DetailedBetlist - 06/01/2017";
+
+                    BetList.showGlobalGamingDetails(transId, winlostDate, custId, transType);
+
+                    expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { width: 890, height: 600, title: title, id: "betlist-popup-detail" });
+                });
+            });
+
+            describe("registerBetListGlobalFunctions()", function () {
+                describe("showMP(transId)", function () {
+                    it("showMixParlayDetail should be called with correct params", function () {
+                        var transId = 1;
+                        setFixtures('<div id="divEvent_1">');
+                        spyOn(BetList, "showMixParlayDetail");
+
+                        BetList.registerBetListGlobalFunctions();
+                        window.showMP(transId);
+
+                        expect(BetList.showMixParlayDetail).toHaveBeenCalledWith(transId, $("#divEvent_1"));
+                    });
+                });
+
+                describe("showCombMP(transId)", function () {
+                    it("showMixParlayDetail should be called with correct params", function () {
+                        var transId = 1, index = 2;
+                        setFixtures('<div id="divEvent_12">');
+                        spyOn(BetList, "showMixParlayDetail");
+
+                        BetList.registerBetListGlobalFunctions();
+                        window.showCombMP(transId, index);
+
+                        expect(BetList.showMixParlayDetail).toHaveBeenCalledWith(transId, $("#divEvent_12"));
+                    });
                 });
             });
         });
