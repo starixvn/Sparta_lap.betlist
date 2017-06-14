@@ -419,9 +419,11 @@ table tbody tr.row-group-level1 td {
 .disabled {
   pointer-events: none; }
 
+.betlist-popup {
+  padding: 5px 20px; }
+
 .betlist-container {
   background: #fff;
-  padding: 5px 20px;
   /* Trans */
   /*ul.h-list li a*/
   /* Link */

@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/cashouthistory","8":"www/css/build/dev/pages/betlist/colossusbetdetail","9":"www/css/build/dev/pages/betlist/lastbetmonitoring","10":"www/css/build/dev/pages/betlist/systemparlaydetail","11":"www/css/build/dev/pages/customer/commgroupdetail","12":"www/css/build/dev/pages/customer/commgrouplist","13":"www/css/build/dev/pages/customer/customerlist","14":"www/css/build/dev/pages/customer/customerlog","15":"www/css/build/dev/pages/forecast/ahforecast","16":"www/css/build/dev/pages/forecast/forecastonextwo","17":"www/css/build/dev/pages/forecast/newforecast","18":"www/css/build/dev/pages/login/login","19":"www/css/build/dev/pages/reports/balance","20":"www/css/build/dev/pages/reports/cashoutwinloss","21":"www/css/build/dev/pages/reports/dailyracingwinloss","22":"www/css/build/dev/pages/reports/licenseewinloss","23":"www/css/build/dev/pages/reports/livereport","24":"www/css/build/dev/pages/reports/matchwinloss","25":"www/css/build/dev/pages/reports/platformwinloss","26":"www/css/build/dev/pages/reports/racingcommission","27":"www/css/build/dev/pages/reports/reportjqgridlayout","28":"www/css/build/dev/pages/reports/result","29":"www/css/build/dev/pages/reports/settledmatchcount","30":"www/css/build/dev/pages/reports/turnover","31":"www/css/build/dev/pages/reports/weeklylivematch","32":"www/css/build/dev/pages/reports/winlossbybettype","33":"www/css/build/dev/pages/reports/winlossbyleague","34":"www/css/build/dev/pages/reports/winlossbyproduct","35":"www/css/build/dev/pages/totalbet/mixparlay","36":"www/css/build/dev/pages/totalbet/totalbetlayout","37":"www/css/build/dev/pages/utility/error","38":"www/css/build/dev/um","39":"www/js/build/dev/language","40":"www/js/build/dev/pages/betlist/betlist","41":"www/js/build/dev/pages/betlist/betlistcancelledbets","42":"www/js/build/dev/pages/betlist/betlistcorrectscore","43":"www/js/build/dev/pages/betlist/betlistdaily","44":"www/js/build/dev/pages/betlist/betlistrunning","45":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","46":"www/js/build/dev/pages/betlist/betlistsimple","47":"www/js/build/dev/pages/betlist/lastbetmonitoring","48":"www/js/build/dev/pages/customer/commgroupadd","49":"www/js/build/dev/pages/customer/commgroupedit","50":"www/js/build/dev/pages/customer/commgrouplist","51":"www/js/build/dev/pages/customer/customerlist","52":"www/js/build/dev/pages/customer/customersetting","53":"www/js/build/dev/pages/customer/groupcommission","54":"www/js/build/dev/pages/customer/loginlog","55":"www/js/build/dev/pages/forecast/ahforecast","56":"www/js/build/dev/pages/forecast/forecasthdpou","57":"www/js/build/dev/pages/forecast/forecastonextwo","58":"www/js/build/dev/pages/forecast/newforecasthdpou","59":"www/js/build/dev/pages/home/home","60":"www/js/build/dev/pages/reports/balance","61":"www/js/build/dev/pages/reports/cashoutwinloss","62":"www/js/build/dev/pages/reports/dailyracingwinloss","63":"www/js/build/dev/pages/reports/licenseewinloss","64":"www/js/build/dev/pages/reports/livereport","65":"www/js/build/dev/pages/reports/livereportmatchlist","66":"www/js/build/dev/pages/reports/matchwinloss","67":"www/js/build/dev/pages/reports/platformwinloss","68":"www/js/build/dev/pages/reports/racingcommission","69":"www/js/build/dev/pages/reports/result","70":"www/js/build/dev/pages/reports/settledmatchcount","71":"www/js/build/dev/pages/reports/turnover","72":"www/js/build/dev/pages/reports/weeklylivematch","73":"www/js/build/dev/pages/reports/winlossbybettype","74":"www/js/build/dev/pages/reports/winlossbyleague","75":"www/js/build/dev/pages/reports/winlossbyproduct","76":"www/js/build/dev/pages/signin/signin","77":"www/js/build/dev/pages/totalbet/firstgoallastgoal","78":"www/js/build/dev/pages/totalbet/halftimefulltime","79":"www/js/build/dev/pages/totalbet/handicapoverunder","80":"www/js/build/dev/pages/totalbet/homedrawawaynobet","81":"www/js/build/dev/pages/totalbet/moneyline","82":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","83":"www/js/build/dev/pages/totalbet/outright","84":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/cashouthistory","8":"www/css/build/dev/pages/betlist/colossusbetdetail","9":"www/css/build/dev/pages/betlist/customeroutstanding","10":"www/css/build/dev/pages/betlist/lastbetmonitoring","11":"www/css/build/dev/pages/betlist/systemparlaydetail","12":"www/css/build/dev/pages/customer/commgroupdetail","13":"www/css/build/dev/pages/customer/commgrouplist","14":"www/css/build/dev/pages/customer/customerlist","15":"www/css/build/dev/pages/customer/customerlog","16":"www/css/build/dev/pages/forecast/ahforecast","17":"www/css/build/dev/pages/forecast/forecastonextwo","18":"www/css/build/dev/pages/forecast/newforecast","19":"www/css/build/dev/pages/login/login","20":"www/css/build/dev/pages/reports/balance","21":"www/css/build/dev/pages/reports/cashoutwinloss","22":"www/css/build/dev/pages/reports/dailyracingwinloss","23":"www/css/build/dev/pages/reports/licenseewinloss","24":"www/css/build/dev/pages/reports/livereport","25":"www/css/build/dev/pages/reports/matchwinloss","26":"www/css/build/dev/pages/reports/platformwinloss","27":"www/css/build/dev/pages/reports/racingcommission","28":"www/css/build/dev/pages/reports/reportjqgridlayout","29":"www/css/build/dev/pages/reports/result","30":"www/css/build/dev/pages/reports/settledmatchcount","31":"www/css/build/dev/pages/reports/turnover","32":"www/css/build/dev/pages/reports/weeklylivematch","33":"www/css/build/dev/pages/reports/winlossbybettype","34":"www/css/build/dev/pages/reports/winlossbyleague","35":"www/css/build/dev/pages/reports/winlossbyproduct","36":"www/css/build/dev/pages/totalbet/mixparlay","37":"www/css/build/dev/pages/totalbet/totalbetlayout","38":"www/css/build/dev/pages/utility/error","39":"www/css/build/dev/um","40":"www/js/build/dev/language","41":"www/js/build/dev/pages/betlist/betlist","42":"www/js/build/dev/pages/betlist/betlistcancelledbets","43":"www/js/build/dev/pages/betlist/betlistcorrectscore","44":"www/js/build/dev/pages/betlist/betlistdaily","45":"www/js/build/dev/pages/betlist/betlistrunning","46":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","47":"www/js/build/dev/pages/betlist/betlistsimple","48":"www/js/build/dev/pages/betlist/customeroutstanding","49":"www/js/build/dev/pages/betlist/lastbetmonitoring","50":"www/js/build/dev/pages/customer/commgroupadd","51":"www/js/build/dev/pages/customer/commgroupedit","52":"www/js/build/dev/pages/customer/commgrouplist","53":"www/js/build/dev/pages/customer/customerlist","54":"www/js/build/dev/pages/customer/customersetting","55":"www/js/build/dev/pages/customer/groupcommission","56":"www/js/build/dev/pages/customer/loginlog","57":"www/js/build/dev/pages/forecast/ahforecast","58":"www/js/build/dev/pages/forecast/forecasthdpou","59":"www/js/build/dev/pages/forecast/forecastonextwo","60":"www/js/build/dev/pages/forecast/newforecasthdpou","61":"www/js/build/dev/pages/home/home","62":"www/js/build/dev/pages/reports/balance","63":"www/js/build/dev/pages/reports/cashoutwinloss","64":"www/js/build/dev/pages/reports/dailyracingwinloss","65":"www/js/build/dev/pages/reports/licenseewinloss","66":"www/js/build/dev/pages/reports/livereport","67":"www/js/build/dev/pages/reports/livereportmatchlist","68":"www/js/build/dev/pages/reports/matchwinloss","69":"www/js/build/dev/pages/reports/platformwinloss","70":"www/js/build/dev/pages/reports/racingcommission","71":"www/js/build/dev/pages/reports/result","72":"www/js/build/dev/pages/reports/settledmatchcount","73":"www/js/build/dev/pages/reports/turnover","74":"www/js/build/dev/pages/reports/weeklylivematch","75":"www/js/build/dev/pages/reports/winlossbybettype","76":"www/js/build/dev/pages/reports/winlossbyleague","77":"www/js/build/dev/pages/reports/winlossbyproduct","78":"www/js/build/dev/pages/signin/signin","79":"www/js/build/dev/pages/totalbet/firstgoallastgoal","80":"www/js/build/dev/pages/totalbet/halftimefulltime","81":"www/js/build/dev/pages/totalbet/handicapoverunder","82":"www/js/build/dev/pages/totalbet/homedrawawaynobet","83":"www/js/build/dev/pages/totalbet/moneyline","84":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","85":"www/js/build/dev/pages/totalbet/outright","86":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -14199,10 +14199,6 @@
 	        var _pageLanguage = null;
 	        var _userCurrencies = null;
 	
-	        function setProductCodeListParam(url, productCodeList){
-	            return QueryString.setParam(url, "ProductCodeList", productCodeList);
-	        }
-	
 	        function reload() {
 	            window.location.reload();
 	        }
@@ -14513,19 +14509,27 @@
 	        }
 	
 	        function setProductOptionOriginalParamList(urlOrParams) {
-	            var productCodeList = [];
-	            $(".childCheckbox", "#ProductList").each(function (index, element) {
-	                var productCode = $(element).attr('data-product-code');
-	                if (productCode && $(element).attr("data-original") === 'true') {
-	                    productCodeList.push(productCode.toUpperCase());
-	                }
-	            });
-	
 	            if (typeof (urlOrParams) === "string") {
-	                return QueryString.setParam(urlOrParams, "ProductCodeList", productCodeList);
+	                var counter = 0;
+	                $(".childCheckbox", "#ProductList").each(function (index, element) {
+	                    var productCode = $(element).attr('data-product-code');
+	                    if (productCode !== undefined && productCode.length > 0) {
+	                        urlOrParams = setProductOptionParam(urlOrParams, counter, productCode, $(element).attr("data-original"));
+	                        counter++;
+	                    }
+	                });
+	
+	                return urlOrParams;
 	            }
 	            else {
-	                urlOrParams.ProductCodeList = productCodeList.toString();
+	                urlOrParams.ProductOptions = [];
+	                $(".childCheckbox", "#ProductList").each(function (index, element) {
+	                    var productCode = $(element).attr('data-product-code');
+	                    if (productCode !== undefined && productCode.length > 0) {
+	                        urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).attr("data-original") });
+	                    }
+	                });
+	
 	                return urlOrParams;
 	            }
 	        }
@@ -14717,7 +14721,6 @@
 	
 	        return {
 	            initialize: initialize,
-	            setProductCodeListParam: setProductCodeListParam,
 	            reload: reload,
 	            resolveClientUrl: resolveClientUrl,
 	            exportExcel: exportExcel,
@@ -14760,74 +14763,35 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	    "use strict";
 	
-	    var parseQueryString = function (queryString) {
-	        var args = queryString.split('&');
-	        var argsList = {};
-	
-	        for (var i = 0; i < args.length; i++) {
-	            var arg = unescape(args[i]);
-	            if (arg.length > 0) {
-	                if (arg.indexOf('=') === -1) {
-	                    argsList[$.trim(arg.toLowerCase())] = null;
-	                }
-	                else {
-	                    var keyValuePair = arg.split('=');
-	                    argsList[$.trim(keyValuePair[0].toLowerCase())] = $.trim(keyValuePair[1]);
-	                }
-	            }
-	        }
-	
-	        return argsList;
-	    };
-	
-	    var getQueryString = function (url) {
+	    function getQueryString(url) {
 	        var index = url.indexOf("?");
 	        return index < 0 ? "" : url.substring(index + 1, url.length);
-	    };
+	    }
 	
-	    var getRawUrl = function (url) {
+	    function getRawUrl(url) {
 	        var index = url.indexOf("?");
 	        return index < 0 ? url : url.substring(0, index);
-	    };
+	    }
 	
-	    function setParam(url, name, value) {
-	        var rawUrl = getRawUrl(url);
-	        var queryString = getQueryString(url);
-	        var args = parseQueryString(queryString);
-	
-	        if (name == null || name === undefined) {
+	    function setParam(url, key, value) {
+	        // Does not update data if value = undefined
+	        if (value === undefined) {
 	            return url;
 	        }
 	
-	        // Update value
-	        var found = false;
-	        for (var key in args) {
-	            if (key != null && key !== undefined && key.toLowerCase() === name.toLowerCase()) {
-	                // Does not update data if value = undefined
-	                if (value !== undefined) {
-	                    args[key] = value;
-	                }
-	                found = true;
-	            }
+	        var isRemoving = value === null;
+	
+	        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+	        var separator = url.indexOf('?') !== -1 ? "&" : "?";
+	        if (url.match(re)) {
+	            return url.replace(re, '$1' + (isRemoving ? '' : key + "=" + value + '$2')).replace("&&", "&");
 	        }
-	
-	        if (!found) {
-	            args[name.toLowerCase()] = value;
+	        else {
+	            return url + (isRemoving ? '' : separator + key + "=" + value).replace("&&", "&");
 	        }
-	
-	        var queryArray = [];
-	
-	        // Rebuild query string, ignore null value
-	        for (var key1 in args) {
-	            if (args[key1] != null && args[key1] !== undefined) {
-	                queryArray.push(key1.toLowerCase() + "=" + args[key1]);
-	            }
-	        }
-	
-	        return rawUrl + "?" + queryArray.join("&");
 	    }
 	
 	    function setParams(url, parameters) {
@@ -14840,23 +14804,25 @@
 	        return url;
 	    }
 	
+	    function getParam(url, name) {
+	        name = name.replace(/[\[\]]/g, "\\$&");
+	        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	            results = regex.exec(url);
+	        if (!results) {
+	            return null;
+	        }
+	        if (!results[2]) {
+	            return '';
+	        }
+	        return decodeURIComponent(results[2].replace(/\+/g, " "));
+	    }
+	
 	    return {
 	        getQueryString: getQueryString,
 	        getRawUrl: getRawUrl,
 	        setParam: setParam,
 	        setParams: setParams,
-	        getParam: function (url, name) {
-	            var queryString = getQueryString(url);
-	            var args = parseQueryString(queryString);
-	
-	            for (var key in args) {
-	                if (key != null && key.toLowerCase() === name.toLowerCase()) {
-	                    return args[key];
-	                }
-	            }
-	
-	            return null;
-	        }
+	        getParam: getParam
 	    };
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 

@@ -1299,9 +1299,11 @@ tr.ui-search-toolbar select {
     min-width: 65px;
     border: 1px solid #e2d6d6; }
 
+.betlist-popup {
+  padding: 5px 20px; }
+
 .betlist-container {
   background: #fff;
-  padding: 5px 20px;
   /* Trans */
   /*ul.h-list li a*/
   /* Link */

@@ -1046,9 +1046,11 @@ ul.ui-multiselect-checkboxes {
   margin: 0;
   margin-right: 10px; }
 
+.betlist-popup {
+  padding: 5px 20px; }
+
 .betlist-container {
   background: #fff;
-  padding: 5px 20px;
   /* Trans */
   /*ul.h-list li a*/
   /* Link */

@@ -2007,12 +2007,20 @@ input[type="checkbox"] + label {
   position: relative;
   text-align: right; }
 
-.error-message, .ajax-loading {
+.success-message, .error-message, .ajax-loading {
   margin: 15px 5px;
   text-align: center; }
 
 .error-message {
   color: red;
   border: 1px solid #bbb; }
+
+.success-message {
+  color: green;
+  border: 1px solid #bbb; }
+
+/* Update Group Popup*/
+.attention-message {
+  color: red; }
 
 /*# sourceMappingURL=customerlist.css.map*/
