@@ -15,9 +15,6 @@
 
     public class CashOutBetListController : BetListBaseController
     {
-        private readonly string _title =
-            ViewResources.ProductCO + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
-
         private readonly ICashOutBetListService _cashOutBetListService;
 
         public CashOutBetListController()
@@ -46,8 +43,6 @@
 
         private IList<CashOutTicketText> BuildCashOutTicketTextList(IEnumerable<CashOutTicket> dataList, long transId)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var showPlayerComm = licenseeSession.IsAllowedCustomerComm;
             var builder = new BetListHTMLBuilder();
             var ticketTextList = new List<CashOutTicketText>();
             var ticketHelper = new TicketHelper
@@ -84,7 +79,6 @@
             var licenseeSession = SessionService.LicenseeSession;
             var showPlayerComm = licenseeSession.IsAllowedCustomerComm;
             var builder = new BetListHTMLBuilder();
-            var ticketTextList = new List<TicketText>();
             var ticketHelper = new TicketHelper
             {
                 HideStatusCashOutHistory = true

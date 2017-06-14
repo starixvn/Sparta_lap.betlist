@@ -103,7 +103,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnGrandPrize].SetCellValue(ViewResources.AmtGreaterThan30kGBP);
 
             var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
-            row2.Cells[ColumnMemberWinning].SetCellValue(ViewResources.MemberWinnings);
+            row2.Cells[ColumnMemberWinning].SetCellValue(ViewResources.CustomerWinnings);
             row2.Cells[ColumnCashOutAmt].SetCellValue(ViewResources.CashOutAmt);
         }
 

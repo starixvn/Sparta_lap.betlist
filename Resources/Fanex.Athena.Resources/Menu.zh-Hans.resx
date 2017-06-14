@@ -345,4 +345,7 @@
     <value>单双盘/1X2/和局/不是和局</value>
     <comment>Odd/Even + 1x2 + DND</comment>
   </data>
+  <data name="Menu_71" xml:space="preserve">
+    <value>CB足彩输赢</value>
+  </data>
 </root>

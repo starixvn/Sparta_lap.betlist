@@ -2533,4 +2533,33 @@
   <data name="BoughtTicketsList" xml:space="preserve">
     <value>買的注單</value>
   </data>
+  <data name="CashOutAmt" xml:space="preserve">
+    <value>兌現金額</value>
+  </data>
+  <data name="CashOutShare" xml:space="preserve">
+    <value>兌現分紅</value>
+  </data>
+  <data name="CommissionShare" xml:space="preserve">
+    <value>佣金</value>
+  </data>
+  <data name="AmountDueToCB" xml:space="preserve">
+    <value>應付金額至CB足彩</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>金額</value>
+  </data>
+  <data name="ColossusBetsWinLoss" xml:space="preserve">
+    <value>CB足彩輸贏</value>
+  </data>
+  <data name="CustomerWinnings" xml:space="preserve">
+    <value>會員總贏</value>
+  </data>
+  <data name="AmtLessThan30kGBP" xml:space="preserve">
+    <value>金額&lt; 30,000英鎊</value>
+    <comment>#78085</comment>
+  </data>
+  <data name="AmtGreaterThan30kGBP" xml:space="preserve">
+    <value>金額≥ 30,000英鎊</value>
+    <comment>#78085</comment>
+  </data>
 </root>

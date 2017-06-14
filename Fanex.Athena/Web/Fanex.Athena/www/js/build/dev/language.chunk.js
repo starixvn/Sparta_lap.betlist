@@ -1,7 +1,7 @@
 webpackJsonp([35],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	__webpack_require__(84);
 	__webpack_require__(85);
@@ -10,10 +10,10 @@ webpackJsonp([35],{
 	module.exports = __webpack_require__(88);
 
 
-/***/ },
+/***/ }),
 
 /***/ 84:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// Generated at: 6/6/2017 1:23:39 PM
 	window._language_en_US = {
@@ -943,10 +943,10 @@ webpackJsonp([35],{
 	};
 
 
-/***/ },
+/***/ }),
 
 /***/ 85:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// Generated at: 6/6/2017 1:23:39 PM
 	window._language_zh_CN = {
@@ -1735,14 +1735,16 @@ webpackJsonp([35],{
 	Year:"年份",
 	Yes:"是",
 	Yesterday:"昨日",
-	YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
+	YouNotChooseAnyCustomerMsg: "您还没有选择任何会员",
+	AmtLessThan30kGBP: "金额< 30,000英镑",
+	AmtGreaterThan30kGBP: "金额≥ 30,000英镑"
 	};
 
 
-/***/ },
+/***/ }),
 
 /***/ 86:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// Generated at: 6/6/2017 1:23:39 PM
 	window._language_zh_TW = {
@@ -2531,14 +2533,16 @@ webpackJsonp([35],{
 	Year:"年份",
 	Yes:"是",
 	Yesterday:"昨日",
-	YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
+	YouNotChooseAnyCustomerMsg: "您還沒有選擇任何會員",
+	AmtLessThan30kGBP: "金額< 30,000英鎊",
+	AmtGreaterThan30kGBP: "金額≥ 30,000英鎊"
 	};
 
 
-/***/ },
+/***/ }),
 
 /***/ 87:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// Generated at: 6/6/2017 1:23:39 PM
 	window._language_zh_Hans = {
@@ -3314,14 +3318,16 @@ webpackJsonp([35],{
 	Year:"年份",
 	Yes:"是",
 	Yesterday:"昨日",
-	YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
+	YouNotChooseAnyCustomerMsg: "您还没有选择任何会员",
+	AmtLessThan30kGBP: "金额< 30,000英镑",
+	AmtGreaterThan30kGBP: "金额≥ 30,000英镑"
 	};
 
 
-/***/ },
+/***/ }),
 
 /***/ 88:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// Generated at: 6/6/2017 1:23:39 PM
 	window._language_ko_KR = {
@@ -4090,7 +4096,7 @@ webpackJsonp([35],{
 	};
 
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=language.chunk.js.map
