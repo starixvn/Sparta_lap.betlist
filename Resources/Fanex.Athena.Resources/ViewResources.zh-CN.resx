@@ -2556,7 +2556,11 @@
     <value>会员总赢</value>
   </data>
   <data name="AmtLessThan30kGBP" xml:space="preserve">
-    <value>金额小于30,000英镑</value>
+    <value>金额&lt; 30,000英镑</value>
+    <comment>#78085</comment>
+  </data>
+  <data name="AmtGreaterThan30kGBP" xml:space="preserve">
+    <value>金额≥ 30,000英镑</value>
     <comment>#78085</comment>
   </data>
 </root>

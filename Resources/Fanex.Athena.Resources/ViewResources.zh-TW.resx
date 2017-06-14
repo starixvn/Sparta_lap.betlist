@@ -2555,7 +2555,11 @@
     <value>會員總贏</value>
   </data>
   <data name="AmtLessThan30kGBP" xml:space="preserve">
-    <value>金額小於30,000英鎊</value>
+    <value>金額&lt; 30,000英鎊</value>
+    <comment>#78085</comment>
+  </data>
+  <data name="AmtGreaterThan30kGBP" xml:space="preserve">
+    <value>金額≥ 30,000英鎊</value>
     <comment>#78085</comment>
   </data>
 </root>

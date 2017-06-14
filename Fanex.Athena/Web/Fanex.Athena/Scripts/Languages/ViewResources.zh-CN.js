@@ -792,5 +792,6 @@ Year:"年份",
 Yes:"是",
 Yesterday:"昨日",
 YouNotChooseAnyCustomerMsg: "您还没有选择任何会员",
-AmtLessThan30kGBP: "金额小于30,000英镑"
+AmtLessThan30kGBP: "金额< 30,000英镑",
+AmtGreaterThan30kGBP: "金额≥ 30,000英镑"
 };

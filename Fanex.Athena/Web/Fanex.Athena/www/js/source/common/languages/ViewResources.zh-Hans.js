@@ -772,5 +772,7 @@ WPTO:"独赢/位置交易额",
 Year:"年份",
 Yes:"是",
 Yesterday:"昨日",
-YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
+YouNotChooseAnyCustomerMsg: "您还没有选择任何会员",
+AmtLessThan30kGBP: "金额< 30,000英镑",
+AmtGreaterThan30kGBP: "金额≥ 30,000英镑"
 };
