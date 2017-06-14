@@ -1,8 +1,11 @@
 ﻿@import "../../scss/abstracts/_variables.scss";
 
+.betlist-popup {
+    padding: 5px 20px;
+}
+
 .betlist-container {
     background: #fff;
-    padding: 5px 20px;
 
     .ui-jqgrid-hdiv table.ui-jqgrid-htable > thead > tr > th {
         &, &.ui-th-column {
