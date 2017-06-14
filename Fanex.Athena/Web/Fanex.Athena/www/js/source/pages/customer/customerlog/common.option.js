@@ -1,5 +1,5 @@
 ﻿"use strict";
-define(["jquery"], function ($) {
+define([], function () {
     var logIdColumn = {
         name: 'LogId',
         index: 'LogId',
@@ -75,9 +75,9 @@ define(["jquery"], function ($) {
         },
 
         getColNames: function () {
-            return colNameList
+            return colNameList;
         }
-    }
+    };
 
-    return _me;;
+    return _me;
 });

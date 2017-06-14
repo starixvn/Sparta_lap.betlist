@@ -1340,6 +1340,12 @@
     <Content Include="www\js\tests\pages\customer\customercomm\commgroupadd-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgroupdetail-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgrouplist-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlog\common.option-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlog\customerlog.service-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlog\customersetting\customersetting-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlog\groupcommission\groupcommission-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlog\loginlog\loginlog-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlog\loginlog\loginlog.option-spec.js" />
     <Content Include="www\js\tests\pages\forecast\forecast.handicapoverunder-spec.js" />
     <Content Include="www\js\tests\pages\forecast\forecast.newforecasthdpou-spec.js" />
     <Content Include="www\js\tests\pages\forecast\forecast.onextwo-spec.js" />

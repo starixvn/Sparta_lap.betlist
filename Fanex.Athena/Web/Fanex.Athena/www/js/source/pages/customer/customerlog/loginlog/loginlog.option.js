@@ -1,5 +1,5 @@
 ﻿"use strict";
-define(["jquery"], function ($) {
+define([], function () {
     var userNameColumn = {
         name: 'UserName',
         index: 'UserName',

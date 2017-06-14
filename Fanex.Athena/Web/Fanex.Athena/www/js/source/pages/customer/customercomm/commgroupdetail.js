@@ -1,5 +1,5 @@
 ﻿define(["jquery", "common/site", "common/popup", "lib/jquery.colorpicker"],
-     function ($, Site, Popup, ColorPicker) {
+     function ($, Site, Popup) {
          "use strict";
 
          function initialize(titleResource) {

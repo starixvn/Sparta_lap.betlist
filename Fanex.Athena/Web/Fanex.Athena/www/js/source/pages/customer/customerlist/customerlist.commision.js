@@ -115,7 +115,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                     return;
                 }
 
-                var selectedCustomers = _state.selectedCustomers
+                var selectedCustomers = _state.selectedCustomers;
 
                 if (Object.keys(selectedCustomers).length === 0) {
                     _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);

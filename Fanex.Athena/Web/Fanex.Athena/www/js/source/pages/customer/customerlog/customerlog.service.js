@@ -46,7 +46,7 @@ define(["jquery", "common/site",
                     complete: function () {
                         Site.unBlockUI();
                     }
-                }
+                };
 
                 _me.stopAjaxRequest();
                 _ajaxRequest = $.ajax(option);

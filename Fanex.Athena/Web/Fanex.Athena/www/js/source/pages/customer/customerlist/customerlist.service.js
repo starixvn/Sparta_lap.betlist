@@ -183,7 +183,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             };
 
             if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined) {
-                indexColumn.formatter = indexFormatter
+                indexColumn.formatter = indexFormatter;
             }
             else {
                 indexColumn.formatter = undefined;
@@ -270,7 +270,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
         closePopup: function (popUpSelector) {
             $(popUpSelector).fadeOut();
         }
-    }
+    };
 
     return _me;
 });
