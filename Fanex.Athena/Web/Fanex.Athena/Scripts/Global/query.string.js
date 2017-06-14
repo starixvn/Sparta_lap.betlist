@@ -1,35 +1,73 @@
 ﻿/*exported QueryString*/
 /// <reference path="/@JSense.js" />
-
+/// class:QueryString
 "use strict";
-var QueryString = (function () {
-    function getQueryString(url) {
+var QueryString = (function ($) {
+    var parseQueryString = function (queryString) {
+        var args = queryString.split('&');
+        var argsList = {};
+
+        for (var i = 0; i < args.length; i++) {
+            var arg = unescape(args[i]);
+            if (arg.length > 0) {
+                if (arg.indexOf('=') === -1) {
+                    argsList[$.trim(arg.toLowerCase())] = null;
+                }
+                else {
+                    var keyValuePair = arg.split('=');
+                    argsList[$.trim(keyValuePair[0].toLowerCase())] = $.trim(keyValuePair[1]);
+                }
+            }
+        }
+
+        return argsList;
+    };
+
+    var getQueryString = function (url) {
         var index = url.indexOf("?");
         return index < 0 ? "" : url.substring(index + 1, url.length);
-    }
+    };
 
-    function getRawUrl(url) {
+    var getRawUrl = function (url) {
         var index = url.indexOf("?");
         return index < 0 ? url : url.substring(0, index);
-    }
+    };
 
-    function setParam(url, key, value) {
-        // Does not update data if value = undefined
-        if (value === undefined) {
+    function setParam(url, name, value) {
+        var rawUrl = getRawUrl(url);
+        var queryString = getQueryString(url);
+        var args = parseQueryString(queryString);
+
+        if (name == null || name === undefined) {
             return url;
         }
 
-        var isRemoving = value === null;
+        // Update value
+        var found = false;
+        for (var key in args) {
+            if (key != null && key !== undefined && key.toLowerCase() === name.toLowerCase()) {
+                // Does not update data if value = undefined
+                if (value !== undefined) {
+                    args[key] = value;
+                }
+                found = true;
+            }
+        }
 
-        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-        var separator = url.indexOf('?') !== -1 ? "&" : "?";
-        
-        if (url.match(re)) {
-            return url.replace(re, '$1' + (isRemoving ? '' : key + "=" + value + '$2')).replace("&&", "&");
+        if (!found) {
+            args[name.toLowerCase()] = value;
         }
-        else {
-            return url + (isRemoving ? '' : separator + key + "=" + value).replace("&&", "&");
+
+        var queryArray = [];
+
+        // Rebuild query string, ignore null value
+        for (var key1 in args) {
+            if (args[key1] != null && args[key1] !== undefined) {
+                queryArray.push(key1.toLowerCase() + "=" + args[key1]);
+            }
         }
+
+        return rawUrl + "?" + queryArray.join("&");
     }
 
     function setParams(url, parameters) {
@@ -42,24 +80,22 @@ var QueryString = (function () {
         return url;
     }
 
-    function getParam(url, name) {
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) {
-            return null;
-        }
-        if (!results[2]) {
-            return '';
-        }
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-
     return {
         getQueryString: getQueryString,
         getRawUrl: getRawUrl,
         setParam: setParam,
         setParams: setParams,
-        getParam: getParam
+        getParam: function (url, name) {
+            var queryString = getQueryString(url);
+            var args = parseQueryString(queryString);
+
+            for (var key in args) {
+                if (key != null && key.toLowerCase() === name.toLowerCase()) {
+                    return args[key];
+                }
+            }
+
+            return null;
+        }
     };
-})();
+})(jQuery);
