@@ -50,7 +50,8 @@ var cssPaths = {
     customercommgrouplist: ["./www/css/source/pages/customer/commgrouplist.scss"],
     customercommgroupdetail: ["./www/css/source/pages/customer/commgrouplist-detail.scss"],
     customerlog: ["./www/css/source/pages/customer/customerlog.scss"],
-    customerlist: ["./www/css/source/pages/customer/customerlist.scss"]
+    customerlist: ["./www/css/source/pages/customer/customerlist.scss"],
+    customeroutstanding: ["./www/css/source/pages/betlist/customeroutstanding.scss"]
 };
 
 var scriptPaths = {
@@ -106,7 +107,8 @@ var scriptPaths = {
     customerlist: "./www/js/source/pages/customer/customerlist/main-new.js",
     loginlog: "./www/js/source/pages/customer/customerlog/loginlog/main.js",
     customersetting: "./www/js/source/pages/customer/customerlog/customersetting/main.js",
-    groupcommission: "./www/js/source/pages/customer/customerlog/groupcommission/main.js"
+    groupcommission: "./www/js/source/pages/customer/customerlog/groupcommission/main.js",
+    customeroutstanding: "./www/js/source/pages/betlist/customer/main.js",
 };
 
 module.exports = {
