@@ -2511,4 +2511,8 @@
   <data name="CustomerWinnings" xml:space="preserve">
     <value>会员总赢</value>
   </data>
+  <data name="AmtLessThan30kGBP" xml:space="preserve">
+    <value>金额小于30,000英镑</value>
+    <comment>#78085</comment>
+  </data>
 </root>
