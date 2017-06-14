@@ -1735,7 +1735,9 @@ webpackJsonp([35],{
 	Year:"年份",
 	Yes:"是",
 	Yesterday:"昨日",
-	YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
+	YouNotChooseAnyCustomerMsg: "您还没有选择任何会员",
+	AmtLessThan30kGBP: "金额< 30,000英镑",
+	AmtGreaterThan30kGBP: "金额≥ 30,000英镑"
 	};
 
 
@@ -2531,7 +2533,9 @@ webpackJsonp([35],{
 	Year:"年份",
 	Yes:"是",
 	Yesterday:"昨日",
-	YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
+	YouNotChooseAnyCustomerMsg: "您還沒有選擇任何會員",
+	AmtLessThan30kGBP: "金額< 30,000英鎊",
+	AmtGreaterThan30kGBP: "金額≥ 30,000英鎊"
 	};
 
 
@@ -3314,7 +3318,9 @@ webpackJsonp([35],{
 	Year:"年份",
 	Yes:"是",
 	Yesterday:"昨日",
-	YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
+	YouNotChooseAnyCustomerMsg: "您还没有选择任何会员",
+	AmtLessThan30kGBP: "金额< 30,000英镑",
+	AmtGreaterThan30kGBP: "金额≥ 30,000英镑"
 	};
 
 
