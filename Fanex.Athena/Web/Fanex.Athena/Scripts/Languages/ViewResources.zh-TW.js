@@ -1,4 +1,4 @@
-﻿// Generated at: 6/14/2017 11:27:26 AM
+﻿// Generated at: 6/14/2017 3:27:38 PM
 var _language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -36,6 +36,8 @@ AmtDueToBA:"BA金額",
 AmtDueToBABalanceNote:"BA金額: 在BA合作上，承租公司需支付或應獲得的金額",
 AmtDueToRacing:"賽事金額",
 AmtDueToRacingBalanceNote:"賽事金額: 在賽事產品上，承租公司需支付或應獲得的金額",
+AmtGreaterThan30kGBP:"金額≥ 30,000英鎊",
+AmtLessThan30kGBP:"金額&lt; 30,000英鎊",
 Apr:"四月",
 April:"四月",
 AreYouSure:"您確定要繼續嗎？",
@@ -791,7 +793,5 @@ WPTO:"獨贏/位置交易額",
 Year:"年份",
 Yes:"是",
 Yesterday:"昨日",
-YouNotChooseAnyCustomerMsg: "您還沒有選擇任何會員",
-AmtLessThan30kGBP: "金額< 30,000英鎊",
-AmtGreaterThan30kGBP: "金額≥ 30,000英鎊"
+YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 };

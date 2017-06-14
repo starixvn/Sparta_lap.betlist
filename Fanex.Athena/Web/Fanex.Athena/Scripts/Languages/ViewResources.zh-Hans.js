@@ -1,4 +1,4 @@
-﻿// Generated at: 6/14/2017 11:27:26 AM
+﻿// Generated at: 6/14/2017 3:27:38 PM
 var _language_zh_Hans = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -36,6 +36,8 @@ AmtDueToBA:"BA金额",
 AmtDueToBABalanceNote:"BA金额: 在BA合作上，承租公司需支付或应获得的金额",
 AmtDueToRacing:"赛事金额",
 AmtDueToRacingBalanceNote:"赛事金额: 在赛事产品上，承租公司需支付或应获得的金额",
+AmtGreaterThan30kGBP:"金额≥ 30,000英镑",
+AmtLessThan30kGBP:"金额&lt; 30,000英镑",
 Apr:"四月",
 April:"四月",
 AreYouSure:"您确定要继续吗?",
@@ -778,7 +780,5 @@ WPTO:"独赢/位置交易额",
 Year:"年份",
 Yes:"是",
 Yesterday:"昨日",
-YouNotChooseAnyCustomerMsg: "您还没有选择任何会员",
-AmtLessThan30kGBP: "金额< 30,000英镑",
-AmtGreaterThan30kGBP: "金额≥ 30,000英镑"
+YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 };
