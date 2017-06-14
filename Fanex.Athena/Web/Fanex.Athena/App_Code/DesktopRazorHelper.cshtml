@@ -120,7 +120,7 @@ selectedBasedCurrency = selectedBasedCurrency.ToLower();
 }
 @helper GroupComSettingDropDownList(string name, Dictionary<int, int> items, decimal selectedValue = 0, string className = "")
 {
-    <select id="@name" name="@name" class="@className hide" data-original="@selectedValue">
+    <select id="@name" name="@name" class="@className hide select" data-original="@selectedValue">
         @foreach (var item in items)
         {
             <option @(selectedValue == item.Value ? "selected=selected" : string.Empty) value="@item.Value">@item.Key.ToString("0.#")</option>

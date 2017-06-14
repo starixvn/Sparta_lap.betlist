@@ -110,7 +110,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
             moveCustomerToGroup: function () {
                 var groupid = $('#GroupListSelect').val();
                 
-                //GroupId = - 1 is show all group.
                 if (groupid === "-1") {
                     _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
                     return;
@@ -181,7 +180,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
             showUpdateCustComm: function (groupCommId) {
                 var isShowInfo = false;
                 var selectedCustomers = _state.selectedCustomers;
-                
+
                 for (var custId in selectedCustomers) {
                     if (selectedCustomers.hasOwnProperty(custId)) {
                         if (selectedCustomers[custId] !== "0") {
@@ -191,15 +190,15 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                     }
                 }
 
-                $('#InfoMsg').css('display', isShowInfo ? 'block' : 'none');
+                $('#InfoMsg').toggle(isShowInfo);
                 _me.clearNotification();
 
                 Popup.openPopupWithButton($("#UpdateCustCommPopUp"),
                     {
                         title: Site.getSingleResource("UpdateCustomerCommission"),
                         id: 'UpdateCustCommPopUp',
-                        height: 350,
-                        width: 500
+                        height: 450,
+                        width: 600
                     },
                     [
                         {
@@ -225,8 +224,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                 return comm;
             },
             updateCustomerComm: function (groupCommId) {
-                var checkedCustomers = CustomerList.getCheckedCustomers();
-                var custList = JSLINQ(checkedCustomers).Select(function (x) { return x.Id; }).ToArray();
+                var custList = Object.keys(_state.selectedCustomers);
 
                 if (custList.length === 0) {
                     _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
