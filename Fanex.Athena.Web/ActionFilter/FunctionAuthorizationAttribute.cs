@@ -49,7 +49,6 @@ namespace Fanex.Athena.Web.ActionFilter
             var sessionService = new SessionService();
             var licenseeSession = sessionService.LicenseeSession;
             var userSession = sessionService.UserSession;
-            var rawUrl = context.Request.RawUrl;
             var authorization = new AuthorizationService();
             var authorized = true;
             if (userSession != null && licenseeSession != null)
