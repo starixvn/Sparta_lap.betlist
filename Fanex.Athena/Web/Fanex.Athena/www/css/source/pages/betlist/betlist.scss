@@ -89,7 +89,7 @@
         text-align: right;
     }
 
-    .firstGoal, .lastGoal, .fhFirstGoal, .fhLastGoal{
+    .firstGoal, .lastGoal, .fhFirstGoal, .fhLastGoal {
         display: inline;
         height: 10px;
         padding: 0 6px;
@@ -190,6 +190,7 @@
 
     .light-blue {
         color: #0017CD;
+        background-color: transparent !important;
     }
     /* Trans */
     .iplink, .betsliplink {
@@ -291,5 +292,16 @@
 
     .offer-name-list {
         font-weight: bold;
+    }
+
+    .bonus-icon {
+        background: url(images/bonus.png) no-repeat scroll center center transparent;
+        display: inline-block;
+        height: 15px;
+        width: 15px;
+    }
+
+    .bonus-icon:hover {
+        cursor: pointer;
     }
 }

@@ -80,7 +80,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     LiveAwayScore = reader.GetInt("liveawayscore"),
                     SpecialLevel = reader.GetInt("SpecialLevel"),
                     StatusId = reader.GetInt("StatusId"),
-                    WalletType = (sbyte)reader.GetInt("wallettype"),
+                    WalletType = (byte)reader.GetInt("wallettype"),
 
                     // Long
                     TransId = reader.GetLong("transid"),

@@ -663,6 +663,19 @@
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
+
+            showBonusDetails: function (refCode, transId) {
+                var url = Site.resolveClientUrl('BonusBetList/Detail');
+                url = QueryString.setParam(url, "RefCode", refCode);
+                url = QueryString.setParam(url, "TransId", transId);
+                url = QueryString.setParam(url, "BaseCurrency", $.parseJSON($("#BetListMetaModel").val()).BaseCurrency);
+
+                var popH = Math.min($(window).height() - 100, 550), popW = 840;
+                var title = Site.getSingleResource("TransactionDetail");
+
+                showDetailPopUp(url, { width: popW + 50, height: popH + 50, title: title });
+            },
+
             registerBetListGlobalFunctions: function () {
                 window.ViewResult = _me.viewResult;
 
@@ -689,6 +702,7 @@
                 window.showColossusBetsDetails = _me.showColossusBetsDetails;
                 window.showGlobalGaming = _me.showGlobalGamingDetails;
                 window.ViewCashOutHistory = _me.viewCashOutHistory;
+                window.ShowBonusDetails = _me.showBonusDetails;
 
                 var betList = {
                     ViewCasinoHandHistory: _me.ViewCasinoHandHistory

@@ -3157,4 +3157,7 @@
     <value>Exchange Win Loss</value>
     <comment>86640</comment>
   </data>
+  <data name="TransactionDetail" xml:space="preserve">
+    <value>Transaction Detail</value>
+  </data>
 </root>

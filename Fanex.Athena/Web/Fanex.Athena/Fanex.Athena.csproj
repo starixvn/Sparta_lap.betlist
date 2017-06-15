@@ -1100,6 +1100,7 @@
     <Content Include="www\css\build\dev\pages\betlist\colossusbetdetail.css" />
     <Content Include="www\css\build\dev\pages\betlist\customeroutstanding.chunk.js" />
     <Content Include="www\css\build\dev\pages\betlist\customeroutstanding.css" />
+    <Content Include="www\css\build\dev\pages\betlist\images\bonus.png" />
     <Content Include="www\css\build\dev\pages\betlist\images\goal-icon.png" />
     <Content Include="www\css\build\dev\pages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\build\dev\pages\betlist\images\q_Icon_2.png" />
@@ -1361,6 +1362,7 @@
     <Content Include="www\css\build\pro\pages\betlist\betlistSimpleLayout.css" />
     <Content Include="www\css\build\pro\pages\betlist\cashouthistory.css" />
     <Content Include="www\css\build\pro\pages\betlist\colossusbetdetail.css" />
+    <Content Include="www\css\build\pro\pages\betlist\images\bonus.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\goal-icon.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\q_Icon_2.png" />
