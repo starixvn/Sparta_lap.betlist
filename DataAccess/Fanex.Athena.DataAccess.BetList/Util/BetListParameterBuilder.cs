@@ -140,7 +140,7 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
-            CreateBetlistProductOptionParameters(db, metaModel);
+            CreateBetlistProductOptionParameters(db, metaModel.ProductCodeList);
         }
 
         private static void CreateDailyStatementBetListOldParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -172,7 +172,7 @@
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
-            CreateBetlistProductOptionParameters(db, metaModel);
+            CreateBetlistProductOptionParameters(db, metaModel.ProductCodeList);
         }
 
         private static void CreatePlatformWinLossBetListParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -181,7 +181,7 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetlistBUParameters(db, metaModel);
-            CreateBetlistProductOptionParameters(db, metaModel);
+            CreateBetlistProductOptionParameters(db, metaModel.ProductCodeList);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             db.AddInParameter("drawfilter", DbType.Int16, metaModel.DrawFilter);
@@ -341,7 +341,7 @@
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetlistBUParameters(db, metaModel);
-            CreateBetlistProductOptionParameters(db, metaModel);
+            CreateBetlistProductOptionParameters(db, metaModel.ProductCodeList);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             db.AddInParameter("drawfilter", DbType.Int16, metaModel.DrawFilter);
@@ -394,7 +394,7 @@
             CreateBetlistBUParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
-            CreateBetlistProductOptionParameters(db, metaModel);
+            CreateBetlistProductOptionParameters(db, metaModel.ProductCodeList);
         }
 
         private static void CreateRacingCommissionBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
@@ -494,11 +494,13 @@
             db.AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
         }
 
-        private static void CreateBetlistProductOptionParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateBetlistProductOptionParameters(IObjectDb db, string productCodeList)
         {
-            foreach (var productOption in metaModel.ProductOptions)
+            var productList = productCodeList.Split(',');
+
+            foreach (var productCode in productList)
             {
-                db.AddInParameter("show" + productOption.Code, DbType.Boolean, productOption.Status);
+                db.AddInParameter("show" + productCode, DbType.Boolean, true);
             }
         }
     }

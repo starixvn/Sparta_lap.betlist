@@ -9,18 +9,13 @@ namespace Fanex.Athena.Model.BetList.MetaModel
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using System.Linq;
     using Fanex.Athena.Model.Core.MetaModel.Product;
     using Model.Core.MetaModel;
 
-    /// <summary>
-    /// BetListMetaModel class.
-    /// </summary>
     public class BetListMetaModel : BaseMetaModel
     {
         public BetListMetaModel()
         {
-            ProductOptions = new HashSet<ProductOption>();
             FromDate = DateTime.Today;
             Date = DateTime.Today;
             ToDate = DateTime.Today;
@@ -29,11 +24,13 @@ namespace Fanex.Athena.Model.BetList.MetaModel
             IsLastBetMonitoring = false;
         }
 
+        public IEnumerable<ProductOption> ProductOptions { get; set; } = new HashSet<ProductOption>();
+
+        public string ProductCodeList { get; set; }
+
         public string ExcelFileName { get; set; }
 
         public bool IsShowSumStake { get; set; }
-
-        public IEnumerable<ProductOption> ProductOptions { get; set; }
 
         public bool IsServerPaging { get; set; }
 
@@ -156,7 +153,7 @@ namespace Fanex.Athena.Model.BetList.MetaModel
             get
             {
                 return FromDate <= ToDate
-                    && ProductOptions.Any(p => p.Status);
+                    && !string.IsNullOrWhiteSpace(ProductCodeList);
             }
         }
     }

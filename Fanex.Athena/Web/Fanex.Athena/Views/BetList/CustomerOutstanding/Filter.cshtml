@@ -1,11 +1,9 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@using Fanex.Athena.Model.Core.MetaModel.Product
-@model Fanex.Athena.Model.BetList.MetaModel.BetListMetaModel
+﻿@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 @using (Html.BeginForm("DailyBetList", "BetList", FormMethod.Post, new { @id = "DailyBetListForm" }))
 {
     var appSettings = new AppSettings();
     // Only restrict from date for Bet List
-    var minDate = Model.BetListName == "betlist" ? Model.MoveBetsDay.AddDays(1) : appSettings.HistoryDate;
+    var minDate = Model.Param.BetListName == "betlist" ? Model.Param.MoveBetsDay.AddDays(1) : appSettings.HistoryDate;
     <div class="grid_3 filter-input" style="padding: 5px">
         @{
     var viewOptionTextList = new Dictionary<string, string>{
@@ -17,13 +15,13 @@
     {
         Value = c.Key,
         Text = c.Value,
-        Selected = c.Key == Model.BetListName
+        Selected = c.Key == Model.Param.BetListName
     });
             @Html.DropDownList("ViewOption", viewOptionSelectList, new { @style = "width: 123px;" })
         }
     </div>
 
-    @DatePickerHelper.RenderDateRangePicker(Model.FromDate, Model.ToDate, minDate, appSettings.MaxDate, "", "", 2, 3, 1, 3)
+    @DatePickerHelper.RenderDateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, appSettings.MaxDate, "", "", 2, 3, 1, 3)
 
     
     @RazorHelper.RenderProductFilter(Model.ProductOptions, 2)
@@ -32,7 +30,7 @@
         <input type="button" id="SubmitButton" value="@ViewResources.Submit" class="button" />
     </div>
     
-    if (Model.BetListName == "dailystatement")
+    if (Model.Param.BetListName == "dailystatement")
     {
         <div class="grid_7"> </div>
         <div class="grid_1" style="float: right">
@@ -40,6 +38,6 @@
         </div>
     }
 
-    <input type="hidden" name="LicenseeId" id="LicenseeId" value="@Model.LicenseeId"/>
+    <input type="hidden" name="LicenseeId" id="LicenseeId" value="@Model.Param.LicenseeId"/>
     <input type="hidden" name="IsExportExcel" id="IsExportExcel" value="" />
 }

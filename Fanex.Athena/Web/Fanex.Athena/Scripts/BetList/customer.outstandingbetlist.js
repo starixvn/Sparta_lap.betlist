@@ -2,6 +2,12 @@
 /// <reference path="/@JSense.js" />
 "use strict";
 var OutstandingBetList = (function ($) {
+    function setProductOptionParamList(params) {
+        var productCodeList = $("#grid-products-multiselect").multiSelect("getCheckedItems");
+        params.ProductCodeList = productCodeList.toString();
+        return params;
+    }
+
     return {
         initialize: function () {
             //show or hide products dropdown list by ViewOption
@@ -12,6 +18,8 @@ var OutstandingBetList = (function ($) {
 
             //Init event
             OutstandingBetList.initEvent();
+
+            Site.initProductList();
 
             //Get params send from URL
             var params = OutstandingBetList.getParamsSubmit();
@@ -87,7 +95,7 @@ var OutstandingBetList = (function ($) {
             params.FromDate = $("#FromDate").val();
             params.ToDate = $("#ToDate").val();
 
-            return Site.setProductOptionParamList(params);
+            return setProductOptionParamList(params);
         },
 
         submitCompletedBetList: function (params) {
