@@ -100,15 +100,15 @@
 }
 
 .btn-submit {
-    background: #673ab7;
+    background: #4e68b6;
     color: #fff;
 
     &:hover {
-        background: lighten(#673ab7, 10%);
+        background: lighten(#4e68b6, 10%);
     }
 
     &:focus {
-        background: #673ab7;
+        background: #4e68b6;
     }
 }
 

@@ -66,19 +66,9 @@
             $popup.flatPopup("show", isModal);
         },
 
-        /*
-        var buttons = [
-                {
-                    text: "OK",
-                    click: function () { },
-                    classes: "btn btn-primary",
-                    id: "confirm-del-ok",
-                    isClosedOnClick: false
-                }];
-        */
         openPopupWithButton: function (element, option, buttons) {
             var defaultOption = {
-                padding: 10
+                padding: 15
             };
 
             $.extend(defaultOption, option || {});

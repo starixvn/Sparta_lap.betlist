@@ -193,7 +193,7 @@
              var options = {
                  model: true,
                  title: Site.getSingleResource("Confirm"),
-                 height: 150,
+                 height: "auto",
                  id: "confirm-action"
              };
 

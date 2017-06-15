@@ -1,7 +1,26 @@
 ﻿"use strict";
-define(["jquery", "common/site", "common/querystring", "./customerlist.state", "./customerlist.service", "./customerlist.bastatus", "./customerlist.speciallevel", "./customerlist.oddsgroup",
-    "components/paging", "common/popup"],
-    function ($, Site, QueryString, CustomerListState, CustomerListService, CustomerListBAStatus, CustomerListSpecialLevel, CustomerListOddsGroup, PagingHelper, Popup) {
+define([
+    "jquery",
+    "common/site",
+    "common/querystring",
+    "./customerlist.state",
+    "./customerlist.service",
+    "./customerlist.bastatus",
+    "./customerlist.speciallevel",
+    "./customerlist.oddsgroup",
+    "components/paging",
+    "common/popup"],
+    function (
+        $,
+        Site,
+        QueryString,
+        CustomerListState,
+        CustomerListService,
+        CustomerListBAStatus,
+        CustomerListSpecialLevel,
+        CustomerListOddsGroup,
+        PagingHelper,
+        Popup) {
         var _state;
 
         function updateGroupForCheckCustomerArray(groupid) {
@@ -58,7 +77,7 @@ define(["jquery", "common/site", "common/querystring", "./customerlist.state", "
                 $("#popup-closed").change(_me.custStatusCheckedChanged);
             },
 
-            registerCheckboxEvent: function(){
+            registerCheckboxEvent: function () {
                 $("#report-content").on("change", "#CheckAll", function () {
                     var isCheckedAll = this.checked;
                     var selectedCustomers = {};
@@ -168,6 +187,7 @@ define(["jquery", "common/site", "common/querystring", "./customerlist.state", "
                 var popupOption = { id: "betlist-popup", width: popW + 30, height: popH + 70, title: Site.getSingleResource('BetListRunning') };
                 Popup.openPopupWithIframe(url, popupOption);
             },
+
             updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, lcCom, csCom) {
                 var count = 0;
                 var length = Object.keys(_state.selectedCustomers).length;
@@ -193,6 +213,25 @@ define(["jquery", "common/site", "common/querystring", "./customerlist.state", "
                 CustomerListService.bindData(_state.cachedData);
             },
 
+            updateGridGroup: function (groupid, groupName, groupColor) {
+                var count = 0;
+                var length = Object.keys(_state.selectedCustomers).length;
+                $.each(_state.cachedData.Data, function (index, item) {
+                    if (count === length) {
+                        return false;
+                    }
+
+                    if (_state.selectedCustomers[item.CustId] !== undefined) {
+                        item.GroupCommId = groupid;
+                        item.Group = groupName;
+                        item.GroupColor = groupColor;
+                        count++;
+                    }
+                });
+
+                updateGroupForCheckCustomerArray(groupid);
+                CustomerListService.bindData(_state.cachedData);
+            }
         };
 
         return _me;

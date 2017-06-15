@@ -175,7 +175,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
 
         updateIndexColumnFormatter: function (indexColumn, showingColumns) {
             var indexFormatter = function (cellValue, options, rowObject) {
-                var checkedText = $("#CheckAll").prop("checked") || _state.selectedCustomers[rowObject.CustId] === true ? "checked" : "";
+                var checkedText = $("#CheckAll").prop("checked") || _state.selectedCustomers[rowObject.CustId] !== undefined ? "checked" : "";
 
                 return "<input type='checkbox' " + checkedText + " title='" + rowObject.CustId +
                         "' id='" + rowObject.CustId + "' data-group-comm-id='" + rowObject.GroupCommId + "' class='select-cust-checkbox check-child' />" +

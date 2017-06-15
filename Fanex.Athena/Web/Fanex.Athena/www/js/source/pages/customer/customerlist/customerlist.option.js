@@ -1,8 +1,4 @@
-﻿/*global Site, jqGridAdditional */
-/*exported CustomersOption */
-/// <reference path="/@JSense.js" />
-
-define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
+﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
     function ($, Site, jqGridAdditional) {
         "use strict";
 
@@ -114,8 +110,9 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                 var title = Site.getSingleResource(cellValue ? "TurnOffBaTooltip" : "TurnOnBaTooltip");
 
                 return "<div title='" + title + "'" +
-                        " class='center-align switch ba-" + (cellValue ? "on" : "off") + "'>" +
-                        "<label><input class='baStatus' type='checkbox'" + (cellValue ? " checked" : "") + " data-val='" + paramString + "' /><span class='lever'></span><label>" +
+                    " class='center-align switch ba-" + (cellValue ? "on" : "off") + "'>" +
+                    "<label><input class='baStatus' type='checkbox'" + (cellValue ? " checked" : "") + " data-val='" + paramString +
+                    "' /><span class='lever'></span><label>" +
                     "</div>";
             }
         };
@@ -129,10 +126,9 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
                 return "<div class='grid-dropdown specialLevel' data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "'>"
-                            + "<div class='grid-dropdown-item grid-dropdown-label level-" + cellValue + "'>"
-                                + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue)
-                             + "</div>"
-                            + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("SpecialLevel") + "'></i>"
+                    + "<div class='grid-dropdown-item grid-dropdown-label level-" + cellValue + "'>"
+                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</div>"
+                    + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("SpecialLevel") + "'></i>"
                     + "</div>";
             }
         };
@@ -145,11 +141,11 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             sortable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                return "<div class='grid-dropdown oddsGroup " + (rowObject.BAStatus ? "disabled" : "") + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
-                        + "<div class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
-                             + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) +
-                             "</div>"
-                        + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"
+                return "<div class='grid-dropdown oddsGroup " + (rowObject.BAStatus ? "disabled" : "")
+                    + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
+                    + "<div class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
+                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</div>"
+                    + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"
                     + "</div>";
             }
         };
@@ -162,11 +158,10 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             resizable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                return "<a href='javascript:;' systemid='" + rowObject.SystemId + "' externalid='" + rowObject.ExternalId + "' custid='" + rowObject.CustId +
-                "' title='" + Site.getSingleResource("CustomerOption") + "' class='custoptionlink' id='cust-option-link-" + rowObject.CustId + "'>"
+                return "<a href='javascript:;' systemid='" + rowObject.SystemId + "' externalid='" + rowObject.ExternalId + "' custid='" + rowObject.CustId
+                    + "' title='" + Site.getSingleResource("CustomerOption") + "' class='custoptionlink' id='cust-option-link-" + rowObject.CustId + "'>"
                     + Site.getSingleResource("View")
-                    + "<i class='grid-dropdown-icon icon-arrow'></i>"
-                "</a>";
+                    + "<i class='grid-dropdown-icon icon-arrow'></i></a>";
             }
         };
         var commissionColumn =

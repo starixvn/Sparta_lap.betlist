@@ -7,7 +7,7 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
             "betlistrunning": "externalid,systemid,winloss,licenseewl",
             "betlist": "externalid,systemid",
             "dailystatement": "externalid,systemid"
-        }
+        };
 
         var _me = {
             initialize: function () {
@@ -18,7 +18,7 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
                     "betlistrunning": Site.getSingleResource("BetListRunning"),
                     "betlist": Site.getSingleResource("BetList"),
                     "dailystatement": Site.getSingleResource("DailyStatement")
-                }
+                };
 
                 //show or hide products dropdown list by ViewOption
                 _me.showHideProductsList();

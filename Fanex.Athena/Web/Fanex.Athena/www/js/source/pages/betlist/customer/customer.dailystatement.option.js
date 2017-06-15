@@ -7,7 +7,7 @@ define(["jquery", "common/site"], function ($, Site) {
             TransType: rowObject.TransType,
             ExternalId: rowObject.ExternalId,
             SystemId: rowObject.SystemId
-        }
+        };
 
         return rowObject.TransTypeHasBetList ?
             '<a href="javascript:;" class="betlistDrilldown" data-param="' + JSON.stringify(drilldownParam) + '"></a>'

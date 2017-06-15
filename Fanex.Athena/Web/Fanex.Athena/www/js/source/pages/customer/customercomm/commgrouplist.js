@@ -72,7 +72,7 @@
             var options = {
                 model: true,
                 title: Site.getSingleResource("Confirm"),
-                height: 150,
+                height: "auto",
                 id: "del-default-comm-group"
             };
 
@@ -105,7 +105,7 @@
             var options = {
                 model: true,
                 title: Site.getSingleResource("DeleteCommissionGroup"),
-                height: 160,
+                height: "auto",
                 id: "option-del-comm-group"
             };
 
@@ -135,7 +135,7 @@
             var options = {
                 model: true,
                 title: Site.getSingleResource("Confirm"),
-                height: 150,
+                height: "auto",
                 id: "confirm-del-comm-group"
             };
 
@@ -160,7 +160,7 @@
             var options = {
                 model: true,
                 title: title,
-                height: 150,
+                height: "auto",
                 id: "result-del-comm-group"
             };
 

@@ -17,10 +17,10 @@
 {
     @if (Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
     {
-        <div style="margin: 1.5rem 1.5rem 0;">
-            <button type="button" id="MoveToGroup" class="center-align label label-default active">@ViewResources.MoveToGroup</button>
-            <input type="button" id="UpdateComm" value="@ViewResources.UpdateCommission" class="center-align label label-default active" data-group-id="@Model.Param.GroupCommId" />&nbsp;&nbsp;&nbsp;
-            <input type="button" id="RemoveFromGroup" value="@ViewResources.RemoveFromGroup" class="center-align label label-default active" />&nbsp;&nbsp;&nbsp;
+        <div class="page-button">
+            <input type="button" id="MoveToGroup" class="btn btn-back" value="@ViewResources.MoveToGroup" />
+            <input type="button" id="UpdateComm" value="@ViewResources.UpdateCommission" class="btn btn-back" data-group-id="@Model.Param.GroupCommId" />
+            <input type="button" id="RemoveFromGroup" value="@ViewResources.RemoveFromGroup" class="btn btn-back" />
         </div>
     }
 

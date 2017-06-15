@@ -1,6 +1,4 @@
-﻿/*global Site, CustomerList, JSLINQ*/
-/// <reference path="/@JSense.js" />
-define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/popup', "./customerlist.state", "./customerlist.grid"],
+﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/popup', "./customerlist.state", "./customerlist.grid"],
     function ($, Site, jqGridAdditional, Popup, CustomerListState, CustomerListGrid) {
         "use strict";
 
@@ -85,9 +83,9 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                     {
                         title: Site.getSingleResource('MoveToGroup'),
                         id: 'MoveToGroupPopUp',
-                        height: 450,
+                        height: "auto",
                         width: 350
-                    },   
+                    },
                     [
                         {
                             text: Site.getSingleResource('OK'),
@@ -107,7 +105,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
 
             moveCustomerToGroup: function () {
                 var groupid = $('#GroupListSelect').val();
-                
+
                 if (groupid === "-1") {
                     _me.showMsg(Site.getSingleResource('ChooseGroupMsg'), false);
                     return;
@@ -195,8 +193,8 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                     {
                         title: Site.getSingleResource("UpdateCustomerCommission"),
                         id: 'UpdateCustCommPopUp',
-                        height: 450,
-                        width: 600
+                        height: "auto",
+                        width: 500
                     },
                     [
                         {
@@ -288,10 +286,10 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
 
                 Popup.openPopupWithButton($("#ConfirmRemoveFromGroupPopUp"),
                     {
-                        title: Site.getSingleResource("UpdateCustomerCommission"),
+                        title: Site.getSingleResource("RemoveFromGroup"),
                         id: 'ConfirmRemoveFromGroupPopUp',
-                        height: 300,
-                        width: 330
+                        height: "auto",
+                        width: 400
                     },
                     [
                         {
@@ -304,7 +302,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                         {
                             text: Site.getSingleResource('Cancel'),
                             isClosedOnClick: true,
-                            click: function(){
+                            click: function () {
                                 $('input[name="RadioComm"]:eq(1)').prop("checked", true);
                             },
                             classes: "btn btn-cancel"
@@ -314,20 +312,22 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
             },
 
             removeFromGroupComm: function () {
-                var checkedCustomers = CustomerList.getCheckedCustomers();
+                var checkedCustomers = _state.selectedCustomers;
+                var numberOfCheckedCustomers = Object.keys(checkedCustomers).length;
                 var custList = [];
 
-                for (var i = 0; i < checkedCustomers.length; i++) {
-                    if (checkedCustomers[i].Group > 0) {
-                        custList.push(checkedCustomers[i].Id);
+                for (var customerId in checkedCustomers) {
+                    if (checkedCustomers[customerId] > 0) {
+                        custList.push(checkedCustomers[customerId]);
                     }
                 }
 
-                if (checkedCustomers.length === 0) {
+                if (numberOfCheckedCustomers === 0) {
                     _me.showMsg(Site.getSingleResource('YouNotChooseAnyCustomerMsg'), false);
                     return;
                 }
-                if (checkedCustomers.length > 0 && custList.length === 0) {
+
+                if (custList.length === 0) {
                     _me.showMsg(Site.getSingleResource('CustomerNotBelongAnyGroupMsg'), false);
                     return;
                 }
@@ -348,9 +348,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                     complete: _me.ajaxStop,
                     success: function (result) {
                         if (result.Success) {
-                            //removed = true;
-
-                            if (checkedCustomers.length > 0 && custList.length > 0 && custList.length < checkedCustomers.length) {
+                            if (numberOfCheckedCustomers > 0 && custList.length > 0 && custList.length < numberOfCheckedCustomers) {
                                 _me.showMsg(result.Message + "! </br> " + Site.getSingleResource('CustomersBelongGroupsBeRemovedMsg'), true);
                             }
                             else {
@@ -372,8 +370,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                 });
             },
 
-            /* end -remove from group*/
-
             showMsg: function (msg, isSuccess) {
                 if (isSuccess) {
                     $(".success-message").html(msg).show();
@@ -389,18 +385,14 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", 'common/
                 $(".error-message").hide();
                 $(".success-message").hide();
                 $(".ajax-loading").show();
-                $(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", true).addClass("ui-state-disabled");
-                $(".ui-dialog-buttonpane button:contains('OK')").attr("disabled", true).addClass("ui-state-disabled");
-                $(".ui-dialog-buttonpane button:contains('Cancel')").attr("disabled", true).addClass("ui-state-disabled");
-                $(".ui-dialog-titlebar-close").attr("disabled", true).css("display", "none").addClass("ui-state-disabled");
+                $("button", ".popup-button").attr("disabled", true);
+                $(".popup-close").addClass("disabled");
             },
 
             ajaxStop: function () {
                 $(".ajax-loading").hide();
-                $(".ui-dialog-buttonpane button:contains('Save')").attr("disabled", false).removeClass("ui-state-disabled");
-                $(".ui-dialog-buttonpane button:contains('OK')").attr("disabled", false).removeClass("ui-state-disabled");
-                $(".ui-dialog-buttonpane button:contains('Cancel')").attr("disabled", false).removeClass("ui-state-disabled");
-                $(".ui-dialog-titlebar-close").attr("disabled", false).css("display", "inline").removeClass("ui-state-disabled");
+                $("button", ".popup-button").attr("disabled", false);
+                $(".popup-close").removeClass("disabled");
             },
 
             clearNotification: function () {

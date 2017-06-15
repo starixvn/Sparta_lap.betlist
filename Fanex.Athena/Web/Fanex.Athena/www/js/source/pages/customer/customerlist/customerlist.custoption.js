@@ -1,7 +1,4 @@
-﻿/*global Site, QueryString */
-/*exported CustomerListCustOption*/
-
-define(["jquery", "common/site", "common/querystring", "common/popup", "./customerlist.service"],
+﻿define(["jquery", "common/site", "common/querystring", "common/popup", "./customerlist.service"],
     function ($, Site, QueryString, Popup, CustomerListService) {
         "use strict";
 
@@ -102,7 +99,7 @@ define(["jquery", "common/site", "common/querystring", "common/popup", "./custom
 
                 Popup.openPopupWithIframe(url, popupOption);
             }
-        }
+        };
 
         return _me;
     });

@@ -147,3 +147,37 @@ input[type="checkbox"] + label {
 .attention-message {
     color: red;
 }
+
+#ConfirmRemoveFromGroupPopUp {
+    p {
+        margin-bottom: 5px;
+    }
+
+    [type="radio"] + label {
+        color: inherit;
+        font-size: inherit !important;
+    }
+}
+
+.first-value {
+    position: relative;
+
+    &:after {
+        content: "\2022";
+        position: absolute;
+        top: 8px;
+        right: -2px;
+    }
+}
+
+.third-value {
+    padding: 0 2rem 0 0 !important;
+}
+
+.page-button {
+    margin: 1.5rem 1.5rem 0;
+}
+
+.btn-back {
+    margin: 0 10px 0 0;
+}
