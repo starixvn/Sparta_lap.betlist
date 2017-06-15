@@ -629,6 +629,7 @@
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <Content Include="Content\BetList\AGCasino.css" />
     <Content Include="Content\BetList\colossusbetdetail.css" />
+    <Content Include="Content\BetList\images\bonus.png" />
     <Content Include="Content\BetList\Microgaming.css" />
     <Content Include="Content\Customer\customerlist.css" />
     <Content Include="Content\Fanex.Result\Allbet\css\button.css" />
