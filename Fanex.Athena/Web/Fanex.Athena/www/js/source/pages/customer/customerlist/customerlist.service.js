@@ -224,15 +224,15 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                 width: $context.outerWidth()
             });
 
-            var custId = $context.attr("data-custid");
-            if ($popup.attr("custid") === custId) {
+            var custId = $context.data("custid");
+            if ($popup.data("custid") === custId) {
                 $popup.fadeToggle();
             }
             else {
                 var $customerOption = $("#cust-option-link-" + custId);
-                $popup.attr("custid", custId);
-                $popup.attr("externalid", $customerOption.attr("externalid"));
-                $popup.attr("systemid", $customerOption.attr("systemid"));
+                $popup.data("custid", custId);
+                $popup.data("externalid", $customerOption.data("externalid"));
+                $popup.data("systemid", $customerOption.data("systemid"));
                 $popup.fadeIn();
             }
 

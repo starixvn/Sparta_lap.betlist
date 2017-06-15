@@ -5,11 +5,11 @@
         var OPTIONLIST_SELECTOR = "#ViewOptionList";
 
         function getCustomerInfo() {
-            var $menu = $(OPTIONLIST_SELECTOR);
+            var $optionList = $(OPTIONLIST_SELECTOR);
             return {
-                CustId: $menu.attr("custid"),
-                SystemId: $menu.attr("systemid"),
-                ExternalId: $menu.attr("externalid"),
+                CustId: $optionList.data("custid"),
+                SystemId: $optionList.data("systemid"),
+                ExternalId: $optionList.data("externalid"),
             };
         }
 
@@ -40,7 +40,7 @@
                 var url = Site.resolveClientUrl("SportsbookBetSetting/Index?custid=" +
                     customer.CustId + "&username=" + customer.SystemId + "&nickname=" + customer.ExternalId);
 
-                var popupOption = { width: 905, height: 480, title: Site.getSingleResource("BetSetting") };
+                var popupOption = { id: "betsettingFrame", width: 905, height: 600, title: Site.getSingleResource("BetSetting") };
                 Popup.openPopupWithIframe(url, popupOption);
             },
 
@@ -48,25 +48,19 @@
                 _me.closeCustOption();
 
                 var customer = getCustomerInfo();
-                var url = QueryString.setParams("Customer/LogInfo", customer);
-                url = Site.resolveClientUrl(url);
+                var url = Site.resolveClientUrl("Customer/LogInfo");
+                url = QueryString.setParams(url, customer);
 
-                var dialog = $('<div title="' + Site.getSingleResource('LogInfo') + '" style="display:none" class="loading"></div>').appendTo('body');
+                var popupOption = { width: 360, height: 280, title: Site.getSingleResource("LogInfo") };
 
-                dialog.dialog({
-                    close: function () {
-                        dialog.remove();
-                    },
-                    width: 360,
-                    height: 280,
-                    modal: true
-                });
-                dialog.load(url,
-                    {},
-                    function () {
-                        dialog.removeClass('loading');
+                var $popup = $('<div style="display: none" class="customer-logInfo"></div>');
+
+                $popup.load(url, function (response, status) {
+                    if (status === "success") {
+                        Popup.openPopup($(this), popupOption);
                     }
-                );
+                });
+
                 return false;
             },
 
@@ -79,8 +73,8 @@
                 url = QueryString.setParam(url, "betlistname", "betlist");
                 url = Site.setLicenseeOptionOriginalParam(url);
 
-                var popH = Math.min(window.innerHeight - 100, 500), popW = 900;
-                var popupOption = { width: popW + 30, height: popH + 70, title: Site.getSingleResource("BetList") };
+                var popH = Math.min(window.innerHeight - 100, 600), popW = 900;
+                var popupOption = { id: "betlistFrame", width: popW + 30, height: popH + 70, title: Site.getSingleResource("BetList") };
 
                 Popup.openPopupWithIframe(url, popupOption);
             },
@@ -94,8 +88,8 @@
                 url = QueryString.setParam(url, "betlistname", "dailystatement");
                 url = Site.setLicenseeOptionOriginalParam(url);
 
-                var popH = Math.min(window.innerHeight - 100, 500), popW = 900;
-                var popupOption = { width: popW + 30, height: popH + 70, title: Site.getSingleResource("DailyStatement") };
+                var popH = Math.min(window.innerHeight - 100, 600), popW = 900;
+                var popupOption = { id: "statementFrame", width: popW + 30, height: popH + 70, title: Site.getSingleResource("DailyStatement") };
 
                 Popup.openPopupWithIframe(url, popupOption);
             }

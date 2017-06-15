@@ -10,7 +10,7 @@ define(["jquery", "common/site"], function ($, Site) {
         };
 
         return rowObject.TransTypeHasBetList ?
-            '<a href="javascript:;" class="betlistDrilldown" data-param="' + JSON.stringify(drilldownParam) + '"></a>'
+            '<a href="javascript:;" class="betlistDrilldown" data-param=' + JSON.stringify(drilldownParam) + '>' + rowObject.FullStatementDate + '</a>'
             : rowObject.FullStatementDate;
     };
 
@@ -77,19 +77,16 @@ define(["jquery", "common/site"], function ($, Site) {
     var _me = {
         gridOption: {
             datatype: 'local',
-            rowNum: 50,
-            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
+            height: "auto",
             colModel: columnModel,
             colNames: [],
-            pager: '#pager2',
             viewrecords: true,
             autowidth: false,
             shrinkToFit: true,
             scroll: false,
             loadonce: true,
             gridview: true,
-            userDataOnFooter: true,
-            jsonReader: { repeatitems: false },
+            footerrow: false,
             cmTemplate: { sortable: false },
             onPaging: function () {
                 Site.blockUI();

@@ -74,18 +74,31 @@
     border: 1px solid #969292;
 }
 
-#ViewOptionList{
-    width: auto !important;
-    padding: 5px;
+#OddsGroupListContainer, #ViewOptionList {
+    background-color: #fff;
+}
 
-    .viewOptionLink{
+#ViewOptionList {
+    width: 85px !important;
+    padding: 5px;
+    border: 1px solid #ccc;
+
+    .viewOptionLink {
         display: block;
         padding: 5px 2px;
+        color: #112bb1;
+
+        &:hover {
+            opacity: 0.8;
+        }
     }
 }
 
-#OddsGroupListContainer, #ViewOptionList {
-    background-color: #fff;
+/* Customer Option - Log infor */
+.customer-logInfo {
+    .log-info-container {
+        padding: 10px;
+    }
 }
 
 .link {

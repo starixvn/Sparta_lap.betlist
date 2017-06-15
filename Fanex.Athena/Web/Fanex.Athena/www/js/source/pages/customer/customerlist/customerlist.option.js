@@ -158,7 +158,7 @@
             resizable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                return "<a href='javascript:;' systemid='" + rowObject.SystemId + "' externalid='" + rowObject.ExternalId + "' custid='" + rowObject.CustId
+                return "<a href='javascript:;' data-systemid='" + rowObject.SystemId + "' data-externalid='" + rowObject.ExternalId + "' data-custid='" + rowObject.CustId
                     + "' title='" + Site.getSingleResource("CustomerOption") + "' class='custoptionlink' id='cust-option-link-" + rowObject.CustId + "'>"
                     + Site.getSingleResource("View")
                     + "<i class='grid-dropdown-icon icon-arrow'></i></a>";
