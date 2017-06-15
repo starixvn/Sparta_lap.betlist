@@ -68,13 +68,23 @@
     color: white !important;
 }
 
-#LevelListContainer, #OddsGroupListContainer {
+#LevelListContainer, #OddsGroupListContainer, #ViewOptionList {
     display: none;
     position: absolute;
     border: 1px solid #969292;
 }
 
-#OddsGroupListContainer{
+#ViewOptionList{
+    width: auto !important;
+    padding: 5px;
+
+    .viewOptionLink{
+        display: block;
+        padding: 5px 2px;
+    }
+}
+
+#OddsGroupListContainer, #ViewOptionList {
     background-color: #fff;
 }
 
@@ -82,7 +92,7 @@
     cursor: pointer;
     border-top: 1px solid $colorBorderTable;
 
-    &:hover{
+    &:hover {
         opacity: 0.8;
     }
 }
@@ -117,10 +127,12 @@ input[type="checkbox"] + label {
     position: relative;
     text-align: right;
 }
+
 .success-message, .error-message, .ajax-loading {
     margin: 15px 5px;
     text-align: center;
 }
+
 .error-message {
     color: red;
     border: 1px solid #bbb;

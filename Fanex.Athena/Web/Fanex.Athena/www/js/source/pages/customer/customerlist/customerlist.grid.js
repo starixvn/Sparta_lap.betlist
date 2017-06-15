@@ -56,11 +56,6 @@ define(["jquery", "common/site", "common/querystring", "./customerlist.state", "
 
                 $("#popup-suspended").change(_me.custStatusCheckedChanged);
                 $("#popup-closed").change(_me.custStatusCheckedChanged);
-
-                $("#bet-setting-link").on("click", _me.viewBetSetting);
-                $("#bet-list-link").on("click", _me.viewBetList);
-                $("#statement-link").on("click", _me.viewStatement);
-                $("#login-info-link").on("click", _me.viewLogInfo);
             },
 
             registerCheckboxEvent: function(){

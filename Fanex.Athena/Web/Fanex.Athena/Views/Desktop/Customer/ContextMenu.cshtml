@@ -25,17 +25,11 @@
     <input type="button" value="@ViewResources.Update" class="button" id="popup-update" disabled="disabled" />
     <input type="button" value="@ViewResources.Cancel" class="button" id="popup-close" />
 </div>
-<div id="view-cust-option" class="view-cust-option" style="display: none">
-    <a id="bet-setting-link" class="link" title="@ViewResources.View @ViewResources.BetSetting">@ViewResources.BetSetting</a><br />
-    <br />
-    <a id="bet-list-link" class="link" title="@ViewResources.View @ViewResources.BetList">@ViewResources.BetList</a><br />
-    <br />
-    <a id="statement-link" class="link" title="@ViewResources.View @ViewResources.Statement">@ViewResources.Statement</a><br />
-    <br />
-    <a id="login-info-link" class="link" title="@ViewResources.View @ViewResources.LogInfo">@ViewResources.LogInfo</a><br />
-    <a id="close-cust-option-link" class="link" title="Close Option">
-        <img alt="" src="@Url.ContentLink("/Content/Customer/images/arrow-up-left.gif")" class="popup-close-button" />
-    </a>
+<div id="ViewOptionList" class="viewOptionList">
+    <a href="javascript:;" id="bet-setting-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.BetSetting">@ViewResources.BetSetting</a>
+    <a href="javascript:;" id="bet-list-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.BetList">@ViewResources.BetList</a>
+    <a href="javascript:;" id="statement-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.Statement">@ViewResources.Statement</a>
+    <a href="javascript:;" id="login-info-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.LogInfo">@ViewResources.LogInfo</a>
 </div>
 
  <!-- /Dropdown Special Level -->
