@@ -185,7 +185,7 @@
             });
 
             // Action
-            var result = _controller.Excel(metaModel);
+            _controller.Excel(metaModel);
 
             // Assert
             Assert.Multiple(() =>

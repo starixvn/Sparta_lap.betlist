@@ -11,7 +11,7 @@
     [System.CLSCompliant(false)]
     public static class BetListParameterBuilder
     {
-        private static readonly Dictionary<string, Action<IObjectDb, BetListMetaModel>> AddingSqlParameters = 
+        private static readonly Dictionary<string, Action<IObjectDb, BetListMetaModel>> AddingSqlParameters =
             new Dictionary<string, Action<IObjectDb, BetListMetaModel>>
         {
             { "Lrf_BetList_WinlostByLeague_Mem", (db, metalModel) => CreateWinlossByLeagueParameters(db, metalModel) },
@@ -199,10 +199,10 @@
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             var suportProducts = new string[5] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS };
-            var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
+            var products = metaModel.ProductCodeList.Split(',').Where(x => suportProducts.Contains(x));
             foreach (var product in products)
             {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+                db.AddInParameter("show" + product, DbType.Boolean, true);
             }
         }
 
@@ -215,10 +215,10 @@
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
             var suportProducts = new string[2] { Product.SB, Product.BA };
-            var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
+            var products = metaModel.ProductCodeList.Split(',').Where(x => suportProducts.Contains(x));
             foreach (var product in products)
             {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+                db.AddInParameter("show" + product, DbType.Boolean, true);
             }
         }
 
@@ -235,10 +235,10 @@
             db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
 
             var suportProducts = new string[5] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS };
-            var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
+            var products = metaModel.ProductCodeList.Split(',').Where(x => suportProducts.Contains(x));
             foreach (var product in products)
             {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+                db.AddInParameter("show" + product, DbType.Boolean, true);
             }
         }
 
@@ -283,11 +283,11 @@
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
             var suportProducts = new string[2] { Product.SB, Product.BA };
-            var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
+            var products = metaModel.ProductCodeList.Split(',').Where(x => suportProducts.Contains(x));
 
             foreach (var product in products)
             {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+                db.AddInParameter("show" + product, DbType.Boolean, true);
             }
 
             db.AddInParameter("Bettype", DbType.Int32, metaModel.BetType);
@@ -313,10 +313,10 @@
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
             var suportProducts = new string[6] { Product.SB, Product.BA, Product.LC, Product.VS, Product.MGCLC, Product.MGCRNG };
-            var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
+            var products = metaModel.ProductCodeList.Split(',').Where(x => suportProducts.Contains(x));
             foreach (var product in products)
             {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+                db.AddInParameter("show" + product, DbType.Boolean, true);
             }
         }
 
@@ -328,10 +328,10 @@
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
             var suportProducts = new string[2] { Product.SB, Product.BA };
-            var products = metaModel.ProductOptions.Where(i => suportProducts.Contains(i.Code));
+            var products = metaModel.ProductCodeList.Split(',').Where(x => suportProducts.Contains(x));
             foreach (var product in products)
             {
-                db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
+                db.AddInParameter("show" + product, DbType.Boolean, true);
             }
         }
 

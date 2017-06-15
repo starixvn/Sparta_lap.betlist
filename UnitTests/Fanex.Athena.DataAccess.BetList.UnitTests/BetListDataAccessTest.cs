@@ -223,7 +223,7 @@
             _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
             _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
             _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, false);
+            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
         }
 
@@ -361,7 +361,7 @@
             _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
             _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
             _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, _metaModel.BalanceUpDay);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, false);
+            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
@@ -437,7 +437,7 @@
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
             _objectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, _metaModel.LiveIndicator);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, false);
+            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
         }
 
@@ -458,7 +458,7 @@
             _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, false);
+            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
         }
 
@@ -501,7 +501,7 @@
             _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, false);
+            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("Bettype", DbType.Int32, _metaModel.BetType);
             _objectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, _metaModel.LiveIndicator);
@@ -612,7 +612,7 @@
             _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
             _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
             _objectDb.Received().AddInParameter("Date", DbType.DateTime, _metaModel.Date);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, false);
+            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
         }
 
@@ -651,7 +651,7 @@
             _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
             _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
             _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, false);
+            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
         }
 
@@ -691,7 +691,7 @@
             _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
             _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
             _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, false);
+            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
         }
 
@@ -712,7 +712,7 @@
             _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
             _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
             _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, _metaModel.BalanceUpDay);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, false);
+            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
@@ -771,7 +771,7 @@
             _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
             _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
             _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, false);
+            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
         }
 
@@ -867,7 +867,7 @@
             _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
             _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
             _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, false);
+            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
         }
 
@@ -1058,12 +1058,6 @@
 
         private BetListMetaModel GetBetListMetaModel()
         {
-            var productOptions = new List<ProductOption>
-            {
-                new ProductOption { Code = "SB", Status = false },
-                new ProductOption { Code = "NG", Status = true }
-            };
-
             return new BetListMetaModel
             {
                 BaseCurrency = "BaseCurrencyTest",
@@ -1079,7 +1073,7 @@
                 LicenseeId = 2,
                 UserId = 3,
                 CurrencyId = 4,
-                ProductOptions = productOptions,
+                ProductCodeList = "SB,NG",
                 SortBy = "SortByTest",
                 SortOrder = "SortOrderTest",
                 ProductCode = "ProductCodeTest",
