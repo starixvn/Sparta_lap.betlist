@@ -148,7 +148,7 @@
             _objectDb.Received().AddInParameter("ShowWin", DbType.Boolean, _metaModel.ShowWin);
             _objectDb.Received().AddInParameter("ShowLoss", DbType.Boolean, _metaModel.ShowLoss);
             _objectDb.Received().AddInParameter("ShowDraw", DbType.Boolean, _metaModel.ShowDraw);
-            _objectDb.Received().AddInParameter("ShowSB", DbType.Boolean, false);
+            _objectDb.Received().AddInParameter("ShowSB", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("ShowBA", DbType.Boolean, false);
         }
 

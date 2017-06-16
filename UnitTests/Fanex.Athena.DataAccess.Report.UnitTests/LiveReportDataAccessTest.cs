@@ -228,10 +228,7 @@
             var moveBetsDate = new DateTime(2017, 2, 2);
             var metaModel = new LiveReportMatchListMetalModel
             {
-                ProductOptions = new List<ProductOption>
-                {
-                    new ProductOption { Code = "NG", Status = true }
-                },
+                ProductCodeList = "NG",
                 AgentListXml = "3",
                 FromDate = new DateTime(2017, 1, 1),
                 ToDate = new DateTime(2017, 2, 2),
