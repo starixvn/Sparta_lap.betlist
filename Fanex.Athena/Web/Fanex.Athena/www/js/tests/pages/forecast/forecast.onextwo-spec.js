@@ -78,6 +78,7 @@
                     spyOn(Popup, "updateCurrentPopup");
                     var url = "RunningMatchBetList/Index?matchid=123&bettype=456";
                     var expectedUrl = transformQueryParamNameToLowerCase(url);
+                    spyOn(Math, "min").and.returnValue(200);
 
                     ForecastOneXTwo.initialize();
 

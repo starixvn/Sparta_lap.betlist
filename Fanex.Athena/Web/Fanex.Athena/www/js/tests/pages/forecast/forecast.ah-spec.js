@@ -115,10 +115,15 @@
                 });
                 it("Popup.updateCurrentPopup() should be called with correct params.", function () {
                     spyOn(Popup, "updateCurrentPopup");
+                    var url = "RunningMatchBetList/Index?matchid=1&bettype=123&basecurrency=USD&currencyid=20&currencyname=UUS";
+                    var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
+                        return match.toLowerCase();
+                    });
+                    spyOn(Math, "min").and.returnValue(200);
 
                     ForecastAh.viewBetlist(123);
 
-                    expect(Popup.updateCurrentPopup).toHaveBeenCalledWith("RunningMatchBetList/Index?matchid=1&bettype=123&basecurrency=USD&currencyid=20&currencyname=UUS",
+                    expect(Popup.updateCurrentPopup).toHaveBeenCalledWith(expectedUrl,
                         { width: 960, height: 200, title: 'BetList' });
                 });
             });
