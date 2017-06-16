@@ -165,9 +165,10 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDate);
                     db.AddInParameter("sportid", DbType.Int32, metaModel.SportId);
                     db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
-                    foreach (var product in metaModel.ProductOptions.Where(p => p.Status))
+                    var productList = metaModel.ProductCodeList.Split(',');
+                    foreach (var product in productList)
                     {
-                        db.AddInParameter("show" + product.Code, DbType.Boolean, true);
+                        db.AddInParameter("show" + product, DbType.Boolean, true);
                     }
 
                     using (var reader = db.ExecuteReader())

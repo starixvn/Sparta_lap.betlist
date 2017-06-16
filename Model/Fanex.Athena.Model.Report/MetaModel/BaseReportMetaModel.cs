@@ -32,6 +32,8 @@ namespace Fanex.Athena.Model.Report.MetaModel
             ToDate = DateTime.Today;
         }
 
+        public string ProductCodeList { get; set; }
+
         public IList<ProductOption> ProductOptions
         {
             get;

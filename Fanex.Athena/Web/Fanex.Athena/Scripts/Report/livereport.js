@@ -202,15 +202,9 @@ var LiveReport = (function ($) {
                 url = QueryString.setParam(url, "ProductCode", productCode);
                 url = QueryString.setParam(url, "FromDate", $("#FromDate").attr('data-original'));
                 url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original'));
-                url = QueryString.setParam(url, "showsb", true);
-                url = QueryString.setParam(url, "showba", false);
                 url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
-                console.log(productOptions);
-                $(productOptions).each(function (index, element) {
-                    url = Site.setProductOptionParam(url, index, element, true);
-                    url = QueryString.setParam(url, "show" + element, true);
-                });
 
+                url = QueryString.setParam(url, "ProductCodeList", productOptions);
                 Site.blockUI();
                 location.href = url;
             }
