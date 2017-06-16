@@ -11,19 +11,26 @@ namespace Fanex.Athena.Api.BetList
 
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using Base.Attributes;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.MetaModel.Product;
 
     #endregion Using
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportBetListController : ApiBetListBaseController
     {
-        #region Local Paging
+        private static readonly IEnumerable<int> RacingSportTypes = new List<int>()
+                {
+                    (int)SportType.VirtualHorseRacing,
+                    (int)SportType.VirtualGreyhound,
+                    (int)SportType.VirtualMotoRacing,
+                    (int)SportType.VirtualSpeedway,
+                    (int)SportType.VirtualCycling
+                };
 
         [HttpPost]
         public dynamic Match(LiveReportBetListMetaModel metaModel)
@@ -54,10 +61,6 @@ namespace Fanex.Athena.Api.BetList
 
             return null;
         }
-
-        #endregion Local Paging
-
-        #region Server Paging
 
         [HttpGet]
         public dynamic NumberGame(
@@ -112,8 +115,6 @@ namespace Fanex.Athena.Api.BetList
             int betType,
             DateTime fromDate,
             DateTime toDate,
-            bool showSB,
-            bool showBA,
             decimal sumComm,
             decimal sumLicenseeWL,
             decimal sumPlayerComm,
@@ -121,6 +122,7 @@ namespace Fanex.Athena.Api.BetList
             int totalRows,
             string baseCurrency,
             int liveIndicator,
+            string productCodeList,
             string sortBy = null,
             string sortOrder = null)
         {
@@ -130,19 +132,6 @@ namespace Fanex.Athena.Api.BetList
             if (currencyId == 0 || currencyList.ContainsKey(currencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
-                var productOptions = new HashSet<ProductOption>
-            {
-                new ProductOption
-                {
-                    Code = "SB",
-                    Status = showSB
-                },
-                new ProductOption
-                {
-                    Code = "BA",
-                    Status = showBA
-                }
-            };
 
                 var metaModel = new LiveReportBetListMetaModel
                 {
@@ -157,12 +146,11 @@ namespace Fanex.Athena.Api.BetList
                     BaseCurrency = baseCurrency,
                     SortBy = sortBy,
                     SortOrder = sortOrder,
-                    LiveIndicator = liveIndicator
+                    LiveIndicator = liveIndicator,
+                    AgentListXml = SessionService.GenerateAgentListXml(currencyId),
+                    BetType = betType,
+                    ProductCodeList = productCodeList
                 };
-
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                metaModel.ProductOptions = productOptions;
-                metaModel.BetType = betType;
 
                 return GetPagingData(metaModel, UspKey, page, rows);
             }
@@ -211,23 +199,13 @@ namespace Fanex.Athena.Api.BetList
                     SportType = sportType
                 };
 
-                var racingBettypes = new List<int>()
-                {
-                    (int)SportType.VirtualHorseRacing,
-                    (int)SportType.VirtualGreyhound,
-                    (int)SportType.VirtualMotoRacing,
-                    (int)SportType.VirtualSpeedway,
-                    (int)SportType.VirtualCycling
-                };
-                var uspKey = racingBettypes.Contains(sportType) ? UspKeyVHRacing : UspKeyRacing;
+                var uspKey = RacingSportTypes.Contains(sportType) ? UspKeyVHRacing : UspKeyRacing;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return GetPagingData(metaModel, uspKey, page, rows);
             }
 
             return null;
         }
-
-        #endregion Server Paging
 
         #region Utility
 

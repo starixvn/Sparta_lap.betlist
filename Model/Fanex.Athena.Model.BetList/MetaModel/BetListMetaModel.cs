@@ -26,7 +26,7 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 
         public IEnumerable<ProductOption> ProductOptions { get; set; } = new HashSet<ProductOption>();
 
-        public string ProductCodeList { get; set; }
+        public string ProductCodeList { get; set; } = string.Empty;
 
         public string ExcelFileName { get; set; }
 
