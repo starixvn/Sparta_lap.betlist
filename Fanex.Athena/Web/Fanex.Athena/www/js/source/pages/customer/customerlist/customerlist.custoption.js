@@ -14,7 +14,7 @@
         }
 
         var _me = {
-            initialize: function(){
+            initialize: function () {
                 $("#report-content").on("click", ".custoptionlink", function () {
                     CustomerListService.showGridDropdownById("ViewOptionList", $(this));
                 });
@@ -40,7 +40,7 @@
                 var url = Site.resolveClientUrl("SportsbookBetSetting/Index?custid=" +
                     customer.CustId + "&username=" + customer.SystemId + "&nickname=" + customer.ExternalId);
 
-                var popupOption = { id: "betsettingFrame", width: 905, height: 600, title: Site.getSingleResource("BetSetting") };
+                var popupOption = { id: "viewOptionBetSettingFrame", width: 905, height: 600, title: Site.getSingleResource("BetSetting") };
                 Popup.openPopupWithIframe(url, popupOption);
             },
 
@@ -74,7 +74,7 @@
                 url = Site.setLicenseeOptionOriginalParam(url);
 
                 var popH = Math.min(window.innerHeight - 100, 600), popW = 900;
-                var popupOption = { id: "betlistFrame", width: popW + 30, height: popH + 70, title: Site.getSingleResource("BetList") };
+                var popupOption = { id: "viewOptionFrame", width: popW + 30, height: popH + 70 };
 
                 Popup.openPopupWithIframe(url, popupOption);
             },
@@ -89,7 +89,7 @@
                 url = Site.setLicenseeOptionOriginalParam(url);
 
                 var popH = Math.min(window.innerHeight - 100, 600), popW = 900;
-                var popupOption = { id: "statementFrame", width: popW + 30, height: popH + 70, title: Site.getSingleResource("DailyStatement") };
+                var popupOption = { id: "viewOptionFrame", width: popW + 30, height: popH + 70 };
 
                 Popup.openPopupWithIframe(url, popupOption);
             }

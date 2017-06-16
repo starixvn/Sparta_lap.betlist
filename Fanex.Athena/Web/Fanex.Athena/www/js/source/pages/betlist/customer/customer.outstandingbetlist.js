@@ -2,23 +2,26 @@
 define(["jquery", "common/site", "common/querystring", "pages/report/report", "./customer.dailystatement", "../betlist",
             "components/pluginhelper/daterangepicker", "components/pluginhelper/multiselect"],
     function ($, Site, QueryString, Report, DailyStatement, BetList, DatePicker, MultiSelect) {
-        var Title;
-        var HiddenColumn = {
-            "betlistrunning": "externalid,systemid,winloss,licenseewl",
-            "betlist": "externalid,systemid",
-            "dailystatement": "externalid,systemid"
-        };
+        var _viewName;
+        var _viewOption;
+
+        function getViewOption() {
+            return {
+                "betlistrunning": { title: Site.getSingleResource("BetListRunning"), hiddenColumn: "externalid,systemid,winloss,licenseewl", submit: _me.submitRunningBetList },
+                "betlist": { title: Site.getSingleResource("BetList"), hiddenColumn: "externalid,systemid", submit: _me.submitCompletedBetList },
+                "dailystatement": { title: Site.getSingleResource("DailyStatement"), hiddenColumn: "externalid,systemid", submit: _me.submitDailyStatementBetList }
+            }
+        }
 
         var _me = {
             initialize: function () {
                 Site.initialize();
                 DatePicker.initDateRangePicker();
                 MultiSelect.initProductList();
-                Title = {
-                    "betlistrunning": Site.getSingleResource("BetListRunning"),
-                    "betlist": Site.getSingleResource("BetList"),
-                    "dailystatement": Site.getSingleResource("DailyStatement")
-                };
+
+                _viewName = $("#ViewOption").val();
+                _viewOption = getViewOption();
+                _me.updatePopupTitle();
 
                 //show or hide products dropdown list by ViewOption
                 _me.showHideProductsList();
@@ -34,16 +37,10 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
             initEvent: function () {
                 $("#ViewOption").change(function () {
                     Site.blockUI();
-                    var betlistName = $("#ViewOption").find(":selected").val();
-                    var title = Title[betlistName];
-
+                    var betlistName = $(this).val();
                     var url = Site.getCurrentUrl();
                     url = QueryString.setParam(url, "betlistname", betlistName);
                     url = Site.setProductOptionOriginalParamList(url);
-
-                    var $frame = parent.$("#popupFrame");
-                    var $popUp = $frame.closest(".flat-popup");
-                    $popUp.find(".txt-title").text(title);
 
                     Site.redirect(url);
                 });
@@ -60,17 +57,22 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
                 });
             },
 
+            updatePopupTitle: function () {
+                var title = _viewOption[_viewName].title;
+                var $frame = parent.$("#popupFrame");
+                var $popUp = $frame.closest(".flat-popup");
+                $popUp.find(".txt-title").text(title);
+            },
+
             setHiddenColumns: function () {
-                //Get item chooses from dropdownlist and set string columns need to hide
-                var betlistName = $("#ViewOption").find(":selected").val();
-                var columsHidden = HiddenColumn[betlistName];
+                //Set string columns need to hide
+                var columsHidden = _viewOption[_viewName].hiddenColumn;
                 $("#HiddenColumnList").val(columsHidden);
             },
 
             showHideProductsList: function () {
                 var $productsListContainer = $("#ProductList");
-                var betlistName = $("#ViewOption").find(":selected").val();
-                var isHideProductList = betlistName === "dailystatement";
+                var isHideProductList = _viewName === "dailystatement";
 
                 $productsListContainer.parent().toggleClass("hide", isHideProductList);
             },
@@ -106,23 +108,13 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
                 BetList.ValidProducts();
                 BetList.registerBetListGlobalFunctions();
 
-                var betlistName = $("#ViewOption").find(":selected").val();
-                if (betlistName === "dailystatement") {
-                    _me.submitDailyStatementBetList(params);
-                }
-                else if (betlistName === "betlist") {
-                    _me.submitCompletedBetList(params);
-                }
-                else {
-                    _me.submitRunningBetList(params);
-                }
+                _viewOption[_viewName].submit(params);
             },
 
             viewDailyStatementBetList: function (param) {
                 BetList.registerBetListGlobalFunctions();
 
                 var url = Site.resolveClientUrl('api/DailyStatementBetList/Index');
-
                 var postData = $.parseJSON($("#BetListMetaModel").val());
 
                 postData.CustId = param.CustId;

@@ -80,17 +80,11 @@ define(["jquery", "common/site"], function ($, Site) {
             height: "auto",
             colModel: columnModel,
             colNames: [],
-            viewrecords: true,
             autowidth: false,
             shrinkToFit: true,
-            scroll: false,
-            loadonce: true,
             gridview: true,
             footerrow: false,
-            cmTemplate: { sortable: false },
-            onPaging: function () {
-                Site.blockUI();
-            }
+            cmTemplate: { sortable: false }
         },
         getColNames: function () {
             return Site.getResources(columnNames);
