@@ -77,8 +77,7 @@ namespace Fanex.Athena.Api.BetList
             int betType,
             DateTime fromDate,
             DateTime toDate,
-            bool showSB,
-            bool showBA,
+            string productCodeList,
             string sortBy = null,
             string sortOrder = null)
         {
@@ -88,34 +87,20 @@ namespace Fanex.Athena.Api.BetList
             if (currencyId == 0 || currencyList.ContainsKey(currencyId))
             {
                 const string UspKey = "Lrf_BetList_MatchWL_Parlay";
-                var productOptions = new HashSet<ProductOption>
-                {
-                    new ProductOption
-                    {
-                        Code = "SB",
-                        Status = showSB
-                    },
-                    new ProductOption
-                    {
-                        Code = "BA",
-                        Status = showBA
-                    }
-                };
-
                 var metaModel = new BetListMetaModel
                 {
                     LicenseeId = SessionService.LicenseeSession.LicenseeId,
                     UserId = userSession.UserId,
                     CurrencyId = currencyId,
                     BetType = betType,
-                    ProductOptions = productOptions,
                     BaseCurrency = baseCurrency ?? string.Empty,
                     FromDate = fromDate.Date,
                     ToDate = toDate.Date,
                     SortBy = sortBy,
                     SortOrder = sortOrder,
                     IsServerPaging = true,
-                    AgentListXml = SessionService.GenerateAgentListXml(currencyId)
+                    AgentListXml = SessionService.GenerateAgentListXml(currencyId),
+                    ProductCodeList = productCodeList
                 };
 
                 return GetPagingBetListResult(metaModel, UspKey, page, rows);

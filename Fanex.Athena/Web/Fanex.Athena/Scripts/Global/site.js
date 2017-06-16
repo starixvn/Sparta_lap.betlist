@@ -85,6 +85,9 @@ var Site = (function ($) {
 
             });
         },
+        setProductCodeListParam: function(url, productCodeList){
+            return QueryString.setParam(url, "ProductCodeList", productCodeList);
+        },
         reload: function () {
             window.location.reload();
         },

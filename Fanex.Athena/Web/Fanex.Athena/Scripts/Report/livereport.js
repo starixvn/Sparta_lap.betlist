@@ -123,7 +123,7 @@ var LiveReport = (function ($) {
             url = QueryString.setParam(url, "todate", $("#ToDate").attr('data-original'));
             url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
             url = LiveReport.setSumParams(url, totalValue);
-            url = QueryString.setParam(url, "ProductCodeList", productOptions);
+            url = Site.setProductCodeListParam(url, productOptions);
             Site.blockUI();
             Site.redirect(url);
         },
@@ -194,7 +194,7 @@ var LiveReport = (function ($) {
                 url = QueryString.setParam(url, "ToDate", $("#ToDate").attr('data-original'));
                 url = QueryString.setParam(url, "LiveIndicator", $("#LiveIndicator").attr('data-original'));
 
-                url = QueryString.setParam(url, "ProductCodeList", productOptions);
+                url = Site.setProductCodeListParam(url, productOptions);
                 Site.blockUI();
                 Site.redirect(url);
             }
