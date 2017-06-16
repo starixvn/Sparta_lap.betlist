@@ -1221,6 +1221,7 @@
     <Content Include="www\js\source\components\navbar.js" />
     <Content Include="www\js\source\components\refreshcountdown.js" />
     <Content Include="www\js\source\components\sidebar.js" />
+    <Content Include="www\js\source\pages\customer\customercomm\commgroup.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgroupadd.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgroupdetail.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgroupedit.js" />
@@ -1336,6 +1337,7 @@
     <Content Include="www\js\tests\pages\betlist\commonbetlist-spec.js" />
     <Content Include="www\js\tests\pages\betlist\lastbetmonitoring\lastbet.filter-spec.js" />
     <Content Include="www\js\tests\pages\betlist\lastbetmonitoring\lastbet.grid-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customercomm\commgroup-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgroupedit-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgroupadd-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgroupdetail-spec.js" />

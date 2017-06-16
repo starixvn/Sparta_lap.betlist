@@ -59,7 +59,7 @@
                                     </td>
                                     <td class="center-align @(groupComm.IsDefaultGroup ? "icon-checkmark" : string.Empty)"></td>
                                     <td class="center-align">
-                                        <a href="@Url.Action("CustomerList", "Customer", new { groupId = groupComm.GroupCommId })" class="no-customer-border">
+                                        <a class="no-customer-border customer-list-link" data-id="@groupComm.GroupCommId">
                                             @groupComm.NumberOfCustomer
                                         </a>
                                     </td>

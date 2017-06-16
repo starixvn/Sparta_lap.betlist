@@ -1,5 +1,5 @@
-﻿define(["jquery", "common/site", "common/popup"],
-    function ($, Site, Popup) {
+﻿define(["jquery", "common/site", "common/popup", "./commgroup"],
+    function ($, Site, Popup, CustomerCommGroup) {
         "use strict";
 
         var deleteGroupData = {
@@ -26,6 +26,10 @@
             $("#comm-group-list").on("click", ".delete-comm-group", function (e) {
                 _me.confirmDeleteCommGroup($(e.target).data("id"));
             });
+
+            $("#comm-group-list").on("click", ".customer-list-link", function (e) {
+                CustomerCommGroup.goToCustomerList($(e.target).data("id"));
+            });          
         }
 
         function confirmDeleteCommGroup(groupId) {

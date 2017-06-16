@@ -1,5 +1,5 @@
-﻿define(["jquery", "common/site", "common/popup", "pages/customer/customercomm/commgrouplist"],
-    function ($, Site, Popup, CustomerCommGroupList) {
+﻿define(["jquery", "common/site", "common/popup", "pages/customer/customercomm/commgrouplist", "pages/customer/customercomm/commgroup"],
+    function ($, Site, Popup, CustomerCommGroupList, CustomerCommGroup) {
         describe("CustomerCommGroupList", function () {
             beforeAll(function () {
                 spyOn(Site, "initialize");
@@ -18,7 +18,7 @@
 
                     expect(Site.initialize).toHaveBeenCalled();
                     expect(Site.addUserGuide).toHaveBeenCalled();
-                })
+                });
 
                 it("initEvent should be called", function () {
                     spyOn(CustomerCommGroupList, "initEvent");
@@ -26,7 +26,7 @@
                     CustomerCommGroupList.initialize();
 
                     expect(CustomerCommGroupList.initEvent).toHaveBeenCalled();
-                })
+                });
             });
 
             describe("initEvent", function () {
@@ -38,7 +38,7 @@
                     $("#ExportToExcel").click();
 
                     expect($("#CommissionGroupForm").submit).toHaveBeenCalled();
-                })
+                });
 
                 it("confirmDeleteCommGroup should be called when .delete-comm-group is clicked", function () {
                     setFixtures('<table id="comm-group-list"><tr><td><a class="delete-comm-group" data-id="1"></a><td><tr><table>');
@@ -48,7 +48,17 @@
                     $(".delete-comm-group").click();
 
                     expect(CustomerCommGroupList.confirmDeleteCommGroup).toHaveBeenCalledWith(1);
-                })
+                });
+
+                it("CustomerCommGroup.goToCustomerList should be called when .customer-list-link is clicked", function () {
+                    setFixtures('<table id="comm-group-list"><tr><td><a class="customer-list-link" data-id="1"></a><td><tr><table>');
+                    spyOn(CustomerCommGroup, "goToCustomerList");
+
+                    CustomerCommGroupList.initEvent();
+                    $(".customer-list-link").click();
+
+                    expect(CustomerCommGroup.goToCustomerList).toHaveBeenCalledWith(1);
+                });
             });
 
             describe("confirmDeleteCommGroup(groupId)", function () {
@@ -65,7 +75,7 @@
 
                     expect(CustomerCommGroupList.showConfirmDeleteDefaulCommGroupPopup).toHaveBeenCalled();
                     expect(CustomerCommGroupList.showOptionDeleteCommGroupPopup).not.toHaveBeenCalled();
-                })
+                });
 
                 it("Popup delete option should be shown when deleted group is not default", function () {
                     var defaultGroupId = 1;
@@ -80,7 +90,7 @@
 
                     expect(CustomerCommGroupList.showConfirmDeleteDefaulCommGroupPopup).not.toHaveBeenCalled();
                     expect(CustomerCommGroupList.showOptionDeleteCommGroupPopup).toHaveBeenCalled();
-                })
+                });
             });
 
             describe("deleteCommGroup()", function () {
@@ -135,7 +145,7 @@
                     var options = {
                         model: true,
                         title: "Confirm",
-                        height: 150,
+                        height: "auto",
                         id: "del-default-comm-group"
                     };
                     var buttons = [
@@ -181,7 +191,7 @@
                     var expectedOption = {
                         model: true,
                         title: "DeleteCommissionGroup",
-                        height: 160,
+                        height: "auto",
                         id: "option-del-comm-group"
                     };
                     var actualElement, actualOption, actualButtons;
@@ -295,7 +305,7 @@
                     var options = {
                         model: true,
                         title: "Confirm",
-                        height: 150,
+                        height: "auto",
                         id: "confirm-del-comm-group"
                     };
                     var buttons = [
@@ -326,7 +336,7 @@
                     var options = {
                         model: true,
                         title: expectedTitle,
-                        height: 150,
+                        height: "auto",
                         id: "result-del-comm-group"
                     };
                     var buttons = [
@@ -349,7 +359,7 @@
                     var options = {
                         model: true,
                         title: expectedTitle,
-                        height: 150,
+                        height: "auto",
                         id: "result-del-comm-group"
                     };
                     var buttons = [

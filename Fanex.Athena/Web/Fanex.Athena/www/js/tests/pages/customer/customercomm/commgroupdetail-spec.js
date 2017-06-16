@@ -1,5 +1,5 @@
-﻿define(["jquery", "common/site", "common/popup", "pages/customer/customercomm/commgroupdetail", "lib/jquery.colorpicker"],
-    function ($, Site, Popup, CustomerCommGroupDetail) {
+﻿define(["jquery", "common/site", "common/popup", "pages/customer/customercomm/commgroupdetail", "pages/customer/customercomm/commgroup", "lib/jquery.colorpicker"],
+    function ($, Site, Popup, CustomerCommGroupDetail, CustomerCommGroup) {
         describe("CustomerCommGroupDetail", function () {
             beforeAll(function () {
                 spyOn(Site, "initialize");
@@ -239,11 +239,11 @@
             describe("setPageTitle(title)", function () {
                 it("change page title with correct param", function () {
                     var expectedTitle = "title";
-                    spyOn($.fn, "text");
+                    spyOn(CustomerCommGroup, "setPageTitle");
 
                     CustomerCommGroupDetail.setPageTitle(expectedTitle);
 
-                    expect($("#page-title", window.parent.document).text).toHaveBeenCalledWith(expectedTitle);
+                    expect(CustomerCommGroup.setPageTitle).toHaveBeenCalledWith(expectedTitle);
                 });
             });
 
@@ -420,59 +420,24 @@
             });
 
             describe("goToSite(relativeUrl, paramString)", function () {
-                it("Site.redirect should be called with correct params", function () {
+                it("CustomerCommGroup.goToSite should be called with correct params", function () {
                     var expectedHref = "url?param=0";
-                    spyOn(Site, "redirect");
+                    spyOn(CustomerCommGroup, "goToSite");
 
                     CustomerCommGroupDetail.goToSite("url", "?param=0");
 
-                    expect(Site.redirect).toHaveBeenCalledWith(expectedHref);
-                });
-
-                it("Site.redirect should be called correctly without paramString", function () {
-                    var expectedHref = "url";
-                    spyOn(Site, "redirect");
-
-                    CustomerCommGroupDetail.goToSite("url");
-
-                    expect(Site.redirect).toHaveBeenCalledWith(expectedHref);
+                    expect(CustomerCommGroup.goToSite).toHaveBeenCalledWith("url", "?param=0");
                 });
             });
 
             describe("goToCustomerList(groupCommId)", function () {
-                it("setPageTitle should be called if parent host is the same with current host", function () {
-                    setFixtures('<ul></ul>');
-                    $("ul").append('<li><a id="MenuItem55"></a></li>');
-                    $("ul").append('<li><a id="MenuItem43"></a></li>');
-                    window.parent.document = "ul";
-                    spyOn(CustomerCommGroupDetail, "setPageTitle");
-                    spyOn(CustomerCommGroupDetail, "goToSite");
+                it("CustomerCommGroup.goToCustomerList should be called with correct param", function () {
+                    spyOn(CustomerCommGroup, "goToCustomerList");
+                    var groupId = 1;
 
-                    CustomerCommGroupDetail.goToCustomerList(1);
+                    CustomerCommGroupDetail.goToCustomerList(groupId);
 
-                    expect(CustomerCommGroupDetail.setPageTitle).toHaveBeenCalledWith("CustomerList");
-                    expect(CustomerCommGroupDetail.goToSite).toHaveBeenCalledWith("Customer/CustomerList", "?groupId=1");
-                });
-
-                it("setPageTitle should not be called if parent host is not the same with current host", function () {
-                    spyOn(CustomerCommGroupDetail, "setPageTitle");
-                    spyOn(CustomerCommGroupDetail, "goToSite");
-                    window.parent = {
-                        location: {
-                            host: new Error()
-                        }
-                        
-                    };
-                    window = {
-                        location: {
-                            host: "child"
-                        }
-                    };
-
-                    CustomerCommGroupDetail.goToCustomerList(1);
-
-                    expect(CustomerCommGroupDetail.setPageTitle).not.toHaveBeenCalledWith("CustomerList");
-                    expect(CustomerCommGroupDetail.goToSite).toHaveBeenCalledWith("Customer/CustomerList", "?groupId=1");
+                    expect(CustomerCommGroup.goToCustomerList).toHaveBeenCalledWith(groupId);
                 });
             });
         });

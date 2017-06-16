@@ -1,5 +1,5 @@
-﻿define(["jquery", "common/site", "common/popup", "lib/jquery.colorpicker"],
-     function ($, Site, Popup) {
+﻿define(["jquery", "common/site", "common/popup", "./commgroup", "lib/jquery.colorpicker"],
+     function ($, Site, Popup, CustomerCommGroup) {
          "use strict";
 
          function initialize(titleResource) {
@@ -49,7 +49,7 @@
          }
 
          function setPageTitle(title) {
-             $("#page-title", window.parent.document).text(title);
+             CustomerCommGroup.setPageTitle(title);
          }
 
          function checkAvailableGroup(groupName) {
@@ -173,20 +173,11 @@
          }
 
          function goToSite(relativeUrl, paramString) {
-             var href = Site.resolveClientUrl(relativeUrl);
-             if (paramString) {
-                 href += paramString;
-             }
-             Site.redirect(href);
+             CustomerCommGroup.goToSite(relativeUrl, paramString);
          }
 
          function goToCustomerList(groupCommId) {
-             if (isParentSameOrigin()) {
-                 $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
-                 $("li>#MenuItem43", window.parent.document).parent().addClass("active");
-                 _me.setPageTitle(Site.getSingleResource("CustomerList"));
-             }
-             _me.goToSite("Customer/CustomerList", "?groupId=" + groupCommId);
+             CustomerCommGroup.goToCustomerList(groupCommId);
          }
 
          function showConfirmAction(message, callback, groupId, isResetDefault) {
@@ -212,17 +203,6 @@
                  }];
 
              Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
-         }
-
-         function isParentSameOrigin() {
-             var sameOrigin;
-             try {
-                 sameOrigin = window.parent.location.host === window.location.host;
-             }
-             catch (e) {
-                 sameOrigin = false;
-             }
-             return sameOrigin;
          }
 
          function initColorPicker() {
