@@ -1,0 +1,55 @@
+﻿@model Fanex.Athena.Model.BetSettings.ViewModel.BetSettingBaseViewModel
+@using Fanex.Athena.Model.Core.DataDomain
+
+@{
+    var productControllerNames = new Dictionary<int, string>() {
+        { ProductTypes.Sportsbook, "Sportsbook" },
+        { ProductTypes.NumberGame, "NumberGame" },
+        { ProductTypes.Voidbridge, "Dcs" },
+        { ProductTypes.AgCasino , "AgCasino" },
+        { ProductTypes.GoldDeluxe, "GoldDeluxe" },
+        { ProductTypes.Macau, "ThirdParty" },
+        { ProductTypes.BetTrade, "ThirdParty" },
+        { ProductTypes.MicroGamingLiveCasino, "ThirdParty" },
+        { ProductTypes.MicrogamingRNGCasino, "ThirdParty" },
+        { ProductTypes.Racing, "Racing" },
+        { ProductTypes.LiveCasino, "LiveCasino" },
+        { ProductTypes.RngCasino, "RngCasino" },
+        { ProductTypes.Keno, "Keno" },
+        { ProductTypes.VirtualSports, "VirtualSports" },
+        { ProductTypes.AllBet, "Dcs" },
+        { ProductTypes.ColossusBets, "ThirdParty" },
+        { ProductTypes.FishingWorld, "Dcs" },
+        { ProductTypes.CashOut, "ThirdParty" }
+    };
+
+    var metaModel = Model.Param;
+
+    const string ControllerSuffix = "BetSetting";
+}
+
+<select id="product-dropdown" class="select hide">
+    @foreach (var product in Model.BetSettingProducts)
+    {
+        var productName = product.ProductName;
+        var controllerName = string.Empty;
+        if (productControllerNames.ContainsKey(product.ProductId))
+        {
+            controllerName = productControllerNames[product.ProductId] + ControllerSuffix;
+        }
+
+        <option value="@product.ProductId" @(metaModel.ProductId == product.ProductId ? "selected" : string.Empty) 
+                data-href="@Url.Action("Index", controllerName, new
+                                      {
+                                          ProductId = product.ProductId,
+                                          CustId = metaModel.CustId,
+                                          UserName = metaModel.UserName,
+                                          NickName = metaModel.NickName,
+                                          BetSettingName = productName
+                                      })">
+            @productName
+        </option>
+    }
+</select>
+<label>@ViewResources.Product</label>
+@Html.Hidden("ProductId", metaModel.ProductId)

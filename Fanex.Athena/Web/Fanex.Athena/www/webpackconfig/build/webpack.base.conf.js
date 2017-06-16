@@ -66,6 +66,7 @@ function generateConfig(environment) {
             [`${jsPath}/pages/customer/customersetting`]: [pathConfig.scriptPaths.customersetting],
             [`${jsPath}/pages/customer/groupcommission`]: [pathConfig.scriptPaths.groupcommission],
             [`${jsPath}/pages/betlist/customeroutstanding`]: [pathConfig.scriptPaths.customeroutstanding],
+            [`${jsPath}/pages/customer/betsetting`]: [pathConfig.scriptPaths.betsetting],
 
             [`${cssPath}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
             [`${cssPath}/pages/reports/livereport`]: pathConfig.cssPaths.livereport,
@@ -107,7 +108,8 @@ function generateConfig(environment) {
             [`${cssPath}/pages/customer/commgroupdetail`]: pathConfig.cssPaths.customercommgroupdetail,
             [`${cssPath}/pages/customer/customerlog`]: pathConfig.cssPaths.customerlog,
             [`${cssPath}/pages/customer/customerlist`]: pathConfig.cssPaths.customerlist,
-            [`${cssPath}/pages/betlist/customeroutstanding`]: pathConfig.cssPaths.customeroutstanding
+            [`${cssPath}/pages/betlist/customeroutstanding`]: pathConfig.cssPaths.customeroutstanding,
+            [`${cssPath}/pages/customer/betsetting`]: pathConfig.cssPaths.betsetting
 
         },
         output: {
