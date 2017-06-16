@@ -7,9 +7,7 @@
 namespace Fanex.Athena.Model.BetList.MetaModel
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
-    using Fanex.Athena.Model.Core.MetaModel.Product;
     using Model.Core.MetaModel;
 
     public class BetListMetaModel : BaseMetaModel
@@ -23,8 +21,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
             PageSize = int.MaxValue - 1;
             IsLastBetMonitoring = false;
         }
-
-        public IEnumerable<ProductOption> ProductOptions { get; set; } = new HashSet<ProductOption>();
 
         public string ProductCodeList { get; set; } = string.Empty;
 

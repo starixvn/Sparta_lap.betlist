@@ -84,8 +84,7 @@
 
         private static void CreateWinlossByLeagueParameters(IObjectDb db, BetListMetaModel metaModel)
         {
-            var showSb = metaModel.ProductOptions.Any(i => i.Code == Product.SB && i.Status == true);
-            var showBa = metaModel.ProductOptions.Any(i => i.Code == Product.BA && i.Status == true);
+            var products = metaModel.ProductCodeList.Split(',');
 
             db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
             db.AddInParameter("LeagueID", DbType.Int32, metaModel.LeagueId);
@@ -99,8 +98,8 @@
             db.AddInParameter("ShowWin", DbType.Boolean, metaModel.ShowWin);
             db.AddInParameter("ShowLoss", DbType.Boolean, metaModel.ShowLoss);
             db.AddInParameter("ShowDraw", DbType.Boolean, metaModel.ShowDraw);
-            db.AddInParameter("ShowSB", DbType.Boolean, showSb);
-            db.AddInParameter("ShowBA", DbType.Boolean, showBa);
+            db.AddInParameter("ShowSB", DbType.Boolean, products.Contains(Product.SB));
+            db.AddInParameter("ShowBA", DbType.Boolean, products.Contains(Product.BA));
         }
 
         private static void CreateRunningBetListByForeCastMatchParameters(IObjectDb db, BetListMetaModel metaModel)

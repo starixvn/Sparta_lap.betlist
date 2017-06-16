@@ -141,6 +141,17 @@ var WinLossByLeague = (function ($) {
         }
     }
 
+    function buildProductCodeList() {
+        var productCodeList = [];
+        for (var i = 0; i < _productCount; i++) {
+            if (_postdata["ProductOptions[" + i + "].Status"] === "true") {
+                productCodeList.push(_postdata["ProductOptions[" + i + "].Code"]);
+            }
+        }
+
+        return productCodeList;
+    }
+
     var me = {
         ajaxPaging: function () {
             _pagingOption = PagingHeper.getSetting();
@@ -379,10 +390,9 @@ var WinLossByLeague = (function ($) {
                 MatchId: _postdata.Match,
                 ShowWin: _postdata.ShowWin,
                 ShowLoss: _postdata.ShowLoss,
-                ShowDraw: _postdata.ShowDraw
+                ShowDraw: _postdata.ShowDraw,
+                ProductCodeList: buildProductCodeList().toString()
             };
-
-            buildProductsParams(param);
 
             var url = Site.resolveClientUrl("WinlossByLeagueBetList/Index?") + $.param(param);
             window.open(url, "", "modal=no");
