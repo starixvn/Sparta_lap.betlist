@@ -31,6 +31,7 @@ var LicenseeWinLoss = (function ($) {
             return totalRowCount;
         },
         initialize: function () {
+            Site.initProductList();
             LicenseeWinLoss.initEvent();
             LicenseeWinLoss.initSetting();
             LicenseeWinLossOption.gridOption.onSortCol = function (index/*, columnIndex, sortOrder*/) {

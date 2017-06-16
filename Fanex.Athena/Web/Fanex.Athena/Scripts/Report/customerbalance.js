@@ -20,6 +20,7 @@ var CustBalance = (function ($) {
             $grid.css("max-height", gridHeight);
         },
         initialize: function () {
+            Site.initProductList();
             CustBalance.initEvent();
             CustBalance.resizeGrid();
             Site.addUserGuide({

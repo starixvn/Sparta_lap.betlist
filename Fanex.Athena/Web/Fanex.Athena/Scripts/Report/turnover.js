@@ -8,6 +8,7 @@ var Turnover = (function ($) {
         defaultUserName: Site.getSingleResource('ExternalIdOrSystemId'),
         
         initialize: function () {
+            Site.initProductList();
             Turnover.initMonthPicker();
             Turnover.initEvent();
             Turnover.initAutoComplete();

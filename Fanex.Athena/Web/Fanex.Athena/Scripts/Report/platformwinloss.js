@@ -47,6 +47,7 @@ var PlatformWinLoss = (function ($) {
     return {
         //#region Init
         initialize: function () {
+            Site.initProductList();
             PlatformWinLoss.initSetting();
             PlatformWinLoss.initMonthPicker();
             PlatformWinLoss.initEvent();

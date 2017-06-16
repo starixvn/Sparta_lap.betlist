@@ -149,6 +149,7 @@ var WinLossByLeague = (function ($) {
         },
         //#region Init
         initialize: function () {
+            Site.initProductList();
             WinLossByLeague.initEvent();
             WinLossByLeague.initSetting();
 

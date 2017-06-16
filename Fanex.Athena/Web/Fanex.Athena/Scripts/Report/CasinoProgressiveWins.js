@@ -27,6 +27,7 @@ var CasinoProgressiveWins = (function ($) {
 
     return {
         initialize: function () {
+            Site.initProductList();
             CasinoProgressiveWins.initEvent();
 
             Site.addUserGuide({

@@ -16,6 +16,7 @@ var CustPendingFunds = (function ($) {
             $grid.css("max-height", gridHeight);
         },
         initialize: function () {
+            Site.initProductList();
             CustPendingFunds.initEvent();
             Site.createSortingIcon(CustPendingFunds.sortReport);
             CustPendingFunds.resizeGrid();

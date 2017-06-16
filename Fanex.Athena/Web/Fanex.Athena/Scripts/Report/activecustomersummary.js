@@ -32,6 +32,7 @@ var ActiveCustomer = (function ($) {
 
     return {
         initialize: function () {
+            Site.initProductList();
             ActiveCustomer.initEvent();
 
             ActiveCustomerOption.gridOption.onSortCol = function (index/*, columnIndex, sortOrder*/) {

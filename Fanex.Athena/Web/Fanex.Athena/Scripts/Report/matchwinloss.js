@@ -21,6 +21,7 @@ var MatchWinLoss = (function ($) {
             }
         },
         initialize: function () {
+            Site.initProductList();
             MatchWinLoss.initProductList();
             MatchWinLoss.initEvent();
             MatchWinLoss.resizeGrid();

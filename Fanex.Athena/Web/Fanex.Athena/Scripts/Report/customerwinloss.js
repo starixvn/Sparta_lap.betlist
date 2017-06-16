@@ -22,6 +22,7 @@ var CustomerWinLoss = (function ($) {
             $(".report-content").css("max-height", "");
         },
         initialize: function () {
+            Site.initProductList();
             CustomerWinLoss.initEvent();
             CustomerWinLoss.initMonthPicker();
             Site.createSortingIcon(CustomerWinLoss.sortReport);

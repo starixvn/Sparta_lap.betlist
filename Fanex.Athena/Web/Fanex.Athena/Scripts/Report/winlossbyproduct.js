@@ -69,6 +69,7 @@ var WinLossByProduct = (function ($) {
     return {
     //#region Init
     initialize: function () {
+        Site.initProductList();
         WinLossByProduct.initEvent();
         WinLossByProduct.initSetting();
         initAutoComplete();
