@@ -742,6 +742,7 @@
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
     <Content Include="Scripts\BetList\lastbet.filter.js" />
+    <Content Include="Scripts\Helper\ProductListHelper.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Report\cashoutwinloss.js" />
     <Content Include="Scripts\Report\cashoutwinloss.option.js" />

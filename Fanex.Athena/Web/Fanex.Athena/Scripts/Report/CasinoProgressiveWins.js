@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, QueryString, CasinoProgressiveWinsOption, Report, Site */
+﻿/*global jqGridAdditional, QueryString, CasinoProgressiveWinsOption, Report, Site, ProductListHelper */
 /// <reference path="/@JSense.js" />
 ///
 var CasinoProgressiveWins = (function ($) {
@@ -27,7 +27,7 @@ var CasinoProgressiveWins = (function ($) {
 
     return {
         initialize: function () {
-            Site.initProductList();
+            ProductListHelper.initProductList();
             CasinoProgressiveWins.initEvent();
 
             Site.addUserGuide({

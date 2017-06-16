@@ -1,4 +1,4 @@
-﻿/*global Site, Report, QueryString, CustomerDailyStatement, BetList*/
+﻿/*global Site, Report, QueryString, CustomerDailyStatement, BetList, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 "use strict";
 var OutstandingBetList = (function ($) {
@@ -19,7 +19,7 @@ var OutstandingBetList = (function ($) {
             //Init event
             OutstandingBetList.initEvent();
 
-            Site.initProductList();
+            ProductListHelper.initProductList();
 
             //Get params send from URL
             var params = OutstandingBetList.getParamsSubmit();

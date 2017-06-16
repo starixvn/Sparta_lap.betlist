@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, JSLINQ, LicenseeWinLossOption, QueryString, Report, Site */
+﻿/*global jqGridAdditional, JSLINQ, LicenseeWinLossOption, QueryString, Report, Site, ProductListHelper */
 /// <reference path="/@JSense.js" />
 ///
 var LicenseeWinLoss = (function ($) {
@@ -31,7 +31,7 @@ var LicenseeWinLoss = (function ($) {
             return totalRowCount;
         },
         initialize: function () {
-            Site.initProductList();
+            ProductListHelper.initProductList();
             LicenseeWinLoss.initEvent();
             LicenseeWinLoss.initSetting();
             LicenseeWinLossOption.gridOption.onSortCol = function (index/*, columnIndex, sortOrder*/) {

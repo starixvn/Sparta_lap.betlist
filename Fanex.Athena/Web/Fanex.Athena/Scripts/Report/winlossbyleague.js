@@ -1,4 +1,4 @@
-﻿/*global Site, jqGridAdditional, PagingHeper, WinLossByLeagueOption*/
+﻿/*global Site, jqGridAdditional, PagingHeper, WinLossByLeagueOption, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 "use strict";
 var WinLossByLeague = (function ($) {
@@ -149,7 +149,7 @@ var WinLossByLeague = (function ($) {
         },
         //#region Init
         initialize: function () {
-            Site.initProductList();
+            ProductListHelper.initProductList();
             WinLossByLeague.initEvent();
             WinLossByLeague.initSetting();
 

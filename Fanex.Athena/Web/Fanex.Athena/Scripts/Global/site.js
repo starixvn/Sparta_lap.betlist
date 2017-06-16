@@ -73,18 +73,6 @@ var Site = (function ($) {
                 }
             });
         },
-        initProductList: function(){
-            Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
-            $("form").submit(function (event) {
-                if ($("#product-container input[type=checkbox]:checked").length == 0) {
-                    $('<div title="@ViewResources.LrfNotification">' + '@ViewResources.AlertChooseProductMsg' + '!</div>').dialog();
-                    Site.unBlockUI();
-                    return false;
-                }
-                return true;
-
-            });
-        },
         setProductCodeListParam: function(url, productCodeList){
             return QueryString.setParam(url, "ProductCodeList", productCodeList);
         },

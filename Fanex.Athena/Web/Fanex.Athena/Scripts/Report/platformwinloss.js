@@ -1,4 +1,4 @@
-﻿/*global Site, Report, QueryString, PlatformWinLossOption, JSLINQ,jqGridAdditional*/
+﻿/*global Site, Report, QueryString, PlatformWinLossOption, JSLINQ,jqGridAdditional, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 /// //##
 /*
@@ -47,7 +47,7 @@ var PlatformWinLoss = (function ($) {
     return {
         //#region Init
         initialize: function () {
-            Site.initProductList();
+            ProductListHelper.initProductList();
             PlatformWinLoss.initSetting();
             PlatformWinLoss.initMonthPicker();
             PlatformWinLoss.initEvent();

@@ -1,4 +1,4 @@
-﻿/*global Site, QueryString*/
+﻿/*global Site, QueryString, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 /*
 There is a special rule in match win loss report
@@ -10,6 +10,13 @@ There is a special rule in match win loss report
 
 var MatchWinLoss = (function ($) {
     "use strict";
+    var _$productList;
+
+    function isProductOriginalChecked(productCode) {
+        _$productList = _$productList || $("#ProductList");
+        $('.childCheckbox[data-product-code="' + productCode + '"]', _$productList).attr("data-original") === 'true';
+    }
+
     return {
         resizeGrid: function () {
             var $grid = $("#ContentMainContent");
@@ -21,7 +28,7 @@ var MatchWinLoss = (function ($) {
             }
         },
         initialize: function () {
-            Site.initProductList();
+            ProductListHelper.initProductList();
             MatchWinLoss.initProductList();
             MatchWinLoss.initEvent();
             MatchWinLoss.resizeGrid();
@@ -62,23 +69,23 @@ var MatchWinLoss = (function ($) {
             $('#MatchWinLossForm').submit();
         },
 
-        getProductOption: function (productCode) {
+        getProductCodeList: function (productCode) {
             var codeList = ["RB", "NG", "LC", "VS"];
-            var productList = $("#ProductList");
-            var productOptions = [];
-            var showSb = (productCode === 'SB' || productCode === 'BA') && 
-                $('.childCheckbox[data-product-code="SB"]', productList).attr("data-original") === 'True';
-            var showBa = (productCode === 'SB' || productCode === 'BA') && 
-                $('.childCheckbox[data-product-code="BA"]', productList).attr("data-original") === 'True';
-            if (showSb) { productOptions.push({ Code: "SB", Status: true }); }
-            if (showBa) { productOptions.push({ Code: "BA", Status: true }); }
+            var productCodeList= [];
+            if ((productCode === 'SB' || productCode === 'BA') && isProductOriginalChecked('SB')) {
+                productCodeList.push('SB');
+            }
+            if ((productCode === 'SB' || productCode === 'BA') && isProductOriginalChecked('BA')) {
+                productCodeList.push('BA');
+            }
 
             $(codeList).each(function (index, element) {
-                var show = productCode === element && $('.childCheckbox[data-product-code="' + element + '"]', productList).attr("data-original") === 'True';
-                if (show) { productOptions.push({ Code: element, Status: true }); }
+                if (productCode === element && isProductOriginalChecked(element)) {
+                    productCodeList.push(element);
+                }
             });
 
-            return productOptions;
+            return productCodeList;
         },
 
         viewMatchWinlossDetail: function (element) {
@@ -93,7 +100,7 @@ var MatchWinLoss = (function ($) {
             submitData = Site.setLicenseeOptionOriginalParam(submitData);
             submitData.Date = $("#Date").attr('data-original');
             
-            submitData.ProductOptions = MatchWinLoss.getProductOption(submitData.ProductCode);
+            submitData.ProductCodeList = MatchWinLoss.getProductCodeList(submitData.ProductCode);
             var isExpanded = $parentRow.find('td').attr('rowspan') > 1;
             var $table = $("#data-content");
             var $expandedRows = $table.find('.expand');
@@ -160,29 +167,7 @@ var MatchWinLoss = (function ($) {
             url = QueryString.setParam(url, "homeid", data.HomeId);
             url = QueryString.setParam(url, "awayid", data.AwayId);
 
-            // Sport Type params
-            var $productList = $("#ProductList");
-            var showSb = (productCode === 'SB' || productCode === 'BA') 
-                && $('.childCheckbox[data-product-code="SB"]', $productList).attr("data-original") === 'true';
-            var showBa = (productCode === 'SB' || productCode === 'BA') 
-                && $('.childCheckbox[data-product-code="BA"]', $productList).attr("data-original") === 'true';
-            var productCodeList = [];
-            if (showSb)
-            {
-                productCodeList.push("SB");
-            }
-            if (showBa) {
-                productCodeList.push("BA");
-            }
-            
-            var codeList = ["RB", "NG", "LC", "VS"];
-            $(codeList).each(function (index, element) {
-                var isShow = productCode === element && $('.childCheckbox[data-product-code="' + element + '"]', $productList).attr("data-original") === 'true';
-                if (isShow)
-                {
-                    productCodeList.push(element);
-                }
-            });
+            var productCodeList = MatchWinLoss.getProductCodeList(productCode);
 
             url = Site.setProductCodeListParam(url, productCodeList);
 
@@ -199,15 +184,11 @@ var MatchWinLoss = (function ($) {
             url = QueryString.setParam(url, "todate", date);
             url = QueryString.setParam(url, "bettype", betType);
 
-            // Sport type
-            var productList = $("#ProductList");
-            var showSb = $('.childCheckbox[data-product-code="SB"]', productList).attr("data-original") === 'true';
-            var showBa = $('.childCheckbox[data-product-code="BA"]', productList).attr("data-original") === 'true';
             var productCodeList = [];
-            if (showSb) {
+            if (isProductOriginalChecked('SB')) {
                 productCodeList.push("SB");
             }
-            if (showBa) {
+            if (isProductOriginalChecked('BA')) {
                 productCodeList.push("BA");
             }
 

@@ -114,6 +114,7 @@
                         "~/Scripts/Languages/ViewResources.zh-TW.js",
                         "~/Scripts/Languages/ViewResources.ko-KR.js",
                         "~/Scripts/Global/site.js",
+                        "~/Scripts/Helper/ProductListHelper.js",
                         "~/Scripts/Global/query.string.js",
                         "~/Scripts/Plugin/Note/note.js");
             AddNewScriptBundle(bundles, bundle);

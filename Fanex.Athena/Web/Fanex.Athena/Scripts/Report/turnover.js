@@ -1,4 +1,4 @@
-﻿/*global Site, TurnoverOption, jqGridAdditional*/
+﻿/*global Site, TurnoverOption, jqGridAdditional, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 "use strict";
 var Turnover = (function ($) {
@@ -8,7 +8,7 @@ var Turnover = (function ($) {
         defaultUserName: Site.getSingleResource('ExternalIdOrSystemId'),
         
         initialize: function () {
-            Site.initProductList();
+            ProductListHelper.initProductList();
             Turnover.initMonthPicker();
             Turnover.initEvent();
             Turnover.initAutoComplete();

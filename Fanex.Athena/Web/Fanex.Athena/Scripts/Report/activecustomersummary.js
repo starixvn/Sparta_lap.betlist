@@ -1,4 +1,4 @@
-﻿/*global jqGridAdditional, JSLINQ, ActiveCustomerOption, Report, Site */
+﻿/*global jqGridAdditional, JSLINQ, ActiveCustomerOption, Report, Site, ProductListHelper */
 /// <reference path="/@JSense.js" />
 ///
 var ActiveCustomer = (function ($) {
@@ -32,7 +32,7 @@ var ActiveCustomer = (function ($) {
 
     return {
         initialize: function () {
-            Site.initProductList();
+            ProductListHelper.initProductList();
             ActiveCustomer.initEvent();
 
             ActiveCustomerOption.gridOption.onSortCol = function (index/*, columnIndex, sortOrder*/) {

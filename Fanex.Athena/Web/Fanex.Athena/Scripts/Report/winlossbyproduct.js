@@ -1,4 +1,4 @@
-﻿/*global Site, Report, QueryString, jqGridAdditional, WinLossByProductOption*/
+﻿/*global Site, Report, QueryString, jqGridAdditional, WinLossByProductOption, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 
 var WinLossByProduct = (function ($) {
@@ -69,7 +69,7 @@ var WinLossByProduct = (function ($) {
     return {
     //#region Init
     initialize: function () {
-        Site.initProductList();
+        ProductListHelper.initProductList();
         WinLossByProduct.initEvent();
         WinLossByProduct.initSetting();
         initAutoComplete();
