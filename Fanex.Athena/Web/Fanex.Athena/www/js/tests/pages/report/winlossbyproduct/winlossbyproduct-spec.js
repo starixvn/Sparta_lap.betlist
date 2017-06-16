@@ -1,4 +1,4 @@
-﻿define(['jquery', 'common/site', 'components/pluginhelper/daterangepicker', 'pages/report/winlossbyproduct/winlossbyproduct.option', 'pages/report/winlossbyproduct/winlossbyproduct',
+﻿define(['jquery', 'common/site', 'common/querystring', 'components/pluginhelper/daterangepicker', 'pages/report/winlossbyproduct/winlossbyproduct.option', 'pages/report/winlossbyproduct/winlossbyproduct',
     'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup', 'components/pluginhelper/multiselect', "components/pluginhelper/autocomplete"],
         function ($, Site, DatePicker, WinLossByProductOption, WinLossByProduct, Report, jqGridAdditional, Popup, MultiSelect, AutoComplete) {
             describe("WinLossByProduct", function () {
@@ -62,9 +62,12 @@
                 describe("initEvent()", function () {
                     beforeEach(function () {
                         setFixtures("<div class='bet-list-link' data-drill-down='2' />");
-                        
 
                         appendSetFixtures("<div id='SubmitButton' />");
+                        appendSetFixtures('<div class="main-content">' +
+                            '<a class="drilldown"></a>' +
+                            '</div>');
+                        appendSetFixtures("<div id='ExportToExcel' />");
                         appendSetFixtures("<input id='IsExportExcel' />");
 
                         appendSetFixtures("<div id='level-link-container'><div class='level-link' data-level='1' /></div>");
@@ -112,15 +115,48 @@
 
                         expect(WinLossByProduct.goBack).not.toHaveBeenCalled();
                     });
+
+                    it("Site.exportExcel() should be called when '#ExportToExcel' fired click event", function () {
+                        spyOn(Site, "exportExcel");
+                        spyOn($.fn, "serializeObject").and.returnValue({ Username: "" });
+
+                        $("#ExportToExcel").click();
+
+                        expect(Site.exportExcel).toHaveBeenCalledWith({ Username: null }, WinLossByProductOption.urlExcelData);
+                    });
+
+                    it("WinLossByProduct.drillDown() should be called when '.drilldown' fired click event", function () {
+                        spyOn(WinLossByProduct, "drillDown");
+                        spyOn($.fn, "data").and.returnValue({
+                            level: 1,
+                            currencyId: 2,
+                            custId: 3,
+                            datetime: "05/01/2017",
+                            currencyName: "USD"
+                        });
+
+                        $(".drilldown").click();
+
+                        expect(WinLossByProduct.drillDown).toHaveBeenCalledWith(1, 2, 3, "05/01/2017", "USD");
+                    });
                 });
 
                 describe("setExcelUrl(level, currencyId, custId, fdate, tdate, currencyName)", function () {
-                    it("WinLossByProductOption.urlExcelData should has correct data", function () {
+                    it("WinLossByProductOption.urlExcelData should has correct data with level 0", function () {
                         var expected = 'api/WinLossByProductReport/Index';
 
                         WinLossByProduct.setExcelUrl(0, 2, 221, "Apr 15, 2016", "Apr 20, 2016", "UUS");
 
                         expect(WinLossByProductOption.urlExcelData).toBe(expected);
+                    });
+
+                    it("WinLossByProductOption.urlExcelData should has correct data with level 1", function () {
+                        var expected = 'api/WinLossByProductReport/Index?' +
+                            'level=1' + '&currencyId=2' + '&custId=221' + '&fdate=05/01/2017' + '&tdate=05/30/2017';
+
+                        WinLossByProduct.setExcelUrl(1, 2, 221, "2017-05-01T00:00:00", "2017-05-30T00:00:00", "UUS");
+
+                        expect(WinLossByProductOption.urlExcelData).toContain(expected);
                     });
                 });
 
@@ -141,16 +177,24 @@
                         spyOn(Report, "renderBreadCrumb");
                         spyOn(WinLossByProduct, "bindData");
                         WinLossByProductOption.licenseeId = 100;
-
-                        WinLossByProduct.ajaxComplete(2, {});
                     });
 
                     it("Report.renderBreadCrumb(level) should be called with correct parameter", function () {
+                        WinLossByProduct.ajaxComplete(2, {});
+
                         expect(Report.renderBreadCrumb).toHaveBeenCalledWith(2, 100);
                     });
 
                     it("WinLossByProduct.bindData(level, reportBy, response) should be called with correct parameter", function () {
+                        WinLossByProduct.ajaxComplete(2, {});
+
                         expect(WinLossByProduct.bindData).toHaveBeenCalledWith(2, undefined, {});
+                    });
+
+                    it("WinLossByProduct.bindData(level, reportBy, response) should not be called if response data is null", function () {
+                        WinLossByProduct.ajaxComplete(2, null);
+
+                        expect(WinLossByProduct.bindData).not.toHaveBeenCalled();
                     });
                 });
 
@@ -158,15 +202,16 @@
                     var TESTURL = "testurl";
                     var originalUrl = WinLossByProductOption.urlData;
                     var request;
+                    var validProducts = false;
 
                     beforeEach(function (done) {
                         WinLossByProductOption.urlData = TESTURL;
                         spyOn(Report, "setOriginalProduct");
-                        spyOn(Report, "ValidProducts").and.returnValue(true);
+                        spyOn(Report, "ValidProducts").and.returnValue(validProducts);
                         spyOn(Site, "updateOriginalLicenseeOption");
 
                         spyOn($.fn, "serializeObject").and.returnValue({ Username: "test" });
-                        
+
                         spyOn(WinLossByProduct, "setReportTitle");
                         spyOn(WinLossByProduct, "setExcelUrl");
                         spyOn(WinLossByProduct, "ajaxComplete");
@@ -186,8 +231,13 @@
                     });
 
                     afterEach(function () {
+                        validProducts = true;
                         WinLossByProductOption.urlData = originalUrl;
                         jasmine.Ajax.uninstall();
+                    });
+
+                    it("should be returned false id product is not valid", function () {
+                        expect(Site.updateOriginalLicenseeOption).not.toHaveBeenCalled();
                     });
 
                     it("ajax request should be called with correct url", function () {
@@ -217,16 +267,296 @@
                 describe("bindData(level, reportBy, response)", function () {
                     beforeEach(function () {
                         spyOn(jqGridAdditional, "clearGrid");
-                        spyOn(WinLossByProductOption, "getGridOption").and.returnValue({});
-
-                        WinLossByProduct.bindData(0, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
                     });
 
                     it("jqGridAdditional.clearGrid(reportId) should be called", function () {
+                        spyOn(WinLossByProductOption, "getGridOption").and.returnValue({});
+
+                        WinLossByProduct.bindData(0, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
+
                         expect(jqGridAdditional.clearGrid).toHaveBeenCalled();
                     });
                     it("WinLossByProductOption.getGridOption(level, reportBy) should be called", function () {
+                        spyOn(WinLossByProductOption, "getGridOption").and.returnValue({});
+
+                        WinLossByProduct.bindData(0, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
+
                         expect(WinLossByProductOption.getGridOption).toHaveBeenCalled();
+                    });
+                    it("jqGridAdditional.setNoInfo should be called if response data is empty", function () {
+                        spyOn(jqGridAdditional, "setNoInfo");
+
+                        WinLossByProduct.bindData(0, "test", { Data: [] });
+
+                        expect(jqGridAdditional.setNoInfo).toHaveBeenCalled();
+                    });
+
+                    describe("gridOption.onPaging(pgButton)", function () {
+                        var gridOption = {};
+                        beforeEach(function () {
+                            spyOn(WinLossByProductOption, "getGridOption").and.returnValue(gridOption);
+                        });
+
+                        it("stop paging if level is not 2", function () {
+                            WinLossByProduct.bindData(1, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
+
+                            var result = gridOption.onPaging();
+
+                            expect(result).toEqual("stop");
+                        });
+
+                        it("Site.blockUI() should be called if pgButton is not disabled", function () {
+                            setFixtures('<div id="pgButton"></div>');
+                            spyOn(Site, "blockUI");
+                            WinLossByProductOption.pageSize = 0;
+
+                            WinLossByProduct.bindData(2, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
+
+                            gridOption.onPaging("pgButton");
+
+                            expect(Site.blockUI).toHaveBeenCalled();
+                        });
+
+                        it("Site.blockUI() should not be called if pgButton is disabled", function () {
+                            setFixtures('<div id="pgButton" class="ui-state-disabled"></div>');
+                            spyOn(Site, "blockUI");
+                            WinLossByProductOption.pageSize = 0;
+
+                            WinLossByProduct.bindData(2, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
+
+                            gridOption.onPaging("pgButton");
+
+                            expect(Site.blockUI).not.toHaveBeenCalled();
+                        });
+                    });
+
+                    describe("gridOption.gridComplete()", function () {
+                        var gridOption = {
+                            colModel: [{
+                                id: "Index",
+                                hidden: false
+                            }]
+                        };
+                        beforeEach(function () {
+                            spyOn(WinLossByProductOption, "getGridOption").and.returnValue(gridOption);
+                            spyOn(jqGridAdditional, "gridComplete");
+                            spyOn(WinLossByProduct, "rowSpanByLevel");
+                            spyOn(WinLossByProduct, "bindTotal");
+                            spyOn(WinLossByProduct, "resizeGrid");
+                            spyOn(WinLossByProduct, "reUpdateGridWidth");
+                            spyOn(jqGridAdditional, "setGroupCustomerWLColumns");
+                            spyOn(Site, "unBlockUI");
+                        });
+
+                        it("#pg_ppdata should be hide if level is not 2", function () {
+                            setFixtures('<div id="pg_ppdata"></div>');
+
+                            WinLossByProduct.bindData(1, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
+
+                            gridOption.gridComplete();
+
+                            expect($("#pg_ppdata").is(":hidden")).toEqual(true);
+                        });
+
+                        it("#pg_ppdata should be shown if level 2 has paging", function () {
+                            setFixtures('<div id="pg_ppdata" style="display:none"></div>');
+                            WinLossByProductOption.pageSize = 0;
+
+                            WinLossByProduct.bindData(2, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
+
+                            gridOption.gridComplete();
+
+                            expect($("#pg_ppdata").is(":hidden")).toEqual(false);
+                        });
+
+                        it("bindTotal should not be called if level 2 is paging", function () {
+                            setFixtures('<div id="pg_ppdata" style="display:none"></div>');
+                            WinLossByProductOption.pageSize = 0;
+
+                            WinLossByProduct.bindData(2, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
+                            gridOption.onPaging();
+
+                            gridOption.gridComplete();
+
+                            expect(WinLossByProduct.bindTotal).not.toHaveBeenCalled();
+                        });
+
+                        it("bindTotal should be called if level is not 2 and page is not paging", function () {
+                            setFixtures('<div id="pg_ppdata" style="display:none"></div>');
+                            WinLossByProductOption.pageSize = 0;
+
+                            WinLossByProduct.bindData(1, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
+
+                            gridOption.gridComplete();
+
+                            expect(WinLossByProduct.bindTotal).toHaveBeenCalled();
+                        });
+
+                        it("jqGridAdditional.setGroupCustomerWLColumn should not be called if report does not have Customer Commission", function () {
+                            setFixtures('<div id="pg_ppdata" style="display:none"></div>');
+                            WinLossByProductOption.hasCustomerComm = false;
+
+                            WinLossByProduct.bindData(1, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
+
+                            gridOption.gridComplete();
+
+                            expect(jqGridAdditional.setGroupCustomerWLColumns).not.toHaveBeenCalled();
+                        });
+
+                        it("jqGridAdditional.setGroupCustomerWLColumn should be called if report has Customer Commission", function () {
+                            setFixtures('<div id="pg_ppdata" style="display:none"></div>');
+                            WinLossByProductOption.hasCustomerComm = true;
+
+                            WinLossByProduct.bindData(1, "test", { Data: [{ Id: 0, Name: "foo" }], Total: [{ Id: 0, Name: "foo" }] });
+
+                            gridOption.gridComplete();
+
+                            expect(jqGridAdditional.setGroupCustomerWLColumns).toHaveBeenCalled();
+                        });
+                    });
+                });
+
+                describe("reUpdateGridWidth()", function () {
+                    it("should be update if table has scroll bar", function () {
+                        spyOn($.fn, "hasHorizontalScrollBar").and.returnValue(true);
+                        spyOn($.fn, "hasVerticalScrollBar").and.returnValue(true);
+                        spyOn($.fn, "css");
+
+                        WinLossByProduct.reUpdateGridWidth();
+
+                        expect($.fn.css).toHaveBeenCalled();
+                    });
+                });
+
+                describe("rowSpanByLevel($grid, level)", function () {
+                    var $grid;
+                    beforeEach(function () {
+                        $grid = jasmine.createSpyObj("$grid", ["tableRowSpan"]);
+                    });
+
+                    it("$.fn.tableRowSpan should be called with correct params when level is 0", function () {
+                        WinLossByProduct.rowSpanByLevel($grid, 0);
+
+                        expect($grid.tableRowSpan).toHaveBeenCalledWith([0, 4]);
+                    });
+
+                    it("$.fn.tableRowSpan should be called with correct params when level is 1", function () {
+                        WinLossByProduct.rowSpanByLevel($grid, 1);
+
+                        expect($grid.tableRowSpan).toHaveBeenCalledWith([0, WinLossByProductOption.systemIdIndex], WinLossByProductOption.currencyIndex);
+                    });
+
+                    it("$.fn.tableRowSpan should be called with correct params when level is 2", function () {
+                        WinLossByProduct.rowSpanByLevel($grid, 2);
+
+                        expect($grid.tableRowSpan).toHaveBeenCalledWith([0, WinLossByProductOption.externalIdIndex, WinLossByProductOption.systemIdIndex],
+                                                     WinLossByProductOption.currencyIndex);
+                    });
+                });
+
+                describe("bindTotal(level, totalData, summaryTotal)", function () {
+                    it("Report.bindSummaryTotal should be called with correct params", function () {
+                        spyOn(WinLossByProductOption, "getTotalColModel").and.returnValue([]);
+                        WinLossByProductOption.totalColspan = [0, 1, 2];
+                        spyOn(WinLossByProduct, "reverse").and.returnValue([]);
+                        spyOn(Report, "bindSummaryTotal").and.returnValue(2);
+                        spyOn(jqGridAdditional, "setGroupFooters");
+
+                        WinLossByProduct.bindTotal(0, [], []);
+
+                        expect(Report.bindSummaryTotal).toHaveBeenCalledWith([], []);
+                        expect(jqGridAdditional.setGroupFooters).toHaveBeenCalledWith(0, 1, 2, true);
+                    });
+                });
+
+                describe("reverse(objectData)", function () {
+                    it("Report.bindSummaryTotal should be called with correct params", function () {
+                        spyOn(Site, "clone").and.callFake(function (obj) {
+                            return obj;
+                        });
+                        spyOn(Array.prototype, "reverse");
+                        var objectData = {
+                            EUR: [{ ProductCode: "SB", Date: "0001-01-01T00:00:00", RowSpan: 0, Index: 0, ExternalId: null }],
+                            GBP: [{ ProductCode: "SB", Date: "0001-01-01T00:00:00", RowSpan: 0, Index: 0, ExternalId: null }],
+                            USD: [{ ProductCode: "SB", Date: "0001-01-01T00:00:00", RowSpan: 0, Index: 0, ExternalId: null }]
+                        };
+
+                        WinLossByProduct.reverse(objectData);
+
+                        expect(Array.prototype.reverse).toHaveBeenCalled();
+                    });
+                });
+
+                describe("goBack(level)", function () {
+                    beforeEach(function () {
+                        spyOn(Report, "renderBreadCrumb");
+                        spyOn(WinLossByProduct, "bindData");
+                        spyOn(WinLossByProduct, "setExcelUrl");
+                        spyOn(WinLossByProduct, "setReportTitle");
+                    });
+
+                    it("setExcelUrl and setReportTitle should be called when going back to level 0", function () {
+                        WinLossByProduct.goBack(0);
+
+                        expect(WinLossByProduct.setExcelUrl).toHaveBeenCalled();
+                        expect(WinLossByProduct.setReportTitle).toHaveBeenCalled();
+                    });
+
+                    it("url excel should be change when going back to level 1", function () {
+                        WinLossByProduct.goBack(1);
+
+                        expect(WinLossByProduct.setExcelUrl).not.toHaveBeenCalled();
+                        expect(WinLossByProduct.setReportTitle).not.toHaveBeenCalled();
+                        expect(WinLossByProductOption.urlExcelData).toContain("level=1");
+                    });
+                });
+
+                describe("openBetlistPopUp(dataDrillDown)", function () {
+                    beforeEach(function () {
+                        spyOn($, "parseJSON").and.callFake(function (obj) {
+                            return obj;
+                        });
+                        spyOn(QueryString, "setParams").and.callFake(function (url, obj) {
+                            return url + "?param";
+                        });
+                        spyOn(Site, "setProductOptionOriginalParamList").and.callFake(function (url) {
+                            return url;
+                        });
+                        spyOn(Site, "setLicenseeOptionOriginalParam").and.callFake(function (url) {
+                            return url;
+                        });
+                        spyOn(Report, "GetDrilldownDateRange").and.returnValue({
+                            FromDate: new Date("05/01/2017"),
+                            ToDate: new Date("05/30/2017")
+                        });
+                        spyOn(Math, "min").and.returnValue(200);
+                        spyOn(Popup, "openPopupWithIframe");
+                    });
+
+                    it("Popup.openPopupWithIframe should be called with correct params", function () {
+                        var dataDrillDown = {
+                            DrillDownFromDate: "05/01/2017",
+                            DrillDownToDate: "05/30/2017"
+                        }
+
+                        var url = "LicenseeWinLossBetList/Index?param";
+
+                        WinLossByProduct.openBetlistPopUp(dataDrillDown);
+
+                        expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { id: "betlist-popup", width: 950, height: 250, title: "Customer Bet List" });
+                    });
+
+                    it("Popup.openPopupWithIframe should be called with correct params", function () {
+                        var dataDrillDown = {
+                            DrillDownFromDate: new Date("05/01/2017"),
+                            DrillDownToDate: new Date("05/30/2017")
+                        }
+
+                        var url = "LicenseeWinLossBetList/Index?param";
+
+                        WinLossByProduct.openBetlistPopUp(dataDrillDown);
+
+                        expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(url, { id: "betlist-popup", width: 950, height: 250, title: "Customer Bet List" });
                     });
                 });
             });

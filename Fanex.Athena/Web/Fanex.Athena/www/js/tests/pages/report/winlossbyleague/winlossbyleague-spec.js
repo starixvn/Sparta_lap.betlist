@@ -79,6 +79,15 @@
                         expect(WinLossByLeague.submit).toHaveBeenCalled();
                     });
 
+                    it("WinLossByLeague.submit() should be not called when '.level-link' fired click event if level is 1", function () {
+                        spyOn(WinLossByLeague, "submit");
+                        $('.level-link').attr('data-level', 1);
+
+                        $('.level-link').click();
+
+                        expect(WinLossByLeague.submit).not.toHaveBeenCalled();
+                    });
+
                     it("WinLossByLeague.drillDown(leagueid, leaguename) should be called when '#leagueHeader' is clicked", function () {
                         spyOn(WinLossByLeague, "drillDown");
 
@@ -212,7 +221,6 @@
                         setFixtures('<form id="SearchForm"></form>');
                         appendSetFixtures('<input id="CurrencyName" value="ABC" />');
                         appendSetFixtures('<select id="League"><option value="100" selected>League Test</option></select>');
-                        spyOn(WinLossByLeagueFilter, "isValid").and.returnValue(true);
                         spyOn($.fn, "serializeObject").and.returnValue(submitData);
                         spyOn(WinLossByLeague, "ajaxComplete");
                         spyOn(Site, "blockUI");
@@ -226,9 +234,6 @@
                                     'responseText': '{ "ProductOptions": "SB,RC" }'
                                 });
 
-                        WinLossByLeague.submit();
-                        request = jasmine.Ajax.requests.mostRecent();
-
                         setTimeout(done, 10);
                     });
                     afterEach(function () {
@@ -236,17 +241,40 @@
                     });
 
                     it("request url should be correct", function () {
+                        spyOn(WinLossByLeagueFilter, "isValid").and.returnValue(true);
                         var expectedUrl = "api/WinLossByLeagueReport/Index";
+
+                        WinLossByLeague.submit();
+                        request = jasmine.Ajax.requests.mostRecent();
 
                         expect(request.url).toBe(expectedUrl);
                     });
                     it("Site.blockUI() should be called", function () {
+                        spyOn(WinLossByLeagueFilter, "isValid").and.returnValue(true);
+
+                        WinLossByLeague.submit();
+
                         expect(Site.blockUI).toHaveBeenCalled();
                     });
+                    it("Site.blockUI() should not be called if filter is not valid", function () {
+                        spyOn(WinLossByLeagueFilter, "isValid").and.returnValue(false);
+
+                        WinLossByLeague.submit();
+
+                        expect(Site.blockUI).not.toHaveBeenCalled();
+                    });
                     it("Site.unBlockUI() should be called", function () {
+                        spyOn(WinLossByLeagueFilter, "isValid").and.returnValue(true);
+
+                        WinLossByLeague.submit();
+
                         expect(Site.unBlockUI).toHaveBeenCalled();
                     });
                     it("WinLossByLeague.ajaxComplete(level, response) should be called with correct parameters", function () {
+                        spyOn(WinLossByLeagueFilter, "isValid").and.returnValue(true);
+
+                        WinLossByLeague.submit();
+
                         expect(WinLossByLeague.ajaxComplete).toHaveBeenCalledWith(0, { ProductOptions: "SB,RC" });
                     });
                 });
@@ -424,6 +452,14 @@
                         WinLossByLeague.bindTotal(0, 100);
 
                         expect(jqGridAdditional.setGroupFooters).toHaveBeenCalledWith(2, 0, 0);
+                    });
+
+                    it("jqGridAdditional.setGroupFooters should be called with correct parameter", function () {
+                        spyOn(jqGridAdditional, "setGroupFooters");
+
+                        WinLossByLeague.bindTotal(1, 100);
+
+                        expect(jqGridAdditional.setGroupFooters).toHaveBeenCalledWith(3, 0, 0);
                     });
                 });
 
