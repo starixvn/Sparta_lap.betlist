@@ -74,7 +74,7 @@
 
         function showConfirmDeleteDefaulCommGroupPopup() {
             var options = {
-                model: true,
+                modal: true,
                 title: Site.getSingleResource("Confirm"),
                 height: "auto",
                 id: "del-default-comm-group"
@@ -107,7 +107,7 @@
             }
 
             var options = {
-                model: true,
+                modal: true,
                 title: Site.getSingleResource("DeleteCommissionGroup"),
                 height: "auto",
                 id: "option-del-comm-group"
@@ -137,7 +137,7 @@
 
         function showConfirmDeleteCommGroupPopup() {
             var options = {
-                model: true,
+                modal: true,
                 title: Site.getSingleResource("Confirm"),
                 height: "auto",
                 id: "confirm-del-comm-group"
@@ -162,7 +162,7 @@
 
         function showResultPopup(title, message) {
             var options = {
-                model: true,
+                modal: true,
                 title: title,
                 height: "auto",
                 id: "result-del-comm-group"

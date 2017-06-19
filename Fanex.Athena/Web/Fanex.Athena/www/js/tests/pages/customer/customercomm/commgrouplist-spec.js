@@ -143,7 +143,7 @@
             describe("showConfirmDeleteDefaulCommGroupPopup()", function () {
                 it("Popup.openPopupWithButton should be called with correct params", function () {
                     var options = {
-                        model: true,
+                        modal: true,
                         title: "Confirm",
                         height: "auto",
                         id: "del-default-comm-group"
@@ -189,7 +189,7 @@
                     '</div>';
                     setFixtures('<div id="option-del-comm-group">' + expectedPopupContent + '</div>');
                     var expectedOption = {
-                        model: true,
+                        modal: true,
                         title: "DeleteCommissionGroup",
                         height: "auto",
                         id: "option-del-comm-group"
@@ -303,7 +303,7 @@
             describe("showConfirmDeleteCommGroupPopup()", function () {
                 it("Popup.openPopupWithButton should be called with correct params", function () {
                     var options = {
-                        model: true,
+                        modal: true,
                         title: "Confirm",
                         height: "auto",
                         id: "confirm-del-comm-group"
@@ -334,7 +334,7 @@
                     var expectedPopupContent = "Result Message";
                     var expectedTitle = "Title Popup";
                     var options = {
-                        model: true,
+                        modal: true,
                         title: expectedTitle,
                         height: "auto",
                         id: "result-del-comm-group"
@@ -357,7 +357,7 @@
                     var expectedPopupContent = "Result Message";
                     var expectedTitle = "Title Popup";
                     var options = {
-                        model: true,
+                        modal: true,
                         title: expectedTitle,
                         height: "auto",
                         id: "result-del-comm-group"

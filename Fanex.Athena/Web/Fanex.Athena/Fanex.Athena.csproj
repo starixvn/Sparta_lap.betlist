@@ -886,6 +886,12 @@
     <Content Include="Views\Desktop\Customer\BetSetting\AllBet.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\FishingWorld.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\Voidbridge.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\AgCasino.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\Keno.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\RngCasino.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\CashOut.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\LiveCasino.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\NumberGame.cshtml" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />

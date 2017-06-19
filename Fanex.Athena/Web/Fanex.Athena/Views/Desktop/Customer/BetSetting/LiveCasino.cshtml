@@ -1,0 +1,135 @@
+﻿@{
+    Layout = "~/Views/Desktop/Shared/_BetSettingLayout.cshtml";
+}
+@model Fanex.Athena.Model.BetSettings.ViewModel.LiveCasinoBetSettingViewModel
+
+@helper RenderFirstRow()
+{
+    <tr class="first-row">
+        <td class="col-medium"></td>
+        <td class="col-large"></td>
+    </tr>
+}
+
+@section Menu{
+    @{Html.RenderPartial("~/Views/Desktop/Customer/BetSetting/Menu.cshtml", Model);}
+}
+
+@section ContentTitle{
+    @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
+}
+
+@{
+    var gameTypeCount = Model.LiveCasinoData.Count;
+}
+
+@if (gameTypeCount == 0)
+{
+    <p class="no-info-row">@ViewResources.NoInfo</p>
+}
+else
+{
+    var index = 1;
+    var disabledAttribute = Model.Editable ? null : "disabled";
+
+    <div class="table-content">
+        <div class="header-content">
+            <table class="table">
+                <thead>
+                    @RenderFirstRow()
+
+                    <tr>
+                        <th>@ViewResources.GameType</th>
+                        <th>@ViewResources.BettingLimit</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="body-content">
+            <table class="table betsetting-form">
+                <tbody>               
+                    @RenderFirstRow()
+
+                    @foreach (var item in Model.LiveCasinoData)
+                    {
+                        var bettingIndex = 1;
+                        var checkingAttr = item.BettingLimitList.Any(x => x.IsCheck == true) ? true : false;
+                        var itemBetting = 0;
+                        var stakeLevelId = item.BettingLimitList.Where(i => i.IsCheck == true).Select(x => x.StakeLevelId).FirstOrDefault();
+                        <tr>
+                            <td>@item.GameTypeName</td>
+                            <td>
+                                @for (var i = 5; i < item.BettingLimitList.Count; i += 5)
+                                {
+                                    for (var j = 0; j < 5; j++)
+                                    {
+                                        if (itemBetting < item.BettingLimitList.Count)
+                                        {
+                                            var bettingLimit = item.BettingLimitList[itemBetting];
+                                            if (checkingAttr)
+                                            {
+                                                <input @disabledAttribute type="radio" id="bettingLimit_@(item.GameTypeId)@(bettingIndex)" data-stake-id="@bettingLimit.StakeLevelId" name="gameTypeName@(index)"
+                                                       @(bettingLimit.IsCheck == true ? "checked = checked" : "") />
+                                            }
+                                            else
+                                            {
+                                                <input @disabledAttribute type="radio" id="bettingLimit_@(item.GameTypeId)@(bettingIndex)" data-stake-id="@bettingLimit.StakeLevelId" name="gameTypeName@(index)"
+                                                       @(bettingIndex == 1 ? "checked = checked" : "") />
+                                            }
+                                            <span>@(bettingLimit.StakeLevelName)</span>
+                                            itemBetting++;
+                                            bettingIndex++;
+                                        }
+                                    }
+                                }
+                            </td>
+                        </tr>
+                        index++;
+
+                        @Html.Hidden("gameTypeId" + index, item.GameTypeId)
+                        @Html.Hidden("stakeLevelName" + index, item.StakeLevelNameChecked)
+                        @Html.Hidden("betTypeId" + index, item.BetTypeId)
+                        @Html.Hidden("oldCheck" + index, stakeLevelId)
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@Html.Hidden("gameTypeCount", gameTypeCount)
+@Html.Hidden("dataCount", Model.LiveCasinoData.Count)
+@Html.Hidden("editable", Model.IsEnabled.Value)
+
+<!--SubmitButton-->
+@if (Model.Editable && Model.LiveCasinoData.Count > 0)
+{
+    <div class="right button-block">
+        <button type="button" class="btn btn-submit"
+                data-cust-id="@Model.Param.CustId"
+                data-user-name="@Model.Param.UserName.ToString()"
+                data-nick-name="@Model.Param.NickName"
+                id="btnSubmitBetSetting">
+            @ViewResources.Submit
+        </button>
+        <button type="button" class="btn btn-cancel" id="btnReset">@ViewResources.Reset</button>
+        @if (Model.IsEnabled.HasValue && Model.LiveCasinoData.Count > 0)
+        {
+            <button type="button" class="btn btn-submit"
+                    data-status="@(Model.IsEnabled.Value ? 1 : 0)"
+                    data-cust-id="@Model.Param.CustId"
+                    data-nick-name="@Model.Param.NickName"
+                    id="btnUpdateStatus">
+                @(Model.IsEnabled.Value ? ViewResources.DisableLiveCasino : ViewResources.EnableLiveCasino)
+            </button>
+        }
+        else
+        {
+            <p>
+                @string.Format(ViewResources.CustomerHasNeverPlayed, "Live Casino")
+            </p>
+        }
+    </div>
+}
+<!--/SubmitButton-->

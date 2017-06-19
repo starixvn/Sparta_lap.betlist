@@ -172,8 +172,8 @@
              }
          }
 
-         function goToSite(relativeUrl, paramString) {
-             CustomerCommGroup.goToSite(relativeUrl, paramString);
+         function goToSite(relativeUrl) {
+             CustomerCommGroup.goToSite(relativeUrl);
          }
 
          function goToCustomerList(groupCommId) {
@@ -182,7 +182,7 @@
 
          function showConfirmAction(message, callback, groupId, isResetDefault) {
              var options = {
-                 model: true,
+                 modal: true,
                  title: Site.getSingleResource("Confirm"),
                  height: "auto",
                  id: "confirm-action"

@@ -424,9 +424,9 @@
                     var expectedHref = "url?param=0";
                     spyOn(CustomerCommGroup, "goToSite");
 
-                    CustomerCommGroupDetail.goToSite("url", "?param=0");
+                    CustomerCommGroupDetail.goToSite("url?param=0");
 
-                    expect(CustomerCommGroup.goToSite).toHaveBeenCalledWith("url", "?param=0");
+                    expect(CustomerCommGroup.goToSite).toHaveBeenCalledWith(expectedHref);
                 });
             });
 
