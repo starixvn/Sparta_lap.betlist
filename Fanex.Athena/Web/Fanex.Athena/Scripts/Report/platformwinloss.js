@@ -423,12 +423,11 @@ var PlatformWinLoss = (function ($) {
             url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
             url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
 
-            var count = 0;
+            var productCodeList = [];
             for (var i = 0; i < _drilldownData.ProductOptions.length; i++) {
                 var product = _drilldownData.ProductOptions[i];
                 if ($.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
-                    url = Site.setProductOptionParam(url, count, product.Code, product.Status);
-                    count++;
+                    productCodeList.push(product.Code);
                 }
             }
 

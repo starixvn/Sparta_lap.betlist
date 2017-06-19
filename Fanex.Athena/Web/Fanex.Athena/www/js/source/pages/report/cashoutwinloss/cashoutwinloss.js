@@ -273,8 +273,6 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                 url = QueryString.setParam(url, "productoptions[0].status", "true");
                 url = QueryString.setParam(url, "excelfilename", "CashOutWinLossBetList");
 
-                url = Site.setProductOptionOriginalParamList(url);
-
                 var popH = Math.min($(window).height() - 100, 650), popW = 920;
                 var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
                 Popup.openPopupWithIframe(url, popupOption);
