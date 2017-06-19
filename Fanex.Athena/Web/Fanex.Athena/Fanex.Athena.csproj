@@ -877,6 +877,14 @@
     <Content Include="Views\Desktop\Shared\_BetSettingLayout.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\Menu.cshtml" />
     <Content Include="www\css\source\pages\customer\betsetting.scss" />
+    <Content Include="Views\Desktop\Customer\BetSetting\Macau.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\BetTrade.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\MicroGamingLiveCasino.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\ColossusBets.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\MicroGamingRNGCasino.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\AllBet.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\FishingWorld.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\Voidbridge.cshtml" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
