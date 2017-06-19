@@ -8,7 +8,7 @@ $colorBorderTable: #d6d6d6;
     background-color: $white;
 }
 
-.menu-container {
+.menu-container, .setting-group-seletion {
     .col {
         padding: 0;
 
@@ -115,4 +115,8 @@ $colorBorderTable: #d6d6d6;
             }
         }
     }
+}
+
+.disabled-text {
+    color: #9F9F9F;
 }
