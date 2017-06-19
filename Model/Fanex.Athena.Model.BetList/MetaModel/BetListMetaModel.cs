@@ -100,8 +100,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 
         public string RaceNo { get; set; }
 
-        public int SportType { get; set; }
-
         public int DrawFilter { get; set; }
 
         public long TransId { get; set; }

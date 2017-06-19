@@ -243,8 +243,10 @@
             CreateBetlistSummaryParameters(db);
         }
 
-        private static void CreateLiveReportBetListRacingParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateLiveReportBetListRacingParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
+            var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
+
             CreateBetListSortingParameters(db, metaModel);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
@@ -262,8 +264,10 @@
             db.AddOutParameter("SUMLicenseeWLGBP", DbType.Currency, 8);
         }
 
-        private static void CreateLiveReportParlayBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateLiveReportParlayBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
+            var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
+
             CreateBetListSortingParameters(db, metaModel);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
@@ -276,8 +280,10 @@
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
-        private static void CreaeteLiveReportNumberGameBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreaeteLiveReportNumberGameBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
+            var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
+
             CreateBetListSortingParameters(db, metaModel);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
@@ -287,8 +293,10 @@
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
         }
 
-        private static void CreateLiveReportBetListByMatchParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateLiveReportBetListByMatchParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
+            var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
+
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
@@ -298,8 +306,10 @@
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
-        private static void CreateLiveReportOutRightBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateLiveReportOutRightBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
+            var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
+
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
