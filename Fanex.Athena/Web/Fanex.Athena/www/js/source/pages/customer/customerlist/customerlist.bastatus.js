@@ -21,10 +21,10 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
 
             var data = $context.data("val");
             var confirmMsg = data.isAllowBA ? Site.getSingleResource("AlertTurnOnBAMsg") : Site.getSingleResource("AlertTurnOffBAMsg");
+            var currentBAStatus = !data.isAllowBA;
 
             if (window.confirm(confirmMsg)) {
                 var url = Site.resolveClientUrl("CustomerAPI/UpdateBAStatus");
-                var currentBAStatus = !data.isAllowBA;
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -58,6 +58,9 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                         }
                     }
                 });
+            }
+            else {
+                $context.prop("checked", currentBAStatus);
             }
         }
     };

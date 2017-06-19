@@ -52,7 +52,6 @@
 }
 @Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
 @Html.Hidden("editable", Model.Editable)
-@Html.Hidden("dataCount", (Model.MainData.Count))
 
 @if (Model.MainData.Count == 0)
 {

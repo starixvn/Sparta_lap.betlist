@@ -1195,6 +1195,8 @@
     <Content Include="www\js\source\components\scrollablegrid.js" />
     <Content Include="www\js\source\components\selectlist.js" />
     <Content Include="www\js\source\helpers\sortableheader.js" />
+    <Content Include="www\js\source\lib\numberformat.js" />
+    <Content Include="www\js\source\lib\jquery.balloon.js" />
     <Content Include="www\js\source\lib\jquery.colorpicker.js" />
     <Content Include="www\js\source\lib\jquery.marquee.js" />
     <Content Include="www\js\source\lib\select2.js" />
@@ -1234,7 +1236,13 @@
     <Content Include="www\js\source\components\navbar.js" />
     <Content Include="www\js\source\components\refreshcountdown.js" />
     <Content Include="www\js\source\components\sidebar.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\betsetting.helper.js" />
     <Content Include="www\js\source\pages\customer\betsetting\betsetting.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\betsetting.reset.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\betsetting.status.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\betsetting.update.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\betsetting.validation.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\constant.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgroup.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgroupadd.js" />
