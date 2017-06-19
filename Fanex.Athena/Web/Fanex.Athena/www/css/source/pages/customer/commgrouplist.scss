@@ -18,6 +18,12 @@
 
 .page-action {
     margin: 1.5rem 1.5rem 0;
+
+    .btn {
+        height: 28px;
+        line-height: 28px;
+        padding: 0 1rem;
+    }
 }
 
 .no-customer-border {
@@ -38,6 +44,13 @@
 
 .delete-comm-group, .customer-list-link {
     cursor: pointer;
+}
+
+div {
+    &.icon-edit, &.icon-delete {
+        padding-left: 0 !important;
+        display: inline-block;
+    }
 }
 
 @media only screen and (min-width: 993px) {
