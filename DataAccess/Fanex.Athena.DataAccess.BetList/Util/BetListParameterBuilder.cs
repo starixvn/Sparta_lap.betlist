@@ -322,14 +322,15 @@
 
         private static void CreateDailyWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
+            var dailyBetListMetaModel = metaModel as DailyBetListMetaModel;
             CreateBetListSortingParameters(db, metaModel);
 
-            db.AddInParameter("date", DbType.DateTime, metaModel.Date);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("product", DbType.String, metaModel.ProductCode);
-            db.AddInParameter("status", DbType.String, metaModel.DailyBetListStatus);
-            CreateBetlistBUParameters(db, metaModel);
-            CreateBetListPagingParameters(db, metaModel);
+            db.AddInParameter("date", DbType.DateTime, dailyBetListMetaModel.Date);
+            db.AddInParameter("AgentList", DbType.String, dailyBetListMetaModel.AgentListXml);
+            db.AddInParameter("product", DbType.String, dailyBetListMetaModel.ProductCode);
+            db.AddInParameter("status", DbType.String, dailyBetListMetaModel.DailyBetListStatus);
+            CreateBetlistBUParameters(db, dailyBetListMetaModel);
+            CreateBetListPagingParameters(db, dailyBetListMetaModel);
             CreateBetlistSummaryParameters(db);
         }
 

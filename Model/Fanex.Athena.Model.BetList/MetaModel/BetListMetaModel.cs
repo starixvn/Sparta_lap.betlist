@@ -34,14 +34,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 
         public string SortOrder { get; set; }
 
-        #region Currency chosen on filter
-
-        public int OriginalCurrenceId { get; set; }
-
-        public string OriginalCurrencyName { get; set; }
-
-        #endregion Currency chosen on filter
-
         public bool ShowWin { get; set; }
 
         public bool ShowLoss { get; set; }
@@ -120,14 +112,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 
         public int DrawFilter { get; set; }
 
-        public string CurrencyIdList { get; set; }
-
-        public string BetTypeLastBets { get; set; }
-
-        public int LimitRowCount { get; set; }
-
-        public string SpecialLevel { get; set; }
-
         public long TransId { get; set; }
 
         public long TransType { get; set; }
@@ -139,10 +123,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
         public string BetChoice { get; set; }
 
         public string Handicap { get; set; }
-
-        public string ProductCode { get; set; }
-
-        public string DailyBetListStatus { get; set; }
 
         public virtual bool IsValid
         {

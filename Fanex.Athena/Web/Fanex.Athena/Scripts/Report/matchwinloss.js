@@ -14,7 +14,7 @@ var MatchWinLoss = (function ($) {
 
     function isProductOriginalChecked(productCode) {
         _$productList = _$productList || $("#ProductList");
-        $('.childCheckbox[data-product-code="' + productCode + '"]', _$productList).attr("data-original") === 'true';
+        return $('.childCheckbox[data-product-code="' + productCode + '"]', _$productList).attr("data-original") === 'true';
     }
 
     return {
@@ -85,7 +85,7 @@ var MatchWinLoss = (function ($) {
                 }
             });
 
-            return productCodeList;
+            return productCodeList.toString();
         },
 
         viewMatchWinlossDetail: function (element) {

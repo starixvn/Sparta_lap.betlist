@@ -34,7 +34,7 @@ namespace Fanex.Athena.Api.BetList
         {
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
 
-            var metaModel = new BetListMetaModel
+            var metaModel = new DailyBetListMetaModel
             {
                 CurrencyId = currencyId,
                 CurrencyName = currencyName,

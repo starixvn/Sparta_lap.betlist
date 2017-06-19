@@ -24,8 +24,6 @@ var ColossusBets = (function ($) {
         url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
         url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
         url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
-        url = QueryString.setParam(url, "OriginalCurrenceId", _submitData.CurrencyId);
-        url = QueryString.setParam(url, "OriginalCurrencyName", _submitData.CurrencyName);
         url = QueryString.setParam(url, "excelfilename", "ColossusBetsWinLossBetList");
         url = Site.setProductCodeListParam(url, "CB");
 

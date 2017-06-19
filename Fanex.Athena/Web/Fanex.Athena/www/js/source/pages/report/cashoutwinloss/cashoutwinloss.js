@@ -267,8 +267,6 @@ define(["jquery", "common/querystring", "common/site", "./cashoutwinloss.option"
                 url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
                 url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
                 url = QueryString.setParam(url, "BaseCurrency", _submitData.BaseCurrency);
-                url = QueryString.setParam(url, "OriginalCurrenceId", _submitData.CurrencyId);
-                url = QueryString.setParam(url, "OriginalCurrencyName", _submitData.CurrencyName);
                 url = QueryString.setParam(url, "productoptions[0].code", "CO");
                 url = QueryString.setParam(url, "productoptions[0].status", "true");
                 url = QueryString.setParam(url, "excelfilename", "CashOutWinLossBetList");

@@ -491,8 +491,6 @@ var LicenseeWinLoss = (function ($) {
             url = QueryString.setParam(url, "systemId", dataDrillDown.SystemId);
             url = QueryString.setParam(url, "externalId", dataDrillDown.ExternalId);
             url = QueryString.setParam(url, "BaseCurrency", dataDrillDown.BaseCurrency);
-            url = QueryString.setParam(url, "OriginalCurrenceId", dataDrillDown.CurrencyId);
-            url = QueryString.setParam(url, "OriginalCurrencyName", dataDrillDown.CurrencyName);
 
             url = Site.setProductOptionOriginalParamList(url);
 

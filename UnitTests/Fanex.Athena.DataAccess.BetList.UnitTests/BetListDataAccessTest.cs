@@ -1,12 +1,10 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using Data;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
-    using Model.Core.MetaModel.Product;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -271,20 +269,21 @@
             // Arrange
             var uspKey = "Lrf_BetList_SelWinlossDaily";
             _dataAccess.GetObjectDb(Arg.Is<string>(uspKey)).Returns(_objectDb);
+            var metaModel = GetDailyBetListMetaModel();
 
             // Action
-            _dataAccess.GetBetListData(_metaModel, uspKey);
+            _dataAccess.GetBetListData(metaModel, uspKey);
 
             // Assert
-            _objectDb.Received().AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
-            _objectDb.Received().AddInParameter("date", DbType.DateTime, _metaModel.Date);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("product", DbType.String, _metaModel.ProductCode);
-            _objectDb.Received().AddInParameter("status", DbType.String, _metaModel.DailyBetListStatus);
-            _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
-            _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, _metaModel.BalanceUpDay);
-            _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-            _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
+            _objectDb.Received().AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+            _objectDb.Received().AddInParameter("date", DbType.DateTime, metaModel.Date);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            _objectDb.Received().AddInParameter("product", DbType.String, metaModel.ProductCode);
+            _objectDb.Received().AddInParameter("status", DbType.String, metaModel.DailyBetListStatus);
+            _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
+            _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
+            _objectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+            _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
             _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
             _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
             _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
@@ -1044,7 +1043,7 @@
             _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
         }
 
-        private SystemParlayDetailMetaModel GetSystemParlayDetailMetaModel()
+        private static SystemParlayDetailMetaModel GetSystemParlayDetailMetaModel()
         {
             return new SystemParlayDetailMetaModel
             {
@@ -1056,7 +1055,23 @@
             };
         }
 
-        private BetListMetaModel GetBetListMetaModel()
+        private static DailyBetListMetaModel GetDailyBetListMetaModel()
+        {
+            return new DailyBetListMetaModel
+            {
+                BaseCurrency = "BaseCurrencyTest",
+                MoveBetsDay = new DateTime(2016, 1, 1),
+                BalanceUpDay = new DateTime(2016, 2, 1),
+                PageSize = 10,
+                PageIndex = 1,
+                SortBy = "SortByTest",
+                SortOrder = "SortOrderTest",
+                ProductCode = "ProductCodeTest",
+                DailyBetListStatus = "DailyBetListStatusTest"
+            };
+        }
+
+        private static BetListMetaModel GetBetListMetaModel()
         {
             return new BetListMetaModel
             {
@@ -1076,8 +1091,6 @@
                 ProductCodeList = "SB,NG",
                 SortBy = "SortByTest",
                 SortOrder = "SortOrderTest",
-                ProductCode = "ProductCodeTest",
-                DailyBetListStatus = "DailyBetListStatusTest",
                 LeagueId = 5,
                 RaceNo = "RaceNoTest",
                 DrawFilter = 6,

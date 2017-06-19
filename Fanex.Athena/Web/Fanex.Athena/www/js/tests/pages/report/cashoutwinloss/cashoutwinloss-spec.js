@@ -628,7 +628,7 @@
                     CashOutWinLoss.submit();
 
                     var url = "CustomerWinLossBetList/Index?fromdate=04/01/2017&todate=04/20/2017&excludetest=true&CurrencyId=1&" + 
-                        "CurrencyName=EUR&drawfilter=1&custid=2&systemId=4&externalId=3&BaseCurrency=EUR&OriginalCurrenceId=1&OriginalCurrencyName=EUR&" + 
+                        "CurrencyName=EUR&drawfilter=1&custid=2&systemId=4&externalId=3&BaseCurrency=EUR&" + 
                         "productoptions[0].code=CO&productoptions[0].status=true&excelfilename=CashOutWinLossBetList&original=test";
                     var expectedUrl = url.replace(/[&|?][^=]*/g, function (match) {
                         return match.toLowerCase();
