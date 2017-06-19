@@ -82,8 +82,9 @@
             db.AddInParameter("betteam", DbType.String, metaModel.BetTeam);
         }
 
-        private static void CreateWinlossByLeagueParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateWinlossByLeagueParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
+            var metaModel = betlistMetaModel as WinLossByLeagueBetListMetaModel;
             var products = metaModel.ProductCodeList.Split(',');
 
             db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
@@ -320,17 +321,17 @@
             db.AddInParameter("drawfilter", DbType.Int16, metaModel.DrawFilter);
         }
 
-        private static void CreateDailyWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateDailyWLBetlistParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
-            var dailyBetListMetaModel = metaModel as DailyBetListMetaModel;
+            var metaModel = betlistMetaModel as DailyBetListMetaModel;
             CreateBetListSortingParameters(db, metaModel);
 
-            db.AddInParameter("date", DbType.DateTime, dailyBetListMetaModel.Date);
-            db.AddInParameter("AgentList", DbType.String, dailyBetListMetaModel.AgentListXml);
-            db.AddInParameter("product", DbType.String, dailyBetListMetaModel.ProductCode);
-            db.AddInParameter("status", DbType.String, dailyBetListMetaModel.DailyBetListStatus);
-            CreateBetlistBUParameters(db, dailyBetListMetaModel);
-            CreateBetListPagingParameters(db, dailyBetListMetaModel);
+            db.AddInParameter("date", DbType.DateTime, metaModel.Date);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.AddInParameter("product", DbType.String, metaModel.ProductCode);
+            db.AddInParameter("status", DbType.String, metaModel.DailyBetListStatus);
+            CreateBetlistBUParameters(db, metaModel);
+            CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
         }
 

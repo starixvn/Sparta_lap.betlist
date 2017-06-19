@@ -34,14 +34,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 
         public string SortOrder { get; set; }
 
-        public bool ShowWin { get; set; }
-
-        public bool ShowLoss { get; set; }
-
-        public bool ShowDraw { get; set; }
-
-        public decimal Odds { get; set; }
-
         public bool IsExportExcel { get; set; }
 
         public int PageSize { get; set; }

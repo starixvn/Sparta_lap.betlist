@@ -129,23 +129,24 @@
             // Arrange
             var uspKey = "Lrf_BetList_WinlostByLeague_Mem";
             _dataAccess.GetObjectDb(Arg.Is<string>(uspKey)).Returns(_objectDb);
+            var metaModel = GetWinLossByLeagueBetListMetaModel();
 
             // Action
-            _dataAccess.GetBetListData(_metaModel, uspKey);
+            _dataAccess.GetBetListData(metaModel, uspKey);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
-            _objectDb.Received().AddInParameter("LeagueID", DbType.Int32, _metaModel.LeagueId);
-            _objectDb.Received().AddInParameter("MatchId", DbType.Int32, _metaModel.MatchId);
-            _objectDb.Received().AddInParameter("Odds", DbType.Decimal, _metaModel.Odds);
-            _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-            _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-            _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
-            _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, _metaModel.BalanceUpDay);
-            _objectDb.Received().AddInParameter("ShowWin", DbType.Boolean, _metaModel.ShowWin);
-            _objectDb.Received().AddInParameter("ShowLoss", DbType.Boolean, _metaModel.ShowLoss);
-            _objectDb.Received().AddInParameter("ShowDraw", DbType.Boolean, _metaModel.ShowDraw);
+            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            _objectDb.Received().AddInParameter("CustID", DbType.Int32, metaModel.CustId);
+            _objectDb.Received().AddInParameter("LeagueID", DbType.Int32, metaModel.LeagueId);
+            _objectDb.Received().AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
+            _objectDb.Received().AddInParameter("Odds", DbType.Decimal, metaModel.Odds);
+            _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+            _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+            _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
+            _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
+            _objectDb.Received().AddInParameter("ShowWin", DbType.Boolean, metaModel.ShowWin);
+            _objectDb.Received().AddInParameter("ShowLoss", DbType.Boolean, metaModel.ShowLoss);
+            _objectDb.Received().AddInParameter("ShowDraw", DbType.Boolean, metaModel.ShowDraw);
             _objectDb.Received().AddInParameter("ShowSB", DbType.Boolean, true);
             _objectDb.Received().AddInParameter("ShowBA", DbType.Boolean, false);
         }
@@ -1052,6 +1053,24 @@
                 LicenseeId = 3,
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 18)
+            };
+        }
+
+        private static WinLossByLeagueBetListMetaModel GetWinLossByLeagueBetListMetaModel()
+        {
+            return new WinLossByLeagueBetListMetaModel
+            {
+                CustId = 1,
+                FromDate = new DateTime(2016, 8, 10),
+                ToDate = new DateTime(2016, 8, 19),
+                MoveBetsDay = new DateTime(2016, 1, 1),
+                BalanceUpDay = new DateTime(2016, 2, 1),
+                ProductCodeList = "SB,NG",
+                LeagueId = 5,
+                Odds = 6,
+                ShowDraw = true,
+                ShowWin = false,
+                ShowLoss = true
             };
         }
 
