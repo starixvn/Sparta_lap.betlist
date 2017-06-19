@@ -1,6 +1,7 @@
 ﻿describe("LicenseeWinLoss", function () {
     beforeEach(function () {
         $.fn.monPickr = function () { };
+        spyOn(ProductListHelper, 'initProductList');
         spyOn($.fn, "dialog");
     });
 

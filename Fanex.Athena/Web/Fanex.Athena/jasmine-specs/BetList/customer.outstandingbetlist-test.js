@@ -1,6 +1,7 @@
 ﻿describe("OutstandingBetList", function () {
     describe("initialize()", function () {
         beforeEach(function () {
+            spyOn(ProductListHelper, 'initProductList');
             spyOn(OutstandingBetList, 'showHideProductsList');
             spyOn(OutstandingBetList, 'hiddenColList');
             spyOn(OutstandingBetList, 'initEvent');

@@ -2,6 +2,7 @@
     
     describe("initialize()", function () {
         it("initEvent() should be call when initialize() is called", function () {
+            spyOn(ProductListHelper, 'initProductList');
             spyOn(CustBalance, 'initEvent');
 
             CustBalance.initialize();

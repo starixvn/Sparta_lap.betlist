@@ -19,7 +19,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
             ToDate = DateTime.Today;
             PageIndex = 1;
             PageSize = int.MaxValue - 1;
-            IsLastBetMonitoring = false;
         }
 
         public string ProductCodeList { get; set; } = string.Empty;
@@ -105,8 +104,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
         public long TransId { get; set; }
 
         public long TransType { get; set; }
-
-        public bool IsLastBetMonitoring { get; set; }
 
         public int PlatformType { get; set; }
 

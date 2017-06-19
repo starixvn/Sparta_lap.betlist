@@ -793,7 +793,7 @@
                         LicenseeWinLoss.openBetlistPopUp(dataDrilldown);
 
                         var url = 'LicenseeWinLossBetList/Index?fromdate=01/01/2017&todate=01/31/2017&excludetest=true&currencyid=9&currencyname=AUD&' +
-                            'drawfilter=0&custid=6507355&systemid=12BETAUD01159&externalid=DEWSNIP&basecurrency=EUR&originalcurrenceid=1&originalcurrencyname=EUR';
+                            'drawfilter=0&custid=6507355&systemid=12BETAUD01159&externalid=DEWSNIP&basecurrency=EUR';
                         var popupOption = { id: "betlist-popup", width: 970, height: 250, title: "Customer Bet List" };
 
                         var args = Popup.openPopupWithIframe.calls.mostRecent().args;
@@ -816,7 +816,7 @@
                         LicenseeWinLoss.openBetlistPopUp(dataDrilldown);
 
                         var url = 'LicenseeWinLossBetList/Index?fromdate=01/10/2017&todate=01/15/2017&excludetest=true&currencyid=9&currencyname=AUD&' +
-                            'drawfilter=0&custid=6507355&systemid=12BETAUD01159&externalid=DEWSNIP&basecurrency=EUR&originalcurrenceid=1&originalcurrencyname=EUR';
+                            'drawfilter=0&custid=6507355&systemid=12BETAUD01159&externalid=DEWSNIP&basecurrency=EUR';
                         var popupOption = { id: "betlist-popup", width: 970, height: 250, title: "Customer Bet List" };
 
                         var args = Popup.openPopupWithIframe.calls.mostRecent().args;
@@ -851,7 +851,7 @@
                         LicenseeWinLoss.openBetlistPopUp(dataDrilldown);
 
                         var url = 'LicenseeWinLossBetList/Index?fromdate=01/01/2017&todate=03/20/2017&excludetest=true&currencyid=9&currencyname=AUD&' +
-                            'drawfilter=0&custid=6507355&systemid=12BETAUD01159&externalid=DEWSNIP&basecurrency=EUR&originalcurrenceid=1&originalcurrencyname=EUR';
+                            'drawfilter=0&custid=6507355&systemid=12BETAUD01159&externalid=DEWSNIP&basecurrency=EUR';
                         var popupOption = { id: "betlist-popup", width: 970, height: 250, title: "Customer Bet List" };
 
                         var args = Popup.openPopupWithIframe.calls.mostRecent().args;

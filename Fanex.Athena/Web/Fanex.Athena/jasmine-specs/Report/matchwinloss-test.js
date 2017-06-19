@@ -1,6 +1,7 @@
 ﻿describe("MatchWinLoss", function () {
     describe("initialize()", function () {
         beforeEach(function () {
+            spyOn(ProductListHelper, 'initProductList');
             spyOn(MatchWinLoss, "initProductList");
             spyOn(MatchWinLoss, "initEvent");
             spyOn(MatchWinLoss, "resizeGrid");
@@ -143,19 +144,17 @@
         });
     });
 
-    describe("getProductOption()", function () {
-        it("MatchWinLoss.getProductOption() should be returned with correct value", function () {
+    describe("getProductCodeList()", function () {
+        it("MatchWinLoss.getProductCodeList() should be returned with correct value", function () {
             var $productList = affix("#ProductList");
             var $productSB = affix("input.childCheckbox[type=checkbox]");
             $productList.append($productSB);
-            $productSB.attr("data-original", "True");
+            $productSB.attr("data-original", "true");
             $productSB.attr("data-product-code", "SB");
 
-            var expected = [{ Code: "SB", Status: true }];
+            var result = MatchWinLoss.getProductCodeList("SB");
 
-            var result = MatchWinLoss.getProductOption("SB");
-
-            expect(result).toEqual(expected);
+            expect(result).toEqual("SB");
         });
     });
 
@@ -179,7 +178,7 @@
 
             spyOn($.fn, "closest").and.returnValue($parentRow);
             spyOn($.fn, "data").and.returnValue({ LeagueId: 1, MatchId: 2, ProductCode: "SB" });
-            spyOn(MatchWinLoss, "getProductOption").and.returnValue([{ Code: "SB", Status: true }]);
+            spyOn(MatchWinLoss, "getProductCodeList").and.returnValue("SB");
 
             MatchWinLoss.viewMatchWinlossDetail($element);
             request = jasmine.Ajax.requests.mostRecent();

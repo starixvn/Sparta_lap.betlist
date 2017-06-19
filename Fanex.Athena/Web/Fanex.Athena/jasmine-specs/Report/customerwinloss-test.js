@@ -2,6 +2,7 @@
     
     describe("initialize()", function () {
         it("Expected functions should be call when initialize() is called", function () {
+            spyOn(ProductListHelper, 'initProductList');
             spyOn(CustomerWinLoss, 'initEvent');
             spyOn(CustomerWinLoss, 'initMonthPicker');
             spyOn(Site, 'createSortingIcon');

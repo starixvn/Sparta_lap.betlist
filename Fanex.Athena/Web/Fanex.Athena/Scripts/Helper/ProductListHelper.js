@@ -5,6 +5,10 @@
 var ProductListHelper = (function () {
     return {
         initProductList: function () {
+            if ($('#ProductList').length === 0) {
+                return;
+            }
+
             Site.setMultiSelectForDropDownList('grid-products-multiselect', $("#productsData").val(), 'Code', 'Name', 'Status');
             $("form").submit(function (event) {
                 if ($("#product-container input[type=checkbox]:checked").length == 0) {

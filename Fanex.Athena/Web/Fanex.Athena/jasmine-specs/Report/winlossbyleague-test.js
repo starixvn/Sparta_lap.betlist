@@ -1,6 +1,7 @@
 ﻿describe("WinLossByLeague", function () {
     describe("ajaxPaging()", function () {
         beforeEach(function () {
+            spyOn(ProductListHelper, 'initProductList');
             spyOn(PagingHeper, "getSetting");
             spyOn(WinLossByLeague, "drillDown");
 
