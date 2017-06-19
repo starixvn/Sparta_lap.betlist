@@ -34,24 +34,24 @@ define(["jquery", "common/site", "./constant", "./betsetting.helper"], function 
             var maxBetId = "#max-bet-" + sportId;
             var maxPerMatchId = "#max-per-match-" + sportId;
 
-            var minBetTextBox = $(minBetId);
-            var maxBetTextBox = $(maxBetId);
-            var maxPerMatchTextBox = $(maxPerMatchId);
-            if (minBetTextBox.length === 0 ||
-                maxBetTextBox.length === 0 ||
-                maxPerMatchTextBox.length === 0) {
+            var $minBetTextBox = $(minBetId);
+            var $maxBetTextBox = $(maxBetId);
+            var $maxPerMatchTextBox = $(maxPerMatchId);
+            if ($minBetTextBox.length === 0 ||
+                $maxBetTextBox.length === 0 ||
+                $maxPerMatchTextBox.length === 0) {
                 return true;
             }
 
             // Get value in attribute
-            var limitMinBet = BetSettingHelper.convertToFloat(minBetTextBox.attr('data-min-value'));
-            var limitMaxBet = BetSettingHelper.convertToFloat(maxBetTextBox.attr('data-max-value'));
-            var limitMaxPerMatch = BetSettingHelper.convertToFloat(maxPerMatchTextBox.attr('data-max-value'));
-            var limitMaxPerMatchMin = BetSettingHelper.convertToFloat(maxPerMatchTextBox.attr('data-min-value'));
+            var limitMinBet = BetSettingHelper.convertToFloat($minBetTextBox.attr('data-min-value'));
+            var limitMaxBet = BetSettingHelper.convertToFloat($maxBetTextBox.attr('data-max-value'));
+            var limitMaxPerMatch = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-max-value'));
+            var limitMaxPerMatchMin = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-min-value'));
 
-            var minBet = BetSettingHelper.convertToFloat(minBetTextBox.val());
-            var maxBet = BetSettingHelper.convertToFloat(maxBetTextBox.val());
-            var maxPerMatcth = BetSettingHelper.convertToFloat(maxPerMatchTextBox.val());
+            var minBet = BetSettingHelper.convertToFloat($minBetTextBox.val());
+            var maxBet = BetSettingHelper.convertToFloat($maxBetTextBox.val());
+            var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatchTextBox.val());
 
             // Check if minbet, maxbet, maxpermatch is valid number
             if (isNaN(minBet)) {
@@ -136,14 +136,14 @@ define(["jquery", "common/site", "./constant", "./betsetting.helper"], function 
 
             if (enabled) {
                 // Copy value to textboxes
-                $element.not(':eq(0)').each(function () {
+                $elementList.not(':eq(0)').each(function () {
                     $(this).val(copyValue);
                 });
             }
         },
 
         checkLimitMinMaxBets: function () {
-            for (var i in _sportIds) {
+            for (var i = 0; i < _sportIds.length; i++) {
                 if (_me.checkLimitMinMaxBet(_sportIds[i]) === false) {
                     return false;
                 }

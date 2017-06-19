@@ -2,6 +2,7 @@
 define(["jquery", "common/site", "./constant", "./betsetting.reset", "./betsetting.update", "./betsetting.status", "./betsetting.helper", "lib/numberformat"],
     function ($, Site, Constant, BetSettingReset, BetSettingUpdate, BetSettingStatus, BetSettingHelper, NumberFormatter) {
         var Product = Constant.Product;
+        var _formatter = new NumberFormatter();
 
         var _sportIds = null;
 
@@ -45,12 +46,9 @@ define(["jquery", "common/site", "./constant", "./betsetting.reset", "./betsetti
                 $("input[type=text]").blur(function () {
                     var inputValue = $(this).val();
 
-                    var formatter = new NumberFormatter();
-                    var formattedValue = formatter.formatNumber(inputValue, { format: "#,###,##0.##", locale: "us" });
+                    var formattedValue = _formatter.formatNumber(inputValue, { format: "#,###,##0.##", locale: "us" });
 
                     $(this).val(formattedValue);
-                    //$(this).parseNumber({ format: "#,###,##0.##", locale: "us" });
-                    //$(this).formatNumber({ format: "#,###,##0.##", locale: "us" });
                 });
             },
             // Displaying selected menu tab

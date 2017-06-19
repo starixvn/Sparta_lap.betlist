@@ -1242,6 +1242,7 @@
     <Content Include="www\js\source\pages\customer\betsetting\betsetting.status.js" />
     <Content Include="www\js\source\pages\customer\betsetting\betsetting.update.js" />
     <Content Include="www\js\source\pages\customer\betsetting\betsetting.validation.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\betsettingbygroup.js" />
     <Content Include="www\js\source\pages\customer\betsetting\constant.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgroup.js" />

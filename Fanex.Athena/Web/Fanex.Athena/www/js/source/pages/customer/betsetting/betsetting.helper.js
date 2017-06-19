@@ -1,38 +1,32 @@
 ﻿"use strict";
-define(["jquery", "common/site", "lib/jquery.balloon"], function ($, Site) {
+define(["jquery", "common/site", "common/popup", "lib/jquery.balloon"], function ($, Site, Popup) {
     var _me = {
-        showDialogMesage: function (title, message, closePopup) {
-            var ok = Site.getSingleResource("OK");
+        showDialogMesage: function (title, message) {
             var options = {
-                closeOnEscapeType: true,
-                model: true,
-                resizable: false,
-                height: 150,
-                open: function () {
+                title: Site.getSingleResource("Confirmation"),
+                height: "auto",
+                id: "result-update-betsetting",
+                onOpen: function () {
                     $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
-                },
-                buttons: [
-                {
-                    text: ok,
-                    click: function () {
-                        $("#bet-setting-message").dialog("close");
-                    }
-                }
-                ],
-                close: function () {
-                    $("#bet-setting-message").remove();
-                    $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
-                    if (closePopup) {
-                        parent.$("#bet-setting-dialog").dialog("close");
-                    } else {
-                        setTimeout(function () {
-                            Site.blockUI();
-                            window.location.reload();
-                        }, 500);
-                    }
                 }
             };
-            $('<div id="bet-setting-message" title="' + title + '">' + message + '</div>').dialog(options);
+
+            var buttons = [
+                {
+                    text: Site.getSingleResource("OK"),
+                    isClosedOnClick: true,
+                    classes: "btn btn-submit",
+                    click: function () {
+                        $("#result-update-betsetting").remove();
+                        $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
+                        setTimeout(function () {
+                            Site.blockUI();
+                            Site.getLocation().reload();
+                        }, 500);
+                    }
+                }];
+
+            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
         },
 
         convertToFloat: function (str) {
