@@ -1,9 +1,10 @@
 ﻿"use strict";
-define(["jquery", "common/site", "./constant", "./betsetting.reset", "./betsetting.update", "./betsetting.status", "./betsetting.helper", "lib/numberformat"],
-    function ($, Site, Constant, BetSettingReset, BetSettingUpdate, BetSettingStatus, BetSettingHelper, NumberFormatter) {
+define(["jquery", "common/site", "./constant", "./betsetting.reset", "./betsetting.update", "./betsetting.status", "./betsettingbygroup", "./betsetting.helper", "lib/numberformat"],
+    function ($, Site, Constant, BetSettingReset, BetSettingUpdate, BetSettingStatus, BetSettingByGroup, BetSettingHelper, NumberFormatter) {
         var Product = Constant.Product;
         var _formatter = new NumberFormatter();
 
+        var _productId;
         var _sportIds = [];
 
         var _me = {
@@ -14,6 +15,8 @@ define(["jquery", "common/site", "./constant", "./betsetting.reset", "./betsetti
                     _sportIds = $idList.val().split(",");
                     BetSettingUpdate.initialize(_sportIds);
                 }
+
+                _productId = parseInt($("#ProductId").val());
 
                 _me.initMenu();
                 _me.initEvent();
@@ -39,6 +42,10 @@ define(["jquery", "common/site", "./constant", "./betsetting.reset", "./betsetti
 
                 $("#btnDisableEsports").on("click", _me.updateEsportStatus);
 
+                if (_productId === Product.AgCasino || _productId === Product.GoldDeluxe) {
+                    BetSettingByGroup.initialize();
+                }
+
                 // Formating number in text box.
                 _me.formatInputText();
             },
@@ -51,7 +58,6 @@ define(["jquery", "common/site", "./constant", "./betsetting.reset", "./betsetti
             },
             // Displaying selected menu tab
             initMenu: function () {
-                var productId = parseInt($("#ProductId").val());
                 var editable = $("#editable").val();
                 var enable = !editable || editable === "True";
                 $("#product-dropdown").on('change', function (event) {
@@ -59,20 +65,20 @@ define(["jquery", "common/site", "./constant", "./betsetting.reset", "./betsetti
                     Site.blockUI();
                     Site.redirect(url);
                 });
-                _me.checkEnableBetSetting(productId, enable);
+                _me.checkEnableBetSetting(enable);
             },
 
-            checkEnableBetSetting: function (currentProduct, enable) {
-                if (currentProduct === Product.LiveCasino) {
+            checkEnableBetSetting: function (enable) {
+                if (_productId === Product.LiveCasino) {
                     _me.checkEnableLiveCasino(enable);
                     return;
                 }
 
                 _me.checkEnable(enable);
 
-                if (currentProduct === Product.NumberGame) {
+                if (_productId === Product.NumberGame) {
                     $("#max-per-ball-161").prop('disabled', !enable);
-                } else if (currentProduct === Product.Sportsbook) {
+                } else if (_productId === Product.Sportsbook) {
                     $('#copy-settting').toggle(enable);
                 }
             },

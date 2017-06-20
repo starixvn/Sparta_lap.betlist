@@ -11,24 +11,19 @@ define(["jquery", "lib/numberformat"], function ($, NumberFormatter) {
     var _me = {
         initialize: function () {
             _me.initEvent();
-            if ($("#BettingLimit").length > 0) {
-                _bettingGroupLimitCache = JSON.parse($("#BettingLimit").val());
-            }
+            _bettingGroupLimitCache = JSON.parse($("#BettingLimit").val());
 
             if ($('#betSettingGroup').data("default") === "") {
                 $('#betSettingGroup').prop("selectedIndex", -1);
                 disableSubmitButtons(true);
             }
 
-            if ($("#btnSubmitBetSetting").prop("disabled") === true) {
-                disableSubmitButtons(true);
-            }
             $('#betSettingGroup').change();
         },
         initEvent: function () {
             $('#betSettingGroup').on('change', function () {
                 var selectedGroupType = this.value;
-                var groupFilter = function (index, item) {
+                var groupFilter = function (item) {
                     return item.GroupType === selectedGroupType;
                 };
                 var disableSubmit = false;
@@ -50,7 +45,7 @@ define(["jquery", "lib/numberformat"], function ($, NumberFormatter) {
             });
         },
         checkApiContainGroup: function (groupType) {
-            var groupFilter = function (index, item) {
+            var groupFilter = function (item) {
                 return item.GroupType === groupType;
             };
             return $(_bettingGroupLimitCache[0].Groups).filter(groupFilter).length > 0;
