@@ -55,7 +55,11 @@
         {
             // Arrange
             var expected = 1570000M;
-            var metaModel = new DashboardBaseModel();
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = "EUR"
+            };
+
             _customerBalanceService.GetData(metaModel).Returns(expected);
 
             var mockActionContext = new HttpActionContext

@@ -46,7 +46,10 @@
         {
             // Arrange
             var expected = 500000M;
-            var metaModel = new DashboardBaseModel();
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = "EUR"
+            };
             _todayWithdrawalService.GetData(metaModel).Returns(expected);
 
             using (var controller = CreateController())

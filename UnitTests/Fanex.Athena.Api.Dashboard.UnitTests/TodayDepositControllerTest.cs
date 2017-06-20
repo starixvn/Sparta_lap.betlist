@@ -48,11 +48,15 @@
             // Arrange
             var expected = 2500000M;
             _todayDepositService.GetData(Arg.Any<DashboardBaseModel>()).Returns(expected);
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = "EUR"
+            };
 
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.GetData(new DashboardBaseModel());
+                var result = controller.GetData(metaModel);
 
                 // Assert
                 Assert.That(result, Is.EqualTo(expected));

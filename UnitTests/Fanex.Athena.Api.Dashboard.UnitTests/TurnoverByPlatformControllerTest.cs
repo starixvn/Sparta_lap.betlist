@@ -66,7 +66,10 @@
                    new KeyValuePair<string, decimal>("Others", 1700M)
                 }
             };
-            var metaModel = new DashboardBaseModel();
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = "EUR"
+            };
             _turnoverByPlatformService.GetData(metaModel).Returns(expected);
 
             var mockActionContext = new HttpActionContext

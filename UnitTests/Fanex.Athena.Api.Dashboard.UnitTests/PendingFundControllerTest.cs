@@ -47,7 +47,10 @@
         {
             // Arrange
             const decimal Expected = 1570000M;
-            var metaModel = new DashboardBaseModel();
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = "EUR"
+            };
             _pendingFundService.GetData(metaModel).Returns(Expected);
 
             using (var controller = CreateController())

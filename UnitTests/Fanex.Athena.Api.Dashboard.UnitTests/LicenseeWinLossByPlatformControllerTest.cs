@@ -60,7 +60,10 @@
                     new KeyValuePair<string, decimal>("Others", 1700M)
                 }
             };
-            var metaModel = new DashboardBaseModel();
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = "EUR"
+            };
             _licenseeWinLossByPlatformService.GetData(metaModel).Returns(expected);
 
             using (var controller = CreateController())
