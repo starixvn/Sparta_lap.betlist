@@ -68,6 +68,8 @@ function generateConfig(environment) {
             [`${jsPath}/pages/betlist/customeroutstanding`]: [pathConfig.scriptPaths.customeroutstanding],
             [`${jsPath}/pages/customer/betsetting`]: [pathConfig.scriptPaths.betsetting],
             [`${jsPath}/pages/customer/betsettingrngcasino`]: [pathConfig.scriptPaths.betsettingrngcasino],
+            [`${jsPath}/pages/customer/betsettingmain`]: [pathConfig.scriptPaths.betsettingmain],
+            [`${jsPath}/pages/customer/betsettingagcasino`]: [pathConfig.scriptPaths.betsettingagcasino],
 
             [`${cssPath}/pages/reports/reportjqgridlayout`]: pathConfig.cssPaths.reportjqgridlayout,
             [`${cssPath}/pages/reports/livereport`]: pathConfig.cssPaths.livereport,

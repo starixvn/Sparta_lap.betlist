@@ -112,6 +112,8 @@ var scriptPaths = {
     customeroutstanding: "./www/js/source/pages/betlist/customer/main.js",
     betsetting: "./www/js/source/pages/customer/betsetting/main.js",
     betsettingrngcasino: "./www/js/source/pages/customer/betsetting/main-betsetting.rngcasino.js"
+    betsettingmain: "./www/js/source/pages/customer/betsetting/main-betsetting.js",
+    betsettingagcasino: "./www/js/source/pages/customer/betsetting/main-agcasino.js"
 };
 
 module.exports = {

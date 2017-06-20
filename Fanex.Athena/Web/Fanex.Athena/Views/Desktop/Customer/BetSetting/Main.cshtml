@@ -14,6 +14,10 @@
     </tr>
 }
 
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/betsettingmain.chunk.js")"></script>
+}
+
 @section Menu{
     @{Html.RenderPartial("~/Views/Desktop/Customer/BetSetting/Menu.cshtml", Model);}
 }
@@ -30,13 +34,11 @@
     switch (Model.Param.ProductId)
     {
         case ProductTypes.Sportsbook:
+        case ProductTypes.VirtualSports:
             betSettingType = ViewResources.Sport;
             break;
         case ProductTypes.Racing:
             betSettingType = ViewResources.ProductRB;
-            break;
-        case ProductTypes.VirtualSports:
-            betSettingType = ViewResources.Sport;
             break;
     }
 }
