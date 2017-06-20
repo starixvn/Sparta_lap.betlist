@@ -430,6 +430,7 @@ var PlatformWinLoss = (function ($) {
                     productCodeList.push(product.Code);
                 }
             }
+            url = Site.setProductCodeListParam(url, productCodeList);
 
             var popH = Math.min(600, window.innerHeight - 100), popW = 920;
             var dialogForm = '<div title="Customer Bet List"><iframe frameborder="0" width="' + popW + '" height="100%" src="' + url + '" ></iframe></div>';
