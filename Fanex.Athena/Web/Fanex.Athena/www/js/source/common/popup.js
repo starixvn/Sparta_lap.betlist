@@ -66,6 +66,16 @@
             $popup.flatPopup("show", isModal);
         },
 
+        /*
+        var buttons = [
+                {
+                    text: "OK",
+                    click: function () { },
+                    classes: "btn btn-primary",
+                    id: "",
+                    isClosedOnClick: false
+                }];
+        */
         openPopupWithButton: function (element, option, buttons) {
             var defaultOption = {
                 padding: 15
@@ -87,7 +97,7 @@
                     $blockButton.append($button);
                     if (button.isClosedOnClick) {
                         $button.on("click", function () {
-                            _me.closePopup(defaultOption.id);
+                            $element.find('a.popup-close').trigger('click');
 
                             if (typeof button.click === "function") {
                                 button.click();

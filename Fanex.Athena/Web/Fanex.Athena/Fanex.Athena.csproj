@@ -1081,6 +1081,7 @@
     <Content Include="www\js\build\dev\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\lastbetmonitoring.chunk.js" />
+    <Content Include="www\js\build\dev\pages\customer\betsettingrngcasino.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\commgroupadd.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\commgroupedit.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\commgrouplist.chunk.js" />
@@ -1128,6 +1129,7 @@
     <Content Include="www\js\build\pro\pages\betlist\betlistrunningmultiplebettypes.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistsimple.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\lastbetmonitoring.chunk.js" />
+    <Content Include="www\js\build\pro\pages\customer\betsettingrngcasino.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\commgroupadd.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\commgroupedit.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\commgrouplist.chunk.js" />
@@ -1245,11 +1247,13 @@
     <Content Include="www\js\source\pages\customer\betsetting\betsetting.helper.js" />
     <Content Include="www\js\source\pages\customer\betsetting\betsetting.js" />
     <Content Include="www\js\source\pages\customer\betsetting\betsetting.reset.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\betsetting.rngcasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\betsetting.status.js" />
     <Content Include="www\js\source\pages\customer\betsetting\betsetting.update.js" />
     <Content Include="www\js\source\pages\customer\betsetting\betsetting.validation.js" />
     <Content Include="www\js\source\pages\customer\betsetting\betsettingbygroup.js" />
     <Content Include="www\js\source\pages\customer\betsetting\constant.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\main-betsetting.rngcasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgroup.js" />
     <Content Include="www\js\source\pages\customer\customercomm\commgroupadd.js" />
@@ -2065,6 +2069,7 @@
     <Content Include="www\js\build\dev\pages\customer\loginlog.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\commgroupadd.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\commgroupedit.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\customer\betsettingrngcasino.chunk.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
