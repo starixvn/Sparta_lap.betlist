@@ -154,7 +154,7 @@ var i = 0;
                 {
                     <input type="hidden" name="ProductOptions[@i].Code" value="@product.Code" />
                     <input type="hidden" name="ProductOptions[@i].Name" value="@product.Name" />
-                    <input type="checkbox" class="childCheckbox" data-original="@product.Status.ToString()" id="@product.Code" data-product-code="@product.Code" @(product.Status ? "checked" : "") name="ProductOptions[@i].Status" value="True" />
+                    <input type="checkbox" class="childCheckbox" data-original="@product.Status.ToString().ToLower()" id="@product.Code" data-product-code="@product.Code" @(product.Status ? "checked" : "") name="ProductOptions[@i].Status" value="true" />
                     i++;
                 }
             </div>

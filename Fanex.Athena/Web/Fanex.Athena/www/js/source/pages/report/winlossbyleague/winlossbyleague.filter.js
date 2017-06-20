@@ -168,7 +168,16 @@
                     paramObject["ProductOptions[" + i + "].Status"] = postData["ProductOptions[" + i + "].Status"];
                 }
             },
+            buildProductCodeList: function () {
+                var productCodeList = [];
+                for (var i = 0; i < _productCount; i++) {
+                    if (_postdata["ProductOptions[" + i + "].Status"] === "true") {
+                        productCodeList.push(_postdata["ProductOptions[" + i + "].Code"]);
+                    }
+                }
 
+                return productCodeList;
+            },
             isValid: function () {
                 var checkedProductCount = $("#ProductList .childCheckbox:checked").length;
                 var ticketFilterCount = $("#TickerFilter input:checked").length;

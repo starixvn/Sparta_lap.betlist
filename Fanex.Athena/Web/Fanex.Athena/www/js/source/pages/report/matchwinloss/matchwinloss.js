@@ -16,6 +16,13 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
             matchWinLossForm: "#MatchWinLossForm"
         };
 
+        var _$productList;
+
+        function isProductOriginalChecked(productCode) {
+            _$productList = _$productList || $("#ProductList");
+            return $('.childCheckbox[data-product-code="' + productCode + '"]', _$productList).attr("data-original") === 'true';
+        }
+
         var _me = {
             initialize: function () {
                 Site.initialize();
@@ -162,34 +169,36 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
                 url = QueryString.setParam(url, "todate", date);
                 url = QueryString.setParam(url, "bettype", betType);
 
-                var products = _me.getProductOption(["SB", "BA"]);
-                for (var i = 0; i < products.length; i++) {
-                    var item = products[i];
-                    url = Site.setProductOptionParam(url, i, item.Code, item.Status);
-                    url = QueryString.setParam(url, "show" + item.Code, item.Status);
+                var productCodeList = [];
+                if (isProductOriginalChecked('SB')) {
+                    productCodeList.push("SB");
                 }
+                if (isProductOriginalChecked('BA')) {
+                    productCodeList.push("BA");
+                }
+                url = Site.setProductCodeListParam(url, productCodeList);
 
                 Site.blockUI();
                 Site.redirect(url);
             },
 
-            getProductOption: function (productCode) {
-                var specialProducts = ["SB", "BA"];
-                var containSpecialProducts = _me.contain(specialProducts, productCode);
-                var productOptions = JSON.parse($("#productsData").val());
+            getProductCodeList: function (productCode) {
+                var codeList = ["RB", "NG", "LC", "VS"];
+                var productCodeList = [];
+                if ((productCode === 'SB' || productCode === 'BA') && isProductOriginalChecked('SB')) {
+                    productCodeList.push('SB');
+                }
+                if ((productCode === 'SB' || productCode === 'BA') && isProductOriginalChecked('BA')) {
+                    productCodeList.push('BA');
+                }
 
-                return productOptions.filter(function (item) {
-                    if (containSpecialProducts) {
-                        return _me.contain(specialProducts, item.Code) && item.Status;
+                $(codeList).each(function (index, element) {
+                    if (productCode === element && isProductOriginalChecked(element)) {
+                        productCodeList.push(element);
                     }
-
-                    var containCode = Array.isArray(productCode) ? _me.contain(productCode, item.Code) : item.Code === productCode;
-                    return containCode && item.Status;
                 });
-            },
 
-            contain: function (arrayData, value) {
-                return arrayData.indexOf(value) > -1;
+                return productCodeList.toString();
             }
         };
 

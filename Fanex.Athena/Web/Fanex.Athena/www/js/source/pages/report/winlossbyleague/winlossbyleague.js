@@ -172,11 +172,10 @@
                     Level: 2,
                     ExternalId: externalId,
                     SystemId: systemId,
-                    LeagueId: _leagueid
+                    LeagueId: _leagueid,
+                    ProductCodeList: WinLossByLeagueFilter.buildProductCodeList().toString()
                 };
                 var param = $.extend({}, _postdata, temp);
-
-                WinLossByLeagueFilter.buildProductsParams(param, _postdata);
 
                 var url = Site.resolveClientUrl("WinlossByLeagueBetList/Index?") + $.param(param);
                 window.open(url, "", "modal=no");

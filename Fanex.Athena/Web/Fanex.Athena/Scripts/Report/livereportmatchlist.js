@@ -32,7 +32,7 @@ var LiveReportMatchList = (function ($) {
 
             var productOptions = LiveReport.getMatchListProductOption($("#SportId").val(), $("#ProductCode").val());
 
-            url = QueryString.setParam(url, "ProductCodeList", productOptions);
+            url = Site.setProductCodeListParam(url, productOptions);
             Site.blockUI();
             location.href = url;
         },
