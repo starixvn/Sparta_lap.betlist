@@ -60,37 +60,32 @@ else
                         <tr>
                             <td>@item.GameTypeName</td>
                             <td>
-                                @for (var i = 5; i < item.BettingLimitList.Count; i += 5)
+                                @for (var i = 0; i < item.BettingLimitList.Count; i += 5)
                                 {
                                     for (var j = 0; j < 5; j++)
                                     {
                                         if (itemBetting < item.BettingLimitList.Count)
                                         {
                                             var bettingLimit = item.BettingLimitList[itemBetting];
-                                            if (checkingAttr)
-                                            {
-                                                <input @disabledAttribute type="radio" id="bettingLimit_@(item.GameTypeId)@(bettingIndex)" data-stake-id="@bettingLimit.StakeLevelId" name="gameTypeName@(index)"
-                                                       @(bettingLimit.IsCheck == true ? "checked = checked" : "") />
-                                            }
-                                            else
-                                            {
-                                                <input @disabledAttribute type="radio" id="bettingLimit_@(item.GameTypeId)@(bettingIndex)" data-stake-id="@bettingLimit.StakeLevelId" name="gameTypeName@(index)"
-                                                       @(bettingIndex == 1 ? "checked = checked" : "") />
-                                            }
-                                            <span>@(bettingLimit.StakeLevelName)</span>
+                                            var isChecked = checkingAttr ? bettingLimit.IsCheck : bettingIndex == 1;
+
+                                            <input @disabledAttribute type="radio" id="bettingLimit_@(item.GameTypeId)@(bettingIndex)" data-stake-id="@bettingLimit.StakeLevelId" name="gameTypeName@(index)"
+                                                   @(isChecked ? "checked = checked" : "") class="with-gap" />
+                                                    <label for="bettingLimit_@(item.GameTypeId)@(bettingIndex)">@(bettingLimit.StakeLevelName)</label>
+
                                             itemBetting++;
                                             bettingIndex++;
                                         }
                                     }
                                 }
                             </td>
+
+                            @Html.Hidden("gameTypeId" + index, item.GameTypeId)
+                            @Html.Hidden("stakeLevelName" + index, item.StakeLevelNameChecked)
+                            @Html.Hidden("betTypeId" + index, item.BetTypeId)
+                            @Html.Hidden("oldCheck" + index, stakeLevelId)
                         </tr>
                         index++;
-
-                        @Html.Hidden("gameTypeId" + index, item.GameTypeId)
-                        @Html.Hidden("stakeLevelName" + index, item.StakeLevelNameChecked)
-                        @Html.Hidden("betTypeId" + index, item.BetTypeId)
-                        @Html.Hidden("oldCheck" + index, stakeLevelId)
                     }
                 </tbody>
             </table>

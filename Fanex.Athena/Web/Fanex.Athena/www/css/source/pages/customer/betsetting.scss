@@ -52,6 +52,7 @@ $colorBorderTable: #d6d6d6;
 .body-content {
     overflow-y: auto;
     overflow-x: hidden;
+    max-height: 330px;
 }
 
 .header-content {
@@ -94,7 +95,7 @@ $colorBorderTable: #d6d6d6;
     color: #F15E29;
 }
 
-.copy-setting {
+.copy-setting, .filter-input {
     input[type="checkbox"] + label {
         color: $bgHeaderTableLevel1;
     }
@@ -118,5 +119,25 @@ $colorBorderTable: #d6d6d6;
 }
 
 .disabled-text {
-    color: #9F9F9F;
+    color: $colorDisabled;
+}
+
+td {
+    input[type="checkbox"] + label {
+        height: inherit;
+        margin: 0;
+        top: 0;
+        padding-right: 10px;
+    }
+
+    input[type="radio"] + label {
+        padding-left: 20px !important;
+        padding-right: 10px;
+    }
+}
+
+tr:hover {
+    .no-hover {
+        background: initial !important;
+    }
 }

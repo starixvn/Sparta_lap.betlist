@@ -54,6 +54,17 @@ input[type="checkbox"] {
             }
         }
     }
+
+    &:disabled {
+        & + label:after {
+            border-color: $colorDisabled;
+        }
+
+        &:checked + label:before {
+            border-right-color: $colorDisabled;
+            border-bottom-color: $colorDisabled;
+        }
+    }
 }
 
 .invalid {

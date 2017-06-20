@@ -3,11 +3,8 @@
 }
 @model Fanex.Athena.Model.BetSettings.ViewModel.RngCasinoBetSettingViewModel
 
-@section pagecss{
-    <link href="@Url.ContentLink("/Content/Customer/BetSetting/rngcasino.css")" rel="stylesheet" type="text/css" />
-}
 @section pagejs {
-    <script src="@Url.ContentLink("/Scripts/Customer/BetSetting/rngcasino.js")" type="text/javascript"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/betsettingrngcasino.chunk.js")"></script>
 }
 
 @helper RenderFirstRow()
@@ -30,16 +27,14 @@
 @Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
 @Html.Hidden("isenabled", Model.IsEnabled.Value)
 
-@{
-    var disabledAttribute = Model.Editable ? null : "disabled";
-}
-
 @if (Model.GameKinds.Count == 0)
 {
     <p class="no-info-row">@ViewResources.NoInfo</p>
 }
 else
 {
+    var disabledAttribute = Model.Editable ? null : "disabled";
+
     <div class="table-content">
         <div class="header-content">
             <table class="table">
@@ -68,7 +63,7 @@ else
                             var originalStakeLevel = string.Join(",", gameType.StakeLevelList.Where(x => x.IsCheck).Select(x => x.StakeLevelId));
 
                             <tr class="casino-row" data-gametypeid="@gameType.GameTypeId" data-stake-original="@originalStakeLevel">
-                                <td class="game-kind" style="@(visible ? string.Empty : "display:none")" rowspan="@(rowspan) @(visible = false)">
+                                <td class="text-bold center-align no-hover" style="@(visible ? string.Empty : "display:none")" rowspan="@(rowspan) @(visible = false)">
                                     @gameKind.GameKindName
                                 </td>
                                 <td data-gametypeid="@gameType.GameTypeId">
@@ -77,8 +72,10 @@ else
                                 <td data-gametypeid="@gameType.GameTypeId">
                                     @foreach (var stakeLevel in gameType.StakeLevelList)
                                     {
-                                        <input class="input-@(gameType.GameTypeId)" @disabledAttribute type="checkbox" data-stakeid="@stakeLevel.StakeLevelId" data-ischeck="@(stakeLevel.IsCheck ? "true" : "false")" @(stakeLevel.IsCheck ? "checked='checked'" : string.Empty) />
-                                        <span class="stake-level-name">@stakeLevel.StakeLevelNameFormated</span>
+                                        <input class="input-@(gameType.GameTypeId)" id="input-@(gameType.GameTypeId)" @disabledAttribute type="checkbox" 
+                                               data-stakeid="@stakeLevel.StakeLevelId" 
+                                               data-ischeck="@(stakeLevel.IsCheck ? "true" : "false")" @(stakeLevel.IsCheck ? "checked=checked" : string.Empty) />
+                                        <label for="input-@(gameType.GameTypeId)">@stakeLevel.StakeLevelNameFormated</label>
                                     }
                                 </td>
                             </tr>

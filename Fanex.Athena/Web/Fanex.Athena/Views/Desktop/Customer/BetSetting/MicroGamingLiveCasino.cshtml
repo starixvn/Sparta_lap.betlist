@@ -11,22 +11,18 @@
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 }
 
-<!--Content-->
-<div class="data-content">
-    @if (!Model.IsLineEnabled)
-    {
-        <p class="no-info-row">@ViewResources.MicroGamingLiveCasinoNotOfferCurrency</p>
-    }
-</div>
-<!--/Content-->
-@if (Model.IsLineEnabled)
+@if (!Model.IsLineEnabled)
+{
+    <p class="no-info-row">@ViewResources.MicroGamingLiveCasinoNotOfferCurrency</p>
+}
+else
 {
     var status = Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 1 : 0;
     <div class="filter-input">
         <input id="enable-product" type="checkbox" name="enable-product"
                @(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? "checked" : "")
                class="childCheckbox" data-original="@status" @(Model.Editable ? "" : "disabled") />
-        <label for="enable-product">@ViewResources.EnableMicrogamingLiveCasino</label>
+        <label for="enable-product" class="text-bold">@ViewResources.EnableMicrogamingLiveCasino</label>
     </div>
     if (Model.Editable)
     {
