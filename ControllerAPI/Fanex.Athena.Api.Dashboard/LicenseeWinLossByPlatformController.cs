@@ -6,8 +6,6 @@
     using Fanex.Athena.Model.Dashboard.ViewModel;
     using Fanex.Athena.Service.Dashboard;
     using Fanex.Athena.Service.Dashboard.Interfaces;
-    using Service.Core.Configuration;
-    using Service.Core.Configuration.Interfaces;
 
     public class LicenseeWinLossByPlatformController : BaseDashboardApiController
     {
@@ -25,6 +23,11 @@
         [HttpGet]
         public WidgetByPlatformViewModel GetData([FromUri] DashboardBaseModel metaModel)
         {
+            if (!metaModel.IsValid)
+            {
+                return new WidgetByPlatformViewModel();
+            }
+
             AssignAuthProperties(metaModel);
             var now = DateTime.Now.Date;
             metaModel.FromDate = new DateTime(now.Year, now.Month, 1);

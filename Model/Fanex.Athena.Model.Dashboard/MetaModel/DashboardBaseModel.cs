@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Model.Dashboard.MetaModel
 {
     using System;
+    using System.Linq;
+    using DataDomain;
 
     public class DashboardBaseModel
     {
@@ -15,5 +17,13 @@
         public DateTime ToDate { get; set; }
 
         public string SelectedWidgetString { get; set; }
+
+        public virtual bool IsValid
+        {
+            get
+            {
+                return DashboardConfig.SupportedBaseCurrencies.Contains(BaseCurrency.ToUpperInvariant());
+            }
+        }
     }
 }

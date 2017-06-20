@@ -20,6 +20,11 @@
 
         public decimal GetData([FromUri] DashboardBaseModel metaModel)
         {
+            if (!metaModel.IsValid)
+            {
+                return 0;
+            }
+
             AssignAuthProperties(metaModel);
             return _pendingFundService.GetData(metaModel);
         }

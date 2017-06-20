@@ -23,6 +23,11 @@
         [HttpGet]
         public WidgetByPlatformViewModel GetData([FromUri] DashboardBaseModel metaModel)
         {
+            if (!metaModel.IsValid)
+            {
+                return new WidgetByPlatformViewModel();
+            }
+
             AssignAuthProperties(metaModel);
             var now = DateTime.Now.Date;
             metaModel.FromDate = new DateTime(now.Year, now.Month, 1);
