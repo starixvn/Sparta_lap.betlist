@@ -1,11 +1,11 @@
 ﻿"use strict";
-define(["jquery", "common/site", "./constant"], function ($, Site, Constant) {
+define(["jquery", "common/site", "./constant", "./betsetting.helper"], function ($, Site, Constant, BetSettingHelper) {
     var Product = Constant.Product;
     var _url = null;
 
     var _me = {
-        update: function () {
-            var postData = _me.getPostData();
+        update: function ($context) {
+            var postData = _me.getPostData($context);
 
             $.ajax({
                 type: 'POST',
@@ -23,12 +23,12 @@ define(["jquery", "common/site", "./constant"], function ($, Site, Constant) {
             });
         },
 
-        getPostData: function () {
+        getPostData: function ($context) {
             var productId = parseInt($("#ProductId").val());
-            var nickName = $(this).data("nick-name");
+            var nickName = $context.data("nick-name");
             // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
-            var status = $(this).data("status");
-            var custId = $(this).data("cust-id");
+            var status = $context.data("status");
+            var custId = $context.data("cust-id");
 
             switch (productId) {
                 case Product.LiveCasino:

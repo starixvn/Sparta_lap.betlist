@@ -112,15 +112,16 @@ else
 <!--SubmitButton-->
 @if (Model.Editable)
 {
+    var disabledText = isLineEnabled && hasData ? null : "disabled";
     <div class="right button-block">
-        <button type="button" @(isLineEnabled && hasData ? null : "disabled") class="btn btn-submit"
+        <button type="button" @disabledText class="btn btn-submit"
                 data-cust-id="@Model.Param.CustId"
                 data-user-name="@Model.Param.UserName.ToString()"
                 data-nick-name="@Model.Param.NickName"
                 id="btnSubmitBetSetting">
             @ViewResources.Submit
         </button>
-        <button type="button" @(isLineEnabled && hasData ? null : "disabled") class="btn btn-cancel" id="btnReset">
+        <button type="button" @disabledText class="btn btn-cancel" id="btnReset">
             @ViewResources.Reset
         </button>
         @if (isLineEnabled)

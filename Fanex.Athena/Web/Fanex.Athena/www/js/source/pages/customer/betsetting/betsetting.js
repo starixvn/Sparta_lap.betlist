@@ -4,7 +4,7 @@ define(["jquery", "common/site", "./constant", "./betsetting.reset", "./betsetti
         var Product = Constant.Product;
         var _formatter = new NumberFormatter();
 
-        var _sportIds = null;
+        var _sportIds = [];
 
         var _me = {
             initialize: function () {
@@ -34,7 +34,7 @@ define(["jquery", "common/site", "./constant", "./betsetting.reset", "./betsetti
                 });
 
                 $("#btnUpdateStatus").click(function () {
-                    BetSettingStatus.update();
+                    BetSettingStatus.update($(this));
                 });
 
                 $("#btnDisableEsports").on("click", _me.updateEsportStatus);
@@ -44,17 +44,16 @@ define(["jquery", "common/site", "./constant", "./betsetting.reset", "./betsetti
             },
             formatInputText: function () {
                 $("input[type=text]").blur(function () {
-                    var inputValue = $(this).val();
-
-                    var formattedValue = _formatter.formatNumber(inputValue, { format: "#,###,##0.##", locale: "us" });
-
+                    var inputValue = $(this).val().replace(/,/g, "");
+                    var formattedValue = _formatter.formatNumber(inputValue, { format: "#,###,##0.##" });
                     $(this).val(formattedValue);
                 });
             },
             // Displaying selected menu tab
             initMenu: function () {
                 var productId = parseInt($("#ProductId").val());
-                var enable = $("#editable").val() === "True";
+                var editable = $("#editable").val();
+                var enable = !editable || editable === "True";
                 $("#product-dropdown").on('change', function (event) {
                     var url = $(this).find("option:selected").data("href");
                     Site.blockUI();
@@ -95,7 +94,9 @@ define(["jquery", "common/site", "./constant", "./betsetting.reset", "./betsetti
                     $(selector).prop("disabled", !enable);
                 };
 
-                $("#btnSubmitBetSetting, #btnReset").prop('disabled', !enable).toggleClass("disabled", !enable);
+                if (!enable) {
+                    $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("disabled");
+                }
             },
 
             updateEsportStatus: function () {
