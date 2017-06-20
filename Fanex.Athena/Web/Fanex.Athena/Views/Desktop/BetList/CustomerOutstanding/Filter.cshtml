@@ -37,14 +37,19 @@
         <div class="col l2 m2 s12 button-block">
             <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
         </div>
-
-        @if (Model.BetListName == "dailystatement")
-        {
-            <div class="col right icon-block">
-                @{Html.RenderAction("Index", "Note", new { viewName = "DailyStatement" });}
-            </div>
-        }
     </div>
+
+    if (Model.BetListName == "dailystatement")
+    {
+        <div class="row">
+            <div class="col s12">
+                <span class="circle"></span> @ViewResources.DailyStatementMsg
+            </div>
+            <div class="col s12">
+                <span class="circle"></span> @ViewResources.GrandPrizeNote
+            </div>
+        </div>
+    }
 
     <input type="hidden" name="LicenseeId" id="LicenseeId" value="@Model.LicenseeId" />
     <input type="hidden" name="IsExportExcel" id="IsExportExcel" value="" />

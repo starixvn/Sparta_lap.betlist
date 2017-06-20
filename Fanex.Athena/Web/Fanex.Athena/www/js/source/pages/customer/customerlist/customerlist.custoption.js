@@ -19,6 +19,12 @@
                     CustomerListService.showGridDropdownById("ViewOptionList", $(this));
                 });
 
+                $("#report-content").on("focusout", ".custoptionlink", function (e) {
+                    if (!$(e.relatedTarget).is(".viewOptionLink")) {
+                        $("#ViewOptionList").fadeToggle();
+                    }
+                });
+
                 $("#bet-setting-link").on("click", _me.viewBetSetting);
                 $("#bet-list-link").on("click", _me.viewBetList);
                 $("#statement-link").on("click", _me.viewStatement);
