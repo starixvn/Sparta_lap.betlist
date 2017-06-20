@@ -1,20 +1,14 @@
 ﻿define(["jquery", "common/site"], function ($, Site) {
     "use strict";
 
-    function goToSite(relativeUrl) {
-        var href = Site.resolveClientUrl(relativeUrl);
-
-        Site.redirect(href);
-    }
-
     function goToCustomerList(groupCommId) {
         if (isParentSameOrigin()) {
-            // Remove active class for Commission Group List(55) menu item and add active class for Customer List(43) menu item 
+            // Deactive Commission Group menu (55) and active Customer list menu (43)
             $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
             $("li>#MenuItem43", window.parent.document).parent().addClass("active");
             _me.setPageTitle(Site.getSingleResource("CustomerList"));
         }
-        _me.goToSite("Customer/CustomerList?groupId=" + groupCommId);
+        Site.redirect(Site.resolveClientUrl("Customer/CustomerList?groupId=" + groupCommId));
     }
 
     function setPageTitle(title) {
@@ -33,7 +27,6 @@
     }
 
     var _me = {
-        goToSite: goToSite,
         goToCustomerList: goToCustomerList,
         setPageTitle: setPageTitle
     };

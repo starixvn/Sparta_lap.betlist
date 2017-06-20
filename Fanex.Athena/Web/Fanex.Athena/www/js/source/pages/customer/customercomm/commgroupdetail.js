@@ -19,7 +19,7 @@
 
              $("#Cancel").click(function () {
                  _me.setPageTitle("CommissionGroupList");
-                 _me.goToSite("CustomerComGroup/Index");
+                 Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
              });
 
              // Commission dropdownlist change
@@ -172,10 +172,6 @@
              }
          }
 
-         function goToSite(relativeUrl) {
-             CustomerCommGroup.goToSite(relativeUrl);
-         }
-
          function goToCustomerList(groupCommId) {
              CustomerCommGroup.goToCustomerList(groupCommId);
          }
@@ -190,14 +186,14 @@
 
              var buttons = [
                  {
-                     text: "OK",
+                     text: Site.getSingleResource("OK"),
                      isClosedOnClick: true,
                      click: function () {
                          callback(groupId, isResetDefault);
                      },
                      classes: "btn btn-primary"
                  }, {
-                     text: "Cancel",
+                     text: Site.getSingleResource("Cancel"),
                      isClosedOnClick: true,
                      classes: "btn btn-back"
                  }];
@@ -217,7 +213,6 @@
              submit: submit,
              checkAvailableGroup: checkAvailableGroup,
              setPageTitle: setPageTitle,
-             goToSite: goToSite,
              goToCustomerList: goToCustomerList
          };
 

@@ -47,13 +47,13 @@
                 it("redirect to Index if Cancel button is clicked", function () {
                     setFixtures('<button id="Cancel"></button>');
                     spyOn(CustomerCommGroupDetail, "setPageTitle");
-                    spyOn(CustomerCommGroupDetail, "goToSite");
+                    spyOn(Site, "redirect");
 
                     CustomerCommGroupDetail.initEvent();
                     $("#Cancel").click();
 
                     expect(CustomerCommGroupDetail.setPageTitle).toHaveBeenCalledWith("CommissionGroupList");
-                    expect(CustomerCommGroupDetail.goToSite).toHaveBeenCalledWith("CustomerComGroup/Index");
+                    expect(Site.redirect).toHaveBeenCalledWith("CustomerComGroup/Index");
                 });
 
                 describe("commissionOnChange(value, idName)", function () {
@@ -416,17 +416,6 @@
                     expect($("#formId").submit).toHaveBeenCalled();
                     expect($("#IsDefaultGroup").val()).toEqual('true');
                     expect($("#IsResetDefault").val()).toEqual('true');
-                });
-            });
-
-            describe("goToSite(relativeUrl, paramString)", function () {
-                it("CustomerCommGroup.goToSite should be called with correct params", function () {
-                    var expectedHref = "url?param=0";
-                    spyOn(CustomerCommGroup, "goToSite");
-
-                    CustomerCommGroupDetail.goToSite("url?param=0");
-
-                    expect(CustomerCommGroup.goToSite).toHaveBeenCalledWith(expectedHref);
                 });
             });
 

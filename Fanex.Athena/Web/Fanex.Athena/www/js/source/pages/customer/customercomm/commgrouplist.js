@@ -82,12 +82,12 @@
 
             var buttons = [
                 {
-                    text: "OK",
+                    text: Site.getSingleResource("OK"),
                     isClosedOnClick: true,
                     click: _me.showOptionDeleteCommGroupPopup,
                     classes: "btn btn-submit"
                 }, {
-                    text: "Cancel",
+                    text: Site.getSingleResource("Cancel"),
                     isClosedOnClick: true,
                     classes: "btn btn-cancel"
                 }];
@@ -115,7 +115,7 @@
 
             var buttons = [
                 {
-                    text: "Delete",
+                    text: Site.getSingleResource("Delete"),
                     isClosedOnClick: true,
                     click: function () {
                         deleteGroupData.isRemovePlayerComm = $('input[name="IsRemovePlayerComm"]:checked').val();
@@ -123,7 +123,7 @@
                     },
                     classes: "btn btn-submit"
                 }, {
-                    text: "Cancel",
+                    text: Site.getSingleResource("Cancel"),
                     isClosedOnClick: true,
                     click: function () {
                         $('#IsRemovePlayerComm').prop("checked", true);
@@ -145,12 +145,12 @@
 
             var buttons = [
                 {
-                    text: "OK",
+                    text: Site.getSingleResource("OK"),
                     isClosedOnClick: true,
                     click: _me.deleteCommGroup,
                     classes: "btn btn-submit"
                 }, {
-                    text: "Cancel",
+                    text: Site.getSingleResource("Cancel"),
                     isClosedOnClick: true,
                     click: _me.showOptionDeleteCommGroupPopup,
                     classes: "btn btn-cancel",
@@ -175,7 +175,7 @@
 
             var buttons = [
                 {
-                    text: "OK",
+                    text: Site.getSingleResource("OK"),
                     isClosedOnClick: true,
                     classes: "btn btn-cancel",
                     id: "result-OK"

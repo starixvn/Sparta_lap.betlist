@@ -15,36 +15,14 @@
                 });
             });
 
-            describe("goToSite(relativeUrl)", function () {
-                beforeAll(function () {
-                    spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
-                        return url;
-                    });
-                });
-
-                it("Site.redirect should be called with correct params", function () {
-                    var expectedHref = "url?param=0";
-                    spyOn(Site, "redirect");
-
-                    CustomerCommGroup.goToSite("url?param=0");
-
-                    expect(Site.redirect).toHaveBeenCalledWith(expectedHref);
-                });
-
-                it("Site.redirect should be called correctly without paramString", function () {
-                    var expectedHref = "url";
-                    spyOn(Site, "redirect");
-
-                    CustomerCommGroup.goToSite("url");
-
-                    expect(Site.redirect).toHaveBeenCalledWith(expectedHref);
-                });
-            });
-
             describe("goToCustomerList(groupCommId)", function () {
                 beforeAll(function () {
                     spyOn(Site, "getSingleResource").and.callFake(function (str) {
                         return str;
+                    });
+
+                    spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
+                        return url;
                     });
                 });
 
@@ -54,17 +32,17 @@
                     $("ul").append('<li><a id="MenuItem43"></a></li>');
                     window.parent.document = "ul";
                     spyOn(CustomerCommGroup, "setPageTitle");
-                    spyOn(CustomerCommGroup, "goToSite");
+                    spyOn(Site, "redirect");
 
                     CustomerCommGroup.goToCustomerList(1);
 
                     expect(CustomerCommGroup.setPageTitle).toHaveBeenCalledWith("CustomerList");
-                    expect(CustomerCommGroup.goToSite).toHaveBeenCalledWith("Customer/CustomerList?groupId=1");
+                    expect(Site.redirect).toHaveBeenCalledWith("Customer/CustomerList?groupId=1");
                 });
 
                 it("setPageTitle should not be called if parent host is not the same with current host", function () {
                     spyOn(CustomerCommGroup, "setPageTitle");
-                    spyOn(CustomerCommGroup, "goToSite");
+                    spyOn(Site, "redirect");
                     window.parent = {
                         location: {
                             host: new Error()
@@ -80,7 +58,7 @@
                     CustomerCommGroup.goToCustomerList(1);
 
                     expect(CustomerCommGroup.setPageTitle).not.toHaveBeenCalledWith("CustomerList");
-                    expect(CustomerCommGroup.goToSite).toHaveBeenCalledWith("Customer/CustomerList?groupId=1");
+                    expect(Site.redirect).toHaveBeenCalledWith("Customer/CustomerList?groupId=1");
                 });
             });
         });
