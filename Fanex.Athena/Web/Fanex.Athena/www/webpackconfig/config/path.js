@@ -114,7 +114,8 @@ var scriptPaths = {
     betsettingrngcasino: "./www/js/source/pages/customer/betsetting/main-betsetting.rngcasino.js",
     betsettingmain: "./www/js/source/pages/customer/betsetting/main-betsetting.js",
     betsettingbygroup: "./www/js/source/pages/customer/betsetting/main-betsettingbygroup.js",
-    dcsbetsetting: "./www/js/source/pages/customer/betsetting/main-dcsbetsetting.js"
+    dcsbetsetting: "./www/js/source/pages/customer/betsetting/main-dcsbetsetting.js",
+    thirdpartybetsetting: "./www/js/source/pages/customer/betsetting/main-thirdparty.js"
 };
 
 module.exports = {
