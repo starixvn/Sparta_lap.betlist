@@ -7,6 +7,7 @@
 $colorBorder: #ccc;
 $colorHeader: $bgHeaderTableLevel1;
 $bgHeader: #BCC5CC;
+$colorRowText: #404040;
 
 .report-container {
     margin: 1.5rem;
@@ -82,6 +83,7 @@ $bgHeader: #BCC5CC;
 
                 .old-value {
                     border-top: 1px solid $colorBorder;
+                    color: $colorRowText;
                 }
             }
         }

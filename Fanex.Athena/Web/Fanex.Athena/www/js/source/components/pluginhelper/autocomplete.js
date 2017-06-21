@@ -21,7 +21,7 @@ define(["jquery", "materialize-autocomplete"], function ($) {
                 _me.hideDropdown.call(_autoComplete);
             });
 
-            $(mainOption.target).keypress(function (e) {
+            $(mainOption.target).keyup(function (e) {
                 if (e.keyCode === 13) {
                     _me.hideDropdown.call(_autoComplete);
                 }
