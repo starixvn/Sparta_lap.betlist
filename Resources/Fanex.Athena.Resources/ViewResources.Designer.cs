@@ -4174,15 +4174,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Licensee is not offered any currency.
-        /// </summary>
-        public static string LicenseeNotOfferedCurrency {
-            get {
-                return ResourceManager.GetString("LicenseeNotOfferedCurrency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Licensee W/L.
         /// </summary>
         public static string LicenseeW_L {
@@ -8013,6 +8004,15 @@ namespace Fanex.Athena.Resources {
         public static string UserNotExist {
             get {
                 return ResourceManager.GetString("UserNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User does not have any currency.
+        /// </summary>
+        public static string UserNotHaveCurrency {
+            get {
+                return ResourceManager.GetString("UserNotHaveCurrency", resourceCulture);
             }
         }
         

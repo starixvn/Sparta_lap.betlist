@@ -2906,9 +2906,6 @@
   <data name="Administrator" xml:space="preserve">
     <value>Administrator</value>
   </data>
-  <data name="LicenseeNotOfferedCurrency" xml:space="preserve">
-    <value>Licensee is not offered any currency</value>
-  </data>
   <data name="TokenIsInValid" xml:space="preserve">
     <value>Token is invalid</value>
   </data>
@@ -3018,5 +3015,9 @@
   <data name="GroupManagement" xml:space="preserve">
     <value>Group Management</value>
     <comment>#77447</comment>
+  </data>
+  <data name="UserNotHaveCurrency" xml:space="preserve">
+    <value>User does not have any currency</value>
+    <comment>#73925</comment>
   </data>
 </root>
