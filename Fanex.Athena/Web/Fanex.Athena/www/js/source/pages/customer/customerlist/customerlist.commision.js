@@ -26,36 +26,49 @@
 
                 // Commission dropdownlist change
                 $('#CustSBComm1').on('change', function () {
-                    _me.commissionOnChange($(this).val(), '#CustSBComm');
+                    _me.commissionOnChange($(this).val(), 'CustSBComm');
                 });
 
                 $('#CustParlayComm1').on('change', function () {
-                    _me.commissionOnChange($(this).val(), '#CustParlayComm');
+                    _me.commissionOnChange($(this).val(), 'CustParlayComm');
                 });
 
                 $('#CustRBComm1').on('change', function () {
-                    _me.commissionOnChange($(this).val(), '#CustRBComm');
+                    _me.commissionOnChange($(this).val(), 'CustRBComm');
                 });
 
                 $('#CustNGComm1').on('change', function () {
-                    _me.commissionOnChange($(this).val(), '#CustNGComm');
+                    _me.commissionOnChange($(this).val(), 'CustNGComm');
                 });
 
                 $('#CustLCComm1').on('change', function () {
-                    _me.commissionOnChange($(this).val(), '#CustLCComm');
+                    _me.commissionOnChange($(this).val(), 'CustLCComm');
                 });
 
                 $('#CustCSComm1').on('change', function () {
-                    _me.commissionOnChange($(this).val(), '#CustCSComm');
+                    _me.commissionOnChange($(this).val(), 'CustCSComm');
                 });
             },
 
-            commissionOnChange: function (value, id) {
+            commissionOnChange: function (value, idName) {
+                var comm2 = "#" + idName + "2", comm3 = "#" + idName + "3";
+
                 if (Number(value) === 15) {
-                    $(id + 2 + ', ' + id + 3).val(0);
-                    $(id + 2 + ', ' + id + 3).attr('disabled', 'disabled');
+                    $(comm2).val(0);
+                    $(comm2).selectList("update", {
+                        isDisabled: true,
+                        selectionId: "select-list-" + idName + "2",
+                        labelText: "0"
+                    });
+                    $(comm3).val(0);
+                    $(comm3).selectList("update", {
+                        isDisabled: true,
+                        selectionId: "select-list-" + idName + "3",
+                        labelText: "0"
+                    });
                 } else {
-                    $(id + 2 + ', ' + id + 3).removeAttr('disabled');
+                    $(comm2).selectList("disabled", false);
+                    $(comm3).selectList("disabled", false);
                 }
             },
 
@@ -314,11 +327,11 @@
             removeFromGroupComm: function () {
                 var checkedCustomers = _state.selectedCustomers;
                 var numberOfCheckedCustomers = Object.keys(checkedCustomers).length;
-                var custList = [];
+                var groupList = [];
 
                 for (var customerId in checkedCustomers) {
                     if (checkedCustomers[customerId] > 0) {
-                        custList.push(checkedCustomers[customerId]);
+                        groupList.push(checkedCustomers[customerId]);
                     }
                 }
 
@@ -327,7 +340,7 @@
                     return;
                 }
 
-                if (custList.length === 0) {
+                if (groupList.length === 0) {
                     _me.showMsg(Site.getSingleResource('CustomerNotBelongAnyGroupMsg'), false);
                     return;
                 }
@@ -335,7 +348,7 @@
                 var iskeepcom = $('#KeepComm').is(':checked');
                 var param =
                 {
-                    CustomerIds: custList.toString(),
+                    CustomerIds: Object.keys(checkedCustomers).toString(),
                     isRemovePlayercomm: !iskeepcom
                 };
 

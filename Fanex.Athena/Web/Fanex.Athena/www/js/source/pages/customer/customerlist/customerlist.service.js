@@ -2,7 +2,7 @@
 define(["jquery", "common/site", "./customerlist.option", "lib/jqgrid/jquery.jqgrid.additional", "components/paging", "./customerlist.state",
     "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension"],
 function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
-    var _POPUP_LIST = ["#view-cust-option", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
+    var _POPUP_LIST = ["#ViewOptionList", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
     var _isAllowedCustomerCommission;
     var _productAccess;
     var _ajaxRequest = null;
@@ -105,6 +105,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
 
             if (!hasData) {
                 jqGridAdditional.setNoInfo();
+                Site.unBlockUI();
                 return;
             }
 

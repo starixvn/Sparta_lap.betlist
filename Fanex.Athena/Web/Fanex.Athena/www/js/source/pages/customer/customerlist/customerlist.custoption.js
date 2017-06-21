@@ -57,9 +57,15 @@
                 var url = Site.resolveClientUrl("Customer/LogInfo");
                 url = QueryString.setParams(url, customer);
 
-                var popupOption = { width: 360, height: 280, title: Site.getSingleResource("LogInfo") };
+                var popupOption = { width: 360, height: 280, title: Site.getSingleResource("LogInfo"), id: "CustomerLogInfo" };
 
-                var $popup = $('<div style="display: none" class="customer-logInfo"></div>');
+                var $popup = $("#" + popupOption.id);
+                if ($popup.length > 0) {
+                    $popup = $popup.find(".wrapContent");
+                }
+                else {
+                    $popup = $('<div style="display: none" class="customer-logInfo"></div>');
+                }
 
                 $popup.load(url, function (response, status) {
                     if (status === "success") {

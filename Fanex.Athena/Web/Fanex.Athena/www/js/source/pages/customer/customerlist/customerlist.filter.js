@@ -6,6 +6,10 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
         var _me = {
             initialize: function () {
                 _state = CustomerListState.getState();
+                Site.addUserGuide({
+                    resourceName: "CustomerList",
+                    title: Site.getSingleResource("CustomerList")
+                });
                 AutoComplete.initialize({
                     url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
                     target: "#Username"
