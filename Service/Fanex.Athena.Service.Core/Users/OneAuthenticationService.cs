@@ -71,7 +71,6 @@
             }
 
             var currencyList = GetCurrencyList(tokenInfo, licensee.Id);
-
             if (currencyList == null || !currencyList.Any())
             {
                 return new ResultInfo
@@ -90,12 +89,7 @@
                 var isSameSession = VerifySessionWithToken(userSession, licenseeSession, tokenInfo, licensee.Id);
                 if (isSameSession)
                 {
-                    if (!language.Equals(userSession.Language))
-                    {
-                        _sessionService.UpdateLanguage(language);
-                    }
-                    AssignCurrenciesToUserSession(userSession, currencyList, licensee.Id);
-                    userSession.PortalFunctionList = GetPermissionList(tokenInfo);
+                    UpdateUserSession(userSession, tokenInfo, licensee.Id, currencyList, language);
                     return new ResultInfo
                     {
                         ExtendedData = tokenInfo.ActionLink
@@ -153,19 +147,6 @@
             };
         }
 
-        private IEnumerable<CurrencyUser> GetCurrencyList(OneAuthToken tokenInfo, int licenseeId)
-        {
-            return tokenInfo.IsAdminstrator ?
-                            _currencyService.GetCurrenciesByUser(licenseeId, tokenInfo.UserSEQ) :
-                            tokenInfo.Currency?.Select(x => new CurrencyUser
-                            {
-                                IsActive = true,
-                                CurrencyId = x.CurrencyId,
-                                CurrencyName = x.Currency,
-                                AgentIdList = x.AgentId
-                            }).ToList();
-        }
-
         /// <summary>
         /// This function will be removed when integrating permission part with LAP.
         /// </summary>
@@ -191,6 +172,30 @@
 
             userSession.CurrencyList = currencyList;
             userSession.CurrencyAgentList = currencyAgentList;
+        }
+
+        private void UpdateUserSession(UserSession userSession, OneAuthToken tokenInfo, int licenseeId, IEnumerable<CurrencyUser> currencyList, string language)
+        {
+            if (!language.Equals(userSession.Language))
+            {
+                _sessionService.UpdateLanguage(language);
+            }
+
+            AssignCurrenciesToUserSession(userSession, currencyList, licenseeId);
+            userSession.PortalFunctionList = GetPermissionList(tokenInfo);
+        }
+
+        private IEnumerable<CurrencyUser> GetCurrencyList(OneAuthToken tokenInfo, int licenseeId)
+        {
+            return tokenInfo.IsAdminstrator ?
+                            _currencyService.GetCurrenciesByUser(licenseeId, tokenInfo.UserSEQ) :
+                            tokenInfo.Currency?.Select(x => new CurrencyUser
+                            {
+                                IsActive = true,
+                                CurrencyId = x.CurrencyId,
+                                CurrencyName = x.Currency,
+                                AgentIdList = x.AgentId
+                            }).ToList();
         }
 
         private IResultInfo CheckAndSyncUserInfo(Licensee licensee, string userName)

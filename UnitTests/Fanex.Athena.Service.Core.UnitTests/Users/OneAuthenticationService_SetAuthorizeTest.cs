@@ -49,34 +49,15 @@
         }
 
         [Test]
-        public void SetAuthorize_IfAdminCallGetCurrencyFromDB()
-        {
-            // Arrange
-            var tokenInfo = new OneAuthToken { IsAdminstrator = true, UserSEQ = 1 };
-
-            _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
-            var licensee = new Licensee
-            {
-                Id = 1
-            };
-
-            // Action
-            _oneAuthenticationService.SetAuthorize(licensee, "en-US", tokenInfo);
-
-            // Assert
-            _currencyService.Received().GetCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ);
-        }
-
-        [Test]
         public void SignIn_SetAuthorize_IfNotAdminNotCallGetCurrencyFromDB()
         {
             // Arrange
             var tokenInfo = new OneAuthToken { IsAdminstrator = false };
 
             _oneAuthenticationService = new OneAuthenticationService(_sessionService, _licenseeService, _currencyService, _formAuthenticationService, _userService, null);
-            
+
             // Action
-            _oneAuthenticationService.SetAuthorize(new Licensee(), "en-US", tokenInfo);
+            _oneAuthenticationService.SetAuthorize(tokenInfo);
 
             // Assert
             _currencyService.DidNotReceive().GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>());
@@ -115,7 +96,6 @@
             LicenseeSession lic = null;
             OneAuthToken tokenInfo;
             Licensee expectedLicInfo;
-            var expectedCurrency = FakeCurrencyListMapByUser();
             CreateTokenInfoAndLicInfo(ExpectedLicId, out tokenInfo, out expectedLicInfo);
             var expectedCookie = $"{tokenInfo.VendorID}_{tokenInfo.SiteName}_{tokenInfo.UserID}";
             var expectedAgents = new List<LicenseeCustomer> { new LicenseeCustomer() };
@@ -150,10 +130,10 @@
             Assert.AreEqual(1, sessionCounter);
             Assert.AreEqual(1, cookieCounter);
             Assert.False(string.IsNullOrEmpty(result.ExtendedData));
-            Assert.True(VeryfiLicSession(lic, expectedLicInfo, tokenInfo));
+            Assert.True(VeryfiLicSession(lic, expectedLicInfo));
         }
 
-        private static bool VeryfiLicSession(LicenseeSession lic, Licensee expectedLicInfo, OneAuthToken tokenInfo)
+        private static bool VeryfiLicSession(LicenseeSession lic, Licensee expectedLicInfo)
         {
             return lic.LicenseeId == expectedLicInfo.Id && lic.LicenseeName == expectedLicInfo.Name
                  && lic.IsEnableBA == expectedLicInfo.IsEnableBA && lic.IsAllowedCustomerComm == expectedLicInfo.IsAllowedCustomerComm;

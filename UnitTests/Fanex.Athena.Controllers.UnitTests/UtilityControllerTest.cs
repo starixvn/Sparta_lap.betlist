@@ -81,7 +81,7 @@
         [TestCase(100, "Token was expired")]
         [TestCase(200, "Not found licensee")]
         [TestCase(400, "Direct Access to this website is restricted. Please contact Administrator for further enquiries.")]
-        [TestCase(600, "Licensee is not offered any currency")]
+        [TestCase(600, "User does not have any currency")]
         [TestCase(300, "Token is invalid")]
         [TestCase(700, "You are not allowed to access this page !!!")]
         [TestCase(800, "Not found user")]
