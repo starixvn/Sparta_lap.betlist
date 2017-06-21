@@ -9,7 +9,8 @@ define([
     "./customerlist.speciallevel",
     "./customerlist.oddsgroup",
     "components/paging",
-    "common/popup"],
+    "common/popup",
+    "lib/jqgrid/jquery.jqgrid.additional"],
     function (
         $,
         Site,
@@ -20,7 +21,8 @@ define([
         CustomerListSpecialLevel,
         CustomerListOddsGroup,
         PagingHelper,
-        Popup) {
+        Popup,
+        jqGridAdditional) {
         var _state;
 
         function updateGroupForCheckCustomerArray(groupid) {
@@ -75,6 +77,14 @@ define([
 
                 $("#popup-suspended").change(_me.custStatusCheckedChanged);
                 $("#popup-closed").change(_me.custStatusCheckedChanged);
+
+                $(window).on("resize", function () {
+                    _me.resizeGrid();
+                });
+
+                $(window).on("unload", function () {
+                    $(window).off("resize");
+                });
             },
 
             registerCheckboxEvent: function () {
@@ -231,6 +241,12 @@ define([
 
                 updateGroupForCheckCustomerArray(groupid);
                 CustomerListService.bindData(_state.cachedData);
+            },
+
+            resizeGrid: function () {
+                var reportGrid = $("#ReportGrid");
+                jqGridAdditional.updateGridHeight();
+                jqGridAdditional.updateGridWidth(reportGrid);
             }
         };
 
