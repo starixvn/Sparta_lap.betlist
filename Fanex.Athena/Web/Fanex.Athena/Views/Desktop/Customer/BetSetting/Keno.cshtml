@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Desktop/Shared/_BetSettingLayout.cshtml";
+    Layout = "~/Views/Desktop/Shared/_BetSettingLayoutNew.cshtml";
 }
 @model Fanex.Athena.Model.BetSettings.ViewModel.BetSettingViewModel
 
@@ -11,6 +11,10 @@
         <td class="col-medium"></td>
         <td class="col-medium"></td>
     </tr>
+}
+
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/kenobetsetting.chunk.js")"></script>
 }
 
 @section Menu{
@@ -27,7 +31,6 @@
 }
 
 @Html.Hidden("editable", Model.Editable)
-@Html.Hidden("dataCount", (Model.MainData == null ? 0 : Model.MainData.Count))
 @Html.Hidden("IDList", Model.MainData.First().SportId)
 
 @if (!hasData)
@@ -108,14 +111,13 @@ else
     <div class="right button-block">
         <button type="button" class="btn btn-submit"
                 data-cust-id="@Model.Param.CustId"
-                data-user-name="@Model.Param.UserName.ToString()"
+                data-user-name="@Model.Param.UserName"
                 data-nick-name="@Model.Param.NickName"
                 id="btnSubmitBetSetting">
             @ViewResources.Submit
         </button>
-        <button type="button"
-                class="btn btn-cancel"
-                id="btnReset">
+
+        <button type="button" class="btn btn-cancel" id="btnReset">
             @ViewResources.Reset
         </button>
     </div>

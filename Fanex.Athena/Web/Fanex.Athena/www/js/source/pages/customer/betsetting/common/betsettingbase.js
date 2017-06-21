@@ -101,8 +101,9 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
 
             getBetSettingParamsForSports: function () {
                 var params = {};
-                for (var i = 0; i < _sportIds.length; i++) {
-                    $.extend(params, _me.getBetSettingParams(_sportIds[i]));
+                var sportIds = _me.getSportIds();
+                for (var i = 0; i < sportIds.length; i++) {
+                    $.extend(params, _me.getBetSettingParams(sportIds[i]));
                 }
 
                 return params;

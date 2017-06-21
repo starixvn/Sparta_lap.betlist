@@ -115,7 +115,9 @@ var scriptPaths = {
     betsettingmain: "./www/js/source/pages/customer/betsetting/main-betsetting.js",
     betsettingbygroup: "./www/js/source/pages/customer/betsetting/main-betsettingbygroup.js",
     dcsbetsetting: "./www/js/source/pages/customer/betsetting/main-dcsbetsetting.js",
-    thirdpartybetsetting: "./www/js/source/pages/customer/betsetting/main-thirdparty.js"
+    thirdpartybetsetting: "./www/js/source/pages/customer/betsetting/main-thirdparty.js",
+    kenobetsetting: "./www/js/source/pages/customer/betsetting/main-keno.js",
+    livecasinobetsetting: "./www/js/source/pages/customer/betsetting/main-livecasino.js"
 };
 
 module.exports = {
