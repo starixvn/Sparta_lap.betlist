@@ -1,5 +1,7 @@
 ﻿"use strict";
-define(["jquery", "common/site", "../common/betsettingbase", "../common/betsetting.copy"], function ($, Site, BetSettingBase, BetSettingCopy) {
+define(["jquery", "common/site", "../common/constant", "../common/betsettingbase", "../common/betsetting.copy"], function ($, Site, Constant, BetSettingBase, BetSettingCopy) {
+    var Product = Constant.Product;
+
     var _me = {
         initialize: function () {
             Site.initialize();
@@ -20,7 +22,11 @@ define(["jquery", "common/site", "../common/betsettingbase", "../common/betsetti
             });
 
             $("#btnSubmitBetSetting").on("click", function () {
-                BetSettingBase.showComfirm($(this), 'UpdateSportsbookBetSettings', _me.updateBetSetting);
+                var productId = parseInt($("#ProductId").val());
+                var messageResource = productId === Product.Sportsbook ? "UpdateSportsbookBetSettings" :
+                        (productId === Product.Racing ? "UpdateRacingBetSettings" : "");
+
+                BetSettingBase.showComfirm($(this), messageResource, _me.updateBetSetting);
             });
 
             // Formating number in text box.
@@ -28,14 +34,16 @@ define(["jquery", "common/site", "../common/betsettingbase", "../common/betsetti
         },
 
         updateBetSetting: function (custId, userName, nickName) {
-            var url = Site.resolveClientUrl('SportsbookBetSetting/UpdateBetSetting');
+            var productId = parseInt($("#ProductId").val());
+            var url = productId === Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" :
+                    (productId === Product.Racing ? "RacingBetSetting/updateBetSetting" : null);
 
             var params = BetSettingBase.getBetSettingParamsForSports();
             params.custid = custId;
             params.userName = userName;
             params.nickName = nickName;
 
-            BetSettingBase.updateBetSetting(url, params);
+            BetSettingBase.updateBetSetting(Site.resolveClientUrl(url), params);
         }
     };
 

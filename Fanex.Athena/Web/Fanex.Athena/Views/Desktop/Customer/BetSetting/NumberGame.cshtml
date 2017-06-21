@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Desktop/Shared/_BetSettingLayout.cshtml";
+    Layout = "~/Views/Desktop/Shared/_BetSettingLayoutNew.cshtml";
 }
 @model Fanex.Athena.Model.BetSettings.ViewModel.BetSettingViewModel
 
@@ -12,6 +12,10 @@
         <td class="col-medium"></td>
         <td class="col-medium"></td>
     </tr>
+}
+
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/numbergamebetsetting.chunk.js")"></script>
 }
 
 @section Menu{

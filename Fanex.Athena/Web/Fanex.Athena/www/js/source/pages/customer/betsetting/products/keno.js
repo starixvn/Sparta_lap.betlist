@@ -4,6 +4,7 @@ define(["jquery", "common/site", "../common/betsettingbase"], function ($, Site,
         initialize: function () {
             Site.initialize();
             BetSettingBase.initialize();
+            BetSettingBase.setEnable();
             _me.initEvent();
         },
 
