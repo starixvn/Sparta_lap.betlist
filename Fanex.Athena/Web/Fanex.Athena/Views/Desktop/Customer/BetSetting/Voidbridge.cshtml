@@ -1,7 +1,11 @@
 ﻿@{
-    Layout = "~/Views/Desktop/Shared/_BetSettingLayout.cshtml";
+    Layout = "~/Views/Desktop/Shared/_BetSettingLayoutNew.cshtml";
 }
 @model Fanex.Athena.Model.BetSettings.ViewModel.BetSettingBaseViewModel
+
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/dcsbetsetting.chunk.js")"></script>
+}
 
 @section Menu{
     @{Html.RenderPartial("~/Views/Desktop/Customer/BetSetting/Menu.cshtml", Model);}

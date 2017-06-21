@@ -19,7 +19,7 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
 
             getSportIds: function () {
                 var $idList = $("#IDList");
-                return $idList.val().split(",");
+                return $idList.length ? $idList.val().split(",") : [];
             },
 
             setEnable: function () {
@@ -52,10 +52,10 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
             },
 
             showComfirm: function ($target, resourceMessage, callback) {
-                var sportIds = _me.getSportIds();
                 var productId = parseInt($("#ProductId").val());
                 var isValid = productId === Product.LiveCasino ? true :
-                             (productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() : BetSettingValidation.checkValidation(sportIds));
+                             (productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
+                                                                BetSettingValidation.checkValidation(_me.getSportIds()));
                 if (!isValid) {
                     return;
                 }

@@ -111,9 +111,10 @@ var scriptPaths = {
     groupcommission: "./www/js/source/pages/customer/customerlog/groupcommission/main.js",
     customeroutstanding: "./www/js/source/pages/betlist/customer/main.js",
     betsetting: "./www/js/source/pages/customer/betsetting/main.js",
-    betsettingrngcasino: "./www/js/source/pages/customer/betsetting/main-betsetting.rngcasino.js"
+    betsettingrngcasino: "./www/js/source/pages/customer/betsetting/main-betsetting.rngcasino.js",
     betsettingmain: "./www/js/source/pages/customer/betsetting/main-betsetting.js",
-    betsettingagcasino: "./www/js/source/pages/customer/betsetting/main-agcasino.js"
+    betsettingbygroup: "./www/js/source/pages/customer/betsetting/main-betsettingbygroup.js",
+    dcsbetsetting: "./www/js/source/pages/customer/betsetting/main-dcsbetsetting.js"
 };
 
 module.exports = {

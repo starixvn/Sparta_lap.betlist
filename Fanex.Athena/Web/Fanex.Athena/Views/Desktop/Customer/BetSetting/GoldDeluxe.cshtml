@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Desktop/Shared/_BetSettingLayout.cshtml";
+    Layout = "~/Views/Desktop/Shared/_BetSettingLayoutNew.cshtml";
 }
 @model Fanex.Athena.Model.BetSettings.ViewModel.GoldDeluxeBetSettingViewModel
 @using Fanex.Athena.Model.Core.DataDomain;
@@ -11,6 +11,10 @@
         <td class="col-medium large"></td>
         <td class="col-medium large"></td>
     </tr>
+}
+
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/betsettingbygroup.chunk.js")"></script>
 }
 
 @section Menu{
@@ -25,11 +29,12 @@
     const string FormatDecimal = "#,###,##0.##";
     var hasData = Model.Games.Count > 0;
     var isLineEnabled = Model.BetSetting.IsLineEnabled;
-    var tableTextClass = Model.IsEnabled.HasValue && Model.IsEnabled.Value ? "" : "disabled-text";
+    var isBetSettingEnabled = Model.IsEnabled.HasValue && Model.IsEnabled.Value;
+    var tableTextClass = isBetSettingEnabled ? "" : "disabled-text";
 }
 @if (isLineEnabled)
 {
-    if (Model.BetSetting.IsEnabled && hasData)
+    if (isBetSettingEnabled && hasData)
     {
         <div class="setting-group-seletion">
             <div class="col l3 m4 s12">
@@ -50,7 +55,6 @@
     }
 
     @Html.Hidden("editable", Model.Editable)
-    @Html.Hidden("dataCount", Model.BetSetting.IsEnabled ? 1 : 0)
     @Html.Hidden("BettingLimit", new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Games))
 }
 @if (isLineEnabled && !hasData)
@@ -112,7 +116,7 @@ else
 <!--SubmitButton-->
 @if (Model.Editable)
 {
-    var disabledText = isLineEnabled && hasData ? null : "disabled";
+    var disabledText = isLineEnabled && isBetSettingEnabled && hasData ? null : "disabled";
     <div class="right button-block">
         <button type="button" @disabledText class="btn btn-submit"
                 data-cust-id="@Model.Param.CustId"
@@ -127,11 +131,11 @@ else
         @if (isLineEnabled)
         {
             <button type="button" class="btn btn-submit"
-                    data-status="@(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 0 : 1)"
+                    data-status="@(isBetSettingEnabled ? 0 : 1)"
                     data-cust-id="@Model.Param.CustId"
                     data-nick-name="@Model.Param.NickName"
                     id="btnUpdateStatus">
-                @(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? ViewResources.DisableGoldDeluxe : ViewResources.EnableGoldDeluxe)
+                @(isBetSettingEnabled ? ViewResources.DisableGoldDeluxe : ViewResources.EnableGoldDeluxe)
             </button>
         }
     </div>
