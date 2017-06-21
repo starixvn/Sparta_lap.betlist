@@ -24,6 +24,28 @@
             _customerBalanceService = null;
         }
 
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("CLMV")]
+        public void GetData_InvalidBaseCurrency_ReturnZero(string baseCurrency)
+        {
+            // Arrange
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = baseCurrency
+            };
+
+            using (var controller = CreateController())
+            {
+                // Action
+                var result = controller.GetData(metaModel);
+
+                // Assert
+                Assert.That(result, Is.Zero);
+                _customerBalanceService.DidNotReceive().GetData(metaModel);
+            }
+        }
+
         [Test]
         public void GetData_WhenCall_PassCorrectParam()
         {
@@ -32,15 +54,8 @@
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR", CurrencyId = 1, SelectedWidgetString = "CustomerBalance" };
             _customerBalanceService.GetData(metaModel).Returns(expected);
 
-            var mockActionContext = new HttpActionContext
-            {
-                ControllerContext = new HttpControllerContext(),
-                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
-            };
             using (var controller = CreateController())
             {
-                controller.ActionContext = mockActionContext;
-
                 // Action
                 controller.GetData(metaModel);
 
@@ -55,18 +70,15 @@
         {
             // Arrange
             var expected = 1570000M;
-            var metaModel = new DashboardBaseModel();
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = "EUR"
+            };
+
             _customerBalanceService.GetData(metaModel).Returns(expected);
 
-            var mockActionContext = new HttpActionContext
-            {
-                ControllerContext = new HttpControllerContext(),
-                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
-            };
             using (var controller = CreateController())
             {
-                controller.ActionContext = mockActionContext;
-
                 // Action
                 var result = controller.GetData(metaModel);
 
@@ -77,7 +89,16 @@
 
         private CustomerBalanceController CreateController()
         {
-            return new CustomerBalanceController(_customerBalanceService);
+            var controller = new CustomerBalanceController(_customerBalanceService);
+            var mockActionContext = new HttpActionContext
+            {
+                ControllerContext = new HttpControllerContext(),
+                ActionArguments = { { "licenseeid", 1 }, { "userid", 2 } }
+            };
+
+            controller.ActionContext = mockActionContext;
+
+            return controller;
         }
     }
 }

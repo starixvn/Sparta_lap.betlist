@@ -21,6 +21,11 @@
 
         public decimal GetData([FromUri] DashboardBaseModel metaModel)
         {
+            if (!metaModel.IsValid)
+            {
+                return 0;
+            }
+
             AssignAuthProperties(metaModel);
             metaModel.FromDate = DateTime.Now.Date;
             return _todayDepositService.GetData(metaModel);

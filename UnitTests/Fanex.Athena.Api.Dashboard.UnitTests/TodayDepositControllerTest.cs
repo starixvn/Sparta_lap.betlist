@@ -23,6 +23,28 @@
             _todayDepositService = null;
         }
 
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("CLMV")]
+        public void GetData_InvalidBaseCurrency_ReturnZero(string baseCurrency)
+        {
+            // Arrange
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = baseCurrency
+            };
+
+            using (var controller = CreateController())
+            {
+                // Action
+                var result = controller.GetData(metaModel);
+
+                // Assert
+                Assert.That(result, Is.Zero);
+                _todayDepositService.DidNotReceive().GetData(metaModel);
+            }
+        }
+
         [Test]
         public void Index_WhenCall_PassCorrectParam()
         {
@@ -48,11 +70,15 @@
             // Arrange
             var expected = 2500000M;
             _todayDepositService.GetData(Arg.Any<DashboardBaseModel>()).Returns(expected);
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = "EUR"
+            };
 
             using (var controller = CreateController())
             {
                 // Action
-                var result = controller.GetData(new DashboardBaseModel());
+                var result = controller.GetData(metaModel);
 
                 // Assert
                 Assert.That(result, Is.EqualTo(expected));

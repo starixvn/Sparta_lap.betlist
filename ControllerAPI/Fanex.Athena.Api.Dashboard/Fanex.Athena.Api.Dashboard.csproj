@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDashboardApiController.cs" />
-    <Compile Include="DashboardController.cs" />
     <Compile Include="LicenseeWinLossByPlatformController.cs" />
     <Compile Include="PendingFundController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

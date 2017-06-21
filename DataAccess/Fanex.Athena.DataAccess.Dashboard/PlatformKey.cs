@@ -1,7 +1,19 @@
-﻿namespace Fanex.Athena.DataAccess.Dashboard
+﻿using System.Collections.Generic;
+
+namespace Fanex.Athena.DataAccess.Dashboard
 {
     public static class PlatformKey
     {
+        private static readonly IDictionary<int, string> MapPlatformNames = new Dictionary<int, string>
+        {
+            { All, nameof(All) },
+            { Asia, nameof(Asia) },
+            { NewAsia, nameof(NewAsia) },
+            { Euro, nameof(Euro) },
+            { Wap, nameof(Wap) },
+            { Mobile, nameof(Mobile) }
+        };
+
         public const int All = 0;
 
         public const int Asia = 1;
@@ -16,15 +28,7 @@
 
         public static string GetPlatformName(int type)
         {
-            switch (type)
-            {
-                case Asia: return "Asia";
-                case NewAsia: return "NewAsia";
-                case Euro: return "Euro";
-                case Wap: return "Wap";
-                case Mobile: return "Mobile";
-                default: return "All";
-            }
+            return MapPlatformNames.ContainsKey(type) ? MapPlatformNames[type] : "All";
         }
     }
 }

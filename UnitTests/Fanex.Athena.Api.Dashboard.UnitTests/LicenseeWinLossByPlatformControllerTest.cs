@@ -26,6 +26,32 @@
             _licenseeWinLossByPlatformService = null;
         }
 
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("CLMV")]
+        public void GetData_InvalidBaseCurrency_ReturnEmptyResult(string baseCurrency)
+        {
+            // Arrange
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = baseCurrency
+            };
+
+            using (var controller = CreateController())
+            {
+                // Action
+                var result = controller.GetData(metaModel);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(result.Data, Is.Null);
+                    Assert.That(result.Total, Is.Zero);
+                    _licenseeWinLossByPlatformService.DidNotReceive().GetData(metaModel);
+                });
+            }
+        }
+
         [Test]
         public void GetData_WhenCall_PassCorrectParam()
         {
@@ -60,7 +86,10 @@
                     new KeyValuePair<string, decimal>("Others", 1700M)
                 }
             };
-            var metaModel = new DashboardBaseModel();
+            var metaModel = new DashboardBaseModel
+            {
+                BaseCurrency = "EUR"
+            };
             _licenseeWinLossByPlatformService.GetData(metaModel).Returns(expected);
 
             using (var controller = CreateController())
