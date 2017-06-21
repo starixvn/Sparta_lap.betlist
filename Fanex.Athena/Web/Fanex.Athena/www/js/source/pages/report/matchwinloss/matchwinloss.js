@@ -85,7 +85,7 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
 
                 submitData = Site.setLicenseeOptionOriginalParam(submitData);
                 submitData.Date = $(Selector.date).attr('data-original');
-                submitData.ProductOptions = _me.getProductOption(submitData.ProductCode);
+                submitData.ProductOptions = _me.getProductCodeList(submitData.ProductCode);
 
                 var isExpanding = $this.closest("tr").hasClass(ClassName.active);
                 _me.clearDetailRows($parentRow);
@@ -149,11 +149,8 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
                 url = QueryString.setParam(url, "homeid", matchData.HomeId);
                 url = QueryString.setParam(url, "awayid", matchData.AwayId);
 
-                var products = _me.getProductOption(productCode);
-                for (var i = 0; i < products.length; i++) {
-                    var item = products[i];
-                    url = Site.setProductOptionParam(url, i, item.Code, item.Status);
-                }
+                var productCodeList = _me.getProductCodeList(productCode);
+                url = Site.setProductCodeListParam(url, productCodeList);
 
                 Site.blockUI();
                 Site.redirect(url);
