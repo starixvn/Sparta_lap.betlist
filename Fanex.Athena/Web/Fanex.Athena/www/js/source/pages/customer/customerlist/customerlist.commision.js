@@ -361,7 +361,7 @@
                     complete: _me.ajaxStop,
                     success: function (result) {
                         if (result.Success) {
-                            if (numberOfCheckedCustomers > 0 && custList.length > 0 && custList.length < numberOfCheckedCustomers) {
+                            if (numberOfCheckedCustomers > 0 && groupList.length > 0 && groupList.length < numberOfCheckedCustomers) {
                                 _me.showMsg(result.Message + "! </br> " + Site.getSingleResource('CustomersBelongGroupsBeRemovedMsg'), true);
                             }
                             else {
