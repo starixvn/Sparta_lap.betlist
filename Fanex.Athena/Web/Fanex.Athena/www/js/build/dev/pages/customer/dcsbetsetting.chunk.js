@@ -3,7 +3,7 @@ webpackJsonp([58],{
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(291);
+	module.exports = __webpack_require__(292);
 
 
 /***/ }),
@@ -1738,18 +1738,18 @@ webpackJsonp([58],{
 
 /***/ }),
 
-/***/ 291:
+/***/ 292:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(292)], __WEBPACK_AMD_DEFINE_RESULT__ = function (DcsBetSetting) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(293)], __WEBPACK_AMD_DEFINE_RESULT__ = function (DcsBetSetting) {
 	    $(DcsBetSetting.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 292:
+/***/ 293:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* AllBet, VoidBridge, FishingWorld */

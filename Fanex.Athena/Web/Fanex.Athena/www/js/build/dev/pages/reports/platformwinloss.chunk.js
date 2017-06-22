@@ -3,7 +3,7 @@ webpackJsonp([78],{
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(345);
+	module.exports = __webpack_require__(346);
 
 
 /***/ }),
@@ -4163,10 +4163,10 @@ webpackJsonp([78],{
 
 /***/ }),
 
-/***/ 288:
+/***/ 289:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(289)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(290)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	        "use strict";
 	        var PICKER_SELECTOR = "#month-picker";
 	        var FORMAT = "MM/dd/yyyy";
@@ -4228,7 +4228,7 @@ webpackJsonp([78],{
 
 /***/ }),
 
-/***/ 289:
+/***/ 290:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -5066,7 +5066,7 @@ webpackJsonp([78],{
 
 /***/ }),
 
-/***/ 337:
+/***/ 338:
 /***/ (function(module, exports) {
 
 	/*--------------------------------------------------------------------------
@@ -7805,10 +7805,10 @@ webpackJsonp([78],{
 
 /***/ }),
 
-/***/ 345:
+/***/ 346:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(346)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(347)], __WEBPACK_AMD_DEFINE_RESULT__ = function (PlatformWinLoss) {
 	    "use strict";
 	    $(PlatformWinLoss.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -7816,7 +7816,7 @@ webpackJsonp([78],{
 
 /***/ }),
 
-/***/ 346:
+/***/ 347:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
@@ -7824,15 +7824,15 @@ webpackJsonp([78],{
 	    __webpack_require__(8),
 	    __webpack_require__(7),
 	    __webpack_require__(241),
-	    __webpack_require__(347),
+	    __webpack_require__(348),
 	    __webpack_require__(220),
-	    __webpack_require__(288),
+	    __webpack_require__(289),
 	    __webpack_require__(244),
 	    __webpack_require__(9),
 	    __webpack_require__(223),
 	    __webpack_require__(224),
 	    __webpack_require__(248),
-	    __webpack_require__(337)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup) {
+	    __webpack_require__(338)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup) {
 	        "use strict";
 	
 	        var BETLIST_IGNORED_PRODUCTS = ["AB"];
@@ -8239,7 +8239,7 @@ webpackJsonp([78],{
 
 /***/ }),
 
-/***/ 347:
+/***/ 348:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />

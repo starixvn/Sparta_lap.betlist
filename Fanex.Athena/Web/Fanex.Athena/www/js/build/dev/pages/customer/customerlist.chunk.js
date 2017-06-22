@@ -3930,7 +3930,7 @@ webpackJsonp([56],{
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(272), __webpack_require__(279), __webpack_require__(274), __webpack_require__(283), __webpack_require__(284)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerListFilter, CustomerListGrid, CustomerListService, CustomerComm, CustomerListViewOption) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(272), __webpack_require__(279), __webpack_require__(274), __webpack_require__(284), __webpack_require__(285)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, CustomerListFilter, CustomerListGrid, CustomerListService, CustomerComm, CustomerListViewOption) {
 	        $(document).ready(function () {
 	            Site.initialize();
 	            CustomerListService.initialize();
@@ -4511,10 +4511,11 @@ webpackJsonp([56],{
 	            align: 'center',
 	            sortable: false,
 	            formatter: function (cellValue, options, rowObject) {
-	                return "<span custid='" + rowObject.CustId + "' class='link cust-status-option' issuspended='" +
-	                    rowObject.IsSuspended + "'  isclosed='" + rowObject.IsClosed + "' externalid='" + rowObject.ExternalId +
-	                    "' id='edit-cust-status-" + rowObject.CustId + "'>" + cellValue +
-	                    "<span class='arrow1' title='" + Site.getSingleResource("Status") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
+	                var dataAttribute = " data-custid='" + rowObject.CustId + "' data-externalid='" + rowObject.ExternalId + "'" +
+	                                    " data-issuspended='" + rowObject.IsSuspended + "' data-isclosed='" + rowObject.IsClosed + "'";
+	
+	                return "<a href='javascript:;' title='" + Site.getSingleResource("Status") + "' class='custStatusOption' id='edit-cust-status-" + rowObject.CustId + "'"
+	                            + dataAttribute + ">" + cellValue + "</a>";
 	            }
 	        };
 	        var baStatusColumn =
@@ -5462,6 +5463,7 @@ webpackJsonp([56],{
 	    __webpack_require__(281),
 	    __webpack_require__(280),
 	    __webpack_require__(282),
+	    __webpack_require__(283),
 	    __webpack_require__(276),
 	    __webpack_require__(9),
 	    __webpack_require__(220)], __WEBPACK_AMD_DEFINE_RESULT__ = function (
@@ -5473,6 +5475,7 @@ webpackJsonp([56],{
 	        CustomerListBAStatus,
 	        CustomerListSpecialLevel,
 	        CustomerListOddsGroup,
+	        CustomerListCustStatus,
 	        PagingHelper,
 	        Popup,
 	        jqGridAdditional) {
@@ -5499,6 +5502,7 @@ webpackJsonp([56],{
 	                CustomerListBAStatus.initialize();
 	                CustomerListSpecialLevel.initialize();
 	                CustomerListOddsGroup.initialize();
+	                CustomerListCustStatus.initialize();
 	
 	                _me.initEvent();
 	                $("#SubmitButton").prop("disabled", false);
@@ -5524,12 +5528,6 @@ webpackJsonp([56],{
 	
 	                    _me.viewRunningBetlist(custId, systemId, externalId);
 	                });
-	
-	                $("#popup-update").on("click", _me.updateCustStatus);
-	                $("#popup-close").on("click", _me.closeUpdatePopUp);
-	
-	                $("#popup-suspended").change(_me.custStatusCheckedChanged);
-	                $("#popup-closed").change(_me.custStatusCheckedChanged);
 	
 	                $(window).on("resize", function () {
 	                    _me.resizeGrid();
@@ -5570,72 +5568,6 @@ webpackJsonp([56],{
 	                    _state.checkedAllRows = Object.keys(selectedCustomers).length === _state.cachedData.Data.length;
 	                    $("#CheckAll").prop("checked", _state.checkedAllRows);
 	                });
-	            },
-	
-	            updateCustStatus: function () {
-	                if (!window.confirm(Site.getSingleResource('ChangeStatusOfThisCustomerMsg'))) {
-	                    _me.closeUpdatePopUp();
-	                    return;
-	                }
-	
-	                var popup = $("#update-cust-status-popup");
-	                var custId = popup.attr("custid");
-	                var statusLink = $("#edit-cust-status-" + custId);
-	
-	                var isSuspended = $("#popup-suspended").is(':checked');
-	                var isClosed = $("#popup-closed").is(':checked');
-	                var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateCustStatus");
-	                $.ajax({
-	                    type: "POST",
-	                    data:
-	                    {
-	                        custId: custId,
-	                        isSuspended: isSuspended,
-	                        isClosed: isClosed
-	                    },
-	                    url: requestUrl,
-	                    dataType: "json",
-	                    beforeSend: function () {
-	                        Site.blockUI();
-	                    },
-	                    complete: function () {
-	                        Site.unBlockUI();
-	                        _me.closeUpdatePopUp(custId);
-	                    },
-	                    success: function (result) {
-	                        if (Number(result.Code) === 0) {
-	                            var color = isClosed === true ? "#ccc7ba" : isSuspended === true ? "#f8ded7" : "#F6F8F9";
-	
-	                            var statusText = isClosed === true ? Site.getSingleResource("Closed") :
-	                                        isSuspended === true ? Site.getSingleResource("Suspended") : Site.getSingleResource("Open");
-	
-	                            statusLink.html(statusText + '<span title="' + Site.getSingleResource('Status') + '" class="arrow1" >&nbsp;&nbsp;&nbsp;</span>');
-	                            statusLink.attr("isclosed", isClosed);
-	                            statusLink.attr("issuspended", isSuspended);
-	
-	                            $("#row" + custId).css("background-color", color);
-	                        }
-	                        else {
-	                            alert(result.Message);
-	                        }
-	                    }
-	                });
-	            },
-	
-	            closeUpdatePopUp: function () {
-	                var popup = $("#update-cust-status-popup");
-	                if (popup.is(":visible")) {
-	                    $("#update-cust-status-popup").hide();
-	                }
-	            },
-	
-	            custStatusCheckedChanged: function () {
-	                var popup = $("#update-cust-status-popup");
-	                var isSuspended = $("#popup-suspended").is(':checked');
-	                var isClosed = $("#popup-closed").is(':checked');
-	
-	                var changed = Site.asBool(popup.attr("closed")) !== isClosed || Site.asBool(popup.attr("suspended")) !== isSuspended;
-	                $("#popup-update").prop("disabled", !changed);
 	            },
 	
 	            viewRunningBetlist: function (custId, systemId, externalId) {
@@ -5906,6 +5838,145 @@ webpackJsonp([56],{
 /***/ }),
 
 /***/ 283:
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* This column only view in licensee HAIFA */
+	"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	    var _me = {
+	        initialize: function () {
+	            _me.initEvent();
+	        },
+	
+	        initEvent: function () {
+	            $("#report-content").on("click", ".custStatusOption", function () {
+	                _me.showUpdatePopUp($(this));
+	                return false;
+	            });
+	
+	            $("#custStatusUpdate").on("click", function () {
+	                _me.updateCustStatus();
+	            });
+	
+	            $("#custStatusCancel").on("click", function () {
+	                _me.closeUpdatePopUp();
+	            });
+	
+	            $("#UpdateCustStatus").on("change", ".chkCustStatus", function () {
+	                _me.changeStatus();
+	            });
+	
+	            $("html").click(function (e) {
+	                if ($(e.target).closest("#UpdateCustStatus").length === 0) {
+	                    $("#UpdateCustStatus").fadeOut();
+	                }
+	            });
+	        },
+	
+	        showUpdatePopUp: function ($context) {
+	            var custId = $context.data("custid");
+	            var $statusLink = $("#edit-cust-status-" + custId);
+	            var $popup = $("#UpdateCustStatus");
+	
+	            var position = $context.offset();
+	            $popup.css({
+	                top: position.top + $context.outerHeight() + 1,
+	                left: position.left,
+	                width: "auto"
+	            });
+	
+	            if ($popup.data("custid") === custId) {
+	                $popup.fadeToggle();
+	            }
+	            else {
+	                var isClosed = $statusLink.data("isclosed");
+	                var isSuspended = $statusLink.data("issuspended");
+	                var externalId = $statusLink.data("externalid");
+	
+	                $("#custStatus-externalId").text(externalId);
+	                $("#custStatus-suspended").prop('checked', isSuspended);
+	                $("#custStatus-closed").prop('checked', isClosed);
+	
+	                $popup.data("custid", custId);
+	                $popup.data("closed", isClosed);
+	                $popup.data("suspended", isSuspended);
+	
+	                $("#custStatusUpdate").prop("disabled", true);
+	                $popup.fadeIn();
+	            }
+	        },
+	
+	        closeUpdatePopUp: function () {
+	            var $popup = $("#UpdateCustStatus");
+	            if ($popup.is(":visible")) {
+	                $popup.fadeOut();
+	            }
+	        },
+	
+	        updateCustStatus: function () {
+	            if (!window.confirm(Site.getSingleResource('ChangeStatusOfThisCustomerMsg'))) {
+	                _me.closeUpdatePopUp();
+	                return;
+	            }
+	
+	            var $popup = $("#UpdateCustStatus");
+	            var custId = $popup.data("custid");
+	            var $statusLink = $("#edit-cust-status-" + custId);
+	
+	            var isSuspended = $("#custStatus-suspended").prop('checked');
+	            var isClosed = $("#custStatus-closed").prop('checked');
+	            var url = Site.resolveClientUrl("CustomerAPI/UpdateCustStatus");
+	            var params = {
+	                custId: custId,
+	                isSuspended: isSuspended,
+	                isClosed: isClosed
+	            };
+	
+	            $.ajax({
+	                type: "POST",
+	                data: params,
+	                url: url,
+	                dataType: "json",
+	                beforeSend: function () {
+	                    Site.blockUI();
+	                },
+	                complete: function () {
+	                    Site.unBlockUI();
+	                    _me.closeUpdatePopUp(custId);
+	                },
+	                success: function (result) {
+	                    var isSuccess = Number(result.Code) === 0;
+	                    if (isSuccess) {
+	                        var statusText = isClosed === true ? Site.getSingleResource("Closed") :
+	                                    isSuspended === true ? Site.getSingleResource("Suspended") : Site.getSingleResource("Open");
+	
+	                        $statusLink.text(statusText);
+	                        $statusLink.data("isclosed", isClosed);
+	                        $statusLink.data("issuspended", isSuspended);
+	                    }
+	                    else {
+	                        alert(result.Message);
+	                    }
+	                }
+	            });
+	        },
+	
+	        changeStatus: function () {
+	            var $popup = $("#UpdateCustStatus");
+	            var isSuspended = $("#custStatus-suspended").prop('checked');
+	            var isClosed = $("#custStatus-closed").prop('checked');
+	
+	            var changed = $popup.data("closed") !== isClosed || $popup.data("suspended") !== isSuspended;
+	            $("#custStatusUpdate").prop("disabled", !changed);
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 284:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(220), __webpack_require__(9), __webpack_require__(273), __webpack_require__(279)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, Popup, CustomerListState, CustomerListGrid) {
@@ -6339,7 +6410,7 @@ webpackJsonp([56],{
 
 /***/ }),
 
-/***/ 284:
+/***/ 285:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(9), __webpack_require__(274)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Popup, CustomerListService) {

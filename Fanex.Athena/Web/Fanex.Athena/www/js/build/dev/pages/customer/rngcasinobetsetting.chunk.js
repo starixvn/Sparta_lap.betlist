@@ -3,7 +3,7 @@ webpackJsonp([64],{
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(304);
+	module.exports = __webpack_require__(305);
 
 
 /***/ }),
@@ -1989,18 +1989,18 @@ webpackJsonp([64],{
 
 /***/ }),
 
-/***/ 304:
+/***/ 305:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(305)], __WEBPACK_AMD_DEFINE_RESULT__ = function (RngCasinoBetSetting) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(306)], __WEBPACK_AMD_DEFINE_RESULT__ = function (RngCasinoBetSetting) {
 	    $(RngCasinoBetSetting.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 305:
+/***/ 306:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(252), __webpack_require__(258), __webpack_require__(248)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, BetSettingBase, BetSettingStatus) {

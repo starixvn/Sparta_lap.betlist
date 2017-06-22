@@ -2,7 +2,7 @@ webpackJsonp([83],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(358);
+	module.exports = __webpack_require__(359);
 
 
 /***/ }),
@@ -21722,7 +21722,8 @@ webpackJsonp([83],[
 /* 334 */,
 /* 335 */,
 /* 336 */,
-/* 337 */
+/* 337 */,
+/* 338 */
 /***/ (function(module, exports) {
 
 	/*--------------------------------------------------------------------------
@@ -24460,7 +24461,6 @@ webpackJsonp([83],[
 	})()
 
 /***/ }),
-/* 338 */,
 /* 339 */,
 /* 340 */,
 /* 341 */,
@@ -24480,10 +24480,11 @@ webpackJsonp([83],[
 /* 355 */,
 /* 356 */,
 /* 357 */,
-/* 358 */
+/* 358 */,
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(359)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WeeklyLiveMatch) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(360)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WeeklyLiveMatch) {
 	    "use strict";
 	
 	    $(function () {
@@ -24499,12 +24500,12 @@ webpackJsonp([83],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 359 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(360), __webpack_require__(220), __webpack_require__(231),
-	        __webpack_require__(223), __webpack_require__(224), __webpack_require__(337), __webpack_require__(248)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(361), __webpack_require__(220), __webpack_require__(231),
+	        __webpack_require__(223), __webpack_require__(224), __webpack_require__(338), __webpack_require__(248)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker) {
 	            var VALID_MONTH_RANGE = 2;
 	            var SPORT_COLUMN_INDEX = 1;
 	            var START_WEEK_COLUMN_INDEX = 2;
@@ -24670,7 +24671,7 @@ webpackJsonp([83],[
 	        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 360 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";

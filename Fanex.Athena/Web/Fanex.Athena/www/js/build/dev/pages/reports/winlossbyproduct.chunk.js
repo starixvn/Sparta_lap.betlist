@@ -2,7 +2,7 @@ webpackJsonp([86],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(367);
+	module.exports = __webpack_require__(368);
 
 
 /***/ }),
@@ -22540,10 +22540,11 @@ webpackJsonp([86],[
 /* 364 */,
 /* 365 */,
 /* 366 */,
-/* 367 */
+/* 367 */,
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(368)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByProduct) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(369)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByProduct) {
 	    "use strict";
 	
 	    $(WinLossByProduct.initialize);
@@ -22551,10 +22552,10 @@ webpackJsonp([86],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 368 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(220), __webpack_require__(369), __webpack_require__(102), __webpack_require__(9),
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(8), __webpack_require__(220), __webpack_require__(370), __webpack_require__(102), __webpack_require__(9),
 	    __webpack_require__(231), __webpack_require__(241), __webpack_require__(244), __webpack_require__(277),
 	    __webpack_require__(248), __webpack_require__(223), __webpack_require__(224)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect, AutoComplete) {
 	        "use strict";
@@ -22977,7 +22978,7 @@ webpackJsonp([86],[
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 369 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(220)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
