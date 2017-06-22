@@ -344,7 +344,7 @@
             var productCodeList = [];
             for (var i = 0; i < onLevelData.ProductOptions.length; i++) {
                 var product = onLevelData.ProductOptions[i];
-                if ($.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
+                if (product.Status && $.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
                     productCodeList.push(product.Code);
                 }
             }

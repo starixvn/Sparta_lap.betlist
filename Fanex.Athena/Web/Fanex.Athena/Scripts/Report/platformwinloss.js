@@ -426,7 +426,7 @@ var PlatformWinLoss = (function ($) {
             var productCodeList = [];
             for (var i = 0; i < _drilldownData.ProductOptions.length; i++) {
                 var product = _drilldownData.ProductOptions[i];
-                if ($.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
+                if (product.Status && $.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
                     productCodeList.push(product.Code);
                 }
             }
