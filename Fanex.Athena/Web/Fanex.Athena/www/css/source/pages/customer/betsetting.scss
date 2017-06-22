@@ -78,6 +78,7 @@ $paddingRightContainer: 17px;
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 330px;
+    position: relative;
 }
 
 .header-content {
@@ -138,7 +139,6 @@ $paddingRightContainer: 17px;
 
             &:focus {
                 border-bottom-color: #b7a9a9;
-                ;
             }
         }
     }
