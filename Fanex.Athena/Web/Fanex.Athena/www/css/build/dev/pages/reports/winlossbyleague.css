@@ -247,6 +247,11 @@ input[type="checkbox"] {
     left: 1px;
     border-right: 1px solid #2c2c2c;
     border-bottom: 1px solid #2c2c2c; }
+  input[type="checkbox"]:disabled + label:after {
+    border-color: rgba(0, 0, 0, 0.26); }
+  input[type="checkbox"]:disabled:checked + label:before {
+    border-right-color: rgba(0, 0, 0, 0.26);
+    border-bottom-color: rgba(0, 0, 0, 0.26); }
 
 .invalid input[type="checkbox"] + label:after {
   border: 2px solid #d91a1a; }

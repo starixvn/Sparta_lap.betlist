@@ -1,17 +1,17 @@
-webpackJsonp([51],{
+webpackJsonp([54],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(240);
+	module.exports = __webpack_require__(256);
 
 
 /***/ },
 
-/***/ 238:
+/***/ 253:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(239)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(254), __webpack_require__(255)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
 	         "use strict";
 	
 	         function initialize(titleResource) {
@@ -31,7 +31,7 @@ webpackJsonp([51],{
 	
 	             $("#Cancel").click(function () {
 	                 _me.setPageTitle("CommissionGroupList");
-	                 _me.goToSite("CustomerComGroup/Index");
+	                 Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
 	             });
 	
 	             // Commission dropdownlist change
@@ -61,7 +61,7 @@ webpackJsonp([51],{
 	         }
 	
 	         function setPageTitle(title) {
-	             $("#page-title", window.parent.document).text(title);
+	             CustomerCommGroup.setPageTitle(title);
 	         }
 	
 	         function checkAvailableGroup(groupName) {
@@ -184,57 +184,32 @@ webpackJsonp([51],{
 	             }
 	         }
 	
-	         function goToSite(relativeUrl, paramString) {
-	             var href = Site.resolveClientUrl(relativeUrl);
-	             if (paramString) {
-	                 href += paramString;
-	             }
-	             Site.redirect(href);
-	         }
-	
 	         function goToCustomerList(groupCommId) {
-	             if (isParentSameOrigin()) {
-	                 $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
-	                 $("li>#MenuItem43", window.parent.document).parent().addClass("active");
-	                 _me.setPageTitle(Site.getSingleResource("CustomerList"));
-	             }
-	             _me.goToSite("Customer/CustomerList", "?groupId=" + groupCommId);
+	             CustomerCommGroup.goToCustomerList(groupCommId);
 	         }
 	
-	         function showConfirmAction(message, callback, groupId, isResetDefault) {
+	         function showConfirmAction(message, callback) {
 	             var options = {
-	                 model: true,
+	                 modal: true,
 	                 title: Site.getSingleResource("Confirm"),
-	                 height: 150,
-	                 id: "confirm-action"
+	                 height: "auto",
+	                 id: "confirm-action",
+	                 width: 450
 	             };
 	
 	             var buttons = [
 	                 {
-	                     text: "OK",
+	                     text: Site.getSingleResource("OK"),
 	                     isClosedOnClick: true,
-	                     click: function () {
-	                         callback(groupId, isResetDefault);
-	                     },
-	                     classes: "btn btn-primary"
+	                     click: callback,
+	                     classes: "btn btn-submit"
 	                 }, {
-	                     text: "Cancel",
+	                     text: Site.getSingleResource("Cancel"),
 	                     isClosedOnClick: true,
-	                     classes: "btn btn-back"
+	                     classes: "btn btn-cancel"
 	                 }];
 	
 	             Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
-	         }
-	
-	         function isParentSameOrigin() {
-	             var sameOrigin;
-	             try {
-	                 sameOrigin = window.parent.location.host === window.location.host;
-	             }
-	             catch (e) {
-	                 sameOrigin = false;
-	             }
-	             return sameOrigin;
 	         }
 	
 	         function initColorPicker() {
@@ -249,7 +224,6 @@ webpackJsonp([51],{
 	             submit: submit,
 	             checkAvailableGroup: checkAvailableGroup,
 	             setPageTitle: setPageTitle,
-	             goToSite: goToSite,
 	             goToCustomerList: goToCustomerList
 	         };
 	
@@ -258,7 +232,48 @@ webpackJsonp([51],{
 
 /***/ },
 
-/***/ 239:
+/***/ 254:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+	    "use strict";
+	
+	    function goToCustomerList(groupCommId) {
+	        if (isParentSameOrigin()) {
+	            // Deactive Commission Group menu (55) and active Customer list menu (43)
+	            $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
+	            $("li>#MenuItem43", window.parent.document).parent().addClass("active");
+	            _me.setPageTitle(Site.getSingleResource("CustomerList"));
+	        }
+	        Site.redirect(Site.resolveClientUrl("Customer/CustomerList?groupId=" + groupCommId));
+	    }
+	
+	    function setPageTitle(title) {
+	        $("#page-title", window.parent.document).text(title);
+	    }
+	
+	    function isParentSameOrigin() {
+	        var sameOrigin;
+	        try {
+	            sameOrigin = window.parent.location.host === window.location.host;
+	        }
+	        catch (e) {
+	            sameOrigin = false;
+	        }
+	        return sameOrigin;
+	    }
+	
+	    var _me = {
+	        goToCustomerList: goToCustomerList,
+	        setPageTitle: setPageTitle
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 255:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/**
@@ -619,10 +634,10 @@ webpackJsonp([51],{
 
 /***/ },
 
-/***/ 240:
+/***/ 256:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(241)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(257)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
 	    "use strict";
 	
 	    $(CustomerCommGroupEdit.initialize);
@@ -631,10 +646,10 @@ webpackJsonp([51],{
 
 /***/ },
 
-/***/ 241:
+/***/ 257:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(238)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(253)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
 	         "use strict";
 	
 	         var FORM_SELECTOR = "#customer-comm-group-edit";

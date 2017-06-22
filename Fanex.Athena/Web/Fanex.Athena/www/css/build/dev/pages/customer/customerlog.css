@@ -235,6 +235,11 @@ input[type="checkbox"] {
     left: 1px;
     border-right: 1px solid #2c2c2c;
     border-bottom: 1px solid #2c2c2c; }
+  input[type="checkbox"]:disabled + label:after {
+    border-color: rgba(0, 0, 0, 0.26); }
+  input[type="checkbox"]:disabled:checked + label:before {
+    border-right-color: rgba(0, 0, 0, 0.26);
+    border-bottom-color: rgba(0, 0, 0, 0.26); }
 
 .invalid input[type="checkbox"] + label:after {
   border: 2px solid #d91a1a; }
@@ -327,12 +332,12 @@ input[type="checkbox"] {
     background: #757575; }
 
 .btn-submit {
-  background: #673ab7;
+  background: #4e68b6;
   color: #fff; }
   .btn-submit:hover {
-    background: #8259cb; }
+    background: #7287c5; }
   .btn-submit:focus {
-    background: #673ab7; }
+    background: #4e68b6; }
 
 .btn-nav {
   background: #fff;
@@ -371,7 +376,7 @@ input[type="checkbox"] {
   font-size: 1.2rem; }
   .input-field label {
     left: 0;
-    font-size: 1.1rem;
+    font-size: 1.1rem !important;
     color: #808080; }
   .input-field input[type=text] {
     height: 2.5rem;
@@ -697,7 +702,7 @@ table tbody tr.row-group-level1 td {
     overflow-y: auto;
     height: calc(100% - 38px); }
     .flat-popup .wrapContent .popup-button .btn {
-      margin: 10px 0 10px 10px; }
+      margin: 15px 0 0 15px; }
     .flat-popup .wrapContent h1, .flat-popup .wrapContent h2, .flat-popup .wrapContent h3, .flat-popup .wrapContent h4, .flat-popup .wrapContent h5, .flat-popup .wrapContent h6 {
       font-weight: bold; }
     .flat-popup .wrapContent .rule {
@@ -2062,7 +2067,8 @@ tr.total td {
       border-top: 1px solid #d1dae1;
       text-align: center; }
       .report-container .nested-table tbody td .old-value {
-        border-top: 1px solid #ccc; }
+        border-top: 1px solid #ccc;
+        color: #404040; }
     .report-container .nested-table.table-2-column td {
       width: 50%; }
 

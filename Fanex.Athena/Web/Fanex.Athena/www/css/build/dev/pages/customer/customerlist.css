@@ -1779,6 +1779,11 @@ input[type="checkbox"] {
     left: 1px;
     border-right: 1px solid #2c2c2c;
     border-bottom: 1px solid #2c2c2c; }
+  input[type="checkbox"]:disabled + label:after {
+    border-color: rgba(0, 0, 0, 0.26); }
+  input[type="checkbox"]:disabled:checked + label:before {
+    border-right-color: rgba(0, 0, 0, 0.26);
+    border-bottom-color: rgba(0, 0, 0, 0.26); }
 
 .invalid input[type="checkbox"] + label:after {
   border: 2px solid #d91a1a; }
@@ -1967,13 +1972,28 @@ input[type="checkbox"] {
   background-color: #3298FD;
   color: white !important; }
 
-#LevelListContainer, #OddsGroupListContainer {
+#LevelListContainer, #OddsGroupListContainer, #ViewOptionList {
   display: none;
   position: absolute;
   border: 1px solid #969292; }
 
-#OddsGroupListContainer {
+#OddsGroupListContainer, #ViewOptionList {
   background-color: #fff; }
+
+#ViewOptionList {
+  width: 85px !important;
+  padding: 5px;
+  border: 0;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.175); }
+  #ViewOptionList .viewOptionLink {
+    display: block;
+    padding: 5px 2px; }
+    #ViewOptionList .viewOptionLink:hover {
+      opacity: 0.8; }
+
+/* Customer Option - Log infor */
+.customer-logInfo .log-info-container {
+  padding: 10px; }
 
 .link {
   cursor: pointer;
@@ -2022,5 +2042,36 @@ input[type="checkbox"] + label {
 /* Update Group Popup*/
 .attention-message {
   color: red; }
+
+#ConfirmRemoveFromGroupPopUp p {
+  margin-bottom: 5px; }
+
+#ConfirmRemoveFromGroupPopUp [type="radio"] + label {
+  color: inherit;
+  font-size: inherit !important; }
+
+.first-value {
+  position: relative; }
+  .first-value:after {
+    content: "\2022";
+    position: absolute;
+    top: 8px;
+    right: -2px; }
+
+.third-value {
+  padding: 0 2rem 0 0 !important; }
+
+.page-button {
+  margin: 1.5rem 1.5rem 0; }
+  .page-button .btn {
+    height: 26px;
+    line-height: 28px;
+    padding: 0 1rem; }
+
+.btn-back {
+  margin: 0 10px 0 0; }
+
+a.grid-dropdown {
+  display: block; }
 
 /*# sourceMappingURL=customerlist.css.map*/

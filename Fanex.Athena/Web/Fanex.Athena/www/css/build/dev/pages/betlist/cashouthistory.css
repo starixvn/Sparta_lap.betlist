@@ -88,12 +88,12 @@ body {
     background: #757575; }
 
 .btn-submit {
-  background: #673ab7;
+  background: #4e68b6;
   color: #fff; }
   .btn-submit:hover {
-    background: #8259cb; }
+    background: #7287c5; }
   .btn-submit:focus {
-    background: #673ab7; }
+    background: #4e68b6; }
 
 .btn-nav {
   background: #fff;
@@ -132,7 +132,7 @@ body {
   font-size: 1.2rem; }
   .input-field label {
     left: 0;
-    font-size: 1.1rem;
+    font-size: 1.1rem !important;
     color: #808080; }
   .input-field input[type=text] {
     height: 2.5rem;

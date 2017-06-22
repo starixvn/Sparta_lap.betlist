@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/cashouthistory","8":"www/css/build/dev/pages/betlist/colossusbetdetail","9":"www/css/build/dev/pages/betlist/customeroutstanding","10":"www/css/build/dev/pages/betlist/lastbetmonitoring","11":"www/css/build/dev/pages/betlist/systemparlaydetail","12":"www/css/build/dev/pages/customer/commgroupdetail","13":"www/css/build/dev/pages/customer/commgrouplist","14":"www/css/build/dev/pages/customer/customerlist","15":"www/css/build/dev/pages/customer/customerlog","16":"www/css/build/dev/pages/forecast/ahforecast","17":"www/css/build/dev/pages/forecast/forecastonextwo","18":"www/css/build/dev/pages/forecast/newforecast","19":"www/css/build/dev/pages/login/login","20":"www/css/build/dev/pages/reports/balance","21":"www/css/build/dev/pages/reports/cashoutwinloss","22":"www/css/build/dev/pages/reports/dailyracingwinloss","23":"www/css/build/dev/pages/reports/licenseewinloss","24":"www/css/build/dev/pages/reports/livereport","25":"www/css/build/dev/pages/reports/matchwinloss","26":"www/css/build/dev/pages/reports/platformwinloss","27":"www/css/build/dev/pages/reports/racingcommission","28":"www/css/build/dev/pages/reports/reportjqgridlayout","29":"www/css/build/dev/pages/reports/result","30":"www/css/build/dev/pages/reports/settledmatchcount","31":"www/css/build/dev/pages/reports/turnover","32":"www/css/build/dev/pages/reports/weeklylivematch","33":"www/css/build/dev/pages/reports/winlossbybettype","34":"www/css/build/dev/pages/reports/winlossbyleague","35":"www/css/build/dev/pages/reports/winlossbyproduct","36":"www/css/build/dev/pages/totalbet/mixparlay","37":"www/css/build/dev/pages/totalbet/totalbetlayout","38":"www/css/build/dev/pages/utility/error","39":"www/css/build/dev/um","40":"www/js/build/dev/language","41":"www/js/build/dev/pages/betlist/betlist","42":"www/js/build/dev/pages/betlist/betlistcancelledbets","43":"www/js/build/dev/pages/betlist/betlistcorrectscore","44":"www/js/build/dev/pages/betlist/betlistdaily","45":"www/js/build/dev/pages/betlist/betlistrunning","46":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","47":"www/js/build/dev/pages/betlist/betlistsimple","48":"www/js/build/dev/pages/betlist/customeroutstanding","49":"www/js/build/dev/pages/betlist/lastbetmonitoring","50":"www/js/build/dev/pages/customer/commgroupadd","51":"www/js/build/dev/pages/customer/commgroupedit","52":"www/js/build/dev/pages/customer/commgrouplist","53":"www/js/build/dev/pages/customer/customerlist","54":"www/js/build/dev/pages/customer/customersetting","55":"www/js/build/dev/pages/customer/groupcommission","56":"www/js/build/dev/pages/customer/loginlog","57":"www/js/build/dev/pages/forecast/ahforecast","58":"www/js/build/dev/pages/forecast/forecasthdpou","59":"www/js/build/dev/pages/forecast/forecastonextwo","60":"www/js/build/dev/pages/forecast/newforecasthdpou","61":"www/js/build/dev/pages/home/home","62":"www/js/build/dev/pages/reports/balance","63":"www/js/build/dev/pages/reports/cashoutwinloss","64":"www/js/build/dev/pages/reports/dailyracingwinloss","65":"www/js/build/dev/pages/reports/licenseewinloss","66":"www/js/build/dev/pages/reports/livereport","67":"www/js/build/dev/pages/reports/livereportmatchlist","68":"www/js/build/dev/pages/reports/matchwinloss","69":"www/js/build/dev/pages/reports/platformwinloss","70":"www/js/build/dev/pages/reports/racingcommission","71":"www/js/build/dev/pages/reports/result","72":"www/js/build/dev/pages/reports/settledmatchcount","73":"www/js/build/dev/pages/reports/turnover","74":"www/js/build/dev/pages/reports/weeklylivematch","75":"www/js/build/dev/pages/reports/winlossbybettype","76":"www/js/build/dev/pages/reports/winlossbyleague","77":"www/js/build/dev/pages/reports/winlossbyproduct","78":"www/js/build/dev/pages/signin/signin","79":"www/js/build/dev/pages/totalbet/firstgoallastgoal","80":"www/js/build/dev/pages/totalbet/halftimefulltime","81":"www/js/build/dev/pages/totalbet/handicapoverunder","82":"www/js/build/dev/pages/totalbet/homedrawawaynobet","83":"www/js/build/dev/pages/totalbet/moneyline","84":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","85":"www/js/build/dev/pages/totalbet/outright","86":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"1":"www/css/build/dev/home","2":"www/css/build/dev/main","3":"www/css/build/dev/pages/betlist/betlistLayout","4":"www/css/build/dev/pages/betlist/betlistResult","5":"www/css/build/dev/pages/betlist/betlistSimpleLayout","6":"www/css/build/dev/pages/betlist/betlistdaily","7":"www/css/build/dev/pages/betlist/cashouthistory","8":"www/css/build/dev/pages/betlist/colossusbetdetail","9":"www/css/build/dev/pages/betlist/customeroutstanding","10":"www/css/build/dev/pages/betlist/lastbetmonitoring","11":"www/css/build/dev/pages/betlist/systemparlaydetail","12":"www/css/build/dev/pages/customer/betsetting","13":"www/css/build/dev/pages/customer/commgroupdetail","14":"www/css/build/dev/pages/customer/commgrouplist","15":"www/css/build/dev/pages/customer/customerlist","16":"www/css/build/dev/pages/customer/customerlog","17":"www/css/build/dev/pages/forecast/ahforecast","18":"www/css/build/dev/pages/forecast/forecastonextwo","19":"www/css/build/dev/pages/forecast/newforecast","20":"www/css/build/dev/pages/login/login","21":"www/css/build/dev/pages/reports/balance","22":"www/css/build/dev/pages/reports/cashoutwinloss","23":"www/css/build/dev/pages/reports/dailyracingwinloss","24":"www/css/build/dev/pages/reports/licenseewinloss","25":"www/css/build/dev/pages/reports/livereport","26":"www/css/build/dev/pages/reports/matchwinloss","27":"www/css/build/dev/pages/reports/platformwinloss","28":"www/css/build/dev/pages/reports/racingcommission","29":"www/css/build/dev/pages/reports/reportjqgridlayout","30":"www/css/build/dev/pages/reports/result","31":"www/css/build/dev/pages/reports/settledmatchcount","32":"www/css/build/dev/pages/reports/turnover","33":"www/css/build/dev/pages/reports/weeklylivematch","34":"www/css/build/dev/pages/reports/winlossbybettype","35":"www/css/build/dev/pages/reports/winlossbyleague","36":"www/css/build/dev/pages/reports/winlossbyproduct","37":"www/css/build/dev/pages/totalbet/mixparlay","38":"www/css/build/dev/pages/totalbet/totalbetlayout","39":"www/css/build/dev/pages/utility/error","40":"www/css/build/dev/um","41":"www/js/build/dev/language","42":"www/js/build/dev/pages/betlist/betlist","43":"www/js/build/dev/pages/betlist/betlistcancelledbets","44":"www/js/build/dev/pages/betlist/betlistcorrectscore","45":"www/js/build/dev/pages/betlist/betlistdaily","46":"www/js/build/dev/pages/betlist/betlistrunning","47":"www/js/build/dev/pages/betlist/betlistrunningmultiplebettypes","48":"www/js/build/dev/pages/betlist/betlistsimple","49":"www/js/build/dev/pages/betlist/customeroutstanding","50":"www/js/build/dev/pages/betlist/lastbetmonitoring","51":"www/js/build/dev/pages/customer/betsettingbygroup","52":"www/js/build/dev/pages/customer/betsettingmain","53":"www/js/build/dev/pages/customer/commgroupadd","54":"www/js/build/dev/pages/customer/commgroupedit","55":"www/js/build/dev/pages/customer/commgrouplist","56":"www/js/build/dev/pages/customer/customerlist","57":"www/js/build/dev/pages/customer/customersetting","58":"www/js/build/dev/pages/customer/dcsbetsetting","59":"www/js/build/dev/pages/customer/groupcommission","60":"www/js/build/dev/pages/customer/kenobetsetting","61":"www/js/build/dev/pages/customer/livecasinobetsetting","62":"www/js/build/dev/pages/customer/loginlog","63":"www/js/build/dev/pages/customer/numbergamebetsetting","64":"www/js/build/dev/pages/customer/rngcasinobetsetting","65":"www/js/build/dev/pages/customer/thirdpartybetsetting","66":"www/js/build/dev/pages/forecast/ahforecast","67":"www/js/build/dev/pages/forecast/forecasthdpou","68":"www/js/build/dev/pages/forecast/forecastonextwo","69":"www/js/build/dev/pages/forecast/newforecasthdpou","70":"www/js/build/dev/pages/home/home","71":"www/js/build/dev/pages/reports/balance","72":"www/js/build/dev/pages/reports/cashoutwinloss","73":"www/js/build/dev/pages/reports/dailyracingwinloss","74":"www/js/build/dev/pages/reports/licenseewinloss","75":"www/js/build/dev/pages/reports/livereport","76":"www/js/build/dev/pages/reports/livereportmatchlist","77":"www/js/build/dev/pages/reports/matchwinloss","78":"www/js/build/dev/pages/reports/platformwinloss","79":"www/js/build/dev/pages/reports/racingcommission","80":"www/js/build/dev/pages/reports/result","81":"www/js/build/dev/pages/reports/settledmatchcount","82":"www/js/build/dev/pages/reports/turnover","83":"www/js/build/dev/pages/reports/weeklylivematch","84":"www/js/build/dev/pages/reports/winlossbybettype","85":"www/js/build/dev/pages/reports/winlossbyleague","86":"www/js/build/dev/pages/reports/winlossbyproduct","87":"www/js/build/dev/pages/signin/signin","88":"www/js/build/dev/pages/totalbet/firstgoallastgoal","89":"www/js/build/dev/pages/totalbet/halftimefulltime","90":"www/js/build/dev/pages/totalbet/handicapoverunder","91":"www/js/build/dev/pages/totalbet/homedrawawaynobet","92":"www/js/build/dev/pages/totalbet/moneyline","93":"www/js/build/dev/pages/totalbet/oddevendrawnodraw","94":"www/js/build/dev/pages/totalbet/outright","95":"www/js/build/dev/pages/totalbet/totalgoal"}[chunkId]||chunkId) + ".chunk.js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -14762,8 +14762,8 @@
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {/// <reference path="/@JSense.js" />
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 	    "use strict";
 	
 	    var parseQueryString = function (queryString) {
@@ -14862,7 +14862,6 @@
 	        }
 	    };
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
 /* 9 */
@@ -14942,13 +14941,13 @@
 	                    text: "OK",
 	                    click: function () { },
 	                    classes: "btn btn-primary",
-	                    id: "confirm-del-ok",
+	                    id: "",
 	                    isClosedOnClick: false
 	                }];
 	        */
 	        openPopupWithButton: function (element, option, buttons) {
 	            var defaultOption = {
-	                padding: 10
+	                padding: 15
 	            };
 	
 	            $.extend(defaultOption, option || {});
@@ -14959,24 +14958,29 @@
 	                $element.append('<div class="right popup-button"></div>');
 	                var $blockButton = $element.find(".popup-button");
 	
+	                var firstButton = true;
 	                $.each(buttons, function (index, button) {
-	                    var $button = $('<button type="button"'
-	                        + (button.id ? 'id="' + button.id + '"' : '')
-	                        + ' class="' + button.classes + '">'
+	                    var id = button.id ? ' id="' + button.id + '"' : '';
+	                    var className = button.classes ? ' class="' + button.classes + '"' : '';
+	                    var autoFocus = firstButton ? " autofocus" : "";
+	
+	                    var $button = $('<button type="button"' + id + className + autoFocus + '>'
 	                        + button.text + '</button>');
 	                    $blockButton.append($button);
 	                    if (button.isClosedOnClick) {
 	                        $button.on("click", function () {
-	                            _me.closePopup(defaultOption.id);
+	                            $element.find('a.popup-close').trigger('click');
 	
 	                            if (typeof button.click === "function") {
 	                                button.click();
-	                            }                            
+	                            }
 	                        });
 	                    }
 	                    else {
 	                        $button.on("click", button.click);
 	                    }
+	
+	                    firstButton = false;
 	                });
 	            }
 	

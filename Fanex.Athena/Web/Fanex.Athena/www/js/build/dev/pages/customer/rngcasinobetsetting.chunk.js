@@ -1,0 +1,2208 @@
+webpackJsonp([64],{
+
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(293);
+
+
+/***/ },
+
+/***/ 237:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
+	"use strict";
+	(function ($) {
+	    $.fn.checkboxgroup = function () {
+	        var $parent = $(this).parent();
+	        var allChk = this.first();
+	        var elseChk = this.slice(1);
+	
+	        allChk.prop('checked', elseChk.filter(":checked").length === elseChk.length);
+	
+	        allChk.change(function () {
+	            var thisIsChecked = $(this).is(':checked');
+	            elseChk.prop('checked', thisIsChecked);
+	            $parent.toggleClass("invalid", !thisIsChecked);
+	        });
+	
+	        elseChk.change(function () {
+	            if ($(this).is(':checked')) {
+	                allChk.prop('checked', elseChk.filter(":checked").length === elseChk.length);
+	            } else {
+	                allChk.prop('checked', false);
+	            }
+	
+	            $parent.toggleClass("invalid", elseChk.filter(":checked").length === 0);
+	        });
+	
+	        return this;
+	    };
+	
+	    $.fn.showHide = function (isShow) {
+	        if (isShow) {
+	            this.show();
+	        } else {
+	            this.hide();
+	        }
+	
+	        return this;
+	    };
+	
+	    jQuery.fn.serializeObject = function () {
+	        var o = {};
+	        var a = this.serializeArray();
+	        $.each(a, function () {
+	            if (o[this.name] !== undefined) {
+	                if (!o[this.name].push) {
+	                    o[this.name] = [o[this.name]];
+	                }
+	                o[this.name].push(this.value || '');
+	            } else {
+	                o[this.name] = this.value || '';
+	            }
+	        });
+	        return o;
+	    };
+	
+	    $.fn.getStyleObject = function () {
+	        /// <summary>
+	        /// don't work on ie8
+	        /// </summary>
+	        /// <returns type=""></returns>
+	        var dom = this.get(0);
+	        if(!dom)
+	        {
+	            return;
+	        }
+	
+	        var style;
+	        var returns = {};
+	
+	        if (window.getComputedStyle) {
+	            var camelize = function (a, b) {
+	                return b.toUpperCase();
+	            };
+	            style = window.getComputedStyle(dom, null);
+	            for (var i = 0, l = style.length; i < l; i++) {
+	                var prop = style[i];
+	                var camel = prop.replace(/\-([a-z])/, camelize);
+	                var val = style.getPropertyValue(prop);
+	                returns[camel] = val;
+	            }
+	            return returns;
+	        }
+	        try {
+	            if (dom.currentStyle) {
+	                style = dom.currentStyle;
+	                for (var p1 in style) {
+	                    returns[p1] = style[p1];
+	                }
+	                return returns;
+	            }
+	            if (style === dom.style) {
+	                for (var p2 in style) {
+	                    if (typeof style[p2] !== 'function') {
+	                        returns[p2] = style[p2];
+	                    }
+	                }
+	                return returns;
+	            }
+	        } catch (err) {
+	        }
+	        return returns;
+	    };
+	
+	    jQuery.fn.tableRowSpan = function (colIndexs, effectToIndex) {
+	        /// <summary>
+	        /// Created by Alex@20130228
+	        /// set table rowspan
+	        /// </summary>
+	        /// <param name="colIndexs">column indexs</param>
+	        /// <param name="effectToIndex">set rowspan for this columns base on lasted column in [colIndexs]</param>
+	        if (effectToIndex !== undefined) {
+	            if ($.inArray(effectToIndex, colIndexs) > -1) {
+	                return;
+	            }
+	        }
+	
+	        function process(table, colIdx) {
+	            var that;
+	            var ethat;
+	            var ethis;
+	            var rowspan = 1;
+	            var len = table.rows.length - 1;
+	            for(var index = 0; index <= len; index++)
+	            {
+	                var currentRow = table.rows[index];                
+	                var td = currentRow.cells[colIdx];
+	                if(td) {
+	                    ethis = currentRow.cells[effectToIndex];
+	                    var found = that != null && $(td).html() === $(that).html();
+	                    if (found && index < len) {
+	                        rowspan++;
+	                        $(td).hide();
+	                        if (effectToIndex !== undefined) {
+	                            $(ethis).hide();
+	                        }
+	                        //.remove// do your action for the old cell here
+	                    }
+	                    else if (found && index === len) {
+	                        //do your action for lasted row
+	                        $(td).hide();
+	                        rowspan++;
+	                        $(that).attr("rowSpan", rowspan);
+	                        that = td;
+	                        if (effectToIndex !== undefined) {
+	                            $(ethis).hide();
+	                            $(ethat).attr("rowSpan", rowspan);
+	                            ethat = ethis;
+	                        }
+	                        rowspan = 1;
+	                        // do your action for the colSpan cell here
+	                    }
+	                    else {
+	                        if (effectToIndex !== undefined) {
+	                            $(ethat).attr("rowSpan", rowspan);
+	                            ethat = ethis;
+	                        }
+	                        $(that).attr("rowSpan", rowspan);
+	                        // do your action for the colSpan cell here
+	                        that = td;
+	                        rowspan = 1;
+	                    }
+	                    that = (that == null) ? td : that;
+	                    if (effectToIndex !== undefined) {
+	                        ethat = (ethat == null) ? ethis : ethat;
+	                    }
+	                    // set the that if not already set
+	                }
+	            }
+	        }
+	
+	        return this.each(function () {
+	            for (var i = 0; i < colIndexs.length; i++) {
+	                process(this, colIndexs[i]);
+	            }
+	        });
+	    };
+	
+	    jQuery.fn.numbericTextBox = function (min, max) {
+	        var thousandFormater = function (x) {
+	            x = x.toString();
+	            var pattern = /(-?\d+)(\d{3})/;
+	            while (pattern.test(x)) {
+	                x = x.replace(pattern, "$1,$2");
+	            }
+	            return x;
+	        };
+	
+	        this.each(function (i, e) {
+	            $(e).keydown(function (event) {
+	                // Allow: backspace, delete, tab, escape, and enter
+	                if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
+	                // Allow: Ctrl+A
+	                    (event.keyCode === 65 && event.ctrlKey === true) ||
+	                // Allow: home, end, left, right
+	                    (event.keyCode >= 35 && event.keyCode <= 39)) {
+	                    // let it happen, don't do anything
+	                    return;
+	                }
+	                else {
+	                    // Ensure that it is a number and stop the keypress
+	                    if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+	                        event.preventDefault();
+	                    }
+	                }
+	            }).keyup(function (event) {
+	                var textBox = event.target;
+	                var value = textBox.value;
+	                value = value.replace(/,/g, '');
+	
+	                var isNotInRange = (value < min) || (value > max);
+	                if (isNotInRange) {
+	                    textBox.value = textBox.value.slice(0, -1);
+	                    value = textBox.value.replace(/,/g, '');
+	                }
+	
+	                textBox.value = thousandFormater(value);
+	            });
+	        });
+	
+	        return this;
+	    };
+	
+	    $.fn.hasVerticalScrollBar = function () {
+	        return this.length > 0 ? this.get(0).scrollHeight > this.height() : false;
+	    };
+	    $.fn.hasHorizontalScrollBar = function () {
+	        return this.length > 0 ? this.get(0).scrollWidth > this.width() : false;
+	    };
+	})(jQuery);
+	
+	jQuery.extend({
+	    format: function () {
+	        /// <summary>
+	        /// simply format method
+	        /// </summary>
+	        /// <returns type="string">formated string</returns>
+	        var formatted = arguments[0];
+	        var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
+	        for (var arg in passValue) {
+	            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+	        }
+	        return formatted;
+	    }
+	});
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+
+/***/ 240:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    var Product = {
+	        Sportsbook: 0,
+	        Racing: 1,
+	        NumberGame: 2,
+	        LiveCasino: 4,
+	        VirtualSports: 5,
+	        RngCasino: 6,
+	        Keno: 8,
+	        AgCasino: 10,
+	        GoldDeluxe: 11,
+	        Macau: 12,
+	        BetTrade: 13,
+	        MgcLiveCasino: 14,
+	        Colossusbets: 15,
+	        MgcRngCasino: 17,
+	        AllBet: 21,
+	        VoidBridge: 22,
+	        FishingWorld: 24,
+	        Cashout: 25
+	    };
+	
+	    var _me = {
+	        Product: Product
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 241:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(240), __webpack_require__(242), __webpack_require__(244), __webpack_require__(246)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
+	        var Product = Constant.Product;
+	        var _formatter = new NumberFormatter();
+	        var _isEnable;
+	
+	        var _me = {
+	            initialize: function () {
+	                var editable = $("#editable").val();
+	                _isEnable = !editable || editable === "True";
+	
+	                $("#product-dropdown").on('change', function (event) {
+	                    var url = $(this).find("option:selected").data("href");
+	                    Site.blockUI();
+	                    Site.redirect(url);
+	                });
+	            },
+	
+	            getSportIds: function () {
+	                var $idList = $("#IDList");
+	                return $idList.length ? $idList.val().split(",") : [];
+	            },
+	
+	            setEnable: function () {
+	                var sportIds = _me.getSportIds();
+	
+	                for (var i = 0; i < sportIds.length; i++) {
+	                    var sportId = sportIds[i];
+	                    var selector = "#min-bet-" + sportId + "," + "#max-bet-" + sportId + "," + "#max-per-match-" + sportId;
+	                    $(selector).prop("disabled", !_isEnable);
+	                };
+	
+	                if (!_isEnable) {
+	                    $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("disabled");
+	                }
+	            },
+	
+	            formatInputText: function () {
+	                $("input[type=text]").blur(function () {
+	                    var inputValue = $(this).val().replace(/,/g, "");
+	                    var formattedValue = _formatter.formatNumber(inputValue, { format: "#,###,##0.##" });
+	                    $(this).val(formattedValue);
+	                });
+	            },
+	
+	            resetInput: function () {
+	                $('#chkCopyAll').removeAttr('checked');
+	                $('input[id^="min"], input[id^="max-bet"], input[id^="max-per"]').each(function () {
+	                    $(this).val($(this).attr('data-original')).prop('disabled', false);
+	                });
+	            },
+	
+	            showComfirm: function ($target, resourceMessage, callback) {
+	                var productId = parseInt($("#ProductId").val());
+	                var isValid = productId === Product.LiveCasino ? true :
+	                             (productId === Product.NumberGame ? BetSettingValidation.checkValidationNumberGame() :
+	                                                                BetSettingValidation.checkValidation(_me.getSportIds()));
+	                if (!isValid) {
+	                    return;
+	                }
+	
+	                var custId = $target.attr("data-cust-id");
+	                var userName = $target.attr("data-user-name");
+	                var nickName = $target.attr("data-nick-name");
+	
+	                _me.showConfirmAction(Site.getSingleResource(resourceMessage),
+	                                    custId, userName, nickName, callback);
+	            },
+	
+	            showConfirmAction: function (message, custId, userName, nickName, callback) {
+	                var options = {
+	                    title: Site.getSingleResource("Confirmation"),
+	                    height: "auto",
+	                    id: "confirm-update-betsetting",
+	                    onOpen: function () {
+	                        $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
+	                    },
+	                    onClose: function () {
+	                        $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
+	                        $("#confirm-update-betsetting").remove();
+	                    },
+	                    width: 450
+	                };
+	
+	                var buttons = [
+	                    {
+	                        text: Site.getSingleResource("OK"),
+	                        isClosedOnClick: true,
+	                        click: function () {
+	                            callback(custId, userName, nickName);
+	                        },
+	                        classes: "btn btn-submit"
+	                    }, {
+	                        text: Site.getSingleResource("Cancel"),
+	                        isClosedOnClick: true,
+	                        classes: "btn btn-cancel"
+	                    }];
+	
+	                Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
+	            },
+	
+	            getBetSettingParamsForSports: function () {
+	                var params = {};
+	                var sportIds = _me.getSportIds();
+	                for (var i = 0; i < sportIds.length; i++) {
+	                    $.extend(params, _me.getBetSettingParams(sportIds[i]));
+	                }
+	
+	                return params;
+	            },
+	
+	            getBetSettingParams: function (sportId) {
+	                var minBetId = $("#min-bet-" + sportId);
+	                var maxBetId = $("#max-bet-" + sportId);
+	                var maxPerMatchId = $("#max-per-match-" + sportId);
+	
+	                if (minBetId.length === 0 ||
+	                    maxBetId.length === 0 ||
+	                    maxPerMatchId.length === 0) {
+	                    return "";
+	                }
+	
+	                var isUpdate = true;
+	                var originalMinBet = $('#min-bet-' + sportId).attr('data-original');
+	                var originalMaxBet = $('#max-bet-' + sportId).attr('data-original');
+	                var originalMaxPerMatch = $('#max-per-match-' + sportId).attr('data-original');
+	
+	                // Check if data is changed
+	                if (minBetId.val() === originalMinBet
+	                    && maxBetId.val() === originalMaxBet
+	                    && maxPerMatchId.val() === originalMaxPerMatch) {
+	                    isUpdate = false;
+	                }
+	
+	                // Data is changed, update it
+	                var minBet = BetSettingHelper.convertToFloat(minBetId.val());
+	                var maxBet = BetSettingHelper.convertToFloat(maxBetId.val());
+	                var maxPerMatcth = BetSettingHelper.convertToFloat(maxPerMatchId.val());
+	
+	                var result = {};
+	                result["minbet" + sportId] = minBet;
+	                result["maxbet" + sportId] = maxBet;
+	                result["maxpermatch" + sportId] = maxPerMatcth;
+	                result["update" + sportId] = isUpdate;
+	
+	                return result;
+	            },
+	
+	            updateBetSetting: function (url, params) {
+	                $.ajax({
+	                    type: 'POST',
+	                    cache: false,
+	                    url: url,
+	                    data: params,
+	                    dataType: "json",
+	                    success: function (result) {
+	                        _me.showUpdateSettingResult(result);
+	                    }
+	                });
+	            },
+	
+	            showUpdateSettingResult: function (result) {
+	                var messageResource = Number(result.Code) === 0 ? "MessageSuccess" : "Fail";
+	                BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
+	            }
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 242:
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * jquery.numberformatter - Formatting/Parsing Numbers in jQuery
+	 *
+	 * Originally written by
+	 * Michael Abernethy (mike@abernethysoft.com),
+	 * Andrew Parry (aparry0@gmail.com)
+	 *
+	 * Updated by Sven Busse
+	 *
+	 * Dual licensed under the MIT (MIT-LICENSE.txt)
+	 * and GPL (GPL-LICENSE.txt) licenses.
+	 *
+	 * @author Sven Busse
+	 **/
+	
+	var _assign = __webpack_require__(243);
+	
+	function NumberFormatter() {
+	
+	    this.defaults = {
+	        format: "#,###.00",
+	        locale: "us",
+	        decimalSeparatorAlwaysShown: false,
+	        nanForceZero: true,
+	        round: true,
+	        isFullLocale: false,
+	        overrideGroupSep: null,
+	        overrideDecSep: null,
+	        overrideNegSign: null,
+	        isPercentage: false,            // treats the input as a percentage (i.e. input multiplied by 100)
+	        autoDetectPercentage: true      // will search if the format string ends with '%', if it does then the above option is implicitly set
+	    };
+	
+	    var nfLocales = {initialized: false};
+	
+	    var nfLocalesLikeUS = ['ae', 'ar', 'au', 'ca', 'cn', 'eg', 'gb', 'hk', 'il', 'in', 'jp', 'mx', 'sa', 'sk', 'th', 'tw', 'us', 'za'];
+	    var nfLocalesLikeDE = ['at', 'be', 'br', 'de', 'dk', 'ee', 'es', 'gr', 'it', 'lt', 'lv', 'nl', 'pt', 'tr', 'vn'];
+	    var nfLocalesLikeFR = ['bg', 'cz', 'fi', 'fr', 'no', 'pl', 'ro', 'ru', 'se'];
+	    var nfLocalesLikeCH = ['ch'];
+	
+	    var nfLocaleFormatting = [[".", ","], [",", "."], [",", " "], [".", "'"]];
+	    var nfAllLocales = [nfLocalesLikeUS, nfLocalesLikeDE, nfLocalesLikeFR, nfLocalesLikeCH];
+	
+	    function init() {
+	        // write the arrays into the hashtable
+	        for (var localeGroupIdx = 0; localeGroupIdx < nfAllLocales.length; localeGroupIdx++) {
+	            var localeGroup = nfAllLocales[localeGroupIdx];
+	            for (var i = 0; i < localeGroup.length; i++) {
+	                nfLocales[localeGroup[i]] = localeGroupIdx;
+	            }
+	        }
+	
+	        nfLocales.initialized = true;
+	    }
+	
+	    function formatCodes(locale, isFullLocale) {
+	        if (!nfLocales.initialized)
+	            init();
+	
+	        // default values
+	        var dec = ".";
+	        var group = ",";
+	        var neg = "-";
+	
+	        if (isFullLocale == false) {
+	            // Extract and convert to lower-case any language code from a real 'locale' formatted string, if not use as-is
+	            // (To prevent locale format like : "fr_FR", "en_US", "de_DE", "fr_FR", "en-US", "de-DE")
+	            if (locale.indexOf('_') != -1)
+	                locale = locale.split('_')[1].toLowerCase();
+	            else if (locale.indexOf('-') != -1)
+	                locale = locale.split('-')[1].toLowerCase();
+	        }
+	
+	        // hashtable lookup to match locale with codes
+	        var codesIndex = nfLocales[locale];
+	        if (codesIndex) {
+	            var codes = nfLocaleFormatting[codesIndex];
+	            if (codes) {
+	                dec = codes[0];
+	                group = codes[1];
+	            }
+	        }
+	        return {dec: dec, group: group, neg: neg};
+	    }
+	
+	    function _roundNumber(number, decimalPlaces) {
+	        var power = Math.pow(10, decimalPlaces || 0);
+	        var value = String(Math.round(number * power) / power);
+	
+	        // ensure the decimal places are there
+	        if (decimalPlaces > 0) {
+	            var dp = value.indexOf(".");
+	            if (dp == -1) {
+	                value += '.';
+	                dp = 0;
+	            } else {
+	                dp = value.length - (dp + 1);
+	            }
+	
+	            while (dp < decimalPlaces) {
+	                value += '0';
+	                dp++;
+	            }
+	        }
+	        return value;
+	    }
+	
+	    /**
+	     * Formats a Number object into a string, using the given formatting options
+	     *
+	     * @param {Object} numberString
+	     * @param {Object} options
+	     */
+	    function _formatNumber(number, options, suffix, prefix, negativeInFront) {
+	        options = _assign({}, this.defaults, options);
+	        var formatData = formatCodes(options.locale.toLowerCase(), options.isFullLocale);
+	
+	        var dec = formatData.dec;
+	        var group = formatData.group;
+	        var neg = formatData.neg;
+	
+	        // check overrides
+	        if (options.overrideGroupSep != null) {
+	            group = options.overrideGroupSep;
+	        }
+	        if (options.overrideDecSep != null) {
+	            dec = options.overrideDecSep;
+	        }
+	        if (options.overrideNegSign != null) {
+	            neg = options.overrideNegSign;
+	        }
+	
+	        // Check NAN handling
+	        var forcedToZero = false;
+	        if (isNaN(number)) {
+	            if (options.nanForceZero == true) {
+	                number = 0;
+	                forcedToZero = true;
+	            } else {
+	                return '';
+	            }
+	        }
+	
+	        // special case for percentages
+	        if (options.isPercentage == true || (options.autoDetectPercentage && suffix.charAt(suffix.length - 1) == '%')) {
+	            number = number * 100;
+	        }
+	
+	        var returnString = "";
+	        if (options.format.indexOf(".") > -1) {
+	            var decimalPortion = dec;
+	            var decimalFormat = options.format.substring(options.format.lastIndexOf(".") + 1);
+	
+	            // round or truncate number as needed
+	            if (options.round == true)
+	                number = Number(_roundNumber(number, decimalFormat.length));
+	            else {
+	                var numStr = number.toString();
+	                if (numStr.lastIndexOf('.') > 0) {
+	                    numStr = numStr.substring(0, numStr.lastIndexOf('.') + decimalFormat.length + 1);
+	                }
+	                number = Number(numStr);
+	            }
+	
+	            var decimalValue = Number(number.toString().substring(number.toString().indexOf('.')));
+	            var decimalString = String(_roundNumber(decimalValue, decimalFormat.length));
+	            decimalString = decimalString.substring(decimalString.lastIndexOf('.') + 1);
+	            for (var i = 0; i < decimalFormat.length; i++) {
+	                if (decimalFormat.charAt(i) == '#' && decimalString.charAt(i) != '0') {
+	                    decimalPortion += decimalString.charAt(i);
+	                } else if (decimalFormat.charAt(i) == '#' && decimalString.charAt(i) == '0') {
+	                    var notParsed = decimalString.substring(i);
+	                    if (notParsed.match('[1-9]')) {
+	                        decimalPortion += decimalString.charAt(i);
+	                    } else
+	                        break;
+	                } else if (decimalFormat.charAt(i) == "0")
+	                    decimalPortion += decimalString.charAt(i);
+	            }
+	            returnString += decimalPortion
+	        } else
+	            number = Math.round(number);
+	
+	        var ones = Math.floor(number);
+	        if (number < 0)
+	            ones = Math.ceil(number);
+	
+	        var onesFormat = "";
+	        if (options.format.indexOf(".") == -1)
+	            onesFormat = options.format;
+	        else
+	            onesFormat = options.format.substring(0, options.format.indexOf("."));
+	
+	        var onePortion = "";
+	        if (!(ones == 0 && onesFormat.substr(onesFormat.length - 1) == '#') || forcedToZero) {
+	            // find how many digits are in the group
+	            var oneText = String(Math.abs(ones));
+	            var groupLength = 9999;
+	            if (onesFormat.lastIndexOf(",") != -1)
+	                groupLength = onesFormat.length - onesFormat.lastIndexOf(",") - 1;
+	            var groupCount = 0;
+	            for (i = oneText.length - 1; i > -1; i--) {
+	                onePortion = oneText.charAt(i) + onePortion;
+	                groupCount++;
+	                if (groupCount == groupLength && i != 0) {
+	                    onePortion = group + onePortion;
+	                    groupCount = 0;
+	                }
+	            }
+	
+	            // account for any pre-data padding
+	            if (onesFormat.length > onePortion.length) {
+	                var padStart = onesFormat.indexOf('0');
+	                if (padStart != -1) {
+	                    var padLen = onesFormat.length - padStart;
+	
+	                    // pad to left with 0's or group char
+	                    var pos = onesFormat.length - onePortion.length - 1;
+	                    while (onePortion.length < padLen) {
+	                        var padChar = onesFormat.charAt(pos);
+	                        // replace with real group char if needed
+	                        if (padChar == ',')
+	                            padChar = group;
+	                        onePortion = padChar + onePortion;
+	                        pos--;
+	                    }
+	                }
+	            }
+	        }
+	
+	        if (!onePortion && onesFormat.indexOf('0', onesFormat.length - 1) !== -1)
+	            onePortion = '0';
+	
+	        returnString = onePortion + returnString;
+	
+	        // handle special case where negative is in front of the invalid characters
+	        if (number < 0 && negativeInFront && prefix.length > 0)
+	            prefix = neg + prefix;
+	        else if (number < 0)
+	            returnString = neg + returnString;
+	
+	        if (!options.decimalSeparatorAlwaysShown) {
+	            if (returnString.lastIndexOf(dec) == returnString.length - 1) {
+	                returnString = returnString.substring(0, returnString.length - 1);
+	            }
+	        }
+	        returnString = prefix + returnString + suffix;
+	        return returnString;
+	    }
+	
+	    /*  Formatting Methods  */
+	
+	    /**
+	     * First parses a string and reformats it with the given options.
+	     *
+	     * @param {Object} numberString
+	     * @param {Object} options
+	     */
+	    this.formatNumber = function (numberString, options) {
+	        options = _assign({}, this.defaults, options);
+	        var formatData = formatCodes(options.locale.toLowerCase(), options.isFullLocale);
+	
+	        var dec = formatData.dec;
+	        var group = formatData.group;
+	        var neg = formatData.neg;
+	
+	        var validFormat = "0#-,.";
+	
+	        // in the prefix & suffix part of the format string, characters can be escaped
+	        // by surrounding them in single quotes, so they are not intepreted as formatting placeholders
+	        var singleQuote = '\'';
+	        var nextCharIsQuoted = false;
+	
+	        // strip all the invalid characters at the beginning and the end
+	        // of the format, and we'll stick them back on at the end
+	        // make a special case for the negative sign "-" though, so
+	        // we can have formats like -$23.32
+	        var prefix = "";
+	        var negativeInFront = false;
+	        for (var i = 0; i < options.format.length; i++) {
+	            if (options.format.charAt(i) == singleQuote) {
+	                if (options.format.charAt(i + 1) == singleQuote) {
+	                    prefix = prefix + singleQuote;
+	                }
+	                nextCharIsQuoted = !nextCharIsQuoted && options.format.charAt(i + 2) == singleQuote;
+	            } else if (validFormat.indexOf(options.format.charAt(i)) == -1 || nextCharIsQuoted) {
+	                prefix = prefix + options.format.charAt(i);
+	            } else {
+	                if (i == 0 && options.format.charAt(i) == '-') {
+	                    negativeInFront = true;
+	                } else {
+	                    // end of prefix has been reached, remove it from format string
+	                    options.format = options.format.substring(i, options.format.length);
+	                    break;
+	                }
+	            }
+	        }
+	        var suffix = "";
+	        for (i = options.format.length - 1; i >= 0; i--) {
+	            if (options.format.charAt(i) == singleQuote) {
+	                if (options.format.charAt(i - 1) == singleQuote) {
+	                    suffix = singleQuote + suffix;
+	                }
+	                nextCharIsQuoted = !nextCharIsQuoted && options.format.charAt(i - 2) == singleQuote;
+	            } else if (validFormat.indexOf(options.format.charAt(i)) == -1 || nextCharIsQuoted) {
+	                suffix = options.format.charAt(i) + suffix;
+	            } else {
+	                // beginning of suffix has been reached, remove it from format string
+	                options.format = options.format.substring(0, i + 1);
+	                break;
+	            }
+	        }
+	
+	        // now we need to convert it into a number
+	        //while (numberString.indexOf(group) > -1)
+	        //  numberString = numberString.replace(group, '');
+	        //var number = new Number(numberString.replace(dec, ".").replace(neg, "-"));
+	        var number = Number(numberString);
+	
+	        return _formatNumber(number, options, suffix, prefix, negativeInFront);
+	    };
+	}
+	
+	module.exports = NumberFormatter;
+
+/***/ },
+
+/***/ 243:
+/***/ function(module, exports) {
+
+	/**
+	 * lodash (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modularize exports="npm" -o ./`
+	 * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+	 * Released under MIT license <https://lodash.com/license>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 */
+	
+	/** Used as references for various `Number` constants. */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+	
+	/** `Object#toString` result references. */
+	var argsTag = '[object Arguments]',
+	    funcTag = '[object Function]',
+	    genTag = '[object GeneratorFunction]';
+	
+	/** Used to detect unsigned integer values. */
+	var reIsUint = /^(?:0|[1-9]\d*)$/;
+	
+	/**
+	 * A faster alternative to `Function#apply`, this function invokes `func`
+	 * with the `this` binding of `thisArg` and the arguments of `args`.
+	 *
+	 * @private
+	 * @param {Function} func The function to invoke.
+	 * @param {*} thisArg The `this` binding of `func`.
+	 * @param {Array} args The arguments to invoke `func` with.
+	 * @returns {*} Returns the result of `func`.
+	 */
+	function apply(func, thisArg, args) {
+	  switch (args.length) {
+	    case 0: return func.call(thisArg);
+	    case 1: return func.call(thisArg, args[0]);
+	    case 2: return func.call(thisArg, args[0], args[1]);
+	    case 3: return func.call(thisArg, args[0], args[1], args[2]);
+	  }
+	  return func.apply(thisArg, args);
+	}
+	
+	/**
+	 * The base implementation of `_.times` without support for iteratee shorthands
+	 * or max array length checks.
+	 *
+	 * @private
+	 * @param {number} n The number of times to invoke `iteratee`.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array} Returns the array of results.
+	 */
+	function baseTimes(n, iteratee) {
+	  var index = -1,
+	      result = Array(n);
+	
+	  while (++index < n) {
+	    result[index] = iteratee(index);
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Creates a unary function that invokes `func` with its argument transformed.
+	 *
+	 * @private
+	 * @param {Function} func The function to wrap.
+	 * @param {Function} transform The argument transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overArg(func, transform) {
+	  return function(arg) {
+	    return func(transform(arg));
+	  };
+	}
+	
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+	
+	/** Built-in value references. */
+	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+	
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeKeys = overArg(Object.keys, Object),
+	    nativeMax = Math.max;
+	
+	/** Detect if properties shadowing those on `Object.prototype` are non-enumerable. */
+	var nonEnumShadows = !propertyIsEnumerable.call({ 'valueOf': 1 }, 'valueOf');
+	
+	/**
+	 * Creates an array of the enumerable property names of the array-like `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @param {boolean} inherited Specify returning inherited property names.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function arrayLikeKeys(value, inherited) {
+	  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+	  // Safari 9 makes `arguments.length` enumerable in strict mode.
+	  var result = (isArray(value) || isArguments(value))
+	    ? baseTimes(value.length, String)
+	    : [];
+	
+	  var length = result.length,
+	      skipIndexes = !!length;
+	
+	  for (var key in value) {
+	    if ((inherited || hasOwnProperty.call(value, key)) &&
+	        !(skipIndexes && (key == 'length' || isIndex(key, length)))) {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Assigns `value` to `key` of `object` if the existing value is not equivalent
+	 * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+	 * for equality comparisons.
+	 *
+	 * @private
+	 * @param {Object} object The object to modify.
+	 * @param {string} key The key of the property to assign.
+	 * @param {*} value The value to assign.
+	 */
+	function assignValue(object, key, value) {
+	  var objValue = object[key];
+	  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
+	      (value === undefined && !(key in object))) {
+	    object[key] = value;
+	  }
+	}
+	
+	/**
+	 * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function baseKeys(object) {
+	  if (!isPrototype(object)) {
+	    return nativeKeys(object);
+	  }
+	  var result = [];
+	  for (var key in Object(object)) {
+	    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+	
+	/**
+	 * The base implementation of `_.rest` which doesn't validate or coerce arguments.
+	 *
+	 * @private
+	 * @param {Function} func The function to apply a rest parameter to.
+	 * @param {number} [start=func.length-1] The start position of the rest parameter.
+	 * @returns {Function} Returns the new function.
+	 */
+	function baseRest(func, start) {
+	  start = nativeMax(start === undefined ? (func.length - 1) : start, 0);
+	  return function() {
+	    var args = arguments,
+	        index = -1,
+	        length = nativeMax(args.length - start, 0),
+	        array = Array(length);
+	
+	    while (++index < length) {
+	      array[index] = args[start + index];
+	    }
+	    index = -1;
+	    var otherArgs = Array(start + 1);
+	    while (++index < start) {
+	      otherArgs[index] = args[index];
+	    }
+	    otherArgs[start] = array;
+	    return apply(func, this, otherArgs);
+	  };
+	}
+	
+	/**
+	 * Copies properties of `source` to `object`.
+	 *
+	 * @private
+	 * @param {Object} source The object to copy properties from.
+	 * @param {Array} props The property identifiers to copy.
+	 * @param {Object} [object={}] The object to copy properties to.
+	 * @param {Function} [customizer] The function to customize copied values.
+	 * @returns {Object} Returns `object`.
+	 */
+	function copyObject(source, props, object, customizer) {
+	  object || (object = {});
+	
+	  var index = -1,
+	      length = props.length;
+	
+	  while (++index < length) {
+	    var key = props[index];
+	
+	    var newValue = customizer
+	      ? customizer(object[key], source[key], key, object, source)
+	      : undefined;
+	
+	    assignValue(object, key, newValue === undefined ? source[key] : newValue);
+	  }
+	  return object;
+	}
+	
+	/**
+	 * Creates a function like `_.assign`.
+	 *
+	 * @private
+	 * @param {Function} assigner The function to assign values.
+	 * @returns {Function} Returns the new assigner function.
+	 */
+	function createAssigner(assigner) {
+	  return baseRest(function(object, sources) {
+	    var index = -1,
+	        length = sources.length,
+	        customizer = length > 1 ? sources[length - 1] : undefined,
+	        guard = length > 2 ? sources[2] : undefined;
+	
+	    customizer = (assigner.length > 3 && typeof customizer == 'function')
+	      ? (length--, customizer)
+	      : undefined;
+	
+	    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+	      customizer = length < 3 ? undefined : customizer;
+	      length = 1;
+	    }
+	    object = Object(object);
+	    while (++index < length) {
+	      var source = sources[index];
+	      if (source) {
+	        assigner(object, source, index, customizer);
+	      }
+	    }
+	    return object;
+	  });
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like index.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+	 */
+	function isIndex(value, length) {
+	  length = length == null ? MAX_SAFE_INTEGER : length;
+	  return !!length &&
+	    (typeof value == 'number' || reIsUint.test(value)) &&
+	    (value > -1 && value % 1 == 0 && value < length);
+	}
+	
+	/**
+	 * Checks if the given arguments are from an iteratee call.
+	 *
+	 * @private
+	 * @param {*} value The potential iteratee value argument.
+	 * @param {*} index The potential iteratee index or key argument.
+	 * @param {*} object The potential iteratee object argument.
+	 * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+	 *  else `false`.
+	 */
+	function isIterateeCall(value, index, object) {
+	  if (!isObject(object)) {
+	    return false;
+	  }
+	  var type = typeof index;
+	  if (type == 'number'
+	        ? (isArrayLike(object) && isIndex(index, object.length))
+	        : (type == 'string' && index in object)
+	      ) {
+	    return eq(object[index], value);
+	  }
+	  return false;
+	}
+	
+	/**
+	 * Checks if `value` is likely a prototype object.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+	 */
+	function isPrototype(value) {
+	  var Ctor = value && value.constructor,
+	      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+	
+	  return value === proto;
+	}
+	
+	/**
+	 * Performs a
+	 * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+	 * comparison between two values to determine if they are equivalent.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to compare.
+	 * @param {*} other The other value to compare.
+	 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+	 * @example
+	 *
+	 * var object = { 'a': 1 };
+	 * var other = { 'a': 1 };
+	 *
+	 * _.eq(object, object);
+	 * // => true
+	 *
+	 * _.eq(object, other);
+	 * // => false
+	 *
+	 * _.eq('a', 'a');
+	 * // => true
+	 *
+	 * _.eq('a', Object('a'));
+	 * // => false
+	 *
+	 * _.eq(NaN, NaN);
+	 * // => true
+	 */
+	function eq(value, other) {
+	  return value === other || (value !== value && other !== other);
+	}
+	
+	/**
+	 * Checks if `value` is likely an `arguments` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * _.isArguments(function() { return arguments; }());
+	 * // => true
+	 *
+	 * _.isArguments([1, 2, 3]);
+	 * // => false
+	 */
+	function isArguments(value) {
+	  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+	  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
+	    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
+	}
+	
+	/**
+	 * Checks if `value` is classified as an `Array` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+	 * @example
+	 *
+	 * _.isArray([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArray(document.body.children);
+	 * // => false
+	 *
+	 * _.isArray('abc');
+	 * // => false
+	 *
+	 * _.isArray(_.noop);
+	 * // => false
+	 */
+	var isArray = Array.isArray;
+	
+	/**
+	 * Checks if `value` is array-like. A value is considered array-like if it's
+	 * not a function and has a `value.length` that's an integer greater than or
+	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 * @example
+	 *
+	 * _.isArrayLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLike(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLike('abc');
+	 * // => true
+	 *
+	 * _.isArrayLike(_.noop);
+	 * // => false
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(value.length) && !isFunction(value);
+	}
+	
+	/**
+	 * This method is like `_.isArrayLike` except that it also checks if `value`
+	 * is an object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array-like object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * _.isArrayLikeObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject('abc');
+	 * // => false
+	 *
+	 * _.isArrayLikeObject(_.noop);
+	 * // => false
+	 */
+	function isArrayLikeObject(value) {
+	  return isObjectLike(value) && isArrayLike(value);
+	}
+	
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in Safari 8-9 which returns 'object' for typed array and other constructors.
+	  var tag = isObject(value) ? objectToString.call(value) : '';
+	  return tag == funcTag || tag == genTag;
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This method is loosely based on
+	 * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 * @example
+	 *
+	 * _.isLength(3);
+	 * // => true
+	 *
+	 * _.isLength(Number.MIN_VALUE);
+	 * // => false
+	 *
+	 * _.isLength(Infinity);
+	 * // => false
+	 *
+	 * _.isLength('3');
+	 * // => false
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' &&
+	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+	
+	/**
+	 * Checks if `value` is the
+	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(_.noop);
+	 * // => true
+	 *
+	 * _.isObject(null);
+	 * // => false
+	 */
+	function isObject(value) {
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+	
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+	
+	/**
+	 * Assigns own enumerable string keyed properties of source objects to the
+	 * destination object. Source objects are applied from left to right.
+	 * Subsequent sources overwrite property assignments of previous sources.
+	 *
+	 * **Note:** This method mutates `object` and is loosely based on
+	 * [`Object.assign`](https://mdn.io/Object/assign).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.10.0
+	 * @category Object
+	 * @param {Object} object The destination object.
+	 * @param {...Object} [sources] The source objects.
+	 * @returns {Object} Returns `object`.
+	 * @see _.assignIn
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 * }
+	 *
+	 * function Bar() {
+	 *   this.c = 3;
+	 * }
+	 *
+	 * Foo.prototype.b = 2;
+	 * Bar.prototype.d = 4;
+	 *
+	 * _.assign({ 'a': 0 }, new Foo, new Bar);
+	 * // => { 'a': 1, 'c': 3 }
+	 */
+	var assign = createAssigner(function(object, source) {
+	  if (nonEnumShadows || isPrototype(source) || isArrayLike(source)) {
+	    copyObject(source, keys(source), object);
+	    return;
+	  }
+	  for (var key in source) {
+	    if (hasOwnProperty.call(source, key)) {
+	      assignValue(object, key, source[key]);
+	    }
+	  }
+	});
+	
+	/**
+	 * Creates an array of the own enumerable property names of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects. See the
+	 * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+	 * for more details.
+	 *
+	 * @static
+	 * @since 0.1.0
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.keys(new Foo);
+	 * // => ['a', 'b'] (iteration order is not guaranteed)
+	 *
+	 * _.keys('hi');
+	 * // => ['0', '1']
+	 */
+	function keys(object) {
+	  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+	}
+	
+	module.exports = assign;
+
+
+/***/ },
+
+/***/ 244:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+	    var _me = {
+	        showDialogMesage: function (title, message) {
+	            var options = {
+	                title: Site.getSingleResource("Confirmation"),
+	                height: "auto",
+	                id: "result-update-betsetting",
+	                onOpen: function () {
+	                    $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
+	                },
+	                onClose: function () {
+	                    $("#result-update-betsetting").remove();
+	                    $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
+	                    setTimeout(function () {
+	                        Site.blockUI();
+	                        Site.getLocation().reload();
+	                    }, 500);
+	                },
+	                width: 450
+	            };
+	
+	            var buttons = [
+	                {
+	                    text: Site.getSingleResource("OK"),
+	                    isClosedOnClick: true,
+	                    classes: "btn btn-submit"
+	                }];
+	
+	            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
+	        },
+	
+	        convertToFloat: function (str) {
+	            var temp = str.replace(/,/g, "");
+	            var temp2 = temp.replace(".", "");
+	
+	            if (_me.isInteger(temp2)) {
+	                return parseFloat(temp);
+	            }
+	            else {
+	                return NaN;
+	            }
+	        },
+	
+	        isInteger: function (s) {
+	            var i;
+	
+	            if (_me.isEmpty(s)) {
+	                return false;
+	            }
+	            else {
+	                for (i = 0; i < s.length; i++) {
+	                    var c = s.charAt(i);
+	
+	                    if (!_me.isDigit(c)) { return false; }
+	                }
+	            }
+	
+	            return true;
+	        },
+	
+	        isDigit: function (c) {
+	            return ((c >= "0") && (c <= "9"));
+	        },
+	
+	        isEmpty: function (s) {
+	            var empty = ((s == null) || (s.length === 0));
+	            if (!empty) {
+	                var news = s.replace(" ", "");
+	                if (news.length > 0) {
+	                    return false;
+	                }
+	                else {
+	                    return true;
+	                }
+	            }
+	            return empty;
+	        },
+	
+	        showBalloonMsg: function (elementSelector, strMsg) {
+	            var contents = '<div onclick="hideBalloonMsg(\'' + elementSelector + '\')" style="width:140px;" class="msgerr">' + strMsg + '</div>';
+	
+	            $(elementSelector).blur(function () { _me.hideBalloonMsg(elementSelector); })
+	                              .focus()
+	                              .showBalloon({
+	                                  contents: contents
+	                              });
+	        },
+	        hideBalloonMsg: function (elementSelector) {
+	            $(elementSelector).hideBalloon();
+	        },
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 245:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
+	/**
+	* Hover balloon on elements without css and images.
+	*
+	* Copyright (c) 2011 Hayato Takenaka
+	* Dual licensed under the MIT and GPL licenses:
+	* http://www.opensource.org/licenses/mit-license.php
+	* http://www.gnu.org/licenses/gpl.html
+	* @author: Hayato Takenaka (http://urin.take-uma.net)
+	* @version: 0.3.0 - 2012/02/25
+	**/
+	; (function ($) {
+	    //-----------------------------------------------------------------------------
+	    // Private
+	    //-----------------------------------------------------------------------------
+	    // Helper for meta programming
+	    var Meta = {};
+	    Meta.pos = $.extend(["top", "bottom", "left", "right"], { camel: ["Top", "Bottom", "Left", "Right"] });
+	    Meta.size = $.extend(["height", "width"], { camel: ["Height", "Width"] });
+	    Meta.getRelativeNames = function (position) {
+	        var idx = {
+	            pos: {
+	                o: position,                                          // origin
+	                f: (position % 2 == 0) ? position + 1 : position - 1, // faced
+	                p1: (position % 2 == 0) ? position : position - 1,
+	                p2: (position % 2 == 0) ? position + 1 : position,
+	                c1: (position < 2) ? 2 : 0,
+	                c2: (position < 2) ? 3 : 1
+	            },
+	            size: {
+	                p: (position < 2) ? 0 : 1, // parallel
+	                c: (position < 2) ? 1 : 0  // cross
+	            }
+	        };
+	        var names = {};
+	        for (var m1 in idx) {
+	            if (!names[m1]) names[m1] = {};
+	            for (var m2 in idx[m1]) {
+	                names[m1][m2] = Meta[m1][idx[m1][m2]];
+	                if (!names.camel) names.camel = {};
+	                if (!names.camel[m1]) names.camel[m1] = {};
+	                names.camel[m1][m2] = Meta[m1].camel[idx[m1][m2]];
+	            }
+	        }
+	        names.isTopLeft = (names.pos.o == names.pos.p1);
+	        return names;
+	    };
+	
+	    // Helper class to handle position and size as numerical pixels.
+	    function NumericalBoxElement() { this.initialize.apply(this, arguments); }
+	    (function () {
+	        // Method factories
+	        var Methods = {
+	            setBorder: function (pos, isVertical) {
+	                return function (value) {
+	                    this.$.css("border-" + pos.toLowerCase() + "-width", value + "px");
+	                    this["border" + pos] = value;
+	                    return (this.isActive) ? digitalize(this, isVertical) : this;
+	                }
+	            },
+	            setPosition: function (pos, isVertical) {
+	                return function (value) {
+	                    this.$.css(pos.toLowerCase(), value + "px");
+	                    this[pos.toLowerCase()] = value;
+	                    return (this.isActive) ? digitalize(this, isVertical) : this;
+	                }
+	            }
+	        };
+	
+	        NumericalBoxElement.prototype = {
+	            initialize: function ($element) {
+	                this.$ = $element;
+	                $.extend(true, this, this.$.offset(), { center: {}, inner: { center: {}} });
+	                for (var i = 0; i < Meta.pos.length; i++) {
+	                    this["border" + Meta.pos.camel[i]] = parseInt(this.$.css("border-" + Meta.pos[i] + "-width")) || 0;
+	                }
+	                this.active();
+	            },
+	            active: function () { this.isActive = true; digitalize(this); return this; },
+	            inactive: function () { this.isActive = false; return this; }
+	        };
+	        for (var i = 0; i < Meta.pos.length; i++) {
+	            NumericalBoxElement.prototype["setBorder" + Meta.pos.camel[i]] = Methods.setBorder(Meta.pos.camel[i], (i < 2));
+	            if (i % 2 == 0)
+	                NumericalBoxElement.prototype["set" + Meta.pos.camel[i]] = Methods.setPosition(Meta.pos.camel[i], (i < 2));
+	        }
+	
+	        function digitalize(box, isVertical) {
+	            if (isVertical == undefined) { digitalize(box, true); return digitalize(box, false); }
+	            var m = Meta.getRelativeNames((isVertical) ? 0 : 2);
+	            box[m.size.p] = box.$["outer" + m.camel.size.p]();
+	            box[m.pos.f] = box[m.pos.o] + box[m.size.p];
+	            box.center[m.pos.o] = box[m.pos.o] + box[m.size.p] / 2;
+	            box.inner[m.pos.o] = box[m.pos.o] + box["border" + m.camel.pos.o];
+	            box.inner[m.size.p] = box.$["inner" + m.camel.size.p]();
+	            box.inner[m.pos.f] = box.inner[m.pos.o] + box.inner[m.size.p];
+	            box.inner.center[m.pos.o] = box.inner[m.pos.f] + box.inner[m.size.p] / 2;
+	            return box;
+	        }
+	    })();
+	
+	    // Adjust position of balloon body
+	    function makeupBalloon($target, $balloon, options) {
+	        $balloon.stop(true, true);
+	        var outerTip, innerTip,
+				initTipStyle = { position: "absolute", height: "0", width: "0", border: "solid 0 transparent" },
+				target = new NumericalBoxElement($target),
+				balloon = new NumericalBoxElement($balloon);
+	        balloon.setTop(-options.offsetY
+				+ ((options.position && options.position.indexOf("top") >= 0) ? target.top - balloon.height
+				: ((options.position && options.position.indexOf("bottom") >= 0) ? target.bottom
+				: target.center.top - balloon.height / 2)));
+	        balloon.setLeft(options.offsetX
+				+ ((options.position && options.position.indexOf("left") >= 0) ? target.left - balloon.width
+				: ((options.position && options.position.indexOf("right") >= 0) ? target.right
+				: target.center.left - balloon.width / 2)));
+	        if (options.tipSize > 0) {
+	            // Add hidden balloon tips into balloon body.
+	            if ($balloon.data("outerTip")) { $balloon.data("outerTip").remove(); $balloon.removeData("outerTip"); }
+	            if ($balloon.data("innerTip")) { $balloon.data("innerTip").remove(); $balloon.removeData("innerTip"); }
+	            outerTip = new NumericalBoxElement($("<div>").css(initTipStyle).appendTo($balloon));
+	            innerTip = new NumericalBoxElement($("<div>").css(initTipStyle).appendTo($balloon));
+	            // Make tip triangle, adjust position of tips.
+	            var m;
+	            for (var i = 0; i < Meta.pos.length; i++) {
+	                m = Meta.getRelativeNames(i);
+	                if (balloon.center[m.pos.c1] >= target[m.pos.c1] &&
+						balloon.center[m.pos.c1] <= target[m.pos.c2]) {
+	                    if (i % 2 == 0) {
+	                        if (balloon[m.pos.o] >= target[m.pos.o] && balloon[m.pos.f] >= target[m.pos.f]) break;
+	                    } else {
+	                        if (balloon[m.pos.o] <= target[m.pos.o] && balloon[m.pos.f] <= target[m.pos.f]) break;
+	                    }
+	                }
+	                m = null;
+	            }
+	            if (m) {
+	                balloon["set" + m.camel.pos.p1]
+						(balloon[m.pos.p1] + ((m.isTopLeft) ? 1 : -1) * (options.tipSize - balloon["border" + m.camel.pos.o]));
+	                makeTip(balloon, outerTip, m, options.tipSize, $balloon.css("border-" + m.pos.o + "-color"));
+	                makeTip(balloon, innerTip, m, options.tipSize - 2 * balloon["border" + m.camel.pos.o], $balloon.css("background-color"));
+	                $balloon.data("outerTip", outerTip.$).data("innerTip", innerTip.$);
+	            } else {
+	                $.each([outerTip.$, innerTip.$], function () { this.remove(); });
+	            }
+	        }
+	        // Make up balloon tip.
+	        function makeTip(balloon, tip, m, tipSize, color) {
+	            var len = Math.round(tipSize / 1.7320508);
+	            tip.inactive()
+					["setBorder" + m.camel.pos.f](tipSize)
+					["setBorder" + m.camel.pos.c1](len)
+					["setBorder" + m.camel.pos.c2](len)
+					["set" + m.camel.pos.p1]((m.isTopLeft) ? -tipSize : balloon.inner[m.size.p])
+					["set" + m.camel.pos.c1](balloon.inner[m.size.c] / 2 - len)
+					.active()
+					.$.css("border-" + m.pos.f + "-color", color);
+	        }
+	    }
+	
+	    // True if the event comes from the target or balloon.
+	    function isValidTargetEvent($target, e) {
+	        var b = $target.data("balloon") && $target.data("balloon").get(0);
+	        return !(b && (b == e.relatedTarget || $.contains(b, e.relatedTarget)));
+	    }
+	
+	    //-----------------------------------------------------------------------------
+	    // Public
+	    //-----------------------------------------------------------------------------
+	    $.fn.balloon = function (options) {
+	        options = $.extend(true, {}, $.balloon.defaults, options);
+	        return this.one("mouseenter", function (e) {
+	            var $target = $(this), t = this;
+	            var $balloon = $target.unbind("mouseenter", arguments.callee)
+					.showBalloon(options).mouseenter(function (e) {
+					    isValidTargetEvent($target, e) && $target.showBalloon();
+					}).data("balloon");
+	            if ($balloon) {
+	                $balloon.mouseleave(function (e) {
+	                    if (t == e.relatedTarget || $.contains(t, e.relatedTarget)) return;
+	                    $target.hideBalloon();
+	                }).mouseenter(function (e) { $target.showBalloon(); });
+	            }
+	        }).mouseleave(function (e) {
+	            var $target = $(this);
+	            isValidTargetEvent($target, e) && $target.hideBalloon();
+	        });
+	    };
+	
+	    $.fn.showBalloon = function (options) {
+	        var $target, $balloon, offTimer;
+	        if (!$.balloon.defaults.css) $.balloon.defaults.css = {};
+	        if (options || !this.data("options"))
+	            this.data("options", $.extend(true, {}, $.balloon.defaults, options));
+	        options = this.data("options");
+	        return this.each(function () {
+	            $target = $(this);
+	            (offTimer = $target.data("offTimer")) && clearTimeout(offTimer);
+	            var contents = $.isFunction(options.contents)
+					? options.contents()
+					: (options.contents || $target.attr("title"));
+	            var isNew = !($balloon = $target.data("balloon"));
+	            if (isNew) $balloon = $("<div>").append(contents);
+	            if (!options.url && (!$balloon || $balloon.html() == "")) return;
+	            if (!isNew && contents && contents != $balloon.html()) $balloon.empty().append(contents);
+	            $target.removeAttr("title");
+	            if (options.url) {
+	                $balloon.load($.isFunction(options.url) ? options.url(this) : options.url, function (res, sts, xhr) {
+	                    if (options.ajaxComplete) options.ajaxComplete(res, sts, xhr);
+	                    makeupBalloon($target, $balloon, options);
+	                });
+	            }
+	            if (isNew) {
+	                $balloon
+						.addClass(options.classname)
+						.css(options.css)
+						.css({ visibility: "hidden", position: "absolute" })
+						.appendTo("body");
+	                $target.data("balloon", $balloon);
+	                makeupBalloon($target, $balloon, options);
+	                $balloon.hide().css("visibility", "visible");
+	            } else {
+	                makeupBalloon($target, $balloon, options);
+	            }
+	            $target.data("onTimer", setTimeout(function () {
+	                if (options.showAnimation) {
+	                    options.showAnimation.apply($balloon.stop(true, true), [options.showDuration]);
+	                } else {
+	                    $balloon.show(options.showDuration, function () {
+	                        if (this.style.removeAttribute) { this.style.removeAttribute("filter"); }
+	                    });
+	                }
+	            }, options.delay));
+	        });
+	    };
+	
+	    $.fn.hideBalloon = function () {
+	        var options = this.data("options"), onTimer, offTimer;
+	        return this.each(function () {
+	            var $target = $(this);
+	            (onTimer = $target.data("onTimer")) && clearTimeout(onTimer);
+	            (offTimer = $target.data("offTimer")) && clearTimeout(offTimer);
+	            $target.data("offTimer", setTimeout(function () {
+	                var $balloon = $target.data("balloon");
+	                if (options.hideAnimation) {
+	                    $balloon && options.hideAnimation.apply($balloon.stop(true, true), [options.hideDuration]);
+	                } else {
+	                    $balloon && $balloon.stop(true, true).hide(options.hideDuration);
+	                }
+	            },
+				options.minLifetime));
+	        });
+	    };
+	
+	    $.balloon = {
+	        defaults: {
+	            contents: null, url: null, ajaxComplete: null, classname: null,
+	            position: "top", offsetX: 0, offsetY: 0, tipSize: 12,
+	            delay: 0, minLifetime: 200,
+	            showDuration: 100, showAnimation: null,
+	            hideDuration: 80, hideAnimation: function (d) { this.fadeOut(d); },
+	            css: {
+	                minWidth: "20px",
+	                padding: "5px",
+	                borderRadius: "6px",
+	                border: "solid 1px #777",
+	                boxShadow: "4px 4px 4px #555",
+	                color: "#666",
+	                backgroundColor: "#efefef",
+	                opacity: ($.support.opacity) ? "0.85" : null,
+	                zIndex: "32767",
+	                textAlign: "left"
+	            }
+	        }
+	    };
+	})(jQuery);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+
+/***/ 246:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(244)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+	    var SPORTID_NUMBERGAME = 161;
+	
+	    var _me = {
+	        checkValidationNumberGame: function () {
+	            if (false === _me.checkLimitMinMaxBet(SPORTID_NUMBERGAME)) { return false; }
+	
+	            var maxPerBallSelector = "#max-per-ball-161";
+	            var maxPerBall = BetSettingHelper.convertToFloat($(maxPerBallSelector).val());
+	            var maxPerBallLimit = BetSettingHelper.convertToFloat($(maxPerBallSelector).attr('data-max-value'));
+	
+	            if (isNaN(maxPerBall)) {
+	                BetSettingHelper.showBalloonMsg(maxPerBallSelector, Site.getSingleResource('IncorrectMaxPerBall'));
+	                return false;
+	            }
+	
+	            if (maxPerBallLimit > 0 && maxPerBall > maxPerBallLimit) {
+	                BetSettingHelper.showBalloonMsg(maxPerBallSelector, Site.getSingleResource('MaxPerBallLessThanOrEqual') + " " + maxPerBallLimit);
+	                return false;
+	            }
+	
+	            return true;
+	        },
+	
+	        checkLimitMinMaxBet: function (sportId) {
+	            var minBetId = "#min-bet-" + sportId;
+	            var maxBetId = "#max-bet-" + sportId;
+	            var maxPerMatchId = "#max-per-match-" + sportId;
+	
+	            var $minBetTextBox = $(minBetId);
+	            var $maxBetTextBox = $(maxBetId);
+	            var $maxPerMatchTextBox = $(maxPerMatchId);
+	            if ($minBetTextBox.length === 0 ||
+	                $maxBetTextBox.length === 0 ||
+	                $maxPerMatchTextBox.length === 0) {
+	                return true;
+	            }
+	
+	            // Get value in attribute
+	            var limitMinBet = BetSettingHelper.convertToFloat($minBetTextBox.attr('data-min-value'));
+	            var limitMaxBet = BetSettingHelper.convertToFloat($maxBetTextBox.attr('data-max-value'));
+	            var limitMaxPerMatch = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-max-value'));
+	            var limitMaxPerMatchMin = BetSettingHelper.convertToFloat($maxPerMatchTextBox.attr('data-min-value'));
+	
+	            var minBet = BetSettingHelper.convertToFloat($minBetTextBox.val());
+	            var maxBet = BetSettingHelper.convertToFloat($maxBetTextBox.val());
+	            var maxPerMatcth = BetSettingHelper.convertToFloat($maxPerMatchTextBox.val());
+	
+	            // Check if minbet, maxbet, maxpermatch is valid number
+	            if (isNaN(minBet)) {
+	                BetSettingHelper.showBalloonMsg(minBetId, Site.getSingleResource('IncorrectMinBet'));
+	                return false;
+	            }
+	            if (isNaN(maxBet)) {
+	                BetSettingHelper.showBalloonMsg(maxBetId, Site.getSingleResource('IncorrectMaxBet'));
+	                return false;
+	            }
+	            if (isNaN(maxPerMatcth)) {
+	                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('IncorrectMaxPerMatch'));
+	                return false;
+	            }
+	
+	            if (minBet === 0 && maxBet === 0 && maxPerMatcth === 0) { return true; }
+	
+	            // Check contrains
+	            // min bet <=maxbet <= max per match
+	            if (limitMinBet > 0 && minBet < BetSettingHelper.convertToFloat(limitMinBet.toString())) {
+	                BetSettingHelper.showBalloonMsg(minBetId, Site.getSingleResource('MinBetGreaterThanOrEqual') + " " + limitMinBet);
+	                return false;
+	            }
+	            if (limitMaxBet > 0 && maxBet > BetSettingHelper.convertToFloat(limitMaxBet.toString())) {
+	                BetSettingHelper.showBalloonMsg(maxBetId, Site.getSingleResource('MaxBetLessThanOrEqual') + " " + limitMaxBet);
+	                return false;
+	            }
+	            if (limitMaxPerMatchMin > 0 && maxPerMatcth < BetSettingHelper.convertToFloat(limitMaxPerMatchMin.toString())) {
+	                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('MaxBetMatchMoreThanOrEqual') + " " + limitMaxPerMatchMin);
+	                return false;
+	            }
+	            if (limitMaxPerMatch > 0 && maxPerMatcth > BetSettingHelper.convertToFloat(limitMaxPerMatch.toString())) {
+	                BetSettingHelper.showBalloonMsg(maxPerMatchId, Site.getSingleResource('MaxBetMatchLessThanOrEqual') + " " + limitMaxPerMatch);
+	                return false;
+	            }
+	            if (minBet > maxBet) {
+	                BetSettingHelper.showBalloonMsg(minBetId, Site.getSingleResource('MinBetCanNotGreaterThanMaxBet'));
+	                return false;
+	            }
+	            if (maxBet > maxPerMatcth) {
+	                BetSettingHelper.showBalloonMsg(maxBetId, Site.getSingleResource('MaxBetCanNotGreaterThanMaxPerMatch'));
+	                return false;
+	            }
+	
+	            return true;
+	        },
+	
+	        checkValidation: function (sportIds) {
+	            return _me.checkLimitMinMaxBets(sportIds);
+	        },
+	
+	        checkLimitMinMaxBets: function (sportIds) {
+	            for (var i = 0; i < sportIds.length; i++) {
+	                if (_me.checkLimitMinMaxBet(sportIds[i]) === false) {
+	                    return false;
+	                }
+	            }
+	
+	            return true;
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 247:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(244)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+	    var _me = {
+	        update: function (url, postData) {
+	            $.ajax({
+	                type: 'POST',
+	                url: url,
+	                cache: false,
+	                data: postData,
+	                dataType: "json",
+	                success: function (result) {
+	                    var messageResource = result.IsSuccessful ? "MessageSuccess" : "Fail";
+	                    BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message, false);
+	                },
+	                error: function (request, status, err) {
+	                    BetSettingHelper.showDialogMesage(Site.getSingleResource("Error"), err, false);
+	                }
+	            });
+	        },
+	
+	        getCommonPostData: function ($context) {
+	            var productId = parseInt($("#ProductId").val());
+	            var nickName = $context.data("nick-name");
+	            // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
+	            var status = $context.data("status");
+	            var custId = $context.data("cust-id");
+	
+	            return {
+	                productId: productId,
+	                nickname: nickName,
+	                status: status,
+	                custid: custId
+	            }
+	        }
+	    };
+	
+	    return _me;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+
+/***/ 293:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(294)], __WEBPACK_AMD_DEFINE_RESULT__ = function (RngCasinoBetSetting) {
+	    $(RngCasinoBetSetting.initialize);
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+
+/***/ 294:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(9), __webpack_require__(241), __webpack_require__(247), __webpack_require__(237)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, BetSettingBase, BetSettingStatus) {
+	        "use strict";
+	
+	        function initialize() {
+	            resizeGrid();
+	            Site.initialize();
+	            BetSettingBase.initialize();
+	            _me.initEvent();
+	            var isEnabled = $("#isenabled").val() === "True";
+	
+	            if (!isEnabled) {
+	                $("#btnRngCasino, #btnResetRngCasino").prop("disabled", true);
+	                $(".body-content input").prop("disabled", true);
+	            }
+	        }
+	
+	        function resizeGrid() {
+	            if ($(".body-content").hasVerticalScrollBar()) {
+	                $(".table-content").addClass("hasScroll");
+	            }
+	        }
+	
+	        function initEvent() {
+	            $('#btnRngCasino').on('click', function () {
+	                var custId = $(this).attr('data-cust-id');
+	                var userName = $(this).attr('data-user-name');
+	                _me.updateBetSetting(custId, userName);
+	            });
+	
+	            $('#btnResetRngCasino').on('click', function () {
+	                _me.resetBettingLimit();
+	            });
+	
+	            $("#btnUpdateStatus").on("click", function () {
+	                _me.updateStatus($(this));
+	            });
+	        }
+	
+	        function resetBettingLimit() {
+	            $("input[type=checkbox]").each(function () {
+	                this.checked = $(this).data("ischeck");
+	            });
+	        }
+	
+	        function updateStatus($context) {
+	            var url = Site.resolveClientUrl("RngCasinoBetSetting/UpdateStatus");
+	            var params = BetSettingStatus.getCommonPostData($context);
+	
+	            BetSettingStatus.update(url, params);
+	        }
+	
+	        function updateBetSetting(custId, userName) {
+	            var params = _me.getParams(custId);
+	            showConfirmAction(params, userName, Site.getSingleResource('UpdateRNGCasinoBetSettings'));
+	        }
+	
+	        function getParams(custId) {
+	            var gameTypeChangedList = [];
+	            var params = {
+	                custId: custId
+	            };
+	
+	            $('.casino-row').each(function () {
+	                var gameTypeId = $(this).attr('data-gametypeid');
+	
+	                // Original stake level list
+	                var originalStake = $(this).attr('data-stake-original');
+	
+	                // New stakelevel
+	                var newStakeLevelList = [];
+	
+	                // Get stake level list on selecting
+	                $('.input-' + gameTypeId).each(function () {
+	                    if ($(this).is(':checked')) {
+	                        newStakeLevelList.push($(this).attr('data-stakeid'));
+	                    }
+	                });
+	
+	                var newStake = newStakeLevelList.join(",");
+	                // Compare stake
+	                if (originalStake !== newStake) {
+	                    gameTypeChangedList.push(gameTypeId);
+	                    params['stake' + gameTypeId] = newStake;
+	                }
+	            });
+	
+	            // Get params changed list
+	            params.gameTypeChangedList = gameTypeChangedList.join(",");
+	
+	            return params;
+	        }
+	
+	        function showConfirmAction(params, userName, message) {
+	            var options = {
+	                height: "auto",
+	                id: "bet-setting-confirm",
+	                title: Site.getSingleResource("Confirmation"),
+	                onOpen: function () {
+	                    $('#btnRngCasino, #btnResetRngCasino').prop('disabled', true);
+	                },
+	                onClose: function () {
+	                    $('#btnRngCasino, #btnResetRngCasino').removeAttr('disabled');
+	                    $("#bet-setting-confirm").remove();
+	                },
+	                width: 380
+	            };
+	            var buttons = [
+	            {
+	                text: Site.getSingleResource("OK"),
+	                click: function () {
+	                    if (params.gameTypeChangedList.length > 0) {
+	                        _me.updateStakeLevel(params, userName);
+	                    }
+	                    else {
+	                        var message = Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace("{0}", userName);
+	                        showDialogMesage("Success", message, false);
+	                    }
+	                },
+	                classes: "btn btn-submit",
+	                isClosedOnClick: true
+	            },
+	            {
+	                text: Site.getSingleResource("Cancel"),
+	                classes: "btn btn-cancel",
+	                isClosedOnClick: true
+	            }];
+	
+	            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
+	        }
+	
+	        function updateStakeLevel(params, userName) {
+	            $.ajax({
+	                url: Site.resolveClientUrl('RngCasinoBetsetting/UpdateBetSetting'),
+	                type: 'POST',
+	                cache: false,
+	                data: params,
+	                dataType: 'json',
+	                success: function (result) {
+	                    result.Message = getResultMessage(result.Code, userName);
+	                    var title = result.Code.toString() === "0" ? "Success" : "Fail";
+	                    showDialogMesage(title, result.Message, true);
+	                }
+	            });
+	        }
+	
+	        function getResultMessage(code, userName) {
+	            switch (code) {
+	                case 1:
+	                    return Site.getSingleResource('RNGCasinoUpdateSettingUnAvailableMsg');
+	                case 0:
+	                    return Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace("{0}", userName);
+	                default:
+	                    return Site.getSingleResource('UpdateRNGCasinoBetSettingFailMsg').replace("{0}", userName);
+	            }
+	        }
+	
+	        function showDialogMesage(title, message, reloadPage) {
+	            var options = {
+	                height: "auto",
+	                id: "bet-setting-message",
+	                title: title,
+	                onOpen: function () {
+	                    $('#btnRngCasino, #btnResetRngCasino').prop('disabled', true);
+	                },
+	                onClose: function () {
+	                    $('#btnRngCasino, #btnResetRngCasino').removeAttr('disabled');
+	                    $("#bet-setting-message").remove();
+	                    if (reloadPage) {
+	                        setTimeout(function () {
+	                            Site.blockUI();
+	                            Site.reload();
+	                        }, 500);
+	                    }
+	                },
+	                width: 480
+	            };
+	            var buttons = [
+	            {
+	                text: Site.getSingleResource("OK"),
+	                classes: "btn btn-submit",
+	                isClosedOnClick: true
+	            }];
+	
+	            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
+	        }
+	
+	        var _me = {
+	            initialize: initialize,
+	            initEvent: initEvent,
+	            updateStakeLevel: updateStakeLevel,
+	            resetBettingLimit: resetBettingLimit,
+	            getParams: getParams,
+	            updateBetSetting: updateBetSetting,
+	            updateStatus: updateStatus
+	        };
+	
+	        return _me;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }
+
+});
+//# sourceMappingURL=rngcasinobetsetting.chunk.js.map
