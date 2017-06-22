@@ -110,7 +110,6 @@ var scriptPaths = {
     customersetting: "./www/js/source/pages/customer/customerlog/customersetting/main.js",
     groupcommission: "./www/js/source/pages/customer/customerlog/groupcommission/main.js",
     customeroutstanding: "./www/js/source/pages/betlist/customer/main.js",
-    betsetting: "./www/js/source/pages/customer/betsetting/main.js",
     rngcasinobetsetting: "./www/js/source/pages/customer/betsetting/main-rngcasino.js",
     betsettingmain: "./www/js/source/pages/customer/betsetting/main-betsetting.js",
     betsettingbygroup: "./www/js/source/pages/customer/betsetting/main-betsettingbygroup.js",

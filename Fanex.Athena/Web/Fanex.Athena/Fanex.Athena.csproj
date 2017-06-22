@@ -875,7 +875,6 @@
     <Content Include="Views\Desktop\BetList\CustomerOutstanding\Main.cshtml" />
     <Content Include="www\css\source\pages\betlist\customeroutstanding.scss" />
     <Content Include="Views\Desktop\Customer\BetSetting\Main.cshtml" />
-    <Content Include="Views\Desktop\Shared\_BetSettingLayout.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\Menu.cshtml" />
     <Content Include="www\css\source\pages\customer\betsetting.scss" />
     <Content Include="Views\Desktop\Customer\BetSetting\Macau.cshtml" />
@@ -892,7 +891,7 @@
     <Content Include="Views\Desktop\Customer\BetSetting\CashOut.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\LiveCasino.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\NumberGame.cshtml" />
-    <Content Include="Views\Desktop\Shared\_BetSettingLayoutNew.cshtml" />
+    <Content Include="Views\Desktop\Shared\_BetSettingLayout.cshtml" />
     <None Include="www\css\source\pages\customer\customerlist.scss" />
     <Content Include="www\css\source\pages\customer\customerlog.scss" />
     <Content Include="www\css\source\components\tab\_tab.scss" />
@@ -1245,22 +1244,12 @@
     <Content Include="www\js\source\components\navbar.js" />
     <Content Include="www\js\source\components\refreshcountdown.js" />
     <Content Include="www\js\source\components\sidebar.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\betsetting.helper.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\betsetting.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\betsetting.reset.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\betsetting.rngcasino.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\betsetting.status.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\betsetting.update.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\betsetting.validation.js" />
     <Content Include="www\js\source\pages\customer\betsetting\common\betsetting.copy.js" />
     <Content Include="www\js\source\pages\customer\betsetting\common\betsetting.helper.js" />
     <Content Include="www\js\source\pages\customer\betsetting\common\betsetting.status.js" />
     <Content Include="www\js\source\pages\customer\betsetting\common\betsetting.validation.js" />
     <Content Include="www\js\source\pages\customer\betsetting\common\betsettingbase.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\betsettingbygroup.js" />
     <Content Include="www\js\source\pages\customer\betsetting\common\constant.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\constant.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\main-betsetting.rngcasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-betsettingbygroup.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-betsetting.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-dcsbetsetting.js" />
@@ -1269,7 +1258,6 @@
     <Content Include="www\js\source\pages\customer\betsetting\main-numbergame.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-rngcasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-thirdparty.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\main.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\betsettingbygroup.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\dcsbetsetting.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\betsettingmain.js" />
