@@ -110,9 +110,7 @@ webpackJsonp([54],{
 	
 	        var productOptions = Helper.getMatchListProductOption($("#SportId").val(), $("#ProductCode").val());
 	
-	        $(productOptions).each(function (index, element) {
-	            url = Site.setProductOptionParam(url, index, element.toUpperCase(), true);
-	        });
+	        url = Site.setProductCodeListParam(url, productOptions);
 	
 	        Site.blockUI();
 	        Site.redirect(url);

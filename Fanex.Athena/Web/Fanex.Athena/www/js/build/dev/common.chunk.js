@@ -14199,6 +14199,10 @@
 	        var _pageLanguage = null;
 	        var _userCurrencies = null;
 	
+	        function setProductCodeListParam(url, productCodeList){
+	            return QueryString.setParam(url, "ProductCodeList", productCodeList);
+	        }
+	
 	        function reload() {
 	            window.location.reload();
 	        }
@@ -14509,27 +14513,19 @@
 	        }
 	
 	        function setProductOptionOriginalParamList(urlOrParams) {
-	            if (typeof (urlOrParams) === "string") {
-	                var counter = 0;
-	                $(".childCheckbox", "#ProductList").each(function (index, element) {
-	                    var productCode = $(element).attr('data-product-code');
-	                    if (productCode !== undefined && productCode.length > 0) {
-	                        urlOrParams = setProductOptionParam(urlOrParams, counter, productCode, $(element).attr("data-original"));
-	                        counter++;
-	                    }
-	                });
+	            var productCodeList = [];
+	            $(".childCheckbox", "#ProductList").each(function (index, element) {
+	                var productCode = $(element).attr('data-product-code');
+	                if (productCode && $(element).attr("data-original") === 'true') {
+	                    productCodeList.push(productCode.toUpperCase());
+	                }
+	            });
 	
-	                return urlOrParams;
+	            if (typeof (urlOrParams) === "string") {
+	                return QueryString.setParam(urlOrParams, "ProductCodeList", productCodeList);
 	            }
 	            else {
-	                urlOrParams.ProductOptions = [];
-	                $(".childCheckbox", "#ProductList").each(function (index, element) {
-	                    var productCode = $(element).attr('data-product-code');
-	                    if (productCode !== undefined && productCode.length > 0) {
-	                        urlOrParams.ProductOptions.push({ Code: productCode, Name: productCode, Status: $(element).attr("data-original") });
-	                    }
-	                });
-	
+	                urlOrParams.ProductCodeList = productCodeList.toString();
 	                return urlOrParams;
 	            }
 	        }
@@ -14721,6 +14717,7 @@
 	
 	        return {
 	            initialize: initialize,
+	            setProductCodeListParam: setProductCodeListParam,
 	            reload: reload,
 	            resolveClientUrl: resolveClientUrl,
 	            exportExcel: exportExcel,
