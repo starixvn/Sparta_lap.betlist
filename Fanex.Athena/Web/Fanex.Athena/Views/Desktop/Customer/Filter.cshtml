@@ -7,6 +7,7 @@
 <div class="page-form">
     @using (Html.BeginForm("CustomerList", "Customer", FormMethod.Post, new { @id = "CustomerForm" }))
     {
+        @Html.AntiForgeryToken()
         <div class="row">
             <div class="col l2 m2 s12 input-field">
                 @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
