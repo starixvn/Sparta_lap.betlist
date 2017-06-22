@@ -1299,6 +1299,7 @@
     <Content Include="www\js\source\pages\customer\customercomm\main-commgroupadd.js" />
     <Content Include="www\js\source\pages\customer\customercomm\main-commgroupedit.js" />
     <Content Include="www\js\source\pages\customer\customercomm\main-commgrouplist.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.custstatus.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.filter.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.grid.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.bastatus.js" />

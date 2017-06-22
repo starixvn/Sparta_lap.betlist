@@ -8,6 +8,7 @@ define([
     "./customerlist.bastatus",
     "./customerlist.speciallevel",
     "./customerlist.oddsgroup",
+    "./customerlist.custstatus",
     "components/paging",
     "common/popup",
     "lib/jqgrid/jquery.jqgrid.additional"],
@@ -20,6 +21,7 @@ define([
         CustomerListBAStatus,
         CustomerListSpecialLevel,
         CustomerListOddsGroup,
+        CustomerListCustStatus,
         PagingHelper,
         Popup,
         jqGridAdditional) {
@@ -46,6 +48,7 @@ define([
                 CustomerListBAStatus.initialize();
                 CustomerListSpecialLevel.initialize();
                 CustomerListOddsGroup.initialize();
+                CustomerListCustStatus.initialize();
 
                 _me.initEvent();
                 $("#SubmitButton").prop("disabled", false);
@@ -71,12 +74,6 @@ define([
 
                     _me.viewRunningBetlist(custId, systemId, externalId);
                 });
-
-                $("#popup-update").on("click", _me.updateCustStatus);
-                $("#popup-close").on("click", _me.closeUpdatePopUp);
-
-                $("#popup-suspended").change(_me.custStatusCheckedChanged);
-                $("#popup-closed").change(_me.custStatusCheckedChanged);
 
                 $(window).on("resize", function () {
                     _me.resizeGrid();
@@ -117,72 +114,6 @@ define([
                     _state.checkedAllRows = Object.keys(selectedCustomers).length === _state.cachedData.Data.length;
                     $("#CheckAll").prop("checked", _state.checkedAllRows);
                 });
-            },
-
-            updateCustStatus: function () {
-                if (!window.confirm(Site.getSingleResource('ChangeStatusOfThisCustomerMsg'))) {
-                    _me.closeUpdatePopUp();
-                    return;
-                }
-
-                var popup = $("#update-cust-status-popup");
-                var custId = popup.attr("custid");
-                var statusLink = $("#edit-cust-status-" + custId);
-
-                var isSuspended = $("#popup-suspended").is(':checked');
-                var isClosed = $("#popup-closed").is(':checked');
-                var requestUrl = Site.resolveClientUrl("CustomerAPI/UpdateCustStatus");
-                $.ajax({
-                    type: "POST",
-                    data:
-                    {
-                        custId: custId,
-                        isSuspended: isSuspended,
-                        isClosed: isClosed
-                    },
-                    url: requestUrl,
-                    dataType: "json",
-                    beforeSend: function () {
-                        Site.blockUI();
-                    },
-                    complete: function () {
-                        Site.unBlockUI();
-                        _me.closeUpdatePopUp(custId);
-                    },
-                    success: function (result) {
-                        if (Number(result.Code) === 0) {
-                            var color = isClosed === true ? "#ccc7ba" : isSuspended === true ? "#f8ded7" : "#F6F8F9";
-
-                            var statusText = isClosed === true ? Site.getSingleResource("Closed") :
-                                        isSuspended === true ? Site.getSingleResource("Suspended") : Site.getSingleResource("Open");
-
-                            statusLink.html(statusText + '<span title="' + Site.getSingleResource('Status') + '" class="arrow1" >&nbsp;&nbsp;&nbsp;</span>');
-                            statusLink.attr("isclosed", isClosed);
-                            statusLink.attr("issuspended", isSuspended);
-
-                            $("#row" + custId).css("background-color", color);
-                        }
-                        else {
-                            alert(result.Message);
-                        }
-                    }
-                });
-            },
-
-            closeUpdatePopUp: function () {
-                var popup = $("#update-cust-status-popup");
-                if (popup.is(":visible")) {
-                    $("#update-cust-status-popup").hide();
-                }
-            },
-
-            custStatusCheckedChanged: function () {
-                var popup = $("#update-cust-status-popup");
-                var isSuspended = $("#popup-suspended").is(':checked');
-                var isClosed = $("#popup-closed").is(':checked');
-
-                var changed = Site.asBool(popup.attr("closed")) !== isClosed || Site.asBool(popup.attr("suspended")) !== isSuspended;
-                $("#popup-update").prop("disabled", !changed);
             },
 
             viewRunningBetlist: function (custId, systemId, externalId) {

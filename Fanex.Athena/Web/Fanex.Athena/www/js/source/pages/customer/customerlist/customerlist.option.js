@@ -91,10 +91,11 @@
             align: 'center',
             sortable: false,
             formatter: function (cellValue, options, rowObject) {
-                return "<span custid='" + rowObject.CustId + "' class='link cust-status-option' issuspended='" +
-                    rowObject.IsSuspended + "'  isclosed='" + rowObject.IsClosed + "' externalid='" + rowObject.ExternalId +
-                    "' id='edit-cust-status-" + rowObject.CustId + "'>" + cellValue +
-                    "<span class='arrow1' title='" + Site.getSingleResource("Status") + "'>&nbsp;&nbsp;&nbsp;</span></span>";
+                var dataAttribute = " data-custid='" + rowObject.CustId + "' data-externalid='" + rowObject.ExternalId + "'" +
+                                    " data-issuspended='" + rowObject.IsSuspended + "' data-isclosed='" + rowObject.IsClosed + "'";
+
+                return "<a href='javascript:;' title='" + Site.getSingleResource("Status") + "' class='custStatusOption' id='edit-cust-status-" + rowObject.CustId + "'"
+                            + dataAttribute + ">" + cellValue + "</a>";
             }
         };
         var baStatusColumn =

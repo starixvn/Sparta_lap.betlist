@@ -3,25 +3,26 @@
 
 <input id="CanUpdateBAMessage" type="hidden" value="@Model.CanUpdateBAMessage" />
 <input id="CanUpdateBA" type="hidden" value="@(Model.CanUpdateBA ? 1 : 0)" />
-<div id="update-cust-status-popup" class="update-cust-status-popup" style="display: none">
-    <div>
-        @Html.Raw(string.Format(ViewResources.ChangeStatus, "<b id='popup-external-id'></b>"))
+
+<!-- Update Customer Status Form Popup -->
+<div id="UpdateCustStatus" class="custStatusPopup">
+    <p class="custStatus-row custStatus-title">
+        @Html.Raw(string.Format(ViewResources.ChangeStatus, "<b id='custStatus-externalId'></b>"))
+    </p>
+
+    <div class="custStatus-row custStatus-form">
+        <input type="checkbox" id="custStatus-suspended" class="chkCustStatus" />
+        <label for="custStatus-suspended">@ViewResources.Suspended</label>
     </div>
-    <br />
-    <div>
-        <input type="checkbox" id="popup-suspended" />
-        <label for="popup-suspended">
-            &nbsp; @ViewResources.Suspended</label>
+    <div class="custStatus-row custStatus-form">
+        <input type="checkbox" id="custStatus-closed" class="chkCustStatus" />
+        <label for="custStatus-closed">@ViewResources.Close</label>
     </div>
-    <div>
-        <input type="checkbox" id="popup-closed" />
-        <label for="popup-closed">
-            &nbsp;
-            @ViewResources.Close</label>
+    
+    <div class="custStatus-row custStatus-button-block">
+        <button type="button" class="btn btn-submit" id="custStatusUpdate" disabled>@ViewResources.Update</button>
+        <button type="button" class="btn btn-cancel" id="custStatusCancel">@ViewResources.Cancel</button>
     </div>
-    <br />
-    <input type="button" value="@ViewResources.Update" class="button" id="popup-update" disabled="disabled" />
-    <input type="button" value="@ViewResources.Cancel" class="button" id="popup-close" />
 </div>
 <div id="ViewOptionList" class="viewOptionList">
     <a href="javascript:;" id="bet-setting-link" class="viewOptionLink" title="@ViewResources.View @ViewResources.BetSetting">@ViewResources.BetSetting</a>

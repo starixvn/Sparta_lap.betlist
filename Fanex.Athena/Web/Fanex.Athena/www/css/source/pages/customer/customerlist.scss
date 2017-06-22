@@ -68,13 +68,16 @@
     color: white !important;
 }
 
-#LevelListContainer, #OddsGroupListContainer, #ViewOptionList {
+#LevelListContainer, #OddsGroupListContainer, #ViewOptionList, #UpdateCustStatus {
     display: none;
-    position: absolute;
+    position: absolute;  
+}
+
+#LevelListContainer, #OddsGroupListContainer{
     border: 1px solid #969292;
 }
 
-#OddsGroupListContainer, #ViewOptionList {
+#OddsGroupListContainer, #ViewOptionList, #UpdateCustStatus {
     background-color: #fff;
 }
 
@@ -110,10 +113,36 @@
     }
 }
 
+/* Cust Status Form */
+.custStatusPopup{
+    padding: 10px;
+    border: 0;
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.175);
+
+    .custStatus{
+        &-row{
+            margin-bottom: 10px;
+        }
+
+        &-title{
+            font-size: 13px;
+        }
+
+        &-button-block{
+            margin-top: 15px;
+            margin-bottom: 0;
+
+            .btn{
+                height: 27px;
+                line-height: 27px;
+            }
+        }
+    }
+}
+
 /* Index column */
 input[type="checkbox"] + label {
     margin: 0;
-    padding: 0;
     top: 0;
     vertical-align: middle;
     height: 15px;
