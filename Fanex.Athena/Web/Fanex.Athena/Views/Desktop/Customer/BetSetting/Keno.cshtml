@@ -104,22 +104,23 @@ else
         </div>
         <!--/Content-->
     </div>
-}
-<!--SubmitButton-->
-@if (Model.Editable && hasData)
-{
-    <div class="right button-block">
-        <button type="button" class="btn btn-submit"
-                data-cust-id="@Model.Param.CustId"
-                data-user-name="@Model.Param.UserName"
-                data-nick-name="@Model.Param.NickName"
-                id="btnSubmitBetSetting">
-            @ViewResources.Submit
-        </button>
 
-        <button type="button" class="btn btn-cancel" id="btnReset">
-            @ViewResources.Reset
-        </button>
-    </div>
+    <!--SubmitButton-->
+    if (Model.Editable)
+    {
+        <div class="right button-block">
+            <button type="button" class="btn btn-submit"
+                    data-cust-id="@Model.Param.CustId"
+                    data-user-name="@Model.Param.UserName"
+                    data-nick-name="@Model.Param.NickName"
+                    id="btnSubmitBetSetting">
+                @ViewResources.Submit
+            </button>
+
+            <button type="button" class="btn btn-cancel" id="btnReset">
+                @ViewResources.Reset
+            </button>
+        </div>
+    }
+    <!--/SubmitButton-->
 }
-<!--/SubmitButton-->

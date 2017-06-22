@@ -15,25 +15,24 @@
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 }
 
-<!--Content-->
 @if (!Model.IsLineEnabled)
 {
     <p class="no-info-row">@ViewResources.BetTradeNotOfferCurrency</p>
 }
-<!--/Content-->
-@if (Model.IsLineEnabled)
+else
 {
     var status = Model.IsEnabled.HasValue && Model.IsEnabled.Value ? 1 : 0;
     <div class="filter-input">
         <input id="enable-product" type="checkbox" name="enable-product"
-               @(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? "checked" : "")
-               class="childCheckbox" data-original="@status" @(Model.Editable ? "" : "disabled") />
+               @(Model.IsEnabled.HasValue && Model.IsEnabled.Value ? "checked" : string.Empty)
+               class="childCheckbox" data-original="@status" @(Model.Editable ? string.Empty : "disabled") />
         <label for="enable-product" class="text-bold">@ViewResources.EnableBetTrade</label>
     </div>
     if (Model.Editable)
     {
         <div class="right button-block">
-            <button type="button" class="btn btn-submit" data-status="@status"
+            <button type="button" class="btn btn-submit" 
+                    data-status="@status"
                     data-cust-id="@Model.Param.CustId"
                     data-nick-name="@Model.Param.NickName"
                     id="btnUpdateStatus">

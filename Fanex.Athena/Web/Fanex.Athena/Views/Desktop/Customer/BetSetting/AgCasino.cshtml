@@ -93,10 +93,10 @@ else
                         <tr>
                             <td>@game.Name</td>
                             <td id="min-@(game.GameType)" class="@tableTextClass">
-                                @(group != null ? group.Min.ToString(FormatDecimal) : "")
+                                @(group != null ? group.Min.ToString(FormatDecimal) : string.Empty)
                             </td>
                             <td id="max-@(game.GameType)" class="@tableTextClass">
-                                @(group != null ? group.Max.ToString(FormatDecimal) : "")
+                                @(group != null ? group.Max.ToString(FormatDecimal) : string.Empty)
                             </td>
                         </tr>
                     }
@@ -110,7 +110,8 @@ else
     var disabledText = isLineEnabled && isBetSettingEnabled && hasData ? null : "disabled";
     <div class="right button-block">
         <button type="button" @disabledText class="btn btn-submit"
-                data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName"
+                data-cust-id="@Model.Param.CustId" 
+                data-user-name="@Model.Param.UserName"
                 data-nick-name="@Model.Param.NickName"
                 id="btnSubmitBetSetting">
             @ViewResources.Submit

@@ -24,6 +24,7 @@
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 }
 
+@Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
 @Html.Hidden("isenabled", Model.IsEnabled.Value)
 
 @if (Model.GameKinds.Count == 0)
@@ -69,17 +70,17 @@ else
                                     </td>
                                     firstRow = false;
                                 }
-                                
+
                                 <td data-gametypeid="@gameType.GameTypeId">
                                     @gameType.GameTypeName
                                 </td>
                                 <td data-gametypeid="@gameType.GameTypeId">
                                     @foreach (var stakeLevel in gameType.StakeLevelList)
                                     {
-                                        <input class="input-@(gameType.GameTypeId)" id="input-@(gameType.GameTypeId)" @disabledAttribute type="checkbox" 
-                                               data-stakeid="@stakeLevel.StakeLevelId" 
+                                        <input class="input-@(gameType.GameTypeId)" id="input-@(gameType.GameTypeId)" @disabledAttribute type="checkbox"
+                                               data-stakeid="@stakeLevel.StakeLevelId"
                                                data-ischeck="@(stakeLevel.IsCheck ? "true" : "false")" @(stakeLevel.IsCheck ? "checked" : string.Empty) />
-                                        <label for="input-@(gameType.GameTypeId)">@stakeLevel.StakeLevelNameFormated</label>
+                                            <label for="input-@(gameType.GameTypeId)">@stakeLevel.StakeLevelNameFormated</label>
                                     }
                                 </td>
                             </tr>
@@ -89,36 +90,38 @@ else
             </table>
         </div>
     </div>
-}
-@if (Model.Editable && Model.GameKinds.Count > 0)
-{
-    <div class="right button-block">
-        <button type="button" class="btn btn-submit"
-                data-cust-id="@Model.Param.CustId"
-                data-user-name="@Model.Param.UserName"
-                data-nick-name="@Model.Param.NickName"
-                id="btnRngCasino">
-            @ViewResources.Submit
-        </button>
-        <button type="button" class="btn btn-cancel"
-                id="btnResetRngCasino">
-            @ViewResources.Reset
-        </button>
-        @if (Model.IsEnabled.HasValue)
-        {
+
+    if (Model.Editable)
+    {
+        <div class="right button-block">
             <button type="button" class="btn btn-submit"
-                    data-status="@(Model.IsEnabled.Value ? 1 : 0)"
                     data-cust-id="@Model.Param.CustId"
+                    data-user-name="@Model.Param.UserName"
                     data-nick-name="@Model.Param.NickName"
-                    id="btnUpdateStatus">
-                @(Model.IsEnabled.Value ? ViewResources.DisableRNGCasino : ViewResources.EnableRNGCasino)
+                    id="btnRngCasino">
+                @ViewResources.Submit
             </button>
-        }
-        else
+            <button type="button" class="btn btn-cancel"
+                    id="btnResetRngCasino">
+                @ViewResources.Reset
+            </button>
+            @if (Model.IsEnabled.HasValue)
+            {
+                <button type="button" class="btn btn-submit"
+                        data-status="@(Model.IsEnabled.Value ? 1 : 0)"
+                        data-cust-id="@Model.Param.CustId"
+                        data-nick-name="@Model.Param.NickName"
+                        id="btnUpdateStatus">
+                    @(Model.IsEnabled.Value ? ViewResources.DisableRNGCasino : ViewResources.EnableRNGCasino)
+                </button>
+            }
+        
+        </div>
+        if (!Model.IsEnabled.HasValue)
         {
-            <p>
-                @string.Format(ViewResources.CustomerHasNeverPlayed, "RNG Casino")
-            </p>
+                <p>
+                    @string.Format(ViewResources.CustomerHasNeverPlayed, "RNG Casino")
+                </p>
+            }
         }
-    </div>
 }

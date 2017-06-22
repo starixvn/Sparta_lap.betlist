@@ -83,40 +83,40 @@ else
                     @RenderFirstRow()
 
                     @foreach (var item in Model.MainData)
-                {
-                    var esportText = string.Empty;
-                    if (item.SportId == ((int)SportType.OtherSports).ToString() && Model.EsportSetting != EsportSettingType.NoneOffering)
                     {
-                        esportText = "& " + Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(EsportSportId);
-                    }
+                        var esportText = string.Empty;
+                        if (item.SportId == ((int)SportType.OtherSports).ToString() && Model.EsportSetting != EsportSettingType.NoneOffering)
+                        {
+                            esportText = "& " + Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(EsportSportId);
+                        }
 
-                    <tr>
-                        <td>@item.BetSettingType @esportText</td>
-                        <td>
-                            <input id="min-bet-@(item.SportId)" type="text" value="@item.MinBet.ToString(FormatDecimal)" maxlength="14" class="right-align"
-                                   data-min-value="@item.BetValueMin.ToString(FormatDecimal)" data-original="@item.MinBet.ToString(FormatDecimal)" />
-                            @if (item.BetValueMin > 0)
-                            {
-                                <span>&gt;=@item.BetValueMin.ToString(FormatDecimal)</span>
-                            }
-                        </td>
-                        <td>
-                            <input id="max-bet-@(item.SportId)" type="text" value="@item.MaxBet.ToString(FormatDecimal)" maxlength="14" class="right-align"
-                                   data-max-value="@item.BetValueMax.ToString(FormatDecimal)" data-original="@item.MaxBet.ToString(FormatDecimal)" />
-                            @if (item.BetValueMax > 0)
-                            {
-                                <span>&lt;=@item.BetValueMax.ToString(FormatDecimal)</span>
-                            }
-                        </td>
-                        <td>
-                            <input id="max-per-match-@(item.SportId)" type="text" value="@item.MaxPerMatch.ToString(FormatDecimal)" maxlength="14" class="right-align"
-                                   data-min-value="@item.MaxPerMatchMin.ToString(FormatDecimal)" data-max-value="@item.MaxPerMatchMax.ToString(FormatDecimal)" data-original="@item.MaxPerMatch.ToString(FormatDecimal)" />
-                            @if (item.MaxPerMatchMax > 0)
-                            {
-                                <span>&lt;=@item.MaxPerMatchMax.ToString(FormatDecimal)</span>
-                            }
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>@item.BetSettingType @esportText</td>
+                            <td>
+                                <input id="min-bet-@(item.SportId)" type="text" value="@item.MinBet.ToString(FormatDecimal)" maxlength="14" class="right-align"
+                                       data-min-value="@item.BetValueMin.ToString(FormatDecimal)" data-original="@item.MinBet.ToString(FormatDecimal)" />
+                                @if (item.BetValueMin > 0)
+                                {
+                                    <span>&gt;=@item.BetValueMin.ToString(FormatDecimal)</span>
+                                }
+                            </td>
+                            <td>
+                                <input id="max-bet-@(item.SportId)" type="text" value="@item.MaxBet.ToString(FormatDecimal)" maxlength="14" class="right-align"
+                                       data-max-value="@item.BetValueMax.ToString(FormatDecimal)" data-original="@item.MaxBet.ToString(FormatDecimal)" />
+                                @if (item.BetValueMax > 0)
+                                {
+                                    <span>&lt;=@item.BetValueMax.ToString(FormatDecimal)</span>
+                                }
+                            </td>
+                            <td>
+                                <input id="max-per-match-@(item.SportId)" type="text" value="@item.MaxPerMatch.ToString(FormatDecimal)" maxlength="14" class="right-align"
+                                       data-min-value="@item.MaxPerMatchMin.ToString(FormatDecimal)" data-max-value="@item.MaxPerMatchMax.ToString(FormatDecimal)" data-original="@item.MaxPerMatch.ToString(FormatDecimal)" />
+                                @if (item.MaxPerMatchMax > 0)
+                                {
+                                    <span>&lt;=@item.MaxPerMatchMax.ToString(FormatDecimal)</span>
+                                }
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -128,19 +128,19 @@ else
     {
         <div class="right button-block">
             <button type="button" id="btnSubmitBetSetting" class="btn btn-submit"
-                    data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName.ToString()" data-nick-name="@Model.Param.NickName">
+                    data-cust-id="@Model.Param.CustId" data-user-name="@Model.Param.UserName" data-nick-name="@Model.Param.NickName">
                 @ViewResources.Submit
-                </button>
-                <button type="button" id="btnReset" class="btn btn-cancel">@ViewResources.Reset</button>
+            </button>
+            <button type="button" id="btnReset" class="btn btn-cancel">@ViewResources.Reset</button>
 
-                @if (ConfigurationManager.AppSettings["EnableEsportSettingStatus"] == "true" && Model.EsportSetting != EsportSettingType.NoneOffering)
-                {
-                    var buttonText = (Model.EsportSetting == EsportSettingType.NoneMemberOffering ? ViewResources.Enable : ViewResources.Disable) + " " + Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(43);
-                    var esportStatus = Model.EsportSetting == EsportSettingType.NoneMemberOffering;
-                    <input type="hidden" id="esport-text-from-remotingref" value="@Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(43)" />
-                    <button type="button" id="btnDisableEsports" class="btn btn-submit" data-cust-id="@Model.Param.CustId" data-current-status="@esportStatus">@buttonText</button>
-                }
-            </div>
+            @if (ConfigurationManager.AppSettings["EnableEsportSettingStatus"] == "true" && Model.EsportSetting != EsportSettingType.NoneOffering)
+            {
+                var buttonText = (Model.EsportSetting == EsportSettingType.NoneMemberOffering ? ViewResources.Enable : ViewResources.Disable) + " " + Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(43);
+                var esportStatus = Model.EsportSetting == EsportSettingType.NoneMemberOffering;
+                <input type="hidden" id="esport-text-from-remotingref" value="@Fanex.Athena.Model.Core.Helper.CacheRef.GetSportName(43)" />
+                <button type="button" id="btnDisableEsports" class="btn btn-submit" data-cust-id="@Model.Param.CustId" data-current-status="@esportStatus">@buttonText</button>
+            }
+        </div>
     }
     <!--/SubmitButton-->
 }

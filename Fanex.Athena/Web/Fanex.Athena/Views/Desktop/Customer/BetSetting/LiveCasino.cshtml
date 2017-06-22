@@ -27,6 +27,9 @@
     var gameTypeCount = Model.LiveCasinoData.Count;
 }
 
+@Html.Hidden("gameTypeCount", gameTypeCount)
+@Html.Hidden("editable", Model.IsEnabled.Value)
+
 @if (gameTypeCount == 0)
 {
     <p class="no-info-row">@ViewResources.NoInfo</p>
@@ -52,7 +55,7 @@ else
 
         <div class="body-content">
             <table class="table betsetting-form">
-                <tbody>               
+                <tbody>
                     @RenderFirstRow()
 
                     @foreach (var item in Model.LiveCasinoData)
@@ -75,7 +78,7 @@ else
 
                                             <input @disabledAttribute type="radio" id="bettingLimit_@(item.GameTypeId)@(bettingIndex)" data-stake-id="@bettingLimit.StakeLevelId" name="gameTypeName@(index)"
                                                    @(isChecked ? "checked = checked" : "") class="with-gap" />
-                                                    <label for="bettingLimit_@(item.GameTypeId)@(bettingIndex)">@(bettingLimit.StakeLevelName)</label>
+                                                <label for="bettingLimit_@(item.GameTypeId)@(bettingIndex)">@(bettingLimit.StakeLevelName)</label>
 
                                             itemBetting++;
                                             bettingIndex++;
@@ -95,39 +98,34 @@ else
             </table>
         </div>
     </div>
-}
 
-@Html.Hidden("gameTypeCount", gameTypeCount)
-@Html.Hidden("editable", Model.IsEnabled.Value)
-
-<!--SubmitButton-->
-@if (Model.Editable && Model.LiveCasinoData.Count > 0)
-{
-    <div class="right button-block">
-        <button type="button" class="btn btn-submit"
-                data-cust-id="@Model.Param.CustId"
-                data-user-name="@Model.Param.UserName"
-                data-nick-name="@Model.Param.NickName"
-                id="btnSubmitBetSetting">
-            @ViewResources.Submit
-        </button>
-        <button type="button" class="btn btn-cancel" id="btnReset">@ViewResources.Reset</button>
-        @if (Model.IsEnabled.HasValue && Model.LiveCasinoData.Count > 0)
-        {
+    <!--SubmitButton-->
+    if (Model.Editable)
+    {
+        <div class="right button-block">
             <button type="button" class="btn btn-submit"
-                    data-status="@(Model.IsEnabled.Value ? 1 : 0)"
                     data-cust-id="@Model.Param.CustId"
+                    data-user-name="@Model.Param.UserName"
                     data-nick-name="@Model.Param.NickName"
-                    id="btnUpdateStatus">
-                @(Model.IsEnabled.Value ? ViewResources.DisableLiveCasino : ViewResources.EnableLiveCasino)
+                    id="btnSubmitBetSetting">
+                @ViewResources.Submit
             </button>
-        }
-        else
+            <button type="button" class="btn btn-cancel" id="btnReset">@ViewResources.Reset</button>
+            @if (Model.IsEnabled.HasValue)
+            {
+                <button type="button" class="btn btn-submit"
+                        data-status="@(Model.IsEnabled.Value ? 1 : 0)"
+                        data-cust-id="@Model.Param.CustId"
+                        data-nick-name="@Model.Param.NickName"
+                        id="btnUpdateStatus">
+                    @(Model.IsEnabled.Value ? ViewResources.DisableLiveCasino : ViewResources.EnableLiveCasino)
+                </button>
+            }
+        </div>
+        if (!Model.IsEnabled.HasValue)
         {
-            <p>
-                @string.Format(ViewResources.CustomerHasNeverPlayed, "Live Casino")
-            </p>
+            <p>@string.Format(ViewResources.CustomerHasNeverPlayed, "Live Casino")</p>
         }
-    </div>
+    }
+    <!--/SubmitButton-->
 }
-<!--/SubmitButton-->
