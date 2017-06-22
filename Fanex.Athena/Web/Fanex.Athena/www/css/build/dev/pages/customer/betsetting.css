@@ -633,7 +633,8 @@ input[type="checkbox"] {
 .body-content {
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 330px; }
+  max-height: 330px;
+  position: relative; }
 
 .header-content .table th {
   background: #4C6375;
