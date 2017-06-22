@@ -1267,6 +1267,7 @@
     <Content Include="www\js\source\pages\customer\betsetting\main-keno.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-livecasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-numbergame.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\main-rngcasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-thirdparty.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\betsettingbygroup.js" />

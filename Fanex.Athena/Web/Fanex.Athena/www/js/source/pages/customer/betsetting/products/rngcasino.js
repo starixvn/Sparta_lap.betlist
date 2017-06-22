@@ -1,8 +1,9 @@
-﻿define(["jquery", "common/site", "common/popup", "../common/betsettingbase", "../common/betsetting.status"],
+﻿define(["jquery", "common/site", "common/popup", "../common/betsettingbase", "../common/betsetting.status", "extensions/jquery.extension"],
     function ($, Site, Popup, BetSettingBase, BetSettingStatus) {
         "use strict";
 
         function initialize() {
+            resizeGrid();
             Site.initialize();
             BetSettingBase.initialize();
             _me.initEvent();
@@ -11,6 +12,12 @@
             if (!isEnabled) {
                 $("#btnRngCasino, #btnResetRngCasino").prop("disabled", true);
                 $(".body-content input").prop("disabled", true);
+            }
+        }
+
+        function resizeGrid() {
+            if ($(".body-content").hasVerticalScrollBar()) {
+                $(".table-content").addClass("hasScroll");
             }
         }
 
@@ -45,10 +52,10 @@
 
         function updateBetSetting(custId, userName) {
             var params = _me.getParams(custId);
-            showConfirmAction(Site.getSingleResource('UpdateRNGCasinoBetSettings'), userName, params);
+            showConfirmAction(params, userName, Site.getSingleResource('UpdateRNGCasinoBetSettings'));
         }
 
-        function getParams(custId, userName) {
+        function getParams(custId) {
             var gameTypeChangedList = [];
             var params = {
                 custId: custId
@@ -58,7 +65,7 @@
                 var gameTypeId = $(this).attr('data-gametypeid');
 
                 // Original stake level list
-                var originalStakeLevelList = $(this).attr('data-stake-original');
+                var originalStake = $(this).attr('data-stake-original');
 
                 // New stakelevel
                 var newStakeLevelList = [];
@@ -70,24 +77,22 @@
                     }
                 });
 
-                var stakeLevelString = newStakeLevelList.join(",");
+                var newStake = newStakeLevelList.join(",");
                 // Compare stake
-                if (originalStakeLevelList !== stakeLevelString) {
+                if (originalStake !== newStake) {
                     gameTypeChangedList.push(gameTypeId);
-                    params['stake' + gameTypeId] = stakeLevelString;
+                    params['stake' + gameTypeId] = newStake;
                 }
             });
 
-            var gameTypeChangedString = gameTypeChangedList.join(",");
             // Get params changed list
-            params.gameTypeChangedList = gameTypeChangedString;
+            params.gameTypeChangedList = gameTypeChangedList.join(",");
 
             return params;
         }
 
-        function showConfirmAction(message, userName, params) {
+        function showConfirmAction(params, userName, message) {
             var options = {
-                modal: true,
                 height: 150,
                 id: "bet-setting-confirm",
                 title: Site.getSingleResource("Confirmation"),
@@ -104,10 +109,11 @@
                 text: Site.getSingleResource("OK"),
                 click: function () {
                     if (params.gameTypeChangedList.length > 0) {
-                        _me.updateStakeLevel(userName, params);
+                        _me.updateStakeLevel(params, userName);
                     }
                     else {
-                        showDialogMesage("Success", Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace("{0}", userName), false);
+                        var message = Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace("{0}", userName);
+                        showDialogMesage("Success", message, false);
                     }
                 },
                 classes: "btn btn-submit",
@@ -122,10 +128,10 @@
                 isClosedOnClick: true
             }];
 
-            Popup.openPopupWithButton('<div><div>' + message + '</div></div>', options, buttons);
+            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
         }
 
-        function updateStakeLevel(userName, params) {
+        function updateStakeLevel(params, userName) {
             $.ajax({
                 url: Site.resolveClientUrl('RngCasinoBetsetting/UpdateBetSetting'),
                 type: 'POST',
@@ -153,7 +159,6 @@
 
         function showDialogMesage(title, message, reloadPage) {
             var options = {
-                modal: true,
                 height: 150,
                 id: "bet-setting-message",
                 title: title,
@@ -178,7 +183,7 @@
                 isClosedOnClick: true
             }];
 
-            Popup.openPopupWithButton('<div><div>' + message + '</div></div>', options, buttons);
+            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
         }
 
         var _me = {

@@ -3,6 +3,17 @@
 @import "../../components/checkbox/checkbox";
 
 $colorBorderTable: #d6d6d6;
+$paddingRightContainer: 17px;
+
+.table-content {
+    border: solid 1px $colorBorderTable;
+
+    &.hasScroll {
+        .header-content {
+            padding-right: $paddingRightContainer;
+        }
+    }
+}
 
 .wrapper {
     background-color: $white;
@@ -20,7 +31,21 @@ $colorBorderTable: #d6d6d6;
 
 .header-content, .body-content, .footer-content {
     .table {
-        border-right: 1px solid $colorBorderTable;
+        td:first-child {
+            &:first-child {
+                border-left: none;
+            }
+
+            &:last-child {
+                border-left: none;
+            }
+        }
+
+        tr:last-child {
+            td {
+                border-bottom: none;
+            }
+        }
     }
 }
 
@@ -81,10 +106,11 @@ $colorBorderTable: #d6d6d6;
     }
 
     .button-block {
-        margin-top: 15px;
+        margin-top: 10px;
 
         button {
             margin-left: 15px;
+            margin-bottom: 10px;
         }
     }
 }

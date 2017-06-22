@@ -1,10 +1,10 @@
 ﻿@{
-    Layout = "~/Views/Desktop/Shared/_BetSettingLayout.cshtml";
+    Layout = "~/Views/Desktop/Shared/_BetSettingLayoutNew.cshtml";
 }
 @model Fanex.Athena.Model.BetSettings.ViewModel.RngCasinoBetSettingViewModel
 
 @section pagejs {
-    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/betsettingrngcasino.chunk.js")"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/customer/rngcasinobetsetting.chunk.js")"></script>
 }
 
 @helper RenderFirstRow()
@@ -24,7 +24,6 @@
     @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName (@Model.Param.UserName)
 }
 
-@Html.Hidden("IDList", String.Join(",", Model.MainData.Select(x => x.SportId)))
 @Html.Hidden("isenabled", Model.IsEnabled.Value)
 
 @if (Model.GameKinds.Count == 0)
@@ -57,15 +56,20 @@ else
                     @foreach (var gameKind in Model.GameKinds)
                     {
                         var rowspan = gameKind.GameTypeList.Count;
-                        var visible = true;
+                        var firstRow = true;
                         foreach (var gameType in gameKind.GameTypeList)
                         {
                             var originalStakeLevel = string.Join(",", gameType.StakeLevelList.Where(x => x.IsCheck).Select(x => x.StakeLevelId));
 
                             <tr class="casino-row" data-gametypeid="@gameType.GameTypeId" data-stake-original="@originalStakeLevel">
-                                <td class="text-bold center-align no-hover" style="@(visible ? string.Empty : "display:none")" rowspan="@(rowspan) @(visible = false)">
-                                    @gameKind.GameKindName
-                                </td>
+                                @if (firstRow)
+                                {
+                                    <td class="text-bold center-align no-hover" rowspan="@rowspan">
+                                        @gameKind.GameKindName
+                                    </td>
+                                    firstRow = false;
+                                }
+                                
                                 <td data-gametypeid="@gameType.GameTypeId">
                                     @gameType.GameTypeName
                                 </td>
@@ -74,7 +78,7 @@ else
                                     {
                                         <input class="input-@(gameType.GameTypeId)" id="input-@(gameType.GameTypeId)" @disabledAttribute type="checkbox" 
                                                data-stakeid="@stakeLevel.StakeLevelId" 
-                                               data-ischeck="@(stakeLevel.IsCheck ? "true" : "false")" @(stakeLevel.IsCheck ? "checked=checked" : string.Empty) />
+                                               data-ischeck="@(stakeLevel.IsCheck ? "true" : "false")" @(stakeLevel.IsCheck ? "checked" : string.Empty) />
                                         <label for="input-@(gameType.GameTypeId)">@stakeLevel.StakeLevelNameFormated</label>
                                     }
                                 </td>
@@ -91,7 +95,7 @@ else
     <div class="right button-block">
         <button type="button" class="btn btn-submit"
                 data-cust-id="@Model.Param.CustId"
-                data-user-name="@Model.Param.UserName.ToString()"
+                data-user-name="@Model.Param.UserName"
                 data-nick-name="@Model.Param.NickName"
                 id="btnRngCasino">
             @ViewResources.Submit
