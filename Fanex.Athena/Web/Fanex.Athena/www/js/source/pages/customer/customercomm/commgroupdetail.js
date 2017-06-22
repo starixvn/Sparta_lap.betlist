@@ -176,26 +176,25 @@
              CustomerCommGroup.goToCustomerList(groupCommId);
          }
 
-         function showConfirmAction(message, callback, groupId, isResetDefault) {
+         function showConfirmAction(message, callback) {
              var options = {
                  modal: true,
                  title: Site.getSingleResource("Confirm"),
                  height: "auto",
-                 id: "confirm-action"
+                 id: "confirm-action",
+                 width: 450
              };
 
              var buttons = [
                  {
                      text: Site.getSingleResource("OK"),
                      isClosedOnClick: true,
-                     click: function () {
-                         callback(groupId, isResetDefault);
-                     },
-                     classes: "btn btn-primary"
+                     click: callback,
+                     classes: "btn btn-submit"
                  }, {
                      text: Site.getSingleResource("Cancel"),
                      isClosedOnClick: true,
-                     classes: "btn btn-back"
+                     classes: "btn btn-cancel"
                  }];
 
              Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);

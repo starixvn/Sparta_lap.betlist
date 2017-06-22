@@ -125,11 +125,11 @@
             sortable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                return "<div class='grid-dropdown specialLevel' data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "'>"
-                    + "<div class='grid-dropdown-item grid-dropdown-label level-" + cellValue + "'>"
-                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</div>"
+                return "<a href='javascript:;' class='grid-dropdown specialLevel' data-custid='" + rowObject.CustId + "' data-level='" + cellValue + "'>"
+                    + "<span class='grid-dropdown-item grid-dropdown-label level-" + cellValue + "'>"
+                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
                     + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("SpecialLevel") + "'></i>"
-                    + "</div>";
+                    + "</a>";
             }
         };
         var oddsGroupColumn = {
@@ -141,12 +141,12 @@
             sortable: false,
             frozen: true,
             formatter: function (cellValue, options, rowObject) {
-                return "<div class='grid-dropdown oddsGroup " + (rowObject.BAStatus ? "disabled" : "")
+                return "<a href='javascript:;' class='grid-dropdown oddsGroup " + (rowObject.BAStatus ? "disabled" : "")
                     + "' data-custid='" + rowObject.CustId + "' data-group='" + cellValue + "'>"
-                    + "<div class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
-                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</div>"
+                    + "<span class='grid-dropdown-item grid-dropdown-label group-" + cellValue + "'>"
+                    + (Number(cellValue) === 0 ? Site.getSingleResource("None") : cellValue) + "</span>"
                     + "<i class='grid-dropdown-item grid-dropdown-icon icon-arrow text-bold' title='" + Site.getSingleResource("OddsGroup") + "'></i>"
-                    + "</div>";
+                    + "</a>";
             }
         };
         var customerOptionColumn = {

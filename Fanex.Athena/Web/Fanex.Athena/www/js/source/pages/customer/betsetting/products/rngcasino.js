@@ -93,7 +93,7 @@
 
         function showConfirmAction(params, userName, message) {
             var options = {
-                height: 150,
+                height: "auto",
                 id: "bet-setting-confirm",
                 title: Site.getSingleResource("Confirmation"),
                 onOpen: function () {
@@ -102,7 +102,8 @@
                 onClose: function () {
                     $('#btnRngCasino, #btnResetRngCasino').removeAttr('disabled');
                     $("#bet-setting-confirm").remove();
-                }
+                },
+                width: 380
             };
             var buttons = [
             {
@@ -156,7 +157,7 @@
 
         function showDialogMesage(title, message, reloadPage) {
             var options = {
-                height: 150,
+                height: "auto",
                 id: "bet-setting-message",
                 title: title,
                 onOpen: function () {
@@ -171,7 +172,8 @@
                             Site.reload();
                         }, 500);
                     }
-                }
+                },
+                width: 480
             };
             var buttons = [
             {

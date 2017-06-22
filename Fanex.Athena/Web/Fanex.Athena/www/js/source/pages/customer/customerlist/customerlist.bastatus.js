@@ -35,9 +35,9 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                     success: function (response) {
                         if (response.IsSuccessful) {
                             var rowIndex = ($context.closest("tr").attr("id") - 1) % _state.pagingOption.pagesize;
-                            _state.cacheData.Data[rowIndex].BAStatus = data.isAllowBA;
-                            _state.cacheData.Data[rowIndex].OddsGroup = response.OddsGroup;
-                            CustomerListService.bindData(_state.cacheData, true);
+                            _state.cachedData.Data[rowIndex].BAStatus = data.isAllowBA;
+                            _state.cachedData.Data[rowIndex].OddsGroup = response.OddsGroup;
+                            CustomerListService.bindData(_state.cachedData, true);
                         }
                         else {
                             $context.prop("checked", currentBAStatus);

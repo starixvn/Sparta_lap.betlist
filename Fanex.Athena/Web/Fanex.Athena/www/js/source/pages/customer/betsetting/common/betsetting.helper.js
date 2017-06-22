@@ -16,7 +16,8 @@ define(["jquery", "common/site", "common/popup", "lib/jquery.balloon"], function
                         Site.blockUI();
                         Site.getLocation().reload();
                     }, 500);
-                }
+                },
+                width: 450
             };
 
             var buttons = [

@@ -12,6 +12,12 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                 CustomerListService.showGridDropdownById("LevelListContainer", _$specialLevelCell);
             });
 
+            $("#report-content").on("focusout", ".specialLevel", function (e) {
+                if (!$(e.relatedTarget).is(".levelLink")) {
+                    $("#LevelListContainer").fadeToggle();
+                }
+            });
+
             $("#LevelListContainer").on("click", ".levelLink", function () {
                 var level = $(this).data("level");
                 _me.setValue(level);

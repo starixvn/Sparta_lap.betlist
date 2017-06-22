@@ -79,7 +79,8 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
                     onClose: function () {
                         $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
                         $("#confirm-update-betsetting").remove();
-                    }
+                    },
+                    width: 450
                 };
 
                 var buttons = [

@@ -146,7 +146,8 @@
                         modal: true,
                         title: "Confirm",
                         height: "auto",
-                        id: "del-default-comm-group"
+                        id: "del-default-comm-group",
+                        width: 380
                     };
                     var buttons = [
                     {
@@ -192,7 +193,8 @@
                         modal: true,
                         title: "DeleteCommissionGroup",
                         height: "auto",
-                        id: "option-del-comm-group"
+                        id: "option-del-comm-group",
+                        width: 380
                     };
                     var actualElement, actualOption, actualButtons;
                     spyOn(Popup, "openPopupWithButton").and.callFake(function (element, option, buttons) {
@@ -306,7 +308,8 @@
                         modal: true,
                         title: "Confirm",
                         height: "auto",
-                        id: "confirm-del-comm-group"
+                        id: "confirm-del-comm-group",
+                        width: 380
                     };
                     var buttons = [
                     {
@@ -337,7 +340,8 @@
                         modal: true,
                         title: expectedTitle,
                         height: "auto",
-                        id: "result-del-comm-group"
+                        id: "result-del-comm-group",
+                        width: 380
                     };
                     var buttons = [
                     {
@@ -360,7 +364,8 @@
                         modal: true,
                         title: expectedTitle,
                         height: "auto",
-                        id: "result-del-comm-group"
+                        id: "result-del-comm-group",
+                        width: 380
                     };
                     var buttons = [
                     {

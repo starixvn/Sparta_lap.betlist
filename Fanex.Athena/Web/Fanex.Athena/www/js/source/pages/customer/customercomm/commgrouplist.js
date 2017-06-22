@@ -77,7 +77,8 @@
                 modal: true,
                 title: Site.getSingleResource("Confirm"),
                 height: "auto",
-                id: "del-default-comm-group"
+                id: "del-default-comm-group",
+                width: 380
             };
 
             var buttons = [
@@ -110,7 +111,8 @@
                 modal: true,
                 title: Site.getSingleResource("DeleteCommissionGroup"),
                 height: "auto",
-                id: "option-del-comm-group"
+                id: "option-del-comm-group",
+                width: 380
             };
 
             var buttons = [
@@ -140,7 +142,8 @@
                 modal: true,
                 title: Site.getSingleResource("Confirm"),
                 height: "auto",
-                id: "confirm-del-comm-group"
+                id: "confirm-del-comm-group",
+                width: 380
             };
 
             var buttons = [
@@ -165,7 +168,8 @@
                 modal: true,
                 title: title,
                 height: "auto",
-                id: "result-del-comm-group"
+                id: "result-del-comm-group",
+                width: 380
             };
 
             if ($("#result-del-comm-group").length > 0)
@@ -177,7 +181,7 @@
                 {
                     text: Site.getSingleResource("OK"),
                     isClosedOnClick: true,
-                    classes: "btn btn-cancel",
+                    classes: "btn btn-submit",
                     id: "result-OK"
                 }];
 

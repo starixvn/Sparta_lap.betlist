@@ -12,6 +12,12 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                 _me.showGridDropdown();
             });
 
+            $("#report-content").on("focusout", ".oddsGroup", function (e) {
+                if (!$(e.relatedTarget).is(".oddsGroupLink")) {
+                    $("#OddsGroupListContainer").fadeToggle();
+                }
+            });
+
             $("#OddsGroupListContainer").on("click", ".oddsGroupLink", function () {
                 var group = $(this).data("group");
                 _me.setValue(group);
