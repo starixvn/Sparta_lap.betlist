@@ -100,17 +100,21 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
         },
 
         bindData: function (response, keepScrollPosition) {
+            jqGridAdditional.clearGrid("ReportGrid");
+            //show report title
+            $(".panel-heading").removeClass("hide");
+
             var hasData = response && response.TotalRows > 0;
             $("div.paging").toggle(hasData);
 
             if (!hasData) {
                 jqGridAdditional.setNoInfo();
+                $("#num-of-customer").html("0 ");
                 Site.unBlockUI();
                 return;
             }
 
             var oldScrollTop = $(".ui-jqgrid-bdiv").scrollTop();
-            jqGridAdditional.clearGrid("ReportGrid");
             $("#num-of-customer").html(response.TotalRows + " ");
 
             var pagingOption = _state.pagingOption;
@@ -121,8 +125,6 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             var gridOption = _me.processGridOption(showingColumns);
             gridOption.data = response.Data;
 
-            //show report title
-            $(".panel-heading").removeClass("hide");
             // Show the grid
             var reportGrid = $("#ReportGrid");
             reportGrid.jqGrid(gridOption);
