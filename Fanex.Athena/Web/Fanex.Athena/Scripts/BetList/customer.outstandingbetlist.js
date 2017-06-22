@@ -10,20 +10,20 @@ var OutstandingBetList = (function ($) {
 
     return {
         initialize: function () {
-            //show or hide products dropdown list by ViewOption
             OutstandingBetList.showHideProductsList();
-
-            //Set columns need hide
             OutstandingBetList.hiddenColList();
-
-            //Init event
             OutstandingBetList.initEvent();
 
             ProductListHelper.initProductList();
 
-            //Get params send from URL
             var params = OutstandingBetList.getParamsSubmit();
-            OutstandingBetList.submit(params);
+            if (params.ProductCodeList) {
+                OutstandingBetList.submit(params);
+            } else {
+                $("#ProductList .error-img").removeClass("hide");
+                $(".content-filter").css("width", "95%");
+                $("#SubmitButton").prop("disabled", true);
+            }
         },
         initEvent: function () {
             $("#ViewOption").change(function () {
@@ -46,17 +46,14 @@ var OutstandingBetList = (function ($) {
                 Site.redirect(url);
             });
 
-            //Submit button
             $('#SubmitButton').click(function () {
                 Report.setOriginalProduct();
-                //Get params when user submit
                 var params = OutstandingBetList.getParamsSubmit();
                 OutstandingBetList.submit(params);
             });
         },
 
         hiddenColList: function () {
-            //Get item chooses from dropdownlist and set string columns need to hide
             var betlistName = $("#ViewOption").find(":selected").val();
 
             var columsHidden = "";
