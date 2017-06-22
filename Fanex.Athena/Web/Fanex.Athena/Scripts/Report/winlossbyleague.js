@@ -383,7 +383,6 @@ var WinLossByLeague = (function ($) {
                 CurrencyId: _postdata.CurrencyId,
                 CurrencyName: _currencyName,
                 CustId: custId,
-                Level: 2,
                 ExternalId: externalId,
                 SystemId: systemId,
                 LeagueId: _leagueid,

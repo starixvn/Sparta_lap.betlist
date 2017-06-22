@@ -25,9 +25,9 @@ namespace Fanex.Athena.Controllers.BetList
     public partial class WinlossByLeagueBetListController : BetListBaseController
     {
         [HttpGet]
-        public ActionResult Index(BetListMetaModel metaModel)
+        public ActionResult Index(WinLossByLeagueBetListMetaModel metaModel)
         {
-            metaModel = CreateDefaultMetaModel(metaModel);
+            metaModel = CreateDefaultMetaModel(metaModel) as WinLossByLeagueBetListMetaModel;
 
             if (!metaModel.IsExportExcel)
             {
