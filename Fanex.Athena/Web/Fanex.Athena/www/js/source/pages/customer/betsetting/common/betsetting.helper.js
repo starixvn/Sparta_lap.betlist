@@ -8,6 +8,14 @@ define(["jquery", "common/site", "common/popup", "lib/jquery.balloon"], function
                 id: "result-update-betsetting",
                 onOpen: function () {
                     $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
+                },
+                onClose: function () {
+                    $("#result-update-betsetting").remove();
+                    $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
+                    setTimeout(function () {
+                        Site.blockUI();
+                        Site.getLocation().reload();
+                    }, 500);
                 }
             };
 
@@ -15,15 +23,7 @@ define(["jquery", "common/site", "common/popup", "lib/jquery.balloon"], function
                 {
                     text: Site.getSingleResource("OK"),
                     isClosedOnClick: true,
-                    classes: "btn btn-submit",
-                    click: function () {
-                        $("#result-update-betsetting").remove();
-                        $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
-                        setTimeout(function () {
-                            Site.blockUI();
-                            Site.getLocation().reload();
-                        }, 500);
-                    }
+                    classes: "btn btn-submit"
                 }];
 
             Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);

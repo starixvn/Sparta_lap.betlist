@@ -121,9 +121,6 @@
             },
             {
                 text: Site.getSingleResource("Cancel"),
-                click: function () {
-                    $('#btnRngCasino').removeAttr('disabled');
-                },
                 classes: "btn btn-cancel",
                 isClosedOnClick: true
             }];

@@ -89,10 +89,13 @@
                 $element.append('<div class="right popup-button"></div>');
                 var $blockButton = $element.find(".popup-button");
 
+                var firstButton = true;
                 $.each(buttons, function (index, button) {
-                    var $button = $('<button type="button"'
-                        + (button.id ? 'id="' + button.id + '"' : '')
-                        + ' class="' + button.classes + '">'
+                    var id = button.id ? ' id="' + button.id + '"' : '';
+                    var className = button.classes ? ' class="' + button.classes + '"' : '';
+                    var autoFocus = firstButton ? " autofocus" : "";
+
+                    var $button = $('<button type="button"' + id + className + autoFocus + '>'
                         + button.text + '</button>');
                     $blockButton.append($button);
                     if (button.isClosedOnClick) {
@@ -101,12 +104,14 @@
 
                             if (typeof button.click === "function") {
                                 button.click();
-                            }                            
+                            }
                         });
                     }
                     else {
                         $button.on("click", button.click);
                     }
+
+                    firstButton = false;
                 });
             }
 

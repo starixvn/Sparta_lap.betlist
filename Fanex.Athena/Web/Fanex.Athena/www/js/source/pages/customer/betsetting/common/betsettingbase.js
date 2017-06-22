@@ -75,6 +75,10 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
                     id: "confirm-update-betsetting",
                     onOpen: function () {
                         $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
+                    },
+                    onClose: function () {
+                        $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
+                        $("#confirm-update-betsetting").remove();
                     }
                 };
 
@@ -89,10 +93,6 @@ define(["jquery", "common/site", "common/popup", "./constant", "lib/numberformat
                     }, {
                         text: Site.getSingleResource("Cancel"),
                         isClosedOnClick: true,
-                        click: function () {
-                            $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
-                            $("#confirm-update-betsetting").remove();
-                        },
                         classes: "btn btn-cancel"
                     }];
 
