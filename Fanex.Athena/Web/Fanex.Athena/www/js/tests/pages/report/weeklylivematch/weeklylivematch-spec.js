@@ -1,6 +1,7 @@
-﻿define(["jquery", "common/site", "pages/report/weeklylivematch/weeklylivematch.option", "lib/jqgrid/jquery.jqgrid.additional", "components/pluginhelper/daterangepicker",
-        "pages/report/weeklylivematch/weeklylivematch", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "lib/linq", "extensions/jquery.extension"],
-        function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, WeeklyLiveMatch) {
+﻿define(["jquery", "common/site", "pages/report/weeklylivematch/weeklylivematch.option", "lib/jqgrid/jquery.jqgrid.additional",
+        "components/pluginhelper/daterangepicker", "helpers/daterange", "pages/report/weeklylivematch/weeklylivematch",
+        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "lib/linq", "extensions/jquery.extension"],
+        function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, DateHelper, WeeklyLiveMatch) {
             describe("WeeklyLiveMatch", function () {
                 beforeAll(function () {
                     spyOn(Site, "getSingleResource").and.callFake(function (text) {
@@ -34,7 +35,7 @@
 
                 describe("initEvent()", function () {
                     beforeEach(function () {
-                        spyOn(Site, "setConstraintMonthRange");
+                        spyOn(DateHelper, "setConstraintMonthRange");
                         setFixtures('<button id="SubmitButton">Submit</button>' +
                             '<button id="ExportToExcel">Export Excel</button>' +
                             '<input type="hidden" id="IsExportExcel" value="true" />'

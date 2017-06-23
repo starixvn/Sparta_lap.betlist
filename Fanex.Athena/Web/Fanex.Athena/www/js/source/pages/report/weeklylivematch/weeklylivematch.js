@@ -1,7 +1,8 @@
 ﻿"use strict";
-define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.jqgrid.additional", "components/pluginhelper/daterangepicker",
+define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.jqgrid.additional",
+        "components/pluginhelper/daterangepicker", "helpers/daterange",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "lib/linq", "extensions/jquery.extension"],
-        function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker) {
+        function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, DateHelper) {
             var VALID_MONTH_RANGE = 2;
             var SPORT_COLUMN_INDEX = 1;
             var START_WEEK_COLUMN_INDEX = 2;
@@ -67,7 +68,7 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                 },
 
                 initEvent: function () {
-                    Site.setConstraintMonthRange(VALID_MONTH_RANGE, WeeklyLiveMatchOption.urlExcelData);
+                    DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, WeeklyLiveMatchOption.urlExcelData);
 
                     $('#SubmitButton').click(function () {
                         $('#IsExportExcel').val(false);

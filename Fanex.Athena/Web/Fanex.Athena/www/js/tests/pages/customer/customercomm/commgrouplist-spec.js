@@ -347,7 +347,7 @@
                     {
                         text: "OK",
                         isClosedOnClick: true,
-                        classes: "btn btn-cancel",
+                        classes: "btn btn-submit",
                         id: "result-OK"
                     }];
                     spyOn(Popup, "openPopupWithButton");
@@ -371,7 +371,7 @@
                     {
                         text: "OK",
                         isClosedOnClick: true,
-                        classes: "btn btn-cancel",
+                        classes: "btn btn-submit",
                         id: "result-OK"
                     }];
                     setFixtures('<div id="result-del-comm-group"><p id="result-msg"></p></div>');

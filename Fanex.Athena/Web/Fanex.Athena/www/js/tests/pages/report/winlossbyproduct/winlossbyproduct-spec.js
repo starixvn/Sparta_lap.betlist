@@ -4,7 +4,7 @@
             describe("WinLossByProduct", function () {
                 beforeAll(function () {
                     spyOn(Site, "getSingleResource").and.callFake(function (resource) { return resource; });
-                    spyOn(Site, "setConstraintMonthRange");
+                    spyOn(DateHelper, "setConstraintMonthRange");
                     spyOn(Site, "addUserGuide");
                     spyOn(Site, "initialize");
                     spyOn(MultiSelect, "initProductList");
@@ -32,8 +32,8 @@
                         expect(WinLossByProduct.initSetting).toHaveBeenCalled();
                     });
 
-                    it("Site.setConstraintMonthRange(monthRange, url) should be called with correct parameter", function () {
-                        expect(Site.setConstraintMonthRange).toHaveBeenCalledWith(3, "api/WinLossByProductReport/Index");
+                    it("DateHelper.setConstraintMonthRange(monthRange, url) should be called with correct parameter", function () {
+                        expect(DateHelper.setConstraintMonthRange).toHaveBeenCalledWith(3, "api/WinLossByProductReport/Index");
                     });
                     it("Site.addUserGuide(options) should be called with correct parameter", function () {
                         expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "WinLossByProduct", title: Site.getSingleResource("WinLossByProduct") });

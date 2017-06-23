@@ -66,10 +66,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             return urlOrParams;
         }
 
-        function getDifferenceMonth(fromDate, toDate) {
-            return toDate.getMonth() - fromDate.getMonth() + (12 * (toDate.getFullYear() - fromDate.getFullYear())) + 1;
-        }
-
         function initSelectElements() {
             $('select.select').not('#CurrencyId').selectList();
 
@@ -150,40 +146,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             $form.remove();
         }
 
-        function setConstraintMonthRange(monthRange, url) {
-            var errorMessage = getSingleResource("DateRangeExceedMsg").replace("{0}", monthRange);
-
-            function isValidRange() {
-                var fromDate = new Date($("#FromDate").val());
-                var toDate = new Date($("#ToDate").val());
-
-                return getDifferenceMonth(fromDate, toDate) <= monthRange;
-            }
-
-            if (url && typeof url === "string") {
-                $(document).ajaxSend(function (event, jqxhr, settings) {
-                    if (settings.url.search(new RegExp(url, "i")) > -1 && isValidRange() === false) {
-                        showMessaegBox(errorMessage);
-                        jqxhr.abort();
-                    }
-                });
-            }
-
-            $("form").on("submit", function () {
-                if (isValidRange() === false) {
-                    showMessaegBox(errorMessage);
-                    return false;
-                }
-
-                return true;
-            });
-        }
-        function showMessaegBox(message) {
-            var title = getSingleResource("LrfNotification");
-            var dialogForm = '<div title="' + title + '"><p class="notification">' + message + '!</p></div>';
-
-            Popup.openPopup(dialogForm, { width: 350, height: 120, title: title, className: "popup-notification" });
-        }
         function getLicenseeId() {
             if (!_licenseeId) {
                 _licenseeId = parseInt($("#LicenseeId").val());
@@ -553,8 +515,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             reload: reload,
             resolveClientUrl: resolveClientUrl,
             exportExcel: exportExcel,
-            setConstraintMonthRange: setConstraintMonthRange,
-            showMessaegBox: showMessaegBox,
             getLicenseeId: getLicenseeId,
             getCurrencyName: getCurrencyName,
             getHistoryDate: getHistoryDate,

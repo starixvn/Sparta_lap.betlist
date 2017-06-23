@@ -1,7 +1,7 @@
 ﻿define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid.additional", "./winlossbyproduct.option", "moment", "common/popup",
-    "components/pluginhelper/daterangepicker", "../report", "components/pluginhelper/multiselect", "components/pluginhelper/autocomplete",
+    "components/pluginhelper/daterangepicker", "../report", "components/pluginhelper/multiselect", "components/pluginhelper/autocomplete", "helpers/daterange",
     "extensions/jquery.extension", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min"],
-    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect, AutoComplete) {
+    function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report, MultiSelect, AutoComplete, DateHelper) {
         "use strict";
 
         var VALID_MONTH_RANGE = 3;
@@ -41,7 +41,7 @@
                 Site.initialize();
                 DatePicker.initDateRangePicker();
                 MultiSelect.initProductList();
-                Site.setConstraintMonthRange(VALID_MONTH_RANGE, WinLossByProductOption.urlExcelData);
+                DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, WinLossByProductOption.urlExcelData);
                 Site.addUserGuide({
                     resourceName: "WinLossByProduct",
                     title: Site.getSingleResource("WinLossByProduct")
