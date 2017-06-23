@@ -105,8 +105,7 @@
 ----------------------------------------------------------*/
 .selectedDayWrap {
   width: 100%;
-  color: #444;
-  z-index: 1 !important; }
+  color: #444; }
 
 .dayPickr {
   padding: 3px 0;

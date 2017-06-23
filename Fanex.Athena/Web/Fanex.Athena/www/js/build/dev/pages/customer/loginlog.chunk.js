@@ -1,19 +1,19 @@
 webpackJsonp([62],{
 
 /***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(300);
+	module.exports = __webpack_require__(289);
 
 
-/***/ }),
+/***/ },
 
-/***/ 220:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 209:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
 	///
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(221)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(210)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
 	    "use strict";
 	    var jqGridAdditional = (function () {
 	        return {
@@ -400,10 +400,10 @@ webpackJsonp([62],{
 	    return jqGridAdditional;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 221:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 210:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/MikeMcl/bignumber.js/LICENCE */
 	
@@ -3144,10 +3144,10 @@ webpackJsonp([62],{
 	})(this);
 
 
-/***/ }),
+/***/ },
 
-/***/ 223:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 212:
+/***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
 	/**
@@ -3322,10 +3322,10 @@ webpackJsonp([62],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 224:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 213:
+/***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* 
 	* jqGrid  4.6.0 - jQuery Grid 
@@ -3673,13 +3673,13 @@ webpackJsonp([62],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 277:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 266:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// require option properties: suggestionDropdown, url, target
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(278)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(267)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
 	    "use strict";
 	
 	    var mainOption = {
@@ -3687,6 +3687,8 @@ webpackJsonp([62],{
 	        url: null,
 	        target: null
 	    };
+	
+	    var DELAY_MILLISECOND = 600;
 	
 	    var _autoComplete;
 	
@@ -3698,12 +3700,12 @@ webpackJsonp([62],{
 	
 	        initEvent: function () {
 	            $('body').click(function () {
-	                _me.hideDropdown.call(_autoComplete);
+	                _me.hideDropdown();
 	            });
 	
 	            $(mainOption.target).keyup(function (e) {
 	                if (e.keyCode === 13) {
-	                    _me.hideDropdown.call(_autoComplete);
+	                    _me.hideDropdown();
 	                }
 	            });
 	        },
@@ -3716,35 +3718,37 @@ webpackJsonp([62],{
 	
 	            _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
 	                ignoreCase: false,
-	                multiple: {
-	                    enable: false
-	                },
 	                dropdown: {
 	                    el: mainOption.suggestionDropdown
 	                },
-	                getData: function (value, callback) {
-	                    var url = mainOption.url + "?query=" + value;
-	
-	                    $.ajax({
-	                        type: "GET",
-	                        dataType: "json",
-	                        url: url,
-	                        success: function (response) {
-	                            var suggestions = response.suggestions;
-	
-	                            if (suggestions && suggestions.length > 0) {
-	                                var data = suggestions.map(function (item) {
-	                                    return { id: item, text: item };
-	                                });
-	
-	                                callback(value, data);
-	                            }
-	                        }
-	                    });
-	                }
+	                getData: Site.debounce(_me.search, DELAY_MILLISECOND),
 	            });
 	
 	            _me.updateWidthOfSuggestionDropdown();
+	        },
+	
+	        search: function (value, callback) {
+	            var url = mainOption.url + "?query=" + value;
+	
+	            $.ajax({
+	                type: "GET",
+	                dataType: "json",
+	                url: url,
+	                success: function (response) {
+	                    var suggestions = response.suggestions;
+	
+	                    if (suggestions && suggestions.length > 0) {
+	                        var data = suggestions.map(function (item) {
+	                            return { id: item, text: item };
+	                        });
+	
+	                        callback(value, data);
+	                    }
+	                    else {
+	                        _me.hideDropdown();
+	                    }
+	                }
+	            });
 	        },
 	
 	        updateWidthOfSuggestionDropdown: function () {
@@ -3756,17 +3760,17 @@ webpackJsonp([62],{
 	        },
 	
 	        hideDropdown: function () {
-	            this.$dropdown.html('').hide();
+	            _autoComplete.$dropdown.html('').hide();
 	        }
 	    };
 	
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 278:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 267:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
 	
@@ -3779,8 +3783,6 @@ webpackJsonp([62],{
 	    }
 	
 	}(this, function ($) {
-	
-	    var noop = function () {};
 	
 	    var template = function (text) {
 	        var matcher = new RegExp('<%=([\\s\\S]+?)%>|<%([\\s\\S]+?)%>|$', 'g');
@@ -3886,7 +3888,7 @@ webpackJsonp([62],{
 	            el: '',
 	            tagName: 'ul',
 	            className: 'ac-appender',
-	            tagTemplate: '<div class="chip" data-id="<%= item.id %>" data-text="<%= item.text %>"><%= item.text %>(<%= item.id %>)<i class="material-icons close">close</i></div>'
+	            tagTemplate: '<div class="chip" data-id="<%= item.id %>" data-text="<% item.text %>"><%= item.text %>(<%= item.id %>)<i class="material-icons close">close</i></div>'
 	        },
 	        dropdown: {
 	            el: '',
@@ -3895,10 +3897,13 @@ webpackJsonp([62],{
 	            itemTemplate: '<li class="ac-item" data-id="<%= item.id %>" data-text="<%= item.text %>"><a href="javascript:void(0)"><%= item.text %></a></li>',
 	            noItem: ''
 	        },
+	        handlers: {
+	            'setValue': '.ac-dropdown .ac-item',
+	            '.ac-appender .ac-tag .close': 'remove'
+	        },
 	        getData: function (value, callback) {
 	            callback(value, []);
 	        },
-	        onSelect: noop,
 	        ignoreCase: true,
 	        throttling: true
 	    };
@@ -4106,7 +4111,7 @@ webpackJsonp([62],{
 	                }
 	
 	                if (self.options.hidden.inputName) {
-	                    self.$hidden.attr('name', self.options.hidden.inputName);
+	                    self.$el.attr('name', self.options.hidden.inputName);
 	                }
 	
 	                if (self.options.hidden.required) {
@@ -4146,7 +4151,7 @@ webpackJsonp([62],{
 	            if (self.value.length >= self.options.multiple.maxSize) {
 	
 	                if ('function' === typeof self.options.multiple.onExceed) {
-	                    self.options.multiple.onExceed.call(this, self.options.multiple.maxSize, item);
+	                    self.options.multiple.onExceed.call(this, self.options.multiple.maxSize);
 	                }
 	
 	                return false;
@@ -4207,10 +4212,6 @@ webpackJsonp([62],{
 	            if (self.options.hidden.enable) {
 	                self.$hidden.val(item.id);
 	            }
-	
-	            if ('function' === typeof self.options.onSelect) {
-	                self.options.onSelect.call(self, item);
-	            }
 	        }
 	    };
 	
@@ -4232,14 +4233,14 @@ webpackJsonp([62],{
 	}));
 
 
-/***/ }),
+/***/ },
 
-/***/ 291:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 280:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7),
-	    __webpack_require__(220), __webpack_require__(223), __webpack_require__(224)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+	    __webpack_require__(209), __webpack_require__(212), __webpack_require__(213)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
 	        var GRID_ID = "ReportGrid";
 	        var _ajaxRequest = null;
 	
@@ -4325,24 +4326,24 @@ webpackJsonp([62],{
 	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 300:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 289:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function($) {"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(301)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LoginLog) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(290)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LoginLog) {
 	    $(LoginLog.initialize);
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-/***/ }),
+/***/ },
 
-/***/ 301:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 290:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(277), __webpack_require__(302), __webpack_require__(291)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, LoginLogOption, CustomerLog) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(7), __webpack_require__(266), __webpack_require__(291), __webpack_require__(280)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, LoginLogOption, CustomerLog) {
 	        var _me = {
 	            initialize: function () {
 	                CustomerLog.initialize();
@@ -4386,10 +4387,10 @@ webpackJsonp([62],{
 	        return _me;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
+/***/ },
 
-/***/ 302:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 291:
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
@@ -4464,7 +4465,7 @@ webpackJsonp([62],{
 	    return _me;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ })
+/***/ }
 
 });
 //# sourceMappingURL=loginlog.chunk.js.map

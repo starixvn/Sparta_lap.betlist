@@ -653,8 +653,7 @@ table tbody tr.row-group-level1 td {
 ----------------------------------------------------------*/
 .selectedDayWrap {
   width: 100%;
-  color: #444;
-  z-index: 1 !important; }
+  color: #444; }
 
 .dayPickr {
   padding: 3px 0;
@@ -707,7 +706,7 @@ table tbody tr.row-group-level1 td {
 .daterangepicker {
   position: absolute;
   color: inherit;
-  background-color: #fff;
+  background: #fff;
   border-radius: 4px;
   width: 278px;
   padding: 4px;
@@ -783,7 +782,7 @@ table tbody tr.row-group-level1 td {
     border: 1px solid #fff;
     padding: 4px;
     border-radius: 4px;
-    background-color: #fff; }
+    background: #fff; }
   .daterangepicker table {
     width: 100%;
     margin: 0; }
@@ -889,7 +888,7 @@ table tbody tr.row-group-level1 td {
     width: 100%; }
   .ranges li {
     font-size: 13px;
-    background-color: #f5f5f5;
+    background: #f5f5f5;
     border: 1px solid #f5f5f5;
     border-radius: 4px;
     color: #08c;
@@ -897,11 +896,11 @@ table tbody tr.row-group-level1 td {
     margin-bottom: 8px;
     cursor: pointer; }
     .ranges li:hover {
-      background-color: #08c;
+      background: #08c;
       border: 1px solid #08c;
       color: #fff; }
     .ranges li.active {
-      background-color: #08c;
+      background: #08c;
       border: 1px solid #08c;
       color: #fff; }
 
