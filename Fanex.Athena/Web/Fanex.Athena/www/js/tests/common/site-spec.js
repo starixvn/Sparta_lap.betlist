@@ -8,20 +8,6 @@
             });
         }
 
-        describe("getLicenseeId()", function () {
-            it("return a correct value", function () {
-                setFixtures('<input id="LicenseeId" value="2" />');
-                var result = Site.getLicenseeId();
-
-                expect(result).toBe(2);
-
-                spyOn(window, "parseInt").and.callThrough();
-                Site.getLicenseeId();
-
-                expect(window.parseInt.calls.count()).toBe(0);
-            });
-        });
-
         describe("asNull(text)", function () {
             it("return null if the param 'text' is an empty string", function () {
                 var result = Site.asNull("");
@@ -523,18 +509,6 @@
                 var result = Site.getHistoryDate();
 
                 expect(result).toEqual(expectedResult);
-            });
-        });
-
-        describe("getCurrencyName(currencyId)", function () {
-            it("return correct value", function () {
-                var jsonData = JSON.stringify({ 1: "USD" });
-                setFixtures('<input id="UserCurrencies" value=\'' + jsonData + '\' />');
-                Site.initialize();
-
-                var result = Site.getCurrencyName(1);
-
-                expect(result).toEqual("USD");
             });
         });
 

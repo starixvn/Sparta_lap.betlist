@@ -3,10 +3,11 @@ define(['jquery', 'common/site', 'common/querystring', './betlist', 'components/
     function ($, Site, QueryString, BetList, DatePicker) {
         window.serverPaging = true; // used in betlist.js
         var KEENOCEAN_LICENSEEID = 96;
+        var _licenseeId;
 
         var showOrHideExcelIcon = function () {
             var $exportExcel = $("#ExportToExcel");
-            if (Site.getLicenseeId() === KEENOCEAN_LICENSEEID) {
+            if (_licenseeId === KEENOCEAN_LICENSEEID) {
                 $exportExcel.show();
                 return;
             }
@@ -18,6 +19,7 @@ define(['jquery', 'common/site', 'common/querystring', './betlist', 'components/
         var _me = {
             initialize: function () {
                 Site.initialize();
+                _licenseeId = parseInt($("#LicenseeId").val());
                 _me.initEvent();
                 showOrHideExcelIcon();
                 Site.addUserGuide({

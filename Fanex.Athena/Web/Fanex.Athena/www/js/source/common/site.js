@@ -6,10 +6,8 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
         var REQUEST_VERIFICATION_TOKEN;
         var _historyDate = null;
         var _licenseeId = null;
-        var _isLoadedNotificationPopup = false;
         var _rootUrl = null;
         var _pageLanguage = null;
-        var _userCurrencies = null;
 
         function setProductCodeListParam(url, productCodeList){
             return QueryString.setParam(url, "ProductCodeList", productCodeList);
@@ -17,32 +15,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
 
         function reload() {
             window.location.reload();
-        }
-
-        function addNoticationPopup() {
-            var $marquee = $("#notification-marquee");
-            if ("marquee" in $marquee) {
-                $marquee.marquee({ speed: 30 });
-            }
-
-            if (_isLoadedNotificationPopup === true) {
-                return;
-            }
-
-            var $popup = $("#NotificationPopup");
-            if ($popup.length > 0) {
-                var options = {
-                    height: 160,
-                    title: getSingleResource("Notification")
-                };
-                var popup = $popup.flatPopup(options);
-                popup.show();
-
-                $popup.find(".popup-close").click(function () {
-                    $.cookie("isClosedNotification", "1", { path: '/' });
-                });
-                _isLoadedNotificationPopup = true;
-            }
         }
 
         function resolveClientUrl(relativeUrl) {
@@ -80,11 +52,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             _historyDate = new Date($("#HistoryDate").val());
             _rootUrl = $('#RootUrl').val();
             _pageLanguage = $('#PageLanguage').val();
-            var userCurrencies = $('#UserCurrencies').val();
-            if (userCurrencies) {
-                _userCurrencies = JSON.parse(userCurrencies);
-            }
-            addNoticationPopup();
         }
         function initEvent() {
             $("#CurrencyId").change(function () {
@@ -113,17 +80,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
                     }
                 }
             });
-        }
-
-        function getLicenseeId() {
-            if (!_licenseeId) {
-                _licenseeId = parseInt($("#LicenseeId").val());
-            }
-
-            return _licenseeId;
-        }
-        function getCurrencyName(currencyId) {
-            return _userCurrencies[currencyId];
         }
         function getHistoryDate() {
             return _historyDate;
@@ -174,14 +130,6 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             }
 
             return text;
-        }
-
-        function gotoErrorPage(status) {
-            if (status === undefined || status !== 0) {
-                window.location.href = resolveClientUrl("Utility/Error");
-            } else {
-                unBlockUI();
-            }
         }
 
         function unBlockUI() {
@@ -475,13 +423,10 @@ define(["jquery", "common/querystring", "common/popup", "vendor-materialize", "l
             setProductCodeListParam: setProductCodeListParam,
             reload: reload,
             resolveClientUrl: resolveClientUrl,
-            getLicenseeId: getLicenseeId,
-            getCurrencyName: getCurrencyName,
             getHistoryDate: getHistoryDate,
             isBaseCurrency: isBaseCurrency,
             addUserGuide: addUserGuide,
             asNull: asNull,
-            gotoErrorPage: gotoErrorPage,
             unBlockUI: unBlockUI,
             blockUI: blockUI,
             setLicenseeOptionParam: setLicenseeOptionParam,

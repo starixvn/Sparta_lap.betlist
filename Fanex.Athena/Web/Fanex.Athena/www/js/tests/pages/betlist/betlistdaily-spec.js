@@ -22,9 +22,10 @@
 
             describe("initialize()", function () {
                 beforeEach(function () {
+                    setFixtures('<input id="LicenseeId" value="1" />');
+
                     spyOn(Site, "initialize");
                     spyOn(BetListDaily, "initEvent");
-                    spyOn(Site, "getLicenseeId").and.returnValue(1);
                     spyOn(Site, "addUserGuide");
                     spyOn(DatePicker, "initSingleDatePicker");
 
@@ -75,8 +76,17 @@
                 });
 
                 describe("'#CurrencyId' fire change event", function () {
+                    beforeEach(function () {
+                        appendSetFixtures('<input id="LicenseeId" value="2" />');
+
+                        spyOn(Site, "initialize");
+                        spyOn(Site, "addUserGuide");
+                        spyOn(DatePicker, "initSingleDatePicker");
+                    });
+
                     it("'#ExportToExcel' should be showed when licensee is KeenOcean (96)", function () {
-                        spyOn(Site, "getLicenseeId").and.returnValue(96);
+                        $("#LicenseeId").val(96);
+                        BetListDaily.initialize();
 
                         $("#CurrencyId").change();
 
@@ -84,7 +94,7 @@
                     });
 
                     it("'#ExportToExcel' should be showed when we select specific currencyId value and licensee is not KeenOcean (96)", function () {
-                        spyOn(Site, "getLicenseeId").and.returnValue(2);
+                        BetListDaily.initialize();
 
                         $("#CurrencyId").change();
 
@@ -92,7 +102,7 @@
                     });
 
                     it("'#ExportToExcel' should be hidden when we select all currency and licensee is not KeenOcean (96)", function () {
-                        spyOn(Site, "getLicenseeId").and.returnValue(2);
+                        BetListDaily.initialize();
                         $("#CurrencyId").val(0);
 
                         $("#CurrencyId").change();

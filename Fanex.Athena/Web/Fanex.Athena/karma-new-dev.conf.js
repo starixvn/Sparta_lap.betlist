@@ -11,7 +11,7 @@
             { pattern: "node_modules/materialize-autocomplete/**/*.js", included: false },
             { pattern: 'www/js/source/**/*.js', included: false },
 
-            { pattern: 'www/js/tests/helpers/daterange-spec.js', included: false },
+            { pattern: 'www/js/tests/pages/betlist/betlistdaily-spec.js', included: false },
             'www/js/tests/test-main.js'
         ],
         proxies: {
