@@ -15,16 +15,6 @@ namespace Fanex.Athena.Extension.Helper
         private static readonly CultureInfo DefaultCulture = new CultureInfo("en-US");
 
         /// <summary>
-        /// Formatting numbers for decimals and two significant digits.
-        /// </summary>
-        /// <param name="value">The object value.</param>
-        /// <returns>The formatted string.</returns>
-        public static string ToStringExt(this object value)
-        {
-            return ToStringExt(value, 2);
-        }
-
-        /// <summary>
         ///  Formatting numbers for decimals and  significant digits.
         /// </summary>
         /// <param name="value">The object value.</param>
