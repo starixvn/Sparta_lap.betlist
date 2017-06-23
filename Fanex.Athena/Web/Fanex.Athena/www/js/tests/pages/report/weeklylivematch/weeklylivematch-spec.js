@@ -1,7 +1,7 @@
 ﻿define(["jquery", "common/site", "pages/report/weeklylivematch/weeklylivematch.option", "lib/jqgrid/jquery.jqgrid.additional",
-        "components/pluginhelper/daterangepicker", "helpers/daterange", "pages/report/weeklylivematch/weeklylivematch",
+        "components/pluginhelper/daterangepicker", "helpers/daterange", "helpers/excel", "pages/report/weeklylivematch/weeklylivematch",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "lib/linq", "extensions/jquery.extension"],
-        function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, DateHelper, WeeklyLiveMatch) {
+        function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, DateHelper, ExcelHelper, WeeklyLiveMatch) {
             describe("WeeklyLiveMatch", function () {
                 beforeAll(function () {
                     spyOn(Site, "getSingleResource").and.callFake(function (text) {
@@ -60,9 +60,9 @@
                         });
                     });
 
-                    it("Site.exportExcel(data, url, method) should be called when '#ExportToExcel' fire click event", function () {
+                    it("ExcelHelper.exportExcel(data, url, method) should be called when '#ExportToExcel' fire click event", function () {
                         spyOn($.fn, "serializeObject").and.returnValue({ FromDate: "03/01/2017", ToDate: "03/31/2017" });
-                        spyOn(Site, "exportExcel");
+                        spyOn(ExcelHelper, "exportExcel");
                         spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
                             return url;
                         });
@@ -70,7 +70,7 @@
                         $('#ExportToExcel').click();
                         var data = { FromDate: "03/01/2017", ToDate: "03/31/2017", IsExportExcel: true, SortColumn: null, SortDirection: null };
 
-                        expect(Site.exportExcel).toHaveBeenCalledWith(data, 'api/WeeklyLiveMatchReport/index');
+                        expect(ExcelHelper.exportExcel).toHaveBeenCalledWith(data, 'api/WeeklyLiveMatchReport/index');
                     });
                 });
 

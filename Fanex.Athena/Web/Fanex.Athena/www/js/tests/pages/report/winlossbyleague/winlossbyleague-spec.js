@@ -1,7 +1,7 @@
 ﻿define(['jquery', 'common/site', 'components/pluginhelper/daterangepicker', 'pages/report/winlossbyleague/winlossbyleague.option',
     'pages/report/winlossbyleague/winlossbyleague.filter', 'pages/report/winlossbyleague/winlossbyleague', 'pages/report/report', 'lib/jqgrid/jquery.jqgrid.additional', 'common/popup',
-    'components/pluginhelper/multiselect', "components/paging"],
-        function ($, Site, DatePicker, WinLossByLeagueOption, WinLossByLeagueFilter, WinLossByLeague, Report, jqGridAdditional, Popup, MultiSelect, PagingHelper) {
+    'components/pluginhelper/multiselect', "components/paging", "helpers/excel"],
+        function ($, Site, DatePicker, WinLossByLeagueOption, WinLossByLeagueFilter, WinLossByLeague, Report, jqGridAdditional, Popup, MultiSelect, PagingHelper, ExcelHelper) {
             describe("WinLossByLeague", function () {
                 function createPostData(data) {
                     setFixtures('<input id="CurrencyName" value="USD" />');
@@ -104,12 +104,12 @@
                         expect(WinLossByLeague.drillDownBetList).toHaveBeenCalledWith(1, 2, 3);
                     });
 
-                    it("Site.exportExcel() should be called when '#ExportToExcel' is clicked", function () {
-                        spyOn(Site, "exportExcel");
+                    it("ExcelHelper.exportExcel() should be called when '#ExportToExcel' is clicked", function () {
+                        spyOn(ExcelHelper, "exportExcel");
 
                         $('#ExportToExcel').click();
 
-                        expect(Site.exportExcel).toHaveBeenCalledWith(jasmine.any(Object), "api/WinLossByLeagueReport/Excel");
+                        expect(ExcelHelper.exportExcel).toHaveBeenCalledWith(jasmine.any(Object), "api/WinLossByLeagueReport/Excel");
                     });
 
                     it("WinLossByLeague.resizeGrid() function should be called when window fire resize event", function () {

@@ -8,11 +8,12 @@
     "components/pluginhelper/monthpicker",
     "components/pluginhelper/multiselect",
     "common/popup",
+    "helpers/excel",
     "lib/jqgrid/jquery.jqGrid.en",
     "lib/jqgrid/jquery.jqGrid.min",
     "extensions/jquery.extension",
     "lib/linq"],
-    function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup) {
+    function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper) {
         "use strict";
 
         var BETLIST_IGNORED_PRODUCTS = ["AB"];
@@ -161,7 +162,7 @@
             var data = Site.clone(_filterData[level]);
             data.IsExportExcel = true;
             data.Level = level;
-            Site.exportExcel(data, Site.resolveClientUrl(PlatformWinLossOption.urlExcelData));
+            ExcelHelper.exportExcel(data, Site.resolveClientUrl(PlatformWinLossOption.urlExcelData));
             return false;
         }
 

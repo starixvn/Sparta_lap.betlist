@@ -1,8 +1,8 @@
 ﻿"use strict";
 define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.jqgrid.additional",
-        "components/pluginhelper/daterangepicker", "helpers/daterange",
+        "components/pluginhelper/daterangepicker", "helpers/daterange", "helpers/excel",
         "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "lib/linq", "extensions/jquery.extension"],
-        function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, DateHelper) {
+        function ($, Site, WeeklyLiveMatchOption, jqGridAdditional, DatePicker, DateHelper, ExcelHelper) {
             var VALID_MONTH_RANGE = 2;
             var SPORT_COLUMN_INDEX = 1;
             var START_WEEK_COLUMN_INDEX = 2;
@@ -81,7 +81,7 @@ define(["jquery", "common/site", "./weeklylivematch.option", "lib/jqgrid/jquery.
                         data.IsExportExcel = true;
                         data.SortColumn = _sortColumn;
                         data.SortDirection = _sortDirection;
-                        Site.exportExcel(data, Site.resolveClientUrl(WeeklyLiveMatchOption.urlExcelData));
+                        ExcelHelper.exportExcel(data, Site.resolveClientUrl(WeeklyLiveMatchOption.urlExcelData));
                         return false;
                     });
                 },

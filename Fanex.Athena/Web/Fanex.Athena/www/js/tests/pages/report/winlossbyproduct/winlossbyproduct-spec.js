@@ -116,13 +116,13 @@
                         expect(WinLossByProduct.goBack).not.toHaveBeenCalled();
                     });
 
-                    it("Site.exportExcel() should be called when '#ExportToExcel' fired click event", function () {
-                        spyOn(Site, "exportExcel");
+                    it("ExcelHelper.exportExcel() should be called when '#ExportToExcel' fired click event", function () {
+                        spyOn(ExcelHelper, "exportExcel");
                         spyOn($.fn, "serializeObject").and.returnValue({ Username: "" });
 
                         $("#ExportToExcel").click();
 
-                        expect(Site.exportExcel).toHaveBeenCalledWith({ Username: null }, WinLossByProductOption.urlExcelData);
+                        expect(ExcelHelper.exportExcel).toHaveBeenCalledWith({ Username: null }, WinLossByProductOption.urlExcelData);
                     });
 
                     it("WinLossByProduct.drillDown() should be called when '.drilldown' fired click event", function () {

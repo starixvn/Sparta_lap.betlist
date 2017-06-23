@@ -8,8 +8,10 @@
     "lib/jqgrid/jquery.jqgrid.additional",
     "components/pluginhelper/monthpicker",
     "components/pluginhelper/multiselect",
-    "common/popup"],
-    function ($, QueryString, Site, Report, PlatformWinLossOption, PlatformWinLoss, jqGridAdditional, MonthPicker, MultiSelect, Popup) {
+    "common/popup",
+    "helpers/excel"
+],
+    function ($, QueryString, Site, Report, PlatformWinLossOption, PlatformWinLoss, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper) {
         describe("PlatformWinLoss", function () {
             beforeAll(function () {
                 spyOn(Site, "resolveClientUrl").and.callFake(function (url) {
@@ -391,17 +393,17 @@
                 beforeAll(function () {
                     var form = $("#platformwinloss");
                     spyOn(Site, "clone").and.returnValue(data);
-                    spyOn(Site, "exportExcel");
+                    spyOn(ExcelHelper, "exportExcel");
                 });
 
-                it("Site.exportExcel should be called with correct parameter", function () {
+                it("ExcelHelper.exportExcel should be called with correct parameter", function () {
                     var level = 1;
 
                     PlatformWinLoss.exportToExcel(level);
 
                     expect(data.Level).toBe(level);
                     expect(data.IsExportExcel).toBe(true);
-                    expect(Site.exportExcel).toHaveBeenCalledWith(data, PlatformWinLossOption.urlExcelData);
+                    expect(ExcelHelper.exportExcel).toHaveBeenCalledWith(data, PlatformWinLossOption.urlExcelData);
                 });
             });
 
